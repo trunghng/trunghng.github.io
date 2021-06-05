@@ -4,7 +4,7 @@ title:  "My very first post"
 date:   2021-06-05 17:00:00 +0700
 categories: random stuffs
 ---
-Enjoy my index-zero-ed post while staying tuned for next posts!
+Enjoy my index-zero-ed post while staying tuned for next ones!
 
 {% highlight python %}
 from math import sqrt
