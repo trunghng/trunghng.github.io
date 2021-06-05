@@ -1,4 +1,4 @@
-I"	<p>Enjoy my index-zero-ed post while staying tuned for next posts!</p>
+I"<p>Enjoy my index-zero-ed post while staying tuned for next ones!</p>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
 
@@ -28,6 +28,6 @@ Writing \(u_0\) as a combination \(c_1x_1+\dots+c_nx_n\) of the eigenvectors, we
 \begin{equation}
 u_k=A^ku_0=c_1{\lambda_1}^kx_1+\dots+c_n{\lambda_n}^kx_n
 \end{equation}
-<em>Fact</em>: The \(\frac{1+\sqrt{5}}{2}\approx 1.618\) is so-called <em>“golden ratio”</em>. For some reason a rectangle with sides 1.618 and 1 looks especially graceful.</p>
+<em>Fact</em>: The \(\frac{1+\sqrt{5}}{2}\approx 1.618\) is so-called “<em>golden ratio</em>”. And for some reason a rectangle with sides 1.618 and 1 looks especially graceful.</p>
 
 :ET

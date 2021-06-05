@@ -30,6 +30,7 @@ layout: default
           <a class="post-link" href="{{ post.url | relative_url }}">
             {{ post.title | escape }}
           </a>
+          <a href="{{ post.url | relative_url }}#disqus_thread">Comments</a>
         </h3>
         {%- if site.show_excerpts -%}
           {{ post.excerpt }}
@@ -59,3 +60,5 @@ layout: default
   {%- endif -%}
 
 </div>
+<script id="dsq-count-scr" src="//https-trunghng-github-io.disqus.com/count.js" async></script>
+
