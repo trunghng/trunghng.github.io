@@ -15,3 +15,5 @@ def fibonacci(i)
 	"""
 	return 1/sqrt(5)*(pow((1+sqrt(5))/2, i)-pow((1-sqrt(5))/2, i))
 {% endhighlight %}
+
+Why $$ x = y^2 $$
