@@ -5,13 +5,14 @@ date:   2021-06-19 22:27:00 +0700
 categories: random-stuffs probability-statistics
 comments: true
 ---
-Since I don't know how to begin with this post, why not just dive straight into details :P  
-Markov chain is a stochastic process in which the random variables follow a special property called Markov
+Since I have no idea how to begin with this post, why not just dive straight into details :P  
+
+Markov chain is a stochastic process in which the random variables follow a special property called Markov.
 
 ### Markov property
 A sequence of random variables $X_0, X_1, X_2, \dots$ taking values in the *state space* $S=${$1, 2,\dots, M$}. For all $n\geq0$,
 \begin{equation}
-P(X_{n+1}=j|X_n=i)=P(X_{n+1}|X_n=i,X_{n-1}=i_{n-1},X_{n-2}=i_{n-2},\dots,X_0=i_0)
+P(X_{n+1}=j|X_n=i)=P(X_{n+1}=j|X_n=i,X_{n-1}=i_{n-1},X_{n-2}=i_{n-2},\dots,X_0=i_0)
 \end{equation}
 In other words, knowledge of the preceding state is all we need to determine the probability distribution of the current state.  
 
@@ -90,7 +91,7 @@ for all states $i,j$. This equation is called *reversibility* or *detailed balan
 
 #### Footnote:
 - The Markov chain here is *time-homogeneous* Markov chain, in which the probability of any state transition is independent of time.
-- This is more like intuitive and less formal definition of Markov chain, we will have the more concrete definition with the help of *Measure theory* after the post about it.
+- This is more like intuitive and less formal definition of Markov chain, we will have more concrete definition with the help of *Measure theory* after the post about it.
 - Well, it only matters where you are, not where you've been.
 
 #### References:
