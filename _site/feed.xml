@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-06-20T11:18:33+07:00</updated><id>/feed.xml</id><title type="html">Trung’s blog</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-06-20T22:12:44+07:00</updated><id>/feed.xml</id><title type="html">Trung’s blog</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>trunghng</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Markov Chain</title><link href="/random-stuffs/probability-statistics/2021/06/19/markov-chain.html" rel="alternate" type="text/html" title="Markov Chain" /><published>2021-06-19T22:27:00+07:00</published><updated>2021-06-19T22:27:00+07:00</updated><id>/random-stuffs/probability-statistics/2021/06/19/markov-chain</id><content type="html" xml:base="/random-stuffs/probability-statistics/2021/06/19/markov-chain.html">&lt;p&gt;Since I don’t know how to begin with this post, why not just dive straight into details :P&lt;br /&gt;
 Markov chain is a stochastic process in which the random variables follow a special property called Markov&lt;/p&gt;
 
@@ -140,5 +140,5 @@ u_k=A^ku_0=c_1{\lambda_1}^kx_1+\dots+c_n{\lambda_n}^kx_n
 
 &lt;h4 id=&quot;references&quot;&gt;References:&lt;/h4&gt;
 &lt;ol&gt;
-  &lt;li&gt;Linear Algebra - Gilbert Strang&lt;/li&gt;
+  &lt;li&gt;Introduction to Linear Algebra - Gilbert Strang&lt;/li&gt;
 &lt;/ol&gt;</content><author><name>trunghng</name><email>trung.skipper@gmail.com</email></author><category term="random-stuffs" /><summary type="html">Enjoy my index-zero-ed post while staying tuned for next ones!</summary></entry></feed>

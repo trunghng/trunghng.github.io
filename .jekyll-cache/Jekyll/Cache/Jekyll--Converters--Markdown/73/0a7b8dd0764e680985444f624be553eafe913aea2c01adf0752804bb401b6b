@@ -1,4 +1,4 @@
-I"w<p>Enjoy my index-zero-ed post while staying tuned for next ones!</p>
+I"‡<p>Enjoy my index-zero-ed post while staying tuned for next ones!</p>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
 
@@ -35,6 +35,6 @@ u_k=A^ku_0=c_1{\lambda_1}^kx_1+\dots+c_n{\lambda_n}^kx_n
 
 <h4 id="references">References:</h4>
 <ol>
-  <li>Linear Algebra - Gilbert Strang</li>
+  <li>Introduction to Linear Algebra - Gilbert Strang</li>
 </ol>
 :ET
