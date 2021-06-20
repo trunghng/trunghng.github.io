@@ -78,7 +78,7 @@ for all states $i,j$. This equation is called *reversibility* or *detailed balan
 **Proposition** (*Reversible implies stationary*)  
 &nbsp;&nbsp;&nbsp;&nbsp;Suppose that $Q=(q_{ij})$ be the *transition matrix* of a Markov chain that is *reversible* w.r.t to an $s=(s_1,\dots,s_M)^T$ with with $s_i\geq0,\sum_{i}s_i=1$. Then $s$ is a *stationary distribution* of the chain. (*proof*:$\sum_{j}s_jq_{ji}=\sum_{j}s_iq_{ij}=s_i\sum_{j}q_{ij}=s_i$)  
 
-**Proposition**
+**Proposition**  
 &nbsp;&nbsp;&nbsp;&nbsp;If each column of $Q$ sum to 1, then the *uniform distribution* over all states $(1/M,\dots,1/M)$, is a *stationary distribution*.(this kind of matrix is called *doubly stochastic matrix*).
 
 ### Examples and application
