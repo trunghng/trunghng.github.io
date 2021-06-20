@@ -79,7 +79,7 @@ for all states $i,j$. This equation is called *reversibility* or *detailed balan
 &nbsp;&nbsp;&nbsp;&nbsp;Suppose that $Q=(q_{ij})$ be the *transition matrix* of a Markov chain that is *reversible* w.r.t to an $s=(s_1,\dots,s_M)^T$ with with $s_i\geq0,\sum_{i}s_i=1$. Then $s$ is a *stationary distribution* of the chain. (*proof*:$\sum_{j}s_jq_{ji}=\sum_{j}s_iq_{ij}=s_i\sum_{j}q_{ij}=s_i$)  
 
 **Proposition**
-&nbsp;&nbsp;&nbsp;&nbsp;If each column of $Q$ sum to 1, then the $uniform distribution$ over all states $(1/M,\dots,1/M)$, is a *stationary distribution*.(This kind of matrix is called *doubly stochastic matrix*).
+&nbsp;&nbsp;&nbsp;&nbsp;If each column of $Q$ sum to 1, then the *uniform distribution* over all states $(1/M,\dots,1/M)$, is a *stationary distribution*.(This kind of matrix is called *doubly stochastic matrix*).
 
 ### Examples and application
 - [*Finite-state machines*](https://en.wikipedia.org/wiki/Finite-state_machine), [*random walks*](https://en.wikipedia.org/wiki/Random_walk)
@@ -91,6 +91,7 @@ for all states $i,j$. This equation is called *reversibility* or *detailed balan
 #### Footnote:
 - The Markov chain here is *time-homogeneous* Markov chain, in which the probability of any state transition is independent of time.
 - This is more like intuitive and less formal definition of Markov chain, we will have the more concrete definition with the help of *Measure theory* after the post of its.
+- Well, it only matters where you are, not where you've been.
 
 #### References:
 1. Introduction to Probability - Joseph K. Blitzstein & Jessica Hwang
