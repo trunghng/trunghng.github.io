@@ -84,7 +84,7 @@ for all states $i,j$. This equation is called *reversibility* or *detailed balan
 
 ### Examples and application
 - [*Finite-state machines*](https://en.wikipedia.org/wiki/Finite-state_machine), [*random walks*](https://en.wikipedia.org/wiki/Random_walk)
-- Indiced board games such as Ludo, Monopoly,...
+- Diced board games such as Ludo, Monopoly,...
 - [*Google PageRank*](https://en.wikipedia.org/wiki/PageRank) - the heart of Google search
 - Markov Decision Process (MDP), which is gonna be the content of next post.
 - And various other applications.

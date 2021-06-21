@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-06-20T22:16:23+07:00</updated><id>/feed.xml</id><title type="html">Trung’s blog</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-06-21T18:41:41+07:00</updated><id>/feed.xml</id><title type="html">Trung’s blog</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>trunghng</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Markov Chain</title><link href="/random-stuffs/probability-statistics/2021/06/19/markov-chain.html" rel="alternate" type="text/html" title="Markov Chain" /><published>2021-06-19T22:27:00+07:00</published><updated>2021-06-19T22:27:00+07:00</updated><id>/random-stuffs/probability-statistics/2021/06/19/markov-chain</id><content type="html" xml:base="/random-stuffs/probability-statistics/2021/06/19/markov-chain.html">&lt;p&gt;Since I have no idea how to begin with this post, why not just dive straight into details :P&lt;/p&gt;
 
 &lt;p&gt;Markov chain is a stochastic process in which the random variables follow a special property called Markov.&lt;/p&gt;
@@ -87,7 +87,7 @@ for all states $i,j$. This equation is called &lt;em&gt;reversibility&lt;/em&gt;
 &lt;h3 id=&quot;examples-and-application&quot;&gt;Examples and application&lt;/h3&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Finite-state_machine&quot;&gt;&lt;em&gt;Finite-state machines&lt;/em&gt;&lt;/a&gt;, &lt;a href=&quot;https://en.wikipedia.org/wiki/Random_walk&quot;&gt;&lt;em&gt;random walks&lt;/em&gt;&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Indiced board games such as Ludo, Monopoly,…&lt;/li&gt;
+  &lt;li&gt;Diced board games such as Ludo, Monopoly,…&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/PageRank&quot;&gt;&lt;em&gt;Google PageRank&lt;/em&gt;&lt;/a&gt; - the heart of Google search&lt;/li&gt;
   &lt;li&gt;Markov Decision Process (MDP), which is gonna be the content of next post.&lt;/li&gt;
   &lt;li&gt;And various other applications.&lt;/li&gt;
