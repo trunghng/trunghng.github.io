@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-06-27T19:52:46+07:00</updated><id>/feed.xml</id><title type="html">Trung’s blog</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-06-27T20:15:16+07:00</updated><id>/feed.xml</id><title type="html">Trung’s blog</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Markov Decision Process, Bellman equations</title><link href="/artificial-intelligent,/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html" rel="alternate" type="text/html" title="Markov Decision Process, Bellman equations" /><published>2021-06-27T08:00:00+07:00</published><updated>2021-06-27T08:00:00+07:00</updated><id>/artificial-intelligent,/reinforcement-learning/2021/06/27/mdp-bellman-eqn</id><content type="html" xml:base="/artificial-intelligent,/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html">&lt;p&gt;You may have known or heard vaguely about a computer program called &lt;a href=&quot;https://deepmind.com/research/case-studies/alphago-the-story-so-far&quot;&gt;AlphaGo&lt;/a&gt; - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with &lt;strong&gt;Reinforcement Learning&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;h3 id=&quot;what-is-reinforcement-learning&quot;&gt;What is Reinforcement Learning?&lt;/h3&gt;
@@ -21,7 +21,7 @@ A &lt;strong&gt;Markov Decision Process&lt;/strong&gt; is a tuple $⟨\mathcal{S
   &lt;li&gt;$\gamma\in[0, 1]$ is a discount factor for future reward&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;MDP&lt;/strong&gt; is an extension of &lt;a href=&quot;/random-stuffs/probability-statistics/2021/06/19/markov-chain.html&quot;&gt;Markov chain&lt;/a&gt;. If only one action exists for each state, and all rewards are the same, an &lt;em&gt;MDP&lt;/em&gt; reduces to a &lt;em&gt;Markov chain&lt;/em&gt;. All states in &lt;strong&gt;MDP&lt;/strong&gt; has &lt;em&gt;Markov property&lt;/em&gt;, referring to the fact that the current state captures all relevant information from the history
+&lt;p&gt;&lt;strong&gt;MDP&lt;/strong&gt; is an extension of &lt;a href=&quot;/random-stuffs/probability-statistics/2021/06/19/markov-chain.html&quot;&gt;Markov chain&lt;/a&gt;. If only one action exists for each state, and all rewards are the same, an &lt;strong&gt;MDP&lt;/strong&gt; reduces to a &lt;em&gt;Markov chain&lt;/em&gt;. All states in &lt;strong&gt;MDP&lt;/strong&gt; has &lt;em&gt;Markov property&lt;/em&gt;, referring to the fact that the current state captures all relevant information from the history
 \begin{equation}
 P(S_{t+1}|S_t)=P(S_{t+1}|S_1,\dots,S_t)
 \end{equation}&lt;/p&gt;
@@ -69,7 +69,7 @@ v_\pi(s)=\sum_{a\in\mathcal{A}}q_\pi(s,a)\pi(a|s)
 &lt;h4 id=&quot;optimal-policy-and-optimal-value-function&quot;&gt;Optimal Policy and Optimal Value Function&lt;/h4&gt;
 &lt;p&gt;For finite MDPs (finte state and action space), we can precisely define an &lt;strong&gt;optimal policy&lt;/strong&gt;. &lt;em&gt;Value functions&lt;/em&gt; define a partial ordering over policies. A policy $\pi$ is defined to be better than or equal to a policy $\pi’$ if its expected return is greater than or equal to that of $\pi’$ for all states. In other words,
 \begin{equation}
-pi\geq\pi’\iff v_\pi(s)\geq v_{\pi’} \forall s\in\mathcal{S}
+\pi\geq\pi’\iff v_\pi(s)\geq v_{\pi’} \forall s\in\mathcal{S}
 \end{equation}&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt; (&lt;em&gt;Optimal policy&lt;/em&gt;)&lt;br /&gt;

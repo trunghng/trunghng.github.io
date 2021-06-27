@@ -1,4 +1,4 @@
-I"5%<p>You may have known or heard vaguely about a computer program called <a href="https://deepmind.com/research/case-studies/alphago-the-story-so-far">AlphaGo</a> - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with <strong>Reinforcement Learning</strong>.</p>
+I">%<p>You may have known or heard vaguely about a computer program called <a href="https://deepmind.com/research/case-studies/alphago-the-story-so-far">AlphaGo</a> - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with <strong>Reinforcement Learning</strong>.</p>
 
 <h3 id="what-is-reinforcement-learning">What is Reinforcement Learning?</h3>
 <p>Say, there is an unknown <strong>environment</strong> that we’re trying to put an <strong>agent</strong> on. By interacting with the <strong>agent</strong> through taking <strong>actions</strong> that gives rise to <strong>rewards</strong> continually, the <strong>agent</strong> learns a <strong>policy</strong> that maximize the cumulative <strong>rewards</strong>.<br />
@@ -20,7 +20,7 @@ A <strong>Markov Decision Process</strong> is a tuple $⟨\mathcal{S}, \mathcal{
   <li>$\gamma\in[0, 1]$ is a discount factor for future reward</li>
 </ul>
 
-<p><strong>MDP</strong> is an extension of <a href="/random-stuffs/probability-statistics/2021/06/19/markov-chain.html">Markov chain</a>. If only one action exists for each state, and all rewards are the same, an <em>MDP</em> reduces to a <em>Markov chain</em>. All states in <strong>MDP</strong> has <em>Markov property</em>, referring to the fact that the current state captures all relevant information from the history
+<p><strong>MDP</strong> is an extension of <a href="/random-stuffs/probability-statistics/2021/06/19/markov-chain.html">Markov chain</a>. If only one action exists for each state, and all rewards are the same, an <strong>MDP</strong> reduces to a <em>Markov chain</em>. All states in <strong>MDP</strong> has <em>Markov property</em>, referring to the fact that the current state captures all relevant information from the history
 \begin{equation}
 P(S_{t+1}|S_t)=P(S_{t+1}|S_1,\dots,S_t)
 \end{equation}</p>
@@ -68,7 +68,7 @@ v_\pi(s)=\sum_{a\in\mathcal{A}}q_\pi(s,a)\pi(a|s)
 <h4 id="optimal-policy-and-optimal-value-function">Optimal Policy and Optimal Value Function</h4>
 <p>For finite MDPs (finte state and action space), we can precisely define an <strong>optimal policy</strong>. <em>Value functions</em> define a partial ordering over policies. A policy $\pi$ is defined to be better than or equal to a policy $\pi’$ if its expected return is greater than or equal to that of $\pi’$ for all states. In other words,
 \begin{equation}
-pi\geq\pi’\iff v_\pi(s)\geq v_{\pi’} \forall s\in\mathcal{S}
+\pi\geq\pi’\iff v_\pi(s)\geq v_{\pi’} \forall s\in\mathcal{S}
 \end{equation}</p>
 
 <p><strong>Theorem</strong> (<em>Optimal policy</em>)<br />

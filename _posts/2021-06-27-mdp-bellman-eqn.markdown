@@ -25,7 +25,7 @@ A **Markov Decision Process** is a tuple $⟨\mathcal{S}, \mathcal{A}, \mathcal{
 	$$\mathcal{R}_s^a=E[R_{t+1}|S_t=s,A_t=a]$$
 - $\gamma\in[0, 1]$ is a discount factor for future reward
 
-**MDP** is an extension of [Markov chain]({% post_url 2021-06-19-markov-chain %}). If only one action exists for each state, and all rewards are the same, an *MDP* reduces to a *Markov chain*. All states in **MDP** has *Markov property*, referring to the fact that the current state captures all relevant information from the history
+**MDP** is an extension of [Markov chain]({% post_url 2021-06-19-markov-chain %}). If only one action exists for each state, and all rewards are the same, an **MDP** reduces to a *Markov chain*. All states in **MDP** has *Markov property*, referring to the fact that the current state captures all relevant information from the history
 \begin{equation}
 P(S_{t+1}|S_t)=P(S_{t+1}|S_1,\dots,S_t)
 \end{equation}
@@ -71,7 +71,7 @@ v_\pi(s)=\sum_{a\in\mathcal{A}}q_\pi(s,a)\pi(a|s)
 #### Optimal Policy and Optimal Value Function
 For finite MDPs (finte state and action space), we can precisely define an **optimal policy**. *Value functions* define a partial ordering over policies. A policy $\pi$ is defined to be better than or equal to a policy $\pi'$ if its expected return is greater than or equal to that of $\pi'$ for all states. In other words,
 \begin{equation}
-pi\geq\pi'\iff v_\pi(s)\geq v_{\pi'} \forall s\in\mathcal{S}
+\pi\geq\pi'\iff v_\pi(s)\geq v_{\pi'} \forall s\in\mathcal{S}
 \end{equation}
 
 **Theorem** (*Optimal policy*)  
