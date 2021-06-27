@@ -1,0 +1,14 @@
+I"�<p>You may have known or heard vaguely about a computer program called <a href="https://deepmind.com/research/case-studies/alphago-the-story-so-far">AlphaGo</a> - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with <strong>Reinforcement Learning</strong>.</p>
+
+<h2 id="what-is-reinforcement-learning">What is Reinforcement Learning?</h2>
+<p>Say, there is an unknown <strong>environment</strong> that we’re trying to put an <strong>agent</strong> on. By interacting with the <strong>agent</strong> through taking <strong>actions</strong> that gives rise to <em>rewards</em> continually, the <strong>agent</strong> learns a <strong>policy</strong> that maximize the cumulative <strong>rewards</strong>.<br />
+<strong>Reinforcement Learning (RL)</strong>, roughly speaking, is an area of Machine Learning that describes methods aimed to learn a good strategy for the <strong>agent</strong> from experimental trials and relative simple feedback received. With the optimal <strong>policy</strong>, the agent is capable to actively adapt to the environment to maximize future rewards.
+<img src="/assets/images/robot.png" alt="RL" /></p>
+
+<h2 id="markov-decision-process-mdp">Markov Decision Process (MDP)</h2>
+<p><strong>Markov decision processes (MDPs)</strong> formally describe an environment for <strong>RL</strong>. And almost all <strong>RL</strong> problems can be formalised as <strong>MDPs</strong>.</p>
+
+<h3 id="definition-mdp">Definition (MDP)</h3>
+<p>A <strong>Markov Decision Process</strong> is a tuple $⟨\mathcal{S}, \mathcal{A}, \mathcal{P}, \mathcal{R}, \gamma⟩$</p>
+
+:ET

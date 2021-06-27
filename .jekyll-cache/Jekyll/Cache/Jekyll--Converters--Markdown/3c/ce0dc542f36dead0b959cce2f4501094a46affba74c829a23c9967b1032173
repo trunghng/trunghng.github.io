@@ -1,0 +1,63 @@
+I"�<p>You may have known or heard vaguely about a computer program called <a href="https://deepmind.com/research/case-studies/alphago-the-story-so-far">AlphaGo</a> - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with <strong>Reinforcement Learning</strong>.</p>
+
+<h3 id="what-is-reinforcement-learning">What is Reinforcement Learning?</h3>
+<p>Say, there is an unknown <strong>environment</strong> that we’re trying to put an <strong>agent</strong> on. By interacting with the <strong>agent</strong> through taking <strong>actions</strong> that gives rise to <em>rewards</em> continually, the <strong>agent</strong> learns a <strong>policy</strong> that maximize the cumulative <strong>rewards</strong>.<br />
+<strong>Reinforcement Learning (RL)</strong>, roughly speaking, is an area of Machine Learning that describes methods aimed to learn a good strategy for the <strong>agent</strong> from experimental trials and relative simple feedback received. With the optimal <strong>policy</strong>, the agent is capable to actively adapt to the environment to maximize future rewards.
+<img src="/assets/images/robot.png" alt="RL" /></p>
+
+<h3 id="markov-decision-process-mdp">Markov Decision Process (MDP)</h3>
+<p><strong>Markov decision processes (MDPs)</strong> formally describe an environment for <strong>RL</strong>. And almost all <strong>RL</strong> problems can be formalised as <strong>MDPs</strong>.</p>
+
+<p><strong>Definition (MDP)</strong><br />
+A <strong>Markov Decision Process</strong> is a tuple $⟨\mathcal{S}, \mathcal{A}, \mathcal{P}, \mathcal{R}, \gamma⟩$</p>
+<ul>
+  <li>$\mathcal{S}$ is a set of states called <em>state space</em></li>
+  <li>$\mathcal{A}$ is a set of actions called <em>action space</em></li>
+  <li>$\mathcal{P}$ is a state transition probability matrix<br />
+  \(\mathcal{P}^a_{ss'}=P(S_{t+1}=s'|S_t=s,A_t=a)\)</li>
+  <li>$\mathcal{R}$ is a reward function<br />
+  \(\mathcal{R}_s^a=E[R_{t+1}|S_t=s,A_t=a]\)</li>
+  <li>$\gamma$ is a discount factor for future reward, $\gamma\in[0, 1]$</li>
+</ul>
+
+<p><strong>MDP</strong> is an extension of <a href="/random-stuffs/probability-statistics/2021/06/19/markov-chain.html">Markov chain</a>. If only one action exists for each state, and all rewards are the same, an <em>MDP</em> reduces to a <em>Markov chain</em>. All states in <strong>MDP</strong> has <em>Markov property</em>, referring to the fact that the current state captures all relevant information from the history
+\begin{equation}
+P(S_{t+1}|S_t)=P(S_{t+1}|S_1,\dots,S_t)
+\end{equation}</p>
+
+<h4 id="return">Return</h4>
+<p>In the preceding section, we have said that the goal of agent is to maximize the cumulative reward in the long run. In general, we seek to maximize the <em>expected return</em>.</p>
+
+<p><strong>Definition</strong> (<em>Return</em>)<br />
+The <em>return</em> $G_t$ is the total discounted reward from t
+\begin{equation}
+G_t=R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+\dots=\sum_{k=0}^{\infty}\gamma^k R_{t+k+1},
+\end{equation}
+where $\gamma\in[0,1]$ is called <em>discount rate</em> (or <em>discount factor</em>).</p>
+
+<p>The <em>discount rate</em> $\gamma$ determines the present value of future rewards: a reward received
+k time steps in the future is worth only $\gamma^{k-1}$ times what it would be worth if it were received immediately. And also, it provides mathematical convenience since as $k\rightarrow\infty$ then $\gamma^k\rightarrow 0$.</p>
+
+<h4 id="policy">Policy</h4>
+<p><em>Policy</em>, which is denoted as $\pi$, is the behaviour function of the agent. $\pi$ is a mapping from states to probabilities of selecting each possible action. In other words, it lets us know which action to take in the current state $s$ and can be either <em>deterministic</em> or <em>stochastic</em></p>
+<ul>
+  <li>Deterministic policy:	$\quad\pi(s)=a$</li>
+  <li>Stochastic policy: $\quad\pi(a|s)=P(A_t=a|S_t=s)$</li>
+</ul>
+
+<h4 id="value-function">Value function</h4>
+<p><em>Value function</em> measures <em>how good</em> the a particular state is (or <em>how good</em> it is to perform a given action in a given state).</p>
+
+<p><strong>Definition</strong> (<em>state-value function</em>)<br />
+The <em>state-value function</em> of a state $s$ under a policy $\pi$, denoted as $v_\pi(s)$, is the expected return starting from state $s$ and following $\pi$ thereafter:
+\begin{equation}
+v_\pi(s)=E_\pi[G_t|S_t=s]
+\end{equation}</p>
+
+<p><strong>Definition</strong> (<em>action-value function</em>)
+Similarly, we define the value of taking action $a$ in state $s$ under a policy $\pi$, denoted as $q_\pi(s,a)$, as the expected return starting from $s$, taking the action $a$, and thereafter following policy $\pi$:
+\begin{equation}
+q_\pi(s,a)=E_\pi[G_t|S_t=s,A_t=a]
+\end{equation}</p>
+
+:ET
