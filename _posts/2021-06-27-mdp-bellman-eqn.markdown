@@ -49,7 +49,7 @@ k time steps in the future is worth only $\gamma^{k-1}$ times what it would be w
 - *Stochastic policy*: $\quad\pi(a\|s)=P(A_t=a\|S_t=s)$
 
 #### Value Function
-**Value function** measures *how good* the a particular state is (or *how good* it is to perform a given action in a given state).  
+**Value function** measures *how good* a particular state is (or *how good* it is to perform a given action in a given state).  
 
 **Definition** (*state-value function*)  
 The **state-value function** of a state $s$ under a policy $\pi$, denoted as $v_\pi(s)$, is the expected return starting from state $s$ and following $\pi$ thereafter:

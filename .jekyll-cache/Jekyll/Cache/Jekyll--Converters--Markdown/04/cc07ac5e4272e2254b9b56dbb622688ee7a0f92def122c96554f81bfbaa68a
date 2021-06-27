@@ -1,4 +1,4 @@
-I"�<p>Since I have no idea how to begin with this post, why not just dive straight into details :P</p>
+I"�<p>Since I have no idea how to begin with this post, why not just dive straight into details :P</p>
 
 <p>Markov chain is a stochastic process in which the random variables follow a special property called Markov.</p>
 
@@ -81,7 +81,7 @@ for all states $i,j$. This equation is called <em>reversibility</em> or <em>deta
     Suppose that $Q=(q_{ij})$ be the <em>transition matrix</em> of a Markov chain that is <em>reversible</em> w.r.t to an $s=(s_1,\dots,s_M)^T$ with with $s_i\geq0,\sum_{i}s_i=1$. Then $s$ is a <em>stationary distribution</em> of the chain. (<em>proof</em>:$\sum_{j}s_jq_{ji}=\sum_{j}s_iq_{ij}=s_i\sum_{j}q_{ij}=s_i$)</p>
 
 <p><strong>Proposition</strong><br />
-    If each column of $Q$ sum to 1, then the <em>uniform distribution</em> over all states $(1/M,\dots,1/M)$, is a <em>stationary distribution</em>.(this kind of matrix is called <em>doubly stochastic matrix</em>).</p>
+    If each column of $Q$ sum to 1, then the <em>uniform distribution</em> over all states $(1/M,\dots,1/M)$, is a <em>stationary distribution</em>. (This kind of matrix is called <em>doubly stochastic matrix</em>).</p>
 
 <h3 id="examples-and-application">Examples and application</h3>
 <ul>
