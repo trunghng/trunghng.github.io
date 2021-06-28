@@ -7,7 +7,7 @@ comments: true
 ---
 Since I have no idea how to begin with this post, why not just dive straight into details :P  
 
-Markov chain is a stochastic process in which the random variables follow a special property called Markov.
+Markov chain is a stochastic process in which the random variables follow a special property called *Markov*.
 
 ### Markov property
 A sequence of random variables $X_0, X_1, X_2, \dots$ taking values in the *state space* $S=${$1, 2,\dots, M$}. For all $n\geq0$,
@@ -86,7 +86,7 @@ for all states $i,j$. This equation is called *reversibility* or *detailed balan
 - [*Finite-state machines*](https://en.wikipedia.org/wiki/Finite-state_machine), [*random walks*](https://en.wikipedia.org/wiki/Random_walk)
 - Diced board games such as Ludo, Monopoly,...
 - [*Google PageRank*](https://en.wikipedia.org/wiki/PageRank) - the heart of Google search
-- Markov Decision Process (MDP), which is gonna be the content of next post.
+- Markov Decision Process (MDP), which is gonna be the content of next [post]({% post_url 2021-06-27-mdp-bellman-eqn %}).
 - And various other applications.
 
 #### Footnote:

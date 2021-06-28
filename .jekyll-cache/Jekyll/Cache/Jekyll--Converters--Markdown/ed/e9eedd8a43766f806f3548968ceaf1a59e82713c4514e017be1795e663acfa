@@ -1,6 +1,6 @@
-I"Ý<p>Since I have no idea how to begin with this post, why not just dive straight into details :P</p>
+I"D<p>Since I have no idea how to begin with this post, why not just dive straight into details :P</p>
 
-<p>Markov chain is a stochastic process in which the random variables follow a special property called Markov.</p>
+<p>Markov chain is a stochastic process in which the random variables follow a special property called <em>Markov</em>.</p>
 
 <h3 id="markov-property">Markov property</h3>
 <p>A sequence of random variables $X_0, X_1, X_2, \dots$ taking values in the <em>state space</em> $S=${$1, 2,\dots, M$}. For all $n\geq0$,
@@ -88,7 +88,7 @@ for all states $i,j$. This equation is called <em>reversibility</em> or <em>deta
   <li><a href="https://en.wikipedia.org/wiki/Finite-state_machine"><em>Finite-state machines</em></a>, <a href="https://en.wikipedia.org/wiki/Random_walk"><em>random walks</em></a></li>
   <li>Diced board games such as Ludo, Monopoly,â€¦</li>
   <li><a href="https://en.wikipedia.org/wiki/PageRank"><em>Google PageRank</em></a> - the heart of Google search</li>
-  <li>Markov Decision Process (MDP), which is gonna be the content of next post.</li>
+  <li>Markov Decision Process (MDP), which is gonna be the content of next <a href="/artificial-intelligent,/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html">post</a>.</li>
   <li>And various other applications.</li>
 </ul>
 
