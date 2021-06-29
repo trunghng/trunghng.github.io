@@ -9,7 +9,7 @@ You may have known or heard vaguely about a computer program called [AlphaGo](ht
 
 ### What is Reinforcement Learning?
 Say, there is an unknown **environment** that we're trying to put an **agent** on. By interacting with the **agent** through taking **actions** that gives rise to **rewards** continually, the **agent** learns a **policy** that maximize the cumulative **rewards**.  
-**Reinforcement Learning (RL)**, roughly speaking, is an area of Machine Learning that describes methods aimed to learn a good strategy for the **agent** from experimental trials and relative simple feedback received. With the optimal **policy**, the **agent** is capable to actively adapt to the environment to maximize future **rewards**.
+**Reinforcement Learning (RL)**, roughly speaking, is an area of Machine Learning that describes methods aimed to learn a good strategy (called **policy**) for the **agent** from experimental trials and relative simple feedback received. With the optimal **policy**, the **agent** is capable to actively adapt to the environment to maximize future **rewards**.
 ![RL](/assets/images/robot.png)
 
 ### Markov Decision Process (MDP)
