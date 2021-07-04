@@ -7,9 +7,9 @@ comments: true
 ---
 ![Lego](/assets/images/lego.jpg)  
 <br/>
-<br/>
 When talking about *measure*, you might associate it with the idea of *length*, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with *area*, or even three dimensions with *volume*.
 Despite of having different number of dimensions, all *length*, *area*, *volume* share the same properties:  
+<!-- excerpt-end -->
 1. *Non-negative*: In principle, length, area, and volume can be any positive value. But negative length has no meaning. Same thing happens with negative area and negative volume.
 2. *Additivity*: To get from Hanoi to Singapore by air, you have to transit at Ho Chi Minh city (HCMC). If we cut that path into two non-overlapping pieces, say Hanoi - HCMC, and HCMC - Singapore, then the total length of the two pieces must be equal to the length of original path. If we divide a rectangular into non-overlapping pieces, the area of pieces combined must be the same as the original one. The same is true for volume as well.
 3. *Empty Set*: An empty cup of water has volume zero.

@@ -8,6 +8,7 @@ comments: true
 Since I have no idea how to begin with this post, why not just dive straight into details :P  
 
 Markov chain is a stochastic process in which the random variables follow a special property called *Markov*.
+<!-- excerpt-end -->
 
 ### Markov property
 A sequence of random variables $X_0, X_1, X_2, \dots$ taking values in the *state space* $S=${$1, 2,\dots, M$}. For all $n\geq0$,

@@ -6,6 +6,7 @@ categories: random-stuffs
 comments: true
 ---
 Enjoy my index-zero-ed post while staying tuned for next ones!
+<!-- excerpt-end -->
 
 {% highlight python %}
 from math import sqrt

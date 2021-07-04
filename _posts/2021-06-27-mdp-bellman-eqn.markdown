@@ -6,6 +6,7 @@ categories: artificial-intelligent, reinforcement-learning
 comments: true
 ---
 You may have known or heard vaguely about a computer program called [AlphaGo](https://deepmind.com/research/case-studies/alphago-the-story-so-far) - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with **Reinforcement Learning**.  
+<!-- excerpt-end -->
 
 ### What is Reinforcement Learning?
 Say, there is an unknown **environment** that we're trying to put an **agent** on. By interacting with the **agent** through taking **actions** that gives rise to **rewards** continually, the **agent** learns a **policy** that maximize the cumulative **rewards**.  
