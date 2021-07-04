@@ -1,4 +1,4 @@
-I"êH<p><img src="/assets/images/lego.jpg" alt="Lego" /><br />
+I"ÀI<p><img src="/assets/images/lego.jpg" alt="Lego" /><br />
 <br />
 <br />
 When talking about <em>measure</em>, you might associate it with the idea of <em>length</em>, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with <em>area</em>, or even three dimensions with <em>volume</em>.
@@ -272,6 +272,11 @@ We say that $f$ is the <em>density</em> of the measure $v$ w.r.t $\mu$.</li>
   <li>Litterally, this post is mainly written from a source that Iâ€™ve lost the reference :(. Hope that I can update this line soon.</li>
   <li><a href="https://mathworld.wolfram.com/LebesgueMeasure.html">Lebesgue Measure</a></li>
   <li><a href="https://www.countbayesie.com/blog/2015/8/17/a-very-brief-and-non-mathematical-introduction-to-measure-theory-for-probability">Measure Theory for Probability: A Very Brief Introduction</a></li>
+</ol>
+
+<h4 id="other-resources">Other resources</h4>
+<ol>
+  <li><a href="https://www.youtube.com/watch?v=cyW5z-M2yzw">Music and Measure Theory - 3Blue1Brown</a> - this is one of my favourite Youtube channels.</li>
 </ol>
 
 <h4 id="footnotes">Footnotes</h4>
