@@ -1,4 +1,4 @@
-I"�I<p><img src="/assets/images/lego.jpg" alt="Lego" /><br />
+I"�I<p><img src="/assets/images/lego.jpg" alt="Lego" /><br />
 <br />
 When talking about <em>measure</em>, you might associate it with the idea of <em>length</em>, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with <em>area</em>, or even three dimensions with <em>volume</em>.
 Despite of having different number of dimensions, all <em>length</em>, <em>area</em>, <em>volume</em> share the same properties:<br />
@@ -16,13 +16,13 @@ Despite of having different number of dimensions, all <em>length</em>, <em>area<
 <p>Is an extension of the classical notion of length in $\mathbb{R}$, area in $\mathbb{R}^2$ to any $\mathbb{R}^k$ using k-dimensional hyper-rectangles.</p>
 
 <h4 id="definition">Definition</h4>
-<p>Given an open set $S=\sum_k(a_k,b_k)$ cointaining disjoint invervals, the <strong>Lebesgue measure</strong> is defined by:
+<p>Given an open set $S\equiv\sum_k(a_k,b_k)$ cointaining disjoint invervals, the <strong>Lebesgue measure</strong> is defined by:
 \begin{equation}
-\mu_L(S)=\sum_{k}(b_k-a_k)
+\mu_L(S)\equiv\sum_{k}(b_k-a_k)
 \end{equation}
-Given a closed set $S’=[a,b]-\sum_k(a_k,b_k)$,
+Given a closed set $S’\equiv[a,b]-\sum_k(a_k,b_k)$,
 \begin{equation}
-\mu_L(S’)=(b-a)-\sum_k(b_k-a_k)
+\mu_L(S’)\equiv(b-a)-\sum_k(b_k-a_k)
 \end{equation}</p>
 
 <h3 id="measures">Measures</h3>

@@ -21,13 +21,13 @@ Despite of having different number of dimensions, all *length*, *area*, *volume*
 Is an extension of the classical notion of length in $\mathbb{R}$, area in $\mathbb{R}^2$ to any $\mathbb{R}^k$ using k-dimensional hyper-rectangles.
 
 #### Definition  
-Given an open set $S=\sum_k(a_k,b_k)$ cointaining disjoint invervals, the **Lebesgue measure** is defined by:
+Given an open set $S\equiv\sum_k(a_k,b_k)$ cointaining disjoint invervals, the **Lebesgue measure** is defined by:
 \begin{equation}
-\mu_L(S)=\sum_{k}(b_k-a_k)
+\mu_L(S)\equiv\sum_{k}(b_k-a_k)
 \end{equation}
-Given a closed set $S'=[a,b]-\sum_k(a_k,b_k)$,
+Given a closed set $S'\equiv[a,b]-\sum_k(a_k,b_k)$,
 \begin{equation}
-\mu_L(S')=(b-a)-\sum_k(b_k-a_k)
+\mu_L(S')\equiv(b-a)-\sum_k(b_k-a_k)
 \end{equation}
 
 ### Measures

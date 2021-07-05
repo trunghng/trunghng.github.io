@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-07-05T13:53:01+07:00</updated><id>/feed.xml</id><title type="html">Trung’s blog</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-07-05T13:55:01+07:00</updated><id>/feed.xml</id><title type="html">Trung’s blog</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measures</title><link href="/random-stuffs/measure-theory/2021/07/03/measure.html" rel="alternate" type="text/html" title="Measures" /><published>2021-07-03T07:00:00+07:00</published><updated>2021-07-03T07:00:00+07:00</updated><id>/random-stuffs/measure-theory/2021/07/03/measure</id><content type="html" xml:base="/random-stuffs/measure-theory/2021/07/03/measure.html">&lt;p&gt;&lt;img src=&quot;/assets/images/lego.jpg&quot; alt=&quot;Lego&quot; /&gt;&lt;br /&gt;
 &lt;br /&gt;
 When talking about &lt;em&gt;measure&lt;/em&gt;, you might associate it with the idea of &lt;em&gt;length&lt;/em&gt;, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with &lt;em&gt;area&lt;/em&gt;, or even three dimensions with &lt;em&gt;volume&lt;/em&gt;.
@@ -17,13 +17,13 @@ Despite of having different number of dimensions, all &lt;em&gt;length&lt;/em&gt
 &lt;p&gt;Is an extension of the classical notion of length in $\mathbb{R}$, area in $\mathbb{R}^2$ to any $\mathbb{R}^k$ using k-dimensional hyper-rectangles.&lt;/p&gt;
 
 &lt;h4 id=&quot;definition&quot;&gt;Definition&lt;/h4&gt;
-&lt;p&gt;Given an open set $S=\sum_k(a_k,b_k)$ cointaining disjoint invervals, the &lt;strong&gt;Lebesgue measure&lt;/strong&gt; is defined by:
+&lt;p&gt;Given an open set $S\equiv\sum_k(a_k,b_k)$ cointaining disjoint invervals, the &lt;strong&gt;Lebesgue measure&lt;/strong&gt; is defined by:
 \begin{equation}
-\mu_L(S)=\sum_{k}(b_k-a_k)
+\mu_L(S)\equiv\sum_{k}(b_k-a_k)
 \end{equation}
-Given a closed set $S’=[a,b]-\sum_k(a_k,b_k)$,
+Given a closed set $S’\equiv[a,b]-\sum_k(a_k,b_k)$,
 \begin{equation}
-\mu_L(S’)=(b-a)-\sum_k(b_k-a_k)
+\mu_L(S’)\equiv(b-a)-\sum_k(b_k-a_k)
 \end{equation}&lt;/p&gt;
 
 &lt;h3 id=&quot;measures&quot;&gt;Measures&lt;/h3&gt;
