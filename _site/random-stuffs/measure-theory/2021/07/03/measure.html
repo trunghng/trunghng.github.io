@@ -12,11 +12,11 @@
 <meta property="og:description" content="When talking about measure, you might associate it with the idea of length, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with area, or even three dimensions with volume. Despite of having different number of dimensions, all length, area, volume share the same properties:" />
 <meta property="og:site_name" content="Trung’s blog" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2021-07-03T00:00:00+07:00" />
+<meta property="article:published_time" content="2021-07-03T07:00:00+07:00" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Measures" />
 <script type="application/ld+json">
-{"description":"When talking about measure, you might associate it with the idea of length, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with area, or even three dimensions with volume. Despite of having different number of dimensions, all length, area, volume share the same properties:","mainEntityOfPage":{"@type":"WebPage","@id":"/random-stuffs/measure-theory/2021/07/03/measure.html"},"url":"/random-stuffs/measure-theory/2021/07/03/measure.html","author":{"@type":"Person","name":"Trung H. Nguyen"},"headline":"Measures","dateModified":"2021-07-03T00:00:00+07:00","datePublished":"2021-07-03T00:00:00+07:00","@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"description":"When talking about measure, you might associate it with the idea of length, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with area, or even three dimensions with volume. Despite of having different number of dimensions, all length, area, volume share the same properties:","mainEntityOfPage":{"@type":"WebPage","@id":"/random-stuffs/measure-theory/2021/07/03/measure.html"},"url":"/random-stuffs/measure-theory/2021/07/03/measure.html","author":{"@type":"Person","name":"Trung H. Nguyen"},"headline":"Measures","dateModified":"2021-07-03T07:00:00+07:00","datePublished":"2021-07-03T07:00:00+07:00","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Trung&apos;s blog" />
 
@@ -48,7 +48,7 @@
 
   <header class="post-header">
     <h1 class="post-title p-name" itemprop="name headline">Measures</h1>
-    <p class="post-meta"><time class="dt-published" datetime="2021-07-03T00:00:00+07:00" itemprop="datePublished">
+    <p class="post-meta"><time class="dt-published" datetime="2021-07-03T07:00:00+07:00" itemprop="datePublished">
         Jul 3, 2021
       </time></p>
   </header>
@@ -122,7 +122,7 @@ for $\mathcal{A}\subset\mathbb{R}$</li>
 \begin{equation}
 \mu(\mathcal{A})=\sum_{k\in\mathcal{A}\cap\{0,1,\dots,n\}}{n\choose k}p^k(1-p)^{n-k}
 \end{equation}</li>
-  <li><em>Bivariate Gaussian</em>. We define a measure on $\mathbb{R}$^2 by:
+  <li><em>Bivariate Gaussian</em>. We define a measure on $\mathbb{R}^2$ by:
 \begin{equation}
 \mu({\mathcal{A}})=\int_\mathcal{A}\dfrac{1}{2\pi}\exp\left({\dfrac{-1}{2}(x^2+y^2)}\right)\,dx\,dy
 \end{equation}</li>
@@ -144,7 +144,7 @@ Because $\mu_L(dx)\equiv\mu_L([x,x+dx[)=dx$</li>
 \begin{equation}
 \int g(x)\,\delta_{\{\alpha\}}(dx)=g(\alpha)
 \end{equation}
-Consider the infiniteesimal $\delta_{\{\alpha\}}(dx)$ as $x$ ranges over $\mathbb{R}$. If $x\neq\alpha$, then the infinitesimal interval $[x,x+dx[$ does not contain $\alpha$, so
+Consider the infinitesimal $\delta_{\{\alpha\}}(dx)$ as $x$ ranges over $\mathbb{R}$. If $x\neq\alpha$, then the infinitesimal interval $[x,x+dx[$ does not contain $\alpha$, so
 \begin{equation}
 \delta_{\{\alpha\}}(dx)\equiv\delta_{\{\alpha\}}([x,x+dx[)=0
 \end{equation}
@@ -164,7 +164,7 @@ using the same basic argument as in the above example.</li>
 <p>From the above examples, we have that <em>integrals w.r.t to Lebesgue measure are just ordinary integrals, and that integrals w.r.t Counting measure are just ordinary summation</em>.<br />
 Consider measures built from Lebesgue and Counting measure, we have:</p>
 <ol>
-  <li>Suppose $\mu$ is a measure that satisfies $\mu(dx)=f(x)\mu_L(dx)$, then for any function $g$,
+  <li>Suppose $\mu$ is a measure that satisfies $\mu(dx)=f(x)\,\mu_L(dx)$, then for any function $g$,
 \begin{equation}
 \int g(x)\,\mu(dx)=\int g(x)\,f(x)\,\mu_L(dx)=\int g(x)\,f(x)\,dx
 \end{equation}

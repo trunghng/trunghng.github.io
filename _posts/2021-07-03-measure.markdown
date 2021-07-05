@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "Measures"
-date:   2021-07-03 00:00:00 +0700
-categories: random-stuffs measure-theory
+date:   2021-07-03 07:00:00 +0700
+categories: [random-stuffs, measure-theory]
 comments: true
 ---
 ![Lego](/assets/images/lego.jpg)  
@@ -66,7 +66,7 @@ for $\mathcal{A}\subset\mathbb{R}$
 \begin{equation}
 \mu(\mathcal{A})=\sum_{k\in\mathcal{A}\cap\\{0,1,\dots,n\\}}{n\choose k}p^k(1-p)^{n-k}
 \end{equation}
-6. *Bivariate Gaussian*. We define a measure on $\mathbb{R}$^2 by:
+6. *Bivariate Gaussian*. We define a measure on $\mathbb{R}^2$ by:
 \begin{equation}
 \mu({\mathcal{A}})=\int_\mathcal{A}\dfrac{1}{2\pi}\exp\left({\dfrac{-1}{2}(x^2+y^2)}\right)\,dx\,dy
 \end{equation}
@@ -86,7 +86,7 @@ Because $\mu_L(dx)\equiv\mu_L([x,x+dx[)=dx$
 \begin{equation}
 \int g(x)\,\delta_{\\{\alpha\\}}(dx)=g(\alpha)
 \end{equation}
-Consider the infiniteesimal $\delta_{\\{\alpha\\}}(dx)$ as $x$ ranges over $\mathbb{R}$. If $x\neq\alpha$, then the infinitesimal interval $[x,x+dx[$ does not contain $\alpha$, so
+Consider the infinitesimal $\delta_{\\{\alpha\\}}(dx)$ as $x$ ranges over $\mathbb{R}$. If $x\neq\alpha$, then the infinitesimal interval $[x,x+dx[$ does not contain $\alpha$, so
 \begin{equation}
 \delta_{\\{\alpha\\}}(dx)\equiv\delta_{\\{\alpha\\}}([x,x+dx[)=0
 \end{equation}
@@ -104,7 +104,7 @@ using the same basic argument as in the above example.
 
 From the above examples, we have that *integrals w.r.t to Lebesgue measure are just ordinary integrals, and that integrals w.r.t Counting measure are just ordinary summation*.  
 Consider measures built from Lebesgue and Counting measure, we have:
-1. Suppose $\mu$ is a measure that satisfies $\mu(dx)=f(x)\mu_L(dx)$, then for any function $g$,
+1. Suppose $\mu$ is a measure that satisfies $\mu(dx)=f(x)\,\mu_L(dx)$, then for any function $g$,
 \begin{equation}
 \int g(x)\,\mu(dx)=\int g(x)\,f(x)\,\mu_L(dx)=\int g(x)\,f(x)\,dx
 \end{equation}

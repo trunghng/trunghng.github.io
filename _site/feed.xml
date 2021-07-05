@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-07-04T21:27:08+07:00</updated><id>/feed.xml</id><title type="html">Trung’s blog</title><subtitle>To document something I&apos;ve learned
-</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measures</title><link href="/random-stuffs/measure-theory/2021/07/03/measure.html" rel="alternate" type="text/html" title="Measures" /><published>2021-07-03T00:00:00+07:00</published><updated>2021-07-03T00:00:00+07:00</updated><id>/random-stuffs/measure-theory/2021/07/03/measure</id><content type="html" xml:base="/random-stuffs/measure-theory/2021/07/03/measure.html">&lt;p&gt;&lt;img src=&quot;/assets/images/lego.jpg&quot; alt=&quot;Lego&quot; /&gt;&lt;br /&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-07-05T13:53:01+07:00</updated><id>/feed.xml</id><title type="html">Trung’s blog</title><subtitle>To document something I&apos;ve learned
+</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measures</title><link href="/random-stuffs/measure-theory/2021/07/03/measure.html" rel="alternate" type="text/html" title="Measures" /><published>2021-07-03T07:00:00+07:00</published><updated>2021-07-03T07:00:00+07:00</updated><id>/random-stuffs/measure-theory/2021/07/03/measure</id><content type="html" xml:base="/random-stuffs/measure-theory/2021/07/03/measure.html">&lt;p&gt;&lt;img src=&quot;/assets/images/lego.jpg&quot; alt=&quot;Lego&quot; /&gt;&lt;br /&gt;
 &lt;br /&gt;
 When talking about &lt;em&gt;measure&lt;/em&gt;, you might associate it with the idea of &lt;em&gt;length&lt;/em&gt;, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with &lt;em&gt;area&lt;/em&gt;, or even three dimensions with &lt;em&gt;volume&lt;/em&gt;.
 Despite of having different number of dimensions, all &lt;em&gt;length&lt;/em&gt;, &lt;em&gt;area&lt;/em&gt;, &lt;em&gt;volume&lt;/em&gt; share the same properties:&lt;br /&gt;
@@ -67,7 +67,7 @@ for $\mathcal{A}\subset\mathbb{R}$&lt;/li&gt;
 \begin{equation}
 \mu(\mathcal{A})=\sum_{k\in\mathcal{A}\cap\{0,1,\dots,n\}}{n\choose k}p^k(1-p)^{n-k}
 \end{equation}&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Bivariate Gaussian&lt;/em&gt;. We define a measure on $\mathbb{R}$^2 by:
+  &lt;li&gt;&lt;em&gt;Bivariate Gaussian&lt;/em&gt;. We define a measure on $\mathbb{R}^2$ by:
 \begin{equation}
 \mu({\mathcal{A}})=\int_\mathcal{A}\dfrac{1}{2\pi}\exp\left({\dfrac{-1}{2}(x^2+y^2)}\right)\,dx\,dy
 \end{equation}&lt;/li&gt;
@@ -89,7 +89,7 @@ Because $\mu_L(dx)\equiv\mu_L([x,x+dx[)=dx$&lt;/li&gt;
 \begin{equation}
 \int g(x)\,\delta_{\{\alpha\}}(dx)=g(\alpha)
 \end{equation}
-Consider the infiniteesimal $\delta_{\{\alpha\}}(dx)$ as $x$ ranges over $\mathbb{R}$. If $x\neq\alpha$, then the infinitesimal interval $[x,x+dx[$ does not contain $\alpha$, so
+Consider the infinitesimal $\delta_{\{\alpha\}}(dx)$ as $x$ ranges over $\mathbb{R}$. If $x\neq\alpha$, then the infinitesimal interval $[x,x+dx[$ does not contain $\alpha$, so
 \begin{equation}
 \delta_{\{\alpha\}}(dx)\equiv\delta_{\{\alpha\}}([x,x+dx[)=0
 \end{equation}
@@ -109,7 +109,7 @@ using the same basic argument as in the above example.&lt;/li&gt;
 &lt;p&gt;From the above examples, we have that &lt;em&gt;integrals w.r.t to Lebesgue measure are just ordinary integrals, and that integrals w.r.t Counting measure are just ordinary summation&lt;/em&gt;.&lt;br /&gt;
 Consider measures built from Lebesgue and Counting measure, we have:&lt;/p&gt;
 &lt;ol&gt;
-  &lt;li&gt;Suppose $\mu$ is a measure that satisfies $\mu(dx)=f(x)\mu_L(dx)$, then for any function $g$,
+  &lt;li&gt;Suppose $\mu$ is a measure that satisfies $\mu(dx)=f(x)\,\mu_L(dx)$, then for any function $g$,
 \begin{equation}
 \int g(x)\,\mu(dx)=\int g(x)\,f(x)\,\mu_L(dx)=\int g(x)\,f(x)\,dx
 \end{equation}
@@ -292,7 +292,7 @@ We say that $f$ is the &lt;em&gt;density&lt;/em&gt; of the measure $v$ w.r.t $\m
       &lt;p&gt;&lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="random-stuffs" /><category term="measure-theory" /><summary type="html">When talking about measure, you might associate it with the idea of length, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with area, or even three dimensions with volume. Despite of having different number of dimensions, all length, area, volume share the same properties:</summary></entry><entry><title type="html">Markov Decision Process, Bellman equations</title><link href="/artificial-intelligent,/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html" rel="alternate" type="text/html" title="Markov Decision Process, Bellman equations" /><published>2021-06-27T08:00:00+07:00</published><updated>2021-06-27T08:00:00+07:00</updated><id>/artificial-intelligent,/reinforcement-learning/2021/06/27/mdp-bellman-eqn</id><content type="html" xml:base="/artificial-intelligent,/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html">&lt;p&gt;You may have known or heard vaguely about a computer program called &lt;a href=&quot;https://deepmind.com/research/case-studies/alphago-the-story-so-far&quot;&gt;AlphaGo&lt;/a&gt; - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with &lt;strong&gt;Reinforcement Learning&lt;/strong&gt;.&lt;br /&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="random-stuffs" /><category term="measure-theory" /><summary type="html">When talking about measure, you might associate it with the idea of length, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with area, or even three dimensions with volume. Despite of having different number of dimensions, all length, area, volume share the same properties:</summary></entry><entry><title type="html">Markov Decision Process, Bellman equations</title><link href="/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html" rel="alternate" type="text/html" title="Markov Decision Process, Bellman equations" /><published>2021-06-27T08:00:00+07:00</published><updated>2021-06-27T08:00:00+07:00</updated><id>/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn</id><content type="html" xml:base="/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html">&lt;p&gt;You may have known or heard vaguely about a computer program called &lt;a href=&quot;https://deepmind.com/research/case-studies/alphago-the-story-so-far&quot;&gt;AlphaGo&lt;/a&gt; - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with &lt;strong&gt;Reinforcement Learning&lt;/strong&gt;.&lt;br /&gt;
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;what-is-reinforcement-learning&quot;&gt;What is Reinforcement Learning?&lt;/h3&gt;
@@ -420,7 +420,7 @@ q_*(s,a)&amp;amp;=E\left[R_{t+1}+\gamma\max_{a’}q_*(S_{t+1},a’)|S_t=s,A_t=a\
   &lt;li&gt;Reinforcement Learning: An Introduction - Richard S. Sutton &amp;amp; Andrew G. Barto&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.davidsilver.uk/teaching/&quot;&gt;UCL course on RL&lt;/a&gt; - David Silver&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://lilianweng.github.io/lil-log/2018/02/19/a-long-peek-into-reinforcement-learning.html&quot;&gt;A (Long) Peek into Reinforcement Learning&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent," /><category term="reinforcement-learning" /><summary type="html">You may have known or heard vaguely about a computer program called AlphaGo - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with Reinforcement Learning.</summary></entry><entry><title type="html">Markov Chain</title><link href="/random-stuffs/probability-statistics/2021/06/19/markov-chain.html" rel="alternate" type="text/html" title="Markov Chain" /><published>2021-06-19T22:27:00+07:00</published><updated>2021-06-19T22:27:00+07:00</updated><id>/random-stuffs/probability-statistics/2021/06/19/markov-chain</id><content type="html" xml:base="/random-stuffs/probability-statistics/2021/06/19/markov-chain.html">&lt;p&gt;Since I have no idea how to begin with this post, why not just dive straight into details :P&lt;/p&gt;
+&lt;/ol&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><summary type="html">You may have known or heard vaguely about a computer program called AlphaGo - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with Reinforcement Learning.</summary></entry><entry><title type="html">Markov Chain</title><link href="/random-stuffs/probability-statistics/2021/06/19/markov-chain.html" rel="alternate" type="text/html" title="Markov Chain" /><published>2021-06-19T22:27:00+07:00</published><updated>2021-06-19T22:27:00+07:00</updated><id>/random-stuffs/probability-statistics/2021/06/19/markov-chain</id><content type="html" xml:base="/random-stuffs/probability-statistics/2021/06/19/markov-chain.html">&lt;p&gt;Since I have no idea how to begin with this post, why not just dive straight into details :P&lt;/p&gt;
 
 &lt;p&gt;Markov chain is a stochastic process in which the random variables follow a special property called &lt;em&gt;Markov&lt;/em&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -511,7 +511,7 @@ for all states $i,j$. This equation is called &lt;em&gt;reversibility&lt;/em&gt;
   &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Finite-state_machine&quot;&gt;&lt;em&gt;Finite-state machines&lt;/em&gt;&lt;/a&gt;, &lt;a href=&quot;https://en.wikipedia.org/wiki/Random_walk&quot;&gt;&lt;em&gt;random walks&lt;/em&gt;&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;Diced board games such as Ludo, Monopoly,…&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/PageRank&quot;&gt;&lt;em&gt;Google PageRank&lt;/em&gt;&lt;/a&gt; - the heart of Google search&lt;/li&gt;
-  &lt;li&gt;Markov Decision Process (MDP), which is gonna be the content of next &lt;a href=&quot;/artificial-intelligent,/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html&quot;&gt;post&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;Markov Decision Process (MDP), which is gonna be the content of next &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html&quot;&gt;post&lt;/a&gt;.&lt;/li&gt;
   &lt;li&gt;And various other applications.&lt;/li&gt;
 &lt;/ul&gt;
 
