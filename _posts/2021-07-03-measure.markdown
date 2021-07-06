@@ -192,7 +192,10 @@ This is a well-defined number (possibly infinite) if and only if at least one of
 \begin{equation}
 \delta_\mathbb{Z}=\sum_{i=-\infty}^{\infty}\delta_{\\{i\\}}
 \end{equation}
-- By combining the operations of summation and multiplication, we can write the Geometric measure in the above example as $$\sum_{i=0}^{\infty}r^i\delta_{\\{i\\}}$$
+- By combining the operations of summation and multiplication, we can write the Geometric measure in the above example 
+\begin{equation}
+\sum_{i=0}^{\infty}r^i\delta_{\\{i\\}}
+\end{equation}
 2. *Restriction to a Subset*
 - Suppose $\mu$ is a measure on $\mathcal{X}$ and $\mathcal{B}\subset\mathcal{X}$. We can define a new measure on $\mathcal{B}$ which maps $\mathcal{A}\subset\mathcal{B}\to\mu(\mathcal{A})$. This is called the restriction of $\mu$ to the set $\mathcal{B}$.
 3. *Measure Induced by a Function*
@@ -220,7 +223,7 @@ Suppose that $\mu$ is a measure on $\mathcal{X}$
 1. If $\mu(\mathcal{X})=\infty$, we say that $\mu$ is an *infinite measure*.
 2. If $\mu(\mathcal{X}<\infty)$, we say that $\mu$ is a *finite measure*.
 3. If $\mu(\mathcal{X}<1)$, we say that $\mu$ is a *probability measure*.
-4. If there exists a countable set $\mathcal{S}$ such taht $\mu(\mathcal{X}-\mathcal{S})=0$, we say that $\mu$ is a *discrete measure*. Equivalently, $\mu$ has a density w.r.t *counting measure* on $\mathcal{S}$.
+4. If there exists a countable set $\mathcal{S}$ such that $\mu(\mathcal{X}-\mathcal{S})=0$, we say that $\mu$ is a *discrete measure*. Equivalently, $\mu$ has a density w.r.t *counting measure* on $\mathcal{S}$.
 5. If $\mu$ has a density w.r.t Lebesgue measure, we say that $\mu$ is a *continuous measure*.
 6. If $\mu$ is neither *continuous* nor *discrete*, we say that $\mu$ is a *mixed measure*.
 
