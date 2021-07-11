@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-07-11T22:17:03+07:00</updated><id>/feed.xml</id><title type="html">Trung’s blog</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-07-11T22:45:43+07:00</updated><id>/feed.xml</id><title type="html">Trung’s blog</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Optimal Policy Existence</title><link href="/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html" rel="alternate" type="text/html" title="Optimal Policy Existence" /><published>2021-07-10T13:03:00+07:00</published><updated>2021-07-10T13:03:00+07:00</updated><id>/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence</id><content type="html" xml:base="/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html">&lt;p&gt;In the previous post about &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html&quot;&gt;&lt;strong&gt;Markov Descision Process (MDP) and Bellman equations&lt;/strong&gt;&lt;/a&gt;, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here prove it.&lt;br /&gt;
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 
@@ -200,12 +200,12 @@ and so
 \begin{equation}
 \lim_{n\to\infty}\sup_{k\geq0}\Vert v_{n+k}-v_n\Vert=0,
 \end{equation}
-shows us that $(v_n;n\geq0)$ is indeed a Cauchy sequence. Let $v$ be its limit.
+shows us that $(v_n;n\geq0)$ is indeed a Cauchy sequence. Let $v$ be its limit.&lt;br /&gt;
 b. Recall that the definition of the sequence $(v_n;n\geq0)$
 \begin{equation}
 v_{n+1}=\mathcal{T}v_n
 \end{equation}
-Taking the limes as $n\to\infty$ of both sides, one the one hand, we get that $v_{n+1}\to _{\Vert\cdot\Vert}v$. On the other hand, $\mathcal{T}v_n\to _{\Vert\cdot\Vert}\mathcal{T}v$, since $\mathcal{T}$ is a contraction, hence it is continuous. Therefore, we must have $v=\mathcal{T}v$, which tells us that $v$ is a fixed point of $\mathcal{T}$.
+Taking the limes as $n\to\infty$ of both sides, one the one hand, we get that $v_{n+1}\to _{\Vert\cdot\Vert}v$. On the other hand, $\mathcal{T}v_n\to _{\Vert\cdot\Vert}\mathcal{T}v$, since $\mathcal{T}$ is a contraction, hence it is continuous. Therefore, we must have $v=\mathcal{T}v$, which tells us that $v$ is a fixed point of $\mathcal{T}$.&lt;br /&gt;
 c. Let us assume that $v,v’$ are both fixed points of $\mathcal{T}$. Then,
 \begin{align}
 \Vert v-v’\Vert&amp;amp;=\Vert\mathcal{T}v-\mathcal{v’}\Vert \\ &amp;amp;\leq\gamma\Vert v-v’\Vert \\ \text{or}\quad(1-\gamma)\Vert v-v’\Vert&amp;amp;\leq0

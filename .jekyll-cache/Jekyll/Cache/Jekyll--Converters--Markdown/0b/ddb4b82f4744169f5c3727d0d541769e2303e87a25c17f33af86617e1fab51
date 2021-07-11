@@ -1,4 +1,4 @@
-I"�<<p>In the previous post about <a href="/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html"><strong>Markov Descision Process (MDP) and Bellman equations</strong></a>, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here prove it.<br />
+I"}=<p>In the previous post about <a href="/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html"><strong>Markov Descision Process (MDP) and Bellman equations</strong></a>, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here prove it.<br />
 <!-- excerpt-end --></p>
 
 <p>Before catching the pokémon, we need to prepare ourselves some pokéball.</p>
@@ -76,7 +76,7 @@ Let $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ be some mapping. The vector $v\in\ma
 Let $\mathcal{V}$ be a Banach space and $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ be a $\gamma$-contraction mapping. Then</p>
 <ol>
   <li>$\mathcal{T}$ admits a <em>unique fixed point</em> $v$.</li>
-  <li>For any $v_0\in\mathcal{V}$, if $v_{n+1}=\mathcal{T}v_n$, then $v_n\to_{\Vert\cdot\Vert}v$ with a <em>geometric convergence rate</em>[^5]:
+  <li>For any $v_0\in\mathcal{V}$, if $v_{n+1}=\mathcal{T}v_n$, then $v_n\to_{\Vert\cdot\Vert}v$ with a <em>geometric convergence rate</em><sup id="fnref:5" role="doc-noteref"><a href="#fn:5" class="footnote" rel="footnote">5</a></sup>:
 \begin{equation}
 \Vert v_n-v\Vert\leq\gamma^n\Vert v_0-v\Vert
 \end{equation}</li>
@@ -172,6 +172,7 @@ A. Lazaric</li>
 </ol>
 
 <h4 id="footnotes">Footnotes</h4>
+
 <div class="footnotes" role="doc-endnotes">
   <ol>
     <li id="fn:1" role="doc-endnote">
@@ -198,22 +199,24 @@ and so
 \begin{equation}
 \lim_{n\to\infty}\sup_{k\geq0}\Vert v_{n+k}-v_n\Vert=0,
 \end{equation}
-shows us that $(v_n;n\geq0)$ is indeed a Cauchy sequence. Let $v$ be its limit.
+shows us that $(v_n;n\geq0)$ is indeed a Cauchy sequence. Let $v$ be its limit.<br />
 b. Recall that the definition of the sequence $(v_n;n\geq0)$
 \begin{equation}
 v_{n+1}=\mathcal{T}v_n
 \end{equation}
-Taking the limes as $n\to\infty$ of both sides, one the one hand, we get that $v_{n+1}\to <em>{\Vert\cdot\Vert}v$. On the other hand, $\mathcal{T}v_n\to _{\Vert\cdot\Vert}\mathcal{T}v$, since $\mathcal{T}$ is a contraction, hence it is continuous. Therefore, we must have $v=\mathcal{T}v$, which tells us that $v$ is a fixed point of $\mathcal{T}$.
+Taking the limes as $n\to\infty$ of both sides, one the one hand, we get that $v_{n+1}\to _{\Vert\cdot\Vert}v$. On the other hand, $\mathcal{T}v_n\to _{\Vert\cdot\Vert}\mathcal{T}v$, since $\mathcal{T}$ is a contraction, hence it is continuous. Therefore, we must have $v=\mathcal{T}v$, which tells us that $v$ is a fixed point of $\mathcal{T}$.<br />
 c. Let us assume that $v,v’$ are both fixed points of $\mathcal{T}$. Then,
 \begin{align}
 \Vert v-v’\Vert&amp;=\Vert\mathcal{T}v-\mathcal{v’}\Vert \\ &amp;\leq\gamma\Vert v-v’\Vert \\ \text{or}\quad(1-\gamma)\Vert v-v’\Vert&amp;\leq0
 \end{align}
-Thus, we must have that $\Vert v-v’\Vert=0$. Therefor, $v-v’=0$ or $v=v’$.<br />
+Thus, we must have that $\Vert v-v’\Vert=0$. Therefore, $v-v’=0$ or $v=v’$.<br />
 And finally,
 \begin{align}
-\Vert v_n-v\Vert&amp;=\Vert\mathcal{T}v</em>{n-1}-\mathcal{T}v\Vert \\ &amp;\leq\gamma\Vert v_{n-1}-v\Vert \\ &amp;\leq\gamma^n\Vert v_0-v\Vert
-\end{align}<br />
-[^5]: Also, there’s gonna be a post about <em>rate of convergence</em>. <a href="#fnref:4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+\Vert v_n-v\Vert&amp;=\Vert\mathcal{T}v_{n-1}-\mathcal{T}v\Vert \\ &amp;\leq\gamma\Vert v_{n-1}-v\Vert \\ &amp;\quad\vdots \\ &amp;\leq\gamma^n\Vert v_0-v\Vert
+\end{align} <a href="#fnref:4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:5" role="doc-endnote">
+      <p>Also, there’s gonna be a post about <em>rate of convergence</em>. <a href="#fnref:5" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
