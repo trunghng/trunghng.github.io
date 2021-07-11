@@ -189,12 +189,12 @@ A. Lazaric
 	\begin{equation}
 	\lim_{n\to\infty}\sup_{k\geq0}\Vert v_{n+k}-v_n\Vert=0,
 	\end{equation}
-	shows us that $(v_n;n\geq0)$ is indeed a Cauchy sequence. Let $v$ be its limit.
+	shows us that $(v_n;n\geq0)$ is indeed a Cauchy sequence. Let $v$ be its limit.  
 	b. Recall that the definition of the sequence $(v_n;n\geq0)$
 	\begin{equation}
 	v_{n+1}=\mathcal{T}v_n
 	\end{equation}
-	Taking the limes as $n\to\infty$ of both sides, one the one hand, we get that $v_{n+1}\to _{\Vert\cdot\Vert}v$. On the other hand, $\mathcal{T}v_n\to _{\Vert\cdot\Vert}\mathcal{T}v$, since $\mathcal{T}$ is a contraction, hence it is continuous. Therefore, we must have $v=\mathcal{T}v$, which tells us that $v$ is a fixed point of $\mathcal{T}$.
+	Taking the limes as $n\to\infty$ of both sides, one the one hand, we get that $v_{n+1}\to _{\Vert\cdot\Vert}v$. On the other hand, $\mathcal{T}v_n\to _{\Vert\cdot\Vert}\mathcal{T}v$, since $\mathcal{T}$ is a contraction, hence it is continuous. Therefore, we must have $v=\mathcal{T}v$, which tells us that $v$ is a fixed point of $\mathcal{T}$.  
 	c. Let us assume that $v,v'$ are both fixed points of $\mathcal{T}$. Then,
 	\begin{align}
 	\Vert v-v'\Vert&=\Vert\mathcal{T}v-\mathcal{v'}\Vert \\\\ &\leq\gamma\Vert v-v'\Vert \\\\ \text{or}\quad(1-\gamma)\Vert v-v'\Vert&\leq0
@@ -204,5 +204,5 @@ A. Lazaric
 	\begin{align}
 	\Vert v_n-v\Vert&=\Vert\mathcal{T}v\_{n-1}-\mathcal{T}v\Vert \\\\ &\leq\gamma\Vert v\_{n-1}-v\Vert \\\\ &\quad\vdots \\\\ &\leq\gamma^n\Vert v_0-v\Vert
 	\end{align}
-	
+
 [^5]: Also, there's gonna be a post about *rate of convergence*.
