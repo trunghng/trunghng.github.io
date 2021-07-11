@@ -81,7 +81,7 @@ For any MDP, there exists an optimal policy $\pi_\*$ that is better than or equa
 \pi_\*\geq\pi,\forall\pi
 \end{equation}
 
-The proof of the above theorem is gonna be provided in another post since we need some additional tools to do that.  
+The proof of the above theorem is gonna be provided in another [post]({% post_url 2021-07-10-optimal-policy-existence %}) since we need some additional tools to do that.  
 
 There may be more than one **optimal policy**, they share the same *state-value function*, called **optimal state-value function** though.
 \begin{equation}

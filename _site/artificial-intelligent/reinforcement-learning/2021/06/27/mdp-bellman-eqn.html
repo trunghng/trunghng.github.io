@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Markov Decision Process, Bellman equations" />
 <script type="application/ld+json">
-{"description":"You may have known or heard vaguely about a computer program called AlphaGo - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with Reinforcement Learning.","headline":"Markov Decision Process, Bellman equations","dateModified":"2021-06-27T08:00:00+07:00","datePublished":"2021-06-27T08:00:00+07:00","url":"/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html","author":{"@type":"Person","name":"Trung H. Nguyen"},"mainEntityOfPage":{"@type":"WebPage","@id":"/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"description":"You may have known or heard vaguely about a computer program called AlphaGo - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with Reinforcement Learning.","mainEntityOfPage":{"@type":"WebPage","@id":"/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html"},"url":"/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html","author":{"@type":"Person","name":"Trung H. Nguyen"},"headline":"Markov Decision Process, Bellman equations","dateModified":"2021-06-27T08:00:00+07:00","datePublished":"2021-06-27T08:00:00+07:00","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Trung&apos;s blog" />
 
@@ -134,7 +134,7 @@ For any MDP, there exists an optimal policy $\pi_*$ that is better than or equal
 \pi_*\geq\pi,\forall\pi
 \end{equation}</p>
 
-<p>The proof of the above theorem is gonna be provided in another post since we need some additional tools to do that.</p>
+<p>The proof of the above theorem is gonna be provided in another <a href="/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html">post</a> since we need some additional tools to do that.</p>
 
 <p>There may be more than one <strong>optimal policy</strong>, they share the same <em>state-value function</em>, called <strong>optimal state-value function</strong> though.
 \begin{equation}
@@ -213,7 +213,8 @@ q_*(s,a)&amp;=E\left[R_{t+1}+\gamma\max_{a’}q_*(S_{t+1},a’)|S_t=s,A_t=a\righ
  <!-- mathjax javascript -->
        <script type="text/x-mathjax-config">
          MathJax.Hub.Config({
-          tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+          tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+          "HTML-CSS": {availableFonts: []}
           });
         </script>
         <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">

@@ -1,4 +1,4 @@
-I"ÈI<p><img src="/assets/images/lego.jpg" alt="Lego" /><br />
+I"J<p><img src="/assets/images/lego.jpg" alt="Lego" /><br />
 <br />
 When talking about <em>measure</em>, you might associate it with the idea of <em>length</em>, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with <em>area</em>, or even three dimensions with <em>volume</em>.
 Despite of having different number of dimensions, all <em>length</em>, <em>area</em>, <em>volume</em> share the same properties:<br />
@@ -218,7 +218,10 @@ This is a well-defined number (possibly infinite) if and only if at least one of
 \begin{equation}
 \delta_\mathbb{Z}=\sum_{i=-\infty}^{\infty}\delta_{\{i\}}
 \end{equation}</li>
-      <li>By combining the operations of summation and multiplication, we can write the Geometric measure in the above example as \(\sum_{i=0}^{\infty}r^i\delta_{\\{i\\}}\)</li>
+      <li>By combining the operations of summation and multiplication, we can write the Geometric measure in the above example 
+\begin{equation}
+\sum_{i=0}^{\infty}r^i\delta_{\{i\}}
+\end{equation}</li>
     </ul>
   </li>
   <li><em>Restriction to a Subset</em>
@@ -262,7 +265,7 @@ We say that $f$ is the <em>density</em> of the measure $v$ w.r.t $\mu$.</li>
   <li>If $\mu(\mathcal{X})=\infty$, we say that $\mu$ is an <em>infinite measure</em>.</li>
   <li>If $\mu(\mathcal{X}&lt;\infty)$, we say that $\mu$ is a <em>finite measure</em>.</li>
   <li>If $\mu(\mathcal{X}&lt;1)$, we say that $\mu$ is a <em>probability measure</em>.</li>
-  <li>If there exists a countable set $\mathcal{S}$ such taht $\mu(\mathcal{X}-\mathcal{S})=0$, we say that $\mu$ is a <em>discrete measure</em>. Equivalently, $\mu$ has a density w.r.t <em>counting measure</em> on $\mathcal{S}$.</li>
+  <li>If there exists a countable set $\mathcal{S}$ such that $\mu(\mathcal{X}-\mathcal{S})=0$, we say that $\mu$ is a <em>discrete measure</em>. Equivalently, $\mu$ has a density w.r.t <em>counting measure</em> on $\mathcal{S}$.</li>
   <li>If $\mu$ has a density w.r.t Lebesgue measure, we say that $\mu$ is a <em>continuous measure</em>.</li>
   <li>If $\mu$ is neither <em>continuous</em> nor <em>discrete</em>, we say that $\mu$ is a <em>mixed measure</em>.</li>
 </ol>
