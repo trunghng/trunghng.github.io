@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Optimal Policy Existence"
-date:   2021-07-10 01:13:00 +0700
+date:   2021-07-10 13:03:00 +0700
 categories: [artificial-intelligent, reinforcement-learning]
 comments: true
 ---
@@ -75,13 +75,14 @@ A mapping $\mathcal{T}$ is called a *non-expansion* if it is *Lipschitzian* with
 Let $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ be some mapping. The vector $v\in\mathcal{V}$ is called a *fixed point of* $\mathcal{T}$ if $\mathcal{T}v=v$.  
 <br/>
 
-**Theorem** (*Banach's fixed-point*[^4])  
+**Theorem** (*Banach's fixed-point*)    
 Let $\mathcal{V}$ be a Banach space and $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ be a $\gamma$-contraction mapping. Then
 1. $\mathcal{T}$ admits a *unique fixed point* $v$.
-2. For any $v_0\in\mathcal{V}$, if $v_{n+1}=\mathcal{T}v_n$, then $v_n\to_{\Vert\cdot\Vert}v$ with a *geometric convergence rate*[^5]:
+2. For any $v_0\in\mathcal{V}$, if $v_{n+1}=\mathcal{T}v_n$, then $v_n\to_{\Vert\cdot\Vert}v$ with a *geometric convergence rate*[^4]:
 \begin{equation}
 \Vert v_n-v\Vert\leq\gamma^n\Vert v_0-v\Vert
 \end{equation}
+
 
 
 ### Bellman Operator
@@ -173,6 +174,5 @@ A. Lazaric
 #### Footnotes
 [^1]: A function is called *uniformly bounded* exactly when $\Vert f\Vert_\infty<+\infty$.
 [^2]: A *normed vector space* is a vector space over the real or complex number, on which a norm is defined.
-[^3]: We are gonna talk futher about sequences in another post.
-[^4]: **Proof**:
-[^5]: Also, there's gonna a post about rate of convergence.
+[^3]: We are gonna talk futher about *sequences* in another post.
+[^4]: Also, there's gonna be a post about *rate of convergence*.

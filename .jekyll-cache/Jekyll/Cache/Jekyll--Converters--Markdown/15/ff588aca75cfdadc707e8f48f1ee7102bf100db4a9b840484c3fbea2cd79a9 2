@@ -1,2 +1,0 @@
-I"I<p>In the previous post about <a href="/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html"><strong>Markov Descision Process (MDP) and Bellman equations</strong></a>, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here prove it.</p>
-:ET
