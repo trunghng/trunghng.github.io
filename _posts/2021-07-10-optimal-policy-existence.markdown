@@ -36,7 +36,7 @@ Given a vector space $\mathcal{V}\subseteq\mathbb{R}^d$, a function $f:\mathcal{
 \begin{equation}
 \Vert v\Vert^2\_P=v^TPv
 \end{equation}
-Similarly, we can define norms over spaces of functions. For example, if $\mathcal{V}$ is the vector space of functions over domain $\mathcal{X}$ which are uniformly bounded[^1], then
+Similarly, we can define norms over spaces of functions. For example, if $\mathcal{V}$ is the vector space of functions over domain $\mathcal{X}$ which are *uniformly bounded*[^1], then
 \begin{equation}
 \Vert f\Vert_\infty=\sup_{x\in\mathcal{X}}\vert f(x)\vert
 \end{equation}
@@ -129,7 +129,7 @@ Now everything is all set, we can move on to the next step.
 \begin{equation}
 B(\mathcal{S})=\\{v:\mathcal{S}\to\mathbb{R}:\Vert v\Vert_\infty<+\infty\\}
 \end{equation}
-- We will view $B(\mathcal{S})$ as a normed vector space with the norm $\Vert\cdot\Vert_\infty$. It is easily seen that $(B(\mathcal{S}),\Vert\cdot\Vert_\infty)$ is complete: If ($v_n;n\geq0$) is a Cauchy sequence in it then for any $s\mathcal{S}$, ($v_n(s);n\geq0$) is also a Cauchy sequence over the reals. Denoting by $v(s)$ the limit of ($v_n(s)$), we can show that $\Vert v_n-v\Vert_\infty\to0$. Vaguely speaking, this holds because ($v_n;n\geq0$) is a Cauchy sequence in the norm $\Vert\cdot\Vert_\infty$  so the rate of convergence of $v_n(s)$ to $v(s)$ is independent of $s$.   
+- We will view $B(\mathcal{S})$ as a normed vector space with the norm $\Vert\cdot\Vert_\infty$. It is easily seen that $(B(\mathcal{S}),\Vert\cdot\Vert_\infty)$ is complete: If ($v_n;n\geq0$) is a Cauchy sequence in it then for any $s\in\mathcal{S}$, ($v_n(s);n\geq0$) is also a Cauchy sequence over the reals. Denoting by $v(s)$ the limit of ($v_n(s)$), we can show that $\Vert v_n-v\Vert_\infty\to0$. Vaguely speaking, this holds because ($v_n;n\geq0$) is a Cauchy sequence in the norm $\Vert\cdot\Vert_\infty$  so the rate of convergence of $v_n(s)$ to $v(s)$ is independent of $s$.   
 
 - Pick any stationary policy $\pi$.
 - We have that $\mathcal{T}^\pi$ is *well-defined* since: if $u\in B(\mathcal{S})$, then also $\mathcal{T}^\pi u\in B(S)$.
