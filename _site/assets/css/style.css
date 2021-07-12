@@ -323,4 +323,6 @@ table td { border: 1px solid #e8e8e8; }
 
 body { font-family: "PT Sans"; }
 
+.snorlax { min-height: 500px; background: url(/assets/images/snorlax_wp.png) no-repeat center center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; }
+
 /*# sourceMappingURL=style.css.map */

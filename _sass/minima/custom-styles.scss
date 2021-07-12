@@ -3,3 +3,11 @@
 body {
 	font-family: $ptsans;
 }
+.snorlax {
+	min-height: 500px;
+	background: url(/assets/images/snorlax_wp.png) no-repeat center center; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}

@@ -3,6 +3,7 @@ layout: post
 title:  "Markov Decision Process, Bellman equations"
 date:   2021-06-27 08:00:00 +0700
 categories: [artificial-intelligent, reinforcement-learning]
+tags: artificial-intelligent reinforcement-learning
 description: Markov Decision Processes (MDP), Bellman equations
 comments: true
 ---

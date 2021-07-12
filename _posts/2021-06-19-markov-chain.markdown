@@ -3,6 +3,7 @@ layout: post
 title:  "Markov Chain"
 date:   2021-06-19 22:27:00 +0700
 categories: random-stuffs probability-statistics
+tags: mathematics probability-statistics
 description: Markov chain
 comments: true
 ---
