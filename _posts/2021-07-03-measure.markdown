@@ -13,7 +13,7 @@ Despite of having different number of dimensions, all *length*, *area*, *volume*
 1. *Non-negative*: In principle, length, area, and volume can be any positive value. But negative length has no meaning. Same thing happens with negative area and negative volume.
 2. *Additivity*: To get from Hanoi to Singapore by air, you have to transit at Ho Chi Minh city (HCMC). If we cut that path into two non-overlapping pieces, say Hanoi - HCMC, and HCMC - Singapore, then the total length of the two pieces must be equal to the length of original path. If we divide a rectangular into non-overlapping pieces, the area of pieces combined must be the same as the original one. The same is true for volume as well.
 3. *Empty Set*: An empty cup of water has volume zero.
-4. *Other Null Sets*: The length of a point is 0. The area of a line, or a curve is 0. The volumn of a plane or a surface is 0.
+4. *Other Null Sets*: The length of a point is 0. The area of a line, or a curve is 0. The volume of a plane or a surface is 0.
 5. *Translation Invariance*: Length, area and volume are unchanged (*invariant*) under shifts (*translation*) in space.
 6. *Hyper-rectangles*: An interval of form $[a, b]\subset\mathbb{R}^3$ has length $b-a$. The area of a rectangle $[a_1,b_1]\times[a_2,b_2]$ is $(b_1-a_1)(b_2-a_2)$. And the volume of a rectangular $[a_1,b_1]\times[a_2,b_2]\times[a_3,b_3]$ is $(b_1-a_1)(b_2-a_2)(b_3-a_3)$.  
 
@@ -21,7 +21,7 @@ Despite of having different number of dimensions, all *length*, *area*, *volume*
 Is an extension of the classical notion of length in $\mathbb{R}$, area in $\mathbb{R}^2$ to any $\mathbb{R}^k$ using k-dimensional hyper-rectangles.
 
 #### Definition  
-Given an open set $S\equiv\sum_k(a_k,b_k)$ cointaining disjoint invervals, the **Lebesgue measure** is defined by:
+Given an open set $S\equiv\sum_k(a_k,b_k)$ containing disjoint intervals, the **Lebesgue measure** is defined by:
 \begin{equation}
 \mu_L(S)\equiv\sum_{k}(b_k-a_k)
 \end{equation}
@@ -156,7 +156,7 @@ Let $\mu$ is a measure on $\mathcal{X},\mathcal{A},\mathcal{B}\subset\mathcal{X}
 		- The indicator function ($𝟙_\mathcal{A}$) of a set $\mathcal{A}\subset\mathcal{X}$ is a simple function (taking values in $\\{0,1\\}$).
 		- Any constant times an indicator ($c𝟙_\mathcal{A}$) is also a simple function (taking values in $\\{0,c\\}$).
 		- Similarly, given disjoint sets $\mathcal{A_1},\mathcal{A_2}$, the linear combination $$c_1𝟙_\mathcal{A_1}+c_2𝟙_\mathcal{A_2}$$ is a simple function (taking values in $\\{0,c_1,c_2\\}$)[^1].
-		- In fact, any simple function can be expressed as a linear combination of a finite number of indicator funtions. That is, if $f$ is *any* simple function on $\mathcal{X}$, then there exists some finite integer $n$, non-zero constants $c_1,\dots,c_n$ and *disjoint* sets $\mathcal{A_1},\dots\mathcal{A_n}\subset\mathcal{X}$ such that
+		- In fact, any simple function can be expressed as a linear combination of a finite number of indicator functions. That is, if $f$ is *any* simple function on $\mathcal{X}$, then there exists some finite integer $n$, non-zero constants $c_1,\dots,c_n$ and *disjoint* sets $\mathcal{A_1},\dots\mathcal{A_n}\subset\mathcal{X}$ such that
 		\begin{equation}
 		f=c_1𝟙\_\mathcal{A_1}+\dots+c_n𝟙\_\mathcal{A_n}
 		\end{equation}
@@ -172,7 +172,7 @@ Let $\mu$ is a measure on $\mathcal{X},\mathcal{A},\mathcal{B}\subset\mathcal{X}
 \int f(x)\,\mu(dx)\approx\sup\left\\{\int s(x)\,\mu(dx)\right\\}
 \end{equation}
 3. *Step 3*. Define the integral for general real-valued functions by separately integrating the positive and negative parts of the function.
-- If $f:\mathcal{X}\to\mathbb{R}$ is a general function, we can dfeine its *positive part* $f^+$ and its *negative part* $f^-$ by
+- If $f:\mathcal{X}\to\mathbb{R}$ is a general function, we can define its *positive part* $f^+$ and its *negative part* $f^-$ by
 \begin{align}
 f^+(x)&=\max\left(f(x),0\right) \\\\ f^-(x)&=\max\left(-f(x),0\right)
 \end{align}
@@ -188,7 +188,7 @@ This is a well-defined number (possibly infinite) if and only if at least one of
 \begin{align}
 \mu(\mathcal{A})&=\delta_{\\{0\\}}(\mathcal{A})+\delta_{\\{0\\}}(\mathcal{A}) \\\\ v(\mathcal{A})&=4\delta_{\\{0\\}}(\mathcal{A})
 \end{align}
-- The measure $\mu$ counts how mnay elements of $$\\{0,1\\}$$ are in its argument. Thus, the counting measure of the integers can be re-expressed as
+- The measure $\mu$ counts how many elements of $$\\{0,1\\}$$ are in its argument. Thus, the counting measure of the integers can be re-expressed as
 \begin{equation}
 \delta_\mathbb{Z}=\sum_{i=-\infty}^{\infty}\delta_{\\{i\\}}
 \end{equation}
@@ -228,7 +228,7 @@ Suppose that $\mu$ is a measure on $\mathcal{X}$
 6. If $\mu$ is neither *continuous* nor *discrete*, we say that $\mu$ is a *mixed measure*.
 
 #### References
-1. Litterally, this post is mainly written from a source that I've lost the reference :(. Hope that I can update this line soon.
+1. Literally, this post is mainly written from a source that I've lost the reference :(. Hope that I can update this line soon.
 2. [Lebesgue Measure](https://mathworld.wolfram.com/LebesgueMeasure.html)
 3. [Measure Theory for Probability: A Very Brief Introduction](https://www.countbayesie.com/blog/2015/8/17/a-very-brief-and-non-mathematical-introduction-to-measure-theory-for-probability)
 

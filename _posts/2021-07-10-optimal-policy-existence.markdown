@@ -5,7 +5,7 @@ date:   2021-07-10 13:03:00 +0700
 categories: [artificial-intelligent, reinforcement-learning]
 comments: true
 ---
-In the previous post about [**Markov Descision Process (MDP) and Bellman equations**]({% post_url 2021-06-27-mdp-bellman-eqn %}), we mentioned that there exists a policy $\pi_\*$ that is better than or equal to all other policies. And now, we are here prove it.  
+In the previous post about [**Markov Decision Process (MDP) and Bellman equations**]({% post_url 2021-06-27-mdp-bellman-eqn %}), we mentioned that there exists a policy $\pi_\*$ that is better than or equal to all other policies. And now, we are here prove it.  
 <!-- excerpt-end -->
 
 Before catching the pokémon, we need to prepare ourselves some pokéball.  
@@ -40,14 +40,14 @@ Similarly, we can define norms over spaces of functions. For example, if $\mathc
 \end{equation}
 
 **Definition** (*Convergence in norm*)  
-Let $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$ be a *normed vector space*[^2]. Let $v_n\in\mathcal{V}$ is a sequence of vectors ($n\in\mathbb{N}$). The sequence ($v_n,n\geq0$) is said to *converge to* $v\in\mathcal{V}$ in the norm $\Vert\cdot\Vert$, denoted as $v_n\to\_{\Vert\cdot\Vert}v$ if
+Let $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$ be a *normed vector space*[^2]. Let $v_n\in\mathcal{V}$ is a sequence of vectors ($n\in\mathbb{N}$). The sequence ($v_n,n\geq 0$) is said to *converge to* $v\in\mathcal{V}$ in the norm $\Vert\cdot\Vert$, denoted as $v_n\to\_{\Vert\cdot\Vert}v$ if
 \begin{equation}
 \lim_{n\to\infty}\Vert v_n-v\Vert=0,
 \end{equation}
 <br/>
 
 **Definition** (*Cauchy sequence*[^3])  
-Let ($v_n;n\geq0$) be a sequence of vectors of a normed vector space $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$. Then $v_n$ is called a *Cauchy sequence* if
+Let ($v_n;n\geq 0$) be a sequence of vectors of a normed vector space $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$. Then $v_n$ is called a *Cauchy sequence* if
 \begin{equation}
 \lim_{n\to\infty}\sup_{m\geq n}\Vert v_n-v_m\Vert=0
 \end{equation}
@@ -67,11 +67,11 @@ Let $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$ be a normed vector space. A mapp
 \begin{equation}
 \Vert\mathcal{T}u-\mathcal{T}v\Vert\leq L\Vert u-v\Vert
 \end{equation}
-A mapping $\mathcal{T}$ is called a *non-expansion* if it is *Lipschitzian* with $L\leq1$. It is called a *contraction* if it is *Lipschitzian* with $L<1$. In this case, $L$ is called the *contraction factor of* $\mathcal{T}$ and $\mathcal{T}$ is called an *L-contraction*.  
-<ins>Note</ins>: If $\mathcal{T}$ is *Lipschitz*, it is also continuous in the sense that if $v_n\to_{\Vert\cdot\Vert}v$, then also $\mathcal{T}v_n\to_{\Vert\cdot\Vert}\mathcal{T}v$. This is because $\Vert\mathcal{T}v_n-\mathcal{T}v\Vert\leq L\Vert v_n-v\Vert\to0$ as $n\to\infty$.  
+A mapping $\mathcal{T}$ is called a *non-expansion* if it is *Lipschitzian* with $L\leq 1$. It is called a *contraction* if it is *Lipschitzian* with $L<1$. In this case, $L$ is called the *contraction factor of* $\mathcal{T}$ and $\mathcal{T}$ is called an *L-contraction*.  
+<ins>Note</ins>: If $\mathcal{T}$ is *Lipschitz*, it is also continuous in the sense that if $v_n\to_{\Vert\cdot\Vert}v$, then also $\mathcal{T}v_n\to_{\Vert\cdot\Vert}\mathcal{T}v$. This is because $\Vert\mathcal{T}v_n-\mathcal{T}v\Vert\leq L\Vert v_n-v\Vert\to 0$ as $n\to\infty$.  
 <br/>
 
-**Defintion** (*Fixed point*)  
+**Definition** (*Fixed point*)  
 Let $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ be some mapping. The vector $v\in\mathcal{V}$ is called a *fixed point of* $\mathcal{T}$ if $\mathcal{T}v=v$.  
 <br/>
 
@@ -174,14 +174,14 @@ A. Lazaric
 #### Footnotes
 [^1]: A function is called *uniformly bounded* exactly when $\Vert f\Vert_\infty<+\infty$.
 [^2]: A *normed vector space* is a vector space over the real or complex number, on which a norm is defined.
-[^3]: We are gonna talk futher about *sequences* in another post.
+[^3]: We are gonna talk further about *sequences* in another post.
 [^4]: ***Proof***  
 	Pick any $v_0\in\mathcal{V}$ and define $v_n$ as in the statement of the theorem. a. We first demonstrate that $(v_n)$ converges to some vector. b. Then we will show that this vector is a fixed point to $\mathcal{T}$. c. Finally, we show that $\mathcal{T}$ has a single fixed point. Assume that $\mathcal{T}$ is a $\gamma$-contraction.  
 	a. To show that $(v_n)$ converges, it suffices  to show that $(v_n)$ is a Cauchy sequence. We have:
 	\begin{align}
 	\Vert v_{n+1}-v_n\Vert&=\Vert\mathcal{T}v_{n}-\mathcal{T}v_{n-1}\Vert \\\\ &\leq\gamma\Vert v_{n}-v_{n-1}\Vert \\\\ &\quad\vdots \\\\ &\leq\gamma^n\Vert v_1-v_0\Vert
 	\end{align}
-	From the properties of norms, fwe have:
+	From the properties of norms, we have:
 	\begin{align}
 	\Vert v_{n+k}-v_n\Vert&\leq\Vert v_{n+1}-v_n\Vert+\dots+\Vert v_{n+k}-v_{n+k-1}\Vert \\\\ &\leq\left(\gamma^n+\dots+\gamma^{n+k-1}\right)\Vert v_1-v_0\Vert \\\\ &=\gamma^n\dfrac{1-\gamma^{k}}{1-\gamma}\Vert v_1-v_0\Vert
 	\end{align}

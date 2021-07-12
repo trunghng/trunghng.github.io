@@ -70,7 +70,7 @@ v_\pi(s)=\sum_{a\in\mathcal{A}}q_\pi(s,a)\pi(a|s)
 \end{equation}
 
 #### Optimal Policy and Optimal Value Function
-For finite MDPs (finte state and action space), we can precisely define an **optimal policy**. *Value functions* define a partial ordering over policies. A policy $\pi$ is defined to be better than or equal to a policy $\pi'$ if its expected return is greater than or equal to that of $\pi'$ for all states. In other words,
+For finite MDPs (finite state and action space), we can precisely define an **optimal policy**. *Value functions* define a partial ordering over policies. A policy $\pi$ is defined to be better than or equal to a policy $\pi'$ if its expected return is greater than or equal to that of $\pi'$ for all states. In other words,
 \begin{equation}
 \pi\geq\pi'\iff v_\pi(s)\geq v_{\pi'} \forall s\in\mathcal{S}
 \end{equation}
