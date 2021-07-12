@@ -8,15 +8,15 @@
 <meta property="og:title" content="Optimal Policy Existence" />
 <meta name="author" content="Trung H. Nguyen" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="In the previous post about Markov Descision Process (MDP) and Bellman equations, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here prove it." />
-<meta property="og:description" content="In the previous post about Markov Descision Process (MDP) and Bellman equations, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here prove it." />
+<meta name="description" content="the proof of the existence of optimal policy in finite markov decision processes (MDPs)" />
+<meta property="og:description" content="the proof of the existence of optimal policy in finite markov decision processes (MDPs)" />
 <meta property="og:site_name" content="Trung’s blog" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-07-10T13:03:00+07:00" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Optimal Policy Existence" />
 <script type="application/ld+json">
-{"description":"In the previous post about Markov Descision Process (MDP) and Bellman equations, we mentioned that there exists a policy $\\pi_*$ that is better than or equal to all other policies. And now, we are here prove it.","mainEntityOfPage":{"@type":"WebPage","@id":"/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html"},"url":"/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html","author":{"@type":"Person","name":"Trung H. Nguyen"},"headline":"Optimal Policy Existence","dateModified":"2021-07-10T13:03:00+07:00","datePublished":"2021-07-10T13:03:00+07:00","@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"description":"the proof of the existence of optimal policy in finite markov decision processes (MDPs)","headline":"Optimal Policy Existence","dateModified":"2021-07-10T13:03:00+07:00","datePublished":"2021-07-10T13:03:00+07:00","url":"/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html","author":{"@type":"Person","name":"Trung H. Nguyen"},"mainEntityOfPage":{"@type":"WebPage","@id":"/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Trung&apos;s blog" />
 
@@ -47,6 +47,7 @@
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
+    <meta name="description" content="the proof of the existence of optimal policy in finite markov decision processes (MDPs)">
     <h1 class="post-title p-name" itemprop="name headline">Optimal Policy Existence</h1>
     <p class="post-meta"><time class="dt-published" datetime="2021-07-10T13:03:00+07:00" itemprop="datePublished">
         Jul 10, 2021
@@ -54,7 +55,7 @@
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <p>In the previous post about <a href="/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html"><strong>Markov Descision Process (MDP) and Bellman equations</strong></a>, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here prove it.<br />
+    <p>In the previous post about <a href="/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html"><strong>Markov Decision Process (MDP) and Bellman equations</strong></a>, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here prove it.<br />
 <!-- excerpt-end --></p>
 
 <p>Before catching the pokémon, we need to prepare ourselves some pokéball.</p>
@@ -93,14 +94,14 @@ Similarly, we can define norms over spaces of functions. For example, if $\mathc
 </ol>
 
 <p><strong>Definition</strong> (<em>Convergence in norm</em>)<br />
-Let $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$ be a <em>normed vector space</em><sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>. Let $v_n\in\mathcal{V}$ is a sequence of vectors ($n\in\mathbb{N}$). The sequence ($v_n,n\geq0$) is said to <em>converge to</em> $v\in\mathcal{V}$ in the norm $\Vert\cdot\Vert$, denoted as $v_n\to_{\Vert\cdot\Vert}v$ if
+Let $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$ be a <em>normed vector space</em><sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>. Let $v_n\in\mathcal{V}$ is a sequence of vectors ($n\in\mathbb{N}$). The sequence ($v_n,n\geq 0$) is said to <em>converge to</em> $v\in\mathcal{V}$ in the norm $\Vert\cdot\Vert$, denoted as $v_n\to_{\Vert\cdot\Vert}v$ if
 \begin{equation}
 \lim_{n\to\infty}\Vert v_n-v\Vert=0,
 \end{equation}
 <br /></p>
 
 <p><strong>Definition</strong> (<em>Cauchy sequence</em><sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup>)<br />
-Let ($v_n;n\geq0$) be a sequence of vectors of a normed vector space $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$. Then $v_n$ is called a <em>Cauchy sequence</em> if
+Let ($v_n;n\geq 0$) be a sequence of vectors of a normed vector space $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$. Then $v_n$ is called a <em>Cauchy sequence</em> if
 \begin{equation}
 \lim_{n\to\infty}\sup_{m\geq n}\Vert v_n-v_m\Vert=0
 \end{equation}
@@ -120,11 +121,11 @@ Let $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$ be a normed vector space. A mapp
 \begin{equation}
 \Vert\mathcal{T}u-\mathcal{T}v\Vert\leq L\Vert u-v\Vert
 \end{equation}
-A mapping $\mathcal{T}$ is called a <em>non-expansion</em> if it is <em>Lipschitzian</em> with $L\leq1$. It is called a <em>contraction</em> if it is <em>Lipschitzian</em> with $L&lt;1$. In this case, $L$ is called the <em>contraction factor of</em> $\mathcal{T}$ and $\mathcal{T}$ is called an <em>L-contraction</em>.<br />
-<ins>Note</ins>: If $\mathcal{T}$ is <em>Lipschitz</em>, it is also continuous in the sense that if $v_n\to_{\Vert\cdot\Vert}v$, then also $\mathcal{T}v_n\to_{\Vert\cdot\Vert}\mathcal{T}v$. This is because $\Vert\mathcal{T}v_n-\mathcal{T}v\Vert\leq L\Vert v_n-v\Vert\to0$ as $n\to\infty$.<br />
+A mapping $\mathcal{T}$ is called a <em>non-expansion</em> if it is <em>Lipschitzian</em> with $L\leq 1$. It is called a <em>contraction</em> if it is <em>Lipschitzian</em> with $L&lt;1$. In this case, $L$ is called the <em>contraction factor of</em> $\mathcal{T}$ and $\mathcal{T}$ is called an <em>L-contraction</em>.<br />
+<ins>Note</ins>: If $\mathcal{T}$ is <em>Lipschitz</em>, it is also continuous in the sense that if $v_n\to_{\Vert\cdot\Vert}v$, then also $\mathcal{T}v_n\to_{\Vert\cdot\Vert}\mathcal{T}v$. This is because $\Vert\mathcal{T}v_n-\mathcal{T}v\Vert\leq L\Vert v_n-v\Vert\to 0$ as $n\to\infty$.<br />
 <br /></p>
 
-<p><strong>Defintion</strong> (<em>Fixed point</em>)<br />
+<p><strong>Definition</strong> (<em>Fixed point</em>)<br />
 Let $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ be some mapping. The vector $v\in\mathcal{V}$ is called a <em>fixed point of</em> $\mathcal{T}$ if $\mathcal{T}v=v$.<br />
 <br /></p>
 
@@ -238,7 +239,7 @@ A. Lazaric</li>
       <p>A <em>normed vector space</em> is a vector space over the real or complex number, on which a norm is defined. <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:3" role="doc-endnote">
-      <p>We are gonna talk futher about <em>sequences</em> in another post. <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>We are gonna talk further about <em>sequences</em> in another post. <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:4" role="doc-endnote">
       <p><strong><em>Proof</em></strong><br />
@@ -247,7 +248,7 @@ a. To show that $(v_n)$ converges, it suffices  to show that $(v_n)$ is a Cauchy
 \begin{align}
 \Vert v_{n+1}-v_n\Vert&amp;=\Vert\mathcal{T}v_{n}-\mathcal{T}v_{n-1}\Vert \\ &amp;\leq\gamma\Vert v_{n}-v_{n-1}\Vert \\ &amp;\quad\vdots \\ &amp;\leq\gamma^n\Vert v_1-v_0\Vert
 \end{align}
-From the properties of norms, fwe have:
+From the properties of norms, we have:
 \begin{align}
 \Vert v_{n+k}-v_n\Vert&amp;\leq\Vert v_{n+1}-v_n\Vert+\dots+\Vert v_{n+k}-v_{n+k-1}\Vert \\ &amp;\leq\left(\gamma^n+\dots+\gamma^{n+k-1}\right)\Vert v_1-v_0\Vert \\ &amp;=\gamma^n\dfrac{1-\gamma^{k}}{1-\gamma}\Vert v_1-v_0\Vert
 \end{align}

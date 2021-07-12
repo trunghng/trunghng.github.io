@@ -1,4 +1,4 @@
-I"�%<p>You may have known or heard vaguely about a computer program called <a href="https://deepmind.com/research/case-studies/alphago-the-story-so-far">AlphaGo</a> - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with <strong>Reinforcement Learning</strong>.<br />
+I"�%<p>You may have known or heard vaguely about a computer program called <a href="https://deepmind.com/research/case-studies/alphago-the-story-so-far">AlphaGo</a> - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with <strong>Reinforcement Learning</strong>.<br />
 <!-- excerpt-end --></p>
 
 <h3 id="what-is-reinforcement-learning">What is Reinforcement Learning?</h3>
@@ -67,7 +67,7 @@ v_\pi(s)=\sum_{a\in\mathcal{A}}q_\pi(s,a)\pi(a|s)
 \end{equation}</p>
 
 <h4 id="optimal-policy-and-optimal-value-function">Optimal Policy and Optimal Value Function</h4>
-<p>For finite MDPs (finte state and action space), we can precisely define an <strong>optimal policy</strong>. <em>Value functions</em> define a partial ordering over policies. A policy $\pi$ is defined to be better than or equal to a policy $\pi’$ if its expected return is greater than or equal to that of $\pi’$ for all states. In other words,
+<p>For finite MDPs (finite state and action space), we can precisely define an <strong>optimal policy</strong>. <em>Value functions</em> define a partial ordering over policies. A policy $\pi$ is defined to be better than or equal to a policy $\pi’$ if its expected return is greater than or equal to that of $\pi’$ for all states. In other words,
 \begin{equation}
 \pi\geq\pi’\iff v_\pi(s)\geq v_{\pi’} \forall s\in\mathcal{S}
 \end{equation}</p>

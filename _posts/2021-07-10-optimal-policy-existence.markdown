@@ -3,6 +3,7 @@ layout: post
 title:  "Optimal Policy Existence"
 date:   2021-07-10 13:03:00 +0700
 categories: [artificial-intelligent, reinforcement-learning]
+description: the proof of the existence of optimal policy in finite markov decision processes (MDPs)
 comments: true
 ---
 In the previous post about [**Markov Decision Process (MDP) and Bellman equations**]({% post_url 2021-06-27-mdp-bellman-eqn %}), we mentioned that there exists a policy $\pi_\*$ that is better than or equal to all other policies. And now, we are here prove it.  

@@ -3,6 +3,7 @@ layout: post
 title:  "Markov Decision Process, Bellman equations"
 date:   2021-06-27 08:00:00 +0700
 categories: [artificial-intelligent, reinforcement-learning]
+description: Markov Decision Processes (MDP), Bellman equations
 comments: true
 ---
 You may have known or heard vaguely about a computer program called [AlphaGo](https://deepmind.com/research/case-studies/alphago-the-story-so-far) - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with **Reinforcement Learning**.  

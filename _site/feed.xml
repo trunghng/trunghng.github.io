@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-07-11T22:45:43+07:00</updated><id>/feed.xml</id><title type="html">Trung’s blog</title><subtitle>To document something I&apos;ve learned
-</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Optimal Policy Existence</title><link href="/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html" rel="alternate" type="text/html" title="Optimal Policy Existence" /><published>2021-07-10T13:03:00+07:00</published><updated>2021-07-10T13:03:00+07:00</updated><id>/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence</id><content type="html" xml:base="/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html">&lt;p&gt;In the previous post about &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html&quot;&gt;&lt;strong&gt;Markov Descision Process (MDP) and Bellman equations&lt;/strong&gt;&lt;/a&gt;, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here prove it.&lt;br /&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-07-12T11:34:09+07:00</updated><id>/feed.xml</id><title type="html">Trung’s blog</title><subtitle>To document something I&apos;ve learned
+</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Optimal Policy Existence</title><link href="/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html" rel="alternate" type="text/html" title="Optimal Policy Existence" /><published>2021-07-10T13:03:00+07:00</published><updated>2021-07-10T13:03:00+07:00</updated><id>/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence</id><content type="html" xml:base="/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html">&lt;p&gt;In the previous post about &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html&quot;&gt;&lt;strong&gt;Markov Decision Process (MDP) and Bellman equations&lt;/strong&gt;&lt;/a&gt;, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here prove it.&lt;br /&gt;
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 
 &lt;p&gt;Before catching the pokémon, we need to prepare ourselves some pokéball.&lt;/p&gt;
@@ -38,14 +38,14 @@ Similarly, we can define norms over spaces of functions. For example, if $\mathc
 &lt;/ol&gt;
 
 &lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Convergence in norm&lt;/em&gt;)&lt;br /&gt;
-Let $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$ be a &lt;em&gt;normed vector space&lt;/em&gt;&lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;. Let $v_n\in\mathcal{V}$ is a sequence of vectors ($n\in\mathbb{N}$). The sequence ($v_n,n\geq0$) is said to &lt;em&gt;converge to&lt;/em&gt; $v\in\mathcal{V}$ in the norm $\Vert\cdot\Vert$, denoted as $v_n\to_{\Vert\cdot\Vert}v$ if
+Let $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$ be a &lt;em&gt;normed vector space&lt;/em&gt;&lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;. Let $v_n\in\mathcal{V}$ is a sequence of vectors ($n\in\mathbb{N}$). The sequence ($v_n,n\geq 0$) is said to &lt;em&gt;converge to&lt;/em&gt; $v\in\mathcal{V}$ in the norm $\Vert\cdot\Vert$, denoted as $v_n\to_{\Vert\cdot\Vert}v$ if
 \begin{equation}
 \lim_{n\to\infty}\Vert v_n-v\Vert=0,
 \end{equation}
 &lt;br /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Cauchy sequence&lt;/em&gt;&lt;sup id=&quot;fnref:3&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;)&lt;br /&gt;
-Let ($v_n;n\geq0$) be a sequence of vectors of a normed vector space $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$. Then $v_n$ is called a &lt;em&gt;Cauchy sequence&lt;/em&gt; if
+Let ($v_n;n\geq 0$) be a sequence of vectors of a normed vector space $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$. Then $v_n$ is called a &lt;em&gt;Cauchy sequence&lt;/em&gt; if
 \begin{equation}
 \lim_{n\to\infty}\sup_{m\geq n}\Vert v_n-v_m\Vert=0
 \end{equation}
@@ -65,11 +65,11 @@ Let $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$ be a normed vector space. A mapp
 \begin{equation}
 \Vert\mathcal{T}u-\mathcal{T}v\Vert\leq L\Vert u-v\Vert
 \end{equation}
-A mapping $\mathcal{T}$ is called a &lt;em&gt;non-expansion&lt;/em&gt; if it is &lt;em&gt;Lipschitzian&lt;/em&gt; with $L\leq1$. It is called a &lt;em&gt;contraction&lt;/em&gt; if it is &lt;em&gt;Lipschitzian&lt;/em&gt; with $L&amp;lt;1$. In this case, $L$ is called the &lt;em&gt;contraction factor of&lt;/em&gt; $\mathcal{T}$ and $\mathcal{T}$ is called an &lt;em&gt;L-contraction&lt;/em&gt;.&lt;br /&gt;
-&lt;ins&gt;Note&lt;/ins&gt;: If $\mathcal{T}$ is &lt;em&gt;Lipschitz&lt;/em&gt;, it is also continuous in the sense that if $v_n\to_{\Vert\cdot\Vert}v$, then also $\mathcal{T}v_n\to_{\Vert\cdot\Vert}\mathcal{T}v$. This is because $\Vert\mathcal{T}v_n-\mathcal{T}v\Vert\leq L\Vert v_n-v\Vert\to0$ as $n\to\infty$.&lt;br /&gt;
+A mapping $\mathcal{T}$ is called a &lt;em&gt;non-expansion&lt;/em&gt; if it is &lt;em&gt;Lipschitzian&lt;/em&gt; with $L\leq 1$. It is called a &lt;em&gt;contraction&lt;/em&gt; if it is &lt;em&gt;Lipschitzian&lt;/em&gt; with $L&amp;lt;1$. In this case, $L$ is called the &lt;em&gt;contraction factor of&lt;/em&gt; $\mathcal{T}$ and $\mathcal{T}$ is called an &lt;em&gt;L-contraction&lt;/em&gt;.&lt;br /&gt;
+&lt;ins&gt;Note&lt;/ins&gt;: If $\mathcal{T}$ is &lt;em&gt;Lipschitz&lt;/em&gt;, it is also continuous in the sense that if $v_n\to_{\Vert\cdot\Vert}v$, then also $\mathcal{T}v_n\to_{\Vert\cdot\Vert}\mathcal{T}v$. This is because $\Vert\mathcal{T}v_n-\mathcal{T}v\Vert\leq L\Vert v_n-v\Vert\to 0$ as $n\to\infty$.&lt;br /&gt;
 &lt;br /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Defintion&lt;/strong&gt; (&lt;em&gt;Fixed point&lt;/em&gt;)&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Fixed point&lt;/em&gt;)&lt;br /&gt;
 Let $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ be some mapping. The vector $v\in\mathcal{V}$ is called a &lt;em&gt;fixed point of&lt;/em&gt; $\mathcal{T}$ if $\mathcal{T}v=v$.&lt;br /&gt;
 &lt;br /&gt;&lt;/p&gt;
 
@@ -183,7 +183,7 @@ A. Lazaric&lt;/li&gt;
       &lt;p&gt;A &lt;em&gt;normed vector space&lt;/em&gt; is a vector space over the real or complex number, on which a norm is defined. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:3&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;We are gonna talk futher about &lt;em&gt;sequences&lt;/em&gt; in another post. &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;We are gonna talk further about &lt;em&gt;sequences&lt;/em&gt; in another post. &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:4&quot; role=&quot;doc-endnote&quot;&gt;
       &lt;p&gt;&lt;strong&gt;&lt;em&gt;Proof&lt;/em&gt;&lt;/strong&gt;&lt;br /&gt;
@@ -192,7 +192,7 @@ a. To show that $(v_n)$ converges, it suffices  to show that $(v_n)$ is a Cauchy
 \begin{align}
 \Vert v_{n+1}-v_n\Vert&amp;amp;=\Vert\mathcal{T}v_{n}-\mathcal{T}v_{n-1}\Vert \\ &amp;amp;\leq\gamma\Vert v_{n}-v_{n-1}\Vert \\ &amp;amp;\quad\vdots \\ &amp;amp;\leq\gamma^n\Vert v_1-v_0\Vert
 \end{align}
-From the properties of norms, fwe have:
+From the properties of norms, we have:
 \begin{align}
 \Vert v_{n+k}-v_n\Vert&amp;amp;\leq\Vert v_{n+1}-v_n\Vert+\dots+\Vert v_{n+k}-v_{n+k-1}\Vert \\ &amp;amp;\leq\left(\gamma^n+\dots+\gamma^{n+k-1}\right)\Vert v_1-v_0\Vert \\ &amp;amp;=\gamma^n\dfrac{1-\gamma^{k}}{1-\gamma}\Vert v_1-v_0\Vert
 \end{align}
@@ -220,7 +220,7 @@ And finally,
       &lt;p&gt;Also, there’s gonna be a post about &lt;em&gt;rate of convergence&lt;/em&gt;. &lt;a href=&quot;#fnref:5&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><summary type="html">In the previous post about Markov Descision Process (MDP) and Bellman equations, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here prove it.</summary></entry><entry><title type="html">Measures</title><link href="/random-stuffs/measure-theory/2021/07/03/measure.html" rel="alternate" type="text/html" title="Measures" /><published>2021-07-03T07:00:00+07:00</published><updated>2021-07-03T07:00:00+07:00</updated><id>/random-stuffs/measure-theory/2021/07/03/measure</id><content type="html" xml:base="/random-stuffs/measure-theory/2021/07/03/measure.html">&lt;p&gt;&lt;img src=&quot;/assets/images/lego.jpg&quot; alt=&quot;Lego&quot; /&gt;&lt;br /&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><summary type="html">In the previous post about Markov Decision Process (MDP) and Bellman equations, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here prove it.</summary></entry><entry><title type="html">Measures</title><link href="/random-stuffs/measure-theory/2021/07/03/measure.html" rel="alternate" type="text/html" title="Measures" /><published>2021-07-03T07:00:00+07:00</published><updated>2021-07-03T07:00:00+07:00</updated><id>/random-stuffs/measure-theory/2021/07/03/measure</id><content type="html" xml:base="/random-stuffs/measure-theory/2021/07/03/measure.html">&lt;p&gt;&lt;img src=&quot;/assets/images/lego.jpg&quot; alt=&quot;Lego&quot; /&gt;&lt;br /&gt;
 &lt;br /&gt;
 When talking about &lt;em&gt;measure&lt;/em&gt;, you might associate it with the idea of &lt;em&gt;length&lt;/em&gt;, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with &lt;em&gt;area&lt;/em&gt;, or even three dimensions with &lt;em&gt;volume&lt;/em&gt;.
 Despite of having different number of dimensions, all &lt;em&gt;length&lt;/em&gt;, &lt;em&gt;area&lt;/em&gt;, &lt;em&gt;volume&lt;/em&gt; share the same properties:&lt;br /&gt;
@@ -229,7 +229,7 @@ Despite of having different number of dimensions, all &lt;em&gt;length&lt;/em&gt
   &lt;li&gt;&lt;em&gt;Non-negative&lt;/em&gt;: In principle, length, area, and volume can be any positive value. But negative length has no meaning. Same thing happens with negative area and negative volume.&lt;/li&gt;
   &lt;li&gt;&lt;em&gt;Additivity&lt;/em&gt;: To get from Hanoi to Singapore by air, you have to transit at Ho Chi Minh city (HCMC). If we cut that path into two non-overlapping pieces, say Hanoi - HCMC, and HCMC - Singapore, then the total length of the two pieces must be equal to the length of original path. If we divide a rectangular into non-overlapping pieces, the area of pieces combined must be the same as the original one. The same is true for volume as well.&lt;/li&gt;
   &lt;li&gt;&lt;em&gt;Empty Set&lt;/em&gt;: An empty cup of water has volume zero.&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Other Null Sets&lt;/em&gt;: The length of a point is 0. The area of a line, or a curve is 0. The volumn of a plane or a surface is 0.&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Other Null Sets&lt;/em&gt;: The length of a point is 0. The area of a line, or a curve is 0. The volume of a plane or a surface is 0.&lt;/li&gt;
   &lt;li&gt;&lt;em&gt;Translation Invariance&lt;/em&gt;: Length, area and volume are unchanged (&lt;em&gt;invariant&lt;/em&gt;) under shifts (&lt;em&gt;translation&lt;/em&gt;) in space.&lt;/li&gt;
   &lt;li&gt;&lt;em&gt;Hyper-rectangles&lt;/em&gt;: An interval of form $[a, b]\subset\mathbb{R}^3$ has length $b-a$. The area of a rectangle $[a_1,b_1]\times[a_2,b_2]$ is $(b_1-a_1)(b_2-a_2)$. And the volume of a rectangular $[a_1,b_1]\times[a_2,b_2]\times[a_3,b_3]$ is $(b_1-a_1)(b_2-a_2)(b_3-a_3)$.&lt;/li&gt;
 &lt;/ol&gt;
@@ -238,7 +238,7 @@ Despite of having different number of dimensions, all &lt;em&gt;length&lt;/em&gt
 &lt;p&gt;Is an extension of the classical notion of length in $\mathbb{R}$, area in $\mathbb{R}^2$ to any $\mathbb{R}^k$ using k-dimensional hyper-rectangles.&lt;/p&gt;
 
 &lt;h4 id=&quot;definition&quot;&gt;Definition&lt;/h4&gt;
-&lt;p&gt;Given an open set $S\equiv\sum_k(a_k,b_k)$ cointaining disjoint invervals, the &lt;strong&gt;Lebesgue measure&lt;/strong&gt; is defined by:
+&lt;p&gt;Given an open set $S\equiv\sum_k(a_k,b_k)$ containing disjoint intervals, the &lt;strong&gt;Lebesgue measure&lt;/strong&gt; is defined by:
 \begin{equation}
 \mu_L(S)\equiv\sum_{k}(b_k-a_k)
 \end{equation}
@@ -391,7 +391,7 @@ where \(𝟙_\mathcal{A}\) is an &lt;em&gt;indicator function&lt;/em&gt; (\(𝟙
           &lt;li&gt;The indicator function ($𝟙_\mathcal{A}$) of a set $\mathcal{A}\subset\mathcal{X}$ is a simple function (taking values in $\{0,1\}$).&lt;/li&gt;
           &lt;li&gt;Any constant times an indicator ($c𝟙_\mathcal{A}$) is also a simple function (taking values in $\{0,c\}$).&lt;/li&gt;
           &lt;li&gt;Similarly, given disjoint sets $\mathcal{A_1},\mathcal{A_2}$, the linear combination \(c_1𝟙_\mathcal{A_1}+c_2𝟙_\mathcal{A_2}\) is a simple function (taking values in $\{0,c_1,c_2\}$)&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/li&gt;
-          &lt;li&gt;In fact, any simple function can be expressed as a linear combination of a finite number of indicator funtions. That is, if $f$ is &lt;em&gt;any&lt;/em&gt; simple function on $\mathcal{X}$, then there exists some finite integer $n$, non-zero constants $c_1,\dots,c_n$ and &lt;em&gt;disjoint&lt;/em&gt; sets $\mathcal{A_1},\dots\mathcal{A_n}\subset\mathcal{X}$ such that
+          &lt;li&gt;In fact, any simple function can be expressed as a linear combination of a finite number of indicator functions. That is, if $f$ is &lt;em&gt;any&lt;/em&gt; simple function on $\mathcal{X}$, then there exists some finite integer $n$, non-zero constants $c_1,\dots,c_n$ and &lt;em&gt;disjoint&lt;/em&gt; sets $\mathcal{A_1},\dots\mathcal{A_n}\subset\mathcal{X}$ such that
    \begin{equation}
    f=c_1𝟙_\mathcal{A_1}+\dots+c_n𝟙_\mathcal{A_n}
    \end{equation}&lt;/li&gt;
@@ -415,7 +415,7 @@ where \(𝟙_\mathcal{A}\) is an &lt;em&gt;indicator function&lt;/em&gt; (\(𝟙
   &lt;/li&gt;
   &lt;li&gt;&lt;em&gt;Step 3&lt;/em&gt;. Define the integral for general real-valued functions by separately integrating the positive and negative parts of the function.
     &lt;ul&gt;
-      &lt;li&gt;If $f:\mathcal{X}\to\mathbb{R}$ is a general function, we can dfeine its &lt;em&gt;positive part&lt;/em&gt; $f^+$ and its &lt;em&gt;negative part&lt;/em&gt; $f^-$ by
+      &lt;li&gt;If $f:\mathcal{X}\to\mathbb{R}$ is a general function, we can define its &lt;em&gt;positive part&lt;/em&gt; $f^+$ and its &lt;em&gt;negative part&lt;/em&gt; $f^-$ by
 \begin{align}
 f^+(x)&amp;amp;=\max\left(f(x),0\right) \\ f^-(x)&amp;amp;=\max\left(-f(x),0\right)
 \end{align}&lt;/li&gt;
@@ -436,7 +436,7 @@ This is a well-defined number (possibly infinite) if and only if at least one of
 \begin{align}
 \mu(\mathcal{A})&amp;amp;=\delta_{\{0\}}(\mathcal{A})+\delta_{\{0\}}(\mathcal{A}) \\ v(\mathcal{A})&amp;amp;=4\delta_{\{0\}}(\mathcal{A})
 \end{align}&lt;/li&gt;
-      &lt;li&gt;The measure $\mu$ counts how mnay elements of \(\\{0,1\\}\) are in its argument. Thus, the counting measure of the integers can be re-expressed as
+      &lt;li&gt;The measure $\mu$ counts how many elements of \(\\{0,1\\}\) are in its argument. Thus, the counting measure of the integers can be re-expressed as
 \begin{equation}
 \delta_\mathbb{Z}=\sum_{i=-\infty}^{\infty}\delta_{\{i\}}
 \end{equation}&lt;/li&gt;
@@ -494,7 +494,7 @@ We say that $f$ is the &lt;em&gt;density&lt;/em&gt; of the measure $v$ w.r.t $\m
 
 &lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
 &lt;ol&gt;
-  &lt;li&gt;Litterally, this post is mainly written from a source that I’ve lost the reference :(. Hope that I can update this line soon.&lt;/li&gt;
+  &lt;li&gt;Literally, this post is mainly written from a source that I’ve lost the reference :(. Hope that I can update this line soon.&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://mathworld.wolfram.com/LebesgueMeasure.html&quot;&gt;Lebesgue Measure&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.countbayesie.com/blog/2015/8/17/a-very-brief-and-non-mathematical-introduction-to-measure-theory-for-probability&quot;&gt;Measure Theory for Probability: A Very Brief Introduction&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
@@ -585,7 +585,7 @@ v_\pi(s)=\sum_{a\in\mathcal{A}}q_\pi(s,a)\pi(a|s)
 \end{equation}&lt;/p&gt;
 
 &lt;h4 id=&quot;optimal-policy-and-optimal-value-function&quot;&gt;Optimal Policy and Optimal Value Function&lt;/h4&gt;
-&lt;p&gt;For finite MDPs (finte state and action space), we can precisely define an &lt;strong&gt;optimal policy&lt;/strong&gt;. &lt;em&gt;Value functions&lt;/em&gt; define a partial ordering over policies. A policy $\pi$ is defined to be better than or equal to a policy $\pi’$ if its expected return is greater than or equal to that of $\pi’$ for all states. In other words,
+&lt;p&gt;For finite MDPs (finite state and action space), we can precisely define an &lt;strong&gt;optimal policy&lt;/strong&gt;. &lt;em&gt;Value functions&lt;/em&gt; define a partial ordering over policies. A policy $\pi$ is defined to be better than or equal to a policy $\pi’$ if its expected return is greater than or equal to that of $\pi’$ for all states. In other words,
 \begin{equation}
 \pi\geq\pi’\iff v_\pi(s)\geq v_{\pi’} \forall s\in\mathcal{S}
 \end{equation}&lt;/p&gt;
