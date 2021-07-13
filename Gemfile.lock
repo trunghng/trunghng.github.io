@@ -75,6 +75,7 @@ PLATFORMS
 
 DEPENDENCIES
   bundler
+  jekyll-feed
   minima!
   webrick (~> 1.7)
 
