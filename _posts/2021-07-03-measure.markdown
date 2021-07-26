@@ -7,11 +7,11 @@ tags: mathematics measure-theory
 description: a brief look into measure theory
 comments: true
 ---
-![Lego](/assets/images/lego.jpg)  
-<br/>
-When talking about *measure*, you might associate it with the idea of *length*, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with *area*, or even three dimensions with *volume*.
-Despite of having different number of dimensions, all *length*, *area*, *volume* share the same properties:  
+> When talking about *measure*, you might associate it with the idea of *length*, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with *area*, or even three dimensions with *volume*.  
+
 <!-- excerpt-end -->
+Despite of having different number of dimensions, all *length*, *area*, *volume* share the same properties:  
+
 1. *Non-negative*: In principle, length, area, and volume can be any positive value. But negative length has no meaning. Same thing happens with negative area and negative volume.
 2. *Additivity*: To get from Hanoi to Singapore by air, you have to transit at Ho Chi Minh city (HCMC). If we cut that path into two non-overlapping pieces, say Hanoi - HCMC, and HCMC - Singapore, then the total length of the two pieces must be equal to the length of original path. If we divide a rectangular into non-overlapping pieces, the area of pieces combined must be the same as the original one. The same is true for volume as well.
 3. *Empty Set*: An empty cup of water has volume zero.
@@ -19,10 +19,24 @@ Despite of having different number of dimensions, all *length*, *area*, *volume*
 5. *Translation Invariance*: Length, area and volume are unchanged (*invariant*) under shifts (*translation*) in space.
 6. *Hyper-rectangles*: An interval of form $[a, b]\subset\mathbb{R}^3$ has length $b-a$. The area of a rectangle $[a_1,b_1]\times[a_2,b_2]$ is $(b_1-a_1)(b_2-a_2)$. And the volume of a rectangular $[a_1,b_1]\times[a_2,b_2]\times[a_3,b_3]$ is $(b_1-a_1)(b_2-a_2)(b_3-a_3)$.  
 
-### Lebesgue measure
+![Lego](/assets/images/lego.jpg)  
+<br/>
+
+- [Lebesgue Measure](#lebesgue-measure)
+- [Measures](#measures)
+- [Integration with respect to a Measure: The Idea](#int-measure-idea)
+- [Properties of the Integral](#prop-int)
+- [Integration with respect to a Measure: The Details](#int-measure-detail)
+- [Constructing Measures from old ones](#construct-measure)
+- [Other types of Measures](#other-types)
+- [References](#references)
+- [Other Resources](#other-resources)
+- [Footnotes](#footnotes)
+
+#### Lebesgue Measure
 Is an extension of the classical notion of length in $\mathbb{R}$, area in $\mathbb{R}^2$ to any $\mathbb{R}^k$ using k-dimensional hyper-rectangles.
 
-#### Definition  
+**Definition**  
 Given an open set $S\equiv\sum_k(a_k,b_k)$ containing disjoint intervals, the **Lebesgue measure** is defined by:
 \begin{equation}
 \mu_L(S)\equiv\sum_{k}(b_k-a_k)
@@ -32,7 +46,7 @@ Given a closed set $S'\equiv[a,b]-\sum_k(a_k,b_k)$,
 \mu_L(S')\equiv(b-a)-\sum_k(b_k-a_k)
 \end{equation}
 
-### Measures
+#### Measures
 **Definition**  
 Let $\mathcal{X}$ be any set. A *measure* on $\mathcal{X}$ is a function $\mu$ that maps the set of subsets on $\mathcal{X}$ to $[0,\infty]$ ($\mu:2^\mathcal{X}\rightarrow[0,\infty]$) that satisfies:
 1. $\mu(\emptyset)=0$
@@ -42,7 +56,7 @@ Let $\mathcal{X}$ be any set. A *measure* on $\mathcal{X}$ is a function $\mu$ t
 \end{equation}
 $\mu(\mathcal{A})$ is called *measure of the set $\mathcal{A}$*, or *measure of $\mathcal{A}$*.
 
-**Properties**:  
+**Properties**    
 1. *Monotonicity*: If $\mathcal{A}\subset\mathcal{B}$, then $\mu(\mathcal{A})\leq\mu(\mathcal{B})$
 2. *Subadditivity*: If $\mathcal{A_1},\mathcal{A_2},\dots$ is a countable collection of sets, not necessarily disjoint, then
 \begin{equation}
@@ -77,7 +91,8 @@ for $\mathcal{A}\subset\mathbb{R}$
 \mu(\mathcal{A})=\dfrac{3}{4\pi}\mu_L(\mathcal{A}\cap\mathcal{B})
 \end{equation}
 
-### Integration with respect to a Measure: The Idea
+#### Integration with respect to a Measure: The Idea
+{: #int-measure-idea}
 Consider $f:\mathcal{X}\rightarrow\mathbb{R}$, where $\mathcal{X}$ is any set and a measure $\mu$ on $\mathcal{X}$ and compute the integral of $f$ w.r.t $\mu$: $\int f(x)\,\mu(dx)$. We have:
 1. For any function $f$,
 \begin{equation}
@@ -117,7 +132,8 @@ We say that $f$ is the density of $\mu$ w.r.t Lebesgue measure in this case.
 \end{equation}
 We say that $p$ is the density of $\mu$ w.r.t Counting measure on $\mathcal{C}$.
 
-### Properties of the Integral
+#### Properties of the Integral
+{: #prop-int}
 A function is said to be *integrable* w.r.t $\mu$ if $\int|f(x)|\,\mu(dx)<\infty$. An integrable function has a well-defined and finite integral. If $f(x)\geq0$, the integral is always well-defined but may be $\infty$.  
 Suppose $\mu$ is a measure on $\mathcal{X},\mathcal{A}\subset\mathcal{X}$, and $g$ is a real-valued function on $\mathcal{X}$. We define the integral of $g$ over the set $\mathcal{A}$, denoted by $\int_\mathcal{A}g(x)\,\mu(dx)$, as
 \begin{equation}
@@ -151,7 +167,8 @@ Let $\mu$ is a measure on $\mathcal{X},\mathcal{A},\mathcal{B}\subset\mathcal{X}
 \int_{\mathcal{A}\cup\mathcal{B}}f(x)\,\mu(dx)=\int_\mathcal{A}f(x)\,\mu(dx)+\int_\mathcal{B}f(x)\,\mu(dx)
 \end{equation}
 
-### Integration with respect to a Measure: The Details
+#### Integration with respect to a Measure: The Details
+{: #int-measure-detail}
 1. *Step 1*. Define the integral for simple functions.
 - *Simple function*: is a function that takes only a finite number of different values.
 		- All constant functions are simple functions.
@@ -184,7 +201,8 @@ f^+(x)&=\max\left(f(x),0\right) \\\\ f^-(x)&=\max\left(-f(x),0\right)
 \end{equation}
 This is a well-defined number (possibly infinite) if and only if at least one of $f^+$ and $f^-$ has a finite integral.
 
-### Constructing Measures from old ones
+#### Constructing Measures from old ones
+{: #construct-measure}
 1. *Sums and multiples*  
 - Consider the point mass measures at 0 and 1, $$\delta_{\\{0\\}},\delta_{{1}}$$, and construct a two new measures on $\mathbb{R}$, $$\mu=\delta_{\\{0\\}}+\delta_{\\{1\\}}$$ and $$v=4\delta_{\\{0\\}}$$, defined by
 \begin{align}
@@ -220,7 +238,8 @@ We say that $f$ is the *density* of the measure $v$ w.r.t $\mu$.
 		- $\mu(\mathcal{A})=0$ implies $v(\mathcal{A})=0$.
 		- $v(dx)=f(x)\,\mu(dx)$.
 
-### Other types of Measures
+#### Other types of Measures
+{: #other-types}
 Suppose that $\mu$ is a measure on $\mathcal{X}$
 1. If $\mu(\mathcal{X})=\infty$, we say that $\mu$ is an *infinite measure*.
 2. If $\mu(\mathcal{X}<\infty)$, we say that $\mu$ is a *finite measure*.
@@ -234,7 +253,7 @@ Suppose that $\mu$ is a measure on $\mathcal{X}$
 2. [Lebesgue Measure](https://mathworld.wolfram.com/LebesgueMeasure.html)
 3. [Measure Theory for Probability: A Very Brief Introduction](https://www.countbayesie.com/blog/2015/8/17/a-very-brief-and-non-mathematical-introduction-to-measure-theory-for-probability)
 
-#### Other resources
+#### Other Resources
 1. [Music and Measure Theory - 3Blue1Brown](https://www.youtube.com/watch?v=cyW5z-M2yzw) - this is one of my favourite Youtube channels.
 
 #### Footnotes

@@ -7,7 +7,8 @@ tags: mathematics linear-algebra random-stuffs
 description: eigenvalues, eigenvectors in Fibonacci sequence
 comments: true
 ---
-Enjoy my index-zero-ed post while staying tuned for next ones!
+> Enjoy my index-zero-ed post while staying tuned for next ones!  
+
 <!-- excerpt-end -->
 
 {% highlight python %}
@@ -17,7 +18,7 @@ def fibonacci(i)
 	"""
 	generate i-th number of the Fibonacci sequence, python code obvs :p
 	"""
-	return 1/sqrt(5)\*(pow((1+sqrt(5))/2, i)-pow((1-sqrt(5))/2, i))
+	return 1/sqrt(5)*(pow((1+sqrt(5))/2, i)-pow((1-sqrt(5))/2, i))
 {% endhighlight %}
 
 Why did numbers $$ \frac{1+\sqrt{5}}{2} $$ and $$ \frac{1-\sqrt{5}}{2} $$ come out of nowhere?
@@ -45,5 +46,5 @@ u_k=A^ku_0=c_1{\lambda_1}^kx_1+\dots+c_n{\lambda_n}^kx_n
 \end{equation}
 *Fact*: The $$\frac{1+\sqrt{5}}{2}\approx 1.618$$ is so-called "*golden ratio*". And *for some reason a rectangle with sides 1.618 and 1 looks especially graceful*.
 
-#### References:
+#### References
 1. Introduction to Linear Algebra - Gilbert Strang

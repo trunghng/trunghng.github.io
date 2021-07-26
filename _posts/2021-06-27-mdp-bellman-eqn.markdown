@@ -1,21 +1,36 @@
 ---
 layout: post
-title:  "Markov Decision Process, Bellman equations"
+title:  "Markov Decision Processes, Bellman equations"
 date:   2021-06-27 08:00:00 +0700
 categories: [artificial-intelligent, reinforcement-learning]
 tags: artificial-intelligent reinforcement-learning
-description: Markov Decision Processes (MDP), Bellman equations
+description: Markov Decision Processes (MDPs), Bellman equations
 comments: true
 ---
-You may have known or heard vaguely about a computer program called [AlphaGo](https://deepmind.com/research/case-studies/alphago-the-story-so-far) - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with **Reinforcement Learning**.  
-<!-- excerpt-end -->
+> You may have known or heard vaguely about a computer program called [AlphaGo](https://deepmind.com/research/case-studies/alphago-the-story-so-far) - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with **Reinforcement Learning**.  
 
-### What is Reinforcement Learning?
+<!-- excerpt-end -->
+- [What is Reinforcement Learning?](#what-is-rl)
+- [Markov Decision Processes (MDPs)](#mdp)
+	- [Return](#return)
+	- [Policy](#policy)
+	- [Value Function](#value-function)
+	- [Optimal Policy and Optimal Value Function](#opt-policy-opt-value-func)
+- [Bellman Equations](#bellman-equations)
+	- [Bellman Backup Diagram](#bellman-backup-diagram)
+	- [Bellman Optimality Equations](#bellman-optimality-equations)
+	- [Backup diagram for $v_\*$ and $q_\*$](#backup-vq)
+- [References](#references)
+
+
+#### What is Reinforcement Learning?
+{: #what-is-rl}
 Say, there is an unknown **environment** that we're trying to put an **agent** on. By interacting with the **agent** through taking **actions** that gives rise to **rewards** continually, the **agent** learns a **policy** that maximize the cumulative **rewards**.  
 **Reinforcement Learning (RL)**, roughly speaking, is an area of Machine Learning that describes methods aimed to learn a good strategy (called **policy**) for the **agent** from experimental trials and relative simple feedback received. With the optimal **policy**, the **agent** is capable to actively adapt to the environment to maximize future **rewards**.
 ![RL](/assets/images/robot.png)
 
-### Markov Decision Process (MDP)
+#### Markov Decision Processes (MDPs)
+{: #mdp}
 **Markov decision processes (MDPs)** formally describe an environment for **RL**. And almost all **RL** problems can be formalised as **MDPs**.  
 
 **Definition (MDP)**  
@@ -33,7 +48,7 @@ A **Markov Decision Process** is a tuple $⟨\mathcal{S}, \mathcal{A}, \mathcal{
 P(S_{t+1}|S_t)=P(S_{t+1}|S_1,\dots,S_t)
 \end{equation}
 
-#### Return
+##### Return
 In the preceding section, we have said that the goal of agent is to maximize the cumulative reward in the long run. In general, we seek to maximize the **expected return**.  
 
 **Definition** (*Return*)  
@@ -46,12 +61,12 @@ where $\gamma\in[0,1]$ is called *discount rate* (or *discount factor*).
 The *discount rate* $\gamma$ determines the present value of future rewards: a reward received
 k time steps in the future is worth only $\gamma^{k-1}$ times what it would be worth if it were received immediately. And also, it provides mathematical convenience since as $k\rightarrow\infty$ then $\gamma^k\rightarrow 0$.
 
-#### Policy
+##### Policy
 **Policy**, which is denoted as $\pi$, is the behaviour function of the agent. $\pi$ is a mapping from states to probabilities of selecting each possible action. In other words, it lets us know which action to take in the current state $s$ and can be either *deterministic* or *stochastic*
 - *Deterministic policy*:	$\quad\pi(s)=a$
 - *Stochastic policy*: $\quad\pi(a\|s)=P(A_t=a\|S_t=s)$
 
-#### Value Function
+##### Value Function
 **Value function** measures *how good* a particular state is (or *how good* it is to perform a given action in a given state).  
 
 **Definition** (*state-value function*)  
@@ -71,7 +86,8 @@ Since we follow the policy $\pi$, we have that
 v_\pi(s)=\sum_{a\in\mathcal{A}}q_\pi(s,a)\pi(a|s)
 \end{equation}
 
-#### Optimal Policy and Optimal Value Function
+##### Optimal Policy and Optimal Value Function
+{: #opt-policy-opt-value-func}
 For finite MDPs (finite state and action space), we can precisely define an **optimal policy**. *Value functions* define a partial ordering over policies. A policy $\pi$ is defined to be better than or equal to a policy $\pi'$ if its expected return is greater than or equal to that of $\pi'$ for all states. In other words,
 \begin{equation}
 \pi\geq\pi'\iff v_\pi(s)\geq v_{\pi'} \forall s\in\mathcal{S}
@@ -94,26 +110,26 @@ v_\*(s)=\max_{\pi}v_\pi(s)
 q_\*(s,a)=\max_{\pi}q_\pi(s,a)
 \end{equation}
 
-### Bellman Equations
+#### Bellman Equations
 A fundamental property of *value functions* used throughout RL is that they satisfy recursive relationships
 \begin{align}
-v_\pi(s)&=E_\pi[G_t|S_t=s] \\\\&=E_\pi[R_t+\gamma G_{t+1}|S_t=s] \\\\&=\sum_{s',r,g',a}p(s',r,g',a|s)(r+\gamma g') \\\\&=\sum_{a}p(a|s)\sum_{s',r,g'}p(s',r,g'|a,s)(r+\gamma g') \\\\&=\sum_{a}\pi(a|s)\sum_{s',r,g'}p(s',r|a,s)p(g'|s',r,a,s)(r+\gamma g') \\\\&=\sum_{a}\pi(a|s)\sum_{s',r}p(s',r|a,s)\sum_{g'}p(g'|s')(r+\gamma g') \\\\&=\sum_{a}\pi(a|s)\sum_{s',r}p(s',r|a,s)\left[r+\gamma\sum_{g'}p(g'|s')g'\right] \\\\&=\sum_{a}\pi(a|s)\sum_{s',r}p(s',r|a,s)\left[r+\gamma v_\pi(s')\right],
+v_\pi(s)&\doteq E_\pi[G_t|S_t=s] \\\\&=E_\pi[R_t+\gamma G_{t+1}|S_t=s] \\\\&=\sum_{s',r,g',a}p(s',r,g',a|s)(r+\gamma g') \\\\&=\sum_{a}p(a|s)\sum_{s',r,g'}p(s',r,g'|a,s)(r+\gamma g') \\\\&=\sum_{a}\pi(a|s)\sum_{s',r,g'}p(s',r|a,s)p(g'|s',r,a,s)(r+\gamma g') \\\\&=\sum_{a}\pi(a|s)\sum_{s',r}p(s',r|a,s)\sum_{g'}p(g'|s')(r+\gamma g') \\\\&=\sum_{a}\pi(a|s)\sum_{s',r}p(s',r|a,s)\left[r+\gamma\sum_{g'}p(g'|s')g'\right] \\\\&=\sum_{a}\pi(a|s)\sum_{s',r}p(s',r|a,s)\left[r+\gamma v_\pi(s')\right],
 \end{align}
 where $p(s',r|s,a)=P(S_{t+1}=s',R_{t+1}=r|S_t=s,A_t=a)$, which defines the dynamics of the MDP. The last equation is called the *Bellman equation for* $v_\pi(s)$. It expresses a relationship between the value state $s$, $v_\pi(s)$ and the values of its successor states $s'$, $v_\pi(s')$.  
 
 Similarly, we define the *Bellman equation for* $q_\pi(s,a)$
 \begin{align}
-q_\pi(s,a)&=E_\pi[G_t|S_t=s,A_t=a] \\\\&=E_\pi[R_t+\gamma G_{t+1}|S_t=s,A_t=a] \\\\&=\sum_{s',r}p(s',r|s,a)\left[r+\gamma\sum_{a'}\pi(a'|s')q_\pi(s',a')\right]
+q_\pi(s,a)&\doteq E_\pi[G_t|S_t=s,A_t=a] \\\\&=E_\pi[R_t+\gamma G_{t+1}|S_t=s,A_t=a] \\\\&=\sum_{s',r}p(s',r|s,a)\left[r+\gamma\sum_{a'}\pi(a'|s')q_\pi(s',a')\right]
 \end{align}
 
-#### Bellman backup diagram
+##### Bellman Backup Diagram
 Backup diagram of *state-value function* and *action-value function* respectively
 <p float="left">
   <img src="/assets/images/state.png" width="350" />
   <img src="/assets/images/action.png" width="350" /> 
 </p>
 
-#### Bellman Optimality Equations
+##### Bellman Optimality Equations
 Since $v_\*$ is the value function for a policy, it must satisfy the *Bellman equation for state-values*. Moreover, it is also the optimal value function, then we have
 \begin{align}
 v_\*(s)&=\max_{a\in\mathcal{A(s)}}q_{\pi_\*}(s,a) \\\\&=\max_{a}E_{\pi_\*}[G_t|S_t=s,A_t=a] \\\\&=\max_{a}E_{\pi_\*}[R_{t+1}+\gamma G_{t+1}|S_t=s,A_t=a] \\\\&=\max_{a}E[R_{t+1}+\gamma v_\*(S_{t+1})|S_t=s,A_t=a] \\\\&=\max_{a}\sum_{s',r}p(s',r|s,a)[r+\gamma v_\*(s')]
@@ -123,7 +139,8 @@ The last two equations are two forms of the *Bellman optimality equation for* $v
 q_\*(s,a)&=E\left[R_{t+1}+\gamma\max_{a'}q_\*(S_{t+1},a')|S_t=s,A_t=a\right] \\\\&=\sum_{s',r}p(s',r|s,a)\left[r+\gamma\max_{a'}q_\*(s',a')\right]
 \end{align}
 
-#### Backup diagram for $v_\*$ and $q_\*$
+##### Backup diagram for $v_\*$ and $q_\*$
+{: #backup-vq}
 ![backup diagram for optimal value func](/assets/images/opt.png)
 
 #### References

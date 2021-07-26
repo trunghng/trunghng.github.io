@@ -7,24 +7,36 @@ tags: mathematics probability-statistics
 description: Markov chain
 comments: true
 ---
-Since I have no idea how to begin with this post, why not just dive straight into details :P  
+> Since I have no idea how to begin with this post, why not just dive straight into details :P  
+**Markov chain** is a stochastic process in which the random variables follow a special property called *Markov*.  
 
-Markov chain is a stochastic process in which the random variables follow a special property called *Markov*.
 <!-- excerpt-end -->
+- [Markov Property](#markov-property)
+- [Transition Matrix](#transition-matrix)
+	- [n-step Transition Probability](#nstep-trans-prob)
+- [Marginal Distribution of $X_n$](#marginal-dist-xn)
+- [Properties](#properties)
+- [Stationary Distribution](#stationary-distribution)
+- [Reversibility](#reversibility)
+- [Examples and Applications](#exp-app)
+- [References](#references)
+- [Footnotes](#footnotes)
 
-### Markov property
+
+#### Markov Property
 A sequence of random variables $X_0, X_1, X_2, \dots$ taking values in the *state space* $S=${$1, 2,\dots, M$}. For all $n\geq0$,
 \begin{equation}
 P(X_{n+1}=j|X_n=i)=P(X_{n+1}=j|X_n=i,X_{n-1}=i_{n-1},X_{n-2}=i_{n-2},\dots,X_0=i_0)
 \end{equation}
 In other words, knowledge of the preceding state is all we need to determine the probability distribution of the current state.  
 
-### Transition matrix
+#### Transition Matrix
 The quantity $P(X_{n+1}=j|X_n=i)$ is *transition probability* from state $i$ to $j$.  
 If we denote that $q_{ij}=P(X_{n+1}=j|X_n=i)$ and let $Q=(q_{ij})$, which is a $M\times M$ matrix, there we have the *transition matrix* $Q$ of the chain.  
 Therefore, each row of $Q$ is a conditional probability mass function (PMF) of $X_{n+1}$ given $X_n$. And hence, sum of its entries is 1.  
 
-#### n-step transition probability
+##### n-step Transition Probability
+{: #nstep-trans-prob}
 The n-step *transition probability* from $i$ to $j$ is the probability of being at $i$ and $n$ steps later being at $j$, and be denoted as $q_{ij}^{(n)}$,
 \begin{equation}
 q_{ij}^{(n)}=P(X_n=j|X_0=i)
@@ -39,14 +51,15 @@ q_{ij}^{(n)}=Q_{ij}^{n}
 \end{equation}
 $Q^n$ is also called the *n-step transition matrix*.  
 
-#### Marginal distribution of $X_n$
+##### Marginal Distribution of $X_n$
+{: #marginal-dist-xn}
 Let $t=(t_1,\dots,t_M)^T$, where $t_i=P(X_0=i)$. By the law of total probability (LOTP), we have that:
 \begin{align}
 P(X_n=j)&=\sum_{i=1}^{M}P(X_0=i)P(X_n=j|X_0=i) \\\\&=\sum_{i=1}^{M}t_iq_{ij}^{(n)}
 \end{align}
 or the marginal distribution of $X_n$ is given by $tQ^n$.
 
-### Properties
+#### Properties
 - State $i$ of a Markov chain is defined as *recurrent* or *transient* depending upon whether or not the Markov chain will eventually return to it. Starting with *recurrent* state i, the chain will return to it with the probability of 1. Otherwise, it is *transient*. 
 	- **Proposition**: Number of returns to *transient* state is distributed by *Geom($p$)*, with $p>0$ is the probability of never returning to $i$.
 - A Markov chain is defined as *irreducible* if there exists a chain of steps between any $i,j$ that has positive probability. That is for any $i,j$, there is some $n>0,\in\mathbb{N}$ such that $Q^n_{ij}>0$. If not *irreducible*, it's called *reducible*
@@ -54,7 +67,7 @@ or the marginal distribution of $X_n$ is given by $tQ^n$.
 - A state $i$ has *period* $k>0$ if $k$ is the greatest common divisor (gcd) of the possible numbers of steps it can take to return to $i$ when starting at $i$.
 And thus, $k=gcd(n)$ such that $Q^n_{ii}>0$. $i$ is called *aperiodic* if $k_i=1$, and *periodic* otherwise. The chain itself is called *aperiodic* if all its states are *aperiodic*, and *periodic* otherwise.
 
-### Stationary distribution
+#### Stationary Distribution
 A vector $s=(s_1,\dots,s_M)^T$ such that $s_i\geq0$ and $\sum_{i}s_i=1$ is a *stationary distribution* for a Markov chain if
 \begin{equation}
 \sum_{i}s_iq_{ij}=s_j
@@ -72,7 +85,7 @@ The theorem is a consequence of a result from [*Perron-Frobenius theorem*](https
 **Theorem** (*Expected time to run*)  
 &nbsp;&nbsp;&nbsp;&nbsp;Let $X_0,X_1,\dots$ be an *irreducible* Markov chain with *stationary distribution* $s$. Let $r_i$ be the expected time it takes the chain to return to $i$, given that it starts at $i$. Then $s_i=1/r_i$
 
-### Reversibility
+#### Reversibility
 Let $Q=(q_{ij})$ be the *transition matrix* of a Markov chain. Suppose there is an $s=(s_1,\dots,s_M)^T$ with $s_i\geq0,\sum_{i}s_i=1$, such that
 \begin{equation}
 s_iq_{ij}=s_jq_{ji}
@@ -85,18 +98,19 @@ for all states $i,j$. This equation is called *reversibility* or *detailed balan
 **Proposition**  
 &nbsp;&nbsp;&nbsp;&nbsp;If each column of $Q$ sum to 1, then the *uniform distribution* over all states $(1/M,\dots,1/M)$, is a *stationary distribution*. (This kind of matrix is called *doubly stochastic matrix*).
 
-### Examples and application
+#### Examples and Applications
+{: #exp-app}
 - [*Finite-state machines*](https://en.wikipedia.org/wiki/Finite-state_machine), [*random walks*](https://en.wikipedia.org/wiki/Random_walk)
 - Diced board games such as Ludo, Monopoly,...
 - [*Google PageRank*](https://en.wikipedia.org/wiki/PageRank) - the heart of Google search
 - Markov Decision Process (MDP), which is gonna be the content of next [post]({% post_url 2021-06-27-mdp-bellman-eqn %}).
 - And various other applications.
 
-#### Footnote:
+#### References
+1. Introduction to Probability - Joseph K. Blitzstein & Jessica Hwang
+2. [Brillant's Markov chain](https://brilliant.org/wiki/markov-chains/)
+
+#### Footnotes
 - The Markov chain here is *time-homogeneous* Markov chain, in which the probability of any state transition is independent of time.
 - This is more like intuitive and less formal definition of Markov chain, we will have more concrete definition with the help of *Measure theory* after the post about it.
 - Well, it only matters where you are, not where you've been.
-
-#### References:
-1. Introduction to Probability - Joseph K. Blitzstein & Jessica Hwang
-2. [Brillant's Markov chain](https://brilliant.org/wiki/markov-chains/)
