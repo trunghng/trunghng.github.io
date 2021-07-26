@@ -17,3 +17,15 @@ blockquote {
 	padding: 10px;
 	font-style: normal;
 }
+
+.highlight pre {
+    word-wrap: normal;
+}
+
+.highlight pre code {
+    white-space: pre;
+}
+
+.post-content h1, h2, h3, h4, h5, h6 {
+	font-weight: bold;
+}

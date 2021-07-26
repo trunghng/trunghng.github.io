@@ -58,6 +58,10 @@ theme: minima
 plugins:
  - jekyll-feed
  - jekyll-seo-tag
+ - jekyll-toc
 
 feed:
   tags: true
+
+kramdown:
+    auto_ids: true

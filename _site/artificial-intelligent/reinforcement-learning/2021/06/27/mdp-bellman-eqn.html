@@ -3,22 +3,22 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Markov Decision Process, Bellman equations | Trung’s blog</title>
+<title>Markov Decision Processes, Bellman equations | Trung’s cabin</title>
 <meta name="generator" content="Jekyll v4.2.0" />
-<meta property="og:title" content="Markov Decision Process, Bellman equations" />
+<meta property="og:title" content="Markov Decision Processes, Bellman equations" />
 <meta name="author" content="Trung H. Nguyen" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Markov Decision Processes (MDP), Bellman equations" />
-<meta property="og:description" content="Markov Decision Processes (MDP), Bellman equations" />
-<meta property="og:site_name" content="Trung’s blog" />
+<meta name="description" content="Markov Decision Processes (MDPs), Bellman equations" />
+<meta property="og:description" content="Markov Decision Processes (MDPs), Bellman equations" />
+<meta property="og:site_name" content="Trung’s cabin" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-06-27T08:00:00+07:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Markov Decision Process, Bellman equations" />
+<meta property="twitter:title" content="Markov Decision Processes, Bellman equations" />
 <script type="application/ld+json">
-{"description":"Markov Decision Processes (MDP), Bellman equations","mainEntityOfPage":{"@type":"WebPage","@id":"/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html"},"url":"/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html","author":{"@type":"Person","name":"Trung H. Nguyen"},"headline":"Markov Decision Process, Bellman equations","dateModified":"2021-06-27T08:00:00+07:00","datePublished":"2021-06-27T08:00:00+07:00","@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"description":"Markov Decision Processes (MDPs), Bellman equations","headline":"Markov Decision Processes, Bellman equations","dateModified":"2021-06-27T08:00:00+07:00","datePublished":"2021-06-27T08:00:00+07:00","url":"/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html","author":{"@type":"Person","name":"Trung H. Nguyen"},"mainEntityOfPage":{"@type":"WebPage","@id":"/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Trung&apos;s blog" />
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Trung&apos;s cabin" />
     
 
 
@@ -37,7 +37,7 @@
 <body><header class="site-header">
   <div class="snorlax"></div>
 
-  <div class="wrapper"><a class="site-title" rel="author" href="/">Trung&#39;s blog</a><nav class="site-nav">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Trung&#39;s cabin</a><nav class="site-nav">
         <input type="checkbox" id="nav-trigger" class="nav-trigger" />
         <label for="nav-trigger">
           <span class="menu-icon">
@@ -55,8 +55,8 @@
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <meta name="description" content="Markov Decision Processes (MDP), Bellman equations">
-    <h1 class="post-title p-name" itemprop="name headline">Markov Decision Process, Bellman equations</h1>
+    <meta name="description" content="Markov Decision Processes (MDPs), Bellman equations">
+    <h1 class="post-title p-name" itemprop="name headline">Markov Decision Processes, Bellman equations</h1>
     <p><span>
       
         
@@ -72,15 +72,37 @@
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <p>You may have known or heard vaguely about a computer program called <a href="https://deepmind.com/research/case-studies/alphago-the-story-so-far">AlphaGo</a> - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with <strong>Reinforcement Learning</strong>.<br />
-<!-- excerpt-end --></p>
+    <blockquote>
+  <p>You may have known or heard vaguely about a computer program called <a href="https://deepmind.com/research/case-studies/alphago-the-story-so-far">AlphaGo</a> - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with <strong>Reinforcement Learning</strong>.</p>
+</blockquote>
 
-<h3 id="what-is-reinforcement-learning">What is Reinforcement Learning?</h3>
+<!-- excerpt-end -->
+<ul>
+  <li><a href="#what-is-rl">What is Reinforcement Learning?</a></li>
+  <li><a href="#mdp">Markov Decision Processes (MDPs)</a>
+    <ul>
+      <li><a href="#return">Return</a></li>
+      <li><a href="#policy">Policy</a></li>
+      <li><a href="#value-function">Value Function</a></li>
+      <li><a href="#opt-policy-opt-value-func">Optimal Policy and Optimal Value Function</a></li>
+    </ul>
+  </li>
+  <li><a href="#bellman-equations">Bellman Equations</a>
+    <ul>
+      <li><a href="#bellman-backup-diagram">Bellman Backup Diagram</a></li>
+      <li><a href="#bellman-optimality-equations">Bellman Optimality Equations</a></li>
+      <li><a href="#backup-vq">Backup diagram for $v_*$ and $q_*$</a></li>
+    </ul>
+  </li>
+  <li><a href="#references">References</a></li>
+</ul>
+
+<h4 id="what-is-rl">What is Reinforcement Learning?</h4>
 <p>Say, there is an unknown <strong>environment</strong> that we’re trying to put an <strong>agent</strong> on. By interacting with the <strong>agent</strong> through taking <strong>actions</strong> that gives rise to <strong>rewards</strong> continually, the <strong>agent</strong> learns a <strong>policy</strong> that maximize the cumulative <strong>rewards</strong>.<br />
 <strong>Reinforcement Learning (RL)</strong>, roughly speaking, is an area of Machine Learning that describes methods aimed to learn a good strategy (called <strong>policy</strong>) for the <strong>agent</strong> from experimental trials and relative simple feedback received. With the optimal <strong>policy</strong>, the <strong>agent</strong> is capable to actively adapt to the environment to maximize future <strong>rewards</strong>.
 <img src="/assets/images/robot.png" alt="RL" /></p>
 
-<h3 id="markov-decision-process-mdp">Markov Decision Process (MDP)</h3>
+<h4 id="mdp">Markov Decision Processes (MDPs)</h4>
 <p><strong>Markov decision processes (MDPs)</strong> formally describe an environment for <strong>RL</strong>. And almost all <strong>RL</strong> problems can be formalised as <strong>MDPs</strong>.</p>
 
 <p><strong>Definition (MDP)</strong><br />
@@ -100,7 +122,7 @@ A <strong>Markov Decision Process</strong> is a tuple $⟨\mathcal{S}, \mathcal{
 P(S_{t+1}|S_t)=P(S_{t+1}|S_1,\dots,S_t)
 \end{equation}</p>
 
-<h4 id="return">Return</h4>
+<h5 id="return">Return</h5>
 <p>In the preceding section, we have said that the goal of agent is to maximize the cumulative reward in the long run. In general, we seek to maximize the <strong>expected return</strong>.</p>
 
 <p><strong>Definition</strong> (<em>Return</em>)<br />
@@ -113,14 +135,14 @@ where $\gamma\in[0,1]$ is called <em>discount rate</em> (or <em>discount factor<
 <p>The <em>discount rate</em> $\gamma$ determines the present value of future rewards: a reward received
 k time steps in the future is worth only $\gamma^{k-1}$ times what it would be worth if it were received immediately. And also, it provides mathematical convenience since as $k\rightarrow\infty$ then $\gamma^k\rightarrow 0$.</p>
 
-<h4 id="policy">Policy</h4>
+<h5 id="policy">Policy</h5>
 <p><strong>Policy</strong>, which is denoted as $\pi$, is the behaviour function of the agent. $\pi$ is a mapping from states to probabilities of selecting each possible action. In other words, it lets us know which action to take in the current state $s$ and can be either <em>deterministic</em> or <em>stochastic</em></p>
 <ul>
   <li><em>Deterministic policy</em>:	$\quad\pi(s)=a$</li>
   <li><em>Stochastic policy</em>: $\quad\pi(a|s)=P(A_t=a|S_t=s)$</li>
 </ul>
 
-<h4 id="value-function">Value Function</h4>
+<h5 id="value-function">Value Function</h5>
 <p><strong>Value function</strong> measures <em>how good</em> a particular state is (or <em>how good</em> it is to perform a given action in a given state).</p>
 
 <p><strong>Definition</strong> (<em>state-value function</em>)<br />
@@ -140,7 +162,7 @@ q_\pi(s,a)=E_\pi[G_t|S_t=s,A_t=a]
 v_\pi(s)=\sum_{a\in\mathcal{A}}q_\pi(s,a)\pi(a|s)
 \end{equation}</p>
 
-<h4 id="optimal-policy-and-optimal-value-function">Optimal Policy and Optimal Value Function</h4>
+<h5 id="opt-policy-opt-value-func">Optimal Policy and Optimal Value Function</h5>
 <p>For finite MDPs (finite state and action space), we can precisely define an <strong>optimal policy</strong>. <em>Value functions</em> define a partial ordering over policies. A policy $\pi$ is defined to be better than or equal to a policy $\pi’$ if its expected return is greater than or equal to that of $\pi’$ for all states. In other words,
 \begin{equation}
 \pi\geq\pi’\iff v_\pi(s)\geq v_{\pi’} \forall s\in\mathcal{S}
@@ -163,26 +185,26 @@ v_*(s)=\max_{\pi}v_\pi(s)
 q_*(s,a)=\max_{\pi}q_\pi(s,a)
 \end{equation}</p>
 
-<h3 id="bellman-equations">Bellman Equations</h3>
+<h4 id="bellman-equations">Bellman Equations</h4>
 <p>A fundamental property of <em>value functions</em> used throughout RL is that they satisfy recursive relationships
 \begin{align}
-v_\pi(s)&amp;=E_\pi[G_t|S_t=s] \\&amp;=E_\pi[R_t+\gamma G_{t+1}|S_t=s] \\&amp;=\sum_{s’,r,g’,a}p(s’,r,g’,a|s)(r+\gamma g’) \\&amp;=\sum_{a}p(a|s)\sum_{s’,r,g’}p(s’,r,g’|a,s)(r+\gamma g’) \\&amp;=\sum_{a}\pi(a|s)\sum_{s’,r,g’}p(s’,r|a,s)p(g’|s’,r,a,s)(r+\gamma g’) \\&amp;=\sum_{a}\pi(a|s)\sum_{s’,r}p(s’,r|a,s)\sum_{g’}p(g’|s’)(r+\gamma g’) \\&amp;=\sum_{a}\pi(a|s)\sum_{s’,r}p(s’,r|a,s)\left[r+\gamma\sum_{g’}p(g’|s’)g’\right] \\&amp;=\sum_{a}\pi(a|s)\sum_{s’,r}p(s’,r|a,s)\left[r+\gamma v_\pi(s’)\right],
+v_\pi(s)&amp;\doteq E_\pi[G_t|S_t=s] \\&amp;=E_\pi[R_t+\gamma G_{t+1}|S_t=s] \\&amp;=\sum_{s’,r,g’,a}p(s’,r,g’,a|s)(r+\gamma g’) \\&amp;=\sum_{a}p(a|s)\sum_{s’,r,g’}p(s’,r,g’|a,s)(r+\gamma g’) \\&amp;=\sum_{a}\pi(a|s)\sum_{s’,r,g’}p(s’,r|a,s)p(g’|s’,r,a,s)(r+\gamma g’) \\&amp;=\sum_{a}\pi(a|s)\sum_{s’,r}p(s’,r|a,s)\sum_{g’}p(g’|s’)(r+\gamma g’) \\&amp;=\sum_{a}\pi(a|s)\sum_{s’,r}p(s’,r|a,s)\left[r+\gamma\sum_{g’}p(g’|s’)g’\right] \\&amp;=\sum_{a}\pi(a|s)\sum_{s’,r}p(s’,r|a,s)\left[r+\gamma v_\pi(s’)\right],
 \end{align}
 where $p(s’,r|s,a)=P(S_{t+1}=s’,R_{t+1}=r|S_t=s,A_t=a)$, which defines the dynamics of the MDP. The last equation is called the <em>Bellman equation for</em> $v_\pi(s)$. It expresses a relationship between the value state $s$, $v_\pi(s)$ and the values of its successor states $s’$, $v_\pi(s’)$.</p>
 
 <p>Similarly, we define the <em>Bellman equation for</em> $q_\pi(s,a)$
 \begin{align}
-q_\pi(s,a)&amp;=E_\pi[G_t|S_t=s,A_t=a] \\&amp;=E_\pi[R_t+\gamma G_{t+1}|S_t=s,A_t=a] \\&amp;=\sum_{s’,r}p(s’,r|s,a)\left[r+\gamma\sum_{a’}\pi(a’|s’)q_\pi(s’,a’)\right]
+q_\pi(s,a)&amp;\doteq E_\pi[G_t|S_t=s,A_t=a] \\&amp;=E_\pi[R_t+\gamma G_{t+1}|S_t=s,A_t=a] \\&amp;=\sum_{s’,r}p(s’,r|s,a)\left[r+\gamma\sum_{a’}\pi(a’|s’)q_\pi(s’,a’)\right]
 \end{align}</p>
 
-<h4 id="bellman-backup-diagram">Bellman backup diagram</h4>
+<h5 id="bellman-backup-diagram">Bellman Backup Diagram</h5>
 <p>Backup diagram of <em>state-value function</em> and <em>action-value function</em> respectively</p>
 <p float="left">
   <img src="/assets/images/state.png" width="350" />
   <img src="/assets/images/action.png" width="350" /> 
 </p>
 
-<h4 id="bellman-optimality-equations">Bellman Optimality Equations</h4>
+<h5 id="bellman-optimality-equations">Bellman Optimality Equations</h5>
 <p>Since $v_*$ is the value function for a policy, it must satisfy the <em>Bellman equation for state-values</em>. Moreover, it is also the optimal value function, then we have
 \begin{align}
 v_*(s)&amp;=\max_{a\in\mathcal{A(s)}}q_{\pi_*}(s,a) \\&amp;=\max_{a}E_{\pi_*}[G_t|S_t=s,A_t=a] \\&amp;=\max_{a}E_{\pi_*}[R_{t+1}+\gamma G_{t+1}|S_t=s,A_t=a] \\&amp;=\max_{a}E[R_{t+1}+\gamma v_*(S_{t+1})|S_t=s,A_t=a] \\&amp;=\max_{a}\sum_{s’,r}p(s’,r|s,a)[r+\gamma v_*(s’)]
@@ -192,7 +214,7 @@ The last two equations are two forms of the <em>Bellman optimality equation for<
 q_*(s,a)&amp;=E\left[R_{t+1}+\gamma\max_{a’}q_*(S_{t+1},a’)|S_t=s,A_t=a\right] \\&amp;=\sum_{s’,r}p(s’,r|s,a)\left[r+\gamma\max_{a’}q_*(s’,a’)\right]
 \end{align}</p>
 
-<h4 id="backup-diagram-for-v_-and-q_">Backup diagram for $v_*$ and $q_*$</h4>
+<h5 id="backup-vq">Backup diagram for $v_*$ and $q_*$</h5>
 <p><img src="/assets/images/opt.png" alt="backup diagram for optimal value func" /></p>
 
 <h4 id="references">References</h4>
@@ -229,14 +251,14 @@ q_*(s,a)&amp;=E\left[R_{t+1}+\gamma\max_{a’}q_*(S_{t+1},a’)|S_t=s,A_t=a\righ
   <a class="u-url" href="/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html" hidden></a>
 </article>
  <!-- mathjax javascript -->
-       <script type="text/x-mathjax-config">
-         MathJax.Hub.Config({
-          tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
-          "HTML-CSS": {availableFonts: []}
-          });
-        </script>
-        <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-      </script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+  "HTML-CSS": {availableFonts: []}
+  });
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 
       </div>
 

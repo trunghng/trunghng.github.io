@@ -325,4 +325,12 @@ body { font-family: "PT Sans"; }
 
 .snorlax { min-height: 500px; background: url(/assets/images/snorlax_wp.png) no-repeat center center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; }
 
+blockquote { font-size: 16px; background-color: #f0f0f0; padding: 10px; font-style: normal; }
+
+.highlight pre { word-wrap: normal; }
+
+.highlight pre code { white-space: pre; }
+
+.post-content h1, h2, h3, h4, h5, h6 { font-weight: bold; }
+
 /*# sourceMappingURL=style.css.map */

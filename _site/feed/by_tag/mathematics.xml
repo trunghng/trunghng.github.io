@@ -1,10 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-07-13T07:19:22+07:00</updated><id>/feed/by_tag/mathematics.xml</id><title type="html">Trung’s blog</title><subtitle>To document something I&apos;ve learned
-</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Optimal Policy Existence</title><link href="/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html" rel="alternate" type="text/html" title="Optimal Policy Existence" /><published>2021-07-10T13:03:00+07:00</published><updated>2021-07-10T13:03:00+07:00</updated><id>/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence</id><content type="html" xml:base="/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html">&lt;p&gt;In the previous post about &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html&quot;&gt;&lt;strong&gt;Markov Decision Process (MDP) and Bellman equations&lt;/strong&gt;&lt;/a&gt;, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here prove it.&lt;br /&gt;
-&lt;!-- excerpt-end --&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-07-26T22:40:58+07:00</updated><id>/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Optimal Policy Existence</title><link href="/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html" rel="alternate" type="text/html" title="Optimal Policy Existence" /><published>2021-07-10T13:03:00+07:00</published><updated>2021-07-10T13:03:00+07:00</updated><id>/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence</id><content type="html" xml:base="/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html">&lt;blockquote&gt;
+  &lt;p&gt;In the previous post about &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html&quot;&gt;&lt;strong&gt;Markov Decision Process (MDP) and Bellman equations&lt;/strong&gt;&lt;/a&gt;, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here prove it.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;!-- excerpt-end --&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#norms-contractions-banach-fixed-pts&quot;&gt;Norms, Contractions and Banach’s Fixed-point Theorem&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#norms&quot;&gt;Norms&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#contractions&quot;&gt;Contractions&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#banach-fixed-pts&quot;&gt;Banach’s Fixed-point Theorem&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#bellman-operator&quot;&gt;Bellman Operator&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#proof&quot;&gt;Proof&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;Before catching the pokémon, we need to prepare ourselves some pokéball.&lt;/p&gt;
 
-&lt;h3 id=&quot;norms-contractions-and-banachs-fixed-point-theorem&quot;&gt;Norms, Contractions and Banach’s Fixed-point Theorem&lt;/h3&gt;
+&lt;h4 id=&quot;norms-contractions-banach-fixed-pts&quot;&gt;Norms, Contractions and Banach’s Fixed-point Theorem&lt;/h4&gt;
+
+&lt;h5 id=&quot;norms&quot;&gt;Norms&lt;/h5&gt;
 &lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Norm&lt;/em&gt;)&lt;br /&gt;
 Given a vector space $\mathcal{V}\subseteq\mathbb{R}^d$, a function $f:\mathcal{V}\to\mathbb{R}^+_0$ is a &lt;em&gt;norm&lt;/em&gt; if and only if&lt;/p&gt;
 &lt;ol&gt;
@@ -53,20 +71,20 @@ Normed vector spaces where all Cauchy sequences are convergent are special: we c
 &lt;br /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Completeness&lt;/em&gt;)&lt;br /&gt;
-A normed vector space $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$ is called &lt;em&gt;complete&lt;/em&gt; if every Cauchy sequence in $\mathcal{V}$ is convergent in the norm of the vector space.&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
+A normed vector space $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$ is called &lt;em&gt;complete&lt;/em&gt; if every Cauchy sequence in $\mathcal{V}$ is convergent in the norm of the vector space.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Banach space&lt;/em&gt;)&lt;br /&gt;
-A complete, normed vector space is called a &lt;em&gt;Banach space&lt;/em&gt;.&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
+&lt;h5 id=&quot;contractions&quot;&gt;Contractions&lt;/h5&gt;
 &lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Lipschitzian&lt;/em&gt;) &lt;br /&gt;
 Let $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$ be a normed vector space. A mapping $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ is called &lt;em&gt;L-Lipschitz&lt;/em&gt; if for any $u,v\in\mathcal{V}$,
 \begin{equation}
 \Vert\mathcal{T}u-\mathcal{T}v\Vert\leq L\Vert u-v\Vert
 \end{equation}
 A mapping $\mathcal{T}$ is called a &lt;em&gt;non-expansion&lt;/em&gt; if it is &lt;em&gt;Lipschitzian&lt;/em&gt; with $L\leq 1$. It is called a &lt;em&gt;contraction&lt;/em&gt; if it is &lt;em&gt;Lipschitzian&lt;/em&gt; with $L&amp;lt;1$. In this case, $L$ is called the &lt;em&gt;contraction factor of&lt;/em&gt; $\mathcal{T}$ and $\mathcal{T}$ is called an &lt;em&gt;L-contraction&lt;/em&gt;.&lt;br /&gt;
-&lt;ins&gt;Note&lt;/ins&gt;: If $\mathcal{T}$ is &lt;em&gt;Lipschitz&lt;/em&gt;, it is also continuous in the sense that if $v_n\to_{\Vert\cdot\Vert}v$, then also $\mathcal{T}v_n\to_{\Vert\cdot\Vert}\mathcal{T}v$. This is because $\Vert\mathcal{T}v_n-\mathcal{T}v\Vert\leq L\Vert v_n-v\Vert\to 0$ as $n\to\infty$.&lt;br /&gt;
+&lt;ins&gt;Note&lt;/ins&gt;: If $\mathcal{T}$ is &lt;em&gt;Lipschitz&lt;/em&gt;, it is also continuous in the sense that if $v_n\to_{\Vert\cdot\Vert}v$, then also $\mathcal{T}v_n\to_{\Vert\cdot\Vert}\mathcal{T}v$. This is because $\Vert\mathcal{T}v_n-\mathcal{T}v\Vert\leq L\Vert v_n-v\Vert\to 0$ as $n\to\infty$.&lt;/p&gt;
+
+&lt;h5 id=&quot;banach-fixed-pts&quot;&gt;Banach’s Fixed-point Theorem&lt;/h5&gt;
+&lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Banach space&lt;/em&gt;)&lt;br /&gt;
+A complete, normed vector space is called a &lt;em&gt;Banach space&lt;/em&gt;.&lt;br /&gt;
 &lt;br /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Fixed point&lt;/em&gt;)&lt;br /&gt;
@@ -83,7 +101,7 @@ Let $\mathcal{V}$ be a Banach space and $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ 
 \end{equation}&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&quot;bellman-operator&quot;&gt;Bellman Operator&lt;/h3&gt;
+&lt;h4 id=&quot;bellman-operator&quot;&gt;Bellman Operator&lt;/h4&gt;
 &lt;p&gt;Previously, we defined Bellman equation for state-value function $v_\pi(s)$ as:
 \begin{align}
 v_\pi(s)&amp;amp;=\sum_{a\in\mathcal{A}}\pi(a|s)\sum_{s’\in\mathcal{S},r}p(s’,r|s,a)\left[r+\gamma v_\pi(s’)\right]\tag{1}\label{1} \\\text{or}\quad v_\pi(s)&amp;amp;=\sum_{a\in\mathcal{A}}\pi(a|s)\left(\mathcal{R}^a_s+\gamma\sum_{s’\in\mathcal{S}}\mathcal{P}^a_{ss’}v_\pi(s’)\right)\tag{2}\label{2}
@@ -121,6 +139,8 @@ And thus, with the help of $\mathcal{T}^*$, we can rewrite the equation \eqref{9
 \end{equation}
 &lt;br /&gt;
 Now everything is all set, we can move on to the next step.&lt;/p&gt;
+
+&lt;h4 id=&quot;proof&quot;&gt;Proof&lt;/h4&gt;
 &lt;ul&gt;
   &lt;li&gt;Let $B(\mathcal{S})$ be the space of &lt;em&gt;uniformly bounded functions&lt;/em&gt; with domain $\mathcal{S}$:
 \begin{equation}
@@ -220,11 +240,13 @@ And finally,
       &lt;p&gt;Also, there’s gonna be a post about &lt;em&gt;rate of convergence&lt;/em&gt;. &lt;a href=&quot;#fnref:5&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="mathematics" /><summary type="html">In the previous post about Markov Decision Process (MDP) and Bellman equations, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here prove it.</summary></entry><entry><title type="html">Measures</title><link href="/random-stuffs/measure-theory/2021/07/03/measure.html" rel="alternate" type="text/html" title="Measures" /><published>2021-07-03T07:00:00+07:00</published><updated>2021-07-03T07:00:00+07:00</updated><id>/random-stuffs/measure-theory/2021/07/03/measure</id><content type="html" xml:base="/random-stuffs/measure-theory/2021/07/03/measure.html">&lt;p&gt;&lt;img src=&quot;/assets/images/lego.jpg&quot; alt=&quot;Lego&quot; /&gt;&lt;br /&gt;
-&lt;br /&gt;
-When talking about &lt;em&gt;measure&lt;/em&gt;, you might associate it with the idea of &lt;em&gt;length&lt;/em&gt;, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with &lt;em&gt;area&lt;/em&gt;, or even three dimensions with &lt;em&gt;volume&lt;/em&gt;.
-Despite of having different number of dimensions, all &lt;em&gt;length&lt;/em&gt;, &lt;em&gt;area&lt;/em&gt;, &lt;em&gt;volume&lt;/em&gt; share the same properties:&lt;br /&gt;
-&lt;!-- excerpt-end --&gt;&lt;/p&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="mathematics" /><summary type="html">In the previous post about Markov Decision Process (MDP) and Bellman equations, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here prove it.</summary></entry><entry><title type="html">Measures</title><link href="/random-stuffs/measure-theory/2021/07/03/measure.html" rel="alternate" type="text/html" title="Measures" /><published>2021-07-03T07:00:00+07:00</published><updated>2021-07-03T07:00:00+07:00</updated><id>/random-stuffs/measure-theory/2021/07/03/measure</id><content type="html" xml:base="/random-stuffs/measure-theory/2021/07/03/measure.html">&lt;blockquote&gt;
+  &lt;p&gt;When talking about &lt;em&gt;measure&lt;/em&gt;, you might associate it with the idea of &lt;em&gt;length&lt;/em&gt;, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with &lt;em&gt;area&lt;/em&gt;, or even three dimensions with &lt;em&gt;volume&lt;/em&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;!-- excerpt-end --&gt;
+&lt;p&gt;Despite of having different number of dimensions, all &lt;em&gt;length&lt;/em&gt;, &lt;em&gt;area&lt;/em&gt;, &lt;em&gt;volume&lt;/em&gt; share the same properties:&lt;/p&gt;
+
 &lt;ol&gt;
   &lt;li&gt;&lt;em&gt;Non-negative&lt;/em&gt;: In principle, length, area, and volume can be any positive value. But negative length has no meaning. Same thing happens with negative area and negative volume.&lt;/li&gt;
   &lt;li&gt;&lt;em&gt;Additivity&lt;/em&gt;: To get from Hanoi to Singapore by air, you have to transit at Ho Chi Minh city (HCMC). If we cut that path into two non-overlapping pieces, say Hanoi - HCMC, and HCMC - Singapore, then the total length of the two pieces must be equal to the length of original path. If we divide a rectangular into non-overlapping pieces, the area of pieces combined must be the same as the original one. The same is true for volume as well.&lt;/li&gt;
@@ -234,11 +256,27 @@ Despite of having different number of dimensions, all &lt;em&gt;length&lt;/em&gt
   &lt;li&gt;&lt;em&gt;Hyper-rectangles&lt;/em&gt;: An interval of form $[a, b]\subset\mathbb{R}^3$ has length $b-a$. The area of a rectangle $[a_1,b_1]\times[a_2,b_2]$ is $(b_1-a_1)(b_2-a_2)$. And the volume of a rectangular $[a_1,b_1]\times[a_2,b_2]\times[a_3,b_3]$ is $(b_1-a_1)(b_2-a_2)(b_3-a_3)$.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&quot;lebesgue-measure&quot;&gt;Lebesgue measure&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lego.jpg&quot; alt=&quot;Lego&quot; /&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#lebesgue-measure&quot;&gt;Lebesgue Measure&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#measures&quot;&gt;Measures&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#int-measure-idea&quot;&gt;Integration with respect to a Measure: The Idea&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#prop-int&quot;&gt;Properties of the Integral&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#int-measure-detail&quot;&gt;Integration with respect to a Measure: The Details&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#construct-measure&quot;&gt;Constructing Measures from old ones&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#other-types&quot;&gt;Other types of Measures&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#other-resources&quot;&gt;Other Resources&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;lebesgue-measure&quot;&gt;Lebesgue Measure&lt;/h4&gt;
 &lt;p&gt;Is an extension of the classical notion of length in $\mathbb{R}$, area in $\mathbb{R}^2$ to any $\mathbb{R}^k$ using k-dimensional hyper-rectangles.&lt;/p&gt;
 
-&lt;h4 id=&quot;definition&quot;&gt;Definition&lt;/h4&gt;
-&lt;p&gt;Given an open set $S\equiv\sum_k(a_k,b_k)$ containing disjoint intervals, the &lt;strong&gt;Lebesgue measure&lt;/strong&gt; is defined by:
+&lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt;&lt;br /&gt;
+Given an open set $S\equiv\sum_k(a_k,b_k)$ containing disjoint intervals, the &lt;strong&gt;Lebesgue measure&lt;/strong&gt; is defined by:
 \begin{equation}
 \mu_L(S)\equiv\sum_{k}(b_k-a_k)
 \end{equation}
@@ -247,7 +285,7 @@ Given a closed set $S’\equiv[a,b]-\sum_k(a_k,b_k)$,
 \mu_L(S’)\equiv(b-a)-\sum_k(b_k-a_k)
 \end{equation}&lt;/p&gt;
 
-&lt;h3 id=&quot;measures&quot;&gt;Measures&lt;/h3&gt;
+&lt;h4 id=&quot;measures&quot;&gt;Measures&lt;/h4&gt;
 &lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt;&lt;br /&gt;
 Let $\mathcal{X}$ be any set. A &lt;em&gt;measure&lt;/em&gt; on $\mathcal{X}$ is a function $\mu$ that maps the set of subsets on $\mathcal{X}$ to $[0,\infty]$ ($\mu:2^\mathcal{X}\rightarrow[0,\infty]$) that satisfies:&lt;/p&gt;
 &lt;ol&gt;
@@ -259,7 +297,7 @@ Let $\mathcal{X}$ be any set. A &lt;em&gt;measure&lt;/em&gt; on $\mathcal{X}$ is
 $\mu(\mathcal{A})$ is called &lt;em&gt;measure of the set $\mathcal{A}$&lt;/em&gt;, or &lt;em&gt;measure of $\mathcal{A}$&lt;/em&gt;.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;strong&gt;Properties&lt;/strong&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Properties&lt;/strong&gt;&lt;/p&gt;
 &lt;ol&gt;
   &lt;li&gt;&lt;em&gt;Monotonicity&lt;/em&gt;: If $\mathcal{A}\subset\mathcal{B}$, then $\mu(\mathcal{A})\leq\mu(\mathcal{B})$&lt;/li&gt;
   &lt;li&gt;&lt;em&gt;Subadditivity&lt;/em&gt;: If $\mathcal{A_1},\mathcal{A_2},\dots$ is a countable collection of sets, not necessarily disjoint, then
@@ -298,7 +336,7 @@ for $\mathcal{A}\subset\mathbb{R}$&lt;/li&gt;
 \end{equation}&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&quot;integration-with-respect-to-a-measure-the-idea&quot;&gt;Integration with respect to a Measure: The Idea&lt;/h3&gt;
+&lt;h4 id=&quot;int-measure-idea&quot;&gt;Integration with respect to a Measure: The Idea&lt;/h4&gt;
 &lt;p&gt;Consider $f:\mathcal{X}\rightarrow\mathbb{R}$, where $\mathcal{X}$ is any set and a measure $\mu$ on $\mathcal{X}$ and compute the integral of $f$ w.r.t $\mu$: $\int f(x)\,\mu(dx)$. We have:&lt;/p&gt;
 &lt;ol&gt;
   &lt;li&gt;For any function $f$,
@@ -342,7 +380,7 @@ We say that $f$ is the density of $\mu$ w.r.t Lebesgue measure in this case.&lt;
 We say that $p$ is the density of $\mu$ w.r.t Counting measure on $\mathcal{C}$.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&quot;properties-of-the-integral&quot;&gt;Properties of the Integral&lt;/h3&gt;
+&lt;h4 id=&quot;prop-int&quot;&gt;Properties of the Integral&lt;/h4&gt;
 &lt;p&gt;A function is said to be &lt;em&gt;integrable&lt;/em&gt; w.r.t $\mu$ if $\int|f(x)|\,\mu(dx)&amp;lt;\infty$. An integrable function has a well-defined and finite integral. If $f(x)\geq0$, the integral is always well-defined but may be $\infty$.&lt;br /&gt;
 Suppose $\mu$ is a measure on $\mathcal{X},\mathcal{A}\subset\mathcal{X}$, and $g$ is a real-valued function on $\mathcal{X}$. We define the integral of $g$ over the set $\mathcal{A}$, denoted by $\int_\mathcal{A}g(x)\,\mu(dx)$, as
 \begin{equation}
@@ -381,7 +419,7 @@ where \(𝟙_\mathcal{A}\) is an &lt;em&gt;indicator function&lt;/em&gt; (\(𝟙
 \end{equation}&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&quot;integration-with-respect-to-a-measure-the-details&quot;&gt;Integration with respect to a Measure: The Details&lt;/h3&gt;
+&lt;h4 id=&quot;int-measure-detail&quot;&gt;Integration with respect to a Measure: The Details&lt;/h4&gt;
 &lt;ol&gt;
   &lt;li&gt;&lt;em&gt;Step 1&lt;/em&gt;. Define the integral for simple functions.
     &lt;ul&gt;
@@ -428,7 +466,7 @@ This is a well-defined number (possibly infinite) if and only if at least one of
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&quot;constructing-measures-from-old-ones&quot;&gt;Constructing Measures from old ones&lt;/h3&gt;
+&lt;h4 id=&quot;construct-measure&quot;&gt;Constructing Measures from old ones&lt;/h4&gt;
 &lt;ol&gt;
   &lt;li&gt;&lt;em&gt;Sums and multiples&lt;/em&gt;
     &lt;ul&gt;
@@ -481,7 +519,7 @@ We say that $f$ is the &lt;em&gt;density&lt;/em&gt; of the measure $v$ w.r.t $\m
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&quot;other-types-of-measures&quot;&gt;Other types of Measures&lt;/h3&gt;
+&lt;h4 id=&quot;other-types&quot;&gt;Other types of Measures&lt;/h4&gt;
 &lt;p&gt;Suppose that $\mu$ is a measure on $\mathcal{X}$&lt;/p&gt;
 &lt;ol&gt;
   &lt;li&gt;If $\mu(\mathcal{X})=\infty$, we say that $\mu$ is an &lt;em&gt;infinite measure&lt;/em&gt;.&lt;/li&gt;
@@ -499,7 +537,7 @@ We say that $f$ is the &lt;em&gt;density&lt;/em&gt; of the measure $v$ w.r.t $\m
   &lt;li&gt;&lt;a href=&quot;https://www.countbayesie.com/blog/2015/8/17/a-very-brief-and-non-mathematical-introduction-to-measure-theory-for-probability&quot;&gt;Measure Theory for Probability: A Very Brief Introduction&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h4 id=&quot;other-resources&quot;&gt;Other resources&lt;/h4&gt;
+&lt;h4 id=&quot;other-resources&quot;&gt;Other Resources&lt;/h4&gt;
 &lt;ol&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=cyW5z-M2yzw&quot;&gt;Music and Measure Theory - 3Blue1Brown&lt;/a&gt; - this is one of my favourite Youtube channels.&lt;/li&gt;
 &lt;/ol&gt;
@@ -516,24 +554,41 @@ We say that $f$ is the &lt;em&gt;density&lt;/em&gt; of the measure $v$ w.r.t $\m
       &lt;p&gt;&lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="random-stuffs" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><summary type="html">When talking about measure, you might associate it with the idea of length, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with area, or even three dimensions with volume. Despite of having different number of dimensions, all length, area, volume share the same properties:</summary></entry><entry><title type="html">Markov Chain</title><link href="/random-stuffs/probability-statistics/2021/06/19/markov-chain.html" rel="alternate" type="text/html" title="Markov Chain" /><published>2021-06-19T22:27:00+07:00</published><updated>2021-06-19T22:27:00+07:00</updated><id>/random-stuffs/probability-statistics/2021/06/19/markov-chain</id><content type="html" xml:base="/random-stuffs/probability-statistics/2021/06/19/markov-chain.html">&lt;p&gt;Since I have no idea how to begin with this post, why not just dive straight into details :P&lt;/p&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="random-stuffs" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><summary type="html">When talking about measure, you might associate it with the idea of length, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with area, or even three dimensions with volume.</summary></entry><entry><title type="html">Markov Chain</title><link href="/random-stuffs/probability-statistics/2021/06/19/markov-chain.html" rel="alternate" type="text/html" title="Markov Chain" /><published>2021-06-19T22:27:00+07:00</published><updated>2021-06-19T22:27:00+07:00</updated><id>/random-stuffs/probability-statistics/2021/06/19/markov-chain</id><content type="html" xml:base="/random-stuffs/probability-statistics/2021/06/19/markov-chain.html">&lt;blockquote&gt;
+  &lt;p&gt;Since I have no idea how to begin with this post, why not just dive straight into details :P&lt;br /&gt;
+&lt;strong&gt;Markov chain&lt;/strong&gt; is a stochastic process in which the random variables follow a special property called &lt;em&gt;Markov&lt;/em&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;p&gt;Markov chain is a stochastic process in which the random variables follow a special property called &lt;em&gt;Markov&lt;/em&gt;.
-&lt;!-- excerpt-end --&gt;&lt;/p&gt;
+&lt;!-- excerpt-end --&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#markov-property&quot;&gt;Markov Property&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#transition-matrix&quot;&gt;Transition Matrix&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#nstep-trans-prob&quot;&gt;n-step Transition Probability&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#marginal-dist-xn&quot;&gt;Marginal Distribution of $X_n$&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#properties&quot;&gt;Properties&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#stationary-distribution&quot;&gt;Stationary Distribution&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#reversibility&quot;&gt;Reversibility&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#exp-app&quot;&gt;Examples and Applications&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;h3 id=&quot;markov-property&quot;&gt;Markov property&lt;/h3&gt;
+&lt;h4 id=&quot;markov-property&quot;&gt;Markov Property&lt;/h4&gt;
 &lt;p&gt;A sequence of random variables $X_0, X_1, X_2, \dots$ taking values in the &lt;em&gt;state space&lt;/em&gt; $S=${$1, 2,\dots, M$}. For all $n\geq0$,
 \begin{equation}
 P(X_{n+1}=j|X_n=i)=P(X_{n+1}=j|X_n=i,X_{n-1}=i_{n-1},X_{n-2}=i_{n-2},\dots,X_0=i_0)
 \end{equation}
 In other words, knowledge of the preceding state is all we need to determine the probability distribution of the current state.&lt;/p&gt;
 
-&lt;h3 id=&quot;transition-matrix&quot;&gt;Transition matrix&lt;/h3&gt;
+&lt;h4 id=&quot;transition-matrix&quot;&gt;Transition Matrix&lt;/h4&gt;
 &lt;p&gt;The quantity $P(X_{n+1}=j|X_n=i)$ is &lt;em&gt;transition probability&lt;/em&gt; from state $i$ to $j$.&lt;br /&gt;
 If we denote that $q_{ij}=P(X_{n+1}=j|X_n=i)$ and let $Q=(q_{ij})$, which is a $M\times M$ matrix, there we have the &lt;em&gt;transition matrix&lt;/em&gt; $Q$ of the chain.&lt;br /&gt;
 Therefore, each row of $Q$ is a conditional probability mass function (PMF) of $X_{n+1}$ given $X_n$. And hence, sum of its entries is 1.&lt;/p&gt;
 
-&lt;h4 id=&quot;n-step-transition-probability&quot;&gt;n-step transition probability&lt;/h4&gt;
+&lt;h5 id=&quot;nstep-trans-prob&quot;&gt;n-step Transition Probability&lt;/h5&gt;
 &lt;p&gt;The n-step &lt;em&gt;transition probability&lt;/em&gt; from $i$ to $j$ is the probability of being at $i$ and $n$ steps later being at $j$, and be denoted as $q_{ij}^{(n)}$,
 \begin{equation}
 q_{ij}^{(n)}=P(X_n=j|X_0=i)
@@ -548,14 +603,14 @@ q_{ij}^{(n)}=Q_{ij}^{n}
 \end{equation}
 $Q^n$ is also called the &lt;em&gt;n-step transition matrix&lt;/em&gt;.&lt;/p&gt;
 
-&lt;h4 id=&quot;marginal-distribution-of-x_n&quot;&gt;Marginal distribution of $X_n$&lt;/h4&gt;
+&lt;h5 id=&quot;marginal-dist-xn&quot;&gt;Marginal Distribution of $X_n$&lt;/h5&gt;
 &lt;p&gt;Let $t=(t_1,\dots,t_M)^T$, where $t_i=P(X_0=i)$. By the law of total probability (LOTP), we have that:
 \begin{align}
 P(X_n=j)&amp;amp;=\sum_{i=1}^{M}P(X_0=i)P(X_n=j|X_0=i) \\&amp;amp;=\sum_{i=1}^{M}t_iq_{ij}^{(n)}
 \end{align}
 or the marginal distribution of $X_n$ is given by $tQ^n$.&lt;/p&gt;
 
-&lt;h3 id=&quot;properties&quot;&gt;Properties&lt;/h3&gt;
+&lt;h4 id=&quot;properties&quot;&gt;Properties&lt;/h4&gt;
 &lt;ul&gt;
   &lt;li&gt;State $i$ of a Markov chain is defined as &lt;em&gt;recurrent&lt;/em&gt; or &lt;em&gt;transient&lt;/em&gt; depending upon whether or not the Markov chain will eventually return to it. Starting with &lt;em&gt;recurrent&lt;/em&gt; state i, the chain will return to it with the probability of 1. Otherwise, it is &lt;em&gt;transient&lt;/em&gt;.
     &lt;ul&gt;
@@ -571,7 +626,7 @@ or the marginal distribution of $X_n$ is given by $tQ^n$.&lt;/p&gt;
 And thus, $k=gcd(n)$ such that $Q^n_{ii}&amp;gt;0$. $i$ is called &lt;em&gt;aperiodic&lt;/em&gt; if $k_i=1$, and &lt;em&gt;periodic&lt;/em&gt; otherwise. The chain itself is called &lt;em&gt;aperiodic&lt;/em&gt; if all its states are &lt;em&gt;aperiodic&lt;/em&gt;, and &lt;em&gt;periodic&lt;/em&gt; otherwise.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;stationary-distribution&quot;&gt;Stationary distribution&lt;/h3&gt;
+&lt;h4 id=&quot;stationary-distribution&quot;&gt;Stationary Distribution&lt;/h4&gt;
 &lt;p&gt;A vector $s=(s_1,\dots,s_M)^T$ such that $s_i\geq0$ and $\sum_{i}s_i=1$ is a &lt;em&gt;stationary distribution&lt;/em&gt; for a Markov chain if
 \begin{equation}
 \sum_{i}s_iq_{ij}=s_j
@@ -589,7 +644,7 @@ for all $j$, or equivalently $sQ=s$.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt; (&lt;em&gt;Expected time to run&lt;/em&gt;)&lt;br /&gt;
     Let $X_0,X_1,\dots$ be an &lt;em&gt;irreducible&lt;/em&gt; Markov chain with &lt;em&gt;stationary distribution&lt;/em&gt; $s$. Let $r_i$ be the expected time it takes the chain to return to $i$, given that it starts at $i$. Then $s_i=1/r_i$&lt;/p&gt;
 
-&lt;h3 id=&quot;reversibility&quot;&gt;Reversibility&lt;/h3&gt;
+&lt;h4 id=&quot;reversibility&quot;&gt;Reversibility&lt;/h4&gt;
 &lt;p&gt;Let $Q=(q_{ij})$ be the &lt;em&gt;transition matrix&lt;/em&gt; of a Markov chain. Suppose there is an $s=(s_1,\dots,s_M)^T$ with $s_i\geq0,\sum_{i}s_i=1$, such that
 \begin{equation}
 s_iq_{ij}=s_jq_{ji}
@@ -602,7 +657,7 @@ for all states $i,j$. This equation is called &lt;em&gt;reversibility&lt;/em&gt;
 &lt;p&gt;&lt;strong&gt;Proposition&lt;/strong&gt;&lt;br /&gt;
     If each column of $Q$ sum to 1, then the &lt;em&gt;uniform distribution&lt;/em&gt; over all states $(1/M,\dots,1/M)$, is a &lt;em&gt;stationary distribution&lt;/em&gt;. (This kind of matrix is called &lt;em&gt;doubly stochastic matrix&lt;/em&gt;).&lt;/p&gt;
 
-&lt;h3 id=&quot;examples-and-application&quot;&gt;Examples and application&lt;/h3&gt;
+&lt;h4 id=&quot;exp-app&quot;&gt;Examples and Applications&lt;/h4&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Finite-state_machine&quot;&gt;&lt;em&gt;Finite-state machines&lt;/em&gt;&lt;/a&gt;, &lt;a href=&quot;https://en.wikipedia.org/wiki/Random_walk&quot;&gt;&lt;em&gt;random walks&lt;/em&gt;&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;Diced board games such as Ludo, Monopoly,…&lt;/li&gt;
@@ -611,19 +666,22 @@ for all states $i,j$. This equation is called &lt;em&gt;reversibility&lt;/em&gt;
   &lt;li&gt;And various other applications.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&quot;footnote&quot;&gt;Footnote:&lt;/h4&gt;
+&lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;Introduction to Probability - Joseph K. Blitzstein &amp;amp; Jessica Hwang&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://brilliant.org/wiki/markov-chains/&quot;&gt;Brillant’s Markov chain&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h4&gt;
 &lt;ul&gt;
   &lt;li&gt;The Markov chain here is &lt;em&gt;time-homogeneous&lt;/em&gt; Markov chain, in which the probability of any state transition is independent of time.&lt;/li&gt;
   &lt;li&gt;This is more like intuitive and less formal definition of Markov chain, we will have more concrete definition with the help of &lt;em&gt;Measure theory&lt;/em&gt; after the post about it.&lt;/li&gt;
   &lt;li&gt;Well, it only matters where you are, not where you’ve been.&lt;/li&gt;
-&lt;/ul&gt;
+&lt;/ul&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="random-stuffs" /><category term="probability-statistics" /><category term="mathematics" /><category term="probability-statistics" /><summary type="html">Since I have no idea how to begin with this post, why not just dive straight into details :P Markov chain is a stochastic process in which the random variables follow a special property called Markov.</summary></entry><entry><title type="html">My very first post</title><link href="/random-stuffs/2021/06/05/fibonacci-generator.html" rel="alternate" type="text/html" title="My very first post" /><published>2021-06-05T17:00:00+07:00</published><updated>2021-06-05T17:00:00+07:00</updated><id>/random-stuffs/2021/06/05/fibonacci-generator</id><content type="html" xml:base="/random-stuffs/2021/06/05/fibonacci-generator.html">&lt;blockquote&gt;
+  &lt;p&gt;Enjoy my index-zero-ed post while staying tuned for next ones!&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;h4 id=&quot;references&quot;&gt;References:&lt;/h4&gt;
-&lt;ol&gt;
-  &lt;li&gt;Introduction to Probability - Joseph K. Blitzstein &amp;amp; Jessica Hwang&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://brilliant.org/wiki/markov-chains/&quot;&gt;Brillant’s Markov chain&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="random-stuffs" /><category term="probability-statistics" /><category term="mathematics" /><category term="probability-statistics" /><summary type="html">Since I have no idea how to begin with this post, why not just dive straight into details :P Markov chain is a stochastic process in which the random variables follow a special property called Markov.</summary></entry><entry><title type="html">My very first post</title><link href="/random-stuffs/2021/06/05/fibonacci-generator.html" rel="alternate" type="text/html" title="My very first post" /><published>2021-06-05T17:00:00+07:00</published><updated>2021-06-05T17:00:00+07:00</updated><id>/random-stuffs/2021/06/05/fibonacci-generator</id><content type="html" xml:base="/random-stuffs/2021/06/05/fibonacci-generator.html">&lt;p&gt;Enjoy my index-zero-ed post while staying tuned for next ones!
-&lt;!-- excerpt-end --&gt;&lt;/p&gt;
+&lt;!-- excerpt-end --&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;math&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;
 
@@ -631,7 +689,7 @@ for all states $i,j$. This equation is called &lt;em&gt;reversibility&lt;/em&gt;
 	&lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
 	generate i-th number of the Fibonacci sequence, python code obvs :p
 	&quot;&quot;&quot;&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;\&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;Why did numbers \(\frac{1+\sqrt{5}}{2}\) and \(\frac{1-\sqrt{5}}{2}\) come out of nowhere?&lt;/p&gt;
 
@@ -658,7 +716,7 @@ u_k=A^ku_0=c_1{\lambda_1}^kx_1+\dots+c_n{\lambda_n}^kx_n
 \end{equation}
 &lt;em&gt;Fact&lt;/em&gt;: The \(\frac{1+\sqrt{5}}{2}\approx 1.618\) is so-called “&lt;em&gt;golden ratio&lt;/em&gt;”. And &lt;em&gt;for some reason a rectangle with sides 1.618 and 1 looks especially graceful&lt;/em&gt;.&lt;/p&gt;
 
-&lt;h4 id=&quot;references&quot;&gt;References:&lt;/h4&gt;
+&lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
 &lt;ol&gt;
   &lt;li&gt;Introduction to Linear Algebra - Gilbert Strang&lt;/li&gt;
 &lt;/ol&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="random-stuffs" /><category term="mathematics" /><category term="linear-algebra" /><category term="random-stuffs" /><summary type="html">Enjoy my index-zero-ed post while staying tuned for next ones!</summary></entry></feed>

@@ -1,10 +1,320 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-07-13T07:19:22+07:00</updated><id>/feed.xml</id><title type="html">Trung’s blog</title><subtitle>To document something I&apos;ve learned
-</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Optimal Policy Existence</title><link href="/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html" rel="alternate" type="text/html" title="Optimal Policy Existence" /><published>2021-07-10T13:03:00+07:00</published><updated>2021-07-10T13:03:00+07:00</updated><id>/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence</id><content type="html" xml:base="/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html">&lt;p&gt;In the previous post about &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html&quot;&gt;&lt;strong&gt;Markov Decision Process (MDP) and Bellman equations&lt;/strong&gt;&lt;/a&gt;, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here prove it.&lt;br /&gt;
-&lt;!-- excerpt-end --&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-07-26T22:40:58+07:00</updated><id>/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Dynamic Programming Algorithms For Solving Markov Decision Processes</title><link href="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html" rel="alternate" type="text/html" title="Dynamic Programming Algorithms For Solving Markov Decision Processes" /><published>2021-07-25T15:30:00+07:00</published><updated>2021-07-25T15:30:00+07:00</updated><id>/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp</id><content type="html" xml:base="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html">&lt;blockquote&gt;
+  &lt;p&gt;In two previous posts, &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html&quot;&gt;&lt;strong&gt;Markov Decision Process (MDP) and Bellman equations&lt;/strong&gt;&lt;/a&gt; and &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html&quot;&gt;&lt;strong&gt;Optimal Policy Existence&lt;/strong&gt;&lt;/a&gt;, we have known how MDPs, Bellman equations are defined and how they work. In this post, we are going to talk about how these MDPs are solved with &lt;strong&gt;Dynamic Programming&lt;/strong&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;!-- excerpt-end --&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#what-is-dp&quot;&gt;What is Dynamic Programming?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#dp-in-mdps&quot;&gt;Dynamic Programming applied in Markov Decision Processes&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#policy-evaluation&quot;&gt;Policy Evaluation&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#policy-improvement&quot;&gt;Policy Improvement&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#policy-iteration&quot;&gt;Policy Iteration&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#value-iteration&quot;&gt;Value Iteration&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#gpi&quot;&gt;Generalized Policy Iteration&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#example&quot;&gt;Example - Gambler’s Problem&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;what-is-dp&quot;&gt;What is Dynamic Programming?&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Dynamic Programming (DP)&lt;/strong&gt; is a method of simplifying a complicated problem by breaking it down into more straightforward sub-problems. Then it finds the solutions for the sub-problems, and combines them together.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2021-07-25/dp.png&quot; alt=&quot;dynamic programming&quot; width=&quot;360&quot; height=&quot;200px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 1&lt;/b&gt;: Using Dynamic Programming to find the shortest path in graph&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h2 id=&quot;dp-in-mdps&quot;&gt;Dynamic Programming applied in Markov Decision Processes&lt;/h2&gt;
+&lt;p&gt;DP is a very general method for solving problems having two properties:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;Optimal substructure&lt;/em&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Principle of optimality applies.&lt;/li&gt;
+      &lt;li&gt;Optimal solution can be decomposed into sub-problems.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Overlapping sub-problems&lt;/em&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Sub-problems recur many times.&lt;/li&gt;
+      &lt;li&gt;Solutions can be cached and reused.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;MDPs satisfy both properties since:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Bellman equation gives recursive decomposition.&lt;/li&gt;
+  &lt;li&gt;Value function stores and reuses solutions.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;policy-evaluation&quot;&gt;Policy Evaluation&lt;/h3&gt;
+&lt;p&gt;Recall from the definition of &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html/#bellman-equations&quot;&gt;Bellman equation&lt;/a&gt; that, for all $s\in\mathcal{S}$,
+\begin{equation}
+v_\pi(s)\doteq\sum_a\pi(a|s)\sum_{s’,r}p(s’,r|s,a)\left[r+\gamma v_\pi(s’)\right]\tag{1}\label{1}
+\end{equation}
+If the environment’s dynamics are completely known, then \eqref{1} is a system of $\vert\mathcal{S}\vert$ linear equations in $\vert\mathcal{S}\vert$ unknowns. We can use iterative methods to solve this problem.&lt;br /&gt;
+Consider a sequence of approximate value functions $v_0,v_1,\dots$, each mapping $\mathcal{S}^+\to\mathbb{R}$. Choosing $v_0$ arbitrarily (the terminal state, if any, must be given value 0). Using Bellman equation for $v_\pi$, we have an update rule:
+\begin{align}
+v_{k+1}(s)&amp;amp;\doteq\mathbb{E}_\pi\left[R_{t+1}+\gamma v_k(S_{k+1})\vert S_t=s\right] \\ &amp;amp;=\sum_a\pi(a|s)\sum_{s’,r}p(s’,r|s,a)\left[r+\gamma v_k(s’)\right]
+\end{align}
+for all $s\in\mathcal{S}$. Thanks to &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html/#banach-fixed-pts&quot;&gt;Banach’s fixed points theorem&lt;/a&gt; and as we talked in that post, we have that the sequence $\{v_k\}\to v_\pi$ as $k\to\infty$. This algorithm is called &lt;em&gt;Iterative policy evaluation&lt;/em&gt;.&lt;br /&gt;
+We have the backup diagram for this update.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2021-07-25/backup-iterative-policy-evaluation.png&quot; alt=&quot;Backup diagram for iterative policy evalution update&quot; width=&quot;360&quot; height=&quot;200px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 2&lt;/b&gt;: Backup diagram for Iterative policy evaluation update&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;&lt;br /&gt;
+When implementing &lt;em&gt;iterative policy evaluation&lt;/em&gt;, for all $s\in\mathcal{S}$, we can use:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;one array to store the value functions, and update them ‘‘in-place” (&lt;em&gt;asynchronous DP&lt;/em&gt;)
+\begin{equation}
+\color{red}{v(s)}\leftarrow\sum_a\pi(a|s)\sum_{s’,r}p(s’,r|s,a)\left[r+\color{red}{v(s’)}\right]
+\end{equation}&lt;/li&gt;
+  &lt;li&gt;two arrays in which the new value functions can be computed one by one from the old functions without the old ones being changed (&lt;em&gt;synchronous DP&lt;/em&gt;)
+\begin{align}
+\color{red}{v_{new}(s)}&amp;amp;\leftarrow\sum_a\pi(a|s)\sum_{s’,r}p(s’,r|s,a)\left[r+\color{red}{v_{old}(s’)}\right]\\ \color{red}{v_{old}}&amp;amp;\leftarrow\color{red}{v_{new}}
+\end{align}
+Here is the pseudocode of the &lt;em&gt;in-place iterative policy evaluation&lt;/em&gt;, given a policy $\pi$, for estimating $V\approx v_\pi$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2021-07-25/iterative-policy-evaluation.png&quot; alt=&quot;iterative policy evalution pseudocode&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 3&lt;/b&gt;: Pseudocode of In-place Iterative Policy Evaluation&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;h3 id=&quot;policy-improvement&quot;&gt;Policy Improvement&lt;/h3&gt;
+&lt;p&gt;The reason why we compute the value function for a given policy $\pi$ is to find better policies. Given the computed value function $v_\pi$ for an deterministic policy $\pi$, we already know how good it is for a state $s$ to choose action $a=\pi(s)$. Now what we are considering is, in $s$, if we instead take action $a\neq\pi$, will it be better?&lt;br /&gt;
+In particular, in state $s$, selecting action $a$ and thereafter following the policy $\pi$, we have:
+\begin{align}
+q_\pi(s,a)&amp;amp;\doteq\mathbb{E}\left[R_{t+1}+\gamma v_\pi(S_{t+1})|S_t=s,A_t=a\right]\tag{2}\label{2} \\ &amp;amp;=\sum_{s’,r}p(s’,r|s,a)\left[r+\gamma v_\pi(s’)\right]
+\end{align}
+&lt;strong&gt;Theorem&lt;/strong&gt; (&lt;em&gt;Policy improvement&lt;/em&gt;)&lt;br /&gt;
+Let $\pi,\pi’$ be any pair of deterministic policies such that, for all $s\in\mathcal{S}$,
+\begin{equation}
+q_\pi(s,\pi’(s))\geq v_\pi(s)\tag{3}\label{3}
+\end{equation}
+Then $\pi’\geq\pi$, which means for all $s\in\mathcal{S}$, we have $v_{\pi’}(s)\geq v_\pi(s)$.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
+Deriving \eqref{3} combined with \eqref{2}, we have&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;:
+\begin{align}
+v_\pi(s)&amp;amp;\leq q_\pi(s,\pi’(s)) \\ &amp;amp;=\mathbb{E}\left[R_{t+1}+\gamma v_\pi(S_{t+1})|S_t=s,A_t=\pi’(s)\right]\tag{by \eqref{2}} \\ &amp;amp;=\mathbb{E}_{\pi’}\left[R_{t+1}+\gamma v_\pi(S_{t+1})|S_t=s\right] \\ &amp;amp;\leq\mathbb{E}_{\pi’}\left[R_{t+1}+\gamma q_\pi(S_{t+1},\pi’(S_{t+1}))|S_t=s\right]\tag{by \eqref{3}} \\ &amp;amp;=\mathbb{E}_{\pi’}\left[R_{t+1}+\gamma\mathbb{E}_{\pi’}\left[R_{t+2}+\gamma v_\pi(S_{t+2})|S_{t+1},A_{t+1}=\pi’(S_{t+1})\right]|S_t=s\right] \\ &amp;amp;=\mathbb{E}_{\pi’}\left[R_{t+1}+\gamma R_{t+2}+\gamma^2 v_\pi(S_{t+2})|S_t=s\right] \\ &amp;amp;\leq\mathbb{E}_{\pi’}\left[R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+\gamma^3 v_\pi(S_{t+3})|S_t=s\right] \\ &amp;amp;\quad\vdots \\ &amp;amp;\leq\mathbb{E}_{\pi’}\left[R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+\gamma^3 R_{t+4}+\dots|S_t=s\right] \\ &amp;amp;=v_{\pi’}(s)
+\end{align}&lt;/p&gt;
+
+&lt;p&gt;Consider the new &lt;em&gt;greedy policy&lt;/em&gt;, $\pi’$, which takes the action that looks best in the short term - after one step of lookahead - according to $v_\pi$, given by
+\begin{align}
+\pi’(s)&amp;amp;\doteq\arg\max_a q_\pi(s,a) \\ &amp;amp;=\arg\max_a\mathbb{E}\left[R_{t+1}+\gamma v_\pi(S_{t+1})|S_t=s,A_t=a\right]\tag{4}\label{4} \\ &amp;amp;=\arg\max_a\sum_{s’,r}p(s’,r|s,a)\left[r+\gamma v_\pi(s’)\right]
+\end{align}
+By the above theorem, we have that the greedy policy is as good as, or better than, the original policy.&lt;br /&gt;
+Suppose the new greedy policy, $\pi’$, is as good as, but not better than, $\pi$. Or in other words, $v_\pi=v_{\pi’}$. And from \eqref{4}, we have for all $s\in\mathcal{S}$,
+\begin{align}
+v_{\pi’}(s)&amp;amp;=\max_a\mathbb{E}\left[R_{t+1}+\gamma v_{\pi’}(S_{t+1})|S_t=s,A_t=a\right] \\ &amp;amp;=\max_a\sum_{s’,r}p(s’,r|s,a)\left[r+\gamma v_{\pi’}(s’)\right]
+\end{align}
+which is the Bellman optimality equation for action-value function. And therefore, $v_{\pi’}$ must be $v_*$. Hence, &lt;em&gt;policy improvement&lt;/em&gt; must give us a strictly better policy except when the original one is already optimal&lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;policy-iteration&quot;&gt;Policy Iteration&lt;/h3&gt;
+&lt;p&gt;Once we have obtained a better policy, $\pi’$, by improving a policy $\pi$ using $v_\pi$, we can repeat the same process by computing $v_{\pi’}$, and improve it to yield an even better $\pi’’$. Repeating it again and again, we get an iterative procedure to improve the policy
+\begin{equation}
+\pi_0\xrightarrow[]{\text{evaluation}}v_{\pi_0}\xrightarrow[]{\text{improvement}}\pi_1\xrightarrow[]{\text{evaluation}}v_{\pi_1}\xrightarrow[]{\text{improvement}}\pi_2\xrightarrow[]{\text{evaluation}}\dots\xrightarrow[]{\text{improvement}}\pi_*\xrightarrow[]{\text{evaluation}}v_*
+\end{equation}
+Each following policy is a strictly improved version of the previous one (unless it is already optimal). Because a finite MDP has only a finite number of policies, this process must converge to an optimal policy and optimal value function in a finite number of iterations.
+This algorithm is called &lt;strong&gt;policy iteration&lt;/strong&gt;. And here is the pseudocode of the policy iteration.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2021-07-25/policy-iteration.png&quot; alt=&quot;policy iteration pseudocode&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 4&lt;/b&gt;: Pseudocode of Policy Iteration&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h3 id=&quot;value-iteration&quot;&gt;Value Iteration&lt;/h3&gt;
+&lt;p&gt;When using &lt;em&gt;policy iteration&lt;/em&gt;, each of its iterations involves policy evaluation, which requires multiple sweeps through the state set, and thus affects the computation performance.&lt;br /&gt;
+Policy evaluation step of policy iteration, in fact, can be truncated in several ways without losing the convergence guarantees of policy iteration. One important special case is when policy evaluation is stopped after just one sweep (one update of each state). This algorithm is called &lt;strong&gt;value iteration&lt;/strong&gt;, which follows this update:
+\begin{align}
+v_{k+1}&amp;amp;\doteq\max_a\mathbb{E}\left[R_{t+1}+\gamma v_k(S_{t+1})|S_t=s,A_t=a\right] \\ &amp;amp;=\max_a\sum_{s’,r}p(s’,r|s,a)\left[r+\gamma v_k(s’)\right],
+\end{align}
+for all $s\in\mathcal{S}$. Once again, thanks to &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html/#banach-fixed-pts&quot;&gt;Banach’s fixed point theorem&lt;/a&gt;, for an arbitrary $v_0$, we have that the sequence $\{v_k\}\to v_*$ as $k\to\infty$.&lt;br /&gt;
+We have the backup diagram for this update&lt;sup id=&quot;fnref:3&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2021-07-25/backup-value-iteration.png&quot; alt=&quot;Backup diagram of value iteration update&quot; width=&quot;360&quot; height=&quot;200px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 5&lt;/b&gt;: Backup diagram of Value Iteration update&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;&lt;br /&gt;
+And here is the pseudocode of the value iteration.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2021-07-25/value-iteration.png&quot; alt=&quot;value iteration pseudocode&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 6&lt;/b&gt;: Pseudocode of Value Iteration&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h3 id=&quot;gpi&quot;&gt;Generalized Policy Iteration&lt;/h3&gt;
+&lt;p&gt;The &lt;strong&gt;Generalized Policy Iteration (GPI)&lt;/strong&gt; algorithm refers to the idea of combining policy evaluation and policy improvement together to improve the original policy.&lt;br /&gt;
+In GPI, the value function is repeatly driven toward the true value of the current policy and at the same time the policy is being improved optimality with respect to its value function, as in the following diagram.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2021-07-25/gpi.png&quot; alt=&quot;GPI&quot; width=&quot;200&quot; height=&quot;320px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 7&lt;/b&gt;: Generalized Policy Iteration&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;&lt;br /&gt;
+Once it reaches the stationary state (when both evaluation and improvement no long produce any updates), then the current value function and policy must be optimal.&lt;br /&gt;
+The evaluation and improvement processes in GPI can be viewed as both competing and cooperating. They competing in the sense that on the one hand, making policy greedy w.r.t the value function typically makes value function incorrect for the new policy. And on the other hand, approximating the value function closer to the true value of the policy typically forces the policy is no longer to be greedy. But in the long run, they two processes cooperate to find a single joint solution: the optimal value function and an optimal policy.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2021-07-25/gpi-rel.png&quot; alt=&quot;GPI interaction&quot; width=&quot;360&quot; height=&quot;200px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 8&lt;/b&gt;: Interaction between the evalution and improvement processes in GPI&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h3 id=&quot;example&quot;&gt;Example - Gambler’s Problem&lt;/h3&gt;
+&lt;p&gt;This example is taken from &lt;em&gt;Example 4.3&lt;/em&gt; in the &lt;em&gt;Reinforcement Learning: An Introduction&lt;/em&gt; book&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2021-07-25/example.png&quot; alt=&quot;example&quot; width=&quot;450&quot; height=&quot;500px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 9&lt;/b&gt;: Example - Gambler&apos;s Problem&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;&lt;strong&gt;Solution code&lt;/strong&gt;&lt;br /&gt;
+The code can be found &lt;a href=&quot;https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-4/gambler.py&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;GOAL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#For convenience, we introduce 2 dummy states: 0 and terminal state
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;states&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GOAL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;rewards&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;terminal&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&apos;non-terminal&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;HEAD_PROB&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.4&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;GAMMA&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# discount factor
+&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;value_iteration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;theta&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;V&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zeros&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;states&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;V_set&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;policy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zeros&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;delta&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;V_set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;copy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;state&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;states&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GOAL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+
+            &lt;span class=&quot;n&quot;&gt;old_value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;copy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+            &lt;span class=&quot;n&quot;&gt;actions&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GOAL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;new_value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;actions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;next_head_state&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;states&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;next_tail_state&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;states&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;head_reward&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rewards&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;terminal&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;next_head_state&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GOAL&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rewards&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;non-terminal&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;tail_reward&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rewards&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;non-terminal&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HEAD_PROB&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head_reward&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GAMMA&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next_head_state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; \
+                    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HEAD_PROB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tail_reward&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GAMMA&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next_tail_state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new_value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;new_value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;
+
+            &lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new_value&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;delta&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;delta&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;old_value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Max value changed: &apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;delta&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;delta&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;theta&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;V_set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;state&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;states&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GOAL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;actions&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;actions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;next_head_state&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;states&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;next_tail_state&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;states&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;head_reward&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rewards&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;terminal&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;next_head_state&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GOAL&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rewards&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;non-terminal&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;tail_reward&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rewards&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;non-terminal&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HEAD_PROB&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head_reward&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GAMMA&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next_head_state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+                          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HEAD_PROB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tail_reward&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GAMMA&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next_tail_state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;policy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;actions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;argmax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;round&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:],&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;V_set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;policy&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&apos;__main__&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;theta&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1e-13&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;value_funcs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;optimal_policy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value_iteration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;theta&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;optimal_value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value_funcs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;optimal_value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;figure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;figsize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;211&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sweep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enumerate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value_funcs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;sweep {}&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sweep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Capital&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ylabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Value estimates&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;legend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;best&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;212&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;scatter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;states&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;optimal_policy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Capital&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ylabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Final policy (stake)&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;savefig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;./gambler.png&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;And here is our results after running the code&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2021-07-25/gambler.png&quot; alt=&quot;gambler&quot; width=&quot;450&quot; height=&quot;900px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 10&lt;/b&gt;: Example - Gambler&apos;s Problem Result&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;Reinforcement Learning: An Introduction - Richard S. Sutton &amp;amp; Andrew G. Barto&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.davidsilver.uk/teaching/&quot;&gt;UCL course on RL&lt;/a&gt; - David Silver&lt;/li&gt;
+  &lt;li&gt;Algorithms for Reinforcement Learning - Csaba Szepesvári&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf&quot;&gt;Markov Decision Processes and Dynamic Programming&lt;/a&gt; - 
+A. Lazaric&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Dynamic_programming&quot;&gt;Dynamic Programming&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/ShangtongZhang/reinforcement-learning-an-introduction&quot;&gt;Shangtong Zhang’s repo&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://stats.stackexchange.com/a/258783&quot;&gt;Policy Improvement theorem&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
+
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;In the third step, the expression
+\begin{equation}
+\mathbb{E}_{\pi’}\left[R_{t+1}+\gamma v_\pi(S_{t+1})|S_t=s\right]
+\end{equation}
+means ‘‘the discounted expected value when starting in state $s$, choosing action according to $\pi’$ for the next time step, and following $\pi$ thereafter”, and so on for the two, or n next steps. Therefore, we have that:
+\begin{equation}
+\mathbb{E}_{\pi’}\left[R_{t+1}+\gamma v_\pi(S_{t+1})|S_t=s\right]=\mathbb{E}_{\pi’}\left[R_{t+1}+\gamma v_\pi(S_{t+1})|S_t=s\right]
+\end{equation} &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;The idea of policy improvement also extends to stochastic policies. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:3&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;Value iteration can be used in conjunction with action-value function, which takes the following update:
+\begin{align}
+q_{k+1}(s,a)&amp;amp;\doteq\mathbb{E}\left[R_{t+1}+\gamma\max_{a’}q_k(S_{t+1},a’)|S_t=s,A_t=a\right] \\ &amp;amp;=\sum_{s’,r}p(s’,r|s,a)\left[r+\gamma\max_{a’}q_k(s’,a’)\right]
+\end{align}
+Yep, that’s right, the sequence $\{q_k\}\to q_*$ as $k\to\infty$ at a geometric rate thanks to &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html/#banach-fixed-pts&quot;&gt;Banach’s fixed point theorem&lt;/a&gt; &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><summary type="html">In two previous posts, Markov Decision Process (MDP) and Bellman equations and Optimal Policy Existence, we have known how MDPs, Bellman equations are defined and how they work. In this post, we are going to talk about how these MDPs are solved with Dynamic Programming.</summary></entry><entry><title type="html">Optimal Policy Existence</title><link href="/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html" rel="alternate" type="text/html" title="Optimal Policy Existence" /><published>2021-07-10T13:03:00+07:00</published><updated>2021-07-10T13:03:00+07:00</updated><id>/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence</id><content type="html" xml:base="/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html">&lt;blockquote&gt;
+  &lt;p&gt;In the previous post about &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html&quot;&gt;&lt;strong&gt;Markov Decision Process (MDP) and Bellman equations&lt;/strong&gt;&lt;/a&gt;, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here prove it.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;!-- excerpt-end --&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#norms-contractions-banach-fixed-pts&quot;&gt;Norms, Contractions and Banach’s Fixed-point Theorem&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#norms&quot;&gt;Norms&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#contractions&quot;&gt;Contractions&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#banach-fixed-pts&quot;&gt;Banach’s Fixed-point Theorem&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#bellman-operator&quot;&gt;Bellman Operator&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#proof&quot;&gt;Proof&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;Before catching the pokémon, we need to prepare ourselves some pokéball.&lt;/p&gt;
 
-&lt;h3 id=&quot;norms-contractions-and-banachs-fixed-point-theorem&quot;&gt;Norms, Contractions and Banach’s Fixed-point Theorem&lt;/h3&gt;
+&lt;h4 id=&quot;norms-contractions-banach-fixed-pts&quot;&gt;Norms, Contractions and Banach’s Fixed-point Theorem&lt;/h4&gt;
+
+&lt;h5 id=&quot;norms&quot;&gt;Norms&lt;/h5&gt;
 &lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Norm&lt;/em&gt;)&lt;br /&gt;
 Given a vector space $\mathcal{V}\subseteq\mathbb{R}^d$, a function $f:\mathcal{V}\to\mathbb{R}^+_0$ is a &lt;em&gt;norm&lt;/em&gt; if and only if&lt;/p&gt;
 &lt;ol&gt;
@@ -53,20 +363,20 @@ Normed vector spaces where all Cauchy sequences are convergent are special: we c
 &lt;br /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Completeness&lt;/em&gt;)&lt;br /&gt;
-A normed vector space $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$ is called &lt;em&gt;complete&lt;/em&gt; if every Cauchy sequence in $\mathcal{V}$ is convergent in the norm of the vector space.&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
+A normed vector space $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$ is called &lt;em&gt;complete&lt;/em&gt; if every Cauchy sequence in $\mathcal{V}$ is convergent in the norm of the vector space.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Banach space&lt;/em&gt;)&lt;br /&gt;
-A complete, normed vector space is called a &lt;em&gt;Banach space&lt;/em&gt;.&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
+&lt;h5 id=&quot;contractions&quot;&gt;Contractions&lt;/h5&gt;
 &lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Lipschitzian&lt;/em&gt;) &lt;br /&gt;
 Let $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$ be a normed vector space. A mapping $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ is called &lt;em&gt;L-Lipschitz&lt;/em&gt; if for any $u,v\in\mathcal{V}$,
 \begin{equation}
 \Vert\mathcal{T}u-\mathcal{T}v\Vert\leq L\Vert u-v\Vert
 \end{equation}
 A mapping $\mathcal{T}$ is called a &lt;em&gt;non-expansion&lt;/em&gt; if it is &lt;em&gt;Lipschitzian&lt;/em&gt; with $L\leq 1$. It is called a &lt;em&gt;contraction&lt;/em&gt; if it is &lt;em&gt;Lipschitzian&lt;/em&gt; with $L&amp;lt;1$. In this case, $L$ is called the &lt;em&gt;contraction factor of&lt;/em&gt; $\mathcal{T}$ and $\mathcal{T}$ is called an &lt;em&gt;L-contraction&lt;/em&gt;.&lt;br /&gt;
-&lt;ins&gt;Note&lt;/ins&gt;: If $\mathcal{T}$ is &lt;em&gt;Lipschitz&lt;/em&gt;, it is also continuous in the sense that if $v_n\to_{\Vert\cdot\Vert}v$, then also $\mathcal{T}v_n\to_{\Vert\cdot\Vert}\mathcal{T}v$. This is because $\Vert\mathcal{T}v_n-\mathcal{T}v\Vert\leq L\Vert v_n-v\Vert\to 0$ as $n\to\infty$.&lt;br /&gt;
+&lt;ins&gt;Note&lt;/ins&gt;: If $\mathcal{T}$ is &lt;em&gt;Lipschitz&lt;/em&gt;, it is also continuous in the sense that if $v_n\to_{\Vert\cdot\Vert}v$, then also $\mathcal{T}v_n\to_{\Vert\cdot\Vert}\mathcal{T}v$. This is because $\Vert\mathcal{T}v_n-\mathcal{T}v\Vert\leq L\Vert v_n-v\Vert\to 0$ as $n\to\infty$.&lt;/p&gt;
+
+&lt;h5 id=&quot;banach-fixed-pts&quot;&gt;Banach’s Fixed-point Theorem&lt;/h5&gt;
+&lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Banach space&lt;/em&gt;)&lt;br /&gt;
+A complete, normed vector space is called a &lt;em&gt;Banach space&lt;/em&gt;.&lt;br /&gt;
 &lt;br /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Fixed point&lt;/em&gt;)&lt;br /&gt;
@@ -83,7 +393,7 @@ Let $\mathcal{V}$ be a Banach space and $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ 
 \end{equation}&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&quot;bellman-operator&quot;&gt;Bellman Operator&lt;/h3&gt;
+&lt;h4 id=&quot;bellman-operator&quot;&gt;Bellman Operator&lt;/h4&gt;
 &lt;p&gt;Previously, we defined Bellman equation for state-value function $v_\pi(s)$ as:
 \begin{align}
 v_\pi(s)&amp;amp;=\sum_{a\in\mathcal{A}}\pi(a|s)\sum_{s’\in\mathcal{S},r}p(s’,r|s,a)\left[r+\gamma v_\pi(s’)\right]\tag{1}\label{1} \\\text{or}\quad v_\pi(s)&amp;amp;=\sum_{a\in\mathcal{A}}\pi(a|s)\left(\mathcal{R}^a_s+\gamma\sum_{s’\in\mathcal{S}}\mathcal{P}^a_{ss’}v_\pi(s’)\right)\tag{2}\label{2}
@@ -121,6 +431,8 @@ And thus, with the help of $\mathcal{T}^*$, we can rewrite the equation \eqref{9
 \end{equation}
 &lt;br /&gt;
 Now everything is all set, we can move on to the next step.&lt;/p&gt;
+
+&lt;h4 id=&quot;proof&quot;&gt;Proof&lt;/h4&gt;
 &lt;ul&gt;
   &lt;li&gt;Let $B(\mathcal{S})$ be the space of &lt;em&gt;uniformly bounded functions&lt;/em&gt; with domain $\mathcal{S}$:
 \begin{equation}
@@ -220,11 +532,13 @@ And finally,
       &lt;p&gt;Also, there’s gonna be a post about &lt;em&gt;rate of convergence&lt;/em&gt;. &lt;a href=&quot;#fnref:5&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="mathematics" /><summary type="html">In the previous post about Markov Decision Process (MDP) and Bellman equations, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here prove it.</summary></entry><entry><title type="html">Measures</title><link href="/random-stuffs/measure-theory/2021/07/03/measure.html" rel="alternate" type="text/html" title="Measures" /><published>2021-07-03T07:00:00+07:00</published><updated>2021-07-03T07:00:00+07:00</updated><id>/random-stuffs/measure-theory/2021/07/03/measure</id><content type="html" xml:base="/random-stuffs/measure-theory/2021/07/03/measure.html">&lt;p&gt;&lt;img src=&quot;/assets/images/lego.jpg&quot; alt=&quot;Lego&quot; /&gt;&lt;br /&gt;
-&lt;br /&gt;
-When talking about &lt;em&gt;measure&lt;/em&gt;, you might associate it with the idea of &lt;em&gt;length&lt;/em&gt;, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with &lt;em&gt;area&lt;/em&gt;, or even three dimensions with &lt;em&gt;volume&lt;/em&gt;.
-Despite of having different number of dimensions, all &lt;em&gt;length&lt;/em&gt;, &lt;em&gt;area&lt;/em&gt;, &lt;em&gt;volume&lt;/em&gt; share the same properties:&lt;br /&gt;
-&lt;!-- excerpt-end --&gt;&lt;/p&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="mathematics" /><summary type="html">In the previous post about Markov Decision Process (MDP) and Bellman equations, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here prove it.</summary></entry><entry><title type="html">Measures</title><link href="/random-stuffs/measure-theory/2021/07/03/measure.html" rel="alternate" type="text/html" title="Measures" /><published>2021-07-03T07:00:00+07:00</published><updated>2021-07-03T07:00:00+07:00</updated><id>/random-stuffs/measure-theory/2021/07/03/measure</id><content type="html" xml:base="/random-stuffs/measure-theory/2021/07/03/measure.html">&lt;blockquote&gt;
+  &lt;p&gt;When talking about &lt;em&gt;measure&lt;/em&gt;, you might associate it with the idea of &lt;em&gt;length&lt;/em&gt;, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with &lt;em&gt;area&lt;/em&gt;, or even three dimensions with &lt;em&gt;volume&lt;/em&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;!-- excerpt-end --&gt;
+&lt;p&gt;Despite of having different number of dimensions, all &lt;em&gt;length&lt;/em&gt;, &lt;em&gt;area&lt;/em&gt;, &lt;em&gt;volume&lt;/em&gt; share the same properties:&lt;/p&gt;
+
 &lt;ol&gt;
   &lt;li&gt;&lt;em&gt;Non-negative&lt;/em&gt;: In principle, length, area, and volume can be any positive value. But negative length has no meaning. Same thing happens with negative area and negative volume.&lt;/li&gt;
   &lt;li&gt;&lt;em&gt;Additivity&lt;/em&gt;: To get from Hanoi to Singapore by air, you have to transit at Ho Chi Minh city (HCMC). If we cut that path into two non-overlapping pieces, say Hanoi - HCMC, and HCMC - Singapore, then the total length of the two pieces must be equal to the length of original path. If we divide a rectangular into non-overlapping pieces, the area of pieces combined must be the same as the original one. The same is true for volume as well.&lt;/li&gt;
@@ -234,11 +548,27 @@ Despite of having different number of dimensions, all &lt;em&gt;length&lt;/em&gt
   &lt;li&gt;&lt;em&gt;Hyper-rectangles&lt;/em&gt;: An interval of form $[a, b]\subset\mathbb{R}^3$ has length $b-a$. The area of a rectangle $[a_1,b_1]\times[a_2,b_2]$ is $(b_1-a_1)(b_2-a_2)$. And the volume of a rectangular $[a_1,b_1]\times[a_2,b_2]\times[a_3,b_3]$ is $(b_1-a_1)(b_2-a_2)(b_3-a_3)$.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&quot;lebesgue-measure&quot;&gt;Lebesgue measure&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lego.jpg&quot; alt=&quot;Lego&quot; /&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#lebesgue-measure&quot;&gt;Lebesgue Measure&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#measures&quot;&gt;Measures&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#int-measure-idea&quot;&gt;Integration with respect to a Measure: The Idea&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#prop-int&quot;&gt;Properties of the Integral&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#int-measure-detail&quot;&gt;Integration with respect to a Measure: The Details&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#construct-measure&quot;&gt;Constructing Measures from old ones&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#other-types&quot;&gt;Other types of Measures&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#other-resources&quot;&gt;Other Resources&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;lebesgue-measure&quot;&gt;Lebesgue Measure&lt;/h4&gt;
 &lt;p&gt;Is an extension of the classical notion of length in $\mathbb{R}$, area in $\mathbb{R}^2$ to any $\mathbb{R}^k$ using k-dimensional hyper-rectangles.&lt;/p&gt;
 
-&lt;h4 id=&quot;definition&quot;&gt;Definition&lt;/h4&gt;
-&lt;p&gt;Given an open set $S\equiv\sum_k(a_k,b_k)$ containing disjoint intervals, the &lt;strong&gt;Lebesgue measure&lt;/strong&gt; is defined by:
+&lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt;&lt;br /&gt;
+Given an open set $S\equiv\sum_k(a_k,b_k)$ containing disjoint intervals, the &lt;strong&gt;Lebesgue measure&lt;/strong&gt; is defined by:
 \begin{equation}
 \mu_L(S)\equiv\sum_{k}(b_k-a_k)
 \end{equation}
@@ -247,7 +577,7 @@ Given a closed set $S’\equiv[a,b]-\sum_k(a_k,b_k)$,
 \mu_L(S’)\equiv(b-a)-\sum_k(b_k-a_k)
 \end{equation}&lt;/p&gt;
 
-&lt;h3 id=&quot;measures&quot;&gt;Measures&lt;/h3&gt;
+&lt;h4 id=&quot;measures&quot;&gt;Measures&lt;/h4&gt;
 &lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt;&lt;br /&gt;
 Let $\mathcal{X}$ be any set. A &lt;em&gt;measure&lt;/em&gt; on $\mathcal{X}$ is a function $\mu$ that maps the set of subsets on $\mathcal{X}$ to $[0,\infty]$ ($\mu:2^\mathcal{X}\rightarrow[0,\infty]$) that satisfies:&lt;/p&gt;
 &lt;ol&gt;
@@ -259,7 +589,7 @@ Let $\mathcal{X}$ be any set. A &lt;em&gt;measure&lt;/em&gt; on $\mathcal{X}$ is
 $\mu(\mathcal{A})$ is called &lt;em&gt;measure of the set $\mathcal{A}$&lt;/em&gt;, or &lt;em&gt;measure of $\mathcal{A}$&lt;/em&gt;.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;strong&gt;Properties&lt;/strong&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Properties&lt;/strong&gt;&lt;/p&gt;
 &lt;ol&gt;
   &lt;li&gt;&lt;em&gt;Monotonicity&lt;/em&gt;: If $\mathcal{A}\subset\mathcal{B}$, then $\mu(\mathcal{A})\leq\mu(\mathcal{B})$&lt;/li&gt;
   &lt;li&gt;&lt;em&gt;Subadditivity&lt;/em&gt;: If $\mathcal{A_1},\mathcal{A_2},\dots$ is a countable collection of sets, not necessarily disjoint, then
@@ -298,7 +628,7 @@ for $\mathcal{A}\subset\mathbb{R}$&lt;/li&gt;
 \end{equation}&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&quot;integration-with-respect-to-a-measure-the-idea&quot;&gt;Integration with respect to a Measure: The Idea&lt;/h3&gt;
+&lt;h4 id=&quot;int-measure-idea&quot;&gt;Integration with respect to a Measure: The Idea&lt;/h4&gt;
 &lt;p&gt;Consider $f:\mathcal{X}\rightarrow\mathbb{R}$, where $\mathcal{X}$ is any set and a measure $\mu$ on $\mathcal{X}$ and compute the integral of $f$ w.r.t $\mu$: $\int f(x)\,\mu(dx)$. We have:&lt;/p&gt;
 &lt;ol&gt;
   &lt;li&gt;For any function $f$,
@@ -342,7 +672,7 @@ We say that $f$ is the density of $\mu$ w.r.t Lebesgue measure in this case.&lt;
 We say that $p$ is the density of $\mu$ w.r.t Counting measure on $\mathcal{C}$.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&quot;properties-of-the-integral&quot;&gt;Properties of the Integral&lt;/h3&gt;
+&lt;h4 id=&quot;prop-int&quot;&gt;Properties of the Integral&lt;/h4&gt;
 &lt;p&gt;A function is said to be &lt;em&gt;integrable&lt;/em&gt; w.r.t $\mu$ if $\int|f(x)|\,\mu(dx)&amp;lt;\infty$. An integrable function has a well-defined and finite integral. If $f(x)\geq0$, the integral is always well-defined but may be $\infty$.&lt;br /&gt;
 Suppose $\mu$ is a measure on $\mathcal{X},\mathcal{A}\subset\mathcal{X}$, and $g$ is a real-valued function on $\mathcal{X}$. We define the integral of $g$ over the set $\mathcal{A}$, denoted by $\int_\mathcal{A}g(x)\,\mu(dx)$, as
 \begin{equation}
@@ -381,7 +711,7 @@ where \(𝟙_\mathcal{A}\) is an &lt;em&gt;indicator function&lt;/em&gt; (\(𝟙
 \end{equation}&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&quot;integration-with-respect-to-a-measure-the-details&quot;&gt;Integration with respect to a Measure: The Details&lt;/h3&gt;
+&lt;h4 id=&quot;int-measure-detail&quot;&gt;Integration with respect to a Measure: The Details&lt;/h4&gt;
 &lt;ol&gt;
   &lt;li&gt;&lt;em&gt;Step 1&lt;/em&gt;. Define the integral for simple functions.
     &lt;ul&gt;
@@ -428,7 +758,7 @@ This is a well-defined number (possibly infinite) if and only if at least one of
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&quot;constructing-measures-from-old-ones&quot;&gt;Constructing Measures from old ones&lt;/h3&gt;
+&lt;h4 id=&quot;construct-measure&quot;&gt;Constructing Measures from old ones&lt;/h4&gt;
 &lt;ol&gt;
   &lt;li&gt;&lt;em&gt;Sums and multiples&lt;/em&gt;
     &lt;ul&gt;
@@ -481,7 +811,7 @@ We say that $f$ is the &lt;em&gt;density&lt;/em&gt; of the measure $v$ w.r.t $\m
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&quot;other-types-of-measures&quot;&gt;Other types of Measures&lt;/h3&gt;
+&lt;h4 id=&quot;other-types&quot;&gt;Other types of Measures&lt;/h4&gt;
 &lt;p&gt;Suppose that $\mu$ is a measure on $\mathcal{X}$&lt;/p&gt;
 &lt;ol&gt;
   &lt;li&gt;If $\mu(\mathcal{X})=\infty$, we say that $\mu$ is an &lt;em&gt;infinite measure&lt;/em&gt;.&lt;/li&gt;
@@ -499,7 +829,7 @@ We say that $f$ is the &lt;em&gt;density&lt;/em&gt; of the measure $v$ w.r.t $\m
   &lt;li&gt;&lt;a href=&quot;https://www.countbayesie.com/blog/2015/8/17/a-very-brief-and-non-mathematical-introduction-to-measure-theory-for-probability&quot;&gt;Measure Theory for Probability: A Very Brief Introduction&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h4 id=&quot;other-resources&quot;&gt;Other resources&lt;/h4&gt;
+&lt;h4 id=&quot;other-resources&quot;&gt;Other Resources&lt;/h4&gt;
 &lt;ol&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=cyW5z-M2yzw&quot;&gt;Music and Measure Theory - 3Blue1Brown&lt;/a&gt; - this is one of my favourite Youtube channels.&lt;/li&gt;
 &lt;/ol&gt;
@@ -516,15 +846,37 @@ We say that $f$ is the &lt;em&gt;density&lt;/em&gt; of the measure $v$ w.r.t $\m
       &lt;p&gt;&lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="random-stuffs" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><summary type="html">When talking about measure, you might associate it with the idea of length, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with area, or even three dimensions with volume. Despite of having different number of dimensions, all length, area, volume share the same properties:</summary></entry><entry><title type="html">Markov Decision Process, Bellman equations</title><link href="/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html" rel="alternate" type="text/html" title="Markov Decision Process, Bellman equations" /><published>2021-06-27T08:00:00+07:00</published><updated>2021-06-27T08:00:00+07:00</updated><id>/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn</id><content type="html" xml:base="/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html">&lt;p&gt;You may have known or heard vaguely about a computer program called &lt;a href=&quot;https://deepmind.com/research/case-studies/alphago-the-story-so-far&quot;&gt;AlphaGo&lt;/a&gt; - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with &lt;strong&gt;Reinforcement Learning&lt;/strong&gt;.&lt;br /&gt;
-&lt;!-- excerpt-end --&gt;&lt;/p&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="random-stuffs" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><summary type="html">When talking about measure, you might associate it with the idea of length, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with area, or even three dimensions with volume.</summary></entry><entry><title type="html">Markov Decision Processes, Bellman equations</title><link href="/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html" rel="alternate" type="text/html" title="Markov Decision Processes, Bellman equations" /><published>2021-06-27T08:00:00+07:00</published><updated>2021-06-27T08:00:00+07:00</updated><id>/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn</id><content type="html" xml:base="/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html">&lt;blockquote&gt;
+  &lt;p&gt;You may have known or heard vaguely about a computer program called &lt;a href=&quot;https://deepmind.com/research/case-studies/alphago-the-story-so-far&quot;&gt;AlphaGo&lt;/a&gt; - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with &lt;strong&gt;Reinforcement Learning&lt;/strong&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;h3 id=&quot;what-is-reinforcement-learning&quot;&gt;What is Reinforcement Learning?&lt;/h3&gt;
+&lt;!-- excerpt-end --&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#what-is-rl&quot;&gt;What is Reinforcement Learning?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#mdp&quot;&gt;Markov Decision Processes (MDPs)&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#return&quot;&gt;Return&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#policy&quot;&gt;Policy&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#value-function&quot;&gt;Value Function&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#opt-policy-opt-value-func&quot;&gt;Optimal Policy and Optimal Value Function&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#bellman-equations&quot;&gt;Bellman Equations&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#bellman-backup-diagram&quot;&gt;Bellman Backup Diagram&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#bellman-optimality-equations&quot;&gt;Bellman Optimality Equations&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#backup-vq&quot;&gt;Backup diagram for $v_*$ and $q_*$&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;what-is-rl&quot;&gt;What is Reinforcement Learning?&lt;/h4&gt;
 &lt;p&gt;Say, there is an unknown &lt;strong&gt;environment&lt;/strong&gt; that we’re trying to put an &lt;strong&gt;agent&lt;/strong&gt; on. By interacting with the &lt;strong&gt;agent&lt;/strong&gt; through taking &lt;strong&gt;actions&lt;/strong&gt; that gives rise to &lt;strong&gt;rewards&lt;/strong&gt; continually, the &lt;strong&gt;agent&lt;/strong&gt; learns a &lt;strong&gt;policy&lt;/strong&gt; that maximize the cumulative &lt;strong&gt;rewards&lt;/strong&gt;.&lt;br /&gt;
 &lt;strong&gt;Reinforcement Learning (RL)&lt;/strong&gt;, roughly speaking, is an area of Machine Learning that describes methods aimed to learn a good strategy (called &lt;strong&gt;policy&lt;/strong&gt;) for the &lt;strong&gt;agent&lt;/strong&gt; from experimental trials and relative simple feedback received. With the optimal &lt;strong&gt;policy&lt;/strong&gt;, the &lt;strong&gt;agent&lt;/strong&gt; is capable to actively adapt to the environment to maximize future &lt;strong&gt;rewards&lt;/strong&gt;.
 &lt;img src=&quot;/assets/images/robot.png&quot; alt=&quot;RL&quot; /&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;markov-decision-process-mdp&quot;&gt;Markov Decision Process (MDP)&lt;/h3&gt;
+&lt;h4 id=&quot;mdp&quot;&gt;Markov Decision Processes (MDPs)&lt;/h4&gt;
 &lt;p&gt;&lt;strong&gt;Markov decision processes (MDPs)&lt;/strong&gt; formally describe an environment for &lt;strong&gt;RL&lt;/strong&gt;. And almost all &lt;strong&gt;RL&lt;/strong&gt; problems can be formalised as &lt;strong&gt;MDPs&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Definition (MDP)&lt;/strong&gt;&lt;br /&gt;
@@ -544,7 +896,7 @@ A &lt;strong&gt;Markov Decision Process&lt;/strong&gt; is a tuple $⟨\mathcal{S
 P(S_{t+1}|S_t)=P(S_{t+1}|S_1,\dots,S_t)
 \end{equation}&lt;/p&gt;
 
-&lt;h4 id=&quot;return&quot;&gt;Return&lt;/h4&gt;
+&lt;h5 id=&quot;return&quot;&gt;Return&lt;/h5&gt;
 &lt;p&gt;In the preceding section, we have said that the goal of agent is to maximize the cumulative reward in the long run. In general, we seek to maximize the &lt;strong&gt;expected return&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Return&lt;/em&gt;)&lt;br /&gt;
@@ -557,14 +909,14 @@ where $\gamma\in[0,1]$ is called &lt;em&gt;discount rate&lt;/em&gt; (or &lt;em&g
 &lt;p&gt;The &lt;em&gt;discount rate&lt;/em&gt; $\gamma$ determines the present value of future rewards: a reward received
 k time steps in the future is worth only $\gamma^{k-1}$ times what it would be worth if it were received immediately. And also, it provides mathematical convenience since as $k\rightarrow\infty$ then $\gamma^k\rightarrow 0$.&lt;/p&gt;
 
-&lt;h4 id=&quot;policy&quot;&gt;Policy&lt;/h4&gt;
+&lt;h5 id=&quot;policy&quot;&gt;Policy&lt;/h5&gt;
 &lt;p&gt;&lt;strong&gt;Policy&lt;/strong&gt;, which is denoted as $\pi$, is the behaviour function of the agent. $\pi$ is a mapping from states to probabilities of selecting each possible action. In other words, it lets us know which action to take in the current state $s$ and can be either &lt;em&gt;deterministic&lt;/em&gt; or &lt;em&gt;stochastic&lt;/em&gt;&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;em&gt;Deterministic policy&lt;/em&gt;:	$\quad\pi(s)=a$&lt;/li&gt;
   &lt;li&gt;&lt;em&gt;Stochastic policy&lt;/em&gt;: $\quad\pi(a|s)=P(A_t=a|S_t=s)$&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&quot;value-function&quot;&gt;Value Function&lt;/h4&gt;
+&lt;h5 id=&quot;value-function&quot;&gt;Value Function&lt;/h5&gt;
 &lt;p&gt;&lt;strong&gt;Value function&lt;/strong&gt; measures &lt;em&gt;how good&lt;/em&gt; a particular state is (or &lt;em&gt;how good&lt;/em&gt; it is to perform a given action in a given state).&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;state-value function&lt;/em&gt;)&lt;br /&gt;
@@ -584,7 +936,7 @@ q_\pi(s,a)=E_\pi[G_t|S_t=s,A_t=a]
 v_\pi(s)=\sum_{a\in\mathcal{A}}q_\pi(s,a)\pi(a|s)
 \end{equation}&lt;/p&gt;
 
-&lt;h4 id=&quot;optimal-policy-and-optimal-value-function&quot;&gt;Optimal Policy and Optimal Value Function&lt;/h4&gt;
+&lt;h5 id=&quot;opt-policy-opt-value-func&quot;&gt;Optimal Policy and Optimal Value Function&lt;/h5&gt;
 &lt;p&gt;For finite MDPs (finite state and action space), we can precisely define an &lt;strong&gt;optimal policy&lt;/strong&gt;. &lt;em&gt;Value functions&lt;/em&gt; define a partial ordering over policies. A policy $\pi$ is defined to be better than or equal to a policy $\pi’$ if its expected return is greater than or equal to that of $\pi’$ for all states. In other words,
 \begin{equation}
 \pi\geq\pi’\iff v_\pi(s)\geq v_{\pi’} \forall s\in\mathcal{S}
@@ -607,26 +959,26 @@ v_*(s)=\max_{\pi}v_\pi(s)
 q_*(s,a)=\max_{\pi}q_\pi(s,a)
 \end{equation}&lt;/p&gt;
 
-&lt;h3 id=&quot;bellman-equations&quot;&gt;Bellman Equations&lt;/h3&gt;
+&lt;h4 id=&quot;bellman-equations&quot;&gt;Bellman Equations&lt;/h4&gt;
 &lt;p&gt;A fundamental property of &lt;em&gt;value functions&lt;/em&gt; used throughout RL is that they satisfy recursive relationships
 \begin{align}
-v_\pi(s)&amp;amp;=E_\pi[G_t|S_t=s] \\&amp;amp;=E_\pi[R_t+\gamma G_{t+1}|S_t=s] \\&amp;amp;=\sum_{s’,r,g’,a}p(s’,r,g’,a|s)(r+\gamma g’) \\&amp;amp;=\sum_{a}p(a|s)\sum_{s’,r,g’}p(s’,r,g’|a,s)(r+\gamma g’) \\&amp;amp;=\sum_{a}\pi(a|s)\sum_{s’,r,g’}p(s’,r|a,s)p(g’|s’,r,a,s)(r+\gamma g’) \\&amp;amp;=\sum_{a}\pi(a|s)\sum_{s’,r}p(s’,r|a,s)\sum_{g’}p(g’|s’)(r+\gamma g’) \\&amp;amp;=\sum_{a}\pi(a|s)\sum_{s’,r}p(s’,r|a,s)\left[r+\gamma\sum_{g’}p(g’|s’)g’\right] \\&amp;amp;=\sum_{a}\pi(a|s)\sum_{s’,r}p(s’,r|a,s)\left[r+\gamma v_\pi(s’)\right],
+v_\pi(s)&amp;amp;\doteq E_\pi[G_t|S_t=s] \\&amp;amp;=E_\pi[R_t+\gamma G_{t+1}|S_t=s] \\&amp;amp;=\sum_{s’,r,g’,a}p(s’,r,g’,a|s)(r+\gamma g’) \\&amp;amp;=\sum_{a}p(a|s)\sum_{s’,r,g’}p(s’,r,g’|a,s)(r+\gamma g’) \\&amp;amp;=\sum_{a}\pi(a|s)\sum_{s’,r,g’}p(s’,r|a,s)p(g’|s’,r,a,s)(r+\gamma g’) \\&amp;amp;=\sum_{a}\pi(a|s)\sum_{s’,r}p(s’,r|a,s)\sum_{g’}p(g’|s’)(r+\gamma g’) \\&amp;amp;=\sum_{a}\pi(a|s)\sum_{s’,r}p(s’,r|a,s)\left[r+\gamma\sum_{g’}p(g’|s’)g’\right] \\&amp;amp;=\sum_{a}\pi(a|s)\sum_{s’,r}p(s’,r|a,s)\left[r+\gamma v_\pi(s’)\right],
 \end{align}
 where $p(s’,r|s,a)=P(S_{t+1}=s’,R_{t+1}=r|S_t=s,A_t=a)$, which defines the dynamics of the MDP. The last equation is called the &lt;em&gt;Bellman equation for&lt;/em&gt; $v_\pi(s)$. It expresses a relationship between the value state $s$, $v_\pi(s)$ and the values of its successor states $s’$, $v_\pi(s’)$.&lt;/p&gt;
 
 &lt;p&gt;Similarly, we define the &lt;em&gt;Bellman equation for&lt;/em&gt; $q_\pi(s,a)$
 \begin{align}
-q_\pi(s,a)&amp;amp;=E_\pi[G_t|S_t=s,A_t=a] \\&amp;amp;=E_\pi[R_t+\gamma G_{t+1}|S_t=s,A_t=a] \\&amp;amp;=\sum_{s’,r}p(s’,r|s,a)\left[r+\gamma\sum_{a’}\pi(a’|s’)q_\pi(s’,a’)\right]
+q_\pi(s,a)&amp;amp;\doteq E_\pi[G_t|S_t=s,A_t=a] \\&amp;amp;=E_\pi[R_t+\gamma G_{t+1}|S_t=s,A_t=a] \\&amp;amp;=\sum_{s’,r}p(s’,r|s,a)\left[r+\gamma\sum_{a’}\pi(a’|s’)q_\pi(s’,a’)\right]
 \end{align}&lt;/p&gt;
 
-&lt;h4 id=&quot;bellman-backup-diagram&quot;&gt;Bellman backup diagram&lt;/h4&gt;
+&lt;h5 id=&quot;bellman-backup-diagram&quot;&gt;Bellman Backup Diagram&lt;/h5&gt;
 &lt;p&gt;Backup diagram of &lt;em&gt;state-value function&lt;/em&gt; and &lt;em&gt;action-value function&lt;/em&gt; respectively&lt;/p&gt;
 &lt;p float=&quot;left&quot;&gt;
   &lt;img src=&quot;/assets/images/state.png&quot; width=&quot;350&quot; /&gt;
   &lt;img src=&quot;/assets/images/action.png&quot; width=&quot;350&quot; /&gt; 
 &lt;/p&gt;
 
-&lt;h4 id=&quot;bellman-optimality-equations&quot;&gt;Bellman Optimality Equations&lt;/h4&gt;
+&lt;h5 id=&quot;bellman-optimality-equations&quot;&gt;Bellman Optimality Equations&lt;/h5&gt;
 &lt;p&gt;Since $v_*$ is the value function for a policy, it must satisfy the &lt;em&gt;Bellman equation for state-values&lt;/em&gt;. Moreover, it is also the optimal value function, then we have
 \begin{align}
 v_*(s)&amp;amp;=\max_{a\in\mathcal{A(s)}}q_{\pi_*}(s,a) \\&amp;amp;=\max_{a}E_{\pi_*}[G_t|S_t=s,A_t=a] \\&amp;amp;=\max_{a}E_{\pi_*}[R_{t+1}+\gamma G_{t+1}|S_t=s,A_t=a] \\&amp;amp;=\max_{a}E[R_{t+1}+\gamma v_*(S_{t+1})|S_t=s,A_t=a] \\&amp;amp;=\max_{a}\sum_{s’,r}p(s’,r|s,a)[r+\gamma v_*(s’)]
@@ -636,7 +988,7 @@ The last two equations are two forms of the &lt;em&gt;Bellman optimality equatio
 q_*(s,a)&amp;amp;=E\left[R_{t+1}+\gamma\max_{a’}q_*(S_{t+1},a’)|S_t=s,A_t=a\right] \\&amp;amp;=\sum_{s’,r}p(s’,r|s,a)\left[r+\gamma\max_{a’}q_*(s’,a’)\right]
 \end{align}&lt;/p&gt;
 
-&lt;h4 id=&quot;backup-diagram-for-v_-and-q_&quot;&gt;Backup diagram for $v_*$ and $q_*$&lt;/h4&gt;
+&lt;h5 id=&quot;backup-vq&quot;&gt;Backup diagram for $v_*$ and $q_*$&lt;/h5&gt;
 &lt;p&gt;&lt;img src=&quot;/assets/images/opt.png&quot; alt=&quot;backup diagram for optimal value func&quot; /&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
@@ -644,24 +996,41 @@ q_*(s,a)&amp;amp;=E\left[R_{t+1}+\gamma\max_{a’}q_*(S_{t+1},a’)|S_t=s,A_t=a\
   &lt;li&gt;Reinforcement Learning: An Introduction - Richard S. Sutton &amp;amp; Andrew G. Barto&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.davidsilver.uk/teaching/&quot;&gt;UCL course on RL&lt;/a&gt; - David Silver&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://lilianweng.github.io/lil-log/2018/02/19/a-long-peek-into-reinforcement-learning.html&quot;&gt;A (Long) Peek into Reinforcement Learning&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><summary type="html">You may have known or heard vaguely about a computer program called AlphaGo - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with Reinforcement Learning.</summary></entry><entry><title type="html">Markov Chain</title><link href="/random-stuffs/probability-statistics/2021/06/19/markov-chain.html" rel="alternate" type="text/html" title="Markov Chain" /><published>2021-06-19T22:27:00+07:00</published><updated>2021-06-19T22:27:00+07:00</updated><id>/random-stuffs/probability-statistics/2021/06/19/markov-chain</id><content type="html" xml:base="/random-stuffs/probability-statistics/2021/06/19/markov-chain.html">&lt;p&gt;Since I have no idea how to begin with this post, why not just dive straight into details :P&lt;/p&gt;
+&lt;/ol&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><summary type="html">You may have known or heard vaguely about a computer program called AlphaGo - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with Reinforcement Learning.</summary></entry><entry><title type="html">Markov Chain</title><link href="/random-stuffs/probability-statistics/2021/06/19/markov-chain.html" rel="alternate" type="text/html" title="Markov Chain" /><published>2021-06-19T22:27:00+07:00</published><updated>2021-06-19T22:27:00+07:00</updated><id>/random-stuffs/probability-statistics/2021/06/19/markov-chain</id><content type="html" xml:base="/random-stuffs/probability-statistics/2021/06/19/markov-chain.html">&lt;blockquote&gt;
+  &lt;p&gt;Since I have no idea how to begin with this post, why not just dive straight into details :P&lt;br /&gt;
+&lt;strong&gt;Markov chain&lt;/strong&gt; is a stochastic process in which the random variables follow a special property called &lt;em&gt;Markov&lt;/em&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;p&gt;Markov chain is a stochastic process in which the random variables follow a special property called &lt;em&gt;Markov&lt;/em&gt;.
-&lt;!-- excerpt-end --&gt;&lt;/p&gt;
+&lt;!-- excerpt-end --&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#markov-property&quot;&gt;Markov Property&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#transition-matrix&quot;&gt;Transition Matrix&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#nstep-trans-prob&quot;&gt;n-step Transition Probability&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#marginal-dist-xn&quot;&gt;Marginal Distribution of $X_n$&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#properties&quot;&gt;Properties&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#stationary-distribution&quot;&gt;Stationary Distribution&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#reversibility&quot;&gt;Reversibility&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#exp-app&quot;&gt;Examples and Applications&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;h3 id=&quot;markov-property&quot;&gt;Markov property&lt;/h3&gt;
+&lt;h4 id=&quot;markov-property&quot;&gt;Markov Property&lt;/h4&gt;
 &lt;p&gt;A sequence of random variables $X_0, X_1, X_2, \dots$ taking values in the &lt;em&gt;state space&lt;/em&gt; $S=${$1, 2,\dots, M$}. For all $n\geq0$,
 \begin{equation}
 P(X_{n+1}=j|X_n=i)=P(X_{n+1}=j|X_n=i,X_{n-1}=i_{n-1},X_{n-2}=i_{n-2},\dots,X_0=i_0)
 \end{equation}
 In other words, knowledge of the preceding state is all we need to determine the probability distribution of the current state.&lt;/p&gt;
 
-&lt;h3 id=&quot;transition-matrix&quot;&gt;Transition matrix&lt;/h3&gt;
+&lt;h4 id=&quot;transition-matrix&quot;&gt;Transition Matrix&lt;/h4&gt;
 &lt;p&gt;The quantity $P(X_{n+1}=j|X_n=i)$ is &lt;em&gt;transition probability&lt;/em&gt; from state $i$ to $j$.&lt;br /&gt;
 If we denote that $q_{ij}=P(X_{n+1}=j|X_n=i)$ and let $Q=(q_{ij})$, which is a $M\times M$ matrix, there we have the &lt;em&gt;transition matrix&lt;/em&gt; $Q$ of the chain.&lt;br /&gt;
 Therefore, each row of $Q$ is a conditional probability mass function (PMF) of $X_{n+1}$ given $X_n$. And hence, sum of its entries is 1.&lt;/p&gt;
 
-&lt;h4 id=&quot;n-step-transition-probability&quot;&gt;n-step transition probability&lt;/h4&gt;
+&lt;h5 id=&quot;nstep-trans-prob&quot;&gt;n-step Transition Probability&lt;/h5&gt;
 &lt;p&gt;The n-step &lt;em&gt;transition probability&lt;/em&gt; from $i$ to $j$ is the probability of being at $i$ and $n$ steps later being at $j$, and be denoted as $q_{ij}^{(n)}$,
 \begin{equation}
 q_{ij}^{(n)}=P(X_n=j|X_0=i)
@@ -676,14 +1045,14 @@ q_{ij}^{(n)}=Q_{ij}^{n}
 \end{equation}
 $Q^n$ is also called the &lt;em&gt;n-step transition matrix&lt;/em&gt;.&lt;/p&gt;
 
-&lt;h4 id=&quot;marginal-distribution-of-x_n&quot;&gt;Marginal distribution of $X_n$&lt;/h4&gt;
+&lt;h5 id=&quot;marginal-dist-xn&quot;&gt;Marginal Distribution of $X_n$&lt;/h5&gt;
 &lt;p&gt;Let $t=(t_1,\dots,t_M)^T$, where $t_i=P(X_0=i)$. By the law of total probability (LOTP), we have that:
 \begin{align}
 P(X_n=j)&amp;amp;=\sum_{i=1}^{M}P(X_0=i)P(X_n=j|X_0=i) \\&amp;amp;=\sum_{i=1}^{M}t_iq_{ij}^{(n)}
 \end{align}
 or the marginal distribution of $X_n$ is given by $tQ^n$.&lt;/p&gt;
 
-&lt;h3 id=&quot;properties&quot;&gt;Properties&lt;/h3&gt;
+&lt;h4 id=&quot;properties&quot;&gt;Properties&lt;/h4&gt;
 &lt;ul&gt;
   &lt;li&gt;State $i$ of a Markov chain is defined as &lt;em&gt;recurrent&lt;/em&gt; or &lt;em&gt;transient&lt;/em&gt; depending upon whether or not the Markov chain will eventually return to it. Starting with &lt;em&gt;recurrent&lt;/em&gt; state i, the chain will return to it with the probability of 1. Otherwise, it is &lt;em&gt;transient&lt;/em&gt;.
     &lt;ul&gt;
@@ -699,7 +1068,7 @@ or the marginal distribution of $X_n$ is given by $tQ^n$.&lt;/p&gt;
 And thus, $k=gcd(n)$ such that $Q^n_{ii}&amp;gt;0$. $i$ is called &lt;em&gt;aperiodic&lt;/em&gt; if $k_i=1$, and &lt;em&gt;periodic&lt;/em&gt; otherwise. The chain itself is called &lt;em&gt;aperiodic&lt;/em&gt; if all its states are &lt;em&gt;aperiodic&lt;/em&gt;, and &lt;em&gt;periodic&lt;/em&gt; otherwise.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;stationary-distribution&quot;&gt;Stationary distribution&lt;/h3&gt;
+&lt;h4 id=&quot;stationary-distribution&quot;&gt;Stationary Distribution&lt;/h4&gt;
 &lt;p&gt;A vector $s=(s_1,\dots,s_M)^T$ such that $s_i\geq0$ and $\sum_{i}s_i=1$ is a &lt;em&gt;stationary distribution&lt;/em&gt; for a Markov chain if
 \begin{equation}
 \sum_{i}s_iq_{ij}=s_j
@@ -717,7 +1086,7 @@ for all $j$, or equivalently $sQ=s$.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt; (&lt;em&gt;Expected time to run&lt;/em&gt;)&lt;br /&gt;
     Let $X_0,X_1,\dots$ be an &lt;em&gt;irreducible&lt;/em&gt; Markov chain with &lt;em&gt;stationary distribution&lt;/em&gt; $s$. Let $r_i$ be the expected time it takes the chain to return to $i$, given that it starts at $i$. Then $s_i=1/r_i$&lt;/p&gt;
 
-&lt;h3 id=&quot;reversibility&quot;&gt;Reversibility&lt;/h3&gt;
+&lt;h4 id=&quot;reversibility&quot;&gt;Reversibility&lt;/h4&gt;
 &lt;p&gt;Let $Q=(q_{ij})$ be the &lt;em&gt;transition matrix&lt;/em&gt; of a Markov chain. Suppose there is an $s=(s_1,\dots,s_M)^T$ with $s_i\geq0,\sum_{i}s_i=1$, such that
 \begin{equation}
 s_iq_{ij}=s_jq_{ji}
@@ -730,7 +1099,7 @@ for all states $i,j$. This equation is called &lt;em&gt;reversibility&lt;/em&gt;
 &lt;p&gt;&lt;strong&gt;Proposition&lt;/strong&gt;&lt;br /&gt;
     If each column of $Q$ sum to 1, then the &lt;em&gt;uniform distribution&lt;/em&gt; over all states $(1/M,\dots,1/M)$, is a &lt;em&gt;stationary distribution&lt;/em&gt;. (This kind of matrix is called &lt;em&gt;doubly stochastic matrix&lt;/em&gt;).&lt;/p&gt;
 
-&lt;h3 id=&quot;examples-and-application&quot;&gt;Examples and application&lt;/h3&gt;
+&lt;h4 id=&quot;exp-app&quot;&gt;Examples and Applications&lt;/h4&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Finite-state_machine&quot;&gt;&lt;em&gt;Finite-state machines&lt;/em&gt;&lt;/a&gt;, &lt;a href=&quot;https://en.wikipedia.org/wiki/Random_walk&quot;&gt;&lt;em&gt;random walks&lt;/em&gt;&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;Diced board games such as Ludo, Monopoly,…&lt;/li&gt;
@@ -739,19 +1108,22 @@ for all states $i,j$. This equation is called &lt;em&gt;reversibility&lt;/em&gt;
   &lt;li&gt;And various other applications.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&quot;footnote&quot;&gt;Footnote:&lt;/h4&gt;
+&lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;Introduction to Probability - Joseph K. Blitzstein &amp;amp; Jessica Hwang&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://brilliant.org/wiki/markov-chains/&quot;&gt;Brillant’s Markov chain&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h4&gt;
 &lt;ul&gt;
   &lt;li&gt;The Markov chain here is &lt;em&gt;time-homogeneous&lt;/em&gt; Markov chain, in which the probability of any state transition is independent of time.&lt;/li&gt;
   &lt;li&gt;This is more like intuitive and less formal definition of Markov chain, we will have more concrete definition with the help of &lt;em&gt;Measure theory&lt;/em&gt; after the post about it.&lt;/li&gt;
   &lt;li&gt;Well, it only matters where you are, not where you’ve been.&lt;/li&gt;
-&lt;/ul&gt;
+&lt;/ul&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="random-stuffs" /><category term="probability-statistics" /><category term="mathematics" /><category term="probability-statistics" /><summary type="html">Since I have no idea how to begin with this post, why not just dive straight into details :P Markov chain is a stochastic process in which the random variables follow a special property called Markov.</summary></entry><entry><title type="html">My very first post</title><link href="/random-stuffs/2021/06/05/fibonacci-generator.html" rel="alternate" type="text/html" title="My very first post" /><published>2021-06-05T17:00:00+07:00</published><updated>2021-06-05T17:00:00+07:00</updated><id>/random-stuffs/2021/06/05/fibonacci-generator</id><content type="html" xml:base="/random-stuffs/2021/06/05/fibonacci-generator.html">&lt;blockquote&gt;
+  &lt;p&gt;Enjoy my index-zero-ed post while staying tuned for next ones!&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;h4 id=&quot;references&quot;&gt;References:&lt;/h4&gt;
-&lt;ol&gt;
-  &lt;li&gt;Introduction to Probability - Joseph K. Blitzstein &amp;amp; Jessica Hwang&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://brilliant.org/wiki/markov-chains/&quot;&gt;Brillant’s Markov chain&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="random-stuffs" /><category term="probability-statistics" /><category term="mathematics" /><category term="probability-statistics" /><summary type="html">Since I have no idea how to begin with this post, why not just dive straight into details :P Markov chain is a stochastic process in which the random variables follow a special property called Markov.</summary></entry><entry><title type="html">My very first post</title><link href="/random-stuffs/2021/06/05/fibonacci-generator.html" rel="alternate" type="text/html" title="My very first post" /><published>2021-06-05T17:00:00+07:00</published><updated>2021-06-05T17:00:00+07:00</updated><id>/random-stuffs/2021/06/05/fibonacci-generator</id><content type="html" xml:base="/random-stuffs/2021/06/05/fibonacci-generator.html">&lt;p&gt;Enjoy my index-zero-ed post while staying tuned for next ones!
-&lt;!-- excerpt-end --&gt;&lt;/p&gt;
+&lt;!-- excerpt-end --&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;math&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;
 
@@ -759,7 +1131,7 @@ for all states $i,j$. This equation is called &lt;em&gt;reversibility&lt;/em&gt;
 	&lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
 	generate i-th number of the Fibonacci sequence, python code obvs :p
 	&quot;&quot;&quot;&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;\&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;Why did numbers \(\frac{1+\sqrt{5}}{2}\) and \(\frac{1-\sqrt{5}}{2}\) come out of nowhere?&lt;/p&gt;
 
@@ -786,7 +1158,7 @@ u_k=A^ku_0=c_1{\lambda_1}^kx_1+\dots+c_n{\lambda_n}^kx_n
 \end{equation}
 &lt;em&gt;Fact&lt;/em&gt;: The \(\frac{1+\sqrt{5}}{2}\approx 1.618\) is so-called “&lt;em&gt;golden ratio&lt;/em&gt;”. And &lt;em&gt;for some reason a rectangle with sides 1.618 and 1 looks especially graceful&lt;/em&gt;.&lt;/p&gt;
 
-&lt;h4 id=&quot;references&quot;&gt;References:&lt;/h4&gt;
+&lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
 &lt;ol&gt;
   &lt;li&gt;Introduction to Linear Algebra - Gilbert Strang&lt;/li&gt;
 &lt;/ol&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="random-stuffs" /><category term="mathematics" /><category term="linear-algebra" /><category term="random-stuffs" /><summary type="html">Enjoy my index-zero-ed post while staying tuned for next ones!</summary></entry></feed>

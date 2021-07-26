@@ -3,22 +3,22 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Markov Chain | Trung’s blog</title>
+<title>Markov Chain | Trung’s cabin</title>
 <meta name="generator" content="Jekyll v4.2.0" />
 <meta property="og:title" content="Markov Chain" />
 <meta name="author" content="Trung H. Nguyen" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Markov chain" />
 <meta property="og:description" content="Markov chain" />
-<meta property="og:site_name" content="Trung’s blog" />
+<meta property="og:site_name" content="Trung’s cabin" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-06-19T22:27:00+07:00" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Markov Chain" />
 <script type="application/ld+json">
-{"description":"Markov chain","mainEntityOfPage":{"@type":"WebPage","@id":"/random-stuffs/probability-statistics/2021/06/19/markov-chain.html"},"url":"/random-stuffs/probability-statistics/2021/06/19/markov-chain.html","author":{"@type":"Person","name":"Trung H. Nguyen"},"headline":"Markov Chain","dateModified":"2021-06-19T22:27:00+07:00","datePublished":"2021-06-19T22:27:00+07:00","@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"description":"Markov chain","headline":"Markov Chain","dateModified":"2021-06-19T22:27:00+07:00","datePublished":"2021-06-19T22:27:00+07:00","url":"/random-stuffs/probability-statistics/2021/06/19/markov-chain.html","author":{"@type":"Person","name":"Trung H. Nguyen"},"mainEntityOfPage":{"@type":"WebPage","@id":"/random-stuffs/probability-statistics/2021/06/19/markov-chain.html"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Trung&apos;s blog" />
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Trung&apos;s cabin" />
     
 
 
@@ -37,7 +37,7 @@
 <body><header class="site-header">
   <div class="snorlax"></div>
 
-  <div class="wrapper"><a class="site-title" rel="author" href="/">Trung&#39;s blog</a><nav class="site-nav">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Trung&#39;s cabin</a><nav class="site-nav">
         <input type="checkbox" id="nav-trigger" class="nav-trigger" />
         <label for="nav-trigger">
           <span class="menu-icon">
@@ -72,24 +72,41 @@
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <p>Since I have no idea how to begin with this post, why not just dive straight into details :P</p>
+    <blockquote>
+  <p>Since I have no idea how to begin with this post, why not just dive straight into details :P<br />
+<strong>Markov chain</strong> is a stochastic process in which the random variables follow a special property called <em>Markov</em>.</p>
+</blockquote>
 
-<p>Markov chain is a stochastic process in which the random variables follow a special property called <em>Markov</em>.
-<!-- excerpt-end --></p>
+<!-- excerpt-end -->
+<ul>
+  <li><a href="#markov-property">Markov Property</a></li>
+  <li><a href="#transition-matrix">Transition Matrix</a>
+    <ul>
+      <li><a href="#nstep-trans-prob">n-step Transition Probability</a></li>
+    </ul>
+  </li>
+  <li><a href="#marginal-dist-xn">Marginal Distribution of $X_n$</a></li>
+  <li><a href="#properties">Properties</a></li>
+  <li><a href="#stationary-distribution">Stationary Distribution</a></li>
+  <li><a href="#reversibility">Reversibility</a></li>
+  <li><a href="#exp-app">Examples and Applications</a></li>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
 
-<h3 id="markov-property">Markov property</h3>
+<h4 id="markov-property">Markov Property</h4>
 <p>A sequence of random variables $X_0, X_1, X_2, \dots$ taking values in the <em>state space</em> $S=${$1, 2,\dots, M$}. For all $n\geq0$,
 \begin{equation}
 P(X_{n+1}=j|X_n=i)=P(X_{n+1}=j|X_n=i,X_{n-1}=i_{n-1},X_{n-2}=i_{n-2},\dots,X_0=i_0)
 \end{equation}
 In other words, knowledge of the preceding state is all we need to determine the probability distribution of the current state.</p>
 
-<h3 id="transition-matrix">Transition matrix</h3>
+<h4 id="transition-matrix">Transition Matrix</h4>
 <p>The quantity $P(X_{n+1}=j|X_n=i)$ is <em>transition probability</em> from state $i$ to $j$.<br />
 If we denote that $q_{ij}=P(X_{n+1}=j|X_n=i)$ and let $Q=(q_{ij})$, which is a $M\times M$ matrix, there we have the <em>transition matrix</em> $Q$ of the chain.<br />
 Therefore, each row of $Q$ is a conditional probability mass function (PMF) of $X_{n+1}$ given $X_n$. And hence, sum of its entries is 1.</p>
 
-<h4 id="n-step-transition-probability">n-step transition probability</h4>
+<h5 id="nstep-trans-prob">n-step Transition Probability</h5>
 <p>The n-step <em>transition probability</em> from $i$ to $j$ is the probability of being at $i$ and $n$ steps later being at $j$, and be denoted as $q_{ij}^{(n)}$,
 \begin{equation}
 q_{ij}^{(n)}=P(X_n=j|X_0=i)
@@ -104,14 +121,14 @@ q_{ij}^{(n)}=Q_{ij}^{n}
 \end{equation}
 $Q^n$ is also called the <em>n-step transition matrix</em>.</p>
 
-<h4 id="marginal-distribution-of-x_n">Marginal distribution of $X_n$</h4>
+<h5 id="marginal-dist-xn">Marginal Distribution of $X_n$</h5>
 <p>Let $t=(t_1,\dots,t_M)^T$, where $t_i=P(X_0=i)$. By the law of total probability (LOTP), we have that:
 \begin{align}
 P(X_n=j)&amp;=\sum_{i=1}^{M}P(X_0=i)P(X_n=j|X_0=i) \\&amp;=\sum_{i=1}^{M}t_iq_{ij}^{(n)}
 \end{align}
 or the marginal distribution of $X_n$ is given by $tQ^n$.</p>
 
-<h3 id="properties">Properties</h3>
+<h4 id="properties">Properties</h4>
 <ul>
   <li>State $i$ of a Markov chain is defined as <em>recurrent</em> or <em>transient</em> depending upon whether or not the Markov chain will eventually return to it. Starting with <em>recurrent</em> state i, the chain will return to it with the probability of 1. Otherwise, it is <em>transient</em>.
     <ul>
@@ -127,7 +144,7 @@ or the marginal distribution of $X_n$ is given by $tQ^n$.</p>
 And thus, $k=gcd(n)$ such that $Q^n_{ii}&gt;0$. $i$ is called <em>aperiodic</em> if $k_i=1$, and <em>periodic</em> otherwise. The chain itself is called <em>aperiodic</em> if all its states are <em>aperiodic</em>, and <em>periodic</em> otherwise.</li>
 </ul>
 
-<h3 id="stationary-distribution">Stationary distribution</h3>
+<h4 id="stationary-distribution">Stationary Distribution</h4>
 <p>A vector $s=(s_1,\dots,s_M)^T$ such that $s_i\geq0$ and $\sum_{i}s_i=1$ is a <em>stationary distribution</em> for a Markov chain if
 \begin{equation}
 \sum_{i}s_iq_{ij}=s_j
@@ -145,7 +162,7 @@ for all $j$, or equivalently $sQ=s$.</p>
 <p><strong>Theorem</strong> (<em>Expected time to run</em>)<br />
     Let $X_0,X_1,\dots$ be an <em>irreducible</em> Markov chain with <em>stationary distribution</em> $s$. Let $r_i$ be the expected time it takes the chain to return to $i$, given that it starts at $i$. Then $s_i=1/r_i$</p>
 
-<h3 id="reversibility">Reversibility</h3>
+<h4 id="reversibility">Reversibility</h4>
 <p>Let $Q=(q_{ij})$ be the <em>transition matrix</em> of a Markov chain. Suppose there is an $s=(s_1,\dots,s_M)^T$ with $s_i\geq0,\sum_{i}s_i=1$, such that
 \begin{equation}
 s_iq_{ij}=s_jq_{ji}
@@ -158,7 +175,7 @@ for all states $i,j$. This equation is called <em>reversibility</em> or <em>deta
 <p><strong>Proposition</strong><br />
     If each column of $Q$ sum to 1, then the <em>uniform distribution</em> over all states $(1/M,\dots,1/M)$, is a <em>stationary distribution</em>. (This kind of matrix is called <em>doubly stochastic matrix</em>).</p>
 
-<h3 id="examples-and-application">Examples and application</h3>
+<h4 id="exp-app">Examples and Applications</h4>
 <ul>
   <li><a href="https://en.wikipedia.org/wiki/Finite-state_machine"><em>Finite-state machines</em></a>, <a href="https://en.wikipedia.org/wiki/Random_walk"><em>random walks</em></a></li>
   <li>Diced board games such as Ludo, Monopoly,…</li>
@@ -167,18 +184,18 @@ for all states $i,j$. This equation is called <em>reversibility</em> or <em>deta
   <li>And various other applications.</li>
 </ul>
 
-<h4 id="footnote">Footnote:</h4>
+<h4 id="references">References</h4>
+<ol>
+  <li>Introduction to Probability - Joseph K. Blitzstein &amp; Jessica Hwang</li>
+  <li><a href="https://brilliant.org/wiki/markov-chains/">Brillant’s Markov chain</a></li>
+</ol>
+
+<h4 id="footnotes">Footnotes</h4>
 <ul>
   <li>The Markov chain here is <em>time-homogeneous</em> Markov chain, in which the probability of any state transition is independent of time.</li>
   <li>This is more like intuitive and less formal definition of Markov chain, we will have more concrete definition with the help of <em>Measure theory</em> after the post about it.</li>
   <li>Well, it only matters where you are, not where you’ve been.</li>
 </ul>
-
-<h4 id="references">References:</h4>
-<ol>
-  <li>Introduction to Probability - Joseph K. Blitzstein &amp; Jessica Hwang</li>
-  <li><a href="https://brilliant.org/wiki/markov-chains/">Brillant’s Markov chain</a></li>
-</ol>
 
   </div>
 <div id="disqus_thread"></div>
@@ -207,14 +224,14 @@ for all states $i,j$. This equation is called <em>reversibility</em> or <em>deta
   <a class="u-url" href="/random-stuffs/probability-statistics/2021/06/19/markov-chain.html" hidden></a>
 </article>
  <!-- mathjax javascript -->
-       <script type="text/x-mathjax-config">
-         MathJax.Hub.Config({
-          tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
-          "HTML-CSS": {availableFonts: []}
-          });
-        </script>
-        <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-      </script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+  "HTML-CSS": {availableFonts: []}
+  });
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 
       </div>
 
