@@ -262,9 +262,9 @@ A. Lazaric
 	\begin{equation}
 	\mathbb{E}\_{\pi'}\left[R_{t+1}+\gamma v_\pi(S_{t+1})|S_t=s\right]
 	\end{equation}
-	means ''the discounted expected value when starting in state $s$, choosing action according to $\pi'$ for the next time step, and following $\pi$ thereafter", and so on for the two, or n next steps. Therefore, we have that:
+	means ''the discounted expected value when starting in state $s$, choosing action according to $\pi'$ for the next time step, and following $\pi$ thereafter". And so on for the two, or n next steps. Therefore, we have that:
 	\begin{equation}
-	\mathbb{E}\_{\pi'}\left[R_{t+1}+\gamma v_\pi(S_{t+1})|S_t=s\right]=\mathbb{E}\_{\pi'}\left[R_{t+1}+\gamma v_\pi(S_{t+1})|S_t=s\right]
+	\mathbb{E}\_{\pi'}\left[R_{t+1}+\gamma v_\pi(S_{t+1})|S_t=s\right]=&=\mathbb{E}\left[R_{t+1}+\gamma v_\pi(S_{t+1})|S_t=s,A_t=\pi'(s)\right]
 	\end{equation}  
 
 [^2]: The idea of policy improvement also extends to stochastic policies.
