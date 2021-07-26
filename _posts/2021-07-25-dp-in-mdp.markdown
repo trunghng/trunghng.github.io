@@ -56,7 +56,7 @@ Consider a sequence of approximate value functions $v_0,v_1,\dots$, each mapping
 \begin{align}
 v_{k+1}(s)&\doteq\mathbb{E}\_\pi\left[R_{t+1}+\gamma v_k(S_{k+1})\vert S_t=s\right] \\\\ &=\sum_a\pi(a|s)\sum_{s',r}p(s',r|s,a)\left[r+\gamma v_k(s')\right]
 \end{align}
-for all $s\in\mathcal{S}$. Thanks to [Banach's fixed points theorem]({% post_url 2021-07-10-optimal-policy-existence %}/#banach-fixed-pts) and as we talked in that post, we have that the sequence $\\{v_k\\}\to v_\pi$ as $k\to\infty$. This algorithm is called *Iterative policy evaluation*.  
+for all $s\in\mathcal{S}$. Thanks to [Banach's fixed points theorem]({% post_url 2021-07-10-optimal-policy-existence %}/#banach-fixed-pts) and as we talked in that post, we have that the sequence $\\{v_k\\}\to v_\pi$ as $k\to\infty$. This algorithm is called **iterative policy evaluation**.  
 We have the backup diagram for this update.
 <figure>
 	<img src="/assets/images/2021-07-25/backup-iterative-policy-evaluation.png" alt="Backup diagram for iterative policy evalution update" width="360" height="200px" style="display: block; margin-left: auto; margin-right: auto;"/>
@@ -139,7 +139,7 @@ And here is the pseudocode of the value iteration.
 ### Generalized Policy Iteration
 {: #gpi}
 The **Generalized Policy Iteration (GPI)** algorithm refers to the idea of combining policy evaluation and policy improvement together to improve the original policy.  
-In GPI, the value function is repeatly driven toward the true value of the current policy and at the same time the policy is being improved optimality with respect to its value function, as in the following diagram.
+In GPI, the value function is repeatedly driven toward the true value of the current policy and at the same time the policy is being improved optimality with respect to its value function, as in the following diagram.
 <figure>
 	<img src="/assets/images/2021-07-25/gpi.png" alt="GPI" width="200" height="320px" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 7</b>: Generalized Policy Iteration</figcaption>
@@ -148,7 +148,7 @@ Once it reaches the stationary state (when both evaluation and improvement no lo
 The evaluation and improvement processes in GPI can be viewed as both competing and cooperating. They competing in the sense that on the one hand, making policy greedy w.r.t the value function typically makes value function incorrect for the new policy. And on the other hand, approximating the value function closer to the true value of the policy typically forces the policy is no longer to be greedy. But in the long run, they two processes cooperate to find a single joint solution: the optimal value function and an optimal policy.
 <figure>
 	<img src="/assets/images/2021-07-25/gpi-rel.png" alt="GPI interaction" width="360" height="200px" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 8</b>: Interaction between the evalution and improvement processes in GPI</figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 8</b>: Interaction between the evaluation and improvement processes in GPI</figcaption>
 </figure>
 
 ### Example - Gambler's Problem
@@ -182,7 +182,6 @@ def value_iteration(theta):
         delta = 0
         V_set.append(V.copy())
         for state in states[1:GOAL]:
-
             old_value = V[state].copy()
 
             actions = np.arange(0, min(state, GOAL - state) + 1)
