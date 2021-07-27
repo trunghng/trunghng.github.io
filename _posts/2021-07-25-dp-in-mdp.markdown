@@ -47,7 +47,7 @@ MDPs satisfy both properties since:
 - Value function stores and reuses solutions.
 
 ### Policy Evaluation
-Recall from the definition of [Bellman equation]({% post_url 2021-06-27-mdp-bellman-eqn %}/#bellman-equations) that, for all $s\in\mathcal{S}$,
+Recall from the definition of [Bellman equation]({% post_url 2021-06-27-mdp-bellman-eqn %}#bellman-equations) that, for all $s\in\mathcal{S}$,
 \begin{equation}
 v_\pi(s)\doteq\sum_a\pi(a|s)\sum_{s',r}p(s',r|s,a)\left[r+\gamma v_\pi(s')\right]\tag{1}\label{1}
 \end{equation}
@@ -56,7 +56,7 @@ Consider a sequence of approximate value functions $v_0,v_1,\dots$, each mapping
 \begin{align}
 v_{k+1}(s)&\doteq\mathbb{E}\_\pi\left[R_{t+1}+\gamma v_k(S_{k+1})\vert S_t=s\right] \\\\ &=\sum_a\pi(a|s)\sum_{s',r}p(s',r|s,a)\left[r+\gamma v_k(s')\right]
 \end{align}
-for all $s\in\mathcal{S}$. Thanks to [Banach's fixed points theorem]({% post_url 2021-07-10-optimal-policy-existence %}/#banach-fixed-pts) and as we talked in that post, we have that the sequence $\\{v_k\\}\to v_\pi$ as $k\to\infty$. This algorithm is called **iterative policy evaluation**.  
+for all $s\in\mathcal{S}$. Thanks to [Banach's fixed points theorem]({% post_url 2021-07-10-optimal-policy-existence %}#banach-fixed-pts) and as we talked in that post, we have that the sequence $\\{v_k\\}\to v_\pi$ as $k\to\infty$. This algorithm is called **iterative policy evaluation**.  
 We have the backup diagram for this update.
 <figure>
 	<img src="/assets/images/2021-07-25/backup-iterative-policy-evaluation.png" alt="Backup diagram for iterative policy evalution update" width="360" height="200px" style="display: block; margin-left: auto; margin-right: auto;"/>
@@ -124,7 +124,7 @@ Policy evaluation step of policy iteration, in fact, can be truncated in several
 \begin{align}
 v_{k+1}&\doteq\max_a\mathbb{E}\left[R_{t+1}+\gamma v_k(S_{t+1})|S_t=s,A_t=a\right] \\\\ &=\max_a\sum_{s',r}p(s',r|s,a)\left[r+\gamma v_k(s')\right],
 \end{align}
-for all $s\in\mathcal{S}$. Once again, thanks to [Banach's fixed point theorem]({% post_url 2021-07-10-optimal-policy-existence %}/#banach-fixed-pts), for an arbitrary $v_0$, we have that the sequence $\\{v_k\\}\to v_\*$ as $k\to\infty$.  
+for all $s\in\mathcal{S}$. Once again, thanks to [Banach's fixed point theorem]({% post_url 2021-07-10-optimal-policy-existence %}#banach-fixed-pts), for an arbitrary $v_0$, we have that the sequence $\\{v_k\\}\to v_\*$ as $k\to\infty$.  
 We have the backup diagram for this update[^3].
 <figure>
 	<img src="/assets/images/2021-07-25/backup-value-iteration.png" alt="Backup diagram of value iteration update" width="360" height="200px" style="display: block; margin-left: auto; margin-right: auto;"/>
@@ -272,4 +272,4 @@ A. Lazaric
 	\begin{align}
 	q_{k+1}(s,a)&\doteq\mathbb{E}\left[R_{t+1}+\gamma\max_{a'}q_k(S_{t+1},a')|S_t=s,A_t=a\right] \\\\ &=\sum_{s',r}p(s',r|s,a)\left[r+\gamma\max_{a'}q_k(s',a')\right]
 	\end{align}
-	Yep, that's right, the sequence $\\{q_k\\}\to q_\*$ as $k\to\infty$ at a geometric rate thanks to [Banach's fixed point theorem]({% post_url 2021-07-10-optimal-policy-existence %}/#banach-fixed-pts)
+	Yep, that's right, the sequence $\\{q_k\\}\to q_\*$ as $k\to\infty$ at a geometric rate thanks to [Banach's fixed point theorem]({% post_url 2021-07-10-optimal-policy-existence %}#banach-fixed-pts)
