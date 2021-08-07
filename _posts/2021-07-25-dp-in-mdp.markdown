@@ -34,17 +34,17 @@ header-includes:
 
 ## Dynamic Programming applied in Markov Decision Processes
 {: #dp-in-mdps}
-DP is a very general method for solving problems having two properties:
-- *Optimal substructure*
-	- Principle of optimality applies.
-	- Optimal solution can be decomposed into sub-problems.
-- *Overlapping sub-problems*
-	- Sub-problems recur many times.
-	- Solutions can be cached and reused.
-
-MDPs satisfy both properties since:
-- Bellman equation gives recursive decomposition.
-- Value function stores and reuses solutions.
+- DP is a very general method for solving problems having two properties:
+    - *Optimal substructure*
+    	- Principle of optimality applies.
+    	- Optimal solution can be decomposed into sub-problems.
+    - *Overlapping sub-problems*
+    	- Sub-problems recur many times.
+    	- Solutions can be cached and reused.
+- MDPs satisfy both properties since:
+    - Bellman equation gives recursive decomposition.
+    - Value function stores and reuses solutions.
+- DP assumes the model is already known.
 
 ### Policy Evaluation
 Recall from the definition of [Bellman equation]({% post_url 2021-06-27-mdp-bellman-eqn %}#bellman-equations) that, for all $s\in\mathcal{S}$,
@@ -155,7 +155,7 @@ The evaluation and improvement processes in GPI can be viewed as both competing 
 {: #example}
 This example is taken from *Example 4.3* in the *Reinforcement Learning: An Introduction* book
 <figure>
-	<img src="/assets/images/2021-07-25/example.png" alt="example" width="450" height="500px" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<img src="/assets/images/2021-07-25/example.png" alt="example" width="500" height="500px" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 9</b>: Example - Gambler's Problem</figcaption>
 </figure>
 
