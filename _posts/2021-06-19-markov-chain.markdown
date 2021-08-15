@@ -60,11 +60,11 @@ P(X_n=j)&=\sum_{i=1}^{M}P(X_0=i)P(X_n=j|X_0=i) \\\\&=\sum_{i=1}^{M}t_iq_{ij}^{(n
 or the marginal distribution of $X_n$ is given by $tQ^n$.
 
 #### Properties
-- State $i$ of a Markov chain is defined as *recurrent* or *transient* depending upon whether or not the Markov chain will eventually return to it. Starting with *recurrent* state i, the chain will return to it with the probability of 1. Otherwise, it is *transient*. 
+1. State $i$ of a Markov chain is defined as *recurrent* or *transient* depending upon whether or not the Markov chain will eventually return to it. Starting with *recurrent* state i, the chain will return to it with the probability of 1. Otherwise, it is *transient*. 
 	- **Proposition**: Number of returns to *transient* state is distributed by *Geom($p$)*, with $p>0$ is the probability of never returning to $i$.
-- A Markov chain is defined as *irreducible* if there exists a chain of steps between any $i,j$ that has positive probability. That is for any $i,j$, there is some $n>0,\in\mathbb{N}$ such that $Q^n_{ij}>0$. If not *irreducible*, it's called *reducible*
+2. A Markov chain is defined as *irreducible* if there exists a chain of steps between any $i,j$ that has positive probability. That is for any $i,j$, there is some $n>0,\in\mathbb{N}$ such that $Q^n_{ij}>0$. If not *irreducible*, it's called *reducible*
 	- **Proposition**: *Irreducible* implies all states *recurrent*
-- A state $i$ has *period* $k>0$ if $k$ is the greatest common divisor (gcd) of the possible numbers of steps it can take to return to $i$ when starting at $i$.
+3. A state $i$ has *period* $k>0$ if $k$ is the greatest common divisor (gcd) of the possible numbers of steps it can take to return to $i$ when starting at $i$.
 And thus, $k=gcd(n)$ such that $Q^n_{ii}>0$. $i$ is called *aperiodic* if $k_i=1$, and *periodic* otherwise. The chain itself is called *aperiodic* if all its states are *aperiodic*, and *periodic* otherwise.
 
 #### Stationary Distribution

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-08-15T07:33:14+07:00</updated><id>/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-08-15T20:18:58+07:00</updated><id>/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Dynamic Programming Algorithms For Solving Markov Decision Processes</title><link href="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html" rel="alternate" type="text/html" title="Dynamic Programming Algorithms For Solving Markov Decision Processes" /><published>2021-07-25T15:30:00+07:00</published><updated>2021-07-25T15:30:00+07:00</updated><id>/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp</id><content type="html" xml:base="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html">&lt;blockquote&gt;
   &lt;p&gt;In two previous posts, &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html&quot;&gt;&lt;strong&gt;Markov Decision Process (MDP) and Bellman equations&lt;/strong&gt;&lt;/a&gt; and &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html&quot;&gt;&lt;strong&gt;Optimal Policy Existence&lt;/strong&gt;&lt;/a&gt;, we have known how MDPs, Bellman equations are defined and how they work. In this post, we are going to talk about how these MDPs are solved with &lt;strong&gt;Dynamic Programming&lt;/strong&gt;.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -844,7 +844,7 @@ We say that $f$ is the &lt;em&gt;density&lt;/em&gt; of the measure $v$ w.r.t $\m
     &lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="random-stuffs" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><summary type="html">When talking about measure, you might associate it with the idea of length, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with area, or even three dimensions with volume.</summary></entry><entry><title type="html">Markov Decision Processes, Bellman equations</title><link href="/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html" rel="alternate" type="text/html" title="Markov Decision Processes, Bellman equations" /><published>2021-06-27T08:00:00+07:00</published><updated>2021-06-27T08:00:00+07:00</updated><id>/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn</id><content type="html" xml:base="/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html">&lt;blockquote&gt;
-  &lt;p&gt;You may have known or heard vaguely about a computer program called &lt;a href=&quot;https://deepmind.com/research/case-studies/alphago-the-story-so-far&quot;&gt;AlphaGo&lt;/a&gt; - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with &lt;strong&gt;Reinforcement Learning&lt;/strong&gt;.&lt;/p&gt;
+  &lt;p&gt;You may have known or heard vaguely about a computer program called &lt;strong&gt;AlphaGo&lt;/strong&gt; - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called &lt;strong&gt;self-play&lt;/strong&gt; against its other instances, with &lt;strong&gt;Reinforcement Learning&lt;/strong&gt;.&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;!-- excerpt-end --&gt;
@@ -884,11 +884,11 @@ A &lt;strong&gt;Markov Decision Process&lt;/strong&gt; is a tuple $⟨\mathcal{S
   &lt;li&gt;$\mathcal{P}$ is a state transition probability matrix&lt;br /&gt;
   \(\mathcal{P}^a_{ss&apos;}=P(S_{t+1}=s&apos;|S_t=s,A_t=a)\)&lt;/li&gt;
   &lt;li&gt;$\mathcal{R}$ is a reward function&lt;br /&gt;
-  \(\mathcal{R}_s^a=E[R_{t+1}|S_t=s,A_t=a]\)&lt;/li&gt;
+  \(\mathcal{R}^a_s=\mathbb{E}\left[R_{t+1}|S_t=s,A_t=a\right]\)&lt;/li&gt;
   &lt;li&gt;$\gamma\in[0, 1]$ is a discount factor for future reward&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;MDP&lt;/strong&gt; is an extension of &lt;a href=&quot;/random-stuffs/probability-statistics/2021/06/19/markov-chain.html&quot;&gt;Markov chain&lt;/a&gt;. If only one action exists for each state, and all rewards are the same, an &lt;strong&gt;MDP&lt;/strong&gt; reduces to a &lt;em&gt;Markov chain&lt;/em&gt;. All states in &lt;strong&gt;MDP&lt;/strong&gt; has &lt;em&gt;Markov property&lt;/em&gt;, referring to the fact that the current state captures all relevant information from the history
+&lt;p&gt;&lt;strong&gt;MDP&lt;/strong&gt; is an extension of &lt;a href=&quot;/random-stuffs/probability-statistics/2021/06/19/markov-chain.html&quot;&gt;Markov chain&lt;/a&gt;. If only one action exists for each state, and all rewards are the same, an &lt;strong&gt;MDP&lt;/strong&gt; reduces to a &lt;em&gt;Markov chain&lt;/em&gt;. All states in &lt;strong&gt;MDP&lt;/strong&gt; has &lt;a href=&quot;/random-stuffs/probability-statistics/2021/06/19/markov-chain.html#markov-property&quot;&gt;Markov property&lt;/a&gt;, referring to the fact that the current state captures all relevant information from the history.
 \begin{equation}
 P(S_{t+1}|S_t)=P(S_{t+1}|S_1,\dots,S_t)
 \end{equation}&lt;/p&gt;
@@ -907,7 +907,7 @@ where $\gamma\in[0,1]$ is called &lt;em&gt;discount rate&lt;/em&gt; (or &lt;em&g
 k time steps in the future is worth only $\gamma^{k-1}$ times what it would be worth if it were received immediately. And also, it provides mathematical convenience since as $k\rightarrow\infty$ then $\gamma^k\rightarrow 0$.&lt;/p&gt;
 
 &lt;h5 id=&quot;policy&quot;&gt;Policy&lt;/h5&gt;
-&lt;p&gt;&lt;strong&gt;Policy&lt;/strong&gt;, which is denoted as $\pi$, is the behaviour function of the agent. $\pi$ is a mapping from states to probabilities of selecting each possible action. In other words, it lets us know which action to take in the current state $s$ and can be either &lt;em&gt;deterministic&lt;/em&gt; or &lt;em&gt;stochastic&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Policy&lt;/strong&gt;, which is denoted as $\pi$, is the behaviour function of the agent. $\pi$ is a mapping from states to probabilities of selecting each possible action. In other words, it lets us know which action to take in the current state $s$ and can be either &lt;em&gt;deterministic&lt;/em&gt; or &lt;em&gt;stochastic&lt;/em&gt;.&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;em&gt;Deterministic policy&lt;/em&gt;:	$\quad\pi(s)=a$&lt;/li&gt;
   &lt;li&gt;&lt;em&gt;Stochastic policy&lt;/em&gt;: $\quad\pi(a|s)=P(A_t=a|S_t=s)$&lt;/li&gt;
@@ -919,13 +919,13 @@ k time steps in the future is worth only $\gamma^{k-1}$ times what it would be w
 &lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;state-value function&lt;/em&gt;)&lt;br /&gt;
 The &lt;strong&gt;state-value function&lt;/strong&gt; of a state $s$ under a policy $\pi$, denoted as $v_\pi(s)$, is the expected return starting from state $s$ and following $\pi$ thereafter:
 \begin{equation}
-v_\pi(s)=E_\pi[G_t|S_t=s]
+v_\pi(s)=\mathbb{E}_\pi[G_t|S_t=s]
 \end{equation}&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;action-value function&lt;/em&gt;)&lt;br /&gt;
 Similarly, we define the value of taking action $a$ in state $s$ under a policy $\pi$, denoted as $q_\pi(s,a)$, as the expected return starting from $s$, taking the action $a$, and thereafter following policy $\pi$:
 \begin{equation}
-q_\pi(s,a)=E_\pi[G_t|S_t=s,A_t=a]
+q_\pi(s,a)=\mathbb{E}_\pi[G_t|S_t=s,A_t=a]
 \end{equation}&lt;/p&gt;
 
 &lt;p&gt;Since we follow the policy $\pi$, we have that
@@ -959,13 +959,13 @@ q_*(s,a)=\max_{\pi}q_\pi(s,a)
 &lt;h4 id=&quot;bellman-equations&quot;&gt;Bellman Equations&lt;/h4&gt;
 &lt;p&gt;A fundamental property of &lt;em&gt;value functions&lt;/em&gt; used throughout RL is that they satisfy recursive relationships
 \begin{align}
-v_\pi(s)&amp;amp;\doteq E_\pi[G_t|S_t=s] \\&amp;amp;=E_\pi[R_t+\gamma G_{t+1}|S_t=s] \\&amp;amp;=\sum_{s’,r,g’,a}p(s’,r,g’,a|s)(r+\gamma g’) \\&amp;amp;=\sum_{a}p(a|s)\sum_{s’,r,g’}p(s’,r,g’|a,s)(r+\gamma g’) \\&amp;amp;=\sum_{a}\pi(a|s)\sum_{s’,r,g’}p(s’,r|a,s)p(g’|s’,r,a,s)(r+\gamma g’) \\&amp;amp;=\sum_{a}\pi(a|s)\sum_{s’,r}p(s’,r|a,s)\sum_{g’}p(g’|s’)(r+\gamma g’) \\&amp;amp;=\sum_{a}\pi(a|s)\sum_{s’,r}p(s’,r|a,s)\left[r+\gamma\sum_{g’}p(g’|s’)g’\right] \\&amp;amp;=\sum_{a}\pi(a|s)\sum_{s’,r}p(s’,r|a,s)\left[r+\gamma v_\pi(s’)\right],
+v_\pi(s)&amp;amp;\doteq \mathbb{E}_\pi[G_t|S_t=s] \\&amp;amp;=\mathbb{E}_\pi[R_t+\gamma G_{t+1}|S_t=s] \\&amp;amp;=\sum_{s’,r,g’,a}p(s’,r,g’,a|s)(r+\gamma g’) \\&amp;amp;=\sum_{a}p(a|s)\sum_{s’,r,g’}p(s’,r,g’|a,s)(r+\gamma g’) \\&amp;amp;=\sum_{a}\pi(a|s)\sum_{s’,r,g’}p(s’,r|a,s)p(g’|s’,r,a,s)(r+\gamma g’) \\&amp;amp;=\sum_{a}\pi(a|s)\sum_{s’,r}p(s’,r|a,s)\sum_{g’}p(g’|s’)(r+\gamma g’) \\&amp;amp;=\sum_{a}\pi(a|s)\sum_{s’,r}p(s’,r|a,s)\left[r+\gamma\sum_{g’}p(g’|s’)g’\right] \\&amp;amp;=\sum_{a}\pi(a|s)\sum_{s’,r}p(s’,r|a,s)\left[r+\gamma v_\pi(s’)\right],
 \end{align}
 where $p(s’,r|s,a)=P(S_{t+1}=s’,R_{t+1}=r|S_t=s,A_t=a)$, which defines the dynamics of the MDP. The last equation is called the &lt;em&gt;Bellman equation for&lt;/em&gt; $v_\pi(s)$. It expresses a relationship between the value state $s$, $v_\pi(s)$ and the values of its successor states $s’$, $v_\pi(s’)$.&lt;/p&gt;
 
 &lt;p&gt;Similarly, we define the &lt;em&gt;Bellman equation for&lt;/em&gt; $q_\pi(s,a)$
 \begin{align}
-q_\pi(s,a)&amp;amp;\doteq E_\pi[G_t|S_t=s,A_t=a] \\&amp;amp;=E_\pi[R_t+\gamma G_{t+1}|S_t=s,A_t=a] \\&amp;amp;=\sum_{s’,r}p(s’,r|s,a)\left[r+\gamma\sum_{a’}\pi(a’|s’)q_\pi(s’,a’)\right]
+q_\pi(s,a)&amp;amp;\doteq\mathbb{E}_\pi[G_t|S_t=s,A_t=a] \\&amp;amp;=\mathbb{E}_\pi[R_t+\gamma G_{t+1}|S_t=s,A_t=a] \\&amp;amp;=\sum_{s’,r}p(s’,r|s,a)\left[r+\gamma\sum_{a’}\pi(a’|s’)q_\pi(s’,a’)\right]
 \end{align}&lt;/p&gt;
 
 &lt;h5 id=&quot;bellman-backup-diagram&quot;&gt;Bellman Backup Diagram&lt;/h5&gt;
@@ -978,11 +978,11 @@ q_\pi(s,a)&amp;amp;\doteq E_\pi[G_t|S_t=s,A_t=a] \\&amp;amp;=E_\pi[R_t+\gamma G_
 &lt;h5 id=&quot;bellman-optimality-equations&quot;&gt;Bellman Optimality Equations&lt;/h5&gt;
 &lt;p&gt;Since $v_*$ is the value function for a policy, it must satisfy the &lt;em&gt;Bellman equation for state-values&lt;/em&gt;. Moreover, it is also the optimal value function, then we have
 \begin{align}
-v_*(s)&amp;amp;=\max_{a\in\mathcal{A(s)}}q_{\pi_*}(s,a) \\&amp;amp;=\max_{a}E_{\pi_*}[G_t|S_t=s,A_t=a] \\&amp;amp;=\max_{a}E_{\pi_*}[R_{t+1}+\gamma G_{t+1}|S_t=s,A_t=a] \\&amp;amp;=\max_{a}E[R_{t+1}+\gamma v_*(S_{t+1})|S_t=s,A_t=a] \\&amp;amp;=\max_{a}\sum_{s’,r}p(s’,r|s,a)[r+\gamma v_*(s’)]
+v_*(s)&amp;amp;=\max_{a\in\mathcal{A(s)}}q_{\pi_*}(s,a) \\&amp;amp;=\max_{a}\mathbb{E}_{\pi_*}[G_t|S_t=s,A_t=a] \\&amp;amp;=\max_{a}\mathbb{E}_{\pi_*}[R_{t+1}+\gamma G_{t+1}|S_t=s,A_t=a] \\&amp;amp;=\max_{a}\mathbb{E}[R_{t+1}+\gamma v_*(S_{t+1})|S_t=s,A_t=a] \\&amp;amp;=\max_{a}\sum_{s’,r}p(s’,r|s,a)[r+\gamma v_*(s’)]
 \end{align}
 The last two equations are two forms of the &lt;em&gt;Bellman optimality equation for&lt;/em&gt; $v_*$. Similarly, we have the &lt;em&gt;Bellman optimality equation for&lt;/em&gt; $q_*$
 \begin{align}
-q_*(s,a)&amp;amp;=E\left[R_{t+1}+\gamma\max_{a’}q_*(S_{t+1},a’)|S_t=s,A_t=a\right] \\&amp;amp;=\sum_{s’,r}p(s’,r|s,a)\left[r+\gamma\max_{a’}q_*(s’,a’)\right]
+q_*(s,a)&amp;amp;=\mathbb{E}\left[R_{t+1}+\gamma\max_{a’}q_*(S_{t+1},a’)|S_t=s,A_t=a\right] \\&amp;amp;=\sum_{s’,r}p(s’,r|s,a)\left[r+\gamma\max_{a’}q_*(s’,a’)\right]
 \end{align}&lt;/p&gt;
 
 &lt;h5 id=&quot;backup-vq&quot;&gt;Backup diagram for $v_*$ and $q_*$&lt;/h5&gt;
@@ -993,6 +993,7 @@ q_*(s,a)&amp;amp;=E\left[R_{t+1}+\gamma\max_{a’}q_*(S_{t+1},a’)|S_t=s,A_t=a\
   &lt;li&gt;Reinforcement Learning: An Introduction - Richard S. Sutton &amp;amp; Andrew G. Barto&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.davidsilver.uk/teaching/&quot;&gt;UCL course on RL&lt;/a&gt; - David Silver&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://lilianweng.github.io/lil-log/2018/02/19/a-long-peek-into-reinforcement-learning.html&quot;&gt;A (Long) Peek into Reinforcement Learning&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://deepmind.com/research/case-studies/alphago-the-story-so-far&quot;&gt;AlphaGo&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><summary type="html">You may have known or heard vaguely about a computer program called AlphaGo - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with Reinforcement Learning.</summary></entry><entry><title type="html">Markov Chain</title><link href="/random-stuffs/probability-statistics/2021/06/19/markov-chain.html" rel="alternate" type="text/html" title="Markov Chain" /><published>2021-06-19T22:27:00+07:00</published><updated>2021-06-19T22:27:00+07:00</updated><id>/random-stuffs/probability-statistics/2021/06/19/markov-chain</id><content type="html" xml:base="/random-stuffs/probability-statistics/2021/06/19/markov-chain.html">&lt;blockquote&gt;
   &lt;p&gt;Since I have no idea how to begin with this post, why not just dive straight into details :P&lt;br /&gt;
 &lt;strong&gt;Markov chain&lt;/strong&gt; is a stochastic process in which the random variables follow a special property called &lt;em&gt;Markov&lt;/em&gt;.&lt;/p&gt;
@@ -1050,7 +1051,7 @@ P(X_n=j)&amp;amp;=\sum_{i=1}^{M}P(X_0=i)P(X_n=j|X_0=i) \\&amp;amp;=\sum_{i=1}^{M
 or the marginal distribution of $X_n$ is given by $tQ^n$.&lt;/p&gt;
 
 &lt;h4 id=&quot;properties&quot;&gt;Properties&lt;/h4&gt;
-&lt;ul&gt;
+&lt;ol&gt;
   &lt;li&gt;State $i$ of a Markov chain is defined as &lt;em&gt;recurrent&lt;/em&gt; or &lt;em&gt;transient&lt;/em&gt; depending upon whether or not the Markov chain will eventually return to it. Starting with &lt;em&gt;recurrent&lt;/em&gt; state i, the chain will return to it with the probability of 1. Otherwise, it is &lt;em&gt;transient&lt;/em&gt;.
     &lt;ul&gt;
       &lt;li&gt;&lt;strong&gt;Proposition&lt;/strong&gt;: Number of returns to &lt;em&gt;transient&lt;/em&gt; state is distributed by &lt;em&gt;Geom($p$)&lt;/em&gt;, with $p&amp;gt;0$ is the probability of never returning to $i$.&lt;/li&gt;
@@ -1063,7 +1064,7 @@ or the marginal distribution of $X_n$ is given by $tQ^n$.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;A state $i$ has &lt;em&gt;period&lt;/em&gt; $k&amp;gt;0$ if $k$ is the greatest common divisor (gcd) of the possible numbers of steps it can take to return to $i$ when starting at $i$.
 And thus, $k=gcd(n)$ such that $Q^n_{ii}&amp;gt;0$. $i$ is called &lt;em&gt;aperiodic&lt;/em&gt; if $k_i=1$, and &lt;em&gt;periodic&lt;/em&gt; otherwise. The chain itself is called &lt;em&gt;aperiodic&lt;/em&gt; if all its states are &lt;em&gt;aperiodic&lt;/em&gt;, and &lt;em&gt;periodic&lt;/em&gt; otherwise.&lt;/li&gt;
-&lt;/ul&gt;
+&lt;/ol&gt;
 
 &lt;h4 id=&quot;stationary-distribution&quot;&gt;Stationary Distribution&lt;/h4&gt;
 &lt;p&gt;A vector $s=(s_1,\dots,s_M)^T$ such that $s_i\geq0$ and $\sum_{i}s_i=1$ is a &lt;em&gt;stationary distribution&lt;/em&gt; for a Markov chain if
@@ -1128,32 +1129,32 @@ for all states $i,j$. This equation is called &lt;em&gt;reversibility&lt;/em&gt;
 	&lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
 	generate i-th number of the Fibonacci sequence, python code obvs :p
 	&quot;&quot;&quot;&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;pow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;Why did numbers \(\frac{1+\sqrt{5}}{2}\) and \(\frac{1-\sqrt{5}}{2}\) come out of nowhere?&lt;/p&gt;
 
-&lt;p&gt;In fact, these two numbers are eigenvalues of matrix \(A=\big(\begin{smallmatrix}1 &amp;amp; 1\\1 &amp;amp; 0\end{smallmatrix}\big)\), which is retrieved from
+&lt;p&gt;In fact, these two numbers are eigenvalues of matrix \(A=\left(\begin{smallmatrix}1 &amp;amp; 1\\1 &amp;amp; 0\end{smallmatrix}\right)\), which is retrieved from
 \begin{equation}
 u_{k+1}=Au_k,
 \end{equation}
-where \(u_k=\big(\begin{smallmatrix}F_{k+1}\\F_k\end{smallmatrix}\big)\).
+where \(u_k=\left(\begin{smallmatrix}F_{k+1}\\F_k\end{smallmatrix}\right)\).
 And thus, \(u_k=A^k u_0\).&lt;/p&gt;
 
 &lt;p&gt;Then, the thing is, how can we compute \(A^k\) quickly? This is where diagonalizing plays its role. Diagonalizing produces a factorization:
 \begin{equation}
 A=S\Lambda S^{-1},
 \end{equation}
-where \(S=\big(\begin{smallmatrix}x_1\dots x_n\end{smallmatrix}\big)\) is eigenvector matrix, \(\Lambda=\big(\begin{smallmatrix}\lambda_1&amp;amp;&amp;amp;\\&amp;amp;\ddots&amp;amp;\\&amp;amp;&amp;amp;\lambda_n\end{smallmatrix}\big)\) is a diagonal matrix established from eigenvalues of \(A\).&lt;/p&gt;
+where \(S=\left(\begin{smallmatrix}x_1 &amp;amp; \dots &amp;amp; x_n\end{smallmatrix}\right)\) is eigenvector matrix, \(\Lambda=\left(\begin{smallmatrix}\lambda_1&amp;amp;&amp;amp;\\&amp;amp;\ddots&amp;amp;\\&amp;amp;&amp;amp;\lambda_n\end{smallmatrix}\right)\) is a diagonal matrix established from eigenvalues of \(A\).&lt;/p&gt;
 
 &lt;p&gt;When taking the power of \(A\),
 \begin{equation}
-A^k u_0=(S\Lambda S^{-1})\dots(S\Lambda S^{-1})u_0=S\Lambda^k S^{-1} u_0
+A^k u_0=(S\Lambda S^{-1})\dots(S\Lambda S^{-1})u_0=S\Lambda^k S^{-1} u_0,
 \end{equation}
-Writing \(u_0\) as a combination \(c_1x_1+\dots+c_nx_n\) of the eigenvectors, we have that \(c=S^{-1}u_0\). Hence:
+writing \(u_0\) as a combination \(c_1x_1+\dots+c_nx_n\) of the eigenvectors, we have that \(c=S^{-1}u_0\). Hence:
 \begin{equation}
 u_k=A^ku_0=c_1{\lambda_1}^kx_1+\dots+c_n{\lambda_n}^kx_n
 \end{equation}
-&lt;em&gt;Fact&lt;/em&gt;: The \(\frac{1+\sqrt{5}}{2}\approx 1.618\) is so-called “&lt;em&gt;golden ratio&lt;/em&gt;”. And &lt;em&gt;for some reason a rectangle with sides 1.618 and 1 looks especially graceful&lt;/em&gt;.&lt;/p&gt;
+&lt;em&gt;Fact&lt;/em&gt;: The \(\frac{1+\sqrt{5}}{2}\approx 1.618\) is so-called “&lt;strong&gt;golden ratio&lt;/strong&gt;”. And &lt;em&gt;for some reason a rectangle with sides 1.618 and 1 looks especially graceful&lt;/em&gt;.&lt;/p&gt;
 
 &lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
 &lt;ol&gt;

@@ -7,7 +7,7 @@ tags: artificial-intelligent reinforcement-learning
 description: Markov Decision Processes (MDPs), Bellman equations
 comments: true
 ---
-> You may have known or heard vaguely about a computer program called [AlphaGo](https://deepmind.com/research/case-studies/alphago-the-story-so-far) - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with **Reinforcement Learning**.  
+> You may have known or heard vaguely about a computer program called **AlphaGo** - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called **self-play** against its other instances, with **Reinforcement Learning**.  
 
 <!-- excerpt-end -->
 - [What is Reinforcement Learning?](#what-is-rl)
@@ -40,10 +40,10 @@ A **Markov Decision Process** is a tuple $⟨\mathcal{S}, \mathcal{A}, \mathcal{
 - $\mathcal{P}$ is a state transition probability matrix  
 	$$\mathcal{P}^a_{ss'}=P(S_{t+1}=s'|S_t=s,A_t=a)$$
 - $\mathcal{R}$ is a reward function  
-	$$\mathcal{R}_s^a=E[R_{t+1}|S_t=s,A_t=a]$$
+	$$\mathcal{R}^a_s=\mathbb{E}\left[R_{t+1}|S_t=s,A_t=a\right]$$
 - $\gamma\in[0, 1]$ is a discount factor for future reward
 
-**MDP** is an extension of [Markov chain]({% post_url 2021-06-19-markov-chain %}). If only one action exists for each state, and all rewards are the same, an **MDP** reduces to a *Markov chain*. All states in **MDP** has *Markov property*, referring to the fact that the current state captures all relevant information from the history
+**MDP** is an extension of [Markov chain]({% post_url 2021-06-19-markov-chain %}). If only one action exists for each state, and all rewards are the same, an **MDP** reduces to a *Markov chain*. All states in **MDP** has [Markov property]({% post_url 2021-06-19-markov-chain %}#markov-property), referring to the fact that the current state captures all relevant information from the history.
 \begin{equation}
 P(S_{t+1}|S_t)=P(S_{t+1}|S_1,\dots,S_t)
 \end{equation}
@@ -62,7 +62,7 @@ The *discount rate* $\gamma$ determines the present value of future rewards: a r
 k time steps in the future is worth only $\gamma^{k-1}$ times what it would be worth if it were received immediately. And also, it provides mathematical convenience since as $k\rightarrow\infty$ then $\gamma^k\rightarrow 0$.
 
 ##### Policy
-**Policy**, which is denoted as $\pi$, is the behaviour function of the agent. $\pi$ is a mapping from states to probabilities of selecting each possible action. In other words, it lets us know which action to take in the current state $s$ and can be either *deterministic* or *stochastic*
+**Policy**, which is denoted as $\pi$, is the behaviour function of the agent. $\pi$ is a mapping from states to probabilities of selecting each possible action. In other words, it lets us know which action to take in the current state $s$ and can be either *deterministic* or *stochastic*.
 - *Deterministic policy*:	$\quad\pi(s)=a$
 - *Stochastic policy*: $\quad\pi(a\|s)=P(A_t=a\|S_t=s)$
 
@@ -72,13 +72,13 @@ k time steps in the future is worth only $\gamma^{k-1}$ times what it would be w
 **Definition** (*state-value function*)  
 The **state-value function** of a state $s$ under a policy $\pi$, denoted as $v_\pi(s)$, is the expected return starting from state $s$ and following $\pi$ thereafter:
 \begin{equation}
-v_\pi(s)=E_\pi[G_t|S_t=s]
+v_\pi(s)=\mathbb{E}\_\pi[G_t|S_t=s]
 \end{equation}
 
 **Definition** (*action-value function*)  
 Similarly, we define the value of taking action $a$ in state $s$ under a policy $\pi$, denoted as $q_\pi(s,a)$, as the expected return starting from $s$, taking the action $a$, and thereafter following policy $\pi$:
 \begin{equation}
-q_\pi(s,a)=E_\pi[G_t|S_t=s,A_t=a]
+q_\pi(s,a)=\mathbb{E}\_\pi[G_t|S_t=s,A_t=a]
 \end{equation}
 
 Since we follow the policy $\pi$, we have that
@@ -113,13 +113,13 @@ q_\*(s,a)=\max_{\pi}q_\pi(s,a)
 #### Bellman Equations
 A fundamental property of *value functions* used throughout RL is that they satisfy recursive relationships
 \begin{align}
-v_\pi(s)&\doteq E_\pi[G_t|S_t=s] \\\\&=E_\pi[R_t+\gamma G_{t+1}|S_t=s] \\\\&=\sum_{s',r,g',a}p(s',r,g',a|s)(r+\gamma g') \\\\&=\sum_{a}p(a|s)\sum_{s',r,g'}p(s',r,g'|a,s)(r+\gamma g') \\\\&=\sum_{a}\pi(a|s)\sum_{s',r,g'}p(s',r|a,s)p(g'|s',r,a,s)(r+\gamma g') \\\\&=\sum_{a}\pi(a|s)\sum_{s',r}p(s',r|a,s)\sum_{g'}p(g'|s')(r+\gamma g') \\\\&=\sum_{a}\pi(a|s)\sum_{s',r}p(s',r|a,s)\left[r+\gamma\sum_{g'}p(g'|s')g'\right] \\\\&=\sum_{a}\pi(a|s)\sum_{s',r}p(s',r|a,s)\left[r+\gamma v_\pi(s')\right],
+v_\pi(s)&\doteq \mathbb{E}\_\pi[G_t|S_t=s] \\\\&=\mathbb{E}\_\pi[R_t+\gamma G_{t+1}|S_t=s] \\\\&=\sum_{s',r,g',a}p(s',r,g',a|s)(r+\gamma g') \\\\&=\sum_{a}p(a|s)\sum_{s',r,g'}p(s',r,g'|a,s)(r+\gamma g') \\\\&=\sum_{a}\pi(a|s)\sum_{s',r,g'}p(s',r|a,s)p(g'|s',r,a,s)(r+\gamma g') \\\\&=\sum_{a}\pi(a|s)\sum_{s',r}p(s',r|a,s)\sum_{g'}p(g'|s')(r+\gamma g') \\\\&=\sum_{a}\pi(a|s)\sum_{s',r}p(s',r|a,s)\left[r+\gamma\sum_{g'}p(g'|s')g'\right] \\\\&=\sum_{a}\pi(a|s)\sum_{s',r}p(s',r|a,s)\left[r+\gamma v_\pi(s')\right],
 \end{align}
 where $p(s',r|s,a)=P(S_{t+1}=s',R_{t+1}=r|S_t=s,A_t=a)$, which defines the dynamics of the MDP. The last equation is called the *Bellman equation for* $v_\pi(s)$. It expresses a relationship between the value state $s$, $v_\pi(s)$ and the values of its successor states $s'$, $v_\pi(s')$.  
 
 Similarly, we define the *Bellman equation for* $q_\pi(s,a)$
 \begin{align}
-q_\pi(s,a)&\doteq E_\pi[G_t|S_t=s,A_t=a] \\\\&=E_\pi[R_t+\gamma G_{t+1}|S_t=s,A_t=a] \\\\&=\sum_{s',r}p(s',r|s,a)\left[r+\gamma\sum_{a'}\pi(a'|s')q_\pi(s',a')\right]
+q_\pi(s,a)&\doteq\mathbb{E}\_\pi[G_t|S_t=s,A_t=a] \\\\&=\mathbb{E}\_\pi[R_t+\gamma G_{t+1}|S_t=s,A_t=a] \\\\&=\sum_{s',r}p(s',r|s,a)\left[r+\gamma\sum_{a'}\pi(a'|s')q_\pi(s',a')\right]
 \end{align}
 
 ##### Bellman Backup Diagram
@@ -132,11 +132,11 @@ Backup diagram of *state-value function* and *action-value function* respectivel
 ##### Bellman Optimality Equations
 Since $v_\*$ is the value function for a policy, it must satisfy the *Bellman equation for state-values*. Moreover, it is also the optimal value function, then we have
 \begin{align}
-v_\*(s)&=\max_{a\in\mathcal{A(s)}}q_{\pi_\*}(s,a) \\\\&=\max_{a}E_{\pi_\*}[G_t|S_t=s,A_t=a] \\\\&=\max_{a}E_{\pi_\*}[R_{t+1}+\gamma G_{t+1}|S_t=s,A_t=a] \\\\&=\max_{a}E[R_{t+1}+\gamma v_\*(S_{t+1})|S_t=s,A_t=a] \\\\&=\max_{a}\sum_{s',r}p(s',r|s,a)[r+\gamma v_\*(s')]
+v_\*(s)&=\max_{a\in\mathcal{A(s)}}q_{\pi_\*}(s,a) \\\\&=\max_{a}\mathbb{E}\_{\pi_\*}[G_t|S_t=s,A_t=a] \\\\&=\max_{a}\mathbb{E}\_{\pi_\*}[R_{t+1}+\gamma G_{t+1}|S_t=s,A_t=a] \\\\&=\max_{a}\mathbb{E}[R_{t+1}+\gamma v_\*(S_{t+1})|S_t=s,A_t=a] \\\\&=\max_{a}\sum_{s',r}p(s',r|s,a)[r+\gamma v_\*(s')]
 \end{align}
 The last two equations are two forms of the *Bellman optimality equation for* $v_\*$. Similarly, we have the *Bellman optimality equation for* $q_\*$
 \begin{align}
-q_\*(s,a)&=E\left[R_{t+1}+\gamma\max_{a'}q_\*(S_{t+1},a')|S_t=s,A_t=a\right] \\\\&=\sum_{s',r}p(s',r|s,a)\left[r+\gamma\max_{a'}q_\*(s',a')\right]
+q_\*(s,a)&=\mathbb{E}\left[R_{t+1}+\gamma\max_{a'}q_\*(S_{t+1},a')|S_t=s,A_t=a\right] \\\\&=\sum_{s',r}p(s',r|s,a)\left[r+\gamma\max_{a'}q_\*(s',a')\right]
 \end{align}
 
 ##### Backup diagram for $v_\*$ and $q_\*$
@@ -147,3 +147,4 @@ q_\*(s,a)&=E\left[R_{t+1}+\gamma\max_{a'}q_\*(S_{t+1},a')|S_t=s,A_t=a\right] \\\
 1. Reinforcement Learning: An Introduction - Richard S. Sutton & Andrew G. Barto
 2. [UCL course on RL](https://www.davidsilver.uk/teaching/) - David Silver
 3. [A (Long) Peek into Reinforcement Learning](https://lilianweng.github.io/lil-log/2018/02/19/a-long-peek-into-reinforcement-learning.html)
+4. [AlphaGo](https://deepmind.com/research/case-studies/alphago-the-story-so-far)
