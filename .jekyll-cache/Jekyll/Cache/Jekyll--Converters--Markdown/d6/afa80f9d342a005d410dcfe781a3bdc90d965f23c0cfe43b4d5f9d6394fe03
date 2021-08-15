@@ -1,6 +1,5 @@
-I"�<blockquote>
-  <p>Since I have no idea how to begin with this post, why not just dive straight into details :P<br />
-<strong>Markov chain</strong> is a stochastic process in which the random variables follow a special property called <em>Markov</em>.</p>
+I"d"<blockquote>
+  <p>Since I have no idea how to begin with this post, why not just dive straight into details :P</p>
 </blockquote>
 
 <!-- excerpt-end -->
@@ -20,12 +19,14 @@
   <li><a href="#footnotes">Footnotes</a></li>
 </ul>
 
+<p><strong>Markov chain</strong><sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup><sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup> is a stochastic process in which the random variables follow a special property called <em>Markov</em>.</p>
+
 <h4 id="markov-property">Markov Property</h4>
 <p>A sequence of random variables $X_0, X_1, X_2, \dots$ taking values in the <em>state space</em> $S=${$1, 2,\dots, M$}. For all $n\geq0$,
 \begin{equation}
 P(X_{n+1}=j|X_n=i)=P(X_{n+1}=j|X_n=i,X_{n-1}=i_{n-1},X_{n-2}=i_{n-2},\dots,X_0=i_0)
 \end{equation}
-In other words, knowledge of the preceding state is all we need to determine the probability distribution of the current state.</p>
+In other words, knowledge of the preceding state is all we need to determine the probability distribution of the current state<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup>.</p>
 
 <h4 id="transition-matrix">Transition Matrix</h4>
 <p>The quantity $P(X_{n+1}=j|X_n=i)$ is <em>transition probability</em> from state $i$ to $j$.<br />
@@ -80,7 +81,7 @@ for all $j$, or equivalently $sQ=s$.</p>
 <p><strong>Theorem</strong> (<em>Existence and uniqueness of stationary distribution</em>)<br />
     Any <em>irreducible</em> Markov chain has a unique <em>stationary distribution</em>. In this distribution, every state has positive probability.</p>
 
-<p>The theorem is a consequence of a result from <a href="https://en.wikipedia.org/wiki/Perron–Frobenius_theorem"><em>Perron-Frobenius theorem</em></a>.</p>
+<p>The theorem is a consequence of a result from <em>Perron-Frobenius theorem</em>.</p>
 
 <p><strong>Theorem</strong> (<em>Convergence to stationary distribution</em>)<br />
     Let $X_0,X_1,\dots$ be a Markov chain with <em>stationary distribution</em> $s$ and <em>transition matrix</em> $Q$, such that some power $Q^m$ has all entries positive (or in the other words, the chain is <em>irreducible</em> and <em>aperiodic</em>). Then $P(X_n=i)$ converges to $s_i$ as $n\rightarrow\infty$ (or $Q^n$ converges to a matrix in which each row is $s$).</p>
@@ -117,9 +118,17 @@ for all states $i,j$. This equation is called <em>reversibility</em> or <em>deta
 </ol>
 
 <h4 id="footnotes">Footnotes</h4>
-<ul>
-  <li>The Markov chain here is <em>time-homogeneous</em> Markov chain, in which the probability of any state transition is independent of time.</li>
-  <li>This is more like intuitive and less formal definition of Markov chain, we will have more concrete definition with the help of <em>Measure theory</em> after the post about it.</li>
-  <li>Well, it only matters where you are, not where you’ve been.</li>
-</ul>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>This is more like intuitive and less formal definition of Markov chain, we will have a more concrete definition with the help of <em>Measure theory</em> after the post about it. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p>The Markov chain here is <em>time-homogeneous</em> Markov chain, in which the probability of any state transition is independent of time. <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:3" role="doc-endnote">
+      <p>Well, it only matters where you are, not where you’ve been. <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
 :ET

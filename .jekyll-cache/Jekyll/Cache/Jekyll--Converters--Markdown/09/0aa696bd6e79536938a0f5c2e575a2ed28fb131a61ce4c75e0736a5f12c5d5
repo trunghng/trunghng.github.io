@@ -1,6 +1,5 @@
-I"�<blockquote>
-  <p>Since I have no idea how to begin with this post, why not just dive straight into details :P<br />
-<strong>Markov chain</strong> is a stochastic process in which the random variables follow a special property called <em>Markov</em>.</p>
+I"�"<blockquote>
+  <p>Since I have no idea how to begin with this post, why not just dive straight into details :P</p>
 </blockquote>
 
 <!-- excerpt-end -->
@@ -20,12 +19,14 @@
   <li><a href="#footnotes">Footnotes</a></li>
 </ul>
 
+<p><strong>Markov chain</strong><sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup><sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup> is a stochastic process in which the random variables follow a special property called <em>Markov</em>.</p>
+
 <h4 id="markov-property">Markov Property</h4>
 <p>A sequence of random variables $X_0, X_1, X_2, \dots$ taking values in the <em>state space</em> $S=${$1, 2,\dots, M$}. For all $n\geq0$,
 \begin{equation}
 P(X_{n+1}=j|X_n=i)=P(X_{n+1}=j|X_n=i,X_{n-1}=i_{n-1},X_{n-2}=i_{n-2},\dots,X_0=i_0)
 \end{equation}
-In other words, knowledge of the preceding state is all we need to determine the probability distribution of the current state.</p>
+In other words, knowledge of the preceding state is all we need to determine the probability distribution of the current state<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup>.</p>
 
 <h4 id="transition-matrix">Transition Matrix</h4>
 <p>The quantity $P(X_{n+1}=j|X_n=i)$ is <em>transition probability</em> from state $i$ to $j$.<br />
@@ -55,7 +56,7 @@ P(X_n=j)&amp;=\sum_{i=1}^{M}P(X_0=i)P(X_n=j|X_0=i) \\&amp;=\sum_{i=1}^{M}t_iq_{i
 or the marginal distribution of $X_n$ is given by $tQ^n$.</p>
 
 <h4 id="properties">Properties</h4>
-<ul>
+<ol>
   <li>State $i$ of a Markov chain is defined as <em>recurrent</em> or <em>transient</em> depending upon whether or not the Markov chain will eventually return to it. Starting with <em>recurrent</em> state i, the chain will return to it with the probability of 1. Otherwise, it is <em>transient</em>.
     <ul>
       <li><strong>Proposition</strong>: Number of returns to <em>transient</em> state is distributed by <em>Geom($p$)</em>, with $p&gt;0$ is the probability of never returning to $i$.</li>
@@ -68,7 +69,7 @@ or the marginal distribution of $X_n$ is given by $tQ^n$.</p>
   </li>
   <li>A state $i$ has <em>period</em> $k&gt;0$ if $k$ is the greatest common divisor (gcd) of the possible numbers of steps it can take to return to $i$ when starting at $i$.
 And thus, $k=gcd(n)$ such that $Q^n_{ii}&gt;0$. $i$ is called <em>aperiodic</em> if $k_i=1$, and <em>periodic</em> otherwise. The chain itself is called <em>aperiodic</em> if all its states are <em>aperiodic</em>, and <em>periodic</em> otherwise.</li>
-</ul>
+</ol>
 
 <h4 id="stationary-distribution">Stationary Distribution</h4>
 <p>A vector $s=(s_1,\dots,s_M)^T$ such that $s_i\geq0$ and $\sum_{i}s_i=1$ is a <em>stationary distribution</em> for a Markov chain if
@@ -117,9 +118,17 @@ for all states $i,j$. This equation is called <em>reversibility</em> or <em>deta
 </ol>
 
 <h4 id="footnotes">Footnotes</h4>
-<ul>
-  <li>The Markov chain here is <em>time-homogeneous</em> Markov chain, in which the probability of any state transition is independent of time.</li>
-  <li>This is more like intuitive and less formal definition of Markov chain, we will have more concrete definition with the help of <em>Measure theory</em> after the post about it.</li>
-  <li>Well, it only matters where you are, not where you’ve been.</li>
-</ul>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>This is more like intuitive and less formal definition of Markov chain, we will have a more concrete definition with the help of <em>Measure theory</em> after the post about it. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p>The Markov chain here is <em>time-homogeneous</em> Markov chain, in which the probability of any state transition is independent of time. <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:3" role="doc-endnote">
+      <p>Well, it only matters where you are, not where you’ve been. <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
 :ET

@@ -8,7 +8,6 @@ description: Markov chain
 comments: true
 ---
 > Since I have no idea how to begin with this post, why not just dive straight into details :P  
-**Markov chain** is a stochastic process in which the random variables follow a special property called *Markov*.  
 
 <!-- excerpt-end -->
 - [Markov Property](#markov-property)
@@ -23,12 +22,14 @@ comments: true
 - [Footnotes](#footnotes)
 
 
+**Markov chain**[^1][^2] is a stochastic process in which the random variables follow a special property called *Markov*.  
+
 #### Markov Property
 A sequence of random variables $X_0, X_1, X_2, \dots$ taking values in the *state space* $S=${$1, 2,\dots, M$}. For all $n\geq0$,
 \begin{equation}
 P(X_{n+1}=j|X_n=i)=P(X_{n+1}=j|X_n=i,X_{n-1}=i_{n-1},X_{n-2}=i_{n-2},\dots,X_0=i_0)
 \end{equation}
-In other words, knowledge of the preceding state is all we need to determine the probability distribution of the current state.  
+In other words, knowledge of the preceding state is all we need to determine the probability distribution of the current state[^3].  
 
 #### Transition Matrix
 The quantity $P(X_{n+1}=j|X_n=i)$ is *transition probability* from state $i$ to $j$.  
@@ -77,10 +78,10 @@ for all $j$, or equivalently $sQ=s$.
 **Theorem** (*Existence and uniqueness of stationary distribution*)  
 &nbsp;&nbsp;&nbsp;&nbsp;Any *irreducible* Markov chain has a unique *stationary distribution*. In this distribution, every state has positive probability.  
 
-The theorem is a consequence of a result from [*Perron-Frobenius theorem*](https://en.wikipedia.org/wiki/Perron–Frobenius_theorem).  
+The theorem is a consequence of a result from *Perron-Frobenius theorem*.  
 
 **Theorem** (*Convergence to stationary distribution*)  
-&nbsp;&nbsp;&nbsp;&nbsp;Let $X_0,X_1,\dots$ be a Markov chain with *stationary distribution* $s$ and *transition matrix* $Q$, such that some power $Q^m$ has all entries positive (or in the other words, the chain is *irreducible* and *aperiodic*). Then $P(X_n=i)$ converges to $s_i$ as $n\rightarrow\infty$ (or $Q^n$ converges to a matrix in which each row is $s$).
+&nbsp;&nbsp;&nbsp;&nbsp;Let $X_0,X_1,\dots$ be a Markov chain with *stationary distribution* $s$ and *transition matrix* $Q$, such that some power $Q^m$ has all entries positive (or in the other words, the chain is *irreducible* and *aperiodic*). Then $P(X_n=i)$ converges to $s_i$ as $n\rightarrow\infty$ (or $Q^n$ converges to a matrix in which each row is $s$).  
 
 **Theorem** (*Expected time to run*)  
 &nbsp;&nbsp;&nbsp;&nbsp;Let $X_0,X_1,\dots$ be an *irreducible* Markov chain with *stationary distribution* $s$. Let $r_i$ be the expected time it takes the chain to return to $i$, given that it starts at $i$. Then $s_i=1/r_i$
@@ -109,8 +110,9 @@ for all states $i,j$. This equation is called *reversibility* or *detailed balan
 #### References
 1. Introduction to Probability - Joseph K. Blitzstein & Jessica Hwang
 2. [Brillant's Markov chain](https://brilliant.org/wiki/markov-chains/)
+3. [Perron-Frobenius theorem](https://en.wikipedia.org/wiki/Perron–Frobenius_theorem)
 
 #### Footnotes
-- The Markov chain here is *time-homogeneous* Markov chain, in which the probability of any state transition is independent of time.
-- This is more like intuitive and less formal definition of Markov chain, we will have more concrete definition with the help of *Measure theory* after the post about it.
-- Well, it only matters where you are, not where you've been.
+[^1]: This is more like intuitive and less formal definition of Markov chain, we will have a more concrete definition with the help of *Measure theory* after the post about it.
+[^2]: The Markov chain here is *time-homogeneous* Markov chain, in which the probability of any state transition is independent of time.
+[^3]: Well, it only matters where you are, not where you've been.
