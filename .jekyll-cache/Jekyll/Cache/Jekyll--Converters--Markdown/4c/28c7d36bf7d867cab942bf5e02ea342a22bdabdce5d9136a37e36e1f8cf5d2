@@ -1,5 +1,5 @@
-I"@<blockquote>
-  <p>In the previous post about <a href="/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html"><strong>Markov Decision Process (MDP) and Bellman equations</strong></a>, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here prove it.</p>
+I"�?<blockquote>
+  <p>In the previous post about <a href="/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html"><strong>Markov Decision Process (MDP) and Bellman equations</strong></a>, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here to prove it.</p>
 </blockquote>
 
 <!-- excerpt-end -->
@@ -103,34 +103,34 @@ Let $\mathcal{V}$ be a Banach space and $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ 
 <h4 id="bellman-operator">Bellman Operator</h4>
 <p>Previously, we defined Bellman equation for state-value function $v_\pi(s)$ as:
 \begin{align}
-v_\pi(s)&amp;=\sum_{a\in\mathcal{A}}\pi(a|s)\sum_{s’\in\mathcal{S},r}p(s’,r|s,a)\left[r+\gamma v_\pi(s’)\right]\tag{1}\label{1} \\\text{or}\quad v_\pi(s)&amp;=\sum_{a\in\mathcal{A}}\pi(a|s)\left(\mathcal{R}^a_s+\gamma\sum_{s’\in\mathcal{S}}\mathcal{P}^a_{ss’}v_\pi(s’)\right)\tag{2}\label{2}
+v_\pi(s)&amp;=\sum_{a\in\mathcal{A}}\pi(a|s)\sum_{s’\in\mathcal{S},r}p(s’,r|s,a)\left[r+\gamma v_\pi(s’)\right] \\\text{or}\quad v_\pi(s)&amp;=\sum_{a\in\mathcal{A}}\pi(a|s)\left(\mathcal{R}^a_s+\gamma\sum_{s’\in\mathcal{S}}\mathcal{P}^a_{ss’}v_\pi(s’)\right)\tag{1}\label{1}
 \end{align}
 If we let
 \begin{align}
-\mathcal{P}^\pi_{ss’}&amp;=\sum_{a\in\mathcal{A}}\pi(a|s)\mathcal{P}^a_{ss’};\tag{3}\label{3} \\\mathcal{R}^\pi_s&amp;=\sum_{a\in\mathcal{A}}\pi(a|s)\mathcal{R}^a_s\tag{4}\label{4}
+\mathcal{P}^\pi_{ss’}&amp;=\sum_{a\in\mathcal{A}}\pi(a|s)\mathcal{P}^a_{ss’}; \\\mathcal{R}^\pi_s&amp;=\sum_{a\in\mathcal{A}}\pi(a|s)\mathcal{R}^a_s
 \end{align}
-then we can rewrite \eqref{2} in another form as
+then we can rewrite \eqref{1} in another form as
 \begin{equation}
-v_\pi(s)=\mathcal{R}^\pi_s+\gamma\sum_{s’\in\mathcal{S}}\mathcal{P}^\pi_{ss’}v_\pi(s’)\tag{5}\label{5}
+v_\pi(s)=\mathcal{R}^\pi_s+\gamma\sum_{s’\in\mathcal{S}}\mathcal{P}^\pi_{ss’}v_\pi(s’)\tag{2}\label{2}
 \end{equation}
 <br />
 <strong>Definition</strong> (<em>Bellman operator</em>)<br />
 We define the <em>Bellman operator</em> underlying $\pi,\mathcal{T}:\mathbb{R}^\mathcal{S}\to\mathbb{R}^\mathcal{S}$, by:
 \begin{equation}
-(\mathcal{T}^\pi v)(s)=\mathcal{R}^\pi_s+\gamma\sum_{s’\in\mathcal{S}}\mathcal{P}^\pi_{ss’}v(s’) \tag{6}\label{6}
+(\mathcal{T}^\pi v)(s)=\mathcal{R}^\pi_s+\gamma\sum_{s’\in\mathcal{S}}\mathcal{P}^\pi_{ss’}v(s’)
 \end{equation}
 <br />
-With the help of $\mathcal{T}^\pi$, equation \eqref{5} can be rewrite as:
+With the help of $\mathcal{T}^\pi$, equation \eqref{2} can be rewrite as:
 \begin{equation}
 \mathcal{T}^\pi v_\pi=v_\pi\tag{7}\label{7}
 \end{equation}
 Similarly, we can rewrite the <em>Bellman optimality equation for</em> $v_*$
 \begin{align}
-v_*(s)&amp;=\max_{a\in\mathcal{A}}\sum_{s’\in\mathcal{S},r}p(s’,r|s,a)\left[r+\gamma v_*(s’)\right]\tag{8}\label{8} \\ &amp;=\max_{a\in\mathcal{A}}\left(\mathcal{R}^a_s+\gamma\sum_{s’\in\mathcal{S}}\mathcal{P}^a_{ss’}v_*(s’)\right)\tag{9}\label{9}
+v_*(s)&amp;=\max_{a\in\mathcal{A}}\sum_{s’\in\mathcal{S},r}p(s’,r|s,a)\left[r+\gamma v_*(s’)\right] \\ &amp;=\max_{a\in\mathcal{A}}\left(\mathcal{R}^a_s+\gamma\sum_{s’\in\mathcal{S}}\mathcal{P}^a_{ss’}v_*(s’)\right)\tag{9}\label{9}
 \end{align}
 and thus, we can define the <em>Bellman optimality operator</em> $\mathcal{T}^*:\mathcal{R}^\mathcal{S}\to\mathcal{R}^\mathcal{S}$, by:
 \begin{equation}
-(\mathcal{T}^* v)(s)=\max_{a\in\mathcal{A}}\left(\mathcal{R}^a_s+\gamma\sum_{s’\in\mathcal{S}}\mathcal{P}^a_{ss’}v(s’)\right)\tag{10}\label{10}
+(\mathcal{T}^* v)(s)=\max_{a\in\mathcal{A}}\left(\mathcal{R}^a_s+\gamma\sum_{s’\in\mathcal{S}}\mathcal{P}^a_{ss’}v(s’)\right)
 \end{equation}
 And thus, with the help of $\mathcal{T}^*$, we can rewrite the equation \eqref{9} as:
 \begin{equation}

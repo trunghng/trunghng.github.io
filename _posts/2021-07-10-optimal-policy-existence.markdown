@@ -7,7 +7,7 @@ tags: artificial-intelligent reinforcement-learning mathematics
 description: the proof of the existence of optimal policy in finite markov decision processes (MDPs)
 comments: true
 ---
-> In the previous post about [**Markov Decision Process (MDP) and Bellman equations**]({% post_url 2021-06-27-mdp-bellman-eqn %}), we mentioned that there exists a policy $\pi_\*$ that is better than or equal to all other policies. And now, we are here prove it.  
+> In the previous post about [**Markov Decision Process (MDP) and Bellman equations**]({% post_url 2021-06-27-mdp-bellman-eqn %}), we mentioned that there exists a policy $\pi_\*$ that is better than or equal to all other policies. And now, we are here to prove it.  
 
 <!-- excerpt-end -->
 - [Norms, Contractions and Banach's Fixed-point Theorem](#norms-contractions-banach-fixed-pts)
@@ -105,38 +105,38 @@ Let $\mathcal{V}$ be a Banach space and $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ 
 #### Bellman Operator
 Previously, we defined Bellman equation for state-value function $v_\pi(s)$ as:
 \begin{align}
-v_\pi(s)&=\sum_{a\in\mathcal{A}}\pi(a|s)\sum_{s'\in\mathcal{S},r}p(s',r|s,a)\left[r+\gamma v_\pi(s')\right]\tag{1}\label{1} \\\\\text{or}\quad v_\pi(s)&=\sum_{a\in\mathcal{A}}\pi(a|s)\left(\mathcal{R}^a_s+\gamma\sum_{s'\in\mathcal{S}}\mathcal{P}^a_{ss'}v_\pi(s')\right)\tag{2}\label{2}
+v_\pi(s)&=\sum_{a\in\mathcal{A}}\pi(a|s)\sum_{s'\in\mathcal{S},r}p(s',r|s,a)\left[r+\gamma v_\pi(s')\right] \\\\\text{or}\quad v_\pi(s)&=\sum_{a\in\mathcal{A}}\pi(a|s)\left(\mathcal{R}^a_s+\gamma\sum_{s'\in\mathcal{S}}\mathcal{P}^a_{ss'}v_\pi(s')\right)\tag{1}\label{1}
 \end{align}
 If we let
 \begin{align}
-\mathcal{P}^\pi_{ss'}&=\sum_{a\in\mathcal{A}}\pi(a|s)\mathcal{P}^a_{ss'};\tag{3}\label{3} \\\\\mathcal{R}^\pi_s&=\sum_{a\in\mathcal{A}}\pi(a|s)\mathcal{R}^a_s\tag{4}\label{4}
+\mathcal{P}^\pi_{ss'}&=\sum_{a\in\mathcal{A}}\pi(a|s)\mathcal{P}^a_{ss'}; \\\\\mathcal{R}^\pi_s&=\sum_{a\in\mathcal{A}}\pi(a|s)\mathcal{R}^a_s
 \end{align}
-then we can rewrite \eqref{2} in another form as
+then we can rewrite \eqref{1} in another form as
 \begin{equation}
-v_\pi(s)=\mathcal{R}^\pi_s+\gamma\sum_{s'\in\mathcal{S}}\mathcal{P}^\pi_{ss'}v_\pi(s')\tag{5}\label{5}
+v_\pi(s)=\mathcal{R}^\pi_s+\gamma\sum_{s'\in\mathcal{S}}\mathcal{P}^\pi_{ss'}v_\pi(s')\tag{2}\label{2}
 \end{equation}
 <br/>
 **Definition** (*Bellman operator*)  
 We define the *Bellman operator* underlying $\pi,\mathcal{T}:\mathbb{R}^\mathcal{S}\to\mathbb{R}^\mathcal{S}$, by:
 \begin{equation}
-(\mathcal{T}^\pi v)(s)=\mathcal{R}^\pi_s+\gamma\sum_{s'\in\mathcal{S}}\mathcal{P}^\pi_{ss'}v(s') \tag{6}\label{6}
+(\mathcal{T}^\pi v)(s)=\mathcal{R}^\pi_s+\gamma\sum_{s'\in\mathcal{S}}\mathcal{P}^\pi_{ss'}v(s')
 \end{equation}
 <br/>
-With the help of $\mathcal{T}^\pi$, equation \eqref{5} can be rewrite as:
+With the help of $\mathcal{T}^\pi$, equation \eqref{2} can be rewrite as:
 \begin{equation}
-\mathcal{T}^\pi v_\pi=v_\pi\tag{7}\label{7}
+\mathcal{T}^\pi v_\pi=v_\pi\tag{3}\label{3}
 \end{equation}
 Similarly, we can rewrite the *Bellman optimality equation for* $v_\*$
 \begin{align}
-v_\*(s)&=\max_{a\in\mathcal{A}}\sum_{s'\in\mathcal{S},r}p(s',r|s,a)\left[r+\gamma v_\*(s')\right]\tag{8}\label{8} \\\\ &=\max_{a\in\mathcal{A}}\left(\mathcal{R}^a_s+\gamma\sum_{s'\in\mathcal{S}}\mathcal{P}^a_{ss'}v_\*(s')\right)\tag{9}\label{9}
+v_\*(s)&=\max_{a\in\mathcal{A}}\sum_{s'\in\mathcal{S},r}p(s',r|s,a)\left[r+\gamma v_\*(s')\right] \\\\ &=\max_{a\in\mathcal{A}}\left(\mathcal{R}^a_s+\gamma\sum_{s'\in\mathcal{S}}\mathcal{P}^a_{ss'}v_\*(s')\right)\tag{4}\label{4}
 \end{align}
 and thus, we can define the *Bellman optimality operator* $\mathcal{T}^\*:\mathcal{R}^\mathcal{S}\to\mathcal{R}^\mathcal{S}$, by:
 \begin{equation}
-(\mathcal{T}^\* v)(s)=\max_{a\in\mathcal{A}}\left(\mathcal{R}^a_s+\gamma\sum_{s'\in\mathcal{S}}\mathcal{P}^a_{ss'}v(s')\right)\tag{10}\label{10}
+(\mathcal{T}^\* v)(s)=\max_{a\in\mathcal{A}}\left(\mathcal{R}^a_s+\gamma\sum_{s'\in\mathcal{S}}\mathcal{P}^a_{ss'}v(s')\right)
 \end{equation}
-And thus, with the help of $\mathcal{T}^\*$, we can rewrite the equation \eqref{9} as:
+And thus, with the help of $\mathcal{T}^\*$, we can rewrite the equation \eqref{4} as:
 \begin{equation}
-\mathcal{T}^\*v_\*=v_\*\tag{11}\label{11}
+\mathcal{T}^\*v_\*=v_\*\tag{5}\label{5}
 \end{equation}
 <br/>
 Now everything is all set, we can move on to the next step.  
@@ -150,14 +150,14 @@ B(\mathcal{S})=\\{v:\mathcal{S}\to\mathbb{R}:\Vert v\Vert_\infty<+\infty\\}
 
 - Pick any stationary policy $\pi$.
 - We have that $\mathcal{T}^\pi$ is *well-defined* since: if $u\in B(\mathcal{S})$, then also $\mathcal{T}^\pi u\in B(S)$.
-- From equation \eqref{7}, we have that $v_\pi$ is a fixed point to $\mathcal{T}^\pi$.  
+- From equation \eqref{3}, we have that $v_\pi$ is a fixed point to $\mathcal{T}^\pi$.  
 We also have that $\mathcal{T}^\pi$ is a $\gamma$-contraction in $\Vert\cdot\Vert_\infty$ since for any $u, v\in B(\mathcal{S})$,
 \begin{align}
 \Vert\mathcal{T}^\pi u-\mathcal{T}^\pi v\Vert_\infty&=\gamma\max_{s\in\mathcal{S}}\left|\sum_{s'\in\mathcal{S}}\mathcal{P}^\pi_{ss'}\left(u(s')-v(s')\right)\right| \\\\ &\leq\gamma\max_{s\in\mathcal{S}}\sum_{s'\in\mathcal{S}}\mathcal{P}^\pi_{ss'}\left|u(s')-v(s')\right| \\\\ &\leq\gamma\max_{s\in\mathcal{S}}\sum_{s'\in\mathcal{S}}\mathcal{P}^\pi_{ss'}\Vert u-v\Vert_\infty \\\\ &=\gamma\Vert u-v\Vert_\infty,
 \end{align}
 where the last line follows from $\sum_{s'\in\mathcal{S}}\mathcal{P}^\pi_{ss'}=1$.
 - It follows that in order to find $v_\pi$, we can construct the sequence $v_0,\mathcal{T}^\pi v_0,(\mathcal{T}^\pi)^2 v_0,\dots$, which, by Banach's fixed-point theorem will converge to $v_\pi$ at a geometric rate.
-- From the definition \eqref{11} of $\mathcal{T}^\*$, we have that $\mathcal{T}^\*$ is well-defined.
+- From the definition \eqref{5} of $\mathcal{T}^\*$, we have that $\mathcal{T}^\*$ is well-defined.
 - Using the fact that $\left|\max_{a\in\mathcal{A}}f(a)-\max_{a\in\mathcal{A}}g(a)\right|\leq\max_{a\in\mathcal{A}}\left|f(a)-g(a)\right|$, similarly, we have:
 \begin{align}
 \Vert\mathcal{T}^\*u-\mathcal{T}^\*v\Vert_\infty&\leq\gamma\max_{(s,a)\in\mathcal{S}\times\mathcal{A}}\sum_{s'\in\mathcal{S}}\mathcal{P}^a_{ss'}\left|u(s')-v(s')\right| \\\\ &\leq\gamma\max_{(s,a)\in\mathcal{S}\times\mathcal{A}}\sum_{s'\in\mathcal{S}}\mathcal{P}^a_{ss'}\Vert u-v\Vert_\infty \\\\ &=\gamma\Vert u-v\Vert_\infty,
