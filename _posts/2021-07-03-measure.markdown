@@ -33,7 +33,7 @@ Despite of having different number of dimensions, all *length*, *area*, *volume*
 - [Other Resources](#other-resources)
 - [Footnotes](#footnotes)
 
-#### Lebesgue Measure
+## Lebesgue Measure
 Is an extension of the classical notion of length in $\mathbb{R}$, area in $\mathbb{R}^2$ to any $\mathbb{R}^k$ using k-dimensional hyper-rectangles.
 
 **Definition**  
@@ -46,7 +46,7 @@ Given a closed set $S'\equiv[a,b]-\sum_k(a_k,b_k)$,
 \mu_L(S')\equiv(b-a)-\sum_k(b_k-a_k)
 \end{equation}
 
-#### Measures
+## Measures
 **Definition**  
 Let $\mathcal{X}$ be any set. A *measure* on $\mathcal{X}$ is a function $\mu$ that maps the set of subsets on $\mathcal{X}$ to $[0,\infty]$ ($\mu:2^\mathcal{X}\rightarrow[0,\infty]$) that satisfies:
 1. $\mu(\emptyset)=0$
@@ -91,7 +91,7 @@ for $\mathcal{A}\subset\mathbb{R}$
 \mu(\mathcal{A})=\dfrac{3}{4\pi}\mu_L(\mathcal{A}\cap\mathcal{B})
 \end{equation}
 
-#### Integration with respect to a Measure: The Idea
+## Integration with respect to a Measure: The Idea
 {: #int-measure-idea}
 Consider $f:\mathcal{X}\rightarrow\mathbb{R}$, where $\mathcal{X}$ is any set and a measure $\mu$ on $\mathcal{X}$ and compute the integral of $f$ w.r.t $\mu$: $\int f(x)\,\mu(dx)$. We have:
 1. For any function $f$,
@@ -132,7 +132,7 @@ We say that $f$ is the density of $\mu$ w.r.t Lebesgue measure in this case.
 \end{equation}
 We say that $p$ is the density of $\mu$ w.r.t Counting measure on $\mathcal{C}$.
 
-#### Properties of the Integral
+## Properties of the Integral
 {: #prop-int}
 A function is said to be *integrable* w.r.t $\mu$ if $\int|f(x)|\,\mu(dx)<\infty$. An integrable function has a well-defined and finite integral. If $f(x)\geq0$, the integral is always well-defined but may be $\infty$.  
 Suppose $\mu$ is a measure on $\mathcal{X},\mathcal{A}\subset\mathcal{X}$, and $g$ is a real-valued function on $\mathcal{X}$. We define the integral of $g$ over the set $\mathcal{A}$, denoted by $\int_\mathcal{A}g(x)\,\mu(dx)$, as
@@ -167,7 +167,7 @@ Let $\mu$ is a measure on $\mathcal{X},\mathcal{A},\mathcal{B}\subset\mathcal{X}
 \int_{\mathcal{A}\cup\mathcal{B}}f(x)\,\mu(dx)=\int_\mathcal{A}f(x)\,\mu(dx)+\int_\mathcal{B}f(x)\,\mu(dx)
 \end{equation}
 
-#### Integration with respect to a Measure: The Details
+## Integration with respect to a Measure: The Details
 {: #int-measure-detail}
 1. **Step 1**. Define the integral for simple functions.
 - *Simple function*: is a function that takes only a finite number of different values.
@@ -201,7 +201,7 @@ f^+(x)&=\max\left(f(x),0\right) \\\\ f^-(x)&=\max\left(-f(x),0\right)
 \end{equation}
 This is a well-defined number (possibly infinite) if and only if at least one of $f^+$ and $f^-$ has a finite integral.
 
-#### Constructing Measures from old ones
+## Constructing Measures from old ones
 {: #construct-measure}
 1. *Sums and multiples*  
 - Consider the point mass measures at 0 and 1, $$\delta_{\\{0\\}},\delta_{{1}}$$, and construct a two new measures on $\mathbb{R}$, $$\mu=\delta_{\\{0\\}}+\delta_{\\{1\\}}$$ and $$v=4\delta_{\\{0\\}}$$, defined by
@@ -238,7 +238,7 @@ We say that $f$ is the *density* of the measure $v$ w.r.t $\mu$.
 		- $\mu(\mathcal{A})=0$ implies $v(\mathcal{A})=0$.
 		- $v(dx)=f(x)\,\mu(dx)$.
 
-#### Other types of Measures
+## Other types of Measures
 {: #other-types}
 Suppose that $\mu$ is a measure on $\mathcal{X}$
 1. If $\mu(\mathcal{X})=\infty$, we say that $\mu$ is an *infinite measure*.
@@ -248,15 +248,15 @@ Suppose that $\mu$ is a measure on $\mathcal{X}$
 5. If $\mu$ has a density w.r.t Lebesgue measure, we say that $\mu$ is a *continuous measure*.
 6. If $\mu$ is neither *continuous* nor *discrete*, we say that $\mu$ is a *mixed measure*.
 
-#### References
+## References
 1. Literally, this post is mainly written from a source that I've lost the reference :(. Hope that I can update this line soon.
 2. [Lebesgue Measure](https://mathworld.wolfram.com/LebesgueMeasure.html)
 3. [Measure Theory for Probability: A Very Brief Introduction](https://www.countbayesie.com/blog/2015/8/17/a-very-brief-and-non-mathematical-introduction-to-measure-theory-for-probability)
 
-#### Other Resources
+## Other Resources
 1. [Music and Measure Theory - 3Blue1Brown](https://www.youtube.com/watch?v=cyW5z-M2yzw) - this is one of my favourite Youtube channels.
 
-#### Footnotes
+## Footnotes
 [^1]: If $\mathcal{A_1},\mathcal{A_2}$ were not disjoint, we could define $\mathcal{B_1}=\mathcal{A_1}-\mathcal{A_2}$, $\mathcal{B_2}=\mathcal{A_2}-\mathcal{A_1}$, and $\mathcal{B_3}=\mathcal{A_1}\cap\mathcal{A_2}$. Then the function is equal to $$c_1𝟙_\mathcal{B_1}+c_2𝟙_\mathcal{B_2}+(c_1+c_2)𝟙_\mathcal{B_3}$$.
 [^2]: 
 
