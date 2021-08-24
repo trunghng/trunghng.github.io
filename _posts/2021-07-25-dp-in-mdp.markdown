@@ -3,7 +3,7 @@ layout: post
 title:  "Dynamic Programming Algorithms For Solving Markov Decision Processes"
 date:   2021-07-25 15:30:00 +0700
 categories: [artificial-intelligent, reinforcement-learning]
-tags: artificial-intelligent reinforcement-learning
+tags: artificial-intelligent reinforcement-learning dynamic-programming
 description: Dynamic programming algorithms for solving Markov Decision Processes (MDPs)
 comments: true
 ---
@@ -270,4 +270,4 @@ A. Lazaric
 	\begin{align}
 	q_{k+1}(s,a)&\doteq\mathbb{E}\left[R_{t+1}+\gamma\max_{a'}q_k(S_{t+1},a')|S_t=s,A_t=a\right] \\\\ &=\sum_{s',r}p(s',r|s,a)\left[r+\gamma\max_{a'}q_k(s',a')\right]
 	\end{align}
-	Yep, that's right, the sequence $\\{q_k\\}\to q_\*$ as $k\to\infty$ at a geometric rate thanks to [Banach's fixed point theorem]({% post_url 2021-07-10-optimal-policy-existence %}#banach-fixed-pts)
+	Yep, that's right, the sequence $\\{q_k\\}\to q_\*$ as $k\to\infty$ at a geometric rate thanks to [Banach's fixed point theorem]({% post_url 2021-07-10-optimal-policy-existence %}#banach-fixed-pts).
