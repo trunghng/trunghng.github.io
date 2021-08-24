@@ -169,7 +169,7 @@ Let $\mu$ is a measure on $\mathcal{X},\mathcal{A},\mathcal{B}\subset\mathcal{X}
 
 #### Integration with respect to a Measure: The Details
 {: #int-measure-detail}
-1. *Step 1*. Define the integral for simple functions.
+1. **Step 1**. Define the integral for simple functions.
 - *Simple function*: is a function that takes only a finite number of different values.
 		- All constant functions are simple functions.
 		- The indicator function ($𝟙_\mathcal{A}$) of a set $\mathcal{A}\subset\mathcal{X}$ is a simple function (taking values in $\\{0,1\\}$).
@@ -183,14 +183,14 @@ Let $\mu$ is a measure on $\mathcal{X},\mathcal{A},\mathcal{B}\subset\mathcal{X}
 \begin{equation}
 \int \mu(dx)=c_1\mu(\mathcal{A_1})+\dots+c_n\mu(\mathcal{A_n})
 \end{equation}
-2. *Step 2*. Define the integral for general non-negative functions, approximating the general function by simple functions.
+2. **Step 2**. Define the integral for general non-negative functions, approximating the general function by simple functions.
 - The idea is that we can approximate any general non-negative function $f:\mathcal{X}\to[0,\infty[$ well by some non-negative simple functions that $\leq f$ [^2].
 - If $f:\mathcal{X}\to[0,\infty[$ is a general function and $0\leq s\leq f$ is a simple function (then $\int s(x)\,\mu(dx)\leq\int f(x)\,\mu(dx)$). The closer that $s$ approximates $f$, the closer we expect $\int s(x)\,\mu(dx)$ and $\int f(x)\,\mu(x)$ to be.
 - To be more precise, we define the integral $\int f(x)\,\mu(dx)$ to be the smallest value $I$ such that $\int s(x)\,\mu(x)\leq I$, for all simple functions $0\leq s\leq f$.
 \begin{equation}
 \int f(x)\,\mu(dx)\approx\sup\left\\{\int s(x)\,\mu(dx)\right\\}
 \end{equation}
-3. *Step 3*. Define the integral for general real-valued functions by separately integrating the positive and negative parts of the function.
+3. **Step 3**. Define the integral for general real-valued functions by separately integrating the positive and negative parts of the function.
 - If $f:\mathcal{X}\to\mathbb{R}$ is a general function, we can define its *positive part* $f^+$ and its *negative part* $f^-$ by
 \begin{align}
 f^+(x)&=\max\left(f(x),0\right) \\\\ f^-(x)&=\max\left(-f(x),0\right)
