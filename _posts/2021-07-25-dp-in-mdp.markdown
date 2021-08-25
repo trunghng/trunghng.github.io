@@ -72,7 +72,7 @@ When implementing *iterative policy evaluation*, for all $s\in\mathcal{S}$, we c
 Here is the pseudocode of the *in-place iterative policy evaluation*, given a policy $\pi$, for estimating $V\approx v_\pi$
 <figure>
 	<img src="/assets/images/2021-07-25/iterative-policy-evaluation.png" alt="iterative policy evalution pseudocode" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: Pseudocode of In-place Iterative Policy Evaluation</figcaption>
+    <figcaption></figcaption>
 </figure>
 ### Policy Improvement
 The reason why we compute the value function for a given policy $\pi$ is to find better policies. Given the computed value function $v_\pi$ for an deterministic policy $\pi$, we already know how good it is for a state $s$ to choose action $a=\pi(s)$. Now what we are considering is, in $s$, if we instead take action $a\neq\pi$, will it be better?  
@@ -113,7 +113,7 @@ Each following policy is a strictly improved version of the previous one (unless
 This algorithm is called **policy iteration**. And here is the pseudocode of the policy iteration.
 <figure>
 	<img src="/assets/images/2021-07-25/policy-iteration.png" alt="policy iteration pseudocode" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: Pseudocode of Policy Iteration</figcaption>
+	<figcaption></figcaption>
 </figure>
 
 ### Value Iteration
@@ -126,12 +126,12 @@ for all $s\in\mathcal{S}$. Once again, thanks to [Banach's fixed point theorem](
 We have the backup diagram for this update[^3].
 <figure>
 	<img src="/assets/images/2021-07-25/backup-value-iteration.png" alt="Backup diagram of value iteration update" width="360" height="200px" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 5</b>: Backup diagram of Value Iteration update</figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: Backup diagram of Value Iteration update</figcaption>
 </figure><br/>
 And here is the pseudocode of the value iteration.
 <figure>
 	<img src="/assets/images/2021-07-25/value-iteration.png" alt="value iteration pseudocode" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 6</b>: Pseudocode of Value Iteration</figcaption>
+	<figcaption></figcaption>
 </figure>
 
 ### Generalized Policy Iteration
@@ -140,13 +140,13 @@ The **Generalized Policy Iteration (GPI)** algorithm refers to the idea of combi
 In GPI, the value function is repeatedly driven toward the true value of the current policy and at the same time the policy is being improved optimality with respect to its value function, as in the following diagram.
 <figure>
 	<img src="/assets/images/2021-07-25/gpi.png" alt="GPI" width="200" height="320px" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 7</b>: Generalized Policy Iteration</figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: Generalized Policy Iteration</figcaption>
 </figure><br/>
 Once it reaches the stationary state (when both evaluation and improvement no long produce any updates), then the current value function and policy must be optimal.  
 The evaluation and improvement processes in GPI can be viewed as both competing and cooperating. They competing in the sense that on the one hand, making policy greedy w.r.t the value function typically makes value function incorrect for the new policy. And on the other hand, approximating the value function closer to the true value of the policy typically forces the policy is no longer to be greedy. But in the long run, they two processes cooperate to find a single joint solution: the optimal value function and an optimal policy.
 <figure>
 	<img src="/assets/images/2021-07-25/gpi-rel.png" alt="GPI interaction" width="360" height="200px" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 8</b>: Interaction between the evaluation and improvement processes in GPI</figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 5</b>: Interaction between the evaluation and improvement processes in GPI</figcaption>
 </figure>
 
 ### Example - Gambler's Problem
@@ -154,7 +154,7 @@ The evaluation and improvement processes in GPI can be viewed as both competing 
 This example is taken from *Example 4.3* in the *Reinforcement Learning: An Introduction* book
 <figure>
 	<img src="/assets/images/2021-07-25/example.png" alt="example" width="500" height="500px" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 9</b>: Example - Gambler's Problem</figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 6</b>: Example - Gambler's Problem</figcaption>
 </figure>
 
 **Solution code**  
@@ -241,7 +241,7 @@ if __name__ == '__main__':
 And here is our results after running the code
 <figure>
 	<img src="/assets/images/2021-07-25/gambler.png" alt="gambler" width="450" height="900px" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 10</b>: Example - Gambler's Problem Result</figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 7</b>: Example - Gambler's Problem Result</figcaption>
 </figure>
 
 
