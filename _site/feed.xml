@@ -1,5 +1,186 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-08-15T20:34:02+07:00</updated><id>/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
-</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Dynamic Programming Algorithms For Solving Markov Decision Processes</title><link href="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html" rel="alternate" type="text/html" title="Dynamic Programming Algorithms For Solving Markov Decision Processes" /><published>2021-07-25T15:30:00+07:00</published><updated>2021-07-25T15:30:00+07:00</updated><id>/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp</id><content type="html" xml:base="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-08-27T17:05:42+07:00</updated><id>/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Monte Carlo methods in Reinforcement Learning</title><link href="/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html" rel="alternate" type="text/html" title="Monte Carlo methods in Reinforcement Learning" /><published>2021-08-21T13:03:00+07:00</published><updated>2021-08-21T13:03:00+07:00</updated><id>/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl</id><content type="html" xml:base="/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html">&lt;blockquote&gt;
+  &lt;p&gt;Recall that in the previous post, &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html&quot;&gt;&lt;strong&gt;Dynamic Programming Algorithms For Solving Markov Decision Processes&lt;/strong&gt;&lt;/a&gt;, we made an assumption about the complete knowledge of the environment. With &lt;strong&gt;Monte Carlo&lt;/strong&gt; methods, we only require &lt;em&gt;experience&lt;/em&gt; - sample sequences of states, actions, and rewards from simulated or real interaction with an environment.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;!-- excerpt-end --&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#mc-methods&quot;&gt;Monte Carlo methods&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#mc-rl&quot;&gt;Monte Carlo methods in Reinforcement Learning&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#mc-prediction&quot;&gt;Monte Carlo Prediction&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#first-mc-every-mc&quot;&gt;First-visit MC vs. every-visit MC&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#mc-control&quot;&gt;Monte Carlo Control&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#mc-control-wo-es&quot;&gt;Monte Carlo Control without Exploring Starts&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;mc-methods&quot;&gt;Monte Carlo Methods&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Monte Carlo&lt;/strong&gt;, named after a casino in Monaco, simulates complex probabilistic events using simple random events, such as tossing a pair of dice to simulate the casino’s overall business model.&lt;/p&gt;
+
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2021-08-21/mc-pi.gif&quot; alt=&quot;monte carlo method&quot; width=&quot;480&quot; height=&quot;360px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 1&lt;/b&gt;: Using Monte Carlo method to approximate the value of $\pi$&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Monte Carlo methods have been used in several different tasks:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Simulating a system and its probability distribution $\pi(x)$
+\begin{equation}
+x\sim\pi(x)
+\end{equation}&lt;/li&gt;
+  &lt;li&gt;Estimating a quantity through Monte Carlo integration
+\begin{equation}
+c=\mathbb{E}_\pi\left[f(x)\right]=\int\pi(x)f(x)\,dx
+\end{equation}&lt;/li&gt;
+  &lt;li&gt;Optimizing a target function to find its modes (maxima or minima)
+\begin{equation}
+x^*=\arg\max\pi(x)
+\end{equation}&lt;/li&gt;
+  &lt;li&gt;Learning a parameters from a training set to optimize some loss functions, such as the maximum likelihood estimation from a set of examples $\{x_i,i=1,2,\dots,M\}$
+\begin{equation}
+\Theta^*=\arg\max\sum_{i=1}^{M}\log p(x_i;\Theta)
+\end{equation}&lt;/li&gt;
+  &lt;li&gt;Visualizing the energy landscape of a target function&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;mc-rl&quot;&gt;Monte Carlo Methods in Reinforcement Learning&lt;/h2&gt;
+&lt;p&gt;Monte Carlo (MC) methods are ways of solving the reinforcement learning problem based on averaging sample returns. Here, we define Monte Carlo methods only for episodic tasks. Or in other words, they learn from complete episodes of experience.&lt;/p&gt;
+
+&lt;h3 id=&quot;mc-prediction&quot;&gt;Monte Carlo Prediction&lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;&lt;/h3&gt;
+&lt;p&gt;Since the value of a state $v_\pi(s)=\mathbb{E}_\pi\left[G_t|S_t=s\right]$ is defined as the expectation of the return when the process is started from the given state $s$, an obvious way of estimating this value from experience is to compute observed mean returns after visits to that state. As more returns are observed, the average should converge to the expected value. This is an instance of the so-called &lt;em&gt;Monte Carlo method&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;In particular, suppose we wish to estimate $v_\pi(s)$ given a set of episodes obtained by following $\pi$ and passing through $s$. Each time state $s$ appears in an episode, we call it a &lt;em&gt;visit&lt;/em&gt; to $s$. There are two types of Monte Carlo methods:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;First-visit MC method&lt;/em&gt;
+    &lt;ul&gt;
+      &lt;li&gt;estimates $v_\pi(s)$ as the average of the returns that have followed the &lt;em&gt;first visit&lt;/em&gt; to $s$.&lt;/li&gt;
+      &lt;li&gt;We call the first time $s$ is visited in an episode the &lt;em&gt;first visit&lt;/em&gt; to $s$.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Every-visit MC method&lt;/em&gt;
+    &lt;ul&gt;
+      &lt;li&gt;estimates $v_\pi(s)$ as the average of the returns that have followed all visits to to $s$.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The sample mean return for state $s$ is:
+\begin{equation}
+v_\pi(s)=\dfrac{\sum_{t=1}^{T}𝟙\left(S_t=s\right)G_t}{\sum_{t=1}^{T}𝟙\left(S_t=s\right)},
+\end{equation}
+where $𝟙(\cdot)$ is an indicator function. In the case of &lt;em&gt;first-visit MC&lt;/em&gt;, $𝟙\left(S_t=s\right)$ returns $1$ only in the first time $s$ is encountered in an episode. And for &lt;em&gt;every-visit MC&lt;/em&gt;, $𝟙\left(S_t=s\right)$ gives value of $1$ every time $s$ is visited.&lt;/p&gt;
+
+&lt;p&gt;Here is the pseudocode of the &lt;em&gt;first-visit MC prediction&lt;/em&gt;, for estimating $V\approx v_\pi$&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2021-08-21/mc-prediction.png&quot; alt=&quot;iterative policy evaluation pseudocode&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h4 id=&quot;first-mc-every-mc&quot;&gt;First-visit MC vs. every-visit MC&lt;/h4&gt;
+&lt;p&gt;Both methods converge to $v_\pi(s)$ as the number of visits (or first visits) to $s$ goes to infinity. Each average is itself an unbiased estimate, and the standard deviation of its error falls as $\frac{1}{\sqrt{n}}$, where $n$ is the number of returns averaged.&lt;/p&gt;
+
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2021-08-21/first-visit-every-visit.png&quot; alt=&quot;first-visit MC vs every-visit MC&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 2&lt;/b&gt;: Summary of Statistical Results comparing first-visit and every-visit MC method&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;mc-control&quot;&gt;Monte Carlo Control&lt;sup id=&quot;fnref:3&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;&lt;/h3&gt;
+&lt;p&gt;When model is not available, it is particular useful to estimate &lt;em&gt;action values&lt;/em&gt; rather than &lt;em&gt;state values&lt;/em&gt; (which alone are insufficient to determine a policy). We must explicitly estimate the value of each action in order for the values to be useful in suggesting a policy. Thus, one of our primary goals for MC methods is to estimate $q_*$. To achieve this, we first consider the policy evaluation problem for action values.&lt;/p&gt;
+
+&lt;p&gt;Similar to when using MC method to estimate $v_\pi(s)$, we can use both first-visit MC and every-visit MC to approximate the value of $q_\pi(s,a)$. The only thing we need to keep in mind is, in this case, we work with visits to a state-action pair rather than to a state. Likewise, we define two types of MC methods for estimating $q_\pi(s,a)$:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;First-visit MC method&lt;/em&gt;
+    &lt;ul&gt;
+      &lt;li&gt;estimates $q_\pi(s,a)$ as the average of the returns following the first time in each episode that the state $s$ was visited and the action $a$ was selected&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Every-visit MC method&lt;/em&gt;
+    &lt;ul&gt;
+      &lt;li&gt;estimates $q_\pi(s,a)$ as the average of the returns that have followed all the visits to state-action pair $(s,a)$.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;(TODO)&lt;/p&gt;
+
+&lt;p&gt;To learn the optimal policy by MC, we apply the idea of &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html#gpi&quot;&gt;GPI&lt;/a&gt;:
+\begin{equation}
+\pi_0\overset{\small \text{E}}{\rightarrow}q_{\pi_0}\overset{\small \text{I}}{\rightarrow}\pi_1\overset{\small \text{E}}{\rightarrow}q_{\pi_1}\overset{\small \text{I}}{\rightarrow}\pi_2\overset{\small \text{E}}{\rightarrow}\dots\overset{\small \text{I}}{\rightarrow}\pi_*\overset{\small \text{E}}{\rightarrow}q_*
+\end{equation}
+In particular,&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;em&gt;Policy evaluation&lt;/em&gt; (denoted as $\overset{\small\text{E}}{\rightarrow}$): estimates action value function $q_\pi(s,a)$ using the episode generated from $s, a$, following by current policy $\pi$
+\begin{equation}
+q_\pi(s,a)=\dfrac{\sum_{t=1}^{T}𝟙\left(S_t=s,A_t=a\right)G_t}{\sum_{t=1}^{T}𝟙\left(S_t=s,A_t=a\right)}
+\end{equation}&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Policy improvement&lt;/em&gt; (denoted as $\overset{\small\text{I}}{\rightarrow}$): makes the policy &lt;em&gt;greedy&lt;/em&gt; with the current value function (action value function in this case)
+\begin{equation}
+\pi(s)\doteq\arg\max_{a\in\mathcal{A(s)}} q(s,a)
+\end{equation}
+The policy improvement can be done by constructing each $\pi_{k+1}$ as the greedy policy w.r.t $q_{\pi_k}$ because
+\begin{align}
+q_{\pi_k}\left(s,\pi_{k+1}(s)\right)&amp;amp;=q_{\pi_k}\left(s,\arg\max_a q_{\pi_k}(s,a)\right) \\ &amp;amp;=\max_a q_{\pi_k}(s,a) \\ &amp;amp;\geq q_{\pi_k}\left(s,\pi_k(s)\right) \\ &amp;amp;\geq v_{\pi_k}(s)
+\end{align}
+Therefore, by &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html#policy-improvement&quot;&gt;policy improvement theorem&lt;/a&gt;, we have that $\pi_{k+1}\geq\pi_k$.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2021-08-21/gpi.png&quot; alt=&quot;GPI&quot; width=&quot;150&quot; height=&quot;150px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 3&lt;/b&gt;: MC policy iteration&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;&lt;br /&gt;
+To solve this problem with Monte Carlo policy iteration, in the 1998 version of ‘‘&lt;em&gt;Reinforcement Learning: An Introduction&lt;/em&gt;”, authors of the book introduced &lt;strong&gt;Monte Carlo ES&lt;/strong&gt; (MCES), for Monte Carlo with &lt;em&gt;Exploring Starts&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;In MCES, value function is approximated by simulated returns and a greedy policy is selected at each iteration. Although MCES does not converge to any suboptimal policy, the convergence to optimal fixed point is still an open question. For solutions in particular settings, you can check out some results like Tsitsiklis (2002), Liu (2020), Chen (2018).&lt;br /&gt;
+Down below is the pseudocode of the Monte Carlo ES.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2021-08-21/mces.png&quot; alt=&quot;monte carlo es pseudocode&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h3 id=&quot;mc-control-wo-es&quot;&gt;Monte Carlo Control without Exploring Starts&lt;/h3&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;p&gt;[1] Reinforcement Learning: An Introduction - Richard S. Sutton &amp;amp; Andrew G. Barto&lt;/p&gt;
+
+&lt;p&gt;[2] Monte Carlo Methods - Adrian Barbu &amp;amp; Song-Chun Zhu&lt;/p&gt;
+
+&lt;p&gt;[3] &lt;a href=&quot;https://www.davidsilver.uk/teaching/&quot;&gt;UCL course on RL&lt;/a&gt; - David Silver&lt;/p&gt;
+
+&lt;p&gt;[4] Algorithms for Reinforcement Learning - Csaba Szepesvári&lt;/p&gt;
+
+&lt;p&gt;[5] Singh, S.P., Sutton, R.S. &lt;a href=&quot;https://doi.org/10.1007/BF00114726&quot;&gt;Reinforcement learning with replacing eligibility traces&lt;/a&gt;. Mach Learn 22, 123–158 (1996)&lt;/p&gt;
+
+&lt;p&gt;[6] John N. Tsitsiklis. &lt;a href=&quot;https://www.mit.edu/~jnt/Papers/J089-02-jnt-optimistic.pdf&quot;&gt;On the Convergence of Optimistic Policy Iteration&lt;/a&gt;. Journal of Machine Learning Research 3 (2002) 59–72&lt;/p&gt;
+
+&lt;p&gt;[7] Jun Liu. &lt;a href=&quot;https://arxiv.org/abs/2007.10916&quot;&gt;On the Convergence of Reinforcement Learning with Monte Carlo Exploring Starts&lt;/a&gt; (2020)&lt;/p&gt;
+
+&lt;p&gt;[8] Yuanlong Chen. &lt;a href=&quot;https://arxiv.org/abs/1808.08763&quot;&gt;On the convergence of optimistic policy iteration for stochastic shortest path problem&lt;/a&gt; (2018)&lt;/p&gt;
+
+&lt;p&gt;[9]&lt;/p&gt;
+
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;We are gonna talk about Monte Carlo methods in more detail in another post. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;A prediction task in RL is where we are given a policy and our goal is to measure how well it performs. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:3&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;In contrast to prediction, a control task in RL is where the policy is not fixed, and our goal is to find the optimal policy. &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="monte-carlo" /><summary type="html">Recall that in the previous post, Dynamic Programming Algorithms For Solving Markov Decision Processes, we made an assumption about the complete knowledge of the environment. With Monte Carlo methods, we only require experience - sample sequences of states, actions, and rewards from simulated or real interaction with an environment.</summary></entry><entry><title type="html">Dynamic Programming Algorithms For Solving Markov Decision Processes</title><link href="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html" rel="alternate" type="text/html" title="Dynamic Programming Algorithms For Solving Markov Decision Processes" /><published>2021-07-25T15:30:00+07:00</published><updated>2021-07-25T15:30:00+07:00</updated><id>/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp</id><content type="html" xml:base="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html">&lt;blockquote&gt;
   &lt;p&gt;In two previous posts, &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html&quot;&gt;&lt;strong&gt;Markov Decision Process (MDP) and Bellman equations&lt;/strong&gt;&lt;/a&gt; and &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html&quot;&gt;&lt;strong&gt;Optimal Policy Existence&lt;/strong&gt;&lt;/a&gt;, we have known how MDPs, Bellman equations are defined and how they work. In this post, we are going to talk about how these MDPs are solved with &lt;strong&gt;Dynamic Programming&lt;/strong&gt;.&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -79,7 +260,7 @@ Here is the pseudocode of the &lt;em&gt;in-place iterative policy evaluation&lt;
 &lt;/ul&gt;
 &lt;figure&gt;
 	&lt;img src=&quot;/assets/images/2021-07-25/iterative-policy-evaluation.png&quot; alt=&quot;iterative policy evalution pseudocode&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 3&lt;/b&gt;: Pseudocode of In-place Iterative Policy Evaluation&lt;/figcaption&gt;
+    &lt;figcaption&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;h3 id=&quot;policy-improvement&quot;&gt;Policy Improvement&lt;/h3&gt;
 &lt;p&gt;The reason why we compute the value function for a given policy $\pi$ is to find better policies. Given the computed value function $v_\pi$ for an deterministic policy $\pi$, we already know how good it is for a state $s$ to choose action $a=\pi(s)$. Now what we are considering is, in $s$, if we instead take action $a\neq\pi$, will it be better?&lt;br /&gt;
@@ -120,7 +301,7 @@ Each following policy is a strictly improved version of the previous one (unless
 This algorithm is called &lt;strong&gt;policy iteration&lt;/strong&gt;. And here is the pseudocode of the policy iteration.&lt;/p&gt;
 &lt;figure&gt;
 	&lt;img src=&quot;/assets/images/2021-07-25/policy-iteration.png&quot; alt=&quot;policy iteration pseudocode&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 4&lt;/b&gt;: Pseudocode of Policy Iteration&lt;/figcaption&gt;
+	&lt;figcaption&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;h3 id=&quot;value-iteration&quot;&gt;Value Iteration&lt;/h3&gt;
@@ -133,13 +314,13 @@ for all $s\in\mathcal{S}$. Once again, thanks to &lt;a href=&quot;/artificial-in
 We have the backup diagram for this update&lt;sup id=&quot;fnref:3&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
 &lt;figure&gt;
 	&lt;img src=&quot;/assets/images/2021-07-25/backup-value-iteration.png&quot; alt=&quot;Backup diagram of value iteration update&quot; width=&quot;360&quot; height=&quot;200px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 5&lt;/b&gt;: Backup diagram of Value Iteration update&lt;/figcaption&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 3&lt;/b&gt;: Backup diagram of Value Iteration update&lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;p&gt;&lt;br /&gt;
 And here is the pseudocode of the value iteration.&lt;/p&gt;
 &lt;figure&gt;
 	&lt;img src=&quot;/assets/images/2021-07-25/value-iteration.png&quot; alt=&quot;value iteration pseudocode&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 6&lt;/b&gt;: Pseudocode of Value Iteration&lt;/figcaption&gt;
+	&lt;figcaption&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;h3 id=&quot;gpi&quot;&gt;Generalized Policy Iteration&lt;/h3&gt;
@@ -147,21 +328,21 @@ And here is the pseudocode of the value iteration.&lt;/p&gt;
 In GPI, the value function is repeatedly driven toward the true value of the current policy and at the same time the policy is being improved optimality with respect to its value function, as in the following diagram.&lt;/p&gt;
 &lt;figure&gt;
 	&lt;img src=&quot;/assets/images/2021-07-25/gpi.png&quot; alt=&quot;GPI&quot; width=&quot;200&quot; height=&quot;320px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 7&lt;/b&gt;: Generalized Policy Iteration&lt;/figcaption&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 4&lt;/b&gt;: Generalized Policy Iteration&lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;p&gt;&lt;br /&gt;
 Once it reaches the stationary state (when both evaluation and improvement no long produce any updates), then the current value function and policy must be optimal.&lt;br /&gt;
 The evaluation and improvement processes in GPI can be viewed as both competing and cooperating. They competing in the sense that on the one hand, making policy greedy w.r.t the value function typically makes value function incorrect for the new policy. And on the other hand, approximating the value function closer to the true value of the policy typically forces the policy is no longer to be greedy. But in the long run, they two processes cooperate to find a single joint solution: the optimal value function and an optimal policy.&lt;/p&gt;
 &lt;figure&gt;
 	&lt;img src=&quot;/assets/images/2021-07-25/gpi-rel.png&quot; alt=&quot;GPI interaction&quot; width=&quot;360&quot; height=&quot;200px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 8&lt;/b&gt;: Interaction between the evaluation and improvement processes in GPI&lt;/figcaption&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 5&lt;/b&gt;: Interaction between the evaluation and improvement processes in GPI&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;h3 id=&quot;example&quot;&gt;Example - Gambler’s Problem&lt;/h3&gt;
 &lt;p&gt;This example is taken from &lt;em&gt;Example 4.3&lt;/em&gt; in the &lt;em&gt;Reinforcement Learning: An Introduction&lt;/em&gt; book&lt;/p&gt;
 &lt;figure&gt;
 	&lt;img src=&quot;/assets/images/2021-07-25/example.png&quot; alt=&quot;example&quot; width=&quot;500&quot; height=&quot;500px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 9&lt;/b&gt;: Example - Gambler&apos;s Problem&lt;/figcaption&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 6&lt;/b&gt;: Example - Gambler&apos;s Problem&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;&lt;strong&gt;Solution code&lt;/strong&gt;&lt;br /&gt;
@@ -248,20 +429,23 @@ The code can be found &lt;a href=&quot;https://github.com/trunghng/reinforcement
 &lt;p&gt;And here is our results after running the code&lt;/p&gt;
 &lt;figure&gt;
 	&lt;img src=&quot;/assets/images/2021-07-25/gambler.png&quot; alt=&quot;gambler&quot; width=&quot;450&quot; height=&quot;900px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 10&lt;/b&gt;: Example - Gambler&apos;s Problem Result&lt;/figcaption&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 7&lt;/b&gt;: Example - Gambler&apos;s Problem Result&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;Reinforcement Learning: An Introduction - Richard S. Sutton &amp;amp; Andrew G. Barto&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.davidsilver.uk/teaching/&quot;&gt;UCL course on RL&lt;/a&gt; - David Silver&lt;/li&gt;
-  &lt;li&gt;Algorithms for Reinforcement Learning - Csaba Szepesvári&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf&quot;&gt;Markov Decision Processes and Dynamic Programming&lt;/a&gt; - 
-A. Lazaric&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Dynamic_programming&quot;&gt;Dynamic Programming&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/ShangtongZhang/reinforcement-learning-an-introduction&quot;&gt;Shangtong Zhang’s repo&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://stats.stackexchange.com/a/258783&quot;&gt;Policy Improvement theorem&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;[1] Reinforcement Learning: An Introduction - Richard S. Sutton &amp;amp; Andrew G. Barto&lt;/p&gt;
+
+&lt;p&gt;[2] &lt;a href=&quot;https://www.davidsilver.uk/teaching/&quot;&gt;UCL course on RL&lt;/a&gt; - David Silver&lt;/p&gt;
+
+&lt;p&gt;[3] Algorithms for Reinforcement Learning - Csaba Szepesvári&lt;/p&gt;
+
+&lt;p&gt;[4] &lt;a href=&quot;http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf&quot;&gt;Markov Decision Processes and Dynamic Programming&lt;/a&gt; - A. Lazaric&lt;/p&gt;
+
+&lt;p&gt;[5] &lt;a href=&quot;https://en.wikipedia.org/wiki/Dynamic_programming&quot;&gt;Dynamic Programming&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[6] &lt;a href=&quot;https://github.com/ShangtongZhang/reinforcement-learning-an-introduction&quot;&gt;Shangtong Zhang’s repo&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[7] &lt;a href=&quot;https://stats.stackexchange.com/a/258783&quot;&gt;Policy Improvement theorem&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
 
@@ -285,10 +469,10 @@ means ‘‘the discounted expected value when starting in state $s$, choosing a
 \begin{align}
 q_{k+1}(s,a)&amp;amp;\doteq\mathbb{E}\left[R_{t+1}+\gamma\max_{a’}q_k(S_{t+1},a’)|S_t=s,A_t=a\right] \\ &amp;amp;=\sum_{s’,r}p(s’,r|s,a)\left[r+\gamma\max_{a’}q_k(s’,a’)\right]
 \end{align}
-Yep, that’s right, the sequence $\{q_k\}\to q_*$ as $k\to\infty$ at a geometric rate thanks to &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html#banach-fixed-pts&quot;&gt;Banach’s fixed point theorem&lt;/a&gt; &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+Yep, that’s right, the sequence $\{q_k\}\to q_*$ as $k\to\infty$ at a geometric rate thanks to &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html#banach-fixed-pts&quot;&gt;Banach’s fixed point theorem&lt;/a&gt;. &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><summary type="html">In two previous posts, Markov Decision Process (MDP) and Bellman equations and Optimal Policy Existence, we have known how MDPs, Bellman equations are defined and how they work. In this post, we are going to talk about how these MDPs are solved with Dynamic Programming.</summary></entry><entry><title type="html">Optimal Policy Existence</title><link href="/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html" rel="alternate" type="text/html" title="Optimal Policy Existence" /><published>2021-07-10T13:03:00+07:00</published><updated>2021-07-10T13:03:00+07:00</updated><id>/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence</id><content type="html" xml:base="/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html">&lt;blockquote&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="dynamic-programming" /><summary type="html">In two previous posts, Markov Decision Process (MDP) and Bellman equations and Optimal Policy Existence, we have known how MDPs, Bellman equations are defined and how they work. In this post, we are going to talk about how these MDPs are solved with Dynamic Programming.</summary></entry><entry><title type="html">Optimal Policy Existence</title><link href="/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html" rel="alternate" type="text/html" title="Optimal Policy Existence" /><published>2021-07-10T13:03:00+07:00</published><updated>2021-07-10T13:03:00+07:00</updated><id>/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence</id><content type="html" xml:base="/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html">&lt;blockquote&gt;
   &lt;p&gt;In the previous post about &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html&quot;&gt;&lt;strong&gt;Markov Decision Process (MDP) and Bellman equations&lt;/strong&gt;&lt;/a&gt;, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here to prove it.&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -472,14 +656,16 @@ Since $\mathcal{T}^*$ is a contraction, the right-hand side converges to $v$, th
 Pick a policy $\pi$ such that $\mathcal{T}^\pi v=\mathcal{T}^*v$, then $v$ is also a fixed point of $\mathcal{V}^\pi$. Since $v_\pi$ is the unique fixed point of $\mathcal{T}^\pi$, we have that $v=v_\pi$, which shows that $v_*=v$ and that $\pi$ is an optimal policy.&lt;/p&gt;
 
 &lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
-&lt;ol&gt;
-  &lt;li&gt;Algorithms for Reinforcement Learning - Csaba Szepesvári&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf&quot;&gt;Markov Decision Processes and Dynamic Programming&lt;/a&gt; - 
-A. Lazaric&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://ai.stackexchange.com/a/11133&quot;&gt;What is the Bellman operator in reinforcement learning?&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Reinforcement Learning: An Introduction - Richard S. Sutton &amp;amp; Andrew G. Barto&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Normed_vector_space&quot;&gt;Normed vector space&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;[1] Algorithms for Reinforcement Learning - Csaba Szepesvári&lt;/p&gt;
+
+&lt;p&gt;[2] &lt;a href=&quot;http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf&quot;&gt;Markov Decision Processes and Dynamic Programming&lt;/a&gt; - 
+A. Lazaric&lt;/p&gt;
+
+&lt;p&gt;[3] &lt;a href=&quot;https://ai.stackexchange.com/a/11133&quot;&gt;What is the Bellman operator in reinforcement learning?&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[4] Reinforcement Learning: An Introduction - Richard S. Sutton &amp;amp; Andrew G. Barto&lt;/p&gt;
+
+&lt;p&gt;[5] &lt;a href=&quot;https://en.wikipedia.org/wiki/Normed_vector_space&quot;&gt;Normed vector space&lt;/a&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h4&gt;
 
@@ -561,7 +747,7 @@ And finally,
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&quot;lebesgue-measure&quot;&gt;Lebesgue Measure&lt;/h4&gt;
+&lt;h2 id=&quot;lebesgue-measure&quot;&gt;Lebesgue Measure&lt;/h2&gt;
 &lt;p&gt;Is an extension of the classical notion of length in $\mathbb{R}$, area in $\mathbb{R}^2$ to any $\mathbb{R}^k$ using k-dimensional hyper-rectangles.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt;&lt;br /&gt;
@@ -574,7 +760,7 @@ Given a closed set $S’\equiv[a,b]-\sum_k(a_k,b_k)$,
 \mu_L(S’)\equiv(b-a)-\sum_k(b_k-a_k)
 \end{equation}&lt;/p&gt;
 
-&lt;h4 id=&quot;measures&quot;&gt;Measures&lt;/h4&gt;
+&lt;h2 id=&quot;measures&quot;&gt;Measures&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt;&lt;br /&gt;
 Let $\mathcal{X}$ be any set. A &lt;em&gt;measure&lt;/em&gt; on $\mathcal{X}$ is a function $\mu$ that maps the set of subsets on $\mathcal{X}$ to $[0,\infty]$ ($\mu:2^\mathcal{X}\rightarrow[0,\infty]$) that satisfies:&lt;/p&gt;
 &lt;ol&gt;
@@ -625,7 +811,7 @@ for $\mathcal{A}\subset\mathbb{R}$&lt;/li&gt;
 \end{equation}&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h4 id=&quot;int-measure-idea&quot;&gt;Integration with respect to a Measure: The Idea&lt;/h4&gt;
+&lt;h2 id=&quot;int-measure-idea&quot;&gt;Integration with respect to a Measure: The Idea&lt;/h2&gt;
 &lt;p&gt;Consider $f:\mathcal{X}\rightarrow\mathbb{R}$, where $\mathcal{X}$ is any set and a measure $\mu$ on $\mathcal{X}$ and compute the integral of $f$ w.r.t $\mu$: $\int f(x)\,\mu(dx)$. We have:&lt;/p&gt;
 &lt;ol&gt;
   &lt;li&gt;For any function $f$,
@@ -669,7 +855,7 @@ We say that $f$ is the density of $\mu$ w.r.t Lebesgue measure in this case.&lt;
 We say that $p$ is the density of $\mu$ w.r.t Counting measure on $\mathcal{C}$.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h4 id=&quot;prop-int&quot;&gt;Properties of the Integral&lt;/h4&gt;
+&lt;h2 id=&quot;prop-int&quot;&gt;Properties of the Integral&lt;/h2&gt;
 &lt;p&gt;A function is said to be &lt;em&gt;integrable&lt;/em&gt; w.r.t $\mu$ if $\int|f(x)|\,\mu(dx)&amp;lt;\infty$. An integrable function has a well-defined and finite integral. If $f(x)\geq0$, the integral is always well-defined but may be $\infty$.&lt;br /&gt;
 Suppose $\mu$ is a measure on $\mathcal{X},\mathcal{A}\subset\mathcal{X}$, and $g$ is a real-valued function on $\mathcal{X}$. We define the integral of $g$ over the set $\mathcal{A}$, denoted by $\int_\mathcal{A}g(x)\,\mu(dx)$, as
 \begin{equation}
@@ -708,9 +894,9 @@ where \(𝟙_\mathcal{A}\) is an &lt;em&gt;indicator function&lt;/em&gt; (\(𝟙
 \end{equation}&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h4 id=&quot;int-measure-detail&quot;&gt;Integration with respect to a Measure: The Details&lt;/h4&gt;
+&lt;h2 id=&quot;int-measure-detail&quot;&gt;Integration with respect to a Measure: The Details&lt;/h2&gt;
 &lt;ol&gt;
-  &lt;li&gt;&lt;em&gt;Step 1&lt;/em&gt;. Define the integral for simple functions.
+  &lt;li&gt;&lt;strong&gt;Step 1&lt;/strong&gt;. Define the integral for simple functions.
     &lt;ul&gt;
       &lt;li&gt;&lt;em&gt;Simple function&lt;/em&gt;: is a function that takes only a finite number of different values.
         &lt;ul&gt;
@@ -730,7 +916,7 @@ where \(𝟙_\mathcal{A}\) is an &lt;em&gt;indicator function&lt;/em&gt; (\(𝟙
 \end{equation}&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Step 2&lt;/em&gt;. Define the integral for general non-negative functions, approximating the general function by simple functions.
+  &lt;li&gt;&lt;strong&gt;Step 2&lt;/strong&gt;. Define the integral for general non-negative functions, approximating the general function by simple functions.
     &lt;ul&gt;
       &lt;li&gt;The idea is that we can approximate any general non-negative function $f:\mathcal{X}\to[0,\infty[$ well by some non-negative simple functions that $\leq f$ &lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;.&lt;/li&gt;
       &lt;li&gt;If $f:\mathcal{X}\to[0,\infty[$ is a general function and $0\leq s\leq f$ is a simple function (then $\int s(x)\,\mu(dx)\leq\int f(x)\,\mu(dx)$). The closer that $s$ approximates $f$, the closer we expect $\int s(x)\,\mu(dx)$ and $\int f(x)\,\mu(x)$ to be.&lt;/li&gt;
@@ -740,7 +926,7 @@ where \(𝟙_\mathcal{A}\) is an &lt;em&gt;indicator function&lt;/em&gt; (\(𝟙
 \end{equation}&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Step 3&lt;/em&gt;. Define the integral for general real-valued functions by separately integrating the positive and negative parts of the function.
+  &lt;li&gt;&lt;strong&gt;Step 3&lt;/strong&gt;. Define the integral for general real-valued functions by separately integrating the positive and negative parts of the function.
     &lt;ul&gt;
       &lt;li&gt;If $f:\mathcal{X}\to\mathbb{R}$ is a general function, we can define its &lt;em&gt;positive part&lt;/em&gt; $f^+$ and its &lt;em&gt;negative part&lt;/em&gt; $f^-$ by
 \begin{align}
@@ -755,7 +941,7 @@ This is a well-defined number (possibly infinite) if and only if at least one of
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h4 id=&quot;construct-measure&quot;&gt;Constructing Measures from old ones&lt;/h4&gt;
+&lt;h2 id=&quot;construct-measure&quot;&gt;Constructing Measures from old ones&lt;/h2&gt;
 &lt;ol&gt;
   &lt;li&gt;&lt;em&gt;Sums and multiples&lt;/em&gt;
     &lt;ul&gt;
@@ -808,7 +994,7 @@ We say that $f$ is the &lt;em&gt;density&lt;/em&gt; of the measure $v$ w.r.t $\m
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h4 id=&quot;other-types&quot;&gt;Other types of Measures&lt;/h4&gt;
+&lt;h2 id=&quot;other-types&quot;&gt;Other types of Measures&lt;/h2&gt;
 &lt;p&gt;Suppose that $\mu$ is a measure on $\mathcal{X}$&lt;/p&gt;
 &lt;ol&gt;
   &lt;li&gt;If $\mu(\mathcal{X})=\infty$, we say that $\mu$ is an &lt;em&gt;infinite measure&lt;/em&gt;.&lt;/li&gt;
@@ -819,19 +1005,19 @@ We say that $f$ is the &lt;em&gt;density&lt;/em&gt; of the measure $v$ w.r.t $\m
   &lt;li&gt;If $\mu$ is neither &lt;em&gt;continuous&lt;/em&gt; nor &lt;em&gt;discrete&lt;/em&gt;, we say that $\mu$ is a &lt;em&gt;mixed measure&lt;/em&gt;.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
-&lt;ol&gt;
-  &lt;li&gt;Literally, this post is mainly written from a source that I’ve lost the reference :(. Hope that I can update this line soon.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://mathworld.wolfram.com/LebesgueMeasure.html&quot;&gt;Lebesgue Measure&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.countbayesie.com/blog/2015/8/17/a-very-brief-and-non-mathematical-introduction-to-measure-theory-for-probability&quot;&gt;Measure Theory for Probability: A Very Brief Introduction&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;p&gt;[1] Literally, this post is mainly written from a source that I’ve lost the reference :(. Hope that I can update this line soon.&lt;/p&gt;
 
-&lt;h4 id=&quot;other-resources&quot;&gt;Other Resources&lt;/h4&gt;
+&lt;p&gt;[2] &lt;a href=&quot;https://mathworld.wolfram.com/LebesgueMeasure.html&quot;&gt;Lebesgue Measure&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[3] &lt;a href=&quot;https://www.countbayesie.com/blog/2015/8/17/a-very-brief-and-non-mathematical-introduction-to-measure-theory-for-probability&quot;&gt;Measure Theory for Probability: A Very Brief Introduction&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;other-resources&quot;&gt;Other Resources&lt;/h2&gt;
 &lt;ol&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=cyW5z-M2yzw&quot;&gt;Music and Measure Theory - 3Blue1Brown&lt;/a&gt; - this is one of my favourite Youtube channels.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h4 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h4&gt;
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
 
 &lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
   &lt;ol&gt;
@@ -989,12 +1175,13 @@ q_*(s,a)&amp;amp;=\mathbb{E}\left[R_{t+1}+\gamma\max_{a’}q_*(S_{t+1},a’)|S_t
 &lt;p&gt;&lt;img src=&quot;/assets/images/opt.png&quot; alt=&quot;backup diagram for optimal value func&quot; /&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
-&lt;ol&gt;
-  &lt;li&gt;Reinforcement Learning: An Introduction - Richard S. Sutton &amp;amp; Andrew G. Barto&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.davidsilver.uk/teaching/&quot;&gt;UCL course on RL&lt;/a&gt; - David Silver&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://lilianweng.github.io/lil-log/2018/02/19/a-long-peek-into-reinforcement-learning.html&quot;&gt;A (Long) Peek into Reinforcement Learning&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://deepmind.com/research/case-studies/alphago-the-story-so-far&quot;&gt;AlphaGo&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><summary type="html">You may have known or heard vaguely about a computer program called AlphaGo - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with Reinforcement Learning.</summary></entry><entry><title type="html">Markov Chain</title><link href="/random-stuffs/probability-statistics/2021/06/19/markov-chain.html" rel="alternate" type="text/html" title="Markov Chain" /><published>2021-06-19T22:27:00+07:00</published><updated>2021-06-19T22:27:00+07:00</updated><id>/random-stuffs/probability-statistics/2021/06/19/markov-chain</id><content type="html" xml:base="/random-stuffs/probability-statistics/2021/06/19/markov-chain.html">&lt;blockquote&gt;
+&lt;p&gt;[1] Reinforcement Learning: An Introduction - Richard S. Sutton &amp;amp; Andrew G. Barto&lt;/p&gt;
+
+&lt;p&gt;[2] &lt;a href=&quot;https://www.davidsilver.uk/teaching/&quot;&gt;UCL course on RL&lt;/a&gt; - David Silver&lt;/p&gt;
+
+&lt;p&gt;[3] &lt;a href=&quot;https://lilianweng.github.io/lil-log/2018/02/19/a-long-peek-into-reinforcement-learning.html&quot;&gt;A (Long) Peek into Reinforcement Learning&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[4] &lt;a href=&quot;https://deepmind.com/research/case-studies/alphago-the-story-so-far&quot;&gt;AlphaGo&lt;/a&gt;&lt;/p&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><summary type="html">You may have known or heard vaguely about a computer program called AlphaGo - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with Reinforcement Learning.</summary></entry><entry><title type="html">Markov Chain</title><link href="/random-stuffs/probability-statistics/2021/06/19/markov-chain.html" rel="alternate" type="text/html" title="Markov Chain" /><published>2021-06-19T22:27:00+07:00</published><updated>2021-06-19T22:27:00+07:00</updated><id>/random-stuffs/probability-statistics/2021/06/19/markov-chain</id><content type="html" xml:base="/random-stuffs/probability-statistics/2021/06/19/markov-chain.html">&lt;blockquote&gt;
   &lt;p&gt;Since I have no idea how to begin with this post, why not just dive straight into details :P&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -1108,11 +1295,11 @@ for all states $i,j$. This equation is called &lt;em&gt;reversibility&lt;/em&gt;
 &lt;/ul&gt;
 
 &lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
-&lt;ol&gt;
-  &lt;li&gt;Introduction to Probability - Joseph K. Blitzstein &amp;amp; Jessica Hwang&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://brilliant.org/wiki/markov-chains/&quot;&gt;Brillant’s Markov chain&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Perron–Frobenius_theorem&quot;&gt;Perron-Frobenius theorem&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;[1] Introduction to Probability - Joseph K. Blitzstein &amp;amp; Jessica Hwang&lt;/p&gt;
+
+&lt;p&gt;[2] &lt;a href=&quot;https://brilliant.org/wiki/markov-chains/&quot;&gt;Brillant’s Markov chain&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[3] &lt;a href=&quot;https://en.wikipedia.org/wiki/Perron–Frobenius_theorem&quot;&gt;Perron-Frobenius theorem&lt;/a&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h4&gt;
 &lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
@@ -1167,6 +1354,4 @@ u_k=A^ku_0=c_1{\lambda_1}^kx_1+\dots+c_n{\lambda_n}^kx_n
 &lt;em&gt;Fact&lt;/em&gt;: The \(\frac{1+\sqrt{5}}{2}\approx 1.618\) is so-called “&lt;strong&gt;golden ratio&lt;/strong&gt;”. And &lt;em&gt;for some reason a rectangle with sides 1.618 and 1 looks especially graceful&lt;/em&gt;.&lt;/p&gt;
 
 &lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
-&lt;ol&gt;
-  &lt;li&gt;Introduction to Linear Algebra - Gilbert Strang&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="random-stuffs" /><category term="mathematics" /><category term="linear-algebra" /><category term="random-stuffs" /><summary type="html">Enjoy my index-zero-ed post while staying tuned for next ones!</summary></entry></feed>
+&lt;p&gt;[1] Introduction to Linear Algebra - Gilbert Strang&lt;/p&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="random-stuffs" /><category term="mathematics" /><category term="linear-algebra" /><category term="random-stuffs" /><summary type="html">Enjoy my index-zero-ed post while staying tuned for next ones!</summary></entry></feed>

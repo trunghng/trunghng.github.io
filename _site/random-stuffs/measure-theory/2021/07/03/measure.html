@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Measures" />
 <script type="application/ld+json">
-{"description":"a brief look into measure theory","headline":"Measures","dateModified":"2021-07-03T07:00:00+07:00","datePublished":"2021-07-03T07:00:00+07:00","url":"/random-stuffs/measure-theory/2021/07/03/measure.html","author":{"@type":"Person","name":"Trung H. Nguyen"},"mainEntityOfPage":{"@type":"WebPage","@id":"/random-stuffs/measure-theory/2021/07/03/measure.html"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"description":"a brief look into measure theory","headline":"Measures","dateModified":"2021-07-03T07:00:00+07:00","datePublished":"2021-07-03T07:00:00+07:00","mainEntityOfPage":{"@type":"WebPage","@id":"/random-stuffs/measure-theory/2021/07/03/measure.html"},"url":"/random-stuffs/measure-theory/2021/07/03/measure.html","author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Trung&apos;s cabin" />
     
@@ -104,7 +104,7 @@
   <li><a href="#footnotes">Footnotes</a></li>
 </ul>
 
-<h4 id="lebesgue-measure">Lebesgue Measure</h4>
+<h2 id="lebesgue-measure">Lebesgue Measure</h2>
 <p>Is an extension of the classical notion of length in $\mathbb{R}$, area in $\mathbb{R}^2$ to any $\mathbb{R}^k$ using k-dimensional hyper-rectangles.</p>
 
 <p><strong>Definition</strong><br />
@@ -117,7 +117,7 @@ Given a closed set $S’\equiv[a,b]-\sum_k(a_k,b_k)$,
 \mu_L(S’)\equiv(b-a)-\sum_k(b_k-a_k)
 \end{equation}</p>
 
-<h4 id="measures">Measures</h4>
+<h2 id="measures">Measures</h2>
 <p><strong>Definition</strong><br />
 Let $\mathcal{X}$ be any set. A <em>measure</em> on $\mathcal{X}$ is a function $\mu$ that maps the set of subsets on $\mathcal{X}$ to $[0,\infty]$ ($\mu:2^\mathcal{X}\rightarrow[0,\infty]$) that satisfies:</p>
 <ol>
@@ -168,7 +168,7 @@ for $\mathcal{A}\subset\mathbb{R}$</li>
 \end{equation}</li>
 </ol>
 
-<h4 id="int-measure-idea">Integration with respect to a Measure: The Idea</h4>
+<h2 id="int-measure-idea">Integration with respect to a Measure: The Idea</h2>
 <p>Consider $f:\mathcal{X}\rightarrow\mathbb{R}$, where $\mathcal{X}$ is any set and a measure $\mu$ on $\mathcal{X}$ and compute the integral of $f$ w.r.t $\mu$: $\int f(x)\,\mu(dx)$. We have:</p>
 <ol>
   <li>For any function $f$,
@@ -212,7 +212,7 @@ We say that $f$ is the density of $\mu$ w.r.t Lebesgue measure in this case.</li
 We say that $p$ is the density of $\mu$ w.r.t Counting measure on $\mathcal{C}$.</li>
 </ol>
 
-<h4 id="prop-int">Properties of the Integral</h4>
+<h2 id="prop-int">Properties of the Integral</h2>
 <p>A function is said to be <em>integrable</em> w.r.t $\mu$ if $\int|f(x)|\,\mu(dx)&lt;\infty$. An integrable function has a well-defined and finite integral. If $f(x)\geq0$, the integral is always well-defined but may be $\infty$.<br />
 Suppose $\mu$ is a measure on $\mathcal{X},\mathcal{A}\subset\mathcal{X}$, and $g$ is a real-valued function on $\mathcal{X}$. We define the integral of $g$ over the set $\mathcal{A}$, denoted by $\int_\mathcal{A}g(x)\,\mu(dx)$, as
 \begin{equation}
@@ -251,9 +251,9 @@ where \(𝟙_\mathcal{A}\) is an <em>indicator function</em> (\(𝟙_\mathcal{A}
 \end{equation}</li>
 </ol>
 
-<h4 id="int-measure-detail">Integration with respect to a Measure: The Details</h4>
+<h2 id="int-measure-detail">Integration with respect to a Measure: The Details</h2>
 <ol>
-  <li><em>Step 1</em>. Define the integral for simple functions.
+  <li><strong>Step 1</strong>. Define the integral for simple functions.
     <ul>
       <li><em>Simple function</em>: is a function that takes only a finite number of different values.
         <ul>
@@ -273,7 +273,7 @@ where \(𝟙_\mathcal{A}\) is an <em>indicator function</em> (\(𝟙_\mathcal{A}
 \end{equation}</li>
     </ul>
   </li>
-  <li><em>Step 2</em>. Define the integral for general non-negative functions, approximating the general function by simple functions.
+  <li><strong>Step 2</strong>. Define the integral for general non-negative functions, approximating the general function by simple functions.
     <ul>
       <li>The idea is that we can approximate any general non-negative function $f:\mathcal{X}\to[0,\infty[$ well by some non-negative simple functions that $\leq f$ <sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>.</li>
       <li>If $f:\mathcal{X}\to[0,\infty[$ is a general function and $0\leq s\leq f$ is a simple function (then $\int s(x)\,\mu(dx)\leq\int f(x)\,\mu(dx)$). The closer that $s$ approximates $f$, the closer we expect $\int s(x)\,\mu(dx)$ and $\int f(x)\,\mu(x)$ to be.</li>
@@ -283,7 +283,7 @@ where \(𝟙_\mathcal{A}\) is an <em>indicator function</em> (\(𝟙_\mathcal{A}
 \end{equation}</li>
     </ul>
   </li>
-  <li><em>Step 3</em>. Define the integral for general real-valued functions by separately integrating the positive and negative parts of the function.
+  <li><strong>Step 3</strong>. Define the integral for general real-valued functions by separately integrating the positive and negative parts of the function.
     <ul>
       <li>If $f:\mathcal{X}\to\mathbb{R}$ is a general function, we can define its <em>positive part</em> $f^+$ and its <em>negative part</em> $f^-$ by
 \begin{align}
@@ -298,7 +298,7 @@ This is a well-defined number (possibly infinite) if and only if at least one of
   </li>
 </ol>
 
-<h4 id="construct-measure">Constructing Measures from old ones</h4>
+<h2 id="construct-measure">Constructing Measures from old ones</h2>
 <ol>
   <li><em>Sums and multiples</em>
     <ul>
@@ -351,7 +351,7 @@ We say that $f$ is the <em>density</em> of the measure $v$ w.r.t $\mu$.</li>
   </li>
 </ol>
 
-<h4 id="other-types">Other types of Measures</h4>
+<h2 id="other-types">Other types of Measures</h2>
 <p>Suppose that $\mu$ is a measure on $\mathcal{X}$</p>
 <ol>
   <li>If $\mu(\mathcal{X})=\infty$, we say that $\mu$ is an <em>infinite measure</em>.</li>
@@ -362,19 +362,19 @@ We say that $f$ is the <em>density</em> of the measure $v$ w.r.t $\mu$.</li>
   <li>If $\mu$ is neither <em>continuous</em> nor <em>discrete</em>, we say that $\mu$ is a <em>mixed measure</em>.</li>
 </ol>
 
-<h4 id="references">References</h4>
-<ol>
-  <li>Literally, this post is mainly written from a source that I’ve lost the reference :(. Hope that I can update this line soon.</li>
-  <li><a href="https://mathworld.wolfram.com/LebesgueMeasure.html">Lebesgue Measure</a></li>
-  <li><a href="https://www.countbayesie.com/blog/2015/8/17/a-very-brief-and-non-mathematical-introduction-to-measure-theory-for-probability">Measure Theory for Probability: A Very Brief Introduction</a></li>
-</ol>
+<h2 id="references">References</h2>
+<p>[1] Literally, this post is mainly written from a source that I’ve lost the reference :(. Hope that I can update this line soon.</p>
 
-<h4 id="other-resources">Other Resources</h4>
+<p>[2] <a href="https://mathworld.wolfram.com/LebesgueMeasure.html">Lebesgue Measure</a></p>
+
+<p>[3] <a href="https://www.countbayesie.com/blog/2015/8/17/a-very-brief-and-non-mathematical-introduction-to-measure-theory-for-probability">Measure Theory for Probability: A Very Brief Introduction</a></p>
+
+<h2 id="other-resources">Other Resources</h2>
 <ol>
   <li><a href="https://www.youtube.com/watch?v=cyW5z-M2yzw">Music and Measure Theory - 3Blue1Brown</a> - this is one of my favourite Youtube channels.</li>
 </ol>
 
-<h4 id="footnotes">Footnotes</h4>
+<h2 id="footnotes">Footnotes</h2>
 
 <div class="footnotes" role="doc-endnotes">
   <ol>

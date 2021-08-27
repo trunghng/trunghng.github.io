@@ -249,9 +249,11 @@ Suppose that $\mu$ is a measure on $\mathcal{X}$
 6. If $\mu$ is neither *continuous* nor *discrete*, we say that $\mu$ is a *mixed measure*.
 
 ## References
-1. Literally, this post is mainly written from a source that I've lost the reference :(. Hope that I can update this line soon.
-2. [Lebesgue Measure](https://mathworld.wolfram.com/LebesgueMeasure.html)
-3. [Measure Theory for Probability: A Very Brief Introduction](https://www.countbayesie.com/blog/2015/8/17/a-very-brief-and-non-mathematical-introduction-to-measure-theory-for-probability)
+[1] Literally, this post is mainly written from a source that I've lost the reference :(. Hope that I can update this line soon.  
+
+[2] [Lebesgue Measure](https://mathworld.wolfram.com/LebesgueMeasure.html)  
+
+[3] [Measure Theory for Probability: A Very Brief Introduction](https://www.countbayesie.com/blog/2015/8/17/a-very-brief-and-non-mathematical-introduction-to-measure-theory-for-probability)
 
 ## Other Resources
 1. [Music and Measure Theory - 3Blue1Brown](https://www.youtube.com/watch?v=cyW5z-M2yzw) - this is one of my favourite Youtube channels.

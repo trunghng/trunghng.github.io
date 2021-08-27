@@ -246,14 +246,19 @@ And here is our results after running the code
 
 
 ## References
-1. Reinforcement Learning: An Introduction - Richard S. Sutton & Andrew G. Barto
-2. [UCL course on RL](https://www.davidsilver.uk/teaching/) - David Silver
-3. Algorithms for Reinforcement Learning - Csaba Szepesvári
-4. [Markov Decision Processes and Dynamic Programming](http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf) - 
-A. Lazaric
-5. [Dynamic Programming](https://en.wikipedia.org/wiki/Dynamic_programming)
-6. [Shangtong Zhang's repo](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction)
-7. [Policy Improvement theorem](https://stats.stackexchange.com/a/258783)
+[1] Reinforcement Learning: An Introduction - Richard S. Sutton & Andrew G. Barto  
+
+[2] [UCL course on RL](https://www.davidsilver.uk/teaching/) - David Silver  
+
+[3] Algorithms for Reinforcement Learning - Csaba Szepesvári  
+
+[4] [Markov Decision Processes and Dynamic Programming](http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf) - A. Lazaric  
+
+[5] [Dynamic Programming](https://en.wikipedia.org/wiki/Dynamic_programming)  
+
+[6] [Shangtong Zhang's repo](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction)  
+
+[7] [Policy Improvement theorem](https://stats.stackexchange.com/a/258783)
 
 ## Footnotes
 [^1]: In the third step, the expression

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-08-15T20:34:02+07:00</updated><id>/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-08-27T17:05:42+07:00</updated><id>/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Optimal Policy Existence</title><link href="/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html" rel="alternate" type="text/html" title="Optimal Policy Existence" /><published>2021-07-10T13:03:00+07:00</published><updated>2021-07-10T13:03:00+07:00</updated><id>/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence</id><content type="html" xml:base="/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html">&lt;blockquote&gt;
   &lt;p&gt;In the previous post about &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html&quot;&gt;&lt;strong&gt;Markov Decision Process (MDP) and Bellman equations&lt;/strong&gt;&lt;/a&gt;, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here to prove it.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -183,14 +183,16 @@ Since $\mathcal{T}^*$ is a contraction, the right-hand side converges to $v$, th
 Pick a policy $\pi$ such that $\mathcal{T}^\pi v=\mathcal{T}^*v$, then $v$ is also a fixed point of $\mathcal{V}^\pi$. Since $v_\pi$ is the unique fixed point of $\mathcal{T}^\pi$, we have that $v=v_\pi$, which shows that $v_*=v$ and that $\pi$ is an optimal policy.&lt;/p&gt;
 
 &lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
-&lt;ol&gt;
-  &lt;li&gt;Algorithms for Reinforcement Learning - Csaba Szepesvári&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf&quot;&gt;Markov Decision Processes and Dynamic Programming&lt;/a&gt; - 
-A. Lazaric&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://ai.stackexchange.com/a/11133&quot;&gt;What is the Bellman operator in reinforcement learning?&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Reinforcement Learning: An Introduction - Richard S. Sutton &amp;amp; Andrew G. Barto&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Normed_vector_space&quot;&gt;Normed vector space&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;[1] Algorithms for Reinforcement Learning - Csaba Szepesvári&lt;/p&gt;
+
+&lt;p&gt;[2] &lt;a href=&quot;http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf&quot;&gt;Markov Decision Processes and Dynamic Programming&lt;/a&gt; - 
+A. Lazaric&lt;/p&gt;
+
+&lt;p&gt;[3] &lt;a href=&quot;https://ai.stackexchange.com/a/11133&quot;&gt;What is the Bellman operator in reinforcement learning?&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[4] Reinforcement Learning: An Introduction - Richard S. Sutton &amp;amp; Andrew G. Barto&lt;/p&gt;
+
+&lt;p&gt;[5] &lt;a href=&quot;https://en.wikipedia.org/wiki/Normed_vector_space&quot;&gt;Normed vector space&lt;/a&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h4&gt;
 
@@ -272,7 +274,7 @@ And finally,
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&quot;lebesgue-measure&quot;&gt;Lebesgue Measure&lt;/h4&gt;
+&lt;h2 id=&quot;lebesgue-measure&quot;&gt;Lebesgue Measure&lt;/h2&gt;
 &lt;p&gt;Is an extension of the classical notion of length in $\mathbb{R}$, area in $\mathbb{R}^2$ to any $\mathbb{R}^k$ using k-dimensional hyper-rectangles.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt;&lt;br /&gt;
@@ -285,7 +287,7 @@ Given a closed set $S’\equiv[a,b]-\sum_k(a_k,b_k)$,
 \mu_L(S’)\equiv(b-a)-\sum_k(b_k-a_k)
 \end{equation}&lt;/p&gt;
 
-&lt;h4 id=&quot;measures&quot;&gt;Measures&lt;/h4&gt;
+&lt;h2 id=&quot;measures&quot;&gt;Measures&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt;&lt;br /&gt;
 Let $\mathcal{X}$ be any set. A &lt;em&gt;measure&lt;/em&gt; on $\mathcal{X}$ is a function $\mu$ that maps the set of subsets on $\mathcal{X}$ to $[0,\infty]$ ($\mu:2^\mathcal{X}\rightarrow[0,\infty]$) that satisfies:&lt;/p&gt;
 &lt;ol&gt;
@@ -336,7 +338,7 @@ for $\mathcal{A}\subset\mathbb{R}$&lt;/li&gt;
 \end{equation}&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h4 id=&quot;int-measure-idea&quot;&gt;Integration with respect to a Measure: The Idea&lt;/h4&gt;
+&lt;h2 id=&quot;int-measure-idea&quot;&gt;Integration with respect to a Measure: The Idea&lt;/h2&gt;
 &lt;p&gt;Consider $f:\mathcal{X}\rightarrow\mathbb{R}$, where $\mathcal{X}$ is any set and a measure $\mu$ on $\mathcal{X}$ and compute the integral of $f$ w.r.t $\mu$: $\int f(x)\,\mu(dx)$. We have:&lt;/p&gt;
 &lt;ol&gt;
   &lt;li&gt;For any function $f$,
@@ -380,7 +382,7 @@ We say that $f$ is the density of $\mu$ w.r.t Lebesgue measure in this case.&lt;
 We say that $p$ is the density of $\mu$ w.r.t Counting measure on $\mathcal{C}$.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h4 id=&quot;prop-int&quot;&gt;Properties of the Integral&lt;/h4&gt;
+&lt;h2 id=&quot;prop-int&quot;&gt;Properties of the Integral&lt;/h2&gt;
 &lt;p&gt;A function is said to be &lt;em&gt;integrable&lt;/em&gt; w.r.t $\mu$ if $\int|f(x)|\,\mu(dx)&amp;lt;\infty$. An integrable function has a well-defined and finite integral. If $f(x)\geq0$, the integral is always well-defined but may be $\infty$.&lt;br /&gt;
 Suppose $\mu$ is a measure on $\mathcal{X},\mathcal{A}\subset\mathcal{X}$, and $g$ is a real-valued function on $\mathcal{X}$. We define the integral of $g$ over the set $\mathcal{A}$, denoted by $\int_\mathcal{A}g(x)\,\mu(dx)$, as
 \begin{equation}
@@ -419,9 +421,9 @@ where \(𝟙_\mathcal{A}\) is an &lt;em&gt;indicator function&lt;/em&gt; (\(𝟙
 \end{equation}&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h4 id=&quot;int-measure-detail&quot;&gt;Integration with respect to a Measure: The Details&lt;/h4&gt;
+&lt;h2 id=&quot;int-measure-detail&quot;&gt;Integration with respect to a Measure: The Details&lt;/h2&gt;
 &lt;ol&gt;
-  &lt;li&gt;&lt;em&gt;Step 1&lt;/em&gt;. Define the integral for simple functions.
+  &lt;li&gt;&lt;strong&gt;Step 1&lt;/strong&gt;. Define the integral for simple functions.
     &lt;ul&gt;
       &lt;li&gt;&lt;em&gt;Simple function&lt;/em&gt;: is a function that takes only a finite number of different values.
         &lt;ul&gt;
@@ -441,7 +443,7 @@ where \(𝟙_\mathcal{A}\) is an &lt;em&gt;indicator function&lt;/em&gt; (\(𝟙
 \end{equation}&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Step 2&lt;/em&gt;. Define the integral for general non-negative functions, approximating the general function by simple functions.
+  &lt;li&gt;&lt;strong&gt;Step 2&lt;/strong&gt;. Define the integral for general non-negative functions, approximating the general function by simple functions.
     &lt;ul&gt;
       &lt;li&gt;The idea is that we can approximate any general non-negative function $f:\mathcal{X}\to[0,\infty[$ well by some non-negative simple functions that $\leq f$ &lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;.&lt;/li&gt;
       &lt;li&gt;If $f:\mathcal{X}\to[0,\infty[$ is a general function and $0\leq s\leq f$ is a simple function (then $\int s(x)\,\mu(dx)\leq\int f(x)\,\mu(dx)$). The closer that $s$ approximates $f$, the closer we expect $\int s(x)\,\mu(dx)$ and $\int f(x)\,\mu(x)$ to be.&lt;/li&gt;
@@ -451,7 +453,7 @@ where \(𝟙_\mathcal{A}\) is an &lt;em&gt;indicator function&lt;/em&gt; (\(𝟙
 \end{equation}&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Step 3&lt;/em&gt;. Define the integral for general real-valued functions by separately integrating the positive and negative parts of the function.
+  &lt;li&gt;&lt;strong&gt;Step 3&lt;/strong&gt;. Define the integral for general real-valued functions by separately integrating the positive and negative parts of the function.
     &lt;ul&gt;
       &lt;li&gt;If $f:\mathcal{X}\to\mathbb{R}$ is a general function, we can define its &lt;em&gt;positive part&lt;/em&gt; $f^+$ and its &lt;em&gt;negative part&lt;/em&gt; $f^-$ by
 \begin{align}
@@ -466,7 +468,7 @@ This is a well-defined number (possibly infinite) if and only if at least one of
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h4 id=&quot;construct-measure&quot;&gt;Constructing Measures from old ones&lt;/h4&gt;
+&lt;h2 id=&quot;construct-measure&quot;&gt;Constructing Measures from old ones&lt;/h2&gt;
 &lt;ol&gt;
   &lt;li&gt;&lt;em&gt;Sums and multiples&lt;/em&gt;
     &lt;ul&gt;
@@ -519,7 +521,7 @@ We say that $f$ is the &lt;em&gt;density&lt;/em&gt; of the measure $v$ w.r.t $\m
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h4 id=&quot;other-types&quot;&gt;Other types of Measures&lt;/h4&gt;
+&lt;h2 id=&quot;other-types&quot;&gt;Other types of Measures&lt;/h2&gt;
 &lt;p&gt;Suppose that $\mu$ is a measure on $\mathcal{X}$&lt;/p&gt;
 &lt;ol&gt;
   &lt;li&gt;If $\mu(\mathcal{X})=\infty$, we say that $\mu$ is an &lt;em&gt;infinite measure&lt;/em&gt;.&lt;/li&gt;
@@ -530,19 +532,19 @@ We say that $f$ is the &lt;em&gt;density&lt;/em&gt; of the measure $v$ w.r.t $\m
   &lt;li&gt;If $\mu$ is neither &lt;em&gt;continuous&lt;/em&gt; nor &lt;em&gt;discrete&lt;/em&gt;, we say that $\mu$ is a &lt;em&gt;mixed measure&lt;/em&gt;.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
-&lt;ol&gt;
-  &lt;li&gt;Literally, this post is mainly written from a source that I’ve lost the reference :(. Hope that I can update this line soon.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://mathworld.wolfram.com/LebesgueMeasure.html&quot;&gt;Lebesgue Measure&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.countbayesie.com/blog/2015/8/17/a-very-brief-and-non-mathematical-introduction-to-measure-theory-for-probability&quot;&gt;Measure Theory for Probability: A Very Brief Introduction&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;p&gt;[1] Literally, this post is mainly written from a source that I’ve lost the reference :(. Hope that I can update this line soon.&lt;/p&gt;
 
-&lt;h4 id=&quot;other-resources&quot;&gt;Other Resources&lt;/h4&gt;
+&lt;p&gt;[2] &lt;a href=&quot;https://mathworld.wolfram.com/LebesgueMeasure.html&quot;&gt;Lebesgue Measure&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[3] &lt;a href=&quot;https://www.countbayesie.com/blog/2015/8/17/a-very-brief-and-non-mathematical-introduction-to-measure-theory-for-probability&quot;&gt;Measure Theory for Probability: A Very Brief Introduction&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;other-resources&quot;&gt;Other Resources&lt;/h2&gt;
 &lt;ol&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=cyW5z-M2yzw&quot;&gt;Music and Measure Theory - 3Blue1Brown&lt;/a&gt; - this is one of my favourite Youtube channels.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h4 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h4&gt;
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
 
 &lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
   &lt;ol&gt;
@@ -668,11 +670,11 @@ for all states $i,j$. This equation is called &lt;em&gt;reversibility&lt;/em&gt;
 &lt;/ul&gt;
 
 &lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
-&lt;ol&gt;
-  &lt;li&gt;Introduction to Probability - Joseph K. Blitzstein &amp;amp; Jessica Hwang&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://brilliant.org/wiki/markov-chains/&quot;&gt;Brillant’s Markov chain&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Perron–Frobenius_theorem&quot;&gt;Perron-Frobenius theorem&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;[1] Introduction to Probability - Joseph K. Blitzstein &amp;amp; Jessica Hwang&lt;/p&gt;
+
+&lt;p&gt;[2] &lt;a href=&quot;https://brilliant.org/wiki/markov-chains/&quot;&gt;Brillant’s Markov chain&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[3] &lt;a href=&quot;https://en.wikipedia.org/wiki/Perron–Frobenius_theorem&quot;&gt;Perron-Frobenius theorem&lt;/a&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h4&gt;
 &lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
@@ -727,6 +729,4 @@ u_k=A^ku_0=c_1{\lambda_1}^kx_1+\dots+c_n{\lambda_n}^kx_n
 &lt;em&gt;Fact&lt;/em&gt;: The \(\frac{1+\sqrt{5}}{2}\approx 1.618\) is so-called “&lt;strong&gt;golden ratio&lt;/strong&gt;”. And &lt;em&gt;for some reason a rectangle with sides 1.618 and 1 looks especially graceful&lt;/em&gt;.&lt;/p&gt;
 
 &lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
-&lt;ol&gt;
-  &lt;li&gt;Introduction to Linear Algebra - Gilbert Strang&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="random-stuffs" /><category term="mathematics" /><category term="linear-algebra" /><category term="random-stuffs" /><summary type="html">Enjoy my index-zero-ed post while staying tuned for next ones!</summary></entry></feed>
+&lt;p&gt;[1] Introduction to Linear Algebra - Gilbert Strang&lt;/p&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="random-stuffs" /><category term="mathematics" /><category term="linear-algebra" /><category term="random-stuffs" /><summary type="html">Enjoy my index-zero-ed post while staying tuned for next ones!</summary></entry></feed>

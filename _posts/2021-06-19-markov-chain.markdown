@@ -108,9 +108,11 @@ for all states $i,j$. This equation is called *reversibility* or *detailed balan
 - And various other applications.
 
 #### References
-1. Introduction to Probability - Joseph K. Blitzstein & Jessica Hwang
-2. [Brillant's Markov chain](https://brilliant.org/wiki/markov-chains/)
-3. [Perron-Frobenius theorem](https://en.wikipedia.org/wiki/Perron–Frobenius_theorem)
+[1] Introduction to Probability - Joseph K. Blitzstein & Jessica Hwang  
+
+[2] [Brillant's Markov chain](https://brilliant.org/wiki/markov-chains/)  
+
+[3] [Perron-Frobenius theorem](https://en.wikipedia.org/wiki/Perron–Frobenius_theorem)
 
 #### Footnotes
 [^1]: This is more like intuitive and less formal definition of Markov chain, we will have a more concrete definition with the help of *Measure theory* after the post about it.
