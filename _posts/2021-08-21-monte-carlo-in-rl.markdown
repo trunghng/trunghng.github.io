@@ -1,21 +1,27 @@
 ---
 layout: post
-title:  "Monte Carlo methods in Reinforcement Learning"
+title:  "Monte Carlo Methods In Reinforcement Learning"
 date:   2021-08-21 13:03:00 +0700
 categories: [artificial-intelligent, reinforcement-learning]
-tags: artificial-intelligent reinforcement-learning monte-carlo
+tags: artificial-intelligent reinforcement-learning monte-carlo my-rl
 description: Monte Carlo methods for solving Reinforcement Learning problems
 comments: true
 ---
 > Recall that in the previous post, [**Dynamic Programming Algorithms For Solving Markov Decision Processes**]({% post_url 2021-07-25-dp-in-mdp %}), we made an assumption about the complete knowledge of the environment. With **Monte Carlo** methods, we only require *experience* - sample sequences of states, actions, and rewards from simulated or real interaction with an environment.
 
 <!-- excerpt-end -->
-- [Monte Carlo methods](#mc-methods)
-- [Monte Carlo methods in Reinforcement Learning](#mc-rl)
+- [Monte Carlo Methods](#mc-methods)
+- [Monte Carlo Methods in Reinforcement Learning](#mc-rl)
 	- [Monte Carlo Prediction](#mc-prediction)
 		- [First-visit MC vs. every-visit MC](#first-mc-every-mc)
 	- [Monte Carlo Control](#mc-control)
-	- [Monte Carlo Control without Exploring Starts](#mc-control-wo-es)
+		- [Monte Carlo Estimation of Action Values](#mc-est-action-value)
+			- [Exploring Starts](#es)
+		- [Monte Carlo Policy Iteration](#mc-policy-iteration)
+	- [On-policy Monte Carlo Control](#on-policy-mc-control)
+	- [Off-policy Prediction via Importance Sampling](#off-policy-pred-is)
+		- [Assumption of Coverage](#coverage)
+		- [Importance Sampling](#is)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -71,7 +77,7 @@ v_\pi(s)=\dfrac{\sum_{t=1}^{T}𝟙\left(S_t=s\right)G_t}{\sum_{t=1}^{T}𝟙\left
 \end{equation}
 where $𝟙(\cdot)$ is an indicator function. In the case of *first-visit MC*, $𝟙\left(S_t=s\right)$ returns $1$ only in the first time $s$ is encountered in an episode. And for *every-visit MC*, $𝟙\left(S_t=s\right)$ gives value of $1$ every time $s$ is visited.  
 
-Here is the pseudocode of the *first-visit MC prediction*, for estimating $V\approx v_\pi$
+Here is pseudocode of the *first-visit MC prediction*, for estimating $V\approx v_\pi$
 <figure>
 	<img src="/assets/images/2021-08-21/mc-prediction.png" alt="iterative policy evaluation pseudocode" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
@@ -88,16 +94,25 @@ Both methods converge to $v_\pi(s)$ as the number of visits (or first visits) to
 
 ### Monte Carlo Control[^3]
 {: #mc-control}
+
+#### Monte Carlo Estimation of Action Values
+{: #mc-est-action-value}
 When model is not available, it is particular useful to estimate *action values* rather than *state values* (which alone are insufficient to determine a policy). We must explicitly estimate the value of each action in order for the values to be useful in suggesting a policy. Thus, one of our primary goals for MC methods is to estimate $q_\*$. To achieve this, we first consider the policy evaluation problem for action values.  
 
 Similar to when using MC method to estimate $v_\pi(s)$, we can use both first-visit MC and every-visit MC to approximate the value of $q_\pi(s,a)$. The only thing we need to keep in mind is, in this case, we work with visits to a state-action pair rather than to a state. Likewise, we define two types of MC methods for estimating $q_\pi(s,a)$:
 - *First-visit MC method*
 	- estimates $q_\pi(s,a)$ as the average of the returns following the first time in each episode that the state $s$ was visited and the action $a$ was selected
 - *Every-visit MC method*
-	- estimates $q_\pi(s,a)$ as the average of the returns that have followed all the visits to state-action pair $(s,a)$.
+	- estimates $q_\pi(s,a)$ as the average of the returns that have followed all the visits to state-action pair $(s,a)$.  
 
-(TODO)  
+##### Exploring Starts
+{: #es}
+However, here we must exercise *exploration*. Because many state-action pairs may never be visited, and if $\pi$ is a deterministic policy, then returns of only single one action for each state will be observed. That leads to the consequence that the other actions will not be evaluated since there are no returns to average.  
 
+There is one way to achieve this, which is called *exploring starts* - an assumption that assumes the episodes *start in a state-action pair*, and that every pair has a *nonzero* probability of being selected as the start. This assumption assures that all state-action pairs will be visited an infinite number of times in the limit of an infinite number of episodes.
+
+#### Monte Carlo Policy Iteration
+{: #mc-policy-iteration}
 To learn the optimal policy by MC, we apply the idea of [GPI]({% post_url 2021-07-25-dp-in-mdp %}#gpi):
 \begin{equation}
 \pi_0\overset{\small \text{E}}{\rightarrow}q_{\pi_0}\overset{\small \text{I}}{\rightarrow}\pi_1\overset{\small \text{E}}{\rightarrow}q_{\pi_1}\overset{\small \text{I}}{\rightarrow}\pi_2\overset{\small \text{E}}{\rightarrow}\dots\overset{\small \text{I}}{\rightarrow}\pi_\*\overset{\small \text{E}}{\rightarrow}q_\*
@@ -115,43 +130,92 @@ The policy improvement can be done by constructing each $\pi_{k+1}$ as the greed
 \begin{align}
 q_{\pi_k}\left(s,\pi_{k+1}(s)\right)&=q_{\pi_k}\left(s,\arg\max_a q_{\pi_k}(s,a)\right) \\\\ &=\max_a q_{\pi_k}(s,a) \\\\ &\geq q_{\pi_k}\left(s,\pi_k(s)\right) \\\\ &\geq v_{\pi_k}(s)
 \end{align}
-Therefore, by [policy improvement theorem]({% post_url 2021-07-25-dp-in-mdp %}#policy-improvement), we have that $\pi_{k+1}\geq\pi_k$.  
+Therefore, by the [policy improvement theorem]({% post_url 2021-07-25-dp-in-mdp %}#policy-improvement), we have that $\pi_{k+1}\geq\pi_k$.  
 <figure>
 	<img src="/assets/images/2021-08-21/gpi.png" alt="GPI" width="150" height="150px" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: MC policy iteration</figcaption>
 </figure><br/>
 To solve this problem with Monte Carlo policy iteration, in the 1998 version of ''*Reinforcement Learning: An Introduction*", authors of the book introduced **Monte Carlo ES** (MCES), for Monte Carlo with *Exploring Starts*.  
 
-In MCES, value function is approximated by simulated returns and a greedy policy is selected at each iteration. Although MCES does not converge to any suboptimal policy, the convergence to optimal fixed point is still an open question. For solutions in particular settings, you can check out some results like Tsitsiklis (2002), Liu (2020), Chen (2018).  
-Down below is the pseudocode of the Monte Carlo ES.
+In MCES, value function is approximated by simulated returns and a greedy policy is selected at each iteration. Although MCES does not converge to any suboptimal policy, the convergence to optimal fixed point is still an open question. For solutions in particular settings, you can check out some results like Tsitsiklis (2002), Chen (2018), Liu (2020).  
+Down below is pseudocode of the Monte Carlo ES.
 <figure>
 	<img src="/assets/images/2021-08-21/mces.png" alt="monte carlo es pseudocode" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
 </figure>
 
-### Monte Carlo Control without Exploring Starts
-{: #mc-control-wo-es}
+### On-policy Monte Carlo Control[^4]
+{: #on-policy-mc-control}
+In the previous section, we used the assumption of [exploring starts](#es) (ES) to design a Monte Carlo control method called MCES. In this part, without making that impractical assumption, we will be talking about another Monte Carlo control method.  
+
+In *on-policy control methods*, the policy is generally *soft* (i.e., $\pi(a|s)>0,\forall s\in\mathcal{S},a\in\mathcal{A(s)}$, but gradually shifted closer and closer to a deterministic optimal policy). We can not simply improve the policy by following a greedy policy, since no exploration will take place. Then to get rid of ES, we use the on-policy MC method with $\varepsilon$-*greedy* policies, e.g, most of the time they choose an action that maximal estimated action value, but with probability of $\varepsilon$ they instead select an action at random. Specifically,
+- $P(\small\textit{non-greedy action})=\dfrac{\varepsilon}{\vert\mathcal{A(s)}\vert}$
+- $P(\small\textit{greedy action})=1-\varepsilon+\dfrac{\varepsilon}{\vert\mathcal{A(s)}\vert}$  
+
+The $\varepsilon$-greedy policies are examples of $\varepsilon$-*soft* policies, defined as ones for which $\pi(a\vert s)\geq\frac{\varepsilon}{\vert\mathcal{A(s)}\vert}$ for all states and actions, for some $\varepsilon>0$. Among $\varepsilon$-soft policies, $\varepsilon$-greedy policies are in some sense those that closest to greedy.  
+
+We have that any $\varepsilon$-greedy policy w.r.t $q_\pi$ is an *improvement* over any $\varepsilon$-soft policy is assured by the [policy improvement theorem]({% post_url 2021-07-25-dp-in-mdp %}#policy-improvement).  
+
+**Proof**  
+Let $\pi'$ be the $\varepsilon$-greedy. The conditions of the policy improvement theorem apply because for any $s\in\mathcal{S}$, we have:
+\begin{align}
+q_\pi\left(s,\pi'(s)\right)&=\sum_a\pi'(a|s)q_\pi(s,a) \\\\ &=\dfrac{\varepsilon}{\vert\mathcal{A}(s)\vert}\sum_a q_\pi(s,a)+(1-\varepsilon)\max_a q_\pi(s,a) \\\\ &\geq\dfrac{\varepsilon}{\vert\mathcal{A(s)}\vert}\sum_a q_\pi(s,a)+(1-\varepsilon)\sum_a\dfrac{\pi(a|s)-\frac{\varepsilon}{\vert\mathcal{A}(s)\vert}}{1-\varepsilon}q_\pi(s,a) \\\\ &=\dfrac{\varepsilon}{\vert\mathcal{A}(s)\vert}\sum_a q_\pi(s,a)+\sum_a\pi(a|s)q_\pi(s,a)-\dfrac{\varepsilon}{\vert\mathcal{A}(s)\vert}\sum_a q_\pi(s,a) \\\\ &=v_\pi(s)
+\end{align}
+(In the third step, we use the fact that the latter $\sum$ is a weighted average over $q_\pi(s,a)$). Thus, by the theorem, $\pi'\geq\pi$. The equality holds when both $\pi'$ and $\pi$ are optimal policies among the $\varepsilon$-soft ones.  
+
+Pseudocode of the complete algorithm is given below.
+<figure>
+	<img src="/assets/images/2021-08-21/on-policy-mc-control.png" alt="monte carlo es pseudocode" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+
+### Off-policy Prediction via Importance Sampling[^5]
+{: #off-policy-pred-is}
+When working with control methods, we have to solve a dilemma about *exploitation* and *exploration*. In other words, we have to evaluate a policy from episodes generated by following an exploratory policy.  
+
+A straightforward way to solve this problem is to use two different policies, one that is learned about and becomes the optimal policy, and one that is more exploratory and is used to generate behavior. The policy is being learned about is called the *target policy*, whereas *behavior policy* is the one which is used to generate behavior.  
+
+In this section, we will be considering the off-policy method on prediction task, on which both target (denoted as $\pi$) and behavior (denoted as $b$) policies are fixed and given. Particularly, we wish to estimate $v_\pi$ or $q_\pi$ from episodes retrieved from following another policy $b$, where $\pi\neq b$.  
+
+#### Assumption of Coverage
+{: #coverage}
+In order to use episodes from $b$ to estimate values for $\pi$, we require that every action taken under $\pi$ is also taken, at least occasionally, under $b$. That means, we assume that $\pi(a|s)>0$ implies $b(s|a)>0$, which leads to a result that $b$ must be stochastic, while $\pi$ may be deterministic since $\pi\neq b$. This is the assumption of **coverage**.
+
+#### Importance Sampling
+{: #is}
+Let $X$ be a variable (or set of variables) that takes on values in some space $\textit{Val}(X)$. **Importance sampling** is a general approach for estimating the expectation of a function $f(x)$ relative to some distribution $P(X)$, typically called the *target distribution*. We can estimate this expectation by generating samples $x[1],\dots,x[M]$ from $P$, and then estimating
+\begin{equation}
+\mathbb{E}\_P\left[f\right]\approx\dfrac{1}{M}\sum_{m=1}^{M}f(x[m])
+\end{equation}
+In some cases, it might be impossible or computationally very expensive to generate samples from $P$, we instead prefer to generate samples from a different distribution, $Q$, known as the *proposal distribution* (or *sampling distribution*).
+
 
 ## References
-[1] Reinforcement Learning: An Introduction - Richard S. Sutton & Andrew G. Barto  
+[1] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition)  
 
-[2] Monte Carlo Methods - Adrian Barbu & Song-Chun Zhu  
+[2] Adrian Barbu & Song-Chun Zhu. [Monte Carlo Methods](https://link.springer.com/book/10.1007/978-981-13-2971-5)  
 
-[3] [UCL course on RL](https://www.davidsilver.uk/teaching/) - David Silver  
+[3] David Silver. [UCL course on RL](https://www.davidsilver.uk/teaching/)  
 
-[4] Algorithms for Reinforcement Learning - Csaba Szepesvári  
+[4] Csaba Szepesvári. [Algorithms for Reinforcement Learning](https://www.amazon.com/Algorithms-Reinforcement-Synthesis-Artificial-Intelligence/dp/1608454924)  
 
 [5] Singh, S.P., Sutton, R.S. [Reinforcement learning with replacing eligibility traces](https://doi.org/10.1007/BF00114726). Mach Learn 22, 123–158 (1996)  
 
 [6] John N. Tsitsiklis. [On the Convergence of Optimistic Policy Iteration](https://www.mit.edu/~jnt/Papers/J089-02-jnt-optimistic.pdf). Journal of Machine Learning Research 3 (2002) 59–72  
 
-[7] Jun Liu. [On the Convergence of Reinforcement Learning with Monte Carlo Exploring Starts](https://arxiv.org/abs/2007.10916) (2020)  
+[7] Yuanlong Chen. [On the convergence of optimistic policy iteration for stochastic shortest path problem](https://arxiv.org/abs/1808.08763) (2018)  
 
-[8] Yuanlong Chen. [On the convergence of optimistic policy iteration for stochastic shortest path problem](https://arxiv.org/abs/1808.08763) (2018)  
+[8] Jun Liu. [On the Convergence of Reinforcement Learning with Monte Carlo Exploring Starts](https://arxiv.org/abs/2007.10916) (2020)  
 
-[9] 
+[9] Daphne Koller & Nir Friedman. [Probabilistic Graphical Models: Principles and Techniques](https://mitpress.mit.edu/books/probabilistic-graphical-models)  
+
+[10] 
+
+
 
 ## Footnotes
 [^1]: We are gonna talk about Monte Carlo methods in more detail in another post.
 [^2]: A prediction task in RL is where we are given a policy and our goal is to measure how well it performs.
-[^3]: In contrast to prediction, a control task in RL is where the policy is not fixed, and our goal is to find the optimal policy.
+[^3]: Along with prediction, a control task in RL is where the policy is not fixed, and our goal is to find the optimal policy.
+[^4]: On-policy is a category of RL algorithms that attempts to evaluate or improve the policy that is used to make decisions.
+[^5]: In contrast to on-policy, off-policy methods evaluate or improve a policy different from that used to generate the data. 

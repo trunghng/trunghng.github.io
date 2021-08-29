@@ -1,0 +1,190 @@
+I"�2<blockquote>
+  <p>Recall that in the previous post, <a href="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html"><strong>Dynamic Programming Algorithms For Solving Markov Decision Processes</strong></a>, we made an assumption about the complete knowledge of the environment. With <strong>Monte Carlo</strong> methods, we only require <em>experience</em> - sample sequences of states, actions, and rewards from simulated or real interaction with an environment.</p>
+</blockquote>
+
+<!-- excerpt-end -->
+<ul>
+  <li><a href="#mc-methods">Monte Carlo methods</a></li>
+  <li><a href="#mc-rl">Monte Carlo methods in Reinforcement Learning</a>
+    <ul>
+      <li><a href="#mc-prediction">Monte Carlo Prediction</a>
+        <ul>
+          <li><a href="#first-mc-every-mc">First-visit MC vs. every-visit MC</a></li>
+        </ul>
+      </li>
+      <li><a href="#mc-control">Monte Carlo Control</a>
+        <ul>
+          <li><a href="#mc-est-action-value">Monte Carlo Estimation of Action Values</a></li>
+          <li><a href="#mc-policy-iteration">Monte Carlo Policy Iteration</a></li>
+        </ul>
+      </li>
+      <li><a href="#on-policy-mc-control">On-policy Monte Carlo Control</a></li>
+    </ul>
+  </li>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h2 id="mc-methods">Monte Carlo Methods<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup></h2>
+<p><strong>Monte Carlo</strong>, named after a casino in Monaco, simulates complex probabilistic events using simple random events, such as tossing a pair of dice to simulate the casino’s overall business model.</p>
+
+<figure>
+	<img src="/assets/images/2021-08-21/mc-pi.gif" alt="monte carlo method" width="480" height="360px" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Using Monte Carlo method to approximate the value of $\pi$</figcaption>
+</figure>
+<p><br /></p>
+
+<p>Monte Carlo methods have been used in several different tasks:</p>
+<ol>
+  <li>Simulating a system and its probability distribution $\pi(x)$
+\begin{equation}
+x\sim\pi(x)
+\end{equation}</li>
+  <li>Estimating a quantity through Monte Carlo integration
+\begin{equation}
+c=\mathbb{E}_\pi\left[f(x)\right]=\int\pi(x)f(x)\,dx
+\end{equation}</li>
+  <li>Optimizing a target function to find its modes (maxima or minima)
+\begin{equation}
+x^*=\arg\max\pi(x)
+\end{equation}</li>
+  <li>Learning a parameters from a training set to optimize some loss functions, such as the maximum likelihood estimation from a set of examples $\{x_i,i=1,2,\dots,M\}$
+\begin{equation}
+\Theta^*=\arg\max\sum_{i=1}^{M}\log p(x_i;\Theta)
+\end{equation}</li>
+  <li>Visualizing the energy landscape of a target function</li>
+</ol>
+
+<h2 id="mc-rl">Monte Carlo Methods in Reinforcement Learning</h2>
+<p>Monte Carlo (MC) methods are ways of solving the reinforcement learning problem based on averaging sample returns. Here, we define Monte Carlo methods only for episodic tasks. Or in other words, they learn from complete episodes of experience.</p>
+
+<h3 id="mc-prediction">Monte Carlo Prediction<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup></h3>
+<p>Since the value of a state $v_\pi(s)=\mathbb{E}_\pi\left[G_t|S_t=s\right]$ is defined as the expectation of the return when the process is started from the given state $s$, an obvious way of estimating this value from experience is to compute observed mean returns after visits to that state. As more returns are observed, the average should converge to the expected value. This is an instance of the so-called <em>Monte Carlo method</em>.</p>
+
+<p>In particular, suppose we wish to estimate $v_\pi(s)$ given a set of episodes obtained by following $\pi$ and passing through $s$. Each time state $s$ appears in an episode, we call it a <em>visit</em> to $s$. There are two types of Monte Carlo methods:</p>
+<ul>
+  <li><em>First-visit MC method</em>
+    <ul>
+      <li>estimates $v_\pi(s)$ as the average of the returns that have followed the <em>first visit</em> to $s$.</li>
+      <li>We call the first time $s$ is visited in an episode the <em>first visit</em> to $s$.</li>
+    </ul>
+  </li>
+  <li><em>Every-visit MC method</em>
+    <ul>
+      <li>estimates $v_\pi(s)$ as the average of the returns that have followed all visits to to $s$.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>The sample mean return for state $s$ is:
+\begin{equation}
+v_\pi(s)=\dfrac{\sum_{t=1}^{T}𝟙\left(S_t=s\right)G_t}{\sum_{t=1}^{T}𝟙\left(S_t=s\right)},
+\end{equation}
+where $𝟙(\cdot)$ is an indicator function. In the case of <em>first-visit MC</em>, $𝟙\left(S_t=s\right)$ returns $1$ only in the first time $s$ is encountered in an episode. And for <em>every-visit MC</em>, $𝟙\left(S_t=s\right)$ gives value of $1$ every time $s$ is visited.</p>
+
+<p>Here is pseudocode of the <em>first-visit MC prediction</em>, for estimating $V\approx v_\pi$</p>
+<figure>
+	<img src="/assets/images/2021-08-21/mc-prediction.png" alt="iterative policy evaluation pseudocode" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+
+<h4 id="first-mc-every-mc">First-visit MC vs. every-visit MC</h4>
+<p>Both methods converge to $v_\pi(s)$ as the number of visits (or first visits) to $s$ goes to infinity. Each average is itself an unbiased estimate, and the standard deviation of its error falls as $\frac{1}{\sqrt{n}}$, where $n$ is the number of returns averaged.</p>
+
+<figure>
+	<img src="/assets/images/2021-08-21/first-visit-every-visit.png" alt="first-visit MC vs every-visit MC" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: Summary of Statistical Results comparing first-visit and every-visit MC method</figcaption>
+</figure>
+<p><br /></p>
+
+<h3 id="mc-control">Monte Carlo Control<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup></h3>
+
+<h4 id="mc-est-action-value">Monte Carlo Estimation of Action Values</h4>
+<p>When model is not available, it is particular useful to estimate <em>action values</em> rather than <em>state values</em> (which alone are insufficient to determine a policy). We must explicitly estimate the value of each action in order for the values to be useful in suggesting a policy. Thus, one of our primary goals for MC methods is to estimate $q_*$. To achieve this, we first consider the policy evaluation problem for action values.</p>
+
+<p>Similar to when using MC method to estimate $v_\pi(s)$, we can use both first-visit MC and every-visit MC to approximate the value of $q_\pi(s,a)$. The only thing we need to keep in mind is, in this case, we work with visits to a state-action pair rather than to a state. Likewise, we define two types of MC methods for estimating $q_\pi(s,a)$:</p>
+<ul>
+  <li><em>First-visit MC method</em>
+    <ul>
+      <li>estimates $q_\pi(s,a)$ as the average of the returns following the first time in each episode that the state $s$ was visited and the action $a$ was selected</li>
+    </ul>
+  </li>
+  <li><em>Every-visit MC method</em>
+    <ul>
+      <li>estimates $q_\pi(s,a)$ as the average of the returns that have followed all the visits to state-action pair $(s,a)$.
+However, here we must exercise <em>exploration</em>. Because many state-action pairs may never be visited, and if $\pi$ is a deterministic policy, then returns of only single one action for each state will be observed. That leads the the consequence that other actions will not be evaluated since there are no returns to average. There is one way to achieve this, which is called <em>exploring starts</em> - an assumption that assumes the episodes <em>start in a state-action pair</em>, and that every pair has a <em>nonzero</em> probability of being selected as the start.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="mc-policy-iteration">Monte Carlo Policy Iteration</h4>
+<p>To learn the optimal policy by MC, we apply the idea of <a href="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html#gpi">GPI</a>:
+\begin{equation}
+\pi_0\overset{\small \text{E}}{\rightarrow}q_{\pi_0}\overset{\small \text{I}}{\rightarrow}\pi_1\overset{\small \text{E}}{\rightarrow}q_{\pi_1}\overset{\small \text{I}}{\rightarrow}\pi_2\overset{\small \text{E}}{\rightarrow}\dots\overset{\small \text{I}}{\rightarrow}\pi_*\overset{\small \text{E}}{\rightarrow}q_*
+\end{equation}
+In particular,</p>
+<ol>
+  <li><em>Policy evaluation</em> (denoted as $\overset{\small\text{E}}{\rightarrow}$): estimates action value function $q_\pi(s,a)$ using the episode generated from $s, a$, following by current policy $\pi$
+\begin{equation}
+q_\pi(s,a)=\dfrac{\sum_{t=1}^{T}𝟙\left(S_t=s,A_t=a\right)G_t}{\sum_{t=1}^{T}𝟙\left(S_t=s,A_t=a\right)}
+\end{equation}</li>
+  <li><em>Policy improvement</em> (denoted as $\overset{\small\text{I}}{\rightarrow}$): makes the policy <em>greedy</em> with the current value function (action value function in this case)
+\begin{equation}
+\pi(s)\doteq\arg\max_{a\in\mathcal{A(s)}} q(s,a)
+\end{equation}
+The policy improvement can be done by constructing each $\pi_{k+1}$ as the greedy policy w.r.t $q_{\pi_k}$ because
+\begin{align}
+q_{\pi_k}\left(s,\pi_{k+1}(s)\right)&amp;=q_{\pi_k}\left(s,\arg\max_a q_{\pi_k}(s,a)\right) \\ &amp;=\max_a q_{\pi_k}(s,a) \\ &amp;\geq q_{\pi_k}\left(s,\pi_k(s)\right) \\ &amp;\geq v_{\pi_k}(s)
+\end{align}
+Therefore, by <a href="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html#policy-improvement">policy improvement theorem</a>, we have that $\pi_{k+1}\geq\pi_k$.</li>
+</ol>
+<figure>
+	<img src="/assets/images/2021-08-21/gpi.png" alt="GPI" width="150" height="150px" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: MC policy iteration</figcaption>
+</figure>
+<p><br />
+To solve this problem with Monte Carlo policy iteration, in the 1998 version of ‘‘<em>Reinforcement Learning: An Introduction</em>”, authors of the book introduced <strong>Monte Carlo ES</strong> (MCES), for Monte Carlo with <em>Exploring Starts</em>.</p>
+
+<p>In MCES, value function is approximated by simulated returns and a greedy policy is selected at each iteration. Although MCES does not converge to any suboptimal policy, the convergence to optimal fixed point is still an open question. For solutions in particular settings, you can check out some results like Tsitsiklis (2002), Chen (2018), Liu (2020).<br />
+Down below is pseudocode of the Monte Carlo ES.</p>
+<figure>
+	<img src="/assets/images/2021-08-21/mces.png" alt="monte carlo es pseudocode" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+
+<h3 id="on-policy-mc-control">On-policy Monte Carlo Control</h3>
+
+<h2 id="references">References</h2>
+<p>[1] Reinforcement Learning: An Introduction - Richard S. Sutton &amp; Andrew G. Barto</p>
+
+<p>[2] Monte Carlo Methods - Adrian Barbu &amp; Song-Chun Zhu</p>
+
+<p>[3] <a href="https://www.davidsilver.uk/teaching/">UCL course on RL</a> - David Silver</p>
+
+<p>[4] Algorithms for Reinforcement Learning - Csaba Szepesvári</p>
+
+<p>[5] Singh, S.P., Sutton, R.S. <a href="https://doi.org/10.1007/BF00114726">Reinforcement learning with replacing eligibility traces</a>. Mach Learn 22, 123–158 (1996)</p>
+
+<p>[6] John N. Tsitsiklis. <a href="https://www.mit.edu/~jnt/Papers/J089-02-jnt-optimistic.pdf">On the Convergence of Optimistic Policy Iteration</a>. Journal of Machine Learning Research 3 (2002) 59–72</p>
+
+<p>[7] Yuanlong Chen. <a href="https://arxiv.org/abs/1808.08763">On the convergence of optimistic policy iteration for stochastic shortest path problem</a> (2018)</p>
+
+<p>[8] Jun Liu. <a href="https://arxiv.org/abs/2007.10916">On the Convergence of Reinforcement Learning with Monte Carlo Exploring Starts</a> (2020)</p>
+
+<p>[9]</p>
+
+<h2 id="footnotes">Footnotes</h2>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>We are gonna talk about Monte Carlo methods in more detail in another post. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p>A prediction task in RL is where we are given a policy and our goal is to measure how well it performs. <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:3" role="doc-endnote">
+      <p>In contrast to prediction, a control task in RL is where the policy is not fixed, and our goal is to find the optimal policy. <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+:ET

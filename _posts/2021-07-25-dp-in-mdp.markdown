@@ -3,7 +3,7 @@ layout: post
 title:  "Dynamic Programming Algorithms For Solving Markov Decision Processes"
 date:   2021-07-25 15:30:00 +0700
 categories: [artificial-intelligent, reinforcement-learning]
-tags: artificial-intelligent reinforcement-learning dynamic-programming
+tags: artificial-intelligent reinforcement-learning dynamic-programming my-rl
 description: Dynamic programming algorithms for solving Markov Decision Processes (MDPs)
 comments: true
 ---
