@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-08-29T17:59:53+07:00</updated><id>/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-08-30T12:41:32+07:00</updated><id>/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Optimal Policy Existence</title><link href="/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html" rel="alternate" type="text/html" title="Optimal Policy Existence" /><published>2021-07-10T13:03:00+07:00</published><updated>2021-07-10T13:03:00+07:00</updated><id>/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence</id><content type="html" xml:base="/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html">&lt;blockquote&gt;
   &lt;p&gt;In the previous post about &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html&quot;&gt;&lt;strong&gt;Markov Decision Process (MDP) and Bellman equations&lt;/strong&gt;&lt;/a&gt;, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here to prove it.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -183,14 +183,13 @@ Since $\mathcal{T}^*$ is a contraction, the right-hand side converges to $v$, th
 Pick a policy $\pi$ such that $\mathcal{T}^\pi v=\mathcal{T}^*v$, then $v$ is also a fixed point of $\mathcal{V}^\pi$. Since $v_\pi$ is the unique fixed point of $\mathcal{T}^\pi$, we have that $v=v_\pi$, which shows that $v_*=v$ and that $\pi$ is an optimal policy.&lt;/p&gt;
 
 &lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
-&lt;p&gt;[1] Algorithms for Reinforcement Learning - Csaba Szepesvári&lt;/p&gt;
+&lt;p&gt;[1] Csaba Szepesvári. &lt;a href=&quot;https://www.amazon.com/Algorithms-Reinforcement-Synthesis-Artificial-Intelligence/dp/1608454924&quot;&gt;Algorithms for Reinforcement Learning&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;[2] &lt;a href=&quot;http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf&quot;&gt;Markov Decision Processes and Dynamic Programming&lt;/a&gt; - 
-A. Lazaric&lt;/p&gt;
+&lt;p&gt;[2] A. Lazaric. &lt;a href=&quot;http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf&quot;&gt;Markov Decision Processes and Dynamic Programming&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;[3] &lt;a href=&quot;https://ai.stackexchange.com/a/11133&quot;&gt;What is the Bellman operator in reinforcement learning?&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;[4] Reinforcement Learning: An Introduction - Richard S. Sutton &amp;amp; Andrew G. Barto&lt;/p&gt;
+&lt;p&gt;[4] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;[5] &lt;a href=&quot;https://en.wikipedia.org/wiki/Normed_vector_space&quot;&gt;Normed vector space&lt;/a&gt;&lt;/p&gt;
 
@@ -670,7 +669,7 @@ for all states $i,j$. This equation is called &lt;em&gt;reversibility&lt;/em&gt;
 &lt;/ul&gt;
 
 &lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
-&lt;p&gt;[1] Introduction to Probability - Joseph K. Blitzstein &amp;amp; Jessica Hwang&lt;/p&gt;
+&lt;p&gt;[1] Joseph K. Blitzstein &amp;amp; Jessica Hwang. &lt;a href=&quot;https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573&quot;&gt;Introduction to Probability&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;[2] &lt;a href=&quot;https://brilliant.org/wiki/markov-chains/&quot;&gt;Brillant’s Markov chain&lt;/a&gt;&lt;/p&gt;
 
@@ -729,4 +728,4 @@ u_k=A^ku_0=c_1{\lambda_1}^kx_1+\dots+c_n{\lambda_n}^kx_n
 &lt;em&gt;Fact&lt;/em&gt;: The \(\frac{1+\sqrt{5}}{2}\approx 1.618\) is so-called “&lt;strong&gt;golden ratio&lt;/strong&gt;”. And &lt;em&gt;for some reason a rectangle with sides 1.618 and 1 looks especially graceful&lt;/em&gt;.&lt;/p&gt;
 
 &lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
-&lt;p&gt;[1] Introduction to Linear Algebra - Gilbert Strang&lt;/p&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="random-stuffs" /><category term="mathematics" /><category term="linear-algebra" /><category term="random-stuffs" /><summary type="html">Enjoy my index-zero-ed post while staying tuned for next ones!</summary></entry></feed>
+&lt;p&gt;[1] Gilbert Strang. &lt;a href=&quot;http://math.mit.edu/~gs/linearalgebra/&quot;&gt;Introduction to Linear Algebra&lt;/a&gt;&lt;/p&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="random-stuffs" /><category term="mathematics" /><category term="linear-algebra" /><category term="random-stuffs" /><summary type="html">Enjoy my index-zero-ed post while staying tuned for next ones!</summary></entry></feed>

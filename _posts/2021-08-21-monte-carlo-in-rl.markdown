@@ -3,7 +3,7 @@ layout: post
 title:  "Monte Carlo Methods In Reinforcement Learning"
 date:   2021-08-21 13:03:00 +0700
 categories: [artificial-intelligent, reinforcement-learning]
-tags: artificial-intelligent reinforcement-learning monte-carlo my-rl
+tags: artificial-intelligent reinforcement-learning monte-carlo importance-sampling my-rl
 description: Monte Carlo methods for solving Reinforcement Learning problems
 comments: true
 ---
@@ -22,6 +22,7 @@ comments: true
 	- [Off-policy Prediction via Importance Sampling](#off-policy-pred-is)
 		- [Assumption of Coverage](#coverage)
 		- [Importance Sampling](#is)
+		- [Importance Sampling on Off-policy Method](#is-off-policy)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -137,7 +138,7 @@ Therefore, by the [policy improvement theorem]({% post_url 2021-07-25-dp-in-mdp 
 </figure><br/>
 To solve this problem with Monte Carlo policy iteration, in the 1998 version of ''*Reinforcement Learning: An Introduction*", authors of the book introduced **Monte Carlo ES** (MCES), for Monte Carlo with *Exploring Starts*.  
 
-In MCES, value function is approximated by simulated returns and a greedy policy is selected at each iteration. Although MCES does not converge to any suboptimal policy, the convergence to optimal fixed point is still an open question. For solutions in particular settings, you can check out some results like Tsitsiklis (2002), Chen (2018), Liu (2020).  
+In MCES, value function is approximated by simulated returns and a greedy policy is selected at each iteration. Although MCES does not converge to any sub-optimal policy, the convergence to optimal fixed point is still an open question. For solutions in particular settings, you can check out some results like Tsitsiklis (2002), Chen (2018), Liu (2020).  
 Down below is pseudocode of the Monte Carlo ES.
 <figure>
 	<img src="/assets/images/2021-08-21/mces.png" alt="monte carlo es pseudocode" style="display: block; margin-left: auto; margin-right: auto;"/>
@@ -183,12 +184,44 @@ In order to use episodes from $b$ to estimate values for $\pi$, we require that 
 
 #### Importance Sampling
 {: #is}
-Let $X$ be a variable (or set of variables) that takes on values in some space $\textit{Val}(X)$. **Importance sampling** is a general approach for estimating the expectation of a function $f(x)$ relative to some distribution $P(X)$, typically called the *target distribution*. We can estimate this expectation by generating samples $x[1],\dots,x[M]$ from $P$, and then estimating
+Let $X$ be a variable (or set of variables) that takes on values in some space $\textit{Val}(X)$. **Importance sampling** (IS) is a general approach for estimating the expectation of a function $f(x)$ relative to some distribution $P(X)$, typically called the *target distribution*. We can estimate this expectation by generating samples $x[1],\dots,x[M]$ from $P$, and then estimating
 \begin{equation}
 \mathbb{E}\_P\left[f\right]\approx\dfrac{1}{M}\sum_{m=1}^{M}f(x[m])
 \end{equation}
 In some cases, it might be impossible or computationally very expensive to generate samples from $P$, we instead prefer to generate samples from a different distribution, $Q$, known as the *proposal distribution* (or *sampling distribution*).
+1. **Unnormalized Importance Sampling**  
+If we generate samples from $Q$ instead of $P$, we cannot simply average the $f$-value of the samples generated. We need to adjust our estimator to compensate for the incorrect sampling distribution. The most obvious way of adjusting our estimator is based on the observation that
+\begin{align}
+\mathbb{E}\_{P(X)}&=\sum_x f(x)P(x) \\\\ &=\sum_x Q(x)f(x)\dfrac{P(x)}{Q(x)} \\\\ &=\mathbb{E}\_{Q(X)}\left[f(X)\dfrac{P(X)}{Q(X)}\right]\tag{1}\label{1}
+\end{align}
+Based on this observation \eqref{1}, we can use the standard estimator for expectations relative to $Q$. We generate a set of sample $\mathcal{D}=\\{x[1],\dots,x[M]\\}$ from $Q$, and then estimate:
+\begin{equation}
+\hat{\mathbb{E}}\_\mathcal{D}(f)=\dfrac{1}{M}\sum_{m=1}^{M}f(x[m])\dfrac{P(x[m])}{Q(x[m])}\tag{2}\label{2},
+\end{equation}
+where $\hat{\mathbb{E}}$ denotes empirical expectation. We call this estimator the **unnormalized importance sampling estimator**, this method is also often called **unweighted importance sampling**. The factor $\frac{P(x[m])}{Q(x[m])}$ (denoted as $w(x[m])$) can be viewed as a correction weight to the term $f(x[m])$, which we would have used had $Q$ been our target distribution.  
 
+2. **Normalized Importance Sampling**  
+In many situations, we have that $P$ is known only up to a normalizing constant $Z$. Particularly, what we have access to is a distribution $\tilde{P}(X)=ZP(X)$.  
+Thus, rather than to define the weights relative to $P$ as above, we define:
+\begin{equation}
+w(X)\doteq\dfrac{\tilde{P}(X)}{Q(X)}
+\end{equation}
+We have that the weight $w(X)$ is a random variable, and has expected value equal to $Z$:
+\begin{equation}
+\mathbb{E}\_{Q(X)}=\sum_x Q(x)\dfrac{\tilde{P}(x)}{Q(x)}=\sum_x\tilde{P}(x)=Z
+\end{equation}
+Hence, this quantity is the normalizing constant of the distribution $\tilde{P}$. We can now rewrite \eqref{1} as:
+\begin{align}
+\mathbb{E}\_{P(X)}\left[f(X)\right]&=\sum_x P(x)f(x) \\\\ &=\sum_x Q(x)f(x)\dfrac{P(x)}{Q(x)} \\\\ &=\dfrac{1}{Z}\sum_x Q(x)f(x)\dfrac{\tilde{P}(x)}{Q(x)} \\\\ &=\dfrac{1}{Z}\mathbb{E}\_{Q(X)}\left[f(X)w(X)\right] \\\\ &=\dfrac{\mathbb{E}\_{Q(X)}\left[f(X)w(X)\right]}{\mathbb{E}\_{Q(X)}\left[w(X)\right]}\tag{3}\label{3}
+\end{align}
+We can use an empirical estimator for both the numerator and denominator. Given $M$ samples $\mathcal{D}=\\{x[1],\dots,x[M]\\}$ from $Q$, we can estimate:
+\begin{equation}
+\hat{\mathbb{E}}\_\mathcal{D}(f)=\dfrac{\sum_{m=1}^{M}f(x[m])w(x[m])}{\sum_{m=1}^{M}w(x[m])}\tag{4}\label{4}
+\end{equation}
+We call this estimator the **normalized importance sampling estimator** (or **weighted importance sampling estimator**).
+
+#### Importance Sampling on Off-policy Methods
+{: #is-off-policy}
 
 ## References
 [1] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition)  

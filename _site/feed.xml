@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-08-29T17:59:53+07:00</updated><id>/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-08-30T12:41:32+07:00</updated><id>/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Monte Carlo Methods In Reinforcement Learning</title><link href="/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html" rel="alternate" type="text/html" title="Monte Carlo Methods In Reinforcement Learning" /><published>2021-08-21T13:03:00+07:00</published><updated>2021-08-21T13:03:00+07:00</updated><id>/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl</id><content type="html" xml:base="/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html">&lt;blockquote&gt;
   &lt;p&gt;Recall that in the previous post, &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html&quot;&gt;&lt;strong&gt;Dynamic Programming Algorithms For Solving Markov Decision Processes&lt;/strong&gt;&lt;/a&gt;, we made an assumption about the complete knowledge of the environment. With &lt;strong&gt;Monte Carlo&lt;/strong&gt; methods, we only require &lt;em&gt;experience&lt;/em&gt; - sample sequences of states, actions, and rewards from simulated or real interaction with an environment.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -28,6 +28,7 @@
         &lt;ul&gt;
           &lt;li&gt;&lt;a href=&quot;#coverage&quot;&gt;Assumption of Coverage&lt;/a&gt;&lt;/li&gt;
           &lt;li&gt;&lt;a href=&quot;#is&quot;&gt;Importance Sampling&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#is-off-policy&quot;&gt;Importance Sampling on Off-policy Method&lt;/a&gt;&lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
@@ -160,7 +161,7 @@ Therefore, by the &lt;a href=&quot;/artificial-intelligent/reinforcement-learnin
 &lt;p&gt;&lt;br /&gt;
 To solve this problem with Monte Carlo policy iteration, in the 1998 version of ‘‘&lt;em&gt;Reinforcement Learning: An Introduction&lt;/em&gt;”, authors of the book introduced &lt;strong&gt;Monte Carlo ES&lt;/strong&gt; (MCES), for Monte Carlo with &lt;em&gt;Exploring Starts&lt;/em&gt;.&lt;/p&gt;
 
-&lt;p&gt;In MCES, value function is approximated by simulated returns and a greedy policy is selected at each iteration. Although MCES does not converge to any suboptimal policy, the convergence to optimal fixed point is still an open question. For solutions in particular settings, you can check out some results like Tsitsiklis (2002), Chen (2018), Liu (2020).&lt;br /&gt;
+&lt;p&gt;In MCES, value function is approximated by simulated returns and a greedy policy is selected at each iteration. Although MCES does not converge to any sub-optimal policy, the convergence to optimal fixed point is still an open question. For solutions in particular settings, you can check out some results like Tsitsiklis (2002), Chen (2018), Liu (2020).&lt;br /&gt;
 Down below is pseudocode of the Monte Carlo ES.&lt;/p&gt;
 &lt;figure&gt;
 	&lt;img src=&quot;/assets/images/2021-08-21/mces.png&quot; alt=&quot;monte carlo es pseudocode&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
@@ -204,11 +205,48 @@ q_\pi\left(s,\pi’(s)\right)&amp;amp;=\sum_a\pi’(a|s)q_\pi(s,a) \\ &amp;amp;=
 &lt;p&gt;In order to use episodes from $b$ to estimate values for $\pi$, we require that every action taken under $\pi$ is also taken, at least occasionally, under $b$. That means, we assume that $\pi(a|s)&amp;gt;0$ implies $b(s|a)&amp;gt;0$, which leads to a result that $b$ must be stochastic, while $\pi$ may be deterministic since $\pi\neq b$. This is the assumption of &lt;strong&gt;coverage&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;h4 id=&quot;is&quot;&gt;Importance Sampling&lt;/h4&gt;
-&lt;p&gt;Let $X$ be a variable (or set of variables) that takes on values in some space $\textit{Val}(X)$. &lt;strong&gt;Importance sampling&lt;/strong&gt; is a general approach for estimating the expectation of a function $f(x)$ relative to some distribution $P(X)$, typically called the &lt;em&gt;target distribution&lt;/em&gt;. We can estimate this expectation by generating samples $x[1],\dots,x[M]$ from $P$, and then estimating
+&lt;p&gt;Let $X$ be a variable (or set of variables) that takes on values in some space $\textit{Val}(X)$. &lt;strong&gt;Importance sampling&lt;/strong&gt; (IS) is a general approach for estimating the expectation of a function $f(x)$ relative to some distribution $P(X)$, typically called the &lt;em&gt;target distribution&lt;/em&gt;. We can estimate this expectation by generating samples $x[1],\dots,x[M]$ from $P$, and then estimating
 \begin{equation}
 \mathbb{E}_P\left[f\right]\approx\dfrac{1}{M}\sum_{m=1}^{M}f(x[m])
 \end{equation}
 In some cases, it might be impossible or computationally very expensive to generate samples from $P$, we instead prefer to generate samples from a different distribution, $Q$, known as the &lt;em&gt;proposal distribution&lt;/em&gt; (or &lt;em&gt;sampling distribution&lt;/em&gt;).&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Unnormalized Importance Sampling&lt;/strong&gt;&lt;br /&gt;
+If we generate samples from $Q$ instead of $P$, we cannot simply average the $f$-value of the samples generated. We need to adjust our estimator to compensate for the incorrect sampling distribution. The most obvious way of adjusting our estimator is based on the observation that
+\begin{align}
+\mathbb{E}_{P(X)}&amp;amp;=\sum_x f(x)P(x) \\ &amp;amp;=\sum_x Q(x)f(x)\dfrac{P(x)}{Q(x)} \\ &amp;amp;=\mathbb{E}_{Q(X)}\left[f(X)\dfrac{P(X)}{Q(X)}\right]\tag{1}\label{1}
+\end{align}
+Based on this observation \eqref{1}, we can use the standard estimator for expectations relative to $Q$. We generate a set of sample $\mathcal{D}=\{x[1],\dots,x[M]\}$ from $Q$, and then estimate:
+\begin{equation}
+\hat{\mathbb{E}}_\mathcal{D}(f)=\dfrac{1}{M}\sum_{m=1}^{M}f(x[m])\dfrac{P(x[m])}{Q(x[m])}\tag{2}\label{2},
+\end{equation}
+where $\hat{\mathbb{E}}$ denotes empirical expectation. We call this estimator the &lt;strong&gt;unnormalized importance sampling estimator&lt;/strong&gt;, this method is also often called &lt;strong&gt;unweighted importance sampling&lt;/strong&gt;. The factor $\frac{P(x[m])}{Q(x[m])}$ (denoted as $w(x[m])$) can be viewed as a correction weight to the term $f(x[m])$, which we would have used had $Q$ been our target distribution.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Normalized Importance Sampling&lt;/strong&gt;&lt;br /&gt;
+In many situations, we have that $P$ is known only up to a normalizing constant $Z$. Particularly, what we have access to is a distribution $\tilde{P}(X)=ZP(X)$.&lt;br /&gt;
+Thus, rather than to define the weights relative to $P$ as above, we define:
+\begin{equation}
+w(X)\doteq\dfrac{\tilde{P}(X)}{Q(X)}
+\end{equation}
+We have that the weight $w(X)$ is a random variable, and has expected value equal to $Z$:
+\begin{equation}
+\mathbb{E}_{Q(X)}=\sum_x Q(x)\dfrac{\tilde{P}(x)}{Q(x)}=\sum_x\tilde{P}(x)=Z
+\end{equation}
+Hence, this quantity is the normalizing constant of the distribution $\tilde{P}$. We can now rewrite \eqref{1} as:
+\begin{align}
+\mathbb{E}_{P(X)}\left[f(X)\right]&amp;amp;=\sum_x P(x)f(x) \\ &amp;amp;=\sum_x Q(x)f(x)\dfrac{P(x)}{Q(x)} \\ &amp;amp;=\dfrac{1}{Z}\sum_x Q(x)f(x)\dfrac{\tilde{P}(x)}{Q(x)} \\ &amp;amp;=\dfrac{1}{Z}\mathbb{E}_{Q(X)}\left[f(X)w(X)\right] \\ &amp;amp;=\dfrac{\mathbb{E}_{Q(X)}\left[f(X)w(X)\right]}{\mathbb{E}_{Q(X)}\left[w(X)\right]}\tag{3}\label{3}
+\end{align}
+We can use an empirical estimator for both the numerator and denominator. Given $M$ samples $\mathcal{D}=\{x[1],\dots,x[M]\}$ from $Q$, we can estimate:
+\begin{equation}
+\hat{\mathbb{E}}_\mathcal{D}(f)=\dfrac{\sum_{m=1}^{M}f(x[m])w(x[m])}{\sum_{m=1}^{M}w(x[m])}\tag{4}\label{4}
+\end{equation}
+We call this estimator the &lt;strong&gt;normalized importance sampling estimator&lt;/strong&gt; (or &lt;strong&gt;weighted importance sampling estimator&lt;/strong&gt;).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;is-off-policy&quot;&gt;Importance Sampling on Off-policy Methods&lt;/h4&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/p&gt;
@@ -250,7 +288,7 @@ In some cases, it might be impossible or computationally very expensive to gener
       &lt;p&gt;In contrast to on-policy, off-policy methods evaluate or improve a policy different from that used to generate the data. &lt;a href=&quot;#fnref:5&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="monte-carlo" /><category term="my-rl" /><summary type="html">Recall that in the previous post, Dynamic Programming Algorithms For Solving Markov Decision Processes, we made an assumption about the complete knowledge of the environment. With Monte Carlo methods, we only require experience - sample sequences of states, actions, and rewards from simulated or real interaction with an environment.</summary></entry><entry><title type="html">Dynamic Programming Algorithms For Solving Markov Decision Processes</title><link href="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html" rel="alternate" type="text/html" title="Dynamic Programming Algorithms For Solving Markov Decision Processes" /><published>2021-07-25T15:30:00+07:00</published><updated>2021-07-25T15:30:00+07:00</updated><id>/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp</id><content type="html" xml:base="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html">&lt;blockquote&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="monte-carlo" /><category term="importance-sampling" /><category term="my-rl" /><summary type="html">Recall that in the previous post, Dynamic Programming Algorithms For Solving Markov Decision Processes, we made an assumption about the complete knowledge of the environment. With Monte Carlo methods, we only require experience - sample sequences of states, actions, and rewards from simulated or real interaction with an environment.</summary></entry><entry><title type="html">Dynamic Programming Algorithms For Solving Markov Decision Processes</title><link href="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html" rel="alternate" type="text/html" title="Dynamic Programming Algorithms For Solving Markov Decision Processes" /><published>2021-07-25T15:30:00+07:00</published><updated>2021-07-25T15:30:00+07:00</updated><id>/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp</id><content type="html" xml:base="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html">&lt;blockquote&gt;
   &lt;p&gt;In two previous posts, &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html&quot;&gt;&lt;strong&gt;Markov Decision Process (MDP) and Bellman equations&lt;/strong&gt;&lt;/a&gt; and &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html&quot;&gt;&lt;strong&gt;Optimal Policy Existence&lt;/strong&gt;&lt;/a&gt;, we have known how MDPs, Bellman equations are defined and how they work. In this post, we are going to talk about how these MDPs are solved with &lt;strong&gt;Dynamic Programming&lt;/strong&gt;.&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -503,13 +541,13 @@ The code can be found &lt;a href=&quot;https://github.com/trunghng/reinforcement
 &lt;/figure&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;p&gt;[1] Reinforcement Learning: An Introduction - Richard S. Sutton &amp;amp; Andrew G. Barto&lt;/p&gt;
+&lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;[2] &lt;a href=&quot;https://www.davidsilver.uk/teaching/&quot;&gt;UCL course on RL&lt;/a&gt; - David Silver&lt;/p&gt;
+&lt;p&gt;[2] David Silver. &lt;a href=&quot;https://www.davidsilver.uk/teaching/&quot;&gt;UCL course on RL&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;[3] Algorithms for Reinforcement Learning - Csaba Szepesvári&lt;/p&gt;
+&lt;p&gt;[3] Csaba Szepesvári. &lt;a href=&quot;https://www.amazon.com/Algorithms-Reinforcement-Synthesis-Artificial-Intelligence/dp/1608454924&quot;&gt;Algorithms for Reinforcement Learning&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;[4] &lt;a href=&quot;http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf&quot;&gt;Markov Decision Processes and Dynamic Programming&lt;/a&gt; - A. Lazaric&lt;/p&gt;
+&lt;p&gt;[4] A. Lazaric. &lt;a href=&quot;http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf&quot;&gt;Markov Decision Processes and Dynamic Programming&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;[5] &lt;a href=&quot;https://en.wikipedia.org/wiki/Dynamic_programming&quot;&gt;Dynamic Programming&lt;/a&gt;&lt;/p&gt;
 
@@ -726,14 +764,13 @@ Since $\mathcal{T}^*$ is a contraction, the right-hand side converges to $v$, th
 Pick a policy $\pi$ such that $\mathcal{T}^\pi v=\mathcal{T}^*v$, then $v$ is also a fixed point of $\mathcal{V}^\pi$. Since $v_\pi$ is the unique fixed point of $\mathcal{T}^\pi$, we have that $v=v_\pi$, which shows that $v_*=v$ and that $\pi$ is an optimal policy.&lt;/p&gt;
 
 &lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
-&lt;p&gt;[1] Algorithms for Reinforcement Learning - Csaba Szepesvári&lt;/p&gt;
+&lt;p&gt;[1] Csaba Szepesvári. &lt;a href=&quot;https://www.amazon.com/Algorithms-Reinforcement-Synthesis-Artificial-Intelligence/dp/1608454924&quot;&gt;Algorithms for Reinforcement Learning&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;[2] &lt;a href=&quot;http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf&quot;&gt;Markov Decision Processes and Dynamic Programming&lt;/a&gt; - 
-A. Lazaric&lt;/p&gt;
+&lt;p&gt;[2] A. Lazaric. &lt;a href=&quot;http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf&quot;&gt;Markov Decision Processes and Dynamic Programming&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;[3] &lt;a href=&quot;https://ai.stackexchange.com/a/11133&quot;&gt;What is the Bellman operator in reinforcement learning?&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;[4] Reinforcement Learning: An Introduction - Richard S. Sutton &amp;amp; Andrew G. Barto&lt;/p&gt;
+&lt;p&gt;[4] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;[5] &lt;a href=&quot;https://en.wikipedia.org/wiki/Normed_vector_space&quot;&gt;Normed vector space&lt;/a&gt;&lt;/p&gt;
 
@@ -1245,9 +1282,9 @@ q_*(s,a)&amp;amp;=\mathbb{E}\left[R_{t+1}+\gamma\max_{a’}q_*(S_{t+1},a’)|S_t
 &lt;p&gt;&lt;img src=&quot;/assets/images/opt.png&quot; alt=&quot;backup diagram for optimal value func&quot; /&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
-&lt;p&gt;[1] Reinforcement Learning: An Introduction - Richard S. Sutton &amp;amp; Andrew G. Barto&lt;/p&gt;
+&lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;[2] &lt;a href=&quot;https://www.davidsilver.uk/teaching/&quot;&gt;UCL course on RL&lt;/a&gt; - David Silver&lt;/p&gt;
+&lt;p&gt;[2] David Silver. &lt;a href=&quot;https://www.davidsilver.uk/teaching/&quot;&gt;UCL course on RL&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;[3] &lt;a href=&quot;https://lilianweng.github.io/lil-log/2018/02/19/a-long-peek-into-reinforcement-learning.html&quot;&gt;A (Long) Peek into Reinforcement Learning&lt;/a&gt;&lt;/p&gt;
 
@@ -1365,7 +1402,7 @@ for all states $i,j$. This equation is called &lt;em&gt;reversibility&lt;/em&gt;
 &lt;/ul&gt;
 
 &lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
-&lt;p&gt;[1] Introduction to Probability - Joseph K. Blitzstein &amp;amp; Jessica Hwang&lt;/p&gt;
+&lt;p&gt;[1] Joseph K. Blitzstein &amp;amp; Jessica Hwang. &lt;a href=&quot;https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573&quot;&gt;Introduction to Probability&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;[2] &lt;a href=&quot;https://brilliant.org/wiki/markov-chains/&quot;&gt;Brillant’s Markov chain&lt;/a&gt;&lt;/p&gt;
 
@@ -1424,4 +1461,4 @@ u_k=A^ku_0=c_1{\lambda_1}^kx_1+\dots+c_n{\lambda_n}^kx_n
 &lt;em&gt;Fact&lt;/em&gt;: The \(\frac{1+\sqrt{5}}{2}\approx 1.618\) is so-called “&lt;strong&gt;golden ratio&lt;/strong&gt;”. And &lt;em&gt;for some reason a rectangle with sides 1.618 and 1 looks especially graceful&lt;/em&gt;.&lt;/p&gt;
 
 &lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
-&lt;p&gt;[1] Introduction to Linear Algebra - Gilbert Strang&lt;/p&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="random-stuffs" /><category term="mathematics" /><category term="linear-algebra" /><category term="random-stuffs" /><summary type="html">Enjoy my index-zero-ed post while staying tuned for next ones!</summary></entry></feed>
+&lt;p&gt;[1] Gilbert Strang. &lt;a href=&quot;http://math.mit.edu/~gs/linearalgebra/&quot;&gt;Introduction to Linear Algebra&lt;/a&gt;&lt;/p&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="random-stuffs" /><category term="mathematics" /><category term="linear-algebra" /><category term="random-stuffs" /><summary type="html">Enjoy my index-zero-ed post while staying tuned for next ones!</summary></entry></feed>

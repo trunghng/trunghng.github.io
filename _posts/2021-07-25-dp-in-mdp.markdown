@@ -246,13 +246,13 @@ And here is our results after running the code
 
 
 ## References
-[1] Reinforcement Learning: An Introduction - Richard S. Sutton & Andrew G. Barto  
+[1] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition)  
 
-[2] [UCL course on RL](https://www.davidsilver.uk/teaching/) - David Silver  
+[2] David Silver. [UCL course on RL](https://www.davidsilver.uk/teaching/)  
 
-[3] Algorithms for Reinforcement Learning - Csaba Szepesvári  
+[3] Csaba Szepesvári. [Algorithms for Reinforcement Learning](https://www.amazon.com/Algorithms-Reinforcement-Synthesis-Artificial-Intelligence/dp/1608454924)  
 
-[4] [Markov Decision Processes and Dynamic Programming](http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf) - A. Lazaric  
+[4] A. Lazaric. [Markov Decision Processes and Dynamic Programming](http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf)  
 
 [5] [Dynamic Programming](https://en.wikipedia.org/wiki/Dynamic_programming)  
 

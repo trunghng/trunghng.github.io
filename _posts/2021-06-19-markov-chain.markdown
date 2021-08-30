@@ -108,7 +108,7 @@ for all states $i,j$. This equation is called *reversibility* or *detailed balan
 - And various other applications.
 
 #### References
-[1] Introduction to Probability - Joseph K. Blitzstein & Jessica Hwang  
+[1] Joseph K. Blitzstein & Jessica Hwang. [Introduction to Probability](https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573)  
 
 [2] [Brillant's Markov chain](https://brilliant.org/wiki/markov-chains/)  
 

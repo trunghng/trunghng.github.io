@@ -182,14 +182,13 @@ Pick a policy $\pi$ such that $\mathcal{T}^\pi v=\mathcal{T}^\*v$, then $v$ is a
 
 
 #### References
-[1] Algorithms for Reinforcement Learning - Csaba Szepesvári  
+[1] Csaba Szepesvári. [Algorithms for Reinforcement Learning](https://www.amazon.com/Algorithms-Reinforcement-Synthesis-Artificial-Intelligence/dp/1608454924)  
 
-[2] [Markov Decision Processes and Dynamic Programming](http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf) - 
-A. Lazaric  
+[2] A. Lazaric. [Markov Decision Processes and Dynamic Programming](http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf)  
 
 [3] [What is the Bellman operator in reinforcement learning?](https://ai.stackexchange.com/a/11133)  
 
-[4] Reinforcement Learning: An Introduction - Richard S. Sutton & Andrew G. Barto  
+[4] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition)  
 
 [5] [Normed vector space](https://en.wikipedia.org/wiki/Normed_vector_space)
 

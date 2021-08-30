@@ -1,0 +1,275 @@
+I"IT<blockquote>
+  <p>Recall that in the previous post, <a href="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html"><strong>Dynamic Programming Algorithms For Solving Markov Decision Processes</strong></a>, we made an assumption about the complete knowledge of the environment. With <strong>Monte Carlo</strong> methods, we only require <em>experience</em> - sample sequences of states, actions, and rewards from simulated or real interaction with an environment.</p>
+</blockquote>
+
+<!-- excerpt-end -->
+<ul>
+  <li><a href="#mc-methods">Monte Carlo Methods</a></li>
+  <li><a href="#mc-rl">Monte Carlo Methods in Reinforcement Learning</a>
+    <ul>
+      <li><a href="#mc-prediction">Monte Carlo Prediction</a>
+        <ul>
+          <li><a href="#first-mc-every-mc">First-visit MC vs. every-visit MC</a></li>
+        </ul>
+      </li>
+      <li><a href="#mc-control">Monte Carlo Control</a>
+        <ul>
+          <li><a href="#mc-est-action-value">Monte Carlo Estimation of Action Values</a>
+            <ul>
+              <li><a href="#es">Exploring Starts</a></li>
+            </ul>
+          </li>
+          <li><a href="#mc-policy-iteration">Monte Carlo Policy Iteration</a></li>
+        </ul>
+      </li>
+      <li><a href="#on-policy-mc-control">On-policy Monte Carlo Control</a></li>
+      <li><a href="#off-policy-pred-is">Off-policy Prediction via Importance Sampling</a>
+        <ul>
+          <li><a href="#coverage">Assumption of Coverage</a></li>
+          <li><a href="#is">Importance Sampling</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h2 id="mc-methods">Monte Carlo Methods<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup></h2>
+<p><strong>Monte Carlo</strong>, named after a casino in Monaco, simulates complex probabilistic events using simple random events, such as tossing a pair of dice to simulate the casino’s overall business model.</p>
+
+<figure>
+	<img src="/assets/images/2021-08-21/mc-pi.gif" alt="monte carlo method" width="480" height="360px" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Using Monte Carlo method to approximate the value of $\pi$</figcaption>
+</figure>
+<p><br /></p>
+
+<p>Monte Carlo methods have been used in several different tasks:</p>
+<ol>
+  <li>Simulating a system and its probability distribution $\pi(x)$
+\begin{equation}
+x\sim\pi(x)
+\end{equation}</li>
+  <li>Estimating a quantity through Monte Carlo integration
+\begin{equation}
+c=\mathbb{E}_\pi\left[f(x)\right]=\int\pi(x)f(x)\,dx
+\end{equation}</li>
+  <li>Optimizing a target function to find its modes (maxima or minima)
+\begin{equation}
+x^*=\arg\max\pi(x)
+\end{equation}</li>
+  <li>Learning a parameters from a training set to optimize some loss functions, such as the maximum likelihood estimation from a set of examples $\{x_i,i=1,2,\dots,M\}$
+\begin{equation}
+\Theta^*=\arg\max\sum_{i=1}^{M}\log p(x_i;\Theta)
+\end{equation}</li>
+  <li>Visualizing the energy landscape of a target function</li>
+</ol>
+
+<h2 id="mc-rl">Monte Carlo Methods in Reinforcement Learning</h2>
+<p>Monte Carlo (MC) methods are ways of solving the reinforcement learning problem based on averaging sample returns. Here, we define Monte Carlo methods only for episodic tasks. Or in other words, they learn from complete episodes of experience.</p>
+
+<h3 id="mc-prediction">Monte Carlo Prediction<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup></h3>
+<p>Since the value of a state $v_\pi(s)=\mathbb{E}_\pi\left[G_t|S_t=s\right]$ is defined as the expectation of the return when the process is started from the given state $s$, an obvious way of estimating this value from experience is to compute observed mean returns after visits to that state. As more returns are observed, the average should converge to the expected value. This is an instance of the so-called <em>Monte Carlo method</em>.</p>
+
+<p>In particular, suppose we wish to estimate $v_\pi(s)$ given a set of episodes obtained by following $\pi$ and passing through $s$. Each time state $s$ appears in an episode, we call it a <em>visit</em> to $s$. There are two types of Monte Carlo methods:</p>
+<ul>
+  <li><em>First-visit MC method</em>
+    <ul>
+      <li>estimates $v_\pi(s)$ as the average of the returns that have followed the <em>first visit</em> to $s$.</li>
+      <li>We call the first time $s$ is visited in an episode the <em>first visit</em> to $s$.</li>
+    </ul>
+  </li>
+  <li><em>Every-visit MC method</em>
+    <ul>
+      <li>estimates $v_\pi(s)$ as the average of the returns that have followed all visits to to $s$.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>The sample mean return for state $s$ is:
+\begin{equation}
+v_\pi(s)=\dfrac{\sum_{t=1}^{T}𝟙\left(S_t=s\right)G_t}{\sum_{t=1}^{T}𝟙\left(S_t=s\right)},
+\end{equation}
+where $𝟙(\cdot)$ is an indicator function. In the case of <em>first-visit MC</em>, $𝟙\left(S_t=s\right)$ returns $1$ only in the first time $s$ is encountered in an episode. And for <em>every-visit MC</em>, $𝟙\left(S_t=s\right)$ gives value of $1$ every time $s$ is visited.</p>
+
+<p>Here is pseudocode of the <em>first-visit MC prediction</em>, for estimating $V\approx v_\pi$</p>
+<figure>
+	<img src="/assets/images/2021-08-21/mc-prediction.png" alt="iterative policy evaluation pseudocode" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+
+<h4 id="first-mc-every-mc">First-visit MC vs. every-visit MC</h4>
+<p>Both methods converge to $v_\pi(s)$ as the number of visits (or first visits) to $s$ goes to infinity. Each average is itself an unbiased estimate, and the standard deviation of its error falls as $\frac{1}{\sqrt{n}}$, where $n$ is the number of returns averaged.</p>
+
+<figure>
+	<img src="/assets/images/2021-08-21/first-visit-every-visit.png" alt="first-visit MC vs every-visit MC" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: Summary of Statistical Results comparing first-visit and every-visit MC method</figcaption>
+</figure>
+<p><br /></p>
+
+<h3 id="mc-control">Monte Carlo Control<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup></h3>
+
+<h4 id="mc-est-action-value">Monte Carlo Estimation of Action Values</h4>
+<p>When model is not available, it is particular useful to estimate <em>action values</em> rather than <em>state values</em> (which alone are insufficient to determine a policy). We must explicitly estimate the value of each action in order for the values to be useful in suggesting a policy. Thus, one of our primary goals for MC methods is to estimate $q_*$. To achieve this, we first consider the policy evaluation problem for action values.</p>
+
+<p>Similar to when using MC method to estimate $v_\pi(s)$, we can use both first-visit MC and every-visit MC to approximate the value of $q_\pi(s,a)$. The only thing we need to keep in mind is, in this case, we work with visits to a state-action pair rather than to a state. Likewise, we define two types of MC methods for estimating $q_\pi(s,a)$:</p>
+<ul>
+  <li><em>First-visit MC method</em>
+    <ul>
+      <li>estimates $q_\pi(s,a)$ as the average of the returns following the first time in each episode that the state $s$ was visited and the action $a$ was selected</li>
+    </ul>
+  </li>
+  <li><em>Every-visit MC method</em>
+    <ul>
+      <li>estimates $q_\pi(s,a)$ as the average of the returns that have followed all the visits to state-action pair $(s,a)$.</li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="es">Exploring Starts</h5>
+<p>However, here we must exercise <em>exploration</em>. Because many state-action pairs may never be visited, and if $\pi$ is a deterministic policy, then returns of only single one action for each state will be observed. That leads to the consequence that the other actions will not be evaluated since there are no returns to average.</p>
+
+<p>There is one way to achieve this, which is called <em>exploring starts</em> - an assumption that assumes the episodes <em>start in a state-action pair</em>, and that every pair has a <em>nonzero</em> probability of being selected as the start. This assumption assures that all state-action pairs will be visited an infinite number of times in the limit of an infinite number of episodes.</p>
+
+<h4 id="mc-policy-iteration">Monte Carlo Policy Iteration</h4>
+<p>To learn the optimal policy by MC, we apply the idea of <a href="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html#gpi">GPI</a>:
+\begin{equation}
+\pi_0\overset{\small \text{E}}{\rightarrow}q_{\pi_0}\overset{\small \text{I}}{\rightarrow}\pi_1\overset{\small \text{E}}{\rightarrow}q_{\pi_1}\overset{\small \text{I}}{\rightarrow}\pi_2\overset{\small \text{E}}{\rightarrow}\dots\overset{\small \text{I}}{\rightarrow}\pi_*\overset{\small \text{E}}{\rightarrow}q_*
+\end{equation}
+In particular,</p>
+<ol>
+  <li><em>Policy evaluation</em> (denoted as $\overset{\small\text{E}}{\rightarrow}$): estimates action value function $q_\pi(s,a)$ using the episode generated from $s, a$, following by current policy $\pi$
+\begin{equation}
+q_\pi(s,a)=\dfrac{\sum_{t=1}^{T}𝟙\left(S_t=s,A_t=a\right)G_t}{\sum_{t=1}^{T}𝟙\left(S_t=s,A_t=a\right)}
+\end{equation}</li>
+  <li><em>Policy improvement</em> (denoted as $\overset{\small\text{I}}{\rightarrow}$): makes the policy <em>greedy</em> with the current value function (action value function in this case)
+\begin{equation}
+\pi(s)\doteq\arg\max_{a\in\mathcal{A(s)}} q(s,a)
+\end{equation}
+The policy improvement can be done by constructing each $\pi_{k+1}$ as the greedy policy w.r.t $q_{\pi_k}$ because
+\begin{align}
+q_{\pi_k}\left(s,\pi_{k+1}(s)\right)&amp;=q_{\pi_k}\left(s,\arg\max_a q_{\pi_k}(s,a)\right) \\ &amp;=\max_a q_{\pi_k}(s,a) \\ &amp;\geq q_{\pi_k}\left(s,\pi_k(s)\right) \\ &amp;\geq v_{\pi_k}(s)
+\end{align}
+Therefore, by the <a href="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html#policy-improvement">policy improvement theorem</a>, we have that $\pi_{k+1}\geq\pi_k$.</li>
+</ol>
+<figure>
+	<img src="/assets/images/2021-08-21/gpi.png" alt="GPI" width="150" height="150px" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: MC policy iteration</figcaption>
+</figure>
+<p><br />
+To solve this problem with Monte Carlo policy iteration, in the 1998 version of ‘‘<em>Reinforcement Learning: An Introduction</em>”, authors of the book introduced <strong>Monte Carlo ES</strong> (MCES), for Monte Carlo with <em>Exploring Starts</em>.</p>
+
+<p>In MCES, value function is approximated by simulated returns and a greedy policy is selected at each iteration. Although MCES does not converge to any sub-optimal policy, the convergence to optimal fixed point is still an open question. For solutions in particular settings, you can check out some results like Tsitsiklis (2002), Chen (2018), Liu (2020).<br />
+Down below is pseudocode of the Monte Carlo ES.</p>
+<figure>
+	<img src="/assets/images/2021-08-21/mces.png" alt="monte carlo es pseudocode" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+
+<h3 id="on-policy-mc-control">On-policy Monte Carlo Control<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">4</a></sup></h3>
+<p>In the previous section, we used the assumption of <a href="#es">exploring starts</a> (ES) to design a Monte Carlo control method called MCES. In this part, without making that impractical assumption, we will be talking about another Monte Carlo control method.</p>
+
+<p>In <em>on-policy control methods</em>, the policy is generally <em>soft</em> (i.e., $\pi(a|s)&gt;0,\forall s\in\mathcal{S},a\in\mathcal{A(s)}$, but gradually shifted closer and closer to a deterministic optimal policy). We can not simply improve the policy by following a greedy policy, since no exploration will take place. Then to get rid of ES, we use the on-policy MC method with $\varepsilon$-<em>greedy</em> policies, e.g, most of the time they choose an action that maximal estimated action value, but with probability of $\varepsilon$ they instead select an action at random. Specifically,</p>
+<ul>
+  <li>$P(\small\textit{non-greedy action})=\dfrac{\varepsilon}{\vert\mathcal{A(s)}\vert}$</li>
+  <li>$P(\small\textit{greedy action})=1-\varepsilon+\dfrac{\varepsilon}{\vert\mathcal{A(s)}\vert}$</li>
+</ul>
+
+<p>The $\varepsilon$-greedy policies are examples of $\varepsilon$-<em>soft</em> policies, defined as ones for which $\pi(a\vert s)\geq\frac{\varepsilon}{\vert\mathcal{A(s)}\vert}$ for all states and actions, for some $\varepsilon&gt;0$. Among $\varepsilon$-soft policies, $\varepsilon$-greedy policies are in some sense those that closest to greedy.</p>
+
+<p>We have that any $\varepsilon$-greedy policy w.r.t $q_\pi$ is an <em>improvement</em> over any $\varepsilon$-soft policy is assured by the <a href="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html#policy-improvement">policy improvement theorem</a>.</p>
+
+<p><strong>Proof</strong><br />
+Let $\pi’$ be the $\varepsilon$-greedy. The conditions of the policy improvement theorem apply because for any $s\in\mathcal{S}$, we have:
+\begin{align}
+q_\pi\left(s,\pi’(s)\right)&amp;=\sum_a\pi’(a|s)q_\pi(s,a) \\ &amp;=\dfrac{\varepsilon}{\vert\mathcal{A}(s)\vert}\sum_a q_\pi(s,a)+(1-\varepsilon)\max_a q_\pi(s,a) \\ &amp;\geq\dfrac{\varepsilon}{\vert\mathcal{A(s)}\vert}\sum_a q_\pi(s,a)+(1-\varepsilon)\sum_a\dfrac{\pi(a|s)-\frac{\varepsilon}{\vert\mathcal{A}(s)\vert}}{1-\varepsilon}q_\pi(s,a) \\ &amp;=\dfrac{\varepsilon}{\vert\mathcal{A}(s)\vert}\sum_a q_\pi(s,a)+\sum_a\pi(a|s)q_\pi(s,a)-\dfrac{\varepsilon}{\vert\mathcal{A}(s)\vert}\sum_a q_\pi(s,a) \\ &amp;=v_\pi(s)
+\end{align}
+(In the third step, we use the fact that the latter $\sum$ is a weighted average over $q_\pi(s,a)$). Thus, by the theorem, $\pi’\geq\pi$. The equality holds when both $\pi’$ and $\pi$ are optimal policies among the $\varepsilon$-soft ones.</p>
+
+<p>Pseudocode of the complete algorithm is given below.</p>
+<figure>
+	<img src="/assets/images/2021-08-21/on-policy-mc-control.png" alt="monte carlo es pseudocode" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+
+<h3 id="off-policy-pred-is">Off-policy Prediction via Importance Sampling<sup id="fnref:5" role="doc-noteref"><a href="#fn:5" class="footnote" rel="footnote">5</a></sup></h3>
+<p>When working with control methods, we have to solve a dilemma about <em>exploitation</em> and <em>exploration</em>. In other words, we have to evaluate a policy from episodes generated by following an exploratory policy.</p>
+
+<p>A straightforward way to solve this problem is to use two different policies, one that is learned about and becomes the optimal policy, and one that is more exploratory and is used to generate behavior. The policy is being learned about is called the <em>target policy</em>, whereas <em>behavior policy</em> is the one which is used to generate behavior.</p>
+
+<p>In this section, we will be considering the off-policy method on prediction task, on which both target (denoted as $\pi$) and behavior (denoted as $b$) policies are fixed and given. Particularly, we wish to estimate $v_\pi$ or $q_\pi$ from episodes retrieved from following another policy $b$, where $\pi\neq b$.</p>
+
+<h4 id="coverage">Assumption of Coverage</h4>
+<p>In order to use episodes from $b$ to estimate values for $\pi$, we require that every action taken under $\pi$ is also taken, at least occasionally, under $b$. That means, we assume that $\pi(a|s)&gt;0$ implies $b(s|a)&gt;0$, which leads to a result that $b$ must be stochastic, while $\pi$ may be deterministic since $\pi\neq b$. This is the assumption of <strong>coverage</strong>.</p>
+
+<h4 id="is">Importance Sampling</h4>
+<p>Let $X$ be a variable (or set of variables) that takes on values in some space $\textit{Val}(X)$. <strong>Importance sampling</strong> (IS) is a general approach for estimating the expectation of a function $f(x)$ relative to some distribution $P(X)$, typically called the <em>target distribution</em>. We can estimate this expectation by generating samples $x[1],\dots,x[M]$ from $P$, and then estimating
+\begin{equation}
+\mathbb{E}_P\left[f\right]\approx\dfrac{1}{M}\sum_{m=1}^{M}f(x[m])
+\end{equation}
+In some cases, it might be impossible or computationally very expensive to generate samples from $P$, we instead prefer to generate samples from a different distribution, $Q$, known as the <em>proposal distribution</em> (or <em>sampling distribution</em>).</p>
+<ol>
+  <li>
+    <p><strong>Unnormalized Importance Sampling</strong><br />
+If we generate samples from $Q$ instead of $P$, we cannot simply average the $f$-value of the samples generated. We need to adjust our estimator to compensate for the incorrect sampling distribution. The most obvious way of adjusting our estimator is based on the observation that
+\begin{align}
+\mathbb{E}_{P(X)}&amp;=\sum_x f(x)P(x) \\ &amp;=\sum_x Q(x)f(x)\dfrac{P(x)}{Q(x)} \\ &amp;=\mathbb{E}_{Q(X)}\left[f(X)\dfrac{P(X)}{Q(X)}\right]\tag{1}\label{1}
+\end{align}
+Based on this observation \eqref{1}, we can use the standard estimator for expectations relative to $Q$. We generate a set of sample $\mathcal{D}=\{x[1],\dots,x[M]\}$ from $Q$, and then estimate:
+\begin{equation}
+\hat{\mathbb{E}}_\mathcal{D}(f)=\dfrac{1}{M}\sum_{m=1}^{M}f(x[m])\dfrac{P(x[m])}{Q(x[m])},
+\end{equation}
+where $\hat{\mathbb{E}}$ denotes empirical expectation. We call this estimator the <strong>unnormalized importance sampling</strong> estimator, this method is also often called <strong>unweighted importance sampling</strong>. The factor $\frac{P(x[m])}{Q(x[m])}$ (denoted as w(x[m])) can be viewed as a correction weight to the term $f(x[m])$, which we would have used had $Q$ been our target distribution.</p>
+  </li>
+  <li>
+    <p><strong>Normalized Importance Sampling</strong><br />
+In many situations that $P$ is known only up to a normalizing constant $Z$. Particularly, what we have access to is a distribution $\tilde{P}(X)=ZP(X)$.
+Thus, rather than to define the weights relative to $P$ as above, we define:
+\begin{equation}
+w(X)\doteq\dfrac{\tilde{P}(X)}{Q(X)}
+\end{equation}</p>
+  </li>
+</ol>
+
+<h2 id="references">References</h2>
+<p>[1] Richard S. Sutton &amp; Andrew G. Barto. <a href="https://mitpress.mit.edu/books/reinforcement-learning-second-edition">Reinforcement Learning: An Introduction</a></p>
+
+<p>[2] Adrian Barbu &amp; Song-Chun Zhu. <a href="https://link.springer.com/book/10.1007/978-981-13-2971-5">Monte Carlo Methods</a></p>
+
+<p>[3] David Silver. <a href="https://www.davidsilver.uk/teaching/">UCL course on RL</a></p>
+
+<p>[4] Csaba Szepesvári. <a href="https://www.amazon.com/Algorithms-Reinforcement-Synthesis-Artificial-Intelligence/dp/1608454924">Algorithms for Reinforcement Learning</a></p>
+
+<p>[5] Singh, S.P., Sutton, R.S. <a href="https://doi.org/10.1007/BF00114726">Reinforcement learning with replacing eligibility traces</a>. Mach Learn 22, 123–158 (1996)</p>
+
+<p>[6] John N. Tsitsiklis. <a href="https://www.mit.edu/~jnt/Papers/J089-02-jnt-optimistic.pdf">On the Convergence of Optimistic Policy Iteration</a>. Journal of Machine Learning Research 3 (2002) 59–72</p>
+
+<p>[7] Yuanlong Chen. <a href="https://arxiv.org/abs/1808.08763">On the convergence of optimistic policy iteration for stochastic shortest path problem</a> (2018)</p>
+
+<p>[8] Jun Liu. <a href="https://arxiv.org/abs/2007.10916">On the Convergence of Reinforcement Learning with Monte Carlo Exploring Starts</a> (2020)</p>
+
+<p>[9] Daphne Koller &amp; Nir Friedman. <a href="https://mitpress.mit.edu/books/probabilistic-graphical-models">Probabilistic Graphical Models: Principles and Techniques</a></p>
+
+<p>[10]</p>
+
+<h2 id="footnotes">Footnotes</h2>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>We are gonna talk about Monte Carlo methods in more detail in another post. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p>A prediction task in RL is where we are given a policy and our goal is to measure how well it performs. <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:3" role="doc-endnote">
+      <p>Along with prediction, a control task in RL is where the policy is not fixed, and our goal is to find the optimal policy. <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:4" role="doc-endnote">
+      <p>On-policy is a category of RL algorithms that attempts to evaluate or improve the policy that is used to make decisions. <a href="#fnref:4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:5" role="doc-endnote">
+      <p>In contrast to on-policy, off-policy methods evaluate or improve a policy different from that used to generate the data. <a href="#fnref:5" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+:ET
