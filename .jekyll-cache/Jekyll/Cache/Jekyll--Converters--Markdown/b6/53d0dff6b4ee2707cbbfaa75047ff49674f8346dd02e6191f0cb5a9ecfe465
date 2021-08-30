@@ -1,0 +1,31 @@
+I"Ë<style>
+	div.panel,
+	    p.flip {
+	        margin: 0px;
+	        padding: 5px;
+	        text-align: center;
+	        background: #888a8a;
+	        border: solid 1px #fff;
+	    }
+    
+    div.panel {
+        width: 100%;
+        height: 100px;
+        display: none;
+        background: #dffdc1;
+    }
+</style>
+
+<script>
+    $(document).ready(function() {
+        $(".flip").click(function() {
+            $(".panel").slideToggle("slow");
+        });
+    });
+</script>
+
+<blockquote>
+  <p>Recall that in the previous post, <a href="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html"><strong>Dynamic Programming Algorithms For Solving Markov Decision Processes</strong></a>, we made an assumption about the complete knowledge of the environment. With <strong>Monte Carlo</strong> methods, we only require <em>experience</em> - sample sequences of states, actions, and rewards from simulated or real interaction with an environment.</p>
+</blockquote>
+
+:ET
