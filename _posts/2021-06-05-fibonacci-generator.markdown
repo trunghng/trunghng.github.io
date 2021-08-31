@@ -11,7 +11,7 @@ comments: true
 
 <!-- excerpt-end -->
 
-{% highlight python %}
+```python
 from math import sqrt
 
 def fibonacci(i)
@@ -19,7 +19,7 @@ def fibonacci(i)
 	generate i-th number of the Fibonacci sequence, python code obvs :p
 	"""
 	return 1 / sqrt(5) * (pow((1 + sqrt(5)) / 2, i) - pow((1 - sqrt(5)) / 2, i))
-{% endhighlight %}
+```
 
 Why did numbers $$ \frac{1+\sqrt{5}}{2} $$ and $$ \frac{1-\sqrt{5}}{2} $$ come out of nowhere?
 

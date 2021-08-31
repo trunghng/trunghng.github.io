@@ -198,7 +198,7 @@ In some cases, it might be impossible or computationally very expensive to gener
 1. **Unnormalized Importance Sampling**  
 If we generate samples from $Q$ instead of $P$, we cannot simply average the $f$-value of the samples generated. We need to adjust our estimator to compensate for the incorrect sampling distribution. The most obvious way of adjusting our estimator is based on the observation that
 \begin{align}
-\mathbb{E}\_{P(X)}&=\sum_x f(x)P(x) \\\\ &=\sum_x Q(x)f(x)\dfrac{P(x)}{Q(x)} \\\\ &=\mathbb{E}\_{Q(X)}\left[f(X)\dfrac{P(X)}{Q(X)}\right]\tag{1}\label{1}
+\mathbb{E}\_{P(X)}\left[f(X)\right]&=\sum_x f(x)P(x) \\\\ &=\sum_x Q(x)f(x)\dfrac{P(x)}{Q(x)} \\\\ &=\mathbb{E}\_{Q(X)}\left[f(X)\dfrac{P(X)}{Q(X)}\right]\tag{1}\label{1}
 \end{align}
 Based on this observation \eqref{1}, we can use the standard estimator for expectations relative to $Q$. We generate a set of sample $\mathcal{D}=\\{x[1],\dots,x[M]\\}$ from $Q$, and then estimate:
 \begin{equation}
@@ -214,7 +214,7 @@ w(X)\doteq\dfrac{\tilde{P}(X)}{Q(X)}
 \end{equation}
 We have that the weight $w(X)$ is a random variable, and has expected value equal to $Z$:
 \begin{equation}
-\mathbb{E}\_{Q(X)}=\sum_x Q(x)\dfrac{\tilde{P}(x)}{Q(x)}=\sum_x\tilde{P}(x)=Z
+\mathbb{E}\_{Q(X)}\left[w(X)\right]=\sum_x Q(x)\dfrac{\tilde{P}(x)}{Q(x)}=\sum_x\tilde{P}(x)=Z
 \end{equation}
 Hence, this quantity is the normalizing constant of the distribution $\tilde{P}$. We can now rewrite \eqref{1} as:
 \begin{align}
@@ -303,6 +303,7 @@ Similarly, we develop the algorithm for off-policy MC control, based on GPI and 
 {: #example}
 (This example is taken from *Exercise 5.12*, *Reinforcement Learning: An Introduction* book.)  
 
+**Problem**  
 Consider driving a race car around a turn like those shown in ***Figure 4***. You want to go as fast as possible, but not so fast as to run off the track. In our simplified racetrack, the car is at one of a discrete set of grid positions, the cells in the diagram. The velocity is also discrete, a number of grid cells moved horizontally and vertically per time step. The actions are increments to the velocity components. Each may be changed by +1, -1, or 0 in each step, for a total of nine (3 x 3) actions. Both velocity components are restricted to be nonnegative and less than 5, and they cannot both be zero except at the starting line. Each episode begins in one of the randomly selected start states with both velocity components zero and ends when the car crosses the finish line. The rewards are -1 for each step until the car crosses the finish line. If the car hits the track boundary, it is moved back to a random position on the starting line, both velocity components are reduced to zero, and the episode continues. Before updating the car's location at each time step, check to see if the projected path of the car intersects the track boundary. If it intersects the finish line, the episode ends; if it intersects anywhere else, the car is considered to have hit the track boundary and is sent back to the starting line. To make the task more challenging, with probability 0.1 at each time step the velocity increments are both zero, independently of the intended increments. Apply a Monte Carlo control method to this task to compute the optimal policy from each starting state. Exhibit several trajectories following the optimal policy (but turn the noise off for these trajectories).
 <figure>
 	<img src="/assets/images/2021-08-21/racetrack.png" alt="racetrack" width="200" height="300px" style="display: block; margin-left: auto; margin-right: auto;"/>
@@ -312,12 +313,17 @@ Consider driving a race car around a turn like those shown in ***Figure 4***. Yo
 **Solution code**  
 The source code can be found [here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-5/racetrack.py).  
 
+<button type="button" class="collapsible" id="codeP">Click to show/hide the code</button>
+<div class="codePanel" id="codePdata" markdown="1">
+<br>
 We begin by importing some useful packages.
+
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 ```
+
 Next, we define our environment
 ```python
 class RaceTrack:
@@ -512,6 +518,7 @@ if __name__ == '__main__':
 	plt.savefig('./racetrack_off_policy_control.png')
 	plt.close()
 ```
+</div>
 We end up with this result after running the code.
 <figure>
 	<img src="/assets/images/2021-08-21/racetrack-result.png" alt="racetrack's result" width="450" height="400px" style="display: block; margin-left: auto; margin-right: auto;"/>
@@ -540,7 +547,9 @@ We end up with this result after running the code.
 
 [9] Daphne Koller & Nir Friedman. [Probabilistic Graphical Models: Principles and Techniques](https://mitpress.mit.edu/books/probabilistic-graphical-models)  
 
-[10] 
+[10] A. Rupam Mahmood, Hado P. van Hasselt, Richard S. Sutton. [Weighted importance sampling for off-policy learning with linear function approximation](https://papers.nips.cc/paper/2014/hash/be53ee61104935234b174e62a07e53cf-Abstract.html). Advances in Neural Information Processing Systems 27 (NIPS 2014)
+
+[11]
 
 
 

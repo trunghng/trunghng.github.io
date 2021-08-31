@@ -158,8 +158,13 @@ This example is taken from *Example 4.3* in the *Reinforcement Learning: An Intr
 </figure>
 
 **Solution code**  
-The code can be found [here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-4/gambler.py)
-{% highlight python %}
+The code can be found [here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-4/gambler.py).
+
+<button type="button" class="collapsible" id="codeP">Click to show/hide the code</button>
+<div class="codePanel" id="codePdata" markdown="1">
+<br>
+
+```python
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -237,13 +242,13 @@ if __name__ == '__main__':
 
     plt.savefig('./gambler.png')
     plt.close()
-{% endhighlight %}
+```
+</div>
 And here is our results after running the code
 <figure>
-	<img src="/assets/images/2021-07-25/gambler.png" alt="gambler" width="450" height="900px" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 7</b>: Example - Gambler's Problem Result</figcaption>
+    <img src="/assets/images/2021-07-25/gambler.png" alt="gambler" width="450" height="900px" style="display: block; margin-left: auto; margin-right: auto;"/>
+    <figcaption style="text-align: center;font-style: italic;"><b>Figure 7</b>: Example - Gambler's Problem Result</figcaption>
 </figure>
-
 
 ## References
 [1] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition)  
