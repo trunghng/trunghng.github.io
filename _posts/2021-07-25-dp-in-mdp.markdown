@@ -160,7 +160,7 @@ This example is taken from *Example 4.3* in the *Reinforcement Learning: An Intr
 **Solution code**  
 The code can be found [here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-4/gambler.py).
 
-<button type="button" class="collapsible" id="codeP">Click to show/hide the code</button>
+<button type="button" class="collapsible" id="codeP">Click to show the code</button>
 <div class="codePanel" id="codePdata" markdown="1">
 <br>
 
