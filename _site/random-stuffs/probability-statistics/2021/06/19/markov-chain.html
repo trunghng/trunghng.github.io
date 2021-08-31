@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Markov Chain" />
 <script type="application/ld+json">
-{"description":"Markov chain","headline":"Markov Chain","dateModified":"2021-06-19T22:27:00+07:00","datePublished":"2021-06-19T22:27:00+07:00","mainEntityOfPage":{"@type":"WebPage","@id":"/random-stuffs/probability-statistics/2021/06/19/markov-chain.html"},"url":"/random-stuffs/probability-statistics/2021/06/19/markov-chain.html","author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"description":"Markov chain","headline":"Markov Chain","dateModified":"2021-06-19T22:27:00+07:00","datePublished":"2021-06-19T22:27:00+07:00","url":"/random-stuffs/probability-statistics/2021/06/19/markov-chain.html","author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/random-stuffs/probability-statistics/2021/06/19/markov-chain.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Trung&apos;s cabin" />
     
@@ -57,19 +57,19 @@
 </style>
 <style>
   .collapsible {
-    background-color: #777;
+    background-color: #A5CCF1;
     color: white;
     cursor: pointer;
-    padding: 18px;
-    width: 100%;
+    padding: 5px;
+    /*width: 100%;*/
     border: none;
-    text-align: left;
+    text-align: center;
     outline: none;
     font-size: 15px;
   }
 
   .active, .collapsible:hover {
-    background-color: #555;
+    background-color: #82B9EE;
   }
 
   .codePanel {
@@ -277,10 +277,13 @@ for all states $i,j$. This equation is called <em>reversibility</em> or <em>deta
     coll[i].addEventListener("click", function() {
       this.classList.toggle("active");
       var content = document.getElementById(this.id+"data");
+      var btn = document.getElementById(this.id)
       if (content.style.display === "block") {
         content.style.display = "none";
+        btn.innerText = "Click to show the code";
       } else {
         content.style.display = "block";
+        btn.innerText = "Click to hide the code"
       }
     });
   }

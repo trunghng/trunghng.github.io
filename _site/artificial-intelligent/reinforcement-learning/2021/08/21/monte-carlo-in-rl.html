@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Monte Carlo Methods In Reinforcement Learning" />
 <script type="application/ld+json">
-{"description":"Monte Carlo methods for solving Reinforcement Learning problems","headline":"Monte Carlo Methods In Reinforcement Learning","dateModified":"2021-08-21T13:03:00+07:00","datePublished":"2021-08-21T13:03:00+07:00","mainEntityOfPage":{"@type":"WebPage","@id":"/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html"},"url":"/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html","author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"description":"Monte Carlo methods for solving Reinforcement Learning problems","headline":"Monte Carlo Methods In Reinforcement Learning","dateModified":"2021-08-21T13:03:00+07:00","datePublished":"2021-08-21T13:03:00+07:00","url":"/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html","author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Trung&apos;s cabin" />
     
@@ -57,19 +57,19 @@
 </style>
 <style>
   .collapsible {
-    background-color: #777;
+    background-color: #A5CCF1;
     color: white;
     cursor: pointer;
-    padding: 18px;
-    width: 100%;
+    padding: 5px;
+    /*width: 100%;*/
     border: none;
-    text-align: left;
+    text-align: center;
     outline: none;
     font-size: 15px;
   }
 
   .active, .collapsible:hover {
-    background-color: #555;
+    background-color: #82B9EE;
   }
 
   .codePanel {
@@ -152,6 +152,7 @@
         </ul>
       </li>
       <li><a href="#discounting-aware-is">Discounting-aware Importance Sampling</a></li>
+      <li><a href="#per-decision-is">Per-decision Importance Sampling</a></li>
     </ul>
   </li>
   <li><a href="#references">References</a></li>
@@ -163,7 +164,7 @@
 
 <figure>
 	<img src="/assets/images/2021-08-21/mc-pi.gif" alt="monte carlo method" width="480" height="360px" style="display: block; margin-left: auto; margin-right: auto;" />
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Using Monte Carlo method to approximate the value of $\pi$</figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Using Monte Carlo method to approximate the value of $\pi$. The code can be found <span><a href="https://github.com/trunghng/monte-carlo-methods/blob/main/monte_carlo_pi.py">here</a></span></figcaption>
 </figure>
 <p><br /></p>
 
@@ -390,9 +391,9 @@ V(s)\doteq\dfrac{\sum_{t\in\mathcal{T}(s)}\rho_{t:T(t)-1}G_t}{\vert\mathcal{T}(s
 \end{equation}
 where $\mathcal{T}(s)$ is the set of all states in which $s$ is visited (only for every-visit). For a first-visit,$\mathcal{T}(s)$ would only include time steps that were first visits to $s$ within their episodes. $T(t)$ denotes the first time of termination following time $t$, and $G_t$ denotes the return after $t$ up through $T(t)$.</p>
 
-<p>When importance sampling is done as simple average in this way, we call it <em>ordinary importance sampling</em> (which corresponds to <em>unweighted importance sampling</em> in the previous section).</p>
+<p>When importance sampling is done as simple average in this way, we call it <em>ordinary importance sampling</em> (OIS) (which corresponds to <em>unweighted importance sampling</em> in the previous section).</p>
 
-<p>And the one corresponding to <em>weighted importance sampling</em>, which uses a weighted average, is defined as:
+<p>And the one corresponding to <em>weighted importance sampling</em> (WIS), which uses a weighted average, is defined as:
 \begin{equation}
 V(s)\doteq\dfrac{\sum_{t\in\mathcal{T}(s)}\rho_{t:T(t)-1}G_t}{\sum_{t\in\mathcal{T}(s)}\rho_{t:T(t)-1}},\tag{6}\label{6}
 \end{equation}
@@ -407,9 +408,9 @@ NewEstimate\leftarrow OldEstimate+StepSize\left[Target-OldEstimate\right]
 \end{equation}</p>
 
 <h5 id="applying-off-policy-is">Applying to Off-policy MC Prediction using IS</h5>
-<p>In ordinary IS, the returns are scaled by the IS ratio $\rho_{t:T(t)-1}$, then simply averaged, as in \eqref{5}. Thus, it’s easy to apply incremental method to ordinary IS.</p>
+<p>In ordinary IS, the returns are scaled by the IS ratio $\rho_{t:T(t)-1}$, then simply averaged, as in \eqref{5}. Thus, it’s easy to apply incremental method to OIS.</p>
 
-<p>For weighted IS, as in the equation \eqref{6}, we have to form a weighted average of the returns, and a slightly different incremental incremental algorithm is required.
+<p>For WIS, as in the equation \eqref{6}, we have to form a weighted average of the returns, and a slightly different incremental incremental algorithm is required.
 Suppose we have a sequence of returns $G_1,G_2,\dots,G_{n-1}$, all starting in the same state and each with a corresponding random weight $W_i$ (e.g., $W_i=\rho_{t_i:T(t_i)}$). We wish to form the estimate
 \begin{equation}
 V_n\doteq\dfrac{\sum_{k=1}^{n-1}W_kG_k}{\sum_{k=1}^{n-1}W_k},\hspace{1cm}n\geq2
@@ -429,17 +430,21 @@ where $C_0=0$. And here is pseudocode of our algorithm.</p>
 </figure>
 
 <h3 id="off-policy-mc-control">Off-policy Monte Carlo Control</h3>
-<p>Similarly, we develop the algorithm for off-policy MC control, based on GPI and weighted IS, for estimating $\pi_*$ and $q_*$, which is shown below. The target policy $\pi\approx\pi_*$ is the greedy policy w.r.t $Q$, which is an estimate of $q_\pi$. The behavior policy, $b$, can be anything, but in order to assure convergence of $\pi$ to the optimal policy, an infinite number of returns must be obtained for each pair of state and action. This can be guaranteed by choosing $b$ to be $\varepsilon$-soft. The policy $\pi$ converges to optimal at all encountered states even though actions are selected according to a different soft policy $b$, which may change between or even within episodes.</p>
+<p>Similarly, we develop the algorithm for off-policy MC control, based on GPI and WIS, for estimating $\pi_*$ and $q_*$, which is shown below.</p>
 <figure>
 	<img src="/assets/images/2021-08-21/off-policy-mc-control.png" alt="off-policy MC control pseudocode" style="display: block; margin-left: auto; margin-right: auto;" />
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
 </figure>
 
+<p>The target policy $\pi\approx\pi_*$ is the greedy policy w.r.t $Q$, which is an estimate of $q_\pi$. The behavior policy, $b$, can be anything, but in order to assure convergence of $\pi$ to the optimal policy, an infinite number of returns must be obtained for each pair of state and action. This can be guaranteed by choosing $b$ to be $\varepsilon$-soft.</p>
+
+<p>The policy $\pi$ converges to optimal at all encountered states even though actions are selected according to a different soft policy $b$, which may change between or even within episodes.</p>
+
 <h4 id="example">Example - Racetrack</h4>
 <p>(This example is taken from <em>Exercise 5.12</em>, <em>Reinforcement Learning: An Introduction</em> book.)</p>
 
 <p><strong>Problem</strong><br />
-Consider driving a race car around a turn like those shown in <strong><em>Figure 4</em></strong>. You want to go as fast as possible, but not so fast as to run off the track. In our simplified racetrack, the car is at one of a discrete set of grid positions, the cells in the diagram. The velocity is also discrete, a number of grid cells moved horizontally and vertically per time step. The actions are increments to the velocity components. Each may be changed by +1, -1, or 0 in each step, for a total of nine (3 x 3) actions. Both velocity components are restricted to be nonnegative and less than 5, and they cannot both be zero except at the starting line. Each episode begins in one of the randomly selected start states with both velocity components zero and ends when the car crosses the finish line. The rewards are -1 for each step until the car crosses the finish line. If the car hits the track boundary, it is moved back to a random position on the starting line, both velocity components are reduced to zero, and the episode continues. Before updating the car’s location at each time step, check to see if the projected path of the car intersects the track boundary. If it intersects the finish line, the episode ends; if it intersects anywhere else, the car is considered to have hit the track boundary and is sent back to the starting line. To make the task more challenging, with probability 0.1 at each time step the velocity increments are both zero, independently of the intended increments. Apply a Monte Carlo control method to this task to compute the optimal policy from each starting state. Exhibit several trajectories following the optimal policy (but turn the noise off for these trajectories).</p>
+Consider driving a race car around a turn like that shown in <strong><em>Figure 4</em></strong>. You want to go as fast as possible, but not so fast as to run off the track. In our simplified racetrack, the car is at one of a discrete set of grid positions, the cells in the diagram. The velocity is also discrete, a number of grid cells moved horizontally and vertically per time step. The actions are increments to the velocity components. Each may be changed by +1, -1, or 0 in each step, for a total of nine (3 x 3) actions. Both velocity components are restricted to be nonnegative and less than 5, and they cannot both be zero except at the starting line. Each episode begins in one of the randomly selected start states with both velocity components zero and ends when the car crosses the finish line. The rewards are -1 for each step until the car crosses the finish line. If the car hits the track boundary, it is moved back to a random position on the starting line, both velocity components are reduced to zero, and the episode continues. Before updating the car’s location at each time step, check to see if the projected path of the car intersects the track boundary. If it intersects the finish line, the episode ends; if it intersects anywhere else, the car is considered to have hit the track boundary and is sent back to the starting line. To make the task more challenging, with probability 0.1 at each time step the velocity increments are both zero, independently of the intended increments. Apply a Monte Carlo control method to this task to compute the optimal policy from each starting state. Exhibit several trajectories following the optimal policy (but turn the noise off for these trajectories).</p>
 <figure>
 	<img src="/assets/images/2021-08-21/racetrack.png" alt="racetrack" width="200" height="300px" style="display: block; margin-left: auto; margin-right: auto;" />
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: A turn for the racetrack task</figcaption>
@@ -449,7 +454,7 @@ Consider driving a race car around a turn like those shown in <strong><em>Figure
 <p><strong>Solution code</strong><br />
 The source code can be found <a href="https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-5/racetrack.py">here</a>.</p>
 
-<p><button type="button" class="collapsible" id="codeP">Click to show/hide the code</button></p>
+<p><button type="button" class="collapsible" id="codeP">Click to show the code</button></p>
 <div class="codePanel" id="codePdata">
   <p><br />
 We begin by importing some useful packages.</p>
@@ -543,7 +548,7 @@ We begin by importing some useful packages.</p>
 	<span class="k">def</span> <span class="nf">is_terminal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">track</span><span class="p">[</span><span class="bp">self</span><span class="p">.</span><span class="n">car_position</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="p">.</span><span class="n">car_position</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">==</span> <span class="mi">2</span>
 </code></pre></div>  </div>
-  <p>We continue with define our behavior policy and algorithm.</p>
+  <p>We continue by defining our behavior policy and algorithm.</p>
   <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">behavior_policy</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
 	<span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">track</span><span class="p">.</span><span class="n">actions</span><span class="p">))</span>
 	<span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">track</span><span class="p">.</span><span class="n">actions</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
@@ -595,7 +600,7 @@ We begin by importing some useful packages.</p>
 			<span class="n">W</span> <span class="o">*=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">epsilon</span><span class="o">+</span><span class="n">epsilon</span><span class="o">/</span><span class="mi">9</span><span class="p">)</span>
 	<span class="k">return</span> <span class="n">pi</span>
 </code></pre></div>  </div>
-  <p>And we wrap everything up with the main function.</p>
+  <p>And wrapping everything up with the main function.</p>
   <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
 	<span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.9</span>
 	<span class="n">episodes</span> <span class="o">=</span> <span class="mi">10000</span>
@@ -658,7 +663,80 @@ We begin by importing some useful packages.</p>
 </figure>
 <p><br /></p>
 
-<h3 id="discounting-aware-importance-sampling">Discounting-aware Importance Sampling</h3>
+<h3 id="discounting-aware-is">Discounting-aware Importance Sampling</h3>
+<p>Recall that in the above <a href="#is">section</a>, we defined the estimator for $\mathbb{E}_P[f]$ as:
+\begin{equation}
+\hat{\mathbb{E}}_\mathcal{D}(f)=\dfrac{1}{M}\sum_{m=1}^{M}f(x[m])\dfrac{P(x[m])}{Q(x[m])}
+\end{equation}
+This estimator is unbiased because each of the samples it averages is unbiased:
+\begin{equation}
+\mathbb{E}_{Q}\left[\dfrac{P(x[m])}{Q(x[m])}f(x[m])\right]=\int_x Q(x)\dfrac{P(x)}{Q(x)}f(x)\,dx=\int_x P(x)f(x)\,dx=\mathbb{E}_{P}\left[f(x[m])\right]
+\end{equation}
+This IS estimate is unfortunately often of unnecessarily high variance. To be more specific, for example, the episodes last 100 steps and $\gamma=0$. Then $G_0=R_1$ will be weighted by
+\begin{equation}
+\rho_{0:99}=\dfrac{\pi(A_0|S_0)}{b(A_0|S_0)}\dots\dfrac{\pi(A_{99}|S_{99})}{b(A_{99}|S_{99})}
+\end{equation}
+but actually, it really needs to be weighted by
+$\rho_{0:1}=\frac{\pi(A_0|S_0)}{b(A_0|S_0)}$.
+The other 99 factors $\frac{\pi(A_1|S_1)}{b(A_1|S_1)}\dots\frac{\pi(A_{99}|S_{99})}{b(A_{99}|S_{99})}$ are irrelevant because after the first reward, the return has already been determined. These later factors are all independent of the return and of expected value $1$; they do not change the expected update, but they add enormously to its variance. They could even make the variance <em>infinite</em> in some cases.</p>
+<figure>
+	<img src="/assets/images/2021-08-21/inf-var.png" alt="infinite variance" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 6</b>: Infinite variance</figcaption>
+</figure>
+<p><br /></p>
+
+<p>One of the methods used to avoid this large extraneous variance is <strong>discounting-aware IS</strong>. The idea is to think of discounting as determining a probability of termination or, equivalently, a <em>degree</em> of partial termination.</p>
+
+<p>We begin by defining <em>flat partial returns</em>:
+\begin{equation}
+\bar{G}_{t:h}\doteq R_{t+1}+R_{t+2}+\dots+R_h,\hspace{1cm}0\leq t&lt;h\leq T,
+\end{equation}
+where ‘‘flat” denotes the absence of discounting, and ‘‘partial” denotes that these returns do not extend all the way to termination but instead stop at $h$, called the <em>horizon</em>. The conventional full return $G_t$ can be viewed as a <em>sum of flat partial returns</em>:
+\begin{align}
+G_t&amp;\doteq R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+\dots+\gamma^{T-t-1}R_T \\ &amp;=(1-\gamma)R_{t+1} \\ &amp;\hspace{0.5cm}+(1-\gamma)\gamma(R_{t+1}+R_{t+2}) \\ &amp;\hspace{0.5cm}+(1-\gamma)\gamma^2(R_{t+1}+R_{t+2}+R_{t+3}) \\ &amp;\hspace{0.7cm}\vdots \\ &amp;\hspace{0.5cm}+(1-\gamma)\gamma^{T-t-2}(R_{t+1}+R_{t+2}+\dots+R_{T-1}) \\ &amp;\hspace{0.5cm}+\gamma^{T-t-1}(R_{t+1}+R_{t+2}+\dots+R_T) \\ &amp;=(1-\gamma)\left[\sum_{h=t+1}^{T-1}\gamma^{h-t-1}\bar{G}_{t:h}\right]+\gamma^{T-t-1}\bar{G}_{t:T}
+\end{align}
+Now we need to scale the <em>flat partial returns</em> by an <em>IS ratio</em> that is similarly truncated. As $\bar{G}_{t:h}$ only involves rewards up to a horizon $h$, we only need the ratio of the probabilities up to $h$. We define:</p>
+<ol>
+  <li><strong>Discounting-aware OIS</strong> estimator
+\begin{equation}
+V(s)\doteq\dfrac{\sum_{t\in\mathcal{T}(s)}\left[(1-\gamma)\sum_{h=t+1}^{T(t)-1}\left(\gamma^{h-t-1}\rho_{t:h-1}\bar{G}_{t:h}\right)+\gamma^{T(t)-t-1}\rho_{t:T(t)-1}\bar{G}_{t:T(t)}\right]}{\vert\mathcal{T}(s)\vert}
+\end{equation}</li>
+  <li><strong>Discounting-aware WIS</strong> estimator
+\begin{equation}
+V(s)\doteq\dfrac{\sum_{t\in\mathcal{T}(s)}\left[(1-\gamma)\sum_{h=t+1}^{T(t)-1}\left(\gamma^{h-t-1}\rho_{t:h-1}\bar{G}_{t:h}\right)+\gamma^{T(t)-t-1}\rho_{t:T(t)-1}\bar{G}_{t:T(t)}\right]}{\sum_{t\in\mathcal{T}(s)}\left[(1-\gamma)\sum_{h=t+1}^{T(t)-1}\left(\gamma^{h-t-1}\rho_{t:h-1}\right)+\gamma^{T(t)-t-1}\rho_{t:T(t)-1}\right]}
+\end{equation}
+These two estimators take into account the discount rate $\gamma$ but have no effect if $\gamma=1$.</li>
+</ol>
+
+<h3 id="per-decision-is">Per-decision Importance Sampling</h3>
+<p>There is another way beside discounting-aware that may be able to reduce variance, even if $\gamma=1$.</p>
+
+<p>Recall that in the off-policy estimator \eqref{5} and \eqref{6}, each term of the sum in the numerator is itself a sum:
+\begin{align}
+\rho_{t:T-1}G_t&amp;=\rho_{t:T-1}\left(R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{T-t-1}R_T\right) \\ &amp;=\rho_{t:T-1}R_{t+1}+\gamma\rho_{t:T-1}R_{t+2}+\dots+\gamma^{T-t-1}\rho_{t:T-1}R_T\tag{7}\label{7}
+\end{align}
+We have that
+\begin{equation}
+\rho_{t:T-1}R_{t+k}=\dfrac{\pi(A_t|S_t)}{b(A_t|S_t)}\dots\dfrac{\pi(A_{t+k-1}|S_{t+k-1})}{b(A_{t+k-1}|S_{t+k-1})}\dots\dfrac{\pi(A_{T-1}|S_{T-1})}{b(A_{T-1}|S_{T-1})}R_{t+k}
+\end{equation}
+Of all these factors, only the first $k$ factors, $\frac{\pi(A_t|S_t)}{b(A_t|S_t)}\dots\frac{\pi(A_{t+k-1}|S_{t+k-1})}{b(A_{t+k-1}|S_{t+k-1})}$, and the last (the reward $R_{t+k}$) are related. All the others are for event that occurred after the reward. Moreover, we have that
+\begin{equation}
+\mathbb{E}\left[\dfrac{\pi(A_i|S_i)}{b(A_i|S_i)}\right]\doteq\sum_a b(a|S_i)\dfrac{\pi(a|S_i)}{b(a|S_i)}=1
+\end{equation} 
+Therefore, we obtain
+\begin{align}
+\mathbb{E}\Big[\rho_{t:T-1}R_{t+k}\Big]&amp;=\mathbb{E}\left[\dfrac{\pi(A_t|S_t)}{b(A_t|S_t)}\dots\dfrac{\pi(A_{t+k-1}|S_{t+k-1})}{b(A_{t+k-1}|S_{t+k-1})}\right]\mathbb{E}\left[\dfrac{\pi(A_k|S_k)}{b(A_k|S_k)}\right]\dots\mathbb{E}\left[\dfrac{\pi(A_{T-1}|S_{T-1})}{b(A_{T-1}|S_{T-1})}\right] \\ &amp;=\mathbb{E}\Big[\rho_{t:t+k-1}R_{t+k}\Big].1\dots 1 \\ &amp;=\mathbb{E}\Big[\rho_{t:t+k-1}R_{t+k}\Big]
+\end{align}
+Plug the result we just got into the expectation of \eqref{7}, we have
+\begin{align}
+\mathbb{E}\Big[\rho_{t:T-1}G_t\Big]&amp;=\mathbb{E}\Big[\rho_{t:T-1}R_{t+1}+\gamma\rho_{t:T-1}R_{t+2}+\dots+\gamma^{T-t-1}\rho_{t:T-1}R_T\Big] \\ &amp;=\mathbb{E}\Big[\rho_{t:t}R_{t+1}+\gamma\rho_{t:t+1}R_{t+2}+\dots+\gamma^{T-t-1}\rho_{t:T-1}R_T\Big] \\ &amp;=\mathbb{E}\Big[\tilde{G}_t\Big],
+\end{align}
+where $\tilde{G}_t=\rho_{t:T-1}R_{t+1}+\gamma\rho_{t:T-1}R_{t+2}+\dots+\gamma^{T-t-1}\rho_{t:T-1}R_T$.</p>
+
+<p>We call this idea <strong>per-decision IS</strong>. Hence, we develop <strong>per-decision OIS</strong> estimator, using $\tilde{G}_t$:
+\begin{equation}
+V(s)\doteq\dfrac{\sum_{t\in\mathcal{T}(s)}\tilde{G}_t}{\vert\mathcal{T}(s)\vert}
+\end{equation}</p>
 
 <h2 id="references">References</h2>
 <p>[1] Richard S. Sutton &amp; Andrew G. Barto. <a href="https://mitpress.mit.edu/books/reinforcement-learning-second-edition">Reinforcement Learning: An Introduction</a></p>
@@ -680,8 +758,6 @@ We begin by importing some useful packages.</p>
 <p>[9] Daphne Koller &amp; Nir Friedman. <a href="https://mitpress.mit.edu/books/probabilistic-graphical-models">Probabilistic Graphical Models: Principles and Techniques</a></p>
 
 <p>[10] A. Rupam Mahmood, Hado P. van Hasselt, Richard S. Sutton. <a href="https://papers.nips.cc/paper/2014/hash/be53ee61104935234b174e62a07e53cf-Abstract.html">Weighted importance sampling for off-policy learning with linear function approximation</a>. Advances in Neural Information Processing Systems 27 (NIPS 2014)</p>
-
-<p>[11]</p>
 
 <h2 id="footnotes">Footnotes</h2>
 <div class="footnotes" role="doc-endnotes">
@@ -747,10 +823,13 @@ We begin by importing some useful packages.</p>
     coll[i].addEventListener("click", function() {
       this.classList.toggle("active");
       var content = document.getElementById(this.id+"data");
+      var btn = document.getElementById(this.id)
       if (content.style.display === "block") {
         content.style.display = "none";
+        btn.innerText = "Click to show the code";
       } else {
         content.style.display = "block";
+        btn.innerText = "Click to hide the code"
       }
     });
   }

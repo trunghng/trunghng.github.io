@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Markov Decision Processes, Bellman equations" />
 <script type="application/ld+json">
-{"description":"Markov Decision Processes (MDPs), Bellman equations","headline":"Markov Decision Processes, Bellman equations","dateModified":"2021-06-27T08:00:00+07:00","datePublished":"2021-06-27T08:00:00+07:00","mainEntityOfPage":{"@type":"WebPage","@id":"/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html"},"url":"/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html","author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"description":"Markov Decision Processes (MDPs), Bellman equations","headline":"Markov Decision Processes, Bellman equations","dateModified":"2021-06-27T08:00:00+07:00","datePublished":"2021-06-27T08:00:00+07:00","url":"/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html","author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Trung&apos;s cabin" />
     
@@ -57,19 +57,19 @@
 </style>
 <style>
   .collapsible {
-    background-color: #777;
+    background-color: #A5CCF1;
     color: white;
     cursor: pointer;
-    padding: 18px;
-    width: 100%;
+    padding: 5px;
+    /*width: 100%;*/
     border: none;
-    text-align: left;
+    text-align: center;
     outline: none;
     font-size: 15px;
   }
 
   .active, .collapsible:hover {
-    background-color: #555;
+    background-color: #82B9EE;
   }
 
   .codePanel {
@@ -299,10 +299,13 @@ q_*(s,a)&amp;=\mathbb{E}\left[R_{t+1}+\gamma\max_{a’}q_*(S_{t+1},a’)|S_t=s,A
     coll[i].addEventListener("click", function() {
       this.classList.toggle("active");
       var content = document.getElementById(this.id+"data");
+      var btn = document.getElementById(this.id)
       if (content.style.display === "block") {
         content.style.display = "none";
+        btn.innerText = "Click to show the code";
       } else {
         content.style.display = "block";
+        btn.innerText = "Click to hide the code"
       }
     });
   }

@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Optimal Policy Existence" />
 <script type="application/ld+json">
-{"description":"the proof of the existence of optimal policy in finite markov decision processes (MDPs)","headline":"Optimal Policy Existence","dateModified":"2021-07-10T13:03:00+07:00","datePublished":"2021-07-10T13:03:00+07:00","mainEntityOfPage":{"@type":"WebPage","@id":"/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html"},"url":"/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html","author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"description":"the proof of the existence of optimal policy in finite markov decision processes (MDPs)","headline":"Optimal Policy Existence","dateModified":"2021-07-10T13:03:00+07:00","datePublished":"2021-07-10T13:03:00+07:00","url":"/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html","author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Trung&apos;s cabin" />
     
@@ -57,19 +57,19 @@
 </style>
 <style>
   .collapsible {
-    background-color: #777;
+    background-color: #A5CCF1;
     color: white;
     cursor: pointer;
-    padding: 18px;
-    width: 100%;
+    padding: 5px;
+    /*width: 100%;*/
     border: none;
-    text-align: left;
+    text-align: center;
     outline: none;
     font-size: 15px;
   }
 
   .active, .collapsible:hover {
-    background-color: #555;
+    background-color: #82B9EE;
   }
 
   .codePanel {
@@ -392,10 +392,13 @@ And finally,
     coll[i].addEventListener("click", function() {
       this.classList.toggle("active");
       var content = document.getElementById(this.id+"data");
+      var btn = document.getElementById(this.id)
       if (content.style.display === "block") {
         content.style.display = "none";
+        btn.innerText = "Click to show the code";
       } else {
         content.style.display = "block";
+        btn.innerText = "Click to hide the code"
       }
     });
   }

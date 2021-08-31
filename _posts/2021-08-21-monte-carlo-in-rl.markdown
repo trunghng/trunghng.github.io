@@ -29,6 +29,7 @@ comments: true
 	- [Off-policy Monte Carlo Control](#off-policy-mc-control)
 		- [Example - Racetrack](#example)
 	- [Discounting-aware Importance Sampling](#discounting-aware-is)
+	- [Per-decision Importance Sampling](#per-decision-is)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -40,7 +41,7 @@ comments: true
 
 <figure>
 	<img src="/assets/images/2021-08-21/mc-pi.gif" alt="monte carlo method" width="480" height="360px" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Using Monte Carlo method to approximate the value of $\pi$</figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Using Monte Carlo method to approximate the value of $\pi$. The code can be found <span markdown="1">[here](https://github.com/trunghng/monte-carlo-methods/blob/main/monte_carlo_pi.py)</span></figcaption>
 </figure><br/>
 
 Monte Carlo methods have been used in several different tasks:
@@ -250,9 +251,9 @@ V(s)\doteq\dfrac{\sum_{t\in\mathcal{T}(s)}\rho_{t:T(t)-1}G_t}{\vert\mathcal{T}(s
 \end{equation}
 where $\mathcal{T}(s)$ is the set of all states in which $s$ is visited (only for every-visit). For a first-visit,$\mathcal{T}(s)$ would only include time steps that were first visits to $s$ within their episodes. $T(t)$ denotes the first time of termination following time $t$, and $G_t$ denotes the return after $t$ up through $T(t)$.  
 
-When importance sampling is done as simple average in this way, we call it *ordinary importance sampling* (which corresponds to *unweighted importance sampling* in the previous section).  
+When importance sampling is done as simple average in this way, we call it *ordinary importance sampling* (OIS) (which corresponds to *unweighted importance sampling* in the previous section).  
 
-And the one corresponding to *weighted importance sampling*, which uses a weighted average, is defined as:
+And the one corresponding to *weighted importance sampling* (WIS), which uses a weighted average, is defined as:
 \begin{equation}
 V(s)\doteq\dfrac{\sum_{t\in\mathcal{T}(s)}\rho_{t:T(t)-1}G_t}{\sum_{t\in\mathcal{T}(s)}\rho_{t:T(t)-1}},\tag{6}\label{6}
 \end{equation}
@@ -270,9 +271,9 @@ NewEstimate\leftarrow OldEstimate+StepSize\left[Target-OldEstimate\right]
 
 ##### Applying to Off-policy MC Prediction using IS
 {: #applying-off-policy-is}
-In ordinary IS, the returns are scaled by the IS ratio $\rho_{t:T(t)-1}$, then simply averaged, as in \eqref{5}. Thus, it's easy to apply incremental method to ordinary IS.  
+In ordinary IS, the returns are scaled by the IS ratio $\rho_{t:T(t)-1}$, then simply averaged, as in \eqref{5}. Thus, it's easy to apply incremental method to OIS.  
 
-For weighted IS, as in the equation \eqref{6}, we have to form a weighted average of the returns, and a slightly different incremental incremental algorithm is required.
+For WIS, as in the equation \eqref{6}, we have to form a weighted average of the returns, and a slightly different incremental incremental algorithm is required.
 Suppose we have a sequence of returns $G_1,G_2,\dots,G_{n-1}$, all starting in the same state and each with a corresponding random weight $W_i$ (e.g., $W_i=\rho_{t_i:T(t_i)}$). We wish to form the estimate
 \begin{equation}
 V_n\doteq\dfrac{\sum_{k=1}^{n-1}W_kG_k}{\sum_{k=1}^{n-1}W_k},\hspace{1cm}n\geq2
@@ -293,18 +294,22 @@ where $C_0=0$. And here is pseudocode of our algorithm.
 
 ### Off-policy Monte Carlo Control
 {: #off-policy-mc-control}
-Similarly, we develop the algorithm for off-policy MC control, based on GPI and weighted IS, for estimating $\pi_\*$ and $q_\*$, which is shown below. The target policy $\pi\approx\pi_*$ is the greedy policy w.r.t $Q$, which is an estimate of $q_\pi$. The behavior policy, $b$, can be anything, but in order to assure convergence of $\pi$ to the optimal policy, an infinite number of returns must be obtained for each pair of state and action. This can be guaranteed by choosing $b$ to be $\varepsilon$-soft. The policy $\pi$ converges to optimal at all encountered states even though actions are selected according to a different soft policy $b$, which may change between or even within episodes.
+Similarly, we develop the algorithm for off-policy MC control, based on GPI and WIS, for estimating $\pi_\*$ and $q_\*$, which is shown below.
 <figure>
 	<img src="/assets/images/2021-08-21/off-policy-mc-control.png" alt="off-policy MC control pseudocode" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
 </figure>
+
+The target policy $\pi\approx\pi_*$ is the greedy policy w.r.t $Q$, which is an estimate of $q_\pi$. The behavior policy, $b$, can be anything, but in order to assure convergence of $\pi$ to the optimal policy, an infinite number of returns must be obtained for each pair of state and action. This can be guaranteed by choosing $b$ to be $\varepsilon$-soft.  
+
+The policy $\pi$ converges to optimal at all encountered states even though actions are selected according to a different soft policy $b$, which may change between or even within episodes.
 
 #### Example - Racetrack
 {: #example}
 (This example is taken from *Exercise 5.12*, *Reinforcement Learning: An Introduction* book.)  
 
 **Problem**  
-Consider driving a race car around a turn like those shown in ***Figure 4***. You want to go as fast as possible, but not so fast as to run off the track. In our simplified racetrack, the car is at one of a discrete set of grid positions, the cells in the diagram. The velocity is also discrete, a number of grid cells moved horizontally and vertically per time step. The actions are increments to the velocity components. Each may be changed by +1, -1, or 0 in each step, for a total of nine (3 x 3) actions. Both velocity components are restricted to be nonnegative and less than 5, and they cannot both be zero except at the starting line. Each episode begins in one of the randomly selected start states with both velocity components zero and ends when the car crosses the finish line. The rewards are -1 for each step until the car crosses the finish line. If the car hits the track boundary, it is moved back to a random position on the starting line, both velocity components are reduced to zero, and the episode continues. Before updating the car's location at each time step, check to see if the projected path of the car intersects the track boundary. If it intersects the finish line, the episode ends; if it intersects anywhere else, the car is considered to have hit the track boundary and is sent back to the starting line. To make the task more challenging, with probability 0.1 at each time step the velocity increments are both zero, independently of the intended increments. Apply a Monte Carlo control method to this task to compute the optimal policy from each starting state. Exhibit several trajectories following the optimal policy (but turn the noise off for these trajectories).
+Consider driving a race car around a turn like that shown in ***Figure 4***. You want to go as fast as possible, but not so fast as to run off the track. In our simplified racetrack, the car is at one of a discrete set of grid positions, the cells in the diagram. The velocity is also discrete, a number of grid cells moved horizontally and vertically per time step. The actions are increments to the velocity components. Each may be changed by +1, -1, or 0 in each step, for a total of nine (3 x 3) actions. Both velocity components are restricted to be nonnegative and less than 5, and they cannot both be zero except at the starting line. Each episode begins in one of the randomly selected start states with both velocity components zero and ends when the car crosses the finish line. The rewards are -1 for each step until the car crosses the finish line. If the car hits the track boundary, it is moved back to a random position on the starting line, both velocity components are reduced to zero, and the episode continues. Before updating the car's location at each time step, check to see if the projected path of the car intersects the track boundary. If it intersects the finish line, the episode ends; if it intersects anywhere else, the car is considered to have hit the track boundary and is sent back to the starting line. To make the task more challenging, with probability 0.1 at each time step the velocity increments are both zero, independently of the intended increments. Apply a Monte Carlo control method to this task to compute the optimal policy from each starting state. Exhibit several trajectories following the optimal policy (but turn the noise off for these trajectories).
 <figure>
 	<img src="/assets/images/2021-08-21/racetrack.png" alt="racetrack" width="200" height="300px" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: A turn for the racetrack task</figcaption>
@@ -313,7 +318,7 @@ Consider driving a race car around a turn like those shown in ***Figure 4***. Yo
 **Solution code**  
 The source code can be found [here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-5/racetrack.py).  
 
-<button type="button" class="collapsible" id="codeP">Click to show/hide the code</button>
+<button type="button" class="collapsible" id="codeP">Click to show the code</button>
 <div class="codePanel" id="codePdata" markdown="1">
 <br>
 We begin by importing some useful packages.
@@ -409,7 +414,7 @@ class RaceTrack:
 	def is_terminal(self):
 		return self.track[self.car_position[0], self.car_position[1]] == 2
 ```
-We continue with define our behavior policy and algorithm.
+We continue by defining our behavior policy and algorithm.
 ```python
 def behavior_policy(track, state):
 	index = np.random.choice(len(track.actions))
@@ -462,7 +467,7 @@ def off_policy_MC_control(episodes, gamma, grid):
 			W *= 1/(1-epsilon+epsilon/9)
 	return pi
 ```
-And we wrap everything up with the main function.
+And wrapping everything up with the main function.
 ```python
 if __name__ == '__main__':
 	gamma = 0.9
@@ -526,7 +531,78 @@ We end up with this result after running the code.
 </figure><br/>
 
 ### Discounting-aware Importance Sampling
-{: ##discounting-aware-is}
+{: #discounting-aware-is}
+Recall that in the above [section](#is), we defined the estimator for $\mathbb{E}\_P[f]$ as:
+\begin{equation}
+\hat{\mathbb{E}}\_\mathcal{D}(f)=\dfrac{1}{M}\sum_{m=1}^{M}f(x[m])\dfrac{P(x[m])}{Q(x[m])}
+\end{equation}
+This estimator is unbiased because each of the samples it averages is unbiased:
+\begin{equation}
+\mathbb{E}\_{Q}\left[\dfrac{P(x[m])}{Q(x[m])}f(x[m])\right]=\int_x Q(x)\dfrac{P(x)}{Q(x)}f(x)\,dx=\int_x P(x)f(x)\,dx=\mathbb{E}\_{P}\left[f(x[m])\right]
+\end{equation}
+This IS estimate is unfortunately often of unnecessarily high variance. To be more specific, for example, the episodes last 100 steps and $\gamma=0$. Then $G_0=R_1$ will be weighted by
+\begin{equation}
+\rho_{0:99}=\dfrac{\pi(A_0|S_0)}{b(A_0|S_0)}\dots\dfrac{\pi(A_{99}|S_{99})}{b(A_{99}|S_{99})}
+\end{equation}
+but actually, it really needs to be weighted by
+$\rho_{0:1}=\frac{\pi(A_0|S_0)}{b(A_0|S_0)}$.
+The other 99 factors $\frac{\pi(A_1|S_1)}{b(A_1|S_1)}\dots\frac{\pi(A_{99}|S_{99})}{b(A_{99}|S_{99})}$ are irrelevant because after the first reward, the return has already been determined. These later factors are all independent of the return and of expected value $1$; they do not change the expected update, but they add enormously to its variance. They could even make the variance *infinite* in some cases.
+<figure>
+	<img src="/assets/images/2021-08-21/inf-var.png" alt="infinite variance" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 6</b>: Infinite variance</figcaption>
+</figure><br/>
+
+One of the methods used to avoid this large extraneous variance is **discounting-aware IS**. The idea is to think of discounting as determining a probability of termination or, equivalently, a *degree* of partial termination.  
+
+We begin by defining *flat partial returns*:
+\begin{equation}
+\bar{G}\_{t:h}\doteq R_{t+1}+R_{t+2}+\dots+R_h,\hspace{1cm}0\leq t\<h\leq T,
+\end{equation}
+where ''flat" denotes the absence of discounting, and ''partial" denotes that these returns do not extend all the way to termination but instead stop at $h$, called the *horizon*. The conventional full return $G_t$ can be viewed as a *sum of flat partial returns*:
+\begin{align}
+G_t&\doteq R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+\dots+\gamma^{T-t-1}R_T \\\\ &=(1-\gamma)R_{t+1} \\\\ &\hspace{0.5cm}+(1-\gamma)\gamma(R_{t+1}+R_{t+2}) \\\\ &\hspace{0.5cm}+(1-\gamma)\gamma^2(R_{t+1}+R_{t+2}+R_{t+3}) \\\\ &\hspace{0.7cm}\vdots \\\\ &\hspace{0.5cm}+(1-\gamma)\gamma^{T-t-2}(R_{t+1}+R_{t+2}+\dots+R_{T-1}) \\\\ &\hspace{0.5cm}+\gamma^{T-t-1}(R_{t+1}+R_{t+2}+\dots+R_T) \\\\ &=(1-\gamma)\left[\sum_{h=t+1}^{T-1}\gamma^{h-t-1}\bar{G}\_{t:h}\right]+\gamma^{T-t-1}\bar{G}\_{t:T}
+\end{align}
+Now we need to scale the *flat partial returns* by an *IS ratio* that is similarly truncated. As $\bar{G}\_{t:h}$ only involves rewards up to a horizon $h$, we only need the ratio of the probabilities up to $h$. We define:
+1. **Discounting-aware OIS** estimator
+\begin{equation}
+V(s)\doteq\dfrac{\sum_{t\in\mathcal{T}(s)}\left[(1-\gamma)\sum_{h=t+1}^{T(t)-1}\left(\gamma^{h-t-1}\rho_{t:h-1}\bar{G}\_{t:h}\right)+\gamma^{T(t)-t-1}\rho_{t:T(t)-1}\bar{G}\_{t:T(t)}\right]}{\vert\mathcal{T}(s)\vert}
+\end{equation}
+2. **Discounting-aware WIS** estimator
+\begin{equation}
+V(s)\doteq\dfrac{\sum_{t\in\mathcal{T}(s)}\left[(1-\gamma)\sum_{h=t+1}^{T(t)-1}\left(\gamma^{h-t-1}\rho_{t:h-1}\bar{G}\_{t:h}\right)+\gamma^{T(t)-t-1}\rho_{t:T(t)-1}\bar{G}\_{t:T(t)}\right]}{\sum_{t\in\mathcal{T}(s)}\left[(1-\gamma)\sum_{h=t+1}^{T(t)-1}\left(\gamma^{h-t-1}\rho_{t:h-1}\right)+\gamma^{T(t)-t-1}\rho_{t:T(t)-1}\right]}
+\end{equation}
+These two estimators take into account the discount rate $\gamma$ but have no effect if $\gamma=1$.
+
+### Per-decision Importance Sampling
+{: #per-decision-is}
+There is another way beside discounting-aware that may be able to reduce variance, even if $\gamma=1$.  
+
+Recall that in the off-policy estimator \eqref{5} and \eqref{6}, each term of the sum in the numerator is itself a sum:
+\begin{align}
+\rho_{t:T-1}G_t&=\rho_{t:T-1}\left(R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{T-t-1}R_T\right) \\\\ &=\rho_{t:T-1}R_{t+1}+\gamma\rho_{t:T-1}R_{t+2}+\dots+\gamma^{T-t-1}\rho_{t:T-1}R_T\tag{7}\label{7}
+\end{align}
+We have that
+\begin{equation}
+\rho_{t:T-1}R_{t+k}=\dfrac{\pi(A_t|S_t)}{b(A_t|S_t)}\dots\dfrac{\pi(A_{t+k-1}|S_{t+k-1})}{b(A_{t+k-1}|S_{t+k-1})}\dots\dfrac{\pi(A_{T-1}|S_{T-1})}{b(A_{T-1}|S_{T-1})}R_{t+k}
+\end{equation}
+Of all these factors, only the first $k$ factors, $\frac{\pi(A_t|S_t)}{b(A_t|S_t)}\dots\frac{\pi(A_{t+k-1}|S_{t+k-1})}{b(A_{t+k-1}|S_{t+k-1})}$, and the last (the reward $R_{t+k}$) are related. All the others are for event that occurred after the reward. Moreover, we have that
+\begin{equation}
+\mathbb{E}\left[\dfrac{\pi(A_i|S_i)}{b(A_i|S_i)}\right]\doteq\sum_a b(a|S_i)\dfrac{\pi(a|S_i)}{b(a|S_i)}=1
+\end{equation} 
+Therefore, we obtain
+\begin{align}
+\mathbb{E}\Big[\rho_{t:T-1}R_{t+k}\Big]&=\mathbb{E}\left[\dfrac{\pi(A_t|S_t)}{b(A_t|S_t)}\dots\dfrac{\pi(A_{t+k-1}|S_{t+k-1})}{b(A_{t+k-1}|S_{t+k-1})}\right]\mathbb{E}\left[\dfrac{\pi(A_k|S_k)}{b(A_k|S_k)}\right]\dots\mathbb{E}\left[\dfrac{\pi(A_{T-1}|S_{T-1})}{b(A_{T-1}|S_{T-1})}\right] \\\\ &=\mathbb{E}\Big[\rho_{t:t+k-1}R_{t+k}\Big].1\dots 1 \\\\ &=\mathbb{E}\Big[\rho_{t:t+k-1}R_{t+k}\Big]
+\end{align}
+Plug the result we just got into the expectation of \eqref{7}, we have
+\begin{align}
+\mathbb{E}\Big[\rho_{t:T-1}G_t\Big]&=\mathbb{E}\Big[\rho_{t:T-1}R_{t+1}+\gamma\rho_{t:T-1}R_{t+2}+\dots+\gamma^{T-t-1}\rho_{t:T-1}R_T\Big] \\\\ &=\mathbb{E}\Big[\rho_{t:t}R_{t+1}+\gamma\rho_{t:t+1}R_{t+2}+\dots+\gamma^{T-t-1}\rho_{t:T-1}R_T\Big] \\\\ &=\mathbb{E}\Big[\tilde{G}\_t\Big],
+\end{align}
+where $\tilde{G}\_t=\rho_{t:T-1}R_{t+1}+\gamma\rho_{t:T-1}R_{t+2}+\dots+\gamma^{T-t-1}\rho_{t:T-1}R_T$.  
+
+We call this idea **per-decision IS**. Hence, we develop **per-decision OIS** estimator, using $\tilde{G}\_t$:
+\begin{equation}
+V(s)\doteq\dfrac{\sum_{t\in\mathcal{T}(s)}\tilde{G}\_t}{\vert\mathcal{T}(s)\vert}
+\end{equation}
 
 ## References
 [1] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition)  
@@ -548,10 +624,6 @@ We end up with this result after running the code.
 [9] Daphne Koller & Nir Friedman. [Probabilistic Graphical Models: Principles and Techniques](https://mitpress.mit.edu/books/probabilistic-graphical-models)  
 
 [10] A. Rupam Mahmood, Hado P. van Hasselt, Richard S. Sutton. [Weighted importance sampling for off-policy learning with linear function approximation](https://papers.nips.cc/paper/2014/hash/be53ee61104935234b174e62a07e53cf-Abstract.html). Advances in Neural Information Processing Systems 27 (NIPS 2014)
-
-[11]
-
-
 
 ## Footnotes
 [^1]: We are gonna talk about Monte Carlo methods in more detail in another post.
