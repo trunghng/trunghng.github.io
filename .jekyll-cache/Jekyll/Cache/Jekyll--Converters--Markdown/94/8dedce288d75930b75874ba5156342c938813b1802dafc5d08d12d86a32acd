@@ -1,4 +1,4 @@
-I"�<blockquote>
+I"�%<blockquote>
   <p>Recall that in the previous post, <a href="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html"><strong>Dynamic Programming Algorithms For Solving Markov Decision Processes</strong></a>, we made an assumption about the complete knowledge of the environment. With <strong>Monte Carlo</strong> methods, we only require <em>experience</em> - sample sequences of states, actions, and rewards from simulated or real interaction with an environment.</p>
 </blockquote>
 
@@ -42,6 +42,7 @@
         </ul>
       </li>
       <li><a href="#discounting-aware-is">Discounting-aware Importance Sampling</a></li>
+      <li><a href="#per-decision-is">Per-decision Importance Sampling</a></li>
     </ul>
   </li>
   <li><a href="#references">References</a></li>
@@ -53,7 +54,7 @@
 
 <figure>
 	<img src="/assets/images/2021-08-21/mc-pi.gif" alt="monte carlo method" width="480" height="360px" style="display: block; margin-left: auto; margin-right: auto;" />
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Using Monte Carlo method to approximate the value of $\pi$</figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Using Monte Carlo method to approximate the value of $\pi$. The code can be found <span><a href="https://github.com/trunghng/monte-carlo-methods/blob/main/monte_carlo_pi.py">here</a></span></figcaption>
 </figure>
 <p><br /></p>
 
@@ -343,7 +344,7 @@ Consider driving a race car around a turn like that shown in <strong><em>Figure 
 <p><strong>Solution code</strong><br />
 The source code can be found <a href="https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-5/racetrack.py">here</a>.</p>
 
-<p><button type="button" class="collapsible" id="codeP">Click to show/hide the code</button></p>
+<p><button type="button" class="collapsible" id="codeP">Click to show the code</button></p>
 <div class="codePanel" id="codePdata">
   <p><br />
 We begin by importing some useful packages.</p>
@@ -552,7 +553,7 @@ We begin by importing some useful packages.</p>
 </figure>
 <p><br /></p>
 
-<h3 id="discounting-aware-importance-sampling">Discounting-aware Importance Sampling</h3>
+<h3 id="discounting-aware-is">Discounting-aware Importance Sampling</h3>
 <p>Recall that in the above <a href="#is">section</a>, we defined the estimator for $\mathbb{E}_P[f]$ as:
 \begin{equation}
 \hat{\mathbb{E}}_\mathcal{D}(f)=\dfrac{1}{M}\sum_{m=1}^{M}f(x[m])\dfrac{P(x[m])}{Q(x[m])}
@@ -566,8 +567,66 @@ This IS estimate is unfortunately often of unnecessarily high variance. To be mo
 \rho_{0:99}=\dfrac{\pi(A_0|S_0)}{b(A_0|S_0)}\dots\dfrac{\pi(A_{99}|S_{99})}{b(A_{99}|S_{99})}
 \end{equation}
 but actually, it really needs to be weighted by
-\rho_{0:1}=\dfrac{\pi(A_0|S_0)}{b(A_0|S_0)}
-The other 99 factors $\frac{\pi(A_1|S_1)}{b(A_1|S_1)}\dots\frac{\pi(A_{99}|S_{99})}{b(A_{99}|S_{99})}$ are irrelevant because after the first reward, the return has already been determined. These later factors are all independent of the return and of expected value $1$; they do not change the expected update, but they add enormously to its variance. They could even make the variance infinite in some cases.</p>
+$\rho_{0:1}=\frac{\pi(A_0|S_0)}{b(A_0|S_0)}$.
+The other 99 factors $\frac{\pi(A_1|S_1)}{b(A_1|S_1)}\dots\frac{\pi(A_{99}|S_{99})}{b(A_{99}|S_{99})}$ are irrelevant because after the first reward, the return has already been determined. These later factors are all independent of the return and of expected value $1$; they do not change the expected update, but they add enormously to its variance. They could even make the variance <em>infinite</em> in some cases.</p>
+<figure>
+	<img src="/assets/images/2021-08-21/inf-var.png" alt="infinite variance" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 6</b>: Infinite variance when using OIS (Eg5.5 - RL: An Introduction book). The code can be found <span><a href="https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-5/infinite-variance.py">here</a></span></figcaption>
+</figure>
+<p><br /></p>
+
+<p>One of the methods used to avoid this large extraneous variance is <strong>discounting-aware IS</strong>. The idea is to think of discounting as determining a probability of termination or, equivalently, a <em>degree</em> of partial termination.</p>
+
+<p>We begin by defining <em>flat partial returns</em>:
+\begin{equation}
+\bar{G}_{t:h}\doteq R_{t+1}+R_{t+2}+\dots+R_h,\hspace{1cm}0\leq t&lt;h\leq T,
+\end{equation}
+where ‘‘flat” denotes the absence of discounting, and ‘‘partial” denotes that these returns do not extend all the way to termination but instead stop at $h$, called the <em>horizon</em>. The conventional full return $G_t$ can be viewed as a <em>sum of flat partial returns</em>:
+\begin{align}
+G_t&amp;\doteq R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+\dots+\gamma^{T-t-1}R_T \\ &amp;=(1-\gamma)R_{t+1} \\ &amp;\hspace{0.5cm}+(1-\gamma)\gamma(R_{t+1}+R_{t+2}) \\ &amp;\hspace{0.5cm}+(1-\gamma)\gamma^2(R_{t+1}+R_{t+2}+R_{t+3}) \\ &amp;\hspace{0.7cm}\vdots \\ &amp;\hspace{0.5cm}+(1-\gamma)\gamma^{T-t-2}(R_{t+1}+R_{t+2}+\dots+R_{T-1}) \\ &amp;\hspace{0.5cm}+\gamma^{T-t-1}(R_{t+1}+R_{t+2}+\dots+R_T) \\ &amp;=(1-\gamma)\left[\sum_{h=t+1}^{T-1}\gamma^{h-t-1}\bar{G}_{t:h}\right]+\gamma^{T-t-1}\bar{G}_{t:T}
+\end{align}
+Now we need to scale the <em>flat partial returns</em> by an <em>IS ratio</em> that is similarly truncated. As $\bar{G}_{t:h}$ only involves rewards up to a horizon $h$, we only need the ratio of the probabilities up to $h$. We define:</p>
+<ol>
+  <li><strong>Discounting-aware OIS</strong> estimator
+\begin{equation}
+V(s)\doteq\dfrac{\sum_{t\in\mathcal{T}(s)}\left[(1-\gamma)\sum_{h=t+1}^{T(t)-1}\left(\gamma^{h-t-1}\rho_{t:h-1}\bar{G}_{t:h}\right)+\gamma^{T(t)-t-1}\rho_{t:T(t)-1}\bar{G}_{t:T(t)}\right]}{\vert\mathcal{T}(s)\vert}
+\end{equation}</li>
+  <li><strong>Discounting-aware WIS</strong> estimator
+\begin{equation}
+V(s)\doteq\dfrac{\sum_{t\in\mathcal{T}(s)}\left[(1-\gamma)\sum_{h=t+1}^{T(t)-1}\left(\gamma^{h-t-1}\rho_{t:h-1}\bar{G}_{t:h}\right)+\gamma^{T(t)-t-1}\rho_{t:T(t)-1}\bar{G}_{t:T(t)}\right]}{\sum_{t\in\mathcal{T}(s)}\left[(1-\gamma)\sum_{h=t+1}^{T(t)-1}\left(\gamma^{h-t-1}\rho_{t:h-1}\right)+\gamma^{T(t)-t-1}\rho_{t:T(t)-1}\right]}
+\end{equation}
+These two estimators take into account the discount rate $\gamma$ but have no effect if $\gamma=1$.</li>
+</ol>
+
+<h3 id="per-decision-is">Per-decision Importance Sampling</h3>
+<p>There is another way beside discounting-aware that may be able to reduce variance, even if $\gamma=1$.</p>
+
+<p>Recall that in the off-policy estimator \eqref{5} and \eqref{6}, each term of the sum in the numerator is itself a sum:
+\begin{align}
+\rho_{t:T-1}G_t&amp;=\rho_{t:T-1}\left(R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{T-t-1}R_T\right) \\ &amp;=\rho_{t:T-1}R_{t+1}+\gamma\rho_{t:T-1}R_{t+2}+\dots+\gamma^{T-t-1}\rho_{t:T-1}R_T\tag{7}\label{7}
+\end{align}
+We have that
+\begin{equation}
+\rho_{t:T-1}R_{t+k}=\dfrac{\pi(A_t|S_t)}{b(A_t|S_t)}\dots\dfrac{\pi(A_{t+k-1}|S_{t+k-1})}{b(A_{t+k-1}|S_{t+k-1})}\dots\dfrac{\pi(A_{T-1}|S_{T-1})}{b(A_{T-1}|S_{T-1})}R_{t+k}
+\end{equation}
+Of all these factors, only the first $k$ factors, $\frac{\pi(A_t|S_t)}{b(A_t|S_t)}\dots\frac{\pi(A_{t+k-1}|S_{t+k-1})}{b(A_{t+k-1}|S_{t+k-1})}$, and the last (the reward $R_{t+k}$) are related. All the others are for event that occurred after the reward. Moreover, we have that
+\begin{equation}
+\mathbb{E}\left[\dfrac{\pi(A_i|S_i)}{b(A_i|S_i)}\right]\doteq\sum_a b(a|S_i)\dfrac{\pi(a|S_i)}{b(a|S_i)}=1
+\end{equation} 
+Therefore, we obtain
+\begin{align}
+\mathbb{E}\Big[\rho_{t:T-1}R_{t+k}\Big]&amp;=\mathbb{E}\left[\dfrac{\pi(A_t|S_t)}{b(A_t|S_t)}\dots\dfrac{\pi(A_{t+k-1}|S_{t+k-1})}{b(A_{t+k-1}|S_{t+k-1})}\right]\mathbb{E}\left[\dfrac{\pi(A_k|S_k)}{b(A_k|S_k)}\right]\dots\mathbb{E}\left[\dfrac{\pi(A_{T-1}|S_{T-1})}{b(A_{T-1}|S_{T-1})}\right] \\ &amp;=\mathbb{E}\Big[\rho_{t:t+k-1}R_{t+k}\Big].1\dots 1 \\ &amp;=\mathbb{E}\Big[\rho_{t:t+k-1}R_{t+k}\Big]
+\end{align}
+Plug the result we just got into the expectation of \eqref{7}, we have
+\begin{align}
+\mathbb{E}\Big[\rho_{t:T-1}G_t\Big]&amp;=\mathbb{E}\Big[\rho_{t:T-1}R_{t+1}+\gamma\rho_{t:T-1}R_{t+2}+\dots+\gamma^{T-t-1}\rho_{t:T-1}R_T\Big] \\ &amp;=\mathbb{E}\Big[\rho_{t:t}R_{t+1}+\gamma\rho_{t:t+1}R_{t+2}+\dots+\gamma^{T-t-1}\rho_{t:T-1}R_T\Big] \\ &amp;=\mathbb{E}\Big[\tilde{G}_t\Big],
+\end{align}
+where $\tilde{G}_t=\rho_{t:T-1}R_{t+1}+\gamma\rho_{t:T-1}R_{t+2}+\dots+\gamma^{T-t-1}\rho_{t:T-1}R_T$.</p>
+
+<p>We call this idea <strong>per-decision IS</strong>. Hence, we develop <strong>per-decision OIS</strong> estimator, using $\tilde{G}_t$:
+\begin{equation}
+V(s)\doteq\dfrac{\sum_{t\in\mathcal{T}(s)}\tilde{G}_t}{\vert\mathcal{T}(s)\vert}
+\end{equation}</p>
 
 <h2 id="references">References</h2>
 <p>[1] Richard S. Sutton &amp; Andrew G. Barto. <a href="https://mitpress.mit.edu/books/reinforcement-learning-second-edition">Reinforcement Learning: An Introduction</a></p>
@@ -589,8 +648,6 @@ The other 99 factors $\frac{\pi(A_1|S_1)}{b(A_1|S_1)}\dots\frac{\pi(A_{99}|S_{99
 <p>[9] Daphne Koller &amp; Nir Friedman. <a href="https://mitpress.mit.edu/books/probabilistic-graphical-models">Probabilistic Graphical Models: Principles and Techniques</a></p>
 
 <p>[10] A. Rupam Mahmood, Hado P. van Hasselt, Richard S. Sutton. <a href="https://papers.nips.cc/paper/2014/hash/be53ee61104935234b174e62a07e53cf-Abstract.html">Weighted importance sampling for off-policy learning with linear function approximation</a>. Advances in Neural Information Processing Systems 27 (NIPS 2014)</p>
-
-<p>[11]</p>
 
 <h2 id="footnotes">Footnotes</h2>
 <div class="footnotes" role="doc-endnotes">

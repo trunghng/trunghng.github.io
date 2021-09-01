@@ -1,4 +1,4 @@
-I"|<blockquote>
+I"ý{<blockquote>
   <p>In two previous posts, <a href="/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html"><strong>Markov Decision Process (MDP) and Bellman equations</strong></a> and <a href="/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html"><strong>Optimal Policy Existence</strong></a>, we have known how MDPs, Bellman equations are defined and how they work. In this post, we are going to talk about how these MDPs are solved with <strong>Dynamic Programming</strong>.</p>
 </blockquote>
 
@@ -166,7 +166,7 @@ The evaluation and improvement processes in GPI can be viewed as both competing 
 <p><strong>Solution code</strong><br />
 The code can be found <a href="https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-4/gambler.py">here</a>.</p>
 
-<p><button type="button" class="collapsible" id="codeP">Click to show/hide the code</button></p>
+<p><button type="button" class="collapsible" id="codeP">Click to show the code</button></p>
 <div class="codePanel" id="codePdata">
   <p><br /></p>
 
