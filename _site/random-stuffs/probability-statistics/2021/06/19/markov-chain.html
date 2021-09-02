@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Markov Chain" />
 <script type="application/ld+json">
-{"description":"Markov chain","headline":"Markov Chain","dateModified":"2021-06-19T22:27:00+07:00","datePublished":"2021-06-19T22:27:00+07:00","url":"/random-stuffs/probability-statistics/2021/06/19/markov-chain.html","author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/random-stuffs/probability-statistics/2021/06/19/markov-chain.html"},"@context":"https://schema.org"}</script>
+{"description":"Markov chain","headline":"Markov Chain","dateModified":"2021-06-19T22:27:00+07:00","datePublished":"2021-06-19T22:27:00+07:00","mainEntityOfPage":{"@type":"WebPage","@id":"/random-stuffs/probability-statistics/2021/06/19/markov-chain.html"},"url":"/random-stuffs/probability-statistics/2021/06/19/markov-chain.html","author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Trung&apos;s cabin" />
     
@@ -52,9 +52,12 @@
 </header>
 <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <style>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:400,900,900i" rel="stylesheet">
+<style>
 @import "/assets/css/default.css"
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <style>
   .collapsible {
     background-color: #A5CCF1;
@@ -78,7 +81,45 @@
     overflow: hidden;
     background-color: #f1f1f1;
   }
+  
+  #button {
+    display: inline-block;
+    background-color: #A5CCF1;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border-radius: 4px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    transition: background-color .3s, 
+      opacity .5s, visibility .5s;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+  }
+  #button::after {
+    content: "\f077";
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 2em;
+    line-height: 50px;
+    color: #fff;
+  }
+  #button:hover {
+    cursor: pointer;
+    background-color: #333;
+  }
+  #button:active {
+    background-color: #555;
+  }
+  #button.show {
+    opacity: 1;
+    visibility: visible;
+  }
 </style>
+<a id="button"></a>
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
@@ -287,6 +328,21 @@ for all states $i,j$. This equation is called <em>reversibility</em> or <em>deta
       }
     });
   }
+
+  var btn = $('#button');
+
+  $(window).scroll(function() {
+    if ($(window).scrollTop() > 300) {
+      btn.addClass('show');
+    } else {
+      btn.removeClass('show');
+    }
+  });
+
+  btn.on('click', function(e) {
+    e.preventDefault();
+    $('html, body').animate({scrollTop:0}, '300');
+  });
 </script>
 
       </div>
