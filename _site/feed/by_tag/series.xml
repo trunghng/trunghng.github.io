@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/series.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-08T15:08:47+07:00</updated><id>/feed/by_tag/series.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/series.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-08T15:32:48+07:00</updated><id>/feed/by_tag/series.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Infinite Series of Constants</title><link href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html" rel="alternate" type="text/html" title="Infinite Series of Constants" /><published>2021-09-06T11:20:00+07:00</published><updated>2021-09-06T11:20:00+07:00</updated><id>/mathematics/calculus/2021/09/06/infinite-series-of-constants</id><content type="html" xml:base="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html">&lt;blockquote&gt;
   &lt;p&gt;No idea what to say yet :D&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -116,6 +116,20 @@ The series \eqref{5} is said to be &lt;strong&gt;convergent&lt;/strong&gt; if th
 \sum_{n=1}^{\infty}a_n=s
 \end{equation}
 If the series does not converge, we say that it &lt;strong&gt;diverges&lt;/strong&gt; or is &lt;strong&gt;divergent&lt;/strong&gt;, and no sum is assigned to it.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Examples&lt;/strong&gt; (&lt;em&gt;harmonic series&lt;/em&gt;)&lt;br /&gt;
+Let’s consider the convergence of &lt;em&gt;harmonic series&lt;/em&gt;
+\begin{equation}
+\sum_{n=1}^{\infty}\frac{1}{n}=1+\frac{1}{2}+\frac{1}{3}+\ldots\tag{6}\label{6}
+\end{equation}
+Let $m$ be a positive integer and choose $n&amp;gt;2^{m+1}$. We have
+\begin{align}
+s_n&amp;amp;&amp;gt;1+\frac{1}{2}+\frac{1}{3}+\frac{1}{4}+\dots+\frac{1}{2^{m+1}} \\ &amp;amp;=\left(1+\frac{1}{2}\right)+\left(\frac{1}{3}+\frac{1}{4}\right)+\left(\frac{1}{5}+\ldots+\frac{1}{8}\right)+\ldots+\left(\frac{1}{2^m+1}+\ldots+\frac{1}{2^{m+1}}\right) \\ &amp;amp;&amp;gt;\frac{1}{2}+2.\frac{1}{4}+4.\frac{1}{8}+\ldots+2^m.\frac{1}{2^{m+1}} \\ &amp;amp;=(m+1)\frac{1}{2}
+\end{align}
+This proves that $s_n$ can be made larger than the sum of any number of $\frac{1}{2}$’s and therefore as large as we please, by taking $n$ large enough, so the $\{s_n\}$ are unbounded, which leads to that \eqref{6} is a divergent series.
+\begin{equation}
+\sum_{n=1}^{\infty}\frac{1}{n}=1+\frac{1}{2}+\frac{1}{3}+\ldots=\infty
+\end{equation}&lt;/p&gt;
 
 &lt;p&gt;The simplest general principle that is useful to study the convergence of a series is the &lt;strong&gt;$\mathbf{n}$-th term test&lt;/strong&gt;.&lt;/p&gt;
 

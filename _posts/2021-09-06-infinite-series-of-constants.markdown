@@ -104,7 +104,22 @@ The series \eqref{5} is said to be **convergent** if the sequences $\\{s_n\\}$ c
 \begin{equation}
 \sum_{n=1}^{\infty}a_n=s
 \end{equation}
-If the series does not converge, we say that it **diverges** or is **divergent**, and no sum is assigned to it.  
+If the series does not converge, we say that it **diverges** or is **divergent**, and no sum is assigned to it.
+
+**Examples** (*harmonic series*)  
+Let's consider the convergence of *harmonic series*
+\begin{equation}
+\sum_{n=1}^{\infty}\frac{1}{n}=1+\frac{1}{2}+\frac{1}{3}+\ldots\tag{6}\label{6}
+\end{equation}
+Let $m$ be a positive integer and choose $n>2^{m+1}$. We have
+\begin{align}
+s_n&>1+\frac{1}{2}+\frac{1}{3}+\frac{1}{4}+\dots+\frac{1}{2^{m+1}} \\\\ &=\left(1+\frac{1}{2}\right)+\left(\frac{1}{3}+\frac{1}{4}\right)+\left(\frac{1}{5}+\ldots+\frac{1}{8}\right)+\ldots+\left(\frac{1}{2^m+1}+\ldots+\frac{1}{2^{m+1}}\right) \\\\ &>\frac{1}{2}+2.\frac{1}{4}+4.\frac{1}{8}+\ldots+2^m.\frac{1}{2^{m+1}} \\\\ &=(m+1)\frac{1}{2}
+\end{align}
+This proves that $s_n$ can be made larger than the sum of any number of $\frac{1}{2}$'s and therefore as large as we please, by taking $n$ large enough, so the $\\{s_n\\}$ are unbounded, which leads to that \eqref{6} is a divergent series.
+\begin{equation}
+\sum_{n=1}^{\infty}\frac{1}{n}=1+\frac{1}{2}+\frac{1}{3}+\ldots=\infty
+\end{equation}
+
 
 The simplest general principle that is useful to study the convergence of a series is the **$\mathbf{n}$-th term test**.
 
