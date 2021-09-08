@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/calculus.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-08T15:32:48+07:00</updated><id>/feed/by_tag/calculus.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/calculus.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-08T17:36:42+07:00</updated><id>/feed/by_tag/calculus.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Infinite Series of Constants</title><link href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html" rel="alternate" type="text/html" title="Infinite Series of Constants" /><published>2021-09-06T11:20:00+07:00</published><updated>2021-09-06T11:20:00+07:00</updated><id>/mathematics/calculus/2021/09/06/infinite-series-of-constants</id><content type="html" xml:base="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html">&lt;blockquote&gt;
   &lt;p&gt;No idea what to say yet :D&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -22,6 +22,7 @@
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#gen-props-conv-series&quot;&gt;General Properties of Convergent Series&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#series-nonneg-ct&quot;&gt;Series of Nonnegative terms. Comparison Tests&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -42,7 +43,7 @@ a_1+a_2+\dots+a_n+\dots=\sum_{n=1}^{\infty}a_n
 where $a_i\in\{0,1,\dots,9\}$.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;em&gt;Power series expansion&lt;/em&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;em&gt;Power series expansion&lt;/em&gt;&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
     &lt;ul&gt;
       &lt;li&gt;We have
 \begin{equation}
@@ -144,10 +145,44 @@ a_n=s_n-s_{n-1}\to s-s=0
 This result shows that $a_n\to0$ is a necessary condition for convergence. However, it is not a sufficient condition; i.e., it does not imply the convergence of the series when $a_n\to0$ as $n\to\infty$.&lt;/p&gt;
 
 &lt;h2 id=&quot;gen-props-conv-series&quot;&gt;General Properties of Convergent Series&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Any finite number of 0’s can be inserted or removed anywhere in a series without affecting its convergence behavior or its sum (in case it converges).&lt;/li&gt;
+  &lt;li&gt;When two convergent series are added term by term, the resulting series converges to the expected sum; i.e., if $\sum_{n=1}^{\infty}a_n=s$ and $\sum_{n=1}^{\infty}b_n=t$, then
+\begin{equation}
+\sum_{n=1}^{\infty}(a_n+b_n)=s+t
+\end{equation}
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
+  Let $\{s_n\}$ and $\{t_n\}$ respectively be the sequences of partial sums of $\sum_{n=1}^{\infty}a_n$ and $\sum_{n=1}^{\infty}b_n$. As $n\to\infty$ we have
+  \begin{align}
+  (a_1+b_1)+(a_2+b_2)+\dots+(a_n+b_n)&amp;amp;=\sum_{i=1}^{n}a_i+\sum_{i=1}^{n}b_i \\ &amp;amp;=s_n+t_n\to s+t
+  \end{align}&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Similarly, $\sum_{n=1}^{\infty}(a_n-b_n)=s-t$ and $\sum_{n=1}^{\infty}ca_n=cs$ for any constant $c$.&lt;/li&gt;
+  &lt;li&gt;Any finite number of terms can be added or subtracted at the beginning of a convergent series without disturbing its convergence, and the sum of various series are related in the expected way.
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
+  If $\sum_{n=1}^{\infty}a_n=s$, then
+  \begin{equation}
+  \lim_{n\to\infty}(a_0+a_1+a_2+\dots+a_n)=\lim_{n\to\infty} a_0+\lim_{n\to\infty}(a_1+a_2+\dots+a_n)=a_0+s
+  \end{equation}&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;series-nonneg-ct&quot;&gt;Series of Nonnegative terms. Comparison Tests&lt;/h2&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] George F.Simmons. &lt;a href=&quot;https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424&quot;&gt;Calculus With Analytic Geometry - 2nd Edition&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;[2] MIT 18.01. &lt;a href=&quot;https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/&quot;&gt;Single Variable Calculus&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="calculus" /><category term="mathematics" /><category term="calculus" /><category term="series" /><category term="random-stuffs" /><summary type="html">No idea what to say yet :D</summary></entry></feed>
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;More information about power series are gonna be written in another post. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="calculus" /><category term="mathematics" /><category term="calculus" /><category term="series" /><category term="random-stuffs" /><summary type="html">No idea what to say yet :D</summary></entry></feed>

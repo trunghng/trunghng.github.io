@@ -18,6 +18,7 @@ comments: true
 - [Convergent and Divergent Series](#conv-div-series)
 	- [$n$-th term test](#nth-term-test)
 - [General Properties of Convergent Series](#gen-props-conv-series)
+- [Series of Nonnegative terms. Comparison Tests](#series-nonneg-ct)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -35,7 +36,7 @@ a_1+a_2+\dots+a_n+\dots=\sum_{n=1}^{\infty}a_n
 \end{equation}
 where $a_i\in\\{0,1,\dots,9\\}$.  
 
-2. *Power series expansion*
+2. *Power series expansion*[^1]
 - We have
 \begin{equation}
 \dfrac{1}{1-x}=1+x+x^2+\dots\tag{1}\label{1}
@@ -136,6 +137,28 @@ This result shows that $a_n\to0$ is a necessary condition for convergence. Howev
 
 ## General Properties of Convergent Series
 {: #gen-props-conv-series}
+- Any finite number of 0's can be inserted or removed anywhere in a series without affecting its convergence behavior or its sum (in case it converges).
+- When two convergent series are added term by term, the resulting series converges to the expected sum; i.e., if $\sum_{n=1}^{\infty}a_n=s$ and $\sum_{n=1}^{\infty}b_n=t$, then
+\begin{equation}
+\sum_{n=1}^{\infty}(a_n+b_n)=s+t
+\end{equation}
+	- **Proof**  
+	Let $\\{s_n\\}$ and $\\{t_n\\}$ respectively be the sequences of partial sums of $\sum_{n=1}^{\infty}a_n$ and $\sum_{n=1}^{\infty}b_n$. As $n\to\infty$ we have
+	\begin{align}
+	(a_1+b_1)+(a_2+b_2)+\dots+(a_n+b_n)&=\sum_{i=1}^{n}a_i+\sum_{i=1}^{n}b_i \\\\ &=s_n+t_n\to s+t
+	\end{align}
+- Similarly, $\sum_{n=1}^{\infty}(a_n-b_n)=s-t$ and $\sum_{n=1}^{\infty}ca_n=cs$ for any constant $c$.
+- Any finite number of terms can be added or subtracted at the beginning of a convergent series without disturbing its convergence, and the sum of various series are related in the expected way.
+	- **Proof**  
+	If $\sum_{n=1}^{\infty}a_n=s$, then
+	\begin{equation}
+	\lim_{n\to\infty}(a_0+a_1+a_2+\dots+a_n)=\lim_{n\to\infty} a_0+\lim_{n\to\infty}(a_1+a_2+\dots+a_n)=a_0+s
+	\end{equation}
+
+## Series of Nonnegative terms. Comparison Tests
+{: #series-nonneg-ct}
+
+
 
 
 
@@ -145,3 +168,4 @@ This result shows that $a_n\to0$ is a necessary condition for convergence. Howev
 [2] MIT 18.01. [Single Variable Calculus](https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/)
 
 ## Footnotes
+[^1]: More information about power series are gonna be written in another post.

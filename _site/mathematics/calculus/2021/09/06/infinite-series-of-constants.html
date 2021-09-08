@@ -170,6 +170,7 @@
     </ul>
   </li>
   <li><a href="#gen-props-conv-series">General Properties of Convergent Series</a></li>
+  <li><a href="#series-nonneg-ct">Series of Nonnegative terms. Comparison Tests</a></li>
   <li><a href="#references">References</a></li>
   <li><a href="#footnotes">Footnotes</a></li>
 </ul>
@@ -190,7 +191,7 @@ a_1+a_2+\dots+a_n+\dots=\sum_{n=1}^{\infty}a_n
 where $a_i\in\{0,1,\dots,9\}$.</p>
   </li>
   <li>
-    <p><em>Power series expansion</em></p>
+    <p><em>Power series expansion</em><sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup></p>
     <ul>
       <li>We have
 \begin{equation}
@@ -292,6 +293,33 @@ a_n=s_n-s_{n-1}\to s-s=0
 This result shows that $a_n\to0$ is a necessary condition for convergence. However, it is not a sufficient condition; i.e., it does not imply the convergence of the series when $a_n\to0$ as $n\to\infty$.</p>
 
 <h2 id="gen-props-conv-series">General Properties of Convergent Series</h2>
+<ul>
+  <li>Any finite number of 0’s can be inserted or removed anywhere in a series without affecting its convergence behavior or its sum (in case it converges).</li>
+  <li>When two convergent series are added term by term, the resulting series converges to the expected sum; i.e., if $\sum_{n=1}^{\infty}a_n=s$ and $\sum_{n=1}^{\infty}b_n=t$, then
+\begin{equation}
+\sum_{n=1}^{\infty}(a_n+b_n)=s+t
+\end{equation}
+    <ul>
+      <li><strong>Proof</strong><br />
+  Let $\{s_n\}$ and $\{t_n\}$ respectively be the sequences of partial sums of $\sum_{n=1}^{\infty}a_n$ and $\sum_{n=1}^{\infty}b_n$. As $n\to\infty$ we have
+  \begin{align}
+  (a_1+b_1)+(a_2+b_2)+\dots+(a_n+b_n)&amp;=\sum_{i=1}^{n}a_i+\sum_{i=1}^{n}b_i \\ &amp;=s_n+t_n\to s+t
+  \end{align}</li>
+    </ul>
+  </li>
+  <li>Similarly, $\sum_{n=1}^{\infty}(a_n-b_n)=s-t$ and $\sum_{n=1}^{\infty}ca_n=cs$ for any constant $c$.</li>
+  <li>Any finite number of terms can be added or subtracted at the beginning of a convergent series without disturbing its convergence, and the sum of various series are related in the expected way.
+    <ul>
+      <li><strong>Proof</strong><br />
+  If $\sum_{n=1}^{\infty}a_n=s$, then
+  \begin{equation}
+  \lim_{n\to\infty}(a_0+a_1+a_2+\dots+a_n)=\lim_{n\to\infty} a_0+\lim_{n\to\infty}(a_1+a_2+\dots+a_n)=a_0+s
+  \end{equation}</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="series-nonneg-ct">Series of Nonnegative terms. Comparison Tests</h2>
 
 <h2 id="references">References</h2>
 <p>[1] George F.Simmons. <a href="https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424">Calculus With Analytic Geometry - 2nd Edition</a></p>
@@ -299,6 +327,13 @@ This result shows that $a_n\to0$ is a necessary condition for convergence. Howev
 <p>[2] MIT 18.01. <a href="https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/">Single Variable Calculus</a></p>
 
 <h2 id="footnotes">Footnotes</h2>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>More information about power series are gonna be written in another post. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
 
   </div>
 <div id="disqus_thread"></div>
