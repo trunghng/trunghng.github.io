@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/calculus.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-08T08:55:24+07:00</updated><id>/feed/by_tag/calculus.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/calculus.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-08T11:42:39+07:00</updated><id>/feed/by_tag/calculus.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Infinite Series of Constants</title><link href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html" rel="alternate" type="text/html" title="Infinite Series of Constants" /><published>2021-09-06T11:20:00+07:00</published><updated>2021-09-06T11:20:00+07:00</updated><id>/mathematics/calculus/2021/09/06/infinite-series-of-constants</id><content type="html" xml:base="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html">&lt;blockquote&gt;
   &lt;p&gt;No idea what to say yet :D&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -10,7 +10,13 @@
       &lt;li&gt;&lt;a href=&quot;#examples&quot;&gt;Examples&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#convergent-sequences&quot;&gt;Convergent Sequences&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#convergent-sequences&quot;&gt;Convergent Sequences&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#sequences&quot;&gt;Sequences&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#lim-seq&quot;&gt;Limits of Sequences&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conv-div-series&quot;&gt;Convergent and Divergent Series&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -62,11 +68,36 @@ Let $x=1$, \eqref{4} gives us an interesting result
 &lt;/ol&gt;
 
 &lt;h2 id=&quot;convergent-sequences&quot;&gt;Convergent Sequences&lt;/h2&gt;
+
+&lt;h3 id=&quot;sequences&quot;&gt;Sequences&lt;/h3&gt;
 &lt;p&gt;If to each positive integer $n$ there corresponds a definite number $x_n$, then the $x_n$’s are said to form a &lt;strong&gt;sequence&lt;/strong&gt; (denoted as $\{x_n\}$)
 \begin{equation}
 x_1,x_2,\dots,x_n,\dots
 \end{equation}
 We call the numbers constructing a sequence its terms, where $x_n$ is the $n$-th term.&lt;/p&gt;
+
+&lt;p&gt;A sequence $\{x_n\}$ is said to be &lt;em&gt;bounded&lt;/em&gt; if there exists $A, B$ such that $A\leq x_n\leq B, \forall n$. $A, B$ respectively are called &lt;em&gt;lower bound&lt;/em&gt;, &lt;em&gt;upper bound&lt;/em&gt; of the sequence. A sequence that is not bounded is said to be &lt;em&gt;unbounded&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;lim-seq&quot;&gt;Limits of Sequences&lt;/h3&gt;
+&lt;p&gt;A sequence $\{x_n\}$ is said to have a number $L$ as &lt;strong&gt;limit&lt;/strong&gt; if for each $\epsilon&amp;gt;0$, there exists a positive integer $n_0$ that
+\begin{equation}
+\vert x_n-L\vert&amp;lt;\epsilon\hspace{1cm}n\geq n_0
+\end{equation}
+We say that $x_n$ &lt;em&gt;converges to&lt;/em&gt; $L$ &lt;em&gt;as&lt;/em&gt; $n$ &lt;em&gt;approaches infinite&lt;/em&gt; ($x_n\to L$ as $n\to\infty$) and denote this as
+\begin{equation}
+\lim_{n\to\infty}x_n=L
+\end{equation}&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;A sequence is said to &lt;strong&gt;converge&lt;/strong&gt; or to be &lt;strong&gt;convergent&lt;/strong&gt; if it has a limit.&lt;/li&gt;
+  &lt;li&gt;A convergent sequence is bounded, but not all bounded sequences are convergent.&lt;/li&gt;
+  &lt;li&gt;If $x_n\to L,y_n\to M$, then
+\begin{align}
+&amp;amp;\lim(x_n+y_n)=L+M \\ &amp;amp;\lim(x_n-y_n)=L-M \\ &amp;amp;\lim x_n y_n=LM \\ &amp;amp;\lim\dfrac{x_n}{y_n}=\dfrac{L}{M}\hspace{1cm}M\neq0
+\end{align}&lt;/li&gt;
+  &lt;li&gt;An &lt;em&gt;increasing&lt;/em&gt; (or &lt;em&gt;decreasing&lt;/em&gt;) sequence converges if and only if it is bounded.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;conv-div-series&quot;&gt;Convergent and Divergent Series&lt;/h2&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] George F.Simmons. &lt;a href=&quot;https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424&quot;&gt;Calculus With Analytic Geometry - 2nd Edition&lt;/a&gt;&lt;/p&gt;

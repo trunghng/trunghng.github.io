@@ -13,6 +13,9 @@ comments: true
 - [Infinite Series](#infinite-series)
 	- [Examples](#examples)
 - [Convergent Sequences](#convergent-sequences)
+	- [Sequences](#sequences)
+	- [Limits of Sequences](#lim-seq)
+- [Convergent and Divergent Series](#conv-div-series)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -57,13 +60,36 @@ Let $x=1$, \eqref{4} gives us an interesting result
 \end{equation}
 
 ## Convergent Sequences
+
+### Sequences
 If to each positive integer $n$ there corresponds a definite number $x_n$, then the $x_n$'s are said to form a **sequence** (denoted as $\\{x_n\\}$)
 \begin{equation}
 x_1,x_2,\dots,x_n,\dots
 \end{equation}
 We call the numbers constructing a sequence its terms, where $x_n$ is the $n$-th term.  
 
+A sequence $\\{x_n\\}$ is said to be *bounded* if there exists $A, B$ such that $A\leq x_n\leq B, \forall n$. $A, B$ respectively are called *lower bound*, *upper bound* of the sequence. A sequence that is not bounded is said to be *unbounded*.
 
+### Limits of Sequences
+{: #lim-seq}
+A sequence $\\{x_n\\}$ is said to have a number $L$ as **limit** if for each $\epsilon>0$, there exists a positive integer $n_0$ that
+\begin{equation}
+\vert x_n-L\vert<\epsilon\hspace{1cm}n\geq n_0
+\end{equation}
+We say that $x_n$ *converges to* $L$ *as* $n$ *approaches infinite* ($x_n\to L$ as $n\to\infty$) and denote this as
+\begin{equation}
+\lim_{n\to\infty}x_n=L
+\end{equation}
+- A sequence is said to **converge** or to be **convergent** if it has a limit.  
+- A convergent sequence is bounded, but not all bounded sequences are convergent.
+- If $x_n\to L,y_n\to M$, then
+\begin{align}
+&\lim(x_n+y_n)=L+M \\\\ &\lim(x_n-y_n)=L-M \\\\ &\lim x_n y_n=LM \\\\ &\lim\dfrac{x_n}{y_n}=\dfrac{L}{M}\hspace{1cm}M\neq0
+\end{align}
+- An *increasing* (or *decreasing*) sequence converges if and only if it is bounded.
+
+## Convergent and Divergent Series
+{: #conv-div-series}
 
 
 ## References

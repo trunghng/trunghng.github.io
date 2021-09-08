@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Infinite Series of Constants" />
 <script type="application/ld+json">
-{"description":"infinite series of constants","headline":"Infinite Series of Constants","dateModified":"2021-09-06T11:20:00+07:00","datePublished":"2021-09-06T11:20:00+07:00","mainEntityOfPage":{"@type":"WebPage","@id":"/mathematics/calculus/2021/09/06/infinite-series-of-constants.html"},"url":"/mathematics/calculus/2021/09/06/infinite-series-of-constants.html","author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"description":"infinite series of constants","headline":"Infinite Series of Constants","dateModified":"2021-09-06T11:20:00+07:00","datePublished":"2021-09-06T11:20:00+07:00","url":"/mathematics/calculus/2021/09/06/infinite-series-of-constants.html","author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/mathematics/calculus/2021/09/06/infinite-series-of-constants.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Trung&apos;s cabin" />
     
@@ -158,7 +158,13 @@
       <li><a href="#examples">Examples</a></li>
     </ul>
   </li>
-  <li><a href="#convergent-sequences">Convergent Sequences</a></li>
+  <li><a href="#convergent-sequences">Convergent Sequences</a>
+    <ul>
+      <li><a href="#sequences">Sequences</a></li>
+      <li><a href="#lim-seq">Limits of Sequences</a></li>
+    </ul>
+  </li>
+  <li><a href="#conv-div-series">Convergent and Divergent Series</a></li>
   <li><a href="#references">References</a></li>
   <li><a href="#footnotes">Footnotes</a></li>
 </ul>
@@ -210,11 +216,36 @@ Let $x=1$, \eqref{4} gives us an interesting result
 </ol>
 
 <h2 id="convergent-sequences">Convergent Sequences</h2>
+
+<h3 id="sequences">Sequences</h3>
 <p>If to each positive integer $n$ there corresponds a definite number $x_n$, then the $x_n$’s are said to form a <strong>sequence</strong> (denoted as $\{x_n\}$)
 \begin{equation}
 x_1,x_2,\dots,x_n,\dots
 \end{equation}
 We call the numbers constructing a sequence its terms, where $x_n$ is the $n$-th term.</p>
+
+<p>A sequence $\{x_n\}$ is said to be <em>bounded</em> if there exists $A, B$ such that $A\leq x_n\leq B, \forall n$. $A, B$ respectively are called <em>lower bound</em>, <em>upper bound</em> of the sequence. A sequence that is not bounded is said to be <em>unbounded</em>.</p>
+
+<h3 id="lim-seq">Limits of Sequences</h3>
+<p>A sequence $\{x_n\}$ is said to have a number $L$ as <strong>limit</strong> if for each $\epsilon&gt;0$, there exists a positive integer $n_0$ that
+\begin{equation}
+\vert x_n-L\vert&lt;\epsilon\hspace{1cm}n\geq n_0
+\end{equation}
+We say that $x_n$ <em>converges to</em> $L$ <em>as</em> $n$ <em>approaches infinite</em> ($x_n\to L$ as $n\to\infty$) and denote this as
+\begin{equation}
+\lim_{n\to\infty}x_n=L
+\end{equation}</p>
+<ul>
+  <li>A sequence is said to <strong>converge</strong> or to be <strong>convergent</strong> if it has a limit.</li>
+  <li>A convergent sequence is bounded, but not all bounded sequences are convergent.</li>
+  <li>If $x_n\to L,y_n\to M$, then
+\begin{align}
+&amp;\lim(x_n+y_n)=L+M \\ &amp;\lim(x_n-y_n)=L-M \\ &amp;\lim x_n y_n=LM \\ &amp;\lim\dfrac{x_n}{y_n}=\dfrac{L}{M}\hspace{1cm}M\neq0
+\end{align}</li>
+  <li>An <em>increasing</em> (or <em>decreasing</em>) sequence converges if and only if it is bounded.</li>
+</ul>
+
+<h2 id="conv-div-series">Convergent and Divergent Series</h2>
 
 <h2 id="references">References</h2>
 <p>[1] George F.Simmons. <a href="https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424">Calculus With Analytic Geometry - 2nd Edition</a></p>
