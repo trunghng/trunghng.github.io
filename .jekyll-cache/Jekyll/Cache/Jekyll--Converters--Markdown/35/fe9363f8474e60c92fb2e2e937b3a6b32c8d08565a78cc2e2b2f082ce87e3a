@@ -1,0 +1,21 @@
+I"(<blockquote>
+  <p>No idea what to say yet :D</p>
+</blockquote>
+
+<!-- excerpt-end -->
+<ul>
+  <li><a href="#infinite-series">Infinite Series</a>
+    <ul>
+      <li><a href="#example">Example</a></li>
+    </ul>
+  </li>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h2 id="infinite-series">Infinite Series</h2>
+<p>An <strong>infinite series</strong>, or simply a <strong>series</strong>, is an expression of the form
+\begin{equation}
+a_1+a_2+\dots+a_n+\dots=\sum_{n=1}^{\infty}a_n
+\end{equation}</p>
+:ET

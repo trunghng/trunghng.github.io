@@ -1,13 +1,13 @@
 ---
 layout: post
-title:  "Monte Carlo Methods In Reinforcement Learning"
+title:  "Monte Carlo Methods in Reinforcement Learning"
 date:   2021-08-21 13:03:00 +0700
 categories: [artificial-intelligent, reinforcement-learning]
 tags: artificial-intelligent reinforcement-learning monte-carlo importance-sampling my-rl
 description: Monte Carlo methods for solving Reinforcement Learning problems
 comments: true
 ---
-> Recall that in the previous post, [**Dynamic Programming Algorithms For Solving Markov Decision Processes**]({% post_url 2021-07-25-dp-in-mdp %}), we made an assumption about the complete knowledge of the environment. With **Monte Carlo** methods, we only require *experience* - sample sequences of states, actions, and rewards from simulated or real interaction with an environment.
+> Recall that in the previous post, [**Dynamic Programming Algorithms for Solving Markov Decision Processes**]({% post_url 2021-07-25-dp-in-mdp %}), we made an assumption about the complete knowledge of the environment. With **Monte Carlo** methods, we only require *experience* - sample sequences of states, actions, and rewards from simulated or real interaction with an environment.
 
 <!-- excerpt-end -->
 - [Monte Carlo Methods](#mc-methods)
@@ -560,7 +560,7 @@ We begin by defining *flat partial returns*:
 \end{equation}
 where ''flat" denotes the absence of discounting, and ''partial" denotes that these returns do not extend all the way to termination but instead stop at $h$, called the *horizon*. The conventional full return $G_t$ can be viewed as a *sum of flat partial returns*:
 \begin{align}
-G_t&\doteq R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+\dots+\gamma^{T-t-1}R_T \\\\ &=(1-\gamma)R_{t+1} \\\\ &\hspace{0.5cm}+(1-\gamma)\gamma(R_{t+1}+R_{t+2}) \\\\ &\hspace{0.5cm}+(1-\gamma)\gamma^2(R_{t+1}+R_{t+2}+R_{t+3}) \\\\ &\hspace{0.7cm}\vdots \\\\ &\hspace{0.5cm}+(1-\gamma)\gamma^{T-t-2}(R_{t+1}+R_{t+2}+\dots+R_{T-1}) \\\\ &\hspace{0.5cm}+\gamma^{T-t-1}(R_{t+1}+R_{t+2}+\dots+R_T) \\\\ &=(1-\gamma)\left[\sum_{h=t+1}^{T-1}\gamma^{h-t-1}\bar{G}\_{t:h}\right]+\gamma^{T-t-1}\bar{G}\_{t:T}
+G_t&\doteq R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+\dots+\gamma^{T-t-1}R_T \\\\ &=(1-\gamma)R_{t+1} \\\\ &\hspace{0.5cm}+(1-\gamma)\gamma(R_{t+1}+R_{t+2}) \\\\ &\hspace{0.5cm}+(1-\gamma)\gamma^2(R_{t+1}+R_{t+2}+R_{t+3}) \\\\ &\hspace{0.7cm}\vdots \\\\ &\hspace{0.5cm}+(1-\gamma)\gamma^{T-t-2}(R_{t+1}+R_{t+2}+\dots+R_{T-1}) \\\\ &\hspace{0.5cm}+\gamma^{T-t-1}(R_{t+1}+R_{t+2}+\dots+R_T) \\\\ &=(1-\gamma)\sum_{h=t+1}^{T-1}\left(\gamma^{h-t-1}\bar{G}\_{t:h}\right)+\gamma^{T-t-1}\bar{G}\_{t:T}
 \end{align}
 Now we need to scale the *flat partial returns* by an *IS ratio* that is similarly truncated. As $\bar{G}\_{t:h}$ only involves rewards up to a horizon $h$, we only need the ratio of the probabilities up to $h$. We define:
 1. **Discounting-aware OIS** estimator

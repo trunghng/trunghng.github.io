@@ -7,7 +7,7 @@ tags: artificial-intelligent reinforcement-learning mathematics my-rl
 description: the proof of the existence of optimal policy in finite markov decision processes (MDPs)
 comments: true
 ---
-> In the previous post about [**Markov Decision Process (MDP) and Bellman equations**]({% post_url 2021-06-27-mdp-bellman-eqn %}), we mentioned that there exists a policy $\pi_\*$ that is better than or equal to all other policies. And now, we are here to prove it.  
+> In the previous post about [**Markov Decision Processes, Bellman equations**]({% post_url 2021-06-27-mdp-bellman-eqn %}), we mentioned that there exists a policy $\pi_\*$ that is better than or equal to all other policies. And now, we are here to prove it.  
 
 <!-- excerpt-end -->
 - [Norms, Contractions and Banach's Fixed-point Theorem](#norms-contractions-banach-fixed-pts)
@@ -196,7 +196,7 @@ Pick a policy $\pi$ such that $\mathcal{T}^\pi v=\mathcal{T}^\*v$, then $v$ is a
 #### Footnotes
 [^1]: A function is called *uniformly bounded* exactly when $\Vert f\Vert_\infty<+\infty$.
 [^2]: A *normed vector space* is a vector space over the real or complex number, on which a norm is defined.
-[^3]: We are gonna talk further about *sequences* in another post.
+[^3]: We are gonna talk further about *sequences* in another [post]({% post_url 2021-09-06-infinite-series-of-constants %}#convergent-sequences).
 [^4]: ***Proof***  
 	Pick any $v_0\in\mathcal{V}$ and define $v_n$ as in the statement of the theorem. a. We first demonstrate that $(v_n)$ converges to some vector. b. Then we will show that this vector is a fixed point to $\mathcal{T}$. c. Finally, we show that $\mathcal{T}$ has a single fixed point. Assume that $\mathcal{T}$ is a $\gamma$-contraction.  
 	a. To show that $(v_n)$ converges, it suffices  to show that $(v_n)$ is a Cauchy sequence. We have:
