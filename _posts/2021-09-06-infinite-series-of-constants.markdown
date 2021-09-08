@@ -29,7 +29,7 @@ a_1+a_2+\dots+a_n+\dots=\sum_{n=1}^{\infty}a_n
 ### Examples
 1. *Infinite decimal*
 \begin{equation}
-.a_1a_2\ldots a_n\ldots=\dfrac{a_1}{10}+\dfrac{a_2}{10^2}+\dots+\dfrac{a_n}{10^n}\dots,
+.a_1a_2\ldots a_n\ldots=\dfrac{a_1}{10}+\dfrac{a_2}{10^2}+\ldots+\dfrac{a_n}{10^n}+\ldots,
 \end{equation}
 where $a_i\in\\{0,1,\dots,9\\}$.  
 
@@ -90,6 +90,20 @@ We say that $x_n$ *converges to* $L$ *as* $n$ *approaches infinite* ($x_n\to L$ 
 
 ## Convergent and Divergent Series
 {: #conv-div-series}
+Recall from the previous sections that if $a_1,a_2,\dots,a_n,\dots$ is a *sequence* of numbers, then
+\begin{equation}
+\sum_{n=1}^{\infty}a_n=a_1+a_2+\ldots+a_n+\ldots\tag{5}\label{5}
+\end{equation}
+is called an *infinite series*. We begin by establishing the sequence of *partial sums*
+\begin{align}
+s_1&=a_1 \\\\ s_2&=a_1+a_2 \\\\ &\,\vdots \\\\ s_n&=a_1+a_2+\dots+a_n \\\\ &\,\vdots
+\end{align}
+The series \eqref{5} is said to be *convergent* if the sequences $\\{s_n\\}$ converges. And if $\lim s_n=s$, then we say that \eqref{5} converges to $s$, or that $s$ is the sum of the series.
+\begin{equation}
+\sum_{n=1}^{\infty}a_n=s
+\end{equation}
+If the series does not converge, we say that it *diverges* or is *divergent*, and no sum is assigned to it.
+
 
 
 ## References

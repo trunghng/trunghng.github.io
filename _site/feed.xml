@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-08T11:42:39+07:00</updated><id>/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-08T12:35:51+07:00</updated><id>/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Infinite Series of Constants</title><link href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html" rel="alternate" type="text/html" title="Infinite Series of Constants" /><published>2021-09-06T11:20:00+07:00</published><updated>2021-09-06T11:20:00+07:00</updated><id>/mathematics/calculus/2021/09/06/infinite-series-of-constants</id><content type="html" xml:base="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html">&lt;blockquote&gt;
   &lt;p&gt;No idea what to say yet :D&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -32,7 +32,7 @@ a_1+a_2+\dots+a_n+\dots=\sum_{n=1}^{\infty}a_n
   &lt;li&gt;
     &lt;p&gt;&lt;em&gt;Infinite decimal&lt;/em&gt;
 \begin{equation}
-.a_1a_2\ldots a_n\ldots=\dfrac{a_1}{10}+\dfrac{a_2}{10^2}+\dots+\dfrac{a_n}{10^n}\dots,
+.a_1a_2\ldots a_n\ldots=\dfrac{a_1}{10}+\dfrac{a_2}{10^2}+\ldots+\dfrac{a_n}{10^n}+\ldots,
 \end{equation}
 where $a_i\in\{0,1,\dots,9\}$.&lt;/p&gt;
   &lt;/li&gt;
@@ -98,6 +98,19 @@ We say that $x_n$ &lt;em&gt;converges to&lt;/em&gt; $L$ &lt;em&gt;as&lt;/em&gt; 
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;conv-div-series&quot;&gt;Convergent and Divergent Series&lt;/h2&gt;
+&lt;p&gt;Recall from the previous sections that if $a_1,a_2,\dots,a_n,\dots$ is a &lt;em&gt;sequence&lt;/em&gt; of numbers, then
+\begin{equation}
+\sum_{n=1}^{\infty}a_n=a_1+a_2+\ldots+a_n+\ldots\tag{5}\label{5}
+\end{equation}
+is called an &lt;em&gt;infinite series&lt;/em&gt;. We begin by establishing the sequence of &lt;em&gt;partial sums&lt;/em&gt;
+\begin{align}
+s_1&amp;amp;=a_1 \\ s_2&amp;amp;=a_1+a_2 \\ &amp;amp;\,\vdots \\ s_n&amp;amp;=a_1+a_2+\dots+a_n \\ &amp;amp;\,\vdots
+\end{align}
+The series \eqref{5} is said to be &lt;em&gt;convergent&lt;/em&gt; if the sequences $\{s_n\}$ converges. And if $\lim s_n=s$, then we say that \eqref{5} converges to $s$, or that $s$ is the sum of the series.
+\begin{equation}
+\sum_{n=1}^{\infty}a_n=s
+\end{equation}
+If the series does not converge, we say that it &lt;em&gt;diverges&lt;/em&gt; or is &lt;em&gt;divergent&lt;/em&gt;, and no sum is assigned to it.&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] George F.Simmons. &lt;a href=&quot;https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424&quot;&gt;Calculus With Analytic Geometry - 2nd Edition&lt;/a&gt;&lt;/p&gt;

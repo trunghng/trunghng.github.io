@@ -1,4 +1,4 @@
-I"®<blockquote>
+I"J<blockquote>
   <p>No idea what to say yet :D</p>
 </blockquote>
 
@@ -31,7 +31,7 @@ a_1+a_2+\dots+a_n+\dots=\sum_{n=1}^{\infty}a_n
   <li>
     <p><em>Infinite decimal</em>
 \begin{equation}
-.a_1a_2\ldots a_n\ldots=\dfrac{a_1}{10}+\dfrac{a_2}{10^2}+\dots+\dfrac{a_n}{10^n}\dots,
+.a_1a_2\ldots a_n\ldots=\dfrac{a_1}{10}+\dfrac{a_2}{10^2}+\ldots+\dfrac{a_n}{10^n}+\ldots,
 \end{equation}
 where $a_i\in\{0,1,\dots,9\}$.</p>
   </li>
@@ -95,6 +95,21 @@ We say that $x_n$ <em>converges to</em> $L$ <em>as</em> $n$ <em>approaches infin
 \end{align}</li>
   <li>An <em>increasing</em> (or <em>decreasing</em>) sequence converges if and only if it is bounded.</li>
 </ul>
+
+<h2 id="conv-div-series">Convergent and Divergent Series</h2>
+<p>You probably know about the fact that
+\begin{equation}
+1+\frac{1}{2}+\frac{1}{4}+\frac{1}{8}+\dots=2
+\end{equation}</p>
+<figure>
+	<img src="/assets/images/2021-09-06/infinite-series-1-2n.png" alt="infinite series" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+<p>Recall from the previous sections that if $a_1,a_2,\dots,a_n,\dots$ is a <em>sequence</em> of numbers, then
+\begin{equation}
+\sum_{n=1}^{\infty}a_n=a_1+a_2+\ldots+a_n+\ldots
+\end{equation}
+is called an <em>infinite series</em>.</p>
 
 <h2 id="references">References</h2>
 <p>[1] George F.Simmons. <a href="https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424">Calculus With Analytic Geometry - 2nd Edition</a></p>

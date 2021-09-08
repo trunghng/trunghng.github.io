@@ -1,4 +1,4 @@
-I"]<blockquote>
+I"^<blockquote>
   <p>No idea what to say yet :D</p>
 </blockquote>
 
@@ -15,6 +15,7 @@
       <li><a href="#lim-seq">Limits of Sequences</a></li>
     </ul>
   </li>
+  <li><a href="#conv-div-series">Convergent and Divergent Series</a></li>
   <li><a href="#references">References</a></li>
   <li><a href="#footnotes">Footnotes</a></li>
 </ul>
@@ -30,7 +31,7 @@ a_1+a_2+\dots+a_n+\dots=\sum_{n=1}^{\infty}a_n
   <li>
     <p><em>Infinite decimal</em>
 \begin{equation}
-.a_1a_2\ldots a_n\ldots=\dfrac{a_1}{10}+\dfrac{a_2}{10^2}+\dots+\dfrac{a_n}{10^n}\dots,
+.a_1a_2\ldots a_n\ldots=\dfrac{a_1}{10}+\dfrac{a_2}{10^2}+\ldots+\dfrac{a_n}{10^n}+\ldots,
 \end{equation}
 where $a_i\in\{0,1,\dots,9\}$.</p>
   </li>
@@ -66,6 +67,8 @@ Let $x=1$, \eqref{4} gives us an interesting result
 </ol>
 
 <h2 id="convergent-sequences">Convergent Sequences</h2>
+
+<h3 id="sequences">Sequences</h3>
 <p>If to each positive integer $n$ there corresponds a definite number $x_n$, then the $x_n$’s are said to form a <strong>sequence</strong> (denoted as $\{x_n\}$)
 \begin{equation}
 x_1,x_2,\dots,x_n,\dots
@@ -73,6 +76,40 @@ x_1,x_2,\dots,x_n,\dots
 We call the numbers constructing a sequence its terms, where $x_n$ is the $n$-th term.</p>
 
 <p>A sequence $\{x_n\}$ is said to be <em>bounded</em> if there exists $A, B$ such that $A\leq x_n\leq B, \forall n$. $A, B$ respectively are called <em>lower bound</em>, <em>upper bound</em> of the sequence. A sequence that is not bounded is said to be <em>unbounded</em>.</p>
+
+<h3 id="lim-seq">Limits of Sequences</h3>
+<p>A sequence $\{x_n\}$ is said to have a number $L$ as <strong>limit</strong> if for each $\epsilon&gt;0$, there exists a positive integer $n_0$ that
+\begin{equation}
+\vert x_n-L\vert&lt;\epsilon\hspace{1cm}n\geq n_0
+\end{equation}
+We say that $x_n$ <em>converges to</em> $L$ <em>as</em> $n$ <em>approaches infinite</em> ($x_n\to L$ as $n\to\infty$) and denote this as
+\begin{equation}
+\lim_{n\to\infty}x_n=L
+\end{equation}</p>
+<ul>
+  <li>A sequence is said to <strong>converge</strong> or to be <strong>convergent</strong> if it has a limit.</li>
+  <li>A convergent sequence is bounded, but not all bounded sequences are convergent.</li>
+  <li>If $x_n\to L,y_n\to M$, then
+\begin{align}
+&amp;\lim(x_n+y_n)=L+M \\ &amp;\lim(x_n-y_n)=L-M \\ &amp;\lim x_n y_n=LM \\ &amp;\lim\dfrac{x_n}{y_n}=\dfrac{L}{M}\hspace{1cm}M\neq0
+\end{align}</li>
+  <li>An <em>increasing</em> (or <em>decreasing</em>) sequence converges if and only if it is bounded.</li>
+</ul>
+
+<h2 id="conv-div-series">Convergent and Divergent Series</h2>
+<p>You probably know about the fact that
+\begin{equation}
+1+\frac{1}{2}+\frac{1}{4}+\frac{1}{8}+\dots=2
+\end{equation}</p>
+<figure>
+	<img src="/assets/images/2021-09-06/infinite-series-1-2n.png" alt="off-policy MC prediction pseudocode" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+<p>Recall from the previous sections that if $a_1,a_2,\dots,a_n,\dots$ is a <em>sequence</em> of numbers, then
+\begin{equation}
+\sum_{n=1}^{\infty}a_n=a_1+a_2+\ldots+a_n+\ldots
+\end{equation}
+is called an <em>infinite series</em>.</p>
 
 <h2 id="references">References</h2>
 <p>[1] George F.Simmons. <a href="https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424">Calculus With Analytic Geometry - 2nd Edition</a></p>
