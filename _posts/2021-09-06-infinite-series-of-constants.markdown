@@ -16,6 +16,8 @@ comments: true
 	- [Sequences](#sequences)
 	- [Limits of Sequences](#lim-seq)
 - [Convergent and Divergent Series](#conv-div-series)
+	- [$n$-th term test](#nth-term-test)
+- [General Properties of Convergent Series](#gen-props-conv-series)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -46,7 +48,7 @@ And if we replace $x$ by $x^2$ in \eqref{2} we obtain
 \begin{equation}
 \dfrac{1}{1+x^2}=1-x^2+x^4-x^6+\dots\tag{3}\label{3}
 \end{equation}
-Moreover, if we take the integral of the left side of \eqref{3}
+Moreover, if we take the integral of the left side of \eqref{3} we get
 \begin{equation}
 \int\dfrac{dx}{1+x^2}=\tan^{-1}x,
 \end{equation}
@@ -98,11 +100,27 @@ is called an *infinite series*. We begin by establishing the sequence of *partia
 \begin{align}
 s_1&=a_1 \\\\ s_2&=a_1+a_2 \\\\ &\,\vdots \\\\ s_n&=a_1+a_2+\dots+a_n \\\\ &\,\vdots
 \end{align}
-The series \eqref{5} is said to be *convergent* if the sequences $\\{s_n\\}$ converges. And if $\lim s_n=s$, then we say that \eqref{5} converges to $s$, or that $s$ is the sum of the series.
+The series \eqref{5} is said to be **convergent** if the sequences $\\{s_n\\}$ converges. And if $\lim s_n=s$, then we say that \eqref{5} converges to $s$, or that $s$ is the sum of the series.
 \begin{equation}
 \sum_{n=1}^{\infty}a_n=s
 \end{equation}
-If the series does not converge, we say that it *diverges* or is *divergent*, and no sum is assigned to it.
+If the series does not converge, we say that it **diverges** or is **divergent**, and no sum is assigned to it.  
+
+The simplest general principle that is useful to study the convergence of a series is the **$\mathbf{n}$-th term test**.
+
+### $\mathbf{n}$-th term test
+{: #nth-term-test}
+If the series $\\{a_n\\}$ converges, then $a_n\to0$ as $n\to\infty$; or equivalently, if $\neg(a_n\to0)$ as $n\to\infty$, then the series must necessarily diverge.  
+
+**Proof**  
+When $\\{a_n\\}$ converges, as $n\to\infty$ we have
+\begin{equation}
+a_n=s_n-s_{n-1}\to s-s=0
+\end{equation}
+This result shows that $a_n\to0$ is a necessary condition for convergence. However, it is not a sufficient condition; i.e., it does not imply the convergence of the series when $a_n\to0$ as $n\to\infty$.
+
+## General Properties of Convergent Series
+{: #gen-props-conv-series}
 
 
 

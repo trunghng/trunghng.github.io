@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/calculus.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-08T12:35:51+07:00</updated><id>/feed/by_tag/calculus.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/calculus.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-08T15:08:47+07:00</updated><id>/feed/by_tag/calculus.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Infinite Series of Constants</title><link href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html" rel="alternate" type="text/html" title="Infinite Series of Constants" /><published>2021-09-06T11:20:00+07:00</published><updated>2021-09-06T11:20:00+07:00</updated><id>/mathematics/calculus/2021/09/06/infinite-series-of-constants</id><content type="html" xml:base="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html">&lt;blockquote&gt;
   &lt;p&gt;No idea what to say yet :D&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -16,7 +16,12 @@
       &lt;li&gt;&lt;a href=&quot;#lim-seq&quot;&gt;Limits of Sequences&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#conv-div-series&quot;&gt;Convergent and Divergent Series&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conv-div-series&quot;&gt;Convergent and Divergent Series&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#nth-term-test&quot;&gt;$n$-th term test&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#gen-props-conv-series&quot;&gt;General Properties of Convergent Series&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -51,7 +56,7 @@ And if we replace $x$ by $x^2$ in \eqref{2} we obtain
 \begin{equation}
 \dfrac{1}{1+x^2}=1-x^2+x^4-x^6+\dots\tag{3}\label{3}
 \end{equation}
-Moreover, if we take the integral of the left side of \eqref{3}
+Moreover, if we take the integral of the left side of \eqref{3} we get
 \begin{equation}
 \int\dfrac{dx}{1+x^2}=\tan^{-1}x,
 \end{equation}
@@ -106,11 +111,25 @@ is called an &lt;em&gt;infinite series&lt;/em&gt;. We begin by establishing the 
 \begin{align}
 s_1&amp;amp;=a_1 \\ s_2&amp;amp;=a_1+a_2 \\ &amp;amp;\,\vdots \\ s_n&amp;amp;=a_1+a_2+\dots+a_n \\ &amp;amp;\,\vdots
 \end{align}
-The series \eqref{5} is said to be &lt;em&gt;convergent&lt;/em&gt; if the sequences $\{s_n\}$ converges. And if $\lim s_n=s$, then we say that \eqref{5} converges to $s$, or that $s$ is the sum of the series.
+The series \eqref{5} is said to be &lt;strong&gt;convergent&lt;/strong&gt; if the sequences $\{s_n\}$ converges. And if $\lim s_n=s$, then we say that \eqref{5} converges to $s$, or that $s$ is the sum of the series.
 \begin{equation}
 \sum_{n=1}^{\infty}a_n=s
 \end{equation}
-If the series does not converge, we say that it &lt;em&gt;diverges&lt;/em&gt; or is &lt;em&gt;divergent&lt;/em&gt;, and no sum is assigned to it.&lt;/p&gt;
+If the series does not converge, we say that it &lt;strong&gt;diverges&lt;/strong&gt; or is &lt;strong&gt;divergent&lt;/strong&gt;, and no sum is assigned to it.&lt;/p&gt;
+
+&lt;p&gt;The simplest general principle that is useful to study the convergence of a series is the &lt;strong&gt;$\mathbf{n}$-th term test&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;nth-term-test&quot;&gt;$\mathbf{n}$-th term test&lt;/h3&gt;
+&lt;p&gt;If the series $\{a_n\}$ converges, then $a_n\to0$ as $n\to\infty$; or equivalently, if $\neg(a_n\to0)$ as $n\to\infty$, then the series must necessarily diverge.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
+When $\{a_n\}$ converges, as $n\to\infty$ we have
+\begin{equation}
+a_n=s_n-s_{n-1}\to s-s=0
+\end{equation}
+This result shows that $a_n\to0$ is a necessary condition for convergence. However, it is not a sufficient condition; i.e., it does not imply the convergence of the series when $a_n\to0$ as $n\to\infty$.&lt;/p&gt;
+
+&lt;h2 id=&quot;gen-props-conv-series&quot;&gt;General Properties of Convergent Series&lt;/h2&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] George F.Simmons. &lt;a href=&quot;https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424&quot;&gt;Calculus With Analytic Geometry - 2nd Edition&lt;/a&gt;&lt;/p&gt;
