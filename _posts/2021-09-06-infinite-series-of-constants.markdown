@@ -18,7 +18,10 @@ comments: true
 - [Convergent and Divergent Series](#conv-div-series)
 	- [$n$-th term test](#nth-term-test)
 - [General Properties of Convergent Series](#gen-props-conv-series)
-- [Series of Nonnegative terms. Comparison Tests](#series-nonneg-ct)
+- [Series of Nonnegative terms. Comparison tests](#series-nonneg-ct)
+	- [Comparison test](#comparison-test)
+	- [Limit comparison test](#limit-comparison-test)
+- [The Integral test. Euler's constant](#int-test-e)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -157,10 +160,65 @@ This result shows that $a_n\to0$ is a necessary condition for convergence. Howev
 
 ## Series of Nonnegative terms. Comparison Tests
 {: #series-nonneg-ct}
+The easiest infinite series to work with are those whose terms are all nonnegative numbers. The reason, as we saw in the above [section](#conv-div-series), is that if $a_n\geq0$, then the series $\sum a_n$ converges if and only if its sequence $\\{s_n\\}$ of partial sums is bounded (since $s_{n+1}=s_n+a_{n+1}$).  
 
+Thus, in order to establish the convergence of a series of nonnegative terms, it suffices to show that its terms approach zero fast enough, or at least as fast as the terms of a known convergent series of nonnegative terms to keep the partial sums bounded.
 
+### Comparison test
+If $0\leq a_n\leq b_n$, then
+- $\sum a_n$ converges if $\sum b_n$ converges.
+- $\sum b_n$ diverges if $\sum a_n$ diverges.  
 
+**Proof**  
+If $s_n, t_n$ respectively are the partial sums of $\sum a_n,\sum b_n$, then
+\begin{equation}
+0\leq s_n=\sum_{i=1}^{n}a_i\leq\sum_{i=1}^{n}b_i=t_n
+\end{equation}
+Then if $\\{t_n\\}$ is bounded, then so is $\\{s_n\\}$; and if $\\{s_n\\}$ is unbounded, then so is $\\{t_n\\}$.  
 
+**Example**  
+Consider convergence behavior of two series
+\begin{equation}
+\sum_{n=1}^{\infty}\frac{1}{2^n+1};\hspace{2cm}\sum_{n=1}^{\infty}\frac{1}{\ln n}
+\end{equation}
+The first series converges, because
+\begin{equation}
+\frac{1}{2^n+1}<\frac{1}{2^n}
+\end{equation}
+and $\sum_{n=1}^{\infty}\frac{1}{2^n}=1$, which is a convergent series. At the same time, the second series diverges, since
+\begin{equation}
+\frac{1}{n}\leq\frac{1}{\ln n}
+\end{equation}
+and $\sum_{n=1}^{\infty}\frac{1}{n}$ diverges.  
+
+One thing worth remarking is that the condition $0\leq a_n\leq b_n$ for the comparison test need not hold for all $n$, but only for all $n$ from some point on.  
+
+The comparison test is simple, but in some cases where it is difficult to establish the necessary inequality between the n-th terms of the two series. And since limits are often easier to work with than inequalities, we have the following test.
+
+### Limit comparison test
+If $\sum a_n, \sum b_n$ are series with positive terms such that
+\begin{equation}
+\lim_{n\to\infty}\frac{a_n}{b_n}=1\tag{7}\label{7}
+\end{equation}
+then either both series converge or both series diverge.  
+
+**Proof**  
+we observe that \eqref{7} implies that for all sufficient large $n$, we have
+\begin{align}
+\frac{1}{2}&\leq\frac{a_n}{b_n}\leq 2 \\\\ \text{or}\hspace{1cm}\frac{1}{2}b_n&\leq a_n\leq 2b_n
+\end{align}
+which leads to the fact that $\sum a_n$ and $\sum b_n$ have the same convergence behavior.  
+
+The condition \eqref{7} can be generalized by
+\begin{equation}
+\lim_{n\to\infty}\frac{a_n}{b_n}=L,
+\end{equation}
+where $0\<L<\infty$.  
+
+If a convergent series of nonnegative terms is rearranged in any manner, then the resulting series also converges and has the same sum.
+
+## The Integral test. Euler's constant
+{: #int-test-e}
 
 ## References
 [1] George F.Simmons. [Calculus With Analytic Geometry - 2nd Edition](https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424)  

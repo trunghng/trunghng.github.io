@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/calculus.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-08T17:36:42+07:00</updated><id>/feed/by_tag/calculus.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/calculus.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-09T14:52:01+07:00</updated><id>/feed/by_tag/calculus.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Infinite Series of Constants</title><link href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html" rel="alternate" type="text/html" title="Infinite Series of Constants" /><published>2021-09-06T11:20:00+07:00</published><updated>2021-09-06T11:20:00+07:00</updated><id>/mathematics/calculus/2021/09/06/infinite-series-of-constants</id><content type="html" xml:base="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html">&lt;blockquote&gt;
   &lt;p&gt;No idea what to say yet :D&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -22,7 +22,13 @@
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#gen-props-conv-series&quot;&gt;General Properties of Convergent Series&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#series-nonneg-ct&quot;&gt;Series of Nonnegative terms. Comparison Tests&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#series-nonneg-ct&quot;&gt;Series of Nonnegative terms. Comparison tests&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#comparison-test&quot;&gt;Comparison test&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#limit-comparison-test&quot;&gt;Limit comparison test&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#int-test-e&quot;&gt;The Integral test. Euler’s constant&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -172,6 +178,66 @@ This result shows that $a_n\to0$ is a necessary condition for convergence. Howev
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;series-nonneg-ct&quot;&gt;Series of Nonnegative terms. Comparison Tests&lt;/h2&gt;
+&lt;p&gt;The easiest infinite series to work with are those whose terms are all nonnegative numbers. The reason, as we saw in the above &lt;a href=&quot;#conv-div-series&quot;&gt;section&lt;/a&gt;, is that if $a_n\geq0$, then the series $\sum a_n$ converges if and only if its sequence $\{s_n\}$ of partial sums is bounded (since $s_{n+1}=s_n+a_{n+1}$).&lt;/p&gt;
+
+&lt;p&gt;Thus, in order to establish the convergence of a series of nonnegative terms, it suffices to show that its terms approach zero fast enough, or at least as fast as the terms of a known convergent series of nonnegative terms to keep the partial sums bounded.&lt;/p&gt;
+
+&lt;h3 id=&quot;comparison-test&quot;&gt;Comparison test&lt;/h3&gt;
+&lt;p&gt;If $0\leq a_n\leq b_n$, then&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;$\sum a_n$ converges if $\sum b_n$ converges.&lt;/li&gt;
+  &lt;li&gt;$\sum b_n$ diverges if $\sum a_n$ diverges.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
+If $s_n, t_n$ respectively are the partial sums of $\sum a_n,\sum b_n$, then
+\begin{equation}
+0\leq s_n=\sum_{i=1}^{n}a_i\leq\sum_{i=1}^{n}b_i=t_n
+\end{equation}
+Then if $\{t_n\}$ is bounded, then so is $\{s_n\}$; and if $\{s_n\}$ is unbounded, then so is $\{t_n\}$.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt;&lt;br /&gt;
+Consider convergence behavior of two series
+\begin{equation}
+\sum_{n=1}^{\infty}\frac{1}{2^n+1};\hspace{2cm}\sum_{n=1}^{\infty}\frac{1}{\ln n}
+\end{equation}
+The first series converges, because
+\begin{equation}
+\frac{1}{2^n+1}&amp;lt;\frac{1}{2^n}
+\end{equation}
+and $\sum_{n=1}^{\infty}\frac{1}{2^n}=1$, which is a convergent series. At the same time, the second series diverges, since
+\begin{equation}
+\frac{1}{n}\leq\frac{1}{\ln n}
+\end{equation}
+and $\sum_{n=1}^{\infty}\frac{1}{n}$ diverges.&lt;/p&gt;
+
+&lt;p&gt;One thing worth remarking is that the condition $0\leq a_n\leq b_n$ for the comparison test need not hold for all $n$, but only for all $n$ from some point on.&lt;/p&gt;
+
+&lt;p&gt;The comparison test is simple, but in some cases where it is difficult to establish the necessary inequality between the n-th terms of the two series. And since limits are often easier to work with than inequalities, we have the following test.&lt;/p&gt;
+
+&lt;h3 id=&quot;limit-comparison-test&quot;&gt;Limit comparison test&lt;/h3&gt;
+&lt;p&gt;If $\sum a_n, \sum b_n$ are series with positive terms such that
+\begin{equation}
+\lim_{n\to\infty}\frac{a_n}{b_n}=1\tag{7}\label{7}
+\end{equation}
+then either both series converge or both series diverge.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
+we observe that \eqref{7} implies that for all sufficient large $n$, we have
+\begin{align}
+\frac{1}{2}&amp;amp;\leq\frac{a_n}{b_n}\leq 2 \\ \text{or}\hspace{1cm}\frac{1}{2}b_n&amp;amp;\leq a_n\leq 2b_n
+\end{align}
+which leads to the fact that $\sum a_n$ and $\sum b_n$ have the same convergence behavior.&lt;/p&gt;
+
+&lt;p&gt;The condition \eqref{7} can be generalized by
+\begin{equation}
+\lim_{n\to\infty}\frac{a_n}{b_n}=L,
+\end{equation}
+where $0&amp;lt;L&amp;lt;\infty$.&lt;/p&gt;
+
+&lt;p&gt;If a convergent series of nonnegative terms is rearranged in any manner, then the resulting series also converges and has the same sum.&lt;/p&gt;
+
+&lt;h2 id=&quot;int-test-e&quot;&gt;The Integral test. Euler’s constant&lt;/h2&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] George F.Simmons. &lt;a href=&quot;https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424&quot;&gt;Calculus With Analytic Geometry - 2nd Edition&lt;/a&gt;&lt;/p&gt;
