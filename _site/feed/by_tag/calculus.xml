@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/calculus.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-09T14:52:01+07:00</updated><id>/feed/by_tag/calculus.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/calculus.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-09T20:00:43+07:00</updated><id>/feed/by_tag/calculus.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Infinite Series of Constants</title><link href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html" rel="alternate" type="text/html" title="Infinite Series of Constants" /><published>2021-09-06T11:20:00+07:00</published><updated>2021-09-06T11:20:00+07:00</updated><id>/mathematics/calculus/2021/09/06/infinite-series-of-constants</id><content type="html" xml:base="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html">&lt;blockquote&gt;
   &lt;p&gt;No idea what to say yet :D&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -141,14 +141,14 @@ This proves that $s_n$ can be made larger than the sum of any number of $\frac{1
 &lt;p&gt;The simplest general principle that is useful to study the convergence of a series is the &lt;strong&gt;$\mathbf{n}$-th term test&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;h3 id=&quot;nth-term-test&quot;&gt;$\mathbf{n}$-th term test&lt;/h3&gt;
-&lt;p&gt;If the series $\{a_n\}$ converges, then $a_n\to0$ as $n\to\infty$; or equivalently, if $\neg(a_n\to0)$ as $n\to\infty$, then the series must necessarily diverge.&lt;/p&gt;
+&lt;p&gt;If the series $\{a_n\}$ converges, then $a_n\to 0$ as $n\to\infty$; or equivalently, if $\neg(a_n\to0)$ as $n\to\infty$, then the series must necessarily diverge.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
 When $\{a_n\}$ converges, as $n\to\infty$ we have
 \begin{equation}
 a_n=s_n-s_{n-1}\to s-s=0
 \end{equation}
-This result shows that $a_n\to0$ is a necessary condition for convergence. However, it is not a sufficient condition; i.e., it does not imply the convergence of the series when $a_n\to0$ as $n\to\infty$.&lt;/p&gt;
+This result shows that $a_n\to 0$ is a necessary condition for convergence. However, it is not a sufficient condition; i.e., it does not imply the convergence of the series when $a_n\to 0$ as $n\to\infty$.&lt;/p&gt;
 
 &lt;h2 id=&quot;gen-props-conv-series&quot;&gt;General Properties of Convergent Series&lt;/h2&gt;
 &lt;ul&gt;
@@ -238,6 +238,21 @@ where $0&amp;lt;L&amp;lt;\infty$.&lt;/p&gt;
 &lt;p&gt;If a convergent series of nonnegative terms is rearranged in any manner, then the resulting series also converges and has the same sum.&lt;/p&gt;
 
 &lt;h2 id=&quot;int-test-e&quot;&gt;The Integral test. Euler’s constant&lt;/h2&gt;
+&lt;p&gt;In this section, we will be going through a more detailed class of infinite series with nonnegative terms which is those whose terms form a decreasing sequence of positive numbers.&lt;/p&gt;
+
+&lt;p&gt;We begin by considering a series
+\begin{equation}
+\sum_{n=1}^{\infty}a_n=a_1+a_2+\ldots+a_n+\ldots
+\end{equation}
+whose terms are positive and decreasing. Suppose $a_n=f(n)$, as shown is &lt;strong&gt;&lt;em&gt;Figure 1&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2021-09-06/integral-test.png&quot; alt=&quot;integral test&quot; width=&quot;500px&quot; height=&quot;230px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 1&lt;/b&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;As seeing from the figure, we have that
+\begin{equation}
+a_1+a_2+\dots+a_n\geq\int_{1}^{n+1}f(x)\,dx\geq\int_{1}^{n}f(x)\,dx
+\end{equation}&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] George F.Simmons. &lt;a href=&quot;https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424&quot;&gt;Calculus With Analytic Geometry - 2nd Edition&lt;/a&gt;&lt;/p&gt;

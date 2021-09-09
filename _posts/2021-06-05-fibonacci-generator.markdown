@@ -47,4 +47,6 @@ u_k=A^ku_0=c_1{\lambda_1}^kx_1+\dots+c_n{\lambda_n}^kx_n
 *Fact*: The $$\frac{1+\sqrt{5}}{2}\approx 1.618$$ is so-called "**golden ratio**". And *for some reason a rectangle with sides 1.618 and 1 looks especially graceful*.
 
 #### References
-[1] Gilbert Strang. [Introduction to Linear Algebra](http://math.mit.edu/~gs/linearalgebra/)
+[1] Gilbert Strang. [Introduction to Linear Algebra](http://math.mit.edu/~gs/linearalgebra/)  
+
+[2] MIT 18.06. [Linear Algebrea](https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/)

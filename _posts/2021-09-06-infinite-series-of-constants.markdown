@@ -129,14 +129,14 @@ The simplest general principle that is useful to study the convergence of a seri
 
 ### $\mathbf{n}$-th term test
 {: #nth-term-test}
-If the series $\\{a_n\\}$ converges, then $a_n\to0$ as $n\to\infty$; or equivalently, if $\neg(a_n\to0)$ as $n\to\infty$, then the series must necessarily diverge.  
+If the series $\\{a_n\\}$ converges, then $a_n\to 0$ as $n\to\infty$; or equivalently, if $\neg(a_n\to0)$ as $n\to\infty$, then the series must necessarily diverge.  
 
 **Proof**  
 When $\\{a_n\\}$ converges, as $n\to\infty$ we have
 \begin{equation}
 a_n=s_n-s_{n-1}\to s-s=0
 \end{equation}
-This result shows that $a_n\to0$ is a necessary condition for convergence. However, it is not a sufficient condition; i.e., it does not imply the convergence of the series when $a_n\to0$ as $n\to\infty$.
+This result shows that $a_n\to 0$ is a necessary condition for convergence. However, it is not a sufficient condition; i.e., it does not imply the convergence of the series when $a_n\to 0$ as $n\to\infty$.
 
 ## General Properties of Convergent Series
 {: #gen-props-conv-series}
@@ -219,6 +219,25 @@ If a convergent series of nonnegative terms is rearranged in any manner, then th
 
 ## The Integral test. Euler's constant
 {: #int-test-e}
+In this section, we will be going through a more detailed class of infinite series with nonnegative terms which is those whose terms form a decreasing sequence of positive numbers.  
+
+We begin by considering a series
+\begin{equation}
+\sum_{n=1}^{\infty}a_n=a_1+a_2+\ldots+a_n+\ldots
+\end{equation}
+whose terms are positive and decreasing. Suppose $a_n=f(n)$, as shown is ***Figure 1***.
+<figure>
+	<img src="/assets/images/2021-09-06/integral-test.png" alt="integral test" width="500px" height="230px" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b></figcaption>
+</figure>
+As seeing from the figure, we have that
+\begin{equation}
+a_1+a_2+\dots+a_n\geq\int_{1}^{n+1}f(x)\,dx\geq\int_{1}^{n}f(x)\,dx
+\end{equation}
+
+
+
+
 
 ## References
 [1] George F.Simmons. [Calculus With Analytic Geometry - 2nd Edition](https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424)  
