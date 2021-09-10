@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-10T12:32:56+07:00</updated><id>/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-10T14:33:21+07:00</updated><id>/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Infinite Series of Constants</title><link href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html" rel="alternate" type="text/html" title="Infinite Series of Constants" /><published>2021-09-06T11:20:00+07:00</published><updated>2021-09-06T11:20:00+07:00</updated><id>/mathematics/calculus/2021/09/06/infinite-series-of-constants</id><content type="html" xml:base="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html">&lt;blockquote&gt;
   &lt;p&gt;No idea what to say yet :D&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -30,7 +30,7 @@
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#int-test-euler-c&quot;&gt;Integral test. Euler’s constant&lt;/a&gt;
     &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#integral-test&quot;&gt;Integral test&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#integral-test&quot;&gt;The Integral test&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#euler-c&quot;&gt;Euler’s constant&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
@@ -38,6 +38,7 @@
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#ratio-test&quot;&gt;Ratio test&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#root-test&quot;&gt;Root test&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#extended-ratio-test&quot;&gt;Extended Ratio tests of Raabe and Gauss&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
@@ -376,8 +377,54 @@ However, $\sum Kr^n$ converges since $r&amp;lt;1$. Hence, by the &lt;a href=&quo
     &lt;p&gt;When $L&amp;gt;1$, we have that $\frac{a_{n+1}}{a_n}\geq 1$, or equivalently $a_{n+1}\geq a_n$, for all $n\geq n_0$, for some constant $n_0$. That means $\neg(a_n\to 0)$ as $n\to\infty$ (since $\sum a_n$ is a series of positive terms).&lt;br /&gt;
 By the &lt;a href=&quot;#nth-term-test&quot;&gt;$n$-th term test&lt;/a&gt;, we know that the series diverges.&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Consider the $p$-series $\sum\frac{1}{n^p}$. For all values of $p$, as $n\to\infty$ we have
+\begin{equation}
+\dfrac{a_{n+1}}{a_n}=\dfrac{n^p}{(n+1)^p}=\left(\dfrac{n}{n+1}\right)^p\to 1
+\end{equation}
+As in the above example, we have that this series converges if $p&amp;gt;1$ and diverges if $p\leq 1$.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ol&gt;
+
+&lt;h3 id=&quot;root-test&quot;&gt;Root test&lt;/h3&gt;
+&lt;p&gt;If $\sum a_n$ is a series of nonnegative terms such that
+\begin{equation}
+\lim_{n\to\infty}\sqrt[n]{a_n}=L,\tag{13}\label{13}
+\end{equation}
+then&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;if $L&amp;lt;1$, the series &lt;em&gt;converges&lt;/em&gt;.&lt;/li&gt;
+  &lt;li&gt;if $L&amp;gt;1$, the series &lt;em&gt;diverges&lt;/em&gt;.&lt;/li&gt;
+  &lt;li&gt;if $L=1$, the test is &lt;em&gt;inconclusive&lt;/em&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Let $L&amp;lt;1$ and $r$ is any number such that $L&amp;lt;r&amp;lt;1$. From \eqref{13}, we have that there exist $n_0$ such that
+\begin{align}
+\sqrt[n]{a_n}&amp;amp;\leq r&amp;lt;1,\hspace{1cm}\forall n\geq n_0 \\ a_n&amp;amp;\leq r^n&amp;gt;1,\hspace{1cm}\forall n\geq n_0
+\end{align}
+And since the geometric series $\sum r^n$ converges, we clearly have that $\sum a_n$ also converges.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If $L&amp;gt;1$, then $\sqrt[n]{a_n}\geq 1$ for all $n\geq n_0$, for some $n_0$, so $a_n\geq 1$ for all $n\geq n_0$. That means as $n\to\infty$, $\neg(a_n\to 0)$. Therefore, by the &lt;a href=&quot;#nth-term-test&quot;&gt;$n$-th term test&lt;/a&gt;, we have that the series diverges.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For $L=1$, we provide 2 examples. One is the divergent series $\sum\frac{1}{n}$ and the other is the convergent series $\sum\frac{1}{n^2}$ (since $\sqrt[n]{n}\to 1$ as $n\to\infty$).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;extended-ratio-test&quot;&gt;Extended Ratio tests of Raabe and Gauss&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt; (&lt;em&gt;Kummer’s&lt;/em&gt;)&lt;br /&gt;
+Assume that $a_n&amp;gt;0,b_n&amp;gt;0$ and $\sum\frac{1}{b_n}$ diverges. If
+\begin{equation}
+\lim\left(b_n-\dfrac{a_{n+1}}{a_n}.b_{b+1}\right)=L,
+\end{equation}
+then $\sum a_n$ converges if $L&amp;gt;0$ and diverges if $L&amp;lt;0$.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] George F.Simmons. &lt;a href=&quot;https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424&quot;&gt;Calculus With Analytic Geometry - 2nd Edition&lt;/a&gt;&lt;/p&gt;

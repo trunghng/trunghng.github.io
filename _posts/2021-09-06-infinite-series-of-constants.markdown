@@ -22,11 +22,12 @@ comments: true
 	- [Comparison test](#comparison-test)
 	- [Limit comparison test](#limit-comparison-test)
 - [Integral test. Euler's constant](#int-test-euler-c)
-	- [Integral test](#integral-test)
+	- [The Integral test](#integral-test)
 	- [Euler's constant](#euler-c)
 - [Ratio test. Root test](#ratio-root)
 	- [Ratio test](#ratio-test)
 	- [Root test](#root-test)
+	- [Extended Ratio tests of Raabe and Gauss](#extended-ratio-test)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -348,7 +349,47 @@ However, $\sum Kr^n$ converges since $r<1$. Hence, by the [comparison test](#com
 2. When $L>1$, we have that $\frac{a_{n+1}}{a_n}\geq 1$, or equivalently $a_{n+1}\geq a_n$, for all $n\geq n_0$, for some constant $n_0$. That means $\neg(a_n\to 0)$ as $n\to\infty$ (since $\sum a_n$ is a series of positive terms).  
 By the [$n$-th term test](#nth-term-test), we know that the series diverges.  
 
-3. 
+3. Consider the $p$-series $\sum\frac{1}{n^p}$. For all values of $p$, as $n\to\infty$ we have
+\begin{equation}
+\dfrac{a_{n+1}}{a_n}=\dfrac{n^p}{(n+1)^p}=\left(\dfrac{n}{n+1}\right)^p\to 1
+\end{equation}
+As in the above example, we have that this series converges if $p>1$ and diverges if $p\leq 1$.
+
+### Root test
+If $\sum a_n$ is a series of nonnegative terms such that
+\begin{equation}
+\lim_{n\to\infty}\sqrt[n]{a_n}=L,\tag{13}\label{13}
+\end{equation}
+then
+1. if $L<1$, the series *converges*.
+2. if $L>1$, the series *diverges*.
+3. if $L=1$, the test is *inconclusive*.
+
+**Proof**
+1. Let $L<1$ and $r$ is any number such that $L\<r<1$. From \eqref{13}, we have that there exist $n_0$ such that
+\begin{align}
+\sqrt[n]{a_n}&\leq r<1,\hspace{1cm}\forall n\geq n_0 \\\\ a_n&\leq r^n>1,\hspace{1cm}\forall n\geq n_0
+\end{align}
+And since the geometric series $\sum r^n$ converges, we clearly have that $\sum a_n$ also converges.  
+
+2. If $L>1$, then $\sqrt[n]{a_n}\geq 1$ for all $n\geq n_0$, for some $n_0$, so $a_n\geq 1$ for all $n\geq n_0$. That means as $n\to\infty$, $\neg(a_n\to 0)$. Therefore, by the [$n$-th term test](#nth-term-test), we have that the series diverges.  
+
+3. For $L=1$, we provide 2 examples. One is the divergent series $\sum\frac{1}{n}$ and the other is the convergent series $\sum\frac{1}{n^2}$ (since $\sqrt[n]{n}\to 1$ as $n\to\infty$).
+
+## Extended Ratio tests of Raabe and Gauss
+{: #extended-ratio-test}
+
+**Theorem** (*Kummer's*)  
+Assume that $a_n>0,b_n>0$ and $\sum\frac{1}{b_n}$ diverges. If
+\begin{equation}
+\lim\left(b_n-\dfrac{a_{n+1}}{a_n}.b_{b+1}\right)=L,
+\end{equation}
+then $\sum a_n$ converges if $L>0$ and diverges if $L<0$.  
+
+**Proof**  
+
+
+
 
 
 
