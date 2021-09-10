@@ -21,7 +21,8 @@ comments: true
 - [Series of Nonnegative terms. Comparison tests](#series-nonneg-ct)
 	- [Comparison test](#comparison-test)
 	- [Limit comparison test](#limit-comparison-test)
-- [The Integral test. Euler's constant](#int-test-e)
+- [Integral test. Euler's constant](#int-test-e)
+	- [Integral test](#integral-test)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -230,12 +231,49 @@ whose terms are positive and decreasing. Suppose $a_n=f(n)$, as shown is ***Figu
 	<img src="/assets/images/2021-09-06/integral-test.png" alt="integral test" width="500px" height="230px" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b></figcaption>
 </figure>
-As seeing from the figure, we have that
+
+On the left in this figure we see that the rectangles of areas $a_1,a_2,\dots,a_n$ have a greater combined area than the area under the curve from $x=1$ to $x=n1$, so
 \begin{equation}
-a_1+a_2+\dots+a_n\geq\int_{1}^{n+1}f(x)\,dx\geq\int_{1}^{n}f(x)\,dx
+a_1+a_2+\dots+a_n\geq\int_{1}^{n+1}f(x)\,dx\geq\int_{1}^{n}f(x)\,dx\tag{8}\label{8}
 \end{equation}
+On the right side of the figure, the rectangles lie under the curve, which makes
+\begin{align}
+a_2+a_3+\dots+a_n&\leq\int_{1}^{n}f(x)\,dx \\\\ a_1+a_2+\dots+a_n&\leq a_1+\int_{1}^{n}f(x)\,dx\tag{9}\label{9}
+\end{align}
+Putting \eqref{8} and \eqref{9} together we have
+\begin{equation}
+\int_{1}^{n}f(x)\,dx\leq a_1+a_2+\dots+a_n\leq a_1+\int_{1}^{n}f(x)\,dx\tag{10}\label{10}
+\end{equation}
+The result we obtained in \eqref{10} allows us to establish the **integral test**.
 
+### Integral test
 
+If $f(x)$ is a positive decreasing function for $x\geq1$ such that $f(n)=a_n$ for each positive integer $n$, then the series and integral
+\begin{equation}
+\sum_{n=1}^{\infty}a_n;\hspace{2cm}\int_{1}^{\infty}f(x)\,dx
+\end{equation}
+converge or diverge together.  
+
+The integral test holds for any interval of the form $x\geq k$, not just for $x\geq 1$.  
+
+**Example** (*Abel's series*)  
+Let's consider the convergence behavior of the series
+\begin{equation}
+\sum_{n=2}^{\infty}\frac{1}{n\ln n}\tag{11}\label{11}
+\end{equation}
+By the integral test, we have that \eqref{11} diverges, because
+\begin{equation}
+\sum_{2}^{\infty}\frac{dx}{x\ln x}=\lim_{b\to\infty}\int_{2}^{b}\frac{dx}{x\ln x}=\lim_{b\to\infty}\left(\ln\ln x\Big|\_{2}^{b}\right)=\lim_{b\to\infty}\left(\ln\ln b-\ln\ln 2\right)=\infty
+\end{equation}
+More generally, if $p>0$, then
+\begin{equation}
+\sum_{n=2}^{\infty}\frac{1}{n(\ln n)^p}
+\end{equation}
+converges if $p>1$ and diverges if $0\<p\leq 1$. For if $p\neq 1$, we have
+\begin{align}
+\int_{2}^{\infty}\frac{dx}{x(\ln x)^p}&=\lim_{b\to\infty}\int_{2}^{b}\frac{dx}{x(\ln x)^p} \\\\ &=\lim_{b\to\infty}\left[\dfrac{(\ln x)^{1-p}}{1-p}\Bigg|\_2^b\right] \\\\ &=\lim_{b\to\infty}\left[\dfrac{(\ln b)^{1-p}-(\ln 2)^{1-p}}{1-p}\right]
+\end{align}
+exists if and only if $p>1$.
 
 
 
@@ -245,4 +283,4 @@ a_1+a_2+\dots+a_n\geq\int_{1}^{n+1}f(x)\,dx\geq\int_{1}^{n}f(x)\,dx
 [2] MIT 18.01. [Single Variable Calculus](https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/)
 
 ## Footnotes
-[^1]: More information about power series are gonna be written in another post.
+[^1]: We will be going through power series in more detailed in another post.
