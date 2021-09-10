@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-10T11:33:37+07:00</updated><id>/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-10T12:32:56+07:00</updated><id>/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Infinite Series of Constants</title><link href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html" rel="alternate" type="text/html" title="Infinite Series of Constants" /><published>2021-09-06T11:20:00+07:00</published><updated>2021-09-06T11:20:00+07:00</updated><id>/mathematics/calculus/2021/09/06/infinite-series-of-constants</id><content type="html" xml:base="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html">&lt;blockquote&gt;
   &lt;p&gt;No idea what to say yet :D&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -234,6 +234,25 @@ which leads to the fact that $\sum a_n$ and $\sum b_n$ have the same convergence
 \end{equation}
 where $0&amp;lt;L&amp;lt;\infty$.&lt;/p&gt;
 
+&lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt; ($p$&lt;em&gt;-series&lt;/em&gt;)&lt;br /&gt;
+Consider the convergence behavior of the series
+\begin{equation}
+\sum_{n=1}^{\infty}\dfrac{1}{n^p}=1+\dfrac{1}{2^p}+\dfrac{1}{3^p}+\dfrac{1}{4^p}+\ldots,\tag{4}\label{4}
+\end{equation}
+where $p$ is a positive constant.&lt;/p&gt;
+
+&lt;p&gt;If $p\leq 1$, then $n^p\leq n$ or $\frac{1}{n}\leq\frac{1}{n^p}$. Thus, by comparison with the harmonic series $\sum\frac{1}{n}$, we have that \eqref{4} diverges.&lt;/p&gt;
+
+&lt;p&gt;If $p&amp;gt;1$, let $n$ be given and choose $m$ so that $n&amp;lt;2^m$. Then
+\begin{align}
+s_n&amp;amp;\leq s_{2^m-1} \\ &amp;amp;=1+\left(\dfrac{1}{2^p}+\dfrac{1}{3^p}\right)+\left(\dfrac{1}{4^p}+\ldots+\dfrac{1}{7^p}\right)+\ldots+\left[\dfrac{1}{(2^{m-1})^p}+\ldots+\dfrac{1}{(2^m-1)^p}\right] \\ &amp;amp;\leq 1+\dfrac{2}{2^p}+\dfrac{4}{4^p}+\ldots+\dfrac{2^{m-1}}{(2^{m-1})^p}
+\end{align}
+Let $a=\frac{1}{2^{p-1}}$, then $a&amp;lt;1$ since $p&amp;gt;1$, and
+\begin{equation}
+s_n\leq 1+a+a^2+\ldots+a^{m-1}=\dfrac{1-a^m}{1-a}&amp;lt;\dfrac{1}{1-a}
+\end{equation}
+which proves that $\{s_n\}$ has an upper bound. Thus \eqref{4} converges.&lt;/p&gt;
+
 &lt;p&gt;If a convergent series of nonnegative terms is rearranged in any manner, then the resulting series also converges and has the same sum.&lt;/p&gt;
 
 &lt;h2 id=&quot;int-test-euler-c&quot;&gt;The Integral test. Euler’s constant&lt;/h2&gt;
@@ -251,17 +270,17 @@ whose terms are positive and decreasing. Suppose $a_n=f(n)$, as shown is &lt;str
 
 &lt;p&gt;On the left in this figure we see that the rectangles of areas $a_1,a_2,\dots,a_n$ have a greater combined area than the area under the curve from $x=1$ to $x=n1$, so
 \begin{equation}
-a_1+a_2+\dots+a_n\geq\int_{1}^{n+1}f(x)\,dx\geq\int_{1}^{n}f(x)\,dx\tag{4}\label{4}
+a_1+a_2+\dots+a_n\geq\int_{1}^{n+1}f(x)\,dx\geq\int_{1}^{n}f(x)\,dx\tag{5}\label{5}
 \end{equation}
 On the right side of the figure, the rectangles lie under the curve, which makes
 \begin{align}
-a_2+a_3+\dots+a_n&amp;amp;\leq\int_{1}^{n}f(x)\,dx \\ a_1+a_2+\dots+a_n&amp;amp;\leq a_1+\int_{1}^{n}f(x)\,dx\tag{5}\label{5}
+a_2+a_3+\dots+a_n&amp;amp;\leq\int_{1}^{n}f(x)\,dx \\ a_1+a_2+\dots+a_n&amp;amp;\leq a_1+\int_{1}^{n}f(x)\,dx\tag{6}\label{6}
 \end{align}
-Putting \eqref{4} and \eqref{5} together we have
+Putting \eqref{5} and \eqref{6} together we have
 \begin{equation}
-\int_{1}^{n}f(x)\,dx\leq a_1+a_2+\dots+a_n\leq a_1+\int_{1}^{n}f(x)\,dx\tag{6}\label{6}
+\int_{1}^{n}f(x)\,dx\leq a_1+a_2+\dots+a_n\leq a_1+\int_{1}^{n}f(x)\,dx\tag{7}\label{7}
 \end{equation}
-The result we obtained in \eqref{6} allows us to establish the &lt;strong&gt;integral test&lt;/strong&gt;.&lt;/p&gt;
+The result we obtained in \eqref{7} allows us to establish the &lt;strong&gt;integral test&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;h3 id=&quot;integral-test&quot;&gt;Integral test&lt;/h3&gt;
 
@@ -276,9 +295,9 @@ converge or diverge together.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt; (&lt;em&gt;Abel’s series&lt;/em&gt;)&lt;br /&gt;
 Let’s consider the convergence behavior of the series
 \begin{equation}
-\sum_{n=2}^{\infty}\frac{1}{n\ln n}\tag{7}\label{7}
+\sum_{n=2}^{\infty}\frac{1}{n\ln n}\tag{8}\label{8}
 \end{equation}
-By the integral test, we have that \eqref{7} diverges, because
+By the integral test, we have that \eqref{8} diverges, because
 \begin{equation}
 \sum_{2}^{\infty}\frac{dx}{x\ln x}=\lim_{b\to\infty}\int_{2}^{b}\frac{dx}{x\ln x}=\lim_{b\to\infty}\left(\ln\ln x\Big|_{2}^{b}\right)=\lim_{b\to\infty}\left(\ln\ln b-\ln\ln 2\right)=\infty
 \end{equation}
@@ -293,7 +312,7 @@ converges if $p&amp;gt;1$ and diverges if $0&amp;lt;p\leq 1$. For if $p\neq 1$, 
 exists if and only if $p&amp;gt;1$.&lt;/p&gt;
 
 &lt;h3 id=&quot;euler-c&quot;&gt;Euler’s constant&lt;/h3&gt;
-&lt;p&gt;From \eqref{6} we have that
+&lt;p&gt;From \eqref{7} we have that
 \begin{equation}
 0\leq a_1+a_2+\ldots+a_n-\int_{1}^{n}f(x)\,dx\leq a_1
 \end{equation}
@@ -309,19 +328,19 @@ where the last step can be seen by observing the right side of &lt;strong&gt;&lt
 
 &lt;p&gt;Since any decreasing sequence of nonnegative numbers converges, we have that
 \begin{equation}
-L=\lim_{n\to\infty}F(n)=\lim_{n\to\infty}\left[a_1+a_2+\ldots+a_n-\int_{1}^{n}f(x)\,dx\right]\tag{8}\label{8}
+L=\lim_{n\to\infty}F(n)=\lim_{n\to\infty}\left[a_1+a_2+\ldots+a_n-\int_{1}^{n}f(x)\,dx\right]\tag{9}\label{9}
 \end{equation}
 exists and satisfies the inequalities $0\leq L\leq a_1$.&lt;/p&gt;
 
-&lt;p&gt;Let $a_n=\frac{1}{n}$ and $f(x)=\frac{1}{x}$, the last quantity in \eqref{8} becomes
+&lt;p&gt;Let $a_n=\frac{1}{n}$ and $f(x)=\frac{1}{x}$, the last quantity in \eqref{9} becomes
 \begin{equation}
-\lim_{n\to\infty}\left(1+\dfrac{1}{2}+\ldots+\dfrac{1}{n}-\ln n\right)\tag{9}\label{9}
+\lim_{n\to\infty}\left(1+\dfrac{1}{2}+\ldots+\dfrac{1}{n}-\ln n\right)\tag{10}\label{10}
 \end{equation}
 since
 \begin{equation}
 \int_{1}^{n}\dfrac{dx}{x}=\ln x\Big|_1^n=\ln n
 \end{equation}
-The value of the limit \eqref{9} is called &lt;strong&gt;Euler’s constant&lt;/strong&gt; (denoted as $\gamma$).
+The value of the limit \eqref{10} is called &lt;strong&gt;Euler’s constant&lt;/strong&gt; (denoted as $\gamma$).
 \begin{equation}
 \gamma=\lim_{n\to\infty}\left(1+\dfrac{1}{2}+\ldots+\dfrac{1}{n}-\ln n\right)
 \end{equation}&lt;/p&gt;
@@ -329,6 +348,36 @@ The value of the limit \eqref{9} is called &lt;strong&gt;Euler’s constant&lt;/
 &lt;h2 id=&quot;ratio-root&quot;&gt;Ratio test. Root test&lt;/h2&gt;
 
 &lt;h3 id=&quot;ratio-test&quot;&gt;Ratio test&lt;/h3&gt;
+&lt;p&gt;If $\sum a_n$ is a series of positive terms such that
+\begin{equation}
+\lim_{n\to\infty}\dfrac{a_{n+1}}{a_n}=L,\tag{11}\label{11}
+\end{equation}
+then&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;if $L&amp;lt;1$, the series &lt;em&gt;converges&lt;/em&gt;.&lt;/li&gt;
+  &lt;li&gt;if $L&amp;gt;1$, the series &lt;em&gt;diverges&lt;/em&gt;.&lt;/li&gt;
+  &lt;li&gt;if $L=1$, the test is &lt;em&gt;inconclusive&lt;/em&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Let $L&amp;lt;1$ and choose any number $r$ such that $L&amp;lt;r&amp;lt;1$. From \eqref{11}, we have that there exists an $n_0$ such that
+\begin{align}
+\dfrac{a_{n+1}}{a_n}&amp;amp;\leq r=\dfrac{r^{n+1}}{r_n},\hspace{1cm}\forall n\geq n_0 \\ \dfrac{a_{n+1}}{r^{n+1}}&amp;amp;\leq\dfrac{a_n}{r^n},\hspace{2cm}\forall n\geq n_0
+\end{align}
+which means that $\{\frac{a_n}{r^n}\}$ is a decreasing sequence for $n\geq n_0$; in particular, $\frac{a_n}{r^n}\leq\frac{a_{n_0}}{r^{n_0}}$ for $n\geq n_0$. Thus, if we let $K=\frac{a_{n_0}}{r^{n_0}}$, then we get
+\begin{equation}
+a_n\leq Kr^n,\hspace{1cm}\forall n\geq n_0\tag{12}\label{12}
+\end{equation}
+However, $\sum Kr^n$ converges since $r&amp;lt;1$. Hence, by the &lt;a href=&quot;#comparison-test&quot;&gt;comparison test&lt;/a&gt;, \eqref{12} implies that $\sum a_n$ converges.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;When $L&amp;gt;1$, we have that $\frac{a_{n+1}}{a_n}\geq 1$, or equivalently $a_{n+1}\geq a_n$, for all $n\geq n_0$, for some constant $n_0$. That means $\neg(a_n\to 0)$ as $n\to\infty$ (since $\sum a_n$ is a series of positive terms).&lt;br /&gt;
+By the &lt;a href=&quot;#nth-term-test&quot;&gt;$n$-th term test&lt;/a&gt;, we know that the series diverges.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] George F.Simmons. &lt;a href=&quot;https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424&quot;&gt;Calculus With Analytic Geometry - 2nd Edition&lt;/a&gt;&lt;/p&gt;

@@ -208,6 +208,25 @@ The condition \eqref{3} can be generalized by
 \end{equation}
 where $0\<L<\infty$.  
 
+**Example** ($p$*-series*)  
+Consider the convergence behavior of the series
+\begin{equation}
+\sum_{n=1}^{\infty}\dfrac{1}{n^p}=1+\dfrac{1}{2^p}+\dfrac{1}{3^p}+\dfrac{1}{4^p}+\ldots,\tag{4}\label{4}
+\end{equation}
+where $p$ is a positive constant.  
+
+If $p\leq 1$, then $n^p\leq n$ or $\frac{1}{n}\leq\frac{1}{n^p}$. Thus, by comparison with the harmonic series $\sum\frac{1}{n}$, we have that \eqref{4} diverges.   
+
+If $p>1$, let $n$ be given and choose $m$ so that $n<2^m$. Then
+\begin{align}
+s_n&\leq s_{2^m-1} \\\\ &=1+\left(\dfrac{1}{2^p}+\dfrac{1}{3^p}\right)+\left(\dfrac{1}{4^p}+\ldots+\dfrac{1}{7^p}\right)+\ldots+\left[\dfrac{1}{(2^{m-1})^p}+\ldots+\dfrac{1}{(2^m-1)^p}\right] \\\\ &\leq 1+\dfrac{2}{2^p}+\dfrac{4}{4^p}+\ldots+\dfrac{2^{m-1}}{(2^{m-1})^p}
+\end{align}
+Let $a=\frac{1}{2^{p-1}}$, then $a<1$ since $p>1$, and
+\begin{equation}
+s_n\leq 1+a+a^2+\ldots+a^{m-1}=\dfrac{1-a^m}{1-a}<\dfrac{1}{1-a}
+\end{equation}
+which proves that $\\{s_n\\}$ has an upper bound. Thus \eqref{4} converges.  
+
 If a convergent series of nonnegative terms is rearranged in any manner, then the resulting series also converges and has the same sum.
 
 ## The Integral test. Euler's constant
@@ -226,17 +245,17 @@ whose terms are positive and decreasing. Suppose $a_n=f(n)$, as shown is ***Figu
 
 On the left in this figure we see that the rectangles of areas $a_1,a_2,\dots,a_n$ have a greater combined area than the area under the curve from $x=1$ to $x=n1$, so
 \begin{equation}
-a_1+a_2+\dots+a_n\geq\int_{1}^{n+1}f(x)\,dx\geq\int_{1}^{n}f(x)\,dx\tag{4}\label{4}
+a_1+a_2+\dots+a_n\geq\int_{1}^{n+1}f(x)\,dx\geq\int_{1}^{n}f(x)\,dx\tag{5}\label{5}
 \end{equation}
 On the right side of the figure, the rectangles lie under the curve, which makes
 \begin{align}
-a_2+a_3+\dots+a_n&\leq\int_{1}^{n}f(x)\,dx \\\\ a_1+a_2+\dots+a_n&\leq a_1+\int_{1}^{n}f(x)\,dx\tag{5}\label{5}
+a_2+a_3+\dots+a_n&\leq\int_{1}^{n}f(x)\,dx \\\\ a_1+a_2+\dots+a_n&\leq a_1+\int_{1}^{n}f(x)\,dx\tag{6}\label{6}
 \end{align}
-Putting \eqref{4} and \eqref{5} together we have
+Putting \eqref{5} and \eqref{6} together we have
 \begin{equation}
-\int_{1}^{n}f(x)\,dx\leq a_1+a_2+\dots+a_n\leq a_1+\int_{1}^{n}f(x)\,dx\tag{6}\label{6}
+\int_{1}^{n}f(x)\,dx\leq a_1+a_2+\dots+a_n\leq a_1+\int_{1}^{n}f(x)\,dx\tag{7}\label{7}
 \end{equation}
-The result we obtained in \eqref{6} allows us to establish the **integral test**.
+The result we obtained in \eqref{7} allows us to establish the **integral test**.
 
 ### Integral test
 
@@ -251,9 +270,9 @@ The integral test holds for any interval of the form $x\geq k$, not just for $x\
 **Example** (*Abel's series*)  
 Let's consider the convergence behavior of the series
 \begin{equation}
-\sum_{n=2}^{\infty}\frac{1}{n\ln n}\tag{7}\label{7}
+\sum_{n=2}^{\infty}\frac{1}{n\ln n}\tag{8}\label{8}
 \end{equation}
-By the integral test, we have that \eqref{7} diverges, because
+By the integral test, we have that \eqref{8} diverges, because
 \begin{equation}
 \sum_{2}^{\infty}\frac{dx}{x\ln x}=\lim_{b\to\infty}\int_{2}^{b}\frac{dx}{x\ln x}=\lim_{b\to\infty}\left(\ln\ln x\Big|\_{2}^{b}\right)=\lim_{b\to\infty}\left(\ln\ln b-\ln\ln 2\right)=\infty
 \end{equation}
@@ -269,7 +288,7 @@ exists if and only if $p>1$.
 
 ### Euler's constant
 {: #euler-c}
-From \eqref{6} we have that
+From \eqref{7} we have that
 \begin{equation}
 0\leq a_1+a_2+\ldots+a_n-\int_{1}^{n}f(x)\,dx\leq a_1
 \end{equation}
@@ -285,19 +304,19 @@ where the last step can be seen by observing the right side of ***Figure 1***.
 
 Since any decreasing sequence of nonnegative numbers converges, we have that
 \begin{equation}
-L=\lim_{n\to\infty}F(n)=\lim_{n\to\infty}\left[a_1+a_2+\ldots+a_n-\int_{1}^{n}f(x)\,dx\right]\tag{8}\label{8}
+L=\lim_{n\to\infty}F(n)=\lim_{n\to\infty}\left[a_1+a_2+\ldots+a_n-\int_{1}^{n}f(x)\,dx\right]\tag{9}\label{9}
 \end{equation}
 exists and satisfies the inequalities $0\leq L\leq a_1$.  
 
-Let $a_n=\frac{1}{n}$ and $f(x)=\frac{1}{x}$, the last quantity in \eqref{8} becomes
+Let $a_n=\frac{1}{n}$ and $f(x)=\frac{1}{x}$, the last quantity in \eqref{9} becomes
 \begin{equation}
-\lim_{n\to\infty}\left(1+\dfrac{1}{2}+\ldots+\dfrac{1}{n}-\ln n\right)\tag{9}\label{9}
+\lim_{n\to\infty}\left(1+\dfrac{1}{2}+\ldots+\dfrac{1}{n}-\ln n\right)\tag{10}\label{10}
 \end{equation}
 since
 \begin{equation}
 \int_{1}^{n}\dfrac{dx}{x}=\ln x\Big|\_1^n=\ln n
 \end{equation}
-The value of the limit \eqref{9} is called **Euler's constant** (denoted as $\gamma$).
+The value of the limit \eqref{10} is called **Euler's constant** (denoted as $\gamma$).
 \begin{equation}
 \gamma=\lim_{n\to\infty}\left(1+\dfrac{1}{2}+\ldots+\dfrac{1}{n}-\ln n\right)
 \end{equation}
@@ -306,6 +325,30 @@ The value of the limit \eqref{9} is called **Euler's constant** (denoted as $\ga
 {: #ratio-root}
 
 ### Ratio test
+If $\sum a_n$ is a series of positive terms such that
+\begin{equation}
+\lim_{n\to\infty}\dfrac{a_{n+1}}{a_n}=L,\tag{11}\label{11}
+\end{equation}
+then
+1. if $L<1$, the series *converges*.
+2. if $L>1$, the series *diverges*.
+3. if $L=1$, the test is *inconclusive*.
+
+**Proof**  
+1. Let $L<1$ and choose any number $r$ such that $L\<r<1$. From \eqref{11}, we have that there exists an $n_0$ such that
+\begin{align}
+\dfrac{a_{n+1}}{a_n}&\leq r=\dfrac{r^{n+1}}{r_n},\hspace{1cm}\forall n\geq n_0 \\\\ \dfrac{a_{n+1}}{r^{n+1}}&\leq\dfrac{a_n}{r^n},\hspace{2cm}\forall n\geq n_0
+\end{align}
+which means that $\\{\frac{a_n}{r^n}\\}$ is a decreasing sequence for $n\geq n_0$; in particular, $\frac{a_n}{r^n}\leq\frac{a_{n_0}}{r^{n_0}}$ for $n\geq n_0$. Thus, if we let $K=\frac{a_{n_0}}{r^{n_0}}$, then we get
+\begin{equation}
+a_n\leq Kr^n,\hspace{1cm}\forall n\geq n_0\tag{12}\label{12}
+\end{equation}
+However, $\sum Kr^n$ converges since $r<1$. Hence, by the [comparison test](#comparison-test), \eqref{12} implies that $\sum a_n$ converges.  
+
+2. When $L>1$, we have that $\frac{a_{n+1}}{a_n}\geq 1$, or equivalently $a_{n+1}\geq a_n$, for all $n\geq n_0$, for some constant $n_0$. That means $\neg(a_n\to 0)$ as $n\to\infty$ (since $\sum a_n$ is a series of positive terms).  
+By the [$n$-th term test](#nth-term-test), we know that the series diverges.  
+
+3. 
 
 
 
