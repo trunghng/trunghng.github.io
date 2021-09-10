@@ -21,13 +21,17 @@ comments: true
 - [Series of Nonnegative terms. Comparison tests](#series-nonneg-ct)
 	- [Comparison test](#comparison-test)
 	- [Limit comparison test](#limit-comparison-test)
-- [Integral test. Euler's constant](#int-test-euler-c)
-	- [The Integral test](#integral-test)
+- [The Integral test. Euler's constant](#int-test-euler-c)
+	- [Integral test](#integral-test)
 	- [Euler's constant](#euler-c)
-- [Ratio test. Root test](#ratio-root)
+- [The Ratio test. Root test](#ratio-root)
 	- [Ratio test](#ratio-test)
 	- [Root test](#root-test)
-	- [Extended Ratio tests of Raabe and Gauss](#extended-ratio-test)
+	- [The Extended Ratio tests of Raabe and Gauss](#extended-ratio-test)
+		- [Kummer's theorem](#kummbers-theorem)
+		- [Raabe's test](#raabes-test)
+		- [Gauss's test](#gausss-test)
+- [The Alternating Series test. Absolute Convergence](#alt-test-abs-conv)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -322,7 +326,7 @@ The value of the limit \eqref{10} is called **Euler's constant** (denoted as $\g
 \gamma=\lim_{n\to\infty}\left(1+\dfrac{1}{2}+\ldots+\dfrac{1}{n}-\ln n\right)
 \end{equation}
 
-## Ratio test. Root test
+## The Ratio test. Root test
 {: #ratio-root}
 
 ### Ratio test
@@ -376,28 +380,115 @@ And since the geometric series $\sum r^n$ converges, we clearly have that $\sum 
 
 3. For $L=1$, we provide 2 examples. One is the divergent series $\sum\frac{1}{n}$ and the other is the convergent series $\sum\frac{1}{n^2}$ (since $\sqrt[n]{n}\to 1$ as $n\to\infty$).
 
-## Extended Ratio tests of Raabe and Gauss
+### The Extended Ratio tests of Raabe and Gauss
 {: #extended-ratio-test}
+
+#### Kummer's theorem
+{: #kummers-theorem}
 
 **Theorem** (*Kummer's*)  
 Assume that $a_n>0,b_n>0$ and $\sum\frac{1}{b_n}$ diverges. If
 \begin{equation}
-\lim\left(b_n-\dfrac{a_{n+1}}{a_n}.b_{b+1}\right)=L,
+\lim\left(b_n-\dfrac{a_{n+1}}{a_n}.b_{n+1}\right)=L,\tag{14}\label{14}
 \end{equation}
 then $\sum a_n$ converges if $L>0$ and diverges if $L<0$.  
 
 **Proof**  
+- If $L>0$, then there exists $h$ such that $L>h>0$. From \eqref{14}, for some positive integer $n_0$ we have
+\begin{align}
+b_n-\dfrac{a_{n+1}}{a_n}.b_{n+1}&\geq h>0,\hspace{1cm}\forall n\geq n_0 \\\\ a_n b_n-a_{n+1}b_{n+1}&\geq ha_n>0,\hspace{1cm}\forall n\geq n_0\tag{15}\label{15}
+\end{align}
+Hence, $\\{a_n b_n\\}$ is a decreasing sequence of positive numbers for $n\geq n_0$, so $K=\lim a_n b_n$ exists.  
+Moreover, we have that
+\begin{equation}
+\sum_{n=n_0}^{\infty}a_nb_n-a_{n+1}b_{n+1}=a_{n_0}b_{n_0}-\lim_{n\to\infty}a_nb_n=a_{n_0}b_{n_0}-K
+\end{equation}
+Therefore, by \eqref{15} and the [comparison test](#comparison-test), we can conclude that $\sum ha_n$ converges, which means that $\sum a_n$ also converges.  
 
+- If $L<0$, for some positive integer $n_0$ we have
+\begin{equation}
+a_nb_n-a_{n+1}b_{n+1}\leq 0,\hspace{1cm}\forall n\geq n_0
+\end{equation}
+Hence, $\\{a_nb_n\\}$ is a increasing sequence of positive number for all $n\geq n_0$, for some positive integer $n_0$. This also means for all $n\geq n_0$,
+\begin{align}
+a_nb_n&\geq a_{n_0}b_{n_0} \\\\ a_n&\geq (a_{n_0}b_{n_0}).\dfrac{1}{b_n}
+\end{align}
+Therefore $\sum a_n$ diverges (since $\sum\frac{1}{b_n}$ diverges).  
 
+#### Raabe's test
+{: #raabes-test}
 
+**Theorem** (*Raabe's test*)  
+If $a_n>0$ and
+\begin{equation}
+\dfrac{a_{n+1}}{a_n}=1-\dfrac{A}{n}+\dfrac{A_n}{n},
+\end{equation}
+where $A_n\to 0$, then $\sum a_n$ converges if $A>1$ and diverges if $A<1$.  
 
+**Proof**  
+Take $n=b_n$ in Kummber's theorem. Then
+\begin{align}
+\lim\left(b_n-\dfrac{a_{n+1}}{a_n}.b_{n+1}\right)&=\lim\left[n-\left(1-\dfrac{A}{n}+\dfrac{A_n}{n}\right)(n+1)\right] \\\\ &=\lim\left[-1+\dfrac{A(n+1)}{n}-\dfrac{A_n(n+1)}{n}\right] \\\\ &=A-1
+\end{align}
+and by Kummer's theorem we have that $\sum a_n$ converges if $A>1$ and diverges if $A<1$.  
+
+Raabe's test can be formulated as followed: If $a_n>0$ and
+\begin{equation}
+\lim n\left(1-\dfrac{a_{n+1}}{a_n}\right)=A,
+\end{equation}
+then $\sum a_n$ converges if $A>1$ and diverges if $A<1$.  
+
+When $A=1$ in Raabe's test, we turn to **Gauss's test**
+
+#### Gauss's test
+{: #gausss-test}
+
+**Theorem**
+If $a_n>0$ and
+\begin{equation}
+\dfrac{a_{n+1}}{a_n}=1-\dfrac{A}{n}+\dfrac{A_n}{n^{1+c}},
+\end{equation}
+where $c>0$ and $A_n$ is bounded as $n\to\infty$, then $\sum a_n$ converges if $A>1$ and diverges if $A\leq 1$.  
+
+**Proof**  
+- If $A\neq 1$, the statement follows exactly from Raabe's test, since $\frac{A_n}{n^c}\to 0$ as $n\to\infty$.  
+
+- If $A=1$, we begin by taking $b_n=n\ln n$ in Kummer's theorem. Then
+\begin{align}
+\lim\left(b_n-\dfrac{a_{n+1}}{a_n}.b_{n+1}\right)&=\lim\left[n\ln n-\left(1-\dfrac{1}{n}+\dfrac{A_n}{n^{1+c}}\right)(n+1)\ln(n+1)\right] \\\\ &=\lim\left[n\ln n-\dfrac{n^2-1}{n}\ln(n+1)-\dfrac{n+1}{n}.\dfrac{A_n\ln(n+1)}{n^c}\right] \\\\ &=\lim\left[n\ln\left(\dfrac{n}{n+1}\right)+\dfrac{\ln(n+1)}{n}-\dfrac{n+1}{n}.\dfrac{A_n\ln(n+1)}{n^c}\right] \\\\ &=-1+0-0=-1<0,
+\end{align}
+where in fourth step we use the *Stolz–Cesàro theorem*[^2]. Therefore, by *Kummer's theorem*, we have that the series is divergent.  
+
+**Theorem** (*Gauss's test*)  
+If $a_n>0$ and
+\begin{equation}
+\dfrac{a_{n+1}}{a_n}=\dfrac{n^k+\alpha n^{k-1}+\ldots}{n^k+\beta n^{k-1}+\ldots},\tag{16}\label{16}
+\end{equation}
+then $\sum a_n$ converges if $\beta-\alpha>1$ and diverges if $\beta-\alpha\leq 1$.  
+
+**Proof**  
+If the quotient on the right of \eqref{16} is worked out by long division, we get
+\begin{equation}
+\dfrac{a_{n+1}}{a_n}=1-\dfrac{\beta-\alpha}{n}+\dfrac{A_n}{n^2},
+\end{equation}
+where $A_n$ is a quotient of the form
+\begin{equation}
+\dfrac{\gamma n^{k-2}+\ldots}{n^{k-2}+\ldots}
+\end{equation}
+and is therefore clearly bounded as $n\to\infty$. The statement now follows from the right above theorem with $c=1$.
+
+## The Alternating Series test. Absolute Convergence
+{: #alt-test-abs-conv}
 
 
 
 ## References
 [1] George F.Simmons. [Calculus With Analytic Geometry - 2nd Edition](https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424)  
 
-[2] MIT 18.01. [Single Variable Calculus](https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/)
+[2] MIT 18.01. [Single Variable Calculus](https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/)  
+
+[3] Marian M. [A Concrete Approach to Classical Analysis](https://www.springer.com/gp/book/9780387789323)
 
 ## Footnotes
 [^1]: We will be going through power series in more detailed in another post.
+[^2]: 

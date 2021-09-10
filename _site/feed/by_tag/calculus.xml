@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/calculus.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-10T14:33:21+07:00</updated><id>/feed/by_tag/calculus.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/calculus.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-10T19:38:40+07:00</updated><id>/feed/by_tag/calculus.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Infinite Series of Constants</title><link href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html" rel="alternate" type="text/html" title="Infinite Series of Constants" /><published>2021-09-06T11:20:00+07:00</published><updated>2021-09-06T11:20:00+07:00</updated><id>/mathematics/calculus/2021/09/06/infinite-series-of-constants</id><content type="html" xml:base="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html">&lt;blockquote&gt;
   &lt;p&gt;No idea what to say yet :D&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -28,19 +28,26 @@
       &lt;li&gt;&lt;a href=&quot;#limit-comparison-test&quot;&gt;Limit comparison test&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#int-test-euler-c&quot;&gt;Integral test. Euler’s constant&lt;/a&gt;
+  &lt;li&gt;&lt;a href=&quot;#int-test-euler-c&quot;&gt;The Integral test. Euler’s constant&lt;/a&gt;
     &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#integral-test&quot;&gt;The Integral test&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#integral-test&quot;&gt;Integral test&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#euler-c&quot;&gt;Euler’s constant&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#ratio-root&quot;&gt;Ratio test. Root test&lt;/a&gt;
+  &lt;li&gt;&lt;a href=&quot;#ratio-root&quot;&gt;The Ratio test. Root test&lt;/a&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#ratio-test&quot;&gt;Ratio test&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#root-test&quot;&gt;Root test&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#extended-ratio-test&quot;&gt;Extended Ratio tests of Raabe and Gauss&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#extended-ratio-test&quot;&gt;The Extended Ratio tests of Raabe and Gauss&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#kummbers-theorem&quot;&gt;Kummer’s theorem&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#raabes-test&quot;&gt;Raabe’s test&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#gausss-test&quot;&gt;Gauss’s test&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#alt-test-abs-conv&quot;&gt;The Alternating Series test. Absolute Convergence&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -346,7 +353,7 @@ The value of the limit \eqref{10} is called &lt;strong&gt;Euler’s constant&lt;
 \gamma=\lim_{n\to\infty}\left(1+\dfrac{1}{2}+\ldots+\dfrac{1}{n}-\ln n\right)
 \end{equation}&lt;/p&gt;
 
-&lt;h2 id=&quot;ratio-root&quot;&gt;Ratio test. Root test&lt;/h2&gt;
+&lt;h2 id=&quot;ratio-root&quot;&gt;The Ratio test. Root test&lt;/h2&gt;
 
 &lt;h3 id=&quot;ratio-test&quot;&gt;Ratio test&lt;/h3&gt;
 &lt;p&gt;If $\sum a_n$ is a series of positive terms such that
@@ -415,27 +422,127 @@ And since the geometric series $\sum r^n$ converges, we clearly have that $\sum 
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h2 id=&quot;extended-ratio-test&quot;&gt;Extended Ratio tests of Raabe and Gauss&lt;/h2&gt;
+&lt;h3 id=&quot;extended-ratio-test&quot;&gt;The Extended Ratio tests of Raabe and Gauss&lt;/h3&gt;
+
+&lt;h4 id=&quot;kummers-theorem&quot;&gt;Kummer’s theorem&lt;/h4&gt;
 
 &lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt; (&lt;em&gt;Kummer’s&lt;/em&gt;)&lt;br /&gt;
 Assume that $a_n&amp;gt;0,b_n&amp;gt;0$ and $\sum\frac{1}{b_n}$ diverges. If
 \begin{equation}
-\lim\left(b_n-\dfrac{a_{n+1}}{a_n}.b_{b+1}\right)=L,
+\lim\left(b_n-\dfrac{a_{n+1}}{a_n}.b_{n+1}\right)=L,\tag{14}\label{14}
 \end{equation}
 then $\sum a_n$ converges if $L&amp;gt;0$ and diverges if $L&amp;lt;0$.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;If $L&amp;gt;0$, then there exists $h$ such that $L&amp;gt;h&amp;gt;0$. From \eqref{14}, for some positive integer $n_0$ we have
+\begin{align}
+b_n-\dfrac{a_{n+1}}{a_n}.b_{n+1}&amp;amp;\geq h&amp;gt;0,\hspace{1cm}\forall n\geq n_0 \\ a_n b_n-a_{n+1}b_{n+1}&amp;amp;\geq ha_n&amp;gt;0,\hspace{1cm}\forall n\geq n_0\tag{15}\label{15}
+\end{align}
+Hence, $\{a_n b_n\}$ is a decreasing sequence of positive numbers for $n\geq n_0$, so $K=\lim a_n b_n$ exists.&lt;br /&gt;
+Moreover, we have that
+\begin{equation}
+\sum_{n=n_0}^{\infty}a_nb_n-a_{n+1}b_{n+1}=a_{n_0}b_{n_0}-\lim_{n\to\infty}a_nb_n=a_{n_0}b_{n_0}-K
+\end{equation}
+Therefore, by \eqref{15} and the &lt;a href=&quot;#comparison-test&quot;&gt;comparison test&lt;/a&gt;, we can conclude that $\sum ha_n$ converges, which means that $\sum a_n$ also converges.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If $L&amp;lt;0$, for some positive integer $n_0$ we have
+\begin{equation}
+a_nb_n-a_{n+1}b_{n+1}\leq 0,\hspace{1cm}\forall n\geq n_0
+\end{equation}
+Hence, $\{a_nb_n\}$ is a increasing sequence of positive number for all $n\geq n_0$, for some positive integer $n_0$. This also means for all $n\geq n_0$,
+\begin{align}
+a_nb_n&amp;amp;\geq a_{n_0}b_{n_0} \\ a_n&amp;amp;\geq (a_{n_0}b_{n_0}).\dfrac{1}{b_n}
+\end{align}
+Therefore $\sum a_n$ diverges (since $\sum\frac{1}{b_n}$ diverges).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;raabes-test&quot;&gt;Raabe’s test&lt;/h4&gt;
+
+&lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt; (&lt;em&gt;Raabe’s test&lt;/em&gt;)&lt;br /&gt;
+If $a_n&amp;gt;0$ and
+\begin{equation}
+\dfrac{a_{n+1}}{a_n}=1-\dfrac{A}{n}+\dfrac{A_n}{n},
+\end{equation}
+where $A_n\to 0$, then $\sum a_n$ converges if $A&amp;gt;1$ and diverges if $A&amp;lt;1$.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
+Take $n=b_n$ in Kummber’s theorem. Then
+\begin{align}
+\lim\left(b_n-\dfrac{a_{n+1}}{a_n}.b_{n+1}\right)&amp;amp;=\lim\left[n-\left(1-\dfrac{A}{n}+\dfrac{A_n}{n}\right)(n+1)\right] \\ &amp;amp;=\lim\left[-1+\dfrac{A(n+1)}{n}-\dfrac{A_n(n+1)}{n}\right] \\ &amp;amp;=A-1
+\end{align}
+and by Kummer’s theorem we have that $\sum a_n$ converges if $A&amp;gt;1$ and diverges if $A&amp;lt;1$.&lt;/p&gt;
+
+&lt;p&gt;Raabe’s test can be formulated as followed: If $a_n&amp;gt;0$ and
+\begin{equation}
+\lim n\left(1-\dfrac{a_{n+1}}{a_n}\right)=A,
+\end{equation}
+then $\sum a_n$ converges if $A&amp;gt;1$ and diverges if $A&amp;lt;1$.&lt;/p&gt;
+
+&lt;p&gt;When $A=1$ in Raabe’s test, we turn to &lt;strong&gt;Gauss’s test&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;gausss-test&quot;&gt;Gauss’s test&lt;/h4&gt;
+
+&lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt;
+If $a_n&amp;gt;0$ and
+\begin{equation}
+\dfrac{a_{n+1}}{a_n}=1-\dfrac{A}{n}+\dfrac{A_n}{n^{1+c}},
+\end{equation}
+where $c&amp;gt;0$ and $A_n$ is bounded as $n\to\infty$, then $\sum a_n$ converges if $A&amp;gt;1$ and diverges if $A\leq 1$.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;If $A\neq 1$, the statement follows exactly from Raabe’s test, since $\frac{A_n}{n^c}\to 0$ as $n\to\infty$.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If $A=1$, we begin by taking $b_n=n\ln n$ in Kummer’s theorem. Then
+\begin{align}
+\lim\left(b_n-\dfrac{a_{n+1}}{a_n}.b_{n+1}\right)&amp;amp;=\lim\left[n\ln n-\left(1-\dfrac{1}{n}+\dfrac{A_n}{n^{1+c}}\right)(n+1)\ln(n+1)\right] \\ &amp;amp;=\lim\left[n\ln n-\dfrac{n^2-1}{n}\ln(n+1)-\dfrac{n+1}{n}.\dfrac{A_n\ln(n+1)}{n^c}\right] \\ &amp;amp;=\lim\left[n\ln\left(\dfrac{n}{n+1}\right)+\dfrac{\ln(n+1)}{n}-\dfrac{n+1}{n}.\dfrac{A_n\ln(n+1)}{n^c}\right] \\ &amp;amp;=-1+0-0=-1&amp;lt;0,
+\end{align}
+where in fourth step we use the &lt;em&gt;Stolz–Cesàro theorem&lt;/em&gt;&lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;. Therefore, by &lt;em&gt;Kummer’s theorem&lt;/em&gt;, we have that the series is divergent.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt; (&lt;em&gt;Gauss’s test&lt;/em&gt;)&lt;br /&gt;
+If $a_n&amp;gt;0$ and
+\begin{equation}
+\dfrac{a_{n+1}}{a_n}=\dfrac{n^k+\alpha n^{k-1}+\ldots}{n^k+\beta n^{k-1}+\ldots},\tag{16}\label{16}
+\end{equation}
+then $\sum a_n$ converges if $\beta-\alpha&amp;gt;1$ and diverges if $\beta-\alpha\leq 1$.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
+If the quotient on the right of \eqref{16} is worked out by long division, we get
+\begin{equation}
+\dfrac{a_{n+1}}{a_n}=1-\dfrac{\beta-\alpha}{n}+\dfrac{A_n}{n^2},
+\end{equation}
+where $A_n$ is a quotient of the form
+\begin{equation}
+\dfrac{\gamma n^{k-2}+\ldots}{n^{k-2}+\ldots}
+\end{equation}
+and is therefore clearly bounded as $n\to\infty$. The statement now follows from the right above theorem with $c=1$.&lt;/p&gt;
+
+&lt;h2 id=&quot;alt-test-abs-conv&quot;&gt;The Alternating Series test. Absolute Convergence&lt;/h2&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] George F.Simmons. &lt;a href=&quot;https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424&quot;&gt;Calculus With Analytic Geometry - 2nd Edition&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;[2] MIT 18.01. &lt;a href=&quot;https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/&quot;&gt;Single Variable Calculus&lt;/a&gt;&lt;/p&gt;
 
+&lt;p&gt;[3] Marian M. &lt;a href=&quot;https://www.springer.com/gp/book/9780387789323&quot;&gt;A Concrete Approach to Classical Analysis&lt;/a&gt;&lt;/p&gt;
+
 &lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
 &lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
   &lt;ol&gt;
     &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
       &lt;p&gt;We will be going through power series in more detailed in another post. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot; role=&quot;doc-endnote&quot;&gt;
+
+      &lt;p&gt;&lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="calculus" /><category term="mathematics" /><category term="calculus" /><category term="series" /><category term="random-stuffs" /><summary type="html">No idea what to say yet :D</summary></entry></feed>
