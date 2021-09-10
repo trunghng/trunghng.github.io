@@ -21,8 +21,10 @@ comments: true
 - [Series of Nonnegative terms. Comparison tests](#series-nonneg-ct)
 	- [Comparison test](#comparison-test)
 	- [Limit comparison test](#limit-comparison-test)
-- [Integral test. Euler's constant](#int-test-e)
+- [Integral test. Euler's constant](#int-test-euler-c)
 	- [Integral test](#integral-test)
+	- [Euler's constant](#euler-c)
+- [Ratio test. Root test](#ratio-root)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -219,7 +221,7 @@ where $0\<L<\infty$.
 If a convergent series of nonnegative terms is rearranged in any manner, then the resulting series also converges and has the same sum.
 
 ## The Integral test. Euler's constant
-{: #int-test-e}
+{: #int-test-euler-c}
 In this section, we will be going through a more detailed class of infinite series with nonnegative terms which is those whose terms form a decreasing sequence of positive numbers.  
 
 We begin by considering a series
@@ -274,6 +276,43 @@ converges if $p>1$ and diverges if $0\<p\leq 1$. For if $p\neq 1$, we have
 \int_{2}^{\infty}\frac{dx}{x(\ln x)^p}&=\lim_{b\to\infty}\int_{2}^{b}\frac{dx}{x(\ln x)^p} \\\\ &=\lim_{b\to\infty}\left[\dfrac{(\ln x)^{1-p}}{1-p}\Bigg|\_2^b\right] \\\\ &=\lim_{b\to\infty}\left[\dfrac{(\ln b)^{1-p}-(\ln 2)^{1-p}}{1-p}\right]
 \end{align}
 exists if and only if $p>1$.
+
+### Euler's constant
+{: #euler-c}
+From \eqref{10} we have that
+\begin{equation}
+0\leq a_1+a_2+\ldots+a_n-\int_{1}^{n}f(x)\,dx\leq a_1
+\end{equation}
+Denoting $F(n)=a_1+a_2+\ldots+a_n-\int_{1}^{n}f(x)\,dx$, the above expression becomes
+\begin{equation}
+0\leq F(n)\leq a_1
+\end{equation}
+Moreover, $\\{F(n)\\}$ is a decreasing sequence, because
+\begin{align}
+F(n)-F(n+1)&=\left[a_1+a_2+\ldots+a_n-\int_{1}^{n}f(x)\,dx\right]-\left[a_1+a_2+\ldots+a_{n+1}-\int_{1}^{n+1}f(x)\,dx\right] \\\\ &=\int_{n}^{n+1}f(x)\,dx-a_{n+1}\geq 0
+\end{align}
+where the last step can be seen by observing the right side of ***Figure 1***. Since any decreasing sequence of nonnegative numbers converges, we have that
+\begin{equation}
+L=\lim_{n\to\infty}F(n)=\lim_{n\to\infty}\left[a_1+a_2+\ldots+a_n-\int_{1}^{n}f(x)\,dx\right]\tag{12}\label{12}
+\end{equation}
+exists and satisfies the inequalities $0\leq L\leq a_1$.  
+
+Let $a_n=\frac{1}{n}$ and $f(x)=\frac{1}{x}$, the last quantity in \eqref{12} becomes
+\begin{equation}
+\lim_{n\to\infty}\left(1+\dfrac{1}{2}+\ldots+\dfrac{1}{n}-\ln n\right)\tag{13}\label{13}
+\end{equation}
+since
+\begin{equation}
+\int_{1}^{n}\dfrac{dx}{x}=\ln x\Big|\_1^n=\ln n
+\end{equation}
+The value of the limit \eqref{13} is called **Euler's constant** (denoted as $\gamma$).
+\begin{equation}
+\gamma=\lim_{n\to\infty}\left(1+\dfrac{1}{2}+\ldots+\dfrac{1}{n}-\ln n\right)
+\end{equation}
+
+## Ratio test. Root test
+{: #ratio-root}
+
 
 
 
