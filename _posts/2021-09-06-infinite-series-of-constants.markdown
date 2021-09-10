@@ -25,6 +25,8 @@ comments: true
 	- [Integral test](#integral-test)
 	- [Euler's constant](#euler-c)
 - [Ratio test. Root test](#ratio-root)
+	- [Ratio test](#ratio-test)
+	- [Root test](#root-test)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -43,30 +45,18 @@ a_1+a_2+\dots+a_n+\dots=\sum_{n=1}^{\infty}a_n
 where $a_i\in\\{0,1,\dots,9\\}$.  
 
 2. *Power series expansion*[^1]
-- We have
+- Geometric series
 \begin{equation}
-\dfrac{1}{1-x}=1+x+x^2+\dots\tag{1}\label{1}
+\dfrac{1}{1-x}=\sum_{n=0}^{\infty}x^n=1+x+x^2+x^3+\dots,\hspace{1cm}\vert x\vert<1
 \end{equation}
-- If we replace $x$ by $-x$ in \eqref{1} we have
+- Exponential function
 \begin{equation}
-\dfrac{1}{1+x}=1-x+x^2-x^3+\dots\tag{2}\label{2}
+{\rm e}^x=\sum_{n=0}^{\infty}\dfrac{x^n}{n!}=1+x+\dfrac{x^2}{2!}+\dfrac{x^3}{3!}+\ldots
 \end{equation}
-And if we replace $x$ by $x^2$ in \eqref{2} we obtain
-\begin{equation}
-\dfrac{1}{1+x^2}=1-x^2+x^4-x^6+\dots\tag{3}\label{3}
-\end{equation}
-Moreover, if we take the integral of the left side of \eqref{3} we get
-\begin{equation}
-\int\dfrac{dx}{1+x^2}=\tan^{-1}x,
-\end{equation}
-which leads to the result that
-\begin{equation}
-\tan^{-1}x=x-\dfrac{x^3}{3}+\dfrac{x^5}{5}-\dfrac{x^7}{7}+\dots\tag{4}\label{4}
-\end{equation}
-Let $x=1$, \eqref{4} gives us an interesting result
-\begin{equation}
-\dfrac{\pi}{4}=1-\dfrac{1}{3}+\dfrac{1}{5}-\dfrac{1}{7}+\dots
-\end{equation}
+- Sine and cosine formulas
+\begin{align}
+\sin x&=\sum_{n=0}^{\infty}\dfrac{(-1)^n x^{2n+1}}{(2n+1)!}=x-\dfrac{x^3}{3!}+\dfrac{x^5}{5!}-\dfrac{x^7}{7!}+\ldots \\\\ \cos x&=\sum_{n=0}^{\infty}\dfrac{(-1)^n x^{2n}}{(2n)!}=1-\dfrac{x^2}{2!}+\dfrac{x^4}{4!}-\dfrac{x^6}{6!}+\ldots
+\end{align}
 
 ## Convergent Sequences
 
@@ -101,13 +91,13 @@ We say that $x_n$ *converges to* $L$ *as* $n$ *approaches infinite* ($x_n\to L$ 
 {: #conv-div-series}
 Recall from the previous sections that if $a_1,a_2,\dots,a_n,\dots$ is a *sequence* of numbers, then
 \begin{equation}
-\sum_{n=1}^{\infty}a_n=a_1+a_2+\ldots+a_n+\ldots\tag{5}\label{5}
+\sum_{n=1}^{\infty}a_n=a_1+a_2+\ldots+a_n+\ldots\tag{1}\label{1}
 \end{equation}
 is called an *infinite series*. We begin by establishing the sequence of *partial sums*
 \begin{align}
 s_1&=a_1 \\\\ s_2&=a_1+a_2 \\\\ &\,\vdots \\\\ s_n&=a_1+a_2+\dots+a_n \\\\ &\,\vdots
 \end{align}
-The series \eqref{5} is said to be **convergent** if the sequences $\\{s_n\\}$ converges. And if $\lim s_n=s$, then we say that \eqref{5} converges to $s$, or that $s$ is the sum of the series.
+The series \eqref{1} is said to be **convergent** if the sequences $\\{s_n\\}$ converges. And if $\lim s_n=s$, then we say that \eqref{1} converges to $s$, or that $s$ is the sum of the series.
 \begin{equation}
 \sum_{n=1}^{\infty}a_n=s
 \end{equation}
@@ -116,13 +106,13 @@ If the series does not converge, we say that it **diverges** or is **divergent**
 **Examples** (*harmonic series*)  
 Let's consider the convergence of *harmonic series*
 \begin{equation}
-\sum_{n=1}^{\infty}\frac{1}{n}=1+\frac{1}{2}+\frac{1}{3}+\ldots\tag{6}\label{6}
+\sum_{n=1}^{\infty}\frac{1}{n}=1+\frac{1}{2}+\frac{1}{3}+\ldots\tag{2}\label{2}
 \end{equation}
 Let $m$ be a positive integer and choose $n>2^{m+1}$. We have
 \begin{align}
 s_n&>1+\frac{1}{2}+\frac{1}{3}+\frac{1}{4}+\dots+\frac{1}{2^{m+1}} \\\\ &=\left(1+\frac{1}{2}\right)+\left(\frac{1}{3}+\frac{1}{4}\right)+\left(\frac{1}{5}+\ldots+\frac{1}{8}\right)+\ldots+\left(\frac{1}{2^m+1}+\ldots+\frac{1}{2^{m+1}}\right) \\\\ &>\frac{1}{2}+2.\frac{1}{4}+4.\frac{1}{8}+\ldots+2^m.\frac{1}{2^{m+1}} \\\\ &=(m+1)\frac{1}{2}
 \end{align}
-This proves that $s_n$ can be made larger than the sum of any number of $\frac{1}{2}$'s and therefore as large as we please, by taking $n$ large enough, so the $\\{s_n\\}$ are unbounded, which leads to that \eqref{6} is a divergent series.
+This proves that $s_n$ can be made larger than the sum of any number of $\frac{1}{2}$'s and therefore as large as we please, by taking $n$ large enough, so the $\\{s_n\\}$ are unbounded, which leads to that \eqref{2} is a divergent series.
 \begin{equation}
 \sum_{n=1}^{\infty}\frac{1}{n}=1+\frac{1}{2}+\frac{1}{3}+\ldots=\infty
 \end{equation}
@@ -201,18 +191,18 @@ The comparison test is simple, but in some cases where it is difficult to establ
 ### Limit comparison test
 If $\sum a_n, \sum b_n$ are series with positive terms such that
 \begin{equation}
-\lim_{n\to\infty}\frac{a_n}{b_n}=1\tag{7}\label{7}
+\lim_{n\to\infty}\frac{a_n}{b_n}=1\tag{3}\label{3}
 \end{equation}
 then either both series converge or both series diverge.  
 
 **Proof**  
-we observe that \eqref{7} implies that for all sufficient large $n$, we have
+we observe that \eqref{3} implies that for all sufficient large $n$, we have
 \begin{align}
 \frac{1}{2}&\leq\frac{a_n}{b_n}\leq 2 \\\\ \text{or}\hspace{1cm}\frac{1}{2}b_n&\leq a_n\leq 2b_n
 \end{align}
 which leads to the fact that $\sum a_n$ and $\sum b_n$ have the same convergence behavior.  
 
-The condition \eqref{7} can be generalized by
+The condition \eqref{3} can be generalized by
 \begin{equation}
 \lim_{n\to\infty}\frac{a_n}{b_n}=L,
 \end{equation}
@@ -236,17 +226,17 @@ whose terms are positive and decreasing. Suppose $a_n=f(n)$, as shown is ***Figu
 
 On the left in this figure we see that the rectangles of areas $a_1,a_2,\dots,a_n$ have a greater combined area than the area under the curve from $x=1$ to $x=n1$, so
 \begin{equation}
-a_1+a_2+\dots+a_n\geq\int_{1}^{n+1}f(x)\,dx\geq\int_{1}^{n}f(x)\,dx\tag{8}\label{8}
+a_1+a_2+\dots+a_n\geq\int_{1}^{n+1}f(x)\,dx\geq\int_{1}^{n}f(x)\,dx\tag{4}\label{4}
 \end{equation}
 On the right side of the figure, the rectangles lie under the curve, which makes
 \begin{align}
-a_2+a_3+\dots+a_n&\leq\int_{1}^{n}f(x)\,dx \\\\ a_1+a_2+\dots+a_n&\leq a_1+\int_{1}^{n}f(x)\,dx\tag{9}\label{9}
+a_2+a_3+\dots+a_n&\leq\int_{1}^{n}f(x)\,dx \\\\ a_1+a_2+\dots+a_n&\leq a_1+\int_{1}^{n}f(x)\,dx\tag{5}\label{5}
 \end{align}
-Putting \eqref{8} and \eqref{9} together we have
+Putting \eqref{4} and \eqref{5} together we have
 \begin{equation}
-\int_{1}^{n}f(x)\,dx\leq a_1+a_2+\dots+a_n\leq a_1+\int_{1}^{n}f(x)\,dx\tag{10}\label{10}
+\int_{1}^{n}f(x)\,dx\leq a_1+a_2+\dots+a_n\leq a_1+\int_{1}^{n}f(x)\,dx\tag{6}\label{6}
 \end{equation}
-The result we obtained in \eqref{10} allows us to establish the **integral test**.
+The result we obtained in \eqref{6} allows us to establish the **integral test**.
 
 ### Integral test
 
@@ -261,9 +251,9 @@ The integral test holds for any interval of the form $x\geq k$, not just for $x\
 **Example** (*Abel's series*)  
 Let's consider the convergence behavior of the series
 \begin{equation}
-\sum_{n=2}^{\infty}\frac{1}{n\ln n}\tag{11}\label{11}
+\sum_{n=2}^{\infty}\frac{1}{n\ln n}\tag{7}\label{7}
 \end{equation}
-By the integral test, we have that \eqref{11} diverges, because
+By the integral test, we have that \eqref{7} diverges, because
 \begin{equation}
 \sum_{2}^{\infty}\frac{dx}{x\ln x}=\lim_{b\to\infty}\int_{2}^{b}\frac{dx}{x\ln x}=\lim_{b\to\infty}\left(\ln\ln x\Big|\_{2}^{b}\right)=\lim_{b\to\infty}\left(\ln\ln b-\ln\ln 2\right)=\infty
 \end{equation}
@@ -279,7 +269,7 @@ exists if and only if $p>1$.
 
 ### Euler's constant
 {: #euler-c}
-From \eqref{10} we have that
+From \eqref{6} we have that
 \begin{equation}
 0\leq a_1+a_2+\ldots+a_n-\int_{1}^{n}f(x)\,dx\leq a_1
 \end{equation}
@@ -291,27 +281,31 @@ Moreover, $\\{F(n)\\}$ is a decreasing sequence, because
 \begin{align}
 F(n)-F(n+1)&=\left[a_1+a_2+\ldots+a_n-\int_{1}^{n}f(x)\,dx\right]-\left[a_1+a_2+\ldots+a_{n+1}-\int_{1}^{n+1}f(x)\,dx\right] \\\\ &=\int_{n}^{n+1}f(x)\,dx-a_{n+1}\geq 0
 \end{align}
-where the last step can be seen by observing the right side of ***Figure 1***. Since any decreasing sequence of nonnegative numbers converges, we have that
+where the last step can be seen by observing the right side of ***Figure 1***.  
+
+Since any decreasing sequence of nonnegative numbers converges, we have that
 \begin{equation}
-L=\lim_{n\to\infty}F(n)=\lim_{n\to\infty}\left[a_1+a_2+\ldots+a_n-\int_{1}^{n}f(x)\,dx\right]\tag{12}\label{12}
+L=\lim_{n\to\infty}F(n)=\lim_{n\to\infty}\left[a_1+a_2+\ldots+a_n-\int_{1}^{n}f(x)\,dx\right]\tag{8}\label{8}
 \end{equation}
 exists and satisfies the inequalities $0\leq L\leq a_1$.  
 
-Let $a_n=\frac{1}{n}$ and $f(x)=\frac{1}{x}$, the last quantity in \eqref{12} becomes
+Let $a_n=\frac{1}{n}$ and $f(x)=\frac{1}{x}$, the last quantity in \eqref{8} becomes
 \begin{equation}
-\lim_{n\to\infty}\left(1+\dfrac{1}{2}+\ldots+\dfrac{1}{n}-\ln n\right)\tag{13}\label{13}
+\lim_{n\to\infty}\left(1+\dfrac{1}{2}+\ldots+\dfrac{1}{n}-\ln n\right)\tag{9}\label{9}
 \end{equation}
 since
 \begin{equation}
 \int_{1}^{n}\dfrac{dx}{x}=\ln x\Big|\_1^n=\ln n
 \end{equation}
-The value of the limit \eqref{13} is called **Euler's constant** (denoted as $\gamma$).
+The value of the limit \eqref{9} is called **Euler's constant** (denoted as $\gamma$).
 \begin{equation}
 \gamma=\lim_{n\to\infty}\left(1+\dfrac{1}{2}+\ldots+\dfrac{1}{n}-\ln n\right)
 \end{equation}
 
 ## Ratio test. Root test
 {: #ratio-root}
+
+### Ratio test
 
 
 

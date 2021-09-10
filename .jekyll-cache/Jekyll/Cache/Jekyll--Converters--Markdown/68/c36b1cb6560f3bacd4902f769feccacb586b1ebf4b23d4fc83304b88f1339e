@@ -1,153 +1,4 @@
-<!DOCTYPE html>
-<html lang="en"><head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Infinite Series of Constants | Trung’s cabin</title>
-<meta name="generator" content="Jekyll v4.2.0" />
-<meta property="og:title" content="Infinite Series of Constants" />
-<meta name="author" content="Trung H. Nguyen" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="infinite series of constants" />
-<meta property="og:description" content="infinite series of constants" />
-<meta property="og:site_name" content="Trung’s cabin" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2021-09-06T11:20:00+07:00" />
-<meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Infinite Series of Constants" />
-<script type="application/ld+json">
-{"description":"infinite series of constants","headline":"Infinite Series of Constants","dateModified":"2021-09-06T11:20:00+07:00","datePublished":"2021-09-06T11:20:00+07:00","url":"/mathematics/calculus/2021/09/06/infinite-series-of-constants.html","author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/mathematics/calculus/2021/09/06/infinite-series-of-constants.html"},"@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Trung&apos;s cabin" />
-    
-
-
-
-
-
-  
-
-<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
-<link rel="manifest" href="/assets/images/site.webmanifest">
-<link rel="mask-icon" href="/assets/images/safari-pinned-tab.svg" color="#5bbad5">
-<meta name="msapplication-TileColor" content="#da532c">
-<meta name="theme-color" content="#ffffff"></head>
-<body><header class="site-header">
-  <div class="snorlax"></div>
-
-  <div class="wrapper"><a class="site-title" rel="author" href="/">Trung&#39;s cabin</a><nav class="site-nav">
-        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
-        <label for="nav-trigger">
-          <span class="menu-icon">
-            <svg viewBox="0 0 18 15" width="18px" height="15px">
-              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
-            </svg>
-          </span>
-        </label>
-
-        <div class="trigger"><a class="page-link" href="/archive/">Archive</a><a class="page-link" href="/about/">About</a></div>
-      </nav></div>
-</header>
-<main class="page-content" aria-label="Content">
-      <div class="wrapper">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-<link href="https://fonts.googleapis.com/css?family=Merriweather:400,900,900i" rel="stylesheet">
-<style>
-@import "/assets/css/default.css"
-</style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<style>
-  .collapsible {
-    background-color: #A5CCF1;
-    color: white;
-    cursor: pointer;
-    padding: 5px;
-    /*width: 100%;*/
-    border: none;
-    text-align: center;
-    outline: none;
-    font-size: 15px;
-  }
-
-  .active, .collapsible:hover {
-    background-color: #82B9EE;
-  }
-
-  .codePanel {
-    padding: 0 18px;
-    display: none;
-    overflow: hidden;
-    background-color: #f1f1f1;
-  }
-
-  #button {
-    display: inline-block;
-    background-color: #A5CCF1;
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    border-radius: 4px;
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    transition: background-color .3s, 
-      opacity .5s, visibility .5s;
-    opacity: 0;
-    visibility: hidden;
-    z-index: 1000;
-  }
-  #button::after {
-    content: "\f077";
-    font-family: FontAwesome;
-    font-weight: normal;
-    font-style: normal;
-    font-size: 2em;
-    line-height: 50px;
-    color: #fff;
-  }
-  #button:hover {
-    cursor: pointer;
-    background-color: #333;
-    text-decoration: none;
-  }
-  #button:active {
-    background-color: #555;
-  }
-  #button.show {
-    opacity: 1;
-    visibility: visible;
-  }
-</style>
-<a id="button"></a>
-<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <header class="post-header">
-    <meta name="description" content="infinite series of constants">
-    <h1 class="post-title p-name" itemprop="name headline">Infinite Series of Constants</h1>
-    <p><span>
-      
-        
-        <a href="/tag/mathematics"><code class="highligher-rouge"><nobr>mathematics</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/calculus"><code class="highligher-rouge"><nobr>calculus</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/series"><code class="highligher-rouge"><nobr>series</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/random-stuffs"><code class="highligher-rouge"><nobr>random-stuffs</nobr></code>&nbsp;</a>
-      
-    </span></p>
-    <p class="post-meta"><time class="dt-published" datetime="2021-09-06T11:20:00+07:00" itemprop="datePublished">
-        Sep 6, 2021
-      </time></p>
-  </header>
-
-  <div class="post-content e-content" itemprop="articleBody">
-    <blockquote>
+I"�?<blockquote>
   <p>No idea what to say yet :D</p>
 </blockquote>
 
@@ -212,16 +63,16 @@ where $a_i\in\{0,1,\dots,9\}$.</p>
     <ul>
       <li>Geometric series
 \begin{equation}
-\dfrac{1}{1-x}=\sum_{n=0}^{\infty}x^n=1+x+x^2+x^3+\dots,\hspace{1cm}\vert x\vert&lt;1
+\dfrac{1}{1-x}=1+x+x^2+\dots,\hspace{1cm}\vert x\vert&lt;1
 \end{equation}</li>
       <li>Exponential function
 \begin{equation}
-{\rm e}^x=\sum_{n=0}^{\infty}\dfrac{x^n}{n!}=1+x+\dfrac{x^2}{2!}+\dfrac{x^3}{3!}+\ldots
+{\rm e}^x=1+x+\dfrac{x^2}{2!}+\dfrac{x^3}{3!}+\ldots
 \end{equation}</li>
-      <li>Sine and cosine formulas
-\begin{align}
-\sin x&amp;=\sum_{n=0}^{\infty}\dfrac{(-1)^n x^{2n+1}}{(2n+1)!}=x-\dfrac{x^3}{3!}+\dfrac{x^5}{5!}-\dfrac{x^7}{7!}+\ldots \\ \cos x&amp;=\sum_{n=0}^{\infty}\dfrac{(-1)^n x^{2n}}{(2n)!}=1-\dfrac{x^2}{2!}+\dfrac{x^4}{4!}-\dfrac{x^6}{6!}+\ldots
-\end{align}</li>
+      <li>Sine and cosine formula
+\begin{equation}
+\sin x=x-\dfrac{x^3}{3!}+\dfrac{x^5}{5!}-\ldots
+\end{equation}</li>
     </ul>
   </li>
 </ol>
@@ -259,13 +110,13 @@ We say that $x_n$ <em>converges to</em> $L$ <em>as</em> $n$ <em>approaches infin
 <h2 id="conv-div-series">Convergent and Divergent Series</h2>
 <p>Recall from the previous sections that if $a_1,a_2,\dots,a_n,\dots$ is a <em>sequence</em> of numbers, then
 \begin{equation}
-\sum_{n=1}^{\infty}a_n=a_1+a_2+\ldots+a_n+\ldots\tag{1}\label{1}
+\sum_{n=1}^{\infty}a_n=a_1+a_2+\ldots+a_n+\ldots\tag{5}\label{5}
 \end{equation}
 is called an <em>infinite series</em>. We begin by establishing the sequence of <em>partial sums</em>
 \begin{align}
 s_1&amp;=a_1 \\ s_2&amp;=a_1+a_2 \\ &amp;\,\vdots \\ s_n&amp;=a_1+a_2+\dots+a_n \\ &amp;\,\vdots
 \end{align}
-The series \eqref{1} is said to be <strong>convergent</strong> if the sequences $\{s_n\}$ converges. And if $\lim s_n=s$, then we say that \eqref{1} converges to $s$, or that $s$ is the sum of the series.
+The series \eqref{5} is said to be <strong>convergent</strong> if the sequences $\{s_n\}$ converges. And if $\lim s_n=s$, then we say that \eqref{5} converges to $s$, or that $s$ is the sum of the series.
 \begin{equation}
 \sum_{n=1}^{\infty}a_n=s
 \end{equation}
@@ -274,13 +125,13 @@ If the series does not converge, we say that it <strong>diverges</strong> or is 
 <p><strong>Examples</strong> (<em>harmonic series</em>)<br />
 Let’s consider the convergence of <em>harmonic series</em>
 \begin{equation}
-\sum_{n=1}^{\infty}\frac{1}{n}=1+\frac{1}{2}+\frac{1}{3}+\ldots\tag{2}\label{2}
+\sum_{n=1}^{\infty}\frac{1}{n}=1+\frac{1}{2}+\frac{1}{3}+\ldots\tag{6}\label{6}
 \end{equation}
 Let $m$ be a positive integer and choose $n&gt;2^{m+1}$. We have
 \begin{align}
 s_n&amp;&gt;1+\frac{1}{2}+\frac{1}{3}+\frac{1}{4}+\dots+\frac{1}{2^{m+1}} \\ &amp;=\left(1+\frac{1}{2}\right)+\left(\frac{1}{3}+\frac{1}{4}\right)+\left(\frac{1}{5}+\ldots+\frac{1}{8}\right)+\ldots+\left(\frac{1}{2^m+1}+\ldots+\frac{1}{2^{m+1}}\right) \\ &amp;&gt;\frac{1}{2}+2.\frac{1}{4}+4.\frac{1}{8}+\ldots+2^m.\frac{1}{2^{m+1}} \\ &amp;=(m+1)\frac{1}{2}
 \end{align}
-This proves that $s_n$ can be made larger than the sum of any number of $\frac{1}{2}$’s and therefore as large as we please, by taking $n$ large enough, so the $\{s_n\}$ are unbounded, which leads to that \eqref{2} is a divergent series.
+This proves that $s_n$ can be made larger than the sum of any number of $\frac{1}{2}$’s and therefore as large as we please, by taking $n$ large enough, so the $\{s_n\}$ are unbounded, which leads to that \eqref{6} is a divergent series.
 \begin{equation}
 \sum_{n=1}^{\infty}\frac{1}{n}=1+\frac{1}{2}+\frac{1}{3}+\ldots=\infty
 \end{equation}</p>
@@ -365,18 +216,18 @@ and $\sum_{n=1}^{\infty}\frac{1}{n}$ diverges.</p>
 <h3 id="limit-comparison-test">Limit comparison test</h3>
 <p>If $\sum a_n, \sum b_n$ are series with positive terms such that
 \begin{equation}
-\lim_{n\to\infty}\frac{a_n}{b_n}=1\tag{3}\label{3}
+\lim_{n\to\infty}\frac{a_n}{b_n}=1\tag{7}\label{7}
 \end{equation}
 then either both series converge or both series diverge.</p>
 
 <p><strong>Proof</strong><br />
-we observe that \eqref{3} implies that for all sufficient large $n$, we have
+we observe that \eqref{7} implies that for all sufficient large $n$, we have
 \begin{align}
 \frac{1}{2}&amp;\leq\frac{a_n}{b_n}\leq 2 \\ \text{or}\hspace{1cm}\frac{1}{2}b_n&amp;\leq a_n\leq 2b_n
 \end{align}
 which leads to the fact that $\sum a_n$ and $\sum b_n$ have the same convergence behavior.</p>
 
-<p>The condition \eqref{3} can be generalized by
+<p>The condition \eqref{7} can be generalized by
 \begin{equation}
 \lim_{n\to\infty}\frac{a_n}{b_n}=L,
 \end{equation}
@@ -399,17 +250,17 @@ whose terms are positive and decreasing. Suppose $a_n=f(n)$, as shown is <strong
 
 <p>On the left in this figure we see that the rectangles of areas $a_1,a_2,\dots,a_n$ have a greater combined area than the area under the curve from $x=1$ to $x=n1$, so
 \begin{equation}
-a_1+a_2+\dots+a_n\geq\int_{1}^{n+1}f(x)\,dx\geq\int_{1}^{n}f(x)\,dx\tag{4}\label{4}
+a_1+a_2+\dots+a_n\geq\int_{1}^{n+1}f(x)\,dx\geq\int_{1}^{n}f(x)\,dx\tag{8}\label{8}
 \end{equation}
 On the right side of the figure, the rectangles lie under the curve, which makes
 \begin{align}
-a_2+a_3+\dots+a_n&amp;\leq\int_{1}^{n}f(x)\,dx \\ a_1+a_2+\dots+a_n&amp;\leq a_1+\int_{1}^{n}f(x)\,dx\tag{5}\label{5}
+a_2+a_3+\dots+a_n&amp;\leq\int_{1}^{n}f(x)\,dx \\ a_1+a_2+\dots+a_n&amp;\leq a_1+\int_{1}^{n}f(x)\,dx\tag{9}\label{9}
 \end{align}
-Putting \eqref{4} and \eqref{5} together we have
+Putting \eqref{8} and \eqref{9} together we have
 \begin{equation}
-\int_{1}^{n}f(x)\,dx\leq a_1+a_2+\dots+a_n\leq a_1+\int_{1}^{n}f(x)\,dx\tag{6}\label{6}
+\int_{1}^{n}f(x)\,dx\leq a_1+a_2+\dots+a_n\leq a_1+\int_{1}^{n}f(x)\,dx\tag{10}\label{10}
 \end{equation}
-The result we obtained in \eqref{6} allows us to establish the <strong>integral test</strong>.</p>
+The result we obtained in \eqref{10} allows us to establish the <strong>integral test</strong>.</p>
 
 <h3 id="integral-test">Integral test</h3>
 
@@ -424,9 +275,9 @@ converge or diverge together.</p>
 <p><strong>Example</strong> (<em>Abel’s series</em>)<br />
 Let’s consider the convergence behavior of the series
 \begin{equation}
-\sum_{n=2}^{\infty}\frac{1}{n\ln n}\tag{7}\label{7}
+\sum_{n=2}^{\infty}\frac{1}{n\ln n}\tag{11}\label{11}
 \end{equation}
-By the integral test, we have that \eqref{7} diverges, because
+By the integral test, we have that \eqref{11} diverges, because
 \begin{equation}
 \sum_{2}^{\infty}\frac{dx}{x\ln x}=\lim_{b\to\infty}\int_{2}^{b}\frac{dx}{x\ln x}=\lim_{b\to\infty}\left(\ln\ln x\Big|_{2}^{b}\right)=\lim_{b\to\infty}\left(\ln\ln b-\ln\ln 2\right)=\infty
 \end{equation}
@@ -441,7 +292,7 @@ converges if $p&gt;1$ and diverges if $0&lt;p\leq 1$. For if $p\neq 1$, we have
 exists if and only if $p&gt;1$.</p>
 
 <h3 id="euler-c">Euler’s constant</h3>
-<p>From \eqref{6} we have that
+<p>From \eqref{10} we have that
 \begin{equation}
 0\leq a_1+a_2+\ldots+a_n-\int_{1}^{n}f(x)\,dx\leq a_1
 \end{equation}
@@ -457,19 +308,19 @@ where the last step can be seen by observing the right side of <strong><em>Figur
 
 <p>Since any decreasing sequence of nonnegative numbers converges, we have that
 \begin{equation}
-L=\lim_{n\to\infty}F(n)=\lim_{n\to\infty}\left[a_1+a_2+\ldots+a_n-\int_{1}^{n}f(x)\,dx\right]\tag{8}\label{8}
+L=\lim_{n\to\infty}F(n)=\lim_{n\to\infty}\left[a_1+a_2+\ldots+a_n-\int_{1}^{n}f(x)\,dx\right]\tag{12}\label{12}
 \end{equation}
 exists and satisfies the inequalities $0\leq L\leq a_1$.</p>
 
-<p>Let $a_n=\frac{1}{n}$ and $f(x)=\frac{1}{x}$, the last quantity in \eqref{8} becomes
+<p>Let $a_n=\frac{1}{n}$ and $f(x)=\frac{1}{x}$, the last quantity in \eqref{12} becomes
 \begin{equation}
-\lim_{n\to\infty}\left(1+\dfrac{1}{2}+\ldots+\dfrac{1}{n}-\ln n\right)\tag{9}\label{9}
+\lim_{n\to\infty}\left(1+\dfrac{1}{2}+\ldots+\dfrac{1}{n}-\ln n\right)\tag{13}\label{13}
 \end{equation}
 since
 \begin{equation}
 \int_{1}^{n}\dfrac{dx}{x}=\ln x\Big|_1^n=\ln n
 \end{equation}
-The value of the limit \eqref{9} is called <strong>Euler’s constant</strong> (denoted as $\gamma$).
+The value of the limit \eqref{13} is called <strong>Euler’s constant</strong> (denoted as $\gamma$).
 \begin{equation}
 \gamma=\lim_{n\to\infty}\left(1+\dfrac{1}{2}+\ldots+\dfrac{1}{n}-\ln n\right)
 \end{equation}</p>
@@ -491,110 +342,4 @@ The value of the limit \eqref{9} is called <strong>Euler’s constant</strong> (
     </li>
   </ol>
 </div>
-
-  </div>
-<div id="disqus_thread"></div>
-<script>
-    /**
-    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
-    
-    var disqus_config = function () {
-    this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
-    this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-    };
-    
-    (function() { // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-    s.src = 'https://https-trunghng-github-io.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-
-<script id="dsq-count-scr" src="//https-trunghng-github-io.disqus.com/count.js" async></script>
-
-  <a class="u-url" href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html" hidden></a>
-</article>
- <!-- mathjax javascript -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
-  "HTML-CSS": {availableFonts: []}
-  });
-</script>
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-<script>
-  var coll = document.getElementsByClassName("collapsible");
-  var i;
-  for (i = 0; i < coll.length; i++) {
-    coll[i].addEventListener("click", function() {
-      this.classList.toggle("active");
-      var content = document.getElementById(this.id+"data");
-      var btn = document.getElementById(this.id)
-      if (content.style.display === "block") {
-        content.style.display = "none";
-        btn.innerText = "Click to show the code";
-      } else {
-        content.style.display = "block";
-        btn.innerText = "Click to hide the code"
-      }
-    });
-  }
-
-  var btn = $('#button');
-
-  $(window).scroll(function() {
-    if ($(window).scrollTop() > 300) {
-      btn.addClass('show');
-    } else {
-      btn.removeClass('show');
-    }
-  });
-
-  btn.on('click', function(e) {
-    e.preventDefault();
-    $('html, body').animate({scrollTop:0}, '300');
-  });
-</script>
-
-      </div>
-
-    </main><footer class="site-footer h-card">
-  <data class="u-url" href="/"></data>
-
-  <div class="wrapper">
-
-    <div class="footer-col-wrapper">
-      <div class="footer-col">
-        <p class="feed-subscribe">
-          <a href="/feed.xml">
-            <svg class="svg-icon orange">
-              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
-            </svg><span>Subscribe</span>
-          </a>
-        </p>
-        <ul class="contact-list">
-          <li class="p-name">Trung H. Nguyen</li>
-          <li><a class="u-email" href="mailto:trung.skipper@gmail.com">trung.skipper@gmail.com</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <p>To document something I&#39;ve learned
-</p>
-      </div>
-    </div>
-
-    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/trunghng" title="trunghng"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
-</div>
-
-  </div>
-
-</footer>
-</body>
-
-</html>
+:ET
