@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-10T19:38:40+07:00</updated><id>/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-11T09:12:54+07:00</updated><id>/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Infinite Series of Constants</title><link href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html" rel="alternate" type="text/html" title="Infinite Series of Constants" /><published>2021-09-06T11:20:00+07:00</published><updated>2021-09-06T11:20:00+07:00</updated><id>/mathematics/calculus/2021/09/06/infinite-series-of-constants</id><content type="html" xml:base="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html">&lt;blockquote&gt;
   &lt;p&gt;No idea what to say yet :D&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -47,7 +47,13 @@
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#alt-test-abs-conv&quot;&gt;The Alternating Series test. Absolute Convergence&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#alt-test-abs-conv&quot;&gt;The Alternating Series test. Absolute Convergence&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#alt-series&quot;&gt;Alternating Series&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#alt-series-test&quot;&gt;Alternating Series test&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#abs-conv&quot;&gt;Absolute Convergence&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -526,13 +532,60 @@ where $A_n$ is a quotient of the form
 and is therefore clearly bounded as $n\to\infty$. The statement now follows from the right above theorem with $c=1$.&lt;/p&gt;
 
 &lt;h2 id=&quot;alt-test-abs-conv&quot;&gt;The Alternating Series test. Absolute Convergence&lt;/h2&gt;
+&lt;p&gt;Previously, we have been working with series of positive terms and nonnegative terms. It’s time to consider series with both positive and negative terms. The simplest are those whose terms are alternatively positive and negative.&lt;/p&gt;
+
+&lt;h3 id=&quot;alt-series&quot;&gt;Alternating Series&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Alternating series&lt;/strong&gt; is series with the form
+\begin{equation}
+\sum_{n=1}^{\infty}(-1)^{n+1}a_n=a_1-a_2+a_3-a_4+\ldots,\tag{17}\label{17}
+\end{equation}
+where $a_n$’s are all positive numbers.&lt;/p&gt;
+
+&lt;p&gt;From the definition of alternating series, we establish &lt;strong&gt;alternating series test&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;alt-series-test&quot;&gt;Alternating Series test&lt;/h3&gt;
+&lt;p&gt;If the alternating series \eqref{17} has the property that&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;$a_1\geq a_2\geq a_3\geq\ldots$&lt;/li&gt;
+  &lt;li&gt;$a_n\to 0$ as $n\to\infty$&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;then $\sum a_n$ converges.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
+On the one hand, we have that a typical even partial sum $s_{2n}$ can be written as
+\begin{equation}
+s_{2n}=(a_1-a_2)+(a_3-a_4)+\ldots+(a_{2n-1}-a_{2n}),
+\end{equation}
+where each expression in parentheses is nonnegative since $\{a_n\}$ is a decreasing sequence. Hence, we also have that $s_{2n}\leq s_{2n+2}$, which leads to the result that the even partial sums form an increasing sequence.&lt;/p&gt;
+
+&lt;p&gt;Moreover, we can also display $s_{2n}$ as
+\begin{equation}
+s_{2n}=a_1-(a_2-a_3)-(a_4-a_5)-\ldots-(a_{2n-2}-a_{2n-1})-a_{2n},
+\end{equation}
+where each expression in parentheses once again is nonnegative. Thus, we have that $s_{2n}\leq a_1$, so ${s_{2n}}$ has an upper bound. Since every bounded increasing sequence converges, there exists a number $s$ such that
+\begin{equation}
+\lim_{n\to\infty}s_{2n}=s
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;On the other hand, the odd partial sums approach the same limit, because
+\begin{align}
+s_{2n+1}&amp;amp;=a_1-a_2+a_3-a_4+\ldots-a_{2n}+a_{2n+1} \\ &amp;amp;=s_{2n}+a_{2n+1}
+\end{align}
+and therefore
+\begin{equation}
+\lim_{n\to\infty}s_{2n+1}=\lim_{n\to\infty}s_{2n}+\lim_{n\to\infty}a_{2n+1}=s+0=s
+\end{equation}
+Since both sequence of even sums and sequence of odd partial sums converges to $s$ as $n$ tends to infinity, this shows us that $\{s_n\}$ also converges to $s$, and therefore the alternating series \eqref{17} converges to the sum $s$.&lt;/p&gt;
+
+&lt;h3 id=&quot;abs-conv&quot;&gt;Absolute Convergence&lt;/h3&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] George F.Simmons. &lt;a href=&quot;https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424&quot;&gt;Calculus With Analytic Geometry - 2nd Edition&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;[2] MIT 18.01. &lt;a href=&quot;https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/&quot;&gt;Single Variable Calculus&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[2] Marian M. &lt;a href=&quot;https://www.springer.com/gp/book/9780387789323&quot;&gt;A Concrete Approach to Classical Analysis&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;[3] Marian M. &lt;a href=&quot;https://www.springer.com/gp/book/9780387789323&quot;&gt;A Concrete Approach to Classical Analysis&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[3] MIT 18.01. &lt;a href=&quot;https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/&quot;&gt;Single Variable Calculus&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
 &lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;

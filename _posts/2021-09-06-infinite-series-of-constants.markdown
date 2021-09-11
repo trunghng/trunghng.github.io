@@ -32,6 +32,9 @@ comments: true
 		- [Raabe's test](#raabes-test)
 		- [Gauss's test](#gausss-test)
 - [The Alternating Series test. Absolute Convergence](#alt-test-abs-conv)
+	- [Alternating Series](#alt-series)
+	- [Alternating Series test](#alt-series-test)
+	- [Absolute Convergence](#abs-conv)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -479,15 +482,66 @@ and is therefore clearly bounded as $n\to\infty$. The statement now follows from
 
 ## The Alternating Series test. Absolute Convergence
 {: #alt-test-abs-conv}
+Previously, we have been working with series of positive terms and nonnegative terms. It's time to consider series with both positive and negative terms. The simplest are those whose terms are alternatively positive and negative.
+
+### Alternating Series
+{: #alt-series}
+**Alternating series** is series with the form
+\begin{equation}
+\sum_{n=1}^{\infty}(-1)^{n+1}a_n=a_1-a_2+a_3-a_4+\ldots,\tag{17}\label{17}
+\end{equation}
+where $a_n$'s are all positive numbers.  
+
+From the definition of alternating series, we establish **alternating series test**.
+
+### Alternating Series test
+{: #alt-series-test}
+If the alternating series \eqref{17} has the property that
+1. $a_1\geq a_2\geq a_3\geq\ldots$
+2. $a_n\to 0$ as $n\to\infty$  
+
+then $\sum a_n$ converges.  
+
+**Proof**  
+On the one hand, we have that a typical even partial sum $s_{2n}$ can be written as
+\begin{equation}
+s_{2n}=(a_1-a_2)+(a_3-a_4)+\ldots+(a_{2n-1}-a_{2n}),
+\end{equation}
+where each expression in parentheses is nonnegative since $\\{a_n\\}$ is a decreasing sequence. Hence, we also have that $s_{2n}\leq s_{2n+2}$, which leads to the result that the even partial sums form an increasing sequence.  
+
+Moreover, we can also display $s_{2n}$ as
+\begin{equation}
+s_{2n}=a_1-(a_2-a_3)-(a_4-a_5)-\ldots-(a_{2n-2}-a_{2n-1})-a_{2n},
+\end{equation}
+where each expression in parentheses once again is nonnegative. Thus, we have that $s_{2n}\leq a_1$, so ${s_{2n}}$ has an upper bound. Since every bounded increasing sequence converges, there exists a number $s$ such that
+\begin{equation}
+\lim_{n\to\infty}s_{2n}=s
+\end{equation}
+
+On the other hand, the odd partial sums approach the same limit, because
+\begin{align}
+s_{2n+1}&=a_1-a_2+a_3-a_4+\ldots-a_{2n}+a_{2n+1} \\\\ &=s_{2n}+a_{2n+1}
+\end{align}
+and therefore
+\begin{equation}
+\lim_{n\to\infty}s_{2n+1}=\lim_{n\to\infty}s_{2n}+\lim_{n\to\infty}a_{2n+1}=s+0=s
+\end{equation}
+Since both sequence of even sums and sequence of odd partial sums converges to $s$ as $n$ tends to infinity, this shows us that $\\{s_n\\}$ also converges to $s$, and therefore the alternating series \eqref{17} converges to the sum $s$.
+
+### Absolute Convergence
+{: #abs-conv}
+
+
+
 
 
 
 ## References
 [1] George F.Simmons. [Calculus With Analytic Geometry - 2nd Edition](https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424)  
 
-[2] MIT 18.01. [Single Variable Calculus](https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/)  
+[2] Marian M. [A Concrete Approach to Classical Analysis](https://www.springer.com/gp/book/9780387789323)  
 
-[3] Marian M. [A Concrete Approach to Classical Analysis](https://www.springer.com/gp/book/9780387789323)
+[3] MIT 18.01. [Single Variable Calculus](https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/)  
 
 ## Footnotes
 [^1]: We will be going through power series in more detailed in another post.
