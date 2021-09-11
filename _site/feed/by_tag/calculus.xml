@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/calculus.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-11T09:12:54+07:00</updated><id>/feed/by_tag/calculus.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/calculus.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-11T10:06:00+07:00</updated><id>/feed/by_tag/calculus.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Infinite Series of Constants</title><link href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html" rel="alternate" type="text/html" title="Infinite Series of Constants" /><published>2021-09-06T11:20:00+07:00</published><updated>2021-09-06T11:20:00+07:00</updated><id>/mathematics/calculus/2021/09/06/infinite-series-of-constants</id><content type="html" xml:base="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html">&lt;blockquote&gt;
   &lt;p&gt;No idea what to say yet :D&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -54,6 +54,7 @@
       &lt;li&gt;&lt;a href=&quot;#abs-conv&quot;&gt;Absolute Convergence&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#abs-vs-cond&quot;&gt;Absolute vs. Conditionally Convergence&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -432,7 +433,7 @@ And since the geometric series $\sum r^n$ converges, we clearly have that $\sum 
 
 &lt;h4 id=&quot;kummers-theorem&quot;&gt;Kummer’s theorem&lt;/h4&gt;
 
-&lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt; (&lt;em&gt;Kummer’s&lt;/em&gt;)&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Theorem 1&lt;/strong&gt; (&lt;em&gt;Kummer’s&lt;/em&gt;)&lt;br /&gt;
 Assume that $a_n&amp;gt;0,b_n&amp;gt;0$ and $\sum\frac{1}{b_n}$ diverges. If
 \begin{equation}
 \lim\left(b_n-\dfrac{a_{n+1}}{a_n}.b_{n+1}\right)=L,\tag{14}\label{14}
@@ -468,7 +469,7 @@ Therefore $\sum a_n$ diverges (since $\sum\frac{1}{b_n}$ diverges).&lt;/p&gt;
 
 &lt;h4 id=&quot;raabes-test&quot;&gt;Raabe’s test&lt;/h4&gt;
 
-&lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt; (&lt;em&gt;Raabe’s test&lt;/em&gt;)&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Theorem 2&lt;/strong&gt; (&lt;em&gt;Raabe’s test&lt;/em&gt;)&lt;br /&gt;
 If $a_n&amp;gt;0$ and
 \begin{equation}
 \dfrac{a_{n+1}}{a_n}=1-\dfrac{A}{n}+\dfrac{A_n}{n},
@@ -492,7 +493,7 @@ then $\sum a_n$ converges if $A&amp;gt;1$ and diverges if $A&amp;lt;1$.&lt;/p&gt
 
 &lt;h4 id=&quot;gausss-test&quot;&gt;Gauss’s test&lt;/h4&gt;
 
-&lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt;
+&lt;p&gt;&lt;strong&gt;Theorem 3&lt;/strong&gt;&lt;br /&gt;
 If $a_n&amp;gt;0$ and
 \begin{equation}
 \dfrac{a_{n+1}}{a_n}=1-\dfrac{A}{n}+\dfrac{A_n}{n^{1+c}},
@@ -513,7 +514,7 @@ where in fourth step we use the &lt;em&gt;Stolz–Cesàro theorem&lt;/em&gt;&lt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt; (&lt;em&gt;Gauss’s test&lt;/em&gt;)&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Theorem 4&lt;/strong&gt; (&lt;em&gt;Gauss’s test&lt;/em&gt;)&lt;br /&gt;
 If $a_n&amp;gt;0$ and
 \begin{equation}
 \dfrac{a_{n+1}}{a_n}=\dfrac{n^k+\alpha n^{k-1}+\ldots}{n^k+\beta n^{k-1}+\ldots},\tag{16}\label{16}
@@ -529,7 +530,7 @@ where $A_n$ is a quotient of the form
 \begin{equation}
 \dfrac{\gamma n^{k-2}+\ldots}{n^{k-2}+\ldots}
 \end{equation}
-and is therefore clearly bounded as $n\to\infty$. The statement now follows from the right above theorem with $c=1$.&lt;/p&gt;
+and is therefore clearly bounded as $n\to\infty$. The statement now follows from the theorem 3 with $c=1$.&lt;/p&gt;
 
 &lt;h2 id=&quot;alt-test-abs-conv&quot;&gt;The Alternating Series test. Absolute Convergence&lt;/h2&gt;
 &lt;p&gt;Previously, we have been working with series of positive terms and nonnegative terms. It’s time to consider series with both positive and negative terms. The simplest are those whose terms are alternatively positive and negative.&lt;/p&gt;
@@ -579,6 +580,43 @@ and therefore
 Since both sequence of even sums and sequence of odd partial sums converges to $s$ as $n$ tends to infinity, this shows us that $\{s_n\}$ also converges to $s$, and therefore the alternating series \eqref{17} converges to the sum $s$.&lt;/p&gt;
 
 &lt;h3 id=&quot;abs-conv&quot;&gt;Absolute Convergence&lt;/h3&gt;
+&lt;p&gt;A series $\sum a_n$ is said to be &lt;strong&gt;absolutely convergent&lt;/strong&gt; if $\sum\vert a_n\vert$ converges.&lt;/p&gt;
+
+&lt;p&gt;These are some properties of absolute convergence.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Absolute convergence implies convergence.
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
+Suppose that $\sum a_n$ is an absolutely convergent series, or $\sum\vert a_n\vert$ converges. We have that
+\begin{equation}
+0\leq a_n+\vert a_n\vert\leq 2\vert a_n\vert
+\end{equation}
+And since $\sum 2\vert a_n\vert$ converges, by &lt;a href=&quot;#comparison-test&quot;&gt;comparison test&lt;/a&gt;, we also have that $\sum(a_n+\vert a_n\vert)$ converges.&lt;br /&gt;
+Since both $\sum\vert a_n\vert$ and $\sum(a_n+\vert a_n\vert)$ converge, so does their difference, which is $\sum a_n$.&lt;br /&gt;
+&lt;br /&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;A convergent series that is not absolutely convergent is said to be &lt;strong&gt;conditionally convergent&lt;/strong&gt;.
+    &lt;ul&gt;
+      &lt;li&gt;Any conditionally convergent series can be made to converge to any given number as its sum, or even to diverge, by &lt;em&gt;suitably changing the order of its terms without changing the terms themselves&lt;/em&gt;.&lt;/li&gt;
+      &lt;li&gt;On the other hand, any absolutely convergent series can be rearranged in any manner without changing its convergence behavior or its sum.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;abs-vs-cond&quot;&gt;Absolute vs Conditionally Convergence&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Theorem 5&lt;/strong&gt;&lt;br /&gt;
+Consider a series $\sum a_n$ and define $p_n$ and $q_n$ by
+\begin{align}
+p_n&amp;amp;=\dfrac{\vert a_n\vert+a_n}{2} \\ q_n&amp;amp;=\dfrac{\vert a_n\vert-a_n}{2}
+\end{align}
+If $\sum a_n$ converges conditionally, then both $\sum p_n$ and $\sum q_n$ diverges.&lt;br /&gt;
+If $\sum a_n$ converges absolutely, then $\sum p_n$ and $\sum q_n$ both converge and the sums of these series are related by the equation
+\begin{equation}
+\sum a_n=\sum p_n-\sum q_n
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] George F.Simmons. &lt;a href=&quot;https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424&quot;&gt;Calculus With Analytic Geometry - 2nd Edition&lt;/a&gt;&lt;/p&gt;

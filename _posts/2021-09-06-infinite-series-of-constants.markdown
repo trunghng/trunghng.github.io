@@ -35,6 +35,7 @@ comments: true
 	- [Alternating Series](#alt-series)
 	- [Alternating Series test](#alt-series-test)
 	- [Absolute Convergence](#abs-conv)
+- [Absolute vs. Conditionally Convergence](#abs-vs-cond)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -389,7 +390,7 @@ And since the geometric series $\sum r^n$ converges, we clearly have that $\sum 
 #### Kummer's theorem
 {: #kummers-theorem}
 
-**Theorem** (*Kummer's*)  
+**Theorem 1** (*Kummer's*)  
 Assume that $a_n>0,b_n>0$ and $\sum\frac{1}{b_n}$ diverges. If
 \begin{equation}
 \lim\left(b_n-\dfrac{a_{n+1}}{a_n}.b_{n+1}\right)=L,\tag{14}\label{14}
@@ -421,7 +422,7 @@ Therefore $\sum a_n$ diverges (since $\sum\frac{1}{b_n}$ diverges).
 #### Raabe's test
 {: #raabes-test}
 
-**Theorem** (*Raabe's test*)  
+**Theorem 2** (*Raabe's test*)  
 If $a_n>0$ and
 \begin{equation}
 \dfrac{a_{n+1}}{a_n}=1-\dfrac{A}{n}+\dfrac{A_n}{n},
@@ -446,7 +447,7 @@ When $A=1$ in Raabe's test, we turn to **Gauss's test**
 #### Gauss's test
 {: #gausss-test}
 
-**Theorem**
+**Theorem 3**  
 If $a_n>0$ and
 \begin{equation}
 \dfrac{a_{n+1}}{a_n}=1-\dfrac{A}{n}+\dfrac{A_n}{n^{1+c}},
@@ -462,7 +463,7 @@ where $c>0$ and $A_n$ is bounded as $n\to\infty$, then $\sum a_n$ converges if $
 \end{align}
 where in fourth step we use the *Stolz–Cesàro theorem*[^2]. Therefore, by *Kummer's theorem*, we have that the series is divergent.  
 
-**Theorem** (*Gauss's test*)  
+**Theorem 4** (*Gauss's test*)  
 If $a_n>0$ and
 \begin{equation}
 \dfrac{a_{n+1}}{a_n}=\dfrac{n^k+\alpha n^{k-1}+\ldots}{n^k+\beta n^{k-1}+\ldots},\tag{16}\label{16}
@@ -478,7 +479,7 @@ where $A_n$ is a quotient of the form
 \begin{equation}
 \dfrac{\gamma n^{k-2}+\ldots}{n^{k-2}+\ldots}
 \end{equation}
-and is therefore clearly bounded as $n\to\infty$. The statement now follows from the right above theorem with $c=1$.
+and is therefore clearly bounded as $n\to\infty$. The statement now follows from the theorem 3 with $c=1$.
 
 ## The Alternating Series test. Absolute Convergence
 {: #alt-test-abs-conv}
@@ -530,6 +531,38 @@ Since both sequence of even sums and sequence of odd partial sums converges to $
 
 ### Absolute Convergence
 {: #abs-conv}
+A series $\sum a_n$ is said to be **absolutely convergent** if $\sum\vert a_n\vert$ converges.  
+
+These are some properties of absolute convergence.
+1. Absolute convergence implies convergence.
+- **Proof**  
+Suppose that $\sum a_n$ is an absolutely convergent series, or $\sum\vert a_n\vert$ converges. We have that
+\begin{equation}
+0\leq a_n+\vert a_n\vert\leq 2\vert a_n\vert
+\end{equation}
+And since $\sum 2\vert a_n\vert$ converges, by [comparison test](#comparison-test), we also have that $\sum(a_n+\vert a_n\vert)$ converges.  
+Since both $\sum\vert a_n\vert$ and $\sum(a_n+\vert a_n\vert)$ converge, so does their difference, which is $\sum a_n$.  
+<br/>
+
+2. A convergent series that is not absolutely convergent is said to be **conditionally convergent**.
+- Any conditionally convergent series can be made to converge to any given number as its sum, or even to diverge, by *suitably changing the order of its terms without changing the terms themselves*.
+- On the other hand, any absolutely convergent series can be rearranged in any manner without changing its convergence behavior or its sum.
+
+## Absolute vs Conditionally Convergence
+{: #abs-vs-cond}
+**Theorem 5**  
+Consider a series $\sum a_n$ and define $p_n$ and $q_n$ by
+\begin{align}
+p_n&=\dfrac{\vert a_n\vert+a_n}{2} \\\\ q_n&=\dfrac{\vert a_n\vert-a_n}{2}
+\end{align}
+If $\sum a_n$ converges conditionally, then both $\sum p_n$ and $\sum q_n$ diverges.  
+If $\sum a_n$ converges absolutely, then $\sum p_n$ and $\sum q_n$ both converge and the sums of these series are related by the equation
+\begin{equation}
+\sum a_n=\sum p_n-\sum q_n
+\end{equation}
+
+**Proof**  
+
 
 
 
