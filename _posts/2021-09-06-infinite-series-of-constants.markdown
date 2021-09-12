@@ -36,6 +36,7 @@ comments: true
 	- [Alternating Series test](#alt-series-test)
 	- [Absolute Convergence](#abs-conv)
 - [Absolute vs. Conditionally Convergence](#abs-vs-cond)
+- [Dirichlet's test](#dirichlets-test)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -236,7 +237,16 @@ s_n\leq 1+a+a^2+\ldots+a^{m-1}=\dfrac{1-a^m}{1-a}<\dfrac{1}{1-a}
 \end{equation}
 which proves that $\\{s_n\\}$ has an upper bound. Thus \eqref{4} converges.  
 
-If a convergent series of nonnegative terms is rearranged in any manner, then the resulting series also converges and has the same sum.
+**Theorem 1**  
+If a convergent series of nonnegative terms is rearranged in any manner, then the resulting series also converges and has the same sum.  
+
+**Proof**  
+Consider two series $\sum a_n$ and $\sum b_n$, where $\sum a_n$ is a convergent series of nonnegative terms and $\sum b_n$ is formed form $\sum a_n$ by rearranging its terms.  
+
+Let $p$ be a positive integer and consider the $p$-partial sum $t_p=b_1+\ldots+b_p$ of $\sum b_n$. Since each $b$ is some $a$, then there exists an $m$ such that each term in $t_p$ is one of the terms in $s_m=a_1+\ldots+a_m$. This shows us that $t_p\leq s_m\leq s$. Thus, $\sum b_n$ converges to a sum $t\leq s$.  
+
+On the other hand, $\sum a_n$ is also a rearrangement of $\sum b_n$, so by the same procedure, similarly we have that $s\leq t$, and therefore $t=s$.
+
 
 ## The Integral test. Euler's constant
 {: #int-test-euler-c}
@@ -390,7 +400,7 @@ And since the geometric series $\sum r^n$ converges, we clearly have that $\sum 
 #### Kummer's theorem
 {: #kummers-theorem}
 
-**Theorem 1** (*Kummer's*)  
+**Theorem 2** (*Kummer's*)  
 Assume that $a_n>0,b_n>0$ and $\sum\frac{1}{b_n}$ diverges. If
 \begin{equation}
 \lim\left(b_n-\dfrac{a_{n+1}}{a_n}.b_{n+1}\right)=L,\tag{14}\label{14}
@@ -422,7 +432,7 @@ Therefore $\sum a_n$ diverges (since $\sum\frac{1}{b_n}$ diverges).
 #### Raabe's test
 {: #raabes-test}
 
-**Theorem 2** (*Raabe's test*)  
+**Theorem 3** (*Raabe's test*)  
 If $a_n>0$ and
 \begin{equation}
 \dfrac{a_{n+1}}{a_n}=1-\dfrac{A}{n}+\dfrac{A_n}{n},
@@ -430,24 +440,24 @@ If $a_n>0$ and
 where $A_n\to 0$, then $\sum a_n$ converges if $A>1$ and diverges if $A<1$.  
 
 **Proof**  
-Take $n=b_n$ in Kummber's theorem. Then
+Take $n=b_n$ in *Kummber's theorem*. Then
 \begin{align}
 \lim\left(b_n-\dfrac{a_{n+1}}{a_n}.b_{n+1}\right)&=\lim\left[n-\left(1-\dfrac{A}{n}+\dfrac{A_n}{n}\right)(n+1)\right] \\\\ &=\lim\left[-1+\dfrac{A(n+1)}{n}-\dfrac{A_n(n+1)}{n}\right] \\\\ &=A-1
 \end{align}
-and by Kummer's theorem we have that $\sum a_n$ converges if $A>1$ and diverges if $A<1$.  
+and by *Kummer's theorem* we have that $\sum a_n$ converges if $A>1$ and diverges if $A<1$.  
 
-Raabe's test can be formulated as followed: If $a_n>0$ and
+*Raabe's test* can be formulated as followed: If $a_n>0$ and
 \begin{equation}
 \lim n\left(1-\dfrac{a_{n+1}}{a_n}\right)=A,
 \end{equation}
 then $\sum a_n$ converges if $A>1$ and diverges if $A<1$.  
 
-When $A=1$ in Raabe's test, we turn to **Gauss's test**
+When $A=1$ in *Raabe's test*, we turn to **Gauss's test**
 
 #### Gauss's test
 {: #gausss-test}
 
-**Theorem 3**  
+**Theorem 4**  
 If $a_n>0$ and
 \begin{equation}
 \dfrac{a_{n+1}}{a_n}=1-\dfrac{A}{n}+\dfrac{A_n}{n^{1+c}},
@@ -455,15 +465,15 @@ If $a_n>0$ and
 where $c>0$ and $A_n$ is bounded as $n\to\infty$, then $\sum a_n$ converges if $A>1$ and diverges if $A\leq 1$.  
 
 **Proof**  
-- If $A\neq 1$, the statement follows exactly from Raabe's test, since $\frac{A_n}{n^c}\to 0$ as $n\to\infty$.  
+- If $A\neq 1$, the statement follows exactly from *Raabe's test*, since $\frac{A_n}{n^c}\to 0$ as $n\to\infty$.  
 
-- If $A=1$, we begin by taking $b_n=n\ln n$ in Kummer's theorem. Then
+- If $A=1$, we begin by taking $b_n=n\ln n$ in *Kummer's theorem*. Then
 \begin{align}
 \lim\left(b_n-\dfrac{a_{n+1}}{a_n}.b_{n+1}\right)&=\lim\left[n\ln n-\left(1-\dfrac{1}{n}+\dfrac{A_n}{n^{1+c}}\right)(n+1)\ln(n+1)\right] \\\\ &=\lim\left[n\ln n-\dfrac{n^2-1}{n}\ln(n+1)-\dfrac{n+1}{n}.\dfrac{A_n\ln(n+1)}{n^c}\right] \\\\ &=\lim\left[n\ln\left(\dfrac{n}{n+1}\right)+\dfrac{\ln(n+1)}{n}-\dfrac{n+1}{n}.\dfrac{A_n\ln(n+1)}{n^c}\right] \\\\ &=-1+0-0=-1<0,
 \end{align}
 where in fourth step we use the *Stolz–Cesàro theorem*[^2]. Therefore, by *Kummer's theorem*, we have that the series is divergent.  
 
-**Theorem 4** (*Gauss's test*)  
+**Theorem 5** (*Gauss's test*)  
 If $a_n>0$ and
 \begin{equation}
 \dfrac{a_{n+1}}{a_n}=\dfrac{n^k+\alpha n^{k-1}+\ldots}{n^k+\beta n^{k-1}+\ldots},\tag{16}\label{16}
@@ -479,7 +489,7 @@ where $A_n$ is a quotient of the form
 \begin{equation}
 \dfrac{\gamma n^{k-2}+\ldots}{n^{k-2}+\ldots}
 \end{equation}
-and is therefore clearly bounded as $n\to\infty$. The statement now follows from the theorem 3 with $c=1$.
+and is therefore clearly bounded as $n\to\infty$. The statement now follows from **Theorem 4** with $c=1$.
 
 ## The Alternating Series test. Absolute Convergence
 {: #alt-test-abs-conv}
@@ -545,12 +555,12 @@ Since both $\sum\vert a_n\vert$ and $\sum(a_n+\vert a_n\vert)$ converge, so does
 <br/>
 
 2. A convergent series that is not absolutely convergent is said to be **conditionally convergent**.
-- Any conditionally convergent series can be made to converge to any given number as its sum, or even to diverge, by *suitably changing the order of its terms without changing the terms themselves*.
-- On the other hand, any absolutely convergent series can be rearranged in any manner without changing its convergence behavior or its sum.
+- Any conditionally convergent series can be made to converge to any given number as its sum, or even to diverge, by *suitably changing the order of its terms without changing the terms themselves* (check out **Theorem 8** to see the proof).
+- On the other hand, any absolutely convergent series can be rearranged in any manner without changing its convergence behavior or its sum (check out **Theorem 7** to see the proof).
 
 ## Absolute vs Conditionally Convergence
 {: #abs-vs-cond}
-**Theorem 5**  
+**Theorem 6**  
 Consider a series $\sum a_n$ and define $p_n$ and $q_n$ by
 \begin{align}
 p_n&=\dfrac{\vert a_n\vert+a_n}{2} \\\\ q_n&=\dfrac{\vert a_n\vert-a_n}{2}
@@ -562,7 +572,75 @@ If $\sum a_n$ converges absolutely, then $\sum p_n$ and $\sum q_n$ both converge
 \end{equation}
 
 **Proof**  
+From the formulas of $p_n$ and $q_n$, we have
+\begin{align}
+a_n&=p_n-q_n\tag{18}\label{18} \\\\ \vert a_n\vert&=p_n+q_n\tag{19}\label{19}
+\end{align}
+- We begin by proving the first statement.  
+When $\sum a_n$ converges, from \eqref{18}, we have $\sum p_n$ and $\sum q_n$ both must have the same convergence behavior (i.e., converge or diverge at the same time).  
+If they both converge, then from \eqref{19}, we have that $\sum\vert a_n\vert$ converges, contrary to the hypothesis, so $\sum p_n$ and $\sum q_n$ are both divergent.  
 
+- To prove the second statement, we assume that $\sum\vert a_n\vert$ converges. We have
+\begin{equation}
+p_n=\dfrac{\vert a_n\vert+a_n}{2}\leq\dfrac{2\vert a_n\vert}{2}=\vert a_n\vert
+\end{equation}
+which shows us that $\sum p_n$ converges. Similarly, for $q_n$, we have
+\begin{equation}
+q_n=\dfrac{\vert a_n\vert-a_n}{2}\leq\dfrac{2\vert a_n\vert}{2}=\vert a_n\vert
+\end{equation}
+which also lets us obtain that $\sum q_n$ converges.  
+Therefore
+\begin{equation}
+\sum p_n-\sum q_n=\sum(p_n-q_n)=\sum a_n
+\end{equation}
+
+**Theorem 7**  
+If $\sum a_n$ is an absolutely convergent series with sum $s$, and if $a_n$'s are rearranged in any way to from a new series $\sum b_n$, then this new series is also absolutely convergent with sum $s$.  
+
+**Proof**  
+Since $\sum\vert a_n\vert$ is a convergent series of nonnegative terms with sum $s$ and since the $b_n$'s are just the $a_n$'s in a different order, it follows from **Theorem 1** that $\sum\vert b_n\vert$ also converges to $s$, and therefore $\sum b_n$ is absolutely convergent with sum $t$, for some positive $t$.  
+
+**Theorem 6** allows us to write
+\begin{equation}
+s=\sum a_n=\sum p_n-\sum q_n
+\end{equation}
+and
+\begin{equation}
+t=\sum b_n=\sum P_n-\sum Q_n
+\end{equation}
+where each of the series on the right is convergent and consists of nonnegative. But the $P_n$'s and $Q_n$'s are simply the $p_n$'s and $q_n$'s in a different order. Hence, by **Theorem 1**, we have $\sum P_n=\sum p_n$ and $\sum Q_n=\sum q_n$. And therefore, $t=s$.  
+<br/>
+
+**Theorem 8** (*Riemann's rearrangement theorem*)  
+Let $\sum a_n$ be a conditionally convergent series. Then its terms can be rearranged to yield a convergent series whose sum is an arbitrary preassigned number, or a series that diverges to $\infty$, or a series that diverges to $-\infty$.
+
+**Proof**  
+Since $\sum a_n$ converges conditionally, we begin by using **Theorem 6** to form the two divergent series of nonnegative terms $\sum p_n$ and $\sum q_n$.
+- To prove the first statement, let $s$ be any number and construct a rearrangement of the given series as follows. Start by writing down $p$'s in order until the partial sum
+\begin{equation}
+p_1+p_2+\ldots+p_{n_1}
+\end{equation}
+is first $\geq s$; next we continue with $-q$'s until the total partial sum
+\begin{equation}
+p_1+p_2+\ldots+p_{n_1}-q_1-q_2-\ldots-q_{m_1}
+\end{equation}
+is first $\leq s$; then we continue with $p$'s until the total partial sum
+\begin{equation}
+p_1+\ldots+p_{n_1}-q_1-\ldots-q_{m_1}+p_{n_1+1}+\ldots+p_{n_2}
+\end{equation}
+is first $\geq s$; and so on.  
+The possibility of each of these steps is guaranteed by the divergence of $\sum p_n$ and $\sum q_n$; and the resulting rearrangement of $\sum a_n$ converges to $s$ because $p_n\to 0$ and $q_n\to 0$.  
+
+- In order to make the rearrangement diverge to $\infty$, it suffices to write down enough $p$'s to yield
+\begin{equation}
+p_1+p_2+\ldots+\p_{n_1}\geq 1,
+\end{equation}
+then to insert $-q_1$, and then to continue with $p$'s until
+\begin{equation}
+p_1+\ldots+p_{n_1}-q_1+p_{n_1+1}+\ldots+p_{n_2}\geq 2,
+\end{equation}
+then to insert $-q_2$, and so on.  
+We can produce divergence to $-\infty$ by a similar construction.  
 
 
 
