@@ -28,7 +28,7 @@ comments: true
 	- [Ratio test](#ratio-test)
 	- [Root test](#root-test)
 	- [The Extended Ratio tests of Raabe and Gauss](#extended-ratio-test)
-		- [Kummer's theorem](#kummbers-theorem)
+		- [Kummer's theorem](#kummers-theorem)
 		- [Raabe's test](#raabes-test)
 		- [Gauss's test](#gausss-test)
 - [The Alternating Series test. Absolute Convergence](#alt-test-abs-conv)
@@ -238,7 +238,7 @@ s_n\leq 1+a+a^2+\ldots+a^{m-1}=\dfrac{1-a^m}{1-a}<\dfrac{1}{1-a}
 which proves that $\\{s_n\\}$ has an upper bound. Thus \eqref{4} converges.  
 
 **Theorem 1**  
-If a convergent series of nonnegative terms is rearranged in any manner, then the resulting series also converges and has the same sum.  
+*If a convergent series of nonnegative terms is rearranged in any manner, then the resulting series also converges and has the same sum.*  
 
 **Proof**  
 Consider two series $\sum a_n$ and $\sum b_n$, where $\sum a_n$ is a convergent series of nonnegative terms and $\sum b_n$ is formed form $\sum a_n$ by rearranging its terms.  
@@ -401,11 +401,11 @@ And since the geometric series $\sum r^n$ converges, we clearly have that $\sum 
 {: #kummers-theorem}
 
 **Theorem 2** (*Kummer's*)  
-Assume that $a_n>0,b_n>0$ and $\sum\frac{1}{b_n}$ diverges. If
+*Assume that $a_n>0,b_n>0$ and $\sum\frac{1}{b_n}$ diverges. If
 \begin{equation}
 \lim\left(b_n-\dfrac{a_{n+1}}{a_n}.b_{n+1}\right)=L,\tag{14}\label{14}
 \end{equation}
-then $\sum a_n$ converges if $L>0$ and diverges if $L<0$.  
+then $\sum a_n$ converges if $L>0$ and diverges if $L<0$.*  
 
 **Proof**  
 - If $L>0$, then there exists $h$ such that $L>h>0$. From \eqref{14}, for some positive integer $n_0$ we have
@@ -433,11 +433,11 @@ Therefore $\sum a_n$ diverges (since $\sum\frac{1}{b_n}$ diverges).
 {: #raabes-test}
 
 **Theorem 3** (*Raabe's test*)  
-If $a_n>0$ and
+*If $a_n>0$ and
 \begin{equation}
 \dfrac{a_{n+1}}{a_n}=1-\dfrac{A}{n}+\dfrac{A_n}{n},
 \end{equation}
-where $A_n\to 0$, then $\sum a_n$ converges if $A>1$ and diverges if $A<1$.  
+where $A_n\to 0$, then $\sum a_n$ converges if $A>1$ and diverges if $A<1$.*  
 
 **Proof**  
 Take $n=b_n$ in *Kummber's theorem*. Then
@@ -458,11 +458,11 @@ When $A=1$ in *Raabe's test*, we turn to **Gauss's test**
 {: #gausss-test}
 
 **Theorem 4**  
-If $a_n>0$ and
+*If $a_n>0$ and
 \begin{equation}
 \dfrac{a_{n+1}}{a_n}=1-\dfrac{A}{n}+\dfrac{A_n}{n^{1+c}},
 \end{equation}
-where $c>0$ and $A_n$ is bounded as $n\to\infty$, then $\sum a_n$ converges if $A>1$ and diverges if $A\leq 1$.  
+where $c>0$ and $A_n$ is bounded as $n\to\infty$, then $\sum a_n$ converges if $A>1$ and diverges if $A\leq 1$.*  
 
 **Proof**  
 - If $A\neq 1$, the statement follows exactly from *Raabe's test*, since $\frac{A_n}{n^c}\to 0$ as $n\to\infty$.  
@@ -474,11 +474,11 @@ where $c>0$ and $A_n$ is bounded as $n\to\infty$, then $\sum a_n$ converges if $
 where in fourth step we use the *Stolz–Cesàro theorem*[^2]. Therefore, by *Kummer's theorem*, we have that the series is divergent.  
 
 **Theorem 5** (*Gauss's test*)  
-If $a_n>0$ and
+*If $a_n>0$ and
 \begin{equation}
 \dfrac{a_{n+1}}{a_n}=\dfrac{n^k+\alpha n^{k-1}+\ldots}{n^k+\beta n^{k-1}+\ldots},\tag{16}\label{16}
 \end{equation}
-then $\sum a_n$ converges if $\beta-\alpha>1$ and diverges if $\beta-\alpha\leq 1$.  
+then $\sum a_n$ converges if $\beta-\alpha>1$ and diverges if $\beta-\alpha\leq 1$.*  
 
 **Proof**  
 If the quotient on the right of \eqref{16} is worked out by long division, we get
@@ -561,12 +561,12 @@ Since both $\sum\vert a_n\vert$ and $\sum(a_n+\vert a_n\vert)$ converge, so does
 ## Absolute vs Conditionally Convergence
 {: #abs-vs-cond}
 **Theorem 6**  
-Consider a series $\sum a_n$ and define $p_n$ and $q_n$ by
+*Consider a series $\sum a_n$ and define $p_n$ and $q_n$ by
 \begin{align}
 p_n&=\dfrac{\vert a_n\vert+a_n}{2} \\\\ q_n&=\dfrac{\vert a_n\vert-a_n}{2}
 \end{align}
 If $\sum a_n$ converges conditionally, then both $\sum p_n$ and $\sum q_n$ diverges.  
-If $\sum a_n$ converges absolutely, then $\sum p_n$ and $\sum q_n$ both converge and the sums of these series are related by the equation
+If $\sum a_n$ converges absolutely, then $\sum p_n$ and $\sum q_n$ both converge and the sums of these series are related by the equation*
 \begin{equation}
 \sum a_n=\sum p_n-\sum q_n
 \end{equation}
@@ -593,9 +593,10 @@ Therefore
 \begin{equation}
 \sum p_n-\sum q_n=\sum(p_n-q_n)=\sum a_n
 \end{equation}
+<br/>
 
 **Theorem 7**  
-If $\sum a_n$ is an absolutely convergent series with sum $s$, and if $a_n$'s are rearranged in any way to from a new series $\sum b_n$, then this new series is also absolutely convergent with sum $s$.  
+*If $\sum a_n$ is an absolutely convergent series with sum $s$, and if $a_n$'s are rearranged in any way to from a new series $\sum b_n$, then this new series is also absolutely convergent with sum $s$.*  
 
 **Proof**  
 Since $\sum\vert a_n\vert$ is a convergent series of nonnegative terms with sum $s$ and since the $b_n$'s are just the $a_n$'s in a different order, it follows from **Theorem 1** that $\sum\vert b_n\vert$ also converges to $s$, and therefore $\sum b_n$ is absolutely convergent with sum $t$, for some positive $t$.  
@@ -612,7 +613,7 @@ where each of the series on the right is convergent and consists of nonnegative.
 <br/>
 
 **Theorem 8** (*Riemann's rearrangement theorem*)  
-Let $\sum a_n$ be a conditionally convergent series. Then its terms can be rearranged to yield a convergent series whose sum is an arbitrary preassigned number, or a series that diverges to $\infty$, or a series that diverges to $-\infty$.
+*Let $\sum a_n$ be a conditionally convergent series. Then its terms can be rearranged to yield a convergent series whose sum is an arbitrary preassigned number, or a series that diverges to $\infty$, or a series that diverges to $-\infty$.*
 
 **Proof**  
 Since $\sum a_n$ converges conditionally, we begin by using **Theorem 6** to form the two divergent series of nonnegative terms $\sum p_n$ and $\sum q_n$.
@@ -633,7 +634,7 @@ The possibility of each of these steps is guaranteed by the divergence of $\sum 
 
 - In order to make the rearrangement diverge to $\infty$, it suffices to write down enough $p$'s to yield
 \begin{equation}
-p_1+p_2+\ldots+\p_{n_1}\geq 1,
+p_1+p_2+\ldots+p_{n_1}\geq 1,
 \end{equation}
 then to insert $-q_1$, and then to continue with $p$'s until
 \begin{equation}
@@ -642,8 +643,94 @@ p_1+\ldots+p_{n_1}-q_1+p_{n_1+1}+\ldots+p_{n_2}\geq 2,
 then to insert $-q_2$, and so on.  
 We can produce divergence to $-\infty$ by a similar construction.  
 
+One of the principal application of **Theorem 7** relates to the *multiplication of series*.  
 
+If we multiply two series
+\begin{align}
+\sum_{n=0}^{\infty}a_n&=a_0+a_1+\ldots+a_n+\ldots\tag{20}\label{20} \\\\ \sum_{n=0}^{\infty}b_n&=b_0+b_1+\ldots+b_n+\ldots\tag{21}\label{21}
+\end{align}
+by forming all possible product $a_i b_j$ (as in the case of finite sums), then we obtain the following doubly infinite array
+<figure>
+	<img src="/assets/images/2021-09-06/series-mult.png" alt="series multiplication" width="300px" height="210px" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b></figcaption>
+</figure>
 
+There are various ways of arranging these products into a single infinite series, of which two are important. The first one is to group them by diagonals, as indicated in the arrows in **Figure 2**:
+\begin{equation}
+a_0b_0+(a_0b_1+a_1b_1)+(a_0b_2+a_1b_1+a_2b_0)+\ldots\tag{22}\label{22}
+\end{equation}
+This series can be defined as $\sum_{n=0}^{\infty}c_n$, where
+\begin{equation}
+c_n=a_0b_n+a_1b_{n-1}+\ldots+a_nb_0
+\end{equation}
+
+It is called the *product* (or *Cauchy product*) of the two series $\sum a_n$ and $\sum b_n$.  
+
+The second crucial method of arranging these products into a series is by squares, as shown in **Figure 2**:
+\begin{equation}
+a_0b_0+(a_0b_1+a_1b_1+a_1b_0)+(a_0b_2+a_1b_2+a_2b_2+a_2b_1+a_2b_0)+\ldots\tag{23}\label{23}
+\end{equation}
+The advantage of this arrangement is that the $n$-th partial sum $s_n$ of \eqref{23} is given by
+\begin{equation}
+s_n=(a_0+a_1+\ldots+a_n)(b_0+b_1+\ldots+b_n)\tag{24}\label{24}
+\end{equation}
+<br/>
+
+**Theorem 9**  
+*If the two series \eqref{20} and \eqref{21} have nonnegative terms and converges to $s$ and $t$, then their product \eqref{22} converges to $st$.*  
+
+**Proof**  
+It is clear from \eqref{24} that \eqref{23} converges to $st$. Let's denote the series \eqref{22} and \eqref{23} without parenthesis by $(22')$ and $(23')$.  
+
+We have the series $(23')$ of nonnegative terms still converges to $st$ because, for if $m$ is an integer such that $n^2\leq m\leq (n+1)^2$, then the $m$-th partial sum of $(23')$ lies between $s_{n-1}$ and $s_n$, and both of these converge to $st$.  
+
+By **Theorem 7**, the terms of $(23')$ can be rearranged to yield $(22')$ without changing the sum $st$; and when parentheses are suitably inserted, we see that \eqref{8} converges to $st$.  
+
+We now extend **Theorem 9** to the case of absolute convergence.  
+<br/>
+
+**Theorem 10**  
+*If the series $\sum_{n=0}^{\infty}a_n$ and $\sum_{n=0}^{\infty}b_n$ are absolutely convergent, with sum $s$ and $t$, then their product
+\begin{multline}
+\sum_{n=0}^{\infty}(a_0b_n+a_1b_{n-1}+\ldots+a_nb_0)=a_0b_0+(a_0b_1+a_1b_0)\,+ \\\\ (a_0b_2+a_1b_1+a_2b_0)+\ldots+(a_0b_n+a_1b_{n-1}+\ldots+a_nb_0)+\ldots\tag{25}\label{25}
+\end{multline}
+is absolutely convergent, with sum $st$.*  
+
+**Proof**  
+The series $\sum_{n=0}^{\infty}\vert a_n\vert$ and $\sum_{n=0}^{\infty}\vert b_n\vert$ are convergent and have nonnegative terms. So by the **Theorem 9** above, their product
+\begin{multline}
+\vert a_0\vert\vert b_0\vert+\vert a_0\vert\vert b_1\vert+\vert a_1\vert\vert b_0\vert+\ldots+\vert a_0\vert\vert b_n\vert+\vert a_1\vert\vert b_{n-1}\vert+\ldots+\vert a_n\vert\vert b_0\vert+\ldots \\\\ =\vert a_0b_0\vert+\vert a_0b_1\vert+\vert a_1b_0\vert+\ldots+\vert a_0b_n\vert+\vert a_1b_{n-1}\vert+\ldots+\vert a_nb_0\vert+\ldots\tag{26}\label{26}
+\end{multline}
+converges, and therefore the series
+\begin{equation}
+a_0b_0+a_0b_1+a_1b_0+\ldots+a_0b_n+\ldots+a_nb_0+\ldots\tag{27}\label{27}
+\end{equation}
+is absolutely convergent. It follows from **Theorem 7** that the sum of \eqref{27} will not change if we rearrange its terms and write it as
+\begin{equation}
+a_0b_0+a_0b_1+a_1b_1+a_1b_0+a_0b_2+a_1b_2+a_2b_2+a_2b_1+a_2b_0+\ldots\tag{28}\label{28}
+\end{equation}
+We now observe that the sum of the first $(n+1)^2$ terms of \eqref{28} is
+\begin{equation}
+(a_0+a_1+\ldots+a_n)(b_0+b_1+\ldots+b_n),
+\end{equation}
+so it is clear that \eqref{28}, and with it \eqref{27}, converges to $st$.  
+
+Thus, \eqref{25} also converges to $st$, since \eqref{25} is retrieved by suitably inserted parentheses in \eqref{27}.  
+
+Moreover, we also have
+\begin{equation}
+\vert a_0b_n+a_1b_{n-1}+\ldots+a_nb_0\vert\leq\vert a_0b_n\vert+\vert a_1b_{n-1}\vert+\ldots+\vert a_nb_0\vert
+\end{equation}
+and the series
+\begin{equation}
+\vert a_0b_0\vert+(\vert a_0b_1\vert+\vert a_1b_0\vert)+\ldots+(\vert a_0b_n\vert+\ldots+\vert a_nb_0\vert)+\ldots
+\end{equation}
+obtained from \eqref{26} by inserting parentheses. By the [comparison test](#comparison-test), \eqref{25} converges absolutely.  
+
+Hence, we can conclude that \eqref{25} is absolutely convergent, with sum $st$.
+
+## Dirichlet's test
+{: #dirichlets-test}
 
 
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/series.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-12T11:37:46+07:00</updated><id>/feed/by_tag/series.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/series.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-12T14:43:03+07:00</updated><id>/feed/by_tag/series.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Infinite Series of Constants</title><link href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html" rel="alternate" type="text/html" title="Infinite Series of Constants" /><published>2021-09-06T11:20:00+07:00</published><updated>2021-09-06T11:20:00+07:00</updated><id>/mathematics/calculus/2021/09/06/infinite-series-of-constants</id><content type="html" xml:base="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html">&lt;blockquote&gt;
   &lt;p&gt;No idea what to say yet :D&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -40,7 +40,7 @@
       &lt;li&gt;&lt;a href=&quot;#root-test&quot;&gt;Root test&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#extended-ratio-test&quot;&gt;The Extended Ratio tests of Raabe and Gauss&lt;/a&gt;
         &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#kummbers-theorem&quot;&gt;Kummer’s theorem&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#kummers-theorem&quot;&gt;Kummer’s theorem&lt;/a&gt;&lt;/li&gt;
           &lt;li&gt;&lt;a href=&quot;#raabes-test&quot;&gt;Raabe’s test&lt;/a&gt;&lt;/li&gt;
           &lt;li&gt;&lt;a href=&quot;#gausss-test&quot;&gt;Gauss’s test&lt;/a&gt;&lt;/li&gt;
         &lt;/ul&gt;
@@ -270,7 +270,7 @@ s_n\leq 1+a+a^2+\ldots+a^{m-1}=\dfrac{1-a^m}{1-a}&amp;lt;\dfrac{1}{1-a}
 which proves that $\{s_n\}$ has an upper bound. Thus \eqref{4} converges.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Theorem 1&lt;/strong&gt;&lt;br /&gt;
-If a convergent series of nonnegative terms is rearranged in any manner, then the resulting series also converges and has the same sum.&lt;/p&gt;
+&lt;em&gt;If a convergent series of nonnegative terms is rearranged in any manner, then the resulting series also converges and has the same sum.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
 Consider two series $\sum a_n$ and $\sum b_n$, where $\sum a_n$ is a convergent series of nonnegative terms and $\sum b_n$ is formed form $\sum a_n$ by rearranging its terms.&lt;/p&gt;
@@ -443,11 +443,11 @@ And since the geometric series $\sum r^n$ converges, we clearly have that $\sum 
 &lt;h4 id=&quot;kummers-theorem&quot;&gt;Kummer’s theorem&lt;/h4&gt;
 
 &lt;p&gt;&lt;strong&gt;Theorem 2&lt;/strong&gt; (&lt;em&gt;Kummer’s&lt;/em&gt;)&lt;br /&gt;
-Assume that $a_n&amp;gt;0,b_n&amp;gt;0$ and $\sum\frac{1}{b_n}$ diverges. If
+&lt;em&gt;Assume that $a_n&amp;gt;0,b_n&amp;gt;0$ and $\sum\frac{1}{b_n}$ diverges. If
 \begin{equation}
 \lim\left(b_n-\dfrac{a_{n+1}}{a_n}.b_{n+1}\right)=L,\tag{14}\label{14}
 \end{equation}
-then $\sum a_n$ converges if $L&amp;gt;0$ and diverges if $L&amp;lt;0$.&lt;/p&gt;
+then $\sum a_n$ converges if $L&amp;gt;0$ and diverges if $L&amp;lt;0$.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -479,11 +479,11 @@ Therefore $\sum a_n$ diverges (since $\sum\frac{1}{b_n}$ diverges).&lt;/p&gt;
 &lt;h4 id=&quot;raabes-test&quot;&gt;Raabe’s test&lt;/h4&gt;
 
 &lt;p&gt;&lt;strong&gt;Theorem 3&lt;/strong&gt; (&lt;em&gt;Raabe’s test&lt;/em&gt;)&lt;br /&gt;
-If $a_n&amp;gt;0$ and
+&lt;em&gt;If $a_n&amp;gt;0$ and
 \begin{equation}
 \dfrac{a_{n+1}}{a_n}=1-\dfrac{A}{n}+\dfrac{A_n}{n},
 \end{equation}
-where $A_n\to 0$, then $\sum a_n$ converges if $A&amp;gt;1$ and diverges if $A&amp;lt;1$.&lt;/p&gt;
+where $A_n\to 0$, then $\sum a_n$ converges if $A&amp;gt;1$ and diverges if $A&amp;lt;1$.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
 Take $n=b_n$ in &lt;em&gt;Kummber’s theorem&lt;/em&gt;. Then
@@ -503,11 +503,11 @@ then $\sum a_n$ converges if $A&amp;gt;1$ and diverges if $A&amp;lt;1$.&lt;/p&gt
 &lt;h4 id=&quot;gausss-test&quot;&gt;Gauss’s test&lt;/h4&gt;
 
 &lt;p&gt;&lt;strong&gt;Theorem 4&lt;/strong&gt;&lt;br /&gt;
-If $a_n&amp;gt;0$ and
+&lt;em&gt;If $a_n&amp;gt;0$ and
 \begin{equation}
 \dfrac{a_{n+1}}{a_n}=1-\dfrac{A}{n}+\dfrac{A_n}{n^{1+c}},
 \end{equation}
-where $c&amp;gt;0$ and $A_n$ is bounded as $n\to\infty$, then $\sum a_n$ converges if $A&amp;gt;1$ and diverges if $A\leq 1$.&lt;/p&gt;
+where $c&amp;gt;0$ and $A_n$ is bounded as $n\to\infty$, then $\sum a_n$ converges if $A&amp;gt;1$ and diverges if $A\leq 1$.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -524,11 +524,11 @@ where in fourth step we use the &lt;em&gt;Stolz–Cesàro theorem&lt;/em&gt;&lt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;Theorem 5&lt;/strong&gt; (&lt;em&gt;Gauss’s test&lt;/em&gt;)&lt;br /&gt;
-If $a_n&amp;gt;0$ and
+&lt;em&gt;If $a_n&amp;gt;0$ and
 \begin{equation}
 \dfrac{a_{n+1}}{a_n}=\dfrac{n^k+\alpha n^{k-1}+\ldots}{n^k+\beta n^{k-1}+\ldots},\tag{16}\label{16}
 \end{equation}
-then $\sum a_n$ converges if $\beta-\alpha&amp;gt;1$ and diverges if $\beta-\alpha\leq 1$.&lt;/p&gt;
+then $\sum a_n$ converges if $\beta-\alpha&amp;gt;1$ and diverges if $\beta-\alpha\leq 1$.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
 If the quotient on the right of \eqref{16} is worked out by long division, we get
@@ -615,12 +615,12 @@ Since both $\sum\vert a_n\vert$ and $\sum(a_n+\vert a_n\vert)$ converge, so does
 
 &lt;h2 id=&quot;abs-vs-cond&quot;&gt;Absolute vs Conditionally Convergence&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;Theorem 6&lt;/strong&gt;&lt;br /&gt;
-Consider a series $\sum a_n$ and define $p_n$ and $q_n$ by
+&lt;em&gt;Consider a series $\sum a_n$ and define $p_n$ and $q_n$ by
 \begin{align}
 p_n&amp;amp;=\dfrac{\vert a_n\vert+a_n}{2} \\ q_n&amp;amp;=\dfrac{\vert a_n\vert-a_n}{2}
 \end{align}
 If $\sum a_n$ converges conditionally, then both $\sum p_n$ and $\sum q_n$ diverges.&lt;br /&gt;
-If $\sum a_n$ converges absolutely, then $\sum p_n$ and $\sum q_n$ both converge and the sums of these series are related by the equation
+If $\sum a_n$ converges absolutely, then $\sum p_n$ and $\sum q_n$ both converge and the sums of these series are related by the equation&lt;/em&gt;
 \begin{equation}
 \sum a_n=\sum p_n-\sum q_n
 \end{equation}&lt;/p&gt;
@@ -649,12 +649,13 @@ which also lets us obtain that $\sum q_n$ converges.&lt;br /&gt;
 Therefore
 \begin{equation}
 \sum p_n-\sum q_n=\sum(p_n-q_n)=\sum a_n
-\end{equation}&lt;/p&gt;
+\end{equation}
+&lt;br /&gt;&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;Theorem 7&lt;/strong&gt;&lt;br /&gt;
-If $\sum a_n$ is an absolutely convergent series with sum $s$, and if $a_n$’s are rearranged in any way to from a new series $\sum b_n$, then this new series is also absolutely convergent with sum $s$.&lt;/p&gt;
+&lt;em&gt;If $\sum a_n$ is an absolutely convergent series with sum $s$, and if $a_n$’s are rearranged in any way to from a new series $\sum b_n$, then this new series is also absolutely convergent with sum $s$.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
 Since $\sum\vert a_n\vert$ is a convergent series of nonnegative terms with sum $s$ and since the $b_n$’s are just the $a_n$’s in a different order, it follows from &lt;strong&gt;Theorem 1&lt;/strong&gt; that $\sum\vert b_n\vert$ also converges to $s$, and therefore $\sum b_n$ is absolutely convergent with sum $t$, for some positive $t$.&lt;/p&gt;
@@ -671,7 +672,7 @@ where each of the series on the right is convergent and consists of nonnegative.
 &lt;br /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Theorem 8&lt;/strong&gt; (&lt;em&gt;Riemann’s rearrangement theorem&lt;/em&gt;)&lt;br /&gt;
-Let $\sum a_n$ be a conditionally convergent series. Then its terms can be rearranged to yield a convergent series whose sum is an arbitrary preassigned number, or a series that diverges to $\infty$, or a series that diverges to $-\infty$.&lt;/p&gt;
+&lt;em&gt;Let $\sum a_n$ be a conditionally convergent series. Then its terms can be rearranged to yield a convergent series whose sum is an arbitrary preassigned number, or a series that diverges to $\infty$, or a series that diverges to $-\infty$.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
 Since $\sum a_n$ converges conditionally, we begin by using &lt;strong&gt;Theorem 6&lt;/strong&gt; to form the two divergent series of nonnegative terms $\sum p_n$ and $\sum q_n$.&lt;/p&gt;
@@ -695,7 +696,7 @@ The possibility of each of these steps is guaranteed by the divergence of $\sum 
   &lt;li&gt;
     &lt;p&gt;In order to make the rearrangement diverge to $\infty$, it suffices to write down enough $p$’s to yield
 \begin{equation}
-p_1+p_2+\ldots+\p_{n_1}\geq 1,
+p_1+p_2+\ldots+p_{n_1}\geq 1,
 \end{equation}
 then to insert $-q_1$, and then to continue with $p$’s until
 \begin{equation}
@@ -705,6 +706,94 @@ then to insert $-q_2$, and so on.&lt;br /&gt;
 We can produce divergence to $-\infty$ by a similar construction.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;One of the principal application of &lt;strong&gt;Theorem 7&lt;/strong&gt; relates to the &lt;em&gt;multiplication of series&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;If we multiply two series
+\begin{align}
+\sum_{n=0}^{\infty}a_n&amp;amp;=a_0+a_1+\ldots+a_n+\ldots\tag{20}\label{20} \\ \sum_{n=0}^{\infty}b_n&amp;amp;=b_0+b_1+\ldots+b_n+\ldots\tag{21}\label{21}
+\end{align}
+by forming all possible product $a_i b_j$ (as in the case of finite sums), then we obtain the following doubly infinite array&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2021-09-06/series-mult.png&quot; alt=&quot;series multiplication&quot; width=&quot;300px&quot; height=&quot;210px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 2&lt;/b&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;There are various ways of arranging these products into a single infinite series, of which two are important. The first one is to group them by diagonals, as indicated in the arrows in &lt;strong&gt;Figure 2&lt;/strong&gt;:
+\begin{equation}
+a_0b_0+(a_0b_1+a_1b_1)+(a_0b_2+a_1b_1+a_2b_0)+\ldots\tag{22}\label{22}
+\end{equation}
+This series can be defined as $\sum_{n=0}^{\infty}c_n$, where
+\begin{equation}
+c_n=a_0b_n+a_1b_{n-1}+\ldots+a_nb_0
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;It is called the &lt;em&gt;product&lt;/em&gt; (or &lt;em&gt;Cauchy product&lt;/em&gt;) of the two series $\sum a_n$ and $\sum b_n$.&lt;/p&gt;
+
+&lt;p&gt;The second crucial method of arranging these products into a series is by squares, as shown in &lt;strong&gt;Figure 2&lt;/strong&gt;:
+\begin{equation}
+a_0b_0+(a_0b_1+a_1b_1+a_1b_0)+(a_0b_2+a_1b_2+a_2b_2+a_2b_1+a_2b_0)+\ldots\tag{23}\label{23}
+\end{equation}
+The advantage of this arrangement is that the $n$-th partial sum $s_n$ of \eqref{23} is given by
+\begin{equation}
+s_n=(a_0+a_1+\ldots+a_n)(b_0+b_1+\ldots+b_n)\tag{24}\label{24}
+\end{equation}
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Theorem 9&lt;/strong&gt;&lt;br /&gt;
+&lt;em&gt;If the two series \eqref{20} and \eqref{21} have nonnegative terms and converges to $s$ and $t$, then their product \eqref{22} converges to $st$.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
+It is clear from \eqref{24} that \eqref{23} converges to $st$. Let’s denote the series \eqref{22} and \eqref{23} without parenthesis by $(22’)$ and $(23’)$.&lt;/p&gt;
+
+&lt;p&gt;We have the series $(23’)$ of nonnegative terms still converges to $st$ because, for if $m$ is an integer such that $n^2\leq m\leq (n+1)^2$, then the $m$-th partial sum of $(23’)$ lies between $s_{n-1}$ and $s_n$, and both of these converge to $st$.&lt;/p&gt;
+
+&lt;p&gt;By &lt;strong&gt;Theorem 7&lt;/strong&gt;, the terms of $(23’)$ can be rearranged to yield $(22’)$ without changing the sum $st$; and when parentheses are suitably inserted, we see that \eqref{8} converges to $st$.&lt;/p&gt;
+
+&lt;p&gt;We now extend &lt;strong&gt;Theorem 9&lt;/strong&gt; to the case of absolute convergence.&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Theorem 10&lt;/strong&gt;&lt;br /&gt;
+&lt;em&gt;If the series $\sum_{n=0}^{\infty}a_n$ and $\sum_{n=0}^{\infty}b_n$ are absolutely convergent, with sum $s$ and $t$, then their product
+\begin{multline}
+\sum_{n=0}^{\infty}(a_0b_n+a_1b_{n-1}+\ldots+a_nb_0)=a_0b_0+(a_0b_1+a_1b_0)\,+ \\ (a_0b_2+a_1b_1+a_2b_0)+\ldots+(a_0b_n+a_1b_{n-1}+\ldots+a_nb_0)+\ldots\tag{25}\label{25}
+\end{multline}
+is absolutely convergent, with sum $st$.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
+The series $\sum_{n=0}^{\infty}\vert a_n\vert$ and $\sum_{n=0}^{\infty}\vert b_n\vert$ are convergent and have nonnegative terms. So by the &lt;strong&gt;Theorem 9&lt;/strong&gt; above, their product
+\begin{multline}
+\vert a_0\vert\vert b_0\vert+\vert a_0\vert\vert b_1\vert+\vert a_1\vert\vert b_0\vert+\ldots+\vert a_0\vert\vert b_n\vert+\vert a_1\vert\vert b_{n-1}\vert+\ldots+\vert a_n\vert\vert b_0\vert+\ldots \\ =\vert a_0b_0\vert+\vert a_0b_1\vert+\vert a_1b_0\vert+\ldots+\vert a_0b_n\vert+\vert a_1b_{n-1}\vert+\ldots+\vert a_nb_0\vert+\ldots\tag{26}\label{26}
+\end{multline}
+converges, and therefore the series
+\begin{equation}
+a_0b_0+a_0b_1+a_1b_0+\ldots+a_0b_n+\ldots+a_nb_0+\ldots\tag{27}\label{27}
+\end{equation}
+is absolutely convergent. It follows from &lt;strong&gt;Theorem 7&lt;/strong&gt; that the sum of \eqref{27} will not change if we rearrange its terms and write it as
+\begin{equation}
+a_0b_0+a_0b_1+a_1b_1+a_1b_0+a_0b_2+a_1b_2+a_2b_2+a_2b_1+a_2b_0+\ldots\tag{28}\label{28}
+\end{equation}
+We now observe that the sum of the first $(n+1)^2$ terms of \eqref{28} is
+\begin{equation}
+(a_0+a_1+\ldots+a_n)(b_0+b_1+\ldots+b_n),
+\end{equation}
+so it is clear that \eqref{28}, and with it \eqref{27}, converges to $st$.&lt;/p&gt;
+
+&lt;p&gt;Thus, \eqref{25} also converges to $st$, since \eqref{25} is retrieved by suitably inserted parentheses in \eqref{27}.&lt;/p&gt;
+
+&lt;p&gt;Moreover, we also have
+\begin{equation}
+\vert a_0b_n+a_1b_{n-1}+\ldots+a_nb_0\vert\leq\vert a_0b_n\vert+\vert a_1b_{n-1}\vert+\ldots+\vert a_nb_0\vert
+\end{equation}
+and the series
+\begin{equation}
+\vert a_0b_0\vert+(\vert a_0b_1\vert+\vert a_1b_0\vert)+\ldots+(\vert a_0b_n\vert+\ldots+\vert a_nb_0\vert)+\ldots
+\end{equation}
+obtained from \eqref{26} by inserting parentheses. By the &lt;a href=&quot;#comparison-test&quot;&gt;comparison test&lt;/a&gt;, \eqref{25} converges absolutely.&lt;/p&gt;
+
+&lt;p&gt;Hence, we can conclude that \eqref{25} is absolutely convergent, with sum $st$.&lt;/p&gt;
+
+&lt;h2 id=&quot;dirichlets-test&quot;&gt;Dirichlet’s test&lt;/h2&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] George F.Simmons. &lt;a href=&quot;https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424&quot;&gt;Calculus With Analytic Geometry - 2nd Edition&lt;/a&gt;&lt;/p&gt;

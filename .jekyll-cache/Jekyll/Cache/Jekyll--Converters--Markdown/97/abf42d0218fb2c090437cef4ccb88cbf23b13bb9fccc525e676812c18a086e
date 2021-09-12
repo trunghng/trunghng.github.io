@@ -1,153 +1,4 @@
-<!DOCTYPE html>
-<html lang="en"><head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Infinite Series of Constants | Trung’s cabin</title>
-<meta name="generator" content="Jekyll v4.2.0" />
-<meta property="og:title" content="Infinite Series of Constants" />
-<meta name="author" content="Trung H. Nguyen" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="infinite series of constants" />
-<meta property="og:description" content="infinite series of constants" />
-<meta property="og:site_name" content="Trung’s cabin" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2021-09-06T11:20:00+07:00" />
-<meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Infinite Series of Constants" />
-<script type="application/ld+json">
-{"description":"infinite series of constants","headline":"Infinite Series of Constants","dateModified":"2021-09-06T11:20:00+07:00","datePublished":"2021-09-06T11:20:00+07:00","url":"/mathematics/calculus/2021/09/06/infinite-series-of-constants.html","author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/mathematics/calculus/2021/09/06/infinite-series-of-constants.html"},"@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Trung&apos;s cabin" />
-    
-
-
-
-
-
-  
-
-<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
-<link rel="manifest" href="/assets/images/site.webmanifest">
-<link rel="mask-icon" href="/assets/images/safari-pinned-tab.svg" color="#5bbad5">
-<meta name="msapplication-TileColor" content="#da532c">
-<meta name="theme-color" content="#ffffff"></head>
-<body><header class="site-header">
-  <div class="snorlax"></div>
-
-  <div class="wrapper"><a class="site-title" rel="author" href="/">Trung&#39;s cabin</a><nav class="site-nav">
-        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
-        <label for="nav-trigger">
-          <span class="menu-icon">
-            <svg viewBox="0 0 18 15" width="18px" height="15px">
-              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
-            </svg>
-          </span>
-        </label>
-
-        <div class="trigger"><a class="page-link" href="/archive/">Archive</a><a class="page-link" href="/about/">About</a></div>
-      </nav></div>
-</header>
-<main class="page-content" aria-label="Content">
-      <div class="wrapper">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-<link href="https://fonts.googleapis.com/css?family=Merriweather:400,900,900i" rel="stylesheet">
-<style>
-@import "/assets/css/default.css"
-</style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<style>
-  .collapsible {
-    background-color: #A5CCF1;
-    color: white;
-    cursor: pointer;
-    padding: 5px;
-    /*width: 100%;*/
-    border: none;
-    text-align: center;
-    outline: none;
-    font-size: 15px;
-  }
-
-  .active, .collapsible:hover {
-    background-color: #82B9EE;
-  }
-
-  .codePanel {
-    padding: 0 18px;
-    display: none;
-    overflow: hidden;
-    background-color: #f1f1f1;
-  }
-
-  #button {
-    display: inline-block;
-    background-color: #A5CCF1;
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    border-radius: 4px;
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    transition: background-color .3s, 
-      opacity .5s, visibility .5s;
-    opacity: 0;
-    visibility: hidden;
-    z-index: 1000;
-  }
-  #button::after {
-    content: "\f077";
-    font-family: FontAwesome;
-    font-weight: normal;
-    font-style: normal;
-    font-size: 2em;
-    line-height: 50px;
-    color: #fff;
-  }
-  #button:hover {
-    cursor: pointer;
-    background-color: #333;
-    text-decoration: none;
-  }
-  #button:active {
-    background-color: #555;
-  }
-  #button.show {
-    opacity: 1;
-    visibility: visible;
-  }
-</style>
-<a id="button"></a>
-<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <header class="post-header">
-    <meta name="description" content="infinite series of constants">
-    <h1 class="post-title p-name" itemprop="name headline">Infinite Series of Constants</h1>
-    <p><span>
-      
-        
-        <a href="/tag/mathematics"><code class="highligher-rouge"><nobr>mathematics</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/calculus"><code class="highligher-rouge"><nobr>calculus</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/series"><code class="highligher-rouge"><nobr>series</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/random-stuffs"><code class="highligher-rouge"><nobr>random-stuffs</nobr></code>&nbsp;</a>
-      
-    </span></p>
-    <p class="post-meta"><time class="dt-published" datetime="2021-09-06T11:20:00+07:00" itemprop="datePublished">
-        Sep 6, 2021
-      </time></p>
-  </header>
-
-  <div class="post-content e-content" itemprop="articleBody">
-    <blockquote>
+I"�<blockquote>
   <p>No idea what to say yet :D</p>
 </blockquote>
 
@@ -188,7 +39,7 @@
       <li><a href="#root-test">Root test</a></li>
       <li><a href="#extended-ratio-test">The Extended Ratio tests of Raabe and Gauss</a>
         <ul>
-          <li><a href="#kummers-theorem">Kummer’s theorem</a></li>
+          <li><a href="#kummbers-theorem">Kummer’s theorem</a></li>
           <li><a href="#raabes-test">Raabe’s test</a></li>
           <li><a href="#gausss-test">Gauss’s test</a></li>
         </ul>
@@ -418,7 +269,7 @@ s_n\leq 1+a+a^2+\ldots+a^{m-1}=\dfrac{1-a^m}{1-a}&lt;\dfrac{1}{1-a}
 which proves that $\{s_n\}$ has an upper bound. Thus \eqref{4} converges.</p>
 
 <p><strong>Theorem 1</strong><br />
-<em>If a convergent series of nonnegative terms is rearranged in any manner, then the resulting series also converges and has the same sum.</em></p>
+If a convergent series of nonnegative terms is rearranged in any manner, then the resulting series also converges and has the same sum.</p>
 
 <p><strong>Proof</strong><br />
 Consider two series $\sum a_n$ and $\sum b_n$, where $\sum a_n$ is a convergent series of nonnegative terms and $\sum b_n$ is formed form $\sum a_n$ by rearranging its terms.</p>
@@ -591,11 +442,11 @@ And since the geometric series $\sum r^n$ converges, we clearly have that $\sum 
 <h4 id="kummers-theorem">Kummer’s theorem</h4>
 
 <p><strong>Theorem 2</strong> (<em>Kummer’s</em>)<br />
-<em>Assume that $a_n&gt;0,b_n&gt;0$ and $\sum\frac{1}{b_n}$ diverges. If
+Assume that $a_n&gt;0,b_n&gt;0$ and $\sum\frac{1}{b_n}$ diverges. If
 \begin{equation}
 \lim\left(b_n-\dfrac{a_{n+1}}{a_n}.b_{n+1}\right)=L,\tag{14}\label{14}
 \end{equation}
-then $\sum a_n$ converges if $L&gt;0$ and diverges if $L&lt;0$.</em></p>
+then $\sum a_n$ converges if $L&gt;0$ and diverges if $L&lt;0$.</p>
 
 <p><strong>Proof</strong></p>
 <ul>
@@ -627,11 +478,11 @@ Therefore $\sum a_n$ diverges (since $\sum\frac{1}{b_n}$ diverges).</p>
 <h4 id="raabes-test">Raabe’s test</h4>
 
 <p><strong>Theorem 3</strong> (<em>Raabe’s test</em>)<br />
-<em>If $a_n&gt;0$ and
+If $a_n&gt;0$ and
 \begin{equation}
 \dfrac{a_{n+1}}{a_n}=1-\dfrac{A}{n}+\dfrac{A_n}{n},
 \end{equation}
-where $A_n\to 0$, then $\sum a_n$ converges if $A&gt;1$ and diverges if $A&lt;1$.</em></p>
+where $A_n\to 0$, then $\sum a_n$ converges if $A&gt;1$ and diverges if $A&lt;1$.</p>
 
 <p><strong>Proof</strong><br />
 Take $n=b_n$ in <em>Kummber’s theorem</em>. Then
@@ -651,11 +502,11 @@ then $\sum a_n$ converges if $A&gt;1$ and diverges if $A&lt;1$.</p>
 <h4 id="gausss-test">Gauss’s test</h4>
 
 <p><strong>Theorem 4</strong><br />
-<em>If $a_n&gt;0$ and
+If $a_n&gt;0$ and
 \begin{equation}
 \dfrac{a_{n+1}}{a_n}=1-\dfrac{A}{n}+\dfrac{A_n}{n^{1+c}},
 \end{equation}
-where $c&gt;0$ and $A_n$ is bounded as $n\to\infty$, then $\sum a_n$ converges if $A&gt;1$ and diverges if $A\leq 1$.</em></p>
+where $c&gt;0$ and $A_n$ is bounded as $n\to\infty$, then $\sum a_n$ converges if $A&gt;1$ and diverges if $A\leq 1$.</p>
 
 <p><strong>Proof</strong></p>
 <ul>
@@ -672,11 +523,11 @@ where in fourth step we use the <em>Stolz–Cesàro theorem</em><sup id="fnref:2
 </ul>
 
 <p><strong>Theorem 5</strong> (<em>Gauss’s test</em>)<br />
-<em>If $a_n&gt;0$ and
+If $a_n&gt;0$ and
 \begin{equation}
 \dfrac{a_{n+1}}{a_n}=\dfrac{n^k+\alpha n^{k-1}+\ldots}{n^k+\beta n^{k-1}+\ldots},\tag{16}\label{16}
 \end{equation}
-then $\sum a_n$ converges if $\beta-\alpha&gt;1$ and diverges if $\beta-\alpha\leq 1$.</em></p>
+then $\sum a_n$ converges if $\beta-\alpha&gt;1$ and diverges if $\beta-\alpha\leq 1$.</p>
 
 <p><strong>Proof</strong><br />
 If the quotient on the right of \eqref{16} is worked out by long division, we get
@@ -763,12 +614,12 @@ Since both $\sum\vert a_n\vert$ and $\sum(a_n+\vert a_n\vert)$ converge, so does
 
 <h2 id="abs-vs-cond">Absolute vs Conditionally Convergence</h2>
 <p><strong>Theorem 6</strong><br />
-<em>Consider a series $\sum a_n$ and define $p_n$ and $q_n$ by
+Consider a series $\sum a_n$ and define $p_n$ and $q_n$ by
 \begin{align}
 p_n&amp;=\dfrac{\vert a_n\vert+a_n}{2} \\ q_n&amp;=\dfrac{\vert a_n\vert-a_n}{2}
 \end{align}
 If $\sum a_n$ converges conditionally, then both $\sum p_n$ and $\sum q_n$ diverges.<br />
-If $\sum a_n$ converges absolutely, then $\sum p_n$ and $\sum q_n$ both converge and the sums of these series are related by the equation</em>
+If $\sum a_n$ converges absolutely, then $\sum p_n$ and $\sum q_n$ both converge and the sums of these series are related by the equation
 \begin{equation}
 \sum a_n=\sum p_n-\sum q_n
 \end{equation}</p>
@@ -803,7 +654,7 @@ Therefore
 </ul>
 
 <p><strong>Theorem 7</strong><br />
-<em>If $\sum a_n$ is an absolutely convergent series with sum $s$, and if $a_n$’s are rearranged in any way to from a new series $\sum b_n$, then this new series is also absolutely convergent with sum $s$.</em></p>
+If $\sum a_n$ is an absolutely convergent series with sum $s$, and if $a_n$’s are rearranged in any way to from a new series $\sum b_n$, then this new series is also absolutely convergent with sum $s$.</p>
 
 <p><strong>Proof</strong><br />
 Since $\sum\vert a_n\vert$ is a convergent series of nonnegative terms with sum $s$ and since the $b_n$’s are just the $a_n$’s in a different order, it follows from <strong>Theorem 1</strong> that $\sum\vert b_n\vert$ also converges to $s$, and therefore $\sum b_n$ is absolutely convergent with sum $t$, for some positive $t$.</p>
@@ -819,8 +670,37 @@ t=\sum b_n=\sum P_n-\sum Q_n
 where each of the series on the right is convergent and consists of nonnegative. But the $P_n$’s and $Q_n$’s are simply the $p_n$’s and $q_n$’s in a different order. Hence, by <strong>Theorem 1</strong>, we have $\sum P_n=\sum p_n$ and $\sum Q_n=\sum q_n$. And therefore, $t=s$.<br />
 <br /></p>
 
+<p>One of the principal application of this theorem relates to the <em>multiplication of series</em>.</p>
+
+<p>If we multiply two series $\sum a_n$ and $\sum b_n$ by forming all possible product $a_i b_j$ (as in the case of finite sums), then we obtain the following doubly infinite array</p>
+<figure>
+	<img src="/assets/images/2021-09-06/series-mult.png" alt="series multiplication" width="300px" height="210px" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b></figcaption>
+</figure>
+
+<p>There are various ways of arranging these products into a single infinite series, of which two are important. The first one is to group them by diagonals, as indicated in the arrows in <strong>Figure 2</strong>:
+\begin{equation}
+a_0b_0+(a_0b_1+a_1b_1)+(a_0b_2+a_1b_1+a_2b_0)+\ldots
+\end{equation}
+This series can be defined as $\sum_{n=0}^{\infty}c_n$, where
+\begin{equation}
+c_n=a_0b_n+a_1b_{n-1}+\ldots+a_nb_0
+\end{equation}</p>
+
+<p>It is called the <em>product</em> (or <em>Cauchy product</em>) of the two series $\sum a_n$ and $\sum b_n$.</p>
+
+<p>The second crucial method of arranging these products into a series is by squares, as shown in <strong>Figure 2</strong>:
+\begin{equation}
+a_0b_0+(a_0b_1+a_1b_1+a_1b_0)+(a_0b_2+a_1b_2+a_2b_2+a_2b_1+a_2b_0)+\ldots\tag{20}\label{20}
+\end{equation}
+The advantage of this arrangement is that the $n$-th partial sum $s_n$ of \eqref{20} is given by
+\begin{equation}
+s_n=(a_0+a_1+\ldots+a_n)(b_0+b_1+\ldots+b_n)
+\end{equation}
+<br /></p>
+
 <p><strong>Theorem 8</strong> (<em>Riemann’s rearrangement theorem</em>)<br />
-<em>Let $\sum a_n$ be a conditionally convergent series. Then its terms can be rearranged to yield a convergent series whose sum is an arbitrary preassigned number, or a series that diverges to $\infty$, or a series that diverges to $-\infty$.</em></p>
+Let $\sum a_n$ be a conditionally convergent series. Then its terms can be rearranged to yield a convergent series whose sum is an arbitrary preassigned number, or a series that diverges to $\infty$, or a series that diverges to $-\infty$.</p>
 
 <p><strong>Proof</strong><br />
 Since $\sum a_n$ converges conditionally, we begin by using <strong>Theorem 6</strong> to form the two divergent series of nonnegative terms $\sum p_n$ and $\sum q_n$.</p>
@@ -855,94 +735,6 @@ We can produce divergence to $-\infty$ by a similar construction.</p>
   </li>
 </ul>
 
-<p>One of the principal application of <strong>Theorem 7</strong> relates to the <em>multiplication of series</em>.</p>
-
-<p>If we multiply two series
-\begin{align}
-\sum_{n=0}^{\infty}a_n&amp;=a_0+a_1+\ldots+a_n+\ldots\tag{20}\label{20} \\ \sum_{n=0}^{\infty}b_n&amp;=b_0+b_1+\ldots+b_n+\ldots\tag{21}\label{21}
-\end{align}
-by forming all possible product $a_i b_j$ (as in the case of finite sums), then we obtain the following doubly infinite array</p>
-<figure>
-	<img src="/assets/images/2021-09-06/series-mult.png" alt="series multiplication" width="300px" height="210px" style="display: block; margin-left: auto; margin-right: auto;" />
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b></figcaption>
-</figure>
-
-<p>There are various ways of arranging these products into a single infinite series, of which two are important. The first one is to group them by diagonals, as indicated in the arrows in <strong>Figure 2</strong>:
-\begin{equation}
-a_0b_0+(a_0b_1+a_1b_1)+(a_0b_2+a_1b_1+a_2b_0)+\ldots\tag{22}\label{22}
-\end{equation}
-This series can be defined as $\sum_{n=0}^{\infty}c_n$, where
-\begin{equation}
-c_n=a_0b_n+a_1b_{n-1}+\ldots+a_nb_0
-\end{equation}</p>
-
-<p>It is called the <em>product</em> (or <em>Cauchy product</em>) of the two series $\sum a_n$ and $\sum b_n$.</p>
-
-<p>The second crucial method of arranging these products into a series is by squares, as shown in <strong>Figure 2</strong>:
-\begin{equation}
-a_0b_0+(a_0b_1+a_1b_1+a_1b_0)+(a_0b_2+a_1b_2+a_2b_2+a_2b_1+a_2b_0)+\ldots\tag{23}\label{23}
-\end{equation}
-The advantage of this arrangement is that the $n$-th partial sum $s_n$ of \eqref{23} is given by
-\begin{equation}
-s_n=(a_0+a_1+\ldots+a_n)(b_0+b_1+\ldots+b_n)\tag{24}\label{24}
-\end{equation}
-<br /></p>
-
-<p><strong>Theorem 9</strong><br />
-<em>If the two series \eqref{20} and \eqref{21} have nonnegative terms and converges to $s$ and $t$, then their product \eqref{22} converges to $st$.</em></p>
-
-<p><strong>Proof</strong><br />
-It is clear from \eqref{24} that \eqref{23} converges to $st$. Let’s denote the series \eqref{22} and \eqref{23} without parenthesis by $(22’)$ and $(23’)$.</p>
-
-<p>We have the series $(23’)$ of nonnegative terms still converges to $st$ because, for if $m$ is an integer such that $n^2\leq m\leq (n+1)^2$, then the $m$-th partial sum of $(23’)$ lies between $s_{n-1}$ and $s_n$, and both of these converge to $st$.</p>
-
-<p>By <strong>Theorem 7</strong>, the terms of $(23’)$ can be rearranged to yield $(22’)$ without changing the sum $st$; and when parentheses are suitably inserted, we see that \eqref{8} converges to $st$.</p>
-
-<p>We now extend <strong>Theorem 9</strong> to the case of absolute convergence.<br />
-<br /></p>
-
-<p><strong>Theorem 10</strong><br />
-<em>If the series $\sum_{n=0}^{\infty}a_n$ and $\sum_{n=0}^{\infty}b_n$ are absolutely convergent, with sum $s$ and $t$, then their product
-\begin{multline}
-\sum_{n=0}^{\infty}(a_0b_n+a_1b_{n-1}+\ldots+a_nb_0)=a_0b_0+(a_0b_1+a_1b_0)\,+ \\ (a_0b_2+a_1b_1+a_2b_0)+\ldots+(a_0b_n+a_1b_{n-1}+\ldots+a_nb_0)+\ldots\tag{25}\label{25}
-\end{multline}
-is absolutely convergent, with sum $st$.</em></p>
-
-<p><strong>Proof</strong><br />
-The series $\sum_{n=0}^{\infty}\vert a_n\vert$ and $\sum_{n=0}^{\infty}\vert b_n\vert$ are convergent and have nonnegative terms. So by the <strong>Theorem 9</strong> above, their product
-\begin{multline}
-\vert a_0\vert\vert b_0\vert+\vert a_0\vert\vert b_1\vert+\vert a_1\vert\vert b_0\vert+\ldots+\vert a_0\vert\vert b_n\vert+\vert a_1\vert\vert b_{n-1}\vert+\ldots+\vert a_n\vert\vert b_0\vert+\ldots \\ =\vert a_0b_0\vert+\vert a_0b_1\vert+\vert a_1b_0\vert+\ldots+\vert a_0b_n\vert+\vert a_1b_{n-1}\vert+\ldots+\vert a_nb_0\vert+\ldots\tag{26}\label{26}
-\end{multline}
-converges, and therefore the series
-\begin{equation}
-a_0b_0+a_0b_1+a_1b_0+\ldots+a_0b_n+\ldots+a_nb_0+\ldots\tag{27}\label{27}
-\end{equation}
-is absolutely convergent. It follows from <strong>Theorem 7</strong> that the sum of \eqref{27} will not change if we rearrange its terms and write it as
-\begin{equation}
-a_0b_0+a_0b_1+a_1b_1+a_1b_0+a_0b_2+a_1b_2+a_2b_2+a_2b_1+a_2b_0+\ldots\tag{28}\label{28}
-\end{equation}
-We now observe that the sum of the first $(n+1)^2$ terms of \eqref{28} is
-\begin{equation}
-(a_0+a_1+\ldots+a_n)(b_0+b_1+\ldots+b_n),
-\end{equation}
-so it is clear that \eqref{28}, and with it \eqref{27}, converges to $st$.</p>
-
-<p>Thus, \eqref{25} also converges to $st$, since \eqref{25} is retrieved by suitably inserted parentheses in \eqref{27}.</p>
-
-<p>Moreover, we also have
-\begin{equation}
-\vert a_0b_n+a_1b_{n-1}+\ldots+a_nb_0\vert\leq\vert a_0b_n\vert+\vert a_1b_{n-1}\vert+\ldots+\vert a_nb_0\vert
-\end{equation}
-and the series
-\begin{equation}
-\vert a_0b_0\vert+(\vert a_0b_1\vert+\vert a_1b_0\vert)+\ldots+(\vert a_0b_n\vert+\ldots+\vert a_nb_0\vert)+\ldots
-\end{equation}
-obtained from \eqref{26} by inserting parentheses. By the <a href="#comparison-test">comparison test</a>, \eqref{25} converges absolutely.</p>
-
-<p>Hence, we can conclude that \eqref{25} is absolutely convergent, with sum $st$.</p>
-
-<h2 id="dirichlets-test">Dirichlet’s test</h2>
-
 <h2 id="references">References</h2>
 <p>[1] George F.Simmons. <a href="https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424">Calculus With Analytic Geometry - 2nd Edition</a></p>
 
@@ -962,110 +754,4 @@ obtained from \eqref{26} by inserting parentheses. By the <a href="#comparison-t
     </li>
   </ol>
 </div>
-
-  </div>
-<div id="disqus_thread"></div>
-<script>
-    /**
-    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
-    
-    var disqus_config = function () {
-    this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
-    this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-    };
-    
-    (function() { // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-    s.src = 'https://https-trunghng-github-io.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-
-<script id="dsq-count-scr" src="//https-trunghng-github-io.disqus.com/count.js" async></script>
-
-  <a class="u-url" href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html" hidden></a>
-</article>
- <!-- mathjax javascript -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
-  "HTML-CSS": {availableFonts: []}
-  });
-</script>
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-<script>
-  var coll = document.getElementsByClassName("collapsible");
-  var i;
-  for (i = 0; i < coll.length; i++) {
-    coll[i].addEventListener("click", function() {
-      this.classList.toggle("active");
-      var content = document.getElementById(this.id+"data");
-      var btn = document.getElementById(this.id)
-      if (content.style.display === "block") {
-        content.style.display = "none";
-        btn.innerText = "Click to show the code";
-      } else {
-        content.style.display = "block";
-        btn.innerText = "Click to hide the code"
-      }
-    });
-  }
-
-  var btn = $('#button');
-
-  $(window).scroll(function() {
-    if ($(window).scrollTop() > 300) {
-      btn.addClass('show');
-    } else {
-      btn.removeClass('show');
-    }
-  });
-
-  btn.on('click', function(e) {
-    e.preventDefault();
-    $('html, body').animate({scrollTop:0}, '300');
-  });
-</script>
-
-      </div>
-
-    </main><footer class="site-footer h-card">
-  <data class="u-url" href="/"></data>
-
-  <div class="wrapper">
-
-    <div class="footer-col-wrapper">
-      <div class="footer-col">
-        <p class="feed-subscribe">
-          <a href="/feed.xml">
-            <svg class="svg-icon orange">
-              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
-            </svg><span>Subscribe</span>
-          </a>
-        </p>
-        <ul class="contact-list">
-          <li class="p-name">Trung H. Nguyen</li>
-          <li><a class="u-email" href="mailto:trung.skipper@gmail.com">trung.skipper@gmail.com</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <p>To document something I&#39;ve learned
-</p>
-      </div>
-    </div>
-
-    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/trunghng" title="trunghng"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
-</div>
-
-  </div>
-
-</footer>
-</body>
-
-</html>
+:ET
