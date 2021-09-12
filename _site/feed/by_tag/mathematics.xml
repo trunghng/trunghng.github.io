@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-12T14:48:09+07:00</updated><id>/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-12T16:25:38+07:00</updated><id>/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Infinite Series of Constants</title><link href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html" rel="alternate" type="text/html" title="Infinite Series of Constants" /><published>2021-09-06T11:20:00+07:00</published><updated>2021-09-06T11:20:00+07:00</updated><id>/mathematics/calculus/2021/09/06/infinite-series-of-constants</id><content type="html" xml:base="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html">&lt;blockquote&gt;
   &lt;p&gt;No idea what to say yet :D&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -55,7 +55,12 @@
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#abs-vs-cond&quot;&gt;Absolute vs. Conditionally Convergence&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#dirichlets-test&quot;&gt;Dirichlet’s test&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#dirichlets-test&quot;&gt;Dirichlet’s test&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#abel-part-sum&quot;&gt;Abel’s partial summation formula&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#d-test&quot;&gt;Dirichlet’s test&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -794,9 +799,52 @@ obtained from \eqref{26} by inserting parentheses. By the &lt;a href=&quot;#comp
 &lt;p&gt;Hence, we can conclude that \eqref{25} is absolutely convergent, with sum $st$.&lt;br /&gt;
 &lt;br /&gt;&lt;/p&gt;
 
-&lt;p&gt;We have already gone through convergence tests applied only to series of positive (or nonnegative) terms. It’s time to move on to alternating series test.&lt;/p&gt;
+&lt;p&gt;We have already gone through convergence tests applied only to series of positive (or nonnegative) terms. Let’s end this lengthy post with the alternating series test. ^^!&lt;/p&gt;
 
 &lt;h2 id=&quot;dirichlets-test&quot;&gt;Dirichlet’s test&lt;/h2&gt;
+
+&lt;h3 id=&quot;abel-part-sum&quot;&gt;Abel’s partial summation formula&lt;/h3&gt;
+&lt;p&gt;Consider series $\sum_{n=1}^{\infty}a_n$, sequence $\{b_n\}$. If $s_n=a_1+a_2+\ldots+a_n$, then
+\begin{equation}
+a_1b_1+a_2b_2+\ldots+a_nb_n=s_1(b_1-b_2)+s_2(b_2-b_3)+\ldots+s_{n-1}(b_{n-1}-b_n)+s_nb_n\tag{29}\label{29}
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
+Since $a_1=s_1$ and $a_n=s_n-s_{n-1}$ for $n&amp;gt;1$, we have
+\begin{align}
+a_1b_1&amp;amp;=s_1b_1 \\ a_2b_2&amp;amp;=s_2b_2-s_1b_2 \\ a_3b_3&amp;amp;=s_3b_3-s_2b_3 \\ &amp;amp;\vdots \\ a_nb_n&amp;amp;=s_nb_n-s_{n-1}b_n
+\end{align}
+On adding these equations, and grouping suitably, we obtain \eqref{29}.&lt;/p&gt;
+
+&lt;h3 id=&quot;d-test&quot;&gt;Dirichlet’s test&lt;/h3&gt;
+&lt;p&gt;&lt;em&gt;If the series $\sum_{n=1}^{\infty}a_n$ has bounded partial sums, and if $\{b_n\}$ is a decreasing sequence of positive numbers such that $b_n\to 0$, then the series
+\begin{equation}
+\sum_{n=1}^{\infty}a_nb_n=a_1b_1+a_2b_2+\ldots+a_nb_n+\ldots\tag{30}\label{30}
+\end{equation}
+converges&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
+Let $S_n=a_1b_1+a_2b_2+\ldots+a_nb_n$ denote the $n$-th partial sum of \eqref{30}, then \eqref{29} tells us that
+\begin{equation}
+S_n=T_n+s_nb_n,
+\end{equation}
+where
+\begin{equation}
+T_n=s_1(b_1-b_2)+s_2(b_2-b_3)+\ldots
+\end{equation}
+Since ${s_n}$ is bounded there exists a positive constant $m$ such that $\vert s_n\vert\leq m,\forall n$, so $\vert s_nb_n\vert\leq mb_n$. And since $b_n\to 0$, we have that $s_nb_n\to 0$ as $n\to\infty$.&lt;/p&gt;
+
+&lt;p&gt;Moreover, since $\{b_n\}$ is a decreasing sequence of positive numbers, we have that
+\begin{equation}
+\begin{aligned}
+\vert s_1(b_1-b_2)\vert+\vert s_2(b_3-b_3)\vert+\ldots&amp;amp;\,+\vert s_{n-1}(b_{n-1}-b_n)\vert \\ &amp;amp;\leq m(b_1-b_2)+m(b_2-b_3)+\ldots+m(b_{n-1}-b_n) \\ &amp;amp;=m(b_1-b_n)\leq mb_1
+\end{aligned}
+\end{equation}
+which implies that $T_n=s_1(b_1-b_2)+s_2(b_2-b_3)+\ldots$ converges absolutely, and thus, it converges to a sum $t$. Therefore
+\begin{equation}
+\lim_{n\to\infty}S_n=\lim_{n\to\infty}T_n+s_nb_n=\lim_{n\to\infty}T_n+\lim_{n\to\infty}s_nb_n=t+0=t
+\end{equation}
+which lets us conclude that the series \eqref{30} converges.&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] George F.Simmons. &lt;a href=&quot;https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424&quot;&gt;Calculus With Analytic Geometry - 2nd Edition&lt;/a&gt;&lt;/p&gt;

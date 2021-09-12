@@ -37,6 +37,8 @@ comments: true
 	- [Absolute Convergence](#abs-conv)
 - [Absolute vs. Conditionally Convergence](#abs-vs-cond)
 - [Dirichlet's test](#dirichlets-test)
+	- [Abel's partial summation formula](#abel-part-sum)
+	- [Dirichlet's test](#d-test)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -730,12 +732,55 @@ obtained from \eqref{26} by inserting parentheses. By the [comparison test](#com
 Hence, we can conclude that \eqref{25} is absolutely convergent, with sum $st$.  
 <br/>
 
-We have already gone through convergence tests applied only to series of positive (or nonnegative) terms. It's time to move on to alternating series test.
+We have already gone through convergence tests applied only to series of positive (or nonnegative) terms. Let's end this lengthy post with the alternating series test. ^^!
 
 ## Dirichlet's test
 {: #dirichlets-test}
 
+### Abel's partial summation formula
+{: #abel-part-sum}
+Consider series $\sum_{n=1}^{\infty}a_n$, sequence $\\{b_n\\}$. If $s_n=a_1+a_2+\ldots+a_n$, then
+\begin{equation}
+a_1b_1+a_2b_2+\ldots+a_nb_n=s_1(b_1-b_2)+s_2(b_2-b_3)+\ldots+s_{n-1}(b_{n-1}-b_n)+s_nb_n\tag{29}\label{29}
+\end{equation}
 
+**Proof**  
+Since $a_1=s_1$ and $a_n=s_n-s_{n-1}$ for $n>1$, we have
+\begin{align}
+a_1b_1&=s_1b_1 \\\\ a_2b_2&=s_2b_2-s_1b_2 \\\\ a_3b_3&=s_3b_3-s_2b_3 \\\\ &\vdots \\\\ a_nb_n&=s_nb_n-s_{n-1}b_n
+\end{align}
+On adding these equations, and grouping suitably, we obtain \eqref{29}.
+
+### Dirichlet's test
+{: #d-test}
+*If the series $\sum_{n=1}^{\infty}a_n$ has bounded partial sums, and if $\\{b_n\\}$ is a decreasing sequence of positive numbers such that $b_n\to 0$, then the series
+\begin{equation}
+\sum_{n=1}^{\infty}a_nb_n=a_1b_1+a_2b_2+\ldots+a_nb_n+\ldots\tag{30}\label{30}
+\end{equation}
+converges*.  
+
+**Proof**  
+Let $S_n=a_1b_1+a_2b_2+\ldots+a_nb_n$ denote the $n$-th partial sum of \eqref{30}, then \eqref{29} tells us that
+\begin{equation}
+S_n=T_n+s_nb_n,
+\end{equation}
+where
+\begin{equation}
+T_n=s_1(b_1-b_2)+s_2(b_2-b_3)+\ldots
+\end{equation}
+Since ${s_n}$ is bounded there exists a positive constant $m$ such that $\vert s_n\vert\leq m,\forall n$, so $\vert s_nb_n\vert\leq mb_n$. And since $b_n\to 0$, we have that $s_nb_n\to 0$ as $n\to\infty$.  
+
+Moreover, since $\\{b_n\\}$ is a decreasing sequence of positive numbers, we have that
+\begin{equation}
+\begin{aligned}
+\vert s_1(b_1-b_2)\vert+\vert s_2(b_3-b_3)\vert+\ldots&\,+\vert s_{n-1}(b_{n-1}-b_n)\vert \\\\ &\leq m(b_1-b_2)+m(b_2-b_3)+\ldots+m(b_{n-1}-b_n) \\\\ &=m(b_1-b_n)\leq mb_1
+\end{aligned}
+\end{equation}
+which implies that $T_n=s_1(b_1-b_2)+s_2(b_2-b_3)+\ldots$ converges absolutely, and thus, it converges to a sum $t$. Therefore
+\begin{equation}
+\lim_{n\to\infty}S_n=\lim_{n\to\infty}T_n+s_nb_n=\lim_{n\to\infty}T_n+\lim_{n\to\infty}s_nb_n=t+0=t
+\end{equation}
+which lets us conclude that the series \eqref{30} converges.
 
 ## References
 [1] George F.Simmons. [Calculus With Analytic Geometry - 2nd Edition](https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424)  
