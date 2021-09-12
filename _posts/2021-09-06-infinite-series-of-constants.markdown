@@ -727,7 +727,10 @@ and the series
 \end{equation}
 obtained from \eqref{26} by inserting parentheses. By the [comparison test](#comparison-test), \eqref{25} converges absolutely.  
 
-Hence, we can conclude that \eqref{25} is absolutely convergent, with sum $st$.
+Hence, we can conclude that \eqref{25} is absolutely convergent, with sum $st$.  
+<br/>
+
+We have already gone through convergence tests applied only to series of positive (or nonnegative) terms. It's time to move on to alternating series test.
 
 ## Dirichlet's test
 {: #dirichlets-test}
