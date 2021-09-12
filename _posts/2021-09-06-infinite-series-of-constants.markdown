@@ -791,4 +791,12 @@ which lets us conclude that the series \eqref{30} converges.
 
 ## Footnotes
 [^1]: We will be going through power series in more detailed in another post.
-[^2]: 
+[^2]: **Theorem** (*Stolz–Cesaro*)  
+	*Let $\\{a_n\\}$ be a sequence of real numbers and $\\{b_n\\}$ be a strictly monotone and divergent sequence. Then
+	\begin{equation}
+	\lim_{n\to\infty}\dfrac{a_{n+1}-a_n}{b_{n+1}-b_n}=L\hspace{1cm}(\in\left[-\infty,+\infty\right])
+	\end{equation}
+	implies
+	\begin{equation}
+	\lim_{n\to\infty}\dfrac{a_n}{b_n}=L
+	\end{equation}*
