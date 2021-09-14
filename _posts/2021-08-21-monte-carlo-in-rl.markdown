@@ -431,7 +431,6 @@ def off_policy_MC_control(episodes, gamma, grid):
 	epsilon = 0.1
 
 	for ep in tqdm(range(episodes)):
-		# print('episode ', ep+1)
 		track.reset()
 		trajectory = []
 		while not track.is_terminal():
