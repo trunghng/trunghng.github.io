@@ -790,7 +790,7 @@ which lets us conclude that the series \eqref{30} converges.
 [3] MIT 18.01. [Single Variable Calculus](https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/)  
 
 ## Footnotes
-[^1]: We will be going through power series in more detailed in another post.
+[^1]: We will be going through power series in more detailed in another [post]({% post_url 2021-09-21-power-series %}).
 [^2]: **Theorem** (*Stolz–Cesaro*)  
 	*Let $\\{a_n\\}$ be a sequence of real numbers and $\\{b_n\\}$ be a strictly monotone and divergent sequence. Then
 	\begin{equation}
