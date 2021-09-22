@@ -17,7 +17,7 @@ comments: true
 	- [Differentiation of Power Series](#dif-power-series)
 	- [Integration of Power Series](#int-power-series)
 	- [Example](#eg2)
-- [Taylor Series, Taylor's Formula]({#taylor-series-formula)
+- [Taylor Series, Taylor's Formula](#taylor-series-formula)
 - [References](#references)
 - [Footnotes](#footnotes)
 
