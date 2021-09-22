@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-22T15:41:14+07:00</updated><id>/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-22T19:56:47+07:00</updated><id>/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Power Series</title><link href="/mathematics/calculus/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>/mathematics/calculus/2021/09/21/power-series</id><content type="html" xml:base="/mathematics/calculus/2021/09/21/power-series.html">&lt;blockquote&gt;
   &lt;p&gt;In the previous post, &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html&quot;&gt;Infinite Series of Constants&lt;/a&gt;, we mentioned a type of series called &lt;strong&gt;power series&lt;/strong&gt; a lot. In the content of this post, we will be diving deeper into details of that series.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -6,8 +6,18 @@
 &lt;!-- excerpt-end --&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;#power-series&quot;&gt;Power Series&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#int-conv&quot;&gt;The Interval of Convergence&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#dif-int-power-series&quot;&gt;Differentiation and Integration of Power Series&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#int-conv&quot;&gt;The Interval of Convergence&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#eg1&quot;&gt;Example&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#dif-int-power-series&quot;&gt;Differentiation and Integration of Power Series&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#dif-power-series&quot;&gt;Differentiation of Power Series&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#int-power-series&quot;&gt;Integration of Power Series&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#eg2&quot;&gt;Example&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -18,11 +28,6 @@
 \sum_{n=0}^{\infty}a_nx^n=a_0+a_1x+a_2x^2+\ldots+a_nx^n+\ldots,
 \end{equation}
 where the coefficient $a_n$ are constants and $x$ is a variable.&lt;/p&gt;
-
-&lt;p&gt;It is easily seen that the sum of the series $\sum_{n=0}^{\infty}a_nx^n$  is a function of $x$ since the sum depends only on $x$ for any value of $x$. Hence, we can denote this as
-\begin{equation}
-f(x)=\sum_{n=0}^{\infty}a_nx^n=a_0+a_1x+a_2x^2+\ldots+a_nx^n+\ldots
-\end{equation}&lt;/p&gt;
 
 &lt;h2 id=&quot;int-conv&quot;&gt;The Interval of Convergence&lt;/h2&gt;
 &lt;p&gt;Similar to what we have done in the post of &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html&quot;&gt;infinite series of constants&lt;/a&gt;, we begin studying properties of power series by considering their convergence behavior.&lt;/p&gt;
@@ -58,8 +63,8 @@ which leads to the result that geometric series $\sum r^n$ converges (with the s
   &lt;li&gt;Every power series $\sum a_nx^n$ has a radius of convergence $R$, where $0\leq R\leq\infty$, with the property that the series converges absolutely if $\vert x\vert&amp;lt;R$ and diverges if $\vert x\vert&amp;gt;R$.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt;&lt;br /&gt;
-Find the interval of convergence of the series
+&lt;h3 id=&quot;eg1&quot;&gt;Example&lt;/h3&gt;
+&lt;p&gt;Find the interval of convergence of the series
 \begin{equation}
 \sum_{n=0}^{\infty}\dfrac{x^n}{n+1}=1+\dfrac{x}{2}+\dfrac{x^2}{3}+\ldots
 \end{equation}&lt;/p&gt;
@@ -92,12 +97,110 @@ At $x=1$, the series becomes the &lt;em&gt;harmonic series&lt;/em&gt; $1+\frac{1
 
 &lt;h2 id=&quot;dif-int-power-series&quot;&gt;Differentiation and Integration of Power Series&lt;/h2&gt;
 
+&lt;p&gt;It is easily seen that the sum of the series $\sum_{n=0}^{\infty}a_nx^n$  is a function of $x$ since the sum depends only on $x$ for any value of $x$. Hence, we can denote this as
+\begin{equation}
+f(x)=\sum_{n=0}^{\infty}a_nx^n=a_0+a_1x+a_2x^2+\ldots+a_nx^n+\ldots\tag{2}\label{2}
+\end{equation}
+This relation between the series and the function is also expressed by saying that $\sum a_nx^n$ is a &lt;strong&gt;power series expansion&lt;/strong&gt; of $f(x)$.&lt;/p&gt;
+
+&lt;p&gt;These are some crucial facts about that relation.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;(i) The function $f(x)$ defined by \eqref{2} is continuous on the open interval $(-R,R)$.&lt;/li&gt;
+  &lt;li&gt;(ii) The function $f(x)$ is differentiable on $(-R,R)$, and its derivative is given by the formula
+\begin{equation}
+f’(x)=a_1+2a_2x+3a_3x^2+\ldots+na_nx^{n-1}+\ldots\tag{3}\label{3}
+\end{equation}&lt;/li&gt;
+  &lt;li&gt;(iii) If $x$ is any point in $(-R,R)$, then
+\begin{equation}
+\int_{0}^{x}f(t)\,dt=a_0x+\dfrac{1}{2}a_1x^2+\dfrac{1}{3}a_2x^3+\ldots+\dfrac{1}{n+1}a_nx^{n+1}+\ldots\tag{4}\label{4}
+\end{equation}&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Remark&lt;/strong&gt;&lt;br /&gt;
+We have that series \eqref{3} and \eqref{4} converge on the interval $(-R,R)$.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;We begin by proving the convergence on $(-R,R)$ of \eqref{3}.&lt;br /&gt;
+Let $x$ be a point in the interval $(-R,R)$ and choose $\epsilon&amp;gt;0$ so that $\vert x\vert+\epsilon&amp;lt;R$. Since $\vert x\vert+\epsilon$ is in the interval, $\sum\vert a_n\left(\vert x\vert+\epsilon\right)^n\vert$ converges.&lt;br /&gt;
+We continue by proving the inequality
+\begin{equation}
+\vert nx^{n-1}\vert\leq\left(\vert x\vert+\epsilon\right)^n\hspace{1cm}\forall n\geq n_0,
+\end{equation}
+where $\epsilon&amp;gt;0$, $n_0$ is a positive integer.&lt;br /&gt;
+We have
+\begin{align}
+\lim_{n\to\infty}n^{1/n}&amp;amp;=\lim_{n\to\infty} \\ &amp;amp;=\lim_{n\to\infty}\exp\left(\frac{\ln n}{n}\right) \\ &amp;amp;=\exp\left(\lim_{n\to\infty}\frac{\ln n}{n}\right) \\ &amp;amp;={\rm e}^0=1,
+\end{align}
+where in the fourth step, we use the &lt;em&gt;L’Hospital theorem&lt;/em&gt;&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;. Therefore, as $n\to\infty$
+\begin{equation}
+n^{1/n}\vert x\vert^{1-1/n}\to\vert x\vert
+\end{equation}
+Then for all sufficiently large $n$’s
+\begin{align}
+n^{1/n}\vert x\vert^{1-1/n}&amp;amp;\leq\vert x\vert+\epsilon \\ \vert nx^{n-1}\vert&amp;amp;\leq\left(\vert x\vert+\epsilon\right)^n
+\end{align}
+This implies that
+\begin{equation}
+\vert na_nx^{n-1}\vert\leq\vert a_n\left(\vert x\vert+\epsilon\right)^n\vert
+\end{equation}
+By the &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#comparison-test&quot;&gt;comparison test&lt;/a&gt;, we have that the series $\sum\vert na_nx^{n-1}\vert$ converges, and so does $\sum na_nx^{n-1}$.&lt;/li&gt;
+  &lt;li&gt;Since $\sum\vert a_nx^n\vert$ converges and
+\begin{equation}
+\left\vert\dfrac{a_nx^n}{n+1}\right\vert\leq\vert a_nx^n\vert,
+\end{equation}
+the &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#comparison-test&quot;&gt;comparison test&lt;/a&gt; implies that $\sum\left\vert\frac{a_nx^n}{n+1}\right\vert$ converges, and therefore
+\begin{equation}
+x\sum\frac{a_nx^n}{n+1}=\sum\frac{1}{n+1}a_nx^{n+1}
+\end{equation}
+also converges.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;dif-power-series&quot;&gt;Differentiation of Power Series&lt;/h3&gt;
+
+&lt;p&gt;If we instead apply (ii) to the function $f’(x)$ in \eqref{3}, then it follows that $f’(x)$ is also differentiable. Doing the exact same process to $f’&apos;(x)$, we also have that $f’&apos;(x)$ is differentiable, and so on. Hence, the original $f(x)$ has derivatives of all orders, as expressed in the following statement:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;In the interior of its interval of convergence, a power series defines an finitely differentiable function whose derivatives can be calculated by differentiating the series term by term&lt;/em&gt;.
+\begin{equation}
+\dfrac{d}{dx}\left(\sum a_nx^n\right)=\sum\dfrac{d}{dx}(a_nx^n)
+\end{equation}&lt;/p&gt;
+
+&lt;h3 id=&quot;int-power-series&quot;&gt;Integration of Power Series&lt;/h3&gt;
+
+&lt;p&gt;Similarly, from (iii), the term-by-term integration of power series can be emphasized by writing \eqref{4} as
+\begin{equation}
+\int\left(\sum a_nx^n\right)\,dx=\sum\left(\int a_nx^n\,dx\right)
+\end{equation}&lt;/p&gt;
+
+&lt;h3 id=&quot;eg2&quot;&gt;Example&lt;/h3&gt;
+
+&lt;p&gt;Find a power series expansion of ${\rm e}^x$.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;/p&gt;
+
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] George F.Simmons. &lt;a href=&quot;https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424&quot;&gt;Calculus With Analytic Geometry - 2nd Edition&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;[2] MIT 18.01. &lt;a href=&quot;https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/&quot;&gt;Single Variable Calculus&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="calculus" /><category term="mathematics" /><category term="calculus" /><category term="series" /><category term="power-series" /><category term="taylor-series" /><category term="random-stuffs" /><summary type="html">In the previous post, Infinite Series of Constants, we mentioned a type of series called power series a lot. In the content of this post, we will be diving deeper into details of that series.</summary></entry><entry><title type="html">Infinite Series of Constants</title><link href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html" rel="alternate" type="text/html" title="Infinite Series of Constants" /><published>2021-09-06T11:20:00+07:00</published><updated>2021-09-06T11:20:00+07:00</updated><id>/mathematics/calculus/2021/09/06/infinite-series-of-constants</id><content type="html" xml:base="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html">&lt;blockquote&gt;
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
+
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt; (&lt;em&gt;L’Hospital&lt;/em&gt;)&lt;br /&gt;
+&lt;em&gt;Assume $f$ and $g$ are real and differentiable on $]a,b[$ and $g’(x)\neq 0$ for all $x\in]a,b[$, where $-\infty\leq a&amp;lt;b\leq\infty$. Suppose as $x\to a$,
+\begin{equation}
+\dfrac{f’(x)}{g’(x)}\to A\,(\in[-\infty,\infty])
+\end{equation}
+If as $x\to a$, $f(x)\to 0$ and $g(x)\to 0$ or if $g(x)\to+\infty$ as $x\to a$, then
+\begin{equation}
+\dfrac{f(x)}{g(x)}\to A
+\end{equation}
+as $x\to a$.&lt;/em&gt; &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="calculus" /><category term="mathematics" /><category term="calculus" /><category term="series" /><category term="power-series" /><category term="taylor-series" /><category term="random-stuffs" /><summary type="html">In the previous post, Infinite Series of Constants, we mentioned a type of series called power series a lot. In the content of this post, we will be diving deeper into details of that series.</summary></entry><entry><title type="html">Infinite Series of Constants</title><link href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html" rel="alternate" type="text/html" title="Infinite Series of Constants" /><published>2021-09-06T11:20:00+07:00</published><updated>2021-09-06T11:20:00+07:00</updated><id>/mathematics/calculus/2021/09/06/infinite-series-of-constants</id><content type="html" xml:base="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html">&lt;blockquote&gt;
   &lt;p&gt;No idea what to say yet :D&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -1941,7 +2044,7 @@ Yep, that’s right, the sequence $\{q_k\}\to q_*$ as $k\to\infty$ at a geometri
 
 &lt;!-- excerpt-end --&gt;
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#norms-contractions-banach-fixed-pts&quot;&gt;Norms, Contractions and Banach’s Fixed-point Theorem&lt;/a&gt;
+  &lt;li&gt;&lt;a href=&quot;#norms-contractions-banach-fixed-pts&quot;&gt;Norms, Contractions, Banach’s Fixed-point Theorem&lt;/a&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#norms&quot;&gt;Norms&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#contractions&quot;&gt;Contractions&lt;/a&gt;&lt;/li&gt;
@@ -1949,16 +2052,16 @@ Yep, that’s right, the sequence $\{q_k\}\to q_*$ as $k\to\infty$ at a geometri
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#bellman-operator&quot;&gt;Bellman Operator&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#proof&quot;&gt;Proof&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#proof&quot;&gt;Proof of the existence&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Before catching the pokémon, we need to prepare ourselves some pokéball.&lt;/p&gt;
 
-&lt;h4 id=&quot;norms-contractions-banach-fixed-pts&quot;&gt;Norms, Contractions and Banach’s Fixed-point Theorem&lt;/h4&gt;
+&lt;h2 id=&quot;norms-contractions-banach-fixed-pts&quot;&gt;Norms, Contractions, Banach’s Fixed-point Theorem&lt;/h2&gt;
 
-&lt;h5 id=&quot;norms&quot;&gt;Norms&lt;/h5&gt;
+&lt;h3 id=&quot;norms&quot;&gt;Norms&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Norm&lt;/em&gt;)&lt;br /&gt;
 Given a vector space $\mathcal{V}\subseteq\mathbb{R}^d$, a function $f:\mathcal{V}\to\mathbb{R}^+_0$ is a &lt;em&gt;norm&lt;/em&gt; if and only if&lt;/p&gt;
 &lt;ol&gt;
@@ -2009,16 +2112,18 @@ Normed vector spaces where all Cauchy sequences are convergent are special: we c
 &lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Completeness&lt;/em&gt;)&lt;br /&gt;
 A normed vector space $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$ is called &lt;em&gt;complete&lt;/em&gt; if every Cauchy sequence in $\mathcal{V}$ is convergent in the norm of the vector space.&lt;/p&gt;
 
-&lt;h5 id=&quot;contractions&quot;&gt;Contractions&lt;/h5&gt;
-&lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Lipschitzian&lt;/em&gt;) &lt;br /&gt;
+&lt;h3 id=&quot;contractions&quot;&gt;Contractions&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Lipschitz function&lt;/em&gt;, &lt;em&gt;Contraction&lt;/em&gt;) &lt;br /&gt;
 Let $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$ be a normed vector space. A mapping $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ is called &lt;em&gt;L-Lipschitz&lt;/em&gt; if for any $u,v\in\mathcal{V}$,
 \begin{equation}
 \Vert\mathcal{T}u-\mathcal{T}v\Vert\leq L\Vert u-v\Vert
 \end{equation}
-A mapping $\mathcal{T}$ is called a &lt;em&gt;non-expansion&lt;/em&gt; if it is &lt;em&gt;Lipschitzian&lt;/em&gt; with $L\leq 1$. It is called a &lt;em&gt;contraction&lt;/em&gt; if it is &lt;em&gt;Lipschitzian&lt;/em&gt; with $L&amp;lt;1$. In this case, $L$ is called the &lt;em&gt;contraction factor of&lt;/em&gt; $\mathcal{T}$ and $\mathcal{T}$ is called an &lt;em&gt;L-contraction&lt;/em&gt;.&lt;br /&gt;
-&lt;ins&gt;Note&lt;/ins&gt;: If $\mathcal{T}$ is &lt;em&gt;Lipschitz&lt;/em&gt;, it is also continuous in the sense that if $v_n\to_{\Vert\cdot\Vert}v$, then also $\mathcal{T}v_n\to_{\Vert\cdot\Vert}\mathcal{T}v$. This is because $\Vert\mathcal{T}v_n-\mathcal{T}v\Vert\leq L\Vert v_n-v\Vert\to 0$ as $n\to\infty$.&lt;/p&gt;
+A mapping $\mathcal{T}$ is called a &lt;em&gt;non-expansion&lt;/em&gt; if it is &lt;em&gt;Lipschitzian&lt;/em&gt; with $L\leq 1$. It is called a &lt;em&gt;contraction&lt;/em&gt; if it is &lt;em&gt;Lipschitzian&lt;/em&gt; with $L&amp;lt;1$. In this case, $L$ is called the &lt;em&gt;contraction factor of&lt;/em&gt; $\mathcal{T}$ and $\mathcal{T}$ is called an &lt;em&gt;L-contraction&lt;/em&gt;.&lt;/p&gt;
 
-&lt;h5 id=&quot;banach-fixed-pts&quot;&gt;Banach’s Fixed-point Theorem&lt;/h5&gt;
+&lt;p&gt;&lt;strong&gt;Remark&lt;/strong&gt;&lt;br /&gt;
+If $\mathcal{T}$ is &lt;em&gt;Lipschitz&lt;/em&gt;, it is also continuous in the sense that if $v_n\to_{\Vert\cdot\Vert}v$, then also $\mathcal{T}v_n\to_{\Vert\cdot\Vert}\mathcal{T}v$. This is because $\Vert\mathcal{T}v_n-\mathcal{T}v\Vert\leq L\Vert v_n-v\Vert\to 0$ as $n\to\infty$.&lt;/p&gt;
+
+&lt;h3 id=&quot;banach-fixed-pts&quot;&gt;Banach’s Fixed-point Theorem&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Banach space&lt;/em&gt;)&lt;br /&gt;
 A complete, normed vector space is called a &lt;em&gt;Banach space&lt;/em&gt;.&lt;br /&gt;
 &lt;br /&gt;&lt;/p&gt;
@@ -2037,7 +2142,7 @@ Let $\mathcal{V}$ be a Banach space and $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ 
 \end{equation}&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h4 id=&quot;bellman-operator&quot;&gt;Bellman Operator&lt;/h4&gt;
+&lt;h2 id=&quot;bellman-operator&quot;&gt;Bellman Operator&lt;/h2&gt;
 &lt;p&gt;Previously, we defined Bellman equation for state-value function $v_\pi(s)$ as:
 \begin{align}
 v_\pi(s)&amp;amp;=\sum_{a\in\mathcal{A}}\pi(a|s)\sum_{s’\in\mathcal{S},r}p(s’,r|s,a)\left[r+\gamma v_\pi(s’)\right] \\\text{or}\quad v_\pi(s)&amp;amp;=\sum_{a\in\mathcal{A}}\pi(a|s)\left(\mathcal{R}^a_s+\gamma\sum_{s’\in\mathcal{S}}\mathcal{P}^a_{ss’}v_\pi(s’)\right)\tag{1}\label{1}
@@ -2076,7 +2181,7 @@ And thus, with the help of $\mathcal{T}^*$, we can rewrite the equation \eqref{4
 &lt;br /&gt;
 Now everything is all set, we can move on to the next step.&lt;/p&gt;
 
-&lt;h4 id=&quot;proof&quot;&gt;Proof&lt;/h4&gt;
+&lt;h2 id=&quot;proof&quot;&gt;Proof of the existence&lt;/h2&gt;
 &lt;ul&gt;
   &lt;li&gt;Let $B(\mathcal{S})$ be the space of &lt;em&gt;uniformly bounded functions&lt;/em&gt; with domain $\mathcal{S}$:
 \begin{equation}
@@ -2118,7 +2223,7 @@ v_\pi\leq(\mathcal{T}^*)^n v_\pi
 Since $\mathcal{T}^*$ is a contraction, the right-hand side converges to $v$, the unique fixed point of $\mathcal{T}^*$. Thus, $v_\pi\leq v$. And since $\pi$ was arbitrary, we obtain that $v_*\leq v$.&lt;br /&gt;
 Pick a policy $\pi$ such that $\mathcal{T}^\pi v=\mathcal{T}^*v$, then $v$ is also a fixed point of $\mathcal{V}^\pi$. Since $v_\pi$ is the unique fixed point of $\mathcal{T}^\pi$, we have that $v=v_\pi$, which shows that $v_*=v$ and that $\pi$ is an optimal policy.&lt;/p&gt;
 
-&lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Csaba Szepesvári. &lt;a href=&quot;https://www.amazon.com/Algorithms-Reinforcement-Synthesis-Artificial-Intelligence/dp/1608454924&quot;&gt;Algorithms for Reinforcement Learning&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;[2] A. Lazaric. &lt;a href=&quot;http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf&quot;&gt;Markov Decision Processes and Dynamic Programming&lt;/a&gt;&lt;/p&gt;
@@ -2129,7 +2234,7 @@ Pick a policy $\pi$ such that $\mathcal{T}^\pi v=\mathcal{T}^*v$, then $v$ is al
 
 &lt;p&gt;[5] &lt;a href=&quot;https://en.wikipedia.org/wiki/Normed_vector_space&quot;&gt;Normed vector space&lt;/a&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h4&gt;
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
 
 &lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
   &lt;ol&gt;

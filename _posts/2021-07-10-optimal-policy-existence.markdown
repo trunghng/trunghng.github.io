@@ -10,22 +10,22 @@ comments: true
 > In the previous post about [**Markov Decision Processes, Bellman equations**]({% post_url 2021-06-27-mdp-bellman-eqn %}), we mentioned that there exists a policy $\pi_\*$ that is better than or equal to all other policies. And now, we are here to prove it.  
 
 <!-- excerpt-end -->
-- [Norms, Contractions and Banach's Fixed-point Theorem](#norms-contractions-banach-fixed-pts)
+- [Norms, Contractions, Banach's Fixed-point Theorem](#norms-contractions-banach-fixed-pts)
 	- [Norms](#norms)
 	- [Contractions](#contractions)
 	- [Banach's Fixed-point Theorem](#banach-fixed-pts)
 - [Bellman Operator](#bellman-operator)
-- [Proof](#proof)
+- [Proof of the existence](#proof)
 - [References](#references)
 - [Footnotes](#footnotes)
 
 
 Before catching the pokémon, we need to prepare ourselves some pokéball.  
 
-#### Norms, Contractions and Banach's Fixed-point Theorem
+## Norms, Contractions, Banach's Fixed-point Theorem
 {: #norms-contractions-banach-fixed-pts}
 
-##### Norms
+### Norms
 **Definition** (*Norm*)  
 Given a vector space $\mathcal{V}\subseteq\mathbb{R}^d$, a function $f:\mathcal{V}\to\mathbb{R}^+\_0$ is a *norm* if and only if
 1. If $f(v)=0$ for some $v\in\mathcal{V}$, then $v=0$
@@ -73,17 +73,19 @@ Normed vector spaces where all Cauchy sequences are convergent are special: we c
 A normed vector space $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$ is called *complete* if every Cauchy sequence in $\mathcal{V}$ is convergent in the norm of the vector space.  
 
 
-##### Contractions
-**Definition** (*Lipschitzian*)   
+### Contractions
+**Definition** (*Lipschitz function*, *Contraction*)   
 Let $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$ be a normed vector space. A mapping $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ is called *L-Lipschitz* if for any $u,v\in\mathcal{V}$,
 \begin{equation}
 \Vert\mathcal{T}u-\mathcal{T}v\Vert\leq L\Vert u-v\Vert
 \end{equation}
 A mapping $\mathcal{T}$ is called a *non-expansion* if it is *Lipschitzian* with $L\leq 1$. It is called a *contraction* if it is *Lipschitzian* with $L<1$. In this case, $L$ is called the *contraction factor of* $\mathcal{T}$ and $\mathcal{T}$ is called an *L-contraction*.  
-<ins>Note</ins>: If $\mathcal{T}$ is *Lipschitz*, it is also continuous in the sense that if $v_n\to_{\Vert\cdot\Vert}v$, then also $\mathcal{T}v_n\to_{\Vert\cdot\Vert}\mathcal{T}v$. This is because $\Vert\mathcal{T}v_n-\mathcal{T}v\Vert\leq L\Vert v_n-v\Vert\to 0$ as $n\to\infty$.  
+
+**Remark**  
+If $\mathcal{T}$ is *Lipschitz*, it is also continuous in the sense that if $v_n\to_{\Vert\cdot\Vert}v$, then also $\mathcal{T}v_n\to_{\Vert\cdot\Vert}\mathcal{T}v$. This is because $\Vert\mathcal{T}v_n-\mathcal{T}v\Vert\leq L\Vert v_n-v\Vert\to 0$ as $n\to\infty$.  
 
 
-##### Banach's Fixed-point Theorem
+### Banach's Fixed-point Theorem
 {: #banach-fixed-pts}
 **Definition** (*Banach space*)  
 A complete, normed vector space is called a *Banach space*.  
@@ -102,7 +104,7 @@ Let $\mathcal{V}$ be a Banach space and $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ 
 \end{equation}
 
 
-#### Bellman Operator
+## Bellman Operator
 Previously, we defined Bellman equation for state-value function $v_\pi(s)$ as:
 \begin{align}
 v_\pi(s)&=\sum_{a\in\mathcal{A}}\pi(a|s)\sum_{s'\in\mathcal{S},r}p(s',r|s,a)\left[r+\gamma v_\pi(s')\right] \\\\\text{or}\quad v_\pi(s)&=\sum_{a\in\mathcal{A}}\pi(a|s)\left(\mathcal{R}^a_s+\gamma\sum_{s'\in\mathcal{S}}\mathcal{P}^a_{ss'}v_\pi(s')\right)\tag{1}\label{1}
@@ -141,7 +143,8 @@ And thus, with the help of $\mathcal{T}^\*$, we can rewrite the equation \eqref{
 <br/>
 Now everything is all set, we can move on to the next step.  
 
-#### Proof
+## Proof of the existence
+{: #proof}
 - Let $B(\mathcal{S})$ be the space of *uniformly bounded functions* with domain $\mathcal{S}$:
 \begin{equation}
 B(\mathcal{S})=\\{v:\mathcal{S}\to\mathbb{R}:\Vert v\Vert_\infty<+\infty\\}
@@ -181,7 +184,7 @@ Since $\mathcal{T}^\*$ is a contraction, the right-hand side converges to $v$, t
 Pick a policy $\pi$ such that $\mathcal{T}^\pi v=\mathcal{T}^\*v$, then $v$ is also a fixed point of $\mathcal{V}^\pi$. Since $v_\pi$ is the unique fixed point of $\mathcal{T}^\pi$, we have that $v=v_\pi$, which shows that $v_\*=v$ and that $\pi$ is an optimal policy.  
 
 
-#### References
+## References
 [1] Csaba Szepesvári. [Algorithms for Reinforcement Learning](https://www.amazon.com/Algorithms-Reinforcement-Synthesis-Artificial-Intelligence/dp/1608454924)  
 
 [2] A. Lazaric. [Markov Decision Processes and Dynamic Programming](http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf)  
@@ -193,7 +196,7 @@ Pick a policy $\pi$ such that $\mathcal{T}^\pi v=\mathcal{T}^\*v$, then $v$ is a
 [5] [Normed vector space](https://en.wikipedia.org/wiki/Normed_vector_space)
 
 
-#### Footnotes
+## Footnotes
 [^1]: A function is called *uniformly bounded* exactly when $\Vert f\Vert_\infty<+\infty$.
 [^2]: A *normed vector space* is a vector space over the real or complex number, on which a norm is defined.
 [^3]: We are gonna talk further about *sequences* in another [post]({% post_url 2021-09-06-infinite-series-of-constants %}#convergent-sequences).

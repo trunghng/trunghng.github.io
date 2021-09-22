@@ -1,159 +1,10 @@
-<!DOCTYPE html>
-<html lang="en"><head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Optimal Policy Existence | Trung’s cabin</title>
-<meta name="generator" content="Jekyll v4.2.0" />
-<meta property="og:title" content="Optimal Policy Existence" />
-<meta name="author" content="Trung H. Nguyen" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="the proof of the existence of optimal policy in finite markov decision processes (MDPs)" />
-<meta property="og:description" content="the proof of the existence of optimal policy in finite markov decision processes (MDPs)" />
-<meta property="og:site_name" content="Trung’s cabin" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2021-07-10T13:03:00+07:00" />
-<meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Optimal Policy Existence" />
-<script type="application/ld+json">
-{"description":"the proof of the existence of optimal policy in finite markov decision processes (MDPs)","headline":"Optimal Policy Existence","dateModified":"2021-07-10T13:03:00+07:00","datePublished":"2021-07-10T13:03:00+07:00","mainEntityOfPage":{"@type":"WebPage","@id":"/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html"},"url":"/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html","author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Trung&apos;s cabin" />
-    
-
-
-
-
-
-  
-
-<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
-<link rel="manifest" href="/assets/images/site.webmanifest">
-<link rel="mask-icon" href="/assets/images/safari-pinned-tab.svg" color="#5bbad5">
-<meta name="msapplication-TileColor" content="#da532c">
-<meta name="theme-color" content="#ffffff"></head>
-<body><header class="site-header">
-  <div class="snorlax"></div>
-
-  <div class="wrapper"><a class="site-title" rel="author" href="/">Trung&#39;s cabin</a><nav class="site-nav">
-        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
-        <label for="nav-trigger">
-          <span class="menu-icon">
-            <svg viewBox="0 0 18 15" width="18px" height="15px">
-              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
-            </svg>
-          </span>
-        </label>
-
-        <div class="trigger"><a class="page-link" href="/archive/">Archive</a><a class="page-link" href="/about/">About</a></div>
-      </nav></div>
-</header>
-<main class="page-content" aria-label="Content">
-      <div class="wrapper">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-<link href="https://fonts.googleapis.com/css?family=Merriweather:400,900,900i" rel="stylesheet">
-<style>
-@import "/assets/css/default.css"
-</style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<style>
-  .collapsible {
-    background-color: #A5CCF1;
-    color: white;
-    cursor: pointer;
-    padding: 5px;
-    /*width: 100%;*/
-    border: none;
-    text-align: center;
-    outline: none;
-    font-size: 15px;
-  }
-
-  .active, .collapsible:hover {
-    background-color: #82B9EE;
-  }
-
-  .codePanel {
-    padding: 0 18px;
-    display: none;
-    overflow: hidden;
-    background-color: #f1f1f1;
-  }
-
-  #button {
-    display: inline-block;
-    background-color: #A5CCF1;
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    border-radius: 4px;
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    transition: background-color .3s, 
-      opacity .5s, visibility .5s;
-    opacity: 0;
-    visibility: hidden;
-    z-index: 1000;
-  }
-  #button::after {
-    content: "\f077";
-    font-family: FontAwesome;
-    font-weight: normal;
-    font-style: normal;
-    font-size: 2em;
-    line-height: 50px;
-    color: #fff;
-  }
-  #button:hover {
-    cursor: pointer;
-    background-color: #333;
-    text-decoration: none;
-  }
-  #button:active {
-    background-color: #555;
-  }
-  #button.show {
-    opacity: 1;
-    visibility: visible;
-  }
-</style>
-<a id="button"></a>
-<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <header class="post-header">
-    <meta name="description" content="the proof of the existence of optimal policy in finite markov decision processes (MDPs)">
-    <h1 class="post-title p-name" itemprop="name headline">Optimal Policy Existence</h1>
-    <p><span>
-      
-        
-        <a href="/tag/artificial-intelligent"><code class="highligher-rouge"><nobr>artificial-intelligent</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/reinforcement-learning"><code class="highligher-rouge"><nobr>reinforcement-learning</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/mathematics"><code class="highligher-rouge"><nobr>mathematics</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/my-rl"><code class="highligher-rouge"><nobr>my-rl</nobr></code>&nbsp;</a>
-      
-    </span></p>
-    <p class="post-meta"><time class="dt-published" datetime="2021-07-10T13:03:00+07:00" itemprop="datePublished">
-        Jul 10, 2021
-      </time></p>
-  </header>
-
-  <div class="post-content e-content" itemprop="articleBody">
-    <blockquote>
+I"�@<blockquote>
   <p>In the previous post about <a href="/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html"><strong>Markov Decision Processes, Bellman equations</strong></a>, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here to prove it.</p>
 </blockquote>
 
 <!-- excerpt-end -->
 <ul>
-  <li><a href="#norms-contractions-banach-fixed-pts">Norms, Contractions, Banach’s Fixed-point Theorem</a>
+  <li><a href="#norms-contractions-banach-fixed-pts">Norms, Contractions and Banach’s Fixed-point Theorem</a>
     <ul>
       <li><a href="#norms">Norms</a></li>
       <li><a href="#contractions">Contractions</a></li>
@@ -161,16 +12,16 @@
     </ul>
   </li>
   <li><a href="#bellman-operator">Bellman Operator</a></li>
-  <li><a href="#proof">Proof of the existence</a></li>
+  <li><a href="#proof">Proof</a></li>
   <li><a href="#references">References</a></li>
   <li><a href="#footnotes">Footnotes</a></li>
 </ul>
 
 <p>Before catching the pokémon, we need to prepare ourselves some pokéball.</p>
 
-<h2 id="norms-contractions-banach-fixed-pts">Norms, Contractions, Banach’s Fixed-point Theorem</h2>
+<h4 id="norms-contractions-banach-fixed-pts">Norms, Contractions and Banach’s Fixed-point Theorem</h4>
 
-<h3 id="norms">Norms</h3>
+<h5 id="norms">Norms</h5>
 <p><strong>Definition</strong> (<em>Norm</em>)<br />
 Given a vector space $\mathcal{V}\subseteq\mathbb{R}^d$, a function $f:\mathcal{V}\to\mathbb{R}^+_0$ is a <em>norm</em> if and only if</p>
 <ol>
@@ -221,18 +72,16 @@ Normed vector spaces where all Cauchy sequences are convergent are special: we c
 <p><strong>Definition</strong> (<em>Completeness</em>)<br />
 A normed vector space $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$ is called <em>complete</em> if every Cauchy sequence in $\mathcal{V}$ is convergent in the norm of the vector space.</p>
 
-<h3 id="contractions">Contractions</h3>
-<p><strong>Definition</strong> (<em>Lipschitz function</em>, <em>Contraction</em>) <br />
+<h5 id="contractions">Contractions</h5>
+<p><strong>Definition</strong> (<em>Contraction</em>) <br />
 Let $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$ be a normed vector space. A mapping $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ is called <em>L-Lipschitz</em> if for any $u,v\in\mathcal{V}$,
 \begin{equation}
 \Vert\mathcal{T}u-\mathcal{T}v\Vert\leq L\Vert u-v\Vert
 \end{equation}
-A mapping $\mathcal{T}$ is called a <em>non-expansion</em> if it is <em>Lipschitzian</em> with $L\leq 1$. It is called a <em>contraction</em> if it is <em>Lipschitzian</em> with $L&lt;1$. In this case, $L$ is called the <em>contraction factor of</em> $\mathcal{T}$ and $\mathcal{T}$ is called an <em>L-contraction</em>.</p>
+A mapping $\mathcal{T}$ is called a <em>non-expansion</em> if it is <em>Lipschitzian</em> with $L\leq 1$. It is called a <em>contraction</em> if it is <em>Lipschitzian</em> with $L&lt;1$. In this case, $L$ is called the <em>contraction factor of</em> $\mathcal{T}$ and $\mathcal{T}$ is called an <em>L-contraction</em>.<br />
+<ins>Note</ins>: If $\mathcal{T}$ is <em>Lipschitz</em>, it is also continuous in the sense that if $v_n\to_{\Vert\cdot\Vert}v$, then also $\mathcal{T}v_n\to_{\Vert\cdot\Vert}\mathcal{T}v$. This is because $\Vert\mathcal{T}v_n-\mathcal{T}v\Vert\leq L\Vert v_n-v\Vert\to 0$ as $n\to\infty$.</p>
 
-<p><strong>Remark</strong><br />
-If $\mathcal{T}$ is <em>Lipschitz</em>, it is also continuous in the sense that if $v_n\to_{\Vert\cdot\Vert}v$, then also $\mathcal{T}v_n\to_{\Vert\cdot\Vert}\mathcal{T}v$. This is because $\Vert\mathcal{T}v_n-\mathcal{T}v\Vert\leq L\Vert v_n-v\Vert\to 0$ as $n\to\infty$.</p>
-
-<h3 id="banach-fixed-pts">Banach’s Fixed-point Theorem</h3>
+<h5 id="banach-fixed-pts">Banach’s Fixed-point Theorem</h5>
 <p><strong>Definition</strong> (<em>Banach space</em>)<br />
 A complete, normed vector space is called a <em>Banach space</em>.<br />
 <br /></p>
@@ -251,7 +100,7 @@ Let $\mathcal{V}$ be a Banach space and $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ 
 \end{equation}</li>
 </ol>
 
-<h2 id="bellman-operator">Bellman Operator</h2>
+<h4 id="bellman-operator">Bellman Operator</h4>
 <p>Previously, we defined Bellman equation for state-value function $v_\pi(s)$ as:
 \begin{align}
 v_\pi(s)&amp;=\sum_{a\in\mathcal{A}}\pi(a|s)\sum_{s’\in\mathcal{S},r}p(s’,r|s,a)\left[r+\gamma v_\pi(s’)\right] \\\text{or}\quad v_\pi(s)&amp;=\sum_{a\in\mathcal{A}}\pi(a|s)\left(\mathcal{R}^a_s+\gamma\sum_{s’\in\mathcal{S}}\mathcal{P}^a_{ss’}v_\pi(s’)\right)\tag{1}\label{1}
@@ -290,7 +139,7 @@ And thus, with the help of $\mathcal{T}^*$, we can rewrite the equation \eqref{4
 <br />
 Now everything is all set, we can move on to the next step.</p>
 
-<h2 id="proof">Proof of the existence</h2>
+<h4 id="proof">Proof</h4>
 <ul>
   <li>Let $B(\mathcal{S})$ be the space of <em>uniformly bounded functions</em> with domain $\mathcal{S}$:
 \begin{equation}
@@ -332,7 +181,7 @@ v_\pi\leq(\mathcal{T}^*)^n v_\pi
 Since $\mathcal{T}^*$ is a contraction, the right-hand side converges to $v$, the unique fixed point of $\mathcal{T}^*$. Thus, $v_\pi\leq v$. And since $\pi$ was arbitrary, we obtain that $v_*\leq v$.<br />
 Pick a policy $\pi$ such that $\mathcal{T}^\pi v=\mathcal{T}^*v$, then $v$ is also a fixed point of $\mathcal{V}^\pi$. Since $v_\pi$ is the unique fixed point of $\mathcal{T}^\pi$, we have that $v=v_\pi$, which shows that $v_*=v$ and that $\pi$ is an optimal policy.</p>
 
-<h2 id="references">References</h2>
+<h4 id="references">References</h4>
 <p>[1] Csaba Szepesvári. <a href="https://www.amazon.com/Algorithms-Reinforcement-Synthesis-Artificial-Intelligence/dp/1608454924">Algorithms for Reinforcement Learning</a></p>
 
 <p>[2] A. Lazaric. <a href="http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf">Markov Decision Processes and Dynamic Programming</a></p>
@@ -343,7 +192,7 @@ Pick a policy $\pi$ such that $\mathcal{T}^\pi v=\mathcal{T}^*v$, then $v$ is al
 
 <p>[5] <a href="https://en.wikipedia.org/wiki/Normed_vector_space">Normed vector space</a></p>
 
-<h2 id="footnotes">Footnotes</h2>
+<h4 id="footnotes">Footnotes</h4>
 
 <div class="footnotes" role="doc-endnotes">
   <ol>
@@ -392,110 +241,4 @@ And finally,
     </li>
   </ol>
 </div>
-
-  </div>
-<div id="disqus_thread"></div>
-<script>
-    /**
-    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
-    
-    var disqus_config = function () {
-    this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
-    this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-    };
-    
-    (function() { // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-    s.src = 'https://https-trunghng-github-io.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-
-<script id="dsq-count-scr" src="//https-trunghng-github-io.disqus.com/count.js" async></script>
-
-  <a class="u-url" href="/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html" hidden></a>
-</article>
- <!-- mathjax javascript -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
-  "HTML-CSS": {availableFonts: []}
-  });
-</script>
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-<script>
-  var coll = document.getElementsByClassName("collapsible");
-  var i;
-  for (i = 0; i < coll.length; i++) {
-    coll[i].addEventListener("click", function() {
-      this.classList.toggle("active");
-      var content = document.getElementById(this.id+"data");
-      var btn = document.getElementById(this.id)
-      if (content.style.display === "block") {
-        content.style.display = "none";
-        btn.innerText = "Click to show the code";
-      } else {
-        content.style.display = "block";
-        btn.innerText = "Click to hide the code"
-      }
-    });
-  }
-
-  var btn = $('#button');
-
-  $(window).scroll(function() {
-    if ($(window).scrollTop() > 300) {
-      btn.addClass('show');
-    } else {
-      btn.removeClass('show');
-    }
-  });
-
-  btn.on('click', function(e) {
-    e.preventDefault();
-    $('html, body').animate({scrollTop:0}, '300');
-  });
-</script>
-
-      </div>
-
-    </main><footer class="site-footer h-card">
-  <data class="u-url" href="/"></data>
-
-  <div class="wrapper">
-
-    <div class="footer-col-wrapper">
-      <div class="footer-col">
-        <p class="feed-subscribe">
-          <a href="/feed.xml">
-            <svg class="svg-icon orange">
-              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
-            </svg><span>Subscribe</span>
-          </a>
-        </p>
-        <ul class="contact-list">
-          <li class="p-name">Trung H. Nguyen</li>
-          <li><a class="u-email" href="mailto:trung.skipper@gmail.com">trung.skipper@gmail.com</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <p>To document something I&#39;ve learned
-</p>
-      </div>
-    </div>
-
-    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/trunghng" title="trunghng"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
-</div>
-
-  </div>
-
-</footer>
-</body>
-
-</html>
+:ET
