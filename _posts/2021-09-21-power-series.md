@@ -17,6 +17,7 @@ comments: true
 	- [Differentiation of Power Series](#dif-power-series)
 	- [Integration of Power Series](#int-power-series)
 	- [Example](#eg2)
+- [Taylor Series, Taylor's Formula]({#taylor-series-formula)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -176,9 +177,23 @@ Similarly, from (iii), the term-by-term integration of power series can be empha
 Find a power series expansion of ${\rm e}^x$.  
 
 **Solution**  
+Since ${\rm e}^x$ is the only function that equals its own derivatives[^2] and has the value $1$ at $x=0$. To construct a power series equal to its own derivative, we use the fact that when such a series is differentiated, the degree of each term drops by $1$. We therefore want each term to be the derivative of the one that follows it.  
 
+Starting with $1$ as the constant term, the next should be $x$, then $\frac{1}{2}x^2$, then $\frac{1}{2.3}x^3$, and so on. This produces the series
+\begin{equation}
+1+x+\dfrac{x^2}{2!}+\dfrac{x^3}{3!}+\ldots+\dfrac{x^n}{n!}+\ldots,\tag{5}\label{5}
+\end{equation}
+which converges for all $x$ because
+\begin{equation}
+R=\lim_{n\to\infty}\dfrac{\frac{1}{n!}}{\frac{1}{(n+1)!}}=\lim_{n\to\infty}(n+1)=\infty
+\end{equation}
+We have constructed the series \eqref{5} so that its sum is unchanged by differentiated and has the value $1$ at $x=0$. Therefore, for all $x$,
+\begin{equation}
+{\rm e}^x=1+x+\dfrac{x^2}{2!}+\dfrac{x^3}{3!}+\ldots+\dfrac{x^n}{n!}+\ldots
+\end{equation}
 
-
+## Taylor Series, Taylor's Formula
+{: #taylor-series-formula}
 
 
 
@@ -188,7 +203,9 @@ Find a power series expansion of ${\rm e}^x$.
 ## References
 [1] George F.Simmons. [Calculus With Analytic Geometry - 2nd Edition](https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424)  
 
-[2] MIT 18.01. [Single Variable Calculus](https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/)  
+[2] Marian M. [A Concrete Approach to Classical Analysis](https://www.springer.com/gp/book/9780387789323)  
+
+[3] MIT 18.01. [Single Variable Calculus](https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/)  
 
 
 ## Footnotes
@@ -201,7 +218,9 @@ Find a power series expansion of ${\rm e}^x$.
 	\begin{equation}
 	\dfrac{f(x)}{g(x)}\to A
 	\end{equation}
-	as $x\to a$.*
+	as $x\to a$.*  
+
+[^2]: **Proof**  
 
 
 
