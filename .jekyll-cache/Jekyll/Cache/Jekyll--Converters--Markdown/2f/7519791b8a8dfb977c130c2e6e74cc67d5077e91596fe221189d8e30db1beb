@@ -1,0 +1,39 @@
+I"<blockquote>
+  <p>In the previous post, <a href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html">Infinite Series of Constants</a>, we mentioned a type of series called <strong>power series</strong> a lot. In the content of this post, we will be diving deeper into details of that series.</p>
+</blockquote>
+
+<!-- excerpt-end -->
+<ul>
+  <li><a href="#power-series">Power Series</a></li>
+  <li><a href="#int-conv">The Interval of Convergence</a></li>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h2 id="power-series">Power Series</h2>
+<p>A <strong>power series</strong> is a series of the form
+\begin{equation}
+\sum_{n=0}^{\infty}a_nx^n=a_0+a_1x+a_2x^2+\ldots+a_nx^n+\ldots,
+\end{equation}
+where the coefficient $a_n$ are constants and $x$ is a variable.</p>
+
+<p>It is easily seen that the sum of the series $\sum_{n=0}^{\infty}a_nx^n$  is a function of $x$ since the sum depends only on $x$ for any value of $x$. Hence, we can denote this as
+\begin{equation}
+f(x)=\sum_{n=0}^{\infty}a_nx^n=a_0+a_1x+a_2x^2+\ldots+a_nx^n+\ldots
+\end{equation}</p>
+
+<h2 id="int-conv">The Interval of Convergence</h2>
+<p>Similar to what we have done in the post of <a href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html">infinite series of constants</a>, we begin studying properties of power series by considering their convergence behavior.</p>
+
+<p><strong>Lemma</strong><br />
+If a power series $\sum a_nx^n$ converges at $x_1$, with $x_1\neq 0$, then it converges <a href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#abs-conv">absolutely</a> at all $x$ with $\vert x\vert&lt;\vert x_1\vert$; and if it diverges at $x_1$, then it diverges at all $x$ with $\vert x\vert&gt;\vert x_1\vert$.</p>
+
+<p><strong>Proof</strong></p>
+
+<h2 id="references">References</h2>
+<p>[1] George F.Simmons. <a href="https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424">Calculus With Analytic Geometry - 2nd Edition</a></p>
+
+<p>[2]</p>
+
+<h2 id="footnotes">Footnotes</h2>
+:ET

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-21T16:38:43+07:00</updated><id>/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-22T15:41:14+07:00</updated><id>/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Power Series</title><link href="/mathematics/calculus/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>/mathematics/calculus/2021/09/21/power-series</id><content type="html" xml:base="/mathematics/calculus/2021/09/21/power-series.html">&lt;blockquote&gt;
   &lt;p&gt;In the previous post, &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html&quot;&gt;Infinite Series of Constants&lt;/a&gt;, we mentioned a type of series called &lt;strong&gt;power series&lt;/strong&gt; a lot. In the content of this post, we will be diving deeper into details of that series.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -6,6 +6,8 @@
 &lt;!-- excerpt-end --&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;#power-series&quot;&gt;Power Series&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#int-conv&quot;&gt;The Interval of Convergence&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#dif-int-power-series&quot;&gt;Differentiation and Integration of Power Series&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -17,10 +19,83 @@
 \end{equation}
 where the coefficient $a_n$ are constants and $x$ is a variable.&lt;/p&gt;
 
+&lt;p&gt;It is easily seen that the sum of the series $\sum_{n=0}^{\infty}a_nx^n$  is a function of $x$ since the sum depends only on $x$ for any value of $x$. Hence, we can denote this as
+\begin{equation}
+f(x)=\sum_{n=0}^{\infty}a_nx^n=a_0+a_1x+a_2x^2+\ldots+a_nx^n+\ldots
+\end{equation}&lt;/p&gt;
+
+&lt;h2 id=&quot;int-conv&quot;&gt;The Interval of Convergence&lt;/h2&gt;
+&lt;p&gt;Similar to what we have done in the post of &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html&quot;&gt;infinite series of constants&lt;/a&gt;, we begin studying properties of power series by considering their convergence behavior.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Lemma 1&lt;/strong&gt;&lt;br /&gt;
+&lt;em&gt;If a power series $\sum a_nx^n$ converges at $x_1$, with $x_1\neq 0$, then it converges &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#abs-conv&quot;&gt;absolutely&lt;/a&gt; at all $x$ with $\vert x\vert&amp;lt;\vert x_1\vert$; and if it diverges at $x_1$, then it diverges at all $x$ with $\vert x\vert&amp;gt;\vert x_1\vert$.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
+By the &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#nth-term-test&quot;&gt;$n$-th term test&lt;/a&gt;, we have that if $\sum a_nx^n$ converges, then $a_nx^n\to 0$. In particular, if $n$ is sufficiently large, then $\vert a_n{x_1}^n\vert&amp;lt;1$, and therefore
+\begin{equation}
+\vert a_nx^n\vert=\vert a_n{x_1}^n\vert\left\vert\dfrac{x}{x_1}\right\vert^n&amp;lt;r^n,\tag{1}\label{1}
+\end{equation}
+where $r=\vert\frac{x}{x_1}\vert$. Suppose that $\vert x\vert&amp;lt;\vert x_1\vert$, we have
+\begin{equation}
+r=\left\vert\dfrac{x}{x_1}\right\vert&amp;lt;1,
+\end{equation}
+which leads to the result that geometric series $\sum r^n$ converges (with the sum $\frac{1}{1-r}$). And hence, from \eqref{1} and by the &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#comparison-test&quot;&gt;comparison test&lt;/a&gt;, the series $\sum\vert a_nx^n\vert$ also converges.&lt;/p&gt;
+
+&lt;p&gt;Moreover, if $\sum a_n{x_1}^n$ diverges, then $\sum\vert a_n{x_1}^n\vert$ also diverges. By the &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#comparison-test&quot;&gt;comparison test&lt;/a&gt;, for any $x$ such that $\vert x\vert&amp;gt;\vert x_1\vert$, we also have that $\sum\vert a_nx^n\vert$ diverges. This leads to the divergence of $\sum a_nx^n$, because if the series $\sum a_nx^n$ converges, so does $\sum\vert a_nx^n\vert$, which contradicts to our result.&lt;/p&gt;
+
+&lt;p&gt;These are some main facts about the convergence behavior of an arbitrary power series and some properties of its:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Given a power series $\sum a_nx^n$, precisely one of the following is true:
+    &lt;ul&gt;
+      &lt;li&gt;The series converges only for $x=0$.&lt;/li&gt;
+      &lt;li&gt;The series is absolutely convergent for all $x$.&lt;/li&gt;
+      &lt;li&gt;There exists a positive real number $R$ such that the series is absolutely convergent for $\vert x\vert&amp;lt;R$ and divergent for $\vert x\vert&amp;gt;R$.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;The positive real number $R$ is called &lt;strong&gt;radius of convergence&lt;/strong&gt; of the power series: the series converges absolutely at every point of the open interval $(-R,R)$, and diverges outside the closed interval $[-R,R]$.&lt;/li&gt;
+  &lt;li&gt;The set of all $x$’s for which a power series converges is called its &lt;strong&gt;interval of convergence&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;When the series converges only for $x=0$, we define $R=0$; and we define $R=\infty$ when the series converges for all $x$.&lt;/li&gt;
+  &lt;li&gt;Every power series $\sum a_nx^n$ has a radius of convergence $R$, where $0\leq R\leq\infty$, with the property that the series converges absolutely if $\vert x\vert&amp;lt;R$ and diverges if $\vert x\vert&amp;gt;R$.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt;&lt;br /&gt;
+Find the interval of convergence of the series
+\begin{equation}
+\sum_{n=0}^{\infty}\dfrac{x^n}{n+1}=1+\dfrac{x}{2}+\dfrac{x^2}{3}+\ldots
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;br /&gt;
+In order to find the interval of convergence of a series, we begin by identifying its radius of convergence.&lt;/p&gt;
+
+&lt;p&gt;Consider a power series $\sum a_nx^n$. Suppose that this limit exists, and has $\infty$ as an allowed value, we have
+\begin{equation}
+\lim_{n\to\infty}\dfrac{\vert a_{n+1}x^{n+1}\vert}{a_nx^n}=\lim_{n\to\infty}\left\vert\dfrac{a_{n+1}}{a_n}\right\vert.\vert x\vert=\dfrac{\vert x\vert}{\lim_{n\to\infty}\left\vert\frac{a_n}{a_{n+1}}\right\vert}=L
+\end{equation}
+By the &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#ratio-test&quot;&gt;ratio test&lt;/a&gt;, we have $\sum a_nx^n$ converges absolutely if $L&amp;lt;1$ and diverges in case of $L&amp;gt;1$. Or in other words, the series converges absolutely if
+\begin{equation}
+\vert x\vert&amp;lt;\lim_{n\to\infty}\left\vert\dfrac{a_n}{a_{n+1}}\right\vert,
+\end{equation}
+or diverges if
+\begin{equation}
+\vert x\vert&amp;gt;\lim_{n\to\infty}\left\vert\dfrac{a_n}{a_{n+1}}\right\vert
+\end{equation}
+From the definition of radius of convergence, we can choose the radius of converge of $\sum a_nx^n$ as
+\begin{equation}
+R=\lim_{n\to\infty}\left\vert\dfrac{a_n}{a_{n+1}}\right\vert
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;Back to our problem, for the series $\sum\frac{x^n}{n+1}$, we have its radius of convergence is
+\begin{equation}
+R=\lim_{n\to\infty}\left\vert\dfrac{a_n}{a_{n+1}}\right\vert=\lim_{n\to\infty}\dfrac{\frac{1}{n+1}}{\frac{1}{n+2}}=\lim_{n\to\infty}\dfrac{n+2}{n+1}=1
+\end{equation}
+At $x=1$, the series becomes the &lt;em&gt;harmonic series&lt;/em&gt; $1+\frac{1}{2}+\frac{1}{3}+\ldots$, which diverges; and at $x=-1$, it is the &lt;em&gt;alternating harmonic series&lt;/em&gt; $1-\frac{1}{2}+\frac{1}{3}-\ldots$, which converges. Hence, the interval of convergence of the series is $[-1,1)$.&lt;/p&gt;
+
+&lt;h2 id=&quot;dif-int-power-series&quot;&gt;Differentiation and Integration of Power Series&lt;/h2&gt;
+
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] George F.Simmons. &lt;a href=&quot;https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424&quot;&gt;Calculus With Analytic Geometry - 2nd Edition&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;[2]&lt;/p&gt;
+&lt;p&gt;[2] MIT 18.01. &lt;a href=&quot;https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/&quot;&gt;Single Variable Calculus&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="calculus" /><category term="mathematics" /><category term="calculus" /><category term="series" /><category term="power-series" /><category term="taylor-series" /><category term="random-stuffs" /><summary type="html">In the previous post, Infinite Series of Constants, we mentioned a type of series called power series a lot. In the content of this post, we will be diving deeper into details of that series.</summary></entry><entry><title type="html">Infinite Series of Constants</title><link href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html" rel="alternate" type="text/html" title="Infinite Series of Constants" /><published>2021-09-06T11:20:00+07:00</published><updated>2021-09-06T11:20:00+07:00</updated><id>/mathematics/calculus/2021/09/06/infinite-series-of-constants</id><content type="html" xml:base="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html">&lt;blockquote&gt;
   &lt;p&gt;No idea what to say yet :D&lt;/p&gt;

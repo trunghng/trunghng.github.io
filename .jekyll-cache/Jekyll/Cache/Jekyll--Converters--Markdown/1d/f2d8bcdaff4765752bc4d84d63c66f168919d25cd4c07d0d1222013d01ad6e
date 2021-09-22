@@ -1,0 +1,79 @@
+I"|<blockquote>
+  <p>In the previous post, <a href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html">Infinite Series of Constants</a>, we mentioned a type of series called <strong>power series</strong> a lot. In the content of this post, we will be diving deeper into details of that series.</p>
+</blockquote>
+
+<!-- excerpt-end -->
+<ul>
+  <li><a href="#power-series">Power Series</a></li>
+  <li><a href="#int-conv">The Interval of Convergence</a></li>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h2 id="power-series">Power Series</h2>
+<p>A <strong>power series</strong> is a series of the form
+\begin{equation}
+\sum_{n=0}^{\infty}a_nx^n=a_0+a_1x+a_2x^2+\ldots+a_nx^n+\ldots,
+\end{equation}
+where the coefficient $a_n$ are constants and $x$ is a variable.</p>
+
+<p>It is easily seen that the sum of the series $\sum_{n=0}^{\infty}a_nx^n$  is a function of $x$ since the sum depends only on $x$ for any value of $x$. Hence, we can denote this as
+\begin{equation}
+f(x)=\sum_{n=0}^{\infty}a_nx^n=a_0+a_1x+a_2x^2+\ldots+a_nx^n+\ldots
+\end{equation}</p>
+
+<h2 id="int-conv">The Interval of Convergence</h2>
+<p>Similar to what we have done in the post of <a href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html">infinite series of constants</a>, we begin studying properties of power series by considering their convergence behavior.</p>
+
+<p><strong>Lemma 1</strong><br />
+<em>If a power series $\sum a_nx^n$ converges at $x_1$, with $x_1\neq 0$, then it converges <a href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#abs-conv">absolutely</a> at all $x$ with $\vert x\vert&lt;\vert x_1\vert$; and if it diverges at $x_1$, then it diverges at all $x$ with $\vert x\vert&gt;\vert x_1\vert$.</em></p>
+
+<p><strong>Proof</strong><br />
+By the <a href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#nth-term-test">$n$-th term test</a>, we have that if $\sum a_nx^n$ converges, then $a_nx^n\to 0$. In particular, if $n$ is sufficiently large, then $\vert a_n{x_1}^n\vert&lt;1$, and therefore
+\begin{equation}
+\vert a_nx^n\vert=\vert a_n{x_1}^n\vert\left\vert\dfrac{x}{x_1}\right\vert^n&lt;r^n,\tag{1}\label{1}
+\end{equation}
+where $r=\vert\frac{x}{x_1}\vert$. Suppose that $\vert x\vert&lt;\vert x_1\vert$, we have
+\begin{equation}
+r=\left\vert\dfrac{x}{x_1}\right\vert&lt;1,
+\end{equation}
+which leads to the result that geometric series $\sum r^n$ converges (with the sum $\frac{1}{1-r}$). And hence, from \eqref{1} and by the <a href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#comparison-test">comparison test</a>, the series $\sum\vert a_nx^n\vert$ also converges.</p>
+
+<p>Moreover, if $\sum a_n{x_1}^n$ diverges, then $\sum\vert a_n{x_1}^n\vert$ also diverges. By the <a href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#comparison-test">comparison test</a>, for any $x$ such that $\vert x\vert&gt;\vert x_1\vert$, we also have that $\sum\vert a_nx^n\vert$ diverges. This leads to the divergence of $\sum a_nx^n$, because if the series $\sum a_nx^n$ converges, so does $\sum\vert a_nx^n\vert$, which contradicts to our result.</p>
+
+<p>These are some main facts about the convergence behavior of an arbitrary power series and some properties of its:</p>
+<ul>
+  <li>Given a power series $\sum a_nx^n$, precisely one of the following is true:
+    <ul>
+      <li>The series converges only for $x=0$.</li>
+      <li>The series is absolutely convergent for all $x$.</li>
+      <li>There exists a positive real number $R$ such that the series is absolutely convergent for $\vert x\vert&lt;R$ and divergent for $\vert x\vert&gt;R$.</li>
+    </ul>
+  </li>
+  <li>The positive real number $R$ is called <strong>radius of convergence</strong> of the power series: the series converges absolutely at every point of the open interval $(-R,R)$, and diverges outside the closed interval $[-R,R]$.</li>
+  <li>The set of all $x$’s for which a power series converges is called its <strong>interval of convergence</strong>.</li>
+  <li>When the series converges only for $x=0$, we define $R=0$; and we define $R=\infty$ when the series converges for all $x$.</li>
+  <li>Every power series $\sum a_nx^n$ has a radius of convergence $R$, where $0\leq R\leq\infty$, with the property that the series converges absolutely if $\vert x\vert&lt;R$ and diverges if $\vert x\vert&gt;R$.</li>
+</ul>
+
+<p><strong>Example</strong><br />
+Find the interval of convergence of the series
+\begin{equation}
+\sum_{n=0}^{\infty}\dfrac{x^n}{n+1}=1+\dfrac{x}{2}+\dfrac{x^2}{3}+\ldots
+\end{equation}</p>
+
+<p><strong>Solution</strong><br />
+In order to find the interval of convergence of a series, we begin by identifying its radius of convergence.</p>
+
+<p>Consider a power series $\sum a_nx^n$. Suppose that this limit exists, and has $\infty$ as an allowed value, we have
+\begin{equation}
+\lim\dfrac{\vert a_{n+1}x^{n+1}\vert}{a_nx^n}=\lim\left\vert\dfrac{a_{n+1}}{a_n}\right\vert.\vert x\vert=\dfrac{\vert x\vert}{\lim\left\vert\frac{a_n}{a_{n+1}}\right\vert}=L
+\end{equation}</p>
+
+<h2 id="references">References</h2>
+<p>[1] George F.Simmons. <a href="https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424">Calculus With Analytic Geometry - 2nd Edition</a></p>
+
+<p>[2] MIT 18.01. <a href="https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/">Single Variable Calculus</a></p>
+
+<h2 id="footnotes">Footnotes</h2>
+:ET
