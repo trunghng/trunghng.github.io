@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/calculus.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-22T22:21:01+07:00</updated><id>/feed/by_tag/calculus.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/calculus.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-23T06:50:03+07:00</updated><id>/feed/by_tag/calculus.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Power Series</title><link href="/mathematics/calculus/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>/mathematics/calculus/2021/09/21/power-series</id><content type="html" xml:base="/mathematics/calculus/2021/09/21/power-series.html">&lt;blockquote&gt;
-  &lt;p&gt;In the previous post, &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html&quot;&gt;Infinite Series of Constants&lt;/a&gt;, we mentioned a type of series called &lt;strong&gt;power series&lt;/strong&gt; a lot. In the content of this post, we will be diving deeper into details of that series.&lt;/p&gt;
+  &lt;p&gt;Recall that in the previous post, &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html&quot;&gt;Infinite Series of Constants&lt;/a&gt;, we mentioned a type of series called &lt;strong&gt;power series&lt;/strong&gt; a lot. In the content of this post, we will be diving deeper into details of that series.&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;!-- excerpt-end --&gt;
@@ -18,7 +18,12 @@
       &lt;li&gt;&lt;a href=&quot;#eg2&quot;&gt;Example&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#taylor-series-formula&quot;&gt;Taylor Series, Taylor’s Formula&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#taylor-series-formula&quot;&gt;Taylor Series, Taylor’s Formula&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#taylor-series&quot;&gt;Taylor Series&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#taylors-formula&quot;&gt;Taylor’s Formula&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -195,6 +200,43 @@ We have constructed the series \eqref{5} so that its sum is unchanged by differe
 
 &lt;h2 id=&quot;taylor-series-formula&quot;&gt;Taylor Series, Taylor’s Formula&lt;/h2&gt;
 
+&lt;h3 id=&quot;taylor-series&quot;&gt;Taylor Series&lt;/h3&gt;
+&lt;p&gt;Assume that $f(x)$ is the sum of a power series with positive radius of convergence
+\begin{equation}
+f(x)=\sum_{n=0}^{\infty}a_nx^n=a_0+a_1x+a_2x^2+\ldots,\hspace{1cm}R&amp;gt;0\tag{6}\label{6}
+\end{equation}
+By the results obtained from previous section, differentiating \eqref{6} term by term we have
+\begin{align}
+f^{(1)}(x)&amp;amp;=a_1+2a_2x+3a_3x^2+\ldots \\ f^{(2)}(x)&amp;amp;=1.2a_2+2.3a_3x+3.4a_4x^2+\ldots \\ f^{(3)}(x)&amp;amp;=1.2.3a_3+2.3.4a_4x+3.4.5a_5x^2+\ldots
+\end{align}
+and in general,
+\begin{equation}
+f^{(n)}(x)=n!a_n+A(x),\tag{7}\label{7}
+\end{equation}
+where $A(x)$ contains $x$ as a factor.&lt;/p&gt;
+
+&lt;p&gt;Since these series expansions of the derivatives are valid on the open interval $(-R,R)$, putting $x=0$ in \eqref{7} we obtain
+\begin{equation}
+f^{(n)}(0)=n!a_n
+\end{equation}
+so
+\begin{equation}
+a_n=\dfrac{f^{(n)}(0)}{n!}
+\end{equation}
+Putting this result in \eqref{6}, our series becomes
+\begin{equation}
+f(x)=f(0)+f^{(1)}(0)x+\dfrac{f^{(2)}(0)}{2!}x^2+\ldots+\dfrac{f^{(n)}(0)}{n!}x^n+\ldots\tag{8}\label{8}
+\end{equation}
+This power series is called &lt;strong&gt;Taylor series&lt;/strong&gt; of $f(x)$ [at $x=0$], which is named after the person who introduced it, Brook Taylor.&lt;/p&gt;
+
+&lt;p&gt;If we use the convention that $0!=1$, then \eqref{8} can be written as
+\begin{equation}
+f(x)=\sum_{n=0}^{\infty}\dfrac{f^{(n)}(0)}{n!}x^n
+\end{equation}
+The numbers $a_n=\frac{f^{(n)}(0)}{n!}$ are called the &lt;strong&gt;Taylor coefficients&lt;/strong&gt; of $f(x)$.&lt;/p&gt;
+
+&lt;h3 id=&quot;taylors-formula&quot;&gt;Taylor’s Formula&lt;/h3&gt;
+
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] George F.Simmons. &lt;a href=&quot;https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424&quot;&gt;Calculus With Analytic Geometry - 2nd Edition&lt;/a&gt;&lt;/p&gt;
 
@@ -222,7 +264,7 @@ as $x\to a$.&lt;/em&gt; &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefoot
       &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt; &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="calculus" /><category term="mathematics" /><category term="calculus" /><category term="series" /><category term="power-series" /><category term="taylor-series" /><category term="random-stuffs" /><summary type="html">In the previous post, Infinite Series of Constants, we mentioned a type of series called power series a lot. In the content of this post, we will be diving deeper into details of that series.</summary></entry><entry><title type="html">Infinite Series of Constants</title><link href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html" rel="alternate" type="text/html" title="Infinite Series of Constants" /><published>2021-09-06T11:20:00+07:00</published><updated>2021-09-06T11:20:00+07:00</updated><id>/mathematics/calculus/2021/09/06/infinite-series-of-constants</id><content type="html" xml:base="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html">&lt;blockquote&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="calculus" /><category term="mathematics" /><category term="calculus" /><category term="series" /><category term="power-series" /><category term="taylor-series" /><category term="random-stuffs" /><summary type="html">Recall that in the previous post, Infinite Series of Constants, we mentioned a type of series called power series a lot. In the content of this post, we will be diving deeper into details of that series.</summary></entry><entry><title type="html">Infinite Series of Constants</title><link href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html" rel="alternate" type="text/html" title="Infinite Series of Constants" /><published>2021-09-06T11:20:00+07:00</published><updated>2021-09-06T11:20:00+07:00</updated><id>/mathematics/calculus/2021/09/06/infinite-series-of-constants</id><content type="html" xml:base="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html">&lt;blockquote&gt;
   &lt;p&gt;No idea what to say yet :D&lt;/p&gt;
 &lt;/blockquote&gt;
 

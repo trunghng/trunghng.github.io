@@ -7,7 +7,7 @@ tags: mathematics calculus series power-series taylor-series random-stuffs
 description: power series
 comments: true
 ---
-> In the previous post, [Infinite Series of Constants]({% post_url 2021-09-06-infinite-series-of-constants %}), we mentioned a type of series called **power series** a lot. In the content of this post, we will be diving deeper into details of that series.
+> Recall that in the previous post, [Infinite Series of Constants]({% post_url 2021-09-06-infinite-series-of-constants %}), we mentioned a type of series called **power series** a lot. In the content of this post, we will be diving deeper into details of that series.
 
 <!-- excerpt-end -->
 - [Power Series](#power-series)
@@ -18,6 +18,8 @@ comments: true
 	- [Integration of Power Series](#int-power-series)
 	- [Example](#eg2)
 - [Taylor Series, Taylor's Formula](#taylor-series-formula)
+	- [Taylor Series](#taylor-series)
+	- [Taylor's Formula](#taylors-formula)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -195,8 +197,43 @@ We have constructed the series \eqref{5} so that its sum is unchanged by differe
 ## Taylor Series, Taylor's Formula
 {: #taylor-series-formula}
 
+### Taylor Series
+Assume that $f(x)$ is the sum of a power series with positive radius of convergence
+\begin{equation}
+f(x)=\sum_{n=0}^{\infty}a_nx^n=a_0+a_1x+a_2x^2+\ldots,\hspace{1cm}R>0\tag{6}\label{6}
+\end{equation}
+By the results obtained from previous section, differentiating \eqref{6} term by term we have
+\begin{align}
+f^{(1)}(x)&=a_1+2a_2x+3a_3x^2+\ldots \\\\ f^{(2)}(x)&=1.2a_2+2.3a_3x+3.4a_4x^2+\ldots \\\\ f^{(3)}(x)&=1.2.3a_3+2.3.4a_4x+3.4.5a_5x^2+\ldots
+\end{align}
+and in general,
+\begin{equation}
+f^{(n)}(x)=n!a_n+A(x),\tag{7}\label{7}
+\end{equation}
+where $A(x)$ contains $x$ as a factor.  
 
+Since these series expansions of the derivatives are valid on the open interval $(-R,R)$, putting $x=0$ in \eqref{7} we obtain
+\begin{equation}
+f^{(n)}(0)=n!a_n
+\end{equation}
+so
+\begin{equation}
+a_n=\dfrac{f^{(n)}(0)}{n!}
+\end{equation}
+Putting this result in \eqref{6}, our series becomes
+\begin{equation}
+f(x)=f(0)+f^{(1)}(0)x+\dfrac{f^{(2)}(0)}{2!}x^2+\ldots+\dfrac{f^{(n)}(0)}{n!}x^n+\ldots\tag{8}\label{8}
+\end{equation}
+This power series is called **Taylor series** of $f(x)$ [at $x=0$], which is named after the person who introduced it, Brook Taylor.  
 
+If we use the convention that $0!=1$, then \eqref{8} can be written as
+\begin{equation}
+f(x)=\sum_{n=0}^{\infty}\dfrac{f^{(n)}(0)}{n!}x^n
+\end{equation}
+The numbers $a_n=\frac{f^{(n)}(0)}{n!}$ are called the **Taylor coefficients** of $f(x)$.
+
+### Taylor's Formula
+{: #taylors-formula}
 
 
 
@@ -221,7 +258,6 @@ We have constructed the series \eqref{5} so that its sum is unchanged by differe
 	as $x\to a$.*  
 
 [^2]: **Proof**  
-
 
 
 
