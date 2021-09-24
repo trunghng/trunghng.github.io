@@ -140,7 +140,8 @@ This implies that
 \begin{equation}
 \vert na_nx^{n-1}\vert\leq\vert a_n\left(\vert x\vert+\epsilon\right)^n\vert
 \end{equation}
-By the [comparison test]({% post_url 2021-09-06-infinite-series-of-constants %}#comparison-test), we have that the series $\sum\vert na_nx^{n-1}\vert$ converges, and so does $\sum na_nx^{n-1}$.
+By the [comparison test]({% post_url 2021-09-06-infinite-series-of-constants %}#comparison-test), we have that the series $\sum\vert na_nx^{n-1}\vert$ converges, and so does $\sum na_nx^{n-1}$.  
+
 2. Since $\sum\vert a_nx^n\vert$ converges and
 \begin{equation}
 \left\vert\dfrac{a_nx^n}{n+1}\right\vert\leq\vert a_nx^n\vert,
@@ -230,13 +231,73 @@ If we use the convention that $0!=1$, then \eqref{8} can be written as
 \begin{equation}
 f(x)=\sum_{n=0}^{\infty}\dfrac{f^{(n)}(0)}{n!}x^n
 \end{equation}
-The numbers $a_n=\frac{f^{(n)}(0)}{n!}$ are called the **Taylor coefficients** of $f(x)$.
+The numbers $a_n=\frac{f^{(n)}(0)}{n!}$ are called the **Taylor coefficients** of $f(x)$.  
+
+**Remark**  
+Given a function $f(x)$ that is infinitely differentiable in some interval containing the point $x=0$, we have already examined the possibility of expanding this function as a power series in $x$. More generally, if $f(x)$ is infinitely differentiable in some interval containing the point $x=a$, is there any possibility for the power series expansion of $f(x)$ in $x-a$ instead of $x$?  
+\begin{equation}
+f(x)=\sum_{n=0}^{\infty}a_n(x-a)^n=a_0+a_1(x-a)+a_2(x-a)^2+\ldots
+\end{equation}
+Let $w=x-a$, and $g(w)=f(x)$, we have that $g^{(n)}(0)=f^{(n)}(a)$. Thus, the Taylor series of $f(x)$ in power of $x-a$ (or at $x=a$) is
+\begin{align}
+f(x)&=\sum_{n=0}^{\infty}\dfrac{f^{(n)}(a)}{n!}(x-a)^n \\\\ &=f(a)+f^{(1)}(a)(x-a)+\dfrac{f^{(2)}(a)}{2!}(x-a)^2+\ldots+\dfrac{f^{(n)}(a)}{n!}(x-a)^n+\ldots\tag{9}\label{9}
+\end{align}
 
 ### Taylor's Formula
 {: #taylors-formula}
+If we break off the Taylor series on the right side of \eqref{8} at the term containing $x^n$ and define the *remainder* $R_n(x)$ by the equation
+\begin{equation}
+f(x)=f(0)+f^{(1)}(0)x+\dfrac{f^{(2)}(0)}{2!}x^2+\ldots+\dfrac{f^{(n)}(0)}{n!}x^n+R_n(x),\tag{10}\label{10}
+\end{equation}
+then the Taylor series on the right side of \eqref{8} converges to the function $f(x)$ as $n$ tends to infinity precisely when
+\begin{equation}
+\lim_{n\to\infty}R_n(x)=0
+\end{equation}
+Since $R_n(x)$ contains $x^{n+1}$ as a factor, we can define a function $S_n(x)$ by writing
+\begin{equation}
+R_n(x)=S_n(x)x^{n+1}
+\end{equation}
+for $x\neq 0$. Next, we keep $x$ fixed and define a function $F(t)$ for $0\leq t\leq x$ (or $x\leq t\leq 0$) by writing
+\begin{multline}
+F(t)=f(x)-f(t)-f^{(1)}(t)(x-t)-\dfrac{f^{(2)}(t)}{2!}(x-t)^2-\ldots \\\\ -\dfrac{f^{(n)}(t)}{n!}(x-t)^n-S_n(x)(x-t)^{n+1}
+\end{multline}
+It is easily seen that $F(x)=0$. Also, from equation \eqref{10}, we have that $F(0)=0$. Then by the *Mean Value Theorem*[^3], $F'(c)=0$ for some constant $c$ between $0$ and $x$.  
 
+By differentiating $F(t)$ w.r.t $t$, and evaluate it at $t=c$, we have
+\begin{equation}
+F'(c)=-\dfrac{f^{(n+1)}(c)}{n!}(x-c)^n+S_n(x)(n+1)(x-c)^n=0
+\end{equation}
+so
+\begin{equation}
+S_n(x)=\dfrac{f^{(n+1)}(c)}{(n+1)!}
+\end{equation}
+and
+\begin{equation}
+R_n(x)=S_n(x)x^{n+1}=\dfrac{f^{(n+1)}(c)}{(n+1)!}x^{n+1}
+\end{equation}
+which makes \eqref{10} become
+\begin{equation}
+f(x)=f(0)+f^{(1)}(0)x+\dfrac{f^{(2)}(0)}{2!}x^2+\ldots+\dfrac{f^{(n)}(0)}{n!}x^n+\dfrac{f^{(n+1)}(c)}{(n+1)!}x^{n+1},
+\end{equation}
+where $c$ is some number between $0$ and $x$. This equation is called **Taylor's formula with derivative remainder**.  
 
+Moreover, with this formula we can rewrite \eqref{9} as
+\begin{multline}
+f(x)=f(a)+f^{(1)}(a)(x-a)+\dfrac{f^{(2)}(a)}{2!}(x-a)^2+\ldots \\\\ +\dfrac{f^{(n)}(a)}{n!}(x-a)^n+\dfrac{f^{(n+1)}(a)}{(n+1)!}(x-a)^{n+1},\tag{11}\label{11}
+\end{multline}
+where $c$ is some number between $a$ and $x$.  
 
+The polynomial part of \eqref{11}
+\begin{equation}
+\sum_{j=0}^{n}\dfrac{f^{(j)}(a)}{j!}(x-a)^j=f(a)+f^{(1)}(a)(x-a)+\dfrac{f^{(2)}(a)}{2!}(x-a)^2+\ldots+\dfrac{f^{(n)}(a)}{n!}(x-a)^n
+\end{equation}
+is called the **nth-degree Taylor polynomial at** $x=a$.  
+
+On the other hand, the remainder part of \eqref{11}
+\begin{equation}
+R_n(x)=\dfrac{f^{(n+1)}(a)}{(n+1)!}(x-a)^{n+1}
+\end{equation}
+is often called **Lagrange's remainder formula**.
 
 ## References
 [1] George F.Simmons. [Calculus With Analytic Geometry - 2nd Edition](https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424)  
@@ -285,4 +346,10 @@ The numbers $a_n=\frac{f^{(n)}(0)}{n!}$ are called the **Taylor coefficients** o
 	\begin{equation}
 	\dfrac{f(x)}{e^x}=c,
 	\end{equation}
-	for some constant $c$, and so $f(x)=ce^x$.
+	for some constant $c$, and so $f(x)=ce^x$.  
+
+[^3]: **Theorem** (*Mean Value Theorem*)  
+	*If a function $f(x)$ is continuous on the closed interval $[a,b]$ and differentiable in the open interval $(a,b)$, then there exists at least one number $c$ between $a$ and $b$ with the property that*
+	\begin{equation}
+	f'(c)=\frac{f(b)-f(a)}{b-a}
+	\end{equation}
