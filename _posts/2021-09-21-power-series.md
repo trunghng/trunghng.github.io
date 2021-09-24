@@ -20,6 +20,10 @@ comments: true
 - [Taylor Series, Taylor's Formula](#taylor-series-formula)
 	- [Taylor Series](#taylor-series)
 	- [Taylor's Formula](#taylors-formula)
+- [Operations on Power Series](#op-power-series)
+	- [Multiplication](#mult)
+	- [Division](#div)
+	- [Substitution](#sub)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -288,16 +292,78 @@ f(x)=f(a)+f^{(1)}(a)(x-a)+\dfrac{f^{(2)}(a)}{2!}(x-a)^2+\ldots \\\\ +\dfrac{f^{(
 where $c$ is some number between $a$ and $x$.  
 
 The polynomial part of \eqref{11}
-\begin{equation}
-\sum_{j=0}^{n}\dfrac{f^{(j)}(a)}{j!}(x-a)^j=f(a)+f^{(1)}(a)(x-a)+\dfrac{f^{(2)}(a)}{2!}(x-a)^2+\ldots+\dfrac{f^{(n)}(a)}{n!}(x-a)^n
-\end{equation}
+\begin{multline}
+\sum_{j=0}^{n}\dfrac{f^{(j)}(a)}{j!}(x-a)^j=f(a)+f^{(1)}(a)(x-a) \\\\ +\dfrac{f^{(2)}(a)}{2!}(x-a)^2+\ldots+\dfrac{f^{(n)}(a)}{n!}(x-a)^n
+\end{multline}
 is called the **nth-degree Taylor polynomial at** $x=a$.  
 
 On the other hand, the remainder part of \eqref{11}
 \begin{equation}
 R_n(x)=\dfrac{f^{(n+1)}(a)}{(n+1)!}(x-a)^{n+1}
 \end{equation}
-is often called **Lagrange's remainder formula**.
+is often called **Lagrange's remainder formula**.  
+
+**Remark**  
+It is worth remarking that power series expansions are *unique*. This means that if a function $f(x)$ can be expressed as a sum of a power series by *any method*, then this series must be the Taylor series of $f(x)$.
+
+## Operations on Power Series
+{: #op-power-series}
+
+### Multiplication
+{: #mult}
+Suppose we are given two power series expansions
+\begin{align}
+f(x)&=\sum a_nx^n=a_0+a_1x+a_2x^2+a_3x^3+\ldots\tag{12}\label{12} \\\\ g(x)&=\sum b_nx^n=b_0+b_1x+b_2x^2+b_3x^3+\ldots\tag{13}\label{13}
+\end{align}
+both valid on $(-R,R)$. If we multiply these two series term by term, we obtain the power series
+\begin{multline}
+a_0b_0+(a_0b_1+a_1b_0)x+(a_0b_2+a_1b_1+a_2b_0)x^2 \\\\ +(a_0b_3+a_1b_2+a_2b_1+a_3b_0)x^3+\ldots
+\end{multline}
+Briefly, we have multiplied \eqref{12} and \eqref{13} to obtain
+\begin{equation}
+f(x)g(x)=\sum_{n=0}^{\infty}\left(\sum_{k=0}^{n}a_kb_{n-k}\right)x^n\tag{14}\label{14}
+\end{equation}
+By the **Theorem 10** from [Absolute vs Conditionally Convergence]({% post_url 2021-09-06-infinite-series-of-constants %}#abs-vs-cond), we have that this product of the series \eqref{12} and \eqref{13} actually converges on the interval $(-R,R)$ to the product of the functions $f(x)$ and $g(x)$, as indicated by \eqref{14}.
+
+### Division
+{: #div}
+With the two series \eqref{12} and \eqref{13}, we have
+\begin{equation}
+\dfrac{\sum a_nx^n}{\sum b_nx^n}=\left(\sum a_nx^n\right).\left(\dfrac{1}{\sum b_nx^n}\right)
+\end{equation}
+This suggests us that if we can expand $\frac{1}{\sum b_nx^n}$ in a power series with positive radius of convergence $\sum c_nx^n$, and multiply this series by $\sum a_nx^n$, we can compute the division of our two series $\sum a_nx^n$ and $\sum b_nx^n$.  
+
+To do the division properly, it is necessary to assume that $b_0\neq0$ (for the case $x=0$). Moreover, without any loss of generality, we may assume that $b_0=1$, because with the assumption that $b_0\neq0$, we simply factor it out
+\begin{equation}
+\dfrac{1}{b_0+b_1x+b_2x^2+\ldots}=\dfrac{1}{b_0}.\dfrac{1}{1+\frac{b_1}{b_0}x+\frac{b_2}{b_0}x^2+\ldots}
+\end{equation}
+
+We begin by determining the $c_n$'s. Since $\frac{1}{\sum b_nx^n}=\sum c_nx^n$, then $(\sum b_nx^n)(\sum c_nx^n)=1$, so
+\begin{multline}
+b_0c_0+(b_0c_1+b_1c_0)x+(b_0c_2+b_1c_1+b_2c_0)x^2+\ldots \\\\ +(b_0c_n+b_1c_{n-1}+\ldots+b_nc_0)x^n+\ldots=1,
+\end{multline}
+and since $b_0=1$, we can determine the $c_n$'s recursively
+\begin{align}
+c_0&=1 \\\\ c_1&=-b_1c_0 \\\\ c_2&=-b_1c_1-b_2c_0 \\\\ &\vdots \\\\ c_n&=-b_1c_{n-1}-b_2c_{n-2}-\ldots-b_nc_0 \\\\ &\vdots
+\end{align}
+Now our work reduces to proving that the power series $\sum c_nx^n$ with these coefficients has positive radius of convergence, and for this it suffices to show that the series converges for at least one nonzero $x$.  
+
+Let $r$ be any number such that $0\<r\<R$, so that $\sum b_nr^n$ converges. Then there exists a constant $K\geq 1$ with the property that $\vert b_nr^n\vert\leq K$ or $\vert b_n\vert\leq\frac{K}{r^n}$ for all $n$. Therefore,
+\begin{align}
+\vert c_0\vert&=1\leq K, \\\\ \vert c_1\vert&=\vert b_1c_0\vert=\vert b_1\vert\leq \dfrac{K}{r}, \\\\ \vert c_2\vert&\leq\vert b_1c_1\vert+\vert b_2c_0\vert\leq\dfrac{K}{r}.\dfrac{K}{r}+\dfrac{K}{r^2}.K=\dfrac{2K^2}{r^2}, \\\\ \vert c_3\vert&\leq\vert b_1c_2\vert+\vert b_2c_1\vert+\vert b_3c_0\vert\leq\dfrac{K}{r}.\dfrac{2K^2}{r^2}+\dfrac{K}{r^2}.\dfrac{K}{r}+\dfrac{K}{r^3}.K \\\\ &\hspace{5.3cm}\leq(2+1+1)\dfrac{K^3}{r^3}=\dfrac{4K^3}{r^3}=\dfrac{2^2K^3}{r^3},
+\end{align}
+since $K^2\leq K^3$ since $K\geq1$. In general,
+\begin{align}
+\vert c_n\vert&\leq\vert c_1b_{n-1}\vert+\vert c_2b_{n-2}\vert+\ldots+\vert b_nc_0\vert \\\\ &\leq\dfrac{K}{r}.\dfrac{2^{n-2}K^{n-1}}{r^{n-1}}+\dfrac{K}{r^2}.\dfrac{2^{n-3}K^{n-2}}{r^{n-2}}+\ldots+\dfrac{K}{r^n}.K \\\\ &\leq(2^{n-2}+2^{n-3}+\ldots+1+1)\dfrac{K^n}{r^n}=\dfrac{2^{n-1}K^n}{r^n}\leq\dfrac{2^nK^n}{r^n}
+\end{align}
+Hence, for any $x$ such that $\vert x\vert<\frac{r}{2K}$, we have that the series $\sum c_nx^n$ converges absolutely, and therefore converges, or in other words, $\sum c_nx^n$ has nonzero radius of convergence.
+
+### Substitution
+{: #sub}
+
+
+
+
 
 ## References
 [1] George F.Simmons. [Calculus With Analytic Geometry - 2nd Edition](https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424)  
