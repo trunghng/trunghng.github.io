@@ -237,6 +237,7 @@ The numbers $a_n=\frac{f^{(n)}(0)}{n!}$ are called the **Taylor coefficients** o
 
 
 
+
 ## References
 [1] George F.Simmons. [Calculus With Analytic Geometry - 2nd Edition](https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424)  
 
@@ -258,6 +259,30 @@ The numbers $a_n=\frac{f^{(n)}(0)}{n!}$ are called the **Taylor coefficients** o
 	as $x\to a$.*  
 
 [^2]: **Proof**  
-
-
-
+	Consider the function $f(x)=a^x$.  
+	Using the definition of the derivative, we have
+	\begin{align}
+	\dfrac{d}{dx}f(x)&=\lim_{h\to0}\dfrac{f(x+h)-f(x)}{h} \\\\ &=\lim_{h\to0}\dfrac{a^{x+h}-a^x}{h} \\\\ &=a^x\lim_{h\to0}\dfrac{a^h-1}{h}
+	\end{align}
+	Therefore,
+	\begin{equation}
+	\lim_{h\to0}\dfrac{a^h-1}{h}=1
+	\end{equation}
+	then, let $n=\frac{1}{h}$, we have
+	\begin{equation}
+	a=\lim_{h\to0}\left(1+\dfrac{1}{h}\right)^{1/h}=\lim_{n\to\infty}\left(1+\dfrac{1}{n}\right)^n={\rm e}
+	\end{equation}
+	Thus, $f(x)=a^x={\rm e}^x$. Every function $y=c{\rm e}^x$ also satisfies the differential equation $\frac{dy}{dx}=y$, because
+	\begin{equation}
+	\dfrac{dy}{dx}=\dfrac{d}{dx}c{\rm e}^x=c\dfrac{d}{dx}{\rm e}^x=c{\rm e}^x=y
+	\end{equation}  
+	The rest of our proof is to prove that these are only functions that are unchanged by differentiation.  
+	To prove this, suppose $f(x)$ is any function with that property. By the quotient rule,
+	\begin{equation}
+	\dfrac{d}{dx}\dfrac{f(x)}{e^x}=\dfrac{f'(x)e^x-e^xf(x)}{e^{2x}}=\dfrac{e^xf(x)-e^xf(x)}{e^{2x}}=0
+	\end{equation}
+	which implies that
+	\begin{equation}
+	\dfrac{f(x)}{e^x}=c,
+	\end{equation}
+	for some constant $c$, and so $f(x)=ce^x$.
