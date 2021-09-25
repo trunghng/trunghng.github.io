@@ -26,6 +26,9 @@ comments: true
 	- [Substitution](#sub)
 	- [Even and Odd Functions](#even-odd-funcs)
 - [Uniform Convergence for Power Series](#uni-conv-power-series)
+	- [Continuity of the Sum](#cont-sum)
+	- [Integrating term by term](#int)
+	- [Differentiating term by term](#dif)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -157,10 +160,6 @@ the [comparison test]({% post_url 2021-09-06-infinite-series-of-constants %}#com
 x\sum\frac{a_nx^n}{n+1}=\sum\frac{1}{n+1}a_nx^{n+1}
 \end{equation}
 also converges.
-
-
-
-
 
 ### Differentiation of Power Series
 {: #dif-power-series}
@@ -400,8 +399,104 @@ since if $f(x)=\sum_{n=0}^{\infty}a_nx^n$ is even, then $\sum_{n=0}^{\infty}a_nx
 
 ## Uniform Convergence for Power Series
 {: #uni-conv-power-series}
+Consider a power series $\sum a_nx^n$ with positive radius of convergence $R$, and let $f(x)$ be its sum.  
 
+In the [section](#dif-int-power-series) above, we stated that $f(x)$ is continuous and differentiable on $(-R,R)$, and we can differentiate and integrate it term by term. So let's prove these statements!  
 
+Let $S_n(x)$ be the $n$-th partial sum of the series, so that
+\begin{equation}
+S_n(x)=\sum_{i=0}^{n}a_ix^i=a_0+a_1x+a_2x^2+\ldots+a_nx^n
+\end{equation}
+Similar to what we did in [Taylor's formula](#taylors-formula), we write
+\begin{equation}
+f(x)=S_n(x)+R_n(x)
+\end{equation}
+Thus, the remainder
+\begin{equation}
+R_n(x)=a_{n+1}x^{n+1}+a_{n+2}x^{n+2}+\ldots
+\end{equation}
+
+For each $x$ in the interval of convergence, we know that $R_n(x)\to0$ as $n\to\infty$; that is, for any given $\epsilon>0$, and for an integer $n_0$ large enough, we have
+\begin{equation}
+\vert R_n(x)\vert<\epsilon\hspace{1cm}n\geq n_0,\tag{17}\label{17}
+\end{equation}
+This is true for each $x$ individually, and is an equivalent way of expressing the fact that $\sum a_nx^n$ converges to $f(x)$.  
+
+Moreover, for every $x$ in the given a closed interval $\vert x\vert\leq\vert x_1\vert\<R$, we have
+\begin{align}
+\vert R_n(x)\vert&=\left\vert a_{n+1}x^{n+1}+a_{n+2}x^{n+2}+\ldots\right\vert \\\\ &\leq\left\vert a_{n+1}x^{n+1}\right\vert+\left\vert a_{n+2}x^{n+2}\right\vert+\ldots \\\\ &\leq\left\vert a_{n+1}{x_1}^{n+1}\right\vert+\left\vert a_{n+2}{x_1}^{n+2}\right\vert+\ldots
+\end{align}
+Because of the [absolute convergence]({% post_url 2021-09-06-infinite-series-of-constants %}#abs-conv) of $\sum a_n{x_1}^n$, the last sum can be made $<\epsilon$ by taking $n$ large enough, $n\geq n_0$. Therefore, we have that \eqref{17} holds for all $x$ inside the closed interval $\vert x\vert\leq\vert x_1\vert$ inside the interval of convergence $(-R,R)$.  
+
+Or in other words, $R_n(x)$ can be made small *independently of $x$ in the given closed interval* $\vert x\vert\leq\vert x_1\vert$, which is equivalent to saying that the series $\sum a_nx^n$ is **uniformly convergent** in this interval[^4].
+
+### Continuity of the Sum
+{: #cont-sum}
+In order to prove that $f(x)$ is continuous on $(-R,R)$, it suffices to prove that $f(x)$ is continuous at each point $x_0$ in the interval of convergence.  
+
+Consider a closed subinterval $\vert x\vert\leq\vert x_1\vert\<R$ containing $x_0$ in its interior. If $\epsilon>0$ is given, then by uniform convergence we can find an $n$ such that $\vert R_n(x)\vert<\epsilon$ for all $x$'s in the subinterval.  
+
+Since the polynomial $S_n(x)$ is continuous at $x_0$, we can find $\delta>0$ small that $\vert x-x_0\vert<\delta$ implies $x$ lies in the subinterval and $\vert S_n(x)-S_n(x_0)\vert<\epsilon$. Putting these conditions together we find that $\vert x-x_0\vert<\delta$ implies
+\begin{align}
+\vert f(x)-f(x_0)\vert&=\left\vert S_n(x)+R_n(x)-\left(S_n(x_0)+R_n(x_0)\right)\right\vert \\\\ &=\left\vert\left(S_n(x)-S_n(x_0)\right)+R_n(x)-R_n(x_0)\right\vert \\\\ &\leq\left\vert S_n(x)-S_n(x_0)\right\vert+\left\vert R_n(x)\right\vert+\left\vert R_n(x_0)\right\vert \\\\ &<\epsilon+\epsilon+\epsilon=3\epsilon
+\end{align}
+which proves the continuity of $f(x)$ at $x_0$.
+
+### Integrating term by term
+{: #int}
+With what we have just proved that $f(x)=\sum a_nx^n$ is continuous on $(-R,R)$, we can therefore integrate this function between $a$ and $b$ that lie inside the interval
+\begin{equation}
+\int_{a}^{b}f(x)\,dx=\int_{a}^{b}\left(\sum a_nx^n\right)\,dx
+\end{equation}
+We need to prove that the right side of this equation can be integrated term by term, which is
+\begin{equation}
+\int_{a}^{b}f(x)\,dx=\int_{a}^{b}\left(\sum a_nx^n\right)\,dx=\sum\int_{a}^{b}a_nx^n\,dx\tag{18}\label{18}
+\end{equation}
+In order to prove this, we begin by observing that $S_n(x)$ is a polynomial, and for that reason it is continuous. Thus, all there of the functions in
+\begin{equation}
+f(x)=S_n(x)+R_n(x)
+\end{equation}
+are continuous on $(-R,R)$. This allows us to write
+\begin{equation}
+\int_{a}^{b}f(x)\,dx=\int_{a}^{b}S_n(x)\,dx+\int_{a}^{b}R_n(x)\,dx
+\end{equation}
+Moreover, we can integrate $S_n(x)$ term by term
+\begin{align}
+\int_{a}^{b}S_n(x)\,dx&=\int_{a}^{b}\left(a_0+a_1x+a_2x^2+\ldots+a_nx^n\right)\,dx \\\\ &=\int_{a}^{b}a_0\,dx+\int_{a}^{b}a_1x\,dx+\int_{a}^{b}a_2x^2\,dx+\ldots+\int_{a}^{b}a_nx^n\,dx
+\end{align}
+To prove \eqref{18}, it therefore suffices to show that as $n\to\infty$
+\begin{equation}
+\int_{a}^{b}R_n(x)\,dx\to 0
+\end{equation}
+By uniform convergence, if $\epsilon>0$ is given and $\vert x\vert\leq\vert x_1\vert\<R$ is a closed subinterval of $(-R,R)$ that contains both $a,b$, then $\vert R_n(x)\vert<\epsilon$ for all $x$ in the subinterval and $n$ large enough. Hence,
+\begin{equation}
+\left\vert\int_{a}^{b}R_n(x)\,dx\right\vert\leq\int_{a}^{b}\left\vert R_n(x)\right\vert\,dx<\epsilon\vert b-a\vert
+\end{equation}
+for any $n$ large enough, which proves our statement.  
+
+As a special case of \eqref{18}, we take the limits $0$ and $x$ instead of $a$ and $b$, and obtain
+\begin{align}
+\int_{a}^{b}f(t)\,dt&=\sum\dfrac{1}{n+1}a_nx^{n+1} \\\\ &=a_0x+\dfrac{1}{2}a_1x^2+\dfrac{1}{3}a_2x^3+\ldots+\dfrac{1}{n+1}a_nx^{n+1}+\ldots\tag{19}\label{19}
+\end{align}
+
+### Differentiating term by term
+{: #dif}
+We now prove that the function $f(x)$ is not only continuous but also differentiable on $(-R,R)$, and that its derivative can be calculated by differentiating term by term
+\begin{equation}
+f'(x)=\sum na_nx^{n-1}
+\end{equation}
+It is easily seen that the series on right side of this equation is exact the series on the right side of \eqref{3}, which is convergent on $(-R,R)$ as we proved. If we denote its sum by $g(x)$
+\begin{equation}
+g(x)=\sum na_nx^{n-1}=a_1+2a_2x+3a_3x^2+\ldots+na_nx^{n-1}+\ldots,
+\end{equation}
+then \eqref{19} tells us that
+\begin{align}
+\int_{0}^{x}g(t)\,dt&=a_1x+a_2x^2+a_3x^3+\ldots \\\\ &=f(x)-a_0
+\end{align}
+Since the left side of this has a derivative, so does the right side, and by differentiating we obtain
+\begin{equation}
+f'(x)=g(x)=\sum na_nx^{n-1}
+\end{equation}
 
 ## References
 [1] George F.Simmons. [Calculus With Analytic Geometry - 2nd Edition](https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424)  
@@ -456,4 +551,6 @@ since if $f(x)=\sum_{n=0}^{\infty}a_nx^n$ is even, then $\sum_{n=0}^{\infty}a_nx
 	*If a function $f(x)$ is continuous on the closed interval $[a,b]$ and differentiable in the open interval $(a,b)$, then there exists at least one number $c$ between $a$ and $b$ with the property that*
 	\begin{equation}
 	f'(c)=\frac{f(b)-f(a)}{b-a}
-	\end{equation}
+	\end{equation}  
+
+[^4]: We will talk more about uniform convergence in the post of sequences.

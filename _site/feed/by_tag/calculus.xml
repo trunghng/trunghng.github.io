@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/calculus.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-25T07:22:26+07:00</updated><id>/feed/by_tag/calculus.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/calculus.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-25T13:44:41+07:00</updated><id>/feed/by_tag/calculus.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Power Series</title><link href="/mathematics/calculus/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>/mathematics/calculus/2021/09/21/power-series</id><content type="html" xml:base="/mathematics/calculus/2021/09/21/power-series.html">&lt;blockquote&gt;
   &lt;p&gt;Recall that in the previous post, &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html&quot;&gt;Infinite Series of Constants&lt;/a&gt;, we mentioned a type of series called &lt;strong&gt;power series&lt;/strong&gt; a lot. In the content of this post, we will be diving deeper into details of that series.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -32,7 +32,13 @@
       &lt;li&gt;&lt;a href=&quot;#even-odd-funcs&quot;&gt;Even and Odd Functions&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#uni-conv-power-series&quot;&gt;Uniform Convergence for Power Series&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#uni-conv-power-series&quot;&gt;Uniform Convergence for Power Series&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#cont-sum&quot;&gt;Continuity of the Sum&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#int&quot;&gt;Integrating term by term&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#dif&quot;&gt;Differentiating term by term&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -402,6 +408,101 @@ and if $f(x)$ is an odd function, then its Taylor series has the form
 since if $f(x)=\sum_{n=0}^{\infty}a_nx^n$ is even, then $\sum_{n=0}^{\infty}a_nx^n=\sum_{n=0}^{\infty}(-1)^na_nx^n$, so by the uniqueness of the Taylor series expansion, we have that $a_n=(-1)^na_n$; similarly, $a_n=(-1)^{n+1}a_n$ if $f(x)$ is an odd function.&lt;/p&gt;
 
 &lt;h2 id=&quot;uni-conv-power-series&quot;&gt;Uniform Convergence for Power Series&lt;/h2&gt;
+&lt;p&gt;Consider a power series $\sum a_nx^n$ with positive radius of convergence $R$, and let $f(x)$ be its sum.&lt;/p&gt;
+
+&lt;p&gt;In the &lt;a href=&quot;#dif-int-power-series&quot;&gt;section&lt;/a&gt; above, we stated that $f(x)$ is continuous and differentiable on $(-R,R)$, and we can differentiate and integrate it term by term. So let’s prove these statements!&lt;/p&gt;
+
+&lt;p&gt;Let $S_n(x)$ be the $n$-th partial sum of the series, so that
+\begin{equation}
+S_n(x)=\sum_{i=0}^{n}a_ix^i=a_0+a_1x+a_2x^2+\ldots+a_nx^n
+\end{equation}
+Similar to what we did in &lt;a href=&quot;#taylors-formula&quot;&gt;Taylor’s formula&lt;/a&gt;, we write
+\begin{equation}
+f(x)=S_n(x)+R_n(x)
+\end{equation}
+Thus, the remainder
+\begin{equation}
+R_n(x)=a_{n+1}x^{n+1}+a_{n+2}x^{n+2}+\ldots
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;For each $x$ in the interval of convergence, we know that $R_n(x)\to0$ as $n\to\infty$; that is, for any given $\epsilon&amp;gt;0$, and for an integer $n_0$ large enough, we have
+\begin{equation}
+\vert R_n(x)\vert&amp;lt;\epsilon\hspace{1cm}n\geq n_0,\tag{17}\label{17}
+\end{equation}
+This is true for each $x$ individually, and is an equivalent way of expressing the fact that $\sum a_nx^n$ converges to $f(x)$.&lt;/p&gt;
+
+&lt;p&gt;Moreover, for every $x$ in the given a closed interval $\vert x\vert\leq\vert x_1\vert&amp;lt;R$, we have
+\begin{align}
+\vert R_n(x)\vert&amp;amp;=\left\vert a_{n+1}x^{n+1}+a_{n+2}x^{n+2}+\ldots\right\vert \\ &amp;amp;\leq\left\vert a_{n+1}x^{n+1}\right\vert+\left\vert a_{n+2}x^{n+2}\right\vert+\ldots \\ &amp;amp;\leq\left\vert a_{n+1}{x_1}^{n+1}\right\vert+\left\vert a_{n+2}{x_1}^{n+2}\right\vert+\ldots
+\end{align}
+Because of the &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#abs-conv&quot;&gt;absolute convergence&lt;/a&gt; of $\sum a_n{x_1}^n$, the last sum can be made $&amp;lt;\epsilon$ by taking $n$ large enough, $n\geq n_0$. Therefore, we have that \eqref{17} holds for all $x$ inside the closed interval $\vert x\vert\leq\vert x_1\vert$ inside the interval of convergence $(-R,R)$.&lt;/p&gt;
+
+&lt;p&gt;Or in other words, $R_n(x)$ can be made small &lt;em&gt;independently of $x$ in the given closed interval&lt;/em&gt; $\vert x\vert\leq\vert x_1\vert$, which is equivalent to saying that the series $\sum a_nx^n$ is &lt;strong&gt;uniformly convergent&lt;/strong&gt; in this interval&lt;sup id=&quot;fnref:4&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:4&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;cont-sum&quot;&gt;Continuity of the Sum&lt;/h3&gt;
+&lt;p&gt;In order to prove that $f(x)$ is continuous on $(-R,R)$, it suffices to prove that $f(x)$ is continuous at each point $x_0$ in the interval of convergence.&lt;/p&gt;
+
+&lt;p&gt;Consider a closed subinterval $\vert x\vert\leq\vert x_1\vert&amp;lt;R$ containing $x_0$ in its interior. If $\epsilon&amp;gt;0$ is given, then by uniform convergence we can find an $n$ such that $\vert R_n(x)\vert&amp;lt;\epsilon$ for all $x$’s in the subinterval.&lt;/p&gt;
+
+&lt;p&gt;Since the polynomial $S_n(x)$ is continuous at $x_0$, we can find $\delta&amp;gt;0$ small that $\vert x-x_0\vert&amp;lt;\delta$ implies $x$ lies in the subinterval and $\vert S_n(x)-S_n(x_0)\vert&amp;lt;\epsilon$. Putting these conditions together we find that $\vert x-x_0\vert&amp;lt;\delta$ implies
+\begin{align}
+\vert f(x)-f(x_0)\vert&amp;amp;=\left\vert S_n(x)+R_n(x)-\left(S_n(x_0)+R_n(x_0)\right)\right\vert \\ &amp;amp;=\left\vert\left(S_n(x)-S_n(x_0)\right)+R_n(x)-R_n(x_0)\right\vert \\ &amp;amp;\leq\left\vert S_n(x)-S_n(x_0)\right\vert+\left\vert R_n(x)\right\vert+\left\vert R_n(x_0)\right\vert \\ &amp;amp;&amp;lt;\epsilon+\epsilon+\epsilon=3\epsilon
+\end{align}
+which proves the continuity of $f(x)$ at $x_0$.&lt;/p&gt;
+
+&lt;h3 id=&quot;int&quot;&gt;Integrating term by term&lt;/h3&gt;
+&lt;p&gt;With what we have just proved that $f(x)=\sum a_nx^n$ is continuous on $(-R,R)$, we can therefore integrate this function between $a$ and $b$ that lie inside the interval
+\begin{equation}
+\int_{a}^{b}f(x)\,dx=\int_{a}^{b}\left(\sum a_nx^n\right)\,dx
+\end{equation}
+We need to prove that the right side of this equation can be integrated term by term, which is
+\begin{equation}
+\int_{a}^{b}f(x)\,dx=\int_{a}^{b}\left(\sum a_nx^n\right)\,dx=\sum\int_{a}^{b}a_nx^n\,dx\tag{18}\label{18}
+\end{equation}
+In order to prove this, we begin by observing that $S_n(x)$ is a polynomial, and for that reason it is continuous. Thus, all there of the functions in
+\begin{equation}
+f(x)=S_n(x)+R_n(x)
+\end{equation}
+are continuous on $(-R,R)$. This allows us to write
+\begin{equation}
+\int_{a}^{b}f(x)\,dx=\int_{a}^{b}S_n(x)\,dx+\int_{a}^{b}R_n(x)\,dx
+\end{equation}
+Moreover, we can integrate $S_n(x)$ term by term
+\begin{align}
+\int_{a}^{b}S_n(x)\,dx&amp;amp;=\int_{a}^{b}\left(a_0+a_1x+a_2x^2+\ldots+a_nx^n\right)\,dx \\ &amp;amp;=\int_{a}^{b}a_0\,dx+\int_{a}^{b}a_1x\,dx+\int_{a}^{b}a_2x^2\,dx+\ldots+\int_{a}^{b}a_nx^n\,dx
+\end{align}
+To prove \eqref{18}, it therefore suffices to show that as $n\to\infty$
+\begin{equation}
+\int_{a}^{b}R_n(x)\,dx\to 0
+\end{equation}
+By uniform convergence, if $\epsilon&amp;gt;0$ is given and $\vert x\vert\leq\vert x_1\vert&amp;lt;R$ is a closed subinterval of $(-R,R)$ that contains both $a,b$, then $\vert R_n(x)\vert&amp;lt;\epsilon$ for all $x$ in the subinterval and $n$ large enough. Hence,
+\begin{equation}
+\left\vert\int_{a}^{b}R_n(x)\,dx\right\vert\leq\int_{a}^{b}\left\vert R_n(x)\right\vert\,dx&amp;lt;\epsilon\vert b-a\vert
+\end{equation}
+for any $n$ large enough, which proves our statement.&lt;/p&gt;
+
+&lt;p&gt;As a special case of \eqref{18}, we take the limits $0$ and $x$ instead of $a$ and $b$, and obtain
+\begin{align}
+\int_{a}^{b}f(t)\,dt&amp;amp;=\sum\dfrac{1}{n+1}a_nx^{n+1} \\ &amp;amp;=a_0x+\dfrac{1}{2}a_1x^2+\dfrac{1}{3}a_2x^3+\ldots+\dfrac{1}{n+1}a_nx^{n+1}+\ldots\tag{19}\label{19}
+\end{align}&lt;/p&gt;
+
+&lt;h3 id=&quot;dif&quot;&gt;Differentiating term by term&lt;/h3&gt;
+&lt;p&gt;We now prove that the function $f(x)$ is not only continuous but also differentiable on $(-R,R)$, and that its derivative can be calculated by differentiating term by term
+\begin{equation}
+f’(x)=\sum na_nx^{n-1}
+\end{equation}
+It is easily seen that the series on right side of this equation is exact the series on the right side of \eqref{3}, which is convergent on $(-R,R)$ as we proved. If we denote its sum by $g(x)$
+\begin{equation}
+g(x)=\sum na_nx^{n-1}=a_1+2a_2x+3a_3x^2+\ldots+na_nx^{n-1}+\ldots,
+\end{equation}
+then \eqref{19} tells us that
+\begin{align}
+\int_{0}^{x}g(t)\,dt&amp;amp;=a_1x+a_2x^2+a_3x^3+\ldots \\ &amp;amp;=f(x)-a_0
+\end{align}
+Since the left side of this has a derivative, so does the right side, and by differentiating we obtain
+\begin{equation}
+f’(x)=g(x)=\sum na_nx^{n-1}
+\end{equation}&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] George F.Simmons. &lt;a href=&quot;https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424&quot;&gt;Calculus With Analytic Geometry - 2nd Edition&lt;/a&gt;&lt;/p&gt;
@@ -462,6 +563,9 @@ for some constant $c$, and so $f(x)=ce^x$. &lt;a href=&quot;#fnref:2&quot; clas
 \begin{equation}
 f’(c)=\frac{f(b)-f(a)}{b-a}
 \end{equation} &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:4&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;We will talk more about uniform convergence in the post of sequences. &lt;a href=&quot;#fnref:4&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="calculus" /><category term="mathematics" /><category term="calculus" /><category term="series" /><category term="power-series" /><category term="taylor-series" /><category term="random-stuffs" /><summary type="html">Recall that in the previous post, Infinite Series of Constants, we mentioned a type of series called power series a lot. In the content of this post, we will be diving deeper into details of that series.</summary></entry><entry><title type="html">Infinite Series of Constants</title><link href="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html" rel="alternate" type="text/html" title="Infinite Series of Constants" /><published>2021-09-06T11:20:00+07:00</published><updated>2021-09-06T11:20:00+07:00</updated><id>/mathematics/calculus/2021/09/06/infinite-series-of-constants</id><content type="html" xml:base="/mathematics/calculus/2021/09/06/infinite-series-of-constants.html">&lt;blockquote&gt;
