@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-25T06:39:55+07:00</updated><id>/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-25T07:19:06+07:00</updated><id>/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Power Series</title><link href="/mathematics/calculus/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>/mathematics/calculus/2021/09/21/power-series</id><content type="html" xml:base="/mathematics/calculus/2021/09/21/power-series.html">&lt;blockquote&gt;
   &lt;p&gt;Recall that in the previous post, &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html&quot;&gt;Infinite Series of Constants&lt;/a&gt;, we mentioned a type of series called &lt;strong&gt;power series&lt;/strong&gt; a lot. In the content of this post, we will be diving deeper into details of that series.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -29,8 +29,10 @@
       &lt;li&gt;&lt;a href=&quot;#mult&quot;&gt;Multiplication&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#div&quot;&gt;Division&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#sub&quot;&gt;Substitution&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#even-odd-funcs&quot;&gt;Even and Odd Functions&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#uni-conv-power-series&quot;&gt;Uniform Convergence for Power Series&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -364,6 +366,42 @@ since $K^2\leq K^3$ since $K\geq1$. In general,
 Hence, for any $x$ such that $\vert x\vert&amp;lt;\frac{r}{2K}$, we have that the series $\sum c_nx^n$ converges absolutely, and therefore converges, or in other words, $\sum c_nx^n$ has nonzero radius of convergence.&lt;/p&gt;
 
 &lt;h3 id=&quot;sub&quot;&gt;Substitution&lt;/h3&gt;
+&lt;p&gt;If a power series
+\begin{equation}
+f(X)=a_0+a_1x+a_2x^2+\ldots\tag{15}\label{15}
+\end{equation}
+converges for $\vert x\vert&amp;lt;R$ and if $\vert g(x)\vert&amp;lt;R$, then we can find $f(g(x))$ by substituting $g(x)$ for $x$ in \eqref{15}.&lt;/p&gt;
+
+&lt;p&gt;Suppose $g(x)$ is given by a power series,
+\begin{equation}
+g(x)=b_0+b_1x+b_2x^2+\ldots,\tag{16}\label{16}
+\end{equation}
+therefore,
+\begin{align}
+f(g(x))&amp;amp;=a_0+a_1g(x)+a_2g(x)^2+\ldots \\ &amp;amp;=a_0+a_1(b+0+b_1x+\ldots)+a_2(b_0+b_1x+\ldots)^2+\ldots
+\end{align}
+The power series formed in this way converges to $f(g(x))$ whenever \eqref{16} is absolutely convergent and $\vert g(x)\vert&amp;lt;R$.&lt;/p&gt;
+
+&lt;h3 id=&quot;even-odd-funcs&quot;&gt;Even and Odd Functions&lt;/h3&gt;
+&lt;p&gt;A function $f(x)$ defined on $(-R,R)$ is said to be &lt;strong&gt;even&lt;/strong&gt; if
+\begin{equation}
+f(-x)=f(x),
+\end{equation}
+and &lt;strong&gt;odd&lt;/strong&gt; if
+\begin{equation}
+f(-x)=-f(x)
+\end{equation}
+Then if $f(x)$ is an even function, then its Taylor series has the form
+\begin{equation}
+\sum_{n=0}^{\infty}a_{2n}x^{2n}=a_0+a_2x^2+a_4x^4+\ldots
+\end{equation}
+and if $f(x)$ is an odd function, then its Taylor series has the form
+\begin{equation}
+\sum_{n=0}^{\infty}a_{2n+1}x^{2n+1}=a_1x+a_3x^3+a_5x^5+\ldots
+\end{equation}
+since if $f(x)=\sum_{n=0}^{\infty}a_nx^n$ is even, then $\sum_{n=0}^{\infty}a_nx^n=\sum_{n=0}^{\infty}(-1)^na_nx^n$, so by the uniqueness of the Taylor series expansion, we have that $a_n=(-1)^na_n$. Similarly, $a_n=(-1)^{n+1}a_n$ if $f(x)$ is an odd function.&lt;/p&gt;
+
+&lt;h2 id=&quot;uni-conv-power-series&quot;&gt;Uniform Convergence for Power Series&lt;/h2&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] George F.Simmons. &lt;a href=&quot;https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424&quot;&gt;Calculus With Analytic Geometry - 2nd Edition&lt;/a&gt;&lt;/p&gt;

@@ -24,6 +24,8 @@ comments: true
 	- [Multiplication](#mult)
 	- [Division](#div)
 	- [Substitution](#sub)
+	- [Even and Odd Functions](#even-odd-funcs)
+- [Uniform Convergence for Power Series](#uni-conv-power-series)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -360,9 +362,44 @@ Hence, for any $x$ such that $\vert x\vert<\frac{r}{2K}$, we have that the serie
 
 ### Substitution
 {: #sub}
+If a power series
+\begin{equation}
+f(X)=a_0+a_1x+a_2x^2+\ldots\tag{15}\label{15}
+\end{equation}
+converges for $\vert x\vert\<R$ and if $\vert g(x)\vert\<R$, then we can find $f(g(x))$ by substituting $g(x)$ for $x$ in \eqref{15}.  
 
+Suppose $g(x)$ is given by a power series,
+\begin{equation}
+g(x)=b_0+b_1x+b_2x^2+\ldots,\tag{16}\label{16}
+\end{equation}
+therefore,
+\begin{align}
+f(g(x))&=a_0+a_1g(x)+a_2g(x)^2+\ldots \\\\ &=a_0+a_1(b+0+b_1x+\ldots)+a_2(b_0+b_1x+\ldots)^2+\ldots
+\end{align}
+The power series formed in this way converges to $f(g(x))$ whenever \eqref{16} is absolutely convergent and $\vert g(x)\vert\<R$.
 
+### Even and Odd Functions
+{: #even-odd-funcs}
+A function $f(x)$ defined on $(-R,R)$ is said to be **even** if
+\begin{equation}
+f(-x)=f(x),
+\end{equation}
+and **odd** if
+\begin{equation}
+f(-x)=-f(x)
+\end{equation}
+Then if $f(x)$ is an even function, then its Taylor series has the form
+\begin{equation}
+\sum_{n=0}^{\infty}a_{2n}x^{2n}=a_0+a_2x^2+a_4x^4+\ldots
+\end{equation}
+and if $f(x)$ is an odd function, then its Taylor series has the form
+\begin{equation}
+\sum_{n=0}^{\infty}a_{2n+1}x^{2n+1}=a_1x+a_3x^3+a_5x^5+\ldots
+\end{equation}
+since if $f(x)=\sum_{n=0}^{\infty}a_nx^n$ is even, then $\sum_{n=0}^{\infty}a_nx^n=\sum_{n=0}^{\infty}(-1)^na_nx^n$, so by the uniqueness of the Taylor series expansion, we have that $a_n=(-1)^na_n$. Similarly, $a_n=(-1)^{n+1}a_n$ if $f(x)$ is an odd function.
 
+## Uniform Convergence for Power Series
+{: #uni-conv-power-series}
 
 
 ## References
