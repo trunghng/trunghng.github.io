@@ -396,10 +396,11 @@ and if $f(x)$ is an odd function, then its Taylor series has the form
 \begin{equation}
 \sum_{n=0}^{\infty}a_{2n+1}x^{2n+1}=a_1x+a_3x^3+a_5x^5+\ldots
 \end{equation}
-since if $f(x)=\sum_{n=0}^{\infty}a_nx^n$ is even, then $\sum_{n=0}^{\infty}a_nx^n=\sum_{n=0}^{\infty}(-1)^na_nx^n$, so by the uniqueness of the Taylor series expansion, we have that $a_n=(-1)^na_n$. Similarly, $a_n=(-1)^{n+1}a_n$ if $f(x)$ is an odd function.
+since if $f(x)=\sum_{n=0}^{\infty}a_nx^n$ is even, then $\sum_{n=0}^{\infty}a_nx^n=\sum_{n=0}^{\infty}(-1)^na_nx^n$, so by the uniqueness of the Taylor series expansion, we have that $a_n=(-1)^na_n$; similarly, $a_n=(-1)^{n+1}a_n$ if $f(x)$ is an odd function.
 
 ## Uniform Convergence for Power Series
 {: #uni-conv-power-series}
+
 
 
 ## References
@@ -426,15 +427,15 @@ since if $f(x)=\sum_{n=0}^{\infty}a_nx^n$ is even, then $\sum_{n=0}^{\infty}a_nx
 	Consider the function $f(x)=a^x$.  
 	Using the definition of the derivative, we have
 	\begin{align}
-	\dfrac{d}{dx}f(x)&=\lim_{h\to0}\dfrac{f(x+h)-f(x)}{h} \\\\ &=\lim_{h\to0}\dfrac{a^{x+h}-a^x}{h} \\\\ &=a^x\lim_{h\to0}\dfrac{a^h-1}{h}
+	\dfrac{d}{dx}f(x)&=\lim_{h\to 0}\dfrac{f(x+h)-f(x)}{h} \\\\ &=\lim_{h\to 0}\dfrac{a^{x+h}-a^x}{h} \\\\ &=a^x\lim_{h\to 0}\dfrac{a^h-1}{h}
 	\end{align}
 	Therefore,
 	\begin{equation}
-	\lim_{h\to0}\dfrac{a^h-1}{h}=1
+	\lim_{h\to 0}\dfrac{a^h-1}{h}=1
 	\end{equation}
 	then, let $n=\frac{1}{h}$, we have
 	\begin{equation}
-	a=\lim_{h\to0}\left(1+\dfrac{1}{h}\right)^{1/h}=\lim_{n\to\infty}\left(1+\dfrac{1}{n}\right)^n={\rm e}
+	a=\lim_{h\to 0}\left(1+\dfrac{1}{h}\right)^{1/h}=\lim_{n\to\infty}\left(1+\dfrac{1}{n}\right)^n={\rm e}
 	\end{equation}
 	Thus, $f(x)=a^x={\rm e}^x$. Every function $y=c{\rm e}^x$ also satisfies the differential equation $\frac{dy}{dx}=y$, because
 	\begin{equation}
@@ -443,7 +444,7 @@ since if $f(x)=\sum_{n=0}^{\infty}a_nx^n$ is even, then $\sum_{n=0}^{\infty}a_nx
 	The rest of our proof is to prove that these are only functions that are unchanged by differentiation.  
 	To prove this, suppose $f(x)$ is any function with that property. By the quotient rule,
 	\begin{equation}
-	\dfrac{d}{dx}\dfrac{f(x)}{e^x}=\dfrac{f'(x)e^x-e^xf(x)}{e^{2x}}=\dfrac{e^xf(x)-e^xf(x)}{e^{2x}}=0
+	\dfrac{d}{dx}\dfrac{f(x)}{e^x}=\dfrac{f'(x)e^x-e^x f(x)}{e^{2x}}=\dfrac{e^x f(x)-e^x f(x)}{e^{2x}}=0
 	\end{equation}
 	which implies that
 	\begin{equation}
