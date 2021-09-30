@@ -1,5 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-25T13:44:41+07:00</updated><id>/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
-</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Power Series</title><link href="/mathematics/calculus/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>/mathematics/calculus/2021/09/21/power-series</id><content type="html" xml:base="/mathematics/calculus/2021/09/21/power-series.html">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-26T09:37:24+07:00</updated><id>/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Temporal-Difference Learning</title><link href="/artificial-intelligent/reinforcement-learning/2021/09/26/td-learning.html" rel="alternate" type="text/html" title="Temporal-Difference Learning" /><published>2021-09-26T00:50:00+07:00</published><updated>2021-09-26T00:50:00+07:00</updated><id>/artificial-intelligent/reinforcement-learning/2021/09/26/td-learning</id><content type="html" xml:base="/artificial-intelligent/reinforcement-learning/2021/09/26/td-learning.html">&lt;blockquote&gt;
+  &lt;p&gt;So far in this &lt;a href=&quot;/tag/my-rl&quot;&gt;series&lt;/a&gt;, we have gone through ideas of &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html&quot;&gt;&lt;strong&gt;dynamic programming&lt;/strong&gt; (DP)&lt;/a&gt; and &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html&quot;&gt;&lt;strong&gt;Monte Carlo&lt;/strong&gt;&lt;/a&gt;. What will happen if we combine these ideas together? &lt;strong&gt;Temporal-deffirence (TD) learning&lt;/strong&gt; is our answer.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;!-- excerpt-end --&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#td-prediction&quot;&gt;TD Prediction&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;td-prediction&quot;&gt;TD Prediction&lt;/h2&gt;
+&lt;p&gt;Borrowing the ideas of Monte Carlo, TD methods learn from episodes of experience to solve the &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html#fn:2&quot;&gt;prediction problem&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[2] David Silver. &lt;a href=&quot;https://www.davidsilver.uk/teaching/&quot;&gt;UCL course on RL&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[3]&lt;/p&gt;
+
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="td-learning" /><category term="q-learning" /><category term="my-rl" /><summary type="html">So far in this series, we have gone through ideas of dynamic programming (DP) and Monte Carlo. What will happen if we combine these ideas together? Temporal-deffirence (TD) learning is our answer.</summary></entry><entry><title type="html">Power Series</title><link href="/mathematics/calculus/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>/mathematics/calculus/2021/09/21/power-series</id><content type="html" xml:base="/mathematics/calculus/2021/09/21/power-series.html">&lt;blockquote&gt;
   &lt;p&gt;Recall that in the previous post, &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html&quot;&gt;Infinite Series of Constants&lt;/a&gt;, we mentioned a type of series called &lt;strong&gt;power series&lt;/strong&gt; a lot. In the content of this post, we will be diving deeper into details of that series.&lt;/p&gt;
 &lt;/blockquote&gt;
 

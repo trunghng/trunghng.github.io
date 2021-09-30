@@ -1,0 +1,23 @@
+I"	<blockquote>
+  <p>So far in this <a href="/tag/my-rl">series</a>, we have gone through ideas of <a href="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html"><strong>dynamic programming</strong> (DP)</a> and <a href="/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html"><strong>Monte Carlo</strong></a>. What will happen if we combine these ideas together? <strong>Temporal-deffirence (TD) learning</strong> is our answer.</p>
+</blockquote>
+
+<!-- excerpt-end -->
+<ul>
+  <li><a href="#td-prediction">TD Prediction</a></li>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h2 id="td-prediction">TD Prediction</h2>
+<p>Borrowing the ideas of Monte Carlo, TD methods learn from episodes of experience to solve the <a href="/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html#fn:2">prediction problem</a>.</p>
+
+<h2 id="references">References</h2>
+<p>[1] Richard S. Sutton &amp; Andrew G. Barto. <a href="https://mitpress.mit.edu/books/reinforcement-learning-second-edition">Reinforcement Learning: An Introduction</a></p>
+
+<p>[2] David Silver. <a href="https://www.davidsilver.uk/teaching/">UCL course on RL</a></p>
+
+<p>[3]</p>
+
+<h2 id="footnotes">Footnotes</h2>
+:ET
