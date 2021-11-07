@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mcts.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-11-07T23:17:05+07:00</updated><id>http://localhost:4000/feed/by_tag/mcts.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Monte Carlo Tree Search</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2021/11/06/mcts.html" rel="alternate" type="text/html" title="Monte Carlo Tree Search" /><published>2021-11-06T18:50:00+07:00</published><updated>2021-11-06T18:50:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2021/11/06/mcts</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2021/11/06/mcts.html">&lt;blockquote&gt;
+  &lt;p&gt;Since its first appearance in 2016, &lt;strong&gt;AlphaGo&lt;/strong&gt; had continued. &lt;strong&gt;Monte Carlo Tree Search (MCTS)&lt;/strong&gt; is a method for finding optimal decisions in a given domain by taking random samples in the decision space and building a search tree according to the results.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;!-- excerpt-end --&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#background&quot;&gt;Background&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#bandit-based-method&quot;&gt;Bandit-based Methods&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#mcts&quot;&gt;Monte Carlo Tree Search&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#algorithm&quot;&gt;Algorithm&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
+
+&lt;h3 id=&quot;bandit-based-method&quot;&gt;Bandit-based Methods&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/h3&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;p&gt;[1] C. B. Browne et al., &lt;a href=&quot;https://ieeexplore.ieee.org/document/6145622&quot;&gt;A Survey of Monte Carlo Tree Search Methods&lt;/a&gt;, in IEEE Transactions on Computational Intelligence and AI in Games, vol. 4, no. 1, pp. 1-43, March 2012, doi: 10.1109/TCIAIG.2012.2186810.&lt;/p&gt;
+
+&lt;p&gt;[2] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[3]&lt;/p&gt;
+
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
+
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;For more detailed about Multi Armed Bandit problem, we will save it for another post since this one is gonna be a long post. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="monte-carlo" /><category term="mcts" /><summary type="html">Since its first appearance in 2016, AlphaGo had continued. Monte Carlo Tree Search (MCTS) is a method for finding optimal decisions in a given domain by taking random samples in the decision space and building a search tree according to the results.</summary></entry></feed>

@@ -45,22 +45,24 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Temporal-Difference Learning | Trung’s cabin</title>
-<meta name="generator" content="Jekyll v4.2.0" />
-<meta property="og:title" content="Temporal-Difference Learning" />
+<title>Monte Carlo Tree Search | Trung’s cabin</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Monte Carlo Tree Search" />
 <meta name="author" content="Trung H. Nguyen" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Temporal-Difference Learning, Q-learning" />
-<meta property="og:description" content="Temporal-Difference Learning, Q-learning" />
+<meta name="description" content="monte carlo tree search" />
+<meta property="og:description" content="monte carlo tree search" />
+<link rel="canonical" href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2021/11/06/mcts.html" />
+<meta property="og:url" content="http://localhost:4000/artificial-intelligent/reinforcement-learning/2021/11/06/mcts.html" />
 <meta property="og:site_name" content="Trung’s cabin" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2021-09-26T00:50:00+07:00" />
+<meta property="article:published_time" content="2021-11-06T18:50:00+07:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Temporal-Difference Learning" />
+<meta property="twitter:title" content="Monte Carlo Tree Search" />
 <script type="application/ld+json">
-{"description":"Temporal-Difference Learning, Q-learning","headline":"Temporal-Difference Learning","dateModified":"2021-09-26T00:50:00+07:00","datePublished":"2021-09-26T00:50:00+07:00","url":"/artificial-intelligent/reinforcement-learning/2021/09/26/td-learning.html","author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/artificial-intelligent/reinforcement-learning/2021/09/26/td-learning.html"},"@context":"https://schema.org"}</script>
+{"description":"monte carlo tree search","headline":"Monte Carlo Tree Search","dateModified":"2021-11-06T18:50:00+07:00","datePublished":"2021-11-06T18:50:00+07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2021/11/06/mcts.html"},"url":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2021/11/06/mcts.html","author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Trung&apos;s cabin" />
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Trung&apos;s cabin" />
     
 
 
@@ -125,8 +127,8 @@
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <meta name="description" content="Temporal-Difference Learning, Q-learning">
-    <h1 class="post-title p-name" itemprop="name headline">Temporal-Difference Learning</h1>
+    <meta name="description" content="monte carlo tree search">
+    <h1 class="post-title p-name" itemprop="name headline">Monte Carlo Tree Search</h1>
     <p><span>
       
         
@@ -136,43 +138,58 @@
         <a href="/tag/reinforcement-learning"><code class="highligher-rouge"><nobr>reinforcement-learning</nobr></code>&nbsp;</a>
       
         
-        <a href="/tag/td-learning"><code class="highligher-rouge"><nobr>td-learning</nobr></code>&nbsp;</a>
+        <a href="/tag/monte-carlo"><code class="highligher-rouge"><nobr>monte-carlo</nobr></code>&nbsp;</a>
       
         
-        <a href="/tag/q-learning"><code class="highligher-rouge"><nobr>q-learning</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/my-rl"><code class="highligher-rouge"><nobr>my-rl</nobr></code>&nbsp;</a>
+        <a href="/tag/mcts"><code class="highligher-rouge"><nobr>mcts</nobr></code>&nbsp;</a>
       
     </span></p>
-    <p class="post-meta"><time class="dt-published" datetime="2021-09-26T00:50:00+07:00" itemprop="datePublished">
-        Sep 26, 2021
+    <p class="post-meta"><time class="dt-published" datetime="2021-11-06T18:50:00+07:00" itemprop="datePublished">
+        Nov 6, 2021
       </time></p>
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
     <blockquote>
-  <p>So far in this <a href="/tag/my-rl">series</a>, we have gone through ideas of <a href="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html"><strong>dynamic programming</strong> (DP)</a> and <a href="/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html"><strong>Monte Carlo</strong></a>. What will happen if we combine these ideas together? <strong>Temporal-deffirence (TD) learning</strong> is our answer.</p>
+  <p>Since its first appearance in 2016, <strong>AlphaGo</strong> had continued. <strong>Monte Carlo Tree Search (MCTS)</strong> is a method for finding optimal decisions in a given domain by taking random samples in the decision space and building a search tree according to the results.</p>
 </blockquote>
 
 <!-- excerpt-end -->
 <ul>
-  <li><a href="#td-prediction">TD Prediction</a></li>
+  <li><a href="#background">Background</a>
+    <ul>
+      <li><a href="#bandit-based-method">Bandit-based Methods</a></li>
+    </ul>
+  </li>
+  <li><a href="#mcts">Monte Carlo Tree Search</a>
+    <ul>
+      <li><a href="#algorithm">Algorithm</a></li>
+    </ul>
+  </li>
   <li><a href="#references">References</a></li>
   <li><a href="#footnotes">Footnotes</a></li>
 </ul>
 
-<h2 id="td-prediction">TD Prediction</h2>
-<p>Borrowing the ideas of Monte Carlo, TD methods learn from episodes of experience to solve the <a href="/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html#fn:2">prediction problem</a>.</p>
+<h2 id="background">Background</h2>
+
+<h3 id="bandit-based-method">Bandit-based Methods<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup></h3>
 
 <h2 id="references">References</h2>
-<p>[1] Richard S. Sutton &amp; Andrew G. Barto. <a href="https://mitpress.mit.edu/books/reinforcement-learning-second-edition">Reinforcement Learning: An Introduction</a></p>
+<p>[1] C. B. Browne et al., <a href="https://ieeexplore.ieee.org/document/6145622">A Survey of Monte Carlo Tree Search Methods</a>, in IEEE Transactions on Computational Intelligence and AI in Games, vol. 4, no. 1, pp. 1-43, March 2012, doi: 10.1109/TCIAIG.2012.2186810.</p>
 
-<p>[2] David Silver. <a href="https://www.davidsilver.uk/teaching/">UCL course on RL</a></p>
+<p>[2] Richard S. Sutton &amp; Andrew G. Barto. <a href="https://mitpress.mit.edu/books/reinforcement-learning-second-edition">Reinforcement Learning: An Introduction</a></p>
 
 <p>[3]</p>
 
 <h2 id="footnotes">Footnotes</h2>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>For more detailed about Multi Armed Bandit problem, we will save it for another post since this one is gonna be a long post. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
 
   </div>
 <div id="disqus_thread"></div>
@@ -198,7 +215,7 @@
 
 <script id="dsq-count-scr" src="//https-trunghng-github-io.disqus.com/count.js" async></script>
 
-  <a class="u-url" href="/artificial-intelligent/reinforcement-learning/2021/09/26/td-learning.html" hidden></a>
+  <a class="u-url" href="/artificial-intelligent/reinforcement-learning/2021/11/06/mcts.html" hidden></a>
 </article>
  <!-- mathjax javascript -->
 <script type="text/x-mathjax-config">
