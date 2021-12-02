@@ -15,7 +15,7 @@ comments: true
 		- [Standard Normal](#std-norm)
 	- [Multivariate Normal Distribution](#mvn)
 		- [Bivariate Normal](#bvn)
-	- [Kernels]
+	- [Kernels](#kernels)
 		- [RBF kernels](#rbf-kernels)
 		- [Mercer (positive definite) kernels](#mercer-kernels)
 		- [Linear kernels](#lin-kernels)
@@ -173,7 +173,7 @@ y(x)=w^T\phi(x)
 
 [3] Stanford CS229. [Machine Learning](http://cs229.stanford.edu)  
 
-[4] Kevin P.Murphy. [Machine Learning: A Probabilistic Perspective](https://probml.github.io/pml-book/book0.html), MIT Press, 2012  
+[4] Kevin P. Murphy. [Machine Learning: A Probabilistic Perspective](https://probml.github.io/pml-book/book0.html), MIT Press, 2012  
 
 [5] Christopher M. Bishop. [Pattern Recognition and Machine Learning](https://www.amazon.com/Pattern-Recognition-Learning-Information-Setatistics/dp/0387310738)
 
