@@ -10,7 +10,7 @@ comments: true
 > Dont know yet
 
 <!-- excerpt-end -->
-- [Mathematical Basics](#math-basics)
+- [Mathematical Basics](#basics)
 	- [Gaussian (Normal) Distribution](#gauss-dist)
 		- [Standard Normal](#std-norm)
 	- [Multivariate Normal Distribution](#mvn)
@@ -34,8 +34,10 @@ comments: true
 
 Before diving into details, we need some necessary basic concepts.
 
+
 ## Background
-{: #math-basics}
+{: #basics}
+
 
 ### Gaussian (Normal) Distribution
 {: #gauss-dist}
@@ -44,6 +46,7 @@ A random variable $X$ is said to be **Gaussian** or to have the **Normal distrib
 f_X(x)=\dfrac{1}{\sqrt(2\pi)\sigma}\exp\left(-\dfrac{(x-\mu)^2}{2\sigma^2}\right)
 \end{equation}
 which we denote as $X\sim\mathcal{N}(\mu,\sigma)$
+
 
 #### Standard Normal
 {: #std-normal}
@@ -64,6 +67,7 @@ Below is some visualizations of Normal distribution.
 	<img src="/assets/images/2021-11-22/normal.png" alt="normal distribution" width="900" height="380px" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: 10K normally distributed data points (5K each plot) were plotted as vertical bars on x-axis. The code can be found <span markdown="1">[here](https://github.com/trunghng/bayes-opt/blob/main/gauss-dist.py)</span></figcaption>
 </figure><br/>
+
 
 ### Multivariate Normal Distribution
 {: #mvn}
@@ -91,6 +95,7 @@ f_X(x_1,\ldots,x_k)=\dfrac{1}{(2\pi)^{k/2}\vert\mathbf{\Sigma}\vert^{1/2}}\exp\l
 \end{equation}
 With this idea, *Standard Normal* distribution in multi-dimensional case can be defined as a Gaussian with mean $\mathbf{\mu}=0$ (here $0$ is an $k$-dimensional vector) and identity covariance matrix $\mathbf{\Sigma}=\mathbf{I}\_{k\times k}$.
 
+
 #### Bivariate Normal
 {: #bvn}
 When the number of dimensions in $\mathbf{X}$, $k=2$, this special case of MVN is called the **Bivariate Normal (BVN)**. An example of an BVN is shown as following.  
@@ -100,12 +105,14 @@ When the number of dimensions in $\mathbf{X}$, $k=2$, this special case of MVN i
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: The PDF of $\mathcal{N}\left(\left[\begin{smallmatrix}0\\0\end{smallmatrix}\right],\left[\begin{smallmatrix}1&0.5\\0.8&1\end{smallmatrix}\right]\right)$. The code can be found <span markdown="1">[here](https://github.com/trunghng/bayes-opt/blob/main/mvn.py)</span></figcaption>
 </figure><br/>
 
+
 ### Kernels
 **Kernel function** is a real-valued function of two arguments
 \begin{equation}
 \kappa(\textbf{x},\textbf{x}')\in\mathbb{R},
 \end{equation}
 for $\textbf{x},\textbf{x}'\in\mathcal{X}$, which typically is symmetric (i.e., $\kappa(\textbf{x},\textbf{x}')=\kappa(\textbf{x}',\textbf{x})$), and nonnegative ($\kappa(\textbf{x},\textbf{x}')\geq0$). These are some examples of kernel functions.  
+
 
 #### RBF kernels
 The **squared exponential kernel** (SE kernel) or **Gaussian kernel** is defined by
@@ -123,6 +130,7 @@ If $\Sigma$ is spherical[^2], we get the isotropic kernel
 \end{equation}
 Here $\sigma^2$ is known as the **bandwidth**. Since \eqref{1} can be seen as a function of $\Vert\textbf{x}-\textbf{x}'\Vert$, it is an example of a **radial basis function** or **RBF kernel**.
 
+
 #### Mercer (positive definite) kernels
 {: #mercer-kernels}
 If the Gram matrix, defined by
@@ -131,7 +139,7 @@ If the Gram matrix, defined by
 \end{equation}
 is positive definite for any set $\left\\{x_i\right\\}\_{i=1}^N$, the kernel $\kappa$ is called a **Mercer kernel**, or **positive definite kernel**.  
 
-If the Gram matrix is positive definite, we can compute an eigenvector decomposition of it as
+The importance of Mercer kernels is the following reusult, which is known as  **Mercer's theorem**. If the Gram matrix is positive definite, we can compute an eigenvector decomposition of it as
 \begin{equation}
 \mathbf{K}=\mathbf{U}^T\mathbf{\Lambda}\mathbf{U},
 \end{equation}
@@ -143,12 +151,32 @@ If we let $\phi(\textbf{x}\_i)=\mathbf{\Lambda}^{\frac{1}{2}}\mathbf{U}\_{:i}$, 
 \begin{equation}
 k_{ij}=\phi(\textbf{x}\_i)^T\phi(\textbf{x}\_j)
 \end{equation}
-
-
+Thus we see that the intries in the kernel matrix can be computed by performing an inner product of some feature vectors that are implicitly defined by the eigenvectors $\mathbf{U}$. In general, if the kernel is Mercer, then there exists a function $\phi$ mapping $\textbf{x}\in\mathcal{X}$ to $\mathbb{R}^D$ such that
+\begin{equation}
+\kappa(\textbf{x},\textbf{x}')=\phi(\textbf{x})^T\phi(\textbf{x}'),
+\end{equation}
+where $\phi$ depends on the eigenfunctions of $\kappa$.
 
 
 #### Linear kernels
 {: #lin-kernels}
+Deriving the feature vector implied by a kernel is only possible if the kernel is *Mercer*. However, deriving a kernel from a feature vector is easy. We have
+\begin{equation}
+\kappa(\textbf{x},\textbf{x}')=\phi(\textbf{x})^T\phi(\textbf{x}')
+\end{equation}
+If $\phi(\textbf{x})=\textbf{x}$, we obtain the **linear kernel**
+\begin{equation}
+\kappa(\textbf{x},\textbf{x}')=\textbf{x}^T\textbf{x}'
+\end{equation}
+
+
+#### Matern kernels
+{: #matern-kernels}
+The **Matern kenel** has the following form
+\begin{equation}
+\kappa(r)=\frac{2^{1-\nu}}{\Gamma(\nu)}\left(\frac{\sqrt{2\nu}r}{l}\right)^{\nu}K_{\nu}\left(\frac{\sqrt{2\nu}r}{l}\right),
+\end{equation}
+where $r=\Vert\textbf{x}-\textbf{x}'\Vert,\nu>0,l>0$ and $K_{\nu}$ is a modified Bessel function. As $\nu\to\infty$, this approaches the SE kernel.
 
 
 ## Gaussian Process

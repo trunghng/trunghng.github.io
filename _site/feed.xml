@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-12-01T17:46:42+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-12-02T13:30:38+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Bayesian Optimization</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization.html" rel="alternate" type="text/html" title="Bayesian Optimization" /><published>2021-11-22T14:46:00+07:00</published><updated>2021-11-22T14:46:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization.html">&lt;blockquote&gt;
   &lt;p&gt;Dont know yet&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;!-- excerpt-end --&gt;
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#math-basics&quot;&gt;Mathematical Basics&lt;/a&gt;
+  &lt;li&gt;&lt;a href=&quot;#basics&quot;&gt;Mathematical Basics&lt;/a&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#gauss-dist&quot;&gt;Gaussian (Normal) Distribution&lt;/a&gt;
         &lt;ul&gt;
@@ -17,7 +17,7 @@
           &lt;li&gt;&lt;a href=&quot;#bvn&quot;&gt;Bivariate Normal&lt;/a&gt;&lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
-      &lt;li&gt;[Kernels]
+      &lt;li&gt;&lt;a href=&quot;#kernels&quot;&gt;Kernels&lt;/a&gt;
         &lt;ul&gt;
           &lt;li&gt;&lt;a href=&quot;#rbf-kernels&quot;&gt;RBF kernels&lt;/a&gt;&lt;/li&gt;
           &lt;li&gt;&lt;a href=&quot;#mercer-kernels&quot;&gt;Mercer (positive definite) kernels&lt;/a&gt;&lt;/li&gt;
@@ -44,7 +44,7 @@
 
 &lt;p&gt;Before diving into details, we need some necessary basic concepts.&lt;/p&gt;
 
-&lt;h2 id=&quot;math-basics&quot;&gt;Background&lt;/h2&gt;
+&lt;h2 id=&quot;basics&quot;&gt;Background&lt;/h2&gt;
 
 &lt;h3 id=&quot;gauss-dist&quot;&gt;Gaussian (Normal) Distribution&lt;/h3&gt;
 &lt;p&gt;A random variable $X$ is said to be &lt;strong&gt;Gaussian&lt;/strong&gt; or to have the &lt;strong&gt;Normal distribution&lt;/strong&gt; with mean $\mu$ and variance $\sigma^2$ if its probability density function (PDF) is
@@ -137,7 +137,7 @@ Here $\sigma^2$ is known as the &lt;strong&gt;bandwidth&lt;/strong&gt;. Since \e
 \end{equation}
 is positive definite for any set $\left\{x_i\right\}_{i=1}^N$, the kernel $\kappa$ is called a &lt;strong&gt;Mercer kernel&lt;/strong&gt;, or &lt;strong&gt;positive definite kernel&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;If the Gram matrix is positive definite, we can compute an eigenvector decomposition of it as
+&lt;p&gt;The importance of Mercer kernels is the following reusult, which is known as  &lt;strong&gt;Mercer’s theorem&lt;/strong&gt;. If the Gram matrix is positive definite, we can compute an eigenvector decomposition of it as
 \begin{equation}
 \mathbf{K}=\mathbf{U}^T\mathbf{\Lambda}\mathbf{U},
 \end{equation}
@@ -148,9 +148,29 @@ k_{ij}=\left(\mathbf{\Lambda}^{\frac{1}{2}}\mathbf{U}_{:i}\right)^T\left(\mathbf
 If we let $\phi(\textbf{x}_i)=\mathbf{\Lambda}^{\frac{1}{2}}\mathbf{U}_{:i}$, then we can write
 \begin{equation}
 k_{ij}=\phi(\textbf{x}_i)^T\phi(\textbf{x}_j)
-\end{equation}&lt;/p&gt;
+\end{equation}
+Thus we see that the intries in the kernel matrix can be computed by performing an inner product of some feature vectors that are implicitly defined by the eigenvectors $\mathbf{U}$. In general, if the kernel is Mercer, then there exists a function $\phi$ mapping $\textbf{x}\in\mathcal{X}$ to $\mathbb{R}^D$ such that
+\begin{equation}
+\kappa(\textbf{x},\textbf{x}’)=\phi(\textbf{x})^T\phi(\textbf{x}’),
+\end{equation}
+where $\phi$ depends on the eigenfunctions of $\kappa$.&lt;/p&gt;
 
 &lt;h4 id=&quot;lin-kernels&quot;&gt;Linear kernels&lt;/h4&gt;
+&lt;p&gt;Deriving the feature vector implied by a kernel is only possible if the kernel is &lt;em&gt;Mercer&lt;/em&gt;. However, deriving a kernel from a feature vector is easy. We have
+\begin{equation}
+\kappa(\textbf{x},\textbf{x}’)=\phi(\textbf{x})^T\phi(\textbf{x}’)
+\end{equation}
+If $\phi(\textbf{x})=\textbf{x}$, we obtain the &lt;strong&gt;linear kernel&lt;/strong&gt;
+\begin{equation}
+\kappa(\textbf{x},\textbf{x}’)=\textbf{x}^T\textbf{x}’
+\end{equation}&lt;/p&gt;
+
+&lt;h4 id=&quot;matern-kernels&quot;&gt;Matern kernels&lt;/h4&gt;
+&lt;p&gt;The &lt;strong&gt;Matern kenel&lt;/strong&gt; has the following form
+\begin{equation}
+\kappa(r)=\frac{2^{1-\nu}}{\Gamma(\nu)}\left(\frac{\sqrt{2\nu}r}{l}\right)^{\nu}K_{\nu}\left(\frac{\sqrt{2\nu}r}{l}\right),
+\end{equation}
+where $r=\Vert\textbf{x}-\textbf{x}’\Vert,\nu&amp;gt;0,l&amp;gt;0$ and $K_{\nu}$ is a modified Bessel function. As $\nu\to\infty$, this approaches the SE kernel.&lt;/p&gt;
 
 &lt;h2 id=&quot;gp&quot;&gt;Gaussian Process&lt;/h2&gt;
 &lt;p&gt;Consider a model defined in terms of a linear combination of $M$ fixed basis functions given by the elements of the vecotr $\phi(x)$ so that
@@ -167,7 +187,7 @@ y(x)=w^T\phi(x)
 
 &lt;p&gt;[3] Stanford CS229. &lt;a href=&quot;http://cs229.stanford.edu&quot;&gt;Machine Learning&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;[4] Kevin P.Murphy. &lt;a href=&quot;https://probml.github.io/pml-book/book0.html&quot;&gt;Machine Learning: A Probabilistic Perspective&lt;/a&gt;, MIT Press, 2012&lt;/p&gt;
+&lt;p&gt;[4] Kevin P. Murphy. &lt;a href=&quot;https://probml.github.io/pml-book/book0.html&quot;&gt;Machine Learning: A Probabilistic Perspective&lt;/a&gt;, MIT Press, 2012&lt;/p&gt;
 
 &lt;p&gt;[5] Christopher M. Bishop. &lt;a href=&quot;https://www.amazon.com/Pattern-Recognition-Learning-Information-Setatistics/dp/0387310738&quot;&gt;Pattern Recognition and Machine Learning&lt;/a&gt;&lt;/p&gt;
 
@@ -191,46 +211,7 @@ y(x)=w^T\phi(x)
 \end{equation} &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="machine-learning" /><category term="artificial-intelligent" /><category term="machine-learning" /><category term="gaussian-process" /><category term="optimization-control" /><category term="probability-statistics" /><summary type="html">Dont know yet</summary></entry><entry><title type="html">Monte Carlo Tree Search</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2021/11/06/mcts.html" rel="alternate" type="text/html" title="Monte Carlo Tree Search" /><published>2021-11-06T18:50:00+07:00</published><updated>2021-11-06T18:50:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2021/11/06/mcts</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2021/11/06/mcts.html">&lt;blockquote&gt;
-  &lt;p&gt;Since its first appearance in 2016, &lt;strong&gt;AlphaGo&lt;/strong&gt; had continued. &lt;strong&gt;Monte Carlo Tree Search (MCTS)&lt;/strong&gt; is a method for finding optimal decisions in a given domain by taking random samples in the decision space and building a search tree according to the results.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;!-- excerpt-end --&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#background&quot;&gt;Background&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#bandit-based-method&quot;&gt;Bandit-based Methods&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#mcts&quot;&gt;Monte Carlo Tree Search&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#algorithm&quot;&gt;Algorithm&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
-
-&lt;h3 id=&quot;bandit-based-method&quot;&gt;Bandit-based Methods&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/h3&gt;
-
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;p&gt;[1] C. B. Browne et al., &lt;a href=&quot;https://ieeexplore.ieee.org/document/6145622&quot;&gt;A Survey of Monte Carlo Tree Search Methods&lt;/a&gt;, in IEEE Transactions on Computational Intelligence and AI in Games, vol. 4, no. 1, pp. 1-43, March 2012, doi: 10.1109/TCIAIG.2012.2186810.&lt;/p&gt;
-
-&lt;p&gt;[2] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;[3]&lt;/p&gt;
-
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
-
-&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;For more detailed about Multi Armed Bandit problem, we will save it for another post since this one is gonna be a long post. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="monte-carlo" /><category term="mcts" /><summary type="html">Since its first appearance in 2016, AlphaGo had continued. Monte Carlo Tree Search (MCTS) is a method for finding optimal decisions in a given domain by taking random samples in the decision space and building a search tree according to the results.</summary></entry><entry><title type="html">Power Series</title><link href="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>http://localhost:4000/mathematics/calculus/2021/09/21/power-series</id><content type="html" xml:base="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html">&lt;blockquote&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="machine-learning" /><category term="artificial-intelligent" /><category term="machine-learning" /><category term="gaussian-process" /><category term="optimization-control" /><category term="probability-statistics" /><summary type="html">Dont know yet</summary></entry><entry><title type="html">Power Series</title><link href="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>http://localhost:4000/mathematics/calculus/2021/09/21/power-series</id><content type="html" xml:base="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html">&lt;blockquote&gt;
   &lt;p&gt;Recall that in the previous post, &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html&quot;&gt;Infinite Series of Constants&lt;/a&gt;, we mentioned a type of series called &lt;strong&gt;power series&lt;/strong&gt; a lot. In the content of this post, we will be diving deeper into details of that series.&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -3480,4 +3461,47 @@ for all states $i,j$. This equation is called &lt;em&gt;reversibility&lt;/em&gt;
       &lt;p&gt;Well, it only matters where you are, not where you’ve been. &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="random-stuffs" /><category term="probability-statistics" /><category term="mathematics" /><category term="probability-statistics" /><summary type="html">Since I have no idea how to begin with this post, why not just dive straight into details :P</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="random-stuffs" /><category term="probability-statistics" /><category term="mathematics" /><category term="probability-statistics" /><summary type="html">Since I have no idea how to begin with this post, why not just dive straight into details :P</summary></entry><entry><title type="html">My very first post</title><link href="http://localhost:4000/mathematics/linear-algebra/2021/06/05/fibonacci-generator.html" rel="alternate" type="text/html" title="My very first post" /><published>2021-06-05T17:00:00+07:00</published><updated>2021-06-05T17:00:00+07:00</updated><id>http://localhost:4000/mathematics/linear-algebra/2021/06/05/fibonacci-generator</id><content type="html" xml:base="http://localhost:4000/mathematics/linear-algebra/2021/06/05/fibonacci-generator.html">&lt;blockquote&gt;
+  &lt;p&gt;Enjoy my index-zero-ed post while staying tuned for next ones!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;!-- excerpt-end --&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;math&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fibonacci&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
+	generate i-th number of the Fibonacci sequence, python code obvs :p
+	&quot;&quot;&quot;&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;pow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Why did numbers \(\frac{1+\sqrt{5}}{2}\) and \(\frac{1-\sqrt{5}}{2}\) come out of nowhere?&lt;/p&gt;
+
+&lt;p&gt;In fact, these two numbers are eigenvalues of matrix \(A=\left(\begin{smallmatrix}1 &amp;amp; 1\\1 &amp;amp; 0\end{smallmatrix}\right)\), which is retrieved from
+\begin{equation}
+u_{k+1}=Au_k,
+\end{equation}
+where \(u_k=\left(\begin{smallmatrix}F_{k+1}\\F_k\end{smallmatrix}\right)\).
+And thus, \(u_k=A^k u_0\).&lt;/p&gt;
+
+&lt;p&gt;Then, the thing is, how can we compute \(A^k\) quickly? This is where diagonalizing plays its role. Diagonalizing produces a factorization:
+\begin{equation}
+A=S\Lambda S^{-1},
+\end{equation}
+where \(S=\left(\begin{smallmatrix}x_1 &amp;amp; \dots &amp;amp; x_n\end{smallmatrix}\right)\) is eigenvector matrix, \(\Lambda=\left(\begin{smallmatrix}\lambda_1&amp;amp;&amp;amp;\\&amp;amp;\ddots&amp;amp;\\&amp;amp;&amp;amp;\lambda_n\end{smallmatrix}\right)\) is a diagonal matrix established from eigenvalues of \(A\).&lt;/p&gt;
+
+&lt;p&gt;When taking the power of \(A\),
+\begin{equation}
+A^k u_0=(S\Lambda S^{-1})\dots(S\Lambda S^{-1})u_0=S\Lambda^k S^{-1} u_0,
+\end{equation}
+writing \(u_0\) as a combination \(c_1x_1+\dots+c_nx_n\) of the eigenvectors, we have that \(c=S^{-1}u_0\). Hence:
+\begin{equation}
+u_k=A^ku_0=c_1{\lambda_1}^kx_1+\dots+c_n{\lambda_n}^kx_n
+\end{equation}
+&lt;em&gt;Fact&lt;/em&gt;: The \(\frac{1+\sqrt{5}}{2}\approx 1.618\) is so-called “&lt;strong&gt;golden ratio&lt;/strong&gt;”. And &lt;em&gt;for some reason a rectangle with sides 1.618 and 1 looks especially graceful&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
+&lt;p&gt;[1] Gilbert Strang. &lt;a href=&quot;http://math.mit.edu/~gs/linearalgebra/&quot;&gt;Introduction to Linear Algebra&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[2] MIT 18.06. &lt;a href=&quot;https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/&quot;&gt;Linear Algebrea&lt;/a&gt;&lt;/p&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="linear-algebra" /><category term="mathematics" /><category term="linear-algebra" /><category term="random-stuffs" /><summary type="html">Enjoy my index-zero-ed post while staying tuned for next ones!</summary></entry></feed>
