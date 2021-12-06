@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-12-02T13:30:38+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-12-02T16:56:18+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Bayesian Optimization</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization.html" rel="alternate" type="text/html" title="Bayesian Optimization" /><published>2021-11-22T14:46:00+07:00</published><updated>2021-11-22T14:46:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization.html">&lt;blockquote&gt;
   &lt;p&gt;Dont know yet&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -19,10 +19,15 @@
       &lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#kernels&quot;&gt;Kernels&lt;/a&gt;
         &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#rbf-kernels&quot;&gt;RBF kernels&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#mercer-kernels&quot;&gt;Mercer (positive definite) kernels&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#lin-kernels&quot;&gt;Linear kernels&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#matern-kernels&quot;&gt;Matern kernels&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#kernel-func&quot;&gt;Kernel functions&lt;/a&gt;
+            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#rbf-kernels&quot;&gt;RBF kernels&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#mercer-kernels&quot;&gt;Mercer (positive definite) kernels&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#lin-kernels&quot;&gt;Linear kernels&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#matern-kernels&quot;&gt;Matern kernels&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#kernel-trick&quot;&gt;The kernel trick&lt;/a&gt;&lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
@@ -49,7 +54,7 @@
 &lt;h3 id=&quot;gauss-dist&quot;&gt;Gaussian (Normal) Distribution&lt;/h3&gt;
 &lt;p&gt;A random variable $X$ is said to be &lt;strong&gt;Gaussian&lt;/strong&gt; or to have the &lt;strong&gt;Normal distribution&lt;/strong&gt; with mean $\mu$ and variance $\sigma^2$ if its probability density function (PDF) is
 \begin{equation}
-f_X(x)=\dfrac{1}{\sqrt(2\pi)\sigma}\exp\left(-\dfrac{(x-\mu)^2}{2\sigma^2}\right)
+f_X(x)=\dfrac{1}{\sqrt{2\pi}\sigma}\exp\left(-\dfrac{(x-\mu)^2}{2\sigma^2}\right)
 \end{equation}
 which we denote as $X\sim\mathcal{N}(\mu,\sigma)$&lt;/p&gt;
 
@@ -108,13 +113,15 @@ With this idea, &lt;em&gt;Standard Normal&lt;/em&gt; distribution in multi-dimen
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;kernels&quot;&gt;Kernels&lt;/h3&gt;
+
+&lt;h4 id=&quot;kernel-func&quot;&gt;Kernel functions&lt;/h4&gt;
 &lt;p&gt;&lt;strong&gt;Kernel function&lt;/strong&gt; is a real-valued function of two arguments
 \begin{equation}
 \kappa(\textbf{x},\textbf{x}’)\in\mathbb{R},
 \end{equation}
 for $\textbf{x},\textbf{x}’\in\mathcal{X}$, which typically is symmetric (i.e., $\kappa(\textbf{x},\textbf{x}’)=\kappa(\textbf{x}’,\textbf{x})$), and nonnegative ($\kappa(\textbf{x},\textbf{x}’)\geq0$). These are some examples of kernel functions.&lt;/p&gt;
 
-&lt;h4 id=&quot;rbf-kernels&quot;&gt;RBF kernels&lt;/h4&gt;
+&lt;h5 id=&quot;rbf-kernels&quot;&gt;RBF kernels&lt;/h5&gt;
 &lt;p&gt;The &lt;strong&gt;squared exponential kernel&lt;/strong&gt; (SE kernel) or &lt;strong&gt;Gaussian kernel&lt;/strong&gt; is defined by
 \begin{equation}
 \kappa(\textbf{x},\textbf{x}’)=\exp\left(-\frac{1}{2}(\textbf{x}-\textbf{x}’)^T\mathbf{\Sigma}^{-1}(\textbf{x}-\textbf{x}’)\right)
@@ -130,7 +137,7 @@ If $\Sigma$ is spherical&lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&qu
 \end{equation}
 Here $\sigma^2$ is known as the &lt;strong&gt;bandwidth&lt;/strong&gt;. Since \eqref{1} can be seen as a function of $\Vert\textbf{x}-\textbf{x}’\Vert$, it is an example of a &lt;strong&gt;radial basis function&lt;/strong&gt; or &lt;strong&gt;RBF kernel&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;h4 id=&quot;mercer-kernels&quot;&gt;Mercer (positive definite) kernels&lt;/h4&gt;
+&lt;h5 id=&quot;mercer-kernels&quot;&gt;Mercer (positive definite) kernels&lt;/h5&gt;
 &lt;p&gt;If the Gram matrix, defined by
 \begin{equation}
 \mathbf{K}=\begin{bmatrix}\kappa(\mathbf{x}_1,\mathbf{x}_1)&amp;amp;\ldots&amp;amp;\kappa(\mathbf{x}_1,\mathbf{x}_N) \\&amp;amp;\vdots&amp;amp;\\\kappa(\mathbf{x}_N,\mathbf{x}_1)&amp;amp;\ldots&amp;amp;\kappa(\mathbf{x}_N,\mathbf{x}_N)\end{bmatrix},
@@ -155,22 +162,29 @@ Thus we see that the intries in the kernel matrix can be computed by performing 
 \end{equation}
 where $\phi$ depends on the eigenfunctions of $\kappa$.&lt;/p&gt;
 
-&lt;h4 id=&quot;lin-kernels&quot;&gt;Linear kernels&lt;/h4&gt;
+&lt;h5 id=&quot;lin-kernels&quot;&gt;Linear kernels&lt;/h5&gt;
 &lt;p&gt;Deriving the feature vector implied by a kernel is only possible if the kernel is &lt;em&gt;Mercer&lt;/em&gt;. However, deriving a kernel from a feature vector is easy. We have
 \begin{equation}
 \kappa(\textbf{x},\textbf{x}’)=\phi(\textbf{x})^T\phi(\textbf{x}’)
 \end{equation}
-If $\phi(\textbf{x})=\textbf{x}$, we obtain the &lt;strong&gt;linear kernel&lt;/strong&gt;
+If $\phi(\textbf{x})=\textbf{x}$, we obtain a simple kernel called &lt;strong&gt;linear kernel&lt;/strong&gt;
 \begin{equation}
 \kappa(\textbf{x},\textbf{x}’)=\textbf{x}^T\textbf{x}’
 \end{equation}&lt;/p&gt;
 
-&lt;h4 id=&quot;matern-kernels&quot;&gt;Matern kernels&lt;/h4&gt;
+&lt;h5 id=&quot;matern-kernels&quot;&gt;Matern kernels&lt;/h5&gt;
 &lt;p&gt;The &lt;strong&gt;Matern kenel&lt;/strong&gt; has the following form
 \begin{equation}
 \kappa(r)=\frac{2^{1-\nu}}{\Gamma(\nu)}\left(\frac{\sqrt{2\nu}r}{l}\right)^{\nu}K_{\nu}\left(\frac{\sqrt{2\nu}r}{l}\right),
 \end{equation}
 where $r=\Vert\textbf{x}-\textbf{x}’\Vert,\nu&amp;gt;0,l&amp;gt;0$ and $K_{\nu}$ is a modified Bessel function. As $\nu\to\infty$, this approaches the SE kernel.&lt;/p&gt;
+
+&lt;h4 id=&quot;kernel-trick&quot;&gt;The kernel trick&lt;/h4&gt;
+&lt;p&gt;Rather than defining our feature vector in terms of kernels,
+\begin{equation}
+\phi(\textbf{x})=\left[\kappa(\textbf{x},\textbf{x}_1),\dots,\kappa(\textbf{x},\textbf{x}_N)\right],
+\end{equation}
+we can instead work with the original feature vectors $x$, but modify the algorithm so that it replaces all inner products of the form&lt;/p&gt;
 
 &lt;h2 id=&quot;gp&quot;&gt;Gaussian Process&lt;/h2&gt;
 &lt;p&gt;Consider a model defined in terms of a linear combination of $M$ fixed basis functions given by the elements of the vecotr $\phi(x)$ so that

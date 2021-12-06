@@ -1,10 +1,10 @@
-I"=+<blockquote>
+I"G1<blockquote>
   <p>Dont know yet</p>
 </blockquote>
 
 <!-- excerpt-end -->
 <ul>
-  <li><a href="#math-basics">Mathematical Basics</a>
+  <li><a href="#basics">Mathematical Basics</a>
     <ul>
       <li><a href="#gauss-dist">Gaussian (Normal) Distribution</a>
         <ul>
@@ -18,10 +18,15 @@
       </li>
       <li><a href="#kernels">Kernels</a>
         <ul>
-          <li><a href="#rbf-kernels">RBF kernels</a></li>
-          <li><a href="#mercer-kernels">Mercer (positive definite) kernels</a></li>
-          <li><a href="#lin-kernels">Linear kernels</a></li>
-          <li><a href="#matern-kernels">Matern kernels</a></li>
+          <li><a href="#kernel-func">Kernel functions</a>
+            <ul>
+              <li><a href="#rbf-kernels">RBF kernels</a></li>
+              <li><a href="#mercer-kernels">Mercer (positive definite) kernels</a></li>
+              <li><a href="#lin-kernels">Linear kernels</a></li>
+              <li><a href="#matern-kernels">Matern kernels</a></li>
+            </ul>
+          </li>
+          <li><a href="#kernel-trick">The kernel trick</a></li>
         </ul>
       </li>
     </ul>
@@ -43,12 +48,12 @@
 
 <p>Before diving into details, we need some necessary basic concepts.</p>
 
-<h2 id="math-basics">Background</h2>
+<h2 id="basics">Background</h2>
 
 <h3 id="gauss-dist">Gaussian (Normal) Distribution</h3>
 <p>A random variable $X$ is said to be <strong>Gaussian</strong> or to have the <strong>Normal distribution</strong> with mean $\mu$ and variance $\sigma^2$ if its probability density function (PDF) is
 \begin{equation}
-f_X(x)=\dfrac{1}{\sqrt(2\pi)\sigma}\exp\left(-\dfrac{(x-\mu)^2}{2\sigma^2}\right)
+f_X(x)=\dfrac{1}{\sqrt{2\pi}\sigma}\exp\left(-\dfrac{(x-\mu)^2}{2\sigma^2}\right)
 \end{equation}
 which we denote as $X\sim\mathcal{N}(\mu,\sigma)$</p>
 
@@ -107,13 +112,15 @@ With this idea, <em>Standard Normal</em> distribution in multi-dimensional case 
 <p><br /></p>
 
 <h3 id="kernels">Kernels</h3>
+
+<h4 id="kernel-func">Kernel functions</h4>
 <p><strong>Kernel function</strong> is a real-valued function of two arguments
 \begin{equation}
 \kappa(\textbf{x},\textbf{x}’)\in\mathbb{R},
 \end{equation}
 for $\textbf{x},\textbf{x}’\in\mathcal{X}$, which typically is symmetric (i.e., $\kappa(\textbf{x},\textbf{x}’)=\kappa(\textbf{x}’,\textbf{x})$), and nonnegative ($\kappa(\textbf{x},\textbf{x}’)\geq0$). These are some examples of kernel functions.</p>
 
-<h4 id="rbf-kernels">RBF kernels</h4>
+<h5 id="rbf-kernels">RBF kernels</h5>
 <p>The <strong>squared exponential kernel</strong> (SE kernel) or <strong>Gaussian kernel</strong> is defined by
 \begin{equation}
 \kappa(\textbf{x},\textbf{x}’)=\exp\left(-\frac{1}{2}(\textbf{x}-\textbf{x}’)^T\mathbf{\Sigma}^{-1}(\textbf{x}-\textbf{x}’)\right)
@@ -129,7 +136,7 @@ If $\Sigma$ is spherical<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" cla
 \end{equation}
 Here $\sigma^2$ is known as the <strong>bandwidth</strong>. Since \eqref{1} can be seen as a function of $\Vert\textbf{x}-\textbf{x}’\Vert$, it is an example of a <strong>radial basis function</strong> or <strong>RBF kernel</strong>.</p>
 
-<h4 id="mercer-kernels">Mercer (positive definite) kernels</h4>
+<h5 id="mercer-kernels">Mercer (positive definite) kernels</h5>
 <p>If the Gram matrix, defined by
 \begin{equation}
 \mathbf{K}=\begin{bmatrix}\kappa(\mathbf{x}_1,\mathbf{x}_1)&amp;\ldots&amp;\kappa(\mathbf{x}_1,\mathbf{x}_N) \\&amp;\vdots&amp;\\\kappa(\mathbf{x}_N,\mathbf{x}_1)&amp;\ldots&amp;\kappa(\mathbf{x}_N,\mathbf{x}_N)\end{bmatrix},
@@ -150,10 +157,33 @@ k_{ij}=\phi(\textbf{x}_i)^T\phi(\textbf{x}_j)
 \end{equation}
 Thus we see that the intries in the kernel matrix can be computed by performing an inner product of some feature vectors that are implicitly defined by the eigenvectors $\mathbf{U}$. In general, if the kernel is Mercer, then there exists a function $\phi$ mapping $\textbf{x}\in\mathcal{X}$ to $\mathbb{R}^D$ such that
 \begin{equation}
+\kappa(\textbf{x},\textbf{x}’)=\phi(\textbf{x})^T\phi(\textbf{x}’),
+\end{equation}
+where $\phi$ depends on the eigenfunctions of $\kappa$.</p>
+
+<h5 id="lin-kernels">Linear kernels</h5>
+<p>Deriving the feature vector implied by a kernel is only possible if the kernel is <em>Mercer</em>. However, deriving a kernel from a feature vector is easy. We have
+\begin{equation}
 \kappa(\textbf{x},\textbf{x}’)=\phi(\textbf{x})^T\phi(\textbf{x}’)
+\end{equation}
+If $\phi(\textbf{x})=\textbf{x}$, we obtain a simple kernel called <strong>linear kernel</strong>
+\begin{equation}
+\kappa(\textbf{x},\textbf{x}’)=\textbf{x}^T\textbf{x}’
 \end{equation}</p>
 
-<h4 id="lin-kernels">Linear kernels</h4>
+<h5 id="matern-kernels">Matern kernels</h5>
+<p>The <strong>Matern kenel</strong> has the following form
+\begin{equation}
+\kappa(r)=\frac{2^{1-\nu}}{\Gamma(\nu)}\left(\frac{\sqrt{2\nu}r}{l}\right)^{\nu}K_{\nu}\left(\frac{\sqrt{2\nu}r}{l}\right),
+\end{equation}
+where $r=\Vert\textbf{x}-\textbf{x}’\Vert,\nu&gt;0,l&gt;0$ and $K_{\nu}$ is a modified Bessel function. As $\nu\to\infty$, this approaches the SE kernel.</p>
+
+<h4 id="kernel-trick">The kernel trick</h4>
+<p>Rather than defining our feature vector in terms of kernels,
+\begin{equation}
+\phi(\textbf{x})=\left[\right]\kappa(\textbf{x},\textbf{x}_1,\dots,\kappa(\textbf{x},\textbf{x}_N)),
+\end{equation}
+we can instead work with the original feature vectors $x$, but modify the algorithm so that it replaces all inner products of the form</p>
 
 <h2 id="gp">Gaussian Process</h2>
 <p>Consider a model defined in terms of a linear combination of $M$ fixed basis functions given by the elements of the vecotr $\phi(x)$ so that

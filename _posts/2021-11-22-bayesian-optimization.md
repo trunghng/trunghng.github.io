@@ -16,10 +16,12 @@ comments: true
 	- [Multivariate Normal Distribution](#mvn)
 		- [Bivariate Normal](#bvn)
 	- [Kernels](#kernels)
-		- [RBF kernels](#rbf-kernels)
-		- [Mercer (positive definite) kernels](#mercer-kernels)
-		- [Linear kernels](#lin-kernels)
-		- [Matern kernels](#matern-kernels)
+		- [Kernel functions](#kernel-func)
+			- [RBF kernels](#rbf-kernels)
+			- [Mercer (positive definite) kernels](#mercer-kernels)
+			- [Linear kernels](#lin-kernels)
+			- [Matern kernels](#matern-kernels)
+		- [The kernel trick](#kernel-trick)
 - [Gaussian Process](#gp)
 	[Gaussian Process Regression](#gpr)
 - [Bayesian Opitmization](#bayes-opt)
@@ -43,7 +45,7 @@ Before diving into details, we need some necessary basic concepts.
 {: #gauss-dist}
 A random variable $X$ is said to be **Gaussian** or to have the **Normal distribution** with mean $\mu$ and variance $\sigma^2$ if its probability density function (PDF) is
 \begin{equation}
-f_X(x)=\dfrac{1}{\sqrt(2\pi)\sigma}\exp\left(-\dfrac{(x-\mu)^2}{2\sigma^2}\right)
+f_X(x)=\dfrac{1}{\sqrt{2\pi}\sigma}\exp\left(-\dfrac{(x-\mu)^2}{2\sigma^2}\right)
 \end{equation}
 which we denote as $X\sim\mathcal{N}(\mu,\sigma)$
 
@@ -107,6 +109,9 @@ When the number of dimensions in $\mathbf{X}$, $k=2$, this special case of MVN i
 
 
 ### Kernels
+
+#### Kernel functions
+{: #kernel-func}
 **Kernel function** is a real-valued function of two arguments
 \begin{equation}
 \kappa(\textbf{x},\textbf{x}')\in\mathbb{R},
@@ -114,7 +119,7 @@ When the number of dimensions in $\mathbf{X}$, $k=2$, this special case of MVN i
 for $\textbf{x},\textbf{x}'\in\mathcal{X}$, which typically is symmetric (i.e., $\kappa(\textbf{x},\textbf{x}')=\kappa(\textbf{x}',\textbf{x})$), and nonnegative ($\kappa(\textbf{x},\textbf{x}')\geq0$). These are some examples of kernel functions.  
 
 
-#### RBF kernels
+##### RBF kernels
 The **squared exponential kernel** (SE kernel) or **Gaussian kernel** is defined by
 \begin{equation}
 \kappa(\textbf{x},\textbf{x}')=\exp\left(-\frac{1}{2}(\textbf{x}-\textbf{x}')^T\mathbf{\Sigma}^{-1}(\textbf{x}-\textbf{x}')\right)
@@ -131,7 +136,7 @@ If $\Sigma$ is spherical[^2], we get the isotropic kernel
 Here $\sigma^2$ is known as the **bandwidth**. Since \eqref{1} can be seen as a function of $\Vert\textbf{x}-\textbf{x}'\Vert$, it is an example of a **radial basis function** or **RBF kernel**.
 
 
-#### Mercer (positive definite) kernels
+##### Mercer (positive definite) kernels
 {: #mercer-kernels}
 If the Gram matrix, defined by
 \begin{equation}
@@ -158,25 +163,33 @@ Thus we see that the intries in the kernel matrix can be computed by performing 
 where $\phi$ depends on the eigenfunctions of $\kappa$.
 
 
-#### Linear kernels
+##### Linear kernels
 {: #lin-kernels}
 Deriving the feature vector implied by a kernel is only possible if the kernel is *Mercer*. However, deriving a kernel from a feature vector is easy. We have
 \begin{equation}
 \kappa(\textbf{x},\textbf{x}')=\phi(\textbf{x})^T\phi(\textbf{x}')
 \end{equation}
-If $\phi(\textbf{x})=\textbf{x}$, we obtain the **linear kernel**
+If $\phi(\textbf{x})=\textbf{x}$, we obtain a simple kernel called **linear kernel**
 \begin{equation}
 \kappa(\textbf{x},\textbf{x}')=\textbf{x}^T\textbf{x}'
 \end{equation}
 
 
-#### Matern kernels
+##### Matern kernels
 {: #matern-kernels}
 The **Matern kenel** has the following form
 \begin{equation}
 \kappa(r)=\frac{2^{1-\nu}}{\Gamma(\nu)}\left(\frac{\sqrt{2\nu}r}{l}\right)^{\nu}K_{\nu}\left(\frac{\sqrt{2\nu}r}{l}\right),
 \end{equation}
 where $r=\Vert\textbf{x}-\textbf{x}'\Vert,\nu>0,l>0$ and $K_{\nu}$ is a modified Bessel function. As $\nu\to\infty$, this approaches the SE kernel.
+
+#### The kernel trick
+{: #kernel-trick}
+Rather than defining our feature vector in terms of kernels,
+\begin{equation}
+\phi(\textbf{x})=\left[\kappa(\textbf{x},\textbf{x}\_1),\dots,\kappa(\textbf{x},\textbf{x}\_N)\right],
+\end{equation}
+we can instead work with the original feature vectors $x$, but modify the algorithm so that it replaces all inner products of the form 
 
 
 ## Gaussian Process
@@ -185,6 +198,7 @@ Consider a model defined in terms of a linear combination of $M$ fixed basis fun
 \begin{equation}
 y(x)=w^T\phi(x)
 \end{equation}
+
 
 
 
