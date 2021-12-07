@@ -22,8 +22,7 @@ comments: true
 			- [Linear kernels](#lin-kernels)
 			- [Matern kernels](#matern-kernels)
 		- [The kernel trick](#kernel-trick)
-- [Gaussian Process](#gp)
-	[Gaussian Process Regression](#gpr)
+- [Gaussian Process Regression](#gpr)
 - [Bayesian Opitmization](#bayes-opt)
 	- [Surrogate Model](#surrogate-model)
 	- [Acquisition Functions](#acquisition-func)
@@ -34,11 +33,9 @@ comments: true
 - [Footnotes](#footnotes)  
 
 
-Before diving into details, we need some necessary basic concepts.
-
-
 ## Background
 {: #basics}
+Before diving into details, we need some necessary basic concepts.
 
 
 ### Gaussian (Normal) Distribution
@@ -192,20 +189,22 @@ Rather than defining our feature vector in terms of kernels,
 we can instead work with the original feature vectors $x$, but modify the algorithm so that it replaces all inner products of the form 
 
 
-## Gaussian Process
-{: #gp}
-Consider a model defined in terms of a linear combination of $M$ fixed basis functions given by the elements of the vecotr $\phi(x)$ so that
-\begin{equation}
-y(x)=w^T\phi(x)
-\end{equation}
-
-
-
-
-
-
-### Gaussian Process Regression
+## Gaussian Process Regression
 {: #gpr}
+A **Gaussian process** (GP) is a collection of random variables, any number of which have a joint Gaussian distribution.  
+
+A Gaussian process is completely specified by its mean function and covariance function. We define mean function $m(\textbf{x})$ and the covariance function or kernel $\kappa(\textbf{x},\textbf{x}')$ of a real process $f(\textbf{x})$ as
+\begin{align}
+m(\textbf{x})&=\mathbb{E}\left[f(\textbf{x})\right] \\\\ \kappa(\textbf{x},\textbf{x}')&=\mathbb{E}\left[(f(\textbf{x})-m(\textbf{x}))(f(\\textbf{x}')-m(\textbf{x}'))\right]
+\end{align}
+and denote the Gaussian process as
+\begin{equation}
+f(x)\sim\mathcal{GP}\left(m(\textbf{x}),\kappa(\textbf{x},\textbf{x}')\right)
+\end{equation}
+Hence, in this case, $\kappa$ is a Mercer kernel.  
+
+
+
 
 
 ## References

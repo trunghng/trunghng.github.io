@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-12-02T16:56:18+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-12-07T13:32:27+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Bayesian Optimization</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization.html" rel="alternate" type="text/html" title="Bayesian Optimization" /><published>2021-11-22T14:46:00+07:00</published><updated>2021-11-22T14:46:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization.html">&lt;blockquote&gt;
   &lt;p&gt;Dont know yet&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -32,8 +32,7 @@
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#gp&quot;&gt;Gaussian Process&lt;/a&gt;
-  &lt;a href=&quot;#gpr&quot;&gt;Gaussian Process Regression&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#gpr&quot;&gt;Gaussian Process Regression&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#bayes-opt&quot;&gt;Bayesian Opitmization&lt;/a&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#surrogate-model&quot;&gt;Surrogate Model&lt;/a&gt;&lt;/li&gt;
@@ -47,9 +46,8 @@
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Before diving into details, we need some necessary basic concepts.&lt;/p&gt;
-
 &lt;h2 id=&quot;basics&quot;&gt;Background&lt;/h2&gt;
+&lt;p&gt;Before diving into details, we need some necessary basic concepts.&lt;/p&gt;
 
 &lt;h3 id=&quot;gauss-dist&quot;&gt;Gaussian (Normal) Distribution&lt;/h3&gt;
 &lt;p&gt;A random variable $X$ is said to be &lt;strong&gt;Gaussian&lt;/strong&gt; or to have the &lt;strong&gt;Normal distribution&lt;/strong&gt; with mean $\mu$ and variance $\sigma^2$ if its probability density function (PDF) is
@@ -186,13 +184,18 @@ where $r=\Vert\textbf{x}-\textbf{x}’\Vert,\nu&amp;gt;0,l&amp;gt;0$ and $K_{\nu
 \end{equation}
 we can instead work with the original feature vectors $x$, but modify the algorithm so that it replaces all inner products of the form&lt;/p&gt;
 
-&lt;h2 id=&quot;gp&quot;&gt;Gaussian Process&lt;/h2&gt;
-&lt;p&gt;Consider a model defined in terms of a linear combination of $M$ fixed basis functions given by the elements of the vecotr $\phi(x)$ so that
-\begin{equation}
-y(x)=w^T\phi(x)
-\end{equation}&lt;/p&gt;
+&lt;h2 id=&quot;gpr&quot;&gt;Gaussian Process Regression&lt;/h2&gt;
+&lt;p&gt;A &lt;strong&gt;Gaussian process&lt;/strong&gt; (GP) is a collection of random variables, any number of which have a joint Gaussian distribution.&lt;/p&gt;
 
-&lt;h3 id=&quot;gpr&quot;&gt;Gaussian Process Regression&lt;/h3&gt;
+&lt;p&gt;A Gaussian process is completely specified by its mean function and covariance function. We define mean function $m(\textbf{x})$ and the covariance function or kernel $\kappa(\textbf{x},\textbf{x}’)$ of a real process $f(\textbf{x})$ as
+\begin{align}
+m(\textbf{x})&amp;amp;=\mathbb{E}\left[f(\textbf{x})\right] \\ \kappa(\textbf{x},\textbf{x}’)&amp;amp;=\mathbb{E}\left[(f(\textbf{x})-m(\textbf{x}))(f(\textbf{x}’)-m(\textbf{x}’))\right]
+\end{align}
+and denote the Gaussian process as
+\begin{equation}
+f(x)\sim\mathcal{GP}\left(m(\textbf{x}),\kappa(\textbf{x},\textbf{x}’)\right)
+\end{equation}
+Hence, in this case, $\kappa$ is a Mercer kernel.&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] C. E. Rasmussen &amp;amp; C. K. I. Williams. &lt;a href=&quot;http://www.gaussianprocess.org/gpml/&quot;&gt;Gaussian Processes for Machine Learning&lt;/a&gt;, MIT Press, 2006&lt;/p&gt;

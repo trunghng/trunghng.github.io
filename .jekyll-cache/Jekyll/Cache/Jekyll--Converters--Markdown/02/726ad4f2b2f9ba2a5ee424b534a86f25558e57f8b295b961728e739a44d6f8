@@ -1,4 +1,4 @@
-I"�0<blockquote>
+I"`3<blockquote>
   <p>Dont know yet</p>
 </blockquote>
 
@@ -46,14 +46,13 @@
   <li><a href="#footnotes">Footnotes</a></li>
 </ul>
 
-<p>Before diving into details, we need some necessary basic concepts.</p>
-
 <h2 id="basics">Background</h2>
+<p>Before diving into details, we need some necessary basic concepts.</p>
 
 <h3 id="gauss-dist">Gaussian (Normal) Distribution</h3>
 <p>A random variable $X$ is said to be <strong>Gaussian</strong> or to have the <strong>Normal distribution</strong> with mean $\mu$ and variance $\sigma^2$ if its probability density function (PDF) is
 \begin{equation}
-f_X(x)=\dfrac{1}{\sqrt(2\pi)\sigma}\exp\left(-\dfrac{(x-\mu)^2}{2\sigma^2}\right)
+f_X(x)=\dfrac{1}{\sqrt{2\pi}\sigma}\exp\left(-\dfrac{(x-\mu)^2}{2\sigma^2}\right)
 \end{equation}
 which we denote as $X\sim\mathcal{N}(\mu,\sigma)$</p>
 
@@ -181,13 +180,20 @@ where $r=\Vert\textbf{x}-\textbf{x}’\Vert,\nu&gt;0,l&gt;0$ and $K_{\nu}$ is a 
 <h4 id="kernel-trick">The kernel trick</h4>
 <p>Rather than defining our feature vector in terms of kernels,
 \begin{equation}
-\phi(\textbf{x})=\left[\right]\kappa(\textbf{x},\textbf{x}_1),
-\end{equation}</p>
+\phi(\textbf{x})=\left[\kappa(\textbf{x},\textbf{x}_1),\dots,\kappa(\textbf{x},\textbf{x}_N)\right],
+\end{equation}
+we can instead work with the original feature vectors $x$, but modify the algorithm so that it replaces all inner products of the form</p>
 
 <h2 id="gp">Gaussian Process</h2>
-<p>Consider a model defined in terms of a linear combination of $M$ fixed basis functions given by the elements of the vecotr $\phi(x)$ so that
+<p>A <strong>Gaussian process</strong> (GP) is a collection of random variables, any number of which have o joint Gaussian distribution.</p>
+
+<p>A Gaussian process is is completely specified by its mean function and covariance function. We define mean function $m(\textbf{x})$ and the covariance function $\kappa(\textbf{x},\textbf{x}’)$ of a real process $f(\textbf{x})$ as
+\begin{align}
+m(\textbf{x})&amp;=\mathbb{E}\left[f(\textbf{x})\right] \\ \kappa(\textbf{x},\textbf{x}’)&amp;=\mathbb{E}\left[(f(\textbf{x})-m(\textbf{x}))(f(\textbf{x}’)-m(\textbf{x}’))\right]
+\end{align}
+and denote the Gaussian process as
 \begin{equation}
-y(x)=w^T\phi(x)
+f(x)\sim\mathcal{GP}\left(m(\textbf{x}),k(\textbf{x},\textbf{x}’)\right)
 \end{equation}</p>
 
 <h3 id="gpr">Gaussian Process Regression</h3>
