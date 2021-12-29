@@ -32,7 +32,8 @@ comments: true
 - [References](#references)
 - [Footnotes](#footnotes)  
 
-
+$\newcommand{\Var}{\mathrm{Var}}$
+$\newcommand{\Cov}{\mathrm{Cov}}$
 ## Background
 {: #basics}
 Before diving into details, we need some necessary basic concepts.
@@ -84,7 +85,7 @@ where
 \end{equation}
 is the $k$-dimensional mean vector, and covariance matrix $\mathbf{\Sigma}\in\mathbb{R}^{k\times k}$ with
 \begin{equation}
-	\mathbf{\Sigma}\_{ij}=\mathbb{E}\left(X_i-\mu_i\right)\left(X_j-\mu_j\right)=\text{Cov}(X_i,X_j)
+	\mathbf{\Sigma}\_{ij}=\mathbb{E}\left(X_i-\mu_i\right)\left(X_j-\mu_j\right)=\Cov(X_i,X_j)
 \end{equation}
 We also have that $\mathbf{\Sigma}\geq 0$ (positive semi-definite matrix)[^1].
 
@@ -193,15 +194,19 @@ we can instead work with the original feature vectors $x$, but modify the algori
 {: #gpr}
 A **Gaussian process** (GP) is a collection of random variables, any number of which have a joint Gaussian distribution.  
 
-A Gaussian process is completely specified by its mean function and covariance function. We define mean function $m(\textbf{x})$ and the covariance function or kernel $\kappa(\textbf{x},\textbf{x}')$ of a real process $f(\textbf{x})$ as
+A Gaussian process is completely specified by its mean function and covariance function. We define mean function $m(\textbf{x})$ and the covariance function or kernel $\kappa(\textbf{x},\textbf{x}')$ of a process $f(\textbf{x})$ as
 \begin{align}
-m(\textbf{x})&=\mathbb{E}\left[f(\textbf{x})\right] \\\\ \kappa(\textbf{x},\textbf{x}')&=\mathbb{E}\left[(f(\textbf{x})-m(\textbf{x}))(f(\\textbf{x}')-m(\textbf{x}'))\right]
+m(\textbf{x})&=\mathbb{E}\left[f(\textbf{x})\right] \\\\ \kappa(\textbf{x},\textbf{x}')&=\mathbb{E}\left[(f(\textbf{x})-m(\textbf{x}))(f(\\textbf{x}')-m(\textbf{x}'))^T\right]
 \end{align}
 and denote the Gaussian process as
 \begin{equation}
 f(x)\sim\mathcal{GP}\left(m(\textbf{x}),\kappa(\textbf{x},\textbf{x}')\right)
 \end{equation}
-Hence, in this case, $\kappa$ is a Mercer kernel.  
+Hence, in this case, $\kappa$ is a Mercer kernel. And for any finite set of point $\textbf{x}\_1,\dots,\textbf{x}\_k\in\mathbb{R}^d$, the definition of GP define an MVN
+\begin{equation}
+f(\textbf{X})\sim\mathcal{N}\left(\mathbf{\mu},\textbf{K}\right),
+\end{equation}
+where $\textbf{X}=\left(\textbf{x}\_1\dots\right)$
 
 
 
@@ -225,7 +230,16 @@ Hence, in this case, $\kappa$ is a Mercer kernel.
 [8] [amoeba](https://stats.stackexchange.com/users/28666/amoeba), [What is an isotropic (spherical) covariance matrix?](https://stats.stackexchange.com/q/204599), StackExchange
 
 ## Footnotes
-[^1]: 
+[^1]: The definition of covariance matrix $\mathbf{\Sigma}$ can be rewritten as
+	\begin{equation}
+	\mathbf{\Sigma}=\Cov(\mathbf{X},\mathbf{X})=\Var(\mathbf{X})
+	\end{equation}
+	Let $\mathbf{z}\in\mathbb{R}^k$, we have
+	\begin{equation}
+	\Var(\mathbf{z}^T\mathbf{X})=\mathbf{z}^T\Var(\mathbf{X})\mathbf{z}=\mathbf{z}^T\mathbf{\Sigma}\mathbf{z}
+	\end{equation}
+	And since $\Var(\mathbf{z}^T\mathbf{X})\geq0$, we also have that $\mathbf{z}^T\mathbf{\Sigma}\mathbf{z}\geq0$, which proves that $\mathbf{\Sigma}$ is a positive semi-definite matrix.  
+
 [^2]: A covariance matrix $\mathbf{C}$ is called *isotrophic*, or *spherical* if it is proportionate to the identity matrix
 	\begin{equation}
 	\mathbf{C}=\lambda\mathbf{I}

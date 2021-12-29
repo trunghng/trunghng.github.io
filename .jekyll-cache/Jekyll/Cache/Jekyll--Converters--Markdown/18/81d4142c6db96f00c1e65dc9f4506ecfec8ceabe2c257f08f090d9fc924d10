@@ -1,4 +1,4 @@
-I"N3<blockquote>
+I"�6<blockquote>
   <p>Dont know yet</p>
 </blockquote>
 
@@ -45,6 +45,8 @@
   <li><a href="#footnotes">Footnotes</a></li>
 </ul>
 
+<p>$\newcommand{\Var}{\mathrm{Var}}$
+$\newcommand{\Cov}{\mathrm{Cov}}$</p>
 <h2 id="basics">Background</h2>
 <p>Before diving into details, we need some necessary basic concepts.</p>
 
@@ -90,7 +92,7 @@ where
 \end{equation}
 is the $k$-dimensional mean vector, and covariance matrix $\mathbf{\Sigma}\in\mathbb{R}^{k\times k}$ with
 \begin{equation}
-	\mathbf{\Sigma}_{ij}=\mathbb{E}\left(X_i-\mu_i\right)\left(X_j-\mu_j\right)=\text{Cov}(X_i,X_j)
+	\mathbf{\Sigma}_{ij}=\mathbb{E}\left(X_i-\mu_i\right)\left(X_j-\mu_j\right)=\Cov(X_i,X_j)
 \end{equation}
 We also have that $\mathbf{\Sigma}\geq 0$ (positive semi-definite matrix)<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>.</p>
 
@@ -186,15 +188,19 @@ we can instead work with the original feature vectors $x$, but modify the algori
 <h2 id="gpr">Gaussian Process Regression</h2>
 <p>A <strong>Gaussian process</strong> (GP) is a collection of random variables, any number of which have a joint Gaussian distribution.</p>
 
-<p>A Gaussian process is is completely specified by its mean function and covariance function. We define mean function $m(\textbf{x})$ and the covariance function $\kappa(\textbf{x},\textbf{x}’)$ of a real process $f(\textbf{x})$ as
+<p>A Gaussian process is completely specified by its mean function and covariance function. We define mean function $m(\textbf{x})$ and the covariance function or kernel $\kappa(\textbf{x},\textbf{x}’)$ of a process $f(\textbf{x})$ as
 \begin{align}
-m(\textbf{x})&amp;=\mathbb{E}\left[f(\textbf{x})\right] \\ \kappa(\textbf{x},\textbf{x}’)&amp;=\mathbb{E}\left[(f(\textbf{x})-m(\textbf{x}))(f(\textbf{x}’)-m(\textbf{x}’))\right]
+m(\textbf{x})&amp;=\mathbb{E}\left[f(\textbf{x})\right] \\ \kappa(\textbf{x},\textbf{x}’)&amp;=\mathbb{E}\left[(f(\textbf{x})-m(\textbf{x}))(f(\textbf{x}’)-m(\textbf{x}’))^T\right]
 \end{align}
 and denote the Gaussian process as
 \begin{equation}
 f(x)\sim\mathcal{GP}\left(m(\textbf{x}),\kappa(\textbf{x},\textbf{x}’)\right)
 \end{equation}
-Hence, in this case, $kappa$ is a Mercer kernel.</p>
+Hence, in this case, $\kappa$ is a Mercer kernel. And for any finite set of point $\textbf{x}_1,\dots,\textbf{x}_k\in\mathbb{R}^d$, the definition of GP define an MVN
+\begin{equation}
+f(\textbf{X})\sim\mathcal{N}\left(\mathbf{\mu},\textbf{K}\right),
+\end{equation}
+where $\textbf{X}=\left(\textbf{x}_1\dots\right)$</p>
 
 <h2 id="references">References</h2>
 <p>[1] C. E. Rasmussen &amp; C. K. I. Williams. <a href="http://www.gaussianprocess.org/gpml/">Gaussian Processes for Machine Learning</a>, MIT Press, 2006</p>
@@ -214,11 +220,19 @@ Hence, in this case, $kappa$ is a Mercer kernel.</p>
 <p>[8] <a href="https://stats.stackexchange.com/users/28666/amoeba">amoeba</a>, <a href="https://stats.stackexchange.com/q/204599">What is an isotropic (spherical) covariance matrix?</a>, StackExchange</p>
 
 <h2 id="footnotes">Footnotes</h2>
+
 <div class="footnotes" role="doc-endnotes">
   <ol>
     <li id="fn:1" role="doc-endnote">
-
-      <p><a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>The definition of covariance matrix $\mathbf{\Sigma}$ can be rewritten as
+\begin{equation}
+\mathbf{\Sigma}=\Cov(\mathbf{X},\mathbf{X})=\Var(\mathbf{X})
+\end{equation}
+Let $\mathbf{z}\in\mathbb{R}^k$, we have
+\begin{equation}
+\Var(\mathbf{z}^T\mathbf{X})=\mathbf{z}^T\Var(\mathbf{X})\mathbf{z}=\mathbf{z}^T\mathbf{\Sigma}\mathbf{z}
+\end{equation}
+And since $\Var(\mathbf{z}^T\mathbf{X})\geq0$, we also have that $\mathbf{z}^T\mathbf{\Sigma}\mathbf{z}\geq0$, which proves that $\mathbf{\Sigma}$ is a positive semi-definite matrix. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:2" role="doc-endnote">
       <p>A covariance matrix $\mathbf{C}$ is called <em>isotrophic</em>, or <em>spherical</em> if it is proportionate to the identity matrix
