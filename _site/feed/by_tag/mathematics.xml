@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-12-31T17:22:19+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-12-31T17:24:17+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Power Series</title><link href="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>http://localhost:4000/mathematics/calculus/2021/09/21/power-series</id><content type="html" xml:base="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html">&lt;blockquote&gt;
   &lt;p&gt;Recall that in the previous post, &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html&quot;&gt;Infinite Series of Constants&lt;/a&gt;, we mentioned a type of series called &lt;strong&gt;power series&lt;/strong&gt; a lot. In the content of this post, we will be diving deeper into details of that series.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -1488,7 +1488,7 @@ Given a vector space $\mathcal{V}\subseteq\mathbb{R}^d$, a function $f:\mathcal{
 \end{equation}&lt;/li&gt;
   &lt;li&gt;$\ell^{2,P}$: the matrix-weighted 2-norm is defined as
 \begin{equation}
-\Vert v\Vert^2_P=v^TPv
+\Vert v\Vert^2_P=v^\intercal Pv
 \end{equation}
 Similarly, we can define norms over spaces of functions. For example, if $\mathcal{V}$ is the vector space of functions over domain $\mathcal{X}$ which are &lt;em&gt;uniformly bounded&lt;/em&gt;&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;, then
 \begin{equation}
@@ -2049,7 +2049,7 @@ q_{ij}^{(n)}=Q_{ij}^{n}
 $Q^n$ is also called the &lt;em&gt;n-step transition matrix&lt;/em&gt;.&lt;/p&gt;
 
 &lt;h5 id=&quot;marginal-dist-xn&quot;&gt;Marginal Distribution of $X_n$&lt;/h5&gt;
-&lt;p&gt;Let $t=(t_1,\dots,t_M)^T$, where $t_i=P(X_0=i)$. By the law of total probability (LOTP), we have that:
+&lt;p&gt;Let $t=(t_1,\dots,t_M)^\intercal$, where $t_i=P(X_0=i)$. By the law of total probability (LOTP), we have that:
 \begin{align}
 P(X_n=j)&amp;amp;=\sum_{i=1}^{M}P(X_0=i)P(X_n=j|X_0=i) \\&amp;amp;=\sum_{i=1}^{M}t_iq_{ij}^{(n)}
 \end{align}
@@ -2072,7 +2072,7 @@ And thus, $k=gcd(n)$ such that $Q^n_{ii}&amp;gt;0$. $i$ is called &lt;em&gt;aper
 &lt;/ol&gt;
 
 &lt;h4 id=&quot;stationary-distribution&quot;&gt;Stationary Distribution&lt;/h4&gt;
-&lt;p&gt;A vector $s=(s_1,\dots,s_M)^T$ such that $s_i\geq0$ and $\sum_{i}s_i=1$ is a &lt;em&gt;stationary distribution&lt;/em&gt; for a Markov chain if
+&lt;p&gt;A vector $s=(s_1,\dots,s_M)^\intercal$ such that $s_i\geq0$ and $\sum_{i}s_i=1$ is a &lt;em&gt;stationary distribution&lt;/em&gt; for a Markov chain if
 \begin{equation}
 \sum_{i}s_iq_{ij}=s_j
 \end{equation}
@@ -2090,14 +2090,14 @@ for all $j$, or equivalently $sQ=s$.&lt;/p&gt;
     Let $X_0,X_1,\dots$ be an &lt;em&gt;irreducible&lt;/em&gt; Markov chain with &lt;em&gt;stationary distribution&lt;/em&gt; $s$. Let $r_i$ be the expected time it takes the chain to return to $i$, given that it starts at $i$. Then $s_i=1/r_i$&lt;/p&gt;
 
 &lt;h4 id=&quot;reversibility&quot;&gt;Reversibility&lt;/h4&gt;
-&lt;p&gt;Let $Q=(q_{ij})$ be the &lt;em&gt;transition matrix&lt;/em&gt; of a Markov chain. Suppose there is an $s=(s_1,\dots,s_M)^T$ with $s_i\geq0,\sum_{i}s_i=1$, such that
+&lt;p&gt;Let $Q=(q_{ij})$ be the &lt;em&gt;transition matrix&lt;/em&gt; of a Markov chain. Suppose there is an $s=(s_1,\dots,s_M)^\intercal$ with $s_i\geq0,\sum_{i}s_i=1$, such that
 \begin{equation}
 s_iq_{ij}=s_jq_{ji}
 \end{equation}
 for all states $i,j$. This equation is called &lt;em&gt;reversibility&lt;/em&gt; or &lt;em&gt;detailed balance&lt;/em&gt; condition. And if the condition holds, we say that the chain is &lt;em&gt;reversible&lt;/em&gt; w.r.t $s$.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Proposition&lt;/strong&gt; (&lt;em&gt;Reversible implies stationary&lt;/em&gt;)&lt;br /&gt;
-    Suppose that $Q=(q_{ij})$ be the &lt;em&gt;transition matrix&lt;/em&gt; of a Markov chain that is &lt;em&gt;reversible&lt;/em&gt; w.r.t to an $s=(s_1,\dots,s_M)^T$ with with $s_i\geq0,\sum_{i}s_i=1$. Then $s$ is a &lt;em&gt;stationary distribution&lt;/em&gt; of the chain. (&lt;em&gt;proof&lt;/em&gt;:$\sum_{j}s_jq_{ji}=\sum_{j}s_iq_{ij}=s_i\sum_{j}q_{ij}=s_i$)&lt;/p&gt;
+    Suppose that $Q=(q_{ij})$ be the &lt;em&gt;transition matrix&lt;/em&gt; of a Markov chain that is &lt;em&gt;reversible&lt;/em&gt; w.r.t to an $s=(s_1,\dots,s_M)^\intercal$ with with $s_i\geq0,\sum_{i}s_i=1$. Then $s$ is a &lt;em&gt;stationary distribution&lt;/em&gt; of the chain. (&lt;em&gt;proof&lt;/em&gt;:$\sum_{j}s_jq_{ji}=\sum_{j}s_iq_{ij}=s_i\sum_{j}q_{ij}=s_i$)&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Proposition&lt;/strong&gt;&lt;br /&gt;
     If each column of $Q$ sum to 1, then the &lt;em&gt;uniform distribution&lt;/em&gt; over all states $(1/M,\dots,1/M)$, is a &lt;em&gt;stationary distribution&lt;/em&gt;. (This kind of matrix is called &lt;em&gt;doubly stochastic matrix&lt;/em&gt;).&lt;/p&gt;

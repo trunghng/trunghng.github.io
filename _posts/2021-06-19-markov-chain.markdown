@@ -54,7 +54,7 @@ $Q^n$ is also called the *n-step transition matrix*.
 
 ##### Marginal Distribution of $X_n$
 {: #marginal-dist-xn}
-Let $t=(t_1,\dots,t_M)^T$, where $t_i=P(X_0=i)$. By the law of total probability (LOTP), we have that:
+Let $t=(t_1,\dots,t_M)^\intercal$, where $t_i=P(X_0=i)$. By the law of total probability (LOTP), we have that:
 \begin{align}
 P(X_n=j)&=\sum_{i=1}^{M}P(X_0=i)P(X_n=j|X_0=i) \\\\&=\sum_{i=1}^{M}t_iq_{ij}^{(n)}
 \end{align}
@@ -69,7 +69,7 @@ or the marginal distribution of $X_n$ is given by $tQ^n$.
 And thus, $k=gcd(n)$ such that $Q^n_{ii}>0$. $i$ is called *aperiodic* if $k_i=1$, and *periodic* otherwise. The chain itself is called *aperiodic* if all its states are *aperiodic*, and *periodic* otherwise.
 
 #### Stationary Distribution
-A vector $s=(s_1,\dots,s_M)^T$ such that $s_i\geq0$ and $\sum_{i}s_i=1$ is a *stationary distribution* for a Markov chain if
+A vector $s=(s_1,\dots,s_M)^\intercal$ such that $s_i\geq0$ and $\sum_{i}s_i=1$ is a *stationary distribution* for a Markov chain if
 \begin{equation}
 \sum_{i}s_iq_{ij}=s_j
 \end{equation}
@@ -87,14 +87,14 @@ The theorem is a consequence of a result from *Perron-Frobenius theorem*.
 &nbsp;&nbsp;&nbsp;&nbsp;Let $X_0,X_1,\dots$ be an *irreducible* Markov chain with *stationary distribution* $s$. Let $r_i$ be the expected time it takes the chain to return to $i$, given that it starts at $i$. Then $s_i=1/r_i$
 
 #### Reversibility
-Let $Q=(q_{ij})$ be the *transition matrix* of a Markov chain. Suppose there is an $s=(s_1,\dots,s_M)^T$ with $s_i\geq0,\sum_{i}s_i=1$, such that
+Let $Q=(q_{ij})$ be the *transition matrix* of a Markov chain. Suppose there is an $s=(s_1,\dots,s_M)^\intercal$ with $s_i\geq0,\sum_{i}s_i=1$, such that
 \begin{equation}
 s_iq_{ij}=s_jq_{ji}
 \end{equation}
 for all states $i,j$. This equation is called *reversibility* or *detailed balance* condition. And if the condition holds, we say that the chain is *reversible* w.r.t $s$.  
 
 **Proposition** (*Reversible implies stationary*)  
-&nbsp;&nbsp;&nbsp;&nbsp;Suppose that $Q=(q_{ij})$ be the *transition matrix* of a Markov chain that is *reversible* w.r.t to an $s=(s_1,\dots,s_M)^T$ with with $s_i\geq0,\sum_{i}s_i=1$. Then $s$ is a *stationary distribution* of the chain. (*proof*:$\sum_{j}s_jq_{ji}=\sum_{j}s_iq_{ij}=s_i\sum_{j}q_{ij}=s_i$)  
+&nbsp;&nbsp;&nbsp;&nbsp;Suppose that $Q=(q_{ij})$ be the *transition matrix* of a Markov chain that is *reversible* w.r.t to an $s=(s_1,\dots,s_M)^\intercal$ with with $s_i\geq0,\sum_{i}s_i=1$. Then $s$ is a *stationary distribution* of the chain. (*proof*:$\sum_{j}s_jq_{ji}=\sum_{j}s_iq_{ij}=s_i\sum_{j}q_{ij}=s_i$)  
 
 **Proposition**  
 &nbsp;&nbsp;&nbsp;&nbsp;If each column of $Q$ sum to 1, then the *uniform distribution* over all states $(1/M,\dots,1/M)$, is a *stationary distribution*. (This kind of matrix is called *doubly stochastic matrix*).

@@ -47,7 +47,7 @@ Given a vector space $\mathcal{V}\subseteq\mathbb{R}^d$, a function $f:\mathcal{
 \end{equation}
 4. $\ell^{2,P}$: the matrix-weighted 2-norm is defined as
 \begin{equation}
-\Vert v\Vert^2\_P=v^TPv
+\Vert v\Vert^2\_P=v^\intercal Pv
 \end{equation}
 Similarly, we can define norms over spaces of functions. For example, if $\mathcal{V}$ is the vector space of functions over domain $\mathcal{X}$ which are *uniformly bounded*[^1], then
 \begin{equation}
