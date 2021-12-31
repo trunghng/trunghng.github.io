@@ -21,6 +21,8 @@ comments: true
 			- [Mercer (positive definite) kernels](#mercer-kernels)
 			- [Linear kernels](#lin-kernels)
 			- [Matern kernels](#matern-kernels)
+		- [Eigenfunction Analysis of Kernels](#eigenfunc-kernel)
+			- [Eigenfunctions](#eigenfunc)
 - [Gaussian Process Regression](#gpr)
 - [Bayesian Opitmization](#bayes-opt)
 	- [Surrogate Model](#surrogate-model)
@@ -117,7 +119,9 @@ for $\textbf{x},\textbf{x}'\in\mathcal{X}$, which typically is symmetric (i.e., 
 
 
 ##### RBF kernels
-The **squared exponential kernel** (SE kernel) or **Gaussian kernel** is defined by
+[TODO]  
+
+The **squared exponential kernel** (**SE kernel**) or **Gaussian kernel** is defined by
 \begin{equation}
 \kappa(\textbf{x},\textbf{x}')=\exp\left(-\frac{1}{2}(\textbf{x}-\textbf{x}')^T\mathbf{\Sigma}^{-1}(\textbf{x}-\textbf{x}')\right)
 \end{equation}
@@ -139,25 +143,7 @@ If the Gram matrix, defined by
 \begin{equation}
 \mathbf{K}=\begin{bmatrix}\kappa(\mathbf{x}\_1,\mathbf{x}\_1)&\ldots&\kappa(\mathbf{x}\_1,\mathbf{x}\_N) \\\\&\vdots&\\\\\kappa(\mathbf{x}\_N,\mathbf{x}\_1)&\ldots&\kappa(\mathbf{x}\_N,\mathbf{x}\_N)\end{bmatrix},
 \end{equation}
-is positive definite for any set $\left\\{x_i\right\\}\_{i=1}^N$, the kernel $\kappa$ is called a **Mercer kernel**, or **positive definite kernel**.  
-
-The importance of Mercer kernels is the following reusult, which is known as  **Mercer's theorem**. If the Gram matrix is positive definite, we can compute an eigenvector decomposition of it as
-\begin{equation}
-\mathbf{K}=\mathbf{U}^T\mathbf{\Lambda}\mathbf{U},
-\end{equation}
-where $\mathbf{\Lambda}$ is a diagonal matrix of eigenvalues $\lambda_i>0$. Consider an element of $\mathbf{K}$
-\begin{equation}
-k_{ij}=\left(\mathbf{\Lambda}^{\frac{1}{2}}\mathbf{U}\_{:i}\right)^T\left(\mathbf{\Lambda}^{\frac{1}{2}}\mathbf{U}\_{:j}\right)
-\end{equation}
-If we let $\phi(\textbf{x}\_i)=\mathbf{\Lambda}^{\frac{1}{2}}\mathbf{U}\_{:i}$, then we can write
-\begin{equation}
-k_{ij}=\phi(\textbf{x}\_i)^T\phi(\textbf{x}\_j)
-\end{equation}
-Thus we see that the intries in the kernel matrix can be computed by performing an inner product of some feature vectors that are implicitly defined by the eigenvectors $\mathbf{U}$. In general, if the kernel is Mercer, then there exists a function $\phi$ mapping $\textbf{x}\in\mathcal{X}$ to $\mathbb{R}^D$ such that
-\begin{equation}
-\kappa(\textbf{x},\textbf{x}')=\phi(\textbf{x})^T\phi(\textbf{x}'),
-\end{equation}
-where $\phi$ depends on the eigenfunctions of $\kappa$.
+is positive definite for any set $\left\\{x_i\right\\}\_{i=1}^N$, the kernel $\kappa$ is called a **Mercer kernel**, or **positive definite kernel**.
 
 
 ##### Linear kernels
@@ -178,19 +164,50 @@ Let $\mathcal{X}\subset\mathbb{R}^D,\nu>0,\ell>0$. The **Matern kenel** $\kappa:
 \begin{equation}
 \kappa(r)=\frac{2^{1-\nu}}{\Gamma(\nu)}\left(\frac{\sqrt{2\nu}r}{\ell}\right)^{\nu}K_{\nu}\left(\frac{\sqrt{2\nu}r}{\ell}\right)\tag{2}\label{2}
 \end{equation}
-where $\Gamma$ is the *gamma function*; $r=\Vert\textbf{x}-\textbf{x}'\Vert$ for $x,x'\in\mathcal{X}$ and $K_{\nu}$ is a *modified Bessel function*. As $\nu\to\infty$, this approaches the SE kernel.  
+where $\Gamma$ is the *gamma function*; $r=\Vert\textbf{x}-\textbf{x}'\Vert$ for $\textbf{x},\textbf{x}'\in\mathcal{X}$ and $K_{\nu}$ is a *modified Bessel function*.  
+
+As $\nu\to\infty$, \eqref{2} approaches the **SE kernel**
+\begin{equation}
+\lim_{\nu\to\infty}\kappa_\nu(r)=\exp\left(-\dfrac{r^2}{\ell}\right)
+\end{equation}
+where $\ell>0$.  
 
 When $\nu$ is half-integer - i.e., $\nu=p+1/2$, for $p\geq0$, equation \eqref{2} can be reduced to a product of an exponential function and a polynomial of degree $p$, which can be written as
 \begin{equation}
-\kappa_{\nu=p+1/2}(r)=\exp\left(-\dfrac{\sqrt(2\nu)r}{\ell}\right)\dfrac{\Gamma(p+1)}{\Gamma(2p+1)}\sum_{i=0}^{p}\dfrac{(p+i)!}{i!(p-i)!}\left(\dfrac{\sqrt{8\nu}r}{\ell}\right)^{p-i}
+\kappa_{\nu=p+1/2}(r)=\exp\left(-\dfrac{\sqrt{2\nu}r}{\ell}\right)\dfrac{\Gamma(p+1)}{\Gamma(2p+1)}\sum_{i=0}^{p}\dfrac{(p+i)!}{i!(p-i)!}\left(\dfrac{\sqrt{8\nu}r}{\ell}\right)^{p-i}
 \end{equation}
 
 For an another special case, setting $\nu=1/2$ lets \eqref{2} become
 \begin{equation}
 \kappa_{\nu=1/2}=\exp\left(\dfrac{-r}{\ell}\right),
 \end{equation}
-which is known as **Laplace** or **exponential kernel**.
+which is known as **Laplace** or **exponential kernel**.  
 
+#### Eigenfunction Analysis of Kernels
+{: #eigenfunc-kernel}
+
+##### Eigenfunctions
+{: #eigenfunc}
+A function $\phi(\cdot)$ that obeys the integral equation
+\begin{equation}
+\int \kappa(\textbf{x},\textbf{x}')\phi(\textbf{x})\,d\mu(\textbf{x})=\lambda\phi(\textbf{x}'),
+\end{equation}
+is called an **eigenfunction** of kernel $\kappa$ with eigenvalue $\lambda$ w.r.t [measure]({% post_url 2021-07-03-measure %}) $\mu$.  
+
+**Mercer's theorem** allows us to express kernel $\kappa$ in terms of the eigenvalues and eigenfunctions.  
+
+First, let us introduce an integral operator, $T_\kappa$, which is defined as
+\begin{equation}
+(T_\kappa f)(\textbf{x})=\int_\mathcal{X}\kappa(\textbf{x},\textbf{x}')f(\textbf{x}')\,d\mu(\textbf{x}'),
+\end{equation}
+where $\mu$ denotes a measure.
+
+**Theorem** (*Mercer's theorem*)  
+*Let $(\mathcal{X},\mu)$ be a finite measure space and $\kappa\in L_\infty(\mathcal{X}^2,\mu^2)$ be positive definite and $T_\kappa:L_2(\mathcal{X},\mu)\to L_2(\mathcal{X},\mu)$. Let $\phi_i\in L_2(\mathcal{X,\mu})$ be the normalized eigenfunctions of $T_\kappa$ associated with the eigenvalues $\lambda_i>0$. Then we have
+\begin{equation}
+\kappa(\textbf{x},\textbf{x}')=\sum_{i=0}^{\infty}\lambda_i\phi_i(\textbf{x})\phi_i(\textbf{x}')
+\end{equation}
+where the convergence is absolute and uniform over $\textbf{x},\textbf{x}'\in\mathcal{X}$.*
 
 ## Gaussian Process Regression
 {: #gpr}

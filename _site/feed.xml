@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-12-31T12:01:35+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-12-31T16:20:41+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Bayesian Optimization</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization.html" rel="alternate" type="text/html" title="Bayesian Optimization" /><published>2021-11-22T14:46:00+07:00</published><updated>2021-11-22T14:46:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization.html">&lt;blockquote&gt;
   &lt;p&gt;Dont know yet&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -25,6 +25,11 @@
               &lt;li&gt;&lt;a href=&quot;#mercer-kernels&quot;&gt;Mercer (positive definite) kernels&lt;/a&gt;&lt;/li&gt;
               &lt;li&gt;&lt;a href=&quot;#lin-kernels&quot;&gt;Linear kernels&lt;/a&gt;&lt;/li&gt;
               &lt;li&gt;&lt;a href=&quot;#matern-kernels&quot;&gt;Matern kernels&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#eigenfunc-kernel&quot;&gt;Eigenfunction Analysis of Kernels&lt;/a&gt;
+            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#eigenfunc&quot;&gt;Eigenfunctions&lt;/a&gt;&lt;/li&gt;
             &lt;/ul&gt;
           &lt;/li&gt;
         &lt;/ul&gt;
@@ -121,7 +126,9 @@ With this idea, &lt;em&gt;Standard Normal&lt;/em&gt; distribution in multi-dimen
 for $\textbf{x},\textbf{x}’\in\mathcal{X}$, which typically is symmetric (i.e., $\kappa(\textbf{x},\textbf{x}’)=\kappa(\textbf{x}’,\textbf{x})$), and nonnegative ($\kappa(\textbf{x},\textbf{x}’)\geq0$). These are some examples of kernel functions.&lt;/p&gt;
 
 &lt;h5 id=&quot;rbf-kernels&quot;&gt;RBF kernels&lt;/h5&gt;
-&lt;p&gt;The &lt;strong&gt;squared exponential kernel&lt;/strong&gt; (SE kernel) or &lt;strong&gt;Gaussian kernel&lt;/strong&gt; is defined by
+&lt;p&gt;[TODO]&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;squared exponential kernel&lt;/strong&gt; (&lt;strong&gt;SE kernel&lt;/strong&gt;) or &lt;strong&gt;Gaussian kernel&lt;/strong&gt; is defined by
 \begin{equation}
 \kappa(\textbf{x},\textbf{x}’)=\exp\left(-\frac{1}{2}(\textbf{x}-\textbf{x}’)^T\mathbf{\Sigma}^{-1}(\textbf{x}-\textbf{x}’)\right)
 \end{equation}
@@ -143,24 +150,6 @@ Here $\sigma^2$ is known as the &lt;strong&gt;bandwidth&lt;/strong&gt;. Since \e
 \end{equation}
 is positive definite for any set $\left\{x_i\right\}_{i=1}^N$, the kernel $\kappa$ is called a &lt;strong&gt;Mercer kernel&lt;/strong&gt;, or &lt;strong&gt;positive definite kernel&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;The importance of Mercer kernels is the following reusult, which is known as  &lt;strong&gt;Mercer’s theorem&lt;/strong&gt;. If the Gram matrix is positive definite, we can compute an eigenvector decomposition of it as
-\begin{equation}
-\mathbf{K}=\mathbf{U}^T\mathbf{\Lambda}\mathbf{U},
-\end{equation}
-where $\mathbf{\Lambda}$ is a diagonal matrix of eigenvalues $\lambda_i&amp;gt;0$. Consider an element of $\mathbf{K}$
-\begin{equation}
-k_{ij}=\left(\mathbf{\Lambda}^{\frac{1}{2}}\mathbf{U}_{:i}\right)^T\left(\mathbf{\Lambda}^{\frac{1}{2}}\mathbf{U}_{:j}\right)
-\end{equation}
-If we let $\phi(\textbf{x}_i)=\mathbf{\Lambda}^{\frac{1}{2}}\mathbf{U}_{:i}$, then we can write
-\begin{equation}
-k_{ij}=\phi(\textbf{x}_i)^T\phi(\textbf{x}_j)
-\end{equation}
-Thus we see that the intries in the kernel matrix can be computed by performing an inner product of some feature vectors that are implicitly defined by the eigenvectors $\mathbf{U}$. In general, if the kernel is Mercer, then there exists a function $\phi$ mapping $\textbf{x}\in\mathcal{X}$ to $\mathbb{R}^D$ such that
-\begin{equation}
-\kappa(\textbf{x},\textbf{x}’)=\phi(\textbf{x})^T\phi(\textbf{x}’),
-\end{equation}
-where $\phi$ depends on the eigenfunctions of $\kappa$.&lt;/p&gt;
-
 &lt;h5 id=&quot;lin-kernels&quot;&gt;Linear kernels&lt;/h5&gt;
 &lt;p&gt;Deriving the feature vector implied by a kernel is only possible if the kernel is &lt;em&gt;Mercer&lt;/em&gt;. However, deriving a kernel from a feature vector is easy. We have
 \begin{equation}
@@ -176,11 +165,17 @@ If $\phi(\textbf{x})=\textbf{x}$, we obtain a simple kernel called &lt;strong&gt
 \begin{equation}
 \kappa(r)=\frac{2^{1-\nu}}{\Gamma(\nu)}\left(\frac{\sqrt{2\nu}r}{\ell}\right)^{\nu}K_{\nu}\left(\frac{\sqrt{2\nu}r}{\ell}\right)\tag{2}\label{2}
 \end{equation}
-where $\Gamma$ is the &lt;em&gt;gamma function&lt;/em&gt;; $r=\Vert\textbf{x}-\textbf{x}’\Vert$ for $x,x’\in\mathcal{X}$ and $K_{\nu}$ is a &lt;em&gt;modified Bessel function&lt;/em&gt;. As $\nu\to\infty$, this approaches the SE kernel.&lt;/p&gt;
+where $\Gamma$ is the &lt;em&gt;gamma function&lt;/em&gt;; $r=\Vert\textbf{x}-\textbf{x}’\Vert$ for $\textbf{x},\textbf{x}’\in\mathcal{X}$ and $K_{\nu}$ is a &lt;em&gt;modified Bessel function&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;As $\nu\to\infty$, \eqref{2} approaches the &lt;strong&gt;SE kernel&lt;/strong&gt;
+\begin{equation}
+\lim_{\nu\to\infty}\kappa_\nu(r)=\exp\left(-\dfrac{r^2}{\ell}\right)
+\end{equation}
+where $\ell&amp;gt;0$.&lt;/p&gt;
 
 &lt;p&gt;When $\nu$ is half-integer - i.e., $\nu=p+1/2$, for $p\geq0$, equation \eqref{2} can be reduced to a product of an exponential function and a polynomial of degree $p$, which can be written as
 \begin{equation}
-\kappa_{\nu=p+1/2}(r)=\exp\left(-\dfrac{\sqrt(2\nu)r}{\ell}\right)\dfrac{\Gamma(p+1)}{\Gamma(2p+1)}\sum_{i=0}^{p}\dfrac{(p+i)!}{i!(p-i)!}\left(\dfrac{\sqrt{8\nu}r}{\ell}\right)^{p-i}
+\kappa_{\nu=p+1/2}(r)=\exp\left(-\dfrac{\sqrt{2\nu}r}{\ell}\right)\dfrac{\Gamma(p+1)}{\Gamma(2p+1)}\sum_{i=0}^{p}\dfrac{(p+i)!}{i!(p-i)!}\left(\dfrac{\sqrt{8\nu}r}{\ell}\right)^{p-i}
 \end{equation}&lt;/p&gt;
 
 &lt;p&gt;For an another special case, setting $\nu=1/2$ lets \eqref{2} become
@@ -188,6 +183,30 @@ where $\Gamma$ is the &lt;em&gt;gamma function&lt;/em&gt;; $r=\Vert\textbf{x}-\t
 \kappa_{\nu=1/2}=\exp\left(\dfrac{-r}{\ell}\right),
 \end{equation}
 which is known as &lt;strong&gt;Laplace&lt;/strong&gt; or &lt;strong&gt;exponential kernel&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;eigenfunc-kernel&quot;&gt;Eigenfunction Analysis of Kernels&lt;/h4&gt;
+
+&lt;h5 id=&quot;eigenfunc&quot;&gt;Eigenfunctions&lt;/h5&gt;
+&lt;p&gt;A function $\phi(\cdot)$ that obeys the integral equation
+\begin{equation}
+\int \kappa(\textbf{x},\textbf{x}’)\phi(\textbf{x})\,d\mu(\textbf{x})=\lambda\phi(\textbf{x}’),
+\end{equation}
+is called an &lt;strong&gt;eigenfunction&lt;/strong&gt; of kernel $\kappa$ with eigenvalue $\lambda$ w.r.t &lt;a href=&quot;/random-stuffs/measure-theory/2021/07/03/measure.html&quot;&gt;measure&lt;/a&gt; $\mu$.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Mercer’s theorem&lt;/strong&gt; allows us to express kernel $\kappa$ in terms of the eigenvalues and eigenfunctions.&lt;/p&gt;
+
+&lt;p&gt;First, let us introduce an integral operator, $T_\kappa$, which is defined as
+\begin{equation}
+(T_\kappa f)(\textbf{x})=\int_\mathcal{X}\kappa(\textbf{x},\textbf{x}’)f(\textbf{x}’)\,d\mu(\textbf{x}’),
+\end{equation}
+where $\mu$ denotes a measure.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt; (&lt;em&gt;Mercer’s theorem&lt;/em&gt;)&lt;br /&gt;
+&lt;em&gt;Let $(\mathcal{X},\mu)$ be a finite measure space and $\kappa\in L_\infty(\mathcal{X}^2,\mu^2)$ be positive definite and $T_\kappa:L_2(\mathcal{X},\mu)\to L_2(\mathcal{X},\mu)$. Let $\phi_i\in L_2(\mathcal{X,\mu})$ be the normalized eigenfunctions of $T_\kappa$ associated with the eigenvalues $\lambda_i&amp;gt;0$. Then we have
+\begin{equation}
+\kappa(\textbf{x},\textbf{x}’)=\sum_{i=0}^{\infty}\lambda_i\phi_i(\textbf{x})\phi_i(\textbf{x}’)
+\end{equation}
+where the convergence is absolute and uniform over $\textbf{x},\textbf{x}’\in\mathcal{X}$.&lt;/em&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;gpr&quot;&gt;Gaussian Process Regression&lt;/h2&gt;
 &lt;p&gt;A &lt;strong&gt;Gaussian process&lt;/strong&gt; (GP) is a collection of random variables, any number of which have a joint Gaussian distribution.&lt;/p&gt;
