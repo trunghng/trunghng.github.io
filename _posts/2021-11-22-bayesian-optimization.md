@@ -23,7 +23,7 @@ comments: true
 			- [Matern kernels](#matern-kernels)
 		- [Eigenfunction Analysis of Kernels](#eigenfunc-kernel)
 			- [Eigenfunctions](#eigenfunc)
-- [Gaussian Process Regression](#gpr)
+- [Gaussian Process](#gp)
 - [Bayesian Opitmization](#bayes-opt)
 	- [Surrogate Model](#surrogate-model)
 	- [Acquisition Functions](#acquisition-func)
@@ -72,7 +72,7 @@ Below is some visualizations of Normal distribution.
 
 ### Multivariate Normal Distribution
 {: #mvn}
-A $k$-dimensional random vector $\mathbf{X}=(X_1,\dots,X_k)^T$ is said to have a **Multivariate Normal (MVN)** distribution if every linear combination of the $X_i$ has a Normal distribution. Which means
+A $k$-dimensional random vector $\mathbf{X}=(X_1,\dots,X_k)^\intercal$ is said to have a **Multivariate Normal (MVN)** distribution if every linear combination of the $X_i$ has a Normal distribution. Which means
 \begin{equation}
 t_1X_1+\ldots+t_kX_k
 \end{equation}
@@ -82,7 +82,7 @@ is normally distributed for any choice of constants $t_1,\dots,t_k$. Distributio
 \end{equation}
 where
 \begin{equation}
-	\mathbf{\mu}=\mathbb{E}\mathbf{X}=\mathbb{E}\left(\mu_1,\ldots,\mu_k\right)^T=\left(\mathbb{E}X_1,\ldots,\mathbb{E}X_k\right)^T
+	\mathbf{\mu}=\mathbb{E}\mathbf{X}=\mathbb{E}\left(\mu_1,\ldots,\mu_k\right)^\intercal=\left(\mathbb{E}X_1,\ldots,\mathbb{E}X_k\right)^\intercal
 \end{equation}
 is the $k$-dimensional mean vector, and covariance matrix $\mathbf{\Sigma}\in\mathbb{R}^{k\times k}$ with
 \begin{equation}
@@ -92,7 +92,7 @@ We also have that $\mathbf{\Sigma}\geq 0$ (positive semi-definite matrix)[^1].
 
 Thus, the PDF of an MVN is defined as
 \begin{equation}
-f_X(x_1,\ldots,x_k)=\dfrac{1}{(2\pi)^{k/2}\vert\mathbf{\Sigma}\vert^{1/2}}\exp\left[\dfrac{1}{2}(\mathbf{x}-\mathbf{\mu})^T\mathbf{\Sigma}^{-1}(\mathbf{x}-\mathbf{\mu})\right]
+f_X(x_1,\ldots,x_k)=\dfrac{1}{(2\pi)^{k/2}\vert\mathbf{\Sigma}\vert^{1/2}}\exp\left[\dfrac{1}{2}(\mathbf{x}-\mathbf{\mu})^\intercal\mathbf{\Sigma}^{-1}(\mathbf{x}-\mathbf{\mu})\right]
 \end{equation}
 With this idea, *Standard Normal* distribution in multi-dimensional case can be defined as a Gaussian with mean $\mathbf{\mu}=0$ (here $0$ is an $k$-dimensional vector) and identity covariance matrix $\mathbf{\Sigma}=\mathbf{I}\_{k\times k}$.
 
@@ -123,7 +123,7 @@ for $\textbf{x},\textbf{x}'\in\mathcal{X}$, which typically is symmetric (i.e., 
 
 The **squared exponential kernel** (**SE kernel**) or **Gaussian kernel** is defined by
 \begin{equation}
-\kappa(\textbf{x},\textbf{x}')=\exp\left(-\frac{1}{2}(\textbf{x}-\textbf{x}')^T\mathbf{\Sigma}^{-1}(\textbf{x}-\textbf{x}')\right)
+\kappa(\textbf{x},\textbf{x}')=\exp\left(-\frac{1}{2}(\textbf{x}-\textbf{x}')^\intercal\mathbf{\Sigma}^{-1}(\textbf{x}-\textbf{x}')\right)
 \end{equation}
 If $\mathbf{\Sigma}$ is a diagonal matrix, this can be written as
 \begin{equation}
@@ -150,11 +150,11 @@ is positive definite for any set $\left\\{x_i\right\\}\_{i=1}^N$, the kernel $\k
 {: #lin-kernels}
 Deriving the feature vector implied by a kernel is only possible if the kernel is *Mercer*. However, deriving a kernel from a feature vector is easy. We have
 \begin{equation}
-\kappa(\textbf{x},\textbf{x}')=\phi(\textbf{x})^T\phi(\textbf{x}')
+\kappa(\textbf{x},\textbf{x}')=\phi(\textbf{x})^\intercal\phi(\textbf{x}')
 \end{equation}
 If $\phi(\textbf{x})=\textbf{x}$, we obtain a simple kernel called **linear kernel**
 \begin{equation}
-\kappa(\textbf{x},\textbf{x}')=\textbf{x}^T\textbf{x}'
+\kappa(\textbf{x},\textbf{x}')=\textbf{x}^\intercal\textbf{x}'
 \end{equation}
 
 
@@ -209,23 +209,17 @@ where $\mu$ denotes a measure.
 \end{equation}
 where the convergence is absolute and uniform over $\textbf{x},\textbf{x}'\in\mathcal{X}$.*
 
-## Gaussian Process Regression
-{: #gpr}
-A **Gaussian process** (GP) is a collection of random variables, any number of which have a joint Gaussian distribution.  
+## Gaussian Process
+{: #gp}
+For Gaussian process, positive definite kernels serve as *covariance functions* of random function values, so they are also called *covariance kernels*.  
 
-A Gaussian process is completely specified by its mean function and covariance function. We define mean function $m(\textbf{x})$ and the covariance function or kernel $\kappa(\textbf{x},\textbf{x}')$ of a process $f(\textbf{x})$ as
-\begin{align}
-m(\textbf{x})&=\mathbb{E}\left[f(\textbf{x})\right] \\\\ \kappa(\textbf{x},\textbf{x}')&=\mathbb{E}\left[(f(\textbf{x})-m(\textbf{x}))(f(\\textbf{x}')-m(\textbf{x}'))^T\right]
-\end{align}
-and denote the Gaussian process as
+Let $\mathcal{X}$ be a nonempty set, $\kappa:\mathcal{X}\times\mathcal{X}\to\mathbb{R}$ be a positive definite kernel, and some real-valued function $\mu:\mathcal{X}\to\mathbb{R}$. Then a random function $f:\mathcal{X}\to\mathbb{R}$ is said to be a **Gaussian process** (**GP**) with mean function $\mu$ and covariance kernel $\kappa$, denoted by $\mathcal{GP(\mu,\kappa)}$, if the following holds:  
+For any finite set $X=\\{\textbf{x}\_1,\ldots,\textbf{x}\_n\\}\subset\mathcal{X}$ of any size $n\in\mathbb{N}$, the random vector $f_X\in\mathbb{R}^n$,
 \begin{equation}
-f(x)\sim\mathcal{GP}\left(m(\textbf{x}),\kappa(\textbf{x},\textbf{x}')\right)
+f_X=\left(f(\textbf{x}\_1),\ldots,f(\textbf{x}\_n)\right)^\intercal\sim\mathcal{N}(\mu_X,\kappa_{XX})
 \end{equation}
-Hence, in this case, $\kappa$ is a Mercer kernel. And for any finite set of point $\textbf{x}\_1,\dots,\textbf{x}\_k\in\mathbb{R}^d$, the definition of GP define an MVN
-\begin{equation}
-f(\textbf{X})\sim\mathcal{N}\left(\mathbf{\mu},\textbf{K}\right),
-\end{equation}
-where $\textbf{X}=\left(\textbf{x}\_1\dots\right)$
+where $\mu_X=\left(\mu(\textbf{x}\_1),\ldots,\mu(\textbf{x}\_n)\right)^\intercal$ is the mean vector and $\kappa_{XX}=\left(\kappa(\textbf{x}\_i,\textbf{x}\_j)\right)\_{i,j=1}^n\in\mathbb{R}^{n\times n}$ is covariance matrix.
+
 
 
 
@@ -234,13 +228,13 @@ where $\textbf{X}=\left(\textbf{x}\_1\dots\right)$
 ## References
 [1] C. E. Rasmussen & C. K. I. Williams. [Gaussian Processes for Machine Learning](http://www.gaussianprocess.org/gpml/), MIT Press, 2006  
 
-[2] Joseph K. Blitzstein & Jessica Hwang. [Introduction to Probability](https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573)  
+[2] Motonobu Kanagawa, Philipp Hennig, Dino Sejdinovic, Bharath K. Sriperumbudur. [Gaussian Processes and Kernel Methods: A Review on Connections and Equivalences](https://arxiv.org/abs/1807.02582)  
 
-[3] Stanford CS229. [Machine Learning](http://cs229.stanford.edu)  
+[3] Joseph K. Blitzstein & Jessica Hwang. [Introduction to Probability](https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573)  
 
-[4] Kevin P. Murphy. [Machine Learning: A Probabilistic Perspective](https://probml.github.io/pml-book/book0.html), MIT Press, 2012  
+[4] Stanford CS229. [Machine Learning](http://cs229.stanford.edu)  
 
-[5] Christopher M. Bishop. [Pattern Recognition and Machine Learning](https://www.amazon.com/Pattern-Recognition-Learning-Information-Setatistics/dp/0387310738)
+[5] Kevin P. Murphy. [Machine Learning: A Probabilistic Perspective](https://probml.github.io/pml-book/book0.html), MIT Press, 2012  
 
 [6] Peter I. Frazier. [A Tutorial on Bayesian Optimization](https://arxiv.org/abs/1807.02811)  
 
@@ -255,9 +249,9 @@ where $\textbf{X}=\left(\textbf{x}\_1\dots\right)$
 	\end{equation}
 	Let $\mathbf{z}\in\mathbb{R}^k$, we have
 	\begin{equation}
-	\Var(\mathbf{z}^T\mathbf{X})=\mathbf{z}^T\Var(\mathbf{X})\mathbf{z}=\mathbf{z}^T\mathbf{\Sigma}\mathbf{z}
+	\Var(\mathbf{z}^\intercal\mathbf{X})=\mathbf{z}^\intercal\Var(\mathbf{X})\mathbf{z}=\mathbf{z}^\intercal\mathbf{\Sigma}\mathbf{z}
 	\end{equation}
-	And since $\Var(\mathbf{z}^T\mathbf{X})\geq0$, we also have that $\mathbf{z}^T\mathbf{\Sigma}\mathbf{z}\geq0$, which proves that $\mathbf{\Sigma}$ is a positive semi-definite matrix.  
+	And since $\Var(\mathbf{z}^\intercal\mathbf{X})\geq0$, we also have that $\mathbf{z}^\intercal\mathbf{\Sigma}\mathbf{z}\geq0$, which proves that $\mathbf{\Sigma}$ is a positive semi-definite matrix.  
 
 [^2]: A covariance matrix $\mathbf{C}$ is called *isotrophic*, or *spherical* if it is proportionate to the identity matrix
 	\begin{equation}

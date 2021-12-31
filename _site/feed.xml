@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-12-31T16:20:41+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-12-31T17:22:19+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Bayesian Optimization</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization.html" rel="alternate" type="text/html" title="Bayesian Optimization" /><published>2021-11-22T14:46:00+07:00</published><updated>2021-11-22T14:46:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization.html">&lt;blockquote&gt;
   &lt;p&gt;Dont know yet&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -36,7 +36,7 @@
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#gpr&quot;&gt;Gaussian Process Regression&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#gp&quot;&gt;Gaussian Process&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#bayes-opt&quot;&gt;Bayesian Opitmization&lt;/a&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#surrogate-model&quot;&gt;Surrogate Model&lt;/a&gt;&lt;/li&gt;
@@ -83,7 +83,7 @@ Below is some visualizations of Normal distribution.&lt;/p&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;mvn&quot;&gt;Multivariate Normal Distribution&lt;/h3&gt;
-&lt;p&gt;A $k$-dimensional random vector $\mathbf{X}=(X_1,\dots,X_k)^T$ is said to have a &lt;strong&gt;Multivariate Normal (MVN)&lt;/strong&gt; distribution if every linear combination of the $X_i$ has a Normal distribution. Which means
+&lt;p&gt;A $k$-dimensional random vector $\mathbf{X}=(X_1,\dots,X_k)^\intercal$ is said to have a &lt;strong&gt;Multivariate Normal (MVN)&lt;/strong&gt; distribution if every linear combination of the $X_i$ has a Normal distribution. Which means
 \begin{equation}
 t_1X_1+\ldots+t_kX_k
 \end{equation}
@@ -93,7 +93,7 @@ is normally distributed for any choice of constants $t_1,\dots,t_k$. Distributio
 \end{equation}
 where
 \begin{equation}
-	\mathbf{\mu}=\mathbb{E}\mathbf{X}=\mathbb{E}\left(\mu_1,\ldots,\mu_k\right)^T=\left(\mathbb{E}X_1,\ldots,\mathbb{E}X_k\right)^T
+	\mathbf{\mu}=\mathbb{E}\mathbf{X}=\mathbb{E}\left(\mu_1,\ldots,\mu_k\right)^\intercal=\left(\mathbb{E}X_1,\ldots,\mathbb{E}X_k\right)^\intercal
 \end{equation}
 is the $k$-dimensional mean vector, and covariance matrix $\mathbf{\Sigma}\in\mathbb{R}^{k\times k}$ with
 \begin{equation}
@@ -103,7 +103,7 @@ We also have that $\mathbf{\Sigma}\geq 0$ (positive semi-definite matrix)&lt;sup
 
 &lt;p&gt;Thus, the PDF of an MVN is defined as
 \begin{equation}
-f_X(x_1,\ldots,x_k)=\dfrac{1}{(2\pi)^{k/2}\vert\mathbf{\Sigma}\vert^{1/2}}\exp\left[\dfrac{1}{2}(\mathbf{x}-\mathbf{\mu})^T\mathbf{\Sigma}^{-1}(\mathbf{x}-\mathbf{\mu})\right]
+f_X(x_1,\ldots,x_k)=\dfrac{1}{(2\pi)^{k/2}\vert\mathbf{\Sigma}\vert^{1/2}}\exp\left[\dfrac{1}{2}(\mathbf{x}-\mathbf{\mu})^\intercal\mathbf{\Sigma}^{-1}(\mathbf{x}-\mathbf{\mu})\right]
 \end{equation}
 With this idea, &lt;em&gt;Standard Normal&lt;/em&gt; distribution in multi-dimensional case can be defined as a Gaussian with mean $\mathbf{\mu}=0$ (here $0$ is an $k$-dimensional vector) and identity covariance matrix $\mathbf{\Sigma}=\mathbf{I}_{k\times k}$.&lt;/p&gt;
 
@@ -130,7 +130,7 @@ for $\textbf{x},\textbf{x}’\in\mathcal{X}$, which typically is symmetric (i.e.
 
 &lt;p&gt;The &lt;strong&gt;squared exponential kernel&lt;/strong&gt; (&lt;strong&gt;SE kernel&lt;/strong&gt;) or &lt;strong&gt;Gaussian kernel&lt;/strong&gt; is defined by
 \begin{equation}
-\kappa(\textbf{x},\textbf{x}’)=\exp\left(-\frac{1}{2}(\textbf{x}-\textbf{x}’)^T\mathbf{\Sigma}^{-1}(\textbf{x}-\textbf{x}’)\right)
+\kappa(\textbf{x},\textbf{x}’)=\exp\left(-\frac{1}{2}(\textbf{x}-\textbf{x}’)^\intercal\mathbf{\Sigma}^{-1}(\textbf{x}-\textbf{x}’)\right)
 \end{equation}
 If $\mathbf{\Sigma}$ is a diagonal matrix, this can be written as
 \begin{equation}
@@ -153,11 +153,11 @@ is positive definite for any set $\left\{x_i\right\}_{i=1}^N$, the kernel $\kapp
 &lt;h5 id=&quot;lin-kernels&quot;&gt;Linear kernels&lt;/h5&gt;
 &lt;p&gt;Deriving the feature vector implied by a kernel is only possible if the kernel is &lt;em&gt;Mercer&lt;/em&gt;. However, deriving a kernel from a feature vector is easy. We have
 \begin{equation}
-\kappa(\textbf{x},\textbf{x}’)=\phi(\textbf{x})^T\phi(\textbf{x}’)
+\kappa(\textbf{x},\textbf{x}’)=\phi(\textbf{x})^\intercal\phi(\textbf{x}’)
 \end{equation}
 If $\phi(\textbf{x})=\textbf{x}$, we obtain a simple kernel called &lt;strong&gt;linear kernel&lt;/strong&gt;
 \begin{equation}
-\kappa(\textbf{x},\textbf{x}’)=\textbf{x}^T\textbf{x}’
+\kappa(\textbf{x},\textbf{x}’)=\textbf{x}^\intercal\textbf{x}’
 \end{equation}&lt;/p&gt;
 
 &lt;h5 id=&quot;matern-kernels&quot;&gt;Matern kernels&lt;/h5&gt;
@@ -208,33 +208,26 @@ where $\mu$ denotes a measure.&lt;/p&gt;
 \end{equation}
 where the convergence is absolute and uniform over $\textbf{x},\textbf{x}’\in\mathcal{X}$.&lt;/em&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;gpr&quot;&gt;Gaussian Process Regression&lt;/h2&gt;
-&lt;p&gt;A &lt;strong&gt;Gaussian process&lt;/strong&gt; (GP) is a collection of random variables, any number of which have a joint Gaussian distribution.&lt;/p&gt;
+&lt;h2 id=&quot;gp&quot;&gt;Gaussian Process&lt;/h2&gt;
+&lt;p&gt;For Gaussian process, positive definite kernels serve as &lt;em&gt;covariance functions&lt;/em&gt; of random function values, so they are also called &lt;em&gt;covariance kernels&lt;/em&gt;.&lt;/p&gt;
 
-&lt;p&gt;A Gaussian process is completely specified by its mean function and covariance function. We define mean function $m(\textbf{x})$ and the covariance function or kernel $\kappa(\textbf{x},\textbf{x}’)$ of a process $f(\textbf{x})$ as
-\begin{align}
-m(\textbf{x})&amp;amp;=\mathbb{E}\left[f(\textbf{x})\right] \\ \kappa(\textbf{x},\textbf{x}’)&amp;amp;=\mathbb{E}\left[(f(\textbf{x})-m(\textbf{x}))(f(\textbf{x}’)-m(\textbf{x}’))^T\right]
-\end{align}
-and denote the Gaussian process as
+&lt;p&gt;Let $\mathcal{X}$ be a nonempty set, $\kappa:\mathcal{X}\times\mathcal{X}\to\mathbb{R}$ be a positive definite kernel, and some real-valued function $\mu:\mathcal{X}\to\mathbb{R}$. Then a random function $f:\mathcal{X}\to\mathbb{R}$ is said to be a &lt;strong&gt;Gaussian process&lt;/strong&gt; (&lt;strong&gt;GP&lt;/strong&gt;) with mean function $\mu$ and covariance kernel $\kappa$, denoted by $\mathcal{GP(\mu,\kappa)}$, if the following holds:&lt;br /&gt;
+For any finite set $X=\{\textbf{x}_1,\ldots,\textbf{x}_n\}\subset\mathcal{X}$ of any size $n\in\mathbb{N}$, the random vector $f_X\in\mathbb{R}^n$,
 \begin{equation}
-f(x)\sim\mathcal{GP}\left(m(\textbf{x}),\kappa(\textbf{x},\textbf{x}’)\right)
+f_X=\left(f(\textbf{x}_1),\ldots,f(\textbf{x}_n)\right)^\intercal\sim\mathcal{N}(\mu_X,\kappa_{XX})
 \end{equation}
-Hence, in this case, $\kappa$ is a Mercer kernel. And for any finite set of point $\textbf{x}_1,\dots,\textbf{x}_k\in\mathbb{R}^d$, the definition of GP define an MVN
-\begin{equation}
-f(\textbf{X})\sim\mathcal{N}\left(\mathbf{\mu},\textbf{K}\right),
-\end{equation}
-where $\textbf{X}=\left(\textbf{x}_1\dots\right)$&lt;/p&gt;
+where $\mu_X=\left(\mu(\textbf{x}_1),\ldots,\mu(\textbf{x}_n)\right)^\intercal$ is the mean vector and $\kappa_{XX}=\left(\kappa(\textbf{x}_i,\textbf{x}_j)\right)_{i,j=1}^n\in\mathbb{R}^{n\times n}$ is covariance matrix.&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] C. E. Rasmussen &amp;amp; C. K. I. Williams. &lt;a href=&quot;http://www.gaussianprocess.org/gpml/&quot;&gt;Gaussian Processes for Machine Learning&lt;/a&gt;, MIT Press, 2006&lt;/p&gt;
 
-&lt;p&gt;[2] Joseph K. Blitzstein &amp;amp; Jessica Hwang. &lt;a href=&quot;https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573&quot;&gt;Introduction to Probability&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[2] Motonobu Kanagawa, Philipp Hennig, Dino Sejdinovic, Bharath K. Sriperumbudur. &lt;a href=&quot;https://arxiv.org/abs/1807.02582&quot;&gt;Gaussian Processes and Kernel Methods: A Review on Connections and Equivalences&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;[3] Stanford CS229. &lt;a href=&quot;http://cs229.stanford.edu&quot;&gt;Machine Learning&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[3] Joseph K. Blitzstein &amp;amp; Jessica Hwang. &lt;a href=&quot;https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573&quot;&gt;Introduction to Probability&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;[4] Kevin P. Murphy. &lt;a href=&quot;https://probml.github.io/pml-book/book0.html&quot;&gt;Machine Learning: A Probabilistic Perspective&lt;/a&gt;, MIT Press, 2012&lt;/p&gt;
+&lt;p&gt;[4] Stanford CS229. &lt;a href=&quot;http://cs229.stanford.edu&quot;&gt;Machine Learning&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;[5] Christopher M. Bishop. &lt;a href=&quot;https://www.amazon.com/Pattern-Recognition-Learning-Information-Setatistics/dp/0387310738&quot;&gt;Pattern Recognition and Machine Learning&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[5] Kevin P. Murphy. &lt;a href=&quot;https://probml.github.io/pml-book/book0.html&quot;&gt;Machine Learning: A Probabilistic Perspective&lt;/a&gt;, MIT Press, 2012&lt;/p&gt;
 
 &lt;p&gt;[6] Peter I. Frazier. &lt;a href=&quot;https://arxiv.org/abs/1807.02811&quot;&gt;A Tutorial on Bayesian Optimization&lt;/a&gt;&lt;/p&gt;
 
@@ -253,9 +246,9 @@ where $\textbf{X}=\left(\textbf{x}_1\dots\right)$&lt;/p&gt;
 \end{equation}
 Let $\mathbf{z}\in\mathbb{R}^k$, we have
 \begin{equation}
-\Var(\mathbf{z}^T\mathbf{X})=\mathbf{z}^T\Var(\mathbf{X})\mathbf{z}=\mathbf{z}^T\mathbf{\Sigma}\mathbf{z}
+\Var(\mathbf{z}^\intercal\mathbf{X})=\mathbf{z}^\intercal\Var(\mathbf{X})\mathbf{z}=\mathbf{z}^\intercal\mathbf{\Sigma}\mathbf{z}
 \end{equation}
-And since $\Var(\mathbf{z}^T\mathbf{X})\geq0$, we also have that $\mathbf{z}^T\mathbf{\Sigma}\mathbf{z}\geq0$, which proves that $\mathbf{\Sigma}$ is a positive semi-definite matrix. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+And since $\Var(\mathbf{z}^\intercal\mathbf{X})\geq0$, we also have that $\mathbf{z}^\intercal\mathbf{\Sigma}\mathbf{z}\geq0$, which proves that $\mathbf{\Sigma}$ is a positive semi-definite matrix. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:2&quot; role=&quot;doc-endnote&quot;&gt;
       &lt;p&gt;A covariance matrix $\mathbf{C}$ is called &lt;em&gt;isotrophic&lt;/em&gt;, or &lt;em&gt;spherical&lt;/em&gt; if it is proportionate to the identity matrix
