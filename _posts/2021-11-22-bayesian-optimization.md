@@ -21,7 +21,6 @@ comments: true
 			- [Mercer (positive definite) kernels](#mercer-kernels)
 			- [Linear kernels](#lin-kernels)
 			- [Matern kernels](#matern-kernels)
-		- [The kernel trick](#kernel-trick)
 - [Gaussian Process Regression](#gpr)
 - [Bayesian Opitmization](#bayes-opt)
 	- [Surrogate Model](#surrogate-model)
@@ -175,19 +174,22 @@ If $\phi(\textbf{x})=\textbf{x}$, we obtain a simple kernel called **linear kern
 
 ##### Matern kernels
 {: #matern-kernels}
-The **Matern kenel** has the following form
+Let $\mathcal{X}\subset\mathbb{R}^D,\nu>0,\ell>0$. The **Matern kenel** $\kappa:\mathcal{X}\times\mathcal{X}\to\mathbb{R}$ is defined by
 \begin{equation}
-\kappa(r)=\frac{2^{1-\nu}}{\Gamma(\nu)}\left(\frac{\sqrt{2\nu}r}{l}\right)^{\nu}K_{\nu}\left(\frac{\sqrt{2\nu}r}{l}\right),
+\kappa(r)=\frac{2^{1-\nu}}{\Gamma(\nu)}\left(\frac{\sqrt{2\nu}r}{\ell}\right)^{\nu}K_{\nu}\left(\frac{\sqrt{2\nu}r}{\ell}\right)\tag{2}\label{2}
 \end{equation}
-where $r=\Vert\textbf{x}-\textbf{x}'\Vert,\nu>0,l>0$ and $K_{\nu}$ is a modified Bessel function. As $\nu\to\infty$, this approaches the SE kernel.
+where $\Gamma$ is the *gamma function*; $r=\Vert\textbf{x}-\textbf{x}'\Vert$ for $x,x'\in\mathcal{X}$ and $K_{\nu}$ is a *modified Bessel function*. As $\nu\to\infty$, this approaches the SE kernel.  
 
-#### The kernel trick
-{: #kernel-trick}
-Rather than defining our feature vector in terms of kernels,
+When $\nu$ is half-integer - i.e., $\nu=p+1/2$, for $p\geq0$, equation \eqref{2} can be reduced to a product of an exponential function and a polynomial of degree $p$, which can be written as
 \begin{equation}
-\phi(\textbf{x})=\left[\kappa(\textbf{x},\textbf{x}\_1),\dots,\kappa(\textbf{x},\textbf{x}\_N)\right],
+\kappa_{\nu=p+1/2}(r)=\exp\left(-\dfrac{\sqrt(2\nu)r}{\ell}\right)\dfrac{\Gamma(p+1)}{\Gamma(2p+1)}\sum_{i=0}^{p}\dfrac{(p+i)!}{i!(p-i)!}\left(\dfrac{\sqrt{8\nu}r}{\ell}\right)^{p-i}
 \end{equation}
-we can instead work with the original feature vectors $x$, but modify the algorithm so that it replaces all inner products of the form 
+
+For an another special case, setting $\nu=1/2$ lets \eqref{2} become
+\begin{equation}
+\kappa_{\nu=1/2}=\exp\left(\dfrac{-r}{\ell}\right),
+\end{equation}
+which is known as **Laplace** or **exponential kernel**.
 
 
 ## Gaussian Process Regression

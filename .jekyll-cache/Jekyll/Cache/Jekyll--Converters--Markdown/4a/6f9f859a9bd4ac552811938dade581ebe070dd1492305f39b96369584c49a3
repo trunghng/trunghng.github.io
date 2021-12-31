@@ -1,4 +1,4 @@
-I"�5<blockquote>
+I"B7<blockquote>
   <p>Dont know yet</p>
 </blockquote>
 
@@ -130,7 +130,7 @@ If $\mathbf{\Sigma}$ is a diagonal matrix, this can be written as
 \kappa(\textbf{x},\textbf{x}’)=\exp\left(-\frac{1}{2}\sum_{j=1}^{D}\frac{1}{\sigma_j^2}(x_j-x_j’)^2\right)
 \end{equation}
 We can interpret the $\sigma_j$ as defining the <strong>characteristic length scale</strong> of dimension $j$. The corresponding dimension of $\sigma_j$ is ignored if $\sigma_j=\infty$. This is known as the <strong>ARD kernel</strong> (Automatic Relevance Determination).<br />
-If $\Sigma$ is spherical[^2], we get the isotropic kernel
+If $\Sigma$ is spherical<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>, we get the isotropic kernel
 \begin{equation}
 \kappa(\textbf{x},\textbf{x}’)=\exp\left(-\frac{\Vert\textbf{x}-\textbf{x}’\Vert}{2\sigma^2}\right)\tag{1}\label{1}
 \end{equation}
@@ -172,11 +172,11 @@ If $\phi(\textbf{x})=\textbf{x}$, we obtain a simple kernel called <strong>linea
 \end{equation}</p>
 
 <h5 id="matern-kernels">Matern kernels</h5>
-<p>The <strong>Matern kenel</strong> has the following form
+<p>Let $\mathcal{X}\subset\mathbb{R}^D,\nu&gt;0,l&gt;0$. The <strong>Matern kenel</strong> $\kappa:\mathcal{X}\times\mathcal{X}\to\mathbb{R}$ is defined by
 \begin{equation}
 \kappa(r)=\frac{2^{1-\nu}}{\Gamma(\nu)}\left(\frac{\sqrt{2\nu}r}{l}\right)^{\nu}K_{\nu}\left(\frac{\sqrt{2\nu}r}{l}\right),
 \end{equation}
-where $r=\Vert\textbf{x}-\textbf{x}’\Vert,\nu&gt;0,l&gt;0$ and $K_{\nu}$ is a modified Bessel function. As $\nu\to\infty$, this approaches the SE kernel.</p>
+where $\Gamma$ is the <em>gamma function</em>,  $r=\Vert\textbf{x}-\textbf{x}’\Vert;x,x’\in\mathcal{X}$ and $K_{\nu}$ is a modified Bessel function. As $\nu\to\infty$, this approaches the SE kernel.</p>
 
 <h4 id="kernel-trick">The kernel trick</h4>
 <p>Rather than defining our feature vector in terms of kernels,
@@ -220,6 +220,7 @@ where $\textbf{X}=\left(\textbf{x}_1\dots\right)$</p>
 <p>[8] <a href="https://stats.stackexchange.com/users/28666/amoeba">amoeba</a>, <a href="https://stats.stackexchange.com/q/204599">What is an isotropic (spherical) covariance matrix?</a>, StackExchange</p>
 
 <h2 id="footnotes">Footnotes</h2>
+
 <div class="footnotes" role="doc-endnotes">
   <ol>
     <li id="fn:1" role="doc-endnote">
@@ -231,11 +232,13 @@ Let $\mathbf{z}\in\mathbb{R}^k$, we have
 \begin{equation}
 \Var(\mathbf{z}^T\mathbf{X})=\mathbf{z}^T\Var(\mathbf{X})\mathbf{z}=\mathbf{z}^T\mathbf{\Sigma}\mathbf{z}
 \end{equation}
-And since $\Var(\mathbf{z}\mathbf{X})\geq0$, we also have that $\mathbf{z}^T\mathbf{\Sigma}\mathbf{z}\geq0$, which proves that $\mathbf{\Sigma}$ is a positive semi-definite matrix.
-[^2]: A covariance matrix $\mathbf{C}$ is called <em>isotrophic</em>, or <em>spherical</em> if it is proportionate to the identity matrix
+And since $\Var(\mathbf{z}^T\mathbf{X})\geq0$, we also have that $\mathbf{z}^T\mathbf{\Sigma}\mathbf{z}\geq0$, which proves that $\mathbf{\Sigma}$ is a positive semi-definite matrix. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p>A covariance matrix $\mathbf{C}$ is called <em>isotrophic</em>, or <em>spherical</em> if it is proportionate to the identity matrix
 \begin{equation}
 \mathbf{C}=\lambda\mathbf{I}
-\end{equation} <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+\end{equation} <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>

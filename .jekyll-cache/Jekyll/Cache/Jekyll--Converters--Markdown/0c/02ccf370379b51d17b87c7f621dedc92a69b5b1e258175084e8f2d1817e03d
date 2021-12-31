@@ -1,4 +1,4 @@
-I"H5<blockquote>
+I"D7<blockquote>
   <p>Dont know yet</p>
 </blockquote>
 
@@ -45,6 +45,8 @@
   <li><a href="#footnotes">Footnotes</a></li>
 </ul>
 
+<p>$\newcommand{\Var}{\mathrm{Var}}$
+$\newcommand{\Cov}{\mathrm{Cov}}$</p>
 <h2 id="basics">Background</h2>
 <p>Before diving into details, we need some necessary basic concepts.</p>
 
@@ -90,7 +92,7 @@ where
 \end{equation}
 is the $k$-dimensional mean vector, and covariance matrix $\mathbf{\Sigma}\in\mathbb{R}^{k\times k}$ with
 \begin{equation}
-	\mathbf{\Sigma}_{ij}=\mathbb{E}\left(X_i-\mu_i\right)\left(X_j-\mu_j\right)=\text{Cov}(X_i,X_j)
+	\mathbf{\Sigma}_{ij}=\mathbb{E}\left(X_i-\mu_i\right)\left(X_j-\mu_j\right)=\Cov(X_i,X_j)
 \end{equation}
 We also have that $\mathbf{\Sigma}\geq 0$ (positive semi-definite matrix)<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>.</p>
 
@@ -170,11 +172,11 @@ If $\phi(\textbf{x})=\textbf{x}$, we obtain a simple kernel called <strong>linea
 \end{equation}</p>
 
 <h5 id="matern-kernels">Matern kernels</h5>
-<p>The <strong>Matern kenel</strong> has the following form
+<p>Let $\mathcal{X}\subset\mathbb{R}^D,\nu&gt;0,l&gt;0$. The <strong>Matern kenel</strong> $\kappa:\mathcal{X}\times\mathcal{X}\to\mathbb{R}$ is defined by
 \begin{equation}
 \kappa(r)=\frac{2^{1-\nu}}{\Gamma(\nu)}\left(\frac{\sqrt{2\nu}r}{l}\right)^{\nu}K_{\nu}\left(\frac{\sqrt{2\nu}r}{l}\right),
 \end{equation}
-where $r=\Vert\textbf{x}-\textbf{x}’\Vert,\nu&gt;0,l&gt;0$ and $K_{\nu}$ is a modified Bessel function. As $\nu\to\infty$, this approaches the SE kernel.</p>
+where $\Gamma$ is the <em>gamma function</em>,  $r=\Vert\textbf{x}-\textbf{x}’\Vert;\,x,x’\in\mathcal{X}$ and $K_{\nu}$ is a modified Bessel function. As $\nu\to\infty$, this approaches the SE kernel.</p>
 
 <h4 id="kernel-trick">The kernel trick</h4>
 <p>Rather than defining our feature vector in terms of kernels,
@@ -223,11 +225,14 @@ where $\textbf{X}=\left(\textbf{x}_1\dots\right)$</p>
   <ol>
     <li id="fn:1" role="doc-endnote">
       <p>The definition of covariance matrix $\mathbf{\Sigma}$ can be rewritten as
-$\newcommand{\Var}{\mathrm{Var}}$
-$\newcommand{\Cov}{\mathrm{Cov}}$
 \begin{equation}
 \mathbf{\Sigma}=\Cov(\mathbf{X},\mathbf{X})=\Var(\mathbf{X})
-\end{equation} <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+\end{equation}
+Let $\mathbf{z}\in\mathbb{R}^k$, we have
+\begin{equation}
+\Var(\mathbf{z}^T\mathbf{X})=\mathbf{z}^T\Var(\mathbf{X})\mathbf{z}=\mathbf{z}^T\mathbf{\Sigma}\mathbf{z}
+\end{equation}
+And since $\Var(\mathbf{z}^T\mathbf{X})\geq0$, we also have that $\mathbf{z}^T\mathbf{\Sigma}\mathbf{z}\geq0$, which proves that $\mathbf{\Sigma}$ is a positive semi-definite matrix. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:2" role="doc-endnote">
       <p>A covariance matrix $\mathbf{C}$ is called <em>isotrophic</em>, or <em>spherical</em> if it is proportionate to the identity matrix

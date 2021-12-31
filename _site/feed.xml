@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-12-29T17:06:41+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-12-31T12:01:35+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Bayesian Optimization</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization.html" rel="alternate" type="text/html" title="Bayesian Optimization" /><published>2021-11-22T14:46:00+07:00</published><updated>2021-11-22T14:46:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization.html">&lt;blockquote&gt;
   &lt;p&gt;Dont know yet&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -27,7 +27,6 @@
               &lt;li&gt;&lt;a href=&quot;#matern-kernels&quot;&gt;Matern kernels&lt;/a&gt;&lt;/li&gt;
             &lt;/ul&gt;
           &lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#kernel-trick&quot;&gt;The kernel trick&lt;/a&gt;&lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
@@ -173,18 +172,22 @@ If $\phi(\textbf{x})=\textbf{x}$, we obtain a simple kernel called &lt;strong&gt
 \end{equation}&lt;/p&gt;
 
 &lt;h5 id=&quot;matern-kernels&quot;&gt;Matern kernels&lt;/h5&gt;
-&lt;p&gt;The &lt;strong&gt;Matern kenel&lt;/strong&gt; has the following form
+&lt;p&gt;Let $\mathcal{X}\subset\mathbb{R}^D,\nu&amp;gt;0,\ell&amp;gt;0$. The &lt;strong&gt;Matern kenel&lt;/strong&gt; $\kappa:\mathcal{X}\times\mathcal{X}\to\mathbb{R}$ is defined by
 \begin{equation}
-\kappa(r)=\frac{2^{1-\nu}}{\Gamma(\nu)}\left(\frac{\sqrt{2\nu}r}{l}\right)^{\nu}K_{\nu}\left(\frac{\sqrt{2\nu}r}{l}\right),
+\kappa(r)=\frac{2^{1-\nu}}{\Gamma(\nu)}\left(\frac{\sqrt{2\nu}r}{\ell}\right)^{\nu}K_{\nu}\left(\frac{\sqrt{2\nu}r}{\ell}\right)\tag{2}\label{2}
 \end{equation}
-where $r=\Vert\textbf{x}-\textbf{x}’\Vert,\nu&amp;gt;0,l&amp;gt;0$ and $K_{\nu}$ is a modified Bessel function. As $\nu\to\infty$, this approaches the SE kernel.&lt;/p&gt;
+where $\Gamma$ is the &lt;em&gt;gamma function&lt;/em&gt;; $r=\Vert\textbf{x}-\textbf{x}’\Vert$ for $x,x’\in\mathcal{X}$ and $K_{\nu}$ is a &lt;em&gt;modified Bessel function&lt;/em&gt;. As $\nu\to\infty$, this approaches the SE kernel.&lt;/p&gt;
 
-&lt;h4 id=&quot;kernel-trick&quot;&gt;The kernel trick&lt;/h4&gt;
-&lt;p&gt;Rather than defining our feature vector in terms of kernels,
+&lt;p&gt;When $\nu$ is half-integer - i.e., $\nu=p+1/2$, for $p\geq0$, equation \eqref{2} can be reduced to a product of an exponential function and a polynomial of degree $p$, which can be written as
 \begin{equation}
-\phi(\textbf{x})=\left[\kappa(\textbf{x},\textbf{x}_1),\dots,\kappa(\textbf{x},\textbf{x}_N)\right],
+\kappa_{\nu=p+1/2}(r)=\exp\left(-\dfrac{\sqrt(2\nu)r}{\ell}\right)\dfrac{\Gamma(p+1)}{\Gamma(2p+1)}\sum_{i=0}^{p}\dfrac{(p+i)!}{i!(p-i)!}\left(\dfrac{\sqrt{8\nu}r}{\ell}\right)^{p-i}
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;For an another special case, setting $\nu=1/2$ lets \eqref{2} become
+\begin{equation}
+\kappa_{\nu=1/2}=\exp\left(\dfrac{-r}{\ell}\right),
 \end{equation}
-we can instead work with the original feature vectors $x$, but modify the algorithm so that it replaces all inner products of the form&lt;/p&gt;
+which is known as &lt;strong&gt;Laplace&lt;/strong&gt; or &lt;strong&gt;exponential kernel&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;gpr&quot;&gt;Gaussian Process Regression&lt;/h2&gt;
 &lt;p&gt;A &lt;strong&gt;Gaussian process&lt;/strong&gt; (GP) is a collection of random variables, any number of which have a joint Gaussian distribution.&lt;/p&gt;
