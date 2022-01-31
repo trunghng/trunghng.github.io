@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-12-31T17:24:17+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-12-31T17:36:22+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Bayesian Optimization</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization.html" rel="alternate" type="text/html" title="Bayesian Optimization" /><published>2021-11-22T14:46:00+07:00</published><updated>2021-11-22T14:46:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization.html">&lt;blockquote&gt;
   &lt;p&gt;Dont know yet&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -36,7 +36,11 @@
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#gp&quot;&gt;Gaussian Process&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#gp&quot;&gt;Gaussian Process&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#gpr&quot;&gt;Gaussian Process Regression&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#bayes-opt&quot;&gt;Bayesian Opitmization&lt;/a&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#surrogate-model&quot;&gt;Surrogate Model&lt;/a&gt;&lt;/li&gt;
@@ -83,7 +87,7 @@ Below is some visualizations of Normal distribution.&lt;/p&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;mvn&quot;&gt;Multivariate Normal Distribution&lt;/h3&gt;
-&lt;p&gt;A $k$-dimensional random vector $\mathbf{X}=(X_1,\dots,X_k)^\intercal$ is said to have a &lt;strong&gt;Multivariate Normal (MVN)&lt;/strong&gt; distribution if every linear combination of the $X_i$ has a Normal distribution. Which means
+&lt;p&gt;A $k$-dimensional random vector $\mathbf{X}=\left(X_1,\dots,X_k\right)^\intercal$ is said to have a &lt;strong&gt;Multivariate Normal (MVN)&lt;/strong&gt; distribution if every linear combination of the $X_i$ has a Normal distribution. Which means
 \begin{equation}
 t_1X_1+\ldots+t_kX_k
 \end{equation}
@@ -103,7 +107,7 @@ We also have that $\mathbf{\Sigma}\geq 0$ (positive semi-definite matrix)&lt;sup
 
 &lt;p&gt;Thus, the PDF of an MVN is defined as
 \begin{equation}
-f_X(x_1,\ldots,x_k)=\dfrac{1}{(2\pi)^{k/2}\vert\mathbf{\Sigma}\vert^{1/2}}\exp\left[\dfrac{1}{2}(\mathbf{x}-\mathbf{\mu})^\intercal\mathbf{\Sigma}^{-1}(\mathbf{x}-\mathbf{\mu})\right]
+f_X(x_1,\ldots,x_k)=\dfrac{1}{(2\pi)^{k/2}\vert\mathbf{\Sigma}\vert^{1/2}}\exp\left[\dfrac{1}{2}\left(\mathbf{x}-\mathbf{\mu}\right)^\intercal\mathbf{\Sigma}^{-1}(\mathbf{x}-\mathbf{\mu})\right]
 \end{equation}
 With this idea, &lt;em&gt;Standard Normal&lt;/em&gt; distribution in multi-dimensional case can be defined as a Gaussian with mean $\mathbf{\mu}=0$ (here $0$ is an $k$-dimensional vector) and identity covariance matrix $\mathbf{\Sigma}=\mathbf{I}_{k\times k}$.&lt;/p&gt;
 
@@ -130,7 +134,7 @@ for $\textbf{x},\textbf{x}’\in\mathcal{X}$, which typically is symmetric (i.e.
 
 &lt;p&gt;The &lt;strong&gt;squared exponential kernel&lt;/strong&gt; (&lt;strong&gt;SE kernel&lt;/strong&gt;) or &lt;strong&gt;Gaussian kernel&lt;/strong&gt; is defined by
 \begin{equation}
-\kappa(\textbf{x},\textbf{x}’)=\exp\left(-\frac{1}{2}(\textbf{x}-\textbf{x}’)^\intercal\mathbf{\Sigma}^{-1}(\textbf{x}-\textbf{x}’)\right)
+\kappa(\textbf{x},\textbf{x}’)=\exp\left(-\frac{1}{2}\left(\textbf{x}-\textbf{x}’\right)^\intercal\mathbf{\Sigma}^{-1}(\textbf{x}-\textbf{x}’)\right)
 \end{equation}
 If $\mathbf{\Sigma}$ is a diagonal matrix, this can be written as
 \begin{equation}
@@ -153,7 +157,7 @@ is positive definite for any set $\left\{x_i\right\}_{i=1}^N$, the kernel $\kapp
 &lt;h5 id=&quot;lin-kernels&quot;&gt;Linear kernels&lt;/h5&gt;
 &lt;p&gt;Deriving the feature vector implied by a kernel is only possible if the kernel is &lt;em&gt;Mercer&lt;/em&gt;. However, deriving a kernel from a feature vector is easy. We have
 \begin{equation}
-\kappa(\textbf{x},\textbf{x}’)=\phi(\textbf{x})^\intercal\phi(\textbf{x}’)
+\kappa(\textbf{x},\textbf{x}’)=\phi\left(\textbf{x}\right)^\intercal\phi(\textbf{x}’)
 \end{equation}
 If $\phi(\textbf{x})=\textbf{x}$, we obtain a simple kernel called &lt;strong&gt;linear kernel&lt;/strong&gt;
 \begin{equation}
@@ -217,6 +221,8 @@ For any finite set $X=\{\textbf{x}_1,\ldots,\textbf{x}_n\}\subset\mathcal{X}$ of
 f_X=\left(f(\textbf{x}_1),\ldots,f(\textbf{x}_n)\right)^\intercal\sim\mathcal{N}(\mu_X,\kappa_{XX})
 \end{equation}
 where $\mu_X=\left(\mu(\textbf{x}_1),\ldots,\mu(\textbf{x}_n)\right)^\intercal$ is the mean vector and $\kappa_{XX}=\left(\kappa(\textbf{x}_i,\textbf{x}_j)\right)_{i,j=1}^n\in\mathbb{R}^{n\times n}$ is covariance matrix.&lt;/p&gt;
+
+&lt;h3 id=&quot;gpr&quot;&gt;Gaussian Process Regression&lt;/h3&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] C. E. Rasmussen &amp;amp; C. K. I. Williams. &lt;a href=&quot;http://www.gaussianprocess.org/gpml/&quot;&gt;Gaussian Processes for Machine Learning&lt;/a&gt;, MIT Press, 2006&lt;/p&gt;

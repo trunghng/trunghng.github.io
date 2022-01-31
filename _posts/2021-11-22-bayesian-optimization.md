@@ -7,7 +7,7 @@ tags: artificial-intelligent machine-learning gaussian-process optimization-cont
 description: bayesian optimization
 comments: true
 ---
-> Dont know yet
+> I litterally had forgotten almost every details about these concepts before a friend of mine gave me reason to lay my hands on these stuffs again.
 
 <!-- excerpt-end -->
 - [Mathematical Basics](#basics)
@@ -24,6 +24,7 @@ comments: true
 		- [Eigenfunction Analysis of Kernels](#eigenfunc-kernel)
 			- [Eigenfunctions](#eigenfunc)
 - [Gaussian Process](#gp)
+	- [Gaussian Process Regression](#gpr)
 - [Bayesian Opitmization](#bayes-opt)
 	- [Surrogate Model](#surrogate-model)
 	- [Acquisition Functions](#acquisition-func)
@@ -72,7 +73,7 @@ Below is some visualizations of Normal distribution.
 
 ### Multivariate Normal Distribution
 {: #mvn}
-A $k$-dimensional random vector $\mathbf{X}=(X_1,\dots,X_k)^\intercal$ is said to have a **Multivariate Normal (MVN)** distribution if every linear combination of the $X_i$ has a Normal distribution. Which means
+A $k$-dimensional random vector $\mathbf{X}=\left(X_1,\dots,X_k\right)^\intercal$ is said to have a **Multivariate Normal (MVN)** distribution if every linear combination of the $X_i$ has a Normal distribution. Which means
 \begin{equation}
 t_1X_1+\ldots+t_kX_k
 \end{equation}
@@ -92,7 +93,7 @@ We also have that $\mathbf{\Sigma}\geq 0$ (positive semi-definite matrix)[^1].
 
 Thus, the PDF of an MVN is defined as
 \begin{equation}
-f_X(x_1,\ldots,x_k)=\dfrac{1}{(2\pi)^{k/2}\vert\mathbf{\Sigma}\vert^{1/2}}\exp\left[\dfrac{1}{2}(\mathbf{x}-\mathbf{\mu})^\intercal\mathbf{\Sigma}^{-1}(\mathbf{x}-\mathbf{\mu})\right]
+f_X(x_1,\ldots,x_k)=\dfrac{1}{(2\pi)^{k/2}\vert\mathbf{\Sigma}\vert^{1/2}}\exp\left[\dfrac{1}{2}\left(\mathbf{x}-\mathbf{\mu}\right)^\intercal\mathbf{\Sigma}^{-1}(\mathbf{x}-\mathbf{\mu})\right]
 \end{equation}
 With this idea, *Standard Normal* distribution in multi-dimensional case can be defined as a Gaussian with mean $\mathbf{\mu}=0$ (here $0$ is an $k$-dimensional vector) and identity covariance matrix $\mathbf{\Sigma}=\mathbf{I}\_{k\times k}$.
 
@@ -123,7 +124,7 @@ for $\textbf{x},\textbf{x}'\in\mathcal{X}$, which typically is symmetric (i.e., 
 
 The **squared exponential kernel** (**SE kernel**) or **Gaussian kernel** is defined by
 \begin{equation}
-\kappa(\textbf{x},\textbf{x}')=\exp\left(-\frac{1}{2}(\textbf{x}-\textbf{x}')^\intercal\mathbf{\Sigma}^{-1}(\textbf{x}-\textbf{x}')\right)
+\kappa(\textbf{x},\textbf{x}')=\exp\left(-\frac{1}{2}\left(\textbf{x}-\textbf{x}'\right)^\intercal\mathbf{\Sigma}^{-1}(\textbf{x}-\textbf{x}')\right)
 \end{equation}
 If $\mathbf{\Sigma}$ is a diagonal matrix, this can be written as
 \begin{equation}
@@ -150,7 +151,7 @@ is positive definite for any set $\left\\{x_i\right\\}\_{i=1}^N$, the kernel $\k
 {: #lin-kernels}
 Deriving the feature vector implied by a kernel is only possible if the kernel is *Mercer*. However, deriving a kernel from a feature vector is easy. We have
 \begin{equation}
-\kappa(\textbf{x},\textbf{x}')=\phi(\textbf{x})^\intercal\phi(\textbf{x}')
+\kappa(\textbf{x},\textbf{x}')=\phi\left(\textbf{x}\right)^\intercal\phi(\textbf{x}')
 \end{equation}
 If $\phi(\textbf{x})=\textbf{x}$, we obtain a simple kernel called **linear kernel**
 \begin{equation}
@@ -221,7 +222,8 @@ f_X=\left(f(\textbf{x}\_1),\ldots,f(\textbf{x}\_n)\right)^\intercal\sim\mathcal{
 where $\mu_X=\left(\mu(\textbf{x}\_1),\ldots,\mu(\textbf{x}\_n)\right)^\intercal$ is the mean vector and $\kappa_{XX}=\left(\kappa(\textbf{x}\_i,\textbf{x}\_j)\right)\_{i,j=1}^n\in\mathbb{R}^{n\times n}$ is covariance matrix.
 
 
-
+### Gaussian Process Regression
+{: #gpr}
 
 
 
