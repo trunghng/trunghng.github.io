@@ -3,11 +3,11 @@ layout: post
 title:  "Bayesian Optimization"
 date:   2021-11-22 14:46:00 +0700
 categories: artificial-intelligent machine-learning
-tags: artificial-intelligent machine-learning gaussian-process optimization-control probability-statistics
+tags: artificial-intelligent machine-learning gaussian-process optimization-control probability-statistics random-stuffs
 description: bayesian optimization
 comments: true
 ---
-> I litterally had forgotten almost every details about these concepts before a friend of mine gave me reason to lay my hands on these stuffs again.
+> This is simply a random post. Because I litterally had forgotten almost every details about these concepts until a friend of mine gave me a reason to lay my hands on these stuffs again.
 
 <!-- excerpt-end -->
 - [Mathematical Basics](#basics)
