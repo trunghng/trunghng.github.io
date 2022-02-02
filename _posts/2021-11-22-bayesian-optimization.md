@@ -38,7 +38,7 @@ $\newcommand{\Var}{\mathrm{Var}}$
 $\newcommand{\Cov}{\mathrm{Cov}}$
 ## Background
 {: #basics}
-Before diving into details, we need some necessary basic concepts.
+Before diving into details, it is necessary to equip some basic concepts.
 
 
 ### Gaussian (Normal) Distribution
