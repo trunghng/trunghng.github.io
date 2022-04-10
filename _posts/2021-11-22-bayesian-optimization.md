@@ -10,7 +10,7 @@ comments: true
 > This is simply a random post. Because I litterally had forgotten almost every details about these concepts until a friend of mine gave me a reason to lay my hands on these stuffs again.
 
 <!-- excerpt-end -->
-- [Mathematical Basics](#basics)
+- [Preliminaries](#preliminaries)
 	- [Gaussian (Normal) Distribution](#gauss-dist)
 		- [Standard Normal](#std-norm)
 	- [Multivariate Normal Distribution](#mvn)
@@ -21,7 +21,7 @@ comments: true
 			- [Mercer (positive definite) kernels](#mercer-kernels)
 			- [Linear kernels](#lin-kernels)
 			- [Matern kernels](#matern-kernels)
-		- [Eigenfunction Analysis of Kernels](#eigenfunc-kernel)
+		- [Eigenfunction A nalysis of Kernels](#eigenfunc-kernel)
 			- [Eigenfunctions](#eigenfunc)
 - [Gaussian Process](#gp)
 	- [Gaussian Process Regression](#gpr)
@@ -36,8 +36,8 @@ comments: true
 
 $\newcommand{\Var}{\mathrm{Var}}$
 $\newcommand{\Cov}{\mathrm{Cov}}$
-## Background
-{: #basics}
+## Preliminaries
+{: #preliminaries}
 Before diving into details, it is necessary to equip some basic concepts.
 
 
@@ -120,22 +120,11 @@ for $\textbf{x},\textbf{x}'\in\mathcal{X}$, which typically is symmetric (i.e., 
 
 
 ##### RBF kernels
-[TODO]  
-
-The **squared exponential kernel** (**SE kernel**) or **Gaussian kernel** is defined by
+Let $\mathcal{X}\subset\mathbb{R}^D$. For $\gamma>0$, a **Gaussian RBF kernels** or a **squared exponential kernel** (**SE kernel**) $\kappa: \mathcal{X}\times\mathcal{X}\to\mathbb{R}$ is defined by
 \begin{equation}
-\kappa(\textbf{x},\textbf{x}')=\exp\left(-\frac{1}{2}\left(\textbf{x}-\textbf{x}'\right)^\intercal\mathbf{\Sigma}^{-1}(\textbf{x}-\textbf{x}')\right)
+\kappa(\textbf{x},\textbf{x}')=\exp\left(-\frac{\Vert\textbf{x}-\textbf{x}'\Vert^2}{\gamma^2}\right)
 \end{equation}
-If $\mathbf{\Sigma}$ is a diagonal matrix, this can be written as
-\begin{equation}
-\kappa(\textbf{x},\textbf{x}')=\exp\left(-\frac{1}{2}\sum_{j=1}^{D}\frac{1}{\sigma_j^2}(x_j-x_j')^2\right)
-\end{equation}
-We can interpret the $\sigma_j$ as defining the **characteristic length scale** of dimension $j$. The corresponding dimension of $\sigma_j$ is ignored if $\sigma_j=\infty$. This is known as the **ARD kernel** (Automatic Relevance Determination).  
-If $\Sigma$ is spherical[^2], we get the isotropic kernel
-\begin{equation}
-\kappa(\textbf{x},\textbf{x}')=\exp\left(-\frac{\Vert\textbf{x}-\textbf{x}'\Vert}{2\sigma^2}\right)\tag{1}\label{1}
-\end{equation}
-Here $\sigma^2$ is known as the **bandwidth**. Since \eqref{1} can be seen as a function of $\Vert\textbf{x}-\textbf{x}'\Vert$, it is an example of a **radial basis function** or **RBF kernel**.
+for $\textbf{x},\textbf{x}'\in\mathcal{X}$.
 
 
 ##### Mercer (positive definite) kernels
@@ -161,7 +150,7 @@ If $\phi(\textbf{x})=\textbf{x}$, we obtain a simple kernel called **linear kern
 
 ##### Matern kernels
 {: #matern-kernels}
-Let $\mathcal{X}\subset\mathbb{R}^D,\nu>0,\ell>0$. The **Matern kenel** $\kappa:\mathcal{X}\times\mathcal{X}\to\mathbb{R}$ is defined by
+Let $\mathcal{X}\subset\mathbb{R}^D,\nu>0,\ell>0$. The **Matern kernel** $\kappa:\mathcal{X}\times\mathcal{X}\to\mathbb{R}$ is defined by
 \begin{equation}
 \kappa(r)=\frac{2^{1-\nu}}{\Gamma(\nu)}\left(\frac{\sqrt{2\nu}r}{\ell}\right)^{\nu}K_{\nu}\left(\frac{\sqrt{2\nu}r}{\ell}\right)\tag{2}\label{2}
 \end{equation}
@@ -219,7 +208,9 @@ For any finite set $X=\\{\textbf{x}\_1,\ldots,\textbf{x}\_n\\}\subset\mathcal{X}
 \begin{equation}
 f_X=\left(f(\textbf{x}\_1),\ldots,f(\textbf{x}\_n)\right)^\intercal\sim\mathcal{N}(\mu_X,\kappa_{XX})
 \end{equation}
-where $\mu_X=\left(\mu(\textbf{x}\_1),\ldots,\mu(\textbf{x}\_n)\right)^\intercal$ is the mean vector and $\kappa_{XX}=\left(\kappa(\textbf{x}\_i,\textbf{x}\_j)\right)\_{i,j=1}^n\in\mathbb{R}^{n\times n}$ is covariance matrix.
+where $\mu_X=\left(\mu(\textbf{x}\_1),\ldots,\mu(\textbf{x}\_n)\right)^\intercal$ is the mean vector and $\kappa_{XX}=\left(\kappa(\textbf{x}\_i,\textbf{x}\_j)\right)\_{i,j=1}^n\in\mathbb{R}^{n\times n}$ is covariance matrix.  
+
+The correpondence between **Gaussian process** $f\sim\mathcal{GP}(\mu,\kappa)$ and pairs $(\mu,\kappa)$ of mean function $\mu$ and positive definite kernel $\kappa$ is a one-to-one since from the definition above, Gaussian process $f$ implies the existence of a mean function $\mu:\mathcal{X}\to\mathbb{R}$ and a covariance kernel $\kappa:\mathcal{X}\times\mathcal{X}\to\mathbb{R}$. And from  
 
 
 ### Gaussian Process Regression
@@ -234,15 +225,14 @@ where $\mu_X=\left(\mu(\textbf{x}\_1),\ldots,\mu(\textbf{x}\_n)\right)^\intercal
 
 [3] Joseph K. Blitzstein & Jessica Hwang. [Introduction to Probability](https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573)  
 
-[4] Stanford CS229. [Machine Learning](http://cs229.stanford.edu)  
+[4] Kevin P. Murphy. [Machine Learning: A Probabilistic Perspective](https://probml.github.io/pml-book/book0.html), MIT Press, 2012  
 
-[5] Kevin P. Murphy. [Machine Learning: A Probabilistic Perspective](https://probml.github.io/pml-book/book0.html), MIT Press, 2012  
+[5] Peter I. Frazier. [A Tutorial on Bayesian Optimization](https://arxiv.org/abs/1807.02811)  
 
-[6] Peter I. Frazier. [A Tutorial on Bayesian Optimization](https://arxiv.org/abs/1807.02811)  
+[6] Martin Krasser. [Bayesian Optimization](https://krasserm.github.io/2018/03/21/bayesian-optimization/)  
 
-[7] Martin Krasser. [Bayesian Optimization](https://krasserm.github.io/2018/03/21/bayesian-optimization/)
 
-[8] [amoeba](https://stats.stackexchange.com/users/28666/amoeba), [What is an isotropic (spherical) covariance matrix?](https://stats.stackexchange.com/q/204599), StackExchange
+
 
 ## Footnotes
 [^1]: The definition of covariance matrix $\mathbf{\Sigma}$ can be rewritten as
@@ -255,7 +245,3 @@ where $\mu_X=\left(\mu(\textbf{x}\_1),\ldots,\mu(\textbf{x}\_n)\right)^\intercal
 	\end{equation}
 	And since $\Var(\mathbf{z}^\intercal\mathbf{X})\geq0$, we also have that $\mathbf{z}^\intercal\mathbf{\Sigma}\mathbf{z}\geq0$, which proves that $\mathbf{\Sigma}$ is a positive semi-definite matrix.  
 
-[^2]: A covariance matrix $\mathbf{C}$ is called *isotrophic*, or *spherical* if it is proportionate to the identity matrix
-	\begin{equation}
-	\mathbf{C}=\lambda\mathbf{I}
-	\end{equation}  

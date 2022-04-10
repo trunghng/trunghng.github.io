@@ -60,7 +60,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Bayesian Optimization" />
 <script type="application/ld+json">
-{"datePublished":"2021-11-22T14:46:00+07:00","description":"bayesian optimization","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization.html"},"url":"http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization.html","author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","headline":"Bayesian Optimization","dateModified":"2021-11-22T14:46:00+07:00","@context":"https://schema.org"}</script>
+{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","description":"bayesian optimization","headline":"Bayesian Optimization","dateModified":"2021-11-22T14:46:00+07:00","datePublished":"2021-11-22T14:46:00+07:00","url":"http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Trung&apos;s cabin" />
     
@@ -146,6 +146,9 @@
         
         <a href="/tag/probability-statistics"><code class="highligher-rouge"><nobr>probability-statistics</nobr></code>&nbsp;</a>
       
+        
+        <a href="/tag/random-stuffs"><code class="highligher-rouge"><nobr>random-stuffs</nobr></code>&nbsp;</a>
+      
     </span></p>
     <p class="post-meta"><time class="dt-published" datetime="2021-11-22T14:46:00+07:00" itemprop="datePublished">
         Nov 22, 2021
@@ -154,12 +157,12 @@
 
   <div class="post-content e-content" itemprop="articleBody">
     <blockquote>
-  <p>Dont know yet</p>
+  <p>This is simply a random post. Because I litterally had forgotten almost every details about these concepts until a friend of mine gave me a reason to lay my hands on these stuffs again.</p>
 </blockquote>
 
 <!-- excerpt-end -->
 <ul>
-  <li><a href="#basics">Mathematical Basics</a>
+  <li><a href="#preliminaries">Preliminaries</a>
     <ul>
       <li><a href="#gauss-dist">Gaussian (Normal) Distribution</a>
         <ul>
@@ -181,7 +184,7 @@
               <li><a href="#matern-kernels">Matern kernels</a></li>
             </ul>
           </li>
-          <li><a href="#eigenfunc-kernel">Eigenfunction Analysis of Kernels</a>
+          <li><a href="#eigenfunc-kernel">Eigenfunction A nalysis of Kernels</a>
             <ul>
               <li><a href="#eigenfunc">Eigenfunctions</a></li>
             </ul>
@@ -210,8 +213,8 @@
 
 <p>$\newcommand{\Var}{\mathrm{Var}}$
 $\newcommand{\Cov}{\mathrm{Cov}}$</p>
-<h2 id="basics">Background</h2>
-<p>Before diving into details, we need some necessary basic concepts.</p>
+<h2 id="preliminaries">Preliminaries</h2>
+<p>Before diving into details, it is necessary to equip some basic concepts.</p>
 
 <h3 id="gauss-dist">Gaussian (Normal) Distribution</h3>
 <p>A random variable $X$ is said to be <strong>Gaussian</strong> or to have the <strong>Normal distribution</strong> with mean $\mu$ and variance $\sigma^2$ if its probability density function (PDF) is
@@ -284,22 +287,11 @@ With this idea, <em>Standard Normal</em> distribution in multi-dimensional case 
 for $\textbf{x},\textbf{x}’\in\mathcal{X}$, which typically is symmetric (i.e., $\kappa(\textbf{x},\textbf{x}’)=\kappa(\textbf{x}’,\textbf{x})$), and nonnegative ($\kappa(\textbf{x},\textbf{x}’)\geq0$). These are some examples of kernel functions.</p>
 
 <h5 id="rbf-kernels">RBF kernels</h5>
-<p>[TODO]</p>
-
-<p>The <strong>squared exponential kernel</strong> (<strong>SE kernel</strong>) or <strong>Gaussian kernel</strong> is defined by
+<p>Let $\mathcal{X}\subset\mathbb{R}^D$. For $\gamma&gt;0$, a <strong>Gaussian RBF kernels</strong> or a <strong>squared exponential kernel</strong> (<strong>SE kernel</strong>) $\kappa: \mathcal{X}\times\mathcal{X}\to\mathbb{R}$ is defined by
 \begin{equation}
-\kappa(\textbf{x},\textbf{x}’)=\exp\left(-\frac{1}{2}\left(\textbf{x}-\textbf{x}’\right)^\intercal\mathbf{\Sigma}^{-1}(\textbf{x}-\textbf{x}’)\right)
+\kappa(\textbf{x},\textbf{x}’)=\exp\left(-\frac{\Vert\textbf{x}-\textbf{x}’\Vert^2}{\gamma^2}\right)
 \end{equation}
-If $\mathbf{\Sigma}$ is a diagonal matrix, this can be written as
-\begin{equation}
-\kappa(\textbf{x},\textbf{x}’)=\exp\left(-\frac{1}{2}\sum_{j=1}^{D}\frac{1}{\sigma_j^2}(x_j-x_j’)^2\right)
-\end{equation}
-We can interpret the $\sigma_j$ as defining the <strong>characteristic length scale</strong> of dimension $j$. The corresponding dimension of $\sigma_j$ is ignored if $\sigma_j=\infty$. This is known as the <strong>ARD kernel</strong> (Automatic Relevance Determination).<br />
-If $\Sigma$ is spherical<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>, we get the isotropic kernel
-\begin{equation}
-\kappa(\textbf{x},\textbf{x}’)=\exp\left(-\frac{\Vert\textbf{x}-\textbf{x}’\Vert}{2\sigma^2}\right)\tag{1}\label{1}
-\end{equation}
-Here $\sigma^2$ is known as the <strong>bandwidth</strong>. Since \eqref{1} can be seen as a function of $\Vert\textbf{x}-\textbf{x}’\Vert$, it is an example of a <strong>radial basis function</strong> or <strong>RBF kernel</strong>.</p>
+for $\textbf{x},\textbf{x}’\in\mathcal{X}$.</p>
 
 <h5 id="mercer-kernels">Mercer (positive definite) kernels</h5>
 <p>If the Gram matrix, defined by
@@ -319,7 +311,7 @@ If $\phi(\textbf{x})=\textbf{x}$, we obtain a simple kernel called <strong>linea
 \end{equation}</p>
 
 <h5 id="matern-kernels">Matern kernels</h5>
-<p>Let $\mathcal{X}\subset\mathbb{R}^D,\nu&gt;0,\ell&gt;0$. The <strong>Matern kenel</strong> $\kappa:\mathcal{X}\times\mathcal{X}\to\mathbb{R}$ is defined by
+<p>Let $\mathcal{X}\subset\mathbb{R}^D,\nu&gt;0,\ell&gt;0$. The <strong>Matern kernel</strong> $\kappa:\mathcal{X}\times\mathcal{X}\to\mathbb{R}$ is defined by
 \begin{equation}
 \kappa(r)=\frac{2^{1-\nu}}{\Gamma(\nu)}\left(\frac{\sqrt{2\nu}r}{\ell}\right)^{\nu}K_{\nu}\left(\frac{\sqrt{2\nu}r}{\ell}\right)\tag{2}\label{2}
 \end{equation}
@@ -376,6 +368,8 @@ f_X=\left(f(\textbf{x}_1),\ldots,f(\textbf{x}_n)\right)^\intercal\sim\mathcal{N}
 \end{equation}
 where $\mu_X=\left(\mu(\textbf{x}_1),\ldots,\mu(\textbf{x}_n)\right)^\intercal$ is the mean vector and $\kappa_{XX}=\left(\kappa(\textbf{x}_i,\textbf{x}_j)\right)_{i,j=1}^n\in\mathbb{R}^{n\times n}$ is covariance matrix.</p>
 
+<p>The correpondence between <strong>Gaussian process</strong> $f\sim\mathcal{GP}(\mu,\kappa)$ and pairs $(\mu,\kappa)$ of mean function $\mu$ and positive definite kernel $\kappa$ is a one-to-one since from the definition above, Gaussian process $f$ implies the existence of a mean function $\mu:\mathcal{X}\to\mathbb{R}$ and a covariance kernel $\kappa:\mathcal{X}\times\mathcal{X}\to\mathbb{R}$. And from</p>
+
 <h3 id="gpr">Gaussian Process Regression</h3>
 
 <h2 id="references">References</h2>
@@ -385,15 +379,11 @@ where $\mu_X=\left(\mu(\textbf{x}_1),\ldots,\mu(\textbf{x}_n)\right)^\intercal$ 
 
 <p>[3] Joseph K. Blitzstein &amp; Jessica Hwang. <a href="https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573">Introduction to Probability</a></p>
 
-<p>[4] Stanford CS229. <a href="http://cs229.stanford.edu">Machine Learning</a></p>
+<p>[4] Kevin P. Murphy. <a href="https://probml.github.io/pml-book/book0.html">Machine Learning: A Probabilistic Perspective</a>, MIT Press, 2012</p>
 
-<p>[5] Kevin P. Murphy. <a href="https://probml.github.io/pml-book/book0.html">Machine Learning: A Probabilistic Perspective</a>, MIT Press, 2012</p>
+<p>[5] Peter I. Frazier. <a href="https://arxiv.org/abs/1807.02811">A Tutorial on Bayesian Optimization</a></p>
 
-<p>[6] Peter I. Frazier. <a href="https://arxiv.org/abs/1807.02811">A Tutorial on Bayesian Optimization</a></p>
-
-<p>[7] Martin Krasser. <a href="https://krasserm.github.io/2018/03/21/bayesian-optimization/">Bayesian Optimization</a></p>
-
-<p>[8] <a href="https://stats.stackexchange.com/users/28666/amoeba">amoeba</a>, <a href="https://stats.stackexchange.com/q/204599">What is an isotropic (spherical) covariance matrix?</a>, StackExchange</p>
+<p>[6] Martin Krasser. <a href="https://krasserm.github.io/2018/03/21/bayesian-optimization/">Bayesian Optimization</a></p>
 
 <h2 id="footnotes">Footnotes</h2>
 
@@ -409,12 +399,6 @@ Let $\mathbf{z}\in\mathbb{R}^k$, we have
 \Var(\mathbf{z}^\intercal\mathbf{X})=\mathbf{z}^\intercal\Var(\mathbf{X})\mathbf{z}=\mathbf{z}^\intercal\mathbf{\Sigma}\mathbf{z}
 \end{equation}
 And since $\Var(\mathbf{z}^\intercal\mathbf{X})\geq0$, we also have that $\mathbf{z}^\intercal\mathbf{\Sigma}\mathbf{z}\geq0$, which proves that $\mathbf{\Sigma}$ is a positive semi-definite matrix. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
-    </li>
-    <li id="fn:2" role="doc-endnote">
-      <p>A covariance matrix $\mathbf{C}$ is called <em>isotrophic</em>, or <em>spherical</em> if it is proportionate to the identity matrix
-\begin{equation}
-\mathbf{C}=\lambda\mathbf{I}
-\end{equation} <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>

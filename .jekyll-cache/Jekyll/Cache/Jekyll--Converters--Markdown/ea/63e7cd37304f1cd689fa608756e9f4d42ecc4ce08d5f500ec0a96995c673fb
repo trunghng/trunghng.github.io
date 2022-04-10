@@ -1,0 +1,200 @@
+I"�6<blockquote>
+  <p>So far in this <a href="/tag/my-rl">series</a>, we have gone through the ideas of <a href="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html"><strong>dynamic programming</strong> (DP)</a> and <a href="/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html"><strong>Monte Carlo</strong></a>. What will happen if we combine these ideas together? <strong>Temporal-deffirence (TD) learning</strong> is our answer.</p>
+</blockquote>
+
+<!-- excerpt-end -->
+<ul>
+  <li><a href="#td0">TD(0)</a>
+    <ul>
+      <li><a href="#td-prediction">TD Prediction</a>
+        <ul>
+          <li><a href="#adv-over-mc-dp">Adventages over MC &amp; DP</a></li>
+          <li><a href="#opt-td0">Optimality of TD(0)</a></li>
+        </ul>
+      </li>
+      <li><a href="#td-control">TD Control</a>
+        <ul>
+          <li><a href="#sarsa">Sarsa</a></li>
+          <li><a href="#q-learning">Q-learining</a>
+            <ul>
+              <li><a href="#eg-cliffwalking">Example: Cliffwalking - Sarsa vs Q-learning</a></li>
+            </ul>
+          </li>
+          <li><a href="#exp-sarsa">Expected Sarsa</a></li>
+          <li><a href="#double-q-learning">Double Q-learning</a>
+            <ul>
+              <li><a href="#max-bias">Maximization Bias</a></li>
+              <li><a href="#sol">A Solution</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#n-step-td">$\boldsymbol{n}$-step TD</a>
+    <ul>
+      <li><a href="#n-step-td-prediction">$\boldsymbol{n}$-step TD Prediction</a></li>
+    </ul>
+  </li>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h2 id="td0">TD(0)</h2>
+<p>As usual, we approach this new method in the prediction problem.</p>
+
+<h3 id="td-prediction">TD Prediction</h3>
+<p>Borrowing the idea of Monte Carlo, TD methods learn from episodes of experience to solve the <a href="/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html#fn:2">prediction problem</a>. The simplest TD method is <strong>TD(0)</strong> (or <strong>one-step TD</strong>)<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>, which has the update form:
+\begin{equation}
+V(S_t)\leftarrow V(S_t)+\alpha\left[R_{t+1}+\gamma V(S_{t+1})-V(S_t)\right]\tag{1}\label{1},
+\end{equation}
+where $\alpha&gt;0$ is step size of the update. Here is pseudocode of the TD(0) method</p>
+<figure>
+	<img src="/assets/images/2022-04-08/td0.png" alt="TD(0)" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+<p>Recall that in <a href="/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html#mc-prediction">Monte Carlo method</a>, or even in its trivial form, <strong>constant-$\alpha$ MC</strong>, which has the update form:
+\begin{equation}
+V(S_t)\leftarrow V(S_t)+\alpha\left[G_t-V(S_t)\right]\tag{2}\label{2},
+\end{equation}
+we have to wait until the end of the episode, when the return $G_t$ is determined. However, with TD(0), we can do the update immediately in the next time step $t+1$.</p>
+
+<p>As we can see in \eqref{1} and \eqref{2}, both TD and MC updates look ahead to a sample successor state (or state-action pair), use the value of the successor and the corresponding reward in order to update the value of the current state (or state-action pair). This kind of updates is called <em>sample update</em>, which differs from <em>expected update</em> used by DP methods in that they are based on a single sample successor rather than on a complete distribution of all possible successors.</p>
+
+<p>Other than the sampling of Monte Carlo, TD methods also use the bootstrapping of DP. Because similar to <a href="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html#policy-evaluation">DP</a>, TD(0) is also a bootstrapping method, since the target in its update is $R_{t+1}+\gamma V(S_{t+1})$.</p>
+
+<p>The quantity inside bracket in \eqref{1} is called <em>TD error</em>, denoted as $\delta$:
+\begin{equation}
+\delta_t\doteq R_{t+1}+\gamma V(S_{t+1})-V(S_t)
+\end{equation}
+If the array $V$ does not change during the episode (as in MC), then the MC error can be written as a sum of TD errors
+\begin{align}
+G_t-V(S_t)&amp;=R_{t+1}+\gamma G_{t+1}-V(S_t)+\gamma V(S_{t+1})-\gamma V(S_{t+1}) \\ &amp;=\delta_t+\gamma\left(G_{t+1}-V(S_{t+1})\right) \\ &amp;=\delta_t+\gamma\delta_{t+1}+\gamma^2\left(G_{t+2}-V(S_{t+2})\right) \\ &amp;=\delta_t+\gamma\delta_{t+1}+\gamma^2\delta_{t+2}+\dots+\gamma^{T-t-1}\delta_{T-1}+\gamma^{T-t}\left(G_T-V(S_T)\right) \\ &amp;=\delta_t+\gamma\delta_{t+1}+\gamma^2\delta_{t+2}+\dots+\gamma^{T-t-1}\delta_{T-1}+\gamma^{T-t}(0-0) \\ &amp;=\sum_{k=t}^{T-1}\gamma^{k-t}\delta_k
+\end{align}</p>
+
+<h4 id="adv-over-mc-dp">Adventages over MC &amp; DP</h4>
+<p>With how TD is established, these are some advantages of its over MC and DP:</p>
+<ul>
+  <li>Only experience is required.</li>
+  <li>Can be fully incremental:
+    <ul>
+      <li>Can make update before knowing the final outcome.</li>
+      <li>Requires less memory.</li>
+      <li>Requires less peak computation.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>TD(0) does converge to $v_\pi$, in the mean for a sufficient small $\alpha$, and with probability of $1$ if $\alpha$ decreases according to the <em>stochastic approximation condition</em>
+\begin{equation}
+\sum_{n=1}^{\infty}\alpha_n(a)=\infty\hspace{1cm}\text{and}\hspace{1cm}\sum_{n=1}^{\infty}\alpha_n^2(a)&lt;\infty,
+\end{equation}
+where $\alpha_n(a)$ denote the step-size parameter used to process the reward received after the $n$-th selection of action $a$.</p>
+
+<h4 id="opt-td0">Optimality of TD(0)</h4>
+<p>Under batch training, TD(0) converges to the optimal maximum likelihood estimate. The convergence and optimality proofs can be found in this <a href="#td-convergence">paper</a>.</p>
+<figure>
+	<img src="/assets/images/2022-04-08/random_walk_batch_updating.png" alt="TD(0) vs constant-alpha MC" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Performance of TD(0) and constant-$\alpha$ MC under batch training on the random walk task. The code can be found <span><a href="https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-6/random-walk.py">here</a></span></figcaption>
+</figure>
+
+<h3 id="td-control">TD Control</h3>
+<p>We begin solving the control problem with an on-policy TD method. Recall that in on-policy methods, we evaluate or improve the policy $\pi$ used to make decision.</p>
+
+<h4 id="sarsa">Sarsa</h4>
+<p>As mentioned in <a href="/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html#mc-est-action-value">MC methods</a>, when the model is not available, we have to learn an action-value function rather than a state-value function. Or in other words, we need to estimate $q_\pi(s,a)$ for the current policy $\pi$ and $\forall s,a$. Thus, instead of considering transitions from state to state in order to learn the value of states, we now take transitions from state-action pair to state-action pair into account so as to learn the value of state-action pairs.</p>
+
+<p>Similarly, we’ve got the TD update for the action-value function case:
+\begin{equation}
+Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha\left[R_{t+1}+\gamma Q(S_{t+1},A_{t+1})-Q(S_t,A_t)\right]\tag{3}\label{3}
+\end{equation}
+This update is done after every transition from a nonterminal state $S_t$ to its successor $S_{t+1}$
+\begin{equation}
+\left(S_t,A_t,R_{t+1},S_{t+1},A_{t+1}\right)
+\end{equation}
+And if $S_{t+1}$ is terminal (i.e., $S_{t+1}=S_T$), then $Q(S_{t+1},A_{t+1})=0$. The name <strong>Sarsa</strong> of the method is taken based on acronym of the quintuple.</p>
+
+<p>As usual when working on on-policy control problem, we apply the idea of <a href="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html#gpi">GPI</a>
+\begin{equation}
+\pi_0\overset{\small \text{E}}{\rightarrow}q_{\pi_0}\overset{\small \text{I}}{\rightarrow}\pi_1\overset{\small \text{E}}{\rightarrow}q_{\pi_1}\overset{\small \text{I}}{\rightarrow}\pi_2\overset{\small \text{E}}{\rightarrow}\dots\overset{\small \text{I}}{\rightarrow}\pi_*\overset{\small \text{E}}{\rightarrow}q_*
+\end{equation}
+However this time, instead, we use it with TD methods. Which is, we continually estimate $q_\pi$ for the behavior policy $\pi$, and at the same time change $\pi$ toward greediness w.r.t $q_\pi$. That gives us the following pseudocode of the Sarsa control algorithm</p>
+<figure>
+	<img src="/assets/images/2022-04-08/sarsa.png" alt="Sarsa" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+
+<h4 id="q-learning">Q-learning</h4>
+<p>We now turn our move to an off-policy method, which evaluates or improves a policy different from that used to generate the data.<br />
+The method we are talking about is called <strong>Q-learning</strong>, which was first introduced by <a href="#q-learning-watkins">Watkin</a>, in which the update on $Q$-value has the form:
+\begin{equation}
+Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha\left[R_{t+1}+\gamma\max_a Q(S_{t+1},a)-Q(S_t,A_t)\right]\tag{4}\label{4}
+\end{equation}
+In this case, the learned action-value function, $Q$, directly approximates optimal action-value function $q_*$, independent of the policy being followed. Down below is pseudocode of the $Q$-learning.</p>
+<figure>
+	<img src="/assets/images/2022-04-08/q-learning.png" alt="Q-learning" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+
+<h5 id="eg-cliffwalking">Example: Cliffwalking - Sarsa vs Q-learning</h5>
+
+<h4 id="exp-sarsa">Expected Sarsa</h4>
+<p>In the update \eqref{4} of Q-learning, rather than taking the maximum over next state-action pairs, if we use the expected value to consider how likely each action is under the current policy. That means, we instead have the following update rule for $Q$-value:
+\begin{align}
+Q(S_t,A_t)&amp;\leftarrow Q(S_t,A_t)+\alpha\Big[R_{t+1}+\gamma\mathbb{E}_\pi\big[Q(S_{t+1},A_{t+1}\vert S_{t+1})\big]-Q(S_t,A_t)\Big] \\ &amp;\leftarrow Q(S_t,A_t)+\alpha\Big[R_{t+1}+\gamma\sum_a\pi(a|S_{t+1})Q(S_{t+1}|a)-Q(S_t,A_t)\Big]
+\end{align}
+However, given the next state, $S_{t+1}$, this algorithms move <em>deterministically</em> in the same direction as Sarsa moves in <em>expectation</em>. Thus, this method is also called <strong>Expected Sarsa</strong>.</p>
+
+<p>Expected Sarsa performs better than Sarsa since it eliminates the variance due to the randomization in selecting $A_{t+1}$. Which also means that it takes expected Sarsa more resource than Sarsa.</p>
+
+<h4 id="double-q-learning">Double Q-learning</h4>
+
+<h5 id="max-bias">Maximization Bias</h5>
+<p>As we have seen so far in Sarsa and Q-learning, the action-value function, $Q$, has been over estimated because</p>
+<ul>
+  <li>In Q-learning, the target policy is the greedy policy given the current action values, which is defined with a maximization operation.</li>
+  <li>In Sarsa, the policy is often $\epsilon$-greedy, which also involves a maximization operation.</li>
+  <li>And under these methods, a maximization over estimated values is used implicitly as an estimate of the maximum value.<br />
+That overestimation can lead to an significant positive bias, which is called <em>maximization bias</em>.</li>
+</ul>
+
+<p>To be more specific, let us consider an example.</p>
+<figure>
+	<img src="/assets/images/2022-04-08/max-bias.png" alt="Maximization Bias Example" style="display: block; margin-left: 200; margin-right: 200;" />
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+<p>In this example,</p>
+
+<h5 id="a-solution">A Solution</h5>
+<p>Double Q-learning is a variant of Q-learning<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>.</p>
+
+<figure>
+	<img src="/assets/images/2022-04-08/double-q-learning.png" alt="Double Q-learning" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+
+<h2 id="n-step-td">$\boldsymbol{n}$-step TD</h2>
+
+<h3 id="n-step-td-prediction">$\boldsymbol{n}$-step TD Prediction</h3>
+
+<h2 id="references">References</h2>
+<p>[1] Richard S. Sutton &amp; Andrew G. Barto. <a href="https://mitpress.mit.edu/books/reinforcement-learning-second-edition">Reinforcement Learning: An Introduction</a></p>
+
+<p>[2] <span id="td-convergence">Sutton, R.S. <a href="https://doi.org/10.1007/BF00115009">Learning to predict by the methods of temporal differences</a>. Mach Learn 3, 9–44 (1988).</span></p>
+
+<p>[3] <span id="q-learning-watkins">Chris Watkins. <a href="https://www.researchgate.net/publication/33784417_Learning_From_Delayed_Rewards">Learning from Delayed Rewards</a>. PhD Thesis (1989)</span></p>
+
+<p>[4] Hado Hasselt. <a href="https://papers.nips.cc/paper/2010/hash/091d584fced301b442654dd8c23b3fc9-Abstract.html">Double Q-learning</a>. NIPS 2010</p>
+
+<h2 id="footnotes">Footnotes</h2>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>It is a special case of <a href="#n-step-td">n-step TD</a> and TD($\lambda$). <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p>Another popular variant of Q-learning is <a href="https://www.nature.com/articles/nature14236">Deep Q-learning</a>, which was introduced by Deepmind in 2015. We’re gonna talk about it in the post of Function approximation. <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+:ET

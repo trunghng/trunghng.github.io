@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:400,900,900i" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<style type="text/css">
+  #button {
+    display: inline-block;
+    background-color: #A5CCF1;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border-radius: 4px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    transition: background-color .3s, 
+      opacity .5s, visibility .5s;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+  }
+  #button::after {
+    content: "\f077";
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 2em;
+    line-height: 50px;
+    color: #fff;
+  }
+  #button:hover {
+    cursor: pointer;
+    background-color: #333;
+    text-decoration: none;
+  }
+  #button:active {
+    background-color: #555;
+  }
+  #button.show {
+    opacity: 1;
+    visibility: visible;
+  }
+</style><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Temporal-Difference Learning | Trung’s cabin</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Temporal-Difference Learning" />
+<meta name="author" content="Trung H. Nguyen" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Temporal-Difference Learning, Q-learning" />
+<meta property="og:description" content="Temporal-Difference Learning, Q-learning" />
+<link rel="canonical" href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html" />
+<meta property="og:url" content="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html" />
+<meta property="og:site_name" content="Trung’s cabin" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-04-08T16:55:00+07:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Temporal-Difference Learning" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","description":"Temporal-Difference Learning, Q-learning","headline":"Temporal-Difference Learning","dateModified":"2022-04-08T16:55:00+07:00","datePublished":"2022-04-08T16:55:00+07:00","url":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Trung&apos;s cabin" />
+    
+
+
+
+
+
+  
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+<link rel="manifest" href="/assets/images/site.webmanifest">
+<link rel="mask-icon" href="/assets/images/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff"></head>
+<body><header class="site-header">
+  <div class="snorlax"></div>
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Trung&#39;s cabin</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/archive/">Archive</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <a id="button"></a>
+      <div class="wrapper">
+        <style>
+@import "/assets/css/default.css"
+</style>
+<style>
+  .collapsible {
+    background-color: #A5CCF1;
+    color: white;
+    cursor: pointer;
+    padding: 5px;
+    /*width: 100%;*/
+    border: none;
+    text-align: center;
+    outline: none;
+    font-size: 15px;
+  }
+
+  .active, .collapsible:hover {
+    background-color: #82B9EE;
+  }
+
+  .codePanel {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+  }
+</style>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <meta name="description" content="Temporal-Difference Learning, Q-learning">
+    <h1 class="post-title p-name" itemprop="name headline">Temporal-Difference Learning</h1>
+    <p><span>
+      
+        
+        <a href="/tag/artificial-intelligent"><code class="highligher-rouge"><nobr>artificial-intelligent</nobr></code>&nbsp;</a>
+      
+        
+        <a href="/tag/reinforcement-learning"><code class="highligher-rouge"><nobr>reinforcement-learning</nobr></code>&nbsp;</a>
+      
+        
+        <a href="/tag/td-learning"><code class="highligher-rouge"><nobr>td-learning</nobr></code>&nbsp;</a>
+      
+        
+        <a href="/tag/n-step-td"><code class="highligher-rouge"><nobr>n-step-td</nobr></code>&nbsp;</a>
+      
+        
+        <a href="/tag/q-learning"><code class="highligher-rouge"><nobr>q-learning</nobr></code>&nbsp;</a>
+      
+        
+        <a href="/tag/my-rl"><code class="highligher-rouge"><nobr>my-rl</nobr></code>&nbsp;</a>
+      
+    </span></p>
+    <p class="post-meta"><time class="dt-published" datetime="2022-04-08T16:55:00+07:00" itemprop="datePublished">
+        Apr 8, 2022
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <blockquote>
+  <p>So far in this <a href="/tag/my-rl">series</a>, we have gone through the ideas of <a href="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html"><strong>dynamic programming</strong> (DP)</a> and <a href="/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html"><strong>Monte Carlo</strong></a>. What will happen if we combine these ideas together? <strong>Temporal-deffirence (TD) learning</strong> is our answer.</p>
+</blockquote>
+
+<!-- excerpt-end -->
+<ul>
+  <li><a href="#td0">TD(0)</a>
+    <ul>
+      <li><a href="#td-prediction">TD Prediction</a>
+        <ul>
+          <li><a href="#adv-over-mc-dp">Adventages over MC &amp; DP</a></li>
+          <li><a href="#opt-td0">Optimality of TD(0)</a></li>
+        </ul>
+      </li>
+      <li><a href="#td-control">TD Control</a>
+        <ul>
+          <li><a href="#sarsa">Sarsa</a></li>
+          <li><a href="#q-learning">Q-learining</a>
+            <ul>
+              <li><a href="#eg-cliffwalking">Example: Cliffwalking - Sarsa vs Q-learning</a></li>
+            </ul>
+          </li>
+          <li><a href="#exp-sarsa">Expected Sarsa</a></li>
+          <li><a href="#double-q-learning">Double Q-learning</a>
+            <ul>
+              <li><a href="#max-bias">Maximization Bias</a></li>
+              <li><a href="#sol">A Solution</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#n-step-td">$\boldsymbol{n}$-step TD</a>
+    <ul>
+      <li><a href="#n-step-td-prediction">$\boldsymbol{n}$-step TD Prediction</a></li>
+    </ul>
+  </li>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h2 id="td0">TD(0)</h2>
+<p>As usual, we approach this new method in the prediction problem.</p>
+
+<h3 id="td-prediction">TD Prediction</h3>
+<p>Borrowing the idea of Monte Carlo, TD methods learn from episodes of experience to solve the <a href="/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html#fn:2">prediction problem</a>. The simplest TD method is <strong>TD(0)</strong> (or <strong>one-step TD</strong>)<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>, which has the update form:
+\begin{equation}
+V(S_t)\leftarrow V(S_t)+\alpha\left[R_{t+1}+\gamma V(S_{t+1})-V(S_t)\right]\tag{1}\label{1},
+\end{equation}
+where $\alpha&gt;0$ is step size of the update. Here is pseudocode of the TD(0) method</p>
+<figure>
+	<img src="/assets/images/2022-04-08/td0.png" alt="TD(0)" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+<p>Recall that in <a href="/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html#mc-prediction">Monte Carlo method</a>, or even in its trivial form, <strong>constant-$\alpha$ MC</strong>, which has the update form:
+\begin{equation}
+V(S_t)\leftarrow V(S_t)+\alpha\left[G_t-V(S_t)\right]\tag{2}\label{2},
+\end{equation}
+we have to wait until the end of the episode, when the return $G_t$ is determined. However, with TD(0), we can do the update immediately in the next time step $t+1$.</p>
+
+<p>As we can see in \eqref{1} and \eqref{2}, both TD and MC updates look ahead to a sample successor state (or state-action pair), use the value of the successor and the corresponding reward in order to update the value of the current state (or state-action pair). This kind of updates is called <em>sample update</em>, which differs from <em>expected update</em> used by DP methods in that they are based on a single sample successor rather than on a complete distribution of all possible successors.</p>
+
+<p>Other than the sampling of Monte Carlo, TD methods also use the bootstrapping of DP. Because similar to <a href="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html#policy-evaluation">DP</a>, TD(0) is also a bootstrapping method, since the target in its update is $R_{t+1}+\gamma V(S_{t+1})$.</p>
+
+<p>The quantity inside bracket in \eqref{1} is called <em>TD error</em>, denoted as $\delta$:
+\begin{equation}
+\delta_t\doteq R_{t+1}+\gamma V(S_{t+1})-V(S_t)
+\end{equation}
+If the array $V$ does not change during the episode (as in MC), then the MC error can be written as a sum of TD errors
+\begin{align}
+G_t-V(S_t)&amp;=R_{t+1}+\gamma G_{t+1}-V(S_t)+\gamma V(S_{t+1})-\gamma V(S_{t+1}) \\ &amp;=\delta_t+\gamma\left(G_{t+1}-V(S_{t+1})\right) \\ &amp;=\delta_t+\gamma\delta_{t+1}+\gamma^2\left(G_{t+2}-V(S_{t+2})\right) \\ &amp;=\delta_t+\gamma\delta_{t+1}+\gamma^2\delta_{t+2}+\dots+\gamma^{T-t-1}\delta_{T-1}+\gamma^{T-t}\left(G_T-V(S_T)\right) \\ &amp;=\delta_t+\gamma\delta_{t+1}+\gamma^2\delta_{t+2}+\dots+\gamma^{T-t-1}\delta_{T-1}+\gamma^{T-t}(0-0) \\ &amp;=\sum_{k=t}^{T-1}\gamma^{k-t}\delta_k
+\end{align}</p>
+
+<h4 id="adv-over-mc-dp">Adventages over MC &amp; DP</h4>
+<p>With how TD is established, these are some advantages of its over MC and DP:</p>
+<ul>
+  <li>Only experience is required.</li>
+  <li>Can be fully incremental:
+    <ul>
+      <li>Can make update before knowing the final outcome.</li>
+      <li>Requires less memory.</li>
+      <li>Requires less peak computation.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>TD(0) does converge to $v_\pi$, in the mean for a sufficient small $\alpha$, and with probability of $1$ if $\alpha$ decreases according to the <em>stochastic approximation condition</em>
+\begin{equation}
+\sum_{n=1}^{\infty}\alpha_n(a)=\infty\hspace{1cm}\text{and}\hspace{1cm}\sum_{n=1}^{\infty}\alpha_n^2(a)&lt;\infty,
+\end{equation}
+where $\alpha_n(a)$ denote the step-size parameter used to process the reward received after the $n$-th selection of action $a$.</p>
+
+<h4 id="opt-td0">Optimality of TD(0)</h4>
+<p>Under batch training, TD(0) converges to the optimal maximum likelihood estimate. The convergence and optimality proofs can be found in this <a href="#td-convergence">paper</a>.</p>
+<figure>
+	<img src="/assets/images/2022-04-08/random_walk_batch_updating.png" alt="TD(0) vs constant-alpha MC" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Performance of TD(0) and constant-$\alpha$ MC under batch training on the random walk task. The code can be found <span><a href="https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-6/random-walk.py">here</a></span></figcaption>
+</figure>
+
+<h3 id="td-control">TD Control</h3>
+<p>We begin solving the control problem with an on-policy TD method. Recall that in on-policy methods, we evaluate or improve the policy $\pi$ used to make decision.</p>
+
+<h4 id="sarsa">Sarsa</h4>
+<p>As mentioned in <a href="/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html#mc-est-action-value">MC methods</a>, when the model is not available, we have to learn an action-value function rather than a state-value function. Or in other words, we need to estimate $q_\pi(s,a)$ for the current policy $\pi$ and $\forall s,a$. Thus, instead of considering transitions from state to state in order to learn the value of states, we now take transitions from state-action pair to state-action pair into account so as to learn the value of state-action pairs.</p>
+
+<p>Similarly, we’ve got the TD update for the action-value function case:
+\begin{equation}
+Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha\left[R_{t+1}+\gamma Q(S_{t+1},A_{t+1})-Q(S_t,A_t)\right]\tag{3}\label{3}
+\end{equation}
+This update is done after every transition from a nonterminal state $S_t$ to its successor $S_{t+1}$
+\begin{equation}
+\left(S_t,A_t,R_{t+1},S_{t+1},A_{t+1}\right)
+\end{equation}
+And if $S_{t+1}$ is terminal (i.e., $S_{t+1}=S_T$), then $Q(S_{t+1},A_{t+1})=0$. The name <strong>Sarsa</strong> of the method is taken based on acronym of the quintuple.</p>
+
+<p>As usual when working on on-policy control problem, we apply the idea of <a href="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html#gpi">GPI</a>:
+\begin{equation}
+\pi_0\overset{\small \text{E}}{\rightarrow}q_{\pi_0}\overset{\small \text{I}}{\rightarrow}\pi_1\overset{\small \text{E}}{\rightarrow}q_{\pi_1}\overset{\small \text{I}}{\rightarrow}\pi_2\overset{\small \text{E}}{\rightarrow}\dots\overset{\small \text{I}}{\rightarrow}\pi_*\overset{\small \text{E}}{\rightarrow}q_*
+\end{equation}
+However this time, instead, we use it with TD methods. Which is, we continually estimate $q_\pi$ for the behavior policy $\pi$, and at the same time change $\pi$ toward greediness w.r.t $q_\pi$. That gives us the following pseudocode of the Sarsa control algorithm</p>
+<figure>
+	<img src="/assets/images/2022-04-08/sarsa.png" alt="Sarsa" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+
+<h4 id="q-learning">Q-learning</h4>
+<p>We now turn our move to an off-policy method, which evaluates or improves a policy different from that used to generate the data.<br />
+The method we are talking about is called <strong>Q-learning</strong>, which was first introduced by <a href="#q-learning-watkins">Watkin</a>, in which the update on $Q$-value has the form:
+\begin{equation}
+Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha\left[R_{t+1}+\gamma\max_a Q(S_{t+1},a)-Q(S_t,A_t)\right]\tag{4}\label{4}
+\end{equation}
+In this case, the learned action-value function, $Q$, directly approximates optimal action-value function $q_*$, independent of the policy being followed. Down below is pseudocode of the $Q$-learning.</p>
+<figure>
+	<img src="/assets/images/2022-04-08/q-learning.png" alt="Q-learning" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+
+<h5 id="eg-cliffwalking">Example: Cliffwalking - Sarsa vs Q-learning</h5>
+
+<h4 id="exp-sarsa">Expected Sarsa</h4>
+<p>In the update \eqref{4} of Q-learning, rather than taking the maximum over next state-action pairs, if we use the expected value to consider how likely each action is under the current policy. That means, we instead have the following update rule for $Q$-value:
+\begin{align}
+Q(S_t,A_t)&amp;\leftarrow Q(S_t,A_t)+\alpha\Big[R_{t+1}+\gamma\mathbb{E}_\pi\big[Q(S_{t+1},A_{t+1}\vert S_{t+1})\big]-Q(S_t,A_t)\Big] \\ &amp;\leftarrow Q(S_t,A_t)+\alpha\Big[R_{t+1}+\gamma\sum_a\pi(a|S_{t+1})Q(S_{t+1}|a)-Q(S_t,A_t)\Big]
+\end{align}
+However, given the next state, $S_{t+1}$, this algorithms move <em>deterministically</em> in the same direction as Sarsa moves in <em>expectation</em>. Thus, this method is also called <strong>Expected Sarsa</strong>.</p>
+
+<p>Expected Sarsa performs better than Sarsa since it eliminates the variance due to the randomization in selecting $A_{t+1}$. Which also means that it takes expected Sarsa more resource than Sarsa.</p>
+
+<h4 id="double-q-learning">Double Q-learning</h4>
+
+<h5 id="max-bias">Maximization Bias</h5>
+<p>Consider a set of $M$ random variables $X=\{X_1,\dots,X_M\}$. Say that we are interested in maximizing expected value of the r.v.s in $X$:
+\begin{equation}
+\max_{i=1,\dots,M}\mathbb{E}(X_i)
+\end{equation}
+This value can be approximated by constructing approximations for $\mathbb{E}(X_i),\forall i$. Let $S=\bigcup_{i=1}^{M}S_i$ denote a set of samples, where $S_i$ is the subset containing samples for the variables $X_i$, and assume that the samples in $S_i$ are i.i.d. Unbiased estimates for the expected values can be obtained by computing the sample average for each variable:
+\begin{equation}
+\mathbb{E}(X_i)=\mathbb{E}(\mu_i)\approx\mu_i(S)\doteq\frac{1}{\vert S_i\vert}\sum_{s\in S_i}s,
+\end{equation}
+where $\mu_i$ is an estimator for variable $X_i$. This approximation is unbiased since every sample $s\in S_i$ is an unbiased estimate for the value of $\mathbb{E}(X_i)$.</p>
+
+<h5 id="a-solution">A Solution</h5>
+<p>The reason why maximization bias happens is we are using the same samples to decide which action is the best (highest reward one) and also to estimate its action-value.</p>
+
+<p>Double Q-learning is a variant of Q-learning<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>.</p>
+
+<figure>
+	<img src="/assets/images/2022-04-08/double-q-learning.png" alt="Double Q-learning" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+
+<h2 id="n-step-td">$\boldsymbol{n}$-step TD</h2>
+
+<h3 id="n-step-td-prediction">$\boldsymbol{n}$-step TD Prediction</h3>
+
+<h2 id="references">References</h2>
+<p>[1] Richard S. Sutton &amp; Andrew G. Barto. <a href="https://mitpress.mit.edu/books/reinforcement-learning-second-edition">Reinforcement Learning: An Introduction</a></p>
+
+<p>[2] <span id="td-convergence">Sutton, R.S. <a href="https://doi.org/10.1007/BF00115009">Learning to predict by the methods of temporal differences</a>. Mach Learn 3, 9–44 (1988).</span></p>
+
+<p>[3] <span id="q-learning-watkins">Chris Watkins. <a href="https://www.researchgate.net/publication/33784417_Learning_From_Delayed_Rewards">Learning from Delayed Rewards</a>. PhD Thesis (1989)</span></p>
+
+<p>[4] Hado Hasselt. <a href="https://papers.nips.cc/paper/2010/hash/091d584fced301b442654dd8c23b3fc9-Abstract.html">Double Q-learning</a>. NIPS 2010</p>
+
+<h2 id="footnotes">Footnotes</h2>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>It is a special case of <a href="#n-step-td">n-step TD</a> and TD($\lambda$). <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p>Another popular variant of Q-learning is <a href="https://www.nature.com/articles/nature14236">Deep Q-learning</a>, which was introduced by Deepmind in 2015. We’re gonna talk about it in the post of Function approximation. <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+  </div>
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    
+    var disqus_config = function () {
+    this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://https-trunghng-github-io.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+<script id="dsq-count-scr" src="//https-trunghng-github-io.disqus.com/count.js" async></script>
+
+  <a class="u-url" href="/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html" hidden></a>
+</article>
+ <!-- mathjax javascript -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+  "HTML-CSS": {availableFonts: []}
+  });
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<script>
+  var coll = document.getElementsByClassName("collapsible");
+  var i;
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      var content = document.getElementById(this.id+"data");
+      var btn = document.getElementById(this.id)
+      if (content.style.display === "block") {
+        content.style.display = "none";
+        btn.innerText = "Click to show the code";
+      } else {
+        content.style.display = "block";
+        btn.innerText = "Click to hide the code"
+      }
+    });
+  }
+</script>
+
+      </div>
+
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+        <ul class="contact-list">
+          <li class="p-name">Trung H. Nguyen</li>
+          <li><a class="u-email" href="mailto:trung.skipper@gmail.com">trung.skipper@gmail.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p>To document something I&#39;ve learned
+</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/trunghng" title="trunghng"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
+<script type="text/javascript">
+  var btn = $('#button');
+
+  $(window).scroll(function() {
+    if ($(window).scrollTop() > 300) {
+      btn.addClass('show');
+    } else {
+      btn.removeClass('show');
+    }
+  });
+
+  btn.on('click', function(e) {
+    e.preventDefault();
+    $('html, body').animate({scrollTop:0}, '300');
+  });
+</script>

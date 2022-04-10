@@ -1,11 +1,206 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-12-31T17:36:22+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
-</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Bayesian Optimization</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization.html" rel="alternate" type="text/html" title="Bayesian Optimization" /><published>2021-11-22T14:46:00+07:00</published><updated>2021-11-22T14:46:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization.html">&lt;blockquote&gt;
-  &lt;p&gt;Dont know yet&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-04-10T19:54:52+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Temporal-Difference Learning</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html" rel="alternate" type="text/html" title="Temporal-Difference Learning" /><published>2022-04-08T16:55:00+07:00</published><updated>2022-04-08T16:55:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html">&lt;blockquote&gt;
+  &lt;p&gt;So far in this &lt;a href=&quot;/tag/my-rl&quot;&gt;series&lt;/a&gt;, we have gone through the ideas of &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html&quot;&gt;&lt;strong&gt;dynamic programming&lt;/strong&gt; (DP)&lt;/a&gt; and &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html&quot;&gt;&lt;strong&gt;Monte Carlo&lt;/strong&gt;&lt;/a&gt;. What will happen if we combine these ideas together? &lt;strong&gt;Temporal-deffirence (TD) learning&lt;/strong&gt; is our answer.&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;!-- excerpt-end --&gt;
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#basics&quot;&gt;Mathematical Basics&lt;/a&gt;
+  &lt;li&gt;&lt;a href=&quot;#td0&quot;&gt;TD(0)&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#td-prediction&quot;&gt;TD Prediction&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#adv-over-mc-dp&quot;&gt;Adventages over MC &amp;amp; DP&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#opt-td0&quot;&gt;Optimality of TD(0)&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#td-control&quot;&gt;TD Control&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#sarsa&quot;&gt;Sarsa&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#q-learning&quot;&gt;Q-learining&lt;/a&gt;
+            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#eg-cliffwalking&quot;&gt;Example: Cliffwalking - Sarsa vs Q-learning&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#exp-sarsa&quot;&gt;Expected Sarsa&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#double-q-learning&quot;&gt;Double Q-learning&lt;/a&gt;
+            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#max-bias&quot;&gt;Maximization Bias&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#sol&quot;&gt;A Solution&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#n-step-td&quot;&gt;$\boldsymbol{n}$-step TD&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#n-step-td-prediction&quot;&gt;$\boldsymbol{n}$-step TD Prediction&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;td0&quot;&gt;TD(0)&lt;/h2&gt;
+&lt;p&gt;As usual, we approach this new method in the prediction problem.&lt;/p&gt;
+
+&lt;h3 id=&quot;td-prediction&quot;&gt;TD Prediction&lt;/h3&gt;
+&lt;p&gt;Borrowing the idea of Monte Carlo, TD methods learn from episodes of experience to solve the &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html#fn:2&quot;&gt;prediction problem&lt;/a&gt;. The simplest TD method is &lt;strong&gt;TD(0)&lt;/strong&gt; (or &lt;strong&gt;one-step TD&lt;/strong&gt;)&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;, which has the update form:
+\begin{equation}
+V(S_t)\leftarrow V(S_t)+\alpha\left[R_{t+1}+\gamma V(S_{t+1})-V(S_t)\right]\tag{1}\label{1},
+\end{equation}
+where $\alpha&amp;gt;0$ is step size of the update. Here is pseudocode of the TD(0) method&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-04-08/td0.png&quot; alt=&quot;TD(0)&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;Recall that in &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html#mc-prediction&quot;&gt;Monte Carlo method&lt;/a&gt;, or even in its trivial form, &lt;strong&gt;constant-$\alpha$ MC&lt;/strong&gt;, which has the update form:
+\begin{equation}
+V(S_t)\leftarrow V(S_t)+\alpha\left[G_t-V(S_t)\right]\tag{2}\label{2},
+\end{equation}
+we have to wait until the end of the episode, when the return $G_t$ is determined. However, with TD(0), we can do the update immediately in the next time step $t+1$.&lt;/p&gt;
+
+&lt;p&gt;As we can see in \eqref{1} and \eqref{2}, both TD and MC updates look ahead to a sample successor state (or state-action pair), use the value of the successor and the corresponding reward in order to update the value of the current state (or state-action pair). This kind of updates is called &lt;em&gt;sample update&lt;/em&gt;, which differs from &lt;em&gt;expected update&lt;/em&gt; used by DP methods in that they are based on a single sample successor rather than on a complete distribution of all possible successors.&lt;/p&gt;
+
+&lt;p&gt;Other than the sampling of Monte Carlo, TD methods also use the bootstrapping of DP. Because similar to &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html#policy-evaluation&quot;&gt;DP&lt;/a&gt;, TD(0) is also a bootstrapping method, since the target in its update is $R_{t+1}+\gamma V(S_{t+1})$.&lt;/p&gt;
+
+&lt;p&gt;The quantity inside bracket in \eqref{1} is called &lt;em&gt;TD error&lt;/em&gt;, denoted as $\delta$:
+\begin{equation}
+\delta_t\doteq R_{t+1}+\gamma V(S_{t+1})-V(S_t)
+\end{equation}
+If the array $V$ does not change during the episode (as in MC), then the MC error can be written as a sum of TD errors
+\begin{align}
+G_t-V(S_t)&amp;amp;=R_{t+1}+\gamma G_{t+1}-V(S_t)+\gamma V(S_{t+1})-\gamma V(S_{t+1}) \\ &amp;amp;=\delta_t+\gamma\left(G_{t+1}-V(S_{t+1})\right) \\ &amp;amp;=\delta_t+\gamma\delta_{t+1}+\gamma^2\left(G_{t+2}-V(S_{t+2})\right) \\ &amp;amp;=\delta_t+\gamma\delta_{t+1}+\gamma^2\delta_{t+2}+\dots+\gamma^{T-t-1}\delta_{T-1}+\gamma^{T-t}\left(G_T-V(S_T)\right) \\ &amp;amp;=\delta_t+\gamma\delta_{t+1}+\gamma^2\delta_{t+2}+\dots+\gamma^{T-t-1}\delta_{T-1}+\gamma^{T-t}(0-0) \\ &amp;amp;=\sum_{k=t}^{T-1}\gamma^{k-t}\delta_k
+\end{align}&lt;/p&gt;
+
+&lt;h4 id=&quot;adv-over-mc-dp&quot;&gt;Adventages over MC &amp;amp; DP&lt;/h4&gt;
+&lt;p&gt;With how TD is established, these are some advantages of its over MC and DP:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Only experience is required.&lt;/li&gt;
+  &lt;li&gt;Can be fully incremental:
+    &lt;ul&gt;
+      &lt;li&gt;Can make update before knowing the final outcome.&lt;/li&gt;
+      &lt;li&gt;Requires less memory.&lt;/li&gt;
+      &lt;li&gt;Requires less peak computation.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;TD(0) does converge to $v_\pi$, in the mean for a sufficient small $\alpha$, and with probability of $1$ if $\alpha$ decreases according to the &lt;em&gt;stochastic approximation condition&lt;/em&gt;
+\begin{equation}
+\sum_{n=1}^{\infty}\alpha_n(a)=\infty\hspace{1cm}\text{and}\hspace{1cm}\sum_{n=1}^{\infty}\alpha_n^2(a)&amp;lt;\infty,
+\end{equation}
+where $\alpha_n(a)$ denote the step-size parameter used to process the reward received after the $n$-th selection of action $a$.&lt;/p&gt;
+
+&lt;h4 id=&quot;opt-td0&quot;&gt;Optimality of TD(0)&lt;/h4&gt;
+&lt;p&gt;Under batch training, TD(0) converges to the optimal maximum likelihood estimate. The convergence and optimality proofs can be found in this &lt;a href=&quot;#td-convergence&quot;&gt;paper&lt;/a&gt;.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-04-08/random_walk_batch_updating.png&quot; alt=&quot;TD(0) vs constant-alpha MC&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 1&lt;/b&gt;: Performance of TD(0) and constant-$\alpha$ MC under batch training on the random walk task. The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-6/random-walk.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h3 id=&quot;td-control&quot;&gt;TD Control&lt;/h3&gt;
+&lt;p&gt;We begin solving the control problem with an on-policy TD method. Recall that in on-policy methods, we evaluate or improve the policy $\pi$ used to make decision.&lt;/p&gt;
+
+&lt;h4 id=&quot;sarsa&quot;&gt;Sarsa&lt;/h4&gt;
+&lt;p&gt;As mentioned in &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html#mc-est-action-value&quot;&gt;MC methods&lt;/a&gt;, when the model is not available, we have to learn an action-value function rather than a state-value function. Or in other words, we need to estimate $q_\pi(s,a)$ for the current policy $\pi$ and $\forall s,a$. Thus, instead of considering transitions from state to state in order to learn the value of states, we now take transitions from state-action pair to state-action pair into account so as to learn the value of state-action pairs.&lt;/p&gt;
+
+&lt;p&gt;Similarly, we’ve got the TD update for the action-value function case:
+\begin{equation}
+Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha\left[R_{t+1}+\gamma Q(S_{t+1},A_{t+1})-Q(S_t,A_t)\right]\tag{3}\label{3}
+\end{equation}
+This update is done after every transition from a nonterminal state $S_t$ to its successor $S_{t+1}$
+\begin{equation}
+\left(S_t,A_t,R_{t+1},S_{t+1},A_{t+1}\right)
+\end{equation}
+And if $S_{t+1}$ is terminal (i.e., $S_{t+1}=S_T$), then $Q(S_{t+1},A_{t+1})=0$. The name &lt;strong&gt;Sarsa&lt;/strong&gt; of the method is taken based on acronym of the quintuple.&lt;/p&gt;
+
+&lt;p&gt;As usual when working on on-policy control problem, we apply the idea of &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html#gpi&quot;&gt;GPI&lt;/a&gt;:
+\begin{equation}
+\pi_0\overset{\small \text{E}}{\rightarrow}q_{\pi_0}\overset{\small \text{I}}{\rightarrow}\pi_1\overset{\small \text{E}}{\rightarrow}q_{\pi_1}\overset{\small \text{I}}{\rightarrow}\pi_2\overset{\small \text{E}}{\rightarrow}\dots\overset{\small \text{I}}{\rightarrow}\pi_*\overset{\small \text{E}}{\rightarrow}q_*
+\end{equation}
+However this time, instead, we use it with TD methods. Which is, we continually estimate $q_\pi$ for the behavior policy $\pi$, and at the same time change $\pi$ toward greediness w.r.t $q_\pi$. That gives us the following pseudocode of the Sarsa control algorithm&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-04-08/sarsa.png&quot; alt=&quot;Sarsa&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h4 id=&quot;q-learning&quot;&gt;Q-learning&lt;/h4&gt;
+&lt;p&gt;We now turn our move to an off-policy method, which evaluates or improves a policy different from that used to generate the data.&lt;br /&gt;
+The method we are talking about is called &lt;strong&gt;Q-learning&lt;/strong&gt;, which was first introduced by &lt;a href=&quot;#q-learning-watkins&quot;&gt;Watkin&lt;/a&gt;, in which the update on $Q$-value has the form:
+\begin{equation}
+Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha\left[R_{t+1}+\gamma\max_a Q(S_{t+1},a)-Q(S_t,A_t)\right]\tag{4}\label{4}
+\end{equation}
+In this case, the learned action-value function, $Q$, directly approximates optimal action-value function $q_*$, independent of the policy being followed. Down below is pseudocode of the $Q$-learning.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-04-08/q-learning.png&quot; alt=&quot;Q-learning&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h5 id=&quot;eg-cliffwalking&quot;&gt;Example: Cliffwalking - Sarsa vs Q-learning&lt;/h5&gt;
+
+&lt;h4 id=&quot;exp-sarsa&quot;&gt;Expected Sarsa&lt;/h4&gt;
+&lt;p&gt;In the update \eqref{4} of Q-learning, rather than taking the maximum over next state-action pairs, if we use the expected value to consider how likely each action is under the current policy. That means, we instead have the following update rule for $Q$-value:
+\begin{align}
+Q(S_t,A_t)&amp;amp;\leftarrow Q(S_t,A_t)+\alpha\Big[R_{t+1}+\gamma\mathbb{E}_\pi\big[Q(S_{t+1},A_{t+1}\vert S_{t+1})\big]-Q(S_t,A_t)\Big] \\ &amp;amp;\leftarrow Q(S_t,A_t)+\alpha\Big[R_{t+1}+\gamma\sum_a\pi(a|S_{t+1})Q(S_{t+1}|a)-Q(S_t,A_t)\Big]
+\end{align}
+However, given the next state, $S_{t+1}$, this algorithms move &lt;em&gt;deterministically&lt;/em&gt; in the same direction as Sarsa moves in &lt;em&gt;expectation&lt;/em&gt;. Thus, this method is also called &lt;strong&gt;Expected Sarsa&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Expected Sarsa performs better than Sarsa since it eliminates the variance due to the randomization in selecting $A_{t+1}$. Which also means that it takes expected Sarsa more resource than Sarsa.&lt;/p&gt;
+
+&lt;h4 id=&quot;double-q-learning&quot;&gt;Double Q-learning&lt;/h4&gt;
+
+&lt;h5 id=&quot;max-bias&quot;&gt;Maximization Bias&lt;/h5&gt;
+&lt;p&gt;Consider a set of $M$ random variables $X=\{X_1,\dots,X_M\}$. Say that we are interested in maximizing expected value of the r.v.s in $X$:
+\begin{equation}
+\max_{i=1,\dots,M}\mathbb{E}(X_i)
+\end{equation}
+This value can be approximated by constructing approximations for $\mathbb{E}(X_i),\forall i$. Let $S=\bigcup_{i=1}^{M}S_i$ denote a set of samples, where $S_i$ is the subset containing samples for the variables $X_i$, and assume that the samples in $S_i$ are i.i.d. Unbiased estimates for the expected values can be obtained by computing the sample average for each variable:
+\begin{equation}
+\mathbb{E}(X_i)=\mathbb{E}(\mu_i)\approx\mu_i(S)\doteq\frac{1}{\vert S_i\vert}\sum_{s\in S_i}s,
+\end{equation}
+where $\mu_i$ is an estimator for variable $X_i$. This approximation is unbiased since every sample $s\in S_i$ is an unbiased estimate for the value of $\mathbb{E}(X_i)$.&lt;/p&gt;
+
+&lt;h5 id=&quot;a-solution&quot;&gt;A Solution&lt;/h5&gt;
+&lt;p&gt;The reason why maximization bias happens is we are using the same samples to decide which action is the best (highest reward one) and also to estimate its action-value.&lt;/p&gt;
+
+&lt;p&gt;Double Q-learning is a variant of Q-learning&lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-04-08/double-q-learning.png&quot; alt=&quot;Double Q-learning&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h2 id=&quot;n-step-td&quot;&gt;$\boldsymbol{n}$-step TD&lt;/h2&gt;
+
+&lt;h3 id=&quot;n-step-td-prediction&quot;&gt;$\boldsymbol{n}$-step TD Prediction&lt;/h3&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[2] &lt;span id=&quot;td-convergence&quot;&gt;Sutton, R.S. &lt;a href=&quot;https://doi.org/10.1007/BF00115009&quot;&gt;Learning to predict by the methods of temporal differences&lt;/a&gt;. Mach Learn 3, 9–44 (1988).&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;[3] &lt;span id=&quot;q-learning-watkins&quot;&gt;Chris Watkins. &lt;a href=&quot;https://www.researchgate.net/publication/33784417_Learning_From_Delayed_Rewards&quot;&gt;Learning from Delayed Rewards&lt;/a&gt;. PhD Thesis (1989)&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;[4] Hado Hasselt. &lt;a href=&quot;https://papers.nips.cc/paper/2010/hash/091d584fced301b442654dd8c23b3fc9-Abstract.html&quot;&gt;Double Q-learning&lt;/a&gt;. NIPS 2010&lt;/p&gt;
+
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;It is a special case of &lt;a href=&quot;#n-step-td&quot;&gt;n-step TD&lt;/a&gt; and TD($\lambda$). &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;Another popular variant of Q-learning is &lt;a href=&quot;https://www.nature.com/articles/nature14236&quot;&gt;Deep Q-learning&lt;/a&gt;, which was introduced by Deepmind in 2015. We’re gonna talk about it in the post of Function approximation. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="td-learning" /><category term="n-step-td" /><category term="q-learning" /><category term="my-rl" /><summary type="html">So far in this series, we have gone through the ideas of dynamic programming (DP) and Monte Carlo. What will happen if we combine these ideas together? Temporal-deffirence (TD) learning is our answer.</summary></entry><entry><title type="html">Bayesian Optimization</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization.html" rel="alternate" type="text/html" title="Bayesian Optimization" /><published>2021-11-22T14:46:00+07:00</published><updated>2021-11-22T14:46:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2021/11/22/bayesian-optimization.html">&lt;blockquote&gt;
+  &lt;p&gt;This is simply a random post. Because I litterally had forgotten almost every details about these concepts until a friend of mine gave me a reason to lay my hands on these stuffs again.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;!-- excerpt-end --&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#preliminaries&quot;&gt;Preliminaries&lt;/a&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#gauss-dist&quot;&gt;Gaussian (Normal) Distribution&lt;/a&gt;
         &lt;ul&gt;
@@ -27,7 +222,7 @@
               &lt;li&gt;&lt;a href=&quot;#matern-kernels&quot;&gt;Matern kernels&lt;/a&gt;&lt;/li&gt;
             &lt;/ul&gt;
           &lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#eigenfunc-kernel&quot;&gt;Eigenfunction Analysis of Kernels&lt;/a&gt;
+          &lt;li&gt;&lt;a href=&quot;#eigenfunc-kernel&quot;&gt;Eigenfunction A nalysis of Kernels&lt;/a&gt;
             &lt;ul&gt;
               &lt;li&gt;&lt;a href=&quot;#eigenfunc&quot;&gt;Eigenfunctions&lt;/a&gt;&lt;/li&gt;
             &lt;/ul&gt;
@@ -56,8 +251,8 @@
 
 &lt;p&gt;$\newcommand{\Var}{\mathrm{Var}}$
 $\newcommand{\Cov}{\mathrm{Cov}}$&lt;/p&gt;
-&lt;h2 id=&quot;basics&quot;&gt;Background&lt;/h2&gt;
-&lt;p&gt;Before diving into details, we need some necessary basic concepts.&lt;/p&gt;
+&lt;h2 id=&quot;preliminaries&quot;&gt;Preliminaries&lt;/h2&gt;
+&lt;p&gt;Before diving into details, it is necessary to equip some basic concepts.&lt;/p&gt;
 
 &lt;h3 id=&quot;gauss-dist&quot;&gt;Gaussian (Normal) Distribution&lt;/h3&gt;
 &lt;p&gt;A random variable $X$ is said to be &lt;strong&gt;Gaussian&lt;/strong&gt; or to have the &lt;strong&gt;Normal distribution&lt;/strong&gt; with mean $\mu$ and variance $\sigma^2$ if its probability density function (PDF) is
@@ -130,22 +325,11 @@ With this idea, &lt;em&gt;Standard Normal&lt;/em&gt; distribution in multi-dimen
 for $\textbf{x},\textbf{x}’\in\mathcal{X}$, which typically is symmetric (i.e., $\kappa(\textbf{x},\textbf{x}’)=\kappa(\textbf{x}’,\textbf{x})$), and nonnegative ($\kappa(\textbf{x},\textbf{x}’)\geq0$). These are some examples of kernel functions.&lt;/p&gt;
 
 &lt;h5 id=&quot;rbf-kernels&quot;&gt;RBF kernels&lt;/h5&gt;
-&lt;p&gt;[TODO]&lt;/p&gt;
-
-&lt;p&gt;The &lt;strong&gt;squared exponential kernel&lt;/strong&gt; (&lt;strong&gt;SE kernel&lt;/strong&gt;) or &lt;strong&gt;Gaussian kernel&lt;/strong&gt; is defined by
+&lt;p&gt;Let $\mathcal{X}\subset\mathbb{R}^D$. For $\gamma&amp;gt;0$, a &lt;strong&gt;Gaussian RBF kernels&lt;/strong&gt; or a &lt;strong&gt;squared exponential kernel&lt;/strong&gt; (&lt;strong&gt;SE kernel&lt;/strong&gt;) $\kappa: \mathcal{X}\times\mathcal{X}\to\mathbb{R}$ is defined by
 \begin{equation}
-\kappa(\textbf{x},\textbf{x}’)=\exp\left(-\frac{1}{2}\left(\textbf{x}-\textbf{x}’\right)^\intercal\mathbf{\Sigma}^{-1}(\textbf{x}-\textbf{x}’)\right)
+\kappa(\textbf{x},\textbf{x}’)=\exp\left(-\frac{\Vert\textbf{x}-\textbf{x}’\Vert^2}{\gamma^2}\right)
 \end{equation}
-If $\mathbf{\Sigma}$ is a diagonal matrix, this can be written as
-\begin{equation}
-\kappa(\textbf{x},\textbf{x}’)=\exp\left(-\frac{1}{2}\sum_{j=1}^{D}\frac{1}{\sigma_j^2}(x_j-x_j’)^2\right)
-\end{equation}
-We can interpret the $\sigma_j$ as defining the &lt;strong&gt;characteristic length scale&lt;/strong&gt; of dimension $j$. The corresponding dimension of $\sigma_j$ is ignored if $\sigma_j=\infty$. This is known as the &lt;strong&gt;ARD kernel&lt;/strong&gt; (Automatic Relevance Determination).&lt;br /&gt;
-If $\Sigma$ is spherical&lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;, we get the isotropic kernel
-\begin{equation}
-\kappa(\textbf{x},\textbf{x}’)=\exp\left(-\frac{\Vert\textbf{x}-\textbf{x}’\Vert}{2\sigma^2}\right)\tag{1}\label{1}
-\end{equation}
-Here $\sigma^2$ is known as the &lt;strong&gt;bandwidth&lt;/strong&gt;. Since \eqref{1} can be seen as a function of $\Vert\textbf{x}-\textbf{x}’\Vert$, it is an example of a &lt;strong&gt;radial basis function&lt;/strong&gt; or &lt;strong&gt;RBF kernel&lt;/strong&gt;.&lt;/p&gt;
+for $\textbf{x},\textbf{x}’\in\mathcal{X}$.&lt;/p&gt;
 
 &lt;h5 id=&quot;mercer-kernels&quot;&gt;Mercer (positive definite) kernels&lt;/h5&gt;
 &lt;p&gt;If the Gram matrix, defined by
@@ -165,7 +349,7 @@ If $\phi(\textbf{x})=\textbf{x}$, we obtain a simple kernel called &lt;strong&gt
 \end{equation}&lt;/p&gt;
 
 &lt;h5 id=&quot;matern-kernels&quot;&gt;Matern kernels&lt;/h5&gt;
-&lt;p&gt;Let $\mathcal{X}\subset\mathbb{R}^D,\nu&amp;gt;0,\ell&amp;gt;0$. The &lt;strong&gt;Matern kenel&lt;/strong&gt; $\kappa:\mathcal{X}\times\mathcal{X}\to\mathbb{R}$ is defined by
+&lt;p&gt;Let $\mathcal{X}\subset\mathbb{R}^D,\nu&amp;gt;0,\ell&amp;gt;0$. The &lt;strong&gt;Matern kernel&lt;/strong&gt; $\kappa:\mathcal{X}\times\mathcal{X}\to\mathbb{R}$ is defined by
 \begin{equation}
 \kappa(r)=\frac{2^{1-\nu}}{\Gamma(\nu)}\left(\frac{\sqrt{2\nu}r}{\ell}\right)^{\nu}K_{\nu}\left(\frac{\sqrt{2\nu}r}{\ell}\right)\tag{2}\label{2}
 \end{equation}
@@ -222,6 +406,8 @@ f_X=\left(f(\textbf{x}_1),\ldots,f(\textbf{x}_n)\right)^\intercal\sim\mathcal{N}
 \end{equation}
 where $\mu_X=\left(\mu(\textbf{x}_1),\ldots,\mu(\textbf{x}_n)\right)^\intercal$ is the mean vector and $\kappa_{XX}=\left(\kappa(\textbf{x}_i,\textbf{x}_j)\right)_{i,j=1}^n\in\mathbb{R}^{n\times n}$ is covariance matrix.&lt;/p&gt;
 
+&lt;p&gt;The correpondence between &lt;strong&gt;Gaussian process&lt;/strong&gt; $f\sim\mathcal{GP}(\mu,\kappa)$ and pairs $(\mu,\kappa)$ of mean function $\mu$ and positive definite kernel $\kappa$ is a one-to-one since from the definition above, Gaussian process $f$ implies the existence of a mean function $\mu:\mathcal{X}\to\mathbb{R}$ and a covariance kernel $\kappa:\mathcal{X}\times\mathcal{X}\to\mathbb{R}$. And from&lt;/p&gt;
+
 &lt;h3 id=&quot;gpr&quot;&gt;Gaussian Process Regression&lt;/h3&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
@@ -231,15 +417,11 @@ where $\mu_X=\left(\mu(\textbf{x}_1),\ldots,\mu(\textbf{x}_n)\right)^\intercal$ 
 
 &lt;p&gt;[3] Joseph K. Blitzstein &amp;amp; Jessica Hwang. &lt;a href=&quot;https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573&quot;&gt;Introduction to Probability&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;[4] Stanford CS229. &lt;a href=&quot;http://cs229.stanford.edu&quot;&gt;Machine Learning&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[4] Kevin P. Murphy. &lt;a href=&quot;https://probml.github.io/pml-book/book0.html&quot;&gt;Machine Learning: A Probabilistic Perspective&lt;/a&gt;, MIT Press, 2012&lt;/p&gt;
 
-&lt;p&gt;[5] Kevin P. Murphy. &lt;a href=&quot;https://probml.github.io/pml-book/book0.html&quot;&gt;Machine Learning: A Probabilistic Perspective&lt;/a&gt;, MIT Press, 2012&lt;/p&gt;
+&lt;p&gt;[5] Peter I. Frazier. &lt;a href=&quot;https://arxiv.org/abs/1807.02811&quot;&gt;A Tutorial on Bayesian Optimization&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;[6] Peter I. Frazier. &lt;a href=&quot;https://arxiv.org/abs/1807.02811&quot;&gt;A Tutorial on Bayesian Optimization&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;[7] Martin Krasser. &lt;a href=&quot;https://krasserm.github.io/2018/03/21/bayesian-optimization/&quot;&gt;Bayesian Optimization&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;[8] &lt;a href=&quot;https://stats.stackexchange.com/users/28666/amoeba&quot;&gt;amoeba&lt;/a&gt;, &lt;a href=&quot;https://stats.stackexchange.com/q/204599&quot;&gt;What is an isotropic (spherical) covariance matrix?&lt;/a&gt;, StackExchange&lt;/p&gt;
+&lt;p&gt;[6] Martin Krasser. &lt;a href=&quot;https://krasserm.github.io/2018/03/21/bayesian-optimization/&quot;&gt;Bayesian Optimization&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
 
@@ -256,14 +438,8 @@ Let $\mathbf{z}\in\mathbb{R}^k$, we have
 \end{equation}
 And since $\Var(\mathbf{z}^\intercal\mathbf{X})\geq0$, we also have that $\mathbf{z}^\intercal\mathbf{\Sigma}\mathbf{z}\geq0$, which proves that $\mathbf{\Sigma}$ is a positive semi-definite matrix. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
-    &lt;li id=&quot;fn:2&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;A covariance matrix $\mathbf{C}$ is called &lt;em&gt;isotrophic&lt;/em&gt;, or &lt;em&gt;spherical&lt;/em&gt; if it is proportionate to the identity matrix
-\begin{equation}
-\mathbf{C}=\lambda\mathbf{I}
-\end{equation} &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="machine-learning" /><category term="artificial-intelligent" /><category term="machine-learning" /><category term="gaussian-process" /><category term="optimization-control" /><category term="probability-statistics" /><summary type="html">Dont know yet</summary></entry><entry><title type="html">Power Series</title><link href="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>http://localhost:4000/mathematics/calculus/2021/09/21/power-series</id><content type="html" xml:base="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html">&lt;blockquote&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="machine-learning" /><category term="artificial-intelligent" /><category term="machine-learning" /><category term="gaussian-process" /><category term="optimization-control" /><category term="probability-statistics" /><category term="random-stuffs" /><summary type="html">This is simply a random post. Because I litterally had forgotten almost every details about these concepts until a friend of mine gave me a reason to lay my hands on these stuffs again.</summary></entry><entry><title type="html">Power Series</title><link href="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>http://localhost:4000/mathematics/calculus/2021/09/21/power-series</id><content type="html" xml:base="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html">&lt;blockquote&gt;
   &lt;p&gt;Recall that in the previous post, &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html&quot;&gt;Infinite Series of Constants&lt;/a&gt;, we mentioned a type of series called &lt;strong&gt;power series&lt;/strong&gt; a lot. In the content of this post, we will be diving deeper into details of that series.&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -3513,47 +3689,4 @@ for all states $i,j$. This equation is called &lt;em&gt;reversibility&lt;/em&gt;
       &lt;p&gt;Well, it only matters where you are, not where you’ve been. &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="random-stuffs" /><category term="probability-statistics" /><category term="mathematics" /><category term="probability-statistics" /><summary type="html">Since I have no idea how to begin with this post, why not just dive straight into details :P</summary></entry><entry><title type="html">My very first post</title><link href="http://localhost:4000/mathematics/linear-algebra/2021/06/05/fibonacci-generator.html" rel="alternate" type="text/html" title="My very first post" /><published>2021-06-05T17:00:00+07:00</published><updated>2021-06-05T17:00:00+07:00</updated><id>http://localhost:4000/mathematics/linear-algebra/2021/06/05/fibonacci-generator</id><content type="html" xml:base="http://localhost:4000/mathematics/linear-algebra/2021/06/05/fibonacci-generator.html">&lt;blockquote&gt;
-  &lt;p&gt;Enjoy my index-zero-ed post while staying tuned for next ones!&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;!-- excerpt-end --&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;math&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fibonacci&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-	&lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
-	generate i-th number of the Fibonacci sequence, python code obvs :p
-	&quot;&quot;&quot;&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;pow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Why did numbers \(\frac{1+\sqrt{5}}{2}\) and \(\frac{1-\sqrt{5}}{2}\) come out of nowhere?&lt;/p&gt;
-
-&lt;p&gt;In fact, these two numbers are eigenvalues of matrix \(A=\left(\begin{smallmatrix}1 &amp;amp; 1\\1 &amp;amp; 0\end{smallmatrix}\right)\), which is retrieved from
-\begin{equation}
-u_{k+1}=Au_k,
-\end{equation}
-where \(u_k=\left(\begin{smallmatrix}F_{k+1}\\F_k\end{smallmatrix}\right)\).
-And thus, \(u_k=A^k u_0\).&lt;/p&gt;
-
-&lt;p&gt;Then, the thing is, how can we compute \(A^k\) quickly? This is where diagonalizing plays its role. Diagonalizing produces a factorization:
-\begin{equation}
-A=S\Lambda S^{-1},
-\end{equation}
-where \(S=\left(\begin{smallmatrix}x_1 &amp;amp; \dots &amp;amp; x_n\end{smallmatrix}\right)\) is eigenvector matrix, \(\Lambda=\left(\begin{smallmatrix}\lambda_1&amp;amp;&amp;amp;\\&amp;amp;\ddots&amp;amp;\\&amp;amp;&amp;amp;\lambda_n\end{smallmatrix}\right)\) is a diagonal matrix established from eigenvalues of \(A\).&lt;/p&gt;
-
-&lt;p&gt;When taking the power of \(A\),
-\begin{equation}
-A^k u_0=(S\Lambda S^{-1})\dots(S\Lambda S^{-1})u_0=S\Lambda^k S^{-1} u_0,
-\end{equation}
-writing \(u_0\) as a combination \(c_1x_1+\dots+c_nx_n\) of the eigenvectors, we have that \(c=S^{-1}u_0\). Hence:
-\begin{equation}
-u_k=A^ku_0=c_1{\lambda_1}^kx_1+\dots+c_n{\lambda_n}^kx_n
-\end{equation}
-&lt;em&gt;Fact&lt;/em&gt;: The \(\frac{1+\sqrt{5}}{2}\approx 1.618\) is so-called “&lt;strong&gt;golden ratio&lt;/strong&gt;”. And &lt;em&gt;for some reason a rectangle with sides 1.618 and 1 looks especially graceful&lt;/em&gt;.&lt;/p&gt;
-
-&lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
-&lt;p&gt;[1] Gilbert Strang. &lt;a href=&quot;http://math.mit.edu/~gs/linearalgebra/&quot;&gt;Introduction to Linear Algebra&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;[2] MIT 18.06. &lt;a href=&quot;https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/&quot;&gt;Linear Algebrea&lt;/a&gt;&lt;/p&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="linear-algebra" /><category term="mathematics" /><category term="linear-algebra" /><category term="random-stuffs" /><summary type="html">Enjoy my index-zero-ed post while staying tuned for next ones!</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="random-stuffs" /><category term="probability-statistics" /><category term="mathematics" /><category term="probability-statistics" /><summary type="html">Since I have no idea how to begin with this post, why not just dive straight into details :P</summary></entry></feed>
