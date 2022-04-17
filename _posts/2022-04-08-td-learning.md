@@ -22,8 +22,8 @@ comments: true
 		- [Double Q-learning](#double-q-learning)
 			- [Maximization Bias](#max-bias)
 			- [A Solution](#sol)
-- [$\boldsymbol{n}$-step TD](#n-step-td)
-	- [$\boldsymbol{n}$-step TD Prediction](#n-step-td-prediction)
+- [$n$-step TD](#n-step-td)
+	- [$n$-step TD Prediction](#n-step-td-prediction)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -117,7 +117,7 @@ The method we are talking about is called **Q-learning**, which was first introd
 \begin{equation}
 Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha\left[R_{t+1}+\gamma\max_a Q(S_{t+1},a)-Q(S_t,A_t)\right]\tag{4}\label{4}
 \end{equation}
-In this case, the learned action-value function, $Q$, directly approximates optimal action-value function $q_*$, independent of the policy being followed. Down below is pseudocode of the $Q$-learning.
+In this case, the learned action-value function, $Q$, directly approximates optimal action-value function $q_*$, independent of the policy being followed. Down below is pseudocode of the Q-learning.
 <figure>
 	<img src="/assets/images/2022-04-08/q-learning.png" alt="Q-learning" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
@@ -125,6 +125,246 @@ In this case, the learned action-value function, $Q$, directly approximates opti
 
 ##### Example: Cliffwalking - Sarsa vs Q-learning
 {: #eg-cliffwalking}
+This example is taken from *Example 6.6, Reinforcement Learning: An Introduction book*.)
+<figure>
+	<img src="/assets/images/2022-04-08/cliff-walking-eg.png" alt="Cliff Walking example" style="display: block; margin-left: auto; margin-right: auto; width: 500px"/>
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+Say that we have an agent in a gridworld, which is an undiscounted, episodic task described by the above image. Start and goal states are denoted as "S" and "G" respectively. Agent can take up, down, left or right action. All the actions lead to a reward of $-1$, except for cliff region, into which stepping gives a reward of $-100$. We will be solving this problem with Q-learning and Sarsa with $\varepsilon$-greedy action selection, for $\varepsilon=0.1$.
+
+**Solution code**  
+The source code can be found [here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-6/cliff_walking.py).  
+
+<button type="button" class="collapsible" id="codeP">Click to show the code</button>
+<div class="codePanel" id="codePdata" markdown="1">
+<br>
+We begin by importing necessary packages we will be using
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from tqdm import tqdm
+```
+Our first step is defining the environment, gridworld with a cliff, which is defined by height, width, cliff region, start state, goal state, actions and rewards.
+```python
+class GridWorld:
+
+    def __init__(self, height, width, start_state, goal_state, cliff):
+        '''
+        Initialization function
+
+        Params
+        ------
+        height: int
+            gridworld's height
+        width: int
+            gridworld's width
+        start_state: [int, int]
+            gridworld's start state
+        goal_state: [int, int]
+            gridworld's goal state
+        cliff: list<[int, int]>
+            gridworld's cliff region
+    	'''
+        self.height = height
+        self.width = width
+        self.start_state = start_state
+        self.goal_state = goal_state
+        self.cliff = cliff
+        self.actions = [(-1, 0), (1, 0), (0, 1), (0, -1)]
+        self.rewards = {'cliff': -100, 'non-cliff': -1}
+```
+The gridworld also needs some helper functions. `is_terminal()` function checks whether the current state is the goal state; `take_action()` takes an state and action as inputs and returns next state and corresponding reward while `get_action_idx()` gives us the index of action from action list. Putting all these functions inside `GridWorld`'s body, we have:
+```python
+    def is_terminal(self, state):
+        '''
+        Whether state @state is the goal state
+
+        Params
+        ------
+        state: [int, int]
+            current state
+        '''
+        return state == self.goal_state
+
+
+    def take_action(self, state, action):
+        '''
+        Take action @action at state @state
+
+        Params
+        ------
+        state: [int, int]
+            current state
+        action: (int, int)
+            action taken
+
+        Return
+        ------
+        (next_state, reward): ([int, int], int)
+            a tuple of next state and reward
+        '''
+        next_state = [state[0] + action[0], state[1] + action[1]]
+        next_state = [max(0, next_state[0]), max(0, next_state[1])]
+        next_state = [min(self.height - 1, next_state[0]), min(self.width - 1, next_state[1])]
+        if next_state in self.cliff:
+            reward = self.rewards['cliff']
+            next_state = self.start_state
+        else:
+            reward = self.rewards['non-cliff']
+        return next_state, reward
+
+
+    def get_action_idx(self, action):
+        '''
+        Get index of action in action list
+
+        Params
+        ------
+        action: (int, int)
+            action
+        '''
+        return self.actions.index(action)
+```
+Next, we define the $\varepsilon$-greedy function used by our methods in `epsilon_greedy()` function.
+```python
+def epsilon_greedy(grid_world, epsilon, Q, state):
+    '''
+    Choose action according to epsilon-greedy policy
+
+    Params:
+    -------
+    grid_world: GridWorld
+    epsilon: float
+    Q: np.ndarray
+        action-value function
+    state: [int, int]
+        current state
+
+    Return
+    ------
+    action: (int, int)
+    '''
+    if np.random.binomial(1, epsilon):
+        action_idx = np.random.randint(len(grid_world.actions))
+        action = grid_world.actions[action_idx]
+    else:
+        values = Q[state[0], state[1], :]
+        action_idx = np.random.choice([action_ for action_, value_ 
+            in enumerate(values) if value_ == np.max(values)])
+        action = grid_world.actions[action_idx]
+    return action
+```
+It's time for our main course, Q-learning and Sarsa.
+```python
+def q_learning(Q, grid_world, epsilon, alpha, gamma):
+    '''
+    Q-learning
+
+    Params
+    ------
+    Q: np.ndarray
+        action-value function
+    grid_world: GridWorld
+    epsilon: float
+    alpha: float
+        step size
+    gamma: float
+        discount factor
+    '''
+    state = grid_world.start_state
+    rewards = 0
+
+    while not grid_world.is_terminal(state):
+        action = epsilon_greedy(grid_world, epsilon, Q, state)
+        next_state, reward = grid_world.take_action(state, action)
+        rewards += reward
+        action_idx = grid_world.get_action_idx(action)
+        Q[state[0], state[1], action_idx] += alpha * (reward + gamma * \
+            np.max(Q[next_state[0], next_state[1], :]) - Q[state[0], state[1], action_idx])
+        state = next_state
+
+    return rewards
+
+def sarsa(Q, grid_world, epsilon, alpha, gamma):
+    '''
+    Sarsa
+
+    Params
+    ------
+    Q: np.ndarray
+        action-value function
+    grid_world: GridWorld
+    epsilon: float
+    alpha: float
+        step size
+    gamma: float
+        discount factor
+    '''
+    state = grid_world.start_state
+    action = epsilon_greedy(grid_world, epsilon, Q, state)
+    rewards = 0
+
+    while not grid_world.is_terminal(state):
+        next_state, reward = grid_world.take_action(state, action)
+        rewards += reward
+        next_action = epsilon_greedy(grid_world, epsilon, Q, next_state)
+        action_idx = grid_world.get_action_idx(action)
+        next_action_idx = grid_world.get_action_idx(next_action)
+        Q[state[0], state[1], action_idx] += alpha * (reward + gamma * Q[next_state[0], \
+            next_state[1], next_action_idx] - Q[state[0], state[1], action_idx])
+        state = next_state
+        action = next_action
+
+    return rewards
+```
+
+And lastly, wrapping everything together in the main function, we have
+```python
+if __name__ == '__main__':
+    height = 4
+    width = 13
+    start_state = [3, 0]
+    goal_state = [3, 12]
+    cliff = [[3, x] for x in range(1, 12)]
+    grid_world = GridWorld(height, width, start_state, goal_state, cliff)
+    n_runs = 50
+    n_eps = 500
+    epsilon = 0.1
+    alpha = 0.5
+    gamma = 1
+    Q = np.zeros((height, width, len(grid_world.actions)))
+    rewards_q_learning = np.zeros(n_eps)
+    rewards_sarsa = np.zeros(n_eps)
+
+    for _ in tqdm(range(n_runs)):
+        Q_q_learning = Q.copy()
+        Q_sarsa = Q.copy()
+
+        for ep in range(n_eps):
+            rewards_q_learning[ep] += q_learning(Q_q_learning, grid_world, epsilon, alpha, gamma)
+            rewards_sarsa[ep] += sarsa(Q_sarsa, grid_world, epsilon, alpha, gamma)
+
+    rewards_q_learning /= n_runs
+    rewards_sarsa /= n_runs
+
+    plt.plot(rewards_q_learning, label='Q-Learning')
+    plt.plot(rewards_sarsa, label='Sarsa')
+    plt.xlabel('Episodes')
+    plt.ylabel('Sum of rewards during episode')
+    plt.ylim([-100, 0])
+    plt.legend()
+
+    plt.savefig('./cliff_walking.png')
+    plt.close()
+```
+</div>  
+
+This is our result after completing running the code.
+<figure>
+	<img src="/assets/images/2022-04-08/cliff_walking.png" alt="Q-learning vs Sarsa on Cliff walking" style="display: block; margin-left: auto; margin-right: auto; width: 500px"/>
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
 
 #### Expected Sarsa
 {: #exp-sarsa}
@@ -143,13 +383,16 @@ Expected Sarsa performs better than Sarsa since it eliminates the variance due t
 {: #max-bias}
 Consider a set of $M$ random variables $X=\\{X_1,\dots,X_M\\}$. Say that we are interested in maximizing expected value of the r.v.s in $X$:
 \begin{equation}
-\max_{i=1,\dots,M}\mathbb{E}(X_i)
+\max_{i=1,\dots,M}\mathbb{E}(X_i)\tag{5}\label{5}
 \end{equation}
 This value can be approximated by constructing approximations for $\mathbb{E}(X_i),\forall i$. Let $S=\bigcup_{i=1}^{M}S_i$ denote a set of samples, where $S_i$ is the subset containing samples for the variables $X_i$, and assume that the samples in $S_i$ are i.i.d. Unbiased estimates for the expected values can be obtained by computing the sample average for each variable:
 \begin{equation}
 \mathbb{E}(X_i)=\mathbb{E}(\mu_i)\approx\mu_i(S)\doteq\frac{1}{\vert S_i\vert}\sum_{s\in S_i}s,
 \end{equation}
-where $\mu_i$ is an estimator for variable $X_i$. This approximation is unbiased since every sample $s\in S_i$ is an unbiased estimate for the value of $\mathbb{E}(X_i)$.
+where $\mu_i$ is an estimator for variable $X_i$. This approximation is unbiased since every sample $s\in S_i$ is an unbiased estimate for the value of $\mathbb{E}(X_i)$. Thus, \eqref{5} can be approximated by:
+\begin{equation}
+\max_{i=1,\dots,M}\mathbb{E}(X_i)=\max_{i=1,\dots,M}\mathbb{E}(\mu_i)\approx\max_{i=1,\dots,M}\mu_i(S)
+\end{equation}
 
 
 
