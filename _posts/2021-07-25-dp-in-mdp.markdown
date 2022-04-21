@@ -151,7 +151,7 @@ The evaluation and improvement processes in GPI can be viewed as both competing 
 
 ### Example - Gambler's Problem
 {: #example}
-This example is taken from *Example 4.3* in the *Reinforcement Learning: An Introduction* book
+(This example is taken from *Reinforcement Learning: An Introduction* book, *Example 4.3*.)
 <figure>
 	<img src="/assets/images/2021-07-25/example.png" alt="example" width="500" height="500px" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 6</b>: Example - Gambler's Problem</figcaption>

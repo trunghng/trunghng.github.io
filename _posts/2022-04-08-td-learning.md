@@ -125,7 +125,7 @@ In this case, the learned action-value function, $Q$, directly approximates opti
 
 ##### Example: Cliffwalking - Sarsa vs Q-learning
 {: #eg-cliffwalking}
-This example is taken from *Example 6.6, Reinforcement Learning: An Introduction book*.)
+(This example is taken from *Example 6.6, Reinforcement Learning: An Introduction book*.)
 <figure>
 	<img src="/assets/images/2022-04-08/cliff-walking-eg.png" alt="Cliff Walking example" style="display: block; margin-left: auto; margin-right: auto; width: 500px"/>
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
@@ -145,7 +145,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 ```
-Our first step is defining the environment, gridworld with a cliff, which is defined by height, width, cliff region, start state, goal state, actions and rewards.
+Our first step is to define the environment, gridworld with a cliff, which is created by height, width, cliff region, start state, goal state, actions and rewards.
 ```python
 class GridWorld:
 
@@ -381,20 +381,12 @@ Expected Sarsa performs better than Sarsa since it eliminates the variance due t
 
 ##### Maximization Bias
 {: #max-bias}
-Consider a set of $M$ random variables $X=\\{X_1,\dots,X_M\\}$. Say that we are interested in maximizing expected value of the r.v.s in $X$:
-\begin{equation}
-\max_{i=1,\dots,M}\mathbb{E}(X_i)\tag{5}\label{5}
-\end{equation}
-This value can be approximated by constructing approximations for $\mathbb{E}(X_i),\forall i$. Let $S=\bigcup_{i=1}^{M}S_i$ denote a set of samples, where $S_i$ is the subset containing samples for the variables $X_i$, and assume that the samples in $S_i$ are i.i.d. Unbiased estimates for the expected values can be obtained by computing the sample average for each variable:
-\begin{equation}
-\mathbb{E}(X_i)=\mathbb{E}(\mu_i)\approx\mu_i(S)\doteq\frac{1}{\vert S_i\vert}\sum_{s\in S_i}s,
-\end{equation}
-where $\mu_i$ is an estimator for variable $X_i$. This approximation is unbiased since every sample $s\in S_i$ is an unbiased estimate for the value of $\mathbb{E}(X_i)$. Thus, \eqref{5} can be approximated by:
-\begin{equation}
-\max_{i=1,\dots,M}\mathbb{E}(X_i)=\max_{i=1,\dots,M}\mathbb{E}(\mu_i)\approx\max_{i=1,\dots,M}\mu_i(S)
-\end{equation}
+As we have seen so far in Sarsa and Q-learning, the action-value function, $Q$, has been over estimated because 
+- In Q-learning, the target policy is the greedy policy given the current action values, which is defined with a maximization operation.
+- In Sarsa, the policy is often $\varepsilon$-greedy, which also involves a maximization operation.
+- And under these methods, a maximization over estimated values is used implicitly as an estimate of the maximum value.  
 
-
+That overestimation can lead to a significant positive bias, which is called *maximization bias*.
 
 ##### A Solution
 The reason why maximization bias happens is we are using the same samples to decide which action is the best (highest reward one) and also to estimate its action-value.
@@ -420,7 +412,9 @@ Double Q-learning is a variant of Q-learning[^2].
 
 [3] <span id='q-learning-watkins'>Chris Watkins. [Learning from Delayed Rewards](https://www.researchgate.net/publication/33784417_Learning_From_Delayed_Rewards). PhD Thesis (1989)</span>  
 
-[4] Hado Hasselt. [Double Q-learning](https://papers.nips.cc/paper/2010/hash/091d584fced301b442654dd8c23b3fc9-Abstract.html). NIPS 2010
+[4] Hado Hasselt. [Double Q-learning](https://papers.nips.cc/paper/2010/hash/091d584fced301b442654dd8c23b3fc9-Abstract.html). NIPS 2010  
+
+[5] Shangtong Zhang. [Reinforcement Learning: An Introduction implementation](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction)  
 
 
 ## Footnotes

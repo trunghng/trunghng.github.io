@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-04-17T19:23:04+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-04-20T10:08:45+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Temporal-Difference Learning</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html" rel="alternate" type="text/html" title="Temporal-Difference Learning" /><published>2022-04-08T16:55:00+07:00</published><updated>2022-04-08T16:55:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html">&lt;blockquote&gt;
   &lt;p&gt;So far in this &lt;a href=&quot;/tag/my-rl&quot;&gt;series&lt;/a&gt;, we have gone through the ideas of &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html&quot;&gt;&lt;strong&gt;dynamic programming&lt;/strong&gt; (DP)&lt;/a&gt; and &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html&quot;&gt;&lt;strong&gt;Monte Carlo&lt;/strong&gt;&lt;/a&gt;. What will happen if we combine these ideas together? &lt;strong&gt;Temporal-deffirence (TD) learning&lt;/strong&gt; is our answer.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -138,7 +138,7 @@ In this case, the learned action-value function, $Q$, directly approximates opti
 &lt;/figure&gt;
 
 &lt;h5 id=&quot;eg-cliffwalking&quot;&gt;Example: Cliffwalking - Sarsa vs Q-learning&lt;/h5&gt;
-&lt;p&gt;This example is taken from &lt;em&gt;Example 6.6, Reinforcement Learning: An Introduction book&lt;/em&gt;.)&lt;/p&gt;
+&lt;p&gt;(This example is taken from &lt;em&gt;Example 6.6, Reinforcement Learning: An Introduction book&lt;/em&gt;.)&lt;/p&gt;
 &lt;figure&gt;
 	&lt;img src=&quot;/assets/images/2022-04-08/cliff-walking-eg.png&quot; alt=&quot;Cliff Walking example&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 500px&quot; /&gt;
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
@@ -157,7 +157,7 @@ We begin by importing necessary packages we will be using&lt;/p&gt;
 &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;
 &lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;tqdm&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tqdm&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;  &lt;/div&gt;
-  &lt;p&gt;Our first step is defining the environment, gridworld with a cliff, which is defined by height, width, cliff region, start state, goal state, actions and rewards.&lt;/p&gt;
+  &lt;p&gt;Our first step is to define the environment, gridworld with a cliff, which is created by height, width, cliff region, start state, goal state, actions and rewards.&lt;/p&gt;
   &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;GridWorld&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
 
     &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start_state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;goal_state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cliff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
@@ -385,18 +385,14 @@ However, given the next state, $S_{t+1}$, this algorithms move &lt;em&gt;determi
 &lt;h4 id=&quot;double-q-learning&quot;&gt;Double Q-learning&lt;/h4&gt;
 
 &lt;h5 id=&quot;max-bias&quot;&gt;Maximization Bias&lt;/h5&gt;
-&lt;p&gt;Consider a set of $M$ random variables $X=\{X_1,\dots,X_M\}$. Say that we are interested in maximizing expected value of the r.v.s in $X$:
-\begin{equation}
-\max_{i=1,\dots,M}\mathbb{E}(X_i)\tag{5}\label{5}
-\end{equation}
-This value can be approximated by constructing approximations for $\mathbb{E}(X_i),\forall i$. Let $S=\bigcup_{i=1}^{M}S_i$ denote a set of samples, where $S_i$ is the subset containing samples for the variables $X_i$, and assume that the samples in $S_i$ are i.i.d. Unbiased estimates for the expected values can be obtained by computing the sample average for each variable:
-\begin{equation}
-\mathbb{E}(X_i)=\mathbb{E}(\mu_i)\approx\mu_i(S)\doteq\frac{1}{\vert S_i\vert}\sum_{s\in S_i}s,
-\end{equation}
-where $\mu_i$ is an estimator for variable $X_i$. This approximation is unbiased since every sample $s\in S_i$ is an unbiased estimate for the value of $\mathbb{E}(X_i)$. Thus, \eqref{5} can be approximated by:
-\begin{equation}
-\max_{i=1,\dots,M}\mathbb{E}(X_i)=\max_{i=1,\dots,M}\mathbb{E}(\mu_i)\approx\max_{i=1,\dots,M}\mu_i(S)
-\end{equation}&lt;/p&gt;
+&lt;p&gt;As we have seen so far in Sarsa and Q-learning, the action-value function, $Q$, has been over estimated because&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;In Q-learning, the target policy is the greedy policy given the current action values, which is defined with a maximization operation.&lt;/li&gt;
+  &lt;li&gt;In Sarsa, the policy is often $\varepsilon$-greedy, which also involves a maximization operation.&lt;/li&gt;
+  &lt;li&gt;And under these methods, a maximization over estimated values is used implicitly as an estimate of the maximum value.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;That overestimation can lead to a significant positive bias, which is called &lt;em&gt;maximization bias&lt;/em&gt;.&lt;/p&gt;
 
 &lt;h5 id=&quot;a-solution&quot;&gt;A Solution&lt;/h5&gt;
 &lt;p&gt;The reason why maximization bias happens is we are using the same samples to decide which action is the best (highest reward one) and also to estimate its action-value.&lt;/p&gt;
@@ -420,6 +416,8 @@ where $\mu_i$ is an estimator for variable $X_i$. This approximation is unbiased
 &lt;p&gt;[3] &lt;span id=&quot;q-learning-watkins&quot;&gt;Chris Watkins. &lt;a href=&quot;https://www.researchgate.net/publication/33784417_Learning_From_Delayed_Rewards&quot;&gt;Learning from Delayed Rewards&lt;/a&gt;. PhD Thesis (1989)&lt;/span&gt;&lt;/p&gt;
 
 &lt;p&gt;[4] Hado Hasselt. &lt;a href=&quot;https://papers.nips.cc/paper/2010/hash/091d584fced301b442654dd8c23b3fc9-Abstract.html&quot;&gt;Double Q-learning&lt;/a&gt;. NIPS 2010&lt;/p&gt;
+
+&lt;p&gt;[5] Shangtong Zhang. &lt;a href=&quot;https://github.com/ShangtongZhang/reinforcement-learning-an-introduction&quot;&gt;Reinforcement Learning: An Introduction implementation&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
 &lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
@@ -2945,7 +2943,7 @@ The evaluation and improvement processes in GPI can be viewed as both competing 
 &lt;/figure&gt;
 
 &lt;h3 id=&quot;example&quot;&gt;Example - Gambler’s Problem&lt;/h3&gt;
-&lt;p&gt;This example is taken from &lt;em&gt;Example 4.3&lt;/em&gt; in the &lt;em&gt;Reinforcement Learning: An Introduction&lt;/em&gt; book&lt;/p&gt;
+&lt;p&gt;(This example is taken from &lt;em&gt;Reinforcement Learning: An Introduction&lt;/em&gt; book, &lt;em&gt;Example 4.3&lt;/em&gt;.)&lt;/p&gt;
 &lt;figure&gt;
 	&lt;img src=&quot;/assets/images/2021-07-25/example.png&quot; alt=&quot;example&quot; width=&quot;500&quot; height=&quot;500px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 6&lt;/b&gt;: Example - Gambler&apos;s Problem&lt;/figcaption&gt;
