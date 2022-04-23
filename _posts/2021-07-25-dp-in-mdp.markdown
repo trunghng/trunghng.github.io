@@ -151,11 +151,10 @@ The evaluation and improvement processes in GPI can be viewed as both competing 
 
 ### Example - Gambler's Problem
 {: #example}
-(This example is taken from *Reinforcement Learning: An Introduction* book, *Example 4.3*.)
-<figure>
-	<img src="/assets/images/2021-07-25/example.png" alt="example" width="500" height="500px" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 6</b>: Example - Gambler's Problem</figcaption>
-</figure>
+(This example is taken from *Reinforcement Learning: An Introduction* book, *Example 4.3*.)  
+
+Let's say you are a gambler, who decides to bet on the outcomes of sequence of coin flips. On each flip, you have to decide how many dollars, in integer, you will bet. Each time you win, when the coin comes up head, the amount of money you get is exactly the same as the money that you staked on that flip. Same it goes in the tail case, you will lose that amount of dollars. The game ends when you reach your goal, let's assume, $\\$100$, or when your hands are empty, $\\$0$. This task can be formulated as undiscounted, episodic, finite MDP. The state is your capital, $s\in\\{1,2,\dots,99\\}$; the actions are stakes, $a\in\\{0,1,\dots,\min\left(s,100-s\right)\\}$. The reward is zero on all trainsitions except those on which you reach your goal, when it is $+1$.
+And we also assume that the probability of the coin coming up heads, $p_h=0.4$.
 
 **Solution code**  
 The code can be found [here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-4/gambler.py).
