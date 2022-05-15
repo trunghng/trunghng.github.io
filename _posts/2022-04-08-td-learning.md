@@ -145,7 +145,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 ```
-Our first step is to define the environment, gridworld with a cliff, which is created by height, width, cliff region, start state, goal state, actions and rewards.
+Our first step is to define the environment, gridworld with a cliff, which is constructed by height, width, cliff region, start state, goal state, actions and rewards.
 ```python
 class GridWorld:
 
@@ -381,12 +381,27 @@ Expected Sarsa performs better than Sarsa since it eliminates the variance due t
 
 ##### Maximization Bias
 {: #max-bias}
-As we have seen so far in Sarsa and Q-learning, the action-value function, $Q$, has been over estimated because 
-- In Q-learning, the target policy is the greedy policy given the current action values, which is defined with a maximization operation.
-- In Sarsa, the policy is often $\varepsilon$-greedy, which also involves a maximization operation.
-- And under these methods, a maximization over estimated values is used implicitly as an estimate of the maximum value.  
-
-That overestimation can lead to a significant positive bias, which is called *maximization bias*.
+Consider a set of $M$ random variables $X=\\{X_1,\dots,X_M\\}$. Say that we are interested in maximizing expected value of the r.v.s in $X$:
+\begin{equation}
+\max_{i=1,\dots,M}\mathbb{E}(X_i)\tag{5}\label{5}
+\end{equation}
+This value can be approximated by constructing approximations for $\mathbb{E}(X_i)$ for all $i$. Let
+\begin{equation}
+S=\bigcup_{i=1}^{M}S_i
+\end{equation}
+denote a set of samples, where $S_i$ is the subset containing samples for the variables $X_i$, and assume that the samples in $S_i$ are i.i.d. Unbiased estimates for the expected values can be obtained by computing the sample average for each variable:
+\begin{equation}
+\mathbb{E}(X_i)=\mathbb{E}(\mu_i)\approx\mu_i(S)\doteq\frac{1}{\vert S_i\vert}\sum_{s\in S_i}s,
+\end{equation}
+where $\mu_i$ is an estimator for variable $X_i$. This approximation is unbiased since every sample $s\in S_i$ is an unbiased estimate for the value of $\mathbb{E}(X_i)$. Thus, \eqref{5} can be approximated by:
+\begin{equation}
+\max_{i=1,\dots,M}\mathbb{E}(X_i)=\max_{i=1,\dots,M}\mathbb{E}(\mu_i)\approx\max_{i=1,\dots,M}\mu_i(S)\tag{6}\label{6}
+\end{equation}
+Let $f_i$, $F_i$ denote the PDF and CDF of $X_i$ and $f_i^\mu, F_i^\mu$ denote the PDF and CDF of $\mu_i$ respectively. Hence we have that
+\begin{align}
+\mathbb{E}(X_i)&=\int_{-\infty}^{\infty}x f_i(x)\,dx;\hspace{0.5cm}F_i(x)=P(X_i\leq x)=\int_{-\infty}^{\infty}f_i(x)\,dx \\\\ \mathbb{E}(\mu_i)&=\int_{-\infty}^{\infty}x f_i^\mu(x)\,dx;\hspace{0.5cm}F_i^\mu(x)=P(\mu_i\leq x)=\int_{-\infty}^{\infty}f_i^\mu(x)\,dx
+\end{align}
+with these notations 
 
 ##### A Solution
 The reason why maximization bias happens is we are using the same samples to decide which action is the best (highest reward one) and also to estimate its action-value.
@@ -398,8 +413,11 @@ Double Q-learning is a variant of Q-learning[^2].
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
 </figure>
 
+
+
 ## $\boldsymbol{n}$-step TD
 {: #n-step-td}
+
 
 ### $\boldsymbol{n}$-step TD Prediction
 {: #n-step-td-prediction}
@@ -408,7 +426,7 @@ Double Q-learning is a variant of Q-learning[^2].
 ## References
 [1] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition)  
 
-[2] <span id='td-convergence'>Sutton, R.S. [Learning to predict by the methods of temporal differences](https://doi.org/10.1007/BF00115009). Mach Learn 3, 9–44 (1988).</span>  
+[2] <span id='td-convergence'>Sutton, R.S. [Learning to predict by the methods of temporal differences](https://doi.org/10.1007/BF00115009). Mach Learn 3, 9–44 (19 88).</span>  
 
 [3] <span id='q-learning-watkins'>Chris Watkins. [Learning from Delayed Rewards](https://www.researchgate.net/publication/33784417_Learning_From_Delayed_Rewards). PhD Thesis (1989)</span>  
 

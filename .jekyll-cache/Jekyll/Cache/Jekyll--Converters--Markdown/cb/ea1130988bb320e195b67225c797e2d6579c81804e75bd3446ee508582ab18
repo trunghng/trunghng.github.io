@@ -1,4 +1,4 @@
-I"å£<blockquote>
+I"€§<blockquote>
   <p>So far in this <a href="/tag/my-rl">series</a>, we have gone through the ideas of <a href="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html"><strong>dynamic programming</strong> (DP)</a> and <a href="/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html"><strong>Monte Carlo</strong></a>. What will happen if we combine these ideas together? <strong>Temporal-deffirence (TD) learning</strong> is our answer.</p>
 </blockquote>
 
@@ -156,7 +156,7 @@ We begin by importing necessary packages we will be using</p>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
 </code></pre></div>  </div>
-  <p>Our first step is to define the environment, gridworld with a cliff, which is created by height, width, cliff region, start state, goal state, actions and rewards.</p>
+  <p>Our first step is to define the environment, gridworld with a cliff, which is constructed by height, width, cliff region, start state, goal state, actions and rewards.</p>
   <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">GridWorld</span><span class="p">:</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">start_state</span><span class="p">,</span> <span class="n">goal_state</span><span class="p">,</span> <span class="n">cliff</span><span class="p">):</span>
@@ -384,14 +384,26 @@ However, given the next state, $S_{t+1}$, this algorithms move <em>deterministic
 <h4 id="double-q-learning">Double Q-learning</h4>
 
 <h5 id="max-bias">Maximization Bias</h5>
-<p>As we have seen so far in Sarsa and Q-learning, the action-value function, $Q$, has been over estimated because</p>
-<ul>
-  <li>In Q-learning, the target policy is the greedy policy given the current action values, which is defined with a maximization operation.</li>
-  <li>In Sarsa, the policy is often $\varepsilon$-greedy, which also involves a maximization operation.</li>
-  <li>And under these methods, a maximization over estimated values is used implicitly as an estimate of the maximum value.</li>
-</ul>
-
-<p>That overestimation can lead to a significant positive bias, which is called <em>maximization bias</em>.</p>
+<p>Consider a set of $M$ random variables $X=\{X_1,\dots,X_M\}$. Say that we are interested in maximizing expected value of the r.v.s in $X$:
+\begin{equation}
+\max_{i=1,\dots,M}\mathbb{E}(X_i)\tag{5}\label{5}
+\end{equation}
+This value can be approximated by constructing approximations for $\mathbb{E}(X_i)$ for all $i$. Let
+\begin{equation}
+S=\bigcup_{i=1}^{M}S_i
+\end{equation}
+denote a set of samples, where $S_i$ is the subset containing samples for the variables $X_i$, and assume that the samples in $S_i$ are i.i.d. Unbiased estimates for the expected values can be obtained by computing the sample average for each variable:
+\begin{equation}
+\mathbb{E}(X_i)=\mathbb{E}(\mu_i)\approx\mu_i(S)\doteq\frac{1}{\vert S_i\vert}\sum_{s\in S_i}s,
+\end{equation}
+where $\mu_i$ is an estimator for variable $X_i$. This approximation is unbiased since every sample $s\in S_i$ is an unbiased estimate for the value of $\mathbb{E}(X_i)$. Thus, \eqref{5} can be approximated by:
+\begin{equation}
+\max_{i=1,\dots,M}\mathbb{E}(X_i)=\max_{i=1,\dots,M}\mathbb{E}(\mu_i)\approx\max_{i=1,\dots,M}\mu_i(S)
+\end{equation}
+Let $f_i$, $F_i$ denote the PDF and CDF of $X_i$ and $f_i^\mu, F_i^\mu$ denote the PDF and CDF of $\mu_i$ respectively. Hence we have that
+\begin{align}
+\mathbb{E}(X_i)&amp;=\int_{-\infty}^{\infty}x f_i(x)\,dx;\hspace{0.5cm}F_i(x)=P(X_i\leq x)=\int_{-\infty}^{\infty}f_i(x)\,dx \\ \mathbb{E}(\mu_i)&amp;=\int_{-\infty}^{\infty}x f_i^\mu(x)\,dx;\hspace{0.5cm}F_i^\mu(x)=P(\mu_i\leq x)=\int_{-\infty}^{\infty}f_i^\mu(x)\,dx
+\end{align}</p>
 
 <h5 id="a-solution">A Solution</h5>
 <p>The reason why maximization bias happens is we are using the same samples to decide which action is the best (highest reward one) and also to estimate its action-value.</p>
@@ -410,7 +422,7 @@ However, given the next state, $S_{t+1}$, this algorithms move <em>deterministic
 <h2 id="references">References</h2>
 <p>[1] Richard S. Sutton &amp; Andrew G. Barto. <a href="https://mitpress.mit.edu/books/reinforcement-learning-second-edition">Reinforcement Learning: An Introduction</a></p>
 
-<p>[2] <span id="td-convergence">Sutton, R.S. <a href="https://doi.org/10.1007/BF00115009">Learning to predict by the methods of temporal differences</a>. Mach Learn 3, 9â€“44 (1988).</span></p>
+<p>[2] <span id="td-convergence">Sutton, R.S. <a href="https://doi.org/10.1007/BF00115009">Learning to predict by the methods of temporal differences</a>. Mach Learn 3, 9â€“44 (19 88).</span></p>
 
 <p>[3] <span id="q-learning-watkins">Chris Watkins. <a href="https://www.researchgate.net/publication/33784417_Learning_From_Delayed_Rewards">Learning from Delayed Rewards</a>. PhD Thesis (1989)</span></p>
 
