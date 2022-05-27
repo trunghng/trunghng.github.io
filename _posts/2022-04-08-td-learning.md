@@ -401,7 +401,14 @@ Let $f_i$, $F_i$ denote the PDF and CDF of $X_i$ and $f_i^\mu, F_i^\mu$ denote t
 \begin{align}
 \mathbb{E}(X_i)&=\int_{-\infty}^{\infty}x f_i(x)\,dx;\hspace{0.5cm}F_i(x)=P(X_i\leq x)=\int_{-\infty}^{\infty}f_i(x)\,dx \\\\ \mathbb{E}(\mu_i)&=\int_{-\infty}^{\infty}x f_i^\mu(x)\,dx;\hspace{0.5cm}F_i^\mu(x)=P(\mu_i\leq x)=\int_{-\infty}^{\infty}f_i^\mu(x)\,dx
 \end{align}
-with these notations 
+With these notations, considering the maximal estimator $\mu_i$, which is distributed by some PDF $f_{\max}^{\mu}$, we have:
+\begin{align}
+F_{\max}^{\mu}&\doteq P(\max_i \mu_i\leq x) \\\\ &=P(\mu_1\leq x;\dots;\mu_M\leq x) \\\\ &=\prod_{i=1}^{M}P(\mu_i\leq x) \\\\ &=\prod_{i=1}^{M}F_i^\mu(x)
+\end{align}
+The value $\max_i\mu_i(S)$ is an unbiased estimate of $\mathbb{E}(\max_i\mu_i)$, which is given by
+\begin{align}
+\mathbb{E}\left(\max_i\mu_i\right) &=\int_{-\infty}^{\infty}x f_{\max}^{\mu}(x)\,dx \\\\ &=\int_{-\infty}^{\infty}x\frac{d}{dx}\left(\prod_{i=1}^{M}F_i^\mu(x)\right)\,dx \\\\ &=\sum_{i=1}^M\int_{-\infty}^{\infty}f_i^\mu(x)\prod_{j\neq i}^{M}F_i^\mu(x)\,dx
+\end{align}
 
 ##### A Solution
 The reason why maximization bias happens is we are using the same samples to decide which action is the best (highest reward one) and also to estimate its action-value.

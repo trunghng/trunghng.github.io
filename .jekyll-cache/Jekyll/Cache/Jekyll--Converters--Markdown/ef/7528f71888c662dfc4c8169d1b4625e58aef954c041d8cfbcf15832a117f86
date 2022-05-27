@@ -1,4 +1,4 @@
-I"êß<blockquote>
+I"À®<blockquote>
   <p>So far in this <a href="/tag/my-rl">series</a>, we have gone through the ideas of <a href="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html"><strong>dynamic programming</strong> (DP)</a> and <a href="/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html"><strong>Monte Carlo</strong></a>. What will happen if we combine these ideas together? <strong>Temporal-deffirence (TD) learning</strong> is our answer.</p>
 </blockquote>
 
@@ -403,6 +403,10 @@ where $\mu_i$ is an estimator for variable $X_i$. This approximation is unbiased
 Let $f_i$, $F_i$ denote the PDF and CDF of $X_i$ and $f_i^\mu, F_i^\mu$ denote the PDF and CDF of $\mu_i$ respectively. Hence we have that
 \begin{align}
 \mathbb{E}(X_i)&amp;=\int_{-\infty}^{\infty}x f_i(x)\,dx;\hspace{0.5cm}F_i(x)=P(X_i\leq x)=\int_{-\infty}^{\infty}f_i(x)\,dx \\ \mathbb{E}(\mu_i)&amp;=\int_{-\infty}^{\infty}x f_i^\mu(x)\,dx;\hspace{0.5cm}F_i^\mu(x)=P(\mu_i\leq x)=\int_{-\infty}^{\infty}f_i^\mu(x)\,dx
+\end{align}
+With these notations, considering the maximal estimator $\mu_i$, which is distributed by some PDF $f_{\max}^{\mu}$, we have:
+\begin{align}
+F_{\max}^{\mu}&amp;\doteq P(\max_i \mu_i\leq x) \\ &amp;=P(\mu_1\leq x;\dots;\mu_M\leq x) \\ &amp;=\prod_{i=1}^{M}P(\mu_i\leq x) \\ &amp;=\prod_{i=1}^{M}F_i^\mu(x)
 \end{align}</p>
 
 <h5 id="a-solution">A Solution</h5>

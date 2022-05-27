@@ -1,4 +1,4 @@
-I"°¥<blockquote>
+I"Nª<blockquote>
   <p>So far in this <a href="/tag/my-rl">series</a>, we have gone through the ideas of <a href="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html"><strong>dynamic programming</strong> (DP)</a> and <a href="/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html"><strong>Monte Carlo</strong></a>. What will happen if we combine these ideas together? <strong>Temporal-deffirence (TD) learning</strong> is our answer.</p>
 </blockquote>
 
@@ -388,14 +388,30 @@ However, given the next state, $S_{t+1}$, this algorithms move <em>deterministic
 \begin{equation}
 \max_{i=1,\dots,M}\mathbb{E}(X_i)\tag{5}\label{5}
 \end{equation}
-This value can be approximated by constructing approximations for $\mathbb{E}(X_i)$ for all $i$. Let $S=\bigcup_{i=1}^{M}S_i$ denote a set of samples, where $S_i$ is the subset containing samples for the variables $X_i$, and assume that the samples in $S_i$ are i.i.d. Unbiased estimates for the expected values can be obtained by computing the sample average for each variable:
+This value can be approximated by constructing approximations for $\mathbb{E}(X_i)$ for all $i$. Let
+\begin{equation}
+S=\bigcup_{i=1}^{M}S_i
+\end{equation}
+denote a set of samples, where $S_i$ is the subset containing samples for the variables $X_i$, and assume that the samples in $S_i$ are i.i.d. Unbiased estimates for the expected values can be obtained by computing the sample average for each variable:
 \begin{equation}
 \mathbb{E}(X_i)=\mathbb{E}(\mu_i)\approx\mu_i(S)\doteq\frac{1}{\vert S_i\vert}\sum_{s\in S_i}s,
 \end{equation}
 where $\mu_i$ is an estimator for variable $X_i$. This approximation is unbiased since every sample $s\in S_i$ is an unbiased estimate for the value of $\mathbb{E}(X_i)$. Thus, \eqref{5} can be approximated by:
 \begin{equation}
-\max_{i=1,\dots,M}\mathbb{E}(X_i)=\max_{i=1,\dots,M}\mathbb{E}(\mu_i)\approx\max_{i=1,\dots,M}\mu_i(S)
-\end{equation}</p>
+\max_{i=1,\dots,M}\mathbb{E}(X_i)=\max_{i=1,\dots,M}\mathbb{E}(\mu_i)\approx\max_{i=1,\dots,M}\mu_i(S)\tag{6}\label{6}
+\end{equation}
+Let $f_i$, $F_i$ denote the PDF and CDF of $X_i$ and $f_i^\mu, F_i^\mu$ denote the PDF and CDF of $\mu_i$ respectively. Hence we have that
+\begin{align}
+\mathbb{E}(X_i)&amp;=\int_{-\infty}^{\infty}x f_i(x)\,dx;\hspace{0.5cm}F_i(x)=P(X_i\leq x)=\int_{-\infty}^{\infty}f_i(x)\,dx \\ \mathbb{E}(\mu_i)&amp;=\int_{-\infty}^{\infty}x f_i^\mu(x)\,dx;\hspace{0.5cm}F_i^\mu(x)=P(\mu_i\leq x)=\int_{-\infty}^{\infty}f_i^\mu(x)\,dx
+\end{align}
+With these notations, considering the maximal estimator $\mu_i$, which is distributed by some PDF $f_{\max}^{\mu}$, we have:
+\begin{align}
+F_{\max}^{\mu}&amp;\doteq P(\max_i \mu_i\leq x) \\ &amp;=P(\mu_1\leq x;\dots;\mu_M\leq x) \\ &amp;=\prod_{i=1}^{M}P(\mu_i\leq x) \\ &amp;=\prod_{i=1}^{M}F_i^\mu(x)
+\end{align}
+The value $\max_i\mu_i(S)$ is an unbiased estimator $\mathbb{E}(\max_i\mu_i)$, which is given by
+\begin{align}
+\mathbb{E}\left(\max_i\mu_i\right) &amp;=\int_{-\infty}^{\infty}x f_{\max}^{\mu}(x)\,dx \\ &amp;=\int_{-\infty}^{\infty}x\frac{d}{dx}\left(\prod_{i=1}^{M}F_i^\mu(x)\right)\,dx \\ &amp;=\sum_{i=1}^M\int_{-\infty}^{\infty}f_i^\mu(x)\prod_{j\neq i}^{M}F_i^\mu(x)\,dx
+\end{align}</p>
 
 <h5 id="a-solution">A Solution</h5>
 <p>The reason why maximization bias happens is we are using the same samples to decide which action is the best (highest reward one) and also to estimate its action-value.</p>
