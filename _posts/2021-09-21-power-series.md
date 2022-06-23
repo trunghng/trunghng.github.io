@@ -4,7 +4,7 @@ title:  "Power Series"
 date:   2021-09-21 15:40:00 +0700
 categories: mathematics calculus
 tags: mathematics calculus series power-series taylor-series random-stuffs
-description: power series
+description: A note on Power Series
 comments: true
 ---
 > Recall that in the previous post, [Infinite Series of Constants]({% post_url 2021-09-06-infinite-series-of-constants %}), we mentioned a type of series called **power series** a lot. In the content of this post, we will be diving deeper into details of that series.

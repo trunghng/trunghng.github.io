@@ -4,7 +4,7 @@ title:  "Markov Chain"
 date:   2021-06-19 22:27:00 +0700
 categories: random-stuffs probability-statistics
 tags: mathematics probability-statistics
-description: Markov chain
+description: A non-formal Markov chain definition
 comments: true
 ---
 > Since I have no idea how to begin with this post, why not just dive straight into details :P  

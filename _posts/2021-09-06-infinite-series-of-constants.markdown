@@ -4,7 +4,7 @@ title:  "Infinite Series of Constants"
 date:   2021-09-06 11:20:00 +0700
 categories: mathematics calculus
 tags: mathematics calculus series random-stuffs
-description: infinite series of constants
+description: A note on infinite series of constants
 comments: true
 ---
 > No idea what to say yet :D

@@ -7,16 +7,16 @@ tags: artificial-intelligent reinforcement-learning td-learning n-step-td q-lear
 description: Temporal-Difference Learning, Q-learning
 comments: true
 ---
-> So far in this [series](/tag/my-rl), we have gone through the ideas of [**dynamic programming** (DP)]({% post_url 2021-07-25-dp-in-mdp %}) and [**Monte Carlo**]({% post_url 2021-08-21-monte-carlo-in-rl %}). What will happen if we combine these ideas together? **Temporal-deffirence (TD) learning** is our answer.
+> So far in this [series](/tag/my-rl), we have gone through the ideas of [**dynamic programming** (DP)]({% post_url 2021-07-25-dp-in-mdp %}) and [**Monte Carlo**]({% post_url 2021-08-21-monte-carlo-in-rl %}). What will happen if we combine these ideas together? **Temporal-difference (TD) learning** is our answer.
 
 <!-- excerpt-end -->
 - [TD(0)](#td0)
 	- [TD Prediction](#td-prediction)
-		- [Adventages over MC & DP](#adv-over-mc-dp)
+		- [Advantages over MC & DP](#adv-over-mc-dp)
 		- [Optimality of TD(0)](#opt-td0)
 	- [TD Control](#td-control)
 		- [Sarsa](#sarsa)
-		- [Q-learining](#q-learning)
+		- [Q-learning](#q-learning)
 			- [Example: Cliffwalking - Sarsa vs Q-learning](#eg-cliffwalking)
 		- [Expected Sarsa](#exp-sarsa)
 		- [Double Q-learning](#double-q-learning)
@@ -60,7 +60,7 @@ If the array $V$ does not change during the episode (as in MC), then the MC erro
 G_t-V(S_t)&=R_{t+1}+\gamma G_{t+1}-V(S_t)+\gamma V(S_{t+1})-\gamma V(S_{t+1}) \\\\ &=\delta_t+\gamma\left(G_{t+1}-V(S_{t+1})\right) \\\\ &=\delta_t+\gamma\delta_{t+1}+\gamma^2\left(G_{t+2}-V(S_{t+2})\right) \\\\ &=\delta_t+\gamma\delta_{t+1}+\gamma^2\delta_{t+2}+\dots+\gamma^{T-t-1}\delta_{T-1}+\gamma^{T-t}\left(G_T-V(S_T)\right) \\\\ &=\delta_t+\gamma\delta_{t+1}+\gamma^2\delta_{t+2}+\dots+\gamma^{T-t-1}\delta_{T-1}+\gamma^{T-t}(0-0) \\\\ &=\sum_{k=t}^{T-1}\gamma^{k-t}\delta_k
 \end{align}
 
-#### Adventages over MC & DP
+#### Advantages over MC & DP
 {: #adv-over-mc-dp}
 With how TD is established, these are some advantages of its over MC and DP:
 - Only experience is required.
@@ -94,7 +94,7 @@ Similarly, we've got the TD update for the action-value function case:
 \begin{equation}
 Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha\left[R_{t+1}+\gamma Q(S_{t+1},A_{t+1})-Q(S_t,A_t)\right]\tag{3}\label{3}
 \end{equation}
-This update is done after every transition from a nonterminal state $S_t$ to its successor $S_{t+1}$
+This update is done after every transition from a non-terminal state $S_t$ to its successor $S_{t+1}$
 \begin{equation}
 \left(S_t,A_t,R_{t+1},S_{t+1},A_{t+1}\right)
 \end{equation}
@@ -113,7 +113,7 @@ However this time, instead, we use it with TD methods. Which is, we continually 
 #### Q-learning
 {: #q-learning}
 We now turn our move to an off-policy method, which evaluates or improves a policy different from that used to generate the data.  
-The method we are talking about is called **Q-learning**, which was first introduced by [Watkin](#q-learning-watkins), in which the update on $Q$-value has the form:
+The method we are talking about is called **Q-learning**, which was first introduced by [Watkins](#q-learning-watkins), in which the update on $Q$-value has the form:
 \begin{equation}
 Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha\left[R_{t+1}+\gamma\max_a Q(S_{t+1},a)-Q(S_t,A_t)\right]\tag{4}\label{4}
 \end{equation}
@@ -409,11 +409,14 @@ The value $\max_i\mu_i(S)$ is an unbiased estimate of $\mathbb{E}(\max_i\mu_i)$,
 \begin{align}
 \mathbb{E}\left(\max_i\mu_i\right) &=\int_{-\infty}^{\infty}x f_{\max}^{\mu}(x)\,dx \\\\ &=\int_{-\infty}^{\infty}x\frac{d}{dx}\left(\prod_{i=1}^{M}F_i^\mu(x)\right)\,dx \\\\ &=\sum_{i=1}^M\int_{-\infty}^{\infty}f_i^\mu(x)\prod_{j\neq i}^{M}F_i^\mu(x)\,dx
 \end{align}
+However, as can be seen in \eqref{5}, the order of expectation and maximization is the other way around. This leads to the result that $\max_i\mu_i(S)$ is a biased estimate of $\max_i\mathbb{E}(X_i)$
 
 ##### A Solution
-The reason why maximization bias happens is we are using the same samples to decide which action is the best (highest reward one) and also to estimate its action-value.
+{: #sol}
+The reason why maximization bias happens is we are using the same samples to decide which action is the best (highest reward one) and also to estimate its action-value. To overcome this situation, Hasselt (2010) proposed an alternative method that uses two set of estimators instead, $\mu^A=\\{\mu_1^A,\dots,\mu_M^A\\}$ and $\mu^B=\\{\mu_1^B,\dots,\mu_M^B\\}$. The method is thus also called **double Q-learning**. 
 
-Double Q-learning is a variant of Q-learning[^2].
+Specifically, we use these two sets to learn two independent estimates, called $Q_1(a)$ and $Q_2(a)$, each is an estimate of the true value $q(a)$, for all $a\in\mathcal{A}$.
+
 
 <figure>
 	<img src="/assets/images/2022-04-08/double-q-learning.png" alt="Double Q-learning" style="display: block; margin-left: auto; margin-right: auto;"/>
@@ -444,4 +447,3 @@ Double Q-learning is a variant of Q-learning[^2].
 
 ## Footnotes
 [^1]: It is a special case of [n-step TD](#n-step-td) and TD($\lambda$).
-[^2]: Another popular variant of Q-learning is [Deep Q-learning](https://www.nature.com/articles/nature14236), which was introduced by Deepmind in 2015. We're gonna talk about it in the post of Function approximation.

@@ -4,7 +4,7 @@ title:  "My very first post"
 date:   2021-06-05 17:00:00 +0700
 categories: mathematics linear-algebra
 tags: mathematics linear-algebra random-stuffs
-description: eigenvalues, eigenvectors in Fibonacci sequence
+description: Eigenvalues, eigenvectors in Fibonacci sequence
 comments: true
 ---
 > Enjoy my index-zero-ed post while staying tuned for next ones!  

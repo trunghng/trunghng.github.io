@@ -60,7 +60,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Temporal-Difference Learning" />
 <script type="application/ld+json">
-{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","description":"Temporal-Difference Learning, Q-learning","headline":"Temporal-Difference Learning","dateModified":"2022-04-08T16:55:00+07:00","datePublished":"2022-04-08T16:55:00+07:00","url":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html"},"@context":"https://schema.org"}</script>
+{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","headline":"Temporal-Difference Learning","dateModified":"2022-04-08T16:55:00+07:00","datePublished":"2022-04-08T16:55:00+07:00","description":"Temporal-Difference Learning, Q-learning","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html"},"url":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Trung&apos;s cabin" />
     
@@ -157,7 +157,7 @@
 
   <div class="post-content e-content" itemprop="articleBody">
     <blockquote>
-  <p>So far in this <a href="/tag/my-rl">series</a>, we have gone through the ideas of <a href="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html"><strong>dynamic programming</strong> (DP)</a> and <a href="/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html"><strong>Monte Carlo</strong></a>. What will happen if we combine these ideas together? <strong>Temporal-deffirence (TD) learning</strong> is our answer.</p>
+  <p>So far in this <a href="/tag/my-rl">series</a>, we have gone through the ideas of <a href="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html"><strong>dynamic programming</strong> (DP)</a> and <a href="/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html"><strong>Monte Carlo</strong></a>. What will happen if we combine these ideas together? <strong>Temporal-difference (TD) learning</strong> is our answer.</p>
 </blockquote>
 
 <!-- excerpt-end -->
@@ -166,14 +166,14 @@
     <ul>
       <li><a href="#td-prediction">TD Prediction</a>
         <ul>
-          <li><a href="#adv-over-mc-dp">Adventages over MC &amp; DP</a></li>
+          <li><a href="#adv-over-mc-dp">Advantages over MC &amp; DP</a></li>
           <li><a href="#opt-td0">Optimality of TD(0)</a></li>
         </ul>
       </li>
       <li><a href="#td-control">TD Control</a>
         <ul>
           <li><a href="#sarsa">Sarsa</a></li>
-          <li><a href="#q-learning">Q-learining</a>
+          <li><a href="#q-learning">Q-learning</a>
             <ul>
               <li><a href="#eg-cliffwalking">Example: Cliffwalking - Sarsa vs Q-learning</a></li>
             </ul>
@@ -230,7 +230,7 @@ If the array $V$ does not change during the episode (as in MC), then the MC erro
 G_t-V(S_t)&amp;=R_{t+1}+\gamma G_{t+1}-V(S_t)+\gamma V(S_{t+1})-\gamma V(S_{t+1}) \\ &amp;=\delta_t+\gamma\left(G_{t+1}-V(S_{t+1})\right) \\ &amp;=\delta_t+\gamma\delta_{t+1}+\gamma^2\left(G_{t+2}-V(S_{t+2})\right) \\ &amp;=\delta_t+\gamma\delta_{t+1}+\gamma^2\delta_{t+2}+\dots+\gamma^{T-t-1}\delta_{T-1}+\gamma^{T-t}\left(G_T-V(S_T)\right) \\ &amp;=\delta_t+\gamma\delta_{t+1}+\gamma^2\delta_{t+2}+\dots+\gamma^{T-t-1}\delta_{T-1}+\gamma^{T-t}(0-0) \\ &amp;=\sum_{k=t}^{T-1}\gamma^{k-t}\delta_k
 \end{align}</p>
 
-<h4 id="adv-over-mc-dp">Adventages over MC &amp; DP</h4>
+<h4 id="adv-over-mc-dp">Advantages over MC &amp; DP</h4>
 <p>With how TD is established, these are some advantages of its over MC and DP:</p>
 <ul>
   <li>Only experience is required.</li>
@@ -266,7 +266,7 @@ where $\alpha_n(a)$ denote the step-size parameter used to process the reward re
 \begin{equation}
 Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha\left[R_{t+1}+\gamma Q(S_{t+1},A_{t+1})-Q(S_t,A_t)\right]\tag{3}\label{3}
 \end{equation}
-This update is done after every transition from a nonterminal state $S_t$ to its successor $S_{t+1}$
+This update is done after every transition from a non-terminal state $S_t$ to its successor $S_{t+1}$
 \begin{equation}
 \left(S_t,A_t,R_{t+1},S_{t+1},A_{t+1}\right)
 \end{equation}
@@ -284,7 +284,7 @@ However this time, instead, we use it with TD methods. Which is, we continually 
 
 <h4 id="q-learning">Q-learning</h4>
 <p>We now turn our move to an off-policy method, which evaluates or improves a policy different from that used to generate the data.<br />
-The method we are talking about is called <strong>Q-learning</strong>, which was first introduced by <a href="#q-learning-watkins">Watkin</a>, in which the update on $Q$-value has the form:
+The method we are talking about is called <strong>Q-learning</strong>, which was first introduced by <a href="#q-learning-watkins">Watkins</a>, in which the update on $Q$-value has the form:
 \begin{equation}
 Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha\left[R_{t+1}+\gamma\max_a Q(S_{t+1},a)-Q(S_t,A_t)\right]\tag{4}\label{4}
 \end{equation}
@@ -569,12 +569,13 @@ F_{\max}^{\mu}&amp;\doteq P(\max_i \mu_i\leq x) \\ &amp;=P(\mu_1\leq x;\dots;\mu
 The value $\max_i\mu_i(S)$ is an unbiased estimate of $\mathbb{E}(\max_i\mu_i)$, which is given by
 \begin{align}
 \mathbb{E}\left(\max_i\mu_i\right) &amp;=\int_{-\infty}^{\infty}x f_{\max}^{\mu}(x)\,dx \\ &amp;=\int_{-\infty}^{\infty}x\frac{d}{dx}\left(\prod_{i=1}^{M}F_i^\mu(x)\right)\,dx \\ &amp;=\sum_{i=1}^M\int_{-\infty}^{\infty}f_i^\mu(x)\prod_{j\neq i}^{M}F_i^\mu(x)\,dx
-\end{align}</p>
+\end{align}
+However, as can be seen in \eqref{5}, the order of expectation and maximization is the other way around. This leads to the result that $\max_i\mu_i(S)$ is a biased estimate of $\max_i\mathbb{E}(X_i)$</p>
 
-<h5 id="a-solution">A Solution</h5>
-<p>The reason why maximization bias happens is we are using the same samples to decide which action is the best (highest reward one) and also to estimate its action-value.</p>
+<h5 id="sol">A Solution</h5>
+<p>The reason why maximization bias happens is we are using the same samples to decide which action is the best (highest reward one) and also to estimate its action-value. To overcome this situation, Hasselt (2010) proposed an alternative method that uses two set of estimators instead, $\mu^A=\{\mu_1^A,\dots,\mu_M^A\}$ and $\mu^B=\{\mu_1^B,\dots,\mu_M^B\}$. The method is thus also called <strong>double Q-learning</strong>.</p>
 
-<p>Double Q-learning is a variant of Q-learning<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>.</p>
+<p>Specifically, we use these two sets to learn two independent estimates, called $Q_1(a)$ and $Q_2(a)$, each is an estimate of the true value $q(a)$, for all $a\in\mathcal{A}$.</p>
 
 <figure>
 	<img src="/assets/images/2022-04-08/double-q-learning.png" alt="Double Q-learning" style="display: block; margin-left: auto; margin-right: auto;" />
@@ -601,9 +602,6 @@ The value $\max_i\mu_i(S)$ is an unbiased estimate of $\mathbb{E}(\max_i\mu_i)$,
   <ol>
     <li id="fn:1" role="doc-endnote">
       <p>It is a special case of <a href="#n-step-td">n-step TD</a> and TD($\lambda$). <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
-    </li>
-    <li id="fn:2" role="doc-endnote">
-      <p>Another popular variant of Q-learning is <a href="https://www.nature.com/articles/nature14236">Deep Q-learning</a>, which was introduced by Deepmind in 2015. We’re gonna talk about it in the post of Function approximation. <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>

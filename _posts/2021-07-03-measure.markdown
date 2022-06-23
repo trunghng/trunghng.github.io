@@ -4,7 +4,7 @@ title:  "Measures"
 date:   2021-07-03 07:00:00 +0700
 categories: [random-stuffs, measure-theory]
 tags: mathematics measure-theory random-stuffs
-description: a brief look into measure theory
+description: A brief look into Measure theory
 comments: true
 ---
 > When talking about *measure*, you might associate it with the idea of *length*, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with *area*, or even three dimensions with *volume*.  
