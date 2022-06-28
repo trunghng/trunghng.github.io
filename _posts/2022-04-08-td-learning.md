@@ -24,12 +24,17 @@ comments: true
 			- [A Solution](#sol)
 - [$n$-step TD](#n-step-td)
 	- [$n$-step TD Prediction](#n-step-td-prediction)
+		- [Example: Random Walk](#eg-random-walk)
+	- [$n$-step TD Control](#n-step-td-control)
+		- [$n$-step Sarsa](#n-step-sarsa)
+	- [Off-policy n-step TD](#off-policy-n-step-td)
+		- [$n$-step TD with Importance Sampling](#n-step-td-is)
 - [References](#references)
 - [Footnotes](#footnotes)
 
 ## TD(0)
 {: #td0}
-As usual, we approach this new method in the prediction problem.
+As usual, we approach this new method by considering the prediction problem.
 
 ### TD Prediction
 Borrowing the idea of Monte Carlo, TD methods learn from episodes of experience to solve the [prediction problem]({% post_url 2021-08-21-monte-carlo-in-rl %}#fn:2). The simplest TD method is **TD(0)** (or **one-step TD**)[^1], which has the update form:
@@ -135,8 +140,8 @@ Say that we have an agent in a gridworld, which is an undiscounted, episodic tas
 **Solution code**  
 The source code can be found [here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-6/cliff_walking.py).  
 
-<button type="button" class="collapsible" id="codeP">Click to show the code</button>
-<div class="codePanel" id="codePdata" markdown="1">
+<button type="button" class="collapsible" id="codeP1">Click to show the code</button>
+<div class="codePanel" id="codeP1data" markdown="1">
 <br>
 We begin by importing necessary packages we will be using
 
@@ -413,10 +418,9 @@ However, as can be seen in \eqref{5}, the order of expectation and maximization 
 
 ##### A Solution
 {: #sol}
-The reason why maximization bias happens is we are using the same samples to decide which action is the best (highest reward one) and also to estimate its action-value. To overcome this situation, Hasselt (2010) proposed an alternative method that uses two set of estimators instead, $\mu^A=\\{\mu_1^A,\dots,\mu_M^A\\}$ and $\mu^B=\\{\mu_1^B,\dots,\mu_M^B\\}$. The method is thus also called **double Q-learning**. 
+The reason why maximization bias happens is we are using the same samples to decide which action is the best (highest reward one) and also to estimate its action-value. To overcome this situation, Hasselt (2010) proposed an alternative method that uses two set of estimators instead, $\mu^A=\\{\mu_1^A,\dots,\mu_M^A\\}$ and $\mu^B=\\{\mu_1^B,\dots,\mu_M^B\\}$. The method is thus also called **double estimators**. 
 
-Specifically, we use these two sets to learn two independent estimates, called $Q_1(a)$ and $Q_2(a)$, each is an estimate of the true value $q(a)$, for all $a\in\mathcal{A}$.
-
+Specifically, we use these two sets to learn two independent estimates, called $Q^A$ and $Q^B$, each is an estimate of the true value $q(a)$, for all $a\in\mathcal{A}$. 
 
 <figure>
 	<img src="/assets/images/2022-04-08/double-q-learning.png" alt="Double Q-learning" style="display: block; margin-left: auto; margin-right: auto;"/>
@@ -424,19 +428,318 @@ Specifically, we use these two sets to learn two independent estimates, called $
 </figure>
 
 
-
 ## $\boldsymbol{n}$-step TD
 {: #n-step-td}
+From the definition of *one-step TD*, we can formalize the idea into a more general, **n-step TD**. Once again, first off, we will be considering the prediction problem.
 
 
 ### $\boldsymbol{n}$-step TD Prediction
 {: #n-step-td-prediction}
+Recall that in *one-step TD*, the update is based on the next reward, bootstrapping[^2] from the value of the state at one step later. In particular,
+the target of the update is $R_{t+1}+\gamma V_t(S_{t+1})$, which we are going to denote as $G_{t:t+1}$, or *one-step return*:
+\begin{equation}
+G_{t:t+1}\doteq R_{t+1}+\gamma V_t(S_{t+1})
+\end{equation}
+where $V_t:\mathcal{S}\to\mathbb{R}$ is the estimate at time step $t$ of $v_\pi$. Thus, rather than taking into account one step later, in *two-step TD*, it makes sense to consider the rewards in two steps further, combined with the value function of the state at two step later. In other words, the target of two-step update is the *two-step return*:
+\begin{equation}
+G_{t:t+2}\doteq R_{t+1}+\gamma R_{t+2}+\gamma^2 V_{t+1}(S_{t+2})
+\end{equation}
+Similarly, the target of $n$-step update is the *$n$-step return*:
+\begin{equation}
+G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n V_{t+n-1}(S_{t+n})
+\end{equation}
+for all $n,t$ such that $n\geq 1$ and $0\leq t\<T-n$. If $t+n\geq T$, then all the missing terms are taken as zero, and the *n-step return* defined to be equal to the full return:
+\begin{equation}
+G_{t:t+n}=G_t\doteq R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+\dots+\gamma^{T-t-1}R_T,\tag{7}\label{7}
+\end{equation}
+which is the target of the Monte Carlo update.  
+
+Hence, the $n$-step TD method can be defined as:
+\begin{equation}
+V_{t+n}(S_t)\doteq V_{t+n-1}(S_t)+\alpha\left[G_{t:t+n}-V_{t+n-1}(S_t)\right],
+\end{equation}
+for $0\leq t\<T$, while the values for all other states remain unchanged: $V_{t+n}(s)=V_{t+n-1}(s),\forall s\neq S_t$. Pseudocode of the algorithm is given right below.
+<figure>
+	<img src="/assets/images/2022-04-08/n-step-td.png" alt="n-step TD" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+
+From \eqref{7} combined with this definition of *$n$-step TD* method, it is easily seen that by changing the value of $n$ from $1$ to $\infty$, we obtain a corresponding spectrum ranging from *one-step TD method* to *Monte Carlo method*.
+<figure>
+	<img src="/assets/images/2022-04-08/n-step-td-diagram.png" alt="Backup diagram of n-step TD" style="display: block; margin-left: auto; margin-right: auto; width: 450px; height: 370px"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: The backup diagram of $n$-step TD methods</figcaption>
+</figure>
+
+#### Example: Random Walk
+{: #eg-random-walk}
+(This example is taken from *Example 7.1, Reinforcement Learning: An Introduction book*; the random process image is created based on the figure from [Singd & Sutton](#random_walk)).  
+
+Suppose we have a random process as following
+<figure>
+	<img src="/assets/images/2022-04-08/random_process.png" alt="Random process" style="display: block; margin-left: auto; margin-right: auto; width: 620px; height: 120px"/>
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+Specifically, the reward is zero everywhere except the transitions into terminal states: the transition from State 2 to State 1 (with reward of $-1$) and the transition from State 20 to State 21 (with reward of $1$). The discount factor, $\gamma$, is $1$. The initial value estimates are $0$ for all states. We will implement $n$-step TD method for $n\in\\{1,2,4,\dots,512\\}$ and step size $\alpha\in\\{0,0.2,0.4,\dots,1\\}$. The walk starts at State 10. 
+
+**Solution code**  
+The source code can be found [here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-7/random_walk.py).  
+
+<button type="button" class="collapsible" id="codeP2">Click to show the code</button>
+<div class="codePanel" id="codeP2data" markdown="1">
+<br>
+As usual, we need these packages for our implementation.
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from tqdm import tqdm
+```
+First off, we need to define our environment, the random walk process. The `is_terminal()` function is used to check whether the state considered is a terminal state, while the `take_action()` function itself returns the next state and corresponding reward given the current state and the action taken.
+```python
+class RandomWalk:
+    '''
+    Random walk environment
+    '''
+
+    def __init__(self, n_states, start_state):
+        self.n_states = n_states
+        self.states = np.arange(1, n_states + 1)
+        self.start_state = start_state
+        self.end_states = [0, n_states + 1]
+        self.actions = [-1, 1]
+        self.action_prob = 0.5
+        self.rewards = [-1, 0, 1]
+
+
+    def is_terminal(self, state):
+        '''
+        Whether state @state is an end state
+
+        Params
+        ------
+        state: int
+            current state
+        '''
+        return state in self.end_states
+
+
+    def take_action(self, state, action):
+        '''
+        Take action @action at state @state
+
+        Params
+        ------
+        state: int
+            current state
+        action: int
+            action taken
+
+        Return
+        ------
+        (next_state, reward): (int, int)
+            a tuple of next state and reward
+        '''
+        next_state = state + action
+        if next_state == 0:
+            reward = self.rewards[0]
+        elif next_state == self.n_states + 1:
+            reward = self.rewards[2]
+        else:
+            reward = self.rewards[1]
+        return next_state, reward
+```
+To calculate the RMSE, we need to compute the true value of states, which can be achieved with the help of `get_true_value()` function. Here we apply Bellman equations to calculate the true value of states.
+```python
+def get_true_value(random_walk, gamma):
+    '''
+    Calculate true value of @random_walk by Bellman equations
+
+    Params
+    ------
+    random_walk: RandomWalk
+    gamma: float
+        discount factor
+    '''
+    P = np.zeros((random_walk.n_states, random_walk.n_states))
+    r = np.zeros((random_walk.n_states + 2, ))
+    true_value = np.zeros((random_walk.n_states + 2, ))
+    
+    for state in random_walk.states:
+        next_states = []
+        rewards = []
+
+        for action in random_walk.actions:
+            next_state = state + action
+            next_states.append(next_state)
+
+            if next_state == 0:
+                reward = random_walk.rewards[0]
+            elif next_state == random_walk.n_states + 1:
+                reward = random_walk.rewards[2]
+            else:
+                reward = random_walk.rewards[1]
+            rewards.append(reward)
+
+        for state_, reward_ in zip(next_states, rewards):
+            if not random_walk.is_terminal(state_):
+                P[state - 1, state_ - 1] = random_walk.action_prob * 1
+                r[state_] = reward_
+        
+    u = np.zeros((random_walk.n_states, ))
+    u[0] = random_walk.action_prob * 1 * (-1 + gamma * random_walk.rewards[0])
+    u[-1] = random_walk.action_prob * 1 * (1 + gamma * random_walk.rewards[2])
+
+    r = r[1:-1]
+    true_value[1:-1] = np.linalg.inv(np.identity(random_walk.n_states) - gamma * P).dot(0.5 * (P.dot(r) + u))
+    true_value[0] = true_value[-1] = 0
+
+    return true_value
+```
+In this random walk experiment, we simply use random policy as our action selection.
+```python
+def random_policy(random_walk):
+    '''
+    Choose an action randomly
+
+    Params
+    ------
+    random_walk: RandomWalk
+    '''
+    return np.random.choice(random_walk.actions)
+```
+Now it is time to implement our algorithm.
+```python
+def n_step_temporal_difference(V, n, alpha, gamma, random_walk):
+    '''
+    n-step TD
+
+    Params
+    ------
+    V: np.ndarray
+        value function
+    n: int
+        number of steps
+    alpha: float
+        step size
+    random_walk: RandomWalk
+    '''
+    state = random_walk.start_state
+    states = [state]
+
+    T = float('inf')
+    t = 0
+    rewards = [0] # dummy reward to save the next reward as R_{t+1}
+
+    while True:
+        if t < T:
+            action = random_policy(random_walk)
+            next_state, reward = random_walk.take_action(state, action)
+            states.append(next_state)
+            rewards.append(reward)
+            if random_walk.is_terminal(next_state):
+                T = t + 1
+        tau = t - n + 1 # updated state's time
+        if tau >= 0:
+            G = 0 # return
+            for i in range(tau + 1, min(tau + n, T) + 1):
+                G += np.power(gamma, i - tau - 1) * rewards[i]
+            if tau + n < T:
+                G += np.power(gamma, n) * V[states[tau + n]]
+            if not random_walk.is_terminal(states[tau]):
+                V[states[tau]] += alpha * (G - V[states[tau]])
+        t += 1
+        if tau == T - 1:
+            break
+        state = next_state
+```
+As usual, we are going illustrate our result in the main function.
+```python
+if __name__ == '__main__':
+    n_states = 19
+    start_state = 10
+    gamma = 1
+    random_walk = RandomWalk(n_states, start_state)
+    true_value = get_true_value(random_walk, gamma)
+
+    episodes = 10
+    runs = 100
+    ns = np.power(2, np.arange(0, 10))
+    alphas = np.arange(0, 1.1, 0.1)
+
+    errors = np.zeros((len(ns), len(alphas)))
+    for n_i, n in enumerate(ns):
+        for alpha_i, alpha in enumerate(alphas):
+            for _ in tqdm(range(runs)):
+                V = np.zeros(random_walk.n_states + 2)
+                for _ in range(episodes):
+                    n_step_temporal_difference(V, n, alpha, gamma, random_walk)
+                    rmse = np.sqrt(np.sum(np.power(V - true_value, 2) / random_walk.n_states))
+                    errors[n_i, alpha_i] += rmse
+
+    errors /= episodes * runs
+
+    for i in range(0, len(ns)):
+        plt.plot(alphas, errors[i, :], label='n = %d' % (ns[i]))
+    plt.xlabel(r'$\alpha$')
+    plt.ylabel('Average RMS error')
+    plt.ylim([0.25, 0.55])
+    plt.legend()
+    plt.savefig('./random_walk.png')
+    plt.close()
+```
+</div>
+
+This is our result after completing running the code.
+<figure>
+	<img src="/assets/images/2022-04-08/random_walk.png" alt="Random Walk with n-step TD" style="display: block; margin-left: auto; margin-right: auto; width: 500px"/>
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+
+### $\boldsymbol{n}$-step TD Control
+{: #n-step-td-control}
+Similarly, we can apply $n$-step TD methods to control task. In particular, we will combine the idea of $n$-step update with Sarsa, a control method we previously have defined above.
+
+#### $\boldsymbol{n}$-step Sarsa
+{: #n-step-sarsa}
+As usual, to apply our method to control problem, rather than taking into account states, we instead consider state-action pairs $s,a$ in order to learn the value functions, $\,q_\pi(s,a)$, of them.  
+Recall that the target in *one-step Sarsa* update is
+\begin{equation}
+G_{t:t+1}\doteq R_{t+1}+\gamma Q_t(S_{t+1},A_{t+1})
+\end{equation}
+Similar to with we have done in the previous part of [$n$-step TD Prediction](#n-step-td-prediction), we can redefine the new target of our $n$-step update
+\begin{equation}
+G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1} R_{t+n}+\gamma^n Q_{t+n-1}(S_{t+n},A_{t+n}),
+\end{equation}
+for $n\geq 0,0\leq t\<T-n$, with $G_{t:t+n}\doteq G_t$ if $t+n\geq T$. The $n$-step Sarsa is then can be defined as:
+\begin{equation}
+Q_{t+n}(S_t,A_t)\doteq Q_{t+n-1}(S_t,A_t)+\alpha\left[G_{t:t+n}-Q_{t+n-1}(S_t,A_t)\right],\hspace{1cm}0\leq t\<T,
+\end{equation}
+while the values of all other state-action pairs remain unchanged: $Q_{t+n}(s,a)=Q_{t+n-1}(s,a)$, for all $s,a$ such that $s\neq S_t$ or $a\neq A_t$. Pseudocode of the algorithm is given right below.
+<figure>
+	<img src="/assets/images/2022-04-08/n-step-sarsa.png" alt="n-step Sarsa" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+
+When taking the value of $n$ from $1$ to $\infty$, similarly, we also obtain a corresponding spectrum ranging from *one-step Sarsa* to *Monte Carlo*.
+<figure>
+	<img src="/assets/images/2022-04-08/n-step-td-state-action-diagram.png" alt="Backup diagram of n-step TD for state-action values" style="display: block; margin-left: auto; margin-right: auto; width: 570px; height: 370px"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: The backup diagram of $n$-step methods for state-action values</figcaption>
+</figure>
+
+### Off-policy $\boldsymbol{n}$-step TD
+{: #off-policy-n-step-td}
+Recall that off-policy methods are ones that learn the value function of a *target policy*, $\,\pi$, while follows a *behavior policy*, $\,b$. In this section, we will be considering an off-policy $n$-step TD, or in specifically, $n$-step TD using **Importance Sampling**.
+
+#### $\boldsymbol{n}$-step TD with Importance Sampling
+{: #n-step-td-is}
+Recall that 
+
 
 
 ## References
 [1] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition)  
 
-[2] <span id='td-convergence'>Sutton, R.S. [Learning to predict by the methods of temporal differences](https://doi.org/10.1007/BF00115009). Mach Learn 3, 9–44 (19 88).</span>  
+[2] <span id='td-convergence'>Sutton, R.S. [Learning to predict by the methods of temporal differences](https://doi.org/10.1007/BF00115009). Mach Learn 3, 9–44 (1988).</span>  
 
 [3] <span id='q-learning-watkins'>Chris Watkins. [Learning from Delayed Rewards](https://www.researchgate.net/publication/33784417_Learning_From_Delayed_Rewards). PhD Thesis (1989)</span>  
 
@@ -444,6 +747,9 @@ Specifically, we use these two sets to learn two independent estimates, called $
 
 [5] Shangtong Zhang. [Reinforcement Learning: An Introduction implementation](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction)  
 
+[6] <span id='random_walk'>Singh, S.P., Sutton, R.S. [Reinforcement learning with replacing eligibility traces](https://doi.org/10.1007/BF00114726). Mach Learn 22, 123–158 (1996).</span>  
+
 
 ## Footnotes
 [^1]: It is a special case of [n-step TD](#n-step-td) and TD($\lambda$).
+[^2]: Bootstrapping is to update estimates  of the value functions of states based on estimates of value functions of other states.
