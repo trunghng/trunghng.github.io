@@ -29,6 +29,7 @@ comments: true
 		- [$n$-step Sarsa](#n-step-sarsa)
 	- [Off-policy n-step TD](#off-policy-n-step-td)
 		- [$n$-step TD with Importance Sampling](#n-step-td-is)
+		- [$n$-step TD with Per-decision Importance Sampling](#n-step-td-per-decision-is)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -454,7 +455,7 @@ G_{t:t+n}=G_t\doteq R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+\dots+\gamma^{T-t-1}
 \end{equation}
 which is the target of the Monte Carlo update.  
 
-Hence, the $n$-step TD method can be defined as:
+Hence, the **$\boldsymbol{n}$-step TD** method can be defined as:
 \begin{equation}
 V_{t+n}(S_t)\doteq V_{t+n-1}(S_t)+\alpha\left[G_{t:t+n}-V_{t+n-1}(S_t)\right],
 \end{equation}
@@ -706,15 +707,31 @@ Recall that the target in *one-step Sarsa* update is
 \begin{equation}
 G_{t:t+1}\doteq R_{t+1}+\gamma Q_t(S_{t+1},A_{t+1})
 \end{equation}
-Similar to with we have done in the previous part of [$n$-step TD Prediction](#n-step-td-prediction), we can redefine the new target of our $n$-step update
+Similar to what we have done in the previous part of [$n$-step TD Prediction](#n-step-td-prediction), we can redefine the new target of our $n$-step update
 \begin{equation}
 G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1} R_{t+n}+\gamma^n Q_{t+n-1}(S_{t+n},A_{t+n}),
 \end{equation}
-for $n\geq 0,0\leq t\<T-n$, with $G_{t:t+n}\doteq G_t$ if $t+n\geq T$. The $n$-step Sarsa is then can be defined as:
+for $n\geq 0,0\leq t\<T-n$, with $G_{t:t+n}\doteq G_t$ if $t+n\geq T$. The **$\boldsymbol{n}$-step Sarsa** is then can be defined as:
 \begin{equation}
 Q_{t+n}(S_t,A_t)\doteq Q_{t+n-1}(S_t,A_t)+\alpha\left[G_{t:t+n}-Q_{t+n-1}(S_t,A_t)\right],\hspace{1cm}0\leq t\<T,
 \end{equation}
-while the values of all other state-action pairs remain unchanged: $Q_{t+n}(s,a)=Q_{t+n-1}(s,a)$, for all $s,a$ such that $s\neq S_t$ or $a\neq A_t$. Pseudocode of the algorithm is given right below.
+while the values of all other state-action pairs remain unchanged: $Q_{t+n}(s,a)=Q_{t+n-1}(s,a)$, for all $s,a$ such that $s\neq S_t$ or $a\neq A_t$.  
+
+From this definition of $n$-step Sarsa, we can easily derive the multiple step version of Expected Sarsa, called **$\boldsymbol{n}$-step Expected Sarsa**.
+\begin{equation}
+Q_{t+n}(S_t,A_t)\doteq Q_{t+n-1}(S_t,A_t)+\alpha\left[G_{t:t+n}-Q_{t+n-1}(S_t,A_t)\right],\hspace{1cm}0\leq t\<T,
+\end{equation}
+where the target of the update is defined as:
+\begin{equation}
+G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\bar{V}\_{t+n-1}(S_{t+n}),\hspace{1cm}t+n\<T,\tag{8}\label{8}
+\end{equation}
+with $G_{t:t+n}=G_t$ for $t+n\geq T$, where $\bar{V}\_t(s)$ is the *expected approximate value* of state $s$, using the estimated action value at time $t$, under the target policy $\pi$:
+\begin{equation}
+\bar{V}\_t(s)\doteq\sum_a\pi(a|s)Q_t(s,a),\hspace{1cm}\forall s\in\mathcal{S}
+\end{equation}
+If $s$ is terminal, then its expected approximate value is defined to be zero.  
+
+Pseudocode of the $n$-step Sarsa algorithm is given right below.
 <figure>
 	<img src="/assets/images/2022-04-08/n-step-sarsa.png" alt="n-step Sarsa" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
@@ -730,10 +747,30 @@ When taking the value of $n$ from $1$ to $\infty$, similarly, we also obtain a c
 {: #off-policy-n-step-td}
 Recall that off-policy methods are ones that learn the value function of a *target policy*, $\,\pi$, while follows a *behavior policy*, $\,b$. In this section, we will be considering an off-policy $n$-step TD, or in specifically, $n$-step TD using **Importance Sampling**.
 
-#### $\boldsymbol{n}$-step TD with Importance Sampling
+#### $\boldsymbol{n}$-step TD with Importance Sampling[^3]
 {: #n-step-td-is}
-Recall that 
+In $n$-step methods, returns are constructed over $n$ steps, so we are interested in the relative probability of just those $n$ actions. Thus, by weighting updates by *importance sampling ratio*, $\,\rho_{t:t+n-1}$, which is the relative probability under the two policies $\pi$ and $b$ of taking $n$ actions from $A_t$ to $A_{t+n-1}$:
+\begin{equation}
+\rho_{t:h}\doteq\prod_{k=t}^{\min(h,T-1)}\frac{\pi(A_k|S_k)}{b(A_k|S_k)},
+\end{equation}
+we can get the **off-policy $\boldsymbol{n}$-step TD** method.
+\begin{equation}
+V_{t+n}(S_t)\doteq V_{t+n-1}(S_t)+\alpha\rho_{t:t+n-1}\left[G_{t:t+n}-V_{t+n-1}(S_t)\right],\hspace{1cm}0\leq t\<T
+\end{equation}
+Similarly, we have the **off-policy $\boldsymbol{n}$-step Sarsa** method.
+\begin{equation}
+Q_{t+n}(S_t,A_t)\doteq Q_{t+n-1}(S_t,A_t)+\alpha\rho_{t:t+n-1}\left[G_{t:t+n}-Q_{t+n-1}(S_t,A_t)\right],\hspace{0.5cm}0\leq t \<T\tag{9}\label{9}
+\end{equation}
+The **off-policy $\boldsymbol{n}$-step Expected Sarsa** uses the same update as \eqref{9} except that it uses $\rho_{t+1:t+n-1}$ as its importance sampling ratio instead of $\rho_{t+1:t+n}$ and also has \eqref{8} as its target.  
 
+Here is pseudocode of the off-policy $n$-step Sarsa.
+<figure>
+	<img src="/assets/images/2022-04-08/off-policy-n-step-sarsa.png" alt="Off-policy n-step Sarsa" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+
+#### $\boldsymbol{n}$-step TD with Per-decision Importance Sampling
+{: #n-step-td-per-decision-is}
 
 
 ## References
@@ -753,3 +790,4 @@ Recall that
 ## Footnotes
 [^1]: It is a special case of [n-step TD](#n-step-td) and TD($\lambda$).
 [^2]: Bootstrapping is to update estimates  of the value functions of states based on estimates of value functions of other states.
+[^3]: For the definition of Importance Sampling method, you can read more in this [section]({% post_url 2021-08-21-monte-carlo-in-rl %}#is)
