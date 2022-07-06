@@ -251,9 +251,9 @@ V(s)\doteq\dfrac{\sum_{t\in\mathcal{T}(s)}\rho_{t:T(t)-1}G_t}{\vert\mathcal{T}(s
 \end{equation}
 where $\mathcal{T}(s)$ is the set of all states in which $s$ is visited (only for every-visit). For a first-visit,$\mathcal{T}(s)$ would only include time steps that were first visits to $s$ within their episodes. $T(t)$ denotes the first time of termination following time $t$, and $G_t$ denotes the return after $t$ up through $T(t)$.  
 
-When importance sampling is done as simple average in this way, we call it *ordinary importance sampling* (OIS) (which corresponds to *unweighted importance sampling* in the previous section).  
+When importance sampling is done as simple average in this way, we call it **ordinary importance sampling** (OIS) (which corresponds to **unweighted importance sampling** in the previous section).  
 
-And the one corresponding to *weighted importance sampling* (WIS), which uses a weighted average, is defined as:
+And the one corresponding to **weighted importance sampling** (WIS), which uses a weighted average, is defined as:
 \begin{equation}
 V(s)\doteq\dfrac{\sum_{t\in\mathcal{T}(s)}\rho_{t:T(t)-1}G_t}{\sum_{t\in\mathcal{T}(s)}\rho_{t:T(t)-1}},\tag{6}\label{6}
 \end{equation}

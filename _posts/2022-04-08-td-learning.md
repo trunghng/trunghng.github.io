@@ -27,9 +27,10 @@ comments: true
 		- [Example: Random Walk](#eg-random-walk)
 	- [$n$-step TD Control](#n-step-td-control)
 		- [$n$-step Sarsa](#n-step-sarsa)
-	- [Off-policy n-step TD](#off-policy-n-step-td)
+	- [Off-policy $n$-step TD](#off-policy-n-step-td)
 		- [$n$-step TD with Importance Sampling](#n-step-td-is)
-		- [$n$-step TD with Per-decision Importance Sampling](#n-step-td-per-decision-is)
+		- [$n$-step Tree Backup](#n-step-tree-backup)
+		- [$n$-step $Q(\\sigma)$](#n-step-q-sigma)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -374,7 +375,7 @@ This is our result after completing running the code.
 
 #### Expected Sarsa
 {: #exp-sarsa}
-In the update \eqref{4} of Q-learning, rather than taking the maximum over next state-action pairs, if we use the expected value to consider how likely each action is under the current policy. That means, we instead have the following update rule for $Q$-value:
+In the update \eqref{4} of Q-learning, rather than taking the maximum over next state-action pairs, we use the expected value to consider how likely each action is under the current policy. That means, we instead have the following update rule for $Q$-value:
 \begin{align}
 Q(S_t,A_t)&\leftarrow Q(S_t,A_t)+\alpha\Big[R_{t+1}+\gamma\mathbb{E}\_\pi\big[Q(S_{t+1},A_{t+1}\vert S_{t+1})\big]-Q(S_t,A_t)\Big] \\\\ &\leftarrow Q(S_t,A_t)+\alpha\Big[R_{t+1}+\gamma\sum_a\pi(a|S_{t+1})Q(S_{t+1}|a)-Q(S_t,A_t)\Big]
 \end{align}
@@ -745,9 +746,9 @@ When taking the value of $n$ from $1$ to $\infty$, similarly, we also obtain a c
 
 ### Off-policy $\boldsymbol{n}$-step TD
 {: #off-policy-n-step-td}
-Recall that off-policy methods are ones that learn the value function of a *target policy*, $\,\pi$, while follows a *behavior policy*, $\,b$. In this section, we will be considering an off-policy $n$-step TD, or in specifically, $n$-step TD using **Importance Sampling**.
+Recall that off-policy methods are ones that learn the value function of a *target policy*, $\,\pi$, while follows a *behavior policy*, $\,b$. In this section, we will be considering an off-policy $n$-step TD, or in specifically, $n$-step TD using **Importance Sampling**[^3].
 
-#### $\boldsymbol{n}$-step TD with Importance Sampling[^3]
+#### $\boldsymbol{n}$-step TD with Importance Sampling
 {: #n-step-td-is}
 In $n$-step methods, returns are constructed over $n$ steps, so we are interested in the relative probability of just those $n$ actions. Thus, by weighting updates by *importance sampling ratio*, $\,\rho_{t:t+n-1}$, which is the relative probability under the two policies $\pi$ and $b$ of taking $n$ actions from $A_t$ to $A_{t+n-1}$:
 \begin{equation}
@@ -769,9 +770,43 @@ Here is pseudocode of the off-policy $n$-step Sarsa.
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
 </figure>
 
-#### $\boldsymbol{n}$-step TD with Per-decision Importance Sampling
-{: #n-step-td-per-decision-is}
+#### $\boldsymbol{n}$-step Tree Backup
+{: #n-step-tree-backup}
 
+The idea of tree-backup update is to start with the target of the one-step update, which is defined as the first reward plus the discounted estimated value of the next state. This estimated value is computed as the weighted sum of estimated action values. Each weight corresponding to an action is proportional to its probability of occurrence. In particular, the target of one-step tree-backup update is: 
+\begin{equation}
+G_{t:t+1}\doteq R_{t+1}+\gamma\sum_a\pi(a|S_{t+1})Q_t(S_{t+1},a),\hspace{1cm}t\<T-1
+\end{equation}
+which is the same as that of Expected Sarsa. With two-step update, for a certain action $A_{t+1}$ taken according to the behavior policy, $\,b$ (i.e.,$b(A_{t+1}|S_{t+1})=1$), one step later, the estimated value of the next state similarly now, can be computed as:
+\begin{equation}
+\pi(A_{t+1}|S_{t+1})\Big(R_{t+2}+\gamma\pi(a|S_{t+2})Q_{t+1}(S_{t+2},a)\Big)
+\end{equation}
+The target of two-step update, which also is defined as sum of the first reward received plus the discounted estimated value of the next state therefore, can be computed as
+\begin{align}
+G_{t:t+2}&\doteq R_{t+1}+\gamma\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})Q_{t+1}(S_{t+1},a) \\\\ &\hspace{1cm}+\gamma\pi(A_{t+1}|S_{t+1})\Big(R_{t+2}+\gamma\pi(a|S_{t+2})Q_{t+1}(S_{t+2},a)\Big) \\\\&=R_{t+1}+\gamma\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})Q_{t+1}(S_{t+1},a)+\gamma\pi(A_{t+1}|S_{t+1})G_{t+1:t+2},
+\end{align}
+for $t\<T-2$. Hence, the target of the $n$-step tree-backup update recursively can be defined as:
+\begin{equation}
+G_{t:t+n}\doteq R_{t+1}+\gamma\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})Q_{t+n-1}(S_{t+1},a)+\gamma\pi(A_{t+1}|S_{t+1})G_{t+1:t+n}
+\end{equation}
+for $t\<T-1,n\geq 2$. The $n$-step tree-backup update can be illustrated through the following diagram
+<figure>
+	<img src="/assets/images/2022-04-08/3-step-tree-backup.png" alt="3-step tree-backup" style="display: block; margin-left: auto; margin-right: auto; width: 110px; height: 375px"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: The backup diagram of 3-step tree-backup</figcaption>
+</figure>
+
+With this definition of the target, we now can define our **$\boldsymbol{n}$-step tree-backup** method as:
+\begin{equation}
+Q_{t+n}(S_t,A_t)\doteq Q_{t+n-1}(S_t,A_t)+\alpha\Big[G_{t:t+n}-Q_{t+n-1}(S_t,A_t)\Big],\hspace{1cm}0\leq t\<T
+\end{equation}
+while the values of all other state-action pairs remain unchanged: $Q_{t+n}(s,a)=Q_{t+n-1}(s,a)$,for all $s,a$ such taht $s\neq S_t$ or $a\neq A_t$. Pseudocode of the n-step tree-backup algorithm is given below.
+<figure>
+	<img src="/assets/images/2022-04-08/n-step-tree-backup.png" alt="n-step tree-backup" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+
+#### $\boldsymbol{n}$-step $Q(\sigma)$
+{: #n-step-q-sigma}
 
 ## References
 [1] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition)  
@@ -790,4 +825,4 @@ Here is pseudocode of the off-policy $n$-step Sarsa.
 ## Footnotes
 [^1]: It is a special case of [n-step TD](#n-step-td) and TD($\lambda$).
 [^2]: Bootstrapping is to update estimates  of the value functions of states based on estimates of value functions of other states.
-[^3]: For the definition of Importance Sampling method, you can read more in this [section]({% post_url 2021-08-21-monte-carlo-in-rl %}#is)
+[^3]: For the definition of Importance Sampling method, you can read more in this [section]({% post_url 2021-08-21-monte-carlo-in-rl %}#is).

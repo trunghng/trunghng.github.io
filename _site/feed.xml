@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-06-28T18:07:59+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-07-06T16:04:38+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Temporal-Difference Learning</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html" rel="alternate" type="text/html" title="Temporal-Difference Learning" /><published>2022-04-08T16:55:00+07:00</published><updated>2022-04-08T16:55:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html">&lt;blockquote&gt;
   &lt;p&gt;So far in this &lt;a href=&quot;/tag/my-rl&quot;&gt;series&lt;/a&gt;, we have gone through the ideas of &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html&quot;&gt;&lt;strong&gt;dynamic programming&lt;/strong&gt; (DP)&lt;/a&gt; and &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html&quot;&gt;&lt;strong&gt;Monte Carlo&lt;/strong&gt;&lt;/a&gt;. What will happen if we combine these ideas together? &lt;strong&gt;Temporal-difference (TD) learning&lt;/strong&gt; is our answer.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -44,10 +44,11 @@
           &lt;li&gt;&lt;a href=&quot;#n-step-sarsa&quot;&gt;$n$-step Sarsa&lt;/a&gt;&lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#off-policy-n-step-td&quot;&gt;Off-policy n-step TD&lt;/a&gt;
+      &lt;li&gt;&lt;a href=&quot;#off-policy-n-step-td&quot;&gt;Off-policy $n$-step TD&lt;/a&gt;
         &lt;ul&gt;
           &lt;li&gt;&lt;a href=&quot;#n-step-td-is&quot;&gt;$n$-step TD with Importance Sampling&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#n-step-td-per-decision-is&quot;&gt;$n$-step TD with Per-decision Importance Sampling&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#n-step-tree-backup&quot;&gt;$n$-step Tree Backup&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#n-step-q-sigma&quot;&gt;$n$-step $Q(\sigma)$&lt;/a&gt;&lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
@@ -389,7 +390,7 @@ We begin by importing necessary packages we will be using&lt;/p&gt;
 &lt;/figure&gt;
 
 &lt;h4 id=&quot;exp-sarsa&quot;&gt;Expected Sarsa&lt;/h4&gt;
-&lt;p&gt;In the update \eqref{4} of Q-learning, rather than taking the maximum over next state-action pairs, if we use the expected value to consider how likely each action is under the current policy. That means, we instead have the following update rule for $Q$-value:
+&lt;p&gt;In the update \eqref{4} of Q-learning, rather than taking the maximum over next state-action pairs, we use the expected value to consider how likely each action is under the current policy. That means, we instead have the following update rule for $Q$-value:
 \begin{align}
 Q(S_t,A_t)&amp;amp;\leftarrow Q(S_t,A_t)+\alpha\Big[R_{t+1}+\gamma\mathbb{E}_\pi\big[Q(S_{t+1},A_{t+1}\vert S_{t+1})\big]-Q(S_t,A_t)\Big] \\ &amp;amp;\leftarrow Q(S_t,A_t)+\alpha\Big[R_{t+1}+\gamma\sum_a\pi(a|S_{t+1})Q(S_{t+1}|a)-Q(S_t,A_t)\Big]
 \end{align}
@@ -743,9 +744,9 @@ If $s$ is terminal, then its expected approximate value is defined to be zero.&l
 &lt;/figure&gt;
 
 &lt;h3 id=&quot;off-policy-n-step-td&quot;&gt;Off-policy $\boldsymbol{n}$-step TD&lt;/h3&gt;
-&lt;p&gt;Recall that off-policy methods are ones that learn the value function of a &lt;em&gt;target policy&lt;/em&gt;, $\,\pi$, while follows a &lt;em&gt;behavior policy&lt;/em&gt;, $\,b$. In this section, we will be considering an off-policy $n$-step TD, or in specifically, $n$-step TD using &lt;strong&gt;Importance Sampling&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Recall that off-policy methods are ones that learn the value function of a &lt;em&gt;target policy&lt;/em&gt;, $\,\pi$, while follows a &lt;em&gt;behavior policy&lt;/em&gt;, $\,b$. In this section, we will be considering an off-policy $n$-step TD, or in specifically, $n$-step TD using &lt;strong&gt;Importance Sampling&lt;/strong&gt;&lt;sup id=&quot;fnref:3&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
 
-&lt;h4 id=&quot;n-step-td-is&quot;&gt;$\boldsymbol{n}$-step TD with Importance Sampling&lt;sup id=&quot;fnref:3&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;&lt;/h4&gt;
+&lt;h4 id=&quot;n-step-td-is&quot;&gt;$\boldsymbol{n}$-step TD with Importance Sampling&lt;/h4&gt;
 &lt;p&gt;In $n$-step methods, returns are constructed over $n$ steps, so we are interested in the relative probability of just those $n$ actions. Thus, by weighting updates by &lt;em&gt;importance sampling ratio&lt;/em&gt;, $\,\rho_{t:t+n-1}$, which is the relative probability under the two policies $\pi$ and $b$ of taking $n$ actions from $A_t$ to $A_{t+n-1}$:
 \begin{equation}
 \rho_{t:h}\doteq\prod_{k=t}^{\min(h,T-1)}\frac{\pi(A_k|S_k)}{b(A_k|S_k)},
@@ -766,7 +767,41 @@ The &lt;strong&gt;off-policy $\boldsymbol{n}$-step Expected Sarsa&lt;/strong&gt;
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
 
-&lt;h4 id=&quot;n-step-td-per-decision-is&quot;&gt;$\boldsymbol{n}$-step TD with Per-decision Importance Sampling&lt;/h4&gt;
+&lt;h4 id=&quot;n-step-tree-backup&quot;&gt;$\boldsymbol{n}$-step Tree Backup&lt;/h4&gt;
+
+&lt;p&gt;The idea of tree-backup update is to start with the target of the one-step update, which is defined as the first reward plus the discounted estimated value of the next state. This estimated value is computed as the weighted sum of estimated action values. Each weight corresponding to an action is proportional to its probability of occurrence. In particular, the target of one-step tree-backup update is: 
+\begin{equation}
+G_{t:t+1}\doteq R_{t+1}+\gamma\sum_a\pi(a|S_{t+1})Q_t(S_{t+1},a),\hspace{1cm}t&amp;lt;T-1
+\end{equation}
+which is the same as that of Expected Sarsa. With two-step update, for a certain action $A_{t+1}$ taken according to the behavior policy, $\,b$ (i.e.,$b(A_{t+1}|S_{t+1})=1$), one step later, the estimated value of the next state similarly now, can be computed as:
+\begin{equation}
+\pi(A_{t+1}|S_{t+1})\Big(R_{t+2}+\gamma\pi(a|S_{t+2})Q_{t+1}(S_{t+2},a)\Big)
+\end{equation}
+The target of two-step update, which also is defined as sum of the first reward received plus the discounted estimated value of the next state therefore, can be computed as
+\begin{align}
+G_{t:t+2}&amp;amp;\doteq R_{t+1}+\gamma\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})Q_{t+1}(S_{t+1},a) \\ &amp;amp;\hspace{1cm}+\gamma\pi(A_{t+1}|S_{t+1})\Big(R_{t+2}+\gamma\pi(a|S_{t+2})Q_{t+1}(S_{t+2},a)\Big) \\&amp;amp;=R_{t+1}+\gamma\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})Q_{t+1}(S_{t+1},a)+\gamma\pi(A_{t+1}|S_{t+1})G_{t+1:t+2},
+\end{align}
+for $t&amp;lt;T-2$. Hence, the target of the $n$-step tree-backup update recursively can be defined as:
+\begin{equation}
+G_{t:t+n}\doteq R_{t+1}+\gamma\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})Q_{t+n-1}(S_{t+1},a)+\gamma\pi(A_{t+1}|S_{t+1})G_{t+1:t+n}
+\end{equation}
+for $t&amp;lt;T-1,n\geq 2$. The $n$-step tree-backup update can be illustrated through the following diagram&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-04-08/3-step-tree-backup.png&quot; alt=&quot;3-step tree-backup&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 110px; height: 375px&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 4&lt;/b&gt;: The backup diagram of 3-step tree-backup&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;With this definition of the target, we now can define our &lt;strong&gt;$\boldsymbol{n}$-step tree-backup&lt;/strong&gt; method as:
+\begin{equation}
+Q_{t+n}(S_t,A_t)\doteq Q_{t+n-1}(S_t,A_t)+\alpha\Big[G_{t:t+n}-Q_{t+n-1}(S_t,A_t)\Big],\hspace{1cm}0\leq t&amp;lt;T
+\end{equation}
+while the values of all other state-action pairs remain unchanged: $Q_{t+n}(s,a)=Q_{t+n-1}(s,a)$,for all $s,a$ such taht $s\neq S_t$ or $a\neq A_t$. Pseudocode of the n-step tree-backup algorithm is given below.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-04-08/n-step-tree-backup.png&quot; alt=&quot;n-step tree-backup&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h4 id=&quot;n-step-q-sigma&quot;&gt;$\boldsymbol{n}$-step $Q(\sigma)$&lt;/h4&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/p&gt;
@@ -791,7 +826,7 @@ The &lt;strong&gt;off-policy $\boldsymbol{n}$-step Expected Sarsa&lt;/strong&gt;
       &lt;p&gt;Bootstrapping is to update estimates  of the value functions of states based on estimates of value functions of other states. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:3&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;For the definition of Importance Sampling method, you can read more in this &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html#is&quot;&gt;section&lt;/a&gt; &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;For the definition of Importance Sampling method, you can read more in this &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html#is&quot;&gt;section&lt;/a&gt;. &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="td-learning" /><category term="n-step-td" /><category term="q-learning" /><category term="my-rl" /><summary type="html">So far in this series, we have gone through the ideas of dynamic programming (DP) and Monte Carlo. What will happen if we combine these ideas together? Temporal-difference (TD) learning is our answer.</summary></entry><entry><title type="html">Power Series</title><link href="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>http://localhost:4000/mathematics/calculus/2021/09/21/power-series</id><content type="html" xml:base="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html">&gt; Recall that in the previous post, [Infinite Series of Constants]({% post_url 2021-09-06-infinite-series-of-constants %}), we mentioned a type of series called **power series** a lot. In the content of this post, we will be diving deeper into details of that series.
@@ -2376,9 +2411,9 @@ V(s)\doteq\dfrac{\sum_{t\in\mathcal{T}(s)}\rho_{t:T(t)-1}G_t}{\vert\mathcal{T}(s
 \end{equation}
 where $\mathcal{T}(s)$ is the set of all states in which $s$ is visited (only for every-visit). For a first-visit,$\mathcal{T}(s)$ would only include time steps that were first visits to $s$ within their episodes. $T(t)$ denotes the first time of termination following time $t$, and $G_t$ denotes the return after $t$ up through $T(t)$.  
 
-When importance sampling is done as simple average in this way, we call it *ordinary importance sampling* (OIS) (which corresponds to *unweighted importance sampling* in the previous section).  
+When importance sampling is done as simple average in this way, we call it **ordinary importance sampling** (OIS) (which corresponds to **unweighted importance sampling** in the previous section).  
 
-And the one corresponding to *weighted importance sampling* (WIS), which uses a weighted average, is defined as:
+And the one corresponding to **weighted importance sampling** (WIS), which uses a weighted average, is defined as:
 \begin{equation}
 V(s)\doteq\dfrac{\sum_{t\in\mathcal{T}(s)}\rho_{t:T(t)-1}G_t}{\sum_{t\in\mathcal{T}(s)}\rho_{t:T(t)-1}},\tag{6}\label{6}
 \end{equation}
