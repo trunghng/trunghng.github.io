@@ -41,7 +41,7 @@ comments: true
 
 <figure>
 	<img src="/assets/images/2021-08-21/mc-pi.gif" alt="monte carlo method" width="480" height="360px" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Using Monte Carlo method to approximate the value of $\pi$. The code can be found <span markdown="1">[here](https://github.com/trunghng/monte-carlo-methods/blob/main/monte_carlo_pi.py)</span></figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Using Monte Carlo method to approximate the value of $\pi$. The code can be found <span markdown="1">[here](https://github.com/trunghng/maths-visualization/blob/main/monte_carlo_pi.py)</span></figcaption>
 </figure><br/>
 
 Monte Carlo methods have been used in several different tasks:
