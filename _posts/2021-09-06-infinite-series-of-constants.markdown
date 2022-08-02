@@ -264,7 +264,7 @@ whose terms are positive and decreasing. Suppose $a_n=f(n)$, as shown is ***Figu
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b></figcaption>
 </figure>
 
-On the left in this figure we see that the rectangles of areas $a_1,a_2,\dots,a_n$ have a greater combined area than the area under the curve from $x=1$ to $x=n1$, so
+On the left of this figure we see that the rectangles of areas $a_1,a_2,\dots,a_n$ have a greater combined area than the area under the curve from $x=1$ to $x=n+1$, so
 \begin{equation}
 a_1+a_2+\dots+a_n\geq\int_{1}^{n+1}f(x)\,dx\geq\int_{1}^{n}f(x)\,dx\tag{5}\label{5}
 \end{equation}
