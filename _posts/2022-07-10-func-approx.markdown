@@ -7,7 +7,7 @@ tags: artificial-intelligent reinforcement-learning function-approximation
 description: Function approximation
 comments: true
 ---
-> 
+> Reinforcement Learning in continuous state space requires function approximation.
 <!-- excerpt-end -->
 - [On-policy Methods](#on-policy-methods)
 	- [Value-function Approximation](#value-func-approx)
@@ -285,6 +285,11 @@ x_i(s)=\cos\left(\pi\mathbf{s}^\intercal\mathbf{c}^i\right),
 where $\mathbf{c}=(c_1^i,\dots,c_d^i)^\intercal$, with $c_j^i\in\\{0,\dots,n\\}$ for $j=1,\dots,d$ and $i=0,\dots,(n+1)^d$. 
 
 This defines a feature for each of the $(n+1)^d$ possible integer vector $\mathbf{c}^i$. The inner product $\mathbf{s}^\intercal\mathbf{c}^i$ has the effect of assigning an integer in $\\{0,\dots,n\\}$ to each dimension of $\mathbf{s}$. As in the one-dimensional case, this integer determines the feature's frequency along that dimension. The feature thus can be shifted and scaled to suit the bounded state space of a particular application.
+
+<figure>
+	<img src="/assets/images/2022-07-10/gradient_mc_bases.png" alt="Fourier basis vs polynomial basis" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: Fourier basis vs Polynomial basis on the 1000-state random walk (Eg9.2 - RL: An Introduction book). The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-9/random_walk.py)</span></figcaption>
+</figure><br/>
 
 ##### Coarse Coding
 {: #coarse-coding}
