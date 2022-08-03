@@ -20,6 +20,9 @@ comments: true
 		- [Feature Construction](#feature-cons)
 			- [Polynomial Basis](#polynomial)
 			- [Fourier Basis](#fourier)
+				- [The Univariate Fourier Series](#uni-fourier-series)
+				- [Even, Odd and Non-Periodic Functions](#even-odd-non-periodic-func)
+				- [The Multivariate Fourier Series](#mult-fourier-series)
 			- [Coarse Coding](#coarse-coding)
 			- [Tile Coding](#tile-coding)
 			- [Radial Basis Functions](#rbf)
@@ -54,13 +57,13 @@ Each update $s\mapsto u$ can be viewed as example of the desired input-output be
 
 ### The Prediction Objective
 {: #pred-obj}
-In constrast to tabular case, where the solution of value function could be found equal to the true value function exactly, and an update at one state did not affect the others, with function approximation, it is imposible to find the exact value function of all states. And moreover, an update at one state also affects many others. 
+In contrast to tabular case, where the solution of value function could be found equal to the true value function exactly, and an update at one state did not affect the others, with function approximation, it is impossible to find the exact value function of all states. And moreover, an update at one state also affects many others. 
 
 Hence, it is necessary to specify a state distribution $\mu(s)\geq0,\sum_s\mu(s)=1$, representing how much we care about the error (the difference between the approximate value $\hat{v}(s,\mathbf{w})$ and the true value $v_\pi(s)$) in each state $s$. Weighting this over the state space $\mathcal{S}$ by $\mu$, we obtain a natural objective function, called the *Mean Squared Value Error*, denoted as $\overline{\text{VE}}$:
 \begin{equation}
 \overline{\text{VE}}(\mathbf{w})\doteq\sum_{s\in\mathcal{S}}\mu(s)\Big[v_\pi(s)-\hat{v}(s,\mathbf{w})\Big]^2
 \end{equation}
-The distribution $\mu(s)$ is usually chosen as the fraction of time spent in $s$ (number of time $s$ visited divived by total amount of visits). Under on-policy training this is called the *on-policy distribution*.  
+The distribution $\mu(s)$ is usually chosen as the fraction of time spent in $s$ (number of time $s$ visited divided by total amount of visits). Under on-policy training this is called the *on-policy distribution*.  
 
 - In continuing tasks, the on-policy distribution is the stationary distribution under $\pi$.  
 - In episodic tasks, the on-policy distribution depends on how the initial states are chosen.
@@ -83,7 +86,7 @@ The gradient of $J(\mathbf{w})$ w.r.t $\mathbf{w}$ is defined to be
 \begin{equation}
 \nabla_{\mathbf{w}}J(\mathbf{w})=\left(\begin{smallmatrix}\dfrac{\partial J(\mathbf{w})}{\partial\mathbf{w}\_1} \\\\ \vdots \\\\ \dfrac{\partial J(\mathbf{w})}{\partial\mathbf{w}\_d}\end{smallmatrix}\right)
 \end{equation}
-The idea of Gradient descent is to minimize the objective function $J(\mathbf{w})$, we repeatly move $\mathbf{w}$ in the direction of steepest decrease of $J$, which is the direction of negative gradient $-\nabla_\mathbf{w}J(\mathbf{w})$. 
+The idea of Gradient descent is to minimize the objective function $J(\mathbf{w})$, we repeatedly move $\mathbf{w}$ in the direction of steepest decrease of $J$, which is the direction of negative gradient $-\nabla_\mathbf{w}J(\mathbf{w})$. 
 
 Thus, we have the update rule of Gradient descent:
 \begin{equation}
@@ -189,7 +192,7 @@ In the linear case, there is only one optimum, and thus any method that is guara
 
 		Hence, it is clear that the positive definiteness of $A$ depends on the matrix $\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})$ in \eqref{4}. 
 
-		To continue proving the posititive definiteness of $\mathbf{A}$, we use two lemmas:
+		To continue proving the positive definiteness of $\mathbf{A}$, we use two lemmas:
 		- **Lemma 1**: *A square matrix $\mathbf{A}$ is positive definite if $\mathbf{A}+\mathbf{A}^\intercal$* is positive definite.
 		- **Lemma 2**: *If $\mathbf{A}$ is a real, symmetric, and strictly diagonally dominant matrix with positive diagonal entries, then $\mathbf{A}$ is positive definite*. 
 
@@ -208,20 +211,80 @@ In the linear case, there is only one optimum, and thus any method that is guara
 
 #### Feature Construction
 {: #feature-cons}
-There are various ways to define features. The simpliest way is to use each variable directly as a basis function along with a constant function. However, most interesting function are too complex to be represented in this way.
+There are various ways to define features. The simplest way is to use each variable directly as a basis function along with a constant function, i.e., setting:
+\begin{equation}
+x_0(s)=1;\hspace{1cm}x_i(s)=s_i,0\leq i\leq d
+\end{equation}
+However, most interesting value functions are too complex to be represented in this way. This scheme therefore was generalized into the polynomial basis.
 
 ##### Polynomial Basis
 {: #polynomial}
-
+Suppose each state $s$ corresponds to $d$ numbers, $s_1,s_2\dots,s_d$, with each $s_i\in\mathbb{R}$. For this $d$-dimensional state space, each order-$n$ polynomial basis feature $x_i$ can be written as
+\begin{equation}
+x_i(s)=\prod_{j=1}^{d}s_j^{c_{i,j}},
+\end{equation}
+where each $c_{i,j}\in\\{0,1,\dots,n\\}$ for an integer $n\geq 0$. These features make up the order-$n$ polynomial basis for dimension $d$, which contains $(n+1)^d$ different features.
 
 ##### Fourier Basis
 {: #fourier}
-**Fourier series** is applied widely in Maths to approximate a periodic function[^2]. For example:
+
+###### The Univariate Fourier Series
+{: #uni-fourier-series}
+**Fourier series** is applied widely in Mathematics to approximate a periodic function[^2]. For example:
 
 <figure>
 	<img src="/assets/images/2022-07-10/fourier_series.gif" alt="Fourier series visualization" width="480" height="360px" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Four partial sums (Fourier series) of lengths 1, 2, 3, and 4 terms, showing how the approximation to a square wave improves as the number of terms increases: where $f_1(\theta)=\frac{4\sin\theta}{\pi},f_2(\theta)=\frac{4\sin3\theta}{3\pi},f_3(\theta)=\frac{4\sin5\theta}{5\pi}$ and $f_4(\theta)=\frac{4\sin7\theta}{7\pi}$. The code can be found <span markdown="1">[here](https://github.com/trunghng/maths-visualization/blob/main/fourier-series/fourier_series.py)</span></figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Four partial sums (Fourier series) of lengths 1, 2, 3, and 4 terms, showing how the approximation to a square wave improves as the number of terms increases: where $f_1(\theta)=\frac{4\sin\theta}{\pi},f_2(\theta)=\frac{4\sin 3\theta}{3\pi},f_3(\theta)=\frac{4\sin 5\theta}{5\pi}$ and $f_4(\theta)=\frac{4\sin 7\theta}{7\pi}$. The code can be found <span markdown="1">[here](https://github.com/trunghng/maths-visualization/blob/main/fourier-series/fourier_series.py)</span></figcaption>
 </figure><br/>
+In particular, the $n$-degree Fourier expansion of $f$ with period $\tau$ is
+\begin{equation}
+\bar{f}(x)=\dfrac{a_0}{2}+\sum_{k=1}^{n}\left[a_k\cos\left(k\frac{2\pi}{\tau}x\right)+b_k\left(k\frac{2\pi}{\tau}x\right)\right],
+\end{equation}
+where
+\begin{align}
+a_k&=\frac{2}{\tau}\int_{0}^{\tau}f(x)\cos\left(\frac{2\pi kx}{\tau}\right)\,dx, \\\\ b_k&=\frac{2}{\tau}\int_{0}^{\tau}f(x)\sin\left(\frac{2\pi kx}{\tau}\right)\,dx
+\end{align}
+In the RL setting, $f$ is unknown so we cannot compute $a_0,\dots,a_n$ and $b_1,\dots,b_n$, but we can instead treat them as parameters in a linear function approximation scheme, with
+\begin{equation}
+\phi_i(x)=\begin{cases}1 &\text{if }i=0 \\\\ \cos\left(\frac{(i+1)\pi x}{\tau}\right) &\text{if }i>0,i\text{ odd} \\\\ \sin\left(\frac{i\pi x}{\tau}\right) &\text{if }i>0,i\text{ even}\end{cases}
+\end{equation}
+Thus, a full $n$-th order Fourier approximation to a one-dimensional value function results in a linear function approximation with $2n+1$ terms.
+
+###### Even, Odd and Non-Periodic Functions
+{: #even-odd-non-periodic-func}
+If $f$ is known to be *even* (i.e., $f(x)=f(-x)$), then $\forall i>0$, we have:
+\begin{align}
+b_i&=\frac{2}{\tau}\int_{0}^{\tau}f(x)\sin\left(\frac{2\pi ix}{\tau}\right)\,dx \\\\ &=\frac{2}{\tau}\left[\int_{0}^{\tau/2}f(x)\sin\left(\frac{2\pi ix}{\tau}\right)\,dx+\int_{\tau/2}^{\tau}f(x)\sin\left(\frac{2\pi ix}{\tau}\right)\,dx\right] \\\\ &=\frac{2}{\tau}\left[\int_{0}^{\tau/2}f(x)\sin\left(\frac{2\pi ix}{\tau}\right)\,dx+\int_{\tau/2}^{\tau}f(x-\tau)\sin\left(\frac{2\pi ix}{\tau}-2\pi i\right)\,dx\right] \\\\ &=\frac{2}{\tau}\left[\int_{0}^{\tau/2}f(x)\sin\left(\frac{2\pi ix}{\tau}\right)\,dx+\int_{\tau/2}^{\tau}f(x-\tau)\sin\left(\frac{2\pi i(x-\tau)}{\tau}\right)\,dx\right] \\\\ &=\frac{2}{\tau}\left[\int_{0}^{\tau/2}f(x)\sin\left(\frac{2\pi ix}{\tau}\right)\,dx+\int_{-\tau/2}^{0}f(x)\sin\left(\frac{2\pi ix}{\tau}\right)\,dx\right] \\\\ &=0,
+\end{align}
+so the $\sin$ terms can be dropped, which reduces the terms required for an $n$-th order Fourier approximation to $n+1$. 
+
+Similarly, if $f$ is known to be *odd* (i.e., $f(x)=-f(-x)$), then $\forall i>0, a_i=0$, so we can omit the $\cos$ terms. 
+
+However, in general, value functions are not even, odd, or periodic (or known to be in advance). In such cases, if $f$ is defined over a bounded interval with length, let us assume, $\tau$, or without loss of generality, $\left[-\frac{\tau}{2},\frac{\tau}{2}\right]$, but only project the input variable to $\left[0,\frac{\tau}{2}\right]$. This results in a function periodic on $\left[-\frac{\tau}{2},\frac{\tau}{2}\right]$, but unconstrained on $\left(0,\frac{\tau}{2}\right]$. We are now free to choose whether or not the function is even or odd over $\left[-\frac{\tau}{2},\frac{\tau}{2}\right]$, and can drop half of the terms in the approximation.
+
+In general, we expect it will be better to use the "half-even" approximation and drop the $\sin$ terms because this causes only a slight discontinuity at the origin. Thus, we can define the univariate $n$-th order Fourier basis as:
+\begin{equation}
+x_i(s)=\cos(i\pi s),
+\end{equation}
+for $i=0,\dots,n$.
+
+###### The Multivariate Fourier Series
+{: #mult-fourier-series}
+The $n$-order Fourier expansion of the multivariate function $F$ with period $\tau$ in $d$ dimensions is
+\begin{equation}
+\overline{F}(\mathbf{x})=\sum_\mathbf{c}\left[a_\mathbf{c}\cos\left(\frac{2\pi}{\tau}\mathbf{c}\cdot\mathbf{x}\right)+b_\mathbf{c}\sin\left(\frac{2\pi}{\tau}\mathbf{c}\cdot\mathbf{x}\right)\right],
+\end{equation}
+where $\mathbf{c}=(c_1,\dots,c_d)^\intercal,c_i\in\left[0,\dots,n\right],1\leq i\leq d$. 
+
+This results in $2(n+1)^d$ basis functions for an $n$-th order full Fourier approximation to a value function in $d$ dimensions, which can be reduced to $(n+1)^d$ if we drop either the $sin$ or $cos$ terms for each variable as described above. Thus, we can define the $n$-th order Fourier basis in the multi-dimensional case as: 
+
+Suppose each state $s$ corresponds to a vector of $d$ numbers, $\mathbf{s}=(s_1,\dots,s_d)^\intercal$, with each $s_i\in[0,1]$. The $i$-th feature in the order-$n$ Fourier cosine basis can then be written as:
+\begin{equation}
+x_i(s)=\cos\left(\pi\mathbf{s}^\intercal\mathbf{c}^i\right),
+\end{equation}
+where $\mathbf{c}=(c_1^i,\dots,c_d^i)^\intercal$, with $c_j^i\in\\{0,\dots,n\\}$ for $j=1,\dots,d$ and $i=0,\dots,(n+1)^d$. 
+
+This defines a feature for each of the $(n+1)^d$ possible integer vector $\mathbf{c}^i$. The inner product $\mathbf{s}^\intercal\mathbf{c}^i$ has the effect of assigning an integer in $\\{0,\dots,n\\}$ to each dimension of $\mathbf{s}$. As in the one-dimensional case, this integer determines the feature's frequency along that dimension. The feature thus can be shifted and scaled to suit the bounded state space of a particular application.
 
 ##### Coarse Coding
 {: #coarse-coding}
@@ -242,7 +305,7 @@ There are various ways to define features. The simpliest way is to use each vari
 
 [3] Sutton, R. S. (1988). [Learning to predict by the methods of temporal differences](doi:10.1007/bf00115009). Machine Learning, 3(1), 9–44. 
 
-[4] Konidaris, G. & Osentoski, S. & Thomas, P.. [Value Function Approximation in Reinforcement Learning Using the Fourier Basis](#https://dl.acm.org/doi/10.5555/2900423.2900483). AAAI Conference on Artificial Intelligence, North America, aug. 2011. 
+[4] Konidaris, G. & Osentoski, S. & Thomas, P.. [Value Function Approximation in Reinforcement Learning Using the Fourier Basis](https://dl.acm.org/doi/10.5555/2900423.2900483). AAAI Conference on Artificial Intelligence, North America, aug. 2011. 
 
 
 ## Footnotes
@@ -251,7 +314,7 @@ There are various ways to define features. The simpliest way is to use each vari
 	\mathbf{x}^\intercal\mathbf{A}\mathbf{x}>0
 	\end{equation}
 
-[^2]: A function $f$ is periodic with period $T$ if
+[^2]: A function $f$ is periodic with period $\tau$ if
 	\begin{equation}
-	f(x+T)=f(x),\forall x
+	f(x+\tau)=f(x),\forall x
 	\end{equation}

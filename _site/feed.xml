@@ -1,252 +1,342 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-03T16:05:45+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
-</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Function Approximation</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html" rel="alternate" type="text/html" title="Function Approximation" /><published>2022-07-10T15:26:00+07:00</published><updated>2022-07-10T15:26:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html">&gt; 
-&lt;!-- excerpt-end --&gt;
-- [On-policy Methods](#on-policy-methods)
-	- [Value-function Approximation](#value-func-approx)
-	- [The Prediction Objective](#pred-obj)
-	- [Gradient-based algorithms](#grad-algs)
-		- [Stochastic-gradient](#stochastic-grad)
-		- [Semi-gradient](#on-policy-semi-grad)
-	- [Linear Function Approximation](#lin-func-approx)
-		- [Linear Methods](#lin-methods)
-		- [Feature Construction](#feature-cons)
-			- [Polynomial Basis](#polynomial)
-			- [Fourier Basis](#fourier)
-			- [Coarse Coding](#coarse-coding)
-			- [Tile Coding](#tile-coding)
-			- [Radial Basis Functions](#rbf)
-	- [Least-Squares TD](#lstd)
-	- [Episodic Semi-gradient Control](#ep-semi-grad-control)
-	- [Semi-gradient n-step Sarsa](#semi-grad-n-step-sarsa)
-- [Off-policy Methods](#off-policy-methods)
-	- [Semi-gradient](#off-policy-semi-grad)
-	- [Gradient-TD](#grad-td)
-	- [Emphatic-TD](#em-td)
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-03T18:19:06+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Function Approximation</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html" rel="alternate" type="text/html" title="Function Approximation" /><published>2022-07-10T15:26:00+07:00</published><updated>2022-07-10T15:26:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html">&lt;blockquote&gt;
 
+  &lt;!-- excerpt-end --&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&quot;#on-policy-methods&quot;&gt;On-policy Methods&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&quot;#value-func-approx&quot;&gt;Value-function Approximation&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#pred-obj&quot;&gt;The Prediction Objective&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#grad-algs&quot;&gt;Gradient-based algorithms&lt;/a&gt;
+          &lt;ul&gt;
+            &lt;li&gt;&lt;a href=&quot;#stochastic-grad&quot;&gt;Stochastic-gradient&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;#on-policy-semi-grad&quot;&gt;Semi-gradient&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#lin-func-approx&quot;&gt;Linear Function Approximation&lt;/a&gt;
+          &lt;ul&gt;
+            &lt;li&gt;&lt;a href=&quot;#lin-methods&quot;&gt;Linear Methods&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;#feature-cons&quot;&gt;Feature Construction&lt;/a&gt;
+              &lt;ul&gt;
+                &lt;li&gt;&lt;a href=&quot;#polynomial&quot;&gt;Polynomial Basis&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;#fourier&quot;&gt;Fourier Basis&lt;/a&gt;
+                  &lt;ul&gt;
+                    &lt;li&gt;&lt;a href=&quot;#uni-fourier-series&quot;&gt;The Univariate Fourier Series&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href=&quot;#even-odd-non-periodic-func&quot;&gt;Even, Odd and Non-Periodic Functions&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href=&quot;#mult-fourier-series&quot;&gt;The Multivariate Fourier Series&lt;/a&gt;&lt;/li&gt;
+                  &lt;/ul&gt;
+                &lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;#coarse-coding&quot;&gt;Coarse Coding&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;#tile-coding&quot;&gt;Tile Coding&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;#rbf&quot;&gt;Radial Basis Functions&lt;/a&gt;&lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#lstd&quot;&gt;Least-Squares TD&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#ep-semi-grad-control&quot;&gt;Episodic Semi-gradient Control&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#semi-grad-n-step-sarsa&quot;&gt;Semi-gradient n-step Sarsa&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;#off-policy-methods&quot;&gt;Off-policy Methods&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&quot;#off-policy-semi-grad&quot;&gt;Semi-gradient&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#grad-td&quot;&gt;Gradient-TD&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#em-td&quot;&gt;Emphatic-TD&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
 
-## On-policy Methods
-{: #on-policy-methods}
-So far in the series, we have gone through tabular methods, which are used to solve problems with small state and action spaces. For larger spaces, rather than getting the exact solutions, we now have to approximate the value of them. To start, we begin with on-policy approximation methods.
+&lt;h2 id=&quot;on-policy-methods&quot;&gt;On-policy Methods&lt;/h2&gt;
+&lt;p&gt;So far in the series, we have gone through tabular methods, which are used to solve problems with small state and action spaces. For larger spaces, rather than getting the exact solutions, we now have to approximate the value of them. To start, we begin with on-policy approximation methods.&lt;/p&gt;
 
-### Value-function Approximation
-{: #value-func-approx}
-All of the prediction methods so far have been described as updates to an estimated value function that shift its value at particular states toward a &quot;backed-up value&quot; (or *update target*) for that state
+&lt;h3 id=&quot;value-func-approx&quot;&gt;Value-function Approximation&lt;/h3&gt;
+&lt;p&gt;All of the prediction methods so far have been described as updates to an estimated value function that shift its value at particular states toward a “backed-up value” (or &lt;em&gt;update target&lt;/em&gt;) for that state
 \begin{equation}
 s\mapsto u,
 \end{equation}
-where $s$ is the state updated and $u$ is the update target that $s$&apos;s estimated value is shifted toward. 
+where $s$ is the state updated and $u$ is the update target that $s$’s estimated value is shifted toward.&lt;/p&gt;
 
-For example, 
-- the MC update for value prediction is: $S_t\mapsto G_t$.
-- the TD(0) update for value prediction is: $S_t\mapsto R_{t+1}+\gamma\hat{v}(S_{t+1},\mathbf{w}\_t)$.
-- the $n$-step TD update is: $S_t\mapsto G_{t:t+n}$.
-- and in the DP, policy-evaluation update, $s\mapsto\mathbb{E}\big[R_{t+1}+\gamma\hat{v}(S_{t+1},\mathbf{w}\_t)\vert S_t=s\big]$, an arbitrary $s$ is updated. 
+&lt;p&gt;For example,&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;the MC update for value prediction is: $S_t\mapsto G_t$.&lt;/li&gt;
+  &lt;li&gt;the TD(0) update for value prediction is: $S_t\mapsto R_{t+1}+\gamma\hat{v}(S_{t+1},\mathbf{w}_t)$.&lt;/li&gt;
+  &lt;li&gt;the $n$-step TD update is: $S_t\mapsto G_{t:t+n}$.&lt;/li&gt;
+  &lt;li&gt;and in the DP, policy-evaluation update, $s\mapsto\mathbb{E}\big[R_{t+1}+\gamma\hat{v}(S_{t+1},\mathbf{w}_t)\vert S_t=s\big]$, an arbitrary $s$ is updated.&lt;/li&gt;
+&lt;/ul&gt;
 
-Each update $s\mapsto u$ can be viewed as example of the desired input-output behavior of the value function. And when the outputs are numbers, like $u$, we call the process **function approximation**.
+&lt;p&gt;Each update $s\mapsto u$ can be viewed as example of the desired input-output behavior of the value function. And when the outputs are numbers, like $u$, we call the process &lt;strong&gt;function approximation&lt;/strong&gt;.&lt;/p&gt;
 
-### The Prediction Objective
-{: #pred-obj}
-In constrast to tabular case, where the solution of value function could be found equal to the true value function exactly, and an update at one state did not affect the others, with function approximation, it is imposible to find the exact value function of all states. And moreover, an update at one state also affects many others. 
+&lt;h3 id=&quot;pred-obj&quot;&gt;The Prediction Objective&lt;/h3&gt;
+&lt;p&gt;In contrast to tabular case, where the solution of value function could be found equal to the true value function exactly, and an update at one state did not affect the others, with function approximation, it is impossible to find the exact value function of all states. And moreover, an update at one state also affects many others.&lt;/p&gt;
 
-Hence, it is necessary to specify a state distribution $\mu(s)\geq0,\sum_s\mu(s)=1$, representing how much we care about the error (the difference between the approximate value $\hat{v}(s,\mathbf{w})$ and the true value $v_\pi(s)$) in each state $s$. Weighting this over the state space $\mathcal{S}$ by $\mu$, we obtain a natural objective function, called the *Mean Squared Value Error*, denoted as $\overline{\text{VE}}$:
+&lt;p&gt;Hence, it is necessary to specify a state distribution $\mu(s)\geq0,\sum_s\mu(s)=1$, representing how much we care about the error (the difference between the approximate value $\hat{v}(s,\mathbf{w})$ and the true value $v_\pi(s)$) in each state $s$. Weighting this over the state space $\mathcal{S}$ by $\mu$, we obtain a natural objective function, called the &lt;em&gt;Mean Squared Value Error&lt;/em&gt;, denoted as $\overline{\text{VE}}$:
 \begin{equation}
 \overline{\text{VE}}(\mathbf{w})\doteq\sum_{s\in\mathcal{S}}\mu(s)\Big[v_\pi(s)-\hat{v}(s,\mathbf{w})\Big]^2
 \end{equation}
-The distribution $\mu(s)$ is usually chosen as the fraction of time spent in $s$ (number of time $s$ visited divived by total amount of visits). Under on-policy training this is called the *on-policy distribution*.  
+The distribution $\mu(s)$ is usually chosen as the fraction of time spent in $s$ (number of time $s$ visited divided by total amount of visits). Under on-policy training this is called the &lt;em&gt;on-policy distribution&lt;/em&gt;.&lt;/p&gt;
 
-- In continuing tasks, the on-policy distribution is the stationary distribution under $\pi$.  
-- In episodic tasks, the on-policy distribution depends on how the initial states are chosen.
-	- Let $h(s)$ denote the probability that an episode begins in each state $s$, and let $\eta(s)$ denote the number of time steps spent, on average, in state $s$ in a single episode
-	\begin{equation}
-	\eta(s)=h(s)+\sum_\bar{s}\eta(\bar{s})\sum_a\pi(a\vert\bar{s})p(s\vert\bar{s},a),\hspace{1cm}\forall s\in\mathcal{S}
-	\end{equation}
-	This system of equation can be solved for the expected number of visits $\eta(s)$. The on-policy distribution is then
-	\begin{equation}
-	\mu(s)=\frac{\eta(s)}{\sum_{s&apos;}\eta(s&apos;)},\hspace{1cm}\forall s\in\mathcal{S}
-	\end{equation}
+&lt;ul&gt;
+  &lt;li&gt;In continuing tasks, the on-policy distribution is the stationary distribution under $\pi$.&lt;/li&gt;
+  &lt;li&gt;In episodic tasks, the on-policy distribution depends on how the initial states are chosen.
+    &lt;ul&gt;
+      &lt;li&gt;Let $h(s)$ denote the probability that an episode begins in each state $s$, and let $\eta(s)$ denote the number of time steps spent, on average, in state $s$ in a single episode
+  \begin{equation}
+  \eta(s)=h(s)+\sum_\bar{s}\eta(\bar{s})\sum_a\pi(a\vert\bar{s})p(s\vert\bar{s},a),\hspace{1cm}\forall s\in\mathcal{S}
+  \end{equation}
+  This system of equation can be solved for the expected number of visits $\eta(s)$. The on-policy distribution is then
+  \begin{equation}
+  \mu(s)=\frac{\eta(s)}{\sum_{s’}\eta(s’)},\hspace{1cm}\forall s\in\mathcal{S}
+  \end{equation}&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-### Gradient-based algorithms
-{: #grad-algs}
-To solve the least squares problem, we are going to use a popular method, named **Gradient descent**. 
+&lt;h3 id=&quot;grad-algs&quot;&gt;Gradient-based algorithms&lt;/h3&gt;
+&lt;p&gt;To solve the least squares problem, we are going to use a popular method, named &lt;strong&gt;Gradient descent&lt;/strong&gt;.&lt;/p&gt;
 
-Say, consider a differentiable function $J(\mathbf{w})$ of parameter vector $\mathbf{w}$.  
+&lt;p&gt;Say, consider a differentiable function $J(\mathbf{w})$ of parameter vector $\mathbf{w}$.&lt;/p&gt;
 
-The gradient of $J(\mathbf{w})$ w.r.t $\mathbf{w}$ is defined to be
+&lt;p&gt;The gradient of $J(\mathbf{w})$ w.r.t $\mathbf{w}$ is defined to be
 \begin{equation}
-\nabla_{\mathbf{w}}J(\mathbf{w})=\left(\begin{smallmatrix}\dfrac{\partial J(\mathbf{w})}{\partial\mathbf{w}\_1} \\\\ \vdots \\\\ \dfrac{\partial J(\mathbf{w})}{\partial\mathbf{w}\_d}\end{smallmatrix}\right)
+\nabla_{\mathbf{w}}J(\mathbf{w})=\left(\begin{smallmatrix}\dfrac{\partial J(\mathbf{w})}{\partial\mathbf{w}_1} \\ \vdots \\ \dfrac{\partial J(\mathbf{w})}{\partial\mathbf{w}_d}\end{smallmatrix}\right)
 \end{equation}
-The idea of Gradient descent is to minimize the objective function $J(\mathbf{w})$, we repeatly move $\mathbf{w}$ in the direction of steepest decrease of $J$, which is the direction of negative gradient $-\nabla_\mathbf{w}J(\mathbf{w})$. 
+The idea of Gradient descent is to minimize the objective function $J(\mathbf{w})$, we repeatedly move $\mathbf{w}$ in the direction of steepest decrease of $J$, which is the direction of negative gradient $-\nabla_\mathbf{w}J(\mathbf{w})$.&lt;/p&gt;
 
-Thus, we have the update rule of Gradient descent:
+&lt;p&gt;Thus, we have the update rule of Gradient descent:
 \begin{equation}
 \mathbf{w}\leftarrow\mathbf{w}-\dfrac{1}{2}\alpha\nabla_\mathbf{w}J(\mathbf{w}),
 \end{equation}
-where $\alpha$ is a positive step-size parameter.
+where $\alpha$ is a positive step-size parameter.&lt;/p&gt;
 
-#### Stochastic-gradient
-{: #stochastic-grad}
-Apply gradient descent to our problem, which is we have to find the minimization of
+&lt;h4 id=&quot;stochastic-grad&quot;&gt;Stochastic-gradient&lt;/h4&gt;
+&lt;p&gt;Apply gradient descent to our problem, which is we have to find the minimization of
 \begin{equation}
 \overline{\text{VE}}(\mathbf{w})=\sum_{s\in\mathcal{S}}\mu(s)\Big[v_\pi(s)-\hat{v}(s,\mathbf{w})\Big]^2
 \end{equation}
 Since $\mu(s)$ is the state distribution over state space $\mathcal{S}$, we can rewrite $\overline{\text{VE}}$ as
 \begin{equation}
-\overline{\text{VE}}(\mathbf{w})=\mathbb{E}\_{s\sim\mu}\Big[v_\pi(s)-\hat{v}(s,\mathbf{w})\Big]^2
+\overline{\text{VE}}(\mathbf{w})=\mathbb{E}_{s\sim\mu}\Big[v_\pi(s)-\hat{v}(s,\mathbf{w})\Big]^2
 \end{equation}
 By the update we have defined earlier, in each step, we need to decrease $\mathbf{w}$ by an amount of
 \begin{equation}
 \Delta\mathbf{w}=-\dfrac{1}{2}\alpha\nabla_\mathbf{w}\overline{\text{VE}}(\mathbf{w})=\alpha\mathbb{E}\Big[v_\pi(s)-\hat{v}(s,\mathbf{w})\Big]\nabla_\mathbf{w}\hat{v}(s,\mathbf{w})
 \end{equation}
-Using **Stochastic Gradient descent (SGD)**, and since the Monte Carlo target $G_t$ by definition is an unbiased estimate of $v_\pi(S_t)$ , we sample the gradient:
+Using &lt;strong&gt;Stochastic Gradient descent (SGD)&lt;/strong&gt;, and since the Monte Carlo target $G_t$ by definition is an unbiased estimate of $v_\pi(S_t)$ , we sample the gradient:
 \begin{equation}
 \Delta\mathbf{w}=\alpha(G_t-\hat{v}(S_t,\mathbf{w}))\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w})
 \end{equation}
-which gives us pseudocode of the algorithm:
+which gives us pseudocode of the algorithm:&lt;/p&gt;
 &lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-07-10/sgd_mc.png&quot; alt=&quot;SGD Monte Carlo&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot;/&gt;
+	&lt;img src=&quot;/assets/images/2022-07-10/sgd_mc.png&quot; alt=&quot;SGD Monte Carlo&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
 
-#### Semi-gradient
-{: #on-policy-semi-grad}
-If instead of using MC target $G_t$, we use the bootstrapping targets such as $n$-step return $G_{t:t+n}$ or the DP target $\sum_{a,s&apos;,r}\pi(a\vert S_t)p(s&apos;,r\vert S_t,a)\left[r+\gamma\hat{v}(s&apos;,\mathbf{w}\_t)\right]$, which all depend on the current value of the weight vector $\mathbf{w}\_t$, and then implies that they will be biased, and will not produce a true gradient-descent method. 
+&lt;h4 id=&quot;on-policy-semi-grad&quot;&gt;Semi-gradient&lt;/h4&gt;
+&lt;p&gt;If instead of using MC target $G_t$, we use the bootstrapping targets such as $n$-step return $G_{t:t+n}$ or the DP target $\sum_{a,s’,r}\pi(a\vert S_t)p(s’,r\vert S_t,a)\left[r+\gamma\hat{v}(s’,\mathbf{w}_t)\right]$, which all depend on the current value of the weight vector $\mathbf{w}_t$, and then implies that they will be biased, and will not produce a true gradient-descent method.&lt;/p&gt;
 
-Such methods are called **semi-gradient** since they include only a part of the gradient.
+&lt;p&gt;Such methods are called &lt;strong&gt;semi-gradient&lt;/strong&gt; since they include only a part of the gradient.&lt;/p&gt;
 &lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-07-10/semi_gd.png&quot; alt=&quot;Semi-gradient TD(0)&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot;/&gt;
+	&lt;img src=&quot;/assets/images/2022-07-10/semi_gd.png&quot; alt=&quot;Semi-gradient TD(0)&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
 
-### Linear Function Approximation
-{: #lin-func-approx}
-One of the most crucial special cases of function approximation is that in which the approximate function, $\hat{v}(\cdot,\mathbf{w})$, is a linear function of the weight vector, $\mathbf{w}$. 
+&lt;h3 id=&quot;lin-func-approx&quot;&gt;Linear Function Approximation&lt;/h3&gt;
+&lt;p&gt;One of the most crucial special cases of function approximation is that in which the approximate function, $\hat{v}(\cdot,\mathbf{w})$, is a linear function of the weight vector, $\mathbf{w}$.&lt;/p&gt;
 
-Corresponding to every state $s$, there is a real-valued vector $\mathbf{x}(s)\doteq\left(x_1(s),x_2(s),\dots,x_d(s)\right)^\intercal$, with the same number of components with $\mathbf{w}$.
+&lt;p&gt;Corresponding to every state $s$, there is a real-valued vector $\mathbf{x}(s)\doteq\left(x_1(s),x_2(s),\dots,x_d(s)\right)^\intercal$, with the same number of components with $\mathbf{w}$.&lt;/p&gt;
 
-#### Linear Methods
-{: #lin-methods}
-Linear methods approximate value function by the inner product between $\mathbf{w}$ and $\mathbf{x}(s)$:
+&lt;h4 id=&quot;lin-methods&quot;&gt;Linear Methods&lt;/h4&gt;
+&lt;p&gt;Linear methods approximate value function by the inner product between $\mathbf{w}$ and $\mathbf{x}(s)$:
 \begin{equation}
 \hat{v}(s,\mathbf{w})\doteq\mathbf{w}^\intercal\mathbf{x}(s)=\sum_{i=1}^{d}w_ix_i(s)\tag{1}\label{1}
 \end{equation}
-The vector $\mathbf{x}(s)$ is called a *feature vector* representing state $s$, i.e., $x_i:\mathcal{S}\to\mathbb{R}$.  
+The vector $\mathbf{x}(s)$ is called a &lt;em&gt;feature vector&lt;/em&gt; representing state $s$, i.e., $x_i:\mathcal{S}\to\mathbb{R}$.&lt;/p&gt;
 
-For linear methods, features are *basis functions* because they form a linear basis for the set of approximate functions. Constructing $d$-dimensional feature vectors to represent states is the same as selecting a set of $d$ basis functions. 
+&lt;p&gt;For linear methods, features are &lt;em&gt;basis functions&lt;/em&gt; because they form a linear basis for the set of approximate functions. Constructing $d$-dimensional feature vectors to represent states is the same as selecting a set of $d$ basis functions.&lt;/p&gt;
 
-From \eqref{1}, when using SGD updates with linear approximation, we have the gradient of the approximate value function w.r.t $\mathbf{w}$ is
+&lt;p&gt;From \eqref{1}, when using SGD updates with linear approximation, we have the gradient of the approximate value function w.r.t $\mathbf{w}$ is
 \begin{equation}
 \nabla_\mathbf{w}\hat{v}(s,\mathbf{w})=\mathbf{x}(s)
 \end{equation}
 Thus, with linear approximation, the SGD update can be rewrite as
 \begin{equation}
-\mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\left[G_t-\hat{v}(S_t,\mathbf{w}\_t)\right]\mathbf{x}(S_t)
+\mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\left[G_t-\hat{v}(S_t,\mathbf{w}_t)\right]\mathbf{x}(S_t)
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;In the linear case, there is only one optimum, and thus any method that is guaranteed to converge to or near a local optimum is automatically guaranteed to converge to or near the global optimum.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;The gradient MC algorithm in the previous section converges to the global optimum of the $\overline{\text{VE}}$ under linear function approximation if $\alpha$ is reduced over time according to the usual conditions.&lt;/li&gt;
+  &lt;li&gt;The semi-gradient TD algorithm also converges under linear approximation.
+    &lt;ul&gt;
+      &lt;li&gt;Recall that, at each time $t$, the semi-gradient TD update is
+  \begin{align}
+  \mathbf{w}_{t+1}&amp;amp;\doteq\mathbf{w}_t+\alpha\left(R_{t+1}+\gamma\mathbf{w}_t^\intercal\mathbf{x}_{t+1}-\mathbf{w}_t^\intercal\mathbf{x}_t\right)\mathbf{x}_t \\ &amp;amp;=\mathbf{w}_t+\alpha\left(R_{t+1}\mathbf{x}_t-\mathbf{x}_t(\mathbf{x}_t-\gamma\mathbf{x}_{t+1})^\intercal\mathbf{w}_t\right),
+  \end{align}
+  where $\mathbf{x}_t=\mathbf{x}(S_t)$. Once the system has reached steady state, for any given $\mathbf{w}_t$, the expected next weight vector can be written as
+  \begin{equation}
+  \mathbb{E}\left[\mathbf{w}_{t+1}\vert\mathbf{w}_t\right]=\mathbf{w}_t+\alpha\left(\mathbf{b}-\mathbf{A}\mathbf{w}_t\right),\tag{2}\label{2}
+  \end{equation}
+  where
+  \begin{align}
+  \mathbf{b}&amp;amp;\doteq\mathbb{E}\left[R_{t+1}\mathbf{x}_t\right]\in\mathbb{R}^d, \\ \mathbf{A}&amp;amp;\doteq\mathbb{E}\left[\mathbf{x}_t\left(\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\right)^\intercal\right]\in\mathbb{R}^d\times\mathbb{R}^d\tag{3}\label{3}
+  \end{align}
+  From \eqref{2}, it is easily seen that if the system converges, it must converges to the weight vector $\mathbf{w}_{\text{TD}}$ at which
+  \begin{align}
+  \mathbf{b}-\mathbf{A}\mathbf{w}_{\text{TD}}&amp;amp;=\mathbf{0} \\ \mathbf{w}_{\text{TD}}&amp;amp;=\mathbf{A}^{-1}\mathbf{b}
+  \end{align}
+  This quantity, $\mathbf{w}_{\text{TD}}$, is called the &lt;em&gt;TD fixed point&lt;/em&gt;. And in fact, linear semi-gradient TD(0) converges to this point.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Proof&lt;/strong&gt;:&lt;br /&gt;
+  We have \eqref{2} can be written as
+  \begin{equation}
+  \mathbb{E}\left[\mathbf{w}_{t+1}\vert\mathbf{w}_t\right]=\left(\mathbf{I}-\alpha\mathbf{A}\right)\mathbf{w}_t+\alpha\mathbf{b}
+  \end{equation}
+  The idea of the proof is prove that the matrix $\mathbf{A}$ in \eqref{3} is a positive definite matrix&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;, since $\mathbf{w}_t$ will be reduced toward zero whenever $\mathbf{A}$ is positive definite.&lt;br /&gt;
+  For linear TD(0), in the continuing case with $\gamma&amp;lt;1$, the matrix $\mathbf{A}$ can be written as
+  \begin{align}
+  \mathbf{A}&amp;amp;=\sum_s\mu(s)\sum_a\pi(a\vert s)\sum_{r,s’}p(r,s’\vert s,a)\mathbf{x}(s)\big(\mathbf{x}(s)-\gamma\mathbf{x}(s’)\big)^\intercal \\ &amp;amp;=\sum_s\mu(s)\sum_{s’}p(s’\vert s)\mathbf{x}(s)\big(\mathbf{x}(s)-\gamma\mathbf{x}(s’)\big)^\intercal \\ &amp;amp;=\sum_s\mu(s)\mathbf{x}(s)\Big(\mathbf{x}(s)-\gamma\sum_{s’}p(s’\vert s)\mathbf{x}(s’)\Big)^\intercal \\ &amp;amp;=\mathbf{X}^\intercal\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})\mathbf{X},\tag{4}\label{4}
+  \end{align}
+  where
+        &lt;ul&gt;
+          &lt;li&gt;$\mu(s)$ is the stationary distribution under $\pi$;&lt;/li&gt;
+          &lt;li&gt;$p(s’\vert s)$ is the probability transition from $s$ to $s’$ under policy $\pi$;&lt;/li&gt;
+          &lt;li&gt;$\mathbf{P}$ is the $\vert\mathcal{S}\vert\times\vert\mathcal{S}\vert$ matrix of these probabilities;&lt;/li&gt;
+          &lt;li&gt;$\mathbf{D}$ is the $\vert\mathcal{S}\vert\times\vert\mathcal{S}\vert$ diagonal matrix with the $\mu(s)$ on its diagonal;&lt;/li&gt;
+          &lt;li&gt;$\mathbf{X}$ is the $\vert\mathcal{S}\vert\times d$ matrix with $\mathbf{x}(s)$ as its row.&lt;/li&gt;
+        &lt;/ul&gt;
+
+        &lt;p&gt;Hence, it is clear that the positive definiteness of $A$ depends on the matrix $\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})$ in \eqref{4}.&lt;/p&gt;
+
+        &lt;p&gt;To continue proving the positive definiteness of $\mathbf{A}$, we use two lemmas:&lt;/p&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;strong&gt;Lemma 1&lt;/strong&gt;: &lt;em&gt;A square matrix $\mathbf{A}$ is positive definite if $\mathbf{A}+\mathbf{A}^\intercal$&lt;/em&gt; is positive definite.&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Lemma 2&lt;/strong&gt;: &lt;em&gt;If $\mathbf{A}$ is a real, symmetric, and strictly diagonally dominant matrix with positive diagonal entries, then $\mathbf{A}$ is positive definite&lt;/em&gt;.&lt;/li&gt;
+        &lt;/ul&gt;
+
+        &lt;p&gt;With these lemmas, plus since $\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})$ has positive diagonal entries and negative off-diagonal entries, so all we have to show is that each row sum plus the corresponding column sum is positive. The row sums are all positive because $\mathbf{P}$ is a stochastic matrix and $\gamma&amp;lt;1$. Thus the problem remains to show that the column sums are nonnegative.&lt;/p&gt;
+
+        &lt;p&gt;Let $\mathbf{1}$ denote the column vector with all components equal to $1$ and $\boldsymbol{\mu}(s)$ denote the vectorized version of $\mu(s)$: i.e., $\boldsymbol{\mu}\in\mathbb{R}^{\vert\mathcal{S}\vert}$. Thus, $\boldsymbol{\mu}=\mathbf{P}^\intercal\boldsymbol{\mu}$ since $\mu(s)$ is the stationary distribution. We have:
+  \begin{align}
+  \mathbf{1}^\intercal\mathbf{D}\left(\mathbf{I}-\gamma\mathbf{P}\right)&amp;amp;=\boldsymbol{\mu}^\intercal\left(\mathbf{I}-\gamma\mathbf{P}\right) \\ &amp;amp;=\boldsymbol{\mu}^\intercal-\gamma\boldsymbol{\mu}^\intercal\mathbf{P} \\ &amp;amp;=\boldsymbol{\mu}^\intercal-\gamma\boldsymbol{\mu}^\intercal \\ &amp;amp;=\left(1-\gamma\right)\boldsymbol{\mu}^\intercal,
+  \end{align}
+  which implies that the column sums of $\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})$ are positive.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;At the TD fixed point, it has also been proven (in the continuing case) that $\overline{\text{VE}}$ is within a bounded expansion of the lowest possible error
+  \begin{equation}
+  \overline{\text{VE}}(\mathbf{w}_{\text{TD}})\leq\dfrac{1}{1-\gamma}\min_{\mathbf{w}}\overline{\text{VE}}(\mathbf{w})
+  \end{equation}&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;feature-cons&quot;&gt;Feature Construction&lt;/h4&gt;
+&lt;p&gt;There are various ways to define features. The simplest way is to use each variable directly as a basis function along with a constant function, i.e., setting:
+\begin{equation}
+x_0(s)=1;\hspace{1cm}x_i(s)=s_i,0\leq i\leq d
 \end{equation}
+However, most interesting value functions are too complex to be represented in this way. This scheme therefore was generalized into the polynomial basis.&lt;/p&gt;
 
-In the linear case, there is only one optimum, and thus any method that is guaranteed to converge to or near a local optimum is automatically guaranteed to converge to or near the global optimum.
-- The gradient MC algorithm in the previous section converges to the global optimum of the $\overline{\text{VE}}$ under linear function approximation if $\alpha$ is reduced over time according to the usual conditions.
-- The semi-gradient TD algorithm also converges under linear approximation. 
-	- Recall that, at each time $t$, the semi-gradient TD update is
-	\begin{align}
-	\mathbf{w}\_{t+1}&amp;\doteq\mathbf{w}\_t+\alpha\left(R_{t+1}+\gamma\mathbf{w}\_t^\intercal\mathbf{x}\_{t+1}-\mathbf{w}\_t^\intercal\mathbf{x}\_t\right)\mathbf{x}\_t \\\\ &amp;=\mathbf{w}\_t+\alpha\left(R_{t+1}\mathbf{x}\_t-\mathbf{x}\_t(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1})^\intercal\mathbf{w}\_t\right),
-	\end{align}
-	where $\mathbf{x}\_t=\mathbf{x}(S_t)$. Once the system has reached steady state, for any given $\mathbf{w}\_t$, the expected next weight vector can be written as
-	\begin{equation}
-	\mathbb{E}\left[\mathbf{w}\_{t+1}\vert\mathbf{w}\_t\right]=\mathbf{w}\_t+\alpha\left(\mathbf{b}-\mathbf{A}\mathbf{w}\_t\right),\tag{2}\label{2}
-	\end{equation}
-	where
-	\begin{align}
-	\mathbf{b}&amp;\doteq\mathbb{E}\left[R_{t+1}\mathbf{x}\_t\right]\in\mathbb{R}^d, \\\\ \mathbf{A}&amp;\doteq\mathbb{E}\left[\mathbf{x}\_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)^\intercal\right]\in\mathbb{R}^d\times\mathbb{R}^d\tag{3}\label{3}
-	\end{align}
-	From \eqref{2}, it is easily seen that if the system converges, it must converges to the weight vector $\mathbf{w}\_{\text{TD}}$ at which
-	\begin{align}
-	\mathbf{b}-\mathbf{A}\mathbf{w}\_{\text{TD}}&amp;=\mathbf{0} \\\\ \mathbf{w}\_{\text{TD}}&amp;=\mathbf{A}^{-1}\mathbf{b}
-	\end{align}
-	This quantity, $\mathbf{w}\_{\text{TD}}$, is called the *TD fixed point*. And in fact, linear semi-gradient TD(0) converges to this point.
-	- **Proof**:  
-		We have \eqref{2} can be written as
-		\begin{equation}
-		\mathbb{E}\left[\mathbf{w}\_{t+1}\vert\mathbf{w}\_t\right]=\left(\mathbf{I}-\alpha\mathbf{A}\right)\mathbf{w}\_t+\alpha\mathbf{b}
-		\end{equation}
-		The idea of the proof is prove that the matrix $\mathbf{A}$ in \eqref{3} is a positive definite matrix[^1], since $\mathbf{w}\_t$ will be reduced toward zero whenever $\mathbf{A}$ is positive definite.  
-		For linear TD(0), in the continuing case with $\gamma&lt;1$, the matrix $\mathbf{A}$ can be written as
-		\begin{align}
-		\mathbf{A}&amp;=\sum_s\mu(s)\sum_a\pi(a\vert s)\sum_{r,s&apos;}p(r,s&apos;\vert s,a)\mathbf{x}(s)\big(\mathbf{x}(s)-\gamma\mathbf{x}(s&apos;)\big)^\intercal \\\\ &amp;=\sum_s\mu(s)\sum_{s&apos;}p(s&apos;\vert s)\mathbf{x}(s)\big(\mathbf{x}(s)-\gamma\mathbf{x}(s&apos;)\big)^\intercal \\\\ &amp;=\sum_s\mu(s)\mathbf{x}(s)\Big(\mathbf{x}(s)-\gamma\sum_{s&apos;}p(s&apos;\vert s)\mathbf{x}(s&apos;)\Big)^\intercal \\\\ &amp;=\mathbf{X}^\intercal\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})\mathbf{X},\tag{4}\label{4}
-		\end{align}
-		where  
-		- $\mu(s)$ is the stationary distribution under $\pi$;  
-		- $p(s&apos;\vert s)$ is the probability transition from $s$ to $s&apos;$ under policy $\pi$;  
-		- $\mathbf{P}$ is the $\vert\mathcal{S}\vert\times\vert\mathcal{S}\vert$ matrix of these probabilities;  
-		- $\mathbf{D}$ is the $\vert\mathcal{S}\vert\times\vert\mathcal{S}\vert$ diagonal matrix with the $\mu(s)$ on its diagonal;
-		- $\mathbf{X}$ is the $\vert\mathcal{S}\vert\times d$ matrix with $\mathbf{x}(s)$ as its row.  
+&lt;h5 id=&quot;polynomial&quot;&gt;Polynomial Basis&lt;/h5&gt;
+&lt;p&gt;Suppose each state $s$ corresponds to $d$ numbers, $s_1,s_2\dots,s_d$, with each $s_i\in\mathbb{R}$. For this $d$-dimensional state space, each order-$n$ polynomial basis feature $x_i$ can be written as
+\begin{equation}
+x_i(s)=\prod_{j=1}^{d}s_j^{c_{i,j}},
+\end{equation}
+where each $c_{i,j}\in\{0,1,\dots,n\}$ for an integer $n\geq 0$. These features make up the order-$n$ polynomial basis for dimension $d$, which contains $(n+1)^d$ different features.&lt;/p&gt;
 
-		Hence, it is clear that the positive definiteness of $A$ depends on the matrix $\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})$ in \eqref{4}. 
+&lt;h5 id=&quot;fourier&quot;&gt;Fourier Basis&lt;/h5&gt;
 
-		To continue proving the posititive definiteness of $\mathbf{A}$, we use two lemmas:
-		- **Lemma 1**: *A square matrix $\mathbf{A}$ is positive definite if $\mathbf{A}+\mathbf{A}^\intercal$* is positive definite.
-		- **Lemma 2**: *If $\mathbf{A}$ is a real, symmetric, and strictly diagonally dominant matrix with positive diagonal entries, then $\mathbf{A}$ is positive definite*. 
-
-		With these lemmas, plus since $\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})$ has positive diagonal entries and negative off-diagonal entries, so all we have to show is that each row sum plus the corresponding column sum is positive. The row sums are all positive because $\mathbf{P}$ is a stochastic matrix and $\gamma&lt;1$. Thus the problem remains to show that the column sums are nonnegative.
-
-		Let $\mathbf{1}$ denote the column vector with all components equal to $1$ and $\boldsymbol{\mu}(s)$ denote the vectorized version of $\mu(s)$: i.e., $\boldsymbol{\mu}\in\mathbb{R}^{\vert\mathcal{S}\vert}$. Thus, $\boldsymbol{\mu}=\mathbf{P}^\intercal\boldsymbol{\mu}$ since $\mu(s)$ is the stationary distribution. We have:
-		\begin{align}
-		\mathbf{1}^\intercal\mathbf{D}\left(\mathbf{I}-\gamma\mathbf{P}\right)&amp;=\boldsymbol{\mu}^\intercal\left(\mathbf{I}-\gamma\mathbf{P}\right) \\\\ &amp;=\boldsymbol{\mu}^\intercal-\gamma\boldsymbol{\mu}^\intercal\mathbf{P} \\\\ &amp;=\boldsymbol{\mu}^\intercal-\gamma\boldsymbol{\mu}^\intercal \\\\ &amp;=\left(1-\gamma\right)\boldsymbol{\mu}^\intercal,
-		\end{align}
-		which implies that the column sums of $\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})$ are positive.
-
-	- At the TD fixed point, it has also been proven (in the continuing case) that $\overline{\text{VE}}$ is within a bounded expansion of the lowest possible error
-	\begin{equation}
-	\overline{\text{VE}}(\mathbf{w}\_{\text{TD}})\leq\dfrac{1}{1-\gamma}\min_{\mathbf{w}}\overline{\text{VE}}(\mathbf{w})
-	\end{equation}
-
-#### Feature Construction
-{: #feature-cons}
-There are various ways to define features. The simpliest way is to use each variable directly as a basis function along with a constant function. However, most interesting function are too complex to be represented in this way.
-
-##### Polynomial Basis
-{: #polynomial}
-
-
-##### Fourier Basis
-{: #fourier}
-**Fourier series** is applied widely in Maths to approximate a periodic function[^2]. For example:
+&lt;h6 id=&quot;uni-fourier-series&quot;&gt;The Univariate Fourier Series&lt;/h6&gt;
+&lt;p&gt;&lt;strong&gt;Fourier series&lt;/strong&gt; is applied widely in Mathematics to approximate a periodic function&lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;. For example:&lt;/p&gt;
 
 &lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-07-10/fourier_series.gif&quot; alt=&quot;Fourier series visualization&quot; width=&quot;480&quot; height=&quot;360px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot;/&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 1&lt;/b&gt;: Four partial sums (Fourier series) of lengths 1, 2, 3, and 4 terms, showing how the approximation to a square wave improves as the number of terms increases: where $f_1(\theta)=\frac{4\sin\theta}{\pi},f_2(\theta)=\frac{4\sin3\theta}{3\pi},f_3(\theta)=\frac{4\sin5\theta}{5\pi}$ and $f_4(\theta)=\frac{4\sin7\theta}{7\pi}$. The code can be found &lt;span markdown=&quot;1&quot;&gt;[here](https://github.com/trunghng/maths-visualization/blob/main/fourier-series/fourier_series.py)&lt;/span&gt;&lt;/figcaption&gt;
-&lt;/figure&gt;&lt;br/&gt;
+	&lt;img src=&quot;/assets/images/2022-07-10/fourier_series.gif&quot; alt=&quot;Fourier series visualization&quot; width=&quot;480&quot; height=&quot;360px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 1&lt;/b&gt;: Four partial sums (Fourier series) of lengths 1, 2, 3, and 4 terms, showing how the approximation to a square wave improves as the number of terms increases: where $f_1(\theta)=\frac{4\sin\theta}{\pi},f_2(\theta)=\frac{4\sin 3\theta}{3\pi},f_3(\theta)=\frac{4\sin 5\theta}{5\pi}$ and $f_4(\theta)=\frac{4\sin 7\theta}{7\pi}$. The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/maths-visualization/blob/main/fourier-series/fourier_series.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;&lt;br /&gt;
+In particular, the $n$-degree Fourier expansion of $f$ with period $\tau$ is
+\begin{equation}
+\bar{f}(x)=\dfrac{a_0}{2}+\sum_{k=1}^{n}\left[a_k\cos\left(k\frac{2\pi}{\tau}x\right)+b_k\left(k\frac{2\pi}{\tau}x\right)\right],
+\end{equation}
+where
+\begin{align}
+a_k&amp;amp;=\frac{2}{\tau}\int_{0}^{\tau}f(x)\cos\left(\frac{2\pi kx}{\tau}\right)\,dx, \\ b_k&amp;amp;=\frac{2}{\tau}\int_{0}^{\tau}f(x)\sin\left(\frac{2\pi kx}{\tau}\right)\,dx
+\end{align}
+In the RL setting, $f$ is unknown so we cannot compute $a_0,\dots,a_n$ and $b_1,\dots,b_n$, but we can instead treat them as parameters in a linear function approximation scheme, with
+\begin{equation}
+\phi_i(x)=\begin{cases}1 &amp;amp;\text{if }i=0 \\ \cos\left(\frac{(i+1)\pi x}{\tau}\right) &amp;amp;\text{if }i&amp;gt;0,i\text{ odd} \\ \sin\left(\frac{i\pi x}{\tau}\right) &amp;amp;\text{if }i&amp;gt;0,i\text{ even}\end{cases}
+\end{equation}
+Thus, a full $n$-th order Fourier approximation to a one-dimensional value function results in a linear function approximation with $2n+1$ terms.&lt;/p&gt;
 
-##### Coarse Coding
-{: #coarse-coding}
+&lt;h6 id=&quot;even-odd-non-periodic-func&quot;&gt;Even, Odd and Non-Periodic Functions&lt;/h6&gt;
+&lt;p&gt;If $f$ is known to be &lt;em&gt;even&lt;/em&gt; (i.e., $f(x)=f(-x)$), then $\forall i&amp;gt;0$, we have:
+\begin{align}
+b_i&amp;amp;=\frac{2}{\tau}\int_{0}^{\tau}f(x)\sin\left(\frac{2\pi ix}{\tau}\right)\,dx \\ &amp;amp;=\frac{2}{\tau}\left[\int_{0}^{\tau/2}f(x)\sin\left(\frac{2\pi ix}{\tau}\right)\,dx+\int_{\tau/2}^{\tau}f(x)\sin\left(\frac{2\pi ix}{\tau}\right)\,dx\right] \\ &amp;amp;=\frac{2}{\tau}\left[\int_{0}^{\tau/2}f(x)\sin\left(\frac{2\pi ix}{\tau}\right)\,dx+\int_{\tau/2}^{\tau}f(x-\tau)\sin\left(\frac{2\pi ix}{\tau}-2\pi i\right)\,dx\right] \\ &amp;amp;=\frac{2}{\tau}\left[\int_{0}^{\tau/2}f(x)\sin\left(\frac{2\pi ix}{\tau}\right)\,dx+\int_{\tau/2}^{\tau}f(x-\tau)\sin\left(\frac{2\pi i(x-\tau)}{\tau}\right)\,dx\right] \\ &amp;amp;=\frac{2}{\tau}\left[\int_{0}^{\tau/2}f(x)\sin\left(\frac{2\pi ix}{\tau}\right)\,dx+\int_{-\tau/2}^{0}f(x)\sin\left(\frac{2\pi ix}{\tau}\right)\,dx\right] \\ &amp;amp;=0,
+\end{align}
+so the $\sin$ terms can be dropped, which reduces the terms required for an $n$-th order Fourier approximation to $n+1$.&lt;/p&gt;
 
-##### Tile Coding
-{: #tile-coding}
+&lt;p&gt;Similarly, if $f$ is known to be &lt;em&gt;odd&lt;/em&gt; (i.e., $f(x)=-f(-x)$), then $\forall i&amp;gt;0, a_i=0$, so we can omit the $\cos$ terms.&lt;/p&gt;
 
-##### Radial Basis Functions
-{: #rbf}
+&lt;p&gt;However, in general, value functions are not even, odd, or periodic (or known to be in advance). In such cases, if $f$ is defined over a bounded interval with length, let us assume, $\tau$, or without loss of generality, $\left[-\frac{\tau}{2},\frac{\tau}{2}\right]$, but only project the input variable to $\left[0,\frac{\tau}{2}\right]$. This results in a function periodic on $\left[-\frac{\tau}{2},\frac{\tau}{2}\right]$, but unconstrained on $\left(0,\frac{\tau}{2}\right]$. We are now free to choose whether or not the function is even or odd over $\left[-\frac{\tau}{2},\frac{\tau}{2}\right]$, and can drop half of the terms in the approximation.&lt;/p&gt;
 
-### Least-Squares TD
-{: #lstd}
+&lt;p&gt;In general, we expect it will be better to use the “half-even” approximation and drop the $\sin$ terms because this causes only a slight discontinuity at the origin. Thus, we can define the univariate $n$-th order Fourier basis as:
+\begin{equation}
+x_i(s)=\cos(i\pi s),
+\end{equation}
+for $i=0,\dots,n$.&lt;/p&gt;
 
-## References
-[1] Richard S. Sutton &amp; Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition)  
+&lt;h6 id=&quot;mult-fourier-series&quot;&gt;The Multivariate Fourier Series&lt;/h6&gt;
+&lt;p&gt;The $n$-order Fourier expansion of the multivariate function $F$ with period $\tau$ in $d$ dimensions is
+\begin{equation}
+\overline{F}(\mathbf{x})=\sum_\mathbf{c}\left[a_\mathbf{c}\cos\left(\frac{2\pi}{\tau}\mathbf{c}\cdot\mathbf{x}\right)+b_\mathbf{c}\sin\left(\frac{2\pi}{\tau}\mathbf{c}\cdot\mathbf{x}\right)\right],
+\end{equation}
+where $\mathbf{c}=(c_1,\dots,c_d)^\intercal,c_i\in\left[0,\dots,n\right],1\leq i\leq d$.&lt;/p&gt;
 
-[2] Deepmind x UCL. [Reinforcement Learning Lecture Series 2021](https://www.deepmind.com/learning-resources/reinforcement-learning-lecture-series-2021) 
+&lt;p&gt;This results in $2(n+1)^d$ basis functions for an $n$-th order full Fourier approximation to a value function in $d$ dimensions, which can be reduced to $(n+1)^d$ if we drop either the $sin$ or $cos$ terms for each variable as described above. Thus, we can define the $n$-th order Fourier basis in the multi-dimensional case as:&lt;/p&gt;
 
-[3] Sutton, R. S. (1988). [Learning to predict by the methods of temporal differences](doi:10.1007/bf00115009). Machine Learning, 3(1), 9–44. 
+&lt;p&gt;Suppose each state $s$ corresponds to a vector of $d$ numbers, $\mathbf{s}=(s_1,\dots,s_d)^\intercal$, with each $s_i\in[0,1]$. The $i$-th feature in the order-$n$ Fourier cosine basis can then be written as:
+\begin{equation}
+x_i(s)=\cos\left(\pi\mathbf{s}^\intercal\mathbf{c}^i\right),
+\end{equation}
+where $\mathbf{c}=(c_1^i,\dots,c_d^i)^\intercal$, with $c_j^i\in\{0,\dots,n\}$ for $j=1,\dots,d$ and $i=0,\dots,(n+1)^d$.&lt;/p&gt;
 
-[4] Konidaris, G. &amp; Osentoski, S. &amp; Thomas, P.. [Value Function Approximation in Reinforcement Learning Using the Fourier Basis](#https://dl.acm.org/doi/10.5555/2900423.2900483). AAAI Conference on Artificial Intelligence, North America, aug. 2011. 
+&lt;p&gt;This defines a feature for each of the $(n+1)^d$ possible integer vector $\mathbf{c}^i$. The inner product $\mathbf{s}^\intercal\mathbf{c}^i$ has the effect of assigning an integer in $\{0,\dots,n\}$ to each dimension of $\mathbf{s}$. As in the one-dimensional case, this integer determines the feature’s frequency along that dimension. The feature thus can be shifted and scaled to suit the bounded state space of a particular application.&lt;/p&gt;
 
+&lt;h5 id=&quot;coarse-coding&quot;&gt;Coarse Coding&lt;/h5&gt;
 
-## Footnotes
-[^1]: A $n\times n$ matrix $A$ is called *positive definite* if and only if for any non-zero vector $\mathbf{x}\in\mathbb{R}^n$, we always have
-	\begin{equation}
-	\mathbf{x}^\intercal\mathbf{A}\mathbf{x}&gt;0
-	\end{equation}
+&lt;h5 id=&quot;tile-coding&quot;&gt;Tile Coding&lt;/h5&gt;
 
-[^2]: A function $f$ is periodic with period $T$ if
-	\begin{equation}
-	f(x+T)=f(x),\forall x
-	\end{equation}</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="function-approximation" /><summary type="html"></summary></entry><entry><title type="html">Temporal-Difference Learning</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html" rel="alternate" type="text/html" title="Temporal-Difference Learning" /><published>2022-04-08T16:55:00+07:00</published><updated>2022-04-08T16:55:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html">&gt; So far in this [series](/tag/my-rl), we have gone through the ideas of [**dynamic programming** (DP)]({% post_url 2021-07-25-dp-in-mdp %}) and [**Monte Carlo**]({% post_url 2021-08-21-monte-carlo-in-rl %}). What will happen if we combine these ideas together? **Temporal-difference (TD) learning** is our answer.
+&lt;h5 id=&quot;rbf&quot;&gt;Radial Basis Functions&lt;/h5&gt;
+
+&lt;h3 id=&quot;lstd&quot;&gt;Least-Squares TD&lt;/h3&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[2] Deepmind x UCL. &lt;a href=&quot;https://www.deepmind.com/learning-resources/reinforcement-learning-lecture-series-2021&quot;&gt;Reinforcement Learning Lecture Series 2021&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[3] Sutton, R. S. (1988). &lt;a href=&quot;doi:10.1007/bf00115009&quot;&gt;Learning to predict by the methods of temporal differences&lt;/a&gt;. Machine Learning, 3(1), 9–44.&lt;/p&gt;
+
+&lt;p&gt;[4] Konidaris, G. &amp;amp; Osentoski, S. &amp;amp; Thomas, P.. &lt;a href=&quot;https://dl.acm.org/doi/10.5555/2900423.2900483&quot;&gt;Value Function Approximation in Reinforcement Learning Using the Fourier Basis&lt;/a&gt;. AAAI Conference on Artificial Intelligence, North America, aug. 2011.&lt;/p&gt;
+
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
+
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;A $n\times n$ matrix $A$ is called &lt;em&gt;positive definite&lt;/em&gt; if and only if for any non-zero vector $\mathbf{x}\in\mathbb{R}^n$, we always have
+\begin{equation}
+\mathbf{x}^\intercal\mathbf{A}\mathbf{x}&amp;gt;0
+\end{equation} &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;A function $f$ is periodic with period $\tau$ if
+\begin{equation}
+f(x+\tau)=f(x),\forall x
+\end{equation} &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="function-approximation" /><summary type="html"></summary></entry><entry><title type="html">Temporal-Difference Learning</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html" rel="alternate" type="text/html" title="Temporal-Difference Learning" /><published>2022-04-08T16:55:00+07:00</published><updated>2022-04-08T16:55:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html">&gt; So far in this [series](/tag/my-rl), we have gone through the ideas of [**dynamic programming** (DP)]({% post_url 2021-07-25-dp-in-mdp %}) and [**Monte Carlo**]({% post_url 2021-08-21-monte-carlo-in-rl %}). What will happen if we combine these ideas together? **Temporal-difference (TD) learning** is our answer.
 
 &lt;!-- excerpt-end --&gt;
 - [TD(0)](#td0)
