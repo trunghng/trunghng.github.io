@@ -18,7 +18,7 @@ comments: true
 	- [Linear Function Approximation](#lin-func-approx)
 		- [Linear Methods](#lin-methods)
 		- [Feature Construction](#feature-cons)
-			- [Polinomials](#polinomials)
+			- [Polynomial Basis](#polynomial)
 			- [Fourier Basis](#fourier)
 			- [Coarse Coding](#coarse-coding)
 			- [Tile Coding](#tile-coding)
@@ -81,7 +81,7 @@ Say, consider a differentiable function $J(\mathbf{w})$ of parameter vector $\ma
 
 The gradient of $J(\mathbf{w})$ w.r.t $\mathbf{w}$ is defined to be
 \begin{equation}
-\nabla_{\mathbf{w}}J(\mathbf{w})=\left(\begin{smallmatrix}\dfrac{\partial J(\mathbf{w})}{\partial\mathbf{w}\_1} \\\\ \vdots \\\\ \dfrac{\partial J(\mathbf{w})}{\partial\mathbf{w}\_n}\end{smallmatrix}\right)
+\nabla_{\mathbf{w}}J(\mathbf{w})=\left(\begin{smallmatrix}\dfrac{\partial J(\mathbf{w})}{\partial\mathbf{w}\_1} \\\\ \vdots \\\\ \dfrac{\partial J(\mathbf{w})}{\partial\mathbf{w}\_d}\end{smallmatrix}\right)
 \end{equation}
 The idea of Gradient descent is to minimize the objective function $J(\mathbf{w})$, we repeatly move $\mathbf{w}$ in the direction of steepest decrease of $J$, which is the direction of negative gradient $-\nabla_\mathbf{w}J(\mathbf{w})$. 
 
@@ -127,37 +127,131 @@ Such methods are called **semi-gradient** since they include only a part of the 
 
 ### Linear Function Approximation
 {: #lin-func-approx}
-One of the most crucial special cases of function approximation is that in which the approximate function, $\hat{v}(\cdot,\mathbf{w})$, is a linear function of the weight vector, $\mathbf{w}$.
+One of the most crucial special cases of function approximation is that in which the approximate function, $\hat{v}(\cdot,\mathbf{w})$, is a linear function of the weight vector, $\mathbf{w}$. 
+
+Corresponding to every state $s$, there is a real-valued vector $\mathbf{x}(s)\doteq\left(x_1(s),x_2(s),\dots,x_d(s)\right)^\intercal$, with the same number of components with $\mathbf{w}$.
 
 #### Linear Methods
 {: #lin-methods}
+Linear methods approximate value function by the inner product between $\mathbf{w}$ and $\mathbf{x}(s)$:
+\begin{equation}
+\hat{v}(s,\mathbf{w})\doteq\mathbf{w}^\intercal\mathbf{x}(s)=\sum_{i=1}^{d}w_ix_i(s)\tag{1}\label{1}
+\end{equation}
+The vector $\mathbf{x}(s)$ is called a *feature vector* representing state $s$, i.e., $x_i:\mathcal{S}\to\mathbb{R}$.  
+
+For linear methods, features are *basis functions* because they form a linear basis for the set of approximate functions. Constructing $d$-dimensional feature vectors to represent states is the same as selecting a set of $d$ basis functions. 
+
+From \eqref{1}, when using SGD updates with linear approximation, we have the gradient of the approximate value function w.r.t $\mathbf{w}$ is
+\begin{equation}
+\nabla_\mathbf{w}\hat{v}(s,\mathbf{w})=\mathbf{x}(s)
+\end{equation}
+Thus, with linear approximation, the SGD update can be rewrite as
+\begin{equation}
+\mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\left[G_t-\hat{v}(S_t,\mathbf{w}\_t)\right]\mathbf{x}(S_t)
+\end{equation}
+
+In the linear case, there is only one optimum, and thus any method that is guaranteed to converge to or near a local optimum is automatically guaranteed to converge to or near the global optimum.
+- The gradient MC algorithm in the previous section converges to the global optimum of the $\overline{\text{VE}}$ under linear function approximation if $\alpha$ is reduced over time according to the usual conditions.
+- The semi-gradient TD algorithm also converges under linear approximation. 
+	- Recall that, at each time $t$, the semi-gradient TD update is
+	\begin{align}
+	\mathbf{w}\_{t+1}&\doteq\mathbf{w}\_t+\alpha\left(R_{t+1}+\gamma\mathbf{w}\_t^\intercal\mathbf{x}\_{t+1}-\mathbf{w}\_t^\intercal\mathbf{x}\_t\right)\mathbf{x}\_t \\\\ &=\mathbf{w}\_t+\alpha\left(R_{t+1}\mathbf{x}\_t-\mathbf{x}\_t(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1})^\intercal\mathbf{w}\_t\right),
+	\end{align}
+	where $\mathbf{x}\_t=\mathbf{x}(S_t)$. Once the system has reached steady state, for any given $\mathbf{w}\_t$, the expected next weight vector can be written as
+	\begin{equation}
+	\mathbb{E}\left[\mathbf{w}\_{t+1}\vert\mathbf{w}\_t\right]=\mathbf{w}\_t+\alpha\left(\mathbf{b}-\mathbf{A}\mathbf{w}\_t\right),\tag{2}\label{2}
+	\end{equation}
+	where
+	\begin{align}
+	\mathbf{b}&\doteq\mathbb{E}\left[R_{t+1}\mathbf{x}\_t\right]\in\mathbb{R}^d, \\\\ \mathbf{A}&\doteq\mathbb{E}\left[\mathbf{x}\_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)^\intercal\right]\in\mathbb{R}^d\times\mathbb{R}^d\tag{3}\label{3}
+	\end{align}
+	From \eqref{2}, it is easily seen that if the system converges, it must converges to the weight vector $\mathbf{w}\_{\text{TD}}$ at which
+	\begin{align}
+	\mathbf{b}-\mathbf{A}\mathbf{w}\_{\text{TD}}&=\mathbf{0} \\\\ \mathbf{w}\_{\text{TD}}&=\mathbf{A}^{-1}\mathbf{b}
+	\end{align}
+	This quantity, $\mathbf{w}\_{\text{TD}}$, is called the *TD fixed point*. And in fact, linear semi-gradient TD(0) converges to this point.
+	- **Proof**:  
+		We have \eqref{2} can be written as
+		\begin{equation}
+		\mathbb{E}\left[\mathbf{w}\_{t+1}\vert\mathbf{w}\_t\right]=\left(\mathbf{I}-\alpha\mathbf{A}\right)\mathbf{w}\_t+\alpha\mathbf{b}
+		\end{equation}
+		The idea of the proof is prove that the matrix $\mathbf{A}$ in \eqref{3} is a positive definite matrix[^1], since $\mathbf{w}\_t$ will be reduced toward zero whenever $\mathbf{A}$ is positive definite.  
+		For linear TD(0), in the continuing case with $\gamma<1$, the matrix $\mathbf{A}$ can be written as
+		\begin{align}
+		\mathbf{A}&=\sum_s\mu(s)\sum_a\pi(a\vert s)\sum_{r,s'}p(r,s'\vert s,a)\mathbf{x}(s)\big(\mathbf{x}(s)-\gamma\mathbf{x}(s')\big)^\intercal \\\\ &=\sum_s\mu(s)\sum_{s'}p(s'\vert s)\mathbf{x}(s)\big(\mathbf{x}(s)-\gamma\mathbf{x}(s')\big)^\intercal \\\\ &=\sum_s\mu(s)\mathbf{x}(s)\Big(\mathbf{x}(s)-\gamma\sum_{s'}p(s'\vert s)\mathbf{x}(s')\Big)^\intercal \\\\ &=\mathbf{X}^\intercal\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})\mathbf{X},\tag{4}\label{4}
+		\end{align}
+		where  
+		- $\mu(s)$ is the stationary distribution under $\pi$;  
+		- $p(s'\vert s)$ is the probability transition from $s$ to $s'$ under policy $\pi$;  
+		- $\mathbf{P}$ is the $\vert\mathcal{S}\vert\times\vert\mathcal{S}\vert$ matrix of these probabilities;  
+		- $\mathbf{D}$ is the $\vert\mathcal{S}\vert\times\vert\mathcal{S}\vert$ diagonal matrix with the $\mu(s)$ on its diagonal;
+		- $\mathbf{X}$ is the $\vert\mathcal{S}\vert\times d$ matrix with $\mathbf{x}(s)$ as its row.  
+
+		Hence, it is clear that the positive definiteness of $A$ depends on the matrix $\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})$ in \eqref{4}. 
+
+		To continue proving the posititive definiteness of $\mathbf{A}$, we use two lemmas:
+		- **Lemma 1**: *A square matrix $\mathbf{A}$ is positive definite if $\mathbf{A}+\mathbf{A}^\intercal$* is positive definite.
+		- **Lemma 2**: *If $\mathbf{A}$ is a real, symmetric, and strictly diagonally dominant matrix with positive diagonal entries, then $\mathbf{A}$ is positive definite*. 
+
+		With these lemmas, plus since $\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})$ has positive diagonal entries and negative off-diagonal entries, so all we have to show is that each row sum plus the corresponding column sum is positive. The row sums are all positive because $\mathbf{P}$ is a stochastic matrix and $\gamma<1$. Thus the problem remains to show that the column sums are nonnegative.
+
+		Let $\mathbf{1}$ denote the column vector with all components equal to $1$ and $\boldsymbol{\mu}(s)$ denote the vectorized version of $\mu(s)$: i.e., $\boldsymbol{\mu}\in\mathbb{R}^{\vert\mathcal{S}\vert}$. Thus, $\boldsymbol{\mu}=\mathbf{P}^\intercal\boldsymbol{\mu}$ since $\mu(s)$ is the stationary distribution. We have:
+		\begin{align}
+		\mathbf{1}^\intercal\mathbf{D}\left(\mathbf{I}-\gamma\mathbf{P}\right)&=\boldsymbol{\mu}^\intercal\left(\mathbf{I}-\gamma\mathbf{P}\right) \\\\ &=\boldsymbol{\mu}^\intercal-\gamma\boldsymbol{\mu}^\intercal\mathbf{P} \\\\ &=\boldsymbol{\mu}^\intercal-\gamma\boldsymbol{\mu}^\intercal \\\\ &=\left(1-\gamma\right)\boldsymbol{\mu}^\intercal,
+		\end{align}
+		which implies that the column sums of $\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})$ are positive.
+
+	- At the TD fixed point, it has also been proven (in the continuing case) that $\overline{\text{VE}}$ is within a bounded expansion of the lowest possible error
+	\begin{equation}
+	\overline{\text{VE}}(\mathbf{w}\_{\text{TD}})\leq\dfrac{1}{1-\gamma}\min_{\mathbf{w}}\overline{\text{VE}}(\mathbf{w})
+	\end{equation}
 
 #### Feature Construction
 {: #feature-cons}
+There are various ways to define features. The simpliest way is to use each variable directly as a basis function along with a constant function. However, most interesting function are too complex to be represented in this way.
 
-##### Polinomials
-{: #polinomials}
+##### Polynomial Basis
+{: #polynomial}
+
 
 ##### Fourier Basis
 {: #fourier}
-**Fourier series** is applied widely in Maths to approximate a periodic function[^1]. For example:
+**Fourier series** is applied widely in Maths to approximate a periodic function[^2]. For example:
 
 <figure>
 	<img src="/assets/images/2022-07-10/fourier_series.gif" alt="Fourier series visualization" width="480" height="360px" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Four partial sums (Fourier series) of lengths 1, 2, 3, and 4 terms, showing how the approximation to a square wave improves as the number of terms increases: where $f_1(x)=\frac{4\sin\theta}{\pi},f_2(x)=\frac{4\sin3\theta}{3\pi},f_3=\frac{4\sin5\theta}{5\pi}$ and $f_4(x)=\frac{4\sin7\theta}{7\pi}$. The code can be found <span markdown="1">[here](https://github.com/trunghng/maths-visualization/blob/main/fourier-series/fourier_series.py)</span></figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Four partial sums (Fourier series) of lengths 1, 2, 3, and 4 terms, showing how the approximation to a square wave improves as the number of terms increases: where $f_1(\theta)=\frac{4\sin\theta}{\pi},f_2(\theta)=\frac{4\sin3\theta}{3\pi},f_3(\theta)=\frac{4\sin5\theta}{5\pi}$ and $f_4(\theta)=\frac{4\sin7\theta}{7\pi}$. The code can be found <span markdown="1">[here](https://github.com/trunghng/maths-visualization/blob/main/fourier-series/fourier_series.py)</span></figcaption>
 </figure><br/>
 
+##### Coarse Coding
+{: #coarse-coding}
+
+##### Tile Coding
+{: #tile-coding}
+
+##### Radial Basis Functions
+{: #rbf}
+
+### Least-Squares TD
+{: #lstd}
 
 ## References
 [1] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition)  
 
-[2] Konidaris, G. & Osentoski, S. & Thomas, P.. [Value Function Approximation in Reinforcement Learning Using the Fourier Basis](#https://dl.acm.org/doi/10.5555/2900423.2900483). AAAI Conference on Artificial Intelligence, North America, aug. 2011. 
+[2] Deepmind x UCL. [Reinforcement Learning Lecture Series 2021](https://www.deepmind.com/learning-resources/reinforcement-learning-lecture-series-2021) 
 
-[3] Deepmind x UCL. [Reinforcement Learning Lecture Series 2021](https://www.deepmind.com/learning-resources/reinforcement-learning-lecture-series-2021)
+[3] Sutton, R. S. (1988). [Learning to predict by the methods of temporal differences](doi:10.1007/bf00115009). Machine Learning, 3(1), 9–44. 
+
+[4] Konidaris, G. & Osentoski, S. & Thomas, P.. [Value Function Approximation in Reinforcement Learning Using the Fourier Basis](#https://dl.acm.org/doi/10.5555/2900423.2900483). AAAI Conference on Artificial Intelligence, North America, aug. 2011. 
 
 
 ## Footnotes
-[^1]: A function $f$ is periodic with period $T$ if
+[^1]: A $n\times n$ matrix $A$ is called *positive definite* if and only if for any non-zero vector $\mathbf{x}\in\mathbb{R}^n$, we always have
+	\begin{equation}
+	\mathbf{x}^\intercal\mathbf{A}\mathbf{x}>0
+	\end{equation}
+
+[^2]: A function $f$ is periodic with period $T$ if
 	\begin{equation}
 	f(x+T)=f(x),\forall x
 	\end{equation}
