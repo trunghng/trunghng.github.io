@@ -148,53 +148,54 @@
 
   <div class="post-content e-content" itemprop="articleBody">
     <blockquote>
-  <p>Reinforcement Learning in continuous state space requires function approximation.
-<!-- excerpt-end --></p>
-  <ul>
-    <li><a href="#on-policy-methods">On-policy Methods</a>
-      <ul>
-        <li><a href="#value-func-approx">Value-function Approximation</a></li>
-        <li><a href="#pred-obj">The Prediction Objective</a></li>
-        <li><a href="#grad-algs">Gradient-based algorithms</a>
-          <ul>
-            <li><a href="#stochastic-grad">Stochastic-gradient</a></li>
-            <li><a href="#on-policy-semi-grad">Semi-gradient</a></li>
-          </ul>
-        </li>
-        <li><a href="#lin-func-approx">Linear Function Approximation</a>
-          <ul>
-            <li><a href="#lin-methods">Linear Methods</a></li>
-            <li><a href="#feature-cons">Feature Construction</a>
-              <ul>
-                <li><a href="#polynomial">Polynomial Basis</a></li>
-                <li><a href="#fourier">Fourier Basis</a>
-                  <ul>
-                    <li><a href="#uni-fourier-series">The Univariate Fourier Series</a></li>
-                    <li><a href="#even-odd-non-periodic-func">Even, Odd and Non-Periodic Functions</a></li>
-                    <li><a href="#mult-fourier-series">The Multivariate Fourier Series</a></li>
-                  </ul>
-                </li>
-                <li><a href="#coarse-coding">Coarse Coding</a></li>
-                <li><a href="#tile-coding">Tile Coding</a></li>
-                <li><a href="#rbf">Radial Basis Functions</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li><a href="#lstd">Least-Squares TD</a></li>
-        <li><a href="#ep-semi-grad-control">Episodic Semi-gradient Control</a></li>
-        <li><a href="#semi-grad-n-step-sarsa">Semi-gradient n-step Sarsa</a></li>
-      </ul>
-    </li>
-    <li><a href="#off-policy-methods">Off-policy Methods</a>
-      <ul>
-        <li><a href="#off-policy-semi-grad">Semi-gradient</a></li>
-        <li><a href="#grad-td">Gradient-TD</a></li>
-        <li><a href="#em-td">Emphatic-TD</a></li>
-      </ul>
-    </li>
-  </ul>
+  <p>Reinforcement Learning in continuous state space requires function approximation.</p>
 </blockquote>
+
+<!-- excerpt-end -->
+<ul>
+  <li><a href="#on-policy-methods">On-policy Methods</a>
+    <ul>
+      <li><a href="#value-func-approx">Value-function Approximation</a></li>
+      <li><a href="#pred-obj">The Prediction Objective</a></li>
+      <li><a href="#grad-algs">Gradient-based algorithms</a>
+        <ul>
+          <li><a href="#stochastic-grad">Stochastic-gradient</a></li>
+          <li><a href="#on-policy-semi-grad">Semi-gradient</a></li>
+        </ul>
+      </li>
+      <li><a href="#lin-func-approx">Linear Function Approximation</a>
+        <ul>
+          <li><a href="#lin-methods">Linear Methods</a></li>
+          <li><a href="#feature-cons">Feature Construction</a>
+            <ul>
+              <li><a href="#polynomial">Polynomial Basis</a></li>
+              <li><a href="#fourier">Fourier Basis</a>
+                <ul>
+                  <li><a href="#uni-fourier-series">The Univariate Fourier Series</a></li>
+                  <li><a href="#even-odd-non-periodic-func">Even, Odd and Non-Periodic Functions</a></li>
+                  <li><a href="#mult-fourier-series">The Multivariate Fourier Series</a></li>
+                </ul>
+              </li>
+              <li><a href="#coarse-coding">Coarse Coding</a></li>
+              <li><a href="#tile-coding">Tile Coding</a></li>
+              <li><a href="#rbf">Radial Basis Functions</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#lstd">Least-Squares TD</a></li>
+      <li><a href="#ep-semi-grad-control">Episodic Semi-gradient Control</a></li>
+      <li><a href="#semi-grad-n-step-sarsa">Semi-gradient n-step Sarsa</a></li>
+    </ul>
+  </li>
+  <li><a href="#off-policy-methods">Off-policy Methods</a>
+    <ul>
+      <li><a href="#off-policy-semi-grad">Semi-gradient</a></li>
+      <li><a href="#grad-td">Gradient-TD</a></li>
+      <li><a href="#em-td">Emphatic-TD</a></li>
+    </ul>
+  </li>
+</ul>
 
 <h2 id="on-policy-methods">On-policy Methods</h2>
 <p>So far in the series, we have gone through tabular methods, which are used to solve problems with small state and action spaces. For larger spaces, rather than getting the exact solutions, we now have to approximate the value of them. To start, we begin with on-policy approximation methods.</p>
@@ -461,8 +462,15 @@ where $\mathbf{c}=(c_1^i,\dots,c_d^i)^\intercal$, with $c_j^i\in\{0,\dots,n\}$ f
 <h5 id="tile-coding">Tile Coding</h5>
 
 <h5 id="rbf">Radial Basis Functions</h5>
+<p>Another common scheme is <strong>Radial Basis Functions (RBFs)</strong>. RBFs are the natural generalization of coarse coding to continuous valued features. Rather than each feature taking either $0$ or $1$, it can be anything within $[0,1]$, reflecting various degrees to which the feature is present.</p>
+
+<p>A typical RBF feature, $x_i$, has a Gaussian response $x_i(s)$ dependent only on the distance between the state, $s$, and the feature’s prototypical or center state, $c_i$, and relative to the feature’s width, $\sigma_i$:
+\begin{equation}
+x_i(s)\doteq\exp\left(\frac{\Vert s-c_i\Vert^2}{2\sigma_i^2}\right)
+\end{equation}</p>
 
 <h3 id="lstd">Least-Squares TD</h3>
+<p>All the methods we have discussed so far in this post have required computation per time step proportional to the number of parameters.</p>
 
 <h2 id="references">References</h2>
 <p>[1] Richard S. Sutton &amp; Andrew G. Barto. <a href="https://mitpress.mit.edu/books/reinforcement-learning-second-edition">Reinforcement Learning: An Introduction</a></p>

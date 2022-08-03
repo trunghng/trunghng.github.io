@@ -333,4 +333,6 @@ blockquote { font-size: 16px; background-color: #f0f0f0; padding: 10px; font-sty
 
 .post-content h1, h2, h3, h4, h5, h6 { font-weight: bold; }
 
+.post-content { text-align: justify; }
+
 /*# sourceMappingURL=style.css.map */

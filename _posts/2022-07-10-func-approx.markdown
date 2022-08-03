@@ -8,6 +8,7 @@ description: Function approximation
 comments: true
 ---
 > Reinforcement Learning in continuous state space requires function approximation.
+
 <!-- excerpt-end -->
 - [On-policy Methods](#on-policy-methods)
 	- [Value-function Approximation](#value-func-approx)
@@ -299,9 +300,16 @@ This defines a feature for each of the $(n+1)^d$ possible integer vector $\mathb
 
 ##### Radial Basis Functions
 {: #rbf}
+Another common scheme is **Radial Basis Functions (RBFs)**. RBFs are the natural generalization of coarse coding to continuous valued features. Rather than each feature taking either $0$ or $1$, it can be anything within $[0,1]$, reflecting various degrees to which the feature is present. 
+
+A typical RBF feature, $x_i$, has a Gaussian response $x_i(s)$ dependent only on the distance between the state, $s$, and the feature's prototypical or center state, $c_i$, and relative to the feature's width, $\sigma_i$:
+\begin{equation}
+x_i(s)\doteq\exp\left(\frac{\Vert s-c_i\Vert^2}{2\sigma_i^2}\right)
+\end{equation}
 
 ### Least-Squares TD
 {: #lstd}
+All the methods we have discussed so far in this post have required computation per time step proportional to the number of parameters.
 
 ## References
 [1] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition)  
