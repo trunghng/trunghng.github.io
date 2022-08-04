@@ -1,153 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-<link href="https://fonts.googleapis.com/css?family=Merriweather:400,900,900i" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<style type="text/css">
-  #button {
-    display: inline-block;
-    background-color: #A5CCF1;
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    border-radius: 4px;
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    transition: background-color .3s, 
-      opacity .5s, visibility .5s;
-    opacity: 0;
-    visibility: hidden;
-    z-index: 1000;
-  }
-  #button::after {
-    content: "\f077";
-    font-family: FontAwesome;
-    font-weight: normal;
-    font-style: normal;
-    font-size: 2em;
-    line-height: 50px;
-    color: #fff;
-  }
-  #button:hover {
-    cursor: pointer;
-    background-color: #333;
-    text-decoration: none;
-  }
-  #button:active {
-    background-color: #555;
-  }
-  #button.show {
-    opacity: 1;
-    visibility: visible;
-  }
-</style><head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Function Approximation | Trung’s cabin</title>
-<meta name="generator" content="Jekyll v4.2.1" />
-<meta property="og:title" content="Function Approximation" />
-<meta name="author" content="Trung H. Nguyen" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="Function approximation" />
-<meta property="og:description" content="Function approximation" />
-<link rel="canonical" href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html" />
-<meta property="og:url" content="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html" />
-<meta property="og:site_name" content="Trung’s cabin" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2022-07-10T15:26:00+07:00" />
-<meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Function Approximation" />
-<script type="application/ld+json">
-{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","description":"Function approximation","headline":"Function Approximation","dateModified":"2022-07-10T15:26:00+07:00","datePublished":"2022-07-10T15:26:00+07:00","url":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html"},"@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Trung&apos;s cabin" />
-    
-
-
-
-
-
-  
-
-<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
-<link rel="manifest" href="/assets/images/site.webmanifest">
-<link rel="mask-icon" href="/assets/images/safari-pinned-tab.svg" color="#5bbad5">
-<meta name="msapplication-TileColor" content="#da532c">
-<meta name="theme-color" content="#ffffff"></head>
-<body><header class="site-header">
-  <div class="snorlax"></div>
-
-  <div class="wrapper"><a class="site-title" rel="author" href="/">Trung&#39;s cabin</a><nav class="site-nav">
-        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
-        <label for="nav-trigger">
-          <span class="menu-icon">
-            <svg viewBox="0 0 18 15" width="18px" height="15px">
-              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
-            </svg>
-          </span>
-        </label>
-
-        <div class="trigger"><a class="page-link" href="/archive/">Archive</a><a class="page-link" href="/about/">About</a></div>
-      </nav></div>
-</header>
-<main class="page-content" aria-label="Content">
-      <a id="button"></a>
-      <div class="wrapper">
-        <style>
-@import "/assets/css/default.css"
-</style>
-<style>
-  .collapsible {
-    background-color: #A5CCF1;
-    color: white;
-    cursor: pointer;
-    padding: 5px;
-    /*width: 100%;*/
-    border: none;
-    text-align: center;
-    outline: none;
-    font-size: 15px;
-  }
-
-  .active, .collapsible:hover {
-    background-color: #82B9EE;
-  }
-
-  .codePanel {
-    padding: 0 18px;
-    display: none;
-    overflow: hidden;
-    background-color: #f1f1f1;
-  }
-</style>
-<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <header class="post-header">
-    <meta name="description" content="Function approximation">
-    <h1 class="post-title p-name" itemprop="name headline">Function Approximation</h1>
-    <p><span>
-      
-        
-        <a href="/tag/artificial-intelligent"><code class="highligher-rouge"><nobr>artificial-intelligent</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/reinforcement-learning"><code class="highligher-rouge"><nobr>reinforcement-learning</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/function-approximation"><code class="highligher-rouge"><nobr>function-approximation</nobr></code>&nbsp;</a>
-      
-    </span></p>
-    <p class="post-meta"><time class="dt-published" datetime="2022-07-10T15:26:00+07:00" itemprop="datePublished">
-        Jul 10, 2022
-      </time></p>
-  </header>
-
-  <div class="post-content e-content" itemprop="articleBody">
-    <blockquote>
+I"�l<blockquote>
   <p>Reinforcement Learning in continuous state space requires function approximation.</p>
 </blockquote>
 
@@ -337,7 +188,7 @@ Thus, with linear approximation, the SGD update can be rewrite as
   \begin{align}
   \mathbf{b}-\mathbf{A}\mathbf{w}_{\text{TD}}&amp;=\mathbf{0} \\ \mathbf{w}_{\text{TD}}&amp;=\mathbf{A}^{-1}\mathbf{b}
   \end{align}
-  This quantity, $\mathbf{w}_{\text{TD}}$, is called the <strong>TD fixed point</strong>. And in fact, linear semi-gradient TD(0) converges to this point.</li>
+  This quantity, $\mathbf{w}_{\text{TD}}$, is called the <em>TD fixed point</em>. And in fact, linear semi-gradient TD(0) converges to this point.</li>
       <li><strong>Proof</strong>:<br />
   We have \eqref{2} can be written as
   \begin{equation}
@@ -475,60 +326,15 @@ where $\mathbf{c}=(c_1^i,\dots,c_d^i)^\intercal$, with $c_j^i\in\{0,\dots,n\}$ f
 <p>A typical RBF feature, $x_i$, has a Gaussian response $x_i(s)$ dependent only on the distance between the state, $s$, and the feature’s prototypical or center state, $c_i$, and relative to the feature’s width, $\sigma_i$:
 \begin{equation}
 x_i(s)\doteq\exp\left(\frac{\Vert s-c_i\Vert^2}{2\sigma_i^2}\right)
-\end{equation}
-The figures below shows a one-dimensional example with a Euclidean distance metric.</p>
-<figure>
-	<img src="/assets/images/2022-07-10/1_d_rbf.png" alt="one-dimensional RBFs" style="display: block; margin-left: auto; margin-right: auto; width: 300px; height: 100px" />
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: One-dimensional RBFs</figcaption>
-</figure>
-<p><br /></p>
+\end{equation}</p>
+
+<p>figure&gt;
+	<img src="/assets/images/2022-07-10/1_d_rbf.png" alt="one-dimensional rbfs" style="display: block; margin-left: auto; margin-right: auto;" />
+	&lt;figcaption style="text-align: center;font-style: italic;"&gt;<b>Figure 3</b>: Using linear function approximation based on coarse coding on learning a one-dimensional square-wave function <br /><span>(Eg9.3 - RL: An Introduction book).</span><br /> The code can be found <span><a href="https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-9/square_wave.py">here</a></span>&lt;/figcaption&gt;
+&lt;/figure&gt;<br /></p>
 
 <h3 id="lstd">Least-Squares TD</h3>
-<p>Recall when using TD(0) with linear function approximation, $v_\mathbf{w}(s)=\mathbf{w}^\intercal\mathbf{x}(s)$, we need to find a point $\mathbf{w}$ such that
-\begin{equation}
-\mathbb{E}\Big[\big(R_{t+1}+\gamma v_\mathbf{w}(S_{t+1})-v_{\mathbf{w}}(S_t)\big)\mathbf{x}_t\Big]=\mathbf{0}\tag{5}\label{5}
-\end{equation}
-or
-\begin{equation}
-\mathbb{E}\Big[R_{t+1}\mathbf{x}_t-\mathbf{x}_t(\mathbf{x}_t-\gamma\mathbf{x}_{t+1})^\intercal\mathbf{w}_t\Big]=\mathbf{0}
-\end{equation}
-We found out that the solution is:
-\begin{equation}
-\mathbf{w}_{\text{TD}}=\mathbf{A}^{-1}\mathbf{b},
-\end{equation}
-where
-\begin{align}
-\mathbf{A}&amp;\doteq\mathbb{E}\left[\mathbf{x}_t\left(\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\right)^\intercal\right], \\ \mathbf{b}&amp;\doteq\mathbb{E}\left[R_{t+1}\mathbf{x}_t\right]
-\end{align}
-Instead of computing these expectations over all possible states and all possible transitions that could happen, we now only care about the things that did happen. In particular, we now consider the empirical loss of \eqref{5}, as:
-\begin{equation}
-\frac{1}{t}\sum_{k=0}^{t-1}\big(R_{k+1}+\gamma v_\mathbf{w}(S_{k+1})-v_{\mathbf{w}}(S_k)\big)\mathbf{x}_i=\mathbf{0}\tag{6}\label{6}
-\end{equation}
-By the law of large numbers<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup>, when $t\to\infty$, \eqref{6} converges to its expectation, which is \eqref{5}. Hence, we now just have to compute the estimate of $\mathbf{w}_{\text{TD}}$, called $\mathbf{w}_{\text{LSTD}}$ (as LSTD stands for <strong>Least-Squares TD</strong>), which is defined as:
-\begin{equation}
-\mathbf{w}_{\text{LSTD}}\doteq\left(\sum_{k=0}^{t-1}\mathbf{x}_i\left(\mathbf{x}_k-\gamma\mathbf{x}_{k+1}\right)^\intercal\right)^{-1}\left(\sum_{k=1}^{t-1}R_{k+1}\mathbf{x}_k\right)\tag{7}\label{7}
-\end{equation}
-In other words, our work is to compute estimates $\widehat{\mathbf{A}}_t$ and $\widehat{\mathbf{b}}_t$ of $\mathbf{A}$ and $\mathbf{b}$:
-\begin{align}
-\widehat{\mathbf{A}}_t&amp;\doteq\sum_{k=0}^{t-1}\mathbf{x}_k\left(\mathbf{x}_k-\gamma\mathbf{x}_{k+1}\right)^\intercal+\varepsilon\mathbf{I};\tag{8}\label{8} \\ \widehat{\mathbf{b}}_t&amp;\doteq\sum_{k=0}^{t-1}R_{k+1}\mathbf{x}_k,\tag{9}\label{9}
-\end{align}
-where $\mathbf{I}$ is the identity matrix, and $\varepsilon\mathbf{I}$, for some small $\varepsilon&gt;0$, ensures that $\widehat{\mathbf{A}}_t$ is always invertible. Thus, \eqref{7} can be rewritten as:
-\begin{equation}
-\mathbf{w}_{\text{LSTD}}\doteq\widehat{\mathbf{A}}_t^{-1}\widehat{\mathbf{b}}_t
-\end{equation}
-The two approximations in \eqref{8} and \eqref{9} could be implemented incrementally using the same <a href="/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html#incremental-method">technique</a> we used to apply earlier so that they can be done in constant time per step. Even so, the update for $\widehat{\mathbf{A}}_t$ would have the computational complexity of $O(d^2)$, and so is its memory required to hold the $\widehat{\mathbf{A}}_t$ matrix.</p>
-
-<p>This leads to a problem that our next step, which is the computation of the inverse $\widehat{\mathbf{A}}_t^{-1}$ of $\widehat{\mathbf{A}}_t$, is going to be $O(d^3)$. Fortunately, with the so-called <strong>Sherman-Morrison formula</strong>, an inverse of our special form matrix - a sum of outer products - can also be updated incrementally with only $O(d^2)$ computations, as
-\begin{align}
-\widehat{\mathbf{A}}_t^{-1}&amp;=\left(\widehat{\mathbf{A}}_t+\mathbf{x}_t\left(\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\right)^\intercal\right)^{-1} \\ &amp;=\widehat{\mathbf{A}}_{t-1}^{-1}-\frac{\widehat{\mathbf{A}}_{t-1}^{-1}\mathbf{x}_t\left(\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\right)^\intercal\widehat{\mathbf{A}}_{t-1}^{-1}}{1+\left(\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\right)^\intercal\widehat{\mathbf{A}}_{t-1}^{-1}\mathbf{x}_t},
-\end{align}
-for $t&gt;0$, with $\mathbf{\widehat{A}}_0\doteq\varepsilon\mathbf{I}$. The pseudocode for LSTD is given below</p>
-<figure>
-	<img src="/assets/images/2022-07-10/lstd.png" alt="LSTD" style="display: block; margin-left: auto; margin-right: auto;" />
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
-</figure>
-
-<h3 id="ep-semi-grad-control">Episodic Semi-gradient Control</h3>
+<p>All the methods we have discussed so far in this post have required computation per time step proportional to the number of parameters.</p>
 
 <h2 id="references">References</h2>
 <p>[1] Richard S. Sutton &amp; Andrew G. Barto. <a href="https://mitpress.mit.edu/books/reinforcement-learning-second-edition">Reinforcement Learning: An Introduction</a></p>
@@ -557,117 +363,6 @@ for $t&gt;0$, with $\mathbf{\widehat{A}}_0\doteq\varepsilon\mathbf{I}$. The pseu
 f(x+\tau)=f(x),\forall x
 \end{equation} <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:3" role="doc-endnote">
-
-      <p><a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
-    </li>
   </ol>
 </div>
-
-  </div>
-<div id="disqus_thread"></div>
-<script>
-    /**
-    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
-    
-    var disqus_config = function () {
-    this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
-    this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-    };
-    
-    (function() { // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-    s.src = 'https://https-trunghng-github-io.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-
-<script id="dsq-count-scr" src="//https-trunghng-github-io.disqus.com/count.js" async></script>
-
-  <a class="u-url" href="/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html" hidden></a>
-</article>
- <!-- mathjax javascript -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
-  "HTML-CSS": {availableFonts: []}
-  });
-</script>
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-<script>
-  var coll = document.getElementsByClassName("collapsible");
-  var i;
-  for (i = 0; i < coll.length; i++) {
-    coll[i].addEventListener("click", function() {
-      this.classList.toggle("active");
-      var content = document.getElementById(this.id+"data");
-      var btn = document.getElementById(this.id)
-      if (content.style.display === "block") {
-        content.style.display = "none";
-        btn.innerText = "Click to show the code";
-      } else {
-        content.style.display = "block";
-        btn.innerText = "Click to hide the code"
-      }
-    });
-  }
-</script>
-
-      </div>
-
-    </main><footer class="site-footer h-card">
-  <data class="u-url" href="/"></data>
-
-  <div class="wrapper">
-
-    <div class="footer-col-wrapper">
-      <div class="footer-col">
-        <p class="feed-subscribe">
-          <a href="/feed.xml">
-            <svg class="svg-icon orange">
-              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
-            </svg><span>Subscribe</span>
-          </a>
-        </p>
-        <ul class="contact-list">
-          <li class="p-name">Trung H. Nguyen</li>
-          <li><a class="u-email" href="mailto:trung.skipper@gmail.com">trung.skipper@gmail.com</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <p>To document something I&#39;ve learned
-</p>
-      </div>
-    </div>
-
-    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/trunghng" title="trunghng"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
-</div>
-
-  </div>
-
-</footer>
-</body>
-
-</html>
-<script type="text/javascript">
-  var btn = $('#button');
-
-  $(window).scroll(function() {
-    if ($(window).scrollTop() > 300) {
-      btn.addClass('show');
-    } else {
-      btn.removeClass('show');
-    }
-  });
-
-  btn.on('click', function(e) {
-    e.preventDefault();
-    $('html, body').animate({scrollTop:0}, '300');
-  });
-</script>
+:ET

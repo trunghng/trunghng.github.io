@@ -175,7 +175,7 @@ In the linear case, there is only one optimum, and thus any method that is guara
 	\begin{align}
 	\mathbf{b}-\mathbf{A}\mathbf{w}\_{\text{TD}}&=\mathbf{0} \\\\ \mathbf{w}\_{\text{TD}}&=\mathbf{A}^{-1}\mathbf{b}
 	\end{align}
-	This quantity, $\mathbf{w}\_{\text{TD}}$, is called the *TD fixed point*. And in fact, linear semi-gradient TD(0) converges to this point.
+	This quantity, $\mathbf{w}\_{\text{TD}}$, is called the **TD fixed point**. And in fact, linear semi-gradient TD(0) converges to this point.
 	- **Proof**:  
 		We have \eqref{2} can be written as
 		\begin{equation}
@@ -291,11 +291,16 @@ This defines a feature for each of the $(n+1)^d$ possible integer vector $\mathb
 
 <figure>
 	<img src="/assets/images/2022-07-10/gradient_mc_bases.png" alt="Fourier basis vs polynomial basis" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: Fourier basis vs Polynomial basis on the 1000-state random walk (Eg9.2 - RL: An Introduction book). The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-9/random_walk.py)</span></figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: Fourier basis vs Polynomial basis on the 1000-state random walk<br><span>(Eg9.2 - RL: An Introduction book).</span><br>The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-9/random_walk.py)</span></figcaption>
 </figure><br/>
 
 ##### Coarse Coding
 {: #coarse-coding}
+
+<figure>
+	<img src="/assets/images/2022-07-10/square_wave_function.png" alt="Square wave function approximated using Coarse Coding" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: Using linear function approximation based on coarse coding on learning a one-dimensional square-wave function <br><span>(Eg9.3 - RL: An Introduction book).</span><br> The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-9/square_wave.py)</span></figcaption>
+</figure><br/>
 
 ##### Tile Coding
 {: #tile-coding}
@@ -308,10 +313,60 @@ A typical RBF feature, $x_i$, has a Gaussian response $x_i(s)$ dependent only on
 \begin{equation}
 x_i(s)\doteq\exp\left(\frac{\Vert s-c_i\Vert^2}{2\sigma_i^2}\right)
 \end{equation}
+The figures below shows a one-dimensional example with a Euclidean distance metric.
+<figure>
+	<img src="/assets/images/2022-07-10/1_d_rbf.png" alt="one-dimensional RBFs" style="display: block; margin-left: auto; margin-right: auto; width: 300px; height: 100px"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: One-dimensional RBFs</figcaption>
+</figure><br/>
 
 ### Least-Squares TD
 {: #lstd}
-All the methods we have discussed so far in this post have required computation per time step proportional to the number of parameters.
+Recall when using TD(0) with linear function approximation, $v_\mathbf{w}(s)=\mathbf{w}^\intercal\mathbf{x}(s)$, we need to find a point $\mathbf{w}$ such that
+\begin{equation}
+\mathbb{E}\Big[\big(R_{t+1}+\gamma v_\mathbf{w}(S_{t+1})-v_{\mathbf{w}}(S_t)\big)\mathbf{x}\_t\Big]=\mathbf{0}\tag{5}\label{5}
+\end{equation}
+or
+\begin{equation}
+\mathbb{E}\Big[R_{t+1}\mathbf{x}\_t-\mathbf{x}\_t(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1})^\intercal\mathbf{w}\_t\Big]=\mathbf{0}
+\end{equation}
+We found out that the solution is:
+\begin{equation}
+\mathbf{w}\_{\text{TD}}=\mathbf{A}^{-1}\mathbf{b},
+\end{equation}
+where
+\begin{align}
+\mathbf{A}&\doteq\mathbb{E}\left[\mathbf{x}\_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)^\intercal\right], \\\\ \mathbf{b}&\doteq\mathbb{E}\left[R_{t+1}\mathbf{x}\_t\right]
+\end{align}
+Instead of computing these expectations over all possible states and all possible transitions that could happen, we now only care about the things that did happen. In particular, we now consider the empirical loss of \eqref{5}, as:
+\begin{equation}
+\frac{1}{t}\sum_{k=0}^{t-1}\big(R_{k+1}+\gamma v_\mathbf{w}(S_{k+1})-v_{\mathbf{w}}(S_k)\big)\mathbf{x}\_i=\mathbf{0}\tag{6}\label{6}
+\end{equation}
+By the law of large numbers[^3], when $t\to\infty$, \eqref{6} converges to its expectation, which is \eqref{5}. Hence, we now just have to compute the estimate of $\mathbf{w}\_{\text{TD}}$, called $\mathbf{w}\_{\text{LSTD}}$ (as LSTD stands for **Least-Squares TD**), which is defined as:
+\begin{equation}
+\mathbf{w}\_{\text{LSTD}}\doteq\left(\sum_{k=0}^{t-1}\mathbf{x}\_i\left(\mathbf{x}\_k-\gamma\mathbf{x}\_{k+1}\right)^\intercal\right)^{-1}\left(\sum_{k=1}^{t-1}R_{k+1}\mathbf{x}\_k\right)\tag{7}\label{7}
+\end{equation}
+In other words, our work is to compute estimates $\widehat{\mathbf{A}}\_t$ and $\widehat{\mathbf{b}}\_t$ of $\mathbf{A}$ and $\mathbf{b}$:
+\begin{align}
+\widehat{\mathbf{A}}\_t&\doteq\sum_{k=0}^{t-1}\mathbf{x}\_k\left(\mathbf{x}\_k-\gamma\mathbf{x}\_{k+1}\right)^\intercal+\varepsilon\mathbf{I};\tag{8}\label{8} \\\\ \widehat{\mathbf{b}}\_t&\doteq\sum_{k=0}^{t-1}R_{k+1}\mathbf{x}\_k,\tag{9}\label{9}
+\end{align}
+where $\mathbf{I}$ is the identity matrix, and $\varepsilon\mathbf{I}$, for some small $\varepsilon>0$, ensures that $\widehat{\mathbf{A}}\_t$ is always invertible. Thus, \eqref{7} can be rewritten as:
+\begin{equation}
+\mathbf{w}\_{\text{LSTD}}\doteq\widehat{\mathbf{A}}\_t^{-1}\widehat{\mathbf{b}}\_t
+\end{equation}
+The two approximations in \eqref{8} and \eqref{9} could be implemented incrementally using the same [technique]({% post_url 2021-08-21-monte-carlo-in-rl %}#incremental-method) we used to apply earlier so that they can be done in constant time per step. Even so, the update for $\widehat{\mathbf{A}}\_t$ would have the computational complexity of $O(d^2)$, and so is its memory required to hold the $\widehat{\mathbf{A}}\_t$ matrix. 
+
+This leads to a problem that our next step, which is the computation of the inverse $\widehat{\mathbf{A}}\_t^{-1}$ of $\widehat{\mathbf{A}}\_t$, is going to be $O(d^3)$. Fortunately, with the so-called **Sherman-Morrison formula**, an inverse of our special form matrix - a sum of outer products - can also be updated incrementally with only $O(d^2)$ computations, as
+\begin{align}
+\widehat{\mathbf{A}}\_t^{-1}&=\left(\widehat{\mathbf{A}}\_t+\mathbf{x}\_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)^\intercal\right)^{-1} \\\\ &=\widehat{\mathbf{A}}\_{t-1}^{-1}-\frac{\widehat{\mathbf{A}}\_{t-1}^{-1}\mathbf{x}\_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)^\intercal\widehat{\mathbf{A}}\_{t-1}^{-1}}{1+\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)^\intercal\widehat{\mathbf{A}}\_{t-1}^{-1}\mathbf{x}\_t},
+\end{align}
+for $t>0$, with $\mathbf{\widehat{A}}\_0\doteq\varepsilon\mathbf{I}$. The pseudocode for LSTD is given below
+<figure>
+	<img src="/assets/images/2022-07-10/lstd.png" alt="LSTD" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+
+### Episodic Semi-gradient Control
+{: #ep-semi-grad-control}
 
 ## References
 {: #references}
@@ -322,6 +377,8 @@ All the methods we have discussed so far in this post have required computation 
 [3] Sutton, R. S. (1988). [Learning to predict by the methods of temporal differences](doi:10.1007/bf00115009). Machine Learning, 3(1), 9–44. 
 
 [4] Konidaris, G. & Osentoski, S. & Thomas, P.. [Value Function Approximation in Reinforcement Learning Using the Fourier Basis](https://dl.acm.org/doi/10.5555/2900423.2900483). AAAI Conference on Artificial Intelligence, North America, aug. 2011. 
+
+[5] Shangtong Zhang. [Reinforcement Learning: An Introduction implementation](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction) 
 
 
 ## Footnotes
@@ -335,3 +392,5 @@ All the methods we have discussed so far in this post have required computation 
 	\begin{equation}
 	f(x+\tau)=f(x),\forall x
 	\end{equation}
+
+[^3]: 

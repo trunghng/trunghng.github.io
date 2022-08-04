@@ -264,6 +264,7 @@ or zero if the denominator is zero.
 {: #imp-off-policy-is}
 
 ##### Incremental Method
+{: #incremental-method}
 **Incremental method** is a way of updating averages with small, constant computation required to process each new reward instead of maintaining a record of all the rewards and then performing this computation whenever the estimated value was needed. It follows the general rule:
 \begin{equation}
 NewEstimate\leftarrow OldEstimate+StepSize\left[Target-OldEstimate\right]
