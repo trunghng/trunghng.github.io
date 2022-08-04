@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-03T21:43:36+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-04T10:11:03+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Function Approximation</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html" rel="alternate" type="text/html" title="Function Approximation" /><published>2022-07-10T15:26:00+07:00</published><updated>2022-07-10T15:26:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html">&lt;blockquote&gt;
   &lt;p&gt;Reinforcement Learning in continuous state space requires function approximation.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -47,6 +47,8 @@
       &lt;li&gt;&lt;a href=&quot;#em-td&quot;&gt;Emphatic-TD&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;on-policy-methods&quot;&gt;On-policy Methods&lt;/h2&gt;
@@ -327,7 +329,7 @@ x_i(s)\doteq\exp\left(\frac{\Vert s-c_i\Vert^2}{2\sigma_i^2}\right)
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;[2] Deepmind x UCL. &lt;a href=&quot;https://www.deepmind.com/learning-resources/reinforcement-learning-lecture-series-2021&quot;&gt;Reinforcement Learning Lecture Series 2021&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[2] Deepmind x UCL. &lt;a href=&quot;https://www.deepmind.com/learning-resources/reinforcement-learning-lecture-series-2021&quot;&gt;Reinforcement Learning Lecture Series 2021&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;[3] Sutton, R. S. (1988). &lt;a href=&quot;doi:10.1007/bf00115009&quot;&gt;Learning to predict by the methods of temporal differences&lt;/a&gt;. Machine Learning, 3(1), 9–44.&lt;/p&gt;
 
@@ -4175,7 +4177,7 @@ We say that $f$ is the &lt;em&gt;density&lt;/em&gt; of the measure $v$ w.r.t $\m
 &lt;img src=&quot;/assets/images/robot.png&quot; alt=&quot;RL&quot; /&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;mdp&quot;&gt;Markov Decision Processes (MDPs)&lt;/h4&gt;
-&lt;p&gt;&lt;strong&gt;Markov decision processes (MDPs)&lt;/strong&gt; formally describe an environment for &lt;strong&gt;RL&lt;/strong&gt;. And almost all &lt;strong&gt;RL&lt;/strong&gt; problems can be formalised as &lt;strong&gt;MDPs&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Markov decision processes (MDPs)&lt;/strong&gt; formally describe an environment for &lt;strong&gt;RL&lt;/strong&gt;. And almost all &lt;strong&gt;RL&lt;/strong&gt; problems can be formalized as &lt;strong&gt;MDPs&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Definition (MDP)&lt;/strong&gt;&lt;br /&gt;
 A &lt;strong&gt;Markov Decision Process&lt;/strong&gt; is a tuple $⟨\mathcal{S}, \mathcal{A}, \mathcal{P}, \mathcal{R}, \gamma⟩$&lt;/p&gt;
@@ -4208,7 +4210,7 @@ where $\gamma\in[0,1]$ is called &lt;em&gt;discount rate&lt;/em&gt; (or &lt;em&g
 k time steps in the future is worth only $\gamma^{k-1}$ times what it would be worth if it were received immediately. And also, it provides mathematical convenience since as $k\rightarrow\infty$ then $\gamma^k\rightarrow 0$.&lt;/p&gt;
 
 &lt;h5 id=&quot;policy&quot;&gt;Policy&lt;/h5&gt;
-&lt;p&gt;&lt;strong&gt;Policy&lt;/strong&gt;, which is denoted as $\pi$, is the behaviour function of the agent. $\pi$ is a mapping from states to probabilities of selecting each possible action. In other words, it lets us know which action to take in the current state $s$ and can be either &lt;em&gt;deterministic&lt;/em&gt; or &lt;em&gt;stochastic&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Policy&lt;/strong&gt;, which is denoted as $\pi$, is the behavior function of the agent. $\pi$ is a mapping from states to probabilities of selecting each possible action. In other words, it lets us know which action to take in the current state $s$ and can be either &lt;em&gt;deterministic&lt;/em&gt; or &lt;em&gt;stochastic&lt;/em&gt;.&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;em&gt;Deterministic policy&lt;/em&gt;:	$\quad\pi(s)=a$&lt;/li&gt;
   &lt;li&gt;&lt;em&gt;Stochastic policy&lt;/em&gt;: $\quad\pi(a|s)=P(A_t=a|S_t=s)$&lt;/li&gt;
@@ -4246,13 +4248,13 @@ For any MDP, there exists an optimal policy $\pi_*$ that is better than or equal
 \pi_*\geq\pi,\forall\pi
 \end{equation}&lt;/p&gt;
 
-&lt;p&gt;The proof of the above theorem is gonna be provided in another &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html&quot;&gt;post&lt;/a&gt; since we need some additional tools to do that.&lt;/p&gt;
+&lt;p&gt;The proof of the above theorem is going to be provided in another &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html&quot;&gt;post&lt;/a&gt; since we need some additional tools to do that.&lt;/p&gt;
 
 &lt;p&gt;There may be more than one &lt;strong&gt;optimal policy&lt;/strong&gt;, they share the same &lt;em&gt;state-value function&lt;/em&gt;, called &lt;strong&gt;optimal state-value function&lt;/strong&gt; though.
 \begin{equation}
 v_*(s)=\max_{\pi}v_\pi(s)
 \end{equation}
-&lt;strong&gt;Optimal policies&lt;/strong&gt; also share the same &lt;em&gt;action-value function&lt;/em&gt;, call &lt;strong&gt;optimal action-value function&lt;/strong&gt;
+&lt;strong&gt;Optimal policies&lt;/strong&gt; also share the same &lt;em&gt;action-value function&lt;/em&gt;, called &lt;strong&gt;optimal action-value function&lt;/strong&gt;
 \begin{equation}
 q_*(s,a)=\max_{\pi}q_\pi(s,a)
 \end{equation}&lt;/p&gt;

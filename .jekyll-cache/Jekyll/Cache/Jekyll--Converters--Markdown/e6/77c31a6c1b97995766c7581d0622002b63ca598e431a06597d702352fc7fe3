@@ -1,4 +1,4 @@
-I"*<blockquote>
+I"*<blockquote>
   <p>You may have known or heard vaguely about a computer program called <strong>AlphaGo</strong> - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called <strong>self-play</strong> against its other instances, with <strong>Reinforcement Learning</strong>.</p>
 </blockquote>
 
@@ -29,7 +29,7 @@
 <img src="/assets/images/robot.png" alt="RL" /></p>
 
 <h4 id="mdp">Markov Decision Processes (MDPs)</h4>
-<p><strong>Markov decision processes (MDPs)</strong> formally describe an environment for <strong>RL</strong>. And almost all <strong>RL</strong> problems can be formalised as <strong>MDPs</strong>.</p>
+<p><strong>Markov decision processes (MDPs)</strong> formally describe an environment for <strong>RL</strong>. And almost all <strong>RL</strong> problems can be formalized as <strong>MDPs</strong>.</p>
 
 <p><strong>Definition (MDP)</strong><br />
 A <strong>Markov Decision Process</strong> is a tuple $⟨\mathcal{S}, \mathcal{A}, \mathcal{P}, \mathcal{R}, \gamma⟩$</p>
@@ -62,7 +62,7 @@ where $\gamma\in[0,1]$ is called <em>discount rate</em> (or <em>discount factor<
 k time steps in the future is worth only $\gamma^{k-1}$ times what it would be worth if it were received immediately. And also, it provides mathematical convenience since as $k\rightarrow\infty$ then $\gamma^k\rightarrow 0$.</p>
 
 <h5 id="policy">Policy</h5>
-<p><strong>Policy</strong>, which is denoted as $\pi$, is the behaviour function of the agent. $\pi$ is a mapping from states to probabilities of selecting each possible action. In other words, it lets us know which action to take in the current state $s$ and can be either <em>deterministic</em> or <em>stochastic</em>.</p>
+<p><strong>Policy</strong>, which is denoted as $\pi$, is the behavior function of the agent. $\pi$ is a mapping from states to probabilities of selecting each possible action. In other words, it lets us know which action to take in the current state $s$ and can be either <em>deterministic</em> or <em>stochastic</em>.</p>
 <ul>
   <li><em>Deterministic policy</em>:	$\quad\pi(s)=a$</li>
   <li><em>Stochastic policy</em>: $\quad\pi(a|s)=P(A_t=a|S_t=s)$</li>
@@ -106,7 +106,7 @@ For any MDP, there exists an optimal policy $\pi_*$ that is better than or equal
 \begin{equation}
 v_*(s)=\max_{\pi}v_\pi(s)
 \end{equation}
-<strong>Optimal policies</strong> also share the same <em>action-value function</em>, call <strong>optimal action-value function</strong>
+<strong>Optimal policies</strong> also share the same <em>action-value function</em>, called <strong>optimal action-value function</strong>
 \begin{equation}
 q_*(s,a)=\max_{\pi}q_\pi(s,a)
 \end{equation}</p>

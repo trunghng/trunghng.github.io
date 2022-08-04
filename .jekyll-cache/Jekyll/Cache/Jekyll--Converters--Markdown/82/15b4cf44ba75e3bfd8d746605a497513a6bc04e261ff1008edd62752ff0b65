@@ -1,4 +1,4 @@
-I"Áf<blockquote>
+I" g<blockquote>
   <p>Reinforcement Learning in continuous state space requires function approximation.</p>
 </blockquote>
 
@@ -46,6 +46,8 @@
       <li><a href="#em-td">Emphatic-TD</a></li>
     </ul>
   </li>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
 </ul>
 
 <h2 id="on-policy-methods">On-policy Methods</h2>
@@ -326,7 +328,7 @@ x_i(s)\doteq\exp\left(\frac{\Vert s-c_i\Vert^2}{2\sigma_i^2}\right)
 <h2 id="references">References</h2>
 <p>[1] Richard S. Sutton &amp; Andrew G. Barto. <a href="https://mitpress.mit.edu/books/reinforcement-learning-second-edition">Reinforcement Learning: An Introduction</a></p>
 
-<p>[2] Deepmind x UCL. <a href="https://www.deepmind.com/learning-resources/reinforcement-learning-lecture-series-2021">Reinforcement Learning Lecture Series 2021</a></p>
+<p>[2] Deepmind x UCL. <a href="https://www.deepmind.com/learning-resources/reinforcement-learning-lecture-series-2021">Reinforcement Learning Lecture Series 2021</a>.</p>
 
 <p>[3] Sutton, R. S. (1988). <a href="doi:10.1007/bf00115009">Learning to predict by the methods of temporal differences</a>. Machine Learning, 3(1), 9â€“44.</p>
 

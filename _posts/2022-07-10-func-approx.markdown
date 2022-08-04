@@ -34,6 +34,8 @@ comments: true
 	- [Semi-gradient](#off-policy-semi-grad)
 	- [Gradient-TD](#grad-td)
 	- [Emphatic-TD](#em-td)
+- [References](#references)
+- [Footnotes](#footnotes)
 
 
 ## On-policy Methods
@@ -312,9 +314,10 @@ x_i(s)\doteq\exp\left(\frac{\Vert s-c_i\Vert^2}{2\sigma_i^2}\right)
 All the methods we have discussed so far in this post have required computation per time step proportional to the number of parameters.
 
 ## References
+{: #references}
 [1] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition)  
 
-[2] Deepmind x UCL. [Reinforcement Learning Lecture Series 2021](https://www.deepmind.com/learning-resources/reinforcement-learning-lecture-series-2021) 
+[2] Deepmind x UCL. [Reinforcement Learning Lecture Series 2021](https://www.deepmind.com/learning-resources/reinforcement-learning-lecture-series-2021). 
 
 [3] Sutton, R. S. (1988). [Learning to predict by the methods of temporal differences](doi:10.1007/bf00115009). Machine Learning, 3(1), 9–44. 
 
@@ -322,6 +325,7 @@ All the methods we have discussed so far in this post have required computation 
 
 
 ## Footnotes
+{: #footnotes}
 [^1]: A $n\times n$ matrix $A$ is called *positive definite* if and only if for any non-zero vector $\mathbf{x}\in\mathbb{R}^n$, we always have
 	\begin{equation}
 	\mathbf{x}^\intercal\mathbf{A}\mathbf{x}>0

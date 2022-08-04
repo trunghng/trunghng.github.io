@@ -31,7 +31,7 @@ Say, there is an unknown **environment** that we're trying to put an **agent** o
 
 #### Markov Decision Processes (MDPs)
 {: #mdp}
-**Markov decision processes (MDPs)** formally describe an environment for **RL**. And almost all **RL** problems can be formalised as **MDPs**.  
+**Markov decision processes (MDPs)** formally describe an environment for **RL**. And almost all **RL** problems can be formalized as **MDPs**.  
 
 **Definition (MDP)**  
 A **Markov Decision Process** is a tuple $⟨\mathcal{S}, \mathcal{A}, \mathcal{P}, \mathcal{R}, \gamma⟩$
@@ -62,7 +62,7 @@ The *discount rate* $\gamma$ determines the present value of future rewards: a r
 k time steps in the future is worth only $\gamma^{k-1}$ times what it would be worth if it were received immediately. And also, it provides mathematical convenience since as $k\rightarrow\infty$ then $\gamma^k\rightarrow 0$.
 
 ##### Policy
-**Policy**, which is denoted as $\pi$, is the behaviour function of the agent. $\pi$ is a mapping from states to probabilities of selecting each possible action. In other words, it lets us know which action to take in the current state $s$ and can be either *deterministic* or *stochastic*.
+**Policy**, which is denoted as $\pi$, is the behavior function of the agent. $\pi$ is a mapping from states to probabilities of selecting each possible action. In other words, it lets us know which action to take in the current state $s$ and can be either *deterministic* or *stochastic*.
 - *Deterministic policy*:	$\quad\pi(s)=a$
 - *Stochastic policy*: $\quad\pi(a\|s)=P(A_t=a\|S_t=s)$
 
@@ -99,13 +99,13 @@ For any MDP, there exists an optimal policy $\pi_\*$ that is better than or equa
 \pi_\*\geq\pi,\forall\pi
 \end{equation}
 
-The proof of the above theorem is gonna be provided in another [post]({% post_url 2021-07-10-optimal-policy-existence %}) since we need some additional tools to do that.  
+The proof of the above theorem is going to be provided in another [post]({% post_url 2021-07-10-optimal-policy-existence %}) since we need some additional tools to do that.  
 
 There may be more than one **optimal policy**, they share the same *state-value function*, called **optimal state-value function** though.
 \begin{equation}
 v_\*(s)=\max_{\pi}v_\pi(s)
 \end{equation}
-**Optimal policies** also share the same *action-value function*, call **optimal action-value function**
+**Optimal policies** also share the same *action-value function*, called **optimal action-value function**
 \begin{equation}
 q_\*(s,a)=\max_{\pi}q_\pi(s,a)
 \end{equation}
