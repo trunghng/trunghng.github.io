@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-05T12:43:08+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-05T14:43:50+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Function Approximation</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html" rel="alternate" type="text/html" title="Function Approximation" /><published>2022-07-10T15:26:00+07:00</published><updated>2022-07-10T15:26:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html">&lt;blockquote&gt;
   &lt;p&gt;Reinforcement Learning in continuous state space requires function approximation.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -38,6 +38,7 @@
       &lt;li&gt;&lt;a href=&quot;#lstd&quot;&gt;Least-Squares TD&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#ep-semi-grad-control&quot;&gt;Episodic Semi-gradient Control&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#semi-grad-n-step-sarsa&quot;&gt;Semi-gradient n-step Sarsa&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#avg-reward&quot;&gt;Average Reward&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#off-policy-methods&quot;&gt;Off-policy Methods&lt;/a&gt;
@@ -403,7 +404,7 @@ for $t&amp;gt;0$, with $\mathbf{\widehat{A}}_0\doteq\varepsilon\mathbf{I}$. The 
 \end{equation}
 The update for the one-step Sarsa method therefore would be
 \begin{equation}
-\mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\big[R_{t+1}+\gamma\hat{q}(S_{t+1},A_{t+1},\mathbf{w}_t)-\hat{q}(S_t,A_t,\mathbf{w}_t)\big]\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}_t)
+\mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\big[R_{t+1}+\gamma\hat{q}(S_{t+1},A_{t+1},\mathbf{w}_t)-\hat{q}(S_t,A_t,\mathbf{w}_t)\big]\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}_t)\tag{13}\label{13}
 \end{equation}
 We call this method &lt;strong&gt;episodic semi-gradient one-step Sarsa&lt;/strong&gt;.&lt;/p&gt;
 
@@ -425,6 +426,61 @@ for $t+n\lt T$, with $G_{t:t+n}\doteq G_t$ if $t+n\geq T$, as usual, to obtain t
 for $0\leq t\lt T$. The pseudocode is given below.&lt;/p&gt;
 &lt;figure&gt;
 	&lt;img src=&quot;/assets/images/2022-07-10/ep_semi_grad_n_step_sarsa.png&quot; alt=&quot;Episodic Semi-gradient n-step Sarsa&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h3 id=&quot;avg-reward&quot;&gt;Average Reward&lt;/h3&gt;
+&lt;p&gt;We now consider a new setting for continuing tasks - alongside the episodic and discounted settings - &lt;strong&gt;average reward&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;In the average-reward setting, the quality of a policy $\pi$ is defined as the average rate of reward, or simply &lt;strong&gt;average reward&lt;/strong&gt;, while following that policy, which we denote as $r(\pi)$:
+\begin{align}
+r(\pi)&amp;amp;\doteq\lim_{h\to\infty}\frac{1}{h}\sum_{t=1}^{h}\mathbb{E}\Big[R_t\vert S_0,A_{0:t-1}\sim\pi\Big] \\ &amp;amp;=\lim_{t\to\infty}\mathbb{E}\Big[R_t\vert S_0,A_{0:t-1}\sim\pi\Big] \\ &amp;amp;=\sum_s\mu_\pi(s)\sum_a\pi(a\vert s)\sum_{s’,r}p(s’,r\vert s,a)r,
+\end{align}
+where:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;the expectations are conditioned on the initial state $S_0$, and on the subsequent action $A_0,A_1,\dots,A_{t-1}$, being taken according to $\pi$;&lt;/li&gt;
+  &lt;li&gt;$\mu_\pi$ is the steady-state distribution,
+\begin{equation}
+\mu_\pi\doteq\lim_{t\to\infty}P\left(S_t=s\vert A_{0:t-1}\sim\pi\right),
+\end{equation}
+which is assumed to exist for any $\pi$ and to be independent of $S_0$.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The steady state distribution is the special distribution under which, if we select actions according to $\pi$, we remain in the same distribution. That is, for which
+\begin{equation}
+\sum_s\mu_\pi(x)\sum_a\pi(a\vert s)p(s’\vert s,a)=\mu_\pi(s’)
+\end{equation}
+In the average-reward setting, returns are defined in terms of differences between rewards and the average reward:
+\begin{equation}
+G_t\doteq R_{t+1}-r(\pi)+R_{t+2}(\mu)-r(\pi)+R_{t+3}-r(\pi)+\dots
+\end{equation}
+This is known as the &lt;strong&gt;differential return&lt;/strong&gt;, and the corresponding value functions are known as &lt;strong&gt;differential value functions&lt;/strong&gt;, $v_\pi(s)$ and $q_\pi(s,a)$, which are defined in the same way as we have done before:
+\begin{align}
+v_\pi(s)&amp;amp;\doteq\mathbb{E}\big[G_t\vert S_t=s\big]; \\ q_\pi(s,a)&amp;amp;\doteq\mathbb{E}\big[G_t\vert S_t=s,A_t=a\big],
+\end{align}
+and similarly for $v_{*}$ and $q_{*}$. Likewise, differential value functions also have Bellman equations, with some modifications by replacing all discounted factor $\gamma$ and replacing all rewards, $r$, by the difference between the reward and the true average reward, $r-r(\pi)$, as:
+\begin{align}
+&amp;amp;v_\pi(s)=\sum_a\pi(a|s)\sum_{r,s’}p(r,s’|s,a)\left[r-r(\pi)+v_\pi(s’)\right], \\ &amp;amp;q_\pi(s,a)=\sum_{r,s’}p(s’,r|s,a)\left[r-r(\pi)+\sum_{a’}\pi(a’|s’)q_\pi(s’,a’)\right], \\ &amp;amp;v_{*}(s)=\max_a\sum_{r,s’}p(s’,r|s,a)\left[r-\max_\pi r(\pi)+v_{*}(s’)\right], \\ &amp;amp;q_{*}(s,a)=\sum_{r,s’}p(s’,r|s,a)\left[r-\max_\pi r(\pi)+\max_{a’}q_{*}(s’,a’)\right]
+\end{align}
+There is also a differential form of the two &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html#td_error&quot;&gt;TD errors&lt;/a&gt;:
+\begin{equation}
+\delta_t\doteq R_{t+1}-\bar{R}_{t+1}+\hat{v}(S_{t+1},\mathbf{w}_t)-\hat{v}(S_t,\mathbf{w}_t),
+\end{equation}
+and
+\begin{equation}
+\delta_t\doteq R_{t+1}-\bar{R}_{t+1}+\hat{q}(S_{t+1},A_{t+1},\mathbf{w}_t)-\hat{q}(S_t,A_t,\mathbf{w}_t),\tag{14}\label{14}
+\end{equation}
+where $\bar{R}_t$ is an estimate at time $t$ of the average reward $r(\pi)$.&lt;/p&gt;
+
+&lt;p&gt;With these alternative definitions, most of our algorithms and many theoretical results carry through to the average-reward setting without change.&lt;/p&gt;
+
+&lt;p&gt;For example, the average reward version of semi-gradient Sarsa is defined just as in \eqref{13} except with the differential version of the TD error \eqref{14}:
+\begin{equation}
+\mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\delta_t\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}_t)
+\end{equation}
+The pseudocode is the algorithm is then given below.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-07-10/dif_semi_grad_sarsa.png&quot; alt=&quot;Differential Semi-gradient Sarsa&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
 
@@ -518,7 +574,7 @@ As we can see in \eqref{1} and \eqref{2}, both TD and MC updates look ahead to a
 
 Other than the sampling of Monte Carlo, TD methods also use the bootstrapping of DP. Because similar to [DP]({% post_url 2021-07-25-dp-in-mdp %}#policy-evaluation), TD(0) is also a bootstrapping method, since the target in its update is $R_{t+1}+\gamma V(S_{t+1})$.  
 
-The quantity inside bracket in \eqref{1} is called *TD error*, denoted as $\delta$:
+The quantity inside bracket in \eqref{1} is called &lt;span id=&apos;td_error&apos;&gt;**TD error**&lt;/span&gt;, denoted as $\delta$:
 \begin{equation}
 \delta_t\doteq R_{t+1}+\gamma V(S_{t+1})-V(S_t)
 \end{equation}

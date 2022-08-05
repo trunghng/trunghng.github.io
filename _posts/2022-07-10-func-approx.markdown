@@ -30,6 +30,7 @@ comments: true
 	- [Least-Squares TD](#lstd)
 	- [Episodic Semi-gradient Control](#ep-semi-grad-control)
 	- [Semi-gradient n-step Sarsa](#semi-grad-n-step-sarsa)
+	- [Average Reward](#avg-reward)
 - [Off-policy Methods](#off-policy-methods)
 	- [Semi-gradient](#off-policy-semi-grad)
 	- [Gradient-TD](#grad-td)
@@ -389,7 +390,7 @@ From \eqref{2}, we can derive the general SGD update for action-value prediction
 \end{equation}
 The update for the one-step Sarsa method therefore would be
 \begin{equation}
-\mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\big[R_{t+1}+\gamma\hat{q}(S_{t+1},A_{t+1},\mathbf{w}\_t)-\hat{q}(S_t,A_t,\mathbf{w}\_t)\big]\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}\_t)
+\mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\big[R_{t+1}+\gamma\hat{q}(S_{t+1},A_{t+1},\mathbf{w}\_t)-\hat{q}(S_t,A_t,\mathbf{w}\_t)\big]\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}\_t)\tag{13}\label{13}
 \end{equation}
 We call this method **episodic semi-gradient one-step Sarsa**. 
 
@@ -415,6 +416,59 @@ for $0\leq t\lt T$. The pseudocode is given below.
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
 </figure>
 
+### Average Reward
+{: #avg-reward}
+We now consider a new setting for continuing tasks - alongside the episodic and discounted settings - **average reward**. 
+
+In the average-reward setting, the quality of a policy $\pi$ is defined as the average rate of reward, or simply **average reward**, while following that policy, which we denote as $r(\pi)$:
+\begin{align}
+r(\pi)&\doteq\lim_{h\to\infty}\frac{1}{h}\sum_{t=1}^{h}\mathbb{E}\Big[R_t\vert S_0,A_{0:t-1}\sim\pi\Big] \\\\ &=\lim_{t\to\infty}\mathbb{E}\Big[R_t\vert S_0,A_{0:t-1}\sim\pi\Big] \\\\ &=\sum_s\mu_\pi(s)\sum_a\pi(a\vert s)\sum_{s',r}p(s',r\vert s,a)r,
+\end{align}
+where:
+- the expectations are conditioned on the initial state $S_0$, and on the subsequent action $A_0,A_1,\dots,A_{t-1}$, being taken according to $\pi$;
+- $\mu_\pi$ is the steady-state distribution,
+\begin{equation}
+\mu_\pi\doteq\lim_{t\to\infty}P\left(S_t=s\vert A_{0:t-1}\sim\pi\right),
+\end{equation}
+which is assumed to exist for any $\pi$ and to be independent of $S_0$.  
+
+The steady state distribution is the special distribution under which, if we select actions according to $\pi$, we remain in the same distribution. That is, for which
+\begin{equation}
+\sum_s\mu_\pi(x)\sum_a\pi(a\vert s)p(s'\vert s,a)=\mu\_\pi(s')
+\end{equation}
+In the average-reward setting, returns are defined in terms of differences between rewards and the average reward:
+\begin{equation}
+G_t\doteq R_{t+1}-r(\pi)+R_{t+2}(\mu)-r(\pi)+R_{t+3}-r(\pi)+\dots
+\end{equation}
+This is known as the **differential return**, and the corresponding value functions are known as **differential value functions**, $v_\pi(s)$ and $q_\pi(s,a)$, which are defined in the same way as we have done before:
+\begin{align}
+v_\pi(s)&\doteq\mathbb{E}\big[G_t\vert S_t=s\big]; \\\\ q_\pi(s,a)&\doteq\mathbb{E}\big[G_t\vert S_t=s,A_t=a\big],
+\end{align}
+and similarly for $v_{\*}$ and $q_{\*}$. Likewise, differential value functions also have Bellman equations, with some modifications by replacing all discounted factor $\gamma$ and replacing all rewards, $r$, by the difference between the reward and the true average reward, $r-r(\pi)$, as:
+\begin{align}
+&v_\pi(s)=\sum_a\pi(a|s)\sum_{r,s'}p(r,s'|s,a)\left[r-r(\pi)+v_\pi(s')\right], \\\\ &q_\pi(s,a)=\sum_{r,s'}p(s',r|s,a)\left[r-r(\pi)+\sum_{a'}\pi(a'|s')q_\pi(s',a')\right], \\\\ &v_{\*}(s)=\max_a\sum_{r,s'}p(s',r|s,a)\left[r-\max_\pi r(\pi)+v_{\*}(s')\right], \\\\ &q_{\*}(s,a)=\sum_{r,s'}p(s',r|s,a)\left[r-\max_\pi r(\pi)+\max_{a'}q_{\*}(s',a')\right]
+\end{align}
+There is also a differential form of the two [TD errors]({% post_url 2022-04-08-td-learning %}#td_error):
+\begin{equation}
+\delta_t\doteq R_{t+1}-\bar{R}\_{t+1}+\hat{v}(S_{t+1},\mathbf{w}\_t)-\hat{v}(S_t,\mathbf{w}\_t),
+\end{equation}
+and
+\begin{equation}
+\delta_t\doteq R_{t+1}-\bar{R}\_{t+1}+\hat{q}(S_{t+1},A_{t+1},\mathbf{w}\_t)-\hat{q}(S_t,A_t,\mathbf{w}\_t),\tag{14}\label{14}
+\end{equation}
+where $\bar{R}\_t$ is an estimate at time $t$ of the average reward $r(\pi)$.
+
+With these alternative definitions, most of our algorithms and many theoretical results carry through to the average-reward setting without change.  
+
+For example, the average reward version of semi-gradient Sarsa is defined just as in \eqref{13} except with the differential version of the TD error \eqref{14}:
+\begin{equation}
+\mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\delta_t\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}\_t)
+\end{equation}
+The pseudocode is the algorithm is then given below.
+<figure>
+	<img src="/assets/images/2022-07-10/dif_semi_grad_sarsa.png" alt="Differential Semi-gradient Sarsa" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
 
 ## References
 {: #references}

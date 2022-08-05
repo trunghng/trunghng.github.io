@@ -58,7 +58,7 @@ As we can see in \eqref{1} and \eqref{2}, both TD and MC updates look ahead to a
 
 Other than the sampling of Monte Carlo, TD methods also use the bootstrapping of DP. Because similar to [DP]({% post_url 2021-07-25-dp-in-mdp %}#policy-evaluation), TD(0) is also a bootstrapping method, since the target in its update is $R_{t+1}+\gamma V(S_{t+1})$.  
 
-The quantity inside bracket in \eqref{1} is called *TD error*, denoted as $\delta$:
+The quantity inside bracket in \eqref{1} is called <span id='td_error'>**TD error**</span>, denoted as $\delta$:
 \begin{equation}
 \delta_t\doteq R_{t+1}+\gamma V(S_{t+1})-V(S_t)
 \end{equation}
