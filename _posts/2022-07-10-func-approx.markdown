@@ -3,7 +3,7 @@ layout: post
 title:  "Function Approximation"
 date:   2022-07-10 15:26:00 +0700
 categories: artificial-intelligent reinforcement-learning
-tags: artificial-intelligent reinforcement-learning function-approximation
+tags: artificial-intelligent reinforcement-learning function-approximation my-rl
 description: Function approximation
 comments: true
 ---
@@ -37,7 +37,6 @@ comments: true
 	- [Semi-gradient](#off-policy-semi-grad)
 	- [Gradient-TD](#grad-td)
 	- [Emphatic-TD](#em-td)
-	- [Bellman Error](#bellman-error)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -125,13 +124,16 @@ When the target output, here denoted as $U_t\in\mathbb{R}$, of the $t$-th traini
 \begin{equation}
 \mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\big[U_t-\hat{v}(S_t,\mathbf{w}\_t)\big]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t)\tag{2}\label{2}
 \end{equation}
-If $U_t$ is an *unbiased estimate* of $v_\pi(S_t)$, i.e., $\mathbb{E}\left[U_t\vert|S_t=s\right]=v_\pi(S_t)$, for each $t$, then $\mathbf{w}\_t$ is guaranteed to converge to a local optimum under the usual stochastic conditions for decreasing $\alpha$.
+If $U_t$ is an *unbiased estimate* of $v_\pi(S_t)$, i.e., $\mathbb{E}\left[U_t\vert S_t=s\right]=v_\pi(S_t)$, for each $t$, then $\mathbf{w}\_t$ is guaranteed to converge to a local optimum under the usual stochastic conditions for decreasing $\alpha$.
 
 In particular, since the true value of a state is the expected value of the return following it, the Monte Carlo target $U_t\doteq G_t$, we have that the SGD version of Monte Carlo state-value prediction,
 \begin{equation}
 \mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\big[G_t-\hat{v}(S_t,\mathbf{w}\_t)\big]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t),
 \end{equation}
-is guaranteed to converge to a local optimal point. We have the pseudocode of the algorithm:
+is guaranteed to converge to a local optimal point. 
+[TODO]
+
+We have the pseudocode of the algorithm:
 <figure>
 	<img src="/assets/images/2022-07-10/sgd_mc.png" alt="SGD Monte Carlo" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
@@ -511,7 +513,7 @@ Many of these algorithms use the per-step importance sampling ratio:
 
 In particular, for state-value functions, the one-step algorithm is **semi-gradient off-policy TD(0)** has the update rule:
 \begin{equation}
-\mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\rho_t\delta_t\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t),
+\mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\rho_t\delta_t\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t),\tag{18}\label{18}
 \end{equation}
 where
 - if the problem is episodic and discounted, we have:
@@ -561,6 +563,41 @@ G_{t:t+n}\doteq\hat{q}(S_t,A_t,\mathbf{w}\_{t-1})+\sum_{k=t}^{t+n-1}\delta_k\pro
 \end{equation}
 with $\delta_t$ is defined similar to the case of **semi-gradient Expected Sarsa**.
 
+### Gradient-TD
+{: #grad-td}
+In this section, we will be considering SGD methods for minimizing the $\overline{\text{PBE}}$.
+
+Rewrite the objective $\overline{\text{PBE}}$ in matrix terms, we have:
+\begin{align}
+\overline{\text{PBE}}(\mathbf{w})&=\left\Vert\Pi\bar{\delta}\_\mathbf{w}\right\Vert_{\mu}^{2} \\\\ &=\left(\Pi\bar{\delta}\_\mathbf{w}\right)^\intercal\mathbf{D}\Pi\bar{\delta}\_\mathbf{w} \\\\ &=\bar{\delta}\_\mathbf{w}^\intercal\Pi^\intercal\mathbf{D}\Pi\bar{\delta}\_\mathbf{w} \\\\ &=\bar{\delta}\_\mathbf{w}^\intercal\mathbf{D}\mathbf{X}\left(\mathbf{X}^\intercal\mathbf{D}\mathbf{X}\right)^{-1}\mathbf{X}^\intercal\mathbf{D}\bar{\delta}\_\mathbf{w} \\\\ &=\left(\mathbf{X}^\intercal\mathbf{D}\bar{\delta}\_\mathbf{w}\right)^\intercal\left(\mathbf{X}^\intercal\mathbf{D}\mathbf{X}\right)^{-1}\left(\mathbf{X}^\intercal\mathbf{D}\bar{\delta}\_\mathbf{w}\right),
+\end{align}
+where in the fourth step, we use the property of projection operation[^4] and the identity
+\begin{equation}
+\Pi^\intercal\mathbf{D}\Pi=\mathbf{D}\mathbf{X}\left(\mathbf{X}^\intercal\mathbf{D}\mathbf{X}\right)^{-1}\mathbf{X}^\intercal\mathbf{D}
+\end{equation}
+Thus, the gradient w.r.t weight vector $\mathbf{w}$ is
+\begin{equation}
+\nabla\_\mathbf{w}\overline{\text{PBE}}(\mathbf{w})=2\nabla_\mathbf{w}\left[\mathbf{X}^\intercal\mathbf{D}\bar{\delta}\_\mathbf{w}\right]^\intercal\left(\mathbf{X}^\intercal\mathbf{D}\mathbf{X}\right)^{-1}\left(\mathbf{X}^\intercal\mathbf{D}\bar{\delta}\_\mathbf{w}\right)\tag{19}\label{19}
+\end{equation}
+
+To turn this into an SGD method, we have to sample something on every time step that has this gradient as its expected value. Let $\mu$ be the distribution of states visited under the behavior policy. The last factor of \eqref{19} can be written as:
+\begin{equation}
+\mathbf{X}^\intercal\mathbf{D}\bar{\delta}\_\mathbf{w}=\sum_s\mu(s)\mathbf{x}(s)\bar{\delta}\_\mathbf{w}=\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right],
+\end{equation}
+which is the expectation of the semi-gradient TD(0) update \eqref{18}. The first factor of \eqref{19}, which is the transpose of the gradient of this update, then can also be written as:
+\begin{align}
+\nabla_\mathbf{w}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right]^\intercal&=\mathbb{E}\left[\rho_t\nabla_\mathbf{w}\delta_t^\intercal\mathbf{x}\_t^\intercal\right] \\\\ &=\mathbb{E}\left[\rho_t\nabla_\mathbf{w}\left(R_{t+1}+\gamma\mathbf{w}^\intercal\mathbf{x}\_{t+1}-\mathbf{w}^\intercal\mathbf{x}\_t\right)^\intercal\mathbf{x}\_t^\intercal\right] \\\\ &=\mathbb{E}\left[\rho_t\left(\gamma\mathbf{x}\_{t+1}-\mathbf{x}\_t\right)\mathbf{x}\_t^\intercal\right]
+\end{align}
+And the middle factor, without the inverse operation, can also be written as:
+\begin{equation}
+\mathbf{X}^\intercal\mathbf{D}\mathbf{X}=\sum_a\mu(s)\mathbf{x}\_s\mathbf{x}\_s^\intercal=\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\intercal\right]
+\end{equation}
+Substituting these expectations back to \eqref{19}, we obtain:
+\begin{equation}
+\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w})=2\mathbb{E}\left[\rho_t\left(\gamma\mathbf{x}\_{t+1}-\mathbf{x}\_t\right)\mathbf{x}\_t^\intercal\right]\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right]
+\end{equation}
+
+
 ## References
 {: #references}
 [1] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition)  
@@ -594,3 +631,10 @@ with $\delta_t$ is defined similar to the case of **semi-gradient Expected Sarsa
 	be the *sample mean* of $X_1$ through $X_n$. 
 
 	As $n\to\infty$, the sample mean $\overline{X}_n$ converges to the true mean $\mu$, with probability $1$.
+
+[^4]: For a linear function approximator, the projection is linear, which implies that it can be represented as an $\vert\mathcal{S}\vert\times\vert\mathcal{S}\vert$ matrix:
+	\begin{equation}
+	\Pi\doteq\mathbf{X}\left(\mathbf{X}^\intercal\mathbf{D}\mathbf{X}\right)^{-1}\mathbf{X}^\intercal\mathbf{D},
+	\end{equation}
+
+	where $\mathbf{D}$ denotes the $\vert\mathcal{S}\vert\times\vert\mathcal{S}\vert$ diagonal matrix with the $\mu(s)$ on the diagonal, and $\mathbf{X}$ denotes the $\vert\mathcal{S}\vert\times d$ matrix whose rows are the feature vectors $\mathbf{x}(s)^\intercal$, one for each state $s$.
