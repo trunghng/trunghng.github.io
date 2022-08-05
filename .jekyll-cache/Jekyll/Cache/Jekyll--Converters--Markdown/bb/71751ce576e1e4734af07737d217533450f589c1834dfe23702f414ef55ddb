@@ -1,153 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-<link href="https://fonts.googleapis.com/css?family=Merriweather:400,900,900i" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<style type="text/css">
-  #button {
-    display: inline-block;
-    background-color: #A5CCF1;
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    border-radius: 4px;
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    transition: background-color .3s, 
-      opacity .5s, visibility .5s;
-    opacity: 0;
-    visibility: hidden;
-    z-index: 1000;
-  }
-  #button::after {
-    content: "\f077";
-    font-family: FontAwesome;
-    font-weight: normal;
-    font-style: normal;
-    font-size: 2em;
-    line-height: 50px;
-    color: #fff;
-  }
-  #button:hover {
-    cursor: pointer;
-    background-color: #333;
-    text-decoration: none;
-  }
-  #button:active {
-    background-color: #555;
-  }
-  #button.show {
-    opacity: 1;
-    visibility: visible;
-  }
-</style><head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Function Approximation | Trung’s cabin</title>
-<meta name="generator" content="Jekyll v4.2.1" />
-<meta property="og:title" content="Function Approximation" />
-<meta name="author" content="Trung H. Nguyen" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="Function approximation" />
-<meta property="og:description" content="Function approximation" />
-<link rel="canonical" href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html" />
-<meta property="og:url" content="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html" />
-<meta property="og:site_name" content="Trung’s cabin" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2022-07-10T15:26:00+07:00" />
-<meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Function Approximation" />
-<script type="application/ld+json">
-{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","description":"Function approximation","headline":"Function Approximation","dateModified":"2022-07-10T15:26:00+07:00","datePublished":"2022-07-10T15:26:00+07:00","url":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html"},"@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Trung&apos;s cabin" />
-    
-
-
-
-
-
-  
-
-<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
-<link rel="manifest" href="/assets/images/site.webmanifest">
-<link rel="mask-icon" href="/assets/images/safari-pinned-tab.svg" color="#5bbad5">
-<meta name="msapplication-TileColor" content="#da532c">
-<meta name="theme-color" content="#ffffff"></head>
-<body><header class="site-header">
-  <div class="snorlax"></div>
-
-  <div class="wrapper"><a class="site-title" rel="author" href="/">Trung&#39;s cabin</a><nav class="site-nav">
-        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
-        <label for="nav-trigger">
-          <span class="menu-icon">
-            <svg viewBox="0 0 18 15" width="18px" height="15px">
-              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
-            </svg>
-          </span>
-        </label>
-
-        <div class="trigger"><a class="page-link" href="/archive/">Archive</a><a class="page-link" href="/about/">About</a></div>
-      </nav></div>
-</header>
-<main class="page-content" aria-label="Content">
-      <a id="button"></a>
-      <div class="wrapper">
-        <style>
-@import "/assets/css/default.css"
-</style>
-<style>
-  .collapsible {
-    background-color: #A5CCF1;
-    color: white;
-    cursor: pointer;
-    padding: 5px;
-    /*width: 100%;*/
-    border: none;
-    text-align: center;
-    outline: none;
-    font-size: 15px;
-  }
-
-  .active, .collapsible:hover {
-    background-color: #82B9EE;
-  }
-
-  .codePanel {
-    padding: 0 18px;
-    display: none;
-    overflow: hidden;
-    background-color: #f1f1f1;
-  }
-</style>
-<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <header class="post-header">
-    <meta name="description" content="Function approximation">
-    <h1 class="post-title p-name" itemprop="name headline">Function Approximation</h1>
-    <p><span>
-      
-        
-        <a href="/tag/artificial-intelligent"><code class="highligher-rouge"><nobr>artificial-intelligent</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/reinforcement-learning"><code class="highligher-rouge"><nobr>reinforcement-learning</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/function-approximation"><code class="highligher-rouge"><nobr>function-approximation</nobr></code>&nbsp;</a>
-      
-    </span></p>
-    <p class="post-meta"><time class="dt-published" datetime="2022-07-10T15:26:00+07:00" itemprop="datePublished">
-        Jul 10, 2022
-      </time></p>
-  </header>
-
-  <div class="post-content e-content" itemprop="articleBody">
-    <blockquote>
+I"Y~<blockquote>
   <p>Reinforcement Learning in continuous state space requires function approximation.</p>
 </blockquote>
 
@@ -257,7 +108,7 @@ The idea of Gradient descent is to minimize the objective function $J(\mathbf{w}
 
 <p>Thus, we have the update rule of Gradient descent:
 \begin{equation}
-\mathbf{w}:=\mathbf{w}-\dfrac{1}{2}\alpha\nabla_\mathbf{w}J(\mathbf{w}),
+\mathbf{w}\leftarrow\mathbf{w}-\dfrac{1}{2}\alpha\nabla_\mathbf{w}J(\mathbf{w}),
 \end{equation}
 where $\alpha$ is a positive step-size parameter.</p>
 
@@ -278,19 +129,10 @@ Assume that, on each step, we observe a new example $S_t\mapsto v_\pi(S_t)$ cons
 
 <p>Using <strong>Stochastic Gradient descent (SGD)</strong>, we adjust the weight vector after each example by a small amount in the direction that would most reduce the error on that example:
 \begin{align}
-\mathbf{w}_{t+1}&amp;\doteq\mathbf{w}_t-\frac{1}{2}\alpha\nabla_\mathbf{w}\big[v_\pi(S_t)-\hat{v}(S_t,\mathbf{w}_t)\big]^2 \\ &amp;=\mathbf{w}_t+\alpha\big[v_\pi(S_t)-\hat{v}(S_t,\mathbf{w}_t)\big]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t)\tag{1}\label{1}
-\end{align}
-When the target output, here denoted as $U_t\in\mathbb{R}$, of the $t$-th training example, $S_t\mapsto U_t$, is not the true value, $v_\pi(S_t)$, but some approximation to it, we cannot perform the exact update \eqref{1} since $v_\pi(S_t)$ is unknown, but we can approximate it by substituting $U_t$ in place of $v_\pi(S_t)$. This yield the following general SGD method for state-value prediction:
-\begin{equation}
-\mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\big[U_t-\hat{v}(S_t,\mathbf{w}_t)\big]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t)\tag{2}\label{2}
-\end{equation}
-If $U_t$ is an <em>unbiased estimate</em> of $v_\pi(S_t)$, i.e., $\mathbb{E}\left[U_t\vert|S_t=s\right]=v_\pi(S_t)$, for each $t$, then $\mathbf{w}_t$ is guaranteed to converge to a local optimum under the usual stochastic conditions for decreasing $\alpha$.</p>
+\mathbf{w}_{t+1}\doteq
+\end{align}</p>
 
-<p>In particular, since the true value of a state is the expected value of the return following it, the Monte Carlo target $U_t\doteq G_t$, we have that the SGD version of Monte Carlo state-value prediction,
-\begin{equation}
-\mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\big[G_t-\hat{v}(S_t,\mathbf{w}_t)\big]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t),
-\end{equation}
-is guaranteed to converge to a local optimal point. We have the pseudocode of the algorithm:</p>
+<p>which gives us pseudocode of the algorithm:</p>
 <figure>
 	<img src="/assets/images/2022-07-10/sgd_mc.png" alt="SGD Monte Carlo" style="display: block; margin-left: auto; margin-right: auto;" />
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
@@ -313,13 +155,13 @@ is guaranteed to converge to a local optimal point. We have the pseudocode of th
 <h4 id="lin-methods">Linear Methods</h4>
 <p>Linear methods approximate value function by the inner product between $\mathbf{w}$ and $\mathbf{x}(s)$:
 \begin{equation}
-\hat{v}(s,\mathbf{w})\doteq\mathbf{w}^\intercal\mathbf{x}(s)=\sum_{i=1}^{d}w_ix_i(s)\tag{3}\label{3}
+\hat{v}(s,\mathbf{w})\doteq\mathbf{w}^\intercal\mathbf{x}(s)=\sum_{i=1}^{d}w_ix_i(s)\tag{1}\label{1}
 \end{equation}
 The vector $\mathbf{x}(s)$ is called a <em>feature vector</em> representing state $s$, i.e., $x_i:\mathcal{S}\to\mathbb{R}$.</p>
 
 <p>For linear methods, features are <em>basis functions</em> because they form a linear basis for the set of approximate functions. Constructing $d$-dimensional feature vectors to represent states is the same as selecting a set of $d$ basis functions.</p>
 
-<p>From \eqref{3}, when using SGD updates with linear approximation, we have the gradient of the approximate value function w.r.t $\mathbf{w}$ is
+<p>From \eqref{1}, when using SGD updates with linear approximation, we have the gradient of the approximate value function w.r.t $\mathbf{w}$ is
 \begin{equation}
 \nabla_\mathbf{w}\hat{v}(s,\mathbf{w})=\mathbf{x}(s)
 \end{equation}
@@ -339,26 +181,26 @@ Thus, with linear approximation, the SGD update can be rewrite as
   \end{align}
   where $\mathbf{x}_t=\mathbf{x}(S_t)$. Once the system has reached steady state, for any given $\mathbf{w}_t$, the expected next weight vector can be written as
   \begin{equation}
-  \mathbb{E}\left[\mathbf{w}_{t+1}\vert\mathbf{w}_t\right]=\mathbf{w}_t+\alpha\left(\mathbf{b}-\mathbf{A}\mathbf{w}_t\right),\tag{4}\label{4}
+  \mathbb{E}\left[\mathbf{w}_{t+1}\vert\mathbf{w}_t\right]=\mathbf{w}_t+\alpha\left(\mathbf{b}-\mathbf{A}\mathbf{w}_t\right),\tag{2}\label{2}
   \end{equation}
   where
   \begin{align}
-  \mathbf{b}&amp;\doteq\mathbb{E}\left[R_{t+1}\mathbf{x}_t\right]\in\mathbb{R}^d, \\ \mathbf{A}&amp;\doteq\mathbb{E}\left[\mathbf{x}_t\left(\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\right)^\intercal\right]\in\mathbb{R}^d\times\mathbb{R}^d\tag{5}\label{5}
+  \mathbf{b}&amp;\doteq\mathbb{E}\left[R_{t+1}\mathbf{x}_t\right]\in\mathbb{R}^d, \\ \mathbf{A}&amp;\doteq\mathbb{E}\left[\mathbf{x}_t\left(\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\right)^\intercal\right]\in\mathbb{R}^d\times\mathbb{R}^d\tag{3}\label{3}
   \end{align}
-  From \eqref{4}, it is easily seen that if the system converges, it must converges to the weight vector $\mathbf{w}_{\text{TD}}$ at which
+  From \eqref{2}, it is easily seen that if the system converges, it must converges to the weight vector $\mathbf{w}_{\text{TD}}$ at which
   \begin{align}
   \mathbf{b}-\mathbf{A}\mathbf{w}_{\text{TD}}&amp;=\mathbf{0} \\ \mathbf{w}_{\text{TD}}&amp;=\mathbf{A}^{-1}\mathbf{b}
   \end{align}
   This quantity, $\mathbf{w}_{\text{TD}}$, is called the <strong>TD fixed point</strong>. And in fact, linear semi-gradient TD(0) converges to this point.</li>
       <li><strong>Proof</strong>:<br />
-  We have \eqref{4} can be written as
+  We have \eqref{2} can be written as
   \begin{equation}
   \mathbb{E}\left[\mathbf{w}_{t+1}\vert\mathbf{w}_t\right]=\left(\mathbf{I}-\alpha\mathbf{A}\right)\mathbf{w}_t+\alpha\mathbf{b}
   \end{equation}
-  The idea of the proof is prove that the matrix $\mathbf{A}$ in \eqref{5} is a positive definite matrix<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>, since $\mathbf{w}_t$ will be reduced toward zero whenever $\mathbf{A}$ is positive definite.<br />
+  The idea of the proof is prove that the matrix $\mathbf{A}$ in \eqref{3} is a positive definite matrix<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>, since $\mathbf{w}_t$ will be reduced toward zero whenever $\mathbf{A}$ is positive definite.<br />
   For linear TD(0), in the continuing case with $\gamma&lt;1$, the matrix $\mathbf{A}$ can be written as
   \begin{align}
-  \mathbf{A}&amp;=\sum_s\mu(s)\sum_a\pi(a\vert s)\sum_{r,s’}p(r,s’\vert s,a)\mathbf{x}(s)\big(\mathbf{x}(s)-\gamma\mathbf{x}(s’)\big)^\intercal \\ &amp;=\sum_s\mu(s)\sum_{s’}p(s’\vert s)\mathbf{x}(s)\big(\mathbf{x}(s)-\gamma\mathbf{x}(s’)\big)^\intercal \\ &amp;=\sum_s\mu(s)\mathbf{x}(s)\Big(\mathbf{x}(s)-\gamma\sum_{s’}p(s’\vert s)\mathbf{x}(s’)\Big)^\intercal \\ &amp;=\mathbf{X}^\intercal\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})\mathbf{X},\tag{6}\label{6}
+  \mathbf{A}&amp;=\sum_s\mu(s)\sum_a\pi(a\vert s)\sum_{r,s’}p(r,s’\vert s,a)\mathbf{x}(s)\big(\mathbf{x}(s)-\gamma\mathbf{x}(s’)\big)^\intercal \\ &amp;=\sum_s\mu(s)\sum_{s’}p(s’\vert s)\mathbf{x}(s)\big(\mathbf{x}(s)-\gamma\mathbf{x}(s’)\big)^\intercal \\ &amp;=\sum_s\mu(s)\mathbf{x}(s)\Big(\mathbf{x}(s)-\gamma\sum_{s’}p(s’\vert s)\mathbf{x}(s’)\Big)^\intercal \\ &amp;=\mathbf{X}^\intercal\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})\mathbf{X},\tag{4}\label{4}
   \end{align}
   where
         <ul>
@@ -369,7 +211,7 @@ Thus, with linear approximation, the SGD update can be rewrite as
           <li>$\mathbf{X}$ is the $\vert\mathcal{S}\vert\times d$ matrix with $\mathbf{x}(s)$ as its row.</li>
         </ul>
 
-        <p>Hence, it is clear that the positive definiteness of $A$ depends on the matrix $\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})$ in \eqref{6}.</p>
+        <p>Hence, it is clear that the positive definiteness of $A$ depends on the matrix $\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})$ in \eqref{4}.</p>
 
         <p>To continue proving the positive definiteness of $\mathbf{A}$, we use two lemmas:</p>
         <ul>
@@ -498,7 +340,7 @@ The figures below shows a one-dimensional example with a Euclidean distance metr
 <h3 id="lstd">Least-Squares TD</h3>
 <p>Recall when using TD(0) with linear function approximation, $v_\mathbf{w}(s)=\mathbf{w}^\intercal\mathbf{x}(s)$, we need to find a point $\mathbf{w}$ such that
 \begin{equation}
-\mathbb{E}\Big[\big(R_{t+1}+\gamma v_\mathbf{w}(S_{t+1})-v_{\mathbf{w}}(S_t)\big)\mathbf{x}_t\Big]=\mathbf{0}\tag{7}\label{7}
+\mathbb{E}\Big[\big(R_{t+1}+\gamma v_\mathbf{w}(S_{t+1})-v_{\mathbf{w}}(S_t)\big)\mathbf{x}_t\Big]=\mathbf{0}\tag{5}\label{5}
 \end{equation}
 or
 \begin{equation}
@@ -512,23 +354,23 @@ where
 \begin{align}
 \mathbf{A}&amp;\doteq\mathbb{E}\left[\mathbf{x}_t\left(\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\right)^\intercal\right], \\ \mathbf{b}&amp;\doteq\mathbb{E}\left[R_{t+1}\mathbf{x}_t\right]
 \end{align}
-Instead of computing these expectations over all possible states and all possible transitions that could happen, we now only care about the things that did happen. In particular, we now consider the empirical loss of \eqref{7}, as:
+Instead of computing these expectations over all possible states and all possible transitions that could happen, we now only care about the things that did happen. In particular, we now consider the empirical loss of \eqref{5}, as:
 \begin{equation}
-\frac{1}{t}\sum_{k=0}^{t-1}\big(R_{k+1}+\gamma v_\mathbf{w}(S_{k+1})-v_{\mathbf{w}}(S_k)\big)\mathbf{x}_i=\mathbf{0}\tag{8}\label{8}
+\frac{1}{t}\sum_{k=0}^{t-1}\big(R_{k+1}+\gamma v_\mathbf{w}(S_{k+1})-v_{\mathbf{w}}(S_k)\big)\mathbf{x}_i=\mathbf{0}\tag{6}\label{6}
 \end{equation}
-By the law of large numbers<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup>, when $t\to\infty$, \eqref{8} converges to its expectation, which is \eqref{7}. Hence, we now just have to compute the estimate of $\mathbf{w}_{\text{TD}}$, called $\mathbf{w}_{\text{LSTD}}$ (as LSTD stands for <strong>Least-Squares TD</strong>), which is defined as:
+By the law of large numbers<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup>, when $t\to\infty$, \eqref{6} converges to its expectation, which is \eqref{5}. Hence, we now just have to compute the estimate of $\mathbf{w}_{\text{TD}}$, called $\mathbf{w}_{\text{LSTD}}$ (as LSTD stands for <strong>Least-Squares TD</strong>), which is defined as:
 \begin{equation}
-\mathbf{w}_{\text{LSTD}}\doteq\left(\sum_{k=0}^{t-1}\mathbf{x}_i\left(\mathbf{x}_k-\gamma\mathbf{x}_{k+1}\right)^\intercal\right)^{-1}\left(\sum_{k=1}^{t-1}R_{k+1}\mathbf{x}_k\right)\tag{9}\label{9}
+\mathbf{w}_{\text{LSTD}}\doteq\left(\sum_{k=0}^{t-1}\mathbf{x}_i\left(\mathbf{x}_k-\gamma\mathbf{x}_{k+1}\right)^\intercal\right)^{-1}\left(\sum_{k=1}^{t-1}R_{k+1}\mathbf{x}_k\right)\tag{7}\label{7}
 \end{equation}
 In other words, our work is to compute estimates $\widehat{\mathbf{A}}_t$ and $\widehat{\mathbf{b}}_t$ of $\mathbf{A}$ and $\mathbf{b}$:
 \begin{align}
-\widehat{\mathbf{A}}_t&amp;\doteq\sum_{k=0}^{t-1}\mathbf{x}_k\left(\mathbf{x}_k-\gamma\mathbf{x}_{k+1}\right)^\intercal+\varepsilon\mathbf{I};\tag{10}\label{10} \\ \widehat{\mathbf{b}}_t&amp;\doteq\sum_{k=0}^{t-1}R_{k+1}\mathbf{x}_k,\tag{11}\label{11}
+\widehat{\mathbf{A}}_t&amp;\doteq\sum_{k=0}^{t-1}\mathbf{x}_k\left(\mathbf{x}_k-\gamma\mathbf{x}_{k+1}\right)^\intercal+\varepsilon\mathbf{I};\tag{8}\label{8} \\ \widehat{\mathbf{b}}_t&amp;\doteq\sum_{k=0}^{t-1}R_{k+1}\mathbf{x}_k,\tag{9}\label{9}
 \end{align}
-where $\mathbf{I}$ is the identity matrix, and $\varepsilon\mathbf{I}$, for some small $\varepsilon&gt;0$, ensures that $\widehat{\mathbf{A}}_t$ is always invertible. Thus, \eqref{9} can be rewritten as:
+where $\mathbf{I}$ is the identity matrix, and $\varepsilon\mathbf{I}$, for some small $\varepsilon&gt;0$, ensures that $\widehat{\mathbf{A}}_t$ is always invertible. Thus, \eqref{7} can be rewritten as:
 \begin{equation}
 \mathbf{w}_{\text{LSTD}}\doteq\widehat{\mathbf{A}}_t^{-1}\widehat{\mathbf{b}}_t
 \end{equation}
-The two approximations in \eqref{10} and \eqref{11} could be implemented incrementally using the same <a href="/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html#incremental-method">technique</a> we used to apply earlier so that they can be done in constant time per step. Even so, the update for $\widehat{\mathbf{A}}_t$ would have the computational complexity of $O(d^2)$, and so is its memory required to hold the $\widehat{\mathbf{A}}_t$ matrix.</p>
+The two approximations in \eqref{8} and \eqref{9} could be implemented incrementally using the same <a href="/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html#incremental-method">technique</a> we used to apply earlier so that they can be done in constant time per step. Even so, the update for $\widehat{\mathbf{A}}_t$ would have the computational complexity of $O(d^2)$, and so is its memory required to hold the $\widehat{\mathbf{A}}_t$ matrix.</p>
 
 <p>This leads to a problem that our next step, which is the computation of the inverse $\widehat{\mathbf{A}}_t^{-1}$ of $\widehat{\mathbf{A}}_t$, is going to be $O(d^3)$. Fortunately, with the so-called <strong>Sherman-Morrison formula</strong>, an inverse of our special form matrix - a sum of outer products - can also be updated incrementally with only $O(d^2)$ computations, as
 \begin{align}
@@ -543,38 +385,7 @@ for $t&gt;0$, with $\mathbf{\widehat{A}}_0\doteq\varepsilon\mathbf{I}$. The pseu
 <h3 id="ep-semi-grad-control">Episodic Semi-gradient Control</h3>
 <p>We now consider the control problem, with parametric approximation of the action-value function $\hat{q}(s,a,\mathbf{w})\approx q_*(s,a)$, where $\mathbf{w}\in\mathbb{R}^d$ is a finite-dimensional weight vector.</p>
 
-<p>Similar to the prediction problem, we can apply semi-gradient methods in solving the control problem. The difference is rather than considering training examples of the form $S_t\mapsto U_t$, we now consider examples of the form $S_t,A_t\mapsto U_t$.</p>
-
-<p>From \eqref{2}, we can derive the general SGD update for action-value prediction as 
-\begin{equation}
-\mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\big[U_t-\hat{q}(S_t,A_t,\mathbf{w}_t)\big]\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}_t)\tag{12}\label{12}
-\end{equation}
-The update for the one-step Sarsa method therefore would be
-\begin{equation}
-\mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\big[R_{t+1}+\gamma\hat{q}(S_{t+1},A_{t+1},\mathbf{w}_t)-\hat{q}(S_t,A_t,\mathbf{w}_t)\big]\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}_t)
-\end{equation}
-We call this method <strong>episodic semi-gradient one-step Sarsa</strong>.</p>
-
-<p>To form the control method, we need to couple the action-value</p>
-<figure>
-	<img src="/assets/images/2022-07-10/ep_semi_grad_sarsa.png" alt="Episodic Semi-gradient Sarsa" style="display: block; margin-left: auto; margin-right: auto;" />
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
-</figure>
-
-<h3 id="semi-grad-n-step-sarsa">Semi-gradient $\boldsymbol{n}$-step Sarsa</h3>
-<p>Similar to how we defined the one-step Sarsa version of semi-gradient, we can replace the update target in \eqref{12} by an $n$-step return,
-\begin{equation}
-G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{q}(S_{t+n},A_{t+n},\mathbf{w}_{t+n-1}),
-\end{equation}
-for $t+n\lt T$, with $G_{t:t+n}\doteq G_t$ if $t+n\geq T$, as usual, to obtain the <strong>semi-gradient $n$-step Sarsa</strong> update:
-\begin{equation}
-\mathbf{w}_{t+n}\doteq\mathbf{w}_{t+n-1}+\alpha\big[G_{t:t+n}-\hat{q}(S_t,A_t,\mathbf{w}_{t+n-1})\big]\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}_{t+n-1}),
-\end{equation}
-for $0\leq t\lt T$. The pseudocode is given below.</p>
-<figure>
-	<img src="/assets/images/2022-07-10/ep_semi_grad_n_step_sarsa.png" alt="Episodic Semi-gradient n-step Sarsa" style="display: block; margin-left: auto; margin-right: auto;" />
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
-</figure>
+<p>Similar to the prediction problem, we can apply semi-gradient methods in solving the control problem.</p>
 
 <h2 id="references">References</h2>
 <p>[1] Richard S. Sutton &amp; Andrew G. Barto. <a href="https://mitpress.mit.edu/books/reinforcement-learning-second-edition">Reinforcement Learning: An Introduction</a></p>
@@ -585,9 +396,7 @@ for $0\leq t\lt T$. The pseudocode is given below.</p>
 
 <p>[4] Konidaris, G. &amp; Osentoski, S. &amp; Thomas, P.. <a href="https://dl.acm.org/doi/10.5555/2900423.2900483">Value Function Approximation in Reinforcement Learning Using the Fourier Basis</a>. AAAI Conference on Artificial Intelligence, North America, aug. 2011.</p>
 
-<p>[5] Shangtong Zhang. <a href="https://github.com/ShangtongZhang/reinforcement-learning-an-introduction">Reinforcement Learning: An Introduction implementation</a>.</p>
-
-<p>[6] Joseph K. Blitzstein &amp; Jessica Hwang. <a href="https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573">Introduction to Probability</a>.</p>
+<p>[5] Shangtong Zhang. <a href="https://github.com/ShangtongZhang/reinforcement-learning-an-introduction">Reinforcement Learning: An Introduction implementation</a></p>
 
 <h2 id="footnotes">Footnotes</h2>
 
@@ -606,121 +415,9 @@ f(x+\tau)=f(x),\forall x
 \end{equation} <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:3" role="doc-endnote">
-      <p>Consider i.i.d r.v.s $X_1,X_2,\dots$ with finite mean $\mu$ and finite variance $\sigma^2$. For all positive integer $n$, let: 
-\begin{equation}
-\overline{X}_n\doteq\frac{X_1+\dots+X_n}{n}
-\end{equation}
-be the <em>sample mean</em> of $X_1$ through $X_n$.</p>
 
-      <p>As $n\to\infty$, the sample mean $\overline{X}_n$ converges to the true mean $\mu$, with probability $1$. <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p><a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
-
-  </div>
-<div id="disqus_thread"></div>
-<script>
-    /**
-    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
-    
-    var disqus_config = function () {
-    this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
-    this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-    };
-    
-    (function() { // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-    s.src = 'https://https-trunghng-github-io.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-
-<script id="dsq-count-scr" src="//https-trunghng-github-io.disqus.com/count.js" async></script>
-
-  <a class="u-url" href="/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html" hidden></a>
-</article>
- <!-- mathjax javascript -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
-  "HTML-CSS": {availableFonts: []}
-  });
-</script>
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-<script>
-  var coll = document.getElementsByClassName("collapsible");
-  var i;
-  for (i = 0; i < coll.length; i++) {
-    coll[i].addEventListener("click", function() {
-      this.classList.toggle("active");
-      var content = document.getElementById(this.id+"data");
-      var btn = document.getElementById(this.id)
-      if (content.style.display === "block") {
-        content.style.display = "none";
-        btn.innerText = "Click to show the code";
-      } else {
-        content.style.display = "block";
-        btn.innerText = "Click to hide the code"
-      }
-    });
-  }
-</script>
-
-      </div>
-
-    </main><footer class="site-footer h-card">
-  <data class="u-url" href="/"></data>
-
-  <div class="wrapper">
-
-    <div class="footer-col-wrapper">
-      <div class="footer-col">
-        <p class="feed-subscribe">
-          <a href="/feed.xml">
-            <svg class="svg-icon orange">
-              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
-            </svg><span>Subscribe</span>
-          </a>
-        </p>
-        <ul class="contact-list">
-          <li class="p-name">Trung H. Nguyen</li>
-          <li><a class="u-email" href="mailto:trung.skipper@gmail.com">trung.skipper@gmail.com</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <p>To document something I&#39;ve learned
-</p>
-      </div>
-    </div>
-
-    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/trunghng" title="trunghng"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
-</div>
-
-  </div>
-
-</footer>
-</body>
-
-</html>
-<script type="text/javascript">
-  var btn = $('#button');
-
-  $(window).scroll(function() {
-    if ($(window).scrollTop() > 300) {
-      btn.addClass('show');
-    } else {
-      btn.removeClass('show');
-    }
-  });
-
-  btn.on('click', function(e) {
-    e.preventDefault();
-    $('html, body').animate({scrollTop:0}, '300');
-  });
-</script>
+:ET

@@ -93,7 +93,7 @@ The idea of Gradient descent is to minimize the objective function $J(\mathbf{w}
 
 Thus, we have the update rule of Gradient descent:
 \begin{equation}
-\mathbf{w}\leftarrow\mathbf{w}-\dfrac{1}{2}\alpha\nabla_\mathbf{w}J(\mathbf{w}),
+\mathbf{w}:=\mathbf{w}-\dfrac{1}{2}\alpha\nabla_\mathbf{w}J(\mathbf{w}),
 \end{equation}
 where $\alpha$ is a positive step-size parameter.
 
@@ -111,11 +111,23 @@ By the update we have defined earlier, in each step, we need to decrease $\mathb
 \begin{equation}
 \Delta\mathbf{w}=-\dfrac{1}{2}\alpha\nabla_\mathbf{w}\overline{\text{VE}}(\mathbf{w})=\alpha\mathbb{E}\Big[v_\pi(s)-\hat{v}(s,\mathbf{w})\Big]\nabla_\mathbf{w}\hat{v}(s,\mathbf{w})
 \end{equation}
-Using **Stochastic Gradient descent (SGD)**, and since the Monte Carlo target $G_t$ by definition is an unbiased estimate of $v_\pi(S_t)$ , we sample the gradient:
+Assume that, on each step, we observe a new example $S_t\mapsto v_\pi(S_t)$ consisting of a state $S_t$ and its true value under the policy $\pi$. 
+
+Using **Stochastic Gradient descent (SGD)**, we adjust the weight vector after each example by a small amount in the direction that would most reduce the error on that example:
+\begin{align}
+\mathbf{w}\_{t+1}&\doteq\mathbf{w}\_t-\frac{1}{2}\alpha\nabla_\mathbf{w}\big[v_\pi(S_t)-\hat{v}(S_t,\mathbf{w}\_t)\big]^2 \\\\ &=\mathbf{w}\_t+\alpha\big[v_\pi(S_t)-\hat{v}(S_t,\mathbf{w}\_t)\big]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t)\tag{1}\label{1}
+\end{align}
+When the target output, here denoted as $U_t\in\mathbb{R}$, of the $t$-th training example, $S_t\mapsto U_t$, is not the true value, $v_\pi(S_t)$, but some approximation to it, we cannot perform the exact update \eqref{1} since $v_\pi(S_t)$ is unknown, but we can approximate it by substituting $U_t$ in place of $v_\pi(S_t)$. This yield the following general SGD method for state-value prediction:
 \begin{equation}
-\Delta\mathbf{w}=\alpha(G_t-\hat{v}(S_t,\mathbf{w}))\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w})
+\mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\big[U_t-\hat{v}(S_t,\mathbf{w}\_t)\big]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t)\tag{2}\label{2}
 \end{equation}
-which gives us pseudocode of the algorithm:
+If $U_t$ is an *unbiased estimate* of $v_\pi(S_t)$, i.e., $\mathbb{E}\left[U_t\vert|S_t=s\right]=v_\pi(S_t)$, for each $t$, then $\mathbf{w}\_t$ is guaranteed to converge to a local optimum under the usual stochastic conditions for decreasing $\alpha$.
+
+In particular, since the true value of a state is the expected value of the return following it, the Monte Carlo target $U_t\doteq G_t$, we have that the SGD version of Monte Carlo state-value prediction,
+\begin{equation}
+\mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\big[G_t-\hat{v}(S_t,\mathbf{w}\_t)\big]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t),
+\end{equation}
+is guaranteed to converge to a local optimal point. We have the pseudocode of the algorithm:
 <figure>
 	<img src="/assets/images/2022-07-10/sgd_mc.png" alt="SGD Monte Carlo" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
@@ -141,13 +153,13 @@ Corresponding to every state $s$, there is a real-valued vector $\mathbf{x}(s)\d
 {: #lin-methods}
 Linear methods approximate value function by the inner product between $\mathbf{w}$ and $\mathbf{x}(s)$:
 \begin{equation}
-\hat{v}(s,\mathbf{w})\doteq\mathbf{w}^\intercal\mathbf{x}(s)=\sum_{i=1}^{d}w_ix_i(s)\tag{1}\label{1}
+\hat{v}(s,\mathbf{w})\doteq\mathbf{w}^\intercal\mathbf{x}(s)=\sum_{i=1}^{d}w_ix_i(s)\tag{3}\label{3}
 \end{equation}
 The vector $\mathbf{x}(s)$ is called a *feature vector* representing state $s$, i.e., $x_i:\mathcal{S}\to\mathbb{R}$.  
 
 For linear methods, features are *basis functions* because they form a linear basis for the set of approximate functions. Constructing $d$-dimensional feature vectors to represent states is the same as selecting a set of $d$ basis functions. 
 
-From \eqref{1}, when using SGD updates with linear approximation, we have the gradient of the approximate value function w.r.t $\mathbf{w}$ is
+From \eqref{3}, when using SGD updates with linear approximation, we have the gradient of the approximate value function w.r.t $\mathbf{w}$ is
 \begin{equation}
 \nabla_\mathbf{w}\hat{v}(s,\mathbf{w})=\mathbf{x}(s)
 \end{equation}
@@ -165,26 +177,26 @@ In the linear case, there is only one optimum, and thus any method that is guara
 	\end{align}
 	where $\mathbf{x}\_t=\mathbf{x}(S_t)$. Once the system has reached steady state, for any given $\mathbf{w}\_t$, the expected next weight vector can be written as
 	\begin{equation}
-	\mathbb{E}\left[\mathbf{w}\_{t+1}\vert\mathbf{w}\_t\right]=\mathbf{w}\_t+\alpha\left(\mathbf{b}-\mathbf{A}\mathbf{w}\_t\right),\tag{2}\label{2}
+	\mathbb{E}\left[\mathbf{w}\_{t+1}\vert\mathbf{w}\_t\right]=\mathbf{w}\_t+\alpha\left(\mathbf{b}-\mathbf{A}\mathbf{w}\_t\right),\tag{4}\label{4}
 	\end{equation}
 	where
 	\begin{align}
-	\mathbf{b}&\doteq\mathbb{E}\left[R_{t+1}\mathbf{x}\_t\right]\in\mathbb{R}^d, \\\\ \mathbf{A}&\doteq\mathbb{E}\left[\mathbf{x}\_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)^\intercal\right]\in\mathbb{R}^d\times\mathbb{R}^d\tag{3}\label{3}
+	\mathbf{b}&\doteq\mathbb{E}\left[R_{t+1}\mathbf{x}\_t\right]\in\mathbb{R}^d, \\\\ \mathbf{A}&\doteq\mathbb{E}\left[\mathbf{x}\_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)^\intercal\right]\in\mathbb{R}^d\times\mathbb{R}^d\tag{5}\label{5}
 	\end{align}
-	From \eqref{2}, it is easily seen that if the system converges, it must converges to the weight vector $\mathbf{w}\_{\text{TD}}$ at which
+	From \eqref{4}, it is easily seen that if the system converges, it must converges to the weight vector $\mathbf{w}\_{\text{TD}}$ at which
 	\begin{align}
 	\mathbf{b}-\mathbf{A}\mathbf{w}\_{\text{TD}}&=\mathbf{0} \\\\ \mathbf{w}\_{\text{TD}}&=\mathbf{A}^{-1}\mathbf{b}
 	\end{align}
 	This quantity, $\mathbf{w}\_{\text{TD}}$, is called the **TD fixed point**. And in fact, linear semi-gradient TD(0) converges to this point.
 	- **Proof**:  
-		We have \eqref{2} can be written as
+		We have \eqref{4} can be written as
 		\begin{equation}
 		\mathbb{E}\left[\mathbf{w}\_{t+1}\vert\mathbf{w}\_t\right]=\left(\mathbf{I}-\alpha\mathbf{A}\right)\mathbf{w}\_t+\alpha\mathbf{b}
 		\end{equation}
-		The idea of the proof is prove that the matrix $\mathbf{A}$ in \eqref{3} is a positive definite matrix[^1], since $\mathbf{w}\_t$ will be reduced toward zero whenever $\mathbf{A}$ is positive definite.  
+		The idea of the proof is prove that the matrix $\mathbf{A}$ in \eqref{5} is a positive definite matrix[^1], since $\mathbf{w}\_t$ will be reduced toward zero whenever $\mathbf{A}$ is positive definite.  
 		For linear TD(0), in the continuing case with $\gamma<1$, the matrix $\mathbf{A}$ can be written as
 		\begin{align}
-		\mathbf{A}&=\sum_s\mu(s)\sum_a\pi(a\vert s)\sum_{r,s'}p(r,s'\vert s,a)\mathbf{x}(s)\big(\mathbf{x}(s)-\gamma\mathbf{x}(s')\big)^\intercal \\\\ &=\sum_s\mu(s)\sum_{s'}p(s'\vert s)\mathbf{x}(s)\big(\mathbf{x}(s)-\gamma\mathbf{x}(s')\big)^\intercal \\\\ &=\sum_s\mu(s)\mathbf{x}(s)\Big(\mathbf{x}(s)-\gamma\sum_{s'}p(s'\vert s)\mathbf{x}(s')\Big)^\intercal \\\\ &=\mathbf{X}^\intercal\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})\mathbf{X},\tag{4}\label{4}
+		\mathbf{A}&=\sum_s\mu(s)\sum_a\pi(a\vert s)\sum_{r,s'}p(r,s'\vert s,a)\mathbf{x}(s)\big(\mathbf{x}(s)-\gamma\mathbf{x}(s')\big)^\intercal \\\\ &=\sum_s\mu(s)\sum_{s'}p(s'\vert s)\mathbf{x}(s)\big(\mathbf{x}(s)-\gamma\mathbf{x}(s')\big)^\intercal \\\\ &=\sum_s\mu(s)\mathbf{x}(s)\Big(\mathbf{x}(s)-\gamma\sum_{s'}p(s'\vert s)\mathbf{x}(s')\Big)^\intercal \\\\ &=\mathbf{X}^\intercal\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})\mathbf{X},\tag{6}\label{6}
 		\end{align}
 		where  
 		- $\mu(s)$ is the stationary distribution under $\pi$;  
@@ -193,7 +205,7 @@ In the linear case, there is only one optimum, and thus any method that is guara
 		- $\mathbf{D}$ is the $\vert\mathcal{S}\vert\times\vert\mathcal{S}\vert$ diagonal matrix with the $\mu(s)$ on its diagonal;
 		- $\mathbf{X}$ is the $\vert\mathcal{S}\vert\times d$ matrix with $\mathbf{x}(s)$ as its row.  
 
-		Hence, it is clear that the positive definiteness of $A$ depends on the matrix $\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})$ in \eqref{4}. 
+		Hence, it is clear that the positive definiteness of $A$ depends on the matrix $\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})$ in \eqref{6}. 
 
 		To continue proving the positive definiteness of $\mathbf{A}$, we use two lemmas:
 		- **Lemma 1**: *A square matrix $\mathbf{A}$ is positive definite if $\mathbf{A}+\mathbf{A}^\intercal$* is positive definite.
@@ -299,7 +311,7 @@ This defines a feature for each of the $(n+1)^d$ possible integer vector $\mathb
 
 <figure>
 	<img src="/assets/images/2022-07-10/square_wave_function.png" alt="Square wave function approximated using Coarse Coding" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: Using linear function approximation based on coarse coding on learning a one-dimensional square-wave function <br><span>(Eg9.3 - RL: An Introduction book).</span><br> The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-9/square_wave.py)</span></figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: Using linear function approximation based on coarse coding to learn a one-dimensional square-wave function <br><span>(Eg9.3 - RL: An Introduction book).</span><br> The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-9/square_wave.py)</span></figcaption>
 </figure><br/>
 
 ##### Tile Coding
@@ -323,7 +335,7 @@ The figures below shows a one-dimensional example with a Euclidean distance metr
 {: #lstd}
 Recall when using TD(0) with linear function approximation, $v_\mathbf{w}(s)=\mathbf{w}^\intercal\mathbf{x}(s)$, we need to find a point $\mathbf{w}$ such that
 \begin{equation}
-\mathbb{E}\Big[\big(R_{t+1}+\gamma v_\mathbf{w}(S_{t+1})-v_{\mathbf{w}}(S_t)\big)\mathbf{x}\_t\Big]=\mathbf{0}\tag{5}\label{5}
+\mathbb{E}\Big[\big(R_{t+1}+\gamma v_\mathbf{w}(S_{t+1})-v_{\mathbf{w}}(S_t)\big)\mathbf{x}\_t\Big]=\mathbf{0}\tag{7}\label{7}
 \end{equation}
 or
 \begin{equation}
@@ -337,23 +349,23 @@ where
 \begin{align}
 \mathbf{A}&\doteq\mathbb{E}\left[\mathbf{x}\_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)^\intercal\right], \\\\ \mathbf{b}&\doteq\mathbb{E}\left[R_{t+1}\mathbf{x}\_t\right]
 \end{align}
-Instead of computing these expectations over all possible states and all possible transitions that could happen, we now only care about the things that did happen. In particular, we now consider the empirical loss of \eqref{5}, as:
+Instead of computing these expectations over all possible states and all possible transitions that could happen, we now only care about the things that did happen. In particular, we now consider the empirical loss of \eqref{7}, as:
 \begin{equation}
-\frac{1}{t}\sum_{k=0}^{t-1}\big(R_{k+1}+\gamma v_\mathbf{w}(S_{k+1})-v_{\mathbf{w}}(S_k)\big)\mathbf{x}\_i=\mathbf{0}\tag{6}\label{6}
+\frac{1}{t}\sum_{k=0}^{t-1}\big(R_{k+1}+\gamma v_\mathbf{w}(S_{k+1})-v_{\mathbf{w}}(S_k)\big)\mathbf{x}\_i=\mathbf{0}\tag{8}\label{8}
 \end{equation}
-By the law of large numbers[^3], when $t\to\infty$, \eqref{6} converges to its expectation, which is \eqref{5}. Hence, we now just have to compute the estimate of $\mathbf{w}\_{\text{TD}}$, called $\mathbf{w}\_{\text{LSTD}}$ (as LSTD stands for **Least-Squares TD**), which is defined as:
+By the law of large numbers[^3], when $t\to\infty$, \eqref{8} converges to its expectation, which is \eqref{7}. Hence, we now just have to compute the estimate of $\mathbf{w}\_{\text{TD}}$, called $\mathbf{w}\_{\text{LSTD}}$ (as LSTD stands for **Least-Squares TD**), which is defined as:
 \begin{equation}
-\mathbf{w}\_{\text{LSTD}}\doteq\left(\sum_{k=0}^{t-1}\mathbf{x}\_i\left(\mathbf{x}\_k-\gamma\mathbf{x}\_{k+1}\right)^\intercal\right)^{-1}\left(\sum_{k=1}^{t-1}R_{k+1}\mathbf{x}\_k\right)\tag{7}\label{7}
+\mathbf{w}\_{\text{LSTD}}\doteq\left(\sum_{k=0}^{t-1}\mathbf{x}\_i\left(\mathbf{x}\_k-\gamma\mathbf{x}\_{k+1}\right)^\intercal\right)^{-1}\left(\sum_{k=1}^{t-1}R_{k+1}\mathbf{x}\_k\right)\tag{9}\label{9}
 \end{equation}
 In other words, our work is to compute estimates $\widehat{\mathbf{A}}\_t$ and $\widehat{\mathbf{b}}\_t$ of $\mathbf{A}$ and $\mathbf{b}$:
 \begin{align}
-\widehat{\mathbf{A}}\_t&\doteq\sum_{k=0}^{t-1}\mathbf{x}\_k\left(\mathbf{x}\_k-\gamma\mathbf{x}\_{k+1}\right)^\intercal+\varepsilon\mathbf{I};\tag{8}\label{8} \\\\ \widehat{\mathbf{b}}\_t&\doteq\sum_{k=0}^{t-1}R_{k+1}\mathbf{x}\_k,\tag{9}\label{9}
+\widehat{\mathbf{A}}\_t&\doteq\sum_{k=0}^{t-1}\mathbf{x}\_k\left(\mathbf{x}\_k-\gamma\mathbf{x}\_{k+1}\right)^\intercal+\varepsilon\mathbf{I};\tag{10}\label{10} \\\\ \widehat{\mathbf{b}}\_t&\doteq\sum_{k=0}^{t-1}R_{k+1}\mathbf{x}\_k,\tag{11}\label{11}
 \end{align}
-where $\mathbf{I}$ is the identity matrix, and $\varepsilon\mathbf{I}$, for some small $\varepsilon>0$, ensures that $\widehat{\mathbf{A}}\_t$ is always invertible. Thus, \eqref{7} can be rewritten as:
+where $\mathbf{I}$ is the identity matrix, and $\varepsilon\mathbf{I}$, for some small $\varepsilon>0$, ensures that $\widehat{\mathbf{A}}\_t$ is always invertible. Thus, \eqref{9} can be rewritten as:
 \begin{equation}
 \mathbf{w}\_{\text{LSTD}}\doteq\widehat{\mathbf{A}}\_t^{-1}\widehat{\mathbf{b}}\_t
 \end{equation}
-The two approximations in \eqref{8} and \eqref{9} could be implemented incrementally using the same [technique]({% post_url 2021-08-21-monte-carlo-in-rl %}#incremental-method) we used to apply earlier so that they can be done in constant time per step. Even so, the update for $\widehat{\mathbf{A}}\_t$ would have the computational complexity of $O(d^2)$, and so is its memory required to hold the $\widehat{\mathbf{A}}\_t$ matrix. 
+The two approximations in \eqref{10} and \eqref{11} could be implemented incrementally using the same [technique]({% post_url 2021-08-21-monte-carlo-in-rl %}#incremental-method) we used to apply earlier so that they can be done in constant time per step. Even so, the update for $\widehat{\mathbf{A}}\_t$ would have the computational complexity of $O(d^2)$, and so is its memory required to hold the $\widehat{\mathbf{A}}\_t$ matrix. 
 
 This leads to a problem that our next step, which is the computation of the inverse $\widehat{\mathbf{A}}\_t^{-1}$ of $\widehat{\mathbf{A}}\_t$, is going to be $O(d^3)$. Fortunately, with the so-called **Sherman-Morrison formula**, an inverse of our special form matrix - a sum of outer products - can also be updated incrementally with only $O(d^2)$ computations, as
 \begin{align}
@@ -367,6 +379,42 @@ for $t>0$, with $\mathbf{\widehat{A}}\_0\doteq\varepsilon\mathbf{I}$. The pseudo
 
 ### Episodic Semi-gradient Control
 {: #ep-semi-grad-control}
+We now consider the control problem, with parametric approximation of the action-value function $\hat{q}(s,a,\mathbf{w})\approx q_*(s,a)$, where $\mathbf{w}\in\mathbb{R}^d$ is a finite-dimensional weight vector.  
+
+Similar to the prediction problem, we can apply semi-gradient methods in solving the control problem. The difference is rather than considering training examples of the form $S_t\mapsto U_t$, we now consider examples of the form $S_t,A_t\mapsto U_t$. 
+
+From \eqref{2}, we can derive the general SGD update for action-value prediction as 
+\begin{equation}
+\mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\big[U_t-\hat{q}(S_t,A_t,\mathbf{w}\_t)\big]\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}\_t)\tag{12}\label{12}
+\end{equation}
+The update for the one-step Sarsa method therefore would be
+\begin{equation}
+\mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\big[R_{t+1}+\gamma\hat{q}(S_{t+1},A_{t+1},\mathbf{w}\_t)-\hat{q}(S_t,A_t,\mathbf{w}\_t)\big]\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}\_t)
+\end{equation}
+We call this method **episodic semi-gradient one-step Sarsa**. 
+
+To form the control method, we need to couple the action-value 
+<figure>
+	<img src="/assets/images/2022-07-10/ep_semi_grad_sarsa.png" alt="Episodic Semi-gradient Sarsa" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+
+### Semi-gradient $\boldsymbol{n}$-step Sarsa
+{: #semi-grad-n-step-sarsa}
+Similar to how we defined the one-step Sarsa version of semi-gradient, we can replace the update target in \eqref{12} by an $n$-step return,
+\begin{equation}
+G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{q}(S_{t+n},A_{t+n},\mathbf{w}\_{t+n-1}),
+\end{equation}
+for $t+n\lt T$, with $G_{t:t+n}\doteq G_t$ if $t+n\geq T$, as usual, to obtain the **semi-gradient $n$-step Sarsa** update:
+\begin{equation}
+\mathbf{w}\_{t+n}\doteq\mathbf{w}\_{t+n-1}+\alpha\big[G_{t:t+n}-\hat{q}(S_t,A_t,\mathbf{w}\_{t+n-1})\big]\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}\_{t+n-1}),
+\end{equation}
+for $0\leq t\lt T$. The pseudocode is given below.
+<figure>
+	<img src="/assets/images/2022-07-10/ep_semi_grad_n_step_sarsa.png" alt="Episodic Semi-gradient n-step Sarsa" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+
 
 ## References
 {: #references}
@@ -378,7 +426,10 @@ for $t>0$, with $\mathbf{\widehat{A}}\_0\doteq\varepsilon\mathbf{I}$. The pseudo
 
 [4] Konidaris, G. & Osentoski, S. & Thomas, P.. [Value Function Approximation in Reinforcement Learning Using the Fourier Basis](https://dl.acm.org/doi/10.5555/2900423.2900483). AAAI Conference on Artificial Intelligence, North America, aug. 2011. 
 
-[5] Shangtong Zhang. [Reinforcement Learning: An Introduction implementation](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction) 
+[5] Shangtong Zhang. [Reinforcement Learning: An Introduction implementation](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction). 
+
+[6] Joseph K. Blitzstein & Jessica Hwang. [Introduction to Probability](https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573).  
+
 
 
 ## Footnotes
@@ -393,4 +444,10 @@ for $t>0$, with $\mathbf{\widehat{A}}\_0\doteq\varepsilon\mathbf{I}$. The pseudo
 	f(x+\tau)=f(x),\forall x
 	\end{equation}
 
-[^3]: 
+[^3]: Consider i.i.d r.v.s $X_1,X_2,\dots$ with finite mean $\mu$ and finite variance $\sigma^2$. For all positive integer $n$, let: 
+	\begin{equation}
+	\overline{X}_n\doteq\frac{X_1+\dots+X_n}{n}
+	\end{equation}
+	be the *sample mean* of $X_1$ through $X_n$. 
+
+	As $n\to\infty$, the sample mean $\overline{X}_n$ converges to the true mean $\mu$, with probability $1$.
