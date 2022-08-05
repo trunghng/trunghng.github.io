@@ -37,6 +37,7 @@ comments: true
 	- [Semi-gradient](#off-policy-semi-grad)
 	- [Gradient-TD](#grad-td)
 	- [Emphatic-TD](#em-td)
+	- [Bellman Error](#bellman-error)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -495,9 +496,71 @@ The pseudocode of the algorithm is then given below.
 
 ## Off-policy Methods
 {: #off-policy-methods}
+We now consider off-policy methods with function approximation.
 
 ### Semi-gradient
 {: #off-policy-semi-grad}
+To derive the semi-gradient form of off-policy tabular methods we have known, we simply replace the update to an array ($V$ or $Q$) to an update to a weight vector $\mathbf{w}$, using the approximate value function $\hat{v}$ or $\hat{q}$ and its gradient. 
+
+Recall that in off-policy learning we seek to learn a value function for a *target policy* $\pi$, given data due to a different *behavior policy* $b$.
+
+Many of these algorithms use the per-step importance sampling ratio:
+\begin{equation}
+\rho_t\doteq\rho_{t:t}=\dfrac{\pi(A_t|S_t)}{b(A_t|S_t)}
+\end{equation}
+
+In particular, for state-value functions, the one-step algorithm is **semi-gradient off-policy TD(0)** has the update rule:
+\begin{equation}
+\mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\rho_t\delta_t\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t),
+\end{equation}
+where
+- if the problem is episodic and discounted, we have:
+\begin{equation}
+\delta_t\doteq R_{t+1}+\gamma\hat{v}(S_{t+1},\mathbf{w}\_t)-\hat{v}(S_t,\mathbf{w}\_t)
+\end{equation}
+- if the problem is continuing and undiscounted using average reward, we have:
+\begin{equation}
+\delta_t\doteq R_{t+1}-\bar{R}+\hat{v}(S_{t+1},\mathbf{w}\_t)-\hat{v}(S_t,\mathbf{w}\_t)
+\end{equation}
+
+For action values, the one-step algorithm is **semi-gradient Expected Sarsa**, which has the update rule:
+\begin{equation}
+\mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\delta_t\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}),
+\end{equation}
+with
+- episodic tasks:
+\begin{equation}
+\delta_t\doteq R_{t+1}+\gamma\sum_a\pi(a|S_{t+1})\hat{q}(S_{t+1},a,\mathbf{w}\_t)-\hat{q}(S_t,A_t,\mathbf{w}\_t)
+\end{equation}
+- continuing tasks:
+\begin{equation}
+\delta_t\doteq R_{t+1}-\bar{R}+\sum_a\pi(a|S_{t+1})\hat{q}(S_{t+1},a,\mathbf{w}\_t)-\hat{q}(S_t,A_t,\mathbf{w}\_t)
+\end{equation}
+
+With multi-step algorithms, we begin with **semi-gradient $\boldsymbol{n}$-step Expected Sarsa**, which has the update rule:
+\begin{equation}
+\mathbf{w}\_{t+n}\doteq\mathbf{w}\_{t+n-1}+\alpha\rho_{t+1}\dots\rho_{t+n-1}\big[G_{t:t+n}-\hat{q}(S_t,A_t,\mathbf{w}\_{t+n-1})\big]\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}\_{t+n-1}),
+\end{equation}
+with
+- episodic tasks:
+\begin{equation}
+G_{t:t+n}\doteq R_{t+1}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{q}(S_{t+n},A_{t+n},\mathbf{w}\_{t+n-1})
+\end{equation}
+- continuing tasks:
+\begin{equation}
+G_{t:t+n}\doteq R_{t+1}-\bar{R}\_t+\dots+R_{t+n}-\bar{R}\_{t+n-1}+\hat{q}(S_{t+n},A_{t+n},\mathbf{w}\_{t+n-1}),
+\end{equation}
+where $\rho_k=1$ for $k\geq T$ and $G_{t:n}\doteq G_t$ if $t+n\geq T$.
+
+For the semi-gradient version of [$n$-step tree-backup]({% post_url 2022-04-08-td-learning %}#n-step-tree-backup), called **semi-gradient $\boldsymbol{n}$-step tree-backup**, the update rule is:
+\begin{equation}
+\mathbf{w}\_{t+n}\doteq\mathbf{w}\_{t+n-1}+\alpha\big[G_{t:t+n}-\hat{q}(S_t,A_t,\mathbf{w}\_{t+n-1})\big]\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}\_{t+n-1}),
+\end{equation}
+where
+\begin{equation}
+G_{t:t+n}\doteq\hat{q}(S_t,A_t,\mathbf{w}\_{t-1})+\sum_{k=t}^{t+n-1}\delta_k\prod_{i=t+1}^{k}\gamma\pi(A_i|S_i),
+\end{equation}
+with $\delta_t$ is defined similar to the case of **semi-gradient Expected Sarsa**.
 
 ## References
 {: #references}

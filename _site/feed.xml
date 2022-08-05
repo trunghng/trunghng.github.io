@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-05T15:34:27+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-05T17:17:39+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Function Approximation</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html" rel="alternate" type="text/html" title="Function Approximation" /><published>2022-07-10T15:26:00+07:00</published><updated>2022-07-10T15:26:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html">&lt;blockquote&gt;
   &lt;p&gt;Reinforcement Learning in continuous state space requires function approximation.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -51,6 +51,7 @@
       &lt;li&gt;&lt;a href=&quot;#off-policy-semi-grad&quot;&gt;Semi-gradient&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#grad-td&quot;&gt;Gradient-TD&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#em-td&quot;&gt;Emphatic-TD&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#bellman-error&quot;&gt;Bellman Error&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
@@ -509,8 +510,76 @@ The pseudocode of the algorithm is then given below.&lt;/p&gt;
 &lt;/figure&gt;
 
 &lt;h2 id=&quot;off-policy-methods&quot;&gt;Off-policy Methods&lt;/h2&gt;
+&lt;p&gt;We now consider off-policy methods with function approximation.&lt;/p&gt;
 
 &lt;h3 id=&quot;off-policy-semi-grad&quot;&gt;Semi-gradient&lt;/h3&gt;
+&lt;p&gt;To derive the semi-gradient form of off-policy tabular methods we have known, we simply replace the update to an array ($V$ or $Q$) to an update to a weight vector $\mathbf{w}$, using the approximate value function $\hat{v}$ or $\hat{q}$ and its gradient.&lt;/p&gt;
+
+&lt;p&gt;Recall that in off-policy learning we seek to learn a value function for a &lt;em&gt;target policy&lt;/em&gt; $\pi$, given data due to a different &lt;em&gt;behavior policy&lt;/em&gt; $b$.&lt;/p&gt;
+
+&lt;p&gt;Many of these algorithms use the per-step importance sampling ratio:
+\begin{equation}
+\rho_t\doteq\rho_{t:t}=\dfrac{\pi(A_t|S_t)}{b(A_t|S_t)}
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;In particular, for state-value functions, the one-step algorithm is &lt;strong&gt;semi-gradient off-policy TD(0)&lt;/strong&gt; has the update rule:
+\begin{equation}
+\mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\rho_t\delta_t\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t),
+\end{equation}
+where&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;if the problem is episodic and discounted, we have:
+\begin{equation}
+\delta_t\doteq R_{t+1}+\gamma\hat{v}(S_{t+1},\mathbf{w}_t)-\hat{v}(S_t,\mathbf{w}_t)
+\end{equation}&lt;/li&gt;
+  &lt;li&gt;if the problem is continuing and undiscounted using average reward, we have:
+\begin{equation}
+\delta_t\doteq R_{t+1}-\bar{R}+\hat{v}(S_{t+1},\mathbf{w}_t)-\hat{v}(S_t,\mathbf{w}_t)
+\end{equation}&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For action values, the one-step algorithm is &lt;strong&gt;semi-gradient Expected Sarsa&lt;/strong&gt;, which has the update rule:
+\begin{equation}
+\mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\delta_t\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}),
+\end{equation}
+with&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;episodic tasks:
+\begin{equation}
+\delta_t\doteq R_{t+1}+\gamma\sum_a\pi(a|S_{t+1})\hat{q}(S_{t+1},a,\mathbf{w}_t)-\hat{q}(S_t,A_t,\mathbf{w}_t)
+\end{equation}&lt;/li&gt;
+  &lt;li&gt;continuing tasks:
+\begin{equation}
+\delta_t\doteq R_{t+1}-\bar{R}+\sum_a\pi(a|S_{t+1})\hat{q}(S_{t+1},a,\mathbf{w}_t)-\hat{q}(S_t,A_t,\mathbf{w}_t)
+\end{equation}&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;With multi-step algorithms, we begin with &lt;strong&gt;semi-gradient $\boldsymbol{n}$-step Expected Sarsa&lt;/strong&gt;, which has the update rule:
+\begin{equation}
+\mathbf{w}_{t+n}\doteq\mathbf{w}_{t+n-1}+\alpha\rho_{t+1}\dots\rho_{t+n-1}\big[G_{t:t+n}-\hat{q}(S_t,A_t,\mathbf{w}_{t+n-1})\big]\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}_{t+n-1}),
+\end{equation}
+with&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;episodic tasks:
+\begin{equation}
+G_{t:t+n}\doteq R_{t+1}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{q}(S_{t+n},A_{t+n},\mathbf{w}_{t+n-1})
+\end{equation}&lt;/li&gt;
+  &lt;li&gt;continuing tasks:
+\begin{equation}
+G_{t:t+n}\doteq R_{t+1}-\bar{R}_t+\dots+R_{t+n}-\bar{R}_{t+n-1}+\hat{q}(S_{t+n},A_{t+n},\mathbf{w}_{t+n-1}),
+\end{equation}
+where $\rho_k=1$ for $k\geq T$ and $G_{t:n}\doteq G_t$ if $t+n\geq T$.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For the semi-gradient version of &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html#n-step-tree-backup&quot;&gt;$n$-step tree-backup&lt;/a&gt;, called &lt;strong&gt;semi-gradient $\boldsymbol{n}$-step tree-backup&lt;/strong&gt;, the update rule is:
+\begin{equation}
+\mathbf{w}_{t+n}\doteq\mathbf{w}_{t+n-1}+\alpha\big[G_{t:t+n}-\hat{q}(S_t,A_t,\mathbf{w}_{t+n-1})\big]\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}_{t+n-1}),
+\end{equation}
+where
+\begin{equation}
+G_{t:t+n}\doteq\hat{q}(S_t,A_t,\mathbf{w}_{t-1})+\sum_{k=t}^{t+n-1}\delta_k\prod_{i=t+1}^{k}\gamma\pi(A_i|S_i),
+\end{equation}
+with $\delta_t$ is defined similar to the case of &lt;strong&gt;semi-gradient Expected Sarsa&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/p&gt;
