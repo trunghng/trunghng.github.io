@@ -28,9 +28,11 @@ comments: true
 			- [Tile Coding](#tile-coding)
 			- [Radial Basis Functions](#rbf)
 	- [Least-Squares TD](#lstd)
-	- [Episodic Semi-gradient Control](#ep-semi-grad-control)
-	- [Semi-gradient n-step Sarsa](#semi-grad-n-step-sarsa)
+	- [Episodic Semi-gradient Sarsa](#ep-semi-grad-sarsa)
+	- [Episodic Semi-gradient n-step Sarsa](#ep-semi-grad-n-step-sarsa)
 	- [Average Reward](#avg-reward)
+		- [Differential Semi-gradient Sarsa](#dif-semi-grad-sarsa)
+		- [Differential Semi-gradient n-step Sarsa](#dif-semi-grad-n-step-sarsa)
 - [Off-policy Methods](#off-policy-methods)
 	- [Semi-gradient](#off-policy-semi-grad)
 	- [Gradient-TD](#grad-td)
@@ -378,8 +380,8 @@ for $t>0$, with $\mathbf{\widehat{A}}\_0\doteq\varepsilon\mathbf{I}$. The pseudo
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
 </figure>
 
-### Episodic Semi-gradient Control
-{: #ep-semi-grad-control}
+### Episodic Semi-gradient Sarsa
+{: #ep-semi-grad-sarsa}
 We now consider the control problem, with parametric approximation of the action-value function $\hat{q}(s,a,\mathbf{w})\approx q_*(s,a)$, where $\mathbf{w}\in\mathbb{R}^d$ is a finite-dimensional weight vector.  
 
 Similar to the prediction problem, we can apply semi-gradient methods in solving the control problem. The difference is rather than considering training examples of the form $S_t\mapsto U_t$, we now consider examples of the form $S_t,A_t\mapsto U_t$. 
@@ -400,11 +402,11 @@ To form the control method, we need to couple the action-value
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
 </figure>
 
-### Semi-gradient $\boldsymbol{n}$-step Sarsa
-{: #semi-grad-n-step-sarsa}
+### Episodic Semi-gradient $\boldsymbol{n}$-step Sarsa
+{: #ep-semi-grad-n-step-sarsa}
 Similar to how we defined the one-step Sarsa version of semi-gradient, we can replace the update target in \eqref{12} by an $n$-step return,
 \begin{equation}
-G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{q}(S_{t+n},A_{t+n},\mathbf{w}\_{t+n-1}),
+G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{q}(S_{t+n},A_{t+n},\mathbf{w}\_{t+n-1}),\tag{14}\label{14}
 \end{equation}
 for $t+n\lt T$, with $G_{t:t+n}\doteq G_t$ if $t+n\geq T$, as usual, to obtain the **semi-gradient $n$-step Sarsa** update:
 \begin{equation}
@@ -438,7 +440,7 @@ The steady state distribution is the special distribution under which, if we sel
 \end{equation}
 In the average-reward setting, returns are defined in terms of differences between rewards and the average reward:
 \begin{equation}
-G_t\doteq R_{t+1}-r(\pi)+R_{t+2}(\mu)-r(\pi)+R_{t+3}-r(\pi)+\dots
+G_t\doteq R_{t+1}-r(\pi)+R_{t+2}(\mu)-r(\pi)+R_{t+3}-r(\pi)+\dots\tag{15}\label{15}
 \end{equation}
 This is known as the **differential return**, and the corresponding value functions are known as **differential value functions**, $v_\pi(s)$ and $q_\pi(s,a)$, which are defined in the same way as we have done before:
 \begin{align}
@@ -448,27 +450,54 @@ and similarly for $v_{\*}$ and $q_{\*}$. Likewise, differential value functions 
 \begin{align}
 &v_\pi(s)=\sum_a\pi(a|s)\sum_{r,s'}p(r,s'|s,a)\left[r-r(\pi)+v_\pi(s')\right], \\\\ &q_\pi(s,a)=\sum_{r,s'}p(s',r|s,a)\left[r-r(\pi)+\sum_{a'}\pi(a'|s')q_\pi(s',a')\right], \\\\ &v_{\*}(s)=\max_a\sum_{r,s'}p(s',r|s,a)\left[r-\max_\pi r(\pi)+v_{\*}(s')\right], \\\\ &q_{\*}(s,a)=\sum_{r,s'}p(s',r|s,a)\left[r-\max_\pi r(\pi)+\max_{a'}q_{\*}(s',a')\right]
 \end{align}
+
+#### Differential Semi-gradient Sarsa
+{: #dif-semi-grad-sarsa}
 There is also a differential form of the two [TD errors]({% post_url 2022-04-08-td-learning %}#td_error):
 \begin{equation}
 \delta_t\doteq R_{t+1}-\bar{R}\_{t+1}+\hat{v}(S_{t+1},\mathbf{w}\_t)-\hat{v}(S_t,\mathbf{w}\_t),
 \end{equation}
 and
 \begin{equation}
-\delta_t\doteq R_{t+1}-\bar{R}\_{t+1}+\hat{q}(S_{t+1},A_{t+1},\mathbf{w}\_t)-\hat{q}(S_t,A_t,\mathbf{w}\_t),\tag{14}\label{14}
+\delta_t\doteq R_{t+1}-\bar{R}\_{t+1}+\hat{q}(S_{t+1},A_{t+1},\mathbf{w}\_t)-\hat{q}(S_t,A_t,\mathbf{w}\_t),\tag{16}\label{16}
 \end{equation}
 where $\bar{R}\_t$ is an estimate at time $t$ of the average reward $r(\pi)$.
 
 With these alternative definitions, most of our algorithms and many theoretical results carry through to the average-reward setting without change.  
 
-For example, the average reward version of semi-gradient Sarsa is defined just as in \eqref{13} except with the differential version of the TD error \eqref{14}:
+For example, the average reward version of semi-gradient Sarsa is defined just as in \eqref{13} except with the differential version of the TD error \eqref{16}:
 \begin{equation}
-\mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\delta_t\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}\_t)
+\mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\delta_t\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}\_t)\tag{17}\label{17}
 \end{equation}
-The pseudocode is the algorithm is then given below.
+The pseudocode of the algorithm is then given below.
 <figure>
 	<img src="/assets/images/2022-07-10/dif_semi_grad_sarsa.png" alt="Differential Semi-gradient Sarsa" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
 </figure>
+
+#### Differential Semi-gradient $\boldsymbol{n}$-step Sarsa
+{: #dif-semi-grad-n-step-sarsa}
+To derive the $n$-step version of \eqref{17}, we use the same update rule, except with an $n$-step version of the TD error. 
+
+First, we need to define the $n$-step differential return, with function approximation, by combining the idea of \eqref{14} and \eqref{15} together, as:
+\begin{equation}
+G_{t:t+n}\doteq R_{t+1}-\bar{R}\_{t+1}+R_{t+2}-\bar{R}\_{t+2}+\dots+R_{t+n}-\bar{R}\_{t+n}+\hat{q}(S_{t+n},A_{t+n},\mathbf{w}\_{t+n-1}),
+\end{equation}
+where $\bar{R}$ is an estimate of $r(\pi),n\geq 1$, $t+n\lt T$; $G_{t:t+n}\doteq G_t$ if $t+n\geq T$ as usual. The $n$-step TD error is then
+\begin{equation}
+\delta_t\doteq G_{t:t+n}-\hat{q}(S_t,A_t,\mathbf{w})
+\end{equation}
+The pseudocode of the algorithm is then given below.
+<figure>
+	<img src="/assets/images/2022-07-10/dif_semi_grad_n_step_sarsa.png" alt="Differential Semi-gradient n-step Sarsa" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+
+## Off-policy Methods
+{: #off-policy-methods}
+
+### Semi-gradient
+{: #off-policy-semi-grad}
 
 ## References
 {: #references}
@@ -482,9 +511,7 @@ The pseudocode is the algorithm is then given below.
 
 [5] Shangtong Zhang. [Reinforcement Learning: An Introduction implementation](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction). 
 
-[6] Joseph K. Blitzstein & Jessica Hwang. [Introduction to Probability](https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573).  
-
-
+[6] Joseph K. Blitzstein & Jessica Hwang. [Introduction to Probability](https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573).
 
 ## Footnotes
 {: #footnotes}

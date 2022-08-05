@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-05T14:43:50+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-05T15:34:27+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Function Approximation</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html" rel="alternate" type="text/html" title="Function Approximation" /><published>2022-07-10T15:26:00+07:00</published><updated>2022-07-10T15:26:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html">&lt;blockquote&gt;
   &lt;p&gt;Reinforcement Learning in continuous state space requires function approximation.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -36,9 +36,14 @@
         &lt;/ul&gt;
       &lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#lstd&quot;&gt;Least-Squares TD&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#ep-semi-grad-control&quot;&gt;Episodic Semi-gradient Control&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#semi-grad-n-step-sarsa&quot;&gt;Semi-gradient n-step Sarsa&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#avg-reward&quot;&gt;Average Reward&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#ep-semi-grad-sarsa&quot;&gt;Episodic Semi-gradient Sarsa&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#ep-semi-grad-n-step-sarsa&quot;&gt;Episodic Semi-gradient n-step Sarsa&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#avg-reward&quot;&gt;Average Reward&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#dif-semi-grad-sarsa&quot;&gt;Differential Semi-gradient Sarsa&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#dif-semi-grad-n-step-sarsa&quot;&gt;Differential Semi-gradient n-step Sarsa&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#off-policy-methods&quot;&gt;Off-policy Methods&lt;/a&gt;
@@ -393,7 +398,7 @@ for $t&amp;gt;0$, with $\mathbf{\widehat{A}}_0\doteq\varepsilon\mathbf{I}$. The 
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
 
-&lt;h3 id=&quot;ep-semi-grad-control&quot;&gt;Episodic Semi-gradient Control&lt;/h3&gt;
+&lt;h3 id=&quot;ep-semi-grad-sarsa&quot;&gt;Episodic Semi-gradient Sarsa&lt;/h3&gt;
 &lt;p&gt;We now consider the control problem, with parametric approximation of the action-value function $\hat{q}(s,a,\mathbf{w})\approx q_*(s,a)$, where $\mathbf{w}\in\mathbb{R}^d$ is a finite-dimensional weight vector.&lt;/p&gt;
 
 &lt;p&gt;Similar to the prediction problem, we can apply semi-gradient methods in solving the control problem. The difference is rather than considering training examples of the form $S_t\mapsto U_t$, we now consider examples of the form $S_t,A_t\mapsto U_t$.&lt;/p&gt;
@@ -414,10 +419,10 @@ We call this method &lt;strong&gt;episodic semi-gradient one-step Sarsa&lt;/stro
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
 
-&lt;h3 id=&quot;semi-grad-n-step-sarsa&quot;&gt;Semi-gradient $\boldsymbol{n}$-step Sarsa&lt;/h3&gt;
+&lt;h3 id=&quot;ep-semi-grad-n-step-sarsa&quot;&gt;Episodic Semi-gradient $\boldsymbol{n}$-step Sarsa&lt;/h3&gt;
 &lt;p&gt;Similar to how we defined the one-step Sarsa version of semi-gradient, we can replace the update target in \eqref{12} by an $n$-step return,
 \begin{equation}
-G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{q}(S_{t+n},A_{t+n},\mathbf{w}_{t+n-1}),
+G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{q}(S_{t+n},A_{t+n},\mathbf{w}_{t+n-1}),\tag{14}\label{14}
 \end{equation}
 for $t+n\lt T$, with $G_{t:t+n}\doteq G_t$ if $t+n\geq T$, as usual, to obtain the &lt;strong&gt;semi-gradient $n$-step Sarsa&lt;/strong&gt; update:
 \begin{equation}
@@ -452,7 +457,7 @@ which is assumed to exist for any $\pi$ and to be independent of $S_0$.&lt;/li&g
 \end{equation}
 In the average-reward setting, returns are defined in terms of differences between rewards and the average reward:
 \begin{equation}
-G_t\doteq R_{t+1}-r(\pi)+R_{t+2}(\mu)-r(\pi)+R_{t+3}-r(\pi)+\dots
+G_t\doteq R_{t+1}-r(\pi)+R_{t+2}(\mu)-r(\pi)+R_{t+3}-r(\pi)+\dots\tag{15}\label{15}
 \end{equation}
 This is known as the &lt;strong&gt;differential return&lt;/strong&gt;, and the corresponding value functions are known as &lt;strong&gt;differential value functions&lt;/strong&gt;, $v_\pi(s)$ and $q_\pi(s,a)$, which are defined in the same way as we have done before:
 \begin{align}
@@ -461,28 +466,51 @@ v_\pi(s)&amp;amp;\doteq\mathbb{E}\big[G_t\vert S_t=s\big]; \\ q_\pi(s,a)&amp;amp
 and similarly for $v_{*}$ and $q_{*}$. Likewise, differential value functions also have Bellman equations, with some modifications by replacing all discounted factor $\gamma$ and replacing all rewards, $r$, by the difference between the reward and the true average reward, $r-r(\pi)$, as:
 \begin{align}
 &amp;amp;v_\pi(s)=\sum_a\pi(a|s)\sum_{r,s’}p(r,s’|s,a)\left[r-r(\pi)+v_\pi(s’)\right], \\ &amp;amp;q_\pi(s,a)=\sum_{r,s’}p(s’,r|s,a)\left[r-r(\pi)+\sum_{a’}\pi(a’|s’)q_\pi(s’,a’)\right], \\ &amp;amp;v_{*}(s)=\max_a\sum_{r,s’}p(s’,r|s,a)\left[r-\max_\pi r(\pi)+v_{*}(s’)\right], \\ &amp;amp;q_{*}(s,a)=\sum_{r,s’}p(s’,r|s,a)\left[r-\max_\pi r(\pi)+\max_{a’}q_{*}(s’,a’)\right]
-\end{align}
-There is also a differential form of the two &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html#td_error&quot;&gt;TD errors&lt;/a&gt;:
+\end{align}&lt;/p&gt;
+
+&lt;h4 id=&quot;dif-semi-grad-sarsa&quot;&gt;Differential Semi-gradient Sarsa&lt;/h4&gt;
+&lt;p&gt;There is also a differential form of the two &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html#td_error&quot;&gt;TD errors&lt;/a&gt;:
 \begin{equation}
 \delta_t\doteq R_{t+1}-\bar{R}_{t+1}+\hat{v}(S_{t+1},\mathbf{w}_t)-\hat{v}(S_t,\mathbf{w}_t),
 \end{equation}
 and
 \begin{equation}
-\delta_t\doteq R_{t+1}-\bar{R}_{t+1}+\hat{q}(S_{t+1},A_{t+1},\mathbf{w}_t)-\hat{q}(S_t,A_t,\mathbf{w}_t),\tag{14}\label{14}
+\delta_t\doteq R_{t+1}-\bar{R}_{t+1}+\hat{q}(S_{t+1},A_{t+1},\mathbf{w}_t)-\hat{q}(S_t,A_t,\mathbf{w}_t),\tag{16}\label{16}
 \end{equation}
 where $\bar{R}_t$ is an estimate at time $t$ of the average reward $r(\pi)$.&lt;/p&gt;
 
 &lt;p&gt;With these alternative definitions, most of our algorithms and many theoretical results carry through to the average-reward setting without change.&lt;/p&gt;
 
-&lt;p&gt;For example, the average reward version of semi-gradient Sarsa is defined just as in \eqref{13} except with the differential version of the TD error \eqref{14}:
+&lt;p&gt;For example, the average reward version of semi-gradient Sarsa is defined just as in \eqref{13} except with the differential version of the TD error \eqref{16}:
 \begin{equation}
-\mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\delta_t\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}_t)
+\mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\delta_t\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}_t)\tag{17}\label{17}
 \end{equation}
-The pseudocode is the algorithm is then given below.&lt;/p&gt;
+The pseudocode of the algorithm is then given below.&lt;/p&gt;
 &lt;figure&gt;
 	&lt;img src=&quot;/assets/images/2022-07-10/dif_semi_grad_sarsa.png&quot; alt=&quot;Differential Semi-gradient Sarsa&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
+
+&lt;h4 id=&quot;dif-semi-grad-n-step-sarsa&quot;&gt;Differential Semi-gradient $\boldsymbol{n}$-step Sarsa&lt;/h4&gt;
+&lt;p&gt;To derive the $n$-step version of \eqref{17}, we use the same update rule, except with an $n$-step version of the TD error.&lt;/p&gt;
+
+&lt;p&gt;First, we need to define the $n$-step differential return, with function approximation, by combining the idea of \eqref{14} and \eqref{15} together, as:
+\begin{equation}
+G_{t:t+n}\doteq R_{t+1}-\bar{R}_{t+1}+R_{t+2}-\bar{R}_{t+2}+\dots+R_{t+n}-\bar{R}_{t+n}+\hat{q}(S_{t+n},A_{t+n},\mathbf{w}_{t+n-1}),
+\end{equation}
+where $\bar{R}$ is an estimate of $r(\pi),n\geq 1$, $t+n\lt T$; $G_{t:t+n}\doteq G_t$ if $t+n\geq T$ as usual. The $n$-step TD error is then
+\begin{equation}
+\delta_t\doteq G_{t:t+n}-\hat{q}(S_t,A_t,\mathbf{w})
+\end{equation}
+The pseudocode of the algorithm is then given below.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-07-10/dif_semi_grad_n_step_sarsa.png&quot; alt=&quot;Differential Semi-gradient n-step Sarsa&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h2 id=&quot;off-policy-methods&quot;&gt;Off-policy Methods&lt;/h2&gt;
+
+&lt;h3 id=&quot;off-policy-semi-grad&quot;&gt;Semi-gradient&lt;/h3&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/p&gt;
