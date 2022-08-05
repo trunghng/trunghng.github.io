@@ -541,7 +541,7 @@ With multi-step algorithms, we begin with **semi-gradient $\boldsymbol{n}$-step 
 \begin{equation}
 \mathbf{w}\_{t+n}\doteq\mathbf{w}\_{t+n-1}+\alpha\rho_{t+1}\dots\rho_{t+n-1}\big[G_{t:t+n}-\hat{q}(S_t,A_t,\mathbf{w}\_{t+n-1})\big]\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}\_{t+n-1}),
 \end{equation}
-with
+where $\rho_k=1$ for $k\geq T$ and $G_{t:n}\doteq G_t$ if $t+n\geq T$, and with
 - episodic tasks:
 \begin{equation}
 G_{t:t+n}\doteq R_{t+1}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{q}(S_{t+n},A_{t+n},\mathbf{w}\_{t+n-1})
@@ -550,7 +550,6 @@ G_{t:t+n}\doteq R_{t+1}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{q}(S_{t+n},A_{t+n
 \begin{equation}
 G_{t:t+n}\doteq R_{t+1}-\bar{R}\_t+\dots+R_{t+n}-\bar{R}\_{t+n-1}+\hat{q}(S_{t+n},A_{t+n},\mathbf{w}\_{t+n-1}),
 \end{equation}
-where $\rho_k=1$ for $k\geq T$ and $G_{t:n}\doteq G_t$ if $t+n\geq T$.
 
 For the semi-gradient version of [$n$-step tree-backup]({% post_url 2022-04-08-td-learning %}#n-step-tree-backup), called **semi-gradient $\boldsymbol{n}$-step tree-backup**, the update rule is:
 \begin{equation}
