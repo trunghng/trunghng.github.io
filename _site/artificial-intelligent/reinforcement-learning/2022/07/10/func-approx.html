@@ -60,7 +60,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Function Approximation" />
 <script type="application/ld+json">
-{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","description":"Function approximation","headline":"Function Approximation","dateModified":"2022-07-10T15:26:00+07:00","datePublished":"2022-07-10T15:26:00+07:00","url":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html"},"@context":"https://schema.org"}</script>
+{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","headline":"Function Approximation","dateModified":"2022-07-10T15:26:00+07:00","datePublished":"2022-07-10T15:26:00+07:00","description":"Function approximation","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html"},"url":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Trung&apos;s cabin" />
     
@@ -299,8 +299,7 @@ If $U_t$ is an <em>unbiased estimate</em> of $v_\pi(S_t)$, i.e., $\mathbb{E}\lef
 \begin{equation}
 \mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\big[G_t-\hat{v}(S_t,\mathbf{w}_t)\big]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t),
 \end{equation}
-is guaranteed to converge to a local optimal point. 
-[TODO]</p>
+is guaranteed to converge to a local optimal point.</p>
 
 <p>We have the pseudocode of the algorithm:</p>
 <figure>
@@ -342,8 +341,14 @@ Thus, with linear approximation, the SGD update can be rewrite as
 
 <p>In the linear case, there is only one optimum, and thus any method that is guaranteed to converge to or near a local optimum is automatically guaranteed to converge to or near the global optimum.</p>
 <ul>
-  <li>The gradient MC algorithm in the previous section converges to the global optimum of the $\overline{\text{VE}}$ under linear function approximation if $\alpha$ is reduced over time according to the usual conditions.</li>
-  <li>The semi-gradient TD algorithm also converges under linear approximation.
+  <li>
+    <p>The gradient MC algorithm in the previous section converges to the global optimum of the $\overline{\text{VE}}$ under linear function approximation if $\alpha$ is reduced over time according to the usual conditions. In particular, it converges to the fixed point, called $\mathbf{w}_{\text{MC}}$, with:
+\begin{align}
+\nabla_{\mathbf{w}_{\text{MC}}}\mathbb{E}\left[\big(G_t-v_{\mathbf{w}_{\text{MC}}}(S_t)\big)^2\right]&amp;=0 \\ \mathbb{E}\Big[\big(G_t-v_{\mathbf{w}_{\text{MC}}}(S_t)\big)\mathbf{x}_t\Big]&amp;=0 \\ \mathbb{E}\Big[(G_t-\mathbf{x}_t^\intercal\mathbf{w}_{\text{MC}})\mathbf{x}_t\Big]&amp;=0 \\ \mathbb{E}\left[G_t\mathbf{x}_t-\mathbf{x}_t\mathbf{x}_t^\intercal\mathbf{w}_{\text{MC}}\right]&amp;=0 \\ \mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]\mathbf{w}_\text{MC}&amp;=\mathbb{E}\left[G_t\mathbf{x}_t\right] \\ \mathbf{w}_\text{MC}&amp;=\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]^{-1}\mathbb{E}\left[G_t\mathbf{x}_t\right]
+\end{align}</p>
+  </li>
+  <li>
+    <p>The semi-gradient TD algorithm also converges under linear approximation.</p>
     <ul>
       <li>Recall that, at each time $t$, the semi-gradient TD update is
   \begin{align}
@@ -397,9 +402,9 @@ Thus, with linear approximation, the SGD update can be rewrite as
   \end{align}
   which implies that the column sums of $\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})$ are positive.</p>
       </li>
-      <li>At the TD fixed point, it has also been proven (in the continuing case) that $\overline{\text{VE}}$ is within a bounded expansion of the lowest possible error
+      <li>At the TD fixed point, it has also been proven (in the continuing case) that $\overline{\text{VE}}$ is within a bounded expansion of the lowest possible error, while the Monte Carlo solutions minimize the value error $\overline{\text{VE}}$:
   \begin{equation}
-  \overline{\text{VE}}(\mathbf{w}_{\text{TD}})\leq\dfrac{1}{1-\gamma}\min_{\mathbf{w}}\overline{\text{VE}}(\mathbf{w})
+  \overline{\text{VE}}(\mathbf{w}_{\text{TD}})\leq\dfrac{1}{1-\gamma}\overline{\text{VE}}(\mathbf{w}_{\text{MC}})=\dfrac{1}{1-\gamma}\min_{\mathbf{w}}\overline{\text{VE}}(\mathbf{w})
   \end{equation}</li>
     </ul>
   </li>
@@ -546,7 +551,13 @@ The two approximations in \eqref{10} and \eqref{11} could be implemented increme
 \begin{align}
 \widehat{\mathbf{A}}_t^{-1}&amp;=\left(\widehat{\mathbf{A}}_t+\mathbf{x}_t\left(\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\right)^\intercal\right)^{-1} \\ &amp;=\widehat{\mathbf{A}}_{t-1}^{-1}-\frac{\widehat{\mathbf{A}}_{t-1}^{-1}\mathbf{x}_t\left(\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\right)^\intercal\widehat{\mathbf{A}}_{t-1}^{-1}}{1+\left(\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\right)^\intercal\widehat{\mathbf{A}}_{t-1}^{-1}\mathbf{x}_t},
 \end{align}
-for $t&gt;0$, with $\mathbf{\widehat{A}}_0\doteq\varepsilon\mathbf{I}$. The pseudocode for LSTD is given below</p>
+for $t&gt;0$, with $\mathbf{\widehat{A}}_0\doteq\varepsilon\mathbf{I}$.</p>
+
+<p>For the estimate $\widehat{\mathbf{b}}_t$ of $\mathbf{b}$, it can be updated using naive approach:
+\begin{equation}
+\widehat{\mathbf{b}}_{t+1}=\widehat{\mathbf{b}}_t+R_{t+1}\mathbf{x}_t
+\end{equation}
+The pseudocode for LSTD is given below</p>
 <figure>
 	<img src="/assets/images/2022-07-10/lstd.png" alt="LSTD" style="display: block; margin-left: auto; margin-right: auto;" />
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
@@ -763,8 +774,30 @@ And the middle factor, without the inverse operation, can also be written as:
 \end{equation}
 Substituting these expectations back to \eqref{19}, we obtain:
 \begin{equation}
-\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w})=2\mathbb{E}\left[\rho_t\left(\gamma\mathbf{x}_{t+1}-\mathbf{x}_t\right)\mathbf{x}_t^\intercal\right]\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}_t\right]
+\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w})=2\mathbb{E}\left[\rho_t\left(\gamma\mathbf{x}_{t+1}-\mathbf{x}_t\right)\mathbf{x}_t^\intercal\right]\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}_t\right]\tag{20}\label{20}
 \end{equation}</p>
+
+<p>Here, we use the <strong>Gradient-TD</strong> to estimate and store the product of the second two factors in \eqref{20}, denoted as $\mathbf{v}$:
+\begin{equation}
+\mathbf{v}\approx\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}_t\right],\tag{21}\label{21}
+\end{equation}
+which is the solution of the linear least-squares problem that tries to approximate $\rho_t\delta_t$ from the features. The SGD for incrementally finding the vector $\mathbf{v}$ that minimizes the expected squared error $\left(\mathbf{v}^\intercal\mathbf{x}_t\right)^2$ is known as the <strong>Least Mean Square (LMS)</strong> rule (here augmented with an IS ratio):
+\begin{equation}
+\mathbf{v}_{t+1}\doteq\mathbf{v}_t+\beta\rho_t\left(\delta_t-\mathbf{v}^\intercal\mathbf{x}_t\right)\mathbf{x}_t,
+\end{equation}
+where $\beta&gt;0$ is a step-size parameter.</p>
+
+<p>With a given stored estimate $\mathbf{v}_t$ approximating \eqref{21}, we can apply SGD update to the parameter vector $\mathbf{w}_t$:
+\begin{align}
+\mathbf{w}_{t+1}&amp;=\mathbf{w}_t-\frac{1}{2}\alpha\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w}_t) \\ &amp;=\mathbf{w}_t-\frac{1}{2}\alpha2\mathbb{E}\left[\rho_t\left(\gamma\mathbf{x}_{t+1}-\mathbf{x}_t\right)\mathbf{x}_t^\intercal\right]\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}_t\right] \\ &amp;=\mathbf{w}_t+\alpha\mathbb{E}\left[\rho_t\left(\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\right)\mathbf{x}_t^\intercal\right]\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}_t\right]\tag{22}\label{22} \\ &amp;\approx\mathbf{w}_t+\alpha\mathbb{E}\left[\rho_t\left(\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\right)\mathbf{x}_t^\intercal\right]\mathbf{v}_t \\ &amp;\approx\mathbf{w}_t+\alpha\rho_t\left(\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\right)\mathbf{x}_t\mathbf{v}_t
+\end{align}
+This algorithm is called <strong>GTD2</strong>. From \eqref{22}, we can also continue to derive as:
+\begin{align}
+\mathbf{w}_{t+1}&amp;=\mathbf{w}_t+\alpha\mathbb{E}\left[\rho_t\left(\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\right)\mathbf{x}_t^\intercal\right]\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}_t\right] \\ &amp;=\mathbf{w}_t+\alpha\left(\mathbb{E}\left[\rho_t\mathbf{x}_t\mathbf{x}_t^\intercal\right]-\gamma\mathbb{E}\left[\rho_t\mathbf{x}_{t+1}\mathbf{x}_t^\intercal\right]\right)\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}_t\right] \\ &amp;=\mathbf{w}_t+\alpha\left(\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]-\gamma\mathbb{E}\left[\rho_t\mathbf{x}_{t+1}\mathbf{x}_t^\intercal\right]\right)\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}_t\right] \\ &amp;=\mathbf{w}_t+\alpha\left(\mathbb{E}\left[\mathbf{x}_t\rho_t\delta_t\right]-\gamma\mathbb{E}\left[\rho_t\mathbf{x}_{t+1}\mathbf{x}_t^\intercal\right]\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}_t\right]\right) \\ &amp;\approx\mathbf{w}_t+\alpha\left(\mathbb{E}\left[\mathbf{x}_t\rho_t\delta_t\right]-\gamma\mathbb{E}\left[\rho_t\mathbf{x}_{t+1}\mathbf{x}_t^\intercal\right]\right)\mathbf{v}_t \\ &amp;\approx\mathbf{w}_t+\alpha\rho_t\left(\delta_t\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\mathbf{x}_t^\intercal\mathbf{v}_t\right)
+\end{align}
+This algorithm is known as <strong>TD(0) with gradient correction</strong>, or as <strong>GTD(0)</strong>.</p>
+
+<h3 id="em-td">Emphatic-TD</h3>
 
 <h2 id="references">References</h2>
 <p>[1] Richard S. Sutton &amp; Andrew G. Barto. <a href="https://mitpress.mit.edu/books/reinforcement-learning-second-edition">Reinforcement Learning: An Introduction</a></p>

@@ -130,8 +130,7 @@ In particular, since the true value of a state is the expected value of the retu
 \begin{equation}
 \mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\big[G_t-\hat{v}(S_t,\mathbf{w}\_t)\big]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t),
 \end{equation}
-is guaranteed to converge to a local optimal point. 
-[TODO]
+is guaranteed to converge to a local optimal point.
 
 We have the pseudocode of the algorithm:
 <figure>
@@ -175,7 +174,11 @@ Thus, with linear approximation, the SGD update can be rewrite as
 \end{equation}
 
 In the linear case, there is only one optimum, and thus any method that is guaranteed to converge to or near a local optimum is automatically guaranteed to converge to or near the global optimum.
-- The gradient MC algorithm in the previous section converges to the global optimum of the $\overline{\text{VE}}$ under linear function approximation if $\alpha$ is reduced over time according to the usual conditions.
+- The gradient MC algorithm in the previous section converges to the global optimum of the $\overline{\text{VE}}$ under linear function approximation if $\alpha$ is reduced over time according to the usual conditions. In particular, it converges to the fixed point, called $\mathbf{w}\_{\text{MC}}$, with:
+\begin{align}
+\nabla_{\mathbf{w}\_{\text{MC}}}\mathbb{E}\left[\big(G_t-v_{\mathbf{w}\_{\text{MC}}}(S_t)\big)^2\right]&=0 \\\\ \mathbb{E}\Big[\big(G_t-v_{\mathbf{w}\_{\text{MC}}}(S_t)\big)\mathbf{x}\_t\Big]&=0 \\\\ \mathbb{E}\Big[(G_t-\mathbf{x}\_t^\intercal\mathbf{w}\_{\text{MC}})\mathbf{x}\_t\Big]&=0 \\\\ \mathbb{E}\left[G_t\mathbf{x}\_t-\mathbf{x}\_t\mathbf{x}\_t^\intercal\mathbf{w}\_{\text{MC}}\right]&=0 \\\\ \mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\intercal\right]\mathbf{w}\_\text{MC}&=\mathbb{E}\left[G_t\mathbf{x}\_t\right] \\\\ \mathbf{w}\_\text{MC}&=\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\intercal\right]^{-1}\mathbb{E}\left[G_t\mathbf{x}\_t\right]
+\end{align}
+
 - The semi-gradient TD algorithm also converges under linear approximation. 
 	- Recall that, at each time $t$, the semi-gradient TD update is
 	\begin{align}
@@ -225,9 +228,9 @@ In the linear case, there is only one optimum, and thus any method that is guara
 		\end{align}
 		which implies that the column sums of $\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})$ are positive.
 
-	- At the TD fixed point, it has also been proven (in the continuing case) that $\overline{\text{VE}}$ is within a bounded expansion of the lowest possible error
+	- At the TD fixed point, it has also been proven (in the continuing case) that $\overline{\text{VE}}$ is within a bounded expansion of the lowest possible error, while the Monte Carlo solutions minimize the value error $\overline{\text{VE}}$:
 	\begin{equation}
-	\overline{\text{VE}}(\mathbf{w}\_{\text{TD}})\leq\dfrac{1}{1-\gamma}\min_{\mathbf{w}}\overline{\text{VE}}(\mathbf{w})
+	\overline{\text{VE}}(\mathbf{w}\_{\text{TD}})\leq\dfrac{1}{1-\gamma}\overline{\text{VE}}(\mathbf{w}\_{\text{MC}})=\dfrac{1}{1-\gamma}\min_{\mathbf{w}}\overline{\text{VE}}(\mathbf{w})
 	\end{equation}
 
 #### Feature Construction
@@ -377,7 +380,13 @@ This leads to a problem that our next step, which is the computation of the inve
 \begin{align}
 \widehat{\mathbf{A}}\_t^{-1}&=\left(\widehat{\mathbf{A}}\_t+\mathbf{x}\_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)^\intercal\right)^{-1} \\\\ &=\widehat{\mathbf{A}}\_{t-1}^{-1}-\frac{\widehat{\mathbf{A}}\_{t-1}^{-1}\mathbf{x}\_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)^\intercal\widehat{\mathbf{A}}\_{t-1}^{-1}}{1+\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)^\intercal\widehat{\mathbf{A}}\_{t-1}^{-1}\mathbf{x}\_t},
 \end{align}
-for $t>0$, with $\mathbf{\widehat{A}}\_0\doteq\varepsilon\mathbf{I}$. The pseudocode for LSTD is given below
+for $t>0$, with $\mathbf{\widehat{A}}\_0\doteq\varepsilon\mathbf{I}$.  
+
+For the estimate $\widehat{\mathbf{b}}\_t$ of $\mathbf{b}$, it can be updated using naive approach:
+\begin{equation}
+\widehat{\mathbf{b}}\_{t+1}=\widehat{\mathbf{b}}\_t+R_{t+1}\mathbf{x}\_t
+\end{equation}
+The pseudocode for LSTD is given below
 <figure>
 	<img src="/assets/images/2022-07-10/lstd.png" alt="LSTD" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
@@ -594,9 +603,31 @@ And the middle factor, without the inverse operation, can also be written as:
 \end{equation}
 Substituting these expectations back to \eqref{19}, we obtain:
 \begin{equation}
-\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w})=2\mathbb{E}\left[\rho_t\left(\gamma\mathbf{x}\_{t+1}-\mathbf{x}\_t\right)\mathbf{x}\_t^\intercal\right]\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right]
+\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w})=2\mathbb{E}\left[\rho_t\left(\gamma\mathbf{x}\_{t+1}-\mathbf{x}\_t\right)\mathbf{x}\_t^\intercal\right]\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right]\tag{20}\label{20}
 \end{equation}
 
+Here, we use the **Gradient-TD** to estimate and store the product of the second two factors in \eqref{20}, denoted as $\mathbf{v}$:
+\begin{equation}
+\mathbf{v}\approx\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right],\tag{21}\label{21}
+\end{equation}
+which is the solution of the linear least-squares problem that tries to approximate $\rho_t\delta_t$ from the features. The SGD for incrementally finding the vector $\mathbf{v}$ that minimizes the expected squared error $\left(\mathbf{v}^\intercal\mathbf{x}\_t\right)^2$ is known as the **Least Mean Square (LMS)** rule (here augmented with an IS ratio):
+\begin{equation}
+\mathbf{v}\_{t+1}\doteq\mathbf{v}\_t+\beta\rho_t\left(\delta_t-\mathbf{v}^\intercal\mathbf{x}\_t\right)\mathbf{x}\_t,
+\end{equation}
+where $\beta>0$ is a step-size parameter. 
+
+With a given stored estimate $\mathbf{v}\_t$ approximating \eqref{21}, we can apply SGD update to the parameter vector $\mathbf{w}\_t$:
+\begin{align}
+\mathbf{w}\_{t+1}&=\mathbf{w}\_t-\frac{1}{2}\alpha\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w}\_t) \\\\ &=\mathbf{w}\_t-\frac{1}{2}\alpha2\mathbb{E}\left[\rho_t\left(\gamma\mathbf{x}\_{t+1}-\mathbf{x}\_t\right)\mathbf{x}\_t^\intercal\right]\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right] \\\\ &=\mathbf{w}\_t+\alpha\mathbb{E}\left[\rho_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)\mathbf{x}\_t^\intercal\right]\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right]\tag{22}\label{22} \\\\ &\approx\mathbf{w}\_t+\alpha\mathbb{E}\left[\rho_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)\mathbf{x}\_t^\intercal\right]\mathbf{v}\_t \\\\ &\approx\mathbf{w}\_t+\alpha\rho_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)\mathbf{x}\_t\mathbf{v}\_t
+\end{align}
+This algorithm is called **GTD2**. From \eqref{22}, we can also continue to derive as:
+\begin{align}
+\mathbf{w}\_{t+1}&=\mathbf{w}\_t+\alpha\mathbb{E}\left[\rho_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)\mathbf{x}\_t^\intercal\right]\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right] \\\\ &=\mathbf{w}\_t+\alpha\left(\mathbb{E}\left[\rho_t\mathbf{x}\_t\mathbf{x}\_t^\intercal\right]-\gamma\mathbb{E}\left[\rho_t\mathbf{x}\_{t+1}\mathbf{x}\_t^\intercal\right]\right)\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right] \\\\ &=\mathbf{w}\_t+\alpha\left(\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\intercal\right]-\gamma\mathbb{E}\left[\rho_t\mathbf{x}\_{t+1}\mathbf{x}\_t^\intercal\right]\right)\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right] \\\\ &=\mathbf{w}\_t+\alpha\left(\mathbb{E}\left[\mathbf{x}\_t\rho_t\delta_t\right]-\gamma\mathbb{E}\left[\rho_t\mathbf{x}\_{t+1}\mathbf{x}\_t^\intercal\right]\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right]\right) \\\\ &\approx\mathbf{w}\_t+\alpha\left(\mathbb{E}\left[\mathbf{x}\_t\rho_t\delta_t\right]-\gamma\mathbb{E}\left[\rho_t\mathbf{x}\_{t+1}\mathbf{x}\_t^\intercal\right]\right)\mathbf{v}\_t \\\\ &\approx\mathbf{w}\_t+\alpha\rho_t\left(\delta_t\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\mathbf{x}\_t^\intercal\mathbf{v}\_t\right)
+\end{align}
+This algorithm is known as **TD(0) with gradient correction**, or as **GTD(0)**.
+
+### Emphatic-TD
+{: #em-td}
 
 ## References
 {: #references}
