@@ -41,7 +41,6 @@ comments: true
 - [References](#references)
 - [Footnotes](#footnotes)
 
-
 ## On-policy Methods
 {: #on-policy-methods}
 So far in the series, we have gone through tabular methods, which are used to solve problems with small state and action spaces. For larger spaces, rather than getting the exact solutions, we now have to approximate the value of them. To start, we begin with on-policy approximation methods.
@@ -175,7 +174,7 @@ Thus, with linear approximation, the SGD update can be rewrite as
 \end{equation}
 
 In the linear case, there is only one optimum, and thus any method that is guaranteed to converge to or near a local optimum is automatically guaranteed to converge to or near the global optimum.
-- The gradient MC algorithm in the previous section converges to the global optimum of the $\overline{\text{VE}}$ under linear function approximation if $\alpha$ is reduced over time according to the usual conditions. In particular, it converges to the fixed point, called $\mathbf{w}\_{\text{MC}}$, with:
+- The gradient MC algorithm in the previous section converges to the global optimum of the $\overline{\text{VE}}$ under linear function approximation if $\alpha$ is reduced over time according to the [usual conditions]({% post_url 2022-04-08-td-learning %}#stochastic-approx-condition). In particular, it converges to the fixed point, called $\mathbf{w}\_{\text{MC}}$, with:
 \begin{align}
 \nabla_{\mathbf{w}\_{\text{MC}}}\mathbb{E}\left[\big(G_t-v_{\mathbf{w}\_{\text{MC}}}(S_t)\big)^2\right]&=0 \\\\ \mathbb{E}\Big[\big(G_t-v_{\mathbf{w}\_{\text{MC}}}(S_t)\big)\mathbf{x}\_t\Big]&=0 \\\\ \mathbb{E}\Big[(G_t-\mathbf{x}\_t^\intercal\mathbf{w}\_{\text{MC}})\mathbf{x}\_t\Big]&=0 \\\\ \mathbb{E}\left[G_t\mathbf{x}\_t-\mathbf{x}\_t\mathbf{x}\_t^\intercal\mathbf{w}\_{\text{MC}}\right]&=0 \\\\ \mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\intercal\right]\mathbf{w}\_\text{MC}&=\mathbb{E}\left[G_t\mathbf{x}\_t\right] \\\\ \mathbf{w}\_\text{MC}&=\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\intercal\right]^{-1}\mathbb{E}\left[G_t\mathbf{x}\_t\right]
 \end{align}

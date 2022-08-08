@@ -77,7 +77,7 @@ With how TD is established, these are some advantages of its over MC and DP:
 	- Requires less peak computation.  
 
 
-TD(0) does converge to $v_\pi$, in the mean for a sufficient small $\alpha$, and with probability of $1$ if $\alpha$ decreases according to the *stochastic approximation condition*
+TD(0) does converge to $v_\pi$, in the mean for a sufficient small $\alpha$, and with probability of $1$ if $\alpha$ decreases according to the <span id="stochastic-approx-condition">*stochastic approximation condition*</span>
 \begin{equation}
 \sum_{n=1}^{\infty}\alpha_n(a)=\infty\hspace{1cm}\text{and}\hspace{1cm}\sum_{n=1}^{\infty}\alpha_n^2(a)<\infty,
 \end{equation}
