@@ -327,6 +327,11 @@ This defines a feature for each of the $(n+1)^d$ possible integer vector $\mathb
 ##### Tile Coding
 {: #tile-coding}
 
+<figure>
+	<img src="/assets/images/2022-07-10/gradient_mc_tile_coding.png" alt="Gradient MC with tile coding" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: Gradient Monte Carlo with single tiling and with multiple tilings on the 1000-state random walk<br><span>(Eg9.2 - RL: An Introduction book).</span><br>The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-9/random_walk.py)</span></figcaption>
+</figure><br/>
+
 ##### Radial Basis Functions
 {: #rbf}
 Another common scheme is **Radial Basis Functions (RBFs)**. RBFs are the natural generalization of coarse coding to continuous valued features. Rather than each feature taking either $0$ or $1$, it can be anything within $[0,1]$, reflecting various degrees to which the feature is present. 
@@ -338,7 +343,7 @@ x_i(s)\doteq\exp\left(\frac{\Vert s-c_i\Vert^2}{2\sigma_i^2}\right)
 The figures below shows a one-dimensional example with a Euclidean distance metric.
 <figure>
 	<img src="/assets/images/2022-07-10/1_d_rbf.png" alt="one-dimensional RBFs" style="display: block; margin-left: auto; margin-right: auto; width: 300px; height: 100px"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: One-dimensional RBFs</figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 5</b>: One-dimensional RBFs</figcaption>
 </figure><br/>
 
 ### Least-Squares TD
