@@ -343,7 +343,7 @@ Thus, with linear approximation, the SGD update can be rewrite as
 <p>In the linear case, there is only one optimum, and thus any method that is guaranteed to converge to or near a local optimum is automatically guaranteed to converge to or near the global optimum.</p>
 <ul>
   <li>
-    <p>The gradient MC algorithm in the previous section converges to the global optimum of the $\overline{\text{VE}}$ under linear function approximation if $\alpha$ is reduced over time according to the usual conditions. In particular, it converges to the fixed point, called $\mathbf{w}_{\text{MC}}$, with:
+    <p>The gradient MC algorithm in the previous section converges to the global optimum of the $\overline{\text{VE}}$ under linear function approximation if $\alpha$ is reduced over time according to the <a href="/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html#stochastic-approx-condition">usual conditions</a>. In particular, it converges to the fixed point, called $\mathbf{w}_{\text{MC}}$, with:
 \begin{align}
 \nabla_{\mathbf{w}_{\text{MC}}}\mathbb{E}\left[\big(G_t-v_{\mathbf{w}_{\text{MC}}}(S_t)\big)^2\right]&amp;=0 \\ \mathbb{E}\Big[\big(G_t-v_{\mathbf{w}_{\text{MC}}}(S_t)\big)\mathbf{x}_t\Big]&amp;=0 \\ \mathbb{E}\Big[(G_t-\mathbf{x}_t^\intercal\mathbf{w}_{\text{MC}})\mathbf{x}_t\Big]&amp;=0 \\ \mathbb{E}\left[G_t\mathbf{x}_t-\mathbf{x}_t\mathbf{x}_t^\intercal\mathbf{w}_{\text{MC}}\right]&amp;=0 \\ \mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]\mathbf{w}_\text{MC}&amp;=\mathbb{E}\left[G_t\mathbf{x}_t\right] \\ \mathbf{w}_\text{MC}&amp;=\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]^{-1}\mathbb{E}\left[G_t\mathbf{x}_t\right]
 \end{align}</p>

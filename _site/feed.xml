@@ -1,5 +1,104 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-08T14:05:58+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
-</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Function Approximation</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html" rel="alternate" type="text/html" title="Function Approximation" /><published>2022-07-10T15:26:00+07:00</published><updated>2022-07-10T15:26:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-08T17:34:38+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Eligible Traces</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html" rel="alternate" type="text/html" title="Eligible Traces" /><published>2022-08-08T14:11:00+07:00</published><updated>2022-08-08T14:11:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html">&lt;blockquote&gt;
+  &lt;p&gt;Beside &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#n-step-td&quot;&gt;$n$-step TD&lt;/a&gt; methods, there is another mechanism called &lt;strong&gt;Eligible traces&lt;/strong&gt; that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD method ($\lambda=0$) to Monte Carlo methods ($\lambda=1$).
+&lt;!-- excerpt-end --&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#lambda-return&quot;&gt;The $\lambda$-return&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#td-lambda&quot;&gt;TD($\lambda$)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#truncated-td&quot;&gt;Truncated TD Methods&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#sarsa-lambda&quot;&gt;Sarsa($\lambda$)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;lambda-return&quot;&gt;The $\lambda$-return&lt;/h2&gt;
+&lt;p&gt;Recall that in &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html#n-step-td-prediction&quot;&gt;TD-Learning&lt;/a&gt; post, we have defined the $n$-step return as
+\begin{equation}
+G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}V_{t+n-1}(S_{t+n})
+\end{equation}
+for all $n,t$ such that $n\geq 1$ and $0\leq t\lt T-n$. After the post of &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html&quot;&gt;Function Approximation&lt;/a&gt;, for any parameterized function approximator, we can generalize that equation into:
+\begin{equation}
+G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+
+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{v}(S_{t+n},\mathbf{w}_{t+n}-1),
+\end{equation}
+for $0\leq t\leq T-n$, where $\hat{v}(s,\mathbf{w})$ is the approximate value of state $s$ given weight vector $\mathbf{w}$.&lt;/p&gt;
+
+&lt;p&gt;We already know that by selecting $n$-step return as the target for a tabular learning update, just as it is for an approximate &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#stochastic-grad&quot;&gt;SGD update&lt;/a&gt;, we can reach to an optimal point. In fact, a valid update can be also be done toward any average of $n$-step returns for different $n$. For example, we can choose
+\begin{equation}
+\frac{1}{2}G_{t:t+2}+\frac{1}{2}G_{t:t+4}
+\end{equation}
+as the target for our update.&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;TD($\lambda$)&lt;/strong&gt; is a particular way of averaging $n$-step updates. This average contains all the $n$-step updates, each weighted proportionally to $\lambda^{n-1}$, for $\lambda\in\left[0,1\right]$, and is normalized by a factor of $1-\lambda$ to guarantee that the weights sum to $1$, as:
+\begin{equation}
+G_t^\lambda\doteq(1-\lambda)\sum_{n=1}^{\infty}\lambda^{n-1}G_{t:t+n}
+\end{equation}
+The $G_t^\lambda$ is called &lt;strong&gt;$\lambda$-return&lt;/strong&gt; of the update.&lt;/p&gt;
+
+&lt;p&gt;This figure below illustrates the backup diagram of TD($\lambda$) algorithm.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-08-08/td-lambda-backup.png&quot; alt=&quot;Backup diagram of TD(lambda)&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 450px; height: 370px&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 1&lt;/b&gt;: The backup diagram of TD($\lambda$)&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;With the definition of $\lambda$-return, we can define the &lt;strong&gt;offline $\lambda$-return&lt;/strong&gt; algorithm, which use semi-gradient update and using $\lambda$-return as the target:
+\begin{equation}
+\mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\left[G_t^\lambda-\hat{v}(S_t,\mathbf{w}_t)\right]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t),\hspace{1cm}t=0,\dots,T-1
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;[TODO] Add example&lt;/p&gt;
+
+&lt;h2 id=&quot;td-lambda&quot;&gt;TD($\lambda$)&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;TD($\lambda$)&lt;/strong&gt; improves over the offline $\lambda$-return algorithm since:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;It updates the weight vector $\mathbf{w}$ on every step of an episode rather than only at the end, which leads to a time improvement.&lt;/li&gt;
+  &lt;li&gt;Its computations are equally distributed in time rather than all at the end of the episode.&lt;/li&gt;
+  &lt;li&gt;It can be applied to continuing problems rather than just to episodic ones.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;With function approximation, the eligible trace is a vector $\mathbf{z}_t\in\mathbb{R}^d$ with the same number of components as the weight vector $\mathbf{w}_t$. Whereas $\mathbf{w}_t$ is long-term memory, $\mathbf{z}_t$ on the other hand is a short-term memory, typically lasting less time than the length of an episode.&lt;/p&gt;
+
+&lt;p&gt;In TD($\lambda$), starting at the initial value of zero at the beginning of the episode, on each time step, the eligible trace vector $\mathbf{z}_t$ is incremented by the value gradient, and then fades away by $\gamma\lambda$:
+\begin{align}
+\mathbf{z}_{-1}&amp;amp;\doteq\mathbf{0} \\ \mathbf{z}_t&amp;amp;\doteq\gamma\lambda\mathbf{z}_t+\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t),\hspace{1cm}0\leq t\lt T
+\end{align}
+where $\gamma$ is the discount factor; $\lambda$ is also called &lt;strong&gt;trace-decay parameter&lt;/strong&gt;. On the other hand, the weight vector $\mathbf{w}_t$ is updated on each step proportional to the scalar &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html#td_error&quot;&gt;TD errors&lt;/a&gt; and the eligible trace vector $\mathbf{z}_t$:
+\begin{equation}
+\mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\delta_t\mathbf{z}_t,
+\end{equation}
+where the TD error is defined as
+\begin{equation}
+\delta_t\doteq R_{t+1}+\gamma\hat{v}(S_{t+1},\mathbf{w}_t)-\hat{v}(S_t,\mathbf{w}_t)
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;Pseudocode of &lt;strong&gt;semi-gradient TD($\lambda$)&lt;/strong&gt; is given below.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-08-08/semi-grad-td-lambda.png&quot; alt=&quot;Semi-gradient TD(lambda)&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Linear TD($\lambda$) has been proved to converge in the on-policy case if the step size parameter, $\alpha$, is reduced over time according to the &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html#stochastic-approx-condition&quot;&gt;usual conditions&lt;/a&gt;. And also in the continuing discounted case, for any $\lambda$, $\overline{\text{VE}}$ is proven to be within a bounded expansion of the lowest possible error:
+\begin{equation}
+\overline{\text{VE}}(\mathbf{w}_\infty)\leq\dfrac{1-\gamma\lambda}{1-\gamma}\min_\mathbf{w}\overline{\text{VE}}(\mathbf{w})
+\end{equation}&lt;/p&gt;
+
+&lt;h2 id=&quot;truncated-td&quot;&gt;Truncated TD Methods&lt;/h2&gt;
+&lt;p&gt;Since in the offline $\lambda$-return, the target $\lambda$-return is not known until the end of episode. And moreover, in the continuing case, since the $n$-step returns depend on arbitrary large $n$, it maybe never known.&lt;/p&gt;
+
+&lt;h2 id=&quot;sarsalambda&quot;&gt;Sarsa($\lambda$)&lt;/h2&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[2] Precup, Doina; Sutton, Richard S.; and Singh, Satinder. &lt;a href=&quot;https://scholarworks.umass.edu/cs_faculty_pubs/80&quot;&gt;Eligibility Traces for Off-Policy Policy Evaluation&lt;/a&gt; (2000). ICML ‘00 Proceedings of the Seventeenth International Conference on Machine Learning. 80.&lt;/p&gt;
+
+&lt;p&gt;[3] Deepmind x UCL. &lt;a href=&quot;https://www.deepmind.com/learning-resources/reinforcement-learning-lecture-series-2021&quot;&gt;Reinforcement Learning Lecture Series 2021&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;[4] Shangtong Zhang. &lt;a href=&quot;https://github.com/ShangtongZhang/reinforcement-learning-an-introduction&quot;&gt;Reinforcement Learning: An Introduction implementation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="td-learning" /><category term="n-step-td" /><category term="my-rl" /><summary type="html">Beside $n$-step TD methods, there is another mechanism called Eligible traces that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD method ($\lambda=0$) to Monte Carlo methods ($\lambda=1$).</summary></entry><entry><title type="html">Function Approximation</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html" rel="alternate" type="text/html" title="Function Approximation" /><published>2022-07-10T15:26:00+07:00</published><updated>2022-07-10T15:26:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html">&lt;blockquote&gt;
   &lt;p&gt;Reinforcement Learning in continuous state space requires function approximation.&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -192,7 +291,7 @@ Thus, with linear approximation, the SGD update can be rewrite as
 &lt;p&gt;In the linear case, there is only one optimum, and thus any method that is guaranteed to converge to or near a local optimum is automatically guaranteed to converge to or near the global optimum.&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;The gradient MC algorithm in the previous section converges to the global optimum of the $\overline{\text{VE}}$ under linear function approximation if $\alpha$ is reduced over time according to the usual conditions. In particular, it converges to the fixed point, called $\mathbf{w}_{\text{MC}}$, with:
+    &lt;p&gt;The gradient MC algorithm in the previous section converges to the global optimum of the $\overline{\text{VE}}$ under linear function approximation if $\alpha$ is reduced over time according to the &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html#stochastic-approx-condition&quot;&gt;usual conditions&lt;/a&gt;. In particular, it converges to the fixed point, called $\mathbf{w}_{\text{MC}}$, with:
 \begin{align}
 \nabla_{\mathbf{w}_{\text{MC}}}\mathbb{E}\left[\big(G_t-v_{\mathbf{w}_{\text{MC}}}(S_t)\big)^2\right]&amp;amp;=0 \\ \mathbb{E}\Big[\big(G_t-v_{\mathbf{w}_{\text{MC}}}(S_t)\big)\mathbf{x}_t\Big]&amp;amp;=0 \\ \mathbb{E}\Big[(G_t-\mathbf{x}_t^\intercal\mathbf{w}_{\text{MC}})\mathbf{x}_t\Big]&amp;amp;=0 \\ \mathbb{E}\left[G_t\mathbf{x}_t-\mathbf{x}_t\mathbf{x}_t^\intercal\mathbf{w}_{\text{MC}}\right]&amp;amp;=0 \\ \mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]\mathbf{w}_\text{MC}&amp;amp;=\mathbb{E}\left[G_t\mathbf{x}_t\right] \\ \mathbf{w}_\text{MC}&amp;amp;=\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]^{-1}\mathbb{E}\left[G_t\mathbf{x}_t\right]
 \end{align}&lt;/p&gt;
@@ -807,7 +906,7 @@ G_t-V(S_t)&amp;amp;=R_{t+1}+\gamma G_{t+1}-V(S_t)+\gamma V(S_{t+1})-\gamma V(S_{
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;TD(0) does converge to $v_\pi$, in the mean for a sufficient small $\alpha$, and with probability of $1$ if $\alpha$ decreases according to the &lt;em&gt;stochastic approximation condition&lt;/em&gt;
+&lt;p&gt;TD(0) does converge to $v_\pi$, in the mean for a sufficient small $\alpha$, and with probability of $1$ if $\alpha$ decreases according to the &lt;span id=&quot;stochastic-approx-condition&quot;&gt;&lt;em&gt;stochastic approximation condition&lt;/em&gt;&lt;/span&gt;
 \begin{equation}
 \sum_{n=1}^{\infty}\alpha_n(a)=\infty\hspace{1cm}\text{and}\hspace{1cm}\sum_{n=1}^{\infty}\alpha_n^2(a)&amp;lt;\infty,
 \end{equation}
@@ -4650,137 +4749,4 @@ q_*(s,a)&amp;amp;=\mathbb{E}\left[R_{t+1}+\gamma\max_{a’}q_*(S_{t+1},a’)|S_t
 
 &lt;p&gt;[3] &lt;a href=&quot;https://lilianweng.github.io/lil-log/2018/02/19/a-long-peek-into-reinforcement-learning.html&quot;&gt;A (Long) Peek into Reinforcement Learning&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;[4] &lt;a href=&quot;https://deepmind.com/research/case-studies/alphago-the-story-so-far&quot;&gt;AlphaGo&lt;/a&gt;&lt;/p&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="my-rl" /><summary type="html">You may have known or heard vaguely about a computer program called AlphaGo - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with Reinforcement Learning.</summary></entry><entry><title type="html">Markov Chain</title><link href="http://localhost:4000/random-stuffs/probability-statistics/2021/06/19/markov-chain.html" rel="alternate" type="text/html" title="Markov Chain" /><published>2021-06-19T22:27:00+07:00</published><updated>2021-06-19T22:27:00+07:00</updated><id>http://localhost:4000/random-stuffs/probability-statistics/2021/06/19/markov-chain</id><content type="html" xml:base="http://localhost:4000/random-stuffs/probability-statistics/2021/06/19/markov-chain.html">&lt;blockquote&gt;
-  &lt;p&gt;Since I have no idea how to begin with this post, why not just dive straight into details :P&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;!-- excerpt-end --&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#markov-property&quot;&gt;Markov Property&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#transition-matrix&quot;&gt;Transition Matrix&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#nstep-trans-prob&quot;&gt;n-step Transition Probability&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#marginal-dist-xn&quot;&gt;Marginal Distribution of $X_n$&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#properties&quot;&gt;Properties&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#stationary-distribution&quot;&gt;Stationary Distribution&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#reversibility&quot;&gt;Reversibility&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#exp-app&quot;&gt;Examples and Applications&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Markov chain&lt;/strong&gt;&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; is a stochastic process in which the random variables follow a special property called &lt;em&gt;Markov&lt;/em&gt;.&lt;/p&gt;
-
-&lt;h4 id=&quot;markov-property&quot;&gt;Markov Property&lt;/h4&gt;
-&lt;p&gt;A sequence of random variables $X_0, X_1, X_2, \dots$ taking values in the &lt;em&gt;state space&lt;/em&gt; $S=${$1, 2,\dots, M$}. For all $n\geq0$,
-\begin{equation}
-P(X_{n+1}=j|X_n=i)=P(X_{n+1}=j|X_n=i,X_{n-1}=i_{n-1},X_{n-2}=i_{n-2},\dots,X_0=i_0)
-\end{equation}
-In other words, knowledge of the preceding state is all we need to determine the probability distribution of the current state&lt;sup id=&quot;fnref:3&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
-
-&lt;h4 id=&quot;transition-matrix&quot;&gt;Transition Matrix&lt;/h4&gt;
-&lt;p&gt;The quantity $P(X_{n+1}=j|X_n=i)$ is &lt;em&gt;transition probability&lt;/em&gt; from state $i$ to $j$.&lt;br /&gt;
-If we denote that $q_{ij}=P(X_{n+1}=j|X_n=i)$ and let $Q=(q_{ij})$, which is a $M\times M$ matrix, there we have the &lt;em&gt;transition matrix&lt;/em&gt; $Q$ of the chain.&lt;br /&gt;
-Therefore, each row of $Q$ is a conditional probability mass function (PMF) of $X_{n+1}$ given $X_n$. And hence, sum of its entries is 1.&lt;/p&gt;
-
-&lt;h5 id=&quot;nstep-trans-prob&quot;&gt;n-step Transition Probability&lt;/h5&gt;
-&lt;p&gt;The n-step &lt;em&gt;transition probability&lt;/em&gt; from $i$ to $j$ is the probability of being at $i$ and $n$ steps later being at $j$, and be denoted as $q_{ij}^{(n)}$,
-\begin{equation}
-q_{ij}^{(n)}=P(X_n=j|X_0=i)
-\end{equation}
-We have that
-\begin{equation}
-q_{ij}^{(2)}=\sum_{k}^{}q_{ik}q_{kj}
-\end{equation}
-since it has to go through an intermediary step $k$ to reach $j$ in 2 steps from $i$. It’s easily seen that the right hand side is $Q_{ij}^2$. And by induction, we have that:
-\begin{equation}
-q_{ij}^{(n)}=Q_{ij}^{n}
-\end{equation}
-$Q^n$ is also called the &lt;em&gt;n-step transition matrix&lt;/em&gt;.&lt;/p&gt;
-
-&lt;h5 id=&quot;marginal-dist-xn&quot;&gt;Marginal Distribution of $X_n$&lt;/h5&gt;
-&lt;p&gt;Let $t=(t_1,\dots,t_M)^\intercal$, where $t_i=P(X_0=i)$. By the law of total probability (LOTP), we have that:
-\begin{align}
-P(X_n=j)&amp;amp;=\sum_{i=1}^{M}P(X_0=i)P(X_n=j|X_0=i) \\&amp;amp;=\sum_{i=1}^{M}t_iq_{ij}^{(n)}
-\end{align}
-or the marginal distribution of $X_n$ is given by $tQ^n$.&lt;/p&gt;
-
-&lt;h4 id=&quot;properties&quot;&gt;Properties&lt;/h4&gt;
-&lt;ol&gt;
-  &lt;li&gt;State $i$ of a Markov chain is defined as &lt;em&gt;recurrent&lt;/em&gt; or &lt;em&gt;transient&lt;/em&gt; depending upon whether or not the Markov chain will eventually return to it. Starting with &lt;em&gt;recurrent&lt;/em&gt; state i, the chain will return to it with the probability of 1. Otherwise, it is &lt;em&gt;transient&lt;/em&gt;.
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;Proposition&lt;/strong&gt;: Number of returns to &lt;em&gt;transient&lt;/em&gt; state is distributed by &lt;em&gt;Geom($p$)&lt;/em&gt;, with $p&amp;gt;0$ is the probability of never returning to $i$.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;A Markov chain is defined as &lt;em&gt;irreducible&lt;/em&gt; if there exists a chain of steps between any $i,j$ that has positive probability. That is for any $i,j$, there is some $n&amp;gt;0,\in\mathbb{N}$ such that $Q^n_{ij}&amp;gt;0$. If not &lt;em&gt;irreducible&lt;/em&gt;, it’s called &lt;em&gt;reducible&lt;/em&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;Proposition&lt;/strong&gt;: &lt;em&gt;Irreducible&lt;/em&gt; implies all states &lt;em&gt;recurrent&lt;/em&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;A state $i$ has &lt;em&gt;period&lt;/em&gt; $k&amp;gt;0$ if $k$ is the greatest common divisor (gcd) of the possible numbers of steps it can take to return to $i$ when starting at $i$.
-And thus, $k=gcd(n)$ such that $Q^n_{ii}&amp;gt;0$. $i$ is called &lt;em&gt;aperiodic&lt;/em&gt; if $k_i=1$, and &lt;em&gt;periodic&lt;/em&gt; otherwise. The chain itself is called &lt;em&gt;aperiodic&lt;/em&gt; if all its states are &lt;em&gt;aperiodic&lt;/em&gt;, and &lt;em&gt;periodic&lt;/em&gt; otherwise.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h4 id=&quot;stationary-distribution&quot;&gt;Stationary Distribution&lt;/h4&gt;
-&lt;p&gt;A vector $s=(s_1,\dots,s_M)^\intercal$ such that $s_i\geq0$ and $\sum_{i}s_i=1$ is a &lt;em&gt;stationary distribution&lt;/em&gt; for a Markov chain if
-\begin{equation}
-\sum_{i}s_iq_{ij}=s_j
-\end{equation}
-for all $j$, or equivalently $sQ=s$.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt; (&lt;em&gt;Existence and uniqueness of stationary distribution&lt;/em&gt;)&lt;br /&gt;
-    Any &lt;em&gt;irreducible&lt;/em&gt; Markov chain has a unique &lt;em&gt;stationary distribution&lt;/em&gt;. In this distribution, every state has positive probability.&lt;/p&gt;
-
-&lt;p&gt;The theorem is a consequence of a result from &lt;em&gt;Perron-Frobenius theorem&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt; (&lt;em&gt;Convergence to stationary distribution&lt;/em&gt;)&lt;br /&gt;
-    Let $X_0,X_1,\dots$ be a Markov chain with &lt;em&gt;stationary distribution&lt;/em&gt; $s$ and &lt;em&gt;transition matrix&lt;/em&gt; $Q$, such that some power $Q^m$ has all entries positive (or in the other words, the chain is &lt;em&gt;irreducible&lt;/em&gt; and &lt;em&gt;aperiodic&lt;/em&gt;). Then $P(X_n=i)$ converges to $s_i$ as $n\rightarrow\infty$ (or $Q^n$ converges to a matrix in which each row is $s$).&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt; (&lt;em&gt;Expected time to run&lt;/em&gt;)&lt;br /&gt;
-    Let $X_0,X_1,\dots$ be an &lt;em&gt;irreducible&lt;/em&gt; Markov chain with &lt;em&gt;stationary distribution&lt;/em&gt; $s$. Let $r_i$ be the expected time it takes the chain to return to $i$, given that it starts at $i$. Then $s_i=1/r_i$&lt;/p&gt;
-
-&lt;h4 id=&quot;reversibility&quot;&gt;Reversibility&lt;/h4&gt;
-&lt;p&gt;Let $Q=(q_{ij})$ be the &lt;em&gt;transition matrix&lt;/em&gt; of a Markov chain. Suppose there is an $s=(s_1,\dots,s_M)^\intercal$ with $s_i\geq0,\sum_{i}s_i=1$, such that
-\begin{equation}
-s_iq_{ij}=s_jq_{ji}
-\end{equation}
-for all states $i,j$. This equation is called &lt;em&gt;reversibility&lt;/em&gt; or &lt;em&gt;detailed balance&lt;/em&gt; condition. And if the condition holds, we say that the chain is &lt;em&gt;reversible&lt;/em&gt; w.r.t $s$.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Proposition&lt;/strong&gt; (&lt;em&gt;Reversible implies stationary&lt;/em&gt;)&lt;br /&gt;
-    Suppose that $Q=(q_{ij})$ be the &lt;em&gt;transition matrix&lt;/em&gt; of a Markov chain that is &lt;em&gt;reversible&lt;/em&gt; w.r.t to an $s=(s_1,\dots,s_M)^\intercal$ with with $s_i\geq0,\sum_{i}s_i=1$. Then $s$ is a &lt;em&gt;stationary distribution&lt;/em&gt; of the chain. (&lt;em&gt;proof&lt;/em&gt;:$\sum_{j}s_jq_{ji}=\sum_{j}s_iq_{ij}=s_i\sum_{j}q_{ij}=s_i$)&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Proposition&lt;/strong&gt;&lt;br /&gt;
-    If each column of $Q$ sum to 1, then the &lt;em&gt;uniform distribution&lt;/em&gt; over all states $(1/M,\dots,1/M)$, is a &lt;em&gt;stationary distribution&lt;/em&gt;. (This kind of matrix is called &lt;em&gt;doubly stochastic matrix&lt;/em&gt;).&lt;/p&gt;
-
-&lt;h4 id=&quot;exp-app&quot;&gt;Examples and Applications&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Finite-state_machine&quot;&gt;&lt;em&gt;Finite-state machines&lt;/em&gt;&lt;/a&gt;, &lt;a href=&quot;https://en.wikipedia.org/wiki/Random_walk&quot;&gt;&lt;em&gt;random walks&lt;/em&gt;&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Diced board games such as Ludo, Monopoly,…&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/PageRank&quot;&gt;&lt;em&gt;Google PageRank&lt;/em&gt;&lt;/a&gt; - the heart of Google search&lt;/li&gt;
-  &lt;li&gt;Markov Decision Process (MDP), which is gonna be the content of next &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html&quot;&gt;post&lt;/a&gt;.&lt;/li&gt;
-  &lt;li&gt;And various other applications.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
-&lt;p&gt;[1] Joseph K. Blitzstein &amp;amp; Jessica Hwang. &lt;a href=&quot;https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573&quot;&gt;Introduction to Probability&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;[2] &lt;a href=&quot;https://brilliant.org/wiki/markov-chains/&quot;&gt;Brillant’s Markov chain&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;[3] &lt;a href=&quot;https://en.wikipedia.org/wiki/Perron–Frobenius_theorem&quot;&gt;Perron-Frobenius theorem&lt;/a&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h4&gt;
-&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;This is more like intuitive and less formal definition of Markov chain, we will have a more concrete definition with the help of &lt;em&gt;Measure theory&lt;/em&gt; after the post about it. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:2&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;The Markov chain here is &lt;em&gt;time-homogeneous&lt;/em&gt; Markov chain, in which the probability of any state transition is independent of time. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:3&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;Well, it only matters where you are, not where you’ve been. &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="random-stuffs" /><category term="probability-statistics" /><category term="mathematics" /><category term="probability-statistics" /><summary type="html">Since I have no idea how to begin with this post, why not just dive straight into details :P</summary></entry></feed>
+&lt;p&gt;[4] &lt;a href=&quot;https://deepmind.com/research/case-studies/alphago-the-story-so-far&quot;&gt;AlphaGo&lt;/a&gt;&lt;/p&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="my-rl" /><summary type="html">You may have known or heard vaguely about a computer program called AlphaGo - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with Reinforcement Learning.</summary></entry></feed>
