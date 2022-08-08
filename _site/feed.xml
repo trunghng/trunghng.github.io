@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-07T14:00:54+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-08T12:25:22+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Function Approximation</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html" rel="alternate" type="text/html" title="Function Approximation" /><published>2022-07-10T15:26:00+07:00</published><updated>2022-07-10T15:26:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html">&lt;blockquote&gt;
   &lt;p&gt;Reinforcement Learning in continuous state space requires function approximation.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -50,6 +50,7 @@
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#off-policy-semi-grad&quot;&gt;Semi-gradient&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#grad-td&quot;&gt;Gradient-TD&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#residual-bellman-update&quot;&gt;Residual Bellman Update&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#em-td&quot;&gt;Emphatic-TD&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
@@ -592,6 +593,8 @@ where
 G_{t:t+n}\doteq\hat{q}(S_t,A_t,\mathbf{w}_{t-1})+\sum_{k=t}^{t+n-1}\delta_k\prod_{i=t+1}^{k}\gamma\pi(A_i|S_i),
 \end{equation}
 with $\delta_t$ is defined similar to the case of &lt;strong&gt;semi-gradient Expected Sarsa&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;residual-bellman-update&quot;&gt;Residual Bellman Update&lt;/h3&gt;
 
 &lt;h3 id=&quot;grad-td&quot;&gt;Gradient-TD&lt;/h3&gt;
 &lt;p&gt;In this section, we will be considering SGD methods for minimizing the $\overline{\text{PBE}}$.&lt;/p&gt;

@@ -36,6 +36,7 @@ comments: true
 - [Off-policy Methods](#off-policy-methods)
 	- [Semi-gradient](#off-policy-semi-grad)
 	- [Gradient-TD](#grad-td)
+	- [Residual Bellman Update](#residual-bellman-update)
 	- [Emphatic-TD](#em-td)
 - [References](#references)
 - [Footnotes](#footnotes)
@@ -571,6 +572,10 @@ where
 G_{t:t+n}\doteq\hat{q}(S_t,A_t,\mathbf{w}\_{t-1})+\sum_{k=t}^{t+n-1}\delta_k\prod_{i=t+1}^{k}\gamma\pi(A_i|S_i),
 \end{equation}
 with $\delta_t$ is defined similar to the case of **semi-gradient Expected Sarsa**.
+
+### Residual Bellman Update
+{: #residual-bellman-update}
+
 
 ### Gradient-TD
 {: #grad-td}
