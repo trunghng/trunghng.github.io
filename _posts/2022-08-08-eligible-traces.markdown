@@ -13,6 +13,7 @@ comments: true
 - [The $\lambda$-return](#lambda-return)
 - [TD($\lambda$)](#td-lambda)
 - [Truncated TD Methods](#truncated-td)
+- [Online $\lambda$-return](#online-lambda-return)
 - [Sarsa($\lambda$)](#sarsa-lambda)
 - [References](#references)
 - [Footnotes](#footnotes)
@@ -26,9 +27,9 @@ G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}V_{t+n-1}(S_{t+n
 for all $n,t$ such that $n\geq 1$ and $0\leq t\lt T-n$. After the post of [Function Approximation]({% post_url 2022-07-10-func-approx %}), for any parameterized function approximator, we can generalize that equation into:
 \begin{equation}
 G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+
-\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{v}(S_{t+n},\mathbf{w}\_{t+n}-1),
+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{v}(S_{t+n},\mathbf{w}\_{t+n-1}),\hspace{1cm}0\leq t\leq T-n
 \end{equation}
-for $0\leq t\leq T-n$, where $\hat{v}(s,\mathbf{w})$ is the approximate value of state $s$ given weight vector $\mathbf{w}$. 
+where $\hat{v}(s,\mathbf{w})$ is the approximate value of state $s$ given weight vector $\mathbf{w}$. 
 
 We already know that by selecting $n$-step return as the target for a tabular learning update, just as it is for an approximate [SGD update]({% post_url 2022-07-10-func-approx %}#stochastic-grad), we can reach to an optimal point. In fact, a valid update can be also be done toward any average of $n$-step returns for different $n$. For example, we can choose
 \begin{equation}
@@ -91,6 +92,29 @@ Linear TD($\lambda$) has been proved to converge in the on-policy case if the st
 ## Truncated TD Methods
 {: #truncated-td}
 Since in the offline $\lambda$-return, the target $\lambda$-return is not known until the end of episode. And moreover, in the continuing case, since the $n$-step returns depend on arbitrary large $n$, it maybe never known.
+However, the dependence becomes weaker for longer-delayed rewards, falling by $\gamma\lambda$ for each step of delay.  
+
+A natural approximation is to truncate the sequence after some number of steps. In general, we define the **truncated $\lambda$-return** for time $t$, given data only up to some later horizon, $h$, as:
+\begin{equation}
+G_{t:h}^\lambda\doteq(1-\lambda)\sum_{n=1}^{h-t-1}\lambda^{n-1}G_{t:t+n}+\lambda^{h-t-1}G_{t:h},\hspace{1cm}0\leq t\lt h\leq T
+\end{equation}
+With this definition of the return, and based on the function approximation version of the $n$-step TD we have defined [before]({% post_url 2022-07-10-func-approx %}#semi-grad-n-step-td-update), we have the **TTD($\lambda$)** is defined as:
+\begin{equation}
+\mathbf{w}\_{t+n}\doteq\mathbf{w}\_{t+n-1}+\alpha\left[G_{t:t+n}^\lambda-\hat{v}(S_t,\mathbf{w}\_{t+n-1})\right]\nabla_\mathbf{w}\hat{w}(S_t,\mathbf{w}\_{t+n-1}),\hspace{1cm}0\leq t\lt T
+\end{equation}
+Since the $k$-step $\lambda$-return can be written as sum of TD errors if the value function is held constant, as:
+\begin{align}
+G_{t:t+k}^\lambda&=(1-\lambda)\sum_{n=1}^{k}\lambda^{n-1}G_{t:t+n}+\lambda^{k-1}G_{t:t+k} \\\\
+\end{align}
+
+
+<figure>
+	<img src="/assets/images/2022-08-08/ttd-lambda-backup.png" alt="Backup diagram of truncated TD(lambda)" style="display: block; margin-left: auto; margin-right: auto; width: 500px; height: 370px"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: The backup diagram of truncated TD($\lambda$)</figcaption>
+</figure>
+
+## Online $\lambda$-return
+{: $online-lambda-return}
 
 ## Sarsa($\lambda$)
 

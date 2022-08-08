@@ -134,7 +134,7 @@ is guaranteed to converge to a local optimal point.
 
 We have the pseudocode of the algorithm:
 <figure>
-	<img src="/assets/images/2022-07-10/sgd_mc.png" alt="SGD Monte Carlo" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<img src="/assets/images/2022-07-10/sgd-mc.png" alt="SGD Monte Carlo" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
 </figure>
 
@@ -144,7 +144,7 @@ If instead of using MC target $G_t$, we use the bootstrapping targets such as $n
 
 Such methods are called **semi-gradient** since they include only a part of the gradient.
 <figure>
-	<img src="/assets/images/2022-07-10/semi_gd.png" alt="Semi-gradient TD(0)" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<img src="/assets/images/2022-07-10/semi-grad-td.png" alt="Semi-gradient TD(0)" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
 </figure>
 
@@ -232,6 +232,20 @@ In the linear case, there is only one optimum, and thus any method that is guara
 	\begin{equation}
 	\overline{\text{VE}}(\mathbf{w}\_{\text{TD}})\leq\dfrac{1}{1-\gamma}\overline{\text{VE}}(\mathbf{w}\_{\text{MC}})=\dfrac{1}{1-\gamma}\min_{\mathbf{w}}\overline{\text{VE}}(\mathbf{w})
 	\end{equation}
+
+Based on the tabular [$n$-step TD]({% post_url 2022-04-08-td-learning %}#n-step-td-update) we have defined before, applying the semi-gradient method, we have the function approximation version of its, called <span id='semi-grad-n-step-td-update'>**semi-gradient $\boldsymbol{n}$-step TD**</span>, can be defined as:
+\begin{equation}
+\mathbf{w}\_{t+n}\doteq\mathbf{w}\_{t+n-1}+\alpha\left[G_{t:t+n}-\hat{v}(S_t,\mathbf{w}\_{t+n-1})\right]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_{t+n-1}),\space{1cm}0\leq t\lt T
+\end{equation}
+where the $n$-step return is generalized from the [tabular version]({% post_url 2022-04-08-td-learning %}#n-step-return):
+\begin{equation}
+G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{v}(S_{t+n},\mathbf{w}\_{t+n-1}),\space{1cm}0\geq t\geq T-n
+\end{equation}
+We therefore have the pseudocode of the semi-gradient $n$-step TD algorithm.
+<figure>
+	<img src="/assets/images/2022-07-10/semi-grad-n-step-td.png" alt="Semi-gradient n-step TD" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
 
 #### Feature Construction
 {: #feature-cons}
@@ -341,7 +355,7 @@ x_i(s)\doteq\exp\left(\frac{\Vert s-c_i\Vert^2}{2\sigma_i^2}\right)
 \end{equation}
 The figures below shows a one-dimensional example with a Euclidean distance metric.
 <figure>
-	<img src="/assets/images/2022-07-10/1_d_rbf.png" alt="one-dimensional RBFs" style="display: block; margin-left: auto; margin-right: auto; width: 300px; height: 100px"/>
+	<img src="/assets/images/2022-07-10/1-d-rbf.png" alt="one-dimensional RBFs" style="display: block; margin-left: auto; margin-right: auto; width: 300px; height: 100px"/>
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 5</b>: One-dimensional RBFs</figcaption>
 </figure><br/>
 
@@ -415,7 +429,7 @@ We call this method **episodic semi-gradient one-step Sarsa**.
 
 To form the control method, we need to couple the action-value 
 <figure>
-	<img src="/assets/images/2022-07-10/ep_semi_grad_sarsa.png" alt="Episodic Semi-gradient Sarsa" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<img src="/assets/images/2022-07-10/ep-semi-grad-sarsa.png" alt="Episodic Semi-gradient Sarsa" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
 </figure>
 
@@ -431,7 +445,7 @@ for $t+n\lt T$, with $G_{t:t+n}\doteq G_t$ if $t+n\geq T$, as usual, to obtain t
 \end{equation}
 for $0\leq t\lt T$. The pseudocode is given below.
 <figure>
-	<img src="/assets/images/2022-07-10/ep_semi_grad_n_step_sarsa.png" alt="Episodic Semi-gradient n-step Sarsa" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<img src="/assets/images/2022-07-10/ep-semi-grad-n-step-sarsa.png" alt="Episodic Semi-gradient n-step Sarsa" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
 </figure>
 
@@ -488,7 +502,7 @@ For example, the average reward version of semi-gradient Sarsa is defined just a
 \end{equation}
 The pseudocode of the algorithm is then given below.
 <figure>
-	<img src="/assets/images/2022-07-10/dif_semi_grad_sarsa.png" alt="Differential Semi-gradient Sarsa" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<img src="/assets/images/2022-07-10/dif-semi-grad-sarsa.png" alt="Differential Semi-gradient Sarsa" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
 </figure>
 
@@ -506,7 +520,7 @@ where $\bar{R}$ is an estimate of $r(\pi),n\geq 1$, $t+n\lt T$; $G_{t:t+n}\doteq
 \end{equation}
 The pseudocode of the algorithm is then given below.
 <figure>
-	<img src="/assets/images/2022-07-10/dif_semi_grad_n_step_sarsa.png" alt="Differential Semi-gradient n-step Sarsa" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<img src="/assets/images/2022-07-10/dif-semi-grad-n-step-sarsa.png" alt="Differential Semi-gradient n-step Sarsa" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
 </figure>
 

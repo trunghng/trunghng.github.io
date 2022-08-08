@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-08T17:34:38+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-08T18:53:47+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Eligible Traces</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html" rel="alternate" type="text/html" title="Eligible Traces" /><published>2022-08-08T14:11:00+07:00</published><updated>2022-08-08T14:11:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html">&lt;blockquote&gt;
   &lt;p&gt;Beside &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#n-step-td&quot;&gt;$n$-step TD&lt;/a&gt; methods, there is another mechanism called &lt;strong&gt;Eligible traces&lt;/strong&gt; that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD method ($\lambda=0$) to Monte Carlo methods ($\lambda=1$).
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -8,6 +8,7 @@
   &lt;li&gt;&lt;a href=&quot;#lambda-return&quot;&gt;The $\lambda$-return&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#td-lambda&quot;&gt;TD($\lambda$)&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#truncated-td&quot;&gt;Truncated TD Methods&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#online-lambda-return&quot;&gt;Online $\lambda$-return&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#sarsa-lambda&quot;&gt;Sarsa($\lambda$)&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
@@ -21,9 +22,9 @@ G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}V_{t+n-1}(S_{t+n
 for all $n,t$ such that $n\geq 1$ and $0\leq t\lt T-n$. After the post of &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html&quot;&gt;Function Approximation&lt;/a&gt;, for any parameterized function approximator, we can generalize that equation into:
 \begin{equation}
 G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+
-\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{v}(S_{t+n},\mathbf{w}_{t+n}-1),
+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{v}(S_{t+n},\mathbf{w}_{t+n-1}),\hspace{1cm}0\leq t\leq T-n
 \end{equation}
-for $0\leq t\leq T-n$, where $\hat{v}(s,\mathbf{w})$ is the approximate value of state $s$ given weight vector $\mathbf{w}$.&lt;/p&gt;
+where $\hat{v}(s,\mathbf{w})$ is the approximate value of state $s$ given weight vector $\mathbf{w}$.&lt;/p&gt;
 
 &lt;p&gt;We already know that by selecting $n$-step return as the target for a tabular learning update, just as it is for an approximate &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#stochastic-grad&quot;&gt;SGD update&lt;/a&gt;, we can reach to an optimal point. In fact, a valid update can be also be done toward any average of $n$-step returns for different $n$. For example, we can choose
 \begin{equation}
@@ -85,7 +86,28 @@ where the TD error is defined as
 \end{equation}&lt;/p&gt;
 
 &lt;h2 id=&quot;truncated-td&quot;&gt;Truncated TD Methods&lt;/h2&gt;
-&lt;p&gt;Since in the offline $\lambda$-return, the target $\lambda$-return is not known until the end of episode. And moreover, in the continuing case, since the $n$-step returns depend on arbitrary large $n$, it maybe never known.&lt;/p&gt;
+&lt;p&gt;Since in the offline $\lambda$-return, the target $\lambda$-return is not known until the end of episode. And moreover, in the continuing case, since the $n$-step returns depend on arbitrary large $n$, it maybe never known.
+However, the dependence becomes weaker for longer-delayed rewards, falling by $\gamma\lambda$ for each step of delay.&lt;/p&gt;
+
+&lt;p&gt;A natural approximation is to truncate the sequence after some number of steps. In general, we define the &lt;strong&gt;truncated $\lambda$-return&lt;/strong&gt; for time $t$, given data only up to some later horizon, $h$, as:
+\begin{equation}
+G_{t:h}^\lambda\doteq(1-\lambda)\sum_{n=1}^{h-t-1}\lambda^{n-1}G_{t:t+n}+\lambda^{h-t-1}G_{t:h},\hspace{1cm}0\leq t\lt h\leq T
+\end{equation}
+With this definition of the return, and based on the function approximation version of the $n$-step TD we have defined &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#semi-grad-n-step-td-update&quot;&gt;before&lt;/a&gt;, we have the &lt;strong&gt;TTD($\lambda$)&lt;/strong&gt; is defined as:
+\begin{equation}
+\mathbf{w}_{t+n}\doteq\mathbf{w}_{t+n-1}+\alpha\left[G_{t:t+n}^\lambda-\hat{v}(S_t,\mathbf{w}_{t+n-1})\right]\nabla_\mathbf{w}\hat{w}(S_t,\mathbf{w}_{t+n-1}),\hspace{1cm}0\leq t\lt T
+\end{equation}
+Since the $k$-step $\lambda$-return can be written as sum of TD errors if the value function is held constant, as:
+\begin{align}
+G_{t:t+k}^\lambda&amp;amp;=(1-\lambda)\sum_{n=1}^{k}\lambda^{n-1}G_{t:t+n}+\lambda^{k-1}G_{t:t+k} \&lt;br /&gt;
+\end{align}&lt;/p&gt;
+
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-08-08/ttd-lambda-backup.png&quot; alt=&quot;Backup diagram of truncated TD(lambda)&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 500px; height: 370px&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 2&lt;/b&gt;: The backup diagram of truncated TD($\lambda$)&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h2 id=&quot;online-lambda-return&quot;&gt;Online $\lambda$-return&lt;/h2&gt;
 
 &lt;h2 id=&quot;sarsalambda&quot;&gt;Sarsa($\lambda$)&lt;/h2&gt;
 
@@ -252,7 +274,7 @@ is guaranteed to converge to a local optimal point.&lt;/p&gt;
 
 &lt;p&gt;We have the pseudocode of the algorithm:&lt;/p&gt;
 &lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-07-10/sgd_mc.png&quot; alt=&quot;SGD Monte Carlo&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;img src=&quot;/assets/images/2022-07-10/sgd-mc.png&quot; alt=&quot;SGD Monte Carlo&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
 
@@ -261,7 +283,7 @@ is guaranteed to converge to a local optimal point.&lt;/p&gt;
 
 &lt;p&gt;Such methods are called &lt;strong&gt;semi-gradient&lt;/strong&gt; since they include only a part of the gradient.&lt;/p&gt;
 &lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-07-10/semi_gd.png&quot; alt=&quot;Semi-gradient TD(0)&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;img src=&quot;/assets/images/2022-07-10/semi-grad-td.png&quot; alt=&quot;Semi-gradient TD(0)&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
 
@@ -358,6 +380,20 @@ Thus, with linear approximation, the SGD update can be rewrite as
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;Based on the tabular &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html#n-step-td-update&quot;&gt;$n$-step TD&lt;/a&gt; we have defined before, applying the semi-gradient method, we have the function approximation version of its, called &lt;span id=&quot;semi-grad-n-step-td-update&quot;&gt;&lt;strong&gt;semi-gradient $\boldsymbol{n}$-step TD&lt;/strong&gt;&lt;/span&gt;, can be defined as:
+\begin{equation}
+\mathbf{w}_{t+n}\doteq\mathbf{w}_{t+n-1}+\alpha\left[G_{t:t+n}-\hat{v}(S_t,\mathbf{w}_{t+n-1})\right]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_{t+n-1}),\space{1cm}0\leq t\lt T
+\end{equation}
+where the $n$-step return is generalized from the &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html#n-step-return&quot;&gt;tabular version&lt;/a&gt;:
+\begin{equation}
+G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{v}(S_{t+n},\mathbf{w}_{t+n-1}),\space{1cm}0\geq t\geq T-n
+\end{equation}
+We therefore have the pseudocode of the semi-gradient $n$-step TD algorithm.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-07-10/semi-grad-n-step-td.png&quot; alt=&quot;Semi-gradient n-step TD&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
 
 &lt;h4 id=&quot;feature-cons&quot;&gt;Feature Construction&lt;/h4&gt;
 &lt;p&gt;There are various ways to define features. The simplest way is to use each variable directly as a basis function along with a constant function, i.e., setting:
@@ -462,7 +498,7 @@ x_i(s)\doteq\exp\left(\frac{\Vert s-c_i\Vert^2}{2\sigma_i^2}\right)
 \end{equation}
 The figures below shows a one-dimensional example with a Euclidean distance metric.&lt;/p&gt;
 &lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-07-10/1_d_rbf.png&quot; alt=&quot;one-dimensional RBFs&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 300px; height: 100px&quot; /&gt;
+	&lt;img src=&quot;/assets/images/2022-07-10/1-d-rbf.png&quot; alt=&quot;one-dimensional RBFs&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 300px; height: 100px&quot; /&gt;
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 5&lt;/b&gt;: One-dimensional RBFs&lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
@@ -535,7 +571,7 @@ We call this method &lt;strong&gt;episodic semi-gradient one-step Sarsa&lt;/stro
 
 &lt;p&gt;To form the control method, we need to couple the action-value&lt;/p&gt;
 &lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-07-10/ep_semi_grad_sarsa.png&quot; alt=&quot;Episodic Semi-gradient Sarsa&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;img src=&quot;/assets/images/2022-07-10/ep-semi-grad-sarsa.png&quot; alt=&quot;Episodic Semi-gradient Sarsa&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
 
@@ -550,7 +586,7 @@ for $t+n\lt T$, with $G_{t:t+n}\doteq G_t$ if $t+n\geq T$, as usual, to obtain t
 \end{equation}
 for $0\leq t\lt T$. The pseudocode is given below.&lt;/p&gt;
 &lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-07-10/ep_semi_grad_n_step_sarsa.png&quot; alt=&quot;Episodic Semi-gradient n-step Sarsa&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;img src=&quot;/assets/images/2022-07-10/ep-semi-grad-n-step-sarsa.png&quot; alt=&quot;Episodic Semi-gradient n-step Sarsa&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
 
@@ -607,7 +643,7 @@ where $\bar{R}_t$ is an estimate at time $t$ of the average reward $r(\pi)$.&lt;
 \end{equation}
 The pseudocode of the algorithm is then given below.&lt;/p&gt;
 &lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-07-10/dif_semi_grad_sarsa.png&quot; alt=&quot;Differential Semi-gradient Sarsa&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;img src=&quot;/assets/images/2022-07-10/dif-semi-grad-sarsa.png&quot; alt=&quot;Differential Semi-gradient Sarsa&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
 
@@ -624,7 +660,7 @@ where $\bar{R}$ is an estimate of $r(\pi),n\geq 1$, $t+n\lt T$; $G_{t:t+n}\doteq
 \end{equation}
 The pseudocode of the algorithm is then given below.&lt;/p&gt;
 &lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-07-10/dif_semi_grad_n_step_sarsa.png&quot; alt=&quot;Differential Semi-gradient n-step Sarsa&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;img src=&quot;/assets/images/2022-07-10/dif-semi-grad-n-step-sarsa.png&quot; alt=&quot;Differential Semi-gradient n-step Sarsa&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
 
@@ -1258,7 +1294,7 @@ where $V_t:\mathcal{S}\to\mathbb{R}$ is the estimate at time step $t$ of $v_\pi$
 \begin{equation}
 G_{t:t+2}\doteq R_{t+1}+\gamma R_{t+2}+\gamma^2 V_{t+1}(S_{t+2})
 \end{equation}
-Similarly, the target of $n$-step update is the &lt;em&gt;$n$-step return&lt;/em&gt;:
+Similarly, the target of $n$-step update is the &lt;span id=&quot;n-step-return&quot;&gt;&lt;strong&gt;$\boldsymbol{n}$-step return&lt;/strong&gt;&lt;/span&gt;:
 \begin{equation}
 G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n V_{t+n-1}(S_{t+n})
 \end{equation}
@@ -1268,7 +1304,7 @@ G_{t:t+n}=G_t\doteq R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+\dots+\gamma^{T-t-1}
 \end{equation}
 which is the target of the Monte Carlo update.&lt;/p&gt;
 
-&lt;p&gt;Hence, the &lt;strong&gt;$\boldsymbol{n}$-step TD&lt;/strong&gt; method can be defined as:
+&lt;p&gt;Hence, the &lt;span id=&quot;n-step-td-update&quot;&gt;&lt;strong&gt;$\boldsymbol{n}$-step TD&lt;/strong&gt;&lt;/span&gt; method can be defined as:
 \begin{equation}
 V_{t+n}(S_t)\doteq V_{t+n-1}(S_t)+\alpha\left[G_{t:t+n}-V_{t+n-1}(S_t)\right],
 \end{equation}

@@ -446,7 +446,7 @@ where $V_t:\mathcal{S}\to\mathbb{R}$ is the estimate at time step $t$ of $v_\pi$
 \begin{equation}
 G_{t:t+2}\doteq R_{t+1}+\gamma R_{t+2}+\gamma^2 V_{t+1}(S_{t+2})
 \end{equation}
-Similarly, the target of $n$-step update is the *$n$-step return*:
+Similarly, the target of $n$-step update is the <span id="n-step-return">**$\boldsymbol{n}$-step return**</span>:
 \begin{equation}
 G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n V_{t+n-1}(S_{t+n})
 \end{equation}
@@ -456,7 +456,7 @@ G_{t:t+n}=G_t\doteq R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+\dots+\gamma^{T-t-1}
 \end{equation}
 which is the target of the Monte Carlo update.  
 
-Hence, the **$\boldsymbol{n}$-step TD** method can be defined as:
+Hence, the <span id="n-step-td-update">**$\boldsymbol{n}$-step TD**</span> method can be defined as:
 \begin{equation}
 V_{t+n}(S_t)\doteq V_{t+n-1}(S_t)+\alpha\left[G_{t:t+n}-V_{t+n-1}(S_t)\right],
 \end{equation}
