@@ -3,14 +3,14 @@ layout: post
 title:  "Eligible Traces"
 date:   2022-08-8 14:11:00 +0700
 categories: artificial-intelligent reinforcement-learning
-tags: artificial-intelligent reinforcement-learning td-learning n-step-td my-rl
+tags: artificial-intelligent reinforcement-learning td-learning n-step-td eligible-traces my-rl
 description: Eligible Traces
 comments: true
 ---
 > Beside [$n$-step TD]({% post_url 2022-07-10-func-approx %}#n-step-td) methods, there is another mechanism called **Eligible traces** that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.
 <!-- excerpt-end -->
 
-- [The \\(\lambda\\)-return](#lambda-return)
+- [The λ-return](#lambda-return)
 	- [Offline \\(\lambda\\)-return](#off-lambda-return)
 - [TD(\\(\lambda\\))](#td-lambda)
 - [Truncated TD Methods](#truncated-td)
@@ -108,7 +108,7 @@ With this definition of the return, and based on the function approximation vers
 \end{equation}
 We have the $k$-step $\lambda$-return can be written as:
 \begin{align}
-G_{t:t+k}^\lambda&=(1-\lambda)\sum_{n=1}^{k-1}\lambda^{n-1}G_{t:t+n}+\lambda^{k-1}G_{t:t+k} \\\\ &=(1-\lambda)\sum_{n=1}^{k-1}\lambda^{n-1}\left[R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{v}(S_{t+n},\mathbf{w}\_{t+n-1})\right] \\\\ &\hspace{1cm}+\lambda^{k-1}\left[R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{k-1}R_{t+k}+\gamma^k\hat{v}(S_{t+k},\mathbf{w}\_{t+k-1})\right] \\\\ &=R_{t+1}+\gamma\lambda R_{t+2}+\dots+\gamma^{k-1}\lambda^{k-1}R_{t+k} \\\\ &\hspace{1cm}+(1-\lambda)\left[\sum_{n=1}^{k-1}\lambda^{n-1}\gamma^n\hat{v}(S_{t+n},\mathbf{w}\_{t+n-1})\right]+\lambda^{k-1}\gamma^k\hat{v}(S_{t+k},\mathbf{w}\_{t+k-1}) \\\\ &=\hat{v}(S_t,\mathbf{w}\_{t-1})+\left[R_{t+1}+\gamma\hat{v}(S_{t+1},\mathbf{w}\_t)-\hat{v}(S_t,\mathbf{w}\_{t-1})\right] \\\\ &\hspace{1cm}+\left[\lambda\gamma R_{t+2}+\lambda\gamma^2\hat{v}(S_{t+2},\mathbf{w}\_{t+1})-\lambda\gamma\hat{v}(S_{t+1},\mathbf{w}\_t)\right]+\dots \\\\ &\hspace{1cm}+\left[\lambda^{k-1}\gamma^{k-1}R_{t+k}+\lambda^{k-1}\gamma^k\hat{v}(S_{t+k},\mathbf{w}\_{t+k-1})-\lambda^{k-1}\gamma^{k-1}\hat{v}(S_{t+k-1},\mathbf{w}\_{t+k-2})\right] \\\\ &=\hat{v}(S_t,\mathbf{w}\_{t-1})+\sum_{i=t}^{t+k-1}(\gamma\lambda)^{i-t}\delta_i',
+G_{t:t+k}^\lambda&=(1-\lambda)\sum_{n=1}^{k-1}\lambda^{n-1}G_{t:t+n}+\lambda^{k-1}G_{t:t+k} \\\\ &=(1-\lambda)\sum_{n=1}^{k-1}\lambda^{n-1}\left[R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{v}(S_{t+n},\mathbf{w}\_{t+n-1})\right] \\\\ &\hspace{1cm}+\lambda^{k-1}\left[R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{k-1}R_{t+k}+\gamma^k\hat{v}(S_{t+k},\mathbf{w}\_{t+k-1})\right] \\\\ &=R_{t+1}+\gamma\lambda R_{t+2}+\dots+\gamma^{k-1}\lambda^{k-1}R_{t+k} \\\\ &\hspace{1cm}+(1-\lambda)\left[\sum_{n=1}^{k-1}\lambda^{n-1}\gamma^n\hat{v}(S_{t+n},\mathbf{w}\_{t+n-1})\right]+\lambda^{k-1}\gamma^k\hat{v}(S_{t+k},\mathbf{w}\_{t+k-1}) \\\\ &=\hat{v}(S_t,\mathbf{w}\_{t-1})+\left[R_{t+1}+\gamma\hat{v}(S_{t+1},\mathbf{w}\_t)-\hat{v}(S_t,\mathbf{w}\_{t-1})\right] \\\\ &\hspace{1cm}+\left[\lambda\gamma R_{t+2}+\lambda\gamma^2\hat{v}(S_{t+2},\mathbf{w}\_{t+1})-\lambda\gamma\hat{v}(S_{t+1},\mathbf{w}\_t)\right]+\dots \\\\ &\hspace{1cm}+\left[\lambda^{k-1}\gamma^{k-1}R_{t+k}+\lambda^{k-1}\gamma^k\hat{v}(S_{t+k},\mathbf{w}\_{t+k-1})-\lambda^{k-1}\gamma^{k-1}\hat{v}(S_{t+k-1},\mathbf{w}\_{t+k-2})\right] \\\\ &=\hat{v}(S_t,\mathbf{w}\_{t-1})+\sum_{i=t}^{t+k-1}(\gamma\lambda)^{i-t}\delta_i',\tag{1}\label{1}
 \end{align}
 with
 \begin{equation}
@@ -118,7 +118,7 @@ where in the third step of the derivation, we use the identity
 \begin{equation}
 (1-\lambda)(1+\lambda+\dots+\lambda^{k-2})=1-\lambda^{k-1}
 \end{equation}
-From the derivation, we can see that the $k$-step $\lambda$-return can be written as sums of TD errors if the value function is held constant, which allows us to implement the TTD($\lambda$) algorithm efficiently.
+From \eqref{1}, we can see that the $k$-step $\lambda$-return can be written as sums of TD errors if the value function is held constant, which allows us to implement the TTD($\lambda$) algorithm efficiently.
 
 <figure>
 	<img src="/assets/images/2022-08-08/ttd-lambda-backup.png" alt="Backup diagram of truncated TD(lambda)" style="display: block; margin-left: auto; margin-right: auto; width: 500px; height: 370px"/>
@@ -126,24 +126,46 @@ From the derivation, we can see that the $k$-step $\lambda$-return can be writte
 </figure>
 
 ## Online $\lambda$-return
-{: $onl-lambda-return}
+{: #onl-lambda-return}
+The idea of **online $\lambda$-return** involves multiple passes over the episode, one at each horizon, each generating a different sequence of weight vectors.
 
+Let $\mathbf{w}\_t^h$ denote the weights used to generate the value at time $t$ in the sequence up to horizon $h$. The first weight vector $\mathbf{w}\_0^h$ in each sequence is the one that inherited from the previous episode (thus they are the same for all $h$), and the last weight vector $\mathbf{w}\_h^h$ in each sequence defines the weight-vector sequence of the algorithm. At the final horizon $h=T$, we obtain the final weight $\mathbf{w}\_T^T$  which will be passed on to form the initial weights of the next episode.
 
+In particular, we can define the first three sequences as:
+\begin{align}
+h=1:\hspace{1cm}&\mathbf{w}\_1^1\doteq\mathbf{w}\_0^1+\alpha\left[G_{0:1}^\lambda-\hat{v}(S_0,\mathbf{w}\_0^1)\right]\nabla_\mathbf{w}\hat{v}(S_0,\mathbf{w}\_0^1), \\\\ \\\\ h=2:\hspace{1cm}&\mathbf{w}\_1^2\doteq\mathbf{w}\_0^2+\alpha\left[G_{0:2}^\lambda-\hat{v}(S_0,\mathbf{w}\_0^2)\right]\nabla_\mathbf{w}\hat{v}(S_0,\mathbf{w}\_0^2), \\\\ &\mathbf{w}\_2^2\doteq\mathbf{w}\_1^2+\alpha\left[G_{1:2}^\lambda-\hat{v}(S_t,\mathbf{w}\_1^2)\right]\nabla_\mathbf{w}\hat{v}(S_1,\mathbf{w}\_1^2), \\\\ \\\\ h=3:\hspace{1cm}&\mathbf{w}\_1^3\doteq\mathbf{w}\_0^3+\alpha\left[G_{0:3}^\lambda-\hat{v}(S_0,\mathbf{w}\_0^3)\right]\nabla_\mathbf{w}\hat{v}(S_0,\mathbf{w}\_0^3), \\\\ &\mathbf{w}\_2^3\doteq\mathbf{w}\_1^3+\alpha\left[G_{1:3}^\lambda-\hat{v}(S_1,\mathbf{w}\_1^3)\right]\nabla_\mathbf{w}\hat{v}(S_1,\mathbf{w}\_1^3), \\\\ &\mathbf{w}\_3^3\doteq\mathbf{w}\_2^3+\alpha\left[G_{2:3}^\lambda-\hat{v}(S_2,\mathbf{w}\_2^3)\right]\nabla_\mathbf{w}\hat{v}(S_2,\mathbf{w}\_2^3)
+\end{align}
+The general form for the update of the **online $\lambda$-return** is
 \begin{equation}
-
+\mathbf{w}\_{t+1}^h\doteq\mathbf{w}\_t^h+\alpha\left[G_{t:h}^\lambda-\hat{v}(S_t,\mathbf{w}\_t^h)\right]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t^h),\hspace{1cm}0\leq t\lt h\leq T,
 \end{equation}
+with $\mathbf{w}\_t\doteq\mathbf{w}\_t^t$.
+
+The online $\lambda$-return algorithm is fully online, determining a new weight vector $\mathbf{w}\_t$ at each time step $t$ during an episode, using only information available at time $t$. Whereas the offline version passes through all the steps at the time of termination but does not make any updates during the episode.
+
+## True Online TD($\lambda$)
+{: #true-onl-td-lambda}
+
+<figure>
+	<img src="/assets/images/2022-08-08/true-onl-td-lambda.png" alt="True Online TD(lambda)" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+
 
 ## Sarsa($\lambda$)
+{: #sarsa-lambda}
 
 ## References
 {: #references}
 [1] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition)  
 
-[2] Precup, Doina; Sutton, Richard S.; and Singh, Satinder. [Eligibility Traces for Off-Policy Policy Evaluation](https://scholarworks.umass.edu/cs_faculty_pubs/80) (2000). ICML '00 Proceedings of the Seventeenth International Conference on Machine Learning. 80. 
+[2] Doina Precup & Richard S. Sutton & Satinder Singh. [Eligibility Traces for Off-Policy Policy Evaluation](https://scholarworks.umass.edu/cs_faculty_pubs/80) (2000). ICML '00 Proceedings of the Seventeenth International Conference on Machine Learning. 80. 
 
 [3] Deepmind x UCL. [Reinforcement Learning Lecture Series 2021](https://www.deepmind.com/learning-resources/reinforcement-learning-lecture-series-2021). 
 
-[4] Shangtong Zhang. [Reinforcement Learning: An Introduction implementation](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction). 
+[4] Harm van Seijen & A. Rupam Mahmood & Patrick M. Pilarski & Marlos C. Machado & Richard S. Sutton. [True Online Temporal-Difference Learning](http://jmlr.org/papers/v17/15-599.html). Journal of Machine Learning Research. 17(145):1−40, 2016. 
+
+[5] Shangtong Zhang. [Reinforcement Learning: An Introduction implementation](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction). 
 
 ## Footnotes
 {: #footnotes}
