@@ -1,15 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-08T18:53:47+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-09T14:08:12+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Eligible Traces</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html" rel="alternate" type="text/html" title="Eligible Traces" /><published>2022-08-08T14:11:00+07:00</published><updated>2022-08-08T14:11:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html">&lt;blockquote&gt;
-  &lt;p&gt;Beside &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#n-step-td&quot;&gt;$n$-step TD&lt;/a&gt; methods, there is another mechanism called &lt;strong&gt;Eligible traces&lt;/strong&gt; that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD method ($\lambda=0$) to Monte Carlo methods ($\lambda=1$).
+  &lt;p&gt;Beside &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#n-step-td&quot;&gt;$n$-step TD&lt;/a&gt; methods, there is another mechanism called &lt;strong&gt;Eligible traces&lt;/strong&gt; that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#lambda-return&quot;&gt;The $\lambda$-return&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#td-lambda&quot;&gt;TD($\lambda$)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#lambda-return&quot;&gt;The \(\lambda\)-return&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#off-lambda-return&quot;&gt;Offline \(\lambda\)-return&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#td-lambda&quot;&gt;TD(\(\lambda\))&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#truncated-td&quot;&gt;Truncated TD Methods&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#online-lambda-return&quot;&gt;Online $\lambda$-return&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#sarsa-lambda&quot;&gt;Sarsa($\lambda$)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#onl-lambda-return&quot;&gt;Online \(\lambda\)-return&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#true-onl-td-lambda&quot;&gt;True Online TD(\(\lambda\))&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#sarsa-lambda&quot;&gt;Sarsa(\(\lambda\))&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -44,6 +49,7 @@ The $G_t^\lambda$ is called &lt;strong&gt;$\lambda$-return&lt;/strong&gt; of the
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 1&lt;/b&gt;: The backup diagram of TD($\lambda$)&lt;/figcaption&gt;
 &lt;/figure&gt;
 
+&lt;h3 id=&quot;off-lambda-return&quot;&gt;Offline $\lambda$-return&lt;/h3&gt;
 &lt;p&gt;With the definition of $\lambda$-return, we can define the &lt;strong&gt;offline $\lambda$-return&lt;/strong&gt; algorithm, which use semi-gradient update and using $\lambda$-return as the target:
 \begin{equation}
 \mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\left[G_t^\lambda-\hat{v}(S_t,\mathbf{w}_t)\right]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t),\hspace{1cm}t=0,\dots,T-1
@@ -97,10 +103,19 @@ With this definition of the return, and based on the function approximation vers
 \begin{equation}
 \mathbf{w}_{t+n}\doteq\mathbf{w}_{t+n-1}+\alpha\left[G_{t:t+n}^\lambda-\hat{v}(S_t,\mathbf{w}_{t+n-1})\right]\nabla_\mathbf{w}\hat{w}(S_t,\mathbf{w}_{t+n-1}),\hspace{1cm}0\leq t\lt T
 \end{equation}
-Since the $k$-step $\lambda$-return can be written as sum of TD errors if the value function is held constant, as:
+We have the $k$-step $\lambda$-return can be written as:
 \begin{align}
-G_{t:t+k}^\lambda&amp;amp;=(1-\lambda)\sum_{n=1}^{k}\lambda^{n-1}G_{t:t+n}+\lambda^{k-1}G_{t:t+k} \&lt;br /&gt;
-\end{align}&lt;/p&gt;
+G_{t:t+k}^\lambda&amp;amp;=(1-\lambda)\sum_{n=1}^{k-1}\lambda^{n-1}G_{t:t+n}+\lambda^{k-1}G_{t:t+k} \\ &amp;amp;=(1-\lambda)\sum_{n=1}^{k-1}\lambda^{n-1}\left[R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{v}(S_{t+n},\mathbf{w}_{t+n-1})\right] \\ &amp;amp;\hspace{1cm}+\lambda^{k-1}\left[R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{k-1}R_{t+k}+\gamma^k\hat{v}(S_{t+k},\mathbf{w}_{t+k-1})\right] \\ &amp;amp;=R_{t+1}+\gamma\lambda R_{t+2}+\dots+\gamma^{k-1}\lambda^{k-1}R_{t+k} \\ &amp;amp;\hspace{1cm}+(1-\lambda)\left[\sum_{n=1}^{k-1}\lambda^{n-1}\gamma^n\hat{v}(S_{t+n},\mathbf{w}_{t+n-1})\right]+\lambda^{k-1}\gamma^k\hat{v}(S_{t+k},\mathbf{w}_{t+k-1}) \\ &amp;amp;=\hat{v}(S_t,\mathbf{w}_{t-1})+\left[R_{t+1}+\gamma\hat{v}(S_{t+1},\mathbf{w}_t)-\hat{v}(S_t,\mathbf{w}_{t-1})\right] \\ &amp;amp;\hspace{1cm}+\left[\lambda\gamma R_{t+2}+\lambda\gamma^2\hat{v}(S_{t+2},\mathbf{w}_{t+1})-\lambda\gamma\hat{v}(S_{t+1},\mathbf{w}_t)\right]+\dots \\ &amp;amp;\hspace{1cm}+\left[\lambda^{k-1}\gamma^{k-1}R_{t+k}+\lambda^{k-1}\gamma^k\hat{v}(S_{t+k},\mathbf{w}_{t+k-1})-\lambda^{k-1}\gamma^{k-1}\hat{v}(S_{t+k-1},\mathbf{w}_{t+k-2})\right] \\ &amp;amp;=\hat{v}(S_t,\mathbf{w}_{t-1})+\sum_{i=t}^{t+k-1}(\gamma\lambda)^{i-t}\delta_i’,
+\end{align}
+with
+\begin{equation}
+\delta_t’\doteq R_{t+1}+\gamma\hat{v}(S_{t+1},\mathbf{w}_t)-\hat{v}(S_t,\mathbf{w}_{t-1}),
+\end{equation}
+where in the third step of the derivation, we use the identity
+\begin{equation}
+(1-\lambda)(1+\lambda+\dots+\lambda^{k-2})=1-\lambda^{k-1}
+\end{equation}
+From the derivation, we can see that the $k$-step $\lambda$-return can be written as sums of TD errors if the value function is held constant, which allows us to implement the TTD($\lambda$) algorithm efficiently.&lt;/p&gt;
 
 &lt;figure&gt;
 	&lt;img src=&quot;/assets/images/2022-08-08/ttd-lambda-backup.png&quot; alt=&quot;Backup diagram of truncated TD(lambda)&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 500px; height: 370px&quot; /&gt;
@@ -108,6 +123,10 @@ G_{t:t+k}^\lambda&amp;amp;=(1-\lambda)\sum_{n=1}^{k}\lambda^{n-1}G_{t:t+n}+\lamb
 &lt;/figure&gt;
 
 &lt;h2 id=&quot;online-lambda-return&quot;&gt;Online $\lambda$-return&lt;/h2&gt;
+
+&lt;p&gt;\begin{equation}&lt;/p&gt;
+
+&lt;p&gt;\end{equation}&lt;/p&gt;
 
 &lt;h2 id=&quot;sarsalambda&quot;&gt;Sarsa($\lambda$)&lt;/h2&gt;
 
@@ -120,7 +139,7 @@ G_{t:t+k}^\lambda&amp;amp;=(1-\lambda)\sum_{n=1}^{k}\lambda^{n-1}G_{t:t+n}+\lamb
 
 &lt;p&gt;[4] Shangtong Zhang. &lt;a href=&quot;https://github.com/ShangtongZhang/reinforcement-learning-an-introduction&quot;&gt;Reinforcement Learning: An Introduction implementation&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="td-learning" /><category term="n-step-td" /><category term="my-rl" /><summary type="html">Beside $n$-step TD methods, there is another mechanism called Eligible traces that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD method ($\lambda=0$) to Monte Carlo methods ($\lambda=1$).</summary></entry><entry><title type="html">Function Approximation</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html" rel="alternate" type="text/html" title="Function Approximation" /><published>2022-07-10T15:26:00+07:00</published><updated>2022-07-10T15:26:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html">&lt;blockquote&gt;
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="td-learning" /><category term="n-step-td" /><category term="my-rl" /><summary type="html">Beside $n$-step TD methods, there is another mechanism called Eligible traces that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.</summary></entry><entry><title type="html">Function Approximation</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html" rel="alternate" type="text/html" title="Function Approximation" /><published>2022-07-10T15:26:00+07:00</published><updated>2022-07-10T15:26:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html">&lt;blockquote&gt;
   &lt;p&gt;Reinforcement Learning in continuous state space requires function approximation.&lt;/p&gt;
 &lt;/blockquote&gt;
 

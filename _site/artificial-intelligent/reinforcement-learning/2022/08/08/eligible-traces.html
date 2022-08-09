@@ -60,7 +60,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Eligible Traces" />
 <script type="application/ld+json">
-{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","headline":"Eligible Traces","dateModified":"2022-08-08T14:11:00+07:00","datePublished":"2022-08-08T14:11:00+07:00","description":"Eligible Traces","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html"},"url":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html","@context":"https://schema.org"}</script>
+{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","description":"Eligible Traces","headline":"Eligible Traces","dateModified":"2022-08-08T14:11:00+07:00","datePublished":"2022-08-08T14:11:00+07:00","url":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Trung&apos;s cabin" />
     
@@ -154,16 +154,21 @@
 
   <div class="post-content e-content" itemprop="articleBody">
     <blockquote>
-  <p>Beside <a href="/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#n-step-td">$n$-step TD</a> methods, there is another mechanism called <strong>Eligible traces</strong> that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD method ($\lambda=0$) to Monte Carlo methods ($\lambda=1$).
+  <p>Beside <a href="/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#n-step-td">$n$-step TD</a> methods, there is another mechanism called <strong>Eligible traces</strong> that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.
 <!-- excerpt-end --></p>
 </blockquote>
 
 <ul>
-  <li><a href="#lambda-return">The $\lambda$-return</a></li>
-  <li><a href="#td-lambda">TD($\lambda$)</a></li>
+  <li><a href="#lambda-return">The \(\lambda\)-return</a>
+    <ul>
+      <li><a href="#off-lambda-return">Offline \(\lambda\)-return</a></li>
+    </ul>
+  </li>
+  <li><a href="#td-lambda">TD(\(\lambda\))</a></li>
   <li><a href="#truncated-td">Truncated TD Methods</a></li>
-  <li><a href="#online-lambda-return">Online $\lambda$-return</a></li>
-  <li><a href="#sarsa-lambda">Sarsa($\lambda$)</a></li>
+  <li><a href="#onl-lambda-return">Online \(\lambda\)-return</a></li>
+  <li><a href="#true-onl-td-lambda">True Online TD(\(\lambda\))</a></li>
+  <li><a href="#sarsa-lambda">Sarsa(\(\lambda\))</a></li>
   <li><a href="#references">References</a></li>
   <li><a href="#footnotes">Footnotes</a></li>
 </ul>
@@ -198,6 +203,7 @@ The $G_t^\lambda$ is called <strong>$\lambda$-return</strong> of the update.</p>
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: The backup diagram of TD($\lambda$)</figcaption>
 </figure>
 
+<h3 id="off-lambda-return">Offline $\lambda$-return</h3>
 <p>With the definition of $\lambda$-return, we can define the <strong>offline $\lambda$-return</strong> algorithm, which use semi-gradient update and using $\lambda$-return as the target:
 \begin{equation}
 \mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\left[G_t^\lambda-\hat{v}(S_t,\mathbf{w}_t)\right]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t),\hspace{1cm}t=0,\dots,T-1
@@ -251,10 +257,19 @@ With this definition of the return, and based on the function approximation vers
 \begin{equation}
 \mathbf{w}_{t+n}\doteq\mathbf{w}_{t+n-1}+\alpha\left[G_{t:t+n}^\lambda-\hat{v}(S_t,\mathbf{w}_{t+n-1})\right]\nabla_\mathbf{w}\hat{w}(S_t,\mathbf{w}_{t+n-1}),\hspace{1cm}0\leq t\lt T
 \end{equation}
-Since the $k$-step $\lambda$-return can be written as sum of TD errors if the value function is held constant, as:
+We have the $k$-step $\lambda$-return can be written as:
 \begin{align}
-G_{t:t+k}^\lambda&amp;=(1-\lambda)\sum_{n=1}^{k}\lambda^{n-1}G_{t:t+n}+\lambda^{k-1}G_{t:t+k} \<br />
-\end{align}</p>
+G_{t:t+k}^\lambda&amp;=(1-\lambda)\sum_{n=1}^{k-1}\lambda^{n-1}G_{t:t+n}+\lambda^{k-1}G_{t:t+k} \\ &amp;=(1-\lambda)\sum_{n=1}^{k-1}\lambda^{n-1}\left[R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{v}(S_{t+n},\mathbf{w}_{t+n-1})\right] \\ &amp;\hspace{1cm}+\lambda^{k-1}\left[R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{k-1}R_{t+k}+\gamma^k\hat{v}(S_{t+k},\mathbf{w}_{t+k-1})\right] \\ &amp;=R_{t+1}+\gamma\lambda R_{t+2}+\dots+\gamma^{k-1}\lambda^{k-1}R_{t+k} \\ &amp;\hspace{1cm}+(1-\lambda)\left[\sum_{n=1}^{k-1}\lambda^{n-1}\gamma^n\hat{v}(S_{t+n},\mathbf{w}_{t+n-1})\right]+\lambda^{k-1}\gamma^k\hat{v}(S_{t+k},\mathbf{w}_{t+k-1}) \\ &amp;=\hat{v}(S_t,\mathbf{w}_{t-1})+\left[R_{t+1}+\gamma\hat{v}(S_{t+1},\mathbf{w}_t)-\hat{v}(S_t,\mathbf{w}_{t-1})\right] \\ &amp;\hspace{1cm}+\left[\lambda\gamma R_{t+2}+\lambda\gamma^2\hat{v}(S_{t+2},\mathbf{w}_{t+1})-\lambda\gamma\hat{v}(S_{t+1},\mathbf{w}_t)\right]+\dots \\ &amp;\hspace{1cm}+\left[\lambda^{k-1}\gamma^{k-1}R_{t+k}+\lambda^{k-1}\gamma^k\hat{v}(S_{t+k},\mathbf{w}_{t+k-1})-\lambda^{k-1}\gamma^{k-1}\hat{v}(S_{t+k-1},\mathbf{w}_{t+k-2})\right] \\ &amp;=\hat{v}(S_t,\mathbf{w}_{t-1})+\sum_{i=t}^{t+k-1}(\gamma\lambda)^{i-t}\delta_i’,
+\end{align}
+with
+\begin{equation}
+\delta_t’\doteq R_{t+1}+\gamma\hat{v}(S_{t+1},\mathbf{w}_t)-\hat{v}(S_t,\mathbf{w}_{t-1}),
+\end{equation}
+where in the third step of the derivation, we use the identity
+\begin{equation}
+(1-\lambda)(1+\lambda+\dots+\lambda^{k-2})=1-\lambda^{k-1}
+\end{equation}
+From the derivation, we can see that the $k$-step $\lambda$-return can be written as sums of TD errors if the value function is held constant, which allows us to implement the TTD($\lambda$) algorithm efficiently.</p>
 
 <figure>
 	<img src="/assets/images/2022-08-08/ttd-lambda-backup.png" alt="Backup diagram of truncated TD(lambda)" style="display: block; margin-left: auto; margin-right: auto; width: 500px; height: 370px" />
@@ -262,6 +277,10 @@ G_{t:t+k}^\lambda&amp;=(1-\lambda)\sum_{n=1}^{k}\lambda^{n-1}G_{t:t+n}+\lambda^{
 </figure>
 
 <h2 id="online-lambda-return">Online $\lambda$-return</h2>
+
+<p>\begin{equation}</p>
+
+<p>\end{equation}</p>
 
 <h2 id="sarsalambda">Sarsa($\lambda$)</h2>
 

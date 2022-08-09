@@ -7,14 +7,16 @@ tags: artificial-intelligent reinforcement-learning td-learning n-step-td my-rl
 description: Eligible Traces
 comments: true
 ---
-> Beside [$n$-step TD]({% post_url 2022-07-10-func-approx %}#n-step-td) methods, there is another mechanism called **Eligible traces** that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD method ($\lambda=0$) to Monte Carlo methods ($\lambda=1$).
+> Beside [$n$-step TD]({% post_url 2022-07-10-func-approx %}#n-step-td) methods, there is another mechanism called **Eligible traces** that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.
 <!-- excerpt-end -->
 
-- [The $\lambda$-return](#lambda-return)
-- [TD($\lambda$)](#td-lambda)
+- [The \\(\lambda\\)-return](#lambda-return)
+	- [Offline \\(\lambda\\)-return](#off-lambda-return)
+- [TD(\\(\lambda\\))](#td-lambda)
 - [Truncated TD Methods](#truncated-td)
-- [Online $\lambda$-return](#online-lambda-return)
-- [Sarsa($\lambda$)](#sarsa-lambda)
+- [Online \\(\lambda\\)-return](#onl-lambda-return)
+- [True Online TD(\\(\lambda\\))](#true-onl-td-lambda)
+- [Sarsa(\\(\lambda\\))](#sarsa-lambda)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -49,6 +51,8 @@ This figure below illustrates the backup diagram of TD($\lambda$) algorithm.
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: The backup diagram of TD($\lambda$)</figcaption>
 </figure>
 
+### Offline $\lambda$-return
+{: #off-lambda-return}
 With the definition of $\lambda$-return, we can define the **offline $\lambda$-return** algorithm, which use semi-gradient update and using $\lambda$-return as the target:
 \begin{equation}
 \mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\left[G_t^\lambda-\hat{v}(S_t,\mathbf{w}\_t)\right]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t),\hspace{1cm}t=0,\dots,T-1
@@ -102,11 +106,19 @@ With this definition of the return, and based on the function approximation vers
 \begin{equation}
 \mathbf{w}\_{t+n}\doteq\mathbf{w}\_{t+n-1}+\alpha\left[G_{t:t+n}^\lambda-\hat{v}(S_t,\mathbf{w}\_{t+n-1})\right]\nabla_\mathbf{w}\hat{w}(S_t,\mathbf{w}\_{t+n-1}),\hspace{1cm}0\leq t\lt T
 \end{equation}
-Since the $k$-step $\lambda$-return can be written as sum of TD errors if the value function is held constant, as:
+We have the $k$-step $\lambda$-return can be written as:
 \begin{align}
-G_{t:t+k}^\lambda&=(1-\lambda)\sum_{n=1}^{k}\lambda^{n-1}G_{t:t+n}+\lambda^{k-1}G_{t:t+k} \\\\
+G_{t:t+k}^\lambda&=(1-\lambda)\sum_{n=1}^{k-1}\lambda^{n-1}G_{t:t+n}+\lambda^{k-1}G_{t:t+k} \\\\ &=(1-\lambda)\sum_{n=1}^{k-1}\lambda^{n-1}\left[R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{v}(S_{t+n},\mathbf{w}\_{t+n-1})\right] \\\\ &\hspace{1cm}+\lambda^{k-1}\left[R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{k-1}R_{t+k}+\gamma^k\hat{v}(S_{t+k},\mathbf{w}\_{t+k-1})\right] \\\\ &=R_{t+1}+\gamma\lambda R_{t+2}+\dots+\gamma^{k-1}\lambda^{k-1}R_{t+k} \\\\ &\hspace{1cm}+(1-\lambda)\left[\sum_{n=1}^{k-1}\lambda^{n-1}\gamma^n\hat{v}(S_{t+n},\mathbf{w}\_{t+n-1})\right]+\lambda^{k-1}\gamma^k\hat{v}(S_{t+k},\mathbf{w}\_{t+k-1}) \\\\ &=\hat{v}(S_t,\mathbf{w}\_{t-1})+\left[R_{t+1}+\gamma\hat{v}(S_{t+1},\mathbf{w}\_t)-\hat{v}(S_t,\mathbf{w}\_{t-1})\right] \\\\ &\hspace{1cm}+\left[\lambda\gamma R_{t+2}+\lambda\gamma^2\hat{v}(S_{t+2},\mathbf{w}\_{t+1})-\lambda\gamma\hat{v}(S_{t+1},\mathbf{w}\_t)\right]+\dots \\\\ &\hspace{1cm}+\left[\lambda^{k-1}\gamma^{k-1}R_{t+k}+\lambda^{k-1}\gamma^k\hat{v}(S_{t+k},\mathbf{w}\_{t+k-1})-\lambda^{k-1}\gamma^{k-1}\hat{v}(S_{t+k-1},\mathbf{w}\_{t+k-2})\right] \\\\ &=\hat{v}(S_t,\mathbf{w}\_{t-1})+\sum_{i=t}^{t+k-1}(\gamma\lambda)^{i-t}\delta_i',
 \end{align}
-
+with
+\begin{equation}
+\delta_t'\doteq R_{t+1}+\gamma\hat{v}(S_{t+1},\mathbf{w}\_t)-\hat{v}(S_t,\mathbf{w}\_{t-1}),
+\end{equation}
+where in the third step of the derivation, we use the identity
+\begin{equation}
+(1-\lambda)(1+\lambda+\dots+\lambda^{k-2})=1-\lambda^{k-1}
+\end{equation}
+From the derivation, we can see that the $k$-step $\lambda$-return can be written as sums of TD errors if the value function is held constant, which allows us to implement the TTD($\lambda$) algorithm efficiently.
 
 <figure>
 	<img src="/assets/images/2022-08-08/ttd-lambda-backup.png" alt="Backup diagram of truncated TD(lambda)" style="display: block; margin-left: auto; margin-right: auto; width: 500px; height: 370px"/>
@@ -114,7 +126,12 @@ G_{t:t+k}^\lambda&=(1-\lambda)\sum_{n=1}^{k}\lambda^{n-1}G_{t:t+n}+\lambda^{k-1}
 </figure>
 
 ## Online $\lambda$-return
-{: $online-lambda-return}
+{: $onl-lambda-return}
+
+
+\begin{equation}
+
+\end{equation}
 
 ## Sarsa($\lambda$)
 
