@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-09T15:53:05+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-09T19:23:51+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Eligible Traces</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html" rel="alternate" type="text/html" title="Eligible Traces" /><published>2022-08-08T14:11:00+07:00</published><updated>2022-08-08T14:11:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html">&lt;blockquote&gt;
   &lt;p&gt;Beside &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#n-step-td&quot;&gt;$n$-step TD&lt;/a&gt; methods, there is another mechanism called &lt;strong&gt;Eligible traces&lt;/strong&gt; that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -13,7 +13,11 @@
   &lt;li&gt;&lt;a href=&quot;#td-lambda&quot;&gt;TD(\(\lambda\))&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#truncated-td&quot;&gt;Truncated TD Methods&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#onl-lambda-return&quot;&gt;Online \(\lambda\)-return&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#true-onl-td-lambda&quot;&gt;True Online TD(\(\lambda\))&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#true-onl-td-lambda&quot;&gt;True Online TD(λ)&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#dutch-traces-mc&quot;&gt;Dutch Traces in Monte Carlo&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#sarsa-lambda&quot;&gt;Sarsa(\(\lambda\))&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
@@ -133,14 +137,78 @@ h=1:\hspace{1cm}&amp;amp;\mathbf{w}_1^1\doteq\mathbf{w}_0^1+\alpha\left[G_{0:1}^
 \end{align}
 The general form for the update of the &lt;strong&gt;online $\lambda$-return&lt;/strong&gt; is
 \begin{equation}
-\mathbf{w}_{t+1}^h\doteq\mathbf{w}_t^h+\alpha\left[G_{t:h}^\lambda-\hat{v}(S_t,\mathbf{w}_t^h)\right]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t^h),\hspace{1cm}0\leq t\lt h\leq T,
+\mathbf{w}_{t+1}^h\doteq\mathbf{w}_t^h+\alpha\left[G_{t:h}^\lambda-\hat{v}(S_t,\mathbf{w}_t^h)\right]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t^h),\hspace{1cm}0\leq t\lt h\leq T,\tag{2}\label{2}
 \end{equation}
-with $\mathbf{w}_t\doteq\mathbf{w}_t^t$.&lt;/p&gt;
+with $\mathbf{w}_t\doteq\mathbf{w}_t^t$, and $\mathbf{w}_0^h$ is the same for all $h$, we denote this vector as $\mathbf{w}_{init}$.&lt;/p&gt;
 
 &lt;p&gt;The online $\lambda$-return algorithm is fully online, determining a new weight vector $\mathbf{w}_t$ at each time step $t$ during an episode, using only information available at time $t$. Whereas the offline version passes through all the steps at the time of termination but does not make any updates during the episode.&lt;/p&gt;
 
 &lt;h2 id=&quot;true-onl-td-lambda&quot;&gt;True Online TD($\lambda$)&lt;/h2&gt;
+&lt;p&gt;In the online $\lambda$-return, at each time step a sequence of updates is performed. The length of this sequence, and hence the computation per time step, increase over time.&lt;/p&gt;
 
+&lt;p&gt;However, it is possible to compute the weight vector resulting from time step $t+1$, $\mathbf{w}_{t+1}$, directly from the weight vector resulting from the sequence at time step $t$, $\mathbf{w}_t$.&lt;/p&gt;
+
+&lt;p&gt;Consider using linear approximation for our task, which gives us 
+\begin{align}
+\hat{v}(S_t,\mathbf{w}_t)&amp;amp;=\mathbf{w}_t^\intercal\mathbf{x}_t; \\ \nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t)&amp;amp;=\mathbf{x}_t,
+\end{align}
+where $\mathbf{x}_t=\mathbf{x}(S_t)$ as usual.&lt;/p&gt;
+
+&lt;p&gt;We begin by rewriting \eqref{2}, as
+\begin{align}
+\mathbf{w}_{t+1}^h&amp;amp;\doteq\mathbf{w}_t^h+\alpha\left[G_{t:h}^\lambda-\hat{v}(S_t,\mathbf{w}_t^h)\right]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t^h) \\ &amp;amp;=\mathbf{w}_t^h+\alpha\left[G_{t:h}^\lambda-\left(\mathbf{w}_t^h\right)^\intercal\mathbf{x}_t\right]\mathbf{x}_t \\ &amp;amp;=\left(\mathbf{I}-\alpha\mathbf{x}_t\mathbf{x}_t^\intercal\right)\mathbf{w}_t^h+\alpha\mathbf{x}_t G_{t:h}^\lambda,
+\end{align}
+where $\mathbf{I}$ is the identity matrix. With this equation, consider $\mathbf{w}_t^h$ in the cases of $t=1$ and $t=2$, we have:
+\begin{align}
+\mathbf{w}_1^h&amp;amp;=\left(\mathbf{I}-\alpha\mathbf{x}_0\mathbf{x}_0^\intercal\right)\mathbf{w}_0^h+\alpha\mathbf{x}_0 G_{0:h}^\lambda \\ &amp;amp;=\left(\mathbf{I}-\alpha\mathbf{x}_0\mathbf{x}_0^\intercal\right)\mathbf{w}_{init}+\alpha\mathbf{x}_0 G_{0:h}^\lambda, \\ \mathbf{w}_2^h&amp;amp;=\left(\mathbf{I}-\alpha\mathbf{x}_1\mathbf{x}_1^\intercal\right)\mathbf{w}_1^h+\alpha\mathbf{x}_1 G_{1:h}^\lambda \\ &amp;amp;=\left(\mathbf{I}-\alpha\mathbf{x}_1\mathbf{x}_1^\intercal\right)\left(\mathbf{I}-\alpha\mathbf{x}_0\mathbf{x}_0^\intercal\right)\mathbf{w}_{init}+\alpha\left(\mathbf{I}-\alpha\mathbf{x}_1\mathbf{x}_1^\intercal\right)\mathbf{x}_0 G_{0:h}^\lambda+\alpha\mathbf{x}_1 G_{1:h}^\lambda
+\end{align}
+In general, for $t\leq h$, we can write:
+\begin{equation}
+\mathbf{w}_t^h=\mathbf{A}_0^{t-1}\mathbf{w}_{init}+\alpha\sum_{i=0}^{t-1}\mathbf{A}_{i+1}^{t-1}\mathbf{x}_i G_{i:h}^\lambda,
+\end{equation}
+where $\mathbf{A}_i^j$ is defined as:
+\begin{equation}
+\mathbf{A}_i^j\doteq\left(\mathbf{I}-\alpha\mathbf{x}_j\mathbf{x}_j^\intercal\right)\left(\mathbf{I}-\alpha\mathbf{x}_{j-1}\mathbf{x}_{j-1}^\intercal\right)\dots\left(\mathbf{I}-\alpha\mathbf{x}_i\mathbf{x}_i^\intercal\right),\hspace{1cm}j\geq i,
+\end{equation}
+with $\mathbf{A}_{j+1}^j\doteq\mathbf{I}$. Hence, we can express $\mathbf{w}_t$ as:
+\begin{equation}
+\mathbf{w}_t=\mathbf{w}_t^t=\mathbf{A}_0^{t-1}\mathbf{w}_{init}+\alpha\sum_{i=0}^{t-1}\mathbf{A}_{i+1}^{t-1}\mathbf{x}_i G_{i:t}^\lambda\tag{3}\label{3}
+\end{equation}
+Using \eqref{1}, we have:
+\begin{align}
+G_{i:t+1}^\lambda-G_{i:t}^\lambda&amp;amp;=\mathbf{w}_i^\intercal\mathbf{x}_i+\sum_{j=1}^{t}(\gamma\lambda)^{j-i}\delta_j’-\left(\mathbf{w}_i^\intercal\mathbf{x}_i+\sum_{j=1}^{t-1}(\gamma\lambda)^{j-i}\delta_j’\right) \\ &amp;amp;=(\gamma\lambda)^{t-i}\delta_t’\tag{4}\label{4}
+\end{align}
+with the TD error, $\delta_t’$ is defined as earlier:
+\begin{equation}
+\delta_t’\doteq R_{t+1}+\gamma\mathbf{w}_t^\intercal\mathbf{x}_{t+1}-\mathbf{w}_{t-1}^\intercal\mathbf{x}_t\tag{5}\label{5}
+\end{equation}
+Using \eqref{3}, \eqref{4} and \eqref{5}, we have:
+\begin{align}
+\mathbf{w}_{t+1}&amp;amp;=\mathbf{A}_0^t\mathbf{w}_{init}+\alpha\sum_{i=0}^{t}\mathbf{A}_{i+1}^t\mathbf{x}_i G_{i:t+1}^\lambda \\ &amp;amp;=\mathbf{A}_0^t\mathbf{w}_{init}+\alpha\sum_{i=0}^{t-1}\mathbf{A}_{i+1}^t\mathbf{x}_i G_{i:t+1}^\lambda+\alpha\mathbf{x}_t G_{t:t+1}^\lambda \\ &amp;amp;=\mathbf{A}_0^t\mathbf{w}_0+\alpha\sum_{i=0}^{t-1}\mathbf{A}_{i+1}^t\mathbf{x}_i G_{i:t}^\lambda+\alpha\sum_{i=0}^{t-1}\mathbf{A}_{i+1}^t\mathbf{x}_i\left(G_{i:t+1}^\lambda-G_{i:t}^\lambda\right)+\alpha\mathbf{x}_t G_{t:t+1}^\lambda \\ &amp;amp;=\left(\mathbf{I}-\alpha\mathbf{x}_t\mathbf{x}_t^\intercal\right)\left(\mathbf{A}_0^{t-1}\mathbf{w}_0+\alpha\sum_{i=0}^{t-1}\mathbf{A}_{i+1}^{t-1}\mathbf{x}_i G_{t:t+1}^\lambda\right) \\ &amp;amp;\hspace{1cm}+\alpha\sum_{i=0}^{t-1}\mathbf{A}_{i+1}^t\mathbf{x}_i\left(G_{i:t+1}^\lambda-G_{i:t}^\lambda\right)+\alpha\mathbf{x}_t G_{t:t+1}^\lambda \\ &amp;amp;=\left(\mathbf{I}-\alpha\mathbf{x}_t\mathbf{x}_t^\intercal\right)\mathbf{w}_t+\alpha\sum_{i=0}^{t-1}\mathbf{A}_{i+1}^t\mathbf{x}_i\left(G_{i:t+1}^\lambda-G_{i:t}^\lambda\right)+\alpha\mathbf{x}_t G_{t:t+1}^\lambda \\ &amp;amp;=\left(\mathbf{I}-\alpha\mathbf{x}_t\mathbf{x}_t^\intercal\right)\mathbf{w}_t+\alpha\sum_{i=0}^{t-1}\mathbf{A}_{i+1}^t\mathbf{x}_i(\gamma\lambda)^{t-i}\delta_t’+\alpha\mathbf{x}_t\left(R_{t+1}+\gamma\mathbf{w}_t^\intercal\mathbf{x}_{t+1}\right) \\ &amp;amp;=\mathbf{w}_t+\alpha\sum_{i=0}^{t-1}\mathbf{A}_{i+1}^t\mathbf{x}_t(\gamma\lambda)^{t-i}\delta_t’+\alpha\mathbf{x}_t\left(R_{t+1}+\gamma\mathbf{w}_t^\intercal\mathbf{x}_{t+1}-\mathbf{w}_t\mathbf{x}_t\right) \\ &amp;amp;=\mathbf{w}_t+\alpha\sum_{i=0}^{t-1}\mathbf{A}_{i+1}^t\mathbf{x}_t(\gamma\lambda)^{t-i}\delta_t’ \\ &amp;amp;\hspace{1cm}+\alpha\mathbf{x}_t\left(R_{t+1}+\gamma\mathbf{w}_t^\intercal\mathbf{x}_{t+1}-\mathbf{w}_{t-1}^\intercal\mathbf{x}_t+\mathbf{w}_{t-1}^\intercal\mathbf{x}_t-\mathbf{w}_t^\intercal\mathbf{x}_t\right) \\ &amp;amp;=\mathbf{w}_t+\alpha\sum_{i=0}^{t-1}\mathbf{A}_{i+1}^t\mathbf{x}_t(\gamma\lambda)^{t-i}\delta_t’+\alpha\mathbf{x}_t\delta_t’-\alpha\left(\mathbf{w}_t^\intercal\mathbf{x}_t-\mathbf{w}_{t-1}^\intercal\mathbf{x}_t\right)\mathbf{x}_t \\ &amp;amp;=\mathbf{w}_t+\alpha\sum_{i=0}^{t}\mathbf{A}_{i+1}^t\mathbf{x}_t(\gamma\lambda)^{t-i}\delta_t’-\alpha\left(\mathbf{w}_t^\intercal\mathbf{x}_t-\mathbf{w}_{t-1}^\intercal\mathbf{x}_t\right)\mathbf{x}_t \\ &amp;amp;=\mathbf{w}_t+\alpha\mathbf{z}_t\delta_t’-\alpha\left(\mathbf{w}_t^\intercal\mathbf{x}_t-\mathbf{w}_{t-1}^\intercal\mathbf{x}_t\right)\mathbf{x}_t \\ &amp;amp;=\mathbf{w}_t+\alpha\mathbf{z}_t\left(\delta_t+\mathbf{w}_t^\intercal\mathbf{x}_t-\mathbf{w}_{t-1}^\intercal\mathbf{x}_t\right)-\alpha\left(\mathbf{w}_t^\intercal\mathbf{x}_t-\mathbf{w}_{t-1}^\intercal\mathbf{x}_t\right)\mathbf{x}_t \\ &amp;amp;=\mathbf{w}_t+\alpha\mathbf{z}_t\delta_t+\alpha\left(\mathbf{w}_t^\intercal\mathbf{x}_t-\mathbf{w}_{t-1}^\intercal\mathbf{x}_t\right)\left(\mathbf{z}_t-\mathbf{x}_t\right),\tag{6}\label{6}
+\end{align}
+where in the eleventh step, we define $\mathbf{z}_t$ as:
+\begin{equation}
+\mathbf{z}_t\doteq\sum_{i=0}^{t}\mathbf{A}_{i+1}^t\mathbf{x}_i(\gamma\lambda)^{t-i},
+\end{equation}
+and in the twelfth step, we also define $\delta_t$ as:
+\begin{align}
+\delta_t&amp;amp;\doteq\delta_t’-\mathbf{w}_t^\intercal\mathbf{x}_t+\mathbf{w}_{t-1}^\intercal\mathbf{x}_t \\ &amp;amp;=R_{t+1}+\gamma\mathbf{w}_t^\intercal\mathbf{x}_{t+1}-\mathbf{w}_t^\intercal\mathbf{x}_t,
+\end{align}
+which is the same as the TD error of TD($\lambda$) we have defined earlier.&lt;/p&gt;
+
+&lt;p&gt;We then need to derive an update rule to compute $\mathbf{z}_t$ from $\mathbf{z}_{t-1}$, as:
+\begin{align}
+\mathbf{z}_t&amp;amp;=\sum_{i=0}^{t}\mathbf{A}_{i+1}^t\mathbf{x}_i(\gamma\lambda)^{t-i} \\ &amp;amp;=\sum_{i=0}^{t-1}\mathbf{A}_{i+1}^t\mathbf{x}_i(\gamma\lambda)^{t-i}+\mathbf{x}_t \\ &amp;amp;=\left(\mathbf{I}-\alpha\mathbf{x}_t\mathbf{x}_t^\intercal\right)\gamma\lambda\sum_{i=0}^{t-1}\mathbf{A}_{i+1}^{t-1}\mathbf{x}_i(\gamma\lambda)^{t-i-1}+\mathbf{x}_t \\ &amp;amp;=\left(\mathbf{I}-\alpha\mathbf{x}_t\mathbf{x}_t^\intercal\right)\gamma\lambda\mathbf{z}_{t-1}+\mathbf{x}_t \\ &amp;amp;=\gamma\lambda\mathbf{z}_{t-1}+\left(1-\alpha\gamma\lambda\left(\mathbf{z}_t^\intercal\mathbf{x}_t\right)\right)\mathbf{x}_t\tag{7}\label{7}
+\end{align}
+Equation \eqref{6} and \eqref{7} form the update of the &lt;strong&gt;true online TD($\lambda$)&lt;/strong&gt; algorithm:
+\begin{equation}
+\mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\delta_t\mathbf{z}_t+\alpha\left(\mathbf{w}_t^\intercal\mathbf{x}_t-\mathbf{w}_{t-1}^\intercal\mathbf{x}_t\right)\left(\mathbf{z}t_t-\mathbf{x}_t\right),
+\end{equation}
+where
+\begin{align}
+\mathbf{z}_t&amp;amp;\doteq\gamma\lambda\mathbf{z}_{t-1}+\left(1-\alpha\gamma\lambda\left(\mathbf{z}_t^\intercal\mathbf{x}_t\right)\right)\mathbf{x}_t, \\ \delta_t&amp;amp;\doteq R_{t+1}+\gamma\mathbf{w}_t^\intercal\mathbf{x}_{t+1}-\mathbf{w}_t^\intercal\mathbf{x}_t
+\end{align}
+Pseudocode of the algorithm is given below.&lt;/p&gt;
 &lt;figure&gt;
 	&lt;img src=&quot;/assets/images/2022-08-08/true-onl-td-lambda.png&quot; alt=&quot;True Online TD(lambda)&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
@@ -422,11 +490,11 @@ Thus, with linear approximation, the SGD update can be rewrite as
 
 &lt;p&gt;Based on the tabular &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html#n-step-td-update&quot;&gt;$n$-step TD&lt;/a&gt; we have defined before, applying the semi-gradient method, we have the function approximation version of its, called &lt;span id=&quot;semi-grad-n-step-td-update&quot;&gt;&lt;strong&gt;semi-gradient $\boldsymbol{n}$-step TD&lt;/strong&gt;&lt;/span&gt;, can be defined as:
 \begin{equation}
-\mathbf{w}_{t+n}\doteq\mathbf{w}_{t+n-1}+\alpha\left[G_{t:t+n}-\hat{v}(S_t,\mathbf{w}_{t+n-1})\right]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_{t+n-1}),\space{1cm}0\leq t\lt T
+\mathbf{w}_{t+n}\doteq\mathbf{w}_{t+n-1}+\alpha\left[G_{t:t+n}-\hat{v}(S_t,\mathbf{w}_{t+n-1})\right]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_{t+n-1}),\hspace{1cm}0\leq t\lt T
 \end{equation}
 where the $n$-step return is generalized from the &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html#n-step-return&quot;&gt;tabular version&lt;/a&gt;:
 \begin{equation}
-G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{v}(S_{t+n},\mathbf{w}_{t+n-1}),\space{1cm}0\geq t\geq T-n
+G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{v}(S_{t+n},\mathbf{w}_{t+n-1}),\hspace{1cm}0\geq t\geq T-n
 \end{equation}
 We therefore have the pseudocode of the semi-gradient $n$-step TD algorithm.&lt;/p&gt;
 &lt;figure&gt;

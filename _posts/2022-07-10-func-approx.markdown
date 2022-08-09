@@ -235,11 +235,11 @@ In the linear case, there is only one optimum, and thus any method that is guara
 
 Based on the tabular [$n$-step TD]({% post_url 2022-04-08-td-learning %}#n-step-td-update) we have defined before, applying the semi-gradient method, we have the function approximation version of its, called <span id='semi-grad-n-step-td-update'>**semi-gradient $\boldsymbol{n}$-step TD**</span>, can be defined as:
 \begin{equation}
-\mathbf{w}\_{t+n}\doteq\mathbf{w}\_{t+n-1}+\alpha\left[G_{t:t+n}-\hat{v}(S_t,\mathbf{w}\_{t+n-1})\right]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_{t+n-1}),\space{1cm}0\leq t\lt T
+\mathbf{w}\_{t+n}\doteq\mathbf{w}\_{t+n-1}+\alpha\left[G_{t:t+n}-\hat{v}(S_t,\mathbf{w}\_{t+n-1})\right]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_{t+n-1}),\hspace{1cm}0\leq t\lt T
 \end{equation}
 where the $n$-step return is generalized from the [tabular version]({% post_url 2022-04-08-td-learning %}#n-step-return):
 \begin{equation}
-G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{v}(S_{t+n},\mathbf{w}\_{t+n-1}),\space{1cm}0\geq t\geq T-n
+G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{v}(S_{t+n},\mathbf{w}\_{t+n-1}),\hspace{1cm}0\geq t\geq T-n
 \end{equation}
 We therefore have the pseudocode of the semi-gradient $n$-step TD algorithm.
 <figure>

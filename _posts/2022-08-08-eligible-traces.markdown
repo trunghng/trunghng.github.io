@@ -15,7 +15,8 @@ comments: true
 - [TD(\\(\lambda\\))](#td-lambda)
 - [Truncated TD Methods](#truncated-td)
 - [Online \\(\lambda\\)-return](#onl-lambda-return)
-- [True Online TD(\\(\lambda\\))](#true-onl-td-lambda)
+- [True Online TD(λ)](#true-onl-td-lambda)
+	- [Dutch Traces in Monte Carlo](#dutch-traces-mc)
 - [Sarsa(\\(\lambda\\))](#sarsa-lambda)
 - [References](#references)
 - [Footnotes](#footnotes)
@@ -137,20 +138,83 @@ h=1:\hspace{1cm}&\mathbf{w}\_1^1\doteq\mathbf{w}\_0^1+\alpha\left[G_{0:1}^\lambd
 \end{align}
 The general form for the update of the **online $\lambda$-return** is
 \begin{equation}
-\mathbf{w}\_{t+1}^h\doteq\mathbf{w}\_t^h+\alpha\left[G_{t:h}^\lambda-\hat{v}(S_t,\mathbf{w}\_t^h)\right]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t^h),\hspace{1cm}0\leq t\lt h\leq T,
+\mathbf{w}\_{t+1}^h\doteq\mathbf{w}\_t^h+\alpha\left[G_{t:h}^\lambda-\hat{v}(S_t,\mathbf{w}\_t^h)\right]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t^h),\hspace{1cm}0\leq t\lt h\leq T,\tag{2}\label{2}
 \end{equation}
-with $\mathbf{w}\_t\doteq\mathbf{w}\_t^t$.
+with $\mathbf{w}\_t\doteq\mathbf{w}\_t^t$, and $\mathbf{w}\_0^h$ is the same for all $h$, we denote this vector as $\mathbf{w}\_{init}$.
 
 The online $\lambda$-return algorithm is fully online, determining a new weight vector $\mathbf{w}\_t$ at each time step $t$ during an episode, using only information available at time $t$. Whereas the offline version passes through all the steps at the time of termination but does not make any updates during the episode.
 
 ## True Online TD($\lambda$)
 {: #true-onl-td-lambda}
+In the online $\lambda$-return, at each time step a sequence of updates is performed. The length of this sequence, and hence the computation per time step, increase over time. 
 
+However, it is possible to compute the weight vector resulting from time step $t+1$, $\mathbf{w}\_{t+1}$, directly from the weight vector resulting from the sequence at time step $t$, $\mathbf{w}\_t$. 
+
+Consider using linear approximation for our task, which gives us 
+\begin{align}
+\hat{v}(S_t,\mathbf{w}\_t)&=\mathbf{w}\_t^\intercal\mathbf{x}\_t; \\\\ \nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t)&=\mathbf{x}\_t,
+\end{align}
+where $\mathbf{x}\_t=\mathbf{x}(S_t)$ as usual.
+
+We begin by rewriting \eqref{2}, as
+\begin{align}
+\mathbf{w}\_{t+1}^h&\doteq\mathbf{w}\_t^h+\alpha\left[G_{t:h}^\lambda-\hat{v}(S_t,\mathbf{w}\_t^h)\right]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t^h) \\\\ &=\mathbf{w}\_t^h+\alpha\left[G_{t:h}^\lambda-\left(\mathbf{w}\_t^h\right)^\intercal\mathbf{x}\_t\right]\mathbf{x}\_t \\\\ &=\left(\mathbf{I}-\alpha\mathbf{x}\_t\mathbf{x}\_t^\\intercal\right)\mathbf{w}\_t^h+\alpha\mathbf{x}\_t G_{t:h}^\lambda,
+\end{align}
+where $\mathbf{I}$ is the identity matrix. With this equation, consider $\mathbf{w}\_t^h$ in the cases of $t=1$ and $t=2$, we have:
+\begin{align}
+\mathbf{w}\_1^h&=\left(\mathbf{I}-\alpha\mathbf{x}\_0\mathbf{x}\_0^\intercal\right)\mathbf{w}\_0^h+\alpha\mathbf{x}\_0 G_{0:h}^\lambda \\\\ &=\left(\mathbf{I}-\alpha\mathbf{x}\_0\mathbf{x}\_0^\intercal\right)\mathbf{w}\_{init}+\alpha\mathbf{x}\_0 G_{0:h}^\lambda, \\\\ \mathbf{w}\_2^h&=\left(\mathbf{I}-\alpha\mathbf{x}\_1\mathbf{x}\_1^\intercal\right)\mathbf{w}\_1^h+\alpha\mathbf{x}\_1 G_{1:h}^\lambda \\\\ &=\left(\mathbf{I}-\alpha\mathbf{x}\_1\mathbf{x}\_1^\intercal\right)\left(\mathbf{I}-\alpha\mathbf{x}\_0\mathbf{x}\_0^\intercal\right)\mathbf{w}\_{init}+\alpha\left(\mathbf{I}-\alpha\mathbf{x}\_1\mathbf{x}\_1^\intercal\right)\mathbf{x}\_0 G_{0:h}^\lambda+\alpha\mathbf{x}\_1 G_{1:h}^\lambda
+\end{align}
+In general, for $t\leq h$, we can write:
+\begin{equation}
+\mathbf{w}\_t^h=\mathbf{A}\_0^{t-1}\mathbf{w}\_{init}+\alpha\sum_{i=0}^{t-1}\mathbf{A}\_{i+1}^{t-1}\mathbf{x}\_i G_{i:h}^\lambda,
+\end{equation}
+where $\mathbf{A}\_i^j$ is defined as:
+\begin{equation}
+\mathbf{A}\_i^j\doteq\left(\mathbf{I}-\alpha\mathbf{x}\_j\mathbf{x}\_j^\intercal\right)\left(\mathbf{I}-\alpha\mathbf{x}\_{j-1}\mathbf{x}\_{j-1}^\intercal\right)\dots\left(\mathbf{I}-\alpha\mathbf{x}\_i\mathbf{x}\_i^\intercal\right),\hspace{1cm}j\geq i,
+\end{equation}
+with $\mathbf{A}\_{j+1}^j\doteq\mathbf{I}$. Hence, we can express $\mathbf{w}\_t$ as:
+\begin{equation}
+\mathbf{w}\_t=\mathbf{w}\_t^t=\mathbf{A}\_0^{t-1}\mathbf{w}\_{init}+\alpha\sum_{i=0}^{t-1}\mathbf{A}\_{i+1}^{t-1}\mathbf{x}\_i G_{i:t}^\lambda\tag{3}\label{3}
+\end{equation}
+Using \eqref{1}, we have:
+\begin{align}
+G_{i:t+1}^\lambda-G_{i:t}^\lambda&=\mathbf{w}\_i^\intercal\mathbf{x}\_i+\sum_{j=1}^{t}(\gamma\lambda)^{j-i}\delta_j'-\left(\mathbf{w}\_i^\intercal\mathbf{x}\_i+\sum_{j=1}^{t-1}(\gamma\lambda)^{j-i}\delta_j'\right) \\\\ &=(\gamma\lambda)^{t-i}\delta_t'\tag{4}\label{4}
+\end{align}
+with the TD error, $\delta_t'$ is defined as earlier:
+\begin{equation}
+\delta_t'\doteq R_{t+1}+\gamma\mathbf{w}\_t^\intercal\mathbf{x}\_{t+1}-\mathbf{w}\_{t-1}^\intercal\mathbf{x}\_t\tag{5}\label{5}
+\end{equation}
+Using \eqref{3}, \eqref{4} and \eqref{5}, we have:
+\begin{align}
+\mathbf{w}\_{t+1}&=\mathbf{A}\_0^t\mathbf{w}\_{init}+\alpha\sum_{i=0}^{t}\mathbf{A}\_{i+1}^t\mathbf{x}\_i G_{i:t+1}^\lambda \\\\ &=\mathbf{A}\_0^t\mathbf{w}\_{init}+\alpha\sum_{i=0}^{t-1}\mathbf{A}\_{i+1}^t\mathbf{x}\_i G_{i:t+1}^\lambda+\alpha\mathbf{x}\_t G_{t:t+1}^\lambda \\\\ &=\mathbf{A}\_0^t\mathbf{w}\_0+\alpha\sum_{i=0}^{t-1}\mathbf{A}\_{i+1}^t\mathbf{x}\_i G_{i:t}^\lambda+\alpha\sum_{i=0}^{t-1}\mathbf{A}\_{i+1}^t\mathbf{x}\_i\left(G_{i:t+1}^\lambda-G_{i:t}^\lambda\right)+\alpha\mathbf{x}\_t G_{t:t+1}^\lambda \\\\ &=\left(\mathbf{I}-\alpha\mathbf{x}\_t\mathbf{x}\_t^\intercal\right)\left(\mathbf{A}\_0^{t-1}\mathbf{w}\_0+\alpha\sum_{i=0}^{t-1}\mathbf{A}\_{i+1}^{t-1}\mathbf{x}\_i G_{t:t+1}^\lambda\right) \\\\ &\hspace{1cm}+\alpha\sum_{i=0}^{t-1}\mathbf{A}\_{i+1}^t\mathbf{x}\_i\left(G_{i:t+1}^\lambda-G_{i:t}^\lambda\right)+\alpha\mathbf{x}\_t G_{t:t+1}^\lambda \\\\ &=\left(\mathbf{I}-\alpha\mathbf{x}\_t\mathbf{x}\_t^\intercal\right)\mathbf{w}\_t+\alpha\sum_{i=0}^{t-1}\mathbf{A}\_{i+1}^t\mathbf{x}\_i\left(G_{i:t+1}^\lambda-G_{i:t}^\lambda\right)+\alpha\mathbf{x}\_t G_{t:t+1}^\lambda \\\\ &=\left(\mathbf{I}-\alpha\mathbf{x}\_t\mathbf{x}\_t^\intercal\right)\mathbf{w}\_t+\alpha\sum_{i=0}^{t-1}\mathbf{A}\_{i+1}^t\mathbf{x}\_i(\gamma\lambda)^{t-i}\delta_t'+\alpha\mathbf{x}\_t\left(R_{t+1}+\gamma\mathbf{w}\_t^\intercal\mathbf{x}\_{t+1}\right) \\\\ &=\mathbf{w}\_t+\alpha\sum_{i=0}^{t-1}\mathbf{A}\_{i+1}^t\mathbf{x}\_t(\gamma\lambda)^{t-i}\delta_t'+\alpha\mathbf{x}\_t\left(R_{t+1}+\gamma\mathbf{w}\_t^\intercal\mathbf{x}\_{t+1}-\mathbf{w}\_t\mathbf{x}\_t\right) \\\\ &=\mathbf{w}\_t+\alpha\sum_{i=0}^{t-1}\mathbf{A}\_{i+1}^t\mathbf{x}\_t(\gamma\lambda)^{t-i}\delta_t' \\\\ &\hspace{1cm}+\alpha\mathbf{x}\_t\left(R_{t+1}+\gamma\mathbf{w}\_t^\intercal\mathbf{x}\_{t+1}-\mathbf{w}\_{t-1}^\intercal\mathbf{x}\_t+\mathbf{w}\_{t-1}^\intercal\mathbf{x}\_t-\mathbf{w}\_t^\intercal\mathbf{x}\_t\right) \\\\ &=\mathbf{w}\_t+\alpha\sum_{i=0}^{t-1}\mathbf{A}\_{i+1}^t\mathbf{x}\_t(\gamma\lambda)^{t-i}\delta_t'+\alpha\mathbf{x}\_t\delta_t'-\alpha\left(\mathbf{w}\_t^\intercal\mathbf{x}\_t-\mathbf{w}\_{t-1}^\intercal\mathbf{x}\_t\right)\mathbf{x}\_t \\\\ &=\mathbf{w}\_t+\alpha\sum_{i=0}^{t}\mathbf{A}\_{i+1}^t\mathbf{x}\_t(\gamma\lambda)^{t-i}\delta_t'-\alpha\left(\mathbf{w}\_t^\intercal\mathbf{x}\_t-\mathbf{w}\_{t-1}^\intercal\mathbf{x}\_t\right)\mathbf{x}\_t \\\\ &=\mathbf{w}\_t+\alpha\mathbf{z}\_t\delta_t'-\alpha\left(\mathbf{w}\_t^\intercal\mathbf{x}\_t-\mathbf{w}\_{t-1}^\intercal\mathbf{x}\_t\right)\mathbf{x}\_t \\\\ &=\mathbf{w}\_t+\alpha\mathbf{z}\_t\left(\delta_t+\mathbf{w}\_t^\intercal\mathbf{x}\_t-\mathbf{w}\_{t-1}^\intercal\mathbf{x}\_t\right)-\alpha\left(\mathbf{w}\_t^\intercal\mathbf{x}\_t-\mathbf{w}\_{t-1}^\intercal\mathbf{x}\_t\right)\mathbf{x}\_t \\\\ &=\mathbf{w}\_t+\alpha\mathbf{z}\_t\delta_t+\alpha\left(\mathbf{w}\_t^\intercal\mathbf{x}\_t-\mathbf{w}\_{t-1}^\intercal\mathbf{x}\_t\right)\left(\mathbf{z}\_t-\mathbf{x}\_t\right),\tag{6}\label{6}
+\end{align}
+where in the eleventh step, we define $\mathbf{z}\_t$ as:
+\begin{equation}
+\mathbf{z}\_t\doteq\sum_{i=0}^{t}\mathbf{A}\_{i+1}^t\mathbf{x}\_i(\gamma\lambda)^{t-i},
+\end{equation}
+and in the twelfth step, we also define $\delta_t$ as:
+\begin{align}
+\delta_t&\doteq\delta_t'-\mathbf{w}\_t^\intercal\mathbf{x}\_t+\mathbf{w}\_{t-1}^\intercal\mathbf{x}\_t \\\\ &=R_{t+1}+\gamma\mathbf{w}\_t^\intercal\mathbf{x}\_{t+1}-\mathbf{w}\_t^\intercal\mathbf{x}\_t,
+\end{align}
+which is the same as the TD error of TD($\lambda$) we have defined earlier. 
+
+We then need to derive an update rule to compute $\mathbf{z}\_t$ from $\mathbf{z}\_{t-1}$, as:
+\begin{align}
+\mathbf{z}\_t&=\sum_{i=0}^{t}\mathbf{A}\_{i+1}^t\mathbf{x}\_i(\gamma\lambda)^{t-i} \\\\ &=\sum_{i=0}^{t-1}\mathbf{A}\_{i+1}^t\mathbf{x}\_i(\gamma\lambda)^{t-i}+\mathbf{x}\_t \\\\ &=\left(\mathbf{I}-\alpha\mathbf{x}\_t\mathbf{x}\_t^\intercal\right)\gamma\lambda\sum_{i=0}^{t-1}\mathbf{A}\_{i+1}^{t-1}\mathbf{x}\_i(\gamma\lambda)^{t-i-1}+\mathbf{x}\_t \\\\ &=\left(\mathbf{I}-\alpha\mathbf{x}\_t\mathbf{x}\_t^\intercal\right)\gamma\lambda\mathbf{z}\_{t-1}+\mathbf{x}\_t \\\\ &=\gamma\lambda\mathbf{z}\_{t-1}+\left(1-\alpha\gamma\lambda\left(\mathbf{z}\_t^\intercal\mathbf{x}\_t\right)\right)\mathbf{x}\_t\tag{7}\label{7}
+\end{align}
+Equation \eqref{6} and \eqref{7} form the update of the **true online TD($\lambda$)** algorithm:
+\begin{equation}
+\mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\delta_t\mathbf{z}\_t+\alpha\left(\mathbf{w}\_t^\intercal\mathbf{x}\_t-\mathbf{w}\_{t-1}^\intercal\mathbf{x}\_t\right)\left(\mathbf{z}t\_t-\mathbf{x}\_t\right),
+\end{equation}
+where
+\begin{align}
+\mathbf{z}\_t&\doteq\gamma\lambda\mathbf{z}\_{t-1}+\left(1-\alpha\gamma\lambda\left(\mathbf{z}\_t^\intercal\mathbf{x}\_t\right)\right)\mathbf{x}\_t, \\\\ \delta_t&\doteq R_{t+1}+\gamma\mathbf{w}\_t^\intercal\mathbf{x}\_{t+1}-\mathbf{w}\_t^\intercal\mathbf{x}\_t
+\end{align}
+Pseudocode of the algorithm is given below.
 <figure>
 	<img src="/assets/images/2022-08-08/true-onl-td-lambda.png" alt="True Online TD(lambda)" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
 </figure>
-
 
 ## Sarsa($\lambda$)
 {: #sarsa-lambda}

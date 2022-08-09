@@ -1,0 +1,208 @@
+I"GE<blockquote>
+  <p>Beside <a href="/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#n-step-td">$n$-step TD</a> methods, there is another mechanism called <strong>Eligible traces</strong> that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.
+<!-- excerpt-end --></p>
+</blockquote>
+
+<ul>
+  <li><a href="#lambda-return">The λ-return</a>
+    <ul>
+      <li><a href="#off-lambda-return">Offline \(\lambda\)-return</a></li>
+    </ul>
+  </li>
+  <li><a href="#td-lambda">TD(\(\lambda\))</a></li>
+  <li><a href="#truncated-td">Truncated TD Methods</a></li>
+  <li><a href="#onl-lambda-return">Online \(\lambda\)-return</a></li>
+  <li><a href="#true-onl-td-lambda">True Online TD(λ)</a>
+    <ul>
+      <li><a href="#dutch-traces-mc">Dutch Traces in Monte Carlo</a></li>
+    </ul>
+  </li>
+  <li><a href="#sarsa-lambda">Sarsa(\(\lambda\))</a></li>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h2 id="lambda-return">The $\lambda$-return</h2>
+<p>Recall that in <a href="/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html#n-step-td-prediction">TD-Learning</a> post, we have defined the $n$-step return as
+\begin{equation}
+G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}V_{t+n-1}(S_{t+n})
+\end{equation}
+for all $n,t$ such that $n\geq 1$ and $0\leq t\lt T-n$. After the post of <a href="/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html">Function Approximation</a>, for any parameterized function approximator, we can generalize that equation into:
+\begin{equation}
+G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+
+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{v}(S_{t+n},\mathbf{w}_{t+n-1}),\hspace{1cm}0\leq t\leq T-n
+\end{equation}
+where $\hat{v}(s,\mathbf{w})$ is the approximate value of state $s$ given weight vector $\mathbf{w}$.</p>
+
+<p>We already know that by selecting $n$-step return as the target for a tabular learning update, just as it is for an approximate <a href="/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#stochastic-grad">SGD update</a>, we can reach to an optimal point. In fact, a valid update can be also be done toward any average of $n$-step returns for different $n$. For example, we can choose
+\begin{equation}
+\frac{1}{2}G_{t:t+2}+\frac{1}{2}G_{t:t+4}
+\end{equation}
+as the target for our update.</p>
+
+<p>The <strong>TD($\lambda$)</strong> is a particular way of averaging $n$-step updates. This average contains all the $n$-step updates, each weighted proportionally to $\lambda^{n-1}$, for $\lambda\in\left[0,1\right]$, and is normalized by a factor of $1-\lambda$ to guarantee that the weights sum to $1$, as:
+\begin{equation}
+G_t^\lambda\doteq(1-\lambda)\sum_{n=1}^{\infty}\lambda^{n-1}G_{t:t+n}
+\end{equation}
+The $G_t^\lambda$ is called <strong>$\lambda$-return</strong> of the update.</p>
+
+<p>This figure below illustrates the backup diagram of TD($\lambda$) algorithm.</p>
+<figure>
+	<img src="/assets/images/2022-08-08/td-lambda-backup.png" alt="Backup diagram of TD(lambda)" style="display: block; margin-left: auto; margin-right: auto; width: 450px; height: 370px" />
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: The backup diagram of TD($\lambda$)</figcaption>
+</figure>
+
+<h3 id="off-lambda-return">Offline $\lambda$-return</h3>
+<p>With the definition of $\lambda$-return, we can define the <strong>offline $\lambda$-return</strong> algorithm, which use semi-gradient update and using $\lambda$-return as the target:
+\begin{equation}
+\mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\left[G_t^\lambda-\hat{v}(S_t,\mathbf{w}_t)\right]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t),\hspace{1cm}t=0,\dots,T-1
+\end{equation}</p>
+
+<p>[TODO] Add example</p>
+
+<h2 id="td-lambda">TD($\lambda$)</h2>
+<p><strong>TD($\lambda$)</strong> improves over the offline $\lambda$-return algorithm since:</p>
+<ul>
+  <li>It updates the weight vector $\mathbf{w}$ on every step of an episode rather than only at the end, which leads to a time improvement.</li>
+  <li>Its computations are equally distributed in time rather than all at the end of the episode.</li>
+  <li>It can be applied to continuing problems rather than just to episodic ones.</li>
+</ul>
+
+<p>With function approximation, the eligible trace is a vector $\mathbf{z}_t\in\mathbb{R}^d$ with the same number of components as the weight vector $\mathbf{w}_t$. Whereas $\mathbf{w}_t$ is long-term memory, $\mathbf{z}_t$ on the other hand is a short-term memory, typically lasting less time than the length of an episode.</p>
+
+<p>In TD($\lambda$), starting at the initial value of zero at the beginning of the episode, on each time step, the eligible trace vector $\mathbf{z}_t$ is incremented by the value gradient, and then fades away by $\gamma\lambda$:
+\begin{align}
+\mathbf{z}_{-1}&amp;\doteq\mathbf{0} \\ \mathbf{z}_t&amp;\doteq\gamma\lambda\mathbf{z}_t+\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t),\hspace{1cm}0\leq t\lt T
+\end{align}
+where $\gamma$ is the discount factor; $\lambda$ is also called <strong>trace-decay parameter</strong>. On the other hand, the weight vector $\mathbf{w}_t$ is updated on each step proportional to the scalar <a href="/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html#td_error">TD errors</a> and the eligible trace vector $\mathbf{z}_t$:
+\begin{equation}
+\mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\delta_t\mathbf{z}_t,
+\end{equation}
+where the TD error is defined as
+\begin{equation}
+\delta_t\doteq R_{t+1}+\gamma\hat{v}(S_{t+1},\mathbf{w}_t)-\hat{v}(S_t,\mathbf{w}_t)
+\end{equation}</p>
+
+<p>Pseudocode of <strong>semi-gradient TD($\lambda$)</strong> is given below.</p>
+<figure>
+	<img src="/assets/images/2022-08-08/semi-grad-td-lambda.png" alt="Semi-gradient TD(lambda)" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+
+<p>Linear TD($\lambda$) has been proved to converge in the on-policy case if the step size parameter, $\alpha$, is reduced over time according to the <a href="/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html#stochastic-approx-condition">usual conditions</a>. And also in the continuing discounted case, for any $\lambda$, $\overline{\text{VE}}$ is proven to be within a bounded expansion of the lowest possible error:
+\begin{equation}
+\overline{\text{VE}}(\mathbf{w}_\infty)\leq\dfrac{1-\gamma\lambda}{1-\gamma}\min_\mathbf{w}\overline{\text{VE}}(\mathbf{w})
+\end{equation}</p>
+
+<h2 id="truncated-td">Truncated TD Methods</h2>
+<p>Since in the offline $\lambda$-return, the target $\lambda$-return is not known until the end of episode. And moreover, in the continuing case, since the $n$-step returns depend on arbitrary large $n$, it maybe never known.
+However, the dependence becomes weaker for longer-delayed rewards, falling by $\gamma\lambda$ for each step of delay.</p>
+
+<p>A natural approximation is to truncate the sequence after some number of steps. In general, we define the <strong>truncated $\lambda$-return</strong> for time $t$, given data only up to some later horizon, $h$, as:
+\begin{equation}
+G_{t:h}^\lambda\doteq(1-\lambda)\sum_{n=1}^{h-t-1}\lambda^{n-1}G_{t:t+n}+\lambda^{h-t-1}G_{t:h},\hspace{1cm}0\leq t\lt h\leq T
+\end{equation}
+With this definition of the return, and based on the function approximation version of the $n$-step TD we have defined <a href="/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#semi-grad-n-step-td-update">before</a>, we have the <strong>TTD($\lambda$)</strong> is defined as:
+\begin{equation}
+\mathbf{w}_{t+n}\doteq\mathbf{w}_{t+n-1}+\alpha\left[G_{t:t+n}^\lambda-\hat{v}(S_t,\mathbf{w}_{t+n-1})\right]\nabla_\mathbf{w}\hat{w}(S_t,\mathbf{w}_{t+n-1}),\hspace{1cm}0\leq t\lt T
+\end{equation}
+We have the $k$-step $\lambda$-return can be written as:
+\begin{align}
+G_{t:t+k}^\lambda&amp;=(1-\lambda)\sum_{n=1}^{k-1}\lambda^{n-1}G_{t:t+n}+\lambda^{k-1}G_{t:t+k} \\ &amp;=(1-\lambda)\sum_{n=1}^{k-1}\lambda^{n-1}\left[R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{v}(S_{t+n},\mathbf{w}_{t+n-1})\right] \\ &amp;\hspace{1cm}+\lambda^{k-1}\left[R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{k-1}R_{t+k}+\gamma^k\hat{v}(S_{t+k},\mathbf{w}_{t+k-1})\right] \\ &amp;=R_{t+1}+\gamma\lambda R_{t+2}+\dots+\gamma^{k-1}\lambda^{k-1}R_{t+k} \\ &amp;\hspace{1cm}+(1-\lambda)\left[\sum_{n=1}^{k-1}\lambda^{n-1}\gamma^n\hat{v}(S_{t+n},\mathbf{w}_{t+n-1})\right]+\lambda^{k-1}\gamma^k\hat{v}(S_{t+k},\mathbf{w}_{t+k-1}) \\ &amp;=\hat{v}(S_t,\mathbf{w}_{t-1})+\left[R_{t+1}+\gamma\hat{v}(S_{t+1},\mathbf{w}_t)-\hat{v}(S_t,\mathbf{w}_{t-1})\right] \\ &amp;\hspace{1cm}+\left[\lambda\gamma R_{t+2}+\lambda\gamma^2\hat{v}(S_{t+2},\mathbf{w}_{t+1})-\lambda\gamma\hat{v}(S_{t+1},\mathbf{w}_t)\right]+\dots \\ &amp;\hspace{1cm}+\left[\lambda^{k-1}\gamma^{k-1}R_{t+k}+\lambda^{k-1}\gamma^k\hat{v}(S_{t+k},\mathbf{w}_{t+k-1})-\lambda^{k-1}\gamma^{k-1}\hat{v}(S_{t+k-1},\mathbf{w}_{t+k-2})\right] \\ &amp;=\hat{v}(S_t,\mathbf{w}_{t-1})+\sum_{i=t}^{t+k-1}(\gamma\lambda)^{i-t}\delta_i’,\tag{1}\label{1}
+\end{align}
+with
+\begin{equation}
+\delta_t’\doteq R_{t+1}+\gamma\hat{v}(S_{t+1},\mathbf{w}_t)-\hat{v}(S_t,\mathbf{w}_{t-1}),
+\end{equation}
+where in the third step of the derivation, we use the identity
+\begin{equation}
+(1-\lambda)(1+\lambda+\dots+\lambda^{k-2})=1-\lambda^{k-1}
+\end{equation}
+From \eqref{1}, we can see that the $k$-step $\lambda$-return can be written as sums of TD errors if the value function is held constant, which allows us to implement the TTD($\lambda$) algorithm efficiently.</p>
+
+<figure>
+	<img src="/assets/images/2022-08-08/ttd-lambda-backup.png" alt="Backup diagram of truncated TD(lambda)" style="display: block; margin-left: auto; margin-right: auto; width: 500px; height: 370px" />
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: The backup diagram of truncated TD($\lambda$)</figcaption>
+</figure>
+
+<h2 id="onl-lambda-return">Online $\lambda$-return</h2>
+<p>The idea of <strong>online $\lambda$-return</strong> involves multiple passes over the episode, one at each horizon, each generating a different sequence of weight vectors.</p>
+
+<p>Let $\mathbf{w}_t^h$ denote the weights used to generate the value at time $t$ in the sequence up to horizon $h$. The first weight vector $\mathbf{w}_0^h$ in each sequence is the one that inherited from the previous episode (thus they are the same for all $h$), and the last weight vector $\mathbf{w}_h^h$ in each sequence defines the weight-vector sequence of the algorithm. At the final horizon $h=T$, we obtain the final weight $\mathbf{w}_T^T$  which will be passed on to form the initial weights of the next episode.</p>
+
+<p>In particular, we can define the first three sequences as:
+\begin{align}
+h=1:\hspace{1cm}&amp;\mathbf{w}_1^1\doteq\mathbf{w}_0^1+\alpha\left[G_{0:1}^\lambda-\hat{v}(S_0,\mathbf{w}_0^1)\right]\nabla_\mathbf{w}\hat{v}(S_0,\mathbf{w}_0^1), \\ \\ h=2:\hspace{1cm}&amp;\mathbf{w}_1^2\doteq\mathbf{w}_0^2+\alpha\left[G_{0:2}^\lambda-\hat{v}(S_0,\mathbf{w}_0^2)\right]\nabla_\mathbf{w}\hat{v}(S_0,\mathbf{w}_0^2), \\ &amp;\mathbf{w}_2^2\doteq\mathbf{w}_1^2+\alpha\left[G_{1:2}^\lambda-\hat{v}(S_t,\mathbf{w}_1^2)\right]\nabla_\mathbf{w}\hat{v}(S_1,\mathbf{w}_1^2), \\ \\ h=3:\hspace{1cm}&amp;\mathbf{w}_1^3\doteq\mathbf{w}_0^3+\alpha\left[G_{0:3}^\lambda-\hat{v}(S_0,\mathbf{w}_0^3)\right]\nabla_\mathbf{w}\hat{v}(S_0,\mathbf{w}_0^3), \\ &amp;\mathbf{w}_2^3\doteq\mathbf{w}_1^3+\alpha\left[G_{1:3}^\lambda-\hat{v}(S_1,\mathbf{w}_1^3)\right]\nabla_\mathbf{w}\hat{v}(S_1,\mathbf{w}_1^3), \\ &amp;\mathbf{w}_3^3\doteq\mathbf{w}_2^3+\alpha\left[G_{2:3}^\lambda-\hat{v}(S_2,\mathbf{w}_2^3)\right]\nabla_\mathbf{w}\hat{v}(S_2,\mathbf{w}_2^3)
+\end{align}
+The general form for the update of the <strong>online $\lambda$-return</strong> is
+\begin{equation}
+\mathbf{w}_{t+1}^h\doteq\mathbf{w}_t^h+\alpha\left[G_{t:h}^\lambda-\hat{v}(S_t,\mathbf{w}_t^h)\right]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t^h),\hspace{1cm}0\leq t\lt h\leq T,\tag{2}\label{2}
+\end{equation}
+with $\mathbf{w}_t\doteq\mathbf{w}_t^t$, and $\mathbf{w}_0^h$ is the same for all $h$, we denote this vector as $\mathbf{w}_{init}$.</p>
+
+<p>The online $\lambda$-return algorithm is fully online, determining a new weight vector $\mathbf{w}_t$ at each time step $t$ during an episode, using only information available at time $t$. Whereas the offline version passes through all the steps at the time of termination but does not make any updates during the episode.</p>
+
+<h2 id="true-onl-td-lambda">True Online TD($\lambda$)</h2>
+<p>In the online $\lambda$-return, at each time step a sequence of updates is performed. The length of this sequence, and hence the computation per time step, increase over time.</p>
+
+<p>However, it is possible to compute the weight vector resulting from time step $t+1$, $\mathbf{w}_{t+1}$, directly from the weight vector resulting from the sequence at time step $t$, $\mathbf{w}_t$.</p>
+
+<p>Consider using linear approximation for our task, which gives us 
+\begin{align}
+\hat{v}(S_t,\mathbf{w}_t)&amp;=\mathbf{w}_t^\intercal\mathbf{x}_t; \\ \nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t)&amp;=\mathbf{x}_t,
+\end{align}
+where $\mathbf{x}_t=\mathbf{x}(S_t)$ as usual.</p>
+
+<p>We begin by rewriting \eqref{2}, as
+\begin{align}
+\mathbf{w}_{t+1}^h&amp;\doteq\mathbf{w}_t^h+\alpha\left[G_{t:h}^\lambda-\hat{v}(S_t,\mathbf{w}_t^h)\right]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t^h) \\ &amp;=\mathbf{w}_t^h+\alpha\left[G_{t:h}^\lambda-\left(\mathbf{w}_t^h\right)^\intercal\mathbf{x}_t\right]\mathbf{x}_t \\ &amp;=\left(\mathbf{I}-\alpha\mathbf{x}_t\mathbf{x}_t^\intercal\right)\mathbf{w}_t^h+\alpha\mathbf{x}_t G_{t:h}^\lambda,
+\end{align}
+where $\mathbf{I}$ is the identity matrix. With this equation, consider $\mathbf{w}_t^h$ in the cases of $t=1$ and $t=2$, we have:
+\begin{align}
+\mathbf{w}_1^h&amp;=\left(\mathbf{I}-\alpha\mathbf{x}_0\mathbf{x}_0^\intercal\right)\mathbf{w}_0^h+\alpha\mathbf{x}_0 G_{0:h}^\lambda \\ &amp;=\left(\mathbf{I}-\alpha\mathbf{x}_0\mathbf{x}_0^\intercal\right)\mathbf{w}_{init}+\alpha\mathbf{x}_0 G_{0:h}^\lambda, \\ \mathbf{w}_2^h&amp;=\left(\mathbf{I}-\alpha\mathbf{x}_1\mathbf{x}_1^\intercal\right)\mathbf{w}_1^h+\alpha\mathbf{x}_1 G_{1:h}^\lambda \\ &amp;=\left(\mathbf{I}-\alpha\mathbf{x}_1\mathbf{x}_1^\intercal\right)\left(\mathbf{I}-\alpha\mathbf{x}_0\mathbf{x}_0^\intercal\right)\mathbf{w}_{init}+\alpha\left(\mathbf{I}-\alpha\mathbf{x}_1\mathbf{x}_1^\intercal\right)\mathbf{x}_0 G_{0:h}^\lambda+\alpha\mathbf{x}_1 G_{1:h}^\lambda
+\end{align}
+In general, for $t\leq h$, we can write:
+\begin{equation}
+\mathbf{w}_t^h=\mathbf{A}_0^{t-1}\mathbf{w}_{init}+\alpha\sum_{i=0}^{t-1}\mathbf{A}_{i+1}^{t-1}\mathbf{x}_i G_{i:h}^\lambda,
+\end{equation}
+where $\mathbf{A}_i^j$ is defined as:
+\begin{equation}
+\mathbf{A}_i^j\doteq\left(\mathbf{I}-\alpha\mathbf{x}_j\mathbf{x}_j^\intercal\right)\left(\mathbf{I}-\alpha\mathbf{x}_{j-1}\mathbf{x}_{j-1}^\intercal\right)\dots\left(\mathbf{I}-\alpha\mathbf{x}_i\mathbf{x}_i^\intercal\right),\hspace{1cm}j\geq i,
+\end{equation}
+with $\mathbf{A}_{j+1}^j\doteq\mathbf{I}$. Hence, we can express $\mathbf{w}_t$ as:
+\begin{equation}
+\mathbf{w}_t=\mathbf{w}_t^t=\mathbf{A}_0^{t-1}\mathbf{w}_{init}+\alpha\sum_{i=0}^{t-1}\mathbf{A}_{i+1}^{t-1}\mathbf{x}_i G_{i:t}^\lambda\tag{3}\label{3}
+\end{equation}
+Using \eqref{1}, we have:
+\begin{align}
+G_{i:t+1}^\lambda-G_{i:t}^\lambda&amp;=\mathbf{w}_i^\intercal\mathbf{x}_i+\sum_{j=1}^{t}(\gamma\lambda)^{j-i}\delta_j’-\left(\mathbf{w}_i^\intercal\mathbf{x}_i+\sum_{j=1}^{t-1}(\gamma\lambda)^{j-i}\delta_j’\right) \\ &amp;=(\gamma\lambda)^{t-i}\delta_t’\tag{4}\label{4}
+\end{align}
+with the TD error, $\delta_t$ is defined as earlier:
+\begin{equation}
+\delta_t’\doteq R_{t+1}+\gamma\mathbf{w}_t^\intercal\mathbf{x}_{t+1}-\mathbf{w}_{t-1}^\intercal\mathbf{x}_t\tag{5}\label{5}
+\end{equation}
+Using \eqref{3}, \eqref{4} and \eqref{5}, we have:
+\begin{align}
+\mathbf{w}_{t+1}&amp;=\mathbf{A}_0^t\mathbf{w}_{init}+\alpha\sum_{i=0}^{t}\mathbf{A}_{i+1}^t\mathbf{x}_i G_{i:t+1}^\lambda \<br />
+\end{align}</p>
+
+<figure>
+	<img src="/assets/images/2022-08-08/true-onl-td-lambda.png" alt="True Online TD(lambda)" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+
+<h2 id="sarsa-lambda">Sarsa($\lambda$)</h2>
+
+<h2 id="references">References</h2>
+<p>[1] Richard S. Sutton &amp; Andrew G. Barto. <a href="https://mitpress.mit.edu/books/reinforcement-learning-second-edition">Reinforcement Learning: An Introduction</a></p>
+
+<p>[2] Doina Precup &amp; Richard S. Sutton &amp; Satinder Singh. <a href="https://scholarworks.umass.edu/cs_faculty_pubs/80">Eligibility Traces for Off-Policy Policy Evaluation</a> (2000). ICML ‘00 Proceedings of the Seventeenth International Conference on Machine Learning. 80.</p>
+
+<p>[3] Deepmind x UCL. <a href="https://www.deepmind.com/learning-resources/reinforcement-learning-lecture-series-2021">Reinforcement Learning Lecture Series 2021</a>.</p>
+
+<p>[4] Harm van Seijen &amp; A. Rupam Mahmood &amp; Patrick M. Pilarski &amp; Marlos C. Machado &amp; Richard S. Sutton. <a href="http://jmlr.org/papers/v17/15-599.html">True Online Temporal-Difference Learning</a>. Journal of Machine Learning Research. 17(145):1−40, 2016.</p>
+
+<p>[5] Shangtong Zhang. <a href="https://github.com/ShangtongZhang/reinforcement-learning-an-introduction">Reinforcement Learning: An Introduction implementation</a>.</p>
+
+<h2 id="footnotes">Footnotes</h2>
+:ET
