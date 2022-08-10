@@ -72,7 +72,7 @@ With function approximation, the eligible trace is a vector $\mathbf{z}\_t\in\ma
 
 In TD($\lambda$), starting at the initial value of zero at the beginning of the episode, on each time step, the eligible trace vector $\mathbf{z}\_t$ is incremented by the value gradient, and then fades away by $\gamma\lambda$:
 \begin{align}
-\mathbf{z}\_{-1}&\doteq\mathbf{0} \\\\ \mathbf{z}\_t&\doteq\gamma\lambda\mathbf{z}\_t+\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t),\hspace{1cm}0\leq t\lt T
+\mathbf{z}\_{-1}&\doteq\mathbf{0} \\\\ \mathbf{z}\_t&\doteq\gamma\lambda\mathbf{z}\_t+\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t),\hspace{1cm}0\leq t\lt T\tag{1}\label{1}
 \end{align}
 where $\gamma$ is the discount factor; $\lambda$ is also called **trace-decay parameter**. On the other hand, the weight vector $\mathbf{w}\_t$ is updated on each step proportional to the scalar [TD errors]({% post_url 2022-04-08-td-learning %}#td_error) and the eligible trace vector $\mathbf{z}\_t$:
 \begin{equation}
@@ -174,7 +174,7 @@ where $\mathbf{A}\_i^j$ is defined as:
 \end{equation}
 with $\mathbf{A}\_{j+1}^j\doteq\mathbf{I}$. Hence, we can express $\mathbf{w}\_t$ as:
 \begin{equation}
-\mathbf{w}\_t=\mathbf{w}\_t^t=\mathbf{A}\_0^{t-1}\mathbf{w}\_{init}+\alpha\sum_{i=0}^{t-1}\mathbf{A}\_{i+1}^{t-1}\mathbf{x}\_i G_{i:t}^\lambda\tag{3}\label{3}
+\mathbf{w}\_t=\mathbf{w}\_t^t=\mathbf{A}\_0^{t-1}\mathbf{w}\_{init}+\alpha\sum_{i=0}^{t-1}\mathbf{A}\_{i+1}^{t-1}\mathbf{x}\_i G_{i:t}^\lambda\tag{4}\label{4}
 \end{equation}
 Using \eqref{2}, we have:
 \begin{align}
@@ -216,13 +216,32 @@ Pseudocode of the algorithm is given below.
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
 </figure>
 
-The eligible trace \eqref{9} is called **dutch trace** to distinguish it from the trace \eqref{8} of TD($\lambda$), which is called **accumulating trace**.
+The eligible trace \eqref{9} is called **dutch trace** to distinguish it from the trace \eqref{1} of TD($\lambda$), which is called **accumulating trace**. 
+
+There is another kind of trace called **replacing trace**, defined for the tabular case or for binary feature vectors
+\begin{equation}
+z_{i,t}\doteq\begin{cases}1 &\text{if }x_{i,t}=1 \\\\ \gamma\lambda z_{i,t-1} &\text{if }x_{i,t}=0\end{cases}
+\end{equation}
 
 ### Dutch Traces In Monte Carlo
 {: #dutch-traces-mc}
 
 ## Sarsa($\lambda$)
 {: #sarsa-lambda}
+To apply the use off eligible traces on control problems, we begin by defining the $n$-step return, which is the same as what we have defined [before]({% post_url 2022-07-10-func-approx %}#n-step-return):
+\begin{equation}
+G_{t:t+n}\doteq\ R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{q}(S_{t+n},A_{t+n},\mathbf{w}\_{t+n-1}),\hspace{1cm}t+n\lt T
+\end{equation}
+with $G_{t:t+n}\doteq G_t$ if $t+n\geq T$. With this definition of the return, the action-value form of offline $\lambda$-return can de defined as:
+\begin{equation}
+\mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\left[G_t^\lambda-\hat{q}(S_t,A_t,\mathbf{w}\_t)\right]\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}\_t),\hspace{1cm}t=0,\dots,T-1
+\end{equation}
+where $G_t^\lambda\doteq G_{t:\infty}^\lambda$.
+
+<figure>
+	<img src="/assets/images/2022-08-08/sarsa-lambda-backup.png" alt="Backup diagram of Sarsa(lambda)" style="display: block; margin-left: auto; margin-right: auto; width: 450px; height: 390px"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: The backup diagram of Sarsa($\lambda$)</figcaption>
+</figure>
 
 ## References
 {: #references}
@@ -234,7 +253,9 @@ The eligible trace \eqref{9} is called **dutch trace** to distinguish it from th
 
 [4] Harm van Seijen & A. Rupam Mahmood & Patrick M. Pilarski & Marlos C. Machado & Richard S. Sutton. [True Online Temporal-Difference Learning](http://jmlr.org/papers/v17/15-599.html). Journal of Machine Learning Research. 17(145):1−40, 2016. 
 
-[5] Shangtong Zhang. [Reinforcement Learning: An Introduction implementation](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction). 
+[5] Hado Van Hasselt & A. Rupam Mahmood & Richard S. Sutton. [Off-policy TD(λ) with a true online equivalence](https://www.researchgate.net/publication/263653431_Off-policy_TDl_with_a_true_online_equivalence). Uncertainty in Artificial Intelligence - Proceedings of the 30th Conference, UAI 2014. 
+
+[6] Shangtong Zhang. [Reinforcement Learning: An Introduction implementation](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction). 
 
 ## Footnotes
 {: #footnotes}

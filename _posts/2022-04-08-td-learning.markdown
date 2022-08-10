@@ -29,6 +29,7 @@ comments: true
 		- [$n$-step Sarsa](#n-step-sarsa)
 	- [Off-policy n-step TD](#off-policy-n-step-td)
 		- [$n$-step TD with Importance Sampling](#n-step-td-is)
+        - [Per-decision Methods with Control Variates](#per-decision-control-variates)
 		- [$n$-step Tree Backup](#n-step-tree-backup)
 		- [$n$-step $Q(\\sigma)$](#n-step-q-sigma)
 - [References](#references)
@@ -714,7 +715,7 @@ G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1} R_{t+n}+\gamma^n Q_{t+
 \end{equation}
 for $n\geq 0,0\leq t\<T-n$, with $G_{t:t+n}\doteq G_t$ if $t+n\geq T$. The **$\boldsymbol{n}$-step Sarsa** is then can be defined as:
 \begin{equation}
-Q_{t+n}(S_t,A_t)\doteq Q_{t+n-1}(S_t,A_t)+\alpha\left[G_{t:t+n}-Q_{t+n-1}(S_t,A_t)\right],\hspace{1cm}0\leq t\<T,
+Q_{t+n}(S_t,A_t)\doteq Q_{t+n-1}(S_t,A_t)+\alpha\left[G_{t:t+n}-Q_{t+n-1}(S_t,A_t)\right],\hspace{1cm}0\leq t\<T,\tag{8}\label{8}
 \end{equation}
 while the values of all other state-action pairs remain unchanged: $Q_{t+n}(s,a)=Q_{t+n-1}(s,a)$, for all $s,a$ such that $s\neq S_t$ or $a\neq A_t$.  
 
@@ -722,13 +723,13 @@ From this definition of $n$-step Sarsa, we can easily derive the multiple step v
 \begin{equation}
 Q_{t+n}(S_t,A_t)\doteq Q_{t+n-1}(S_t,A_t)+\alpha\left[G_{t:t+n}-Q_{t+n-1}(S_t,A_t)\right],\hspace{1cm}0\leq t\<T,
 \end{equation}
-where the target of the update is defined as:
+which has the same rule as \eqref{8}, except that  the target of the update in this case is defined as:
 \begin{equation}
-G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\bar{V}\_{t+n-1}(S_{t+n}),\hspace{1cm}t+n\<T,\tag{8}\label{8}
+G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\bar{V}\_{t+n-1}(S_{t+n}),\hspace{1cm}t+n\<T,\tag{9}\label{9}
 \end{equation}
-with $G_{t:t+n}=G_t$ for $t+n\geq T$, where $\bar{V}\_t(s)$ is the *expected approximate value* of state $s$, using the estimated action value at time $t$, under the target policy $\pi$:
+with $G_{t:t+n}=G_t$ for $t+n\geq T$, where $\bar{V}\_t(s)$ is the **expected approximate value** of state $s$, using the estimated action value at time $t$, under the target policy $\pi$:
 \begin{equation}
-\bar{V}\_t(s)\doteq\sum_a\pi(a|s)Q_t(s,a),\hspace{1cm}\forall s\in\mathcal{S}
+\bar{V}\_t(s)\doteq\sum_a\pi(a|s)Q_t(s,a),\hspace{1cm}\forall s\in\mathcal{S}\tag{10}\label{10}
 \end{equation}
 If $s$ is terminal, then its expected approximate value is defined to be zero.  
 
@@ -760,15 +761,37 @@ V_{t+n}(S_t)\doteq V_{t+n-1}(S_t)+\alpha\rho_{t:t+n-1}\left[G_{t:t+n}-V_{t+n-1}(
 \end{equation}
 Similarly, we have the **off-policy $\boldsymbol{n}$-step Sarsa** method.
 \begin{equation}
-Q_{t+n}(S_t,A_t)\doteq Q_{t+n-1}(S_t,A_t)+\alpha\rho_{t:t+n-1}\left[G_{t:t+n}-Q_{t+n-1}(S_t,A_t)\right],\hspace{0.5cm}0\leq t \<T\tag{9}\label{9}
+Q_{t+n}(S_t,A_t)\doteq Q_{t+n-1}(S_t,A_t)+\alpha\rho_{t:t+n-1}\left[G_{t:t+n}-Q_{t+n-1}(S_t,A_t)\right],\hspace{0.5cm}0\leq t \<T\tag{11}\label{11}
 \end{equation}
-The **off-policy $\boldsymbol{n}$-step Expected Sarsa** uses the same update as \eqref{9} except that it uses $\rho_{t+1:t+n-1}$ as its importance sampling ratio instead of $\rho_{t+1:t+n}$ and also has \eqref{8} as its target.  
+The **off-policy $\boldsymbol{n}$-step Expected Sarsa** uses the same update as \eqref{11} except that it uses $\rho_{t+1:t+n-1}$ as its importance sampling ratio instead of $\rho_{t+1:t+n}$ and also has \eqref{9} as its target.  
 
 Here is pseudocode of the off-policy $n$-step Sarsa.
 <figure>
 	<img src="/assets/images/2022-04-08/off-policy-n-step-sarsa.png" alt="Off-policy n-step Sarsa" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
 </figure>
+
+#### Per-decision Methods with Control Variates
+{: #per-decision-control-variates}
+Recall that in the post of [Monte Carlo Methods]({% post_url 2021-08-21-monte-carlo-in-rl %}), to reduce the variance even in the abasence of discounting (i.e., $\gamma=1$), we used a method called [**Per-decision Importance Sampling**]({% post_url 2021-08-21-monte-carlo-in-rl %}#per-decision-is). So how about we use it with multi-step off-policy TD methods?
+
+We begin rewriting the $n$-step return ending at horizon $h$ as:
+\begin{equation}
+G_{t:h}=R_{t+1}+\gamma G_{t+1:h},\hspace{1cm}1\lt h\lt T,
+\end{equation}
+where $G_{h:h}\doteq V_{h-1}(S_h)$.
+
+Since we are following a policy $b$ that is not the same as the target policy $\pi$, all of the resulting experience, including the first reward $R_{t+1}$ and the next state $S_{t+1}$ must be weighted by the importance sampling ratio for time $t$, $\rho_t=\frac{\pi(A_t\vert S_t)}{b(A_t\vert S_t)}$. And moreover, to avoid the high variance when the $n$-step return is zero (resulting when the action at time $t$ would never be select by $\pi$, which leads to $\rho_t=0$), we define the $n$-step return ending at horizon $h$ for the off-policy state-value prediction as:
+\begin{equation}
+G_{t:h}\doteq\rho_t\left(R_{t+1}+\gamma G_{t+1:h}\right)+(1-\rho_t)V_{h-1}(S_t),\hspace{1cm}1\lt h\lt T\tag{12}\label{12}
+\end{equation}
+where $G_{h:h}\doteq V_{h-1}(S_h)$. The second term of \eqref{12}, $(1-\rho_t)V_{h-1}(S_t)$, is called **control variate**, which has the expected value of $0$, and then does not change the expected update. 
+
+For state-action values, the off-policy definition of the $n$-step return ending at horizon $h$ can be defined as:
+\begin{align}
+G_{t:h}&\doteq R_{t+1}+\gamma\left(\rho_{t+1}G_{t+1:h}+\bar{V}\_{h-1}(S_{t+1})-\rho_{t+1}Q_{h-1}(S_{t+1},A_{t+1})\right) \\\\ &=R_{t+1}+\gamma\rho_{t+1}\big(G_{t+1:h}-Q_{h-1}(S_{t+1},A_{t+1})\big)+\gamma\bar{V}\_{h-1}(S_{t+1}),\hspace{1cm}t\lt h\leq T\tag{13}\label{13}
+\end{align}
+If $h\lt T$, the recursion ends with $G_{h:h}\doteq Q_{h-1}(S_h,A_h)$, whereas, if $h\geq T$, the recursion ends with $G_{T-1:h}\doteq R_T$.
 
 #### $\boldsymbol{n}$-step Tree Backup
 {: #n-step-tree-backup}
@@ -787,7 +810,7 @@ G_{t:t+2}&\doteq R_{t+1}+\gamma\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})Q_{t+1}(S_{t+1}
 \end{align}
 for $t\<T-2$. Hence, the target of the $n$-step tree-backup update recursively can be defined as:
 \begin{equation}
-G_{t:t+n}\doteq R_{t+1}+\gamma\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})Q_{t+n-1}(S_{t+1},a)+\gamma\pi(A_{t+1}|S_{t+1})G_{t+1:t+n}
+G_{t:t+n}\doteq R_{t+1}+\gamma\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})Q_{t+n-1}(S_{t+1},a)+\gamma\pi(A_{t+1}|S_{t+1})G_{t+1:t+n}\tag{14}\label{14}
 \end{equation}
 for $t\<T-1,n\geq 2$. The $n$-step tree-backup update can be illustrated through the following diagram
 <figure>
@@ -807,7 +830,32 @@ while the values of all other state-action pairs remain unchanged: $Q_{t+n}(s,a)
 
 #### $\boldsymbol{n}$-step $Q(\sigma)$
 {: #n-step-q-sigma}
+In updating the action-value functions, if we choose always to sample, we would obtain Sarsa, whereas if we choose never to sample, we would get the tree-backup algorithm. Expected Sarsa would be the case where we choose to sample for all steps except for the last one. 
+An unifying method is choosing on a state-by-state basis whether to sample or not.
 
+We begin by rewriting the tree-backup $n$-step return \eqref{14} in terms of the horizon $h=t+n$ and the expected approximate value $\bar{V}$ \eqref{10}:
+\begin{align}
+G_{t:h}&=R_{t+1}+\gamma\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})Q_{h-1}(S_{t+1},a)+\gamma\pi(A_{t+1}|S_{t+1})G_{t+1:h} \\\\ &=R_{t+1}+\gamma\bar{V}\_{h-1}(S_{t+1})-\gamma\pi(A_{t+1}|S_{t+1})Q_{h-1}(S_{t+1},A_{t+1})+\gamma\pi(A_{t+1}|S_{t+1})G_{t+1:h} \\\\ &=R_{t+1}+\gamma\pi(A_{t+1}|S_{t+1})\big(G_{t+1:h}-Q_{h-1}(S_{t+1},A_{t+1})\big)+\gamma\bar{V}\_{h-1}(S_{t+1}),
+\end{align}
+which is exactly the same as the $n$-step return for Sarsa with control variates \eqref{13} except that the importance-sampling ratio $\rho_{t+1}$ has been replaced with the action probability $\pi(A_{t+1}|S_{t+1})$. 
+
+Let $\sigma_t\in[0,1]$ denote the degree of sampling on step $t$, with $\sigma=1$ denoting full sampling and $\sigma=0$ denoting a pure expectation with no sampling. The r.v $\sigma_t$ might be set as a function of the state, action or state-action pair at time $t$.
+
+<figure>
+    <img src="/assets/images/2022-04-08/n-step-q-sigma-backup.png" alt="Backup diagrams of n-step Sarsa, Tree-backup, Expected Sarsa, Q(sigma)" style="display: block; margin-left: auto; margin-right: auto; width: 530px; height: 370px"/>
+    <figcaption style="text-align: center;font-style: italic;"><b>Figure 5</b>: The backup diagrams of $n$-step methods for state-action values: Sarsa, Tree-backup, Expected Sarsa, Q($\sigma$)</figcaption>
+</figure>
+
+With the definition of $\sigma_t$, we can define the $n$-step return ending at horizon $h$ of the $Q(\sigma)$ as:
+\begin{align}
+G_{t:h}&\doteq R_{t+1}+\gamma\Big(\sigma_{t+1}\rho_{t+1}+(1-\rho_{t+1})\pi(A_{t+1}|S_{t+1})\Big)\Big(G_{t+1:h}-Q_{h-1}(S_{t+1},A_{t+1})\Big) \\\\ &\hspace{2cm}+\gamma\bar{V}\_{h-1}(S_{t+1}),
+\end{align}
+for $t\lt h\leq T$. The rescursion ends with $G_{h:h}\doteq Q_{h-1}(S_h,A_h)$ if $h\lt T$, or with $G_{T-1:T}\doteq R_T$ if $h=T$. Then we use the off-policy $n$-step Sarsa update \eqref{11}, which produces the pseudocode below.
+
+<figure>
+    <img src="/assets/images/2022-04-08/n-step-q-sigma.png" alt="n-step Q(sigma)" style="display: block; margin-left: auto; margin-right: auto;"/>
+    <figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
 
 ## References
 [1] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition)  
@@ -821,7 +869,6 @@ while the values of all other state-action pairs remain unchanged: $Q_{t+n}(s,a)
 [5] Shangtong Zhang. [Reinforcement Learning: An Introduction implementation](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction)  
 
 [6] <span id='random_walk'>Singh, S.P., Sutton, R.S. [Reinforcement learning with replacing eligibility traces](https://doi.org/10.1007/BF00114726). Mach Learn 22, 123–158 (1996).</span>  
-
 
 ## Footnotes
 [^1]: It is a special case of [n-step TD](#n-step-td) and TD($\lambda$).

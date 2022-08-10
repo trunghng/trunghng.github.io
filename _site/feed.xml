@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-09T19:32:56+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-10T15:20:47+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Eligible Traces</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html" rel="alternate" type="text/html" title="Eligible Traces" /><published>2022-08-08T14:11:00+07:00</published><updated>2022-08-08T14:11:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html">&lt;blockquote&gt;
   &lt;p&gt;Beside &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#n-step-td&quot;&gt;$n$-step TD&lt;/a&gt; methods, there is another mechanism called &lt;strong&gt;Eligible traces&lt;/strong&gt; that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -73,7 +73,7 @@ The $G_t^\lambda$ is called &lt;strong&gt;$\lambda$-return&lt;/strong&gt; of the
 
 &lt;p&gt;In TD($\lambda$), starting at the initial value of zero at the beginning of the episode, on each time step, the eligible trace vector $\mathbf{z}_t$ is incremented by the value gradient, and then fades away by $\gamma\lambda$:
 \begin{align}
-\mathbf{z}_{-1}&amp;amp;\doteq\mathbf{0} \\ \mathbf{z}_t&amp;amp;\doteq\gamma\lambda\mathbf{z}_t+\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t),\hspace{1cm}0\leq t\lt T
+\mathbf{z}_{-1}&amp;amp;\doteq\mathbf{0} \\ \mathbf{z}_t&amp;amp;\doteq\gamma\lambda\mathbf{z}_t+\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t),\hspace{1cm}0\leq t\lt T\tag{1}\label{1}
 \end{align}
 where $\gamma$ is the discount factor; $\lambda$ is also called &lt;strong&gt;trace-decay parameter&lt;/strong&gt;. On the other hand, the weight vector $\mathbf{w}_t$ is updated on each step proportional to the scalar &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html#td_error&quot;&gt;TD errors&lt;/a&gt; and the eligible trace vector $\mathbf{z}_t$:
 \begin{equation}
@@ -172,7 +172,7 @@ where $\mathbf{A}_i^j$ is defined as:
 \end{equation}
 with $\mathbf{A}_{j+1}^j\doteq\mathbf{I}$. Hence, we can express $\mathbf{w}_t$ as:
 \begin{equation}
-\mathbf{w}_t=\mathbf{w}_t^t=\mathbf{A}_0^{t-1}\mathbf{w}_{init}+\alpha\sum_{i=0}^{t-1}\mathbf{A}_{i+1}^{t-1}\mathbf{x}_i G_{i:t}^\lambda\tag{3}\label{3}
+\mathbf{w}_t=\mathbf{w}_t^t=\mathbf{A}_0^{t-1}\mathbf{w}_{init}+\alpha\sum_{i=0}^{t-1}\mathbf{A}_{i+1}^{t-1}\mathbf{x}_i G_{i:t}^\lambda\tag{4}\label{4}
 \end{equation}
 Using \eqref{2}, we have:
 \begin{align}
@@ -214,11 +214,30 @@ Pseudocode of the algorithm is given below.&lt;/p&gt;
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
 
-&lt;p&gt;The eligible trace \eqref{9} is called &lt;strong&gt;dutch trace&lt;/strong&gt; to distinguish it from the trace \eqref{8} of TD($\lambda$), which is called &lt;strong&gt;accumulating trace&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;The eligible trace \eqref{9} is called &lt;strong&gt;dutch trace&lt;/strong&gt; to distinguish it from the trace \eqref{1} of TD($\lambda$), which is called &lt;strong&gt;accumulating trace&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;There is another kind of trace called &lt;strong&gt;replacing trace&lt;/strong&gt;, defined for the tabular case or for binary feature vectors
+\begin{equation}
+z_{i,t}\doteq\begin{cases}1 &amp;amp;\text{if }x_{i,t}=1 \\ \gamma\lambda z_{i,t-1} &amp;amp;\text{if }x_{i,t}=0\end{cases}
+\end{equation}&lt;/p&gt;
 
 &lt;h3 id=&quot;dutch-traces-mc&quot;&gt;Dutch Traces In Monte Carlo&lt;/h3&gt;
 
 &lt;h2 id=&quot;sarsa-lambda&quot;&gt;Sarsa($\lambda$)&lt;/h2&gt;
+&lt;p&gt;To apply the use off eligible traces on control problems, we begin by defining the $n$-step return, which is the same as what we have defined &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#n-step-return&quot;&gt;before&lt;/a&gt;:
+\begin{equation}
+G_{t:t+n}\doteq\ R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{q}(S_{t+n},A_{t+n},\mathbf{w}_{t+n-1}),\hspace{1cm}t+n\lt T
+\end{equation}
+with $G_{t:t+n}\doteq G_t$ if $t+n\geq T$. With this definition of the return, the action-value form of offline $\lambda$-return can de defined as:
+\begin{equation}
+\mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\left[G_t^\lambda-\hat{q}(S_t,A_t,\mathbf{w}_t)\right]\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}_t),\hspace{1cm}t=0,\dots,T-1
+\end{equation}
+where $G_t^\lambda\doteq G_{t:\infty}^\lambda$.&lt;/p&gt;
+
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-08-08/sarsa-lambda-backup.png&quot; alt=&quot;Backup diagram of Sarsa(lambda)&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 450px; height: 390px&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 2&lt;/b&gt;: The backup diagram of Sarsa($\lambda$)&lt;/figcaption&gt;
+&lt;/figure&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/p&gt;
@@ -229,7 +248,9 @@ Pseudocode of the algorithm is given below.&lt;/p&gt;
 
 &lt;p&gt;[4] Harm van Seijen &amp;amp; A. Rupam Mahmood &amp;amp; Patrick M. Pilarski &amp;amp; Marlos C. Machado &amp;amp; Richard S. Sutton. &lt;a href=&quot;http://jmlr.org/papers/v17/15-599.html&quot;&gt;True Online Temporal-Difference Learning&lt;/a&gt;. Journal of Machine Learning Research. 17(145):1−40, 2016.&lt;/p&gt;
 
-&lt;p&gt;[5] Shangtong Zhang. &lt;a href=&quot;https://github.com/ShangtongZhang/reinforcement-learning-an-introduction&quot;&gt;Reinforcement Learning: An Introduction implementation&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;[5] Hado Van Hasselt &amp;amp; A. Rupam Mahmood &amp;amp; Richard S. Sutton. &lt;a href=&quot;https://www.researchgate.net/publication/263653431_Off-policy_TDl_with_a_true_online_equivalence&quot;&gt;Off-policy TD(λ) with a true online equivalence&lt;/a&gt;. Uncertainty in Artificial Intelligence - Proceedings of the 30th Conference, UAI 2014.&lt;/p&gt;
+
+&lt;p&gt;[6] Shangtong Zhang. &lt;a href=&quot;https://github.com/ShangtongZhang/reinforcement-learning-an-introduction&quot;&gt;Reinforcement Learning: An Introduction implementation&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="td-learning" /><category term="n-step-td" /><category term="eligible-traces" /><category term="my-rl" /><summary type="html">Beside $n$-step TD methods, there is another mechanism called Eligible traces that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.</summary></entry><entry><title type="html">Function Approximation</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html" rel="alternate" type="text/html" title="Function Approximation" /><published>2022-07-10T15:26:00+07:00</published><updated>2022-07-10T15:26:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html">&lt;blockquote&gt;
   &lt;p&gt;Reinforcement Learning in continuous state space requires function approximation.&lt;/p&gt;
@@ -687,7 +708,7 @@ We call this method &lt;strong&gt;episodic semi-gradient one-step Sarsa&lt;/stro
 &lt;/figure&gt;
 
 &lt;h3 id=&quot;ep-semi-grad-n-step-sarsa&quot;&gt;Episodic Semi-gradient $\boldsymbol{n}$-step Sarsa&lt;/h3&gt;
-&lt;p&gt;Similar to how we defined the one-step Sarsa version of semi-gradient, we can replace the update target in \eqref{12} by an $n$-step return,
+&lt;p&gt;Similar to how we defined the one-step Sarsa version of semi-gradient, we can replace the update target in \eqref{12} by an &lt;span id=&quot;n-step-return&quot;&gt;$n$-step return&lt;/span&gt;,
 \begin{equation}
 G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{q}(S_{t+n},A_{t+n},\mathbf{w}_{t+n-1}),\tag{14}\label{14}
 \end{equation}
@@ -998,6 +1019,7 @@ be the &lt;em&gt;sample mean&lt;/em&gt; of $X_1$ through $X_n$.&lt;/p&gt;
       &lt;li&gt;&lt;a href=&quot;#off-policy-n-step-td&quot;&gt;Off-policy n-step TD&lt;/a&gt;
         &lt;ul&gt;
           &lt;li&gt;&lt;a href=&quot;#n-step-td-is&quot;&gt;$n$-step TD with Importance Sampling&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#per-decision-control-variates&quot;&gt;Per-decision Methods with Control Variates&lt;/a&gt;&lt;/li&gt;
           &lt;li&gt;&lt;a href=&quot;#n-step-tree-backup&quot;&gt;$n$-step Tree Backup&lt;/a&gt;&lt;/li&gt;
           &lt;li&gt;&lt;a href=&quot;#n-step-q-sigma&quot;&gt;$n$-step $Q(\sigma)$&lt;/a&gt;&lt;/li&gt;
         &lt;/ul&gt;
@@ -1664,7 +1686,7 @@ G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1} R_{t+n}+\gamma^n Q_{t+
 \end{equation}
 for $n\geq 0,0\leq t&amp;lt;T-n$, with $G_{t:t+n}\doteq G_t$ if $t+n\geq T$. The &lt;strong&gt;$\boldsymbol{n}$-step Sarsa&lt;/strong&gt; is then can be defined as:
 \begin{equation}
-Q_{t+n}(S_t,A_t)\doteq Q_{t+n-1}(S_t,A_t)+\alpha\left[G_{t:t+n}-Q_{t+n-1}(S_t,A_t)\right],\hspace{1cm}0\leq t&amp;lt;T,
+Q_{t+n}(S_t,A_t)\doteq Q_{t+n-1}(S_t,A_t)+\alpha\left[G_{t:t+n}-Q_{t+n-1}(S_t,A_t)\right],\hspace{1cm}0\leq t&amp;lt;T,\tag{8}\label{8}
 \end{equation}
 while the values of all other state-action pairs remain unchanged: $Q_{t+n}(s,a)=Q_{t+n-1}(s,a)$, for all $s,a$ such that $s\neq S_t$ or $a\neq A_t$.&lt;/p&gt;
 
@@ -1672,13 +1694,13 @@ while the values of all other state-action pairs remain unchanged: $Q_{t+n}(s,a)
 \begin{equation}
 Q_{t+n}(S_t,A_t)\doteq Q_{t+n-1}(S_t,A_t)+\alpha\left[G_{t:t+n}-Q_{t+n-1}(S_t,A_t)\right],\hspace{1cm}0\leq t&amp;lt;T,
 \end{equation}
-where the target of the update is defined as:
+which has the same rule as \eqref{8}, except that  the target of the update in this case is defined as:
 \begin{equation}
-G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\bar{V}_{t+n-1}(S_{t+n}),\hspace{1cm}t+n&amp;lt;T,\tag{8}\label{8}
+G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\bar{V}_{t+n-1}(S_{t+n}),\hspace{1cm}t+n&amp;lt;T,\tag{9}\label{9}
 \end{equation}
-with $G_{t:t+n}=G_t$ for $t+n\geq T$, where $\bar{V}_t(s)$ is the &lt;em&gt;expected approximate value&lt;/em&gt; of state $s$, using the estimated action value at time $t$, under the target policy $\pi$:
+with $G_{t:t+n}=G_t$ for $t+n\geq T$, where $\bar{V}_t(s)$ is the &lt;strong&gt;expected approximate value&lt;/strong&gt; of state $s$, using the estimated action value at time $t$, under the target policy $\pi$:
 \begin{equation}
-\bar{V}_t(s)\doteq\sum_a\pi(a|s)Q_t(s,a),\hspace{1cm}\forall s\in\mathcal{S}
+\bar{V}_t(s)\doteq\sum_a\pi(a|s)Q_t(s,a),\hspace{1cm}\forall s\in\mathcal{S}\tag{10}\label{10}
 \end{equation}
 If $s$ is terminal, then its expected approximate value is defined to be zero.&lt;/p&gt;
 
@@ -1708,15 +1730,36 @@ V_{t+n}(S_t)\doteq V_{t+n-1}(S_t)+\alpha\rho_{t:t+n-1}\left[G_{t:t+n}-V_{t+n-1}(
 \end{equation}
 Similarly, we have the &lt;strong&gt;off-policy $\boldsymbol{n}$-step Sarsa&lt;/strong&gt; method.
 \begin{equation}
-Q_{t+n}(S_t,A_t)\doteq Q_{t+n-1}(S_t,A_t)+\alpha\rho_{t:t+n-1}\left[G_{t:t+n}-Q_{t+n-1}(S_t,A_t)\right],\hspace{0.5cm}0\leq t &amp;lt;T\tag{9}\label{9}
+Q_{t+n}(S_t,A_t)\doteq Q_{t+n-1}(S_t,A_t)+\alpha\rho_{t:t+n-1}\left[G_{t:t+n}-Q_{t+n-1}(S_t,A_t)\right],\hspace{0.5cm}0\leq t &amp;lt;T\tag{11}\label{11}
 \end{equation}
-The &lt;strong&gt;off-policy $\boldsymbol{n}$-step Expected Sarsa&lt;/strong&gt; uses the same update as \eqref{9} except that it uses $\rho_{t+1:t+n-1}$ as its importance sampling ratio instead of $\rho_{t+1:t+n}$ and also has \eqref{8} as its target.&lt;/p&gt;
+The &lt;strong&gt;off-policy $\boldsymbol{n}$-step Expected Sarsa&lt;/strong&gt; uses the same update as \eqref{11} except that it uses $\rho_{t+1:t+n-1}$ as its importance sampling ratio instead of $\rho_{t+1:t+n}$ and also has \eqref{9} as its target.&lt;/p&gt;
 
 &lt;p&gt;Here is pseudocode of the off-policy $n$-step Sarsa.&lt;/p&gt;
 &lt;figure&gt;
 	&lt;img src=&quot;/assets/images/2022-04-08/off-policy-n-step-sarsa.png&quot; alt=&quot;Off-policy n-step Sarsa&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
+
+&lt;h4 id=&quot;per-decision-control-variates&quot;&gt;Per-decision Methods with Control Variates&lt;/h4&gt;
+&lt;p&gt;Recall that in the post of &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html&quot;&gt;Monte Carlo Methods&lt;/a&gt;, to reduce the variance even in the abasence of discounting (i.e., $\gamma=1$), we used a method called &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html#per-decision-is&quot;&gt;&lt;strong&gt;Per-decision Importance Sampling&lt;/strong&gt;&lt;/a&gt;. So how about we use it with multi-step off-policy TD methods?&lt;/p&gt;
+
+&lt;p&gt;We begin rewriting the $n$-step return ending at horizon $h$ as:
+\begin{equation}
+G_{t:h}=R_{t+1}+\gamma G_{t+1:h},\hspace{1cm}1\lt h\lt T,
+\end{equation}
+where $G_{h:h}\doteq V_{h-1}(S_h)$.&lt;/p&gt;
+
+&lt;p&gt;Since we are following a policy $b$ that is not the same as the target policy $\pi$, all of the resulting experience, including the first reward $R_{t+1}$ and the next state $S_{t+1}$ must be weighted by the importance sampling ratio for time $t$, $\rho_t=\frac{\pi(A_t\vert S_t)}{b(A_t\vert S_t)}$. And moreover, to avoid the high variance when the $n$-step return is zero (resulting when the action at time $t$ would never be select by $\pi$, which leads to $\rho_t=0$), we define the $n$-step return ending at horizon $h$ for the off-policy state-value prediction as:
+\begin{equation}
+G_{t:h}\doteq\rho_t\left(R_{t+1}+\gamma G_{t+1:h}\right)+(1-\rho_t)V_{h-1}(S_t),\hspace{1cm}1\lt h\lt T\tag{12}\label{12}
+\end{equation}
+where $G_{h:h}\doteq V_{h-1}(S_h)$. The second term of \eqref{12}, $(1-\rho_t)V_{h-1}(S_t)$, is called &lt;strong&gt;control variate&lt;/strong&gt;, which has the expected value of $0$, and then does not change the expected update.&lt;/p&gt;
+
+&lt;p&gt;For state-action values, the off-policy definition of the $n$-step return ending at horizon $h$ can be defined as:
+\begin{align}
+G_{t:h}&amp;amp;\doteq R_{t+1}+\gamma\left(\rho_{t+1}G_{t+1:h}+\bar{V}_{h-1}(S_{t+1})-\rho_{t+1}Q_{h-1}(S_{t+1},A_{t+1})\right) \\ &amp;amp;=R_{t+1}+\gamma\rho_{t+1}\big(G_{t+1:h}-Q_{h-1}(S_{t+1},A_{t+1})\big)+\gamma\bar{V}_{h-1}(S_{t+1}),\hspace{1cm}t\lt h\leq T\tag{13}\label{13}
+\end{align}
+If $h\lt T$, the recursion ends with $G_{h:h}\doteq Q_{h-1}(S_h,A_h)$, whereas, if $h\geq T$, the recursion ends with $G_{T-1:h}\doteq R_T$.&lt;/p&gt;
 
 &lt;h4 id=&quot;n-step-tree-backup&quot;&gt;$\boldsymbol{n}$-step Tree Backup&lt;/h4&gt;
 
@@ -1734,7 +1777,7 @@ G_{t:t+2}&amp;amp;\doteq R_{t+1}+\gamma\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})Q_{t+1}
 \end{align}
 for $t&amp;lt;T-2$. Hence, the target of the $n$-step tree-backup update recursively can be defined as:
 \begin{equation}
-G_{t:t+n}\doteq R_{t+1}+\gamma\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})Q_{t+n-1}(S_{t+1},a)+\gamma\pi(A_{t+1}|S_{t+1})G_{t+1:t+n}
+G_{t:t+n}\doteq R_{t+1}+\gamma\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})Q_{t+n-1}(S_{t+1},a)+\gamma\pi(A_{t+1}|S_{t+1})G_{t+1:t+n}\tag{14}\label{14}
 \end{equation}
 for $t&amp;lt;T-1,n\geq 2$. The $n$-step tree-backup update can be illustrated through the following diagram&lt;/p&gt;
 &lt;figure&gt;
@@ -1753,6 +1796,32 @@ while the values of all other state-action pairs remain unchanged: $Q_{t+n}(s,a)
 &lt;/figure&gt;
 
 &lt;h4 id=&quot;n-step-q-sigma&quot;&gt;$\boldsymbol{n}$-step $Q(\sigma)$&lt;/h4&gt;
+&lt;p&gt;In updating the action-value functions, if we choose always to sample, we would obtain Sarsa, whereas if we choose never to sample, we would get the tree-backup algorithm. Expected Sarsa would be the case where we choose to sample for all steps except for the last one. 
+An unifying method is choosing on a state-by-state basis whether to sample or not.&lt;/p&gt;
+
+&lt;p&gt;We begin by rewriting the tree-backup $n$-step return \eqref{14} in terms of the horizon $h=t+n$ and the expected approximate value $\bar{V}$ \eqref{10}:
+\begin{align}
+G_{t:h}&amp;amp;=R_{t+1}+\gamma\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})Q_{h-1}(S_{t+1},a)+\gamma\pi(A_{t+1}|S_{t+1})G_{t+1:h} \\ &amp;amp;=R_{t+1}+\gamma\bar{V}_{h-1}(S_{t+1})-\gamma\pi(A_{t+1}|S_{t+1})Q_{h-1}(S_{t+1},A_{t+1})+\gamma\pi(A_{t+1}|S_{t+1})G_{t+1:h} \\ &amp;amp;=R_{t+1}+\gamma\pi(A_{t+1}|S_{t+1})\big(G_{t+1:h}-Q_{h-1}(S_{t+1},A_{t+1})\big)+\gamma\bar{V}_{h-1}(S_{t+1}),
+\end{align}
+which is exactly the same as the $n$-step return for Sarsa with control variates \eqref{13} except that the importance-sampling ratio $\rho_{t+1}$ has been replaced with the action probability $\pi(A_{t+1}|S_{t+1})$.&lt;/p&gt;
+
+&lt;p&gt;Let $\sigma_t\in[0,1]$ denote the degree of sampling on step $t$, with $\sigma=1$ denoting full sampling and $\sigma=0$ denoting a pure expectation with no sampling. The r.v $\sigma_t$ might be set as a function of the state, action or state-action pair at time $t$.&lt;/p&gt;
+
+&lt;figure&gt;
+    &lt;img src=&quot;/assets/images/2022-04-08/n-step-q-sigma-backup.png&quot; alt=&quot;Backup diagrams of n-step Sarsa, Tree-backup, Expected Sarsa, Q(sigma)&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 530px; height: 370px&quot; /&gt;
+    &lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 5&lt;/b&gt;: The backup diagrams of $n$-step methods for state-action values: Sarsa, Tree-backup, Expected Sarsa, Q($\sigma$)&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;With the definition of $\sigma_t$, we can define the $n$-step return ending at horizon $h$ of the $Q(\sigma)$ as:
+\begin{align}
+G_{t:h}&amp;amp;\doteq R_{t+1}+\gamma\Big(\sigma_{t+1}\rho_{t+1}+(1-\rho_{t+1})\pi(A_{t+1}|S_{t+1})\Big)\Big(G_{t+1:h}-Q_{h-1}(S_{t+1},A_{t+1})\Big) \\ &amp;amp;\hspace{2cm}+\gamma\bar{V}_{h-1}(S_{t+1}),
+\end{align}
+for $t\lt h\leq T$. The rescursion ends with $G_{h:h}\doteq Q_{h-1}(S_h,A_h)$ if $h\lt T$, or with $G_{T-1:T}\doteq R_T$ if $h=T$. Then we use the off-policy $n$-step Sarsa update \eqref{11}, which produces the pseudocode below.&lt;/p&gt;
+
+&lt;figure&gt;
+    &lt;img src=&quot;/assets/images/2022-04-08/n-step-q-sigma.png&quot; alt=&quot;n-step Q(sigma)&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+    &lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/p&gt;

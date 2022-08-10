@@ -435,7 +435,7 @@ To form the control method, we need to couple the action-value
 
 ### Episodic Semi-gradient $\boldsymbol{n}$-step Sarsa
 {: #ep-semi-grad-n-step-sarsa}
-Similar to how we defined the one-step Sarsa version of semi-gradient, we can replace the update target in \eqref{12} by an $n$-step return,
+Similar to how we defined the one-step Sarsa version of semi-gradient, we can replace the update target in \eqref{12} by an <span id='n-step-return'>$n$-step return</span>,
 \begin{equation}
 G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{q}(S_{t+n},A_{t+n},\mathbf{w}\_{t+n-1}),\tag{14}\label{14}
 \end{equation}
