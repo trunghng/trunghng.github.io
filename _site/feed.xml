@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-10T19:38:53+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-10T20:03:48+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Eligible Traces</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html" rel="alternate" type="text/html" title="Eligible Traces" /><published>2022-08-08T14:11:00+07:00</published><updated>2022-08-08T14:11:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html">&lt;blockquote&gt;
   &lt;p&gt;Beside &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#n-step-td&quot;&gt;$n$-step TD&lt;/a&gt; methods, there is another mechanism called &lt;strong&gt;Eligible traces&lt;/strong&gt; that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -22,7 +22,14 @@
   &lt;li&gt;&lt;a href=&quot;#lambda-gamma&quot;&gt;Variable \(\lambda\) and \(\gamma\)&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#off-policy-traces-control-variates&quot;&gt;Off-policy Traces with Control Variates&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#tree-backup-lambda&quot;&gt;Tree-Backup(\(\lambda\))&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#other-off-policy-methods-traces&quot;&gt;Other Off-policy Methods with Traces&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#other-off-policy-methods-traces&quot;&gt;Other Off-policy Methods with Traces&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#gtd-lambda&quot;&gt;GTD(\(\lambda\))&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#cq-lambda&quot;&gt;CQ(\(\lambda\))&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#htd-lambda&quot;&gt;HTD(\(\lambda\))&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#em-td-lambda&quot;&gt;Emphatic TD(\(\lambda\))&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -373,12 +380,35 @@ Using this eligibile trace with the parameter update rule \eqref{2} of TD($\lamb
 
 &lt;h2 id=&quot;tree-backup-lambda&quot;&gt;Tree-Backup($\lambda$)&lt;/h2&gt;
 
+&lt;p&gt;\begin{align}
+G_t^{\lambda a}&amp;amp;\doteq R_{t+1}+\gamma_{t+1}\Bigg((1-\lambda_{t+1})\bar{V}_t(S_{t+1})+\lambda_{t+1}\Big[\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})\hat{q}(S_{t+1},a,\mathbf{w}_t) \\ &amp;amp;\hspace{2cm}+\pi(A_{t+1}|S_{t+1})G_{t+1}^{\lambda a}\Big]\Bigg) \\ &amp;amp;=R_{t+1}+\gamma_{t+1}\Big(\bar{V}_t(S_{t+1})+\lambda_{t+1}\pi(A_{t+1}|S_{t+1})\left(G_{t+1}^{\lambda a}-\hat{q}(S_{t+1},A_{t+1},\mathbf{w}_t)\right)\Big)
+\end{align}
+This return, as usual, can also be written approximately (ignoring changes in the approximate value function) as sum of TD errors:
+\begin{equation}
+G_t^{\lambda a}\approx\hat{q}(S_t,A_t,\mathbf{w}_t)+\sum_{k=t}^{\infty}\delta_k^a\prod_{i=t+1}^{k}\gamma_i\lambda_i\pi(A_i|S_i),
+\end{equation}
+with the TD error is defined as given by \eqref{17}.&lt;/p&gt;
+
+&lt;p&gt;Similar to how we derive the eligible trace \eqref{16}, we can define a new eligible trace in terms of target-policy probabilities of the selected actions:
+\begin{equation}
+\mathbf{z}_t\doteq\gamma_t\lambda_t\pi(A_t|S_t)\mathbf{z}_{t-1}+\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}_t)
+\end{equation}
+Using this eligible trace vector with the parameter update rule \eqref{2} of TD($\lambda$), we end up with the &lt;strong&gt;Tree-Backup($\lambda$)&lt;/strong&gt; or &lt;strong&gt;TB($\lambda$)&lt;/strong&gt;.&lt;/p&gt;
+
 &lt;figure&gt;
 	&lt;img src=&quot;/assets/images/2022-08-08/tree-backup-lambda-backup.png&quot; alt=&quot;Backup diagram of Tree Backup(lambda)&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 450px; height: 390px&quot; /&gt;
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 3&lt;/b&gt;: The backup diagram of Tree Backup($\lambda$)&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;h2 id=&quot;other-off-policy-methods-traces&quot;&gt;Other Off-policy Methods with Traces&lt;/h2&gt;
+
+&lt;h3 id=&quot;gtd-lambda&quot;&gt;GTD($\lambda$)&lt;/h3&gt;
+
+&lt;h3 id=&quot;cq-lambda&quot;&gt;CQ($\lambda$)&lt;/h3&gt;
+
+&lt;h3 id=&quot;htd-lambda&quot;&gt;HTD($\lambda$)&lt;/h3&gt;
+
+&lt;h3 id=&quot;em-td-lambda&quot;&gt;Emphatic TD($\lambda$)&lt;/h3&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/p&gt;

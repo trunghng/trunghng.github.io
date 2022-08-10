@@ -22,6 +22,10 @@ comments: true
 - [Off-policy Traces with Control Variates](#off-policy-traces-control-variates)
 - [Tree-Backup(\\(\lambda\\))](#tree-backup-lambda)
 - [Other Off-policy Methods with Traces](#other-off-policy-methods-traces)
+	- [GTD(\\(\lambda\\))](#gtd-lambda)
+	- [CQ(\\(\lambda\\))](#cq-lambda)
+	- [HTD(\\(\lambda\\))](#htd-lambda)
+	- [Emphatic TD(\\(\lambda\\))](#em-td-lambda)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -376,6 +380,21 @@ Using this eligibile trace with the parameter update rule \eqref{2} of TD($\lamb
 ## Tree-Backup($\lambda$)
 {: #tree-backup-lambda}
 
+\begin{align}
+G_t^{\lambda a}&\doteq R_{t+1}+\gamma_{t+1}\Bigg((1-\lambda_{t+1})\bar{V}\_t(S_{t+1})+\lambda_{t+1}\Big[\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})\hat{q}(S_{t+1},a,\mathbf{w}\_t) \\\\ &\hspace{2cm}+\pi(A_{t+1}|S_{t+1})G_{t+1}^{\lambda a}\Big]\Bigg) \\\\ &=R_{t+1}+\gamma_{t+1}\Big(\bar{V}\_t(S_{t+1})+\lambda_{t+1}\pi(A_{t+1}|S_{t+1})\left(G_{t+1}^{\lambda a}-\hat{q}(S_{t+1},A_{t+1},\mathbf{w}\_t)\right)\Big)
+\end{align}
+This return, as usual, can also be written approximately (ignoring changes in the approximate value function) as sum of TD errors:
+\begin{equation}
+G_t^{\lambda a}\approx\hat{q}(S_t,A_t,\mathbf{w}\_t)+\sum_{k=t}^{\infty}\delta_k^a\prod_{i=t+1}^{k}\gamma_i\lambda_i\pi(A_i|S_i),
+\end{equation}
+with the TD error is defined as given by \eqref{17}.
+
+Similar to how we derive the eligible trace \eqref{16}, we can define a new eligible trace in terms of target-policy probabilities of the selected actions:
+\begin{equation}
+\mathbf{z}\_t\doteq\gamma_t\lambda_t\pi(A_t|S_t)\mathbf{z}\_{t-1}+\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}\_t)
+\end{equation}
+Using this eligible trace vector with the parameter update rule \eqref{2} of TD($\lambda$), we end up with the **Tree-Backup($\lambda$)** or **TB($\lambda$)**.
+
 <figure>
 	<img src="/assets/images/2022-08-08/tree-backup-lambda-backup.png" alt="Backup diagram of Tree Backup(lambda)" style="display: block; margin-left: auto; margin-right: auto; width: 450px; height: 390px"/>
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: The backup diagram of Tree Backup($\lambda$)</figcaption>
@@ -383,6 +402,18 @@ Using this eligibile trace with the parameter update rule \eqref{2} of TD($\lamb
 
 ## Other Off-policy Methods with Traces
 {: #other-off-policy-methods-traces}
+
+### GTD($\lambda$)
+{: #gtd-lambda}
+
+### CQ($\lambda$)
+{: #cq-lambda}
+
+### HTD($\lambda$)
+{: #htd-lambda}
+
+### Emphatic TD($\lambda$)
+{: #em-td-lambda}
 
 ## References
 {: #references}
