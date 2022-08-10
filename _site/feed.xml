@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-10T20:03:48+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-10T20:07:59+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Eligible Traces</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html" rel="alternate" type="text/html" title="Eligible Traces" /><published>2022-08-08T14:11:00+07:00</published><updated>2022-08-08T14:11:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html">&lt;blockquote&gt;
   &lt;p&gt;Beside &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#n-step-td&quot;&gt;$n$-step TD&lt;/a&gt; methods, there is another mechanism called &lt;strong&gt;Eligible traces&lt;/strong&gt; that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -267,7 +267,7 @@ and so it is with eligible trace vector:
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
 
-&lt;p&gt;There is also an action-value version of the online $\lambda$-return algorithm, and its efficient implementation as true online TD($\lambda$), called &lt;strong&gt;True online TD($\lambda$)&lt;/strong&gt;, which can be achived by using $n$-step return \eqref{11} instead (which also leads to the change of $\mathbf{x}_t=\mathbf{x}(S_t)$ to $\mathbf{x}_t=\mathbf{x}(S_t,A_t)$).&lt;/p&gt;
+&lt;p&gt;There is also an action-value version of the online $\lambda$-return algorithm, and its efficient implementation as true online TD($\lambda$), called &lt;strong&gt;True online TD($\lambda$)&lt;/strong&gt;, which can be achieved by using $n$-step return \eqref{11} instead (which also leads to the change of $\mathbf{x}_t=\mathbf{x}(S_t)$ to $\mathbf{x}_t=\mathbf{x}(S_t,A_t)$).&lt;/p&gt;
 
 &lt;p&gt;Pseudocode of the true online Sarsa($\lambda$) is given below.&lt;/p&gt;
 &lt;figure&gt;
@@ -347,7 +347,7 @@ which is sum of the backward-view update over time, with the eligible trace vect
 \begin{equation}
 \mathbf{z}_t\doteq\rho_t\left(\gamma_t\lambda_t\mathbf{z}_{t-1}+\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t)\right)\tag{16}\label{16}
 \end{equation}
-Using this eligibile trace with the parameter update rule \eqref{2} of TD($\lambda$), we obtain a general TD($\lambda$) algorithm that can be applied to either on-policy or off-policy data.&lt;/p&gt;
+Using this eligible trace with the parameter update rule \eqref{2} of TD($\lambda$), we obtain a general TD($\lambda$) algorithm that can be applied to either on-policy or off-policy data.&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;In the on-policy case, the algorithm is exactly TD($\lambda$) because $\rho_t=1$ for all $t$ and \eqref{16} becomes the accumulating trace \eqref{1} with extending to variable $\lambda$ and $\gamma$.&lt;/li&gt;
   &lt;li&gt;In the off-policy case, the algorithm often works well but, as a semi-gradient method, is not guaranteed to be stable.&lt;/li&gt;
@@ -367,13 +367,13 @@ with the action-based TD error is defined in terms of the expected approximate v
 \begin{equation}
 \delta_t^a=R_{t+1}+\gamma_{t+1}\bar{V}_t(S_{t+1})-\hat{q}(S_t,A_t,\mathbf{w}_t)\tag{17}\label{17}
 \end{equation}
-Like the state value function case, this approximation also becomes exact if the appriximate value function does not change.&lt;/p&gt;
+Like the state value function case, this approximation also becomes exact if the approximate value function does not change.&lt;/p&gt;
 
 &lt;p&gt;Similar to the state case \eqref{16}, we can also define the eligible trace for action values:
 \begin{equation}
 \mathbf{z}_t\doteq\gamma_t\lambda_t\rho_t\mathbf{z}_{t-1}+\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}_t)
 \end{equation}
-Using this eligibile trace with the parameter update rule \eqref{2} of TD($\lambda$) and the expectation-based TD error \eqref{17}, we end up with an Expected Sarsa($\lambda$) algorithm that can applied to either on-policy or off-policy data.&lt;/p&gt;
+Using this eligible trace with the parameter update rule \eqref{2} of TD($\lambda$) and the expectation-based TD error \eqref{17}, we end up with an Expected Sarsa($\lambda$) algorithm that can applied to either on-policy or off-policy data.&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;In the on-policy case with constant $\lambda$ and $\gamma$, this becomes the Sarsa($\lambda$) algorithm.&lt;/li&gt;
 &lt;/ul&gt;

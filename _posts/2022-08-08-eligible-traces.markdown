@@ -268,7 +268,7 @@ Pseudocode of the Sarsa($\lambda$) is given below.
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
 </figure>
 
-There is also an action-value version of the online $\lambda$-return algorithm, and its efficient implementation as true online TD($\lambda$), called **True online TD($\lambda$)**, which can be achived by using $n$-step return \eqref{11} instead (which also leads to the change of $\mathbf{x}\_t=\mathbf{x}(S_t)$ to $\mathbf{x}\_t=\mathbf{x}(S_t,A_t)$). 
+There is also an action-value version of the online $\lambda$-return algorithm, and its efficient implementation as true online TD($\lambda$), called **True online TD($\lambda$)**, which can be achieved by using $n$-step return \eqref{11} instead (which also leads to the change of $\mathbf{x}\_t=\mathbf{x}(S_t)$ to $\mathbf{x}\_t=\mathbf{x}(S_t,A_t)$). 
 
 Pseudocode of the true online Sarsa($\lambda$) is given below.
 <figure>
@@ -350,7 +350,7 @@ which is sum of the backward-view update over time, with the eligible trace vect
 \begin{equation}
 \mathbf{z}\_t\doteq\rho_t\left(\gamma_t\lambda_t\mathbf{z}\_{t-1}+\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t)\right)\tag{16}\label{16}
 \end{equation}
-Using this eligibile trace with the parameter update rule \eqref{2} of TD($\lambda$), we obtain a general TD($\lambda$) algorithm that can be applied to either on-policy or off-policy data.
+Using this eligible trace with the parameter update rule \eqref{2} of TD($\lambda$), we obtain a general TD($\lambda$) algorithm that can be applied to either on-policy or off-policy data.
 - In the on-policy case, the algorithm is exactly TD($\lambda$) because $\rho_t=1$ for all $t$ and \eqref{16} becomes the accumulating trace \eqref{1} with extending to variable $\lambda$ and $\gamma$.
 - In the off-policy case, the algorithm often works well but, as a semi-gradient method, is not guaranteed to be stable. 
 
@@ -368,13 +368,13 @@ with the action-based TD error is defined in terms of the expected approximate v
 \begin{equation}
 \delta_t^a=R_{t+1}+\gamma_{t+1}\bar{V}\_t(S_{t+1})-\hat{q}(S_t,A_t,\mathbf{w}\_t)\tag{17}\label{17}
 \end{equation}
-Like the state value function case, this approximation also becomes exact if the appriximate value function does not change.
+Like the state value function case, this approximation also becomes exact if the approximate value function does not change.
 
 Similar to the state case \eqref{16}, we can also define the eligible trace for action values:
 \begin{equation}
 \mathbf{z}\_t\doteq\gamma_t\lambda_t\rho_t\mathbf{z}\_{t-1}+\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}\_t)
 \end{equation}
-Using this eligibile trace with the parameter update rule \eqref{2} of TD($\lambda$) and the expectation-based TD error \eqref{17}, we end up with an Expected Sarsa($\lambda$) algorithm that can applied to either on-policy or off-policy data.
+Using this eligible trace with the parameter update rule \eqref{2} of TD($\lambda$) and the expectation-based TD error \eqref{17}, we end up with an Expected Sarsa($\lambda$) algorithm that can applied to either on-policy or off-policy data.
 - In the on-policy case with constant $\lambda$ and $\gamma$, this becomes the Sarsa($\lambda$) algorithm.
 
 ## Tree-Backup($\lambda$)
