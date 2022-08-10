@@ -18,6 +18,10 @@ comments: true
 - [True Online TD(λ)](#true-onl-td-lambda)
 	- [Dutch Traces in Monte Carlo](#dutch-traces-mc)
 - [Sarsa(\\(\lambda\\))](#sarsa-lambda)
+- [Variable \\(\lambda\\) and \\(\gamma\\)](#lambda-gamma)
+- [Off-policy Traces with Control Variates](#off-policy-traces-control-variates)
+- [Tree-Backup(\\(\lambda\\))](#tree-backup-lambda)
+- [Other Off-policy Methods with Traces](#other-off-policy-methods-traces)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -230,18 +234,90 @@ z_{i,t}\doteq\begin{cases}1 &\text{if }x_{i,t}=1 \\\\ \gamma\lambda z_{i,t-1} &\
 {: #sarsa-lambda}
 To apply the use off eligible traces on control problems, we begin by defining the $n$-step return, which is the same as what we have defined [before]({% post_url 2022-07-10-func-approx %}#n-step-return):
 \begin{equation}
-G_{t:t+n}\doteq\ R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{q}(S_{t+n},A_{t+n},\mathbf{w}\_{t+n-1}),\hspace{1cm}t+n\lt T
+G_{t:t+n}\doteq\ R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{q}(S_{t+n},A_{t+n},\mathbf{w}\_{t+n-1}),\hspace{1cm}t+n\lt T\tag{10}\label{10}
 \end{equation}
-with $G_{t:t+n}\doteq G_t$ if $t+n\geq T$. With this definition of the return, the action-value form of offline $\lambda$-return can de defined as:
+with $G_{t:t+n}\doteq G_t$ if $t+n\geq T$. With this definition of the return, the action-value form of offline $\lambda$-return can be defined as:
 \begin{equation}
 \mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\left[G_t^\lambda-\hat{q}(S_t,A_t,\mathbf{w}\_t)\right]\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}\_t),\hspace{1cm}t=0,\dots,T-1
 \end{equation}
-where $G_t^\lambda\doteq G_{t:\infty}^\lambda$.
+where $G_t^\lambda\doteq G_{t:\infty}^\lambda$. 
+
+The TD method for action values, known as **Sarsa($\lambda$)**, approximates this forward view and has the same update rule as TD($\lambda$):
+\begin{equation}
+\mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\delta_t\mathbf{z}\_t,
+\end{equation}
+except that the TD error, $\delta_t$, is defined in terms of action-value function:
+\begin{equation}
+\delta_t\doteq R_{t+1}+\gamma\hat{q}(S_{t+1},A_{t+1},\mathbf{w}\_t)-\hat{q}(S_t,A_t,\mathbf{w}\_t),
+\end{equation}
+and so it is with eligible trace vector:
+\begin{align}
+\mathbf{z}\_{-1}&\doteq\mathbf{0}, \\\\ \mathbf{z}&\_t\doteq\gamma\lambda\mathbf{z}\_{t-1}+\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}\_t),\hspace{1cm}0\leq t\lt T
+\end{align}
 
 <figure>
 	<img src="/assets/images/2022-08-08/sarsa-lambda-backup.png" alt="Backup diagram of Sarsa(lambda)" style="display: block; margin-left: auto; margin-right: auto; width: 450px; height: 390px"/>
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: The backup diagram of Sarsa($\lambda$)</figcaption>
 </figure>
+
+Pseudocode of the Sarsa($\lambda$) is given below.
+<figure>
+	<img src="/assets/images/2022-08-08/sarsa-lambda.png" alt="Sarsa(lambda)" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+
+There is also an action-value version of the online $\lambda$-return algorithm, and its efficient implementation as true online TD($\lambda$), called **True online TD($\lambda$)**, which can be achived by using $n$-step return \eqref{10} instead (which also leads to the change of $\mathbf{x}\_t=\mathbf{x}(S_t)$ to $\mathbf{x}\_t=\mathbf{x}(S_t,A_t)$). 
+
+Pseudocode of the true online Sarsa($\lambda$) is given below.
+<figure>
+	<img src="/assets/images/2022-08-08/true-online-sarsa-lambda.png" alt="True online Sarsa(lambda)" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+
+## Variable $\lambda$ and $\gamma$
+{: #lambda-gamma}
+We can generalize the degree of bootstrapping and discounting beyond constant parameters to functions potentially dependent on the state and action. In other words, each time step $t$, we will have a different $\lambda$ and $\gamma$, denoted as $\lambda_t$ and $\gamma_t$. 
+
+In particular, say $\lambda:\mathcal{S}\times\mathcal{A}\to[0,1]$ such that $\lambda_t\doteq\lambda(S_t,A_t)$ and similarly, $\gamma:\mathcal{S}\to[0,1]$ such that $\gamma_t\doteq\gamma(S_t)$.
+
+With this definition of $\gamma$, the return can be rewritten generally as:
+\begin{align}
+G_t&\doteq R_{t+1}+\gamma_{t+1}G_{t+1} \\\\ &=R_{t+1}+\gamma_{t+1}R_{t+2}+\gamma_{t+1}\gamma_{t+2}R_{t+3}+\dots \\\\ &=\sum_{k=t}^{\infty}\left(\prod_{i=t+1}^{k}\gamma_i\right)R_{k+1},
+\end{align}
+where we require that $\prod_{k=t}^{\infty}\gamma_k=0$ with probability $1$ for all $t$ to assure the sums are finite. 
+
+The generalization of $\lambda$ also lets us rewrite the state-based $\lambda$-return as:
+\begin{equation}
+G_t^{\lambda s}\doteq R_{t+1}+\gamma_{t+1}\Big((1-\lambda_{t+1})\hat{v}(S_{t+1},\mathbf{w}\_t)+\lambda_{t+1}G_{t+1}^{\lambda s}\Big),
+\end{equation}
+where $G_t^{\lambda s}$ denotes that this $\lambda$
+-return is bootstrapped from state values, and hence the $G_t^{\lambda a}$ denotes the $\lambda$-return that bootstraps from action values. The Sarsa form of action-based $\lambda$-return is defined as:
+\begin{equation}
+G_t^{\lambda a}\doteq R_{t+1}+\gamma_{t+1}\Big((1-\lambda_{t+1})\hat{q}(S_{t+1},A_{t+1},\mathbf{w}\_t)+\lambda_{t+1}G_{t+1}^{\lambda a}\Big),
+\end{equation}
+and the Expected Sarsa form of its can be defined as:
+\begin{equation}
+G_t^{\lambda a}\doteq R_{t+1}+\gamma_{t+1}\Big((1-\lambda_{t+1})\bar{V}\_t(S_{t+1})+\lambda_{t+1}G_{t+1}^{\lambda a}\Big),
+\end{equation}
+where the [expected approximate value]({% post_url 2022-04-08-td-learning %}#expected-approximate-value) is generalized to function approximation as:
+\begin{equation}
+\bar{V}\_t\doteq\sum_a\pi(a|s)\hat{q}(s,a,\mathbf{w}\_t)
+\end{equation}
+
+## Off-policy Traces with Control Variates
+{: #off-policy-traces-control-variates}
+We can also apply the use of importance sampling with eligible traces. 
+
+We begin with the new definition of $\lambda$-return:
+\begin{equation}
+G_t^{\lambda s}\doteq\rho_t\Big(R_{t+1}+\gamma_{t+1}\Big)
+\end{equation}
+
+## Tree-Backup($\lambda$)
+{: #tree-backup-lambda}
+
+## Other Off-policy Methods with Traces
+{: #other-off-policy-methods-traces}
 
 ## References
 {: #references}

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-10T15:20:47+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-10T17:06:58+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Eligible Traces</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html" rel="alternate" type="text/html" title="Eligible Traces" /><published>2022-08-08T14:11:00+07:00</published><updated>2022-08-08T14:11:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html">&lt;blockquote&gt;
   &lt;p&gt;Beside &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#n-step-td&quot;&gt;$n$-step TD&lt;/a&gt; methods, there is another mechanism called &lt;strong&gt;Eligible traces&lt;/strong&gt; that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -19,6 +19,10 @@
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#sarsa-lambda&quot;&gt;Sarsa(\(\lambda\))&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#lambda-gamma&quot;&gt;Variable \(\lambda\) and \(\gamma\)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#off-policy-traces-control-variates&quot;&gt;Off-policy Traces with Control Variates&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#tree-backup-lambda&quot;&gt;Tree-Backup(\(\lambda\))&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#other-off-policy-methods-traces&quot;&gt;Other Off-policy Methods with Traces&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -226,18 +230,86 @@ z_{i,t}\doteq\begin{cases}1 &amp;amp;\text{if }x_{i,t}=1 \\ \gamma\lambda z_{i,t
 &lt;h2 id=&quot;sarsa-lambda&quot;&gt;Sarsa($\lambda$)&lt;/h2&gt;
 &lt;p&gt;To apply the use off eligible traces on control problems, we begin by defining the $n$-step return, which is the same as what we have defined &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#n-step-return&quot;&gt;before&lt;/a&gt;:
 \begin{equation}
-G_{t:t+n}\doteq\ R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{q}(S_{t+n},A_{t+n},\mathbf{w}_{t+n-1}),\hspace{1cm}t+n\lt T
+G_{t:t+n}\doteq\ R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{q}(S_{t+n},A_{t+n},\mathbf{w}_{t+n-1}),\hspace{1cm}t+n\lt T\tag{10}\label{10}
 \end{equation}
-with $G_{t:t+n}\doteq G_t$ if $t+n\geq T$. With this definition of the return, the action-value form of offline $\lambda$-return can de defined as:
+with $G_{t:t+n}\doteq G_t$ if $t+n\geq T$. With this definition of the return, the action-value form of offline $\lambda$-return can be defined as:
 \begin{equation}
 \mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\left[G_t^\lambda-\hat{q}(S_t,A_t,\mathbf{w}_t)\right]\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}_t),\hspace{1cm}t=0,\dots,T-1
 \end{equation}
 where $G_t^\lambda\doteq G_{t:\infty}^\lambda$.&lt;/p&gt;
 
+&lt;p&gt;The TD method for action values, known as &lt;strong&gt;Sarsa($\lambda$)&lt;/strong&gt;, approximates this forward view and has the same update rule as TD($\lambda$):
+\begin{equation}
+\mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\delta_t\mathbf{z}_t,
+\end{equation}
+except that the TD error, $\delta_t$, is defined in terms of action-value function:
+\begin{equation}
+\delta_t\doteq R_{t+1}+\gamma\hat{q}(S_{t+1},A_{t+1},\mathbf{w}_t)-\hat{q}(S_t,A_t,\mathbf{w}_t),
+\end{equation}
+and so it is with eligible trace vector:
+\begin{align}
+\mathbf{z}_{-1}&amp;amp;\doteq\mathbf{0}, \\ \mathbf{z}&amp;amp;_t\doteq\gamma\lambda\mathbf{z}_{t-1}+\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}_t),\hspace{1cm}0\leq t\lt T
+\end{align}&lt;/p&gt;
+
 &lt;figure&gt;
 	&lt;img src=&quot;/assets/images/2022-08-08/sarsa-lambda-backup.png&quot; alt=&quot;Backup diagram of Sarsa(lambda)&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 450px; height: 390px&quot; /&gt;
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 2&lt;/b&gt;: The backup diagram of Sarsa($\lambda$)&lt;/figcaption&gt;
 &lt;/figure&gt;
+
+&lt;p&gt;Pseudocode of the Sarsa($\lambda$) is given below.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-08-08/sarsa-lambda.png&quot; alt=&quot;Sarsa(lambda)&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;There is also an action-value version of the online $\lambda$-return algorithm, and its efficient implementation as true online TD($\lambda$), called &lt;strong&gt;True online TD($\lambda$)&lt;/strong&gt;, which can be achived by using $n$-step return \eqref{10} instead (which also leads to the change of $\mathbf{x}_t=\mathbf{x}(S_t)$ to $\mathbf{x}_t=\mathbf{x}(S_t,A_t)$).&lt;/p&gt;
+
+&lt;p&gt;Pseudocode of the true online Sarsa($\lambda$) is given below.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-08-08/true-online-sarsa-lambda.png&quot; alt=&quot;True online Sarsa(lambda)&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h2 id=&quot;lambda-gamma&quot;&gt;Variable $\lambda$ and $\gamma$&lt;/h2&gt;
+&lt;p&gt;We can generalize the degree of bootstrapping and discounting beyond constant parameters to functions potentially dependent on the state and action. In other words, each time step $t$, we will have a different $\lambda$ and $\gamma$, denoted as $\lambda_t$ and $\gamma_t$.&lt;/p&gt;
+
+&lt;p&gt;In particular, say $\lambda:\mathcal{S}\times\mathcal{A}\to[0,1]$ such that $\lambda_t\doteq\lambda(S_t,A_t)$ and similarly, $\gamma:\mathcal{S}\to[0,1]$ such that $\gamma_t\doteq\gamma(S_t)$.&lt;/p&gt;
+
+&lt;p&gt;With this definition of $\gamma$, the return can be rewritten generally as:
+\begin{align}
+G_t&amp;amp;\doteq R_{t+1}+\gamma_{t+1}G_{t+1} \\ &amp;amp;=R_{t+1}+\gamma_{t+1}R_{t+2}+\gamma_{t+1}\gamma_{t+2}R_{t+3}+\dots \\ &amp;amp;=\sum_{k=t}^{\infty}\left(\prod_{i=t+1}^{k}\gamma_i\right)R_{k+1},
+\end{align}
+where we require that $\prod_{k=t}^{\infty}\gamma_k=0$ with probability $1$ for all $t$ to assure the sums are finite.&lt;/p&gt;
+
+&lt;p&gt;The generalization of $\lambda$ also lets us rewrite the state-based $\lambda$-return as:
+\begin{equation}
+G_t^{\lambda s}\doteq R_{t+1}+\gamma_{t+1}\Big((1-\lambda_{t+1})\hat{v}(S_{t+1},\mathbf{w}_t)+\lambda_{t+1}G_{t+1}^{\lambda s}\Big),
+\end{equation}
+where $G_t^{\lambda s}$ denotes that this $\lambda$
+-return is bootstrapped from state values, and hence the $G_t^{\lambda a}$ denotes the $\lambda$-return that bootstraps from action values. The Sarsa form of action-based $\lambda$-return is defined as:
+\begin{equation}
+G_t^{\lambda a}\doteq R_{t+1}+\gamma_{t+1}\Big((1-\lambda_{t+1})\hat{q}(S_{t+1},A_{t+1},\mathbf{w}_t)+\lambda_{t+1}G_{t+1}^{\lambda a}\Big),
+\end{equation}
+and the Expected Sarsa form of its can be defined as:
+\begin{equation}
+G_t^{\lambda a}\doteq R_{t+1}+\gamma_{t+1}\Big((1-\lambda_{t+1})\bar{V}_t(S_{t+1})+\lambda_{t+1}G_{t+1}^{\lambda a}\Big),
+\end{equation}
+where the &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html#expected-approximate-value&quot;&gt;expected approximate value&lt;/a&gt; is generalized to function approximation as:
+\begin{equation}
+\bar{V}_t\doteq\sum_a\pi(a|s)\hat{q}(s,a,\mathbf{w}_t)
+\end{equation}&lt;/p&gt;
+
+&lt;h2 id=&quot;off-policy-traces-control-variates&quot;&gt;Off-policy Traces with Control Variates&lt;/h2&gt;
+&lt;p&gt;We can also apply the use of importance sampling with eligible traces.&lt;/p&gt;
+
+&lt;p&gt;We begin with the new definition of $\lambda$-return:
+\begin{equation}
+G_t^{\lambda s}\doteq\rho_t\Big(R_{t+1}+\gamma_{t+1}\Big)
+\end{equation}&lt;/p&gt;
+
+&lt;h2 id=&quot;tree-backup-lambda&quot;&gt;Tree-Backup($\lambda$)&lt;/h2&gt;
+
+&lt;h2 id=&quot;other-off-policy-methods-traces&quot;&gt;Other Off-policy Methods with Traces&lt;/h2&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/p&gt;
@@ -1698,7 +1770,7 @@ which has the same rule as \eqref{8}, except that  the target of the update in t
 \begin{equation}
 G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\bar{V}_{t+n-1}(S_{t+n}),\hspace{1cm}t+n&amp;lt;T,\tag{9}\label{9}
 \end{equation}
-with $G_{t:t+n}=G_t$ for $t+n\geq T$, where $\bar{V}_t(s)$ is the &lt;strong&gt;expected approximate value&lt;/strong&gt; of state $s$, using the estimated action value at time $t$, under the target policy $\pi$:
+with $G_{t:t+n}=G_t$ for $t+n\geq T$, where $\bar{V}_t(s)$ is the &lt;span id=&quot;expected-approximate-value&quot;&gt;&lt;strong&gt;expected approximate value&lt;/strong&gt;&lt;/span&gt; of state $s$, using the estimated action value at time $t$, under the target policy $\pi$:
 \begin{equation}
 \bar{V}_t(s)\doteq\sum_a\pi(a|s)Q_t(s,a),\hspace{1cm}\forall s\in\mathcal{S}\tag{10}\label{10}
 \end{equation}
@@ -1797,7 +1869,7 @@ while the values of all other state-action pairs remain unchanged: $Q_{t+n}(s,a)
 
 &lt;h4 id=&quot;n-step-q-sigma&quot;&gt;$\boldsymbol{n}$-step $Q(\sigma)$&lt;/h4&gt;
 &lt;p&gt;In updating the action-value functions, if we choose always to sample, we would obtain Sarsa, whereas if we choose never to sample, we would get the tree-backup algorithm. Expected Sarsa would be the case where we choose to sample for all steps except for the last one. 
-An unifying method is choosing on a state-by-state basis whether to sample or not.&lt;/p&gt;
+An possible unifying method is choosing on a state-by-state basis whether to sample or not.&lt;/p&gt;
 
 &lt;p&gt;We begin by rewriting the tree-backup $n$-step return \eqref{14} in terms of the horizon $h=t+n$ and the expected approximate value $\bar{V}$ \eqref{10}:
 \begin{align}
@@ -1809,7 +1881,7 @@ which is exactly the same as the $n$-step return for Sarsa with control variates
 
 &lt;figure&gt;
     &lt;img src=&quot;/assets/images/2022-04-08/n-step-q-sigma-backup.png&quot; alt=&quot;Backup diagrams of n-step Sarsa, Tree-backup, Expected Sarsa, Q(sigma)&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 530px; height: 370px&quot; /&gt;
-    &lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 5&lt;/b&gt;: The backup diagrams of $n$-step methods for state-action values: Sarsa, Tree-backup, Expected Sarsa, Q($\sigma$)&lt;/figcaption&gt;
+    &lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 5&lt;/b&gt;: The backup diagrams of $n$-step methods for state-action values: Sarsa, Tree-backup, Expected Sarsa, $Q(\sigma)$&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;With the definition of $\sigma_t$, we can define the $n$-step return ending at horizon $h$ of the $Q(\sigma)$ as:

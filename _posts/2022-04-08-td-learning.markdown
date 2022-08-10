@@ -727,7 +727,7 @@ which has the same rule as \eqref{8}, except that  the target of the update in t
 \begin{equation}
 G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\bar{V}\_{t+n-1}(S_{t+n}),\hspace{1cm}t+n\<T,\tag{9}\label{9}
 \end{equation}
-with $G_{t:t+n}=G_t$ for $t+n\geq T$, where $\bar{V}\_t(s)$ is the **expected approximate value** of state $s$, using the estimated action value at time $t$, under the target policy $\pi$:
+with $G_{t:t+n}=G_t$ for $t+n\geq T$, where $\bar{V}\_t(s)$ is the <span id='expected-approximate-value'>**expected approximate value**</span> of state $s$, using the estimated action value at time $t$, under the target policy $\pi$:
 \begin{equation}
 \bar{V}\_t(s)\doteq\sum_a\pi(a|s)Q_t(s,a),\hspace{1cm}\forall s\in\mathcal{S}\tag{10}\label{10}
 \end{equation}
@@ -831,7 +831,7 @@ while the values of all other state-action pairs remain unchanged: $Q_{t+n}(s,a)
 #### $\boldsymbol{n}$-step $Q(\sigma)$
 {: #n-step-q-sigma}
 In updating the action-value functions, if we choose always to sample, we would obtain Sarsa, whereas if we choose never to sample, we would get the tree-backup algorithm. Expected Sarsa would be the case where we choose to sample for all steps except for the last one. 
-An unifying method is choosing on a state-by-state basis whether to sample or not.
+An possible unifying method is choosing on a state-by-state basis whether to sample or not.
 
 We begin by rewriting the tree-backup $n$-step return \eqref{14} in terms of the horizon $h=t+n$ and the expected approximate value $\bar{V}$ \eqref{10}:
 \begin{align}
@@ -843,7 +843,7 @@ Let $\sigma_t\in[0,1]$ denote the degree of sampling on step $t$, with $\sigma=1
 
 <figure>
     <img src="/assets/images/2022-04-08/n-step-q-sigma-backup.png" alt="Backup diagrams of n-step Sarsa, Tree-backup, Expected Sarsa, Q(sigma)" style="display: block; margin-left: auto; margin-right: auto; width: 530px; height: 370px"/>
-    <figcaption style="text-align: center;font-style: italic;"><b>Figure 5</b>: The backup diagrams of $n$-step methods for state-action values: Sarsa, Tree-backup, Expected Sarsa, Q($\sigma$)</figcaption>
+    <figcaption style="text-align: center;font-style: italic;"><b>Figure 5</b>: The backup diagrams of $n$-step methods for state-action values: Sarsa, Tree-backup, Expected Sarsa, $Q(\sigma)$</figcaption>
 </figure>
 
 With the definition of $\sigma_t$, we can define the $n$-step return ending at horizon $h$ of the $Q(\sigma)$ as:
