@@ -782,15 +782,15 @@ G_{t:h}=R_{t+1}+\gamma G_{t+1:h},\hspace{1cm}1\lt h\lt T,
 where $G_{h:h}\doteq V_{h-1}(S_h)$.
 
 Since we are following a policy $b$ that is not the same as the target policy $\pi$, all of the resulting experience, including the first reward $R_{t+1}$ and the next state $S_{t+1}$ must be weighted by the importance sampling ratio for time $t$, $\rho_t=\frac{\pi(A_t\vert S_t)}{b(A_t\vert S_t)}$. And moreover, to avoid the high variance when the $n$-step return is zero (resulting when the action at time $t$ would never be select by $\pi$, which leads to $\rho_t=0$), we define the $n$-step return ending at horizon $h$ for the off-policy state-value prediction as:
-\begin{equation}
+<span id='n-step-return-control-variate-state-value'>\begin{equation}
 G_{t:h}\doteq\rho_t\left(R_{t+1}+\gamma G_{t+1:h}\right)+(1-\rho_t)V_{h-1}(S_t),\hspace{1cm}1\lt h\lt T\tag{12}\label{12}
-\end{equation}
+\end{equation}</span>
 where $G_{h:h}\doteq V_{h-1}(S_h)$. The second term of \eqref{12}, $(1-\rho_t)V_{h-1}(S_t)$, is called **control variate**, which has the expected value of $0$, and then does not change the expected update. 
 
 For state-action values, the off-policy definition of the $n$-step return ending at horizon $h$ can be defined as:
-\begin{align}
+<span id='n-step-return-control-variate-action-value'>\begin{align}
 G_{t:h}&\doteq R_{t+1}+\gamma\left(\rho_{t+1}G_{t+1:h}+\bar{V}\_{h-1}(S_{t+1})-\rho_{t+1}Q_{h-1}(S_{t+1},A_{t+1})\right) \\\\ &=R_{t+1}+\gamma\rho_{t+1}\big(G_{t+1:h}-Q_{h-1}(S_{t+1},A_{t+1})\big)+\gamma\bar{V}\_{h-1}(S_{t+1}),\hspace{1cm}t\lt h\leq T\tag{13}\label{13}
-\end{align}
+\end{align}</span>
 If $h\lt T$, the recursion ends with $G_{h:h}\doteq Q_{h-1}(S_h,A_h)$, whereas, if $h\geq T$, the recursion ends with $G_{T-1:h}\doteq R_T$.
 
 #### $\boldsymbol{n}$-step Tree Backup
