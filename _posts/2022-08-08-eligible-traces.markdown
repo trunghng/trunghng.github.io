@@ -320,7 +320,7 @@ where the single-step importance sampling ratio $\rho_t$ is defined as usual:
 \end{equation}
 Much like the other returns, the truncated version of this return can be approximated simply in terms of sums of state-based TD errors:
 \begin{equation}
-G_t^{\lambda s}\approx\hat{v}(S_t,\mathbf{w}\_t)+\rho_t\sum_{k=t}^{\infty}\delta_k^s\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i,
+G_t^{\lambda s}\approx\hat{v}(S_t,\mathbf{w}\_t)+\rho_t\sum_{k=t}^{\infty}\delta_k^s\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i,\tag{15}\label{15}
 \end{equation}
 where the state-based TD error, $\delta_t^s$, is defined as:
 \begin{equation}
@@ -328,13 +328,13 @@ where the state-based TD error, $\delta_t^s$, is defined as:
 \end{equation}
 with the approximation becoming exact if the approximate value function does not change. 
 
-With this appximation, we have that:
+With this approximation, we have that:
 \begin{align}
 \mathbf{w}\_{t+1}&=\mathbf{w}\_t+\alpha\left(G_t^{\lambda s}-\hat{v}(S_t,\mathbf{w}\_t)\right)\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t) \\\\ &\approx\mathbf{w}\_t+\alpha\rho_t\left(\sum_{k=t}^{\infty}\delta_k^s\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i\right)\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t)
 \end{align}
 This is one time step of a forward view. And in fact, the forward-view update, summed over time, is approximately equal to a backward-view update, summed over time. Since the sum of the forward-view update over time is:
 \begin{align}
-\sum_{t=1}^{\infty}(\mathbf{w}\_{t+1}-\mathbf{w}\_t)&\approx\sum_{t=1}^{\infty}\sum_{k=t}^{\infty}\alpha\rho_t\delta_k^s\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t)\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i \\\\ &=\sum_{k=1}^{\infty}\sum_{t=1}^{k}\alpha\rho_t\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t)\delta_k^s\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i \\\\ &=\sum_{k=1}^{\infty}\alpha\delta_k^s\sum_{t=1}^{k}\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t)\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i,\tag{15}\label{15}
+\sum_{t=1}^{\infty}(\mathbf{w}\_{t+1}-\mathbf{w}\_t)&\approx\sum_{t=1}^{\infty}\sum_{k=t}^{\infty}\alpha\rho_t\delta_k^s\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t)\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i \\\\ &=\sum_{k=1}^{\infty}\sum_{t=1}^{k}\alpha\rho_t\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t)\delta_k^s\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i \\\\ &=\sum_{k=1}^{\infty}\alpha\delta_k^s\sum_{t=1}^{k}\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t)\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i,\tag{16}\label{16}
 \end{align}
 where in the second step, we use the summation rule: $\sum_{t=x}^{y}\sum_{k=t}^{y}=\sum_{k=x}^{y}\sum_{t=x}^{k}$. 
 
@@ -342,16 +342,16 @@ Let $\mathbf{z}\_k$ is defined as:
 \begin{align}
 \mathbf{z}\_k &=\sum_{t=1}^{k}\rho_t\nabla_\mathbf{w}\hat{v}\left(S_t, \mathbf{w}\_t\right)\prod_{i=t+1}^{k} \gamma_i\lambda_i\rho_i \\\\ &=\sum_{t=1}^{k-1}\rho_t\nabla_\mathbf{w}\hat{v}\left(S_t,\mathbf{w}\_t\right)\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i+\rho_k\nabla_\mathbf{w}\hat{v}\left(S_k,\mathbf{w}\_k\right) \\\\ &=\gamma_k\lambda_k\rho_k\underbrace{\sum_{t=1}^{k-1}\rho_t\nabla_\mathbf{w}\hat{v}\left(S_t,\mathbf{w}\_t\right)\prod_{i=t+1}^{k-1}\gamma_i\lambda_i\rho_i}\_{\mathbf{z}\_{k-1}}+\rho_k\nabla_\mathbf{w}\hat{v}\left(S_k,\mathbf{w}\_k\right) \\\\ &=\rho_k\big(\gamma_k\lambda_k\mathbf{z}\_{k-1}+\nabla_\mathbf{w}\hat{v}\left(S_k,\mathbf{w}\_k\right)\big)
 \end{align}
-Then we can rewrite \eqref{15} as:
+Then we can rewrite \eqref{16} as:
 \begin{equation}
 \sum_{t=1}^{\infty}\left(\mathbf{w}\_{t+1}-\mathbf{w}\_t\right)\approx\sum_{k=1}^{\infty}\alpha\delta_k^s\mathbf{z}\_k,
 \end{equation}
 which is sum of the backward-view update over time, with the eligible trace vector is defined as:
 \begin{equation}
-\mathbf{z}\_t\doteq\rho_t\left(\gamma_t\lambda_t\mathbf{z}\_{t-1}+\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t)\right)\tag{16}\label{16}
+\mathbf{z}\_t\doteq\rho_t\big(\gamma_t\lambda_t\mathbf{z}\_{t-1}+\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t)\big)\tag{17}\label{17}
 \end{equation}
 Using this eligible trace with the parameter update rule \eqref{2} of TD($\lambda$), we obtain a general TD($\lambda$) algorithm that can be applied to either on-policy or off-policy data.
-- In the on-policy case, the algorithm is exactly TD($\lambda$) because $\rho_t=1$ for all $t$ and \eqref{16} becomes the accumulating trace \eqref{1} with extending to variable $\lambda$ and $\gamma$.
+- In the on-policy case, the algorithm is exactly TD($\lambda$) because $\rho_t=1$ for all $t$ and \eqref{17} becomes the accumulating trace \eqref{1} with extending to variable $\lambda$ and $\gamma$.
 - In the off-policy case, the algorithm often works well but, as a semi-gradient method, is not guaranteed to be stable. 
 
 For action-value function, we generalize the definition of the $\lambda$-return \eqref{13} of Expected Sarsa with the idea of [control variate]({% post_url 2022-04-08-td-learning %}#n-step-return-control-variate-action-value):
@@ -366,20 +366,22 @@ G_t^{\lambda a}\approx\hat{q}(S_t,A_t,\mathbf{w}\_t)+\sum_{k=t}^{\infty}\delta_k
 \end{equation}
 with the action-based TD error is defined in terms of the expected approximate value:
 \begin{equation}
-\delta_t^a=R_{t+1}+\gamma_{t+1}\bar{V}\_t(S_{t+1})-\hat{q}(S_t,A_t,\mathbf{w}\_t)\tag{17}\label{17}
+\delta_t^a=R_{t+1}+\gamma_{t+1}\bar{V}\_t(S_{t+1})-\hat{q}(S_t,A_t,\mathbf{w}\_t)\tag{18}\label{18}
 \end{equation}
 Like the state value function case, this approximation also becomes exact if the approximate value function does not change.
 
-Similar to the state case \eqref{16}, we can also define the eligible trace for action values:
+Similar to the state case \eqref{17}, we can also define the eligible trace for action values:
 \begin{equation}
 \mathbf{z}\_t\doteq\gamma_t\lambda_t\rho_t\mathbf{z}\_{t-1}+\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}\_t)
 \end{equation}
-Using this eligible trace with the parameter update rule \eqref{2} of TD($\lambda$) and the expectation-based TD error \eqref{17}, we end up with an Expected Sarsa($\lambda$) algorithm that can applied to either on-policy or off-policy data.
+Using this eligible trace with the parameter update rule \eqref{2} of TD($\lambda$) and the expectation-based TD error \eqref{18}, we end up with an Expected Sarsa($\lambda$) algorithm that can applied to either on-policy or off-policy data.
 - In the on-policy case with constant $\lambda$ and $\gamma$, this becomes the Sarsa($\lambda$) algorithm.
 
 ## Tree-Backup($\lambda$)
 {: #tree-backup-lambda}
+Recall that in the post of [TD-Learning]({% post_url 2022-04-08-td-learning %}), we have mentioned that there is an off-policy method without importance sampling called **tree-backup**. Can we extend the idea of tree-backup to an eligible trace version? Yes, we can.
 
+As usual, we begin with establishing the $\lambda$-return by generalizing the $\lambda$-return of Expected Sarsa \eqref{13} with the [$n$-step Tree-backup return]({% post_url 2022-04-08-td-learning %}#n-step-tree-backup-return):
 \begin{align}
 G_t^{\lambda a}&\doteq R_{t+1}+\gamma_{t+1}\Bigg((1-\lambda_{t+1})\bar{V}\_t(S_{t+1})+\lambda_{t+1}\Big[\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})\hat{q}(S_{t+1},a,\mathbf{w}\_t) \\\\ &\hspace{2cm}+\pi(A_{t+1}|S_{t+1})G_{t+1}^{\lambda a}\Big]\Bigg) \\\\ &=R_{t+1}+\gamma_{t+1}\Big(\bar{V}\_t(S_{t+1})+\lambda_{t+1}\pi(A_{t+1}|S_{t+1})\left(G_{t+1}^{\lambda a}-\hat{q}(S_{t+1},A_{t+1},\mathbf{w}\_t)\right)\Big)
 \end{align}
@@ -387,9 +389,9 @@ This return, as usual, can also be written approximately (ignoring changes in th
 \begin{equation}
 G_t^{\lambda a}\approx\hat{q}(S_t,A_t,\mathbf{w}\_t)+\sum_{k=t}^{\infty}\delta_k^a\prod_{i=t+1}^{k}\gamma_i\lambda_i\pi(A_i|S_i),
 \end{equation}
-with the TD error is defined as given by \eqref{17}.
+with the TD error is defined as given by \eqref{18}.
 
-Similar to how we derive the eligible trace \eqref{16}, we can define a new eligible trace in terms of target-policy probabilities of the selected actions:
+Similar to how we derive the eligible trace \eqref{17}, we can define a new eligible trace in terms of target-policy probabilities of the selected actions:
 \begin{equation}
 \mathbf{z}\_t\doteq\gamma_t\lambda_t\pi(A_t|S_t)\mathbf{z}\_{t-1}+\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}\_t)
 \end{equation}
@@ -405,9 +407,76 @@ Using this eligible trace vector with the parameter update rule \eqref{2} of TD(
 
 ### GTD($\lambda$)
 {: #gtd-lambda}
+**GTD($\lambda$)** is the eligible-trace algorithm analogous to [**TDC**]({% post_url 2022-07-10-func-approx %}#tdc), a state-value Gradient-TD method.
+
+In this algorithm, we will define a new off-policy $\lambda$-return, which also based on importance sampling, as:
+\begin{equation}
+G_t^{\lambda\rho}(\mathbf{w})\doteq\rho_t\Big(R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{x}\_{t+1}^\intercal\mathbf{w}+\gamma_{t+1}\lambda_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\Big),\tag{19}\label{19},
+\end{equation}
+where the single-step importance sampling ratio, $\rho_t$, is defined as usual:
+\begin{equation}
+\rho_t=\frac{\pi(A_t|S_t)}{b(A_t|S_t)}
+\end{equation}
+The $\lambda$-return, $G_t^{\lambda\rho}$, in this case, not like usual, defined as a function of weight vector $\mathbf{w}$. Let:
+\begin{equation}
+\delta_t^{\lambda\rho}(\mathbf{w})\doteq G_t^{\lambda\rho}(\mathbf{w})-\mathbf{w}^\intercal\mathbf{x}\_t
+\end{equation}
+
+Let $v_\mathbf{w}$ be a parameterized function such that $v_\mathbf{w}(s)=\mathbf{w}^\intercal\mathbf{x}(s)$ and let $T_\pi^\lambda$ be a parameterized Bellman operator such that for any $v:\mathcal{S}\to\mathbb{R}$:
+\begin{equation}
+(T_\pi^\lambda v)(s)=\mathbb{E}\_\pi\big[R_1+\lambda_1(1-\lambda_1)v(S_1)+\gamma_1\lambda_1(T_\pi^\lambda v)(S_1)|S_0=s\big]
+\end{equation}
+In general, we can not achieve $v_\mathbf{w}=T_\pi^\lambda v_\mathbf{w}$, because $T_\pi^\lambda$ is not guaranteed to be a function that we can represent with our chosen function approximation. However, it is possible to find the fixed point defined by:
+\begin{equation}
+v_\mathbf{w}=\Pi T_\pi^\lambda v_\mathbf{w},\tag{20}\label{20}
+\end{equation}
+where $\Pi v$ is a projection of $v$ into the space of representable functions $\\{v_\mathbf{w}|\mathbf{w}\in\mathbb{R}^d\\}$.
+
+Let $\mu$ be the steady-state distribution of states under the behavior policy $b$. Then, the projection can be defined as:
+\begin{equation}
+\Pi v\doteq v_{\mathbf{w}},
+\end{equation}
+where
+\begin{equation}
+\mathbf{w}={\arg\min}\_{\mathbf{w}\in\mathbb{R}^d}\left\Vert v-v_\mathbf{w}\right\Vert_\mu^2,
+\end{equation}
+where $\left\Vert\cdot\right\Vert_\mu^2$ is a norm defined by
+\begin{equation}
+\left\Vert f\right\Vert_\mu^2\doteq\sum_s\mu(s)f(s)^2
+\end{equation}
+The fixed point \eqref{20} can be found by minimizing the Mean Square Projected Bellman Error, $\overline{\text{PBE}}$:
+\begin{align}
+\overline{\text{PBE}}(\mathbf{w})&\doteq\left\Vert v_\mathbf{w}-\Pi T_\pi^\lambda v_\mathbf{w}\right\Vert_\mu^2 \\\\ &=\mathbb{E}\_b\big[\delta_t^\pi(\mathbf{w})\mathbf{x}\_t\big]^\intercal\mathbb{E}\_b\big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\big]^{-1}\mathbb{E}\_b\big[\delta_t^\pi(\mathbf{w})\mathbf{x}\_t\big],
+\end{align}
+where $\delta_t^\pi(\mathbf{w})\doteq\left(T_\pi^\lambda v_\mathbf{w}\right)(S_t)-v_\mathbf{w}(S_t)$. 
+
+The SGD update at time step $t$ is then
+\begin{equation}
+\mathbf{w}\_{t+1}\doteq\mathbf{w}\_t-\frac{1}{2}\alpha\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w})\big\vert_{\mathbf{w}\_t},
+\end{equation}
+where
+\begin{align}
+-\frac{1}{2}\alpha\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w})\big\vert_{\mathbf{w}\_t}&=-\mathbb{E}\_b\Big[\nabla_\mathbf{w}\delta_t^\pi(\mathbf{w})\mathbf{x}\_t^\intercal\Big]\mathbb{E}\_b\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\_b\Big[\delta_t^\pi(\mathbf{w}\_t)\mathbf{x}\_t\Big] \\\\ &=\mathbb{E}\_b\Big[\big(\mathbf{x}\_t-\nabla_\mathbf{w}G_t^{\lambda\rho}(\mathbf{w})\big)\mathbf{x}\_t^\intercal\Big]\mathbb{E}\_b\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\_b\Big[\delta_t^\pi(\mathbf{w}\_t)\mathbf{x}\_t\Big] \\\\ &=\mathbb{E}\_b\Big[\delta_t^\pi(\mathbf{w}\_t)\mathbf{x}\_t\Big]-\mathbb{E}\_b\Big[\nabla_\mathbf{w}G_t^{\lambda\rho}(\mathbf{w}\_t)\mathbf{x}\_t^\intercal\Big]\mathbb{E}\_b\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\_b\Big[\delta_t^\pi(\mathbf{w}\_t)\mathbf{x}\_t\Big] \\\\ &=\mathbb{E}\_b\Big[\delta_t^\pi(\mathbf{w}\_t)\mathbf{x}\_t\Big]-\mathbb{E}\_b\Big[\nabla_\mathbf{w}G_t^{\lambda\rho}(\mathbf{w}\_t)\mathbf{x}\_t\Big]^\intercal\mathbf{v}\_{\*},\tag{21}\label{21}
+\end{align}
+with $G_t^{\lambda\rho}$ defined as \eqref{19}, and where:
+\begin{equation}
+\mathbf{v}\_{\*}\doteq\mathbb{E}\_b\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\_b\Big[\delta_t^\pi(\mathbf{w}\_t)\mathbf{x}\_t\Big]
+\end{equation}
+The expected value in the second factor in \eqref{21} can be written as:
+\begin{align}
+\mathbb{E}\_b\Big[\nabla_\mathbf{w}G_t^{\lambda\rho}(\mathbf{w})\mathbf{x}\_t\Big]
+\end{align}
 
 ### CQ($\lambda$)
 {: #cq-lambda}
+**CQ($\lambda$)** is another eligible trace version of a Gradient-TD method but with action values. Its goal is to learn a parameter $\mathbf{w}\_t$ such that $\hat{q}(s,a,\mathbf{w}\_t)\doteq\mathbf{w}\_t^\intercal\mathbf{x}(s,a)\approx q_\pi(s,a)$ from data given by following a behavior policy $b$.
+
+If the target is $\varepsilon$-greedy, or biased toward the greedy policy for $\hat{q}$, then CQ($\lambda$) can be used as a control method. The update of its is:
+\begin{equation}
+\mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\delta_t^a\mathbf{z}\_t-\alpha\gamma_{t+1}(1-\lambda_{t+1})(\mathbf{z}\_t^\intercal\mathbf{v}\_t)\bar{\mathbf{x}}\_{t+1},
+\end{equation}
+where $\bar{\mathbf{x}}$
+
 
 ### HTD($\lambda$)
 {: #htd-lambda}
@@ -427,7 +496,9 @@ Using this eligible trace vector with the parameter update rule \eqref{2} of TD(
 
 [5] Hado Van Hasselt & A. Rupam Mahmood & Richard S. Sutton. [Off-policy TD(λ) with a true online equivalence](https://www.researchgate.net/publication/263653431_Off-policy_TDl_with_a_true_online_equivalence). Uncertainty in Artificial Intelligence - Proceedings of the 30th Conference, UAI 2014. 
 
-[6] Shangtong Zhang. [Reinforcement Learning: An Introduction implementation](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction). 
+[6] Hamid Reza Maei. [Gradient Temporal-Difference Learning Algorithms](https://era.library.ualberta.ca/items/fd55edcb-ce47-4f84-84e2-be281d27b16a/view/373459a7-72d1-4de2-bcd5-5f51e2f745e9/Hamid_Maei_PhDThesis.pdf). PhD Thesis, 2011. 
+
+[7] Shangtong Zhang. [Reinforcement Learning: An Introduction implementation](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction). 
 
 ## Footnotes
 {: #footnotes}

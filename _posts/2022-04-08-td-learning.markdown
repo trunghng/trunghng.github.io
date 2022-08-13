@@ -795,6 +795,7 @@ If $h\lt T$, the recursion ends with $G_{h:h}\doteq Q_{h-1}(S_h,A_h)$, whereas, 
 
 #### $\boldsymbol{n}$-step Tree Backup
 {: #n-step-tree-backup}
+So, is there possibly an off-policy method without the use of importance sampling? Yes, and of them is called **Tree-backup**.
 
 The idea of tree-backup update is to start with the target of the one-step update, which is defined as the first reward plus the discounted estimated value of the next state. This estimated value is computed as the weighted sum of estimated action values. Each weight corresponding to an action is proportional to its probability of occurrence. In particular, the target of one-step tree-backup update is: 
 \begin{equation}
@@ -809,9 +810,9 @@ The target of two-step update, which also is defined as sum of the first reward 
 G_{t:t+2}&\doteq R_{t+1}+\gamma\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})Q_{t+1}(S_{t+1},a) \\\\ &\hspace{1cm}+\gamma\pi(A_{t+1}|S_{t+1})\Big(R_{t+2}+\gamma\pi(a|S_{t+2})Q_{t+1}(S_{t+2},a)\Big) \\\\&=R_{t+1}+\gamma\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})Q_{t+1}(S_{t+1},a)+\gamma\pi(A_{t+1}|S_{t+1})G_{t+1:t+2},
 \end{align}
 for $t\<T-2$. Hence, the target of the $n$-step tree-backup update recursively can be defined as:
-\begin{equation}
+<span id='n-step-tree-backup-return'>\begin{equation}
 G_{t:t+n}\doteq R_{t+1}+\gamma\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})Q_{t+n-1}(S_{t+1},a)+\gamma\pi(A_{t+1}|S_{t+1})G_{t+1:t+n}\tag{14}\label{14}
-\end{equation}
+\end{equation}</span>
 for $t\<T-1,n\geq 2$. The $n$-step tree-backup update can be illustrated through the following diagram
 <figure>
 	<img src="/assets/images/2022-04-08/3-step-tree-backup.png" alt="3-step tree-backup" style="display: block; margin-left: auto; margin-right: auto; width: 110px; height: 375px"/>

@@ -35,8 +35,10 @@ comments: true
 		- [Differential Semi-gradient n-step Sarsa](#dif-semi-grad-n-step-sarsa)
 - [Off-policy Methods](#off-policy-methods)
 	- [Semi-gradient](#off-policy-semi-grad)
-	- [Gradient-TD](#grad-td)
 	- [Residual Bellman Update](#residual-bellman-update)
+	- [Gradient-TD](#grad-td)
+		- [Objective Functions](#obj-funcs)
+		- [Algorithm Derivation](#alg-derivation)
 	- [Emphatic-TD](#em-td)
 - [References](#references)
 - [Footnotes](#footnotes)
@@ -597,6 +599,11 @@ with $\delta_t$ is defined similar to the case of **semi-gradient Expected Sarsa
 
 ### Gradient-TD
 {: #grad-td}
+
+### Objective Functions
+{: #obj-funcs}
+
+
 In this section, we will be considering SGD methods for minimizing the $\overline{\text{PBE}}$.
 
 Rewrite the objective $\overline{\text{PBE}}$ in matrix terms, we have:
@@ -644,10 +651,10 @@ With a given stored estimate $\mathbf{v}\_t$ approximating \eqref{21}, we can ap
 \mathbf{w}\_{t+1}&=\mathbf{w}\_t-\frac{1}{2}\alpha\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w}\_t) \\\\ &=\mathbf{w}\_t-\frac{1}{2}\alpha2\mathbb{E}\left[\rho_t\left(\gamma\mathbf{x}\_{t+1}-\mathbf{x}\_t\right)\mathbf{x}\_t^\intercal\right]\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right] \\\\ &=\mathbf{w}\_t+\alpha\mathbb{E}\left[\rho_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)\mathbf{x}\_t^\intercal\right]\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right]\tag{22}\label{22} \\\\ &\approx\mathbf{w}\_t+\alpha\mathbb{E}\left[\rho_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)\mathbf{x}\_t^\intercal\right]\mathbf{v}\_t \\\\ &\approx\mathbf{w}\_t+\alpha\rho_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)\mathbf{x}\_t\mathbf{v}\_t
 \end{align}
 This algorithm is called **GTD2**. From \eqref{22}, we can also continue to derive as:
-\begin{align}
+<span id='tdc'>\begin{align}
 \mathbf{w}\_{t+1}&=\mathbf{w}\_t+\alpha\mathbb{E}\left[\rho_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)\mathbf{x}\_t^\intercal\right]\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right] \\\\ &=\mathbf{w}\_t+\alpha\left(\mathbb{E}\left[\rho_t\mathbf{x}\_t\mathbf{x}\_t^\intercal\right]-\gamma\mathbb{E}\left[\rho_t\mathbf{x}\_{t+1}\mathbf{x}\_t^\intercal\right]\right)\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right] \\\\ &=\mathbf{w}\_t+\alpha\left(\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\intercal\right]-\gamma\mathbb{E}\left[\rho_t\mathbf{x}\_{t+1}\mathbf{x}\_t^\intercal\right]\right)\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right] \\\\ &=\mathbf{w}\_t+\alpha\left(\mathbb{E}\left[\mathbf{x}\_t\rho_t\delta_t\right]-\gamma\mathbb{E}\left[\rho_t\mathbf{x}\_{t+1}\mathbf{x}\_t^\intercal\right]\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right]\right) \\\\ &\approx\mathbf{w}\_t+\alpha\left(\mathbb{E}\left[\mathbf{x}\_t\rho_t\delta_t\right]-\gamma\mathbb{E}\left[\rho_t\mathbf{x}\_{t+1}\mathbf{x}\_t^\intercal\right]\right)\mathbf{v}\_t \\\\ &\approx\mathbf{w}\_t+\alpha\rho_t\left(\delta_t\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\mathbf{x}\_t^\intercal\mathbf{v}\_t\right)
-\end{align}
-This algorithm is known as **TD(0) with gradient correction**, or as **GTD(0)**.
+\end{align}</span>
+This algorithm is known as **TD(0) with gradient correction (TDC)**, or as **GTD(0)**.
 
 ### Emphatic-TD
 {: #em-td}

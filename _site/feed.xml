@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-10T20:07:59+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-13T17:49:06+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Eligible Traces</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html" rel="alternate" type="text/html" title="Eligible Traces" /><published>2022-08-08T14:11:00+07:00</published><updated>2022-08-08T14:11:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html">&lt;blockquote&gt;
   &lt;p&gt;Beside &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#n-step-td&quot;&gt;$n$-step TD&lt;/a&gt; methods, there is another mechanism called &lt;strong&gt;Eligible traces&lt;/strong&gt; that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -317,7 +317,7 @@ where the single-step importance sampling ratio $\rho_t$ is defined as usual:
 \end{equation}
 Much like the other returns, the truncated version of this return can be approximated simply in terms of sums of state-based TD errors:
 \begin{equation}
-G_t^{\lambda s}\approx\hat{v}(S_t,\mathbf{w}_t)+\rho_t\sum_{k=t}^{\infty}\delta_k^s\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i,
+G_t^{\lambda s}\approx\hat{v}(S_t,\mathbf{w}_t)+\rho_t\sum_{k=t}^{\infty}\delta_k^s\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i,\tag{15}\label{15}
 \end{equation}
 where the state-based TD error, $\delta_t^s$, is defined as:
 \begin{equation}
@@ -325,13 +325,13 @@ where the state-based TD error, $\delta_t^s$, is defined as:
 \end{equation}
 with the approximation becoming exact if the approximate value function does not change.&lt;/p&gt;
 
-&lt;p&gt;With this appximation, we have that:
+&lt;p&gt;With this approximation, we have that:
 \begin{align}
 \mathbf{w}_{t+1}&amp;amp;=\mathbf{w}_t+\alpha\left(G_t^{\lambda s}-\hat{v}(S_t,\mathbf{w}_t)\right)\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t) \\ &amp;amp;\approx\mathbf{w}_t+\alpha\rho_t\left(\sum_{k=t}^{\infty}\delta_k^s\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i\right)\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t)
 \end{align}
 This is one time step of a forward view. And in fact, the forward-view update, summed over time, is approximately equal to a backward-view update, summed over time. Since the sum of the forward-view update over time is:
 \begin{align}
-\sum_{t=1}^{\infty}(\mathbf{w}_{t+1}-\mathbf{w}_t)&amp;amp;\approx\sum_{t=1}^{\infty}\sum_{k=t}^{\infty}\alpha\rho_t\delta_k^s\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t)\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i \\ &amp;amp;=\sum_{k=1}^{\infty}\sum_{t=1}^{k}\alpha\rho_t\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t)\delta_k^s\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i \\ &amp;amp;=\sum_{k=1}^{\infty}\alpha\delta_k^s\sum_{t=1}^{k}\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t)\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i,\tag{15}\label{15}
+\sum_{t=1}^{\infty}(\mathbf{w}_{t+1}-\mathbf{w}_t)&amp;amp;\approx\sum_{t=1}^{\infty}\sum_{k=t}^{\infty}\alpha\rho_t\delta_k^s\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t)\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i \\ &amp;amp;=\sum_{k=1}^{\infty}\sum_{t=1}^{k}\alpha\rho_t\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t)\delta_k^s\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i \\ &amp;amp;=\sum_{k=1}^{\infty}\alpha\delta_k^s\sum_{t=1}^{k}\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t)\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i,\tag{16}\label{16}
 \end{align}
 where in the second step, we use the summation rule: $\sum_{t=x}^{y}\sum_{k=t}^{y}=\sum_{k=x}^{y}\sum_{t=x}^{k}$.&lt;/p&gt;
 
@@ -339,17 +339,17 @@ where in the second step, we use the summation rule: $\sum_{t=x}^{y}\sum_{k=t}^{
 \begin{align}
 \mathbf{z}_k &amp;amp;=\sum_{t=1}^{k}\rho_t\nabla_\mathbf{w}\hat{v}\left(S_t, \mathbf{w}_t\right)\prod_{i=t+1}^{k} \gamma_i\lambda_i\rho_i \\ &amp;amp;=\sum_{t=1}^{k-1}\rho_t\nabla_\mathbf{w}\hat{v}\left(S_t,\mathbf{w}_t\right)\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i+\rho_k\nabla_\mathbf{w}\hat{v}\left(S_k,\mathbf{w}_k\right) \\ &amp;amp;=\gamma_k\lambda_k\rho_k\underbrace{\sum_{t=1}^{k-1}\rho_t\nabla_\mathbf{w}\hat{v}\left(S_t,\mathbf{w}_t\right)\prod_{i=t+1}^{k-1}\gamma_i\lambda_i\rho_i}_{\mathbf{z}_{k-1}}+\rho_k\nabla_\mathbf{w}\hat{v}\left(S_k,\mathbf{w}_k\right) \\ &amp;amp;=\rho_k\big(\gamma_k\lambda_k\mathbf{z}_{k-1}+\nabla_\mathbf{w}\hat{v}\left(S_k,\mathbf{w}_k\right)\big)
 \end{align}
-Then we can rewrite \eqref{15} as:
+Then we can rewrite \eqref{16} as:
 \begin{equation}
 \sum_{t=1}^{\infty}\left(\mathbf{w}_{t+1}-\mathbf{w}_t\right)\approx\sum_{k=1}^{\infty}\alpha\delta_k^s\mathbf{z}_k,
 \end{equation}
 which is sum of the backward-view update over time, with the eligible trace vector is defined as:
 \begin{equation}
-\mathbf{z}_t\doteq\rho_t\left(\gamma_t\lambda_t\mathbf{z}_{t-1}+\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t)\right)\tag{16}\label{16}
+\mathbf{z}_t\doteq\rho_t\big(\gamma_t\lambda_t\mathbf{z}_{t-1}+\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t)\big)\tag{17}\label{17}
 \end{equation}
 Using this eligible trace with the parameter update rule \eqref{2} of TD($\lambda$), we obtain a general TD($\lambda$) algorithm that can be applied to either on-policy or off-policy data.&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;In the on-policy case, the algorithm is exactly TD($\lambda$) because $\rho_t=1$ for all $t$ and \eqref{16} becomes the accumulating trace \eqref{1} with extending to variable $\lambda$ and $\gamma$.&lt;/li&gt;
+  &lt;li&gt;In the on-policy case, the algorithm is exactly TD($\lambda$) because $\rho_t=1$ for all $t$ and \eqref{17} becomes the accumulating trace \eqref{1} with extending to variable $\lambda$ and $\gamma$.&lt;/li&gt;
   &lt;li&gt;In the off-policy case, the algorithm often works well but, as a semi-gradient method, is not guaranteed to be stable.&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -365,31 +365,33 @@ G_t^{\lambda a}\approx\hat{q}(S_t,A_t,\mathbf{w}_t)+\sum_{k=t}^{\infty}\delta_k^
 \end{equation}
 with the action-based TD error is defined in terms of the expected approximate value:
 \begin{equation}
-\delta_t^a=R_{t+1}+\gamma_{t+1}\bar{V}_t(S_{t+1})-\hat{q}(S_t,A_t,\mathbf{w}_t)\tag{17}\label{17}
+\delta_t^a=R_{t+1}+\gamma_{t+1}\bar{V}_t(S_{t+1})-\hat{q}(S_t,A_t,\mathbf{w}_t)\tag{18}\label{18}
 \end{equation}
 Like the state value function case, this approximation also becomes exact if the approximate value function does not change.&lt;/p&gt;
 
-&lt;p&gt;Similar to the state case \eqref{16}, we can also define the eligible trace for action values:
+&lt;p&gt;Similar to the state case \eqref{17}, we can also define the eligible trace for action values:
 \begin{equation}
 \mathbf{z}_t\doteq\gamma_t\lambda_t\rho_t\mathbf{z}_{t-1}+\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}_t)
 \end{equation}
-Using this eligible trace with the parameter update rule \eqref{2} of TD($\lambda$) and the expectation-based TD error \eqref{17}, we end up with an Expected Sarsa($\lambda$) algorithm that can applied to either on-policy or off-policy data.&lt;/p&gt;
+Using this eligible trace with the parameter update rule \eqref{2} of TD($\lambda$) and the expectation-based TD error \eqref{18}, we end up with an Expected Sarsa($\lambda$) algorithm that can applied to either on-policy or off-policy data.&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;In the on-policy case with constant $\lambda$ and $\gamma$, this becomes the Sarsa($\lambda$) algorithm.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;tree-backup-lambda&quot;&gt;Tree-Backup($\lambda$)&lt;/h2&gt;
+&lt;p&gt;Recall that in the post of &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html&quot;&gt;TD-Learning&lt;/a&gt;, we have mentioned that there is an off-policy method without importance sampling called &lt;strong&gt;tree-backup&lt;/strong&gt;. Can we extend the idea of tree-backup to an eligible trace version? Yes, we can.&lt;/p&gt;
 
-&lt;p&gt;\begin{align}
+&lt;p&gt;As usual, we begin with establishing the $\lambda$-return by generalizing the $\lambda$-return of Expected Sarsa \eqref{13} with the &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html#n-step-tree-backup-return&quot;&gt;$n$-step Tree-backup return&lt;/a&gt;:
+\begin{align}
 G_t^{\lambda a}&amp;amp;\doteq R_{t+1}+\gamma_{t+1}\Bigg((1-\lambda_{t+1})\bar{V}_t(S_{t+1})+\lambda_{t+1}\Big[\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})\hat{q}(S_{t+1},a,\mathbf{w}_t) \\ &amp;amp;\hspace{2cm}+\pi(A_{t+1}|S_{t+1})G_{t+1}^{\lambda a}\Big]\Bigg) \\ &amp;amp;=R_{t+1}+\gamma_{t+1}\Big(\bar{V}_t(S_{t+1})+\lambda_{t+1}\pi(A_{t+1}|S_{t+1})\left(G_{t+1}^{\lambda a}-\hat{q}(S_{t+1},A_{t+1},\mathbf{w}_t)\right)\Big)
 \end{align}
 This return, as usual, can also be written approximately (ignoring changes in the approximate value function) as sum of TD errors:
 \begin{equation}
 G_t^{\lambda a}\approx\hat{q}(S_t,A_t,\mathbf{w}_t)+\sum_{k=t}^{\infty}\delta_k^a\prod_{i=t+1}^{k}\gamma_i\lambda_i\pi(A_i|S_i),
 \end{equation}
-with the TD error is defined as given by \eqref{17}.&lt;/p&gt;
+with the TD error is defined as given by \eqref{18}.&lt;/p&gt;
 
-&lt;p&gt;Similar to how we derive the eligible trace \eqref{16}, we can define a new eligible trace in terms of target-policy probabilities of the selected actions:
+&lt;p&gt;Similar to how we derive the eligible trace \eqref{17}, we can define a new eligible trace in terms of target-policy probabilities of the selected actions:
 \begin{equation}
 \mathbf{z}_t\doteq\gamma_t\lambda_t\pi(A_t|S_t)\mathbf{z}_{t-1}+\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}_t)
 \end{equation}
@@ -403,8 +405,74 @@ Using this eligible trace vector with the parameter update rule \eqref{2} of TD(
 &lt;h2 id=&quot;other-off-policy-methods-traces&quot;&gt;Other Off-policy Methods with Traces&lt;/h2&gt;
 
 &lt;h3 id=&quot;gtd-lambda&quot;&gt;GTD($\lambda$)&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;GTD($\lambda$)&lt;/strong&gt; is the eligible-trace algorithm analogous to &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#tdc&quot;&gt;&lt;strong&gt;TDC&lt;/strong&gt;&lt;/a&gt;, a state-value Gradient-TD method.&lt;/p&gt;
+
+&lt;p&gt;In this algorithm, we will define a new off-policy $\lambda$-return, which also based on importance sampling, as:
+\begin{equation}
+G_t^{\lambda\rho}(\mathbf{w})\doteq\rho_t\Big(R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{x}_{t+1}^\intercal\mathbf{w}+\gamma_{t+1}\lambda_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\Big),\tag{19}\label{19},
+\end{equation}
+where the single-step importance sampling ratio, $\rho_t$, is defined as usual:
+\begin{equation}
+\rho_t=\frac{\pi(A_t|S_t)}{b(A_t|S_t)}
+\end{equation}
+The $\lambda$-return, $G_t^{\lambda\rho}$, in this case, not like usual, defined as a function of weight vector $\mathbf{w}$. Let:
+\begin{equation}
+\delta_t^{\lambda\rho}(\mathbf{w})\doteq G_t^{\lambda\rho}(\mathbf{w})-\mathbf{w}^\intercal\mathbf{x}_t
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;Let $v_\mathbf{w}$ be a parameterized function such that $v_\mathbf{w}(s)=\mathbf{w}^\intercal\mathbf{x}(s)$ and let $T_\pi^\lambda$ be a parameterized Bellman operator such that for any $v:\mathcal{S}\to\mathbb{R}$:
+\begin{equation}
+(T_\pi^\lambda v)(s)=\mathbb{E}_\pi\big[R_1+\lambda_1(1-\lambda_1)v(S_1)+\gamma_1\lambda_1(T_\pi^\lambda v)(S_1)|S_0=s\big]
+\end{equation}
+In general, we can not achieve $v_\mathbf{w}=T_\pi^\lambda v_\mathbf{w}$, because $T_\pi^\lambda$ is not guaranteed to be a function that we can represent with our chosen function approximation. However, it is possible to find the fixed point defined by:
+\begin{equation}
+v_\mathbf{w}=\Pi T_\pi^\lambda v_\mathbf{w},\tag{20}\label{20}
+\end{equation}
+where $\Pi v$ is a projection of $v$ into the space of representable functions $\{v_\mathbf{w}|\mathbf{w}\in\mathbb{R}^d\}$.&lt;/p&gt;
+
+&lt;p&gt;Let $\mu$ be the steady-state distribution of states under the behavior policy $b$. Then, the projection can be defined as:
+\begin{equation}
+\Pi v\doteq v_{\mathbf{w}},
+\end{equation}
+where
+\begin{equation}
+\mathbf{w}={\arg\min}_{\mathbf{w}\in\mathbb{R}^d}\left\Vert v-v_\mathbf{w}\right\Vert_\mu^2,
+\end{equation}
+where $\left\Vert\cdot\right\Vert_\mu^2$ is a norm defined by
+\begin{equation}
+\left\Vert f\right\Vert_\mu^2\doteq\sum_s\mu(s)f(s)^2
+\end{equation}
+The fixed point \eqref{20} can be found by minimizing the Mean Square Projected Bellman Error, $\overline{\text{PBE}}$:
+\begin{align}
+\overline{\text{PBE}}(\mathbf{w})&amp;amp;\doteq\left\Vert v_\mathbf{w}-\Pi T_\pi^\lambda v_\mathbf{w}\right\Vert_\mu^2 \\ &amp;amp;=\mathbb{E}_b\big[\delta_t^\pi(\mathbf{w})\mathbf{x}_t\big]^\intercal\mathbb{E}_b\big[\mathbf{x}_t\mathbf{x}_t^\intercal\big]^{-1}\mathbb{E}_b\big[\delta_t^\pi(\mathbf{w})\mathbf{x}_t\big],
+\end{align}
+where $\delta_t^\pi(\mathbf{w})\doteq\left(T_\pi^\lambda v_\mathbf{w}\right)(S_t)-v_\mathbf{w}(S_t)$.&lt;/p&gt;
+
+&lt;p&gt;The SGD update at time step $t$ is then
+\begin{equation}
+\mathbf{w}_{t+1}\doteq\mathbf{w}_t-\frac{1}{2}\alpha\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w})\big\vert_{\mathbf{w}_t},
+\end{equation}
+where
+\begin{align}
+-\frac{1}{2}\alpha\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w})\big\vert_{\mathbf{w}_t}&amp;amp;=-\mathbb{E}_b\Big[\nabla_\mathbf{w}\delta_t^\pi(\mathbf{w})\mathbf{x}_t^\intercal\Big]\mathbb{E}_b\Big[\mathbf{x}_t\mathbf{x}_t^\intercal\Big]^{-1}\mathbb{E}_b\Big[\delta_t^\pi(\mathbf{w}_t)\mathbf{x}_t\Big] \\ &amp;amp;=\mathbb{E}_b\Big[\big(\mathbf{x}_t-\nabla_\mathbf{w}G_t^{\lambda\rho}(\mathbf{w})\big)\mathbf{x}_t^\intercal\Big]\mathbb{E}_b\Big[\mathbf{x}_t\mathbf{x}_t^\intercal\Big]^{-1}\mathbb{E}_b\Big[\delta_t^\pi(\mathbf{w}_t)\mathbf{x}_t\Big] \\ &amp;amp;=\mathbb{E}_b\Big[\delta_t^\pi(\mathbf{w}_t)\mathbf{x}_t\Big]-\mathbb{E}_b\Big[\nabla_\mathbf{w}G_t^{\lambda\rho}(\mathbf{w}_t)\mathbf{x}_t^\intercal\Big]\mathbb{E}_b\Big[\mathbf{x}_t\mathbf{x}_t^\intercal\Big]^{-1}\mathbb{E}_b\Big[\delta_t^\pi(\mathbf{w}_t)\mathbf{x}_t\Big] \\ &amp;amp;=\mathbb{E}_b\Big[\delta_t^\pi(\mathbf{w}_t)\mathbf{x}_t\Big]-\mathbb{E}_b\Big[\nabla_\mathbf{w}G_t^{\lambda\rho}(\mathbf{w}_t)\mathbf{x}_t\Big]^\intercal\mathbf{v}_{*},\tag{21}\label{21}
+\end{align}
+with $G_t^{\lambda\rho}$ defined as \eqref{19}, and where:
+\begin{equation}
+\mathbf{v}_{*}\doteq\mathbb{E}_b\Big[\mathbf{x}_t\mathbf{x}_t^\intercal\Big]^{-1}\mathbb{E}_b\Big[\delta_t^\pi(\mathbf{w}_t)\mathbf{x}_t\Big]
+\end{equation}
+The expected value in the second factor in \eqref{21} can be written as:
+\begin{align}
+\mathbb{E}_b\Big[\nabla_\mathbf{w}G_t^{\lambda\rho}(\mathbf{w})\mathbf{x}_t\Big]
+\end{align}&lt;/p&gt;
 
 &lt;h3 id=&quot;cq-lambda&quot;&gt;CQ($\lambda$)&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;CQ($\lambda$)&lt;/strong&gt; is another eligible trace version of a Gradient-TD method but with action values. Its goal is to learn a parameter $\mathbf{w}_t$ such that $\hat{q}(s,a,\mathbf{w}_t)\doteq\mathbf{w}_t^\intercal\mathbf{x}(s,a)\approx q_\pi(s,a)$ from data given by following a behavior policy $b$.&lt;/p&gt;
+
+&lt;p&gt;If the target is $\varepsilon$-greedy, or biased toward the greedy policy for $\hat{q}$, then CQ($\lambda$) can be used as a control method. The update of its is:
+\begin{equation}
+\mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\delta_t^a\mathbf{z}_t-\alpha\gamma_{t+1}(1-\lambda_{t+1})(\mathbf{z}_t^\intercal\mathbf{v}_t)\bar{\mathbf{x}}_{t+1},
+\end{equation}
+where $\bar{\mathbf{x}}$&lt;/p&gt;
 
 &lt;h3 id=&quot;htd-lambda&quot;&gt;HTD($\lambda$)&lt;/h3&gt;
 
@@ -421,7 +489,9 @@ Using this eligible trace vector with the parameter update rule \eqref{2} of TD(
 
 &lt;p&gt;[5] Hado Van Hasselt &amp;amp; A. Rupam Mahmood &amp;amp; Richard S. Sutton. &lt;a href=&quot;https://www.researchgate.net/publication/263653431_Off-policy_TDl_with_a_true_online_equivalence&quot;&gt;Off-policy TD(λ) with a true online equivalence&lt;/a&gt;. Uncertainty in Artificial Intelligence - Proceedings of the 30th Conference, UAI 2014.&lt;/p&gt;
 
-&lt;p&gt;[6] Shangtong Zhang. &lt;a href=&quot;https://github.com/ShangtongZhang/reinforcement-learning-an-introduction&quot;&gt;Reinforcement Learning: An Introduction implementation&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;[6] Hamid Reza Maei. &lt;a href=&quot;https://era.library.ualberta.ca/items/fd55edcb-ce47-4f84-84e2-be281d27b16a/view/373459a7-72d1-4de2-bcd5-5f51e2f745e9/Hamid_Maei_PhDThesis.pdf&quot;&gt;Gradient Temporal-Difference Learning Algorithms&lt;/a&gt;. PhD Thesis, 2011.&lt;/p&gt;
+
+&lt;p&gt;[7] Shangtong Zhang. &lt;a href=&quot;https://github.com/ShangtongZhang/reinforcement-learning-an-introduction&quot;&gt;Reinforcement Learning: An Introduction implementation&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="td-learning" /><category term="n-step-td" /><category term="eligible-traces" /><category term="my-rl" /><summary type="html">Beside $n$-step TD methods, there is another mechanism called Eligible traces that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.</summary></entry><entry><title type="html">Function Approximation</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html" rel="alternate" type="text/html" title="Function Approximation" /><published>2022-07-10T15:26:00+07:00</published><updated>2022-07-10T15:26:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html">&lt;blockquote&gt;
   &lt;p&gt;Reinforcement Learning in continuous state space requires function approximation.&lt;/p&gt;
@@ -473,8 +543,13 @@ Using this eligible trace vector with the parameter update rule \eqref{2} of TD(
   &lt;li&gt;&lt;a href=&quot;#off-policy-methods&quot;&gt;Off-policy Methods&lt;/a&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#off-policy-semi-grad&quot;&gt;Semi-gradient&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#grad-td&quot;&gt;Gradient-TD&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#residual-bellman-update&quot;&gt;Residual Bellman Update&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#grad-td&quot;&gt;Gradient-TD&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#obj-funcs&quot;&gt;Objective Functions&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#alg-derivation&quot;&gt;Algorithm Derivation&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#em-td&quot;&gt;Emphatic-TD&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
@@ -1041,6 +1116,9 @@ with $\delta_t$ is defined similar to the case of &lt;strong&gt;semi-gradient Ex
 &lt;h3 id=&quot;residual-bellman-update&quot;&gt;Residual Bellman Update&lt;/h3&gt;
 
 &lt;h3 id=&quot;grad-td&quot;&gt;Gradient-TD&lt;/h3&gt;
+
+&lt;h3 id=&quot;obj-funcs&quot;&gt;Objective Functions&lt;/h3&gt;
+
 &lt;p&gt;In this section, we will be considering SGD methods for minimizing the $\overline{\text{PBE}}$.&lt;/p&gt;
 
 &lt;p&gt;Rewrite the objective $\overline{\text{PBE}}$ in matrix terms, we have:
@@ -1088,10 +1166,10 @@ where $\beta&amp;gt;0$ is a step-size parameter.&lt;/p&gt;
 \mathbf{w}_{t+1}&amp;amp;=\mathbf{w}_t-\frac{1}{2}\alpha\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w}_t) \\ &amp;amp;=\mathbf{w}_t-\frac{1}{2}\alpha2\mathbb{E}\left[\rho_t\left(\gamma\mathbf{x}_{t+1}-\mathbf{x}_t\right)\mathbf{x}_t^\intercal\right]\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}_t\right] \\ &amp;amp;=\mathbf{w}_t+\alpha\mathbb{E}\left[\rho_t\left(\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\right)\mathbf{x}_t^\intercal\right]\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}_t\right]\tag{22}\label{22} \\ &amp;amp;\approx\mathbf{w}_t+\alpha\mathbb{E}\left[\rho_t\left(\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\right)\mathbf{x}_t^\intercal\right]\mathbf{v}_t \\ &amp;amp;\approx\mathbf{w}_t+\alpha\rho_t\left(\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\right)\mathbf{x}_t\mathbf{v}_t
 \end{align}
 This algorithm is called &lt;strong&gt;GTD2&lt;/strong&gt;. From \eqref{22}, we can also continue to derive as:
-\begin{align}
+&lt;span id=&quot;tdc&quot;&gt;\begin{align}
 \mathbf{w}_{t+1}&amp;amp;=\mathbf{w}_t+\alpha\mathbb{E}\left[\rho_t\left(\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\right)\mathbf{x}_t^\intercal\right]\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}_t\right] \\ &amp;amp;=\mathbf{w}_t+\alpha\left(\mathbb{E}\left[\rho_t\mathbf{x}_t\mathbf{x}_t^\intercal\right]-\gamma\mathbb{E}\left[\rho_t\mathbf{x}_{t+1}\mathbf{x}_t^\intercal\right]\right)\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}_t\right] \\ &amp;amp;=\mathbf{w}_t+\alpha\left(\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]-\gamma\mathbb{E}\left[\rho_t\mathbf{x}_{t+1}\mathbf{x}_t^\intercal\right]\right)\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}_t\right] \\ &amp;amp;=\mathbf{w}_t+\alpha\left(\mathbb{E}\left[\mathbf{x}_t\rho_t\delta_t\right]-\gamma\mathbb{E}\left[\rho_t\mathbf{x}_{t+1}\mathbf{x}_t^\intercal\right]\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}_t\right]\right) \\ &amp;amp;\approx\mathbf{w}_t+\alpha\left(\mathbb{E}\left[\mathbf{x}_t\rho_t\delta_t\right]-\gamma\mathbb{E}\left[\rho_t\mathbf{x}_{t+1}\mathbf{x}_t^\intercal\right]\right)\mathbf{v}_t \\ &amp;amp;\approx\mathbf{w}_t+\alpha\rho_t\left(\delta_t\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\mathbf{x}_t^\intercal\mathbf{v}_t\right)
-\end{align}
-This algorithm is known as &lt;strong&gt;TD(0) with gradient correction&lt;/strong&gt;, or as &lt;strong&gt;GTD(0)&lt;/strong&gt;.&lt;/p&gt;
+\end{align}&lt;/span&gt;
+This algorithm is known as &lt;strong&gt;TD(0) with gradient correction (TDC)&lt;/strong&gt;, or as &lt;strong&gt;GTD(0)&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;h3 id=&quot;em-td&quot;&gt;Emphatic-TD&lt;/h3&gt;
 
@@ -1933,6 +2011,7 @@ G_{t:h}&amp;amp;\doteq R_{t+1}+\gamma\left(\rho_{t+1}G_{t+1:h}+\bar{V}_{h-1}(S_{
 If $h\lt T$, the recursion ends with $G_{h:h}\doteq Q_{h-1}(S_h,A_h)$, whereas, if $h\geq T$, the recursion ends with $G_{T-1:h}\doteq R_T$.&lt;/p&gt;
 
 &lt;h4 id=&quot;n-step-tree-backup&quot;&gt;$\boldsymbol{n}$-step Tree Backup&lt;/h4&gt;
+&lt;p&gt;So, is there possibly an off-policy method without the use of importance sampling? Yes, and of them is called &lt;strong&gt;Tree-backup&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;The idea of tree-backup update is to start with the target of the one-step update, which is defined as the first reward plus the discounted estimated value of the next state. This estimated value is computed as the weighted sum of estimated action values. Each weight corresponding to an action is proportional to its probability of occurrence. In particular, the target of one-step tree-backup update is: 
 \begin{equation}
@@ -1947,9 +2026,9 @@ The target of two-step update, which also is defined as sum of the first reward 
 G_{t:t+2}&amp;amp;\doteq R_{t+1}+\gamma\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})Q_{t+1}(S_{t+1},a) \\ &amp;amp;\hspace{1cm}+\gamma\pi(A_{t+1}|S_{t+1})\Big(R_{t+2}+\gamma\pi(a|S_{t+2})Q_{t+1}(S_{t+2},a)\Big) \\&amp;amp;=R_{t+1}+\gamma\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})Q_{t+1}(S_{t+1},a)+\gamma\pi(A_{t+1}|S_{t+1})G_{t+1:t+2},
 \end{align}
 for $t&amp;lt;T-2$. Hence, the target of the $n$-step tree-backup update recursively can be defined as:
-\begin{equation}
+&lt;span id=&quot;n-step-tree-backup-return&quot;&gt;\begin{equation}
 G_{t:t+n}\doteq R_{t+1}+\gamma\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})Q_{t+n-1}(S_{t+1},a)+\gamma\pi(A_{t+1}|S_{t+1})G_{t+1:t+n}\tag{14}\label{14}
-\end{equation}
+\end{equation}&lt;/span&gt;
 for $t&amp;lt;T-1,n\geq 2$. The $n$-step tree-backup update can be illustrated through the following diagram&lt;/p&gt;
 &lt;figure&gt;
 	&lt;img src=&quot;/assets/images/2022-04-08/3-step-tree-backup.png&quot; alt=&quot;3-step tree-backup&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 110px; height: 375px&quot; /&gt;
