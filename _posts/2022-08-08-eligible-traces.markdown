@@ -16,13 +16,18 @@ comments: true
 - [Truncated TD Methods](#truncated-td)
 - [Online \\(\lambda\\)-return](#onl-lambda-return)
 - [True Online TD(λ)](#true-onl-td-lambda)
+	- [Equivalence between forward and backward views](#equivalence-bw-forward-backward)
 	- [Dutch Traces in Monte Carlo](#dutch-traces-mc)
 - [Sarsa(\\(\lambda\\))](#sarsa-lambda)
 - [Variable \\(\lambda\\) and \\(\gamma\\)](#lambda-gamma)
 - [Off-policy Traces with Control Variates](#off-policy-traces-control-variates)
 - [Tree-Backup(\\(\lambda\\))](#tree-backup-lambda)
 - [Other Off-policy Methods with Traces](#other-off-policy-methods-traces)
-	- [GTD(\\(\lambda\\))](#gtd-lambda)
+	- [GTD(λ)](#gtd-lambda)
+		- [Objective function](#gtd-obj-func)
+		- [Forward-view objective function](#forward-obj-func)
+		- [Backward-view objective function](#backward-obj-func)
+		- [GTD(\\(\lambda\\)) Derivation](#gtd-derivation)
 	- [CQ(\\(\lambda\\))](#cq-lambda)
 	- [HTD(\\(\lambda\\))](#htd-lambda)
 	- [Emphatic TD(\\(\lambda\\))](#em-td-lambda)
@@ -231,6 +236,43 @@ There is another kind of trace called **replacing trace**, defined for the tabul
 z_{i,t}\doteq\begin{cases}1 &\text{if }x_{i,t}=1 \\\\ \gamma\lambda z_{i,t-1} &\text{if }x_{i,t}=0\end{cases}
 \end{equation}
 
+### Equivalence between forward and backward views
+{: #equivalence-bw-forward-backward}
+In this section, we will show that there is an interchange between forward and backward view.
+
+**Theorem**  
+*Consider any forward view that updates towards some interim targets $Y_k^t$ with
+\begin{equation}
+\mathbf{w}\_{k+1}^t=\mathbf{w}\_k+\eta_k\left(Y_k^t-\mathbf{x}\_k^\intercal\mathbf{w}\_k^t\right)\mathbf{x}\_k+\mathbf{u}\_k,\hspace{1cm}0\leq k\lt t,
+\end{equation}
+where $\mathbf{w}\_0^t=\mathbf{w}\_0$ for some initial $\mathbf{w}\_0$; $\mathbf{u}\_k\in\mathbb{R}^d$ is any vector that does not depend on $t$. Assume that the temporal differences $Y_k^{t+1}-Y_k^t$ for different $k$ are related through
+\begin{equation}
+Y_k^{t+1}-Y_k^t=c_k(Y_{k+1}^{t+1}-Y_{k+1}^t),\hspace{1cm}\forall k\lt t\tag{11}\label{11} 
+\end{equation}
+where $c_k$ is a scalar that does not depend on $t$. Then the final weights $\mathbf{w}\_t^t$ at each time step $t$ are equal to the weight $\mathbf{w}\_t$ as defined by $\mathbf{z}\_0=\eta_0\mathbf{x}\_0$ and the backward view
+\begin{align}
+\mathbf{w}\_{t+1}&=\mathbf{w}\_t+(Y_t^{t+1}-Y_t^t)\mathbf{z}\_t+\eta_t(Y_t^t-\mathbf{x}\_t^\intercal\mathbf{w}\_t)\mathbf{x}\_t+\mathbf{u}\_t, \\\\ \mathbf{z}\_t&=c_{t-1}\mathbf{z}\_{t-1}+\eta_t\left(1-c_{t-1}\mathbf{x}\_t^\intercal\mathbf{z}\_{t-1}\right)\mathbf{x}\_t,\hspace{1cm}t\gt 0
+\end{align}*
+
+**Proof**  
+Let $\mathbf{F}\_t\doteq\mathbf{I}-\eta_t\mathbf{x}\_t\mathbf{x}\_t^\intercal$ be the *fading matrix* such that $\mathbf{w}\_{t+1}=\mathbf{F}\_k\mathbf{w}\_k^t+\eta_k Y_k^t\mathbf{x}\_k$. For each step $t$, we have:
+\begin{align}
+\mathbf{w}\_{t+1}^{t+1}-\mathbf{w}\_t^t&=\mathbf{F}\_t\mathbf{w}\_t^{t+1}-\mathbf{w}\_t^t+\eta_t Y_t^{t+1}\mathbf{x}\_t+\mathbf{u}\_t \\\\ &=\mathbf{F}\_t(\mathbf{w}\_t^{t+1}-\mathbf{w}\_t^t)+\eta_t Y_t^{t+1}\mathbf{x}\_t+(\mathbf{F}\_t-\mathbf{I})\mathbf{w}\_t^t+\mathbf{u}\_t \\\\ &=\mathbf{F}\_t(\mathbf{w}\_t^{t+1}-\mathbf{w}\_t^t)+\eta_t Y_t^{t+1}\mathbf{x}\_t-\eta_t\mathbf{x}\_t\mathbf{x}\_t^\intercal\mathbf{w}\_t^t+\mathbf{u}\_t \\\\ &=\mathbf{F}\_t(\mathbf{w}\_t^{t+1}-\mathbf{w}\_t^t)+\eta_t(Y_t^{t+1}-\mathbf{x}\_t^\intercal\mathbf{w}\_t^t)\mathbf{x}\_t+\mathbf{u}\_t\tag{12}\label{12}
+\end{align}
+We also have that:
+\begin{align}
+\mathbf{w}\_t^{t+1}-\mathbf{w}\_t^t&=\mathbf{F}\_{t-1}(\mathbf{w}\_{t-1}^{t+1}-\mathbf{w}\_{t-1}^t)+\eta_{t-1}(Y_{t-1}^{t+1}-Y_{t-1}^t)\mathbf{x}\_{t-1} \\\\ &=\mathbf{F}\_{t-1}\mathbf{F}\_{t-2}(\mathbf{w}\_{t-1}^{t+1}-\mathbf{w}\_{t-1}^t)+\eta_{n-2}(Y_{t-2}^{t+1}-Y_{t-2}^t)\mathbf{F}\_{t-1}\mathbf{x}\_{t-2} \\\\ &\hspace{1cm}+\eta_{t-1}(Y_{t-1}^{t+1}-Y_{t-1}^t)\mathbf{x}\_{t-1} \\\\ &\hspace{0.3cm}\vdots \\\\ &=\mathbf{F}\_{t-1}\dots\mathbf{F}\_0(\mathbf{w}\_0^{t+1}-\mathbf{w}\_0^t)+\sum_{k=0}^{t-1}\eta_k\mathbf{F}\_{t-1}\dots\mathbf{F}\_{k+1}(Y_k^{t+1}-Y_k^t)\mathbf{x}\_k \\\\ &=\sum_{k=0}^{t-1}\eta_k\mathbf{F}\_{t-1}\dots\mathbf{F}\_{k+1}(Y_k^{t+1}-Y_k^t)\mathbf{x}\_k \\\\ &=\sum_{k=0}^{t-1}\eta_k\mathbf{F}\_{t-1}\dots\mathbf{F}\_{k+1}c_k(Y_{k+1}^{t+1}-Y_{k+1}^t)\mathbf{x}\_k \\\\ &\hspace{0.3cm}\vdots \\\\ &=c_{t-1}\underbrace{\sum_{k=0}^{t-1}\eta_k\left(\prod_{j=k}^{t-2}c_j\right)\mathbf{F}\_{t-1}\dots\mathbf{F}\_{k+1}\mathbf{x}\_k}\_{\doteq\mathbf{z}\_{t-1}}(Y_t^{t+1}-Y_t^t) \\\\ &=c_{t-1}\mathbf{z}\_{t-1}(Y_t^{t+1}-Y_t^t),\tag{13}\label{13}
+\end{align}
+where in the fifth step, we use the assumption \eqref{11}; the vector $\mathbf{z}\_t$ defined in the sixth step can be computed recursively in terms of $\mathbf{z}\_{t-1}$:
+\begin{align}
+\mathbf{z}\_t&=\sum_{k=0}^{t}\eta_k\left(\prod_{j=k}^{t-1}c_j\right)\mathbf{F}\_1\dots\mathbf{F}\_{k+1}\mathbf{x}\_k \\\\ &=\sum_{k=0}^{t-1}\eta_k\left(\prod_{j=k}^{t-1}c_j\right)\mathbf{F}\_1\dots\mathbf{F}\_{k+1}\mathbf{x}\_k+\eta_t\mathbf{x}\_t \\\\ &=c_{t-1}\mathbf{F}\_t\sum_{k=0}^{t-1}\eta_k\left(\prod_{j=k}^{t-2}c_j\right)\mathbf{F}\_{t-1}\dots\mathbf{F}\_{k+1}\mathbf{x}\_k+\eta_t\mathbf{x}\_t \\\\ &=c_{t-1}\mathbf{F}\_1\mathbf{z}\_{t-1}+\eta_t\mathbf{x}\_t \\\\ &=c_{t-1}\mathbf{z}\_{t-1}+\eta_t(1-c_{t-1}\mathbf{x}\_t^\intercal\mathbf{z}\_{t-1})\mathbf{x}\_t
+\end{align}
+Plug \eqref{13} back into \eqref{12} we obtain:
+\begin{align}
+\mathbf{w}\_{t+1}^{t+1}-\mathbf{w}\_t^t&=c_{t-1}\mathbf{F}\_t\mathbf{z}\_{t-1}(Y_t^{t+1}-Y_t^t)+\eta_t(Y_t^{t+1}-\mathbf{x}\_t^\intercal\mathbf{w}\_t)\mathbf{x}\_t+\mathbf{u}\_t \\\\ &=(\mathbf{z}\_t-\eta_t\mathbf{x}\_t)(Y_t^{t+1}-Y_t^t)+\eta_t(Y_t^{t+1}-\mathbf{x}\_t^\intercal\mathbf{w}\_t)\mathbf{x}\_t+\mathbf{u}\_t \\\\ &=(Y_t^{t+1}-Y_t^t)\mathbf{z}\_t+\eta_t(Y_t^t-\mathbf{x}\_t^\intercal\mathbf{w}\_t)\mathbf{x}\_t+\mathbf{u}\_t
+\end{align}
+Since $\mathbf{w}\_{0,t}\doteq\mathbf{w}\_0$, the desired result follows through induction.
+
 ### Dutch Traces In Monte Carlo
 {: #dutch-traces-mc}
 
@@ -238,7 +280,7 @@ z_{i,t}\doteq\begin{cases}1 &\text{if }x_{i,t}=1 \\\\ \gamma\lambda z_{i,t-1} &\
 {: #sarsa-lambda}
 To apply the use off eligible traces on control problems, we begin by defining the $n$-step return, which is the same as what we have defined [before]({% post_url 2022-07-10-func-approx %}#n-step-return):
 \begin{equation}
-G_{t:t+n}\doteq\ R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{q}(S_{t+n},A_{t+n},\mathbf{w}\_{t+n-1}),\hspace{1cm}t+n\lt T\tag{11}\label{11}
+G_{t:t+n}\doteq\ R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{q}(S_{t+n},A_{t+n},\mathbf{w}\_{t+n-1}),\hspace{1cm}t+n\lt T\tag{14}\label{14}
 \end{equation}
 with $G_{t:t+n}\doteq G_t$ if $t+n\geq T$. With this definition of the return, the action-value form of offline $\lambda$-return can be defined as:
 \begin{equation}
@@ -268,7 +310,7 @@ Pseudocode of the Sarsa($\lambda$) is given below.
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
 </figure>
 
-There is also an action-value version of the online $\lambda$-return algorithm, and its efficient implementation as true online TD($\lambda$), called **True online TD($\lambda$)**, which can be achieved by using $n$-step return \eqref{11} instead (which also leads to the change of $\mathbf{x}\_t=\mathbf{x}(S_t)$ to $\mathbf{x}\_t=\mathbf{x}(S_t,A_t)$). 
+There is also an action-value version of the online $\lambda$-return algorithm, and its efficient implementation as true online TD($\lambda$), called **True online TD($\lambda$)**, which can be achieved by using $n$-step return \eqref{14} instead (which also leads to the change of $\mathbf{x}\_t=\mathbf{x}(S_t)$ to $\mathbf{x}\_t=\mathbf{x}(S_t,A_t)$). 
 
 Pseudocode of the true online Sarsa($\lambda$) is given below.
 <figure>
@@ -290,7 +332,7 @@ where we require that $\prod_{k=t}^{\infty}\gamma_k=0$ with probability $1$ for 
 
 The generalization of $\lambda$ also lets us rewrite the state-based $\lambda$-return as:
 \begin{equation}
-G_t^{\lambda s}\doteq R_{t+1}+\gamma_{t+1}\Big((1-\lambda_{t+1})\hat{v}(S_{t+1},\mathbf{w}\_t)+\lambda_{t+1}G_{t+1}^{\lambda s}\Big),\tag{12}\label{12}
+G_t^{\lambda s}\doteq R_{t+1}+\gamma_{t+1}\Big((1-\lambda_{t+1})\hat{v}(S_{t+1},\mathbf{w}\_t)+\lambda_{t+1}G_{t+1}^{\lambda s}\Big),\tag{15}\label{15}
 \end{equation}
 where $G_t^{\lambda s}$ denotes that this $\lambda$
 -return is bootstrapped from state values, and hence the $G_t^{\lambda a}$ denotes the $\lambda$-return that bootstraps from action values. The Sarsa form of action-based $\lambda$-return is defined as:
@@ -299,18 +341,18 @@ G_t^{\lambda a}\doteq R_{t+1}+\gamma_{t+1}\Big((1-\lambda_{t+1})\hat{q}(S_{t+1},
 \end{equation}
 and the Expected Sarsa form of its can be defined as:
 \begin{equation}
-G_t^{\lambda a}\doteq R_{t+1}+\gamma_{t+1}\Big((1-\lambda_{t+1})\bar{V}\_t(S_{t+1})+\lambda_{t+1}G_{t+1}^{\lambda a}\Big),\tag{13}\label{13}
+G_t^{\lambda a}\doteq R_{t+1}+\gamma_{t+1}\Big((1-\lambda_{t+1})\bar{V}\_t(S_{t+1})+\lambda_{t+1}G_{t+1}^{\lambda a}\Big),\tag{16}\label{16}
 \end{equation}
 where the [expected approximate value]({% post_url 2022-04-08-td-learning %}#expected-approximate-value) is generalized to function approximation as:
 \begin{equation}
-\bar{V}\_t\doteq\sum_a\pi(a|s)\hat{q}(s,a,\mathbf{w}\_t)\tag{14}\label{14}
+\bar{V}\_t\doteq\sum_a\pi(a|s)\hat{q}(s,a,\mathbf{w}\_t)\tag{17}\label{17}
 \end{equation}
 
 ## Off-policy Traces with Control Variates
 {: #off-policy-traces-control-variates}
 We can also apply the use of importance sampling with eligible traces. 
 
-We begin with the new definition of $\lambda$-return, which is achieved by generalizing the $\lambda$-return \eqref{12} with the idea of [control variates on $n$-step off-policy return]({% post_url 2022-04-08-td-learning %}#n-step-return-control-variate-state-value):
+We begin with the new definition of $\lambda$-return, which is achieved by generalizing the $\lambda$-return \eqref{15} with the idea of [control variates on $n$-step off-policy return]({% post_url 2022-04-08-td-learning %}#n-step-return-control-variate-state-value):
 \begin{equation}
 G_t^{\lambda s}\doteq\rho_t\Big(R_{t+1}+\gamma_{t+1}\big((1-\lambda_{t+1})\hat{v}(S_{t+1},\mathbf{w}\_t)+\lambda_{t+1}G_{t+1}^{\lambda s}\big)\Big)+(1-\rho_t)\hat{v}(S_t,\mathbf{w}\_t),
 \end{equation}
@@ -320,11 +362,11 @@ where the single-step importance sampling ratio $\rho_t$ is defined as usual:
 \end{equation}
 Much like the other returns, the truncated version of this return can be approximated simply in terms of sums of state-based TD errors:
 \begin{equation}
-G_t^{\lambda s}\approx\hat{v}(S_t,\mathbf{w}\_t)+\rho_t\sum_{k=t}^{\infty}\delta_k^s\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i,\tag{15}\label{15}
+G_t^{\lambda s}\approx\hat{v}(S_t,\mathbf{w}\_t)+\rho_t\sum_{k=t}^{\infty}\delta_k^s\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i,
 \end{equation}
 where the state-based TD error, $\delta_t^s$, is defined as:
 \begin{equation}
-\delta_t^s\doteq R_{t+1}+\gamma_{t+1}\hat{v}(S_{t+1},\mathbf{w}\_t)-\hat{v}(S_t,\mathbf{w}\_t),
+\delta_t^s\doteq R_{t+1}+\gamma_{t+1}\hat{v}(S_{t+1},\mathbf{w}\_t)-\hat{v}(S_t,\mathbf{w}\_t),\tag{18}\label{18}
 \end{equation}
 with the approximation becoming exact if the approximate value function does not change. 
 
@@ -334,7 +376,7 @@ With this approximation, we have that:
 \end{align}
 This is one time step of a forward view. And in fact, the forward-view update, summed over time, is approximately equal to a backward-view update, summed over time. Since the sum of the forward-view update over time is:
 \begin{align}
-\sum_{t=1}^{\infty}(\mathbf{w}\_{t+1}-\mathbf{w}\_t)&\approx\sum_{t=1}^{\infty}\sum_{k=t}^{\infty}\alpha\rho_t\delta_k^s\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t)\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i \\\\ &=\sum_{k=1}^{\infty}\sum_{t=1}^{k}\alpha\rho_t\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t)\delta_k^s\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i \\\\ &=\sum_{k=1}^{\infty}\alpha\delta_k^s\sum_{t=1}^{k}\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t)\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i,\tag{16}\label{16}
+\sum_{t=1}^{\infty}(\mathbf{w}\_{t+1}-\mathbf{w}\_t)&\approx\sum_{t=1}^{\infty}\sum_{k=t}^{\infty}\alpha\rho_t\delta_k^s\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t)\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i \\\\ &=\sum_{k=1}^{\infty}\sum_{t=1}^{k}\alpha\rho_t\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t)\delta_k^s\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i \\\\ &=\sum_{k=1}^{\infty}\alpha\delta_k^s\sum_{t=1}^{k}\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t)\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i,\tag{19}\label{19}
 \end{align}
 where in the second step, we use the summation rule: $\sum_{t=x}^{y}\sum_{k=t}^{y}=\sum_{k=x}^{y}\sum_{t=x}^{k}$. 
 
@@ -342,23 +384,23 @@ Let $\mathbf{z}\_k$ is defined as:
 \begin{align}
 \mathbf{z}\_k &=\sum_{t=1}^{k}\rho_t\nabla_\mathbf{w}\hat{v}\left(S_t, \mathbf{w}\_t\right)\prod_{i=t+1}^{k} \gamma_i\lambda_i\rho_i \\\\ &=\sum_{t=1}^{k-1}\rho_t\nabla_\mathbf{w}\hat{v}\left(S_t,\mathbf{w}\_t\right)\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i+\rho_k\nabla_\mathbf{w}\hat{v}\left(S_k,\mathbf{w}\_k\right) \\\\ &=\gamma_k\lambda_k\rho_k\underbrace{\sum_{t=1}^{k-1}\rho_t\nabla_\mathbf{w}\hat{v}\left(S_t,\mathbf{w}\_t\right)\prod_{i=t+1}^{k-1}\gamma_i\lambda_i\rho_i}\_{\mathbf{z}\_{k-1}}+\rho_k\nabla_\mathbf{w}\hat{v}\left(S_k,\mathbf{w}\_k\right) \\\\ &=\rho_k\big(\gamma_k\lambda_k\mathbf{z}\_{k-1}+\nabla_\mathbf{w}\hat{v}\left(S_k,\mathbf{w}\_k\right)\big)
 \end{align}
-Then we can rewrite \eqref{16} as:
+Then we can rewrite \eqref{19} as:
 \begin{equation}
 \sum_{t=1}^{\infty}\left(\mathbf{w}\_{t+1}-\mathbf{w}\_t\right)\approx\sum_{k=1}^{\infty}\alpha\delta_k^s\mathbf{z}\_k,
 \end{equation}
 which is sum of the backward-view update over time, with the eligible trace vector is defined as:
 \begin{equation}
-\mathbf{z}\_t\doteq\rho_t\big(\gamma_t\lambda_t\mathbf{z}\_{t-1}+\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t)\big)\tag{17}\label{17}
+\mathbf{z}\_t\doteq\rho_t\big(\gamma_t\lambda_t\mathbf{z}\_{t-1}+\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t)\big)\tag{20}\label{20}
 \end{equation}
 Using this eligible trace with the parameter update rule \eqref{2} of TD($\lambda$), we obtain a general TD($\lambda$) algorithm that can be applied to either on-policy or off-policy data.
-- In the on-policy case, the algorithm is exactly TD($\lambda$) because $\rho_t=1$ for all $t$ and \eqref{17} becomes the accumulating trace \eqref{1} with extending to variable $\lambda$ and $\gamma$.
+- In the on-policy case, the algorithm is exactly TD($\lambda$) because $\rho_t=1$ for all $t$ and \eqref{20} becomes the accumulating trace \eqref{1} with extending to variable $\lambda$ and $\gamma$.
 - In the off-policy case, the algorithm often works well but, as a semi-gradient method, is not guaranteed to be stable. 
 
-For action-value function, we generalize the definition of the $\lambda$-return \eqref{13} of Expected Sarsa with the idea of [control variate]({% post_url 2022-04-08-td-learning %}#n-step-return-control-variate-action-value):
+For action-value function, we generalize the definition of the $\lambda$-return \eqref{16} of Expected Sarsa with the idea of [control variate]({% post_url 2022-04-08-td-learning %}#n-step-return-control-variate-action-value):
 \begin{align}
 G_t^{\lambda a}&\doteq R_{t+1}+\gamma_{t+1}\Big((1-\lambda_{t+1})\bar{V}\_t(S_{t+1})+\lambda_{t+1}\big[\rho_{t+1}G_{t+1}^{\lambda a}+\bar{V}\_t(S_{t+1}) \\\\ &\hspace{2cm}-\rho_{t+1}\hat{q}(S_{t+1},A_{t+1},\mathbf{w}\_t)\big]\Big) \\\\ &=R_{t+1}+\gamma_{t+1}\Big(\bar{V}\_t(S_{t+1})+\lambda_{t+1}\rho_{t+1}\left[G_{t+1}^{\lambda a}-\hat{q}(S_{t+1},A_{t+1},\mathbf{w}\_t)\right]\Big),
 \end{align}
-where the expected approximate value $\bar{V}\_t(S_{t+1})$ is as given by \eqref{14}.
+where the expected approximate value $\bar{V}\_t(S_{t+1})$ is as given by \eqref{17}.
 
 Similar to the others, this $\lambda$-return can also be written approximately as the sum of TD errors
 \begin{equation}
@@ -366,22 +408,22 @@ G_t^{\lambda a}\approx\hat{q}(S_t,A_t,\mathbf{w}\_t)+\sum_{k=t}^{\infty}\delta_k
 \end{equation}
 with the action-based TD error is defined in terms of the expected approximate value:
 \begin{equation}
-\delta_t^a=R_{t+1}+\gamma_{t+1}\bar{V}\_t(S_{t+1})-\hat{q}(S_t,A_t,\mathbf{w}\_t)\tag{18}\label{18}
+\delta_t^a=R_{t+1}+\gamma_{t+1}\bar{V}\_t(S_{t+1})-\hat{q}(S_t,A_t,\mathbf{w}\_t)\tag{21}\label{21}
 \end{equation}
 Like the state value function case, this approximation also becomes exact if the approximate value function does not change.
 
-Similar to the state case \eqref{17}, we can also define the eligible trace for action values:
+Similar to the state case \eqref{20}, we can also define the eligible trace for action values:
 \begin{equation}
 \mathbf{z}\_t\doteq\gamma_t\lambda_t\rho_t\mathbf{z}\_{t-1}+\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}\_t)
 \end{equation}
-Using this eligible trace with the parameter update rule \eqref{2} of TD($\lambda$) and the expectation-based TD error \eqref{18}, we end up with an Expected Sarsa($\lambda$) algorithm that can applied to either on-policy or off-policy data.
+Using this eligible trace with the parameter update rule \eqref{2} of TD($\lambda$) and the expectation-based TD error \eqref{21}, we end up with an Expected Sarsa($\lambda$) algorithm that can applied to either on-policy or off-policy data.
 - In the on-policy case with constant $\lambda$ and $\gamma$, this becomes the Sarsa($\lambda$) algorithm.
 
 ## Tree-Backup($\lambda$)
 {: #tree-backup-lambda}
 Recall that in the post of [TD-Learning]({% post_url 2022-04-08-td-learning %}), we have mentioned that there is an off-policy method without importance sampling called **tree-backup**. Can we extend the idea of tree-backup to an eligible trace version? Yes, we can.
 
-As usual, we begin with establishing the $\lambda$-return by generalizing the $\lambda$-return of Expected Sarsa \eqref{13} with the [$n$-step Tree-backup return]({% post_url 2022-04-08-td-learning %}#n-step-tree-backup-return):
+As usual, we begin with establishing the $\lambda$-return by generalizing the $\lambda$-return of Expected Sarsa \eqref{16} with the [$n$-step Tree-backup return]({% post_url 2022-04-08-td-learning %}#n-step-tree-backup-return):
 \begin{align}
 G_t^{\lambda a}&\doteq R_{t+1}+\gamma_{t+1}\Bigg((1-\lambda_{t+1})\bar{V}\_t(S_{t+1})+\lambda_{t+1}\Big[\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})\hat{q}(S_{t+1},a,\mathbf{w}\_t) \\\\ &\hspace{2cm}+\pi(A_{t+1}|S_{t+1})G_{t+1}^{\lambda a}\Big]\Bigg) \\\\ &=R_{t+1}+\gamma_{t+1}\Big(\bar{V}\_t(S_{t+1})+\lambda_{t+1}\pi(A_{t+1}|S_{t+1})\left(G_{t+1}^{\lambda a}-\hat{q}(S_{t+1},A_{t+1},\mathbf{w}\_t)\right)\Big)
 \end{align}
@@ -389,9 +431,9 @@ This return, as usual, can also be written approximately (ignoring changes in th
 \begin{equation}
 G_t^{\lambda a}\approx\hat{q}(S_t,A_t,\mathbf{w}\_t)+\sum_{k=t}^{\infty}\delta_k^a\prod_{i=t+1}^{k}\gamma_i\lambda_i\pi(A_i|S_i),
 \end{equation}
-with the TD error is defined as given by \eqref{18}.
+with the TD error is defined as given by \eqref{21}.
 
-Similar to how we derive the eligible trace \eqref{17}, we can define a new eligible trace in terms of target-policy probabilities of the selected actions:
+Similar to how we derive the eligible trace \eqref{20}, we can define a new eligible trace in terms of target-policy probabilities of the selected actions:
 \begin{equation}
 \mathbf{z}\_t\doteq\gamma_t\lambda_t\pi(A_t|S_t)\mathbf{z}\_{t-1}+\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}\_t)
 \end{equation}
@@ -409,17 +451,9 @@ Using this eligible trace vector with the parameter update rule \eqref{2} of TD(
 {: #gtd-lambda}
 **GTD($\lambda$)** is the eligible-trace algorithm analogous to [**TDC**]({% post_url 2022-07-10-func-approx %}#tdc), a state-value Gradient-TD method.
 
-In this algorithm, we will define a new off-policy $\lambda$-return, which also based on importance sampling, as:
+We begin by defining the $\lambda$-return (function) as:
 \begin{equation}
-G_t^{\lambda\rho}(\mathbf{w})\doteq\rho_t\Big(R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{x}\_{t+1}^\intercal\mathbf{w}+\gamma_{t+1}\lambda_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\Big),\tag{19}\label{19},
-\end{equation}
-where the single-step importance sampling ratio, $\rho_t$, is defined as usual:
-\begin{equation}
-\rho_t=\frac{\pi(A_t|S_t)}{b(A_t|S_t)}
-\end{equation}
-The $\lambda$-return, $G_t^{\lambda\rho}$, in this case, not like usual, defined as a function of weight vector $\mathbf{w}$. Let:
-\begin{equation}
-\delta_t^{\lambda\rho}(\mathbf{w})\doteq G_t^{\lambda\rho}(\mathbf{w})-\mathbf{w}^\intercal\mathbf{x}\_t
+G_t^\lambda(v)\doteq R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})v(S_{t+1})+\gamma_{t+1}\lambda_{t+1}G_{t+1}^\lambda(v)
 \end{equation}
 
 Let $v_\mathbf{w}$ be a parameterized function such that $v_\mathbf{w}(s)=\mathbf{w}^\intercal\mathbf{x}(s)$ and let $T_\pi^\lambda$ be a parameterized Bellman operator such that for any $v:\mathcal{S}\to\mathbb{R}$:
@@ -428,7 +462,7 @@ Let $v_\mathbf{w}$ be a parameterized function such that $v_\mathbf{w}(s)=\mathb
 \end{equation}
 In general, we can not achieve $v_\mathbf{w}=T_\pi^\lambda v_\mathbf{w}$, because $T_\pi^\lambda$ is not guaranteed to be a function that we can represent with our chosen function approximation. However, it is possible to find the fixed point defined by:
 \begin{equation}
-v_\mathbf{w}=\Pi T_\pi^\lambda v_\mathbf{w},\tag{20}\label{20}
+v_\mathbf{w}=\Pi T_\pi^\lambda v_\mathbf{w},\tag{22}\label{22}
 \end{equation}
 where $\Pi v$ is a projection of $v$ into the space of representable functions $\\{v_\mathbf{w}|\mathbf{w}\in\mathbb{R}^d\\}$.
 
@@ -444,28 +478,32 @@ where $\left\Vert\cdot\right\Vert_\mu^2$ is a norm defined by
 \begin{equation}
 \left\Vert f\right\Vert_\mu^2\doteq\sum_s\mu(s)f(s)^2
 \end{equation}
-The fixed point \eqref{20} can be found by minimizing the Mean Square Projected Bellman Error, $\overline{\text{PBE}}$:
-\begin{align}
-\overline{\text{PBE}}(\mathbf{w})&\doteq\left\Vert v_\mathbf{w}-\Pi T_\pi^\lambda v_\mathbf{w}\right\Vert_\mu^2 \\\\ &=\mathbb{E}\_b\big[\delta_t^\pi(\mathbf{w})\mathbf{x}\_t\big]^\intercal\mathbb{E}\_b\big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\big]^{-1}\mathbb{E}\_b\big[\delta_t^\pi(\mathbf{w})\mathbf{x}\_t\big],
-\end{align}
-where $\delta_t^\pi(\mathbf{w})\doteq\left(T_\pi^\lambda v_\mathbf{w}\right)(S_t)-v_\mathbf{w}(S_t)$. 
+
+#### Objective function
+{: #gtd-obj-func}
+The fixed point \eqref{22} can be found by minimizing the Mean Square Projected Bellman Error, $\overline{\text{PBE}}$:
+\begin{equation}
+\overline{\text{PBE}}(\mathbf{w})\doteq\left\Vert v_\mathbf{w}-\Pi T_\pi^\lambda v_\mathbf{w}\right\Vert_\mu^2
+\end{equation}
+Let
+\begin{equation}
+G_t^\lambda(\mathbf{w})\doteq R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}\_t+\gamma_{t+1}\lambda_{t+1}G_{t+1}^\lambda,
+\end{equation}
+and
+\begin{equation}
+\delta_t^\lambda({\mathbf{w})\doteq G_t^\lambda(\mathbf{w})-\mathbf{w}^\intercal\mathbf{x}\_t,
+\end{equation}
+and
+\begin{equation}
+
+\end{equation}
+
 
 The SGD update at time step $t$ is then
 \begin{equation}
 \mathbf{w}\_{t+1}\doteq\mathbf{w}\_t-\frac{1}{2}\alpha\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w})\big\vert_{\mathbf{w}\_t},
 \end{equation}
-where
-\begin{align}
--\frac{1}{2}\alpha\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w})\big\vert_{\mathbf{w}\_t}&=-\mathbb{E}\_b\Big[\nabla_\mathbf{w}\delta_t^\pi(\mathbf{w})\mathbf{x}\_t^\intercal\Big]\mathbb{E}\_b\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\_b\Big[\delta_t^\pi(\mathbf{w}\_t)\mathbf{x}\_t\Big] \\\\ &=\mathbb{E}\_b\Big[\big(\mathbf{x}\_t-\nabla_\mathbf{w}G_t^{\lambda\rho}(\mathbf{w})\big)\mathbf{x}\_t^\intercal\Big]\mathbb{E}\_b\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\_b\Big[\delta_t^\pi(\mathbf{w}\_t)\mathbf{x}\_t\Big] \\\\ &=\mathbb{E}\_b\Big[\delta_t^\pi(\mathbf{w}\_t)\mathbf{x}\_t\Big]-\mathbb{E}\_b\Big[\nabla_\mathbf{w}G_t^{\lambda\rho}(\mathbf{w}\_t)\mathbf{x}\_t^\intercal\Big]\mathbb{E}\_b\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\_b\Big[\delta_t^\pi(\mathbf{w}\_t)\mathbf{x}\_t\Big] \\\\ &=\mathbb{E}\_b\Big[\delta_t^\pi(\mathbf{w}\_t)\mathbf{x}\_t\Big]-\mathbb{E}\_b\Big[\nabla_\mathbf{w}G_t^{\lambda\rho}(\mathbf{w}\_t)\mathbf{x}\_t\Big]^\intercal\mathbf{v}\_{\*},\tag{21}\label{21}
-\end{align}
-with $G_t^{\lambda\rho}$ defined as \eqref{19}, and where:
-\begin{equation}
-\mathbf{v}\_{\*}\doteq\mathbb{E}\_b\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\_b\Big[\delta_t^\pi(\mathbf{w}\_t)\mathbf{x}\_t\Big]
-\end{equation}
-The expected value in the second factor in \eqref{21} can be written as:
-\begin{align}
-\mathbb{E}\_b\Big[\nabla_\mathbf{w}G_t^{\lambda\rho}(\mathbf{w})\mathbf{x}\_t\Big]
-\end{align}
+
 
 ### CQ($\lambda$)
 {: #cq-lambda}

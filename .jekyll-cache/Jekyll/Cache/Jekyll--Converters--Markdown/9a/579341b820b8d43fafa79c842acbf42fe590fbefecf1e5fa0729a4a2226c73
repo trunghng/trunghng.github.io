@@ -1,162 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-<link href="https://fonts.googleapis.com/css?family=Merriweather:400,900,900i" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<style type="text/css">
-  #button {
-    display: inline-block;
-    background-color: #A5CCF1;
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    border-radius: 4px;
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    transition: background-color .3s, 
-      opacity .5s, visibility .5s;
-    opacity: 0;
-    visibility: hidden;
-    z-index: 1000;
-  }
-  #button::after {
-    content: "\f077";
-    font-family: FontAwesome;
-    font-weight: normal;
-    font-style: normal;
-    font-size: 2em;
-    line-height: 50px;
-    color: #fff;
-  }
-  #button:hover {
-    cursor: pointer;
-    background-color: #333;
-    text-decoration: none;
-  }
-  #button:active {
-    background-color: #555;
-  }
-  #button.show {
-    opacity: 1;
-    visibility: visible;
-  }
-</style><head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Eligible Traces | Trung’s cabin</title>
-<meta name="generator" content="Jekyll v4.2.1" />
-<meta property="og:title" content="Eligible Traces" />
-<meta name="author" content="Trung H. Nguyen" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="Eligible Traces" />
-<meta property="og:description" content="Eligible Traces" />
-<link rel="canonical" href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html" />
-<meta property="og:url" content="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html" />
-<meta property="og:site_name" content="Trung’s cabin" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2022-08-08T14:11:00+07:00" />
-<meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Eligible Traces" />
-<script type="application/ld+json">
-{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","description":"Eligible Traces","headline":"Eligible Traces","dateModified":"2022-08-08T14:11:00+07:00","datePublished":"2022-08-08T14:11:00+07:00","url":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html"},"@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Trung&apos;s cabin" />
-    
-
-
-
-
-
-  
-
-<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
-<link rel="manifest" href="/assets/images/site.webmanifest">
-<link rel="mask-icon" href="/assets/images/safari-pinned-tab.svg" color="#5bbad5">
-<meta name="msapplication-TileColor" content="#da532c">
-<meta name="theme-color" content="#ffffff"></head>
-<body><header class="site-header">
-  <div class="snorlax"></div>
-
-  <div class="wrapper"><a class="site-title" rel="author" href="/">Trung&#39;s cabin</a><nav class="site-nav">
-        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
-        <label for="nav-trigger">
-          <span class="menu-icon">
-            <svg viewBox="0 0 18 15" width="18px" height="15px">
-              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
-            </svg>
-          </span>
-        </label>
-
-        <div class="trigger"><a class="page-link" href="/archive/">Archive</a><a class="page-link" href="/about/">About</a></div>
-      </nav></div>
-</header>
-<main class="page-content" aria-label="Content">
-      <a id="button"></a>
-      <div class="wrapper">
-        <style>
-@import "/assets/css/default.css"
-</style>
-<style>
-  .collapsible {
-    background-color: #A5CCF1;
-    color: white;
-    cursor: pointer;
-    padding: 5px;
-    /*width: 100%;*/
-    border: none;
-    text-align: center;
-    outline: none;
-    font-size: 15px;
-  }
-
-  .active, .collapsible:hover {
-    background-color: #82B9EE;
-  }
-
-  .codePanel {
-    padding: 0 18px;
-    display: none;
-    overflow: hidden;
-    background-color: #f1f1f1;
-  }
-</style>
-<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <header class="post-header">
-    <meta name="description" content="Eligible Traces">
-    <h1 class="post-title p-name" itemprop="name headline">Eligible Traces</h1>
-    <p><span>
-      
-        
-        <a href="/tag/artificial-intelligent"><code class="highligher-rouge"><nobr>artificial-intelligent</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/reinforcement-learning"><code class="highligher-rouge"><nobr>reinforcement-learning</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/td-learning"><code class="highligher-rouge"><nobr>td-learning</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/n-step-td"><code class="highligher-rouge"><nobr>n-step-td</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/eligible-traces"><code class="highligher-rouge"><nobr>eligible-traces</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/my-rl"><code class="highligher-rouge"><nobr>my-rl</nobr></code>&nbsp;</a>
-      
-    </span></p>
-    <p class="post-meta"><time class="dt-published" datetime="2022-08-08T14:11:00+07:00" itemprop="datePublished">
-        Aug 8, 2022
-      </time></p>
-  </header>
-
-  <div class="post-content e-content" itemprop="articleBody">
-    <blockquote>
+I"s�<blockquote>
   <p>Beside <a href="/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#n-step-td">$n$-step TD</a> methods, there is another mechanism called <strong>Eligible traces</strong> that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.
 <!-- excerpt-end --></p>
 </blockquote>
@@ -172,7 +14,6 @@
   <li><a href="#onl-lambda-return">Online \(\lambda\)-return</a></li>
   <li><a href="#true-onl-td-lambda">True Online TD(λ)</a>
     <ul>
-      <li><a href="#equivalence-bw-forward-backward">Equivalence between forward and backward views</a></li>
       <li><a href="#dutch-traces-mc">Dutch Traces in Monte Carlo</a></li>
     </ul>
   </li>
@@ -182,7 +23,7 @@
   <li><a href="#tree-backup-lambda">Tree-Backup(\(\lambda\))</a></li>
   <li><a href="#other-off-policy-methods-traces">Other Off-policy Methods with Traces</a>
     <ul>
-      <li><a href="#gtd-lambda">GTD(λ)</a>
+      <li><a href="#gtd-lambda">GTD(\(\lambda\))</a>
         <ul>
           <li><a href="#gtd-obj-func">Objective function</a></li>
           <li><a href="#forward-obj-func">Forward-view objective function</a></li>
@@ -397,48 +238,12 @@ Pseudocode of the algorithm is given below.</p>
 z_{i,t}\doteq\begin{cases}1 &amp;\text{if }x_{i,t}=1 \\ \gamma\lambda z_{i,t-1} &amp;\text{if }x_{i,t}=0\end{cases}
 \end{equation}</p>
 
-<h3 id="equivalence-bw-forward-backward">Equivalence between forward and backward views</h3>
-<p>In this section, we will show that there is an interchange between forward and backward view.</p>
-
-<p><strong>Theorem</strong><br />
-<em>Consider any forward view that updates towards some interim targets $Y_k^t$ with
-\begin{equation}
-\mathbf{w}_{k+1}^t=\mathbf{w}_k+\eta_k\left(Y_k^t-\mathbf{x}_k^\intercal\mathbf{w}_k^t\right)\mathbf{x}_k+\mathbf{u}_k,\hspace{1cm}0\leq k\lt t,
-\end{equation}
-where $\mathbf{w}_0^t=\mathbf{w}_0$ for some initial $\mathbf{w}_0$; $\mathbf{u}_k\in\mathbb{R}^d$ is any vector that does not depend on $t$. Assume that the temporal differences $Y_k^{t+1}-Y_k^t$ for different $k$ are related through
-\begin{equation}
-Y_k^{t+1}-Y_k^t=c_k(Y_{k+1}^{t+1}-Y_{k+1}^t),\hspace{1cm}\forall k\lt t\tag{11}\label{11} 
-\end{equation}
-where $c_k$ is a scalar that does not depend on $t$. Then the final weights $\mathbf{w}_t^t$ at each time step $t$ are equal to the weight $\mathbf{w}_t$ as defined by $\mathbf{z}_0=\eta_0\mathbf{x}_0$ and the backward view
-\begin{align}
-\mathbf{w}_{t+1}&amp;=\mathbf{w}_t+(Y_t^{t+1}-Y_t^t)\mathbf{z}_t+\eta_t(Y_t^t-\mathbf{x}_t^\intercal\mathbf{w}_t)\mathbf{x}_t+\mathbf{u}_t, \\ \mathbf{z}_t&amp;=c_{t-1}\mathbf{z}_{t-1}+\eta_t\left(1-c_{t-1}\mathbf{x}_t^\intercal\mathbf{z}_{t-1}\right)\mathbf{x}_t,\hspace{1cm}t\gt 0
-\end{align}</em></p>
-
-<p><strong>Proof</strong><br />
-Let $\mathbf{F}_t\doteq\mathbf{I}-\eta_t\mathbf{x}_t\mathbf{x}_t^\intercal$ be the <em>fading matrix</em> such that $\mathbf{w}_{t+1}=\mathbf{F}_k\mathbf{w}_k^t+\eta_k Y_k^t\mathbf{x}_k$. For each step $t$, we have:
-\begin{align}
-\mathbf{w}_{t+1}^{t+1}-\mathbf{w}_t^t&amp;=\mathbf{F}_t\mathbf{w}_t^{t+1}-\mathbf{w}_t^t+\eta_t Y_t^{t+1}\mathbf{x}_t+\mathbf{u}_t \\ &amp;=\mathbf{F}_t(\mathbf{w}_t^{t+1}-\mathbf{w}_t^t)+\eta_t Y_t^{t+1}\mathbf{x}_t+(\mathbf{F}_t-\mathbf{I})\mathbf{w}_t^t+\mathbf{u}_t \\ &amp;=\mathbf{F}_t(\mathbf{w}_t^{t+1}-\mathbf{w}_t^t)+\eta_t Y_t^{t+1}\mathbf{x}_t-\eta_t\mathbf{x}_t\mathbf{x}_t^\intercal\mathbf{w}_t^t+\mathbf{u}_t \\ &amp;=\mathbf{F}_t(\mathbf{w}_t^{t+1}-\mathbf{w}_t^t)+\eta_t(Y_t^{t+1}-\mathbf{x}_t^\intercal\mathbf{w}_t^t)\mathbf{x}_t+\mathbf{u}_t\tag{12}\label{12}
-\end{align}
-We also have that:
-\begin{align}
-\mathbf{w}_t^{t+1}-\mathbf{w}_t^t&amp;=\mathbf{F}_{t-1}(\mathbf{w}_{t-1}^{t+1}-\mathbf{w}_{t-1}^t)+\eta_{t-1}(Y_{t-1}^{t+1}-Y_{t-1}^t)\mathbf{x}_{t-1} \\ &amp;=\mathbf{F}_{t-1}\mathbf{F}_{t-2}(\mathbf{w}_{t-1}^{t+1}-\mathbf{w}_{t-1}^t)+\eta_{n-2}(Y_{t-2}^{t+1}-Y_{t-2}^t)\mathbf{F}_{t-1}\mathbf{x}_{t-2} \\ &amp;\hspace{1cm}+\eta_{t-1}(Y_{t-1}^{t+1}-Y_{t-1}^t)\mathbf{x}_{t-1} \\ &amp;\hspace{0.3cm}\vdots \\ &amp;=\mathbf{F}_{t-1}\dots\mathbf{F}_0(\mathbf{w}_0^{t+1}-\mathbf{w}_0^t)+\sum_{k=0}^{t-1}\eta_k\mathbf{F}_{t-1}\dots\mathbf{F}_{k+1}(Y_k^{t+1}-Y_k^t)\mathbf{x}_k \\ &amp;=\sum_{k=0}^{t-1}\eta_k\mathbf{F}_{t-1}\dots\mathbf{F}_{k+1}(Y_k^{t+1}-Y_k^t)\mathbf{x}_k \\ &amp;=\sum_{k=0}^{t-1}\eta_k\mathbf{F}_{t-1}\dots\mathbf{F}_{k+1}c_k(Y_{k+1}^{t+1}-Y_{k+1}^t)\mathbf{x}_k \\ &amp;\hspace{0.3cm}\vdots \\ &amp;=c_{t-1}\underbrace{\sum_{k=0}^{t-1}\eta_k\left(\prod_{j=k}^{t-2}c_j\right)\mathbf{F}_{t-1}\dots\mathbf{F}_{k+1}\mathbf{x}_k}_{\doteq\mathbf{z}_{t-1}}(Y_t^{t+1}-Y_t^t) \\ &amp;=c_{t-1}\mathbf{z}_{t-1}(Y_t^{t+1}-Y_t^t),\tag{13}\label{13}
-\end{align}
-where in the fifth step, we use the assumption \eqref{11}; the vector $\mathbf{z}_t$ defined in the sixth step can be computed recursively in terms of $\mathbf{z}_{t-1}$:
-\begin{align}
-\mathbf{z}_t&amp;=\sum_{k=0}^{t}\eta_k\left(\prod_{j=k}^{t-1}c_j\right)\mathbf{F}_1\dots\mathbf{F}_{k+1}\mathbf{x}_k \\ &amp;=\sum_{k=0}^{t-1}\eta_k\left(\prod_{j=k}^{t-1}c_j\right)\mathbf{F}_1\dots\mathbf{F}_{k+1}\mathbf{x}_k+\eta_t\mathbf{x}_t \\ &amp;=c_{t-1}\mathbf{F}_t\sum_{k=0}^{t-1}\eta_k\left(\prod_{j=k}^{t-2}c_j\right)\mathbf{F}_{t-1}\dots\mathbf{F}_{k+1}\mathbf{x}_k+\eta_t\mathbf{x}_t \\ &amp;=c_{t-1}\mathbf{F}_1\mathbf{z}_{t-1}+\eta_t\mathbf{x}_t \\ &amp;=c_{t-1}\mathbf{z}_{t-1}+\eta_t(1-c_{t-1}\mathbf{x}_t^\intercal\mathbf{z}_{t-1})\mathbf{x}_t
-\end{align}
-Plug \eqref{13} back into \eqref{12} we obtain:
-\begin{align}
-\mathbf{w}_{t+1}^{t+1}-\mathbf{w}_t^t&amp;=c_{t-1}\mathbf{F}_t\mathbf{z}_{t-1}(Y_t^{t+1}-Y_t^t)+\eta_t(Y_t^{t+1}-\mathbf{x}_t^\intercal\mathbf{w}_t)\mathbf{x}_t+\mathbf{u}_t \\ &amp;=(\mathbf{z}_t-\eta_t\mathbf{x}_t)(Y_t^{t+1}-Y_t^t)+\eta_t(Y_t^{t+1}-\mathbf{x}_t^\intercal\mathbf{w}_t)\mathbf{x}_t+\mathbf{u}_t \\ &amp;=(Y_t^{t+1}-Y_t^t)\mathbf{z}_t+\eta_t(Y_t^t-\mathbf{x}_t^\intercal\mathbf{w}_t)\mathbf{x}_t+\mathbf{u}_t
-\end{align}
-Since $\mathbf{w}_{0,t}\doteq\mathbf{w}_0$, the desired result follows through induction.</p>
-
 <h3 id="dutch-traces-mc">Dutch Traces In Monte Carlo</h3>
 
 <h2 id="sarsa-lambda">Sarsa($\lambda$)</h2>
 <p>To apply the use off eligible traces on control problems, we begin by defining the $n$-step return, which is the same as what we have defined <a href="/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#n-step-return">before</a>:
 \begin{equation}
-G_{t:t+n}\doteq\ R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{q}(S_{t+n},A_{t+n},\mathbf{w}_{t+n-1}),\hspace{1cm}t+n\lt T\tag{14}\label{14}
+G_{t:t+n}\doteq\ R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{q}(S_{t+n},A_{t+n},\mathbf{w}_{t+n-1}),\hspace{1cm}t+n\lt T\tag{11}\label{11}
 \end{equation}
 with $G_{t:t+n}\doteq G_t$ if $t+n\geq T$. With this definition of the return, the action-value form of offline $\lambda$-return can be defined as:
 \begin{equation}
@@ -468,7 +273,7 @@ and so it is with eligible trace vector:
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
 </figure>
 
-<p>There is also an action-value version of the online $\lambda$-return algorithm, and its efficient implementation as true online TD($\lambda$), called <strong>True online TD($\lambda$)</strong>, which can be achieved by using $n$-step return \eqref{14} instead (which also leads to the change of $\mathbf{x}_t=\mathbf{x}(S_t)$ to $\mathbf{x}_t=\mathbf{x}(S_t,A_t)$).</p>
+<p>There is also an action-value version of the online $\lambda$-return algorithm, and its efficient implementation as true online TD($\lambda$), called <strong>True online TD($\lambda$)</strong>, which can be achieved by using $n$-step return \eqref{11} instead (which also leads to the change of $\mathbf{x}_t=\mathbf{x}(S_t)$ to $\mathbf{x}_t=\mathbf{x}(S_t,A_t)$).</p>
 
 <p>Pseudocode of the true online Sarsa($\lambda$) is given below.</p>
 <figure>
@@ -489,7 +294,7 @@ where we require that $\prod_{k=t}^{\infty}\gamma_k=0$ with probability $1$ for 
 
 <p>The generalization of $\lambda$ also lets us rewrite the state-based $\lambda$-return as:
 \begin{equation}
-G_t^{\lambda s}\doteq R_{t+1}+\gamma_{t+1}\Big((1-\lambda_{t+1})\hat{v}(S_{t+1},\mathbf{w}_t)+\lambda_{t+1}G_{t+1}^{\lambda s}\Big),\tag{15}\label{15}
+G_t^{\lambda s}\doteq R_{t+1}+\gamma_{t+1}\Big((1-\lambda_{t+1})\hat{v}(S_{t+1},\mathbf{w}_t)+\lambda_{t+1}G_{t+1}^{\lambda s}\Big),\tag{12}\label{12}
 \end{equation}
 where $G_t^{\lambda s}$ denotes that this $\lambda$
 -return is bootstrapped from state values, and hence the $G_t^{\lambda a}$ denotes the $\lambda$-return that bootstraps from action values. The Sarsa form of action-based $\lambda$-return is defined as:
@@ -498,17 +303,17 @@ G_t^{\lambda a}\doteq R_{t+1}+\gamma_{t+1}\Big((1-\lambda_{t+1})\hat{q}(S_{t+1},
 \end{equation}
 and the Expected Sarsa form of its can be defined as:
 \begin{equation}
-G_t^{\lambda a}\doteq R_{t+1}+\gamma_{t+1}\Big((1-\lambda_{t+1})\bar{V}_t(S_{t+1})+\lambda_{t+1}G_{t+1}^{\lambda a}\Big),\tag{16}\label{16}
+G_t^{\lambda a}\doteq R_{t+1}+\gamma_{t+1}\Big((1-\lambda_{t+1})\bar{V}_t(S_{t+1})+\lambda_{t+1}G_{t+1}^{\lambda a}\Big),\tag{13}\label{13}
 \end{equation}
 where the <a href="/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html#expected-approximate-value">expected approximate value</a> is generalized to function approximation as:
 \begin{equation}
-\bar{V}_t\doteq\sum_a\pi(a|s)\hat{q}(s,a,\mathbf{w}_t)\tag{17}\label{17}
+\bar{V}_t\doteq\sum_a\pi(a|s)\hat{q}(s,a,\mathbf{w}_t)\tag{14}\label{14}
 \end{equation}</p>
 
 <h2 id="off-policy-traces-control-variates">Off-policy Traces with Control Variates</h2>
 <p>We can also apply the use of importance sampling with eligible traces.</p>
 
-<p>We begin with the new definition of $\lambda$-return, which is achieved by generalizing the $\lambda$-return \eqref{15} with the idea of <a href="/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html#n-step-return-control-variate-state-value">control variates on $n$-step off-policy return</a>:
+<p>We begin with the new definition of $\lambda$-return, which is achieved by generalizing the $\lambda$-return \eqref{12} with the idea of <a href="/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html#n-step-return-control-variate-state-value">control variates on $n$-step off-policy return</a>:
 \begin{equation}
 G_t^{\lambda s}\doteq\rho_t\Big(R_{t+1}+\gamma_{t+1}\big((1-\lambda_{t+1})\hat{v}(S_{t+1},\mathbf{w}_t)+\lambda_{t+1}G_{t+1}^{\lambda s}\big)\Big)+(1-\rho_t)\hat{v}(S_t,\mathbf{w}_t),
 \end{equation}
@@ -518,11 +323,11 @@ where the single-step importance sampling ratio $\rho_t$ is defined as usual:
 \end{equation}
 Much like the other returns, the truncated version of this return can be approximated simply in terms of sums of state-based TD errors:
 \begin{equation}
-G_t^{\lambda s}\approx\hat{v}(S_t,\mathbf{w}_t)+\rho_t\sum_{k=t}^{\infty}\delta_k^s\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i,
+G_t^{\lambda s}\approx\hat{v}(S_t,\mathbf{w}_t)+\rho_t\sum_{k=t}^{\infty}\delta_k^s\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i,\tag{15}\label{15}
 \end{equation}
 where the state-based TD error, $\delta_t^s$, is defined as:
 \begin{equation}
-\delta_t^s\doteq R_{t+1}+\gamma_{t+1}\hat{v}(S_{t+1},\mathbf{w}_t)-\hat{v}(S_t,\mathbf{w}_t),\tag{18}\label{18}
+\delta_t^s\doteq R_{t+1}+\gamma_{t+1}\hat{v}(S_{t+1},\mathbf{w}_t)-\hat{v}(S_t,\mathbf{w}_t),
 \end{equation}
 with the approximation becoming exact if the approximate value function does not change.</p>
 
@@ -532,7 +337,7 @@ with the approximation becoming exact if the approximate value function does not
 \end{align}
 This is one time step of a forward view. And in fact, the forward-view update, summed over time, is approximately equal to a backward-view update, summed over time. Since the sum of the forward-view update over time is:
 \begin{align}
-\sum_{t=1}^{\infty}(\mathbf{w}_{t+1}-\mathbf{w}_t)&amp;\approx\sum_{t=1}^{\infty}\sum_{k=t}^{\infty}\alpha\rho_t\delta_k^s\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t)\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i \\ &amp;=\sum_{k=1}^{\infty}\sum_{t=1}^{k}\alpha\rho_t\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t)\delta_k^s\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i \\ &amp;=\sum_{k=1}^{\infty}\alpha\delta_k^s\sum_{t=1}^{k}\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t)\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i,\tag{19}\label{19}
+\sum_{t=1}^{\infty}(\mathbf{w}_{t+1}-\mathbf{w}_t)&amp;\approx\sum_{t=1}^{\infty}\sum_{k=t}^{\infty}\alpha\rho_t\delta_k^s\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t)\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i \\ &amp;=\sum_{k=1}^{\infty}\sum_{t=1}^{k}\alpha\rho_t\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t)\delta_k^s\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i \\ &amp;=\sum_{k=1}^{\infty}\alpha\delta_k^s\sum_{t=1}^{k}\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t)\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i,\tag{16}\label{16}
 \end{align}
 where in the second step, we use the summation rule: $\sum_{t=x}^{y}\sum_{k=t}^{y}=\sum_{k=x}^{y}\sum_{t=x}^{k}$.</p>
 
@@ -540,25 +345,25 @@ where in the second step, we use the summation rule: $\sum_{t=x}^{y}\sum_{k=t}^{
 \begin{align}
 \mathbf{z}_k &amp;=\sum_{t=1}^{k}\rho_t\nabla_\mathbf{w}\hat{v}\left(S_t, \mathbf{w}_t\right)\prod_{i=t+1}^{k} \gamma_i\lambda_i\rho_i \\ &amp;=\sum_{t=1}^{k-1}\rho_t\nabla_\mathbf{w}\hat{v}\left(S_t,\mathbf{w}_t\right)\prod_{i=t+1}^{k}\gamma_i\lambda_i\rho_i+\rho_k\nabla_\mathbf{w}\hat{v}\left(S_k,\mathbf{w}_k\right) \\ &amp;=\gamma_k\lambda_k\rho_k\underbrace{\sum_{t=1}^{k-1}\rho_t\nabla_\mathbf{w}\hat{v}\left(S_t,\mathbf{w}_t\right)\prod_{i=t+1}^{k-1}\gamma_i\lambda_i\rho_i}_{\mathbf{z}_{k-1}}+\rho_k\nabla_\mathbf{w}\hat{v}\left(S_k,\mathbf{w}_k\right) \\ &amp;=\rho_k\big(\gamma_k\lambda_k\mathbf{z}_{k-1}+\nabla_\mathbf{w}\hat{v}\left(S_k,\mathbf{w}_k\right)\big)
 \end{align}
-Then we can rewrite \eqref{19} as:
+Then we can rewrite \eqref{16} as:
 \begin{equation}
 \sum_{t=1}^{\infty}\left(\mathbf{w}_{t+1}-\mathbf{w}_t\right)\approx\sum_{k=1}^{\infty}\alpha\delta_k^s\mathbf{z}_k,
 \end{equation}
 which is sum of the backward-view update over time, with the eligible trace vector is defined as:
 \begin{equation}
-\mathbf{z}_t\doteq\rho_t\big(\gamma_t\lambda_t\mathbf{z}_{t-1}+\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t)\big)\tag{20}\label{20}
+\mathbf{z}_t\doteq\rho_t\big(\gamma_t\lambda_t\mathbf{z}_{t-1}+\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t)\big)\tag{17}\label{17}
 \end{equation}
 Using this eligible trace with the parameter update rule \eqref{2} of TD($\lambda$), we obtain a general TD($\lambda$) algorithm that can be applied to either on-policy or off-policy data.</p>
 <ul>
-  <li>In the on-policy case, the algorithm is exactly TD($\lambda$) because $\rho_t=1$ for all $t$ and \eqref{20} becomes the accumulating trace \eqref{1} with extending to variable $\lambda$ and $\gamma$.</li>
+  <li>In the on-policy case, the algorithm is exactly TD($\lambda$) because $\rho_t=1$ for all $t$ and \eqref{17} becomes the accumulating trace \eqref{1} with extending to variable $\lambda$ and $\gamma$.</li>
   <li>In the off-policy case, the algorithm often works well but, as a semi-gradient method, is not guaranteed to be stable.</li>
 </ul>
 
-<p>For action-value function, we generalize the definition of the $\lambda$-return \eqref{16} of Expected Sarsa with the idea of <a href="/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html#n-step-return-control-variate-action-value">control variate</a>:
+<p>For action-value function, we generalize the definition of the $\lambda$-return \eqref{13} of Expected Sarsa with the idea of <a href="/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html#n-step-return-control-variate-action-value">control variate</a>:
 \begin{align}
 G_t^{\lambda a}&amp;\doteq R_{t+1}+\gamma_{t+1}\Big((1-\lambda_{t+1})\bar{V}_t(S_{t+1})+\lambda_{t+1}\big[\rho_{t+1}G_{t+1}^{\lambda a}+\bar{V}_t(S_{t+1}) \\ &amp;\hspace{2cm}-\rho_{t+1}\hat{q}(S_{t+1},A_{t+1},\mathbf{w}_t)\big]\Big) \\ &amp;=R_{t+1}+\gamma_{t+1}\Big(\bar{V}_t(S_{t+1})+\lambda_{t+1}\rho_{t+1}\left[G_{t+1}^{\lambda a}-\hat{q}(S_{t+1},A_{t+1},\mathbf{w}_t)\right]\Big),
 \end{align}
-where the expected approximate value $\bar{V}_t(S_{t+1})$ is as given by \eqref{17}.</p>
+where the expected approximate value $\bar{V}_t(S_{t+1})$ is as given by \eqref{14}.</p>
 
 <p>Similar to the others, this $\lambda$-return can also be written approximately as the sum of TD errors
 \begin{equation}
@@ -566,15 +371,15 @@ G_t^{\lambda a}\approx\hat{q}(S_t,A_t,\mathbf{w}_t)+\sum_{k=t}^{\infty}\delta_k^
 \end{equation}
 with the action-based TD error is defined in terms of the expected approximate value:
 \begin{equation}
-\delta_t^a=R_{t+1}+\gamma_{t+1}\bar{V}_t(S_{t+1})-\hat{q}(S_t,A_t,\mathbf{w}_t)\tag{21}\label{21}
+\delta_t^a=R_{t+1}+\gamma_{t+1}\bar{V}_t(S_{t+1})-\hat{q}(S_t,A_t,\mathbf{w}_t)\tag{18}\label{18}
 \end{equation}
 Like the state value function case, this approximation also becomes exact if the approximate value function does not change.</p>
 
-<p>Similar to the state case \eqref{20}, we can also define the eligible trace for action values:
+<p>Similar to the state case \eqref{17}, we can also define the eligible trace for action values:
 \begin{equation}
 \mathbf{z}_t\doteq\gamma_t\lambda_t\rho_t\mathbf{z}_{t-1}+\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}_t)
 \end{equation}
-Using this eligible trace with the parameter update rule \eqref{2} of TD($\lambda$) and the expectation-based TD error \eqref{21}, we end up with an Expected Sarsa($\lambda$) algorithm that can applied to either on-policy or off-policy data.</p>
+Using this eligible trace with the parameter update rule \eqref{2} of TD($\lambda$) and the expectation-based TD error \eqref{18}, we end up with an Expected Sarsa($\lambda$) algorithm that can applied to either on-policy or off-policy data.</p>
 <ul>
   <li>In the on-policy case with constant $\lambda$ and $\gamma$, this becomes the Sarsa($\lambda$) algorithm.</li>
 </ul>
@@ -582,7 +387,7 @@ Using this eligible trace with the parameter update rule \eqref{2} of TD($\lambd
 <h2 id="tree-backup-lambda">Tree-Backup($\lambda$)</h2>
 <p>Recall that in the post of <a href="/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html">TD-Learning</a>, we have mentioned that there is an off-policy method without importance sampling called <strong>tree-backup</strong>. Can we extend the idea of tree-backup to an eligible trace version? Yes, we can.</p>
 
-<p>As usual, we begin with establishing the $\lambda$-return by generalizing the $\lambda$-return of Expected Sarsa \eqref{16} with the <a href="/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html#n-step-tree-backup-return">$n$-step Tree-backup return</a>:
+<p>As usual, we begin with establishing the $\lambda$-return by generalizing the $\lambda$-return of Expected Sarsa \eqref{13} with the <a href="/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html#n-step-tree-backup-return">$n$-step Tree-backup return</a>:
 \begin{align}
 G_t^{\lambda a}&amp;\doteq R_{t+1}+\gamma_{t+1}\Bigg((1-\lambda_{t+1})\bar{V}_t(S_{t+1})+\lambda_{t+1}\Big[\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})\hat{q}(S_{t+1},a,\mathbf{w}_t) \\ &amp;\hspace{2cm}+\pi(A_{t+1}|S_{t+1})G_{t+1}^{\lambda a}\Big]\Bigg) \\ &amp;=R_{t+1}+\gamma_{t+1}\Big(\bar{V}_t(S_{t+1})+\lambda_{t+1}\pi(A_{t+1}|S_{t+1})\left(G_{t+1}^{\lambda a}-\hat{q}(S_{t+1},A_{t+1},\mathbf{w}_t)\right)\Big)
 \end{align}
@@ -590,9 +395,9 @@ This return, as usual, can also be written approximately (ignoring changes in th
 \begin{equation}
 G_t^{\lambda a}\approx\hat{q}(S_t,A_t,\mathbf{w}_t)+\sum_{k=t}^{\infty}\delta_k^a\prod_{i=t+1}^{k}\gamma_i\lambda_i\pi(A_i|S_i),
 \end{equation}
-with the TD error is defined as given by \eqref{21}.</p>
+with the TD error is defined as given by \eqref{18}.</p>
 
-<p>Similar to how we derive the eligible trace \eqref{20}, we can define a new eligible trace in terms of target-policy probabilities of the selected actions:
+<p>Similar to how we derive the eligible trace \eqref{17}, we can define a new eligible trace in terms of target-policy probabilities of the selected actions:
 \begin{equation}
 \mathbf{z}_t\doteq\gamma_t\lambda_t\pi(A_t|S_t)\mathbf{z}_{t-1}+\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}_t)
 \end{equation}
@@ -619,7 +424,7 @@ G_t^\lambda(v)\doteq R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})v(S_{t+1})+\gamma_{t+1
 \end{equation}
 In general, we can not achieve $v_\mathbf{w}=T_\pi^\lambda v_\mathbf{w}$, because $T_\pi^\lambda$ is not guaranteed to be a function that we can represent with our chosen function approximation. However, it is possible to find the fixed point defined by:
 \begin{equation}
-v_\mathbf{w}=\Pi T_\pi^\lambda v_\mathbf{w},\tag{22}\label{22}
+v_\mathbf{w}=\Pi T_\pi^\lambda v_\mathbf{w},\tag{20}\label{20}
 \end{equation}
 where $\Pi v$ is a projection of $v$ into the space of representable functions $\{v_\mathbf{w}|\mathbf{w}\in\mathbb{R}^d\}$.</p>
 
@@ -637,22 +442,14 @@ where $\left\Vert\cdot\right\Vert_\mu^2$ is a norm defined by
 \end{equation}</p>
 
 <h4 id="gtd-obj-func">Objective function</h4>
-<p>The fixed point \eqref{22} can be found by minimizing the Mean Square Projected Bellman Error, $\overline{\text{PBE}}$:
+<p>The fixed point \eqref{20} can be found by minimizing the Mean Square Projected Bellman Error, $\overline{\text{PBE}}$:
 \begin{equation}
 \overline{\text{PBE}}(\mathbf{w})\doteq\left\Vert v_\mathbf{w}-\Pi T_\pi^\lambda v_\mathbf{w}\right\Vert_\mu^2
 \end{equation}
 Let
 \begin{equation}
-G_t^\lambda(\mathbf{w})\doteq R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}_t+\gamma_{t+1}\lambda_{t+1}G_{t+1}^\lambda,
-\end{equation}
-and
-\begin{equation}
-\delta_t^\lambda({\mathbf{w})\doteq G_t^\lambda(\mathbf{w})-\mathbf{w}^\intercal\mathbf{x}_t,
-\end{equation}
-and
-\begin{equation}</p>
-
-<p>\end{equation}</p>
+G_t^\lambda(\mathbf{w})\doteq R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}_t+\gamma_{t+1}\lambda_{t+1}G_{t+1}^\lambda
+\end{equation}</p>
 
 <p>The SGD update at time step $t$ is then
 \begin{equation}
@@ -688,111 +485,4 @@ where $\bar{\mathbf{x}}$</p>
 <p>[7] Shangtong Zhang. <a href="https://github.com/ShangtongZhang/reinforcement-learning-an-introduction">Reinforcement Learning: An Introduction implementation</a>.</p>
 
 <h2 id="footnotes">Footnotes</h2>
-
-  </div>
-<div id="disqus_thread"></div>
-<script>
-    /**
-    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
-    
-    var disqus_config = function () {
-    this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
-    this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-    };
-    
-    (function() { // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-    s.src = 'https://https-trunghng-github-io.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-
-<script id="dsq-count-scr" src="//https-trunghng-github-io.disqus.com/count.js" async></script>
-
-  <a class="u-url" href="/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html" hidden></a>
-</article>
- <!-- mathjax javascript -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
-  "HTML-CSS": {availableFonts: []}
-  });
-</script>
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-<script>
-  var coll = document.getElementsByClassName("collapsible");
-  var i;
-  for (i = 0; i < coll.length; i++) {
-    coll[i].addEventListener("click", function() {
-      this.classList.toggle("active");
-      var content = document.getElementById(this.id+"data");
-      var btn = document.getElementById(this.id)
-      if (content.style.display === "block") {
-        content.style.display = "none";
-        btn.innerText = "Click to show the code";
-      } else {
-        content.style.display = "block";
-        btn.innerText = "Click to hide the code"
-      }
-    });
-  }
-</script>
-
-      </div>
-
-    </main><footer class="site-footer h-card">
-  <data class="u-url" href="/"></data>
-
-  <div class="wrapper">
-
-    <div class="footer-col-wrapper">
-      <div class="footer-col">
-        <p class="feed-subscribe">
-          <a href="/feed.xml">
-            <svg class="svg-icon orange">
-              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
-            </svg><span>Subscribe</span>
-          </a>
-        </p>
-        <ul class="contact-list">
-          <li class="p-name">Trung H. Nguyen</li>
-          <li><a class="u-email" href="mailto:trung.skipper@gmail.com">trung.skipper@gmail.com</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <p>To document something I&#39;ve learned
-</p>
-      </div>
-    </div>
-
-    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/trunghng" title="trunghng"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
-</div>
-
-  </div>
-
-</footer>
-</body>
-
-</html>
-<script type="text/javascript">
-  var btn = $('#button');
-
-  $(window).scroll(function() {
-    if ($(window).scrollTop() > 300) {
-      btn.addClass('show');
-    } else {
-      btn.removeClass('show');
-    }
-  });
-
-  btn.on('click', function(e) {
-    e.preventDefault();
-    $('html, body').animate({scrollTop:0}, '300');
-  });
-</script>
+:ET
