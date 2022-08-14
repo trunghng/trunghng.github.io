@@ -23,12 +23,8 @@ comments: true
 - [Off-policy Traces with Control Variates](#off-policy-traces-control-variates)
 - [Tree-Backup(\\(\lambda\\))](#tree-backup-lambda)
 - [Other Off-policy Methods with Traces](#other-off-policy-methods-traces)
-	- [GTD(λ)](#gtd-lambda)
-		- [Objective function](#gtd-obj-func)
-		- [Forward-view objective function](#forward-obj-func)
-		- [Backward-view objective function](#backward-obj-func)
-		- [GTD(\\(\lambda\\)) Derivation](#gtd-derivation)
-	- [CQ(\\(\lambda\\))](#cq-lambda)
+	- [GTD(\\(\lambda\\))](#gtd-lambda)
+	- [GQ(\\(\lambda\\))](#gq-lambda)
 	- [HTD(\\(\lambda\\))](#htd-lambda)
 	- [Emphatic TD(\\(\lambda\\))](#em-td-lambda)
 - [References](#references)
@@ -451,10 +447,15 @@ Using this eligible trace vector with the parameter update rule \eqref{2} of TD(
 {: #gtd-lambda}
 **GTD($\lambda$)** is the eligible-trace algorithm analogous to [**TDC**]({% post_url 2022-07-10-func-approx %}#tdc), a state-value Gradient-TD method.
 
-We begin by defining the $\lambda$-return (function) as:
+In this algorithm, we will define a new off-policy $\lambda$-return, which also based on importance sampling, as:
 \begin{equation}
-G_t^\lambda(v)\doteq R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})v(S_{t+1})+\gamma_{t+1}\lambda_{t+1}G_{t+1}^\lambda(v)
+G_t^{\lambda\rho}(\mathbf{w})\doteq\rho_t\Big(R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{x}\_{t+1}^\intercal\mathbf{w}+\gamma_{t+1}\lambda_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\Big),\tag{22}\label{22}
 \end{equation}
+where the single-step importance sampling ratio, $\rho_t$, is defined as usual:
+\begin{equation}
+\rho_t=\frac{\pi(A_t|S_t)}{b(A_t|S_t)}
+\end{equation}
+The $\lambda$-return, $G_t^{\lambda\rho}$, in this case, not like usual, defined as a function of weight vector $\mathbf{w}$.
 
 Let $v_\mathbf{w}$ be a parameterized function such that $v_\mathbf{w}(s)=\mathbf{w}^\intercal\mathbf{x}(s)$ and let $T_\pi^\lambda$ be a parameterized Bellman operator such that for any $v:\mathcal{S}\to\mathbb{R}$:
 \begin{equation}
@@ -462,7 +463,7 @@ Let $v_\mathbf{w}$ be a parameterized function such that $v_\mathbf{w}(s)=\mathb
 \end{equation}
 In general, we can not achieve $v_\mathbf{w}=T_\pi^\lambda v_\mathbf{w}$, because $T_\pi^\lambda$ is not guaranteed to be a function that we can represent with our chosen function approximation. However, it is possible to find the fixed point defined by:
 \begin{equation}
-v_\mathbf{w}=\Pi T_\pi^\lambda v_\mathbf{w},\tag{22}\label{22}
+v_\mathbf{w}=\Pi T_\pi^\lambda v_\mathbf{w},\tag{23}\label{23}
 \end{equation}
 where $\Pi v$ is a projection of $v$ into the space of representable functions $\\{v_\mathbf{w}|\mathbf{w}\in\mathbb{R}^d\\}$.
 
@@ -479,41 +480,52 @@ where $\left\Vert\cdot\right\Vert_\mu^2$ is a norm defined by
 \left\Vert f\right\Vert_\mu^2\doteq\sum_s\mu(s)f(s)^2
 \end{equation}
 
-#### Objective function
-{: #gtd-obj-func}
-The fixed point \eqref{22} can be found by minimizing the Mean Square Projected Bellman Error, $\overline{\text{PBE}}$:
+The fixed point \eqref{23} can be found by minimizing the Mean Square Projected Bellman Error, $\overline{\text{PBE}}$:
 \begin{equation}
 \overline{\text{PBE}}(\mathbf{w})\doteq\left\Vert v_\mathbf{w}-\Pi T_\pi^\lambda v_\mathbf{w}\right\Vert_\mu^2
 \end{equation}
-Let
-\begin{equation}
-G_t^\lambda(\mathbf{w})\doteq R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}\_t+\gamma_{t+1}\lambda_{t+1}G_{t+1}^\lambda,
-\end{equation}
-and
-\begin{equation}
-\delta_t^\lambda({\mathbf{w})\doteq G_t^\lambda(\mathbf{w})-\mathbf{w}^\intercal\mathbf{x}\_t,
-\end{equation}
-and
-\begin{equation}
-
-\end{equation}
-
 
 The SGD update at time step $t$ is then
 \begin{equation}
 \mathbf{w}\_{t+1}\doteq\mathbf{w}\_t-\frac{1}{2}\alpha\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w})\big\vert_{\mathbf{w}\_t},
 \end{equation}
-
-
-### CQ($\lambda$)
-{: #cq-lambda}
-**CQ($\lambda$)** is another eligible trace version of a Gradient-TD method but with action values. Its goal is to learn a parameter $\mathbf{w}\_t$ such that $\hat{q}(s,a,\mathbf{w}\_t)\doteq\mathbf{w}\_t^\intercal\mathbf{x}(s,a)\approx q_\pi(s,a)$ from data given by following a behavior policy $b$.
-
-If the target is $\varepsilon$-greedy, or biased toward the greedy policy for $\hat{q}$, then CQ($\lambda$) can be used as a control method. The update of its is:
+where
+\begin{align}
+-\frac{1}{2}\alpha\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w})\big\vert_{\mathbf{w}\_t}&=-\mathbb{E}\_b\Big[\nabla_\mathbf{w}\delta_t^\pi(\mathbf{w})\mathbf{x}\_t^\intercal\Big]\mathbb{E}\_b\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\_b\Big[\delta_t^\pi(\mathbf{w}\_t)\mathbf{x}\_t\Big] \\\\ &=\mathbb{E}\_b\Big[\big(\mathbf{x}\_t-\nabla_\mathbf{w}G_t^{\lambda\rho}(\mathbf{w})\big)\mathbf{x}\_t^\intercal\Big]\mathbb{E}\_b\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\_b\Big[\delta_t^\pi(\mathbf{w}\_t)\mathbf{x}\_t\Big] \\\\ &=\mathbb{E}\_b\Big[\delta_t^\pi(\mathbf{w}\_t)\mathbf{x}\_t\Big]-\mathbb{E}\_b\Big[\nabla_\mathbf{w}G_t^{\lambda\rho}(\mathbf{w}\_t)\mathbf{x}\_t^\intercal\Big]\mathbb{E}\_b\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\_b\Big[\delta_t^\pi(\mathbf{w}\_t)\mathbf{x}\_t\Big] \\\\ &=\mathbb{E}\_b\Big[\delta_t^\pi(\mathbf{w}\_t)\mathbf{x}\_t\Big]-\mathbb{E}\_b\Big[\nabla_\mathbf{w}G_t^{\lambda\rho}(\mathbf{w}\_t)\mathbf{x}\_t^\intercal\Big]\mathbf{v}\_{\*},\tag{24}\label{24}
+\end{align}
+with $G_t^{\lambda\rho}$ defined as \eqref{22}, and where:
 \begin{equation}
-\mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\delta_t^a\mathbf{z}\_t-\alpha\gamma_{t+1}(1-\lambda_{t+1})(\mathbf{z}\_t^\intercal\mathbf{v}\_t)\bar{\mathbf{x}}\_{t+1},
+\mathbf{v}\_{\*}\doteq\mathbb{E}\_b\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\_b\Big[\delta_t^\pi(\mathbf{w}\_t)\mathbf{x}\_t\Big]
 \end{equation}
-where $\bar{\mathbf{x}}$
+With how $G_t^{\lambda\rho}$ is defined, the expected value in the second factor in \eqref{24} can be written as:
+\begin{align}
+\mathbb{E}\_b\Big[\nabla_\mathbf{w}G_t^{\lambda\rho}(\mathbf{w})\mathbf{x}\_t^\intercal\Big]&=\mathbb{E}\_b\Big[\rho_t\gamma_{t+1}(1-\lambda_{t+1})\mathbf{x}\_{t+1}\mathbf{x}\_t^\intercal\Big]+\mathbb{E}\_b\Big[\rho_t\gamma_{t+1}\lambda_{t+1}\nabla_\mathbf{w}G_{t+1}^{\lambda\rho}(\mathbf{w})\mathbf{x}\_t^\intercal\Big] \\\\ &=\mathbb{E}\_b\Big[\rho_t\gamma_{t+1}(1-\lambda_{t+1})\mathbf{x}\_{t+1}\mathbf{x}\_t^\intercal\Big]+\mathbb{E}\_b\Big[\rho_{t-1}\gamma_t\lambda_t\nabla_\mathbf{w}G_t^{\lambda\rho}(\mathbf{w})\mathbf{x}\_{t-1}^\intercal\Big] \\\\ &=\mathbb{E}\_b\Big[\rho_t\gamma_{t+1}(1-\lambda_{t+1})\mathbf{x}\_{t+1}\mathbf{x}\_t^\intercal\Big]+\mathbb{E}\_b\Big[\rho_{t-1}\gamma_t\lambda_t\rho_t\gamma_{t+1}(1-\lambda_{t+1})\mathbf{x}\_{t+1}\mathbf{x}\_{t-1}^\intercal\Big] \\\\ &\hspace{1cm}+\mathbb{E}\_b\Big[\rho_{t-1}\gamma_t\lambda_t\rho_t\gamma_{t+1}\lambda_{t+1}\nabla_\mathbf{w}G_{t+1}^{\lambda\rho}(\mathbf{w})\mathbf{x}\_{t-1}^\intercal\Big] \\\\ &=\mathbb{E}\_b\Big[\rho_t\gamma_{t+1}(1-\lambda_{t+1})\mathbf{x}\_{t+1}\mathbf{x}\_t^\intercal\Big]+\mathbb{E}\_b\Big[\rho_{t-1}\gamma_t\lambda_t\rho_t\gamma_{t+1}(1-\lambda_{t+1})\mathbf{x}\_{t+1}\mathbf{x}\_{t-1}^\intercal\Big] \\\\ &\hspace{1cm}+\mathbb{E}\_b\Big[\rho_{t-2}\gamma_{t-1}\lambda_{t-1}\rho_{t-1}\gamma_t\lambda_t\nabla_\mathbf{w}G_t^{\lambda\rho}(\mathbf{w})\mathbf{x}\_{t-2}^\intercal\Big] \\\\ &\hspace{0.3cm}\vdots \\\\ &=\mathbb{E}\_b\Bigg[\gamma_{t+1}(1-\lambda_{t+1})\mathbf{x}\_{t+1}\underbrace{\rho_t\sum_{j=0}^{t}\left(\prod_{i=j+1}^{t}\rho_{i-1}\gamma_i\lambda_i\right)\mathbf{x}\_j^\intercal}\_{\doteq\,\mathbf{z}\_t^\intercal}\Bigg] \\\\ &=\mathbb{E}\_b\Big[\gamma_{t+1}(1-\lambda_{t+1})\mathbf{x}\_{t+1}\mathbf{z}\_t^\intercal\Big],
+\end{align}
+and similarly, we have that
+\begin{equation}
+\mathbb{E}\_b\Big[\delta_t^\pi(\mathbf{w}\_t)\mathbf{x}\_t\Big]=\mathbb{E}\_b\Big[\delta_t(\mathbf{w}\_t)\mathbf{z}\_t\Big],
+\end{equation}
+where 
+\begin{align}
+\mathbf{z}\_t&=\rho_t(\gamma_t\lambda_t\mathbf{z}\_t+\mathbf{x}\_t) \\\\ \delta_t(\mathbf{w})&=R_{t+1}+\gamma_{t+1}\mathbf{x}\_{t+1}^\intercal\mathbf{w}-\mathbf{x}\_t^\intercal\mathbf{w}
+\end{align}
+The auxiliary vector $\mathbf{v}\_t\approx\mathbf{v}\_{\*}$ can be updated with LMS using the sample $\delta_t(\mathbf{w}\_t)\mathbf{z}\_t\approx\mathbb{E}\_b\left[\delta_t(\mathbf{w}\_t)\mathbf{z}\_t\right]=\mathbb{E}\_b\left[\delta_t^\pi(\mathbf{w}\_t)\mathbf{x}\_t\right]$ and the update:
+\begin{equation}
+\mathbf{v}\_{t+1}=\mathbf{v}\_t+\beta_t\delta_t(\mathbf{w}\_t)\mathbf{z}\_t-\beta_t\mathbf{x}\_t^\intercal\mathbf{v}\_t\mathbf{x}\_t
+\end{equation}
+The GTD($\lambda$) algorithm is then defined by:
+\begin{align}
+\delta_t&\doteq R_{t+1}+\gamma_{t+1}\mathbf{x}\_{t+1}^\intercal\mathbf{w}\_t-\mathbf{x}\_t^\intercal\mathbf{w}\_t, \\\\ \mathbf{z}\_t&\doteq\rho_t\left(\gamma_t\lambda_t\mathbf{z}\_{t-1}+\mathbf{x}\_t\right), \\\\ \mathbf{w}\_{t+1}&\doteq\mathbf{w}\_t+\alpha_t\delta_t\mathbf{z}\_t-\alpha_t\lambda_{t+1}(1-\lambda_{t+1})\mathbf{w}\_t^\intercal\mathbf{z}\_t\mathbf{x}\_{t+1}, \\\\ \mathbf{v}\_{t+1}&\doteq\mathbf{v}\_t+\beta_t\delta_t\mathbf{z}\_t-\beta_t\mathbf{x}\_t^\intercal\mathbf{v}\_t\mathbf{x}\_t
+\end{align}
+
+### GQ($\lambda$)
+{: #gq-lambda}
+**GQ($\lambda$)** is another eligible trace version of a Gradient-TD method but with action values. Its goal is to learn a parameter $\mathbf{w}\_t$ such that $\hat{q}(s,a,\mathbf{w}\_t)\doteq\mathbf{w}\_t^\intercal\mathbf{x}(s,a)\approx q_\pi(s,a)$ from data given by following a behavior policy $b$.
+
+Let Q_
+Let $T_\pi^\lambda$ be the $\lambda$ weighted Bellman operator 
+
+As a Gradient-TD method, we use Mean Square Projected Bellman Error as our objective function.
 
 
 ### HTD($\lambda$)
@@ -535,6 +547,8 @@ where $\bar{\mathbf{x}}$
 [5] Hado Van Hasselt & A. Rupam Mahmood & Richard S. Sutton. [Off-policy TD(λ) with a true online equivalence](https://www.researchgate.net/publication/263653431_Off-policy_TDl_with_a_true_online_equivalence). Uncertainty in Artificial Intelligence - Proceedings of the 30th Conference, UAI 2014. 
 
 [6] Hamid Reza Maei. [Gradient Temporal-Difference Learning Algorithms](https://era.library.ualberta.ca/items/fd55edcb-ce47-4f84-84e2-be281d27b16a/view/373459a7-72d1-4de2-bcd5-5f51e2f745e9/Hamid_Maei_PhDThesis.pdf). PhD Thesis, 2011. 
+
+[7] Hamid Reza Maei & Richard S. Sutton [GQ($\lambda$): A general gradient algorithm for temporal-difference prediction learning with eligibility traces](http://dx.doi.org/10.2991/agi.2010.22)
 
 [7] Shangtong Zhang. [Reinforcement Learning: An Introduction implementation](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction). 
 
