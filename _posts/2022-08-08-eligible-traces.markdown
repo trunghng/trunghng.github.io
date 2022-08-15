@@ -574,8 +574,33 @@ Plugging this result back to \eqref{30} lets our objective function become:
 \end{equation}
 Similar to TDC, we also use gradient descent in order to find the minimum value of $\overline{\text{PBE}}(\mathbf{w})$. The gradient of our objective function w.r.t the weight vector $\mathbf{w}$ is:
 \begin{align}
-\frac{1}{2}\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w})&=-\frac{1}{2}\nabla_\mathbf{w}\Bigg(\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]^\intercal\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]\Bigg) \\\\ &=\nabla_\mathbf{w}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=-\mathbb{E}\Big[\big(\gamma_{t+1}\mathbf{x}\_{t+1}-\mathbf{x}\_t\big)\mathbf{z}\_t^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]
+\frac{1}{2}\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w})&=-\frac{1}{2}\nabla_\mathbf{w}\Bigg(\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]^\intercal\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]\Bigg) \\\\ &=\nabla_\mathbf{w}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=-\mathbb{E}\Big[\big(\gamma_{t+1}\mathbf{x}\_{t+1}-\mathbf{x}\_t\big)\mathbf{z}\_t^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=-\mathbb{E}\Big[\gamma_{t+1}\mathbf{x}\_{t+1}\mathbf{z}\_t^\intercal-\mathbf{x}\_t\mathbf{z}\_t^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=-\mathbb{E}\Big[\gamma_{t+1}\mathbf{x}\_{t+1}\mathbf{z}\_t^\intercal-\mathbf{x}\_t\rho_t\big(\mathbf{x}\_t+\gamma_t\lambda_t\mathbf{z}\_{t-1}\big)^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=-\mathbb{E}\Big[\gamma_{t+1}\mathbf{x}\_{t+1}\mathbf{z}\_t^\intercal-\big(\mathbf{x}\_t\rho_t\mathbf{x}\_t^\intercal+\mathbf{x}\_t\\gamma_t\lambda_t\mathbf{z}\_{t-1}^\intercal\big)\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=-\mathbb{E}\Big[\gamma_{t+1}\mathbf{x}\_{t+1}\mathbf{z}\_t^\intercal-\big(\mathbf{x}\_t\mathbf{x}\_t^\intercal+\mathbf{x}\_{t+1}\gamma_{t+1}\lambda_{t+1}\mathbf{z}\_t^\intercal\big)\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal-\gamma_{t+1}(1-\lambda_{t+1})\mathbf{x}\_{t+1}\mathbf{z}\_t^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]-\mathbb{E}\Big[\gamma_{t+1}(1-\lambda_{t+1})\mathbf{x}\_{t+1}\mathbf{z}\_t^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]-\mathbb{E}\Big[\gamma_{t+1}(1-\lambda_{t+1})\mathbf{x}\_{t+1}\mathbf{z}\_t^\intercal\Big]\mathbf{v}(\mathbf{w}),\tag{31}\label{31}
 \end{align}
+where in the seventh step, we have used shifting indices trick and the identity:
+\begin{equation}
+\mathbb{E}\Big[\mathbf{x}\_t\rho_t\mathbf{x}\_t^\intercal\Big]=\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big],
+\end{equation}
+and where in the final step, we define:
+\begin{equation}
+\mathbf{v}(\mathbf{w})\doteq\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]
+\end{equation}
+By direct sampling from \eqref{31} and following TDC derivation steps we obtain the **GTD($\lambda$)** algorithm:
+\begin{equation}
+\mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\delta_t^s\mathbf{z}\_t-\alpha\gamma_{t+1}(1-\lambda_{t+1})(\mathbf{z}\_t^\intercal\mathbf{v}\_t)\mathbf{x}\_{t+1},
+\end{equation}
+where the TD error is defined, as usual, as state-based TD error \eqref{18}:
+\begin{equation}
+\delta_t^s\doteq R_{t+1}+\gamma_{t+1}\mathbf{w}\_t^\intercal\mathbf{x}\_{t+1}-\mathbf{w}\_t^\intercal\mathbf{x}\_t,
+\end{equation}
+and where the eligible trace vector is defined as given in \eqref{20} for state value:
+\begin{equation}
+\mathbf{z}\_t=\rho_t(\gamma_t\lambda_t\mathbf{z}\_{t-1}+\mathbf{x}\_t),
+\end{equation}
+and where
+\begin{equation}
+\mathbf{v}\_{t+1}\doteq\mathbf{v}\_t+\beta\delta_t^s\mathbf{z}\_t-\beta(\mathbf{v}\_t^\intercal\mathbf{x}\_t)\mathbf{x}\_t,
+\end{equation}
+which is a vector of the same dimension as $\mathbf{w}$, initialized to $\mathbf{v}\_0=\mathbf{0}$ and $\beta>0$ is a step-size parameter.
 
 ### GQ($\lambda$)
 {: #gq-lambda}
@@ -603,7 +628,7 @@ Similar to TDC, we also use gradient descent in order to find the minimum value 
 
 [6] Hamid Reza Maei. [Gradient Temporal-Difference Learning Algorithms](https://era.library.ualberta.ca/items/fd55edcb-ce47-4f84-84e2-be281d27b16a/view/373459a7-72d1-4de2-bcd5-5f51e2f745e9/Hamid_Maei_PhDThesis.pdf). PhD Thesis, 2011. 
 
-[7] Hamid Reza Maei & Richard S. Sutton [GQ($\lambda$): A general gradient algorithm for temporal-difference prediction learning with eligibility traces](http://dx.doi.org/10.2991/agi.2010.22)
+[7] Hamid Reza Maei & Richard S. Sutton [GQ($\lambda$): A general gradient algorithm for temporal-difference prediction learning with eligibility traces](http://dx.doi.org/10.2991/agi.2010.22).  
 
 [8] Shangtong Zhang. [Reinforcement Learning: An Introduction implementation](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction). 
 
