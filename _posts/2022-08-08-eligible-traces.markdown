@@ -3,7 +3,7 @@ layout: post
 title:  "Eligible Traces"
 date:   2022-08-08 14:11:00 +0700
 categories: artificial-intelligent reinforcement-learning
-tags: artificial-intelligent reinforcement-learning td-learning n-step-td eligible-traces my-rl
+tags: artificial-intelligent reinforcement-learning td-learning eligible-traces function-approximation importance-sampling my-rl
 description: Eligible Traces
 comments: true
 ---

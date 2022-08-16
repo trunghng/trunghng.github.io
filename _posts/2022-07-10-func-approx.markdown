@@ -3,7 +3,7 @@ layout: post
 title:  "Function Approximation"
 date:   2022-07-10 15:26:00 +0700
 categories: artificial-intelligent reinforcement-learning
-tags: artificial-intelligent reinforcement-learning function-approximation my-rl
+tags: artificial-intelligent reinforcement-learning function-approximation td-learning importance-sampling my-rl
 description: Function approximation
 comments: true
 ---

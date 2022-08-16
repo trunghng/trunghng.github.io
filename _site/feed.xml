@@ -1,5 +1,70 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-16T13:54:05+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
-</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Eligible Traces</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html" rel="alternate" type="text/html" title="Eligible Traces" /><published>2022-08-08T14:11:00+07:00</published><updated>2022-08-08T14:11:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-16T17:46:34+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Policy Gradient Methods</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient.html" rel="alternate" type="text/html" title="Policy Gradient Methods" /><published>2022-08-16T14:00:00+07:00</published><updated>2022-08-16T14:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient.html">&lt;blockquote&gt;
+  &lt;p&gt;So far in the series, we have been choosing the actions based on the estimated action value function. On the other hand, we can instead learn a &lt;strong&gt;parameterized policy&lt;/strong&gt;, $\mathbf{\theta}$, that can select actions without consulting a value function by considering the gradient of some performance measure w.r.t $\mathbf{\theta}$. Such methods are called &lt;strong&gt;policy gradient methods&lt;/strong&gt;.
+&lt;!-- excerpt-end --&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#policy-grad-ep&quot;&gt;Policy Gradient for Episodic Problems&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#policy-grad-theorem-ep&quot;&gt;The Policy Gradient Theorem&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#reinforce&quot;&gt;REINFORCE&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#reinforce-baseline&quot;&gt;REINFORCE with Baseline&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#actor-critic-methods&quot;&gt;Actor-Critic Methods&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#policy-grad-cont&quot;&gt;Policy Gradient for Continuing Problems&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#policy-grad-theorem-cont&quot;&gt;The Policy Gradient Theorem&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;policy-grad-ep&quot;&gt;Policy Gradient for Episodic Problems&lt;/h2&gt;
+&lt;p&gt;We begin by considering episodic case, for which we define the performance measure $J(\mathbf{\theta})$ as the value of the start state of the episode. By assuming without loss of generality that every episode starts in some particular state $s_0$, we have:
+\begin{equation}
+J(\mathbf{\theta})\doteq v_{\pi_\mathbf{\theta}}(s_0),
+\end{equation}
+where $v_{\pi_\mathbf{\theta}}$ is the true value function for $\pi_\mathbf{\theta}$, the policy determined by $\mathbf{\theta}$.&lt;/p&gt;
+
+&lt;h3 id=&quot;policy-grad-theorem-ep&quot;&gt;The Policy Gradient Theorem&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt;&lt;br /&gt;
+The policy gradient theorem for the episodic case establishes that
+\begin{equation}
+\nabla_\mathbf{\theta}J(\mathbf{\theta})\propto\sum_s\mu(s)\sum_a q_\pi(s,a)\nabla_\mathbf{\theta}\pi(a|s,\mathbf{\theta}),
+\end{equation}
+where $\pi$ represents the policy corresponding to parameter vector $\mathbf{\theta}$.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
+We have that the gradient of the state-value function w.r.t $\mathbf{\theta}$ can be written in terms of the action-value function as:
+\begin{align}
+\nabla_\mathbf{\theta}v_\pi(s)&amp;amp;=\nabla_\mathbf{\theta}\Big[\sum_a\pi(a|s)q_\pi(s,a)\Big],\hspace{1cm}\forall s\in\mathcal{S} \\ &amp;amp;=\sum_a\Big[\nabla_\mathbf{\theta}\pi(a|s)q_\pi(s,a)+\pi(a|s)\nabla_\mathbf{\theta}q_\pi(s,a)\Big] \\ &amp;amp;=\sum_a\Big[\nabla_\mathbf{\theta}\pi(s|a)q_\pi(a,s)+\pi(a|s)\nabla_\mathbf{\theta}\sum_{s’,r}p(s’,r|s,a)\big(r+v_\pi(s’)\big)\Big] \\ &amp;amp;=\sum_a\Big[\nabla_\mathbf{\theta}\pi(a|s)q_\pi(s,a)+\pi(a|s)\sum_{s’}p(s’|s,a)\nabla_\mathbf{\theta}v_\pi(s’)\Big] \\ &amp;amp;=\sum_a\Big[\nabla_\mathbf{\theta}\pi(a|s)q_\pi(s,a)+\pi(a|s)\sum_{s’}p(s’|s,a)\sum_{a’}\big(\nabla_\mathbf{\theta}\pi(s’|a’)q_\pi(s’,a’) \\ &amp;amp;\hspace{2cm}+\pi(a’|s’)\sum_{s&apos;&apos;}p(s&apos;&apos;\vert s’,a’)\nabla_\mathbf{\theta}v_\pi(s&apos;&apos;)\big)\Big] \\ &amp;amp;=\sum_{x\in\mathcal{S}}\sum_{k=0}^{\infty}P(s\to x,k,\pi)\sum_a\nabla_\mathbf{\theta}\pi(a|s)q_\pi(s,a),
+\end{align}
+After repeated unrolling as in the fifth step, where $P(s\to x,k,\pi)$ is the probability of transitioning from state $s$ to state $x$ in $k$ steps under policy $\pi$. It is then immediate that:
+\begin{align}
+\nabla_\mathbf{\theta}J(\mathbf{\theta})&amp;amp;=\nabla_\mathbf{\theta}v_\pi(s_0) \\ &amp;amp;=\sum_s\Big(\sum_{k=0}^{\infty}P(s_0\to s,k,\pi)\Big)\sum_a\nabla_\mathbf{\theta}\pi(a|s)q_\pi(s,a) \\ &amp;amp;=\sum_s\eta(s)\sum_a\nabla_\mathbf{\theta}\pi(a|s)q_\pi(s,a) \\ &amp;amp;=\sum_{s’}\eta(s’)\sum_s\frac{\eta(s)}{\sum_{s’}\eta(s’)}\sum_a\nabla_\mathbf{\theta}\pi(a|s)q_\pi(s,a) \\ &amp;amp;=\sum_{s’}\eta(s’)\sum_s\mu(s)\sum_a\nabla_\mathbf{\theta}\pi(a|s)q_\pi(s,a) \\ &amp;amp;\propto\sum_s\mu(s)\sum_a\nabla_\mathbf{\theta}\pi(a|s)q_\pi(s,a),
+\end{align}
+where $\eta(s)$ denotes the number of time steps spent, on average, in state $s$ in a single episode:
+\begin{equation}
+\eta(s)=h(s)+\sum_{\bar{s}}\eta(\bar{s})\sum_a\pi(a|s)p(s|\bar{s},a),\hspace{1cm}\forall s\in\mathcal{S}
+\end{equation}
+where $h(s)$ denotes the probability that an episode begins in each state $s$; $\bar{s}$ denotes the preceding state of $s$. This leads to the result that we have used in the fifth step:
+\begin{equation}
+\mu(s)=\frac{\eta(s)}{\sum_{s’}\eta(s’)},\hspace{1cm}\forall s\in\mathcal{S}
+\end{equation}&lt;/p&gt;
+
+&lt;h3 id=&quot;reinforce&quot;&gt;REINFORCE&lt;/h3&gt;
+
+&lt;h3 id=&quot;reinforce-baseline&quot;&gt;REINFORCE with Baseline&lt;/h3&gt;
+
+&lt;h3 id=&quot;actor-critic-methods&quot;&gt;Actor-Critic Methods&lt;/h3&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="policy-gradient" /><category term="actor-critic" /><category term="function-approximation" /><category term="my-rl" /><summary type="html">So far in the series, we have been choosing the actions based on the estimated action value function. On the other hand, we can instead learn a parameterized policy, $\mathbf{\theta}$, that can select actions without consulting a value function by considering the gradient of some performance measure w.r.t $\mathbf{\theta}$. Such methods are called policy gradient methods.</summary></entry><entry><title type="html">Eligible Traces</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html" rel="alternate" type="text/html" title="Eligible Traces" /><published>2022-08-08T14:11:00+07:00</published><updated>2022-08-08T14:11:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html">&lt;blockquote&gt;
   &lt;p&gt;Beside &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#n-step-td&quot;&gt;$n$-step TD&lt;/a&gt; methods, there is another mechanism called &lt;strong&gt;Eligible traces&lt;/strong&gt; that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -747,7 +812,7 @@ where $M_t\geq 0$ is the general form of &lt;em&gt;emphasis&lt;/em&gt;, $F_t\geq
 
 &lt;p&gt;[9] Shangtong Zhang. &lt;a href=&quot;https://github.com/ShangtongZhang/reinforcement-learning-an-introduction&quot;&gt;Reinforcement Learning: An Introduction implementation&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="td-learning" /><category term="n-step-td" /><category term="eligible-traces" /><category term="my-rl" /><summary type="html">Beside $n$-step TD methods, there is another mechanism called Eligible traces that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.</summary></entry><entry><title type="html">Function Approximation</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html" rel="alternate" type="text/html" title="Function Approximation" /><published>2022-07-10T15:26:00+07:00</published><updated>2022-07-10T15:26:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html">&lt;blockquote&gt;
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="td-learning" /><category term="eligible-traces" /><category term="function-approximation" /><category term="importance-sampling" /><category term="my-rl" /><summary type="html">Beside $n$-step TD methods, there is another mechanism called Eligible traces that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.</summary></entry><entry><title type="html">Function Approximation</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html" rel="alternate" type="text/html" title="Function Approximation" /><published>2022-07-10T15:26:00+07:00</published><updated>2022-07-10T15:26:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html">&lt;blockquote&gt;
   &lt;p&gt;Reinforcement Learning in continuous state space requires function approximation.&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -1474,7 +1539,7 @@ be the &lt;em&gt;sample mean&lt;/em&gt; of $X_1$ through $X_n$.&lt;/p&gt;
       &lt;p&gt;where $\mathbf{D}$ denotes the $\vert\mathcal{S}\vert\times\vert\mathcal{S}\vert$ diagonal matrix with the $\mu(s)$ on the diagonal, and $\mathbf{X}$ denotes the $\vert\mathcal{S}\vert\times d$ matrix whose rows are the feature vectors $\mathbf{x}(s)^\intercal$, one for each state $s$. &lt;a href=&quot;#fnref:4&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="function-approximation" /><category term="my-rl" /><summary type="html">Reinforcement Learning in continuous state space requires function approximation.</summary></entry><entry><title type="html">Temporal-Difference Learning</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html" rel="alternate" type="text/html" title="Temporal-Difference Learning" /><published>2022-04-08T16:55:00+07:00</published><updated>2022-04-08T16:55:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html">&lt;blockquote&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="function-approximation" /><category term="td-learning" /><category term="importance-sampling" /><category term="my-rl" /><summary type="html">Reinforcement Learning in continuous state space requires function approximation.</summary></entry><entry><title type="html">Temporal-Difference Learning</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html" rel="alternate" type="text/html" title="Temporal-Difference Learning" /><published>2022-04-08T16:55:00+07:00</published><updated>2022-04-08T16:55:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/04/08/td-learning.html">&lt;blockquote&gt;
   &lt;p&gt;So far in this &lt;a href=&quot;/tag/my-rl&quot;&gt;series&lt;/a&gt;, we have gone through the ideas of &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html&quot;&gt;&lt;strong&gt;dynamic programming&lt;/strong&gt; (DP)&lt;/a&gt; and &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html&quot;&gt;&lt;strong&gt;Monte Carlo&lt;/strong&gt;&lt;/a&gt;. What will happen if we combine these ideas together? &lt;strong&gt;Temporal-difference (TD) learning&lt;/strong&gt; is our answer.&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -2353,7 +2418,7 @@ for $t\lt h\leq T$. The rescursion ends with $G_{h:h}\doteq Q_{h-1}(S_h,A_h)$ if
       &lt;p&gt;For the definition of Importance Sampling method, you can read more in this &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html#is&quot;&gt;section&lt;/a&gt;. &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="td-learning" /><category term="n-step-td" /><category term="q-learning" /><category term="my-rl" /><summary type="html">So far in this series, we have gone through the ideas of dynamic programming (DP) and Monte Carlo. What will happen if we combine these ideas together? Temporal-difference (TD) learning is our answer.</summary></entry><entry><title type="html">Power Series</title><link href="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>http://localhost:4000/mathematics/calculus/2021/09/21/power-series</id><content type="html" xml:base="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html">&lt;blockquote&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="td-learning" /><category term="importance-sampling" /><category term="q-learning" /><category term="my-rl" /><summary type="html">So far in this series, we have gone through the ideas of dynamic programming (DP) and Monte Carlo. What will happen if we combine these ideas together? Temporal-difference (TD) learning is our answer.</summary></entry><entry><title type="html">Power Series</title><link href="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>http://localhost:4000/mathematics/calculus/2021/09/21/power-series</id><content type="html" xml:base="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html">&lt;blockquote&gt;
   &lt;p&gt;Recall that in the previous post, &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html&quot;&gt;Infinite Series of Constants&lt;/a&gt;, we mentioned a type of series called &lt;strong&gt;power series&lt;/strong&gt; a lot. In the content of this post, we will be diving deeper into details of that series.&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -5317,156 +5382,4 @@ We say that $f$ is the &lt;em&gt;density&lt;/em&gt; of the measure $v$ w.r.t $\m
       &lt;p&gt;&lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="random-stuffs" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><category term="random-stuffs" /><summary type="html">When talking about measure, you might associate it with the idea of length, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with area, or even three dimensions with volume.</summary></entry><entry><title type="html">Markov Decision Processes, Bellman equations</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html" rel="alternate" type="text/html" title="Markov Decision Processes, Bellman equations" /><published>2021-06-27T08:00:00+07:00</published><updated>2021-06-27T08:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html">&lt;blockquote&gt;
-  &lt;p&gt;You may have known or heard vaguely about a computer program called &lt;strong&gt;AlphaGo&lt;/strong&gt; - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called &lt;strong&gt;self-play&lt;/strong&gt; against its other instances, with &lt;strong&gt;Reinforcement Learning&lt;/strong&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;!-- excerpt-end --&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#what-is-rl&quot;&gt;What is Reinforcement Learning?&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#mdp&quot;&gt;Markov Decision Processes (MDPs)&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#return&quot;&gt;Return&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#policy&quot;&gt;Policy&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#value-function&quot;&gt;Value Function&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#opt-policy-opt-value-func&quot;&gt;Optimal Policy and Optimal Value Function&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#bellman-equations&quot;&gt;Bellman Equations&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#bellman-backup-diagram&quot;&gt;Bellman Backup Diagram&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#bellman-optimality-equations&quot;&gt;Bellman Optimality Equations&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#backup-vq&quot;&gt;Backup diagram for $v_*$ and $q_*$&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;what-is-rl&quot;&gt;What is Reinforcement Learning?&lt;/h4&gt;
-&lt;p&gt;Say, there is an unknown &lt;strong&gt;environment&lt;/strong&gt; that we’re trying to put an &lt;strong&gt;agent&lt;/strong&gt; on. By interacting with the &lt;strong&gt;agent&lt;/strong&gt; through taking &lt;strong&gt;actions&lt;/strong&gt; that gives rise to &lt;strong&gt;rewards&lt;/strong&gt; continually, the &lt;strong&gt;agent&lt;/strong&gt; learns a &lt;strong&gt;policy&lt;/strong&gt; that maximize the cumulative &lt;strong&gt;rewards&lt;/strong&gt;.&lt;br /&gt;
-&lt;strong&gt;Reinforcement Learning (RL)&lt;/strong&gt;, roughly speaking, is an area of Machine Learning that describes methods aimed to learn a good strategy (called &lt;strong&gt;policy&lt;/strong&gt;) for the &lt;strong&gt;agent&lt;/strong&gt; from experimental trials and relative simple feedback received. With the optimal &lt;strong&gt;policy&lt;/strong&gt;, the &lt;strong&gt;agent&lt;/strong&gt; is capable to actively adapt to the environment to maximize future &lt;strong&gt;rewards&lt;/strong&gt;.
-&lt;img src=&quot;/assets/images/robot.png&quot; alt=&quot;RL&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;mdp&quot;&gt;Markov Decision Processes (MDPs)&lt;/h4&gt;
-&lt;p&gt;&lt;strong&gt;Markov decision processes (MDPs)&lt;/strong&gt; formally describe an environment for &lt;strong&gt;RL&lt;/strong&gt;. And almost all &lt;strong&gt;RL&lt;/strong&gt; problems can be formalized as &lt;strong&gt;MDPs&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Definition (MDP)&lt;/strong&gt;&lt;br /&gt;
-A &lt;strong&gt;Markov Decision Process&lt;/strong&gt; is a tuple $⟨\mathcal{S}, \mathcal{A}, \mathcal{P}, \mathcal{R}, \gamma⟩$&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;$\mathcal{S}$ is a set of states called &lt;em&gt;state space&lt;/em&gt;&lt;/li&gt;
-  &lt;li&gt;$\mathcal{A}$ is a set of actions called &lt;em&gt;action space&lt;/em&gt;&lt;/li&gt;
-  &lt;li&gt;$\mathcal{P}$ is a state transition probability matrix&lt;br /&gt;
-  \(\mathcal{P}^a_{ss&apos;}=P(S_{t+1}=s&apos;|S_t=s,A_t=a)\)&lt;/li&gt;
-  &lt;li&gt;$\mathcal{R}$ is a reward function&lt;br /&gt;
-  \(\mathcal{R}^a_s=\mathbb{E}\left[R_{t+1}|S_t=s,A_t=a\right]\)&lt;/li&gt;
-  &lt;li&gt;$\gamma\in[0, 1]$ is a discount factor for future reward&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;MDP&lt;/strong&gt; is an extension of &lt;a href=&quot;/random-stuffs/probability-statistics/2021/06/19/markov-chain.html&quot;&gt;Markov chain&lt;/a&gt;. If only one action exists for each state, and all rewards are the same, an &lt;strong&gt;MDP&lt;/strong&gt; reduces to a &lt;em&gt;Markov chain&lt;/em&gt;. All states in &lt;strong&gt;MDP&lt;/strong&gt; has &lt;a href=&quot;/random-stuffs/probability-statistics/2021/06/19/markov-chain.html#markov-property&quot;&gt;Markov property&lt;/a&gt;, referring to the fact that the current state captures all relevant information from the history.
-\begin{equation}
-P(S_{t+1}|S_t)=P(S_{t+1}|S_1,\dots,S_t)
-\end{equation}&lt;/p&gt;
-
-&lt;h5 id=&quot;return&quot;&gt;Return&lt;/h5&gt;
-&lt;p&gt;In the preceding section, we have said that the goal of agent is to maximize the cumulative reward in the long run. In general, we seek to maximize the &lt;strong&gt;expected return&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Return&lt;/em&gt;)&lt;br /&gt;
-The &lt;strong&gt;return&lt;/strong&gt; $G_t$ is the total discounted reward from t
-\begin{equation}
-G_t=R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+\dots=\sum_{k=0}^{\infty}\gamma^k R_{t+k+1},
-\end{equation}
-where $\gamma\in[0,1]$ is called &lt;em&gt;discount rate&lt;/em&gt; (or &lt;em&gt;discount factor&lt;/em&gt;).&lt;/p&gt;
-
-&lt;p&gt;The &lt;em&gt;discount rate&lt;/em&gt; $\gamma$ determines the present value of future rewards: a reward received
-k time steps in the future is worth only $\gamma^{k-1}$ times what it would be worth if it were received immediately. And also, it provides mathematical convenience since as $k\rightarrow\infty$ then $\gamma^k\rightarrow 0$.&lt;/p&gt;
-
-&lt;h5 id=&quot;policy&quot;&gt;Policy&lt;/h5&gt;
-&lt;p&gt;&lt;strong&gt;Policy&lt;/strong&gt;, which is denoted as $\pi$, is the behavior function of the agent. $\pi$ is a mapping from states to probabilities of selecting each possible action. In other words, it lets us know which action to take in the current state $s$ and can be either &lt;em&gt;deterministic&lt;/em&gt; or &lt;em&gt;stochastic&lt;/em&gt;.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;em&gt;Deterministic policy&lt;/em&gt;:	$\quad\pi(s)=a$&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Stochastic policy&lt;/em&gt;: $\quad\pi(a|s)=P(A_t=a|S_t=s)$&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;value-function&quot;&gt;Value Function&lt;/h5&gt;
-&lt;p&gt;&lt;strong&gt;Value function&lt;/strong&gt; measures &lt;em&gt;how good&lt;/em&gt; a particular state is (or &lt;em&gt;how good&lt;/em&gt; it is to perform a given action in a given state).&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;state-value function&lt;/em&gt;)&lt;br /&gt;
-The &lt;strong&gt;state-value function&lt;/strong&gt; of a state $s$ under a policy $\pi$, denoted as $v_\pi(s)$, is the expected return starting from state $s$ and following $\pi$ thereafter:
-\begin{equation}
-v_\pi(s)=\mathbb{E}_\pi[G_t|S_t=s]
-\end{equation}&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;action-value function&lt;/em&gt;)&lt;br /&gt;
-Similarly, we define the value of taking action $a$ in state $s$ under a policy $\pi$, denoted as $q_\pi(s,a)$, as the expected return starting from $s$, taking the action $a$, and thereafter following policy $\pi$:
-\begin{equation}
-q_\pi(s,a)=\mathbb{E}_\pi[G_t|S_t=s,A_t=a]
-\end{equation}&lt;/p&gt;
-
-&lt;p&gt;Since we follow the policy $\pi$, we have that
-\begin{equation}
-v_\pi(s)=\sum_{a\in\mathcal{A}}q_\pi(s,a)\pi(a|s)
-\end{equation}&lt;/p&gt;
-
-&lt;h5 id=&quot;opt-policy-opt-value-func&quot;&gt;Optimal Policy and Optimal Value Function&lt;/h5&gt;
-&lt;p&gt;For finite MDPs (finite state and action space), we can precisely define an &lt;strong&gt;optimal policy&lt;/strong&gt;. &lt;em&gt;Value functions&lt;/em&gt; define a partial ordering over policies. A policy $\pi$ is defined to be better than or equal to a policy $\pi’$ if its expected return is greater than or equal to that of $\pi’$ for all states. In other words,
-\begin{equation}
-\pi\geq\pi’\iff v_\pi(s)\geq v_{\pi’} \forall s\in\mathcal{S}
-\end{equation}&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt; (&lt;em&gt;Optimal policy&lt;/em&gt;)&lt;br /&gt;
-For any MDP, there exists an optimal policy $\pi_*$ that is better than or equal to all other policies,
-\begin{equation}
-\pi_*\geq\pi,\forall\pi
-\end{equation}&lt;/p&gt;
-
-&lt;p&gt;The proof of the above theorem is going to be provided in another &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html&quot;&gt;post&lt;/a&gt; since we need some additional tools to do that.&lt;/p&gt;
-
-&lt;p&gt;There may be more than one &lt;strong&gt;optimal policy&lt;/strong&gt;, they share the same &lt;em&gt;state-value function&lt;/em&gt;, called &lt;strong&gt;optimal state-value function&lt;/strong&gt; though.
-\begin{equation}
-v_*(s)=\max_{\pi}v_\pi(s)
-\end{equation}
-&lt;strong&gt;Optimal policies&lt;/strong&gt; also share the same &lt;em&gt;action-value function&lt;/em&gt;, called &lt;strong&gt;optimal action-value function&lt;/strong&gt;
-\begin{equation}
-q_*(s,a)=\max_{\pi}q_\pi(s,a)
-\end{equation}&lt;/p&gt;
-
-&lt;h4 id=&quot;bellman-equations&quot;&gt;Bellman Equations&lt;/h4&gt;
-&lt;p&gt;A fundamental property of &lt;em&gt;value functions&lt;/em&gt; used throughout RL is that they satisfy recursive relationships
-\begin{align}
-v_\pi(s)&amp;amp;\doteq \mathbb{E}_\pi[G_t|S_t=s] \\&amp;amp;=\mathbb{E}_\pi[R_t+\gamma G_{t+1}|S_t=s] \\&amp;amp;=\sum_{s’,r,g’,a}p(s’,r,g’,a|s)(r+\gamma g’) \\&amp;amp;=\sum_{a}p(a|s)\sum_{s’,r,g’}p(s’,r,g’|a,s)(r+\gamma g’) \\&amp;amp;=\sum_{a}\pi(a|s)\sum_{s’,r,g’}p(s’,r|a,s)p(g’|s’,r,a,s)(r+\gamma g’) \\&amp;amp;=\sum_{a}\pi(a|s)\sum_{s’,r}p(s’,r|a,s)\sum_{g’}p(g’|s’)(r+\gamma g’) \\&amp;amp;=\sum_{a}\pi(a|s)\sum_{s’,r}p(s’,r|a,s)\left[r+\gamma\sum_{g’}p(g’|s’)g’\right] \\&amp;amp;=\sum_{a}\pi(a|s)\sum_{s’,r}p(s’,r|a,s)\left[r+\gamma v_\pi(s’)\right],
-\end{align}
-where $p(s’,r|s,a)=P(S_{t+1}=s’,R_{t+1}=r|S_t=s,A_t=a)$, which defines the dynamics of the MDP. The last equation is called the &lt;em&gt;Bellman equation for&lt;/em&gt; $v_\pi(s)$. It expresses a relationship between the value state $s$, $v_\pi(s)$ and the values of its successor states $s’$, $v_\pi(s’)$.&lt;/p&gt;
-
-&lt;p&gt;Similarly, we define the &lt;em&gt;Bellman equation for&lt;/em&gt; $q_\pi(s,a)$
-\begin{align}
-q_\pi(s,a)&amp;amp;\doteq\mathbb{E}_\pi[G_t|S_t=s,A_t=a] \\&amp;amp;=\mathbb{E}_\pi[R_t+\gamma G_{t+1}|S_t=s,A_t=a] \\&amp;amp;=\sum_{s’,r}p(s’,r|s,a)\left[r+\gamma\sum_{a’}\pi(a’|s’)q_\pi(s’,a’)\right]
-\end{align}&lt;/p&gt;
-
-&lt;h5 id=&quot;bellman-backup-diagram&quot;&gt;Bellman Backup Diagram&lt;/h5&gt;
-&lt;p&gt;Backup diagram of &lt;em&gt;state-value function&lt;/em&gt; and &lt;em&gt;action-value function&lt;/em&gt; respectively&lt;/p&gt;
-&lt;p float=&quot;left&quot;&gt;
-  &lt;img src=&quot;/assets/images/state.png&quot; width=&quot;350&quot; /&gt;
-  &lt;img src=&quot;/assets/images/action.png&quot; width=&quot;350&quot; /&gt; 
-&lt;/p&gt;
-
-&lt;h5 id=&quot;bellman-optimality-equations&quot;&gt;Bellman Optimality Equations&lt;/h5&gt;
-&lt;p&gt;Since $v_*$ is the value function for a policy, it must satisfy the &lt;em&gt;Bellman equation for state-values&lt;/em&gt;. Moreover, it is also the optimal value function, then we have
-\begin{align}
-v_*(s)&amp;amp;=\max_{a\in\mathcal{A(s)}}q_{\pi_*}(s,a) \\&amp;amp;=\max_{a}\mathbb{E}_{\pi_*}[G_t|S_t=s,A_t=a] \\&amp;amp;=\max_{a}\mathbb{E}_{\pi_*}[R_{t+1}+\gamma G_{t+1}|S_t=s,A_t=a] \\&amp;amp;=\max_{a}\mathbb{E}[R_{t+1}+\gamma v_*(S_{t+1})|S_t=s,A_t=a] \\&amp;amp;=\max_{a}\sum_{s’,r}p(s’,r|s,a)[r+\gamma v_*(s’)]
-\end{align}
-The last two equations are two forms of the &lt;em&gt;Bellman optimality equation for&lt;/em&gt; $v_*$. Similarly, we have the &lt;em&gt;Bellman optimality equation for&lt;/em&gt; $q_*$
-\begin{align}
-q_*(s,a)&amp;amp;=\mathbb{E}\left[R_{t+1}+\gamma\max_{a’}q_*(S_{t+1},a’)|S_t=s,A_t=a\right] \\&amp;amp;=\sum_{s’,r}p(s’,r|s,a)\left[r+\gamma\max_{a’}q_*(s’,a’)\right]
-\end{align}&lt;/p&gt;
-
-&lt;h5 id=&quot;backup-vq&quot;&gt;Backup diagram for $v_*$ and $q_*$&lt;/h5&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/images/opt.png&quot; alt=&quot;backup diagram for optimal value func&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
-&lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;[2] David Silver. &lt;a href=&quot;https://www.davidsilver.uk/teaching/&quot;&gt;UCL course on RL&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;[3] &lt;a href=&quot;https://lilianweng.github.io/lil-log/2018/02/19/a-long-peek-into-reinforcement-learning.html&quot;&gt;A (Long) Peek into Reinforcement Learning&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;[4] &lt;a href=&quot;https://deepmind.com/research/case-studies/alphago-the-story-so-far&quot;&gt;AlphaGo&lt;/a&gt;&lt;/p&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="my-rl" /><summary type="html">You may have known or heard vaguely about a computer program called AlphaGo - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called self-play against its other instances, with Reinforcement Learning.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="random-stuffs" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><category term="random-stuffs" /><summary type="html">When talking about measure, you might associate it with the idea of length, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with area, or even three dimensions with volume.</summary></entry></feed>
