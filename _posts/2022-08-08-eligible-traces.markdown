@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Eligible Traces"
-date:   2022-08-8 14:11:00 +0700
+date:   2022-08-08 14:11:00 +0700
 categories: artificial-intelligent reinforcement-learning
 tags: artificial-intelligent reinforcement-learning td-learning n-step-td eligible-traces my-rl
 description: Eligible Traces
