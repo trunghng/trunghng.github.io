@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-16T12:44:03+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-16T13:14:18+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Eligible Traces</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html" rel="alternate" type="text/html" title="Eligible Traces" /><published>2022-08-08T14:11:00+07:00</published><updated>2022-08-08T14:11:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html">&lt;blockquote&gt;
   &lt;p&gt;Beside &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#n-step-td&quot;&gt;$n$-step TD&lt;/a&gt; methods, there is another mechanism called &lt;strong&gt;Eligible traces&lt;/strong&gt; that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -74,8 +74,6 @@ The $G_t^\lambda$ is called &lt;strong&gt;$\lambda$-return&lt;/strong&gt; of the
 \begin{equation}
 \mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\left[G_t^\lambda-\hat{v}(S_t,\mathbf{w}_t)\right]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t),\hspace{1cm}t=0,\dots,T-1
 \end{equation}&lt;/p&gt;
-
-&lt;p&gt;[TODO] Add example&lt;/p&gt;
 
 &lt;h2 id=&quot;td-lambda&quot;&gt;TD($\lambda$)&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;TD($\lambda$)&lt;/strong&gt; improves over the offline $\lambda$-return algorithm since:&lt;/p&gt;
@@ -702,7 +700,7 @@ where $\bar{\mathbf{x}}_t$ is the average feature vector for $S_t$ under the tar
 &lt;h4 id=&quot;greedy-gq-lambda&quot;&gt;Greedy-GQ($\lambda$)&lt;/h4&gt;
 &lt;p&gt;If the target policy is $\varepsilon$-greedy, or otherwise biased towards the greedy policy for $\hat{q}$, then GQ($\lambda$) can be used as a control algorithm, called &lt;strong&gt;Greedy-GQ($\lambda$)&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;In the case of $\lambda=0$, called GQ(0), Greedy-GQ($\lambda$) has the following update:
+&lt;p&gt;In the case of $\lambda=0$, called GQ(0), Greedy-GQ($\lambda$) is defined by:
 \begin{equation}
 \mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\delta_t^a\mathbf{x}_t+\alpha\gamma_{t+1}(\mathbf{z}_t^\intercal\mathbf{x}_t)\mathbf{x}(S_{t+1},a_{t+1}^{*}),
 \end{equation}
@@ -715,24 +713,20 @@ where $\beta&amp;gt;0$ is a step-size parameter.&lt;/p&gt;
 &lt;h3 id=&quot;htd-lambda&quot;&gt;HTD($\lambda$)&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;HTD($\lambda$)&lt;/strong&gt; is a hybrid state-value algorithm combining aspects of GTD($\lambda$) and TD($\lambda$).&lt;/p&gt;
 
-&lt;p&gt;The key idea behind the derivation of HTD($\lambda$) is to modify the gradient of the MSPBE, $\overline{\text{PBE}}(\mathbf{w})$, to produce a new learning algorithm. Recall that GTD($\lambda$) derivation, we have written the MSPBE as in \eqref{31}, as:
-\begin{equation}
-\overline{\text{PBE}}(\mathbf{w})=\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}_t\Big]^\intercal\mathbb{E}\Big[\mathbf{x}_t\mathbf{x}_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}_t\Big]\tag{40}\label{40}
-\end{equation}
-Let $\mathbf{A}_\pi, \mathbf{C}$ be matrices and $\mathbf{b}_\pi$ is a vector such that:
+&lt;p&gt;HTD($\lambda$) has the following update:
 \begin{align}
-\mathbf{A}_\pi&amp;amp;\doteq\mathbb{E}\Big[\mathbf{z}_t\big(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\big)^\intercal\Big]; \\ \mathbf{C}&amp;amp;\doteq\mathbb{E}\Big[\mathbf{x}_t\mathbf{x}_t^\intercal\Big]; \\ \mathbf{b}_\pi&amp;amp;\doteq\mathbb{E}\Big[R_{t+1}\mathbf{z}_t\Big]
+\mathbf{w}_{t+1}&amp;amp;\doteq\mathbf{w}_t+\alpha\delta_t^s\mathbf{z}_t+\alpha\left(\left(\mathbf{z}_t-\mathbf{z}_t^b\right)^\intercal\mathbf{v}_t\right)\left(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\right), \\ \mathbf{v}_{t+1}&amp;amp;\doteq\mathbf{v}_t+\beta\delta_t^s\mathbf{z}_t-\beta\left({\mathbf{z}_t^b}^\intercal\mathbf{v}_t\right)\left(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\right), \\ \mathbf{z}_t&amp;amp;\doteq\rho_t\left(\gamma_t\lambda_t\mathbf{z}_{t-1}+\mathbf{x}_t\right), \\ \mathbf{z}_t^b&amp;amp;\doteq\gamma_t\lambda_t\mathbf{z}_{t-1}^b+\mathbf{x}_t,
 \end{align}
-The objective function \eqref{40} is then can be written as:
-\begin{equation}
-\overline{\text{PBE}}(\mathbf{w})=\left(-\mathbf{A}_\pi\mathbf{w}+\mathbf{b}_\pi\right)^\intercal\mathbf{C}^{-1}\left(-\mathbf{A}_\pi\mathbf{w}+\mathbf{b}_\pi\right)
-\end{equation}
-Thus, the gradient w.r.t the weight vector $\mathbf{w}$ of the MSPBE is:
-\begin{align}
--\frac{1}{2}\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w})&amp;amp;=-\frac{1}{2}\nabla_\mathbf{w}\Big[\left(-\mathbf{A}_\pi\mathbf{w}+\mathbf{b}_\pi\right)^\intercal\mathbf{C}^{-1}\left(-\mathbf{A}_\pi\mathbf{w}+\mathbf{b}_\pi\right)\Big] \\ &amp;amp;=-\mathbf{A}_\pi^\intercal\mathbf{C}^{-1}\left(-\mathbf{A}_\pi\mathbf{w}+\mathbf{b}_\pi\right)
-\end{align}&lt;/p&gt;
+where $\beta&amp;gt;0$ is a step-size parameter; $\mathbf{v}_t$ is initialized at $\mathbf{v}_0\doteq\mathbf{0}$; $\mathbf{z}_t$ is initialized at $\mathbf{z}_{-1}\doteq\mathbf{0}$; and $\mathbf{z}_t^b$ is initialized at $\mathbf{z}_{-1}^b\doteq\mathbf{0}$.&lt;/p&gt;
 
 &lt;h3 id=&quot;em-td-lambda&quot;&gt;Emphatic TD($\lambda$)&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Emphatic TD($\lambda$)&lt;/strong&gt; is the extension of the &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#em-td&quot;&gt;one-step Emphatic-TD algorithm&lt;/a&gt; to eligible traces.&lt;/p&gt;
+
+&lt;p&gt;Emphatic TD($\lambda$) is defined by:
+\begin{align}
+\mathbf{w}_{t+1}&amp;amp;\doteq\mathbf{w}_t+\alpha\delta_t\mathbf{z}_t, \\ \delta_t&amp;amp;\doteq R_{t+1}+\gamma_{t+1}\mathbf{w}_t^\intercal\mathbf{x}_{t+1}-\mathbf{w}_t^\intercal\mathbf{x}_t, \\ \mathbf{z}_t&amp;amp;\doteq\rho_t\left(\gamma_t\lambda_t\mathbf{z}_{t-1}+M_t\mathbf{x}_t\right), \\ M_t&amp;amp;\doteq\gamma_t\lambda_t+(1-\lambda_t)F_t, \\ F_t&amp;amp;\doteq\rho_{t-1}\gamma_t F_{t-1}+I_t,
+\end{align}
+where $M_t\geq 0$ is the general form of &lt;em&gt;emphasis&lt;/em&gt;, $F_t\geq 0$ is the &lt;em&gt;followon trace&lt;/em&gt;, and $I_t\geq 0$ is the &lt;em&gt;interest&lt;/em&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/p&gt;
@@ -749,9 +743,7 @@ Thus, the gradient w.r.t the weight vector $\mathbf{w}$ of the MSPBE is:
 
 &lt;p&gt;[7] Hamid Reza Maei &amp;amp; Richard S. Sutton &lt;a href=&quot;http://dx.doi.org/10.2991/agi.2010.22&quot;&gt;GQ($\lambda$): A general gradient algorithm for temporal-difference prediction learning with eligibility traces&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[8] Adam White &amp;amp; Martha White &lt;a href=&quot;https://doi.org/10.48550/arXiv.1602.08771&quot;&gt;Investigating practical linear temporal difference learning&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;[9] Shangtong Zhang. &lt;a href=&quot;https://github.com/ShangtongZhang/reinforcement-learning-an-introduction&quot;&gt;Reinforcement Learning: An Introduction implementation&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;[8] Shangtong Zhang. &lt;a href=&quot;https://github.com/ShangtongZhang/reinforcement-learning-an-introduction&quot;&gt;Reinforcement Learning: An Introduction implementation&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="td-learning" /><category term="n-step-td" /><category term="eligible-traces" /><category term="my-rl" /><summary type="html">Beside $n$-step TD methods, there is another mechanism called Eligible traces that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.</summary></entry><entry><title type="html">Function Approximation</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html" rel="alternate" type="text/html" title="Function Approximation" /><published>2022-07-10T15:26:00+07:00</published><updated>2022-07-10T15:26:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html">&lt;blockquote&gt;
   &lt;p&gt;Reinforcement Learning in continuous state space requires function approximation.&lt;/p&gt;

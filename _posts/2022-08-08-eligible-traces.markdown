@@ -69,8 +69,6 @@ With the definition of $\lambda$-return, we can define the **offline $\lambda$-r
 \mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\left[G_t^\lambda-\hat{v}(S_t,\mathbf{w}\_t)\right]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t),\hspace{1cm}t=0,\dots,T-1
 \end{equation}
 
-[TODO] Add example
-
 ## TD($\lambda$)
 {: #td-lambda}
 **TD($\lambda$)** improves over the offline $\lambda$-return algorithm since:
@@ -704,7 +702,7 @@ where $\bar{\mathbf{x}}\_t$ is the average feature vector for $S_t$ under the ta
 {: #greedy-gq-lambda}
 If the target policy is $\varepsilon$-greedy, or otherwise biased towards the greedy policy for $\hat{q}$, then GQ($\lambda$) can be used as a control algorithm, called **Greedy-GQ($\lambda$)**. 
 
-In the case of $\lambda=0$, called GQ(0), Greedy-GQ($\lambda$) has the following update:
+In the case of $\lambda=0$, called GQ(0), Greedy-GQ($\lambda$) is defined by:
 \begin{equation}
 \mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\delta_t^a\mathbf{x}\_t+\alpha\gamma_{t+1}(\mathbf{z}\_t^\intercal\mathbf{x}\_t)\mathbf{x}(S_{t+1},a_{t+1}^{\*}),
 \end{equation}
@@ -718,28 +716,21 @@ where $\beta>0$ is a step-size parameter.
 {: #htd-lambda}
 **HTD($\lambda$)** is a hybrid state-value algorithm combining aspects of GTD($\lambda$) and TD($\lambda$). 
 
-The key idea behind the derivation of HTD($\lambda$) is to modify the gradient of the MSPBE, $\overline{\text{PBE}}(\mathbf{w})$, to produce a new learning algorithm. Recall that GTD($\lambda$) derivation, we have written the MSPBE as in \eqref{31}, as:
-\begin{equation}
-\overline{\text{PBE}}(\mathbf{w})=\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]^\intercal\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]\tag{40}\label{40}
-\end{equation}
-Let $\mathbf{A}\_\pi, \mathbf{C}$ be matrices and $\mathbf{b}\_\pi$ is a vector such that:
+HTD($\lambda$) has the following update:
 \begin{align}
-\mathbf{A}\_\pi&\doteq\mathbb{E}\Big[\mathbf{z}\_t\big(\mathbf{x}\_t-\gamma_{t+1}\mathbf{x}\_{t+1}\big)^\intercal\Big]; \\\\ \mathbf{C}&\doteq\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]; \\\\ \mathbf{b}\_\pi&\doteq\mathbb{E}\Big[R_{t+1}\mathbf{z}\_t\Big]
+\mathbf{w}\_{t+1}&\doteq\mathbf{w}\_t+\alpha\delta_t^s\mathbf{z}\_t+\alpha\left(\left(\mathbf{z}\_t-\mathbf{z}\_t^b\right)^\intercal\mathbf{v}\_t\right)\left(\mathbf{x}\_t-\gamma_{t+1}\mathbf{x}\_{t+1}\right), \\\\ \mathbf{v}\_{t+1}&\doteq\mathbf{v}\_t+\beta\delta_t^s\mathbf{z}\_t-\beta\left({\mathbf{z}\_t^b}^\intercal\mathbf{v}\_t\right)\left(\mathbf{x}\_t-\gamma_{t+1}\mathbf{x}\_{t+1}\right), \\\\ \mathbf{z}\_t&\doteq\rho_t\left(\gamma_t\lambda_t\mathbf{z}\_{t-1}+\mathbf{x}\_t\right), \\\\ \mathbf{z}\_t^b&\doteq\gamma_t\lambda_t\mathbf{z}\_{t-1}^b+\mathbf{x}\_t,
 \end{align}
-The objective function \eqref{40} is then can be written as:
-\begin{equation}
-\overline{\text{PBE}}(\mathbf{w})=\left(-\mathbf{A}\_\pi\mathbf{w}+\mathbf{b}\_\pi\right)^\intercal\mathbf{C}^{-1}\left(-\mathbf{A}\_\pi\mathbf{w}+\mathbf{b}\_\pi\right)
-\end{equation}
-Thus, the gradient w.r.t the weight vector $\mathbf{w}$ of the MSPBE is:
-\begin{align}
--\frac{1}{2}\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w})&=-\frac{1}{2}\nabla_\mathbf{w}\Big[\left(-\mathbf{A}\_\pi\mathbf{w}+\mathbf{b}\_\pi\right)^\intercal\mathbf{C}^{-1}\left(-\mathbf{A}\_\pi\mathbf{w}+\mathbf{b}\_\pi\right)\Big] \\\\ &=-\mathbf{A}\_\pi^\intercal\mathbf{C}^{-1}\left(-\mathbf{A}\_\pi\mathbf{w}+\mathbf{b}\_\pi\right)
-\end{align}
-
-
-
+where $\beta>0$ is a step-size parameter; $\mathbf{v}\_t$ is initialized at $\mathbf{v}\_0\doteq\mathbf{0}$; $\mathbf{z}\_t$ is initialized at $\mathbf{z}\_{-1}\doteq\mathbf{0}$; and $\mathbf{z}\_t^b$ is initialized at $\mathbf{z}\_{-1}^b\doteq\mathbf{0}$.
 
 ### Emphatic TD($\lambda$)
 {: #em-td-lambda}
+**Emphatic TD($\lambda$)** is the extension of the [one-step Emphatic-TD algorithm]({% post_url 2022-07-10-func-approx %}#em-td) to eligible traces. 
+
+Emphatic TD($\lambda$) is defined by:
+\begin{align}
+\mathbf{w}\_{t+1}&\doteq\mathbf{w}\_t+\alpha\delta_t\mathbf{z}\_t, \\\\ \delta_t&\doteq R_{t+1}+\gamma_{t+1}\mathbf{w}\_t^\intercal\mathbf{x}\_{t+1}-\mathbf{w}\_t^\intercal\mathbf{x}\_t, \\\\ \mathbf{z}\_t&\doteq\rho_t\left(\gamma_t\lambda_t\mathbf{z}\_{t-1}+M_t\mathbf{x}\_t\right), \\\\ M_t&\doteq\gamma_t\lambda_t+(1-\lambda_t)F_t, \\\\ F_t&\doteq\rho_{t-1}\gamma_t F_{t-1}+I_t,
+\end{align}
+where $M_t\geq 0$ is the general form of *emphasis*, $F_t\geq 0$ is the *followon trace*, and $I_t\geq 0$ is the *interest*.
 
 ## References
 {: #references}
@@ -757,9 +748,7 @@ Thus, the gradient w.r.t the weight vector $\mathbf{w}$ of the MSPBE is:
 
 [7] Hamid Reza Maei & Richard S. Sutton [GQ($\lambda$): A general gradient algorithm for temporal-difference prediction learning with eligibility traces](http://dx.doi.org/10.2991/agi.2010.22).  
 
-[8] Adam White & Martha White [Investigating practical linear temporal difference learning](https://doi.org/10.48550/arXiv.1602.08771). 
-
-[9] Shangtong Zhang. [Reinforcement Learning: An Introduction implementation](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction). 
+[8] Shangtong Zhang. [Reinforcement Learning: An Introduction implementation](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction). 
 
 ## Footnotes
 {: #footnotes}
