@@ -11,22 +11,23 @@ comments: true
 <!-- excerpt-end -->
 
 - [The λ-return](#lambda-return)
-	- [Offline \\(\lambda\\)-return](#off-lambda-return)
-- [TD(\\(\lambda\\))](#td-lambda)
+	- [Offline λ-return](#off-lambda-return)
+- [TD(λ)](#td-lambda)
 - [Truncated TD Methods](#truncated-td)
-- [Online \\(\lambda\\)-return](#onl-lambda-return)
+- [Online λ-return](#onl-lambda-return)
 - [True Online TD(λ)](#true-onl-td-lambda)
 	- [Equivalence between forward and backward views](#equivalence-bw-forward-backward)
 	- [Dutch Traces in Monte Carlo](#dutch-traces-mc)
-- [Sarsa(\\(\lambda\\))](#sarsa-lambda)
-- [Variable \\(\lambda\\) and \\(\gamma\\)](#lambda-gamma)
+- [Sarsa(λ)](#sarsa-lambda)
+- [Variable λ and \\(\gamma\\)](#lambda-gamma)
 - [Off-policy Traces with Control Variates](#off-policy-traces-control-variates)
-- [Tree-Backup(\\(\lambda\\))](#tree-backup-lambda)
+- [Tree-Backup(λ)](#tree-backup-lambda)
 - [Other Off-policy Methods with Traces](#other-off-policy-methods-traces)
-	- [GTD(\\(\lambda\\))](#gtd-lambda)
-	- [GQ(\\(\lambda\\))](#gq-lambda)
+	- [GTD(λ)](#gtd-lambda)
+	- [GQ(λ)](#gq-lambda)
+		- [Greedy-GQ(λ)](#greedy-gq-lambda)
 	- [HTD(\\(\lambda\\))](#htd-lambda)
-	- [Emphatic TD(\\(\lambda\\))](#em-td-lambda)
+	- [Emphatic TD(λ)](#em-td-lambda)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -570,11 +571,11 @@ where
 \end{equation}
 Plugging this result back to \eqref{30} lets our objective function become:
 \begin{equation}
-\overline{\text{PBE}}(\mathbf{w})=\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]^\intercal\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]
+\overline{\text{PBE}}(\mathbf{w})=\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]^\intercal\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]\tag{31}\label{31}
 \end{equation}
 Similar to TDC, we also use gradient descent in order to find the minimum value of $\overline{\text{PBE}}(\mathbf{w})$. The gradient of our objective function w.r.t the weight vector $\mathbf{w}$ is:
 \begin{align}
-\frac{1}{2}\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w})&=-\frac{1}{2}\nabla_\mathbf{w}\Bigg(\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]^\intercal\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]\Bigg) \\\\ &=\nabla_\mathbf{w}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=-\mathbb{E}\Big[\big(\gamma_{t+1}\mathbf{x}\_{t+1}-\mathbf{x}\_t\big)\mathbf{z}\_t^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=-\mathbb{E}\Big[\gamma_{t+1}\mathbf{x}\_{t+1}\mathbf{z}\_t^\intercal-\mathbf{x}\_t\mathbf{z}\_t^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=-\mathbb{E}\Big[\gamma_{t+1}\mathbf{x}\_{t+1}\mathbf{z}\_t^\intercal-\mathbf{x}\_t\rho_t\big(\mathbf{x}\_t+\gamma_t\lambda_t\mathbf{z}\_{t-1}\big)^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=-\mathbb{E}\Big[\gamma_{t+1}\mathbf{x}\_{t+1}\mathbf{z}\_t^\intercal-\big(\mathbf{x}\_t\rho_t\mathbf{x}\_t^\intercal+\mathbf{x}\_t\rho_t\gamma_t\lambda_t\mathbf{z}\_{t-1}^\intercal\big)\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=-\mathbb{E}\Big[\gamma_{t+1}\mathbf{x}\_{t+1}\mathbf{z}\_t^\intercal-\big(\mathbf{x}\_t\mathbf{x}\_t^\intercal+\mathbf{x}\_{t+1}\gamma_{t+1}\lambda_{t+1}\mathbf{z}\_t^\intercal\big)\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal-\gamma_{t+1}(1-\lambda_{t+1})\mathbf{x}\_{t+1}\mathbf{z}\_t^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]-\mathbb{E}\Big[\gamma_{t+1}(1-\lambda_{t+1})\mathbf{x}\_{t+1}\mathbf{z}\_t^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]-\mathbb{E}\Big[\gamma_{t+1}(1-\lambda_{t+1})\mathbf{x}\_{t+1}\mathbf{z}\_t^\intercal\Big]\mathbf{v}(\mathbf{w}),\tag{31}\label{31}
+\frac{1}{2}\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w})&=-\frac{1}{2}\nabla_\mathbf{w}\Bigg(\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]^\intercal\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]\Bigg) \\\\ &=\nabla_\mathbf{w}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=-\mathbb{E}\Big[\big(\gamma_{t+1}\mathbf{x}\_{t+1}-\mathbf{x}\_t\big)\mathbf{z}\_t^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=-\mathbb{E}\Big[\gamma_{t+1}\mathbf{x}\_{t+1}\mathbf{z}\_t^\intercal-\mathbf{x}\_t\mathbf{z}\_t^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=-\mathbb{E}\Big[\gamma_{t+1}\mathbf{x}\_{t+1}\mathbf{z}\_t^\intercal-\mathbf{x}\_t\rho_t\big(\mathbf{x}\_t+\gamma_t\lambda_t\mathbf{z}\_{t-1}\big)^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=-\mathbb{E}\Big[\gamma_{t+1}\mathbf{x}\_{t+1}\mathbf{z}\_t^\intercal-\big(\mathbf{x}\_t\rho_t\mathbf{x}\_t^\intercal+\mathbf{x}\_t\rho_t\gamma_t\lambda_t\mathbf{z}\_{t-1}^\intercal\big)\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=-\mathbb{E}\Big[\gamma_{t+1}\mathbf{x}\_{t+1}\mathbf{z}\_t^\intercal-\big(\mathbf{x}\_t\mathbf{x}\_t^\intercal+\mathbf{x}\_{t+1}\gamma_{t+1}\lambda_{t+1}\mathbf{z}\_t^\intercal\big)\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal-\gamma_{t+1}(1-\lambda_{t+1})\mathbf{x}\_{t+1}\mathbf{z}\_t^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]-\mathbb{E}\Big[\gamma_{t+1}(1-\lambda_{t+1})\mathbf{x}\_{t+1}\mathbf{z}\_t^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]-\mathbb{E}\Big[\gamma_{t+1}(1-\lambda_{t+1})\mathbf{x}\_{t+1}\mathbf{z}\_t^\intercal\Big]\mathbf{v}(\mathbf{w}),\tag{32}\label{32}
 \end{align}
 where in the seventh step, we have used shifting indices trick and the identities:
 \begin{align}
@@ -584,23 +585,14 @@ and where in the final step, we define:
 \begin{equation}
 \mathbf{v}(\mathbf{w})\doteq\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]
 \end{equation}
-By direct sampling from \eqref{31} and following TDC derivation steps we obtain the **GTD($\lambda$)** algorithm:
+By direct sampling from \eqref{32} and following TDC derivation steps we obtain the **GTD($\lambda$)** algorithm:
 \begin{equation}
 \mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\delta_t^s\mathbf{z}\_t-\alpha\gamma_{t+1}(1-\lambda_{t+1})(\mathbf{z}\_t^\intercal\mathbf{v}\_t)\mathbf{x}\_{t+1},
 \end{equation}
-where the TD error is defined, as usual, as state-based TD error \eqref{18}:
-\begin{equation}
-\delta_t^s\doteq R_{t+1}+\gamma_{t+1}\mathbf{w}\_t^\intercal\mathbf{x}\_{t+1}-\mathbf{w}\_t^\intercal\mathbf{x}\_t,
-\end{equation}
-and where the eligible trace vector is defined as given in \eqref{20} for state value:
-\begin{equation}
-\mathbf{z}\_t=\rho_t(\gamma_t\lambda_t\mathbf{z}\_{t-1}+\mathbf{x}\_t),
-\end{equation}
-and where
-\begin{equation}
-\mathbf{v}\_{t+1}\doteq\mathbf{v}\_t+\beta\delta_t^s\mathbf{z}\_t-\beta(\mathbf{v}\_t^\intercal\mathbf{x}\_t)\mathbf{x}\_t,
-\end{equation}
-which is a vector of the same dimension as $\mathbf{w}$, initialized to $\mathbf{v}\_0=\mathbf{0}$ and $\beta>0$ is a step-size parameter.
+where the TD error $\delta_t^s$ is defined, as usual, as state-based TD error \eqref{18}; the eligible trace vector $\mathbf{z}\_t$ is defined as given in \eqref{20} for state value; and $\mathbf{v}\_t$ is a vector of the same dimension as $\mathbf{w}$, initialized to $\mathbf{v}\_0=\mathbf{0}$ with $\beta>0$ is a step-size parameter:
+\begin{align}
+\delta_t^s&\doteq R_{t+1}+\gamma_{t+1}\mathbf{w}\_t^\intercal\mathbf{x}\_{t+1}-\mathbf{w}\_t^\intercal\mathbf{x}\_t, \\\\ \mathbf{z}\_t&\doteq\rho_t(\gamma_t\lambda_t\mathbf{z}\_{t-1}+\mathbf{x}\_t), \\\\ \mathbf{v}\_{t+1}&\doteq\mathbf{v}\_t+\beta\delta_t^s\mathbf{z}\_t-\beta(\mathbf{v}\_t^\intercal\mathbf{x}\_t)\mathbf{x}\_t
+\end{align}
 
 ### GQ($\lambda$)
 {: #gq-lambda}
@@ -608,7 +600,7 @@ which is a vector of the same dimension as $\mathbf{w}$, initialized to $\mathbf
 
 Similar to the state-values case of GTD($\lambda$), we begin with the definition of $\lambda$-return (function):
 \begin{equation}
-G_t^\lambda(q)\doteq R_{t+1}+\gamma_{t+1}\Big[(1-\lambda_{t+1})q(S_{t+1},A_{t+1})+\lambda_{t+1}G_{t+1}^\lambda(q)\Big],\tag{32}\label{32}
+G_t^\lambda(q)\doteq R_{t+1}+\gamma_{t+1}\Big[(1-\lambda_{t+1})q(S_{t+1},A_{t+1})+\lambda_{t+1}G_{t+1}^\lambda(q)\Big],\tag{33}\label{33}
 \end{equation}
 where $q(s,a)$ denotes the value of taking action $a$ at state $s$ and $\lambda\in[0,1]$ is the trace decay parameter. 
 
@@ -622,7 +614,7 @@ q_\mathbf{w}=\Pi T_\pi^\lambda q_\mathbf{w},
 \end{equation}
 where $\Pi$ is the projection operator defined as above. This point also can be found by minimizing the MSPBE objective function:
 \begin{align}
-\overline{\text{PBE}}(\mathbf{w})&=\left\Vert q_\mathbf{w}-\Pi T_\pi^\lambda q_\mathbf{w}\right\Vert_\mu^2 \\\\ &=\Big(\mathcal{P}\_\mu^\pi\delta_t^\lambda(\mathbf{w})\mathbf{x}\_t\Big)^\intercal\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\Big(\mathcal{P}\_\mu^\pi\delta_t^\lambda(\mathbf{w})\mathbf{x}\_t\Big),\tag{33}\label{33}
+\overline{\text{PBE}}(\mathbf{w})&=\left\Vert q_\mathbf{w}-\Pi T_\pi^\lambda q_\mathbf{w}\right\Vert_\mu^2 \\\\ &=\Big(\mathcal{P}\_\mu^\pi\delta_t^\lambda(\mathbf{w})\mathbf{x}\_t\Big)^\intercal\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\Big(\mathcal{P}\_\mu^\pi\delta_t^\lambda(\mathbf{w})\mathbf{x}\_t\Big),\tag{34}\label{34}
 \end{align}
 where the second step is acquired from the result \eqref{29}, and where the TD error $\delta_t^\lambda$ is defined as the above section:
 \begin{equation}
@@ -630,11 +622,11 @@ where the second step is acquired from the result \eqref{29}, and where the TD e
 \end{equation}
 where $G_t^\lambda$ as given in \eqref{24}. 
 
-In the objective function \eqref{33}, the expectation terms are w.r.t the policy $\pi$, while the data is generated due to the behavior policy $b$. To solve this off-policy issue, as usual, we use importance sampling.  
+In the objective function \eqref{34}, the expectation terms are w.r.t the policy $\pi$, while the data is generated due to the behavior policy $b$. To solve this off-policy issue, as usual, we use importance sampling.  
 
-We start with the definition of the $\lambda$-return \eqref{32}, which is a noisy estimate of the future return by following policy $\pi$. In order to have a noisy estimate for the return of target policy $\pi$ while following behavior policy $b$, we define another $\lambda$-return (function), based on importance sampling:
+We start with the definition of the $\lambda$-return \eqref{33}, which is a noisy estimate of the future return by following policy $\pi$. In order to have a noisy estimate for the return of target policy $\pi$ while following behavior policy $b$, we define another $\lambda$-return (function), based on importance sampling:
 \begin{equation}
-G_t^{\lambda\rho}(\mathbf{w})\doteq R_{t+1}+\gamma_{t+1}\Big[(1-\lambda_{t+1})\mathbf{w}^\intercal\bar{\mathbf{x}}\_{t+1}+\lambda_{t+1}\rho_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\Big],\tag{34}\label{34}
+G_t^{\lambda\rho}(\mathbf{w})\doteq R_{t+1}+\gamma_{t+1}\Big[(1-\lambda_{t+1})\mathbf{w}^\intercal\bar{\mathbf{x}}\_{t+1}+\lambda_{t+1}\rho_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\Big],\tag{35}\label{35}
 \end{equation}
 where $\bar{\mathbf{x}}\_t$ is the average feature vector for $S_t$ under the target policy $\pi$:
 \begin{equation}
@@ -643,10 +635,9 @@ where $\bar{\mathbf{x}}\_t$ is the average feature vector for $S_t$ under the ta
 where $\rho_t$ is the single-step importance sampling ratio, and $G_t^{\lambda\rho}(\mathbf{w})$ is a noisy guess of future rewards of target policy $\pi$, if the agent follows policy $\pi$ from time $t$.  
 Let
 \begin{equation}
-\delta_t^{\lambda\rho}(\mathbf{w})\doteq G_t^{\lambda\rho}(\mathbf{w})-\mathbf{w}^\intercal\mathbf{x}\_t\tag{35}
-\label{35}
+\delta_t^{\lambda\rho}(\mathbf{w})\doteq G_t^{\lambda\rho}(\mathbf{w})-\mathbf{w}^\intercal\mathbf{x}\_t\tag{36}\label{36}
 \end{equation}
-With the definition of the $\lambda$-return \eqref{34}, we have that:
+With the definition of the $\lambda$-return \eqref{35}, we have that:
 \begin{align}
 \mathbb{E}\Big[G_t^{\lambda\rho}(\mathbf{w})\big|S_t=s,A_t=s\Big]&=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}\Big((1-\lambda_{t+1})\mathbf{w}^\intercal\bar{\mathbf{x}}\_{t+1} \\\\ &\hspace{1cm}+\lambda_{t+1}\rho_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\Big)\big|S_t=s,A_t=a\Big] \\\\ &=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\bar{\mathbf{x}}\_{t+1}\big|S_t=s,A_t=a,\pi\Big] \\\\ &\hspace{1cm}+\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[\rho_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_t=s,A_t=a\Big] \\\\ &=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\bar{\mathbf{x}}\_{t+1}\big|S_t=s,A_t=a,\pi\Big] \\\\ &\hspace{1cm}+\sum_{s'}P(s'|s,a)\sum_{a'}b(a'|s')\frac{\pi(a'|s')}{b(a'|s')}\gamma_{t+1}\lambda_{t+1} \\\\ &\hspace{1cm}\times\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_{t+1}=s',A_{t+1}=a'\Big] \\\\ &=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\bar{\mathbf{x}}\_{t+1}\big|S_t=s,A_t=a,\pi\Big] \\\\ &\hspace{1cm}+\sum_{s',a'}P(s'|s,a)\pi(a'|s')\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_{t+1}=s',A_{t+1}=a'\Big] \\\\ &=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\bar{\mathbf{x}}\_{t+1} \\\\ &\hspace{1cm}+\gamma_{t+1}\lambda_{t_1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_{t+1}=s',A_{t+1}=a'\Big]\big|S_t=s,A_t=a,\pi\Big],
 \end{align}
@@ -660,17 +651,17 @@ And eventually, it yields:
 \end{equation}
 because the state-action distribution is based on the behavior state-action pair distribution, $\mu$.
 
-Hence, the objective function \eqref{33} can be written as:
+Hence, the objective function \eqref{34} can be written as:
 \begin{align}
-\overline{\text{PBE}}(\mathbf{w})&=\Big(\mathcal{P}\_\mu^\pi\delta_t^\lambda(\mathbf{w})\mathbf{x}\_t\Big)^\intercal\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\Big(\mathcal{P}\_\mu^\pi\delta_t^\lambda(\mathbf{w})\mathbf{x}\_t\Big) \\\\ &=\mathbb{E}\Big[\delta_t^{\lambda\rho}(\mathbf{w})\mathbf{x}\_t\Big]^\intercal\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t\Big]^{-1}\mathbb{E}\Big[\delta_t^{\lambda\rho}(\mathbf{w})\mathbf{x}\_t\Big]\tag{36}\label{36}
+\overline{\text{PBE}}(\mathbf{w})&=\Big(\mathcal{P}\_\mu^\pi\delta_t^\lambda(\mathbf{w})\mathbf{x}\_t\Big)^\intercal\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\Big(\mathcal{P}\_\mu^\pi\delta_t^\lambda(\mathbf{w})\mathbf{x}\_t\Big) \\\\ &=\mathbb{E}\Big[\delta_t^{\lambda\rho}(\mathbf{w})\mathbf{x}\_t\Big]^\intercal\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t\Big]^{-1}\mathbb{E}\Big[\delta_t^{\lambda\rho}(\mathbf{w})\mathbf{x}\_t\Big]\tag{37}\label{37}
 \end{align}
-From the definition of the importance-sampling based TD error\eqref{35}, we have:
+From the definition of the importance-sampling based TD error\eqref{36}, we have:
 \begin{align}
 \delta_t^{\lambda\rho}(\mathbf{w})&=G_t^{\lambda\rho}(\mathbf{w})-\mathbf{w}^\intercal\mathbf{x}\_t \\\\ &=R_{t+1}+\gamma_{t+1}\Big[(1-\lambda_{t+1})\mathbf{w}^\intercal\bar{\mathbf{x}}\_{t+1}+\lambda_{t+1}\rho_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\Big]-\mathbf{w}^\intercal\mathbf{x}\_t \\\\ &=\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\bar{\mathbf{x}}\_{t+1}\Big]+\gamma_{t+1}\lambda_{t+1}\rho_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})-\mathbf{w}^\intercal\mathbf{x}\_t \\\\ &=\Big(R_{t+1}+\gamma_{t+1}\mathbf{w}^\intercal\bar{\mathbf{x}}\_{t+1}-\mathbf{w}^\intercal\mathbf{x}\_t\Big)-\gamma_{t+1}\lambda_{t+1}\mathbf{w}^\intercal\bar{\mathbf{x}}\_{t+1}+\gamma_{t+1}\lambda_{t+1}\rho_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w}) \\\\ &=\delta_t(\mathbf{w})-\gamma_{t+1}\lambda_{t+1}\mathbf{w}^\intercal\bar{\mathbf{x}}\_{t+1}+\gamma_{t+1}\lambda_{t+1}\rho_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w}) \\\\ &\hspace{2cm}+\gamma_{t+1}\lambda_{t+1}\rho_{t+1}\Big(\mathbf{w}^\intercal\mathbf{x}\_{t+1}-\mathbf{w}^\intercal\mathbf{x}\_{t+1}\Big) \\\\ &=\delta_t(\mathbf{w})+\gamma_{t+1}\lambda_{t+1}\rho_{t+1}\Big(G_{t+1}^{\lambda\rho}(\mathbf{w})-\mathbf{w}^\intercal\mathbf{x}\_{t+1}\Big)+\gamma_{t+1}\lambda_{t+1}\Big(\rho_{t+1}\mathbf{w}^\intercal\mathbf{x}\_{t+1}-\mathbf{w}^\intercal\bar{\mathbf{x}}\_{t+1}\Big) \\\\ &=\delta_t(\mathbf{w})+\gamma_{t+1}\lambda_{t+1}\rho_{t+1}\delta_{t+1}^{\lambda\rho}(\mathbf{w})+\gamma_{t+1}\lambda_{t+1}\mathbf{w}^\intercal\big(\rho_{t+1}\mathbf{x}\_{t+1}-\bar{\mathbf{x}}\_{t+1}\big),
 \end{align}
 where in the fifth step, we define:
 \begin{equation}
-\delta_t(\mathbf{w})\doteq R_{t+1}+\lambda_{t+1}\mathbf{w}^\intercal\bar{\mathbf{x}}\_{t+1}-\mathbf{w}^\intercal\mathbf{x}\_t\tag{37}\label{37}
+\delta_t(\mathbf{w})\doteq R_{t+1}+\lambda_{t+1}\mathbf{w}^\intercal\bar{\mathbf{x}}\_{t+1}-\mathbf{w}^\intercal\mathbf{x}\_t\tag{38}\label{38}
 \end{equation}
 Note that the last part of the above equation has expected value of vector zero under the behavior policy $b$ because:
 \begin{align}
@@ -682,15 +673,15 @@ With the result obtained above, we have:
 \end{align}
 where
 \begin{equation}
-\mathbf{z}\_t\doteq\mathbf{x}\_t+\gamma_t\lambda_t\rho_t\mathbf{z}\_{t-1}\tag{38}\label{38}
+\mathbf{z}\_t\doteq\mathbf{x}\_t+\gamma_t\lambda_t\rho_t\mathbf{z}\_{t-1}\tag{39}\label{39}
 \end{equation}
-Plugging this result back to our objective function \eqref{36} gives us:
+Plugging this result back to our objective function \eqref{37} gives us:
 \begin{equation}
 \overline{\text{PBE}}(\mathbf{w})=\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]^\intercal\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]
 \end{equation}
 Following the derivation of GTD($\lambda$), we have:
 \begin{align}
--\frac{1}{2}\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w})&=-\frac{1}{2}\nabla_\mathbf{w}\Bigg(\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]^\intercal\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]\Bigg) \\\\ &=\nabla_\mathbf{w}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=-\mathbb{E}\Big[\big(\gamma_{t+1}\bar{\mathbf{x}}\_{t+1}-\mathbf{x}\_t\big)\mathbf{z}\_t^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=-\mathbb{E}\Big[\gamma_{t+1}\bar{\mathbf{x}}\_{t+1}\mathbf{z}\_t^\intercal-\mathbf{x}\_t\mathbf{z}\_t^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=-\mathbb{E}\Big[\gamma_{t+1}\bar{\mathbf{x}}\_{t+1}\mathbf{z}\_t^\intercal-\mathbf{x}\_t\Big(\mathbf{x}\_t+\gamma_t\lambda_t\rho_t\mathbf{z}\_{t-1}\Big)^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=-\mathbb{E}\Big[\gamma_{t+1}\bar{\mathbf{x}}\_{t+1}\mathbf{z}\_t^\intercal-\Big(\mathbf{x}\_t\mathbf{x}\_t^\intercal+\gamma_t\lambda_t\rho_t\mathbf{x}\_t\mathbf{z}\_{t-1}^\intercal\Big)\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=-\mathbb{E}\Big[\gamma_{t+1}\bar{\mathbf{x}}\_{t+1}\mathbf{z}\_t^\intercal-\Big(\mathbf{x}\_t\mathbf{x}\_t^\intercal+\gamma_{t+1}\lambda_{t+1}\rho_{t+1}\mathbf{x}\_{t+1}\mathbf{z}\_t^\intercal\Big)\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=-\mathbb{E}\Big[\gamma_{t+1}\bar{\mathbf{x}}\_{t+1}\mathbf{z}\_t^\intercal-\Big(\mathbf{x}\_t\mathbf{x}\_t^\intercal+\gamma_{t+1}\lambda_{t+1}\bar{\mathbf{x}}\_{t+1}\mathbf{z}\_t^\intercal\Big)\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=-\mathbb{E}\Big[\gamma_{t+1}(1-\lambda_{t+1})\bar{\mathbf{x}}\_{t+1}\mathbf{z}\_t^\intercal-\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]-\mathbb{E}\Big[\gamma_{t+1}(1-\lambda_{t+1})\bar{\mathbf{x}}\_{t+1}\mathbf{z}\_t^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]-\mathbb{E}\Big[\gamma_{t+1}(1-\lambda_{t+1})\bar{\mathbf{x}}\_{t+1}\mathbf{z}\_t^\intercal\Big]\mathbf{v}(\mathbf{w}),\tag{39}\label{39}
+-\frac{1}{2}\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w})&=-\frac{1}{2}\nabla_\mathbf{w}\Bigg(\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]^\intercal\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]\Bigg) \\\\ &=\nabla_\mathbf{w}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=-\mathbb{E}\Big[\big(\gamma_{t+1}\bar{\mathbf{x}}\_{t+1}-\mathbf{x}\_t\big)\mathbf{z}\_t^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=-\mathbb{E}\Big[\gamma_{t+1}\bar{\mathbf{x}}\_{t+1}\mathbf{z}\_t^\intercal-\mathbf{x}\_t\mathbf{z}\_t^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=-\mathbb{E}\Big[\gamma_{t+1}\bar{\mathbf{x}}\_{t+1}\mathbf{z}\_t^\intercal-\mathbf{x}\_t\Big(\mathbf{x}\_t+\gamma_t\lambda_t\rho_t\mathbf{z}\_{t-1}\Big)^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=-\mathbb{E}\Big[\gamma_{t+1}\bar{\mathbf{x}}\_{t+1}\mathbf{z}\_t^\intercal-\Big(\mathbf{x}\_t\mathbf{x}\_t^\intercal+\gamma_t\lambda_t\rho_t\mathbf{x}\_t\mathbf{z}\_{t-1}^\intercal\Big)\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=-\mathbb{E}\Big[\gamma_{t+1}\bar{\mathbf{x}}\_{t+1}\mathbf{z}\_t^\intercal-\Big(\mathbf{x}\_t\mathbf{x}\_t^\intercal+\gamma_{t+1}\lambda_{t+1}\rho_{t+1}\mathbf{x}\_{t+1}\mathbf{z}\_t^\intercal\Big)\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=-\mathbb{E}\Big[\gamma_{t+1}\bar{\mathbf{x}}\_{t+1}\mathbf{z}\_t^\intercal-\Big(\mathbf{x}\_t\mathbf{x}\_t^\intercal+\gamma_{t+1}\lambda_{t+1}\bar{\mathbf{x}}\_{t+1}\mathbf{z}\_t^\intercal\Big)\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=-\mathbb{E}\Big[\gamma_{t+1}(1-\lambda_{t+1})\bar{\mathbf{x}}\_{t+1}\mathbf{z}\_t^\intercal-\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]-\mathbb{E}\Big[\gamma_{t+1}(1-\lambda_{t+1})\bar{\mathbf{x}}\_{t+1}\mathbf{z}\_t^\intercal\Big]\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big] \\\\ &=\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]-\mathbb{E}\Big[\gamma_{t+1}(1-\lambda_{t+1})\bar{\mathbf{x}}\_{t+1}\mathbf{z}\_t^\intercal\Big]\mathbf{v}(\mathbf{w}),
 \end{align}
 where in the eighth step, we have used the identity:
 \begin{equation}
@@ -700,29 +691,52 @@ and where in the final step, we define:
 \begin{equation}
 \mathbf{v}(\mathbf{w})\doteq\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]
 \end{equation}
-By direct sampling from the gradient-descent direction \eqref{39} and weight-duplication trick, we obtain the **GQ($\lambda$)** algorithm:
+By direct sampling from the above gradient-descent direction and weight-duplication trick, we obtain the **GQ($\lambda$)** algorithm:
 \begin{equation}
 \mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\delta_t^a\mathbf{z}\_t-\alpha\gamma_{t+1}(1-\lambda_{t+1})(\mathbf{z}\_t^\intercal\mathbf{v}\_t)\bar{\mathbf{x}}\_{t+1},
 \end{equation}
-where $\bar{\mathbf{x}}\_t$ is the average feature vector for $S_t$ under the target policy $\pi$:
+where $\bar{\mathbf{x}}\_t$ is the average feature vector for $S_t$ under the target policy $\pi$; $\delta_t^a$ is the expectation form of the TD error, defined as \eqref{38}; the eligible trace vector $\mathbf{z}\_t$ is defined as \eqref{39} for action value; and $\mathbf{v}\_t$ is defined as in GTD($\lambda$):
+\begin{align}
+\bar{\mathbf{x}}\_t&\doteq\sum_a\pi(a|S_t)\mathbf{x}(S_t,a), \\\\ \delta_t^a&\doteq R_{t+1}+\lambda_{t+1}\mathbf{w}^\intercal\bar{\mathbf{x}}\_{t+1}-\mathbf{w}^\intercal\mathbf{x}\_t, \\\\ \mathbf{z}\_t&\doteq\gamma_t\lambda_t\rho_t\mathbf{z}\_{t-1}+\mathbf{x}\_t, \\\\ \mathbf{v}\_{t+1}&\doteq\mathbf{v}\_t+\beta\delta_t^a\mathbf{z}\_t-\beta(\mathbf{v}\_t^\intercal\mathbf{x}\_t)\mathbf{x}\_t
+\end{align}
+
+#### Greedy-GQ($\lambda$)
+{: #greedy-gq-lambda}
+If the target policy is $\varepsilon$-greedy, or otherwise biased towards the greedy policy for $\hat{q}$, then GQ($\lambda$) can be used as a control algorithm, called **Greedy-GQ($\lambda$)**. 
+
+In the case of $\lambda=0$, called GQ(0), Greedy-GQ($\lambda$) has the following update:
 \begin{equation}
-\bar{\mathbf{x}}\_t\doteq\sum_a\pi(a|S_t)\mathbf{x}(S_t,a),
+\mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\delta_t^a\mathbf{x}\_t+\alpha\gamma_{t+1}(\mathbf{z}\_t^\intercal\mathbf{x}\_t)\mathbf{x}(S_{t+1},a_{t+1}^{\*}),
 \end{equation}
-and where $\lambda_t^a$ is the expectation form of the TD error, defined as \eqref{37}:
-\begin{equation}
-\delta_t^a\doteq R_{t+1}+\lambda_{t+1}\mathbf{w}^\intercal\bar{\mathbf{x}}\_{t+1}-\mathbf{w}^\intercal\mathbf{x}\_t,
-\end{equation}
-and where the eligible trace vector is defined as \eqref{38} for action value:
-\begin{equation}
-\mathbf{z}\_t\doteq\gamma_t\lambda_t\rho_t\mathbf{z}\_{t-1}+\mathbf{x}\_t,
-\end{equation}
-and where $\mathbf{v}\_t$ is defined as in GTD($\lambda$):
-\begin{equation}
-\mathbf{v}\_{t+1}\doteq\mathbf{v}\_t+\beta\delta_t^a\mathbf{z}\_t-\beta(\mathbf{v}\_t^\intercal\mathbf{x}\_t)\mathbf{x}\_t
-\end{equation}
+where the eligible trace $\mathbf{z}\_t$, TD error $\delta_t^a$ and $a_{t+1}^{\*}$ are defined as:
+\begin{align}
+\mathbf{z}\_t&\doteq\mathbf{z}\_t+\beta\delta_t^a\mathbf{x}\_t-\beta(\mathbf{z}\_t^\intercal\mathbf{x}\_t)\mathbf{x}\_t, \\\\ \delta_t^a&\doteq R_{t+1}+\gamma_{t+1}\max_a\Big(\mathbf{w}\_t^\intercal\mathbf{x}(S_{t+1},a)\Big)-\mathbf{w}\_t^\intercal\mathbf{x}\_t, \\\\ a_{t+1}^{\*}&\doteq\arg\max\_a\Big(\mathbf{w}\_t^\intercal\mathbf{x}(S_{t+1},a)\Big),
+\end{align}
+where $\beta>0$ is a step-size parameter.
 
 ### HTD($\lambda$)
 {: #htd-lambda}
+**HTD($\lambda$)** is a hybrid state-value algorithm combining aspects of GTD($\lambda$) and TD($\lambda$). 
+
+The key idea behind the derivation of HTD($\lambda$) is to modify the gradient of the MSPBE, $\overline{\text{PBE}}(\mathbf{w})$, to produce a new learning algorithm. Recall that GTD($\lambda$) derivation, we have written the MSPBE as in \eqref{31}, as:
+\begin{equation}
+\overline{\text{PBE}}(\mathbf{w})=\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]^\intercal\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big]\tag{40}\label{40}
+\end{equation}
+Let $\mathbf{A}\_\pi, \mathbf{C}$ be matrices and $\mathbf{b}\_\pi$ is a vector such that:
+\begin{align}
+\mathbf{A}\_\pi&\doteq\mathbb{E}\Big[\mathbf{z}\_t\big(\mathbf{x}\_t-\gamma_{t+1}\mathbf{x}\_{t+1}\big)^\intercal\Big]; \\\\ \mathbf{C}&\doteq\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]; \\\\ \mathbf{b}\_\pi&\doteq\mathbb{E}\Big[R_{t+1}\mathbf{z}\_t\Big]
+\end{align}
+The objective function \eqref{40} is then can be written as:
+\begin{equation}
+\overline{\text{PBE}}(\mathbf{w})=\left(-\mathbf{A}\_\pi\mathbf{w}+\mathbf{b}\_\pi\right)^\intercal\mathbf{C}^{-1}\left(-\mathbf{A}\_\pi\mathbf{w}+\mathbf{b}\_\pi\right)
+\end{equation}
+Thus, the gradient w.r.t the weight vector $\mathbf{w}$ of the MSPBE is:
+\begin{align}
+-\frac{1}{2}\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w})&=-\frac{1}{2}\nabla_\mathbf{w}\Big[\left(-\mathbf{A}\_\pi\mathbf{w}+\mathbf{b}\_\pi\right)^\intercal\mathbf{C}^{-1}\left(-\mathbf{A}\_\pi\mathbf{w}+\mathbf{b}\_\pi\right)\Big] \\\\ &=-\mathbf{A}\_\pi^\intercal\mathbf{C}^{-1}\left(-\mathbf{A}\_\pi\mathbf{w}+\mathbf{b}\_\pi\right)
+\end{align}
+
+
+
 
 ### Emphatic TD($\lambda$)
 {: #em-td-lambda}
@@ -743,7 +757,9 @@ and where $\mathbf{v}\_t$ is defined as in GTD($\lambda$):
 
 [7] Hamid Reza Maei & Richard S. Sutton [GQ($\lambda$): A general gradient algorithm for temporal-difference prediction learning with eligibility traces](http://dx.doi.org/10.2991/agi.2010.22).  
 
-[8] Shangtong Zhang. [Reinforcement Learning: An Introduction implementation](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction). 
+[8] Adam White & Martha White [Investigating practical linear temporal difference learning](https://doi.org/10.48550/arXiv.1602.08771). 
+
+[9] Shangtong Zhang. [Reinforcement Learning: An Introduction implementation](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction). 
 
 ## Footnotes
 {: #footnotes}
