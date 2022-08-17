@@ -1,0 +1,4 @@
+I"Å<blockquote>
+  <p>So far in the series, we have been choosing the actions based on the estimated action value function. On the other hand, we can instead learn a <strong>parameterized policy</strong>, $\boldsymbol{\theta}$, that can select actions without consulting a value function by considering the gradient of some performance measure w.r.t $\boldsymbol{\theta}$. Such methods are called <strong>policy gradient methods</strong>.</p>
+</blockquote>
+:ET
