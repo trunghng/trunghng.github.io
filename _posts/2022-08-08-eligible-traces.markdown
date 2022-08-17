@@ -478,7 +478,7 @@ where $\mathbf{D}$ denotes $\vert\mathcal{S}\vert\times\vert\mathcal{S}\vert$ di
 
 With linear function approximation, we can rewrite the $\lambda$-return \eqref{22} as:
 \begin{equation}
-G_t^{\lambda}(\mathbf{w})\doteq R_{t+1}+\gamma_{t+1}\left[(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}\_{t+1}+\lambda_{t+1}G_{t+1}^{\lambda}(\mathbf{w})\right]\tag{24}\label{24}
+G_t^{\lambda}(\mathbf{w})\doteq R_{t+1}+\gamma_{t+1}\Big[(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}\_{t+1}+\lambda_{t+1}G_{t+1}^{\lambda}(\mathbf{w})\Big]\tag{24}\label{24}
 \end{equation}
 Let
 \begin{equation}
@@ -486,22 +486,22 @@ Let
 \end{equation}
 and
 \begin{equation}
-\mathcal{P}\_\mu^\pi\delta_t^\lambda(\mathbf{w})\mathbf{x}\_t\doteq\sum_s\mu(s)\mathbb{E}\left[\delta_t^\lambda(\mathbf{w})|S_t=s,\pi\right]\mathbf{x}(s), 
+\mathcal{P}\_\mu^\pi\delta_t^\lambda(\mathbf{w})\mathbf{x}\_t\doteq\sum_s\mu(s)\mathbb{E}\Big[\delta_t^\lambda(\mathbf{w})\big|S_t=s,\pi\Big]\mathbf{x}(s), 
 \end{equation}
 where $\mathcal{P}\_\mu^\pi$ is an operator. 
 
 The fixed point in \eqref{23} can be found by minimizing the Mean Square Projected Bellman Error (MSPBE):
 \begin{align}
-\overline{\text{PBE}}(\mathbf{w})&=\left\Vert v_\mathbf{w}-\Pi T_\pi^\lambda v_\mathbf{w}\right\Vert_\mu^2 \\\\ &=\left\Vert\Pi(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w})\right\Vert_\mu^2 \\\\ &=\left(\Pi\left(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w}\right)\right)^\intercal\mathbf{D}\left(\Pi\left(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w}\right)\right) \\\\ &=\left(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w}\right)^\intercal\Pi^\intercal\mathbf{D}\Pi\left(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w}\right) \\\\ &=\left(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w}\right)^\intercal\mathbf{D}^\intercal\mathbf{X}\left(\mathbf{X}^\intercal\mathbf{D}\mathbf{X}\right)^{-1}\mathbf{D}\left(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w}\right) \\\\ &=\left(\mathbf{X}^\intercal\mathbf{D}\left(T_\pi^\lambda v_\mathbf{w}-\mathbf{w}\right)\right)^\intercal\left(\mathbf{X}^\intercal\mathbf{D}\mathbf{X}\right)^{-1}\mathbf{X}^\intercal\mathbf{D}\left(T_\pi^\lambda v_\mathbf{w}-v_\mathbf{w}\right)\tag{25}\label{25}
+\overline{\text{PBE}}(\mathbf{w})&=\Big\Vert v_\mathbf{w}-\Pi T_\pi^\lambda v_\mathbf{w}\Big\Vert_\mu^2 \\\\ &=\Big\Vert\Pi(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w})\Big\Vert_\mu^2 \\\\ &=\Big(\Pi\left(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w}\right)\Big)^\intercal\mathbf{D}\Big(\Pi\left(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w}\right)\Big) \\\\ &=\left(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w}\right)^\intercal\Pi^\intercal\mathbf{D}\Pi\left(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w}\right) \\\\ &=\left(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w}\right)^\intercal\mathbf{D}^\intercal\mathbf{X}\left(\mathbf{X}^\intercal\mathbf{D}\mathbf{X}\right)^{-1}\mathbf{D}\left(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w}\right) \\\\ &=\Big(\mathbf{X}^\intercal\mathbf{D}\left(T_\pi^\lambda v_\mathbf{w}-\mathbf{w}\right)\Big)^\intercal\left(\mathbf{X}^\intercal\mathbf{D}\mathbf{X}\right)^{-1}\mathbf{X}^\intercal\mathbf{D}\left(T_\pi^\lambda v_\mathbf{w}-v_\mathbf{w}\right)\tag{25}\label{25}
 \end{align}
 
 From the definition of $T_\pi^\lambda$ and $\delta_t^\lambda$, we have:
 \begin{align}
-(T_\pi^\lambda v_\mathbf{w}-v_\mathbf{v})(s)&=\mathbb{E}\left[G_t^\lambda(\mathbf{w})-\mathbf{w}^\intercal\mathbf{x}\_t|S_t=s,\pi\right] \\\\ &=\mathbb{E}\left[\delta_t^\lambda(\mathbf{w})|S_t=s,\pi\right]\tag{26}\label{26}
+(T_\pi^\lambda v_\mathbf{w}-v_\mathbf{v})(s)&=\mathbb{E}\Big[G_t^\lambda(\mathbf{w})-\mathbf{w}^\intercal\mathbf{x}\_t\big|S_t=s,\pi\Big] \\\\ &=\mathbb{E}\Big[\delta_t^\lambda(\mathbf{w})\big|S_t=s,\pi\Big]\tag{26}\label{26}
 \end{align}
 Therefore,
 \begin{align}
-\mathbf{X}^\intercal\mathbf{D}\left(T_\pi^\lambda v_\mathbf{w}-v_\mathbf{w}\right)&=\sum_s\mu(s)\left[\left(T_\pi^\lambda v_\mathbf{w}-v_\mathbf{w}\right)(s)\right]\mathbf{x}(s) \\\\ &=\sum_s\mu(s)\mathbb{E}\left[\delta_t^\lambda(\mathbf{w})|S_t=s,\pi\right]\mathbf{x}(s) \\\\ &=\mathcal{P}\_\mu^\pi\delta_t^\lambda(\mathbf{w})\mathbf{x}\_t\tag{27}\label{27}
+\mathbf{X}^\intercal\mathbf{D}\left(T_\pi^\lambda v_\mathbf{w}-v_\mathbf{w}\right)&=\sum_s\mu(s)\Big[\left(T_\pi^\lambda v_\mathbf{w}-v_\mathbf{w}\right)(s)\Big]\mathbf{x}(s) \\\\ &=\sum_s\mu(s)\mathbb{E}\Big[\delta_t^\lambda(\mathbf{w})|S_t=s,\pi\Big]\mathbf{x}(s) \\\\ &=\mathcal{P}\_\mu^\pi\delta_t^\lambda(\mathbf{w})\mathbf{x}\_t\tag{27}\label{27}
 \end{align}
 Moreover, we also have:
 \begin{equation}
@@ -543,25 +543,21 @@ With this result, our objective function \eqref{29} can be written as:
 \begin{align}
 \overline{\text{PBE}}(\mathbf{w})&=\Big(\mathcal{P}\_\mu^\pi\delta_t^\lambda(\mathbf{w})\mathbf{x}\_t\Big)^\intercal\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\Big(\mathcal{P}\_\mu^\pi\delta_t^\lambda(\mathbf{w})\mathbf{x}\_t\Big) \\\\ &=\mathbb{E}\Big[\delta_t^{\lambda\rho}(\mathbf{w})\mathbf{x}\_t\Big]^\intercal\mathbb{E}\Big[\mathbf{x}\_t\mathbf{x}\_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t^{\lambda\rho}(\mathbf{w})\mathbf{x}\_t\Big]\tag{30}\label{30}
 \end{align}
-From the definition of $G_t^{\lambda\rho}$, we have:
+From the definition of $\delta_t^{\lambda\rho}$, we have:
 \begin{align}
-G_t^{\lambda\rho}(\mathbf{w})&=\rho_t\Big(R_{t+1}+\gamma_{t+1}\big[(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}\_{t+1}+\lambda_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\big]\Big) \\\\ &=\rho_t\Big(R_{t+1}+\gamma_{t+1}\mathbf{w}^\intercal\mathbf{x}\_{t+1}-\mathbf{w}^\intercal\mathbf{x}\_t+\mathbf{w}^\intercal\mathbf{x}\_t\Big) \\\\ &\hspace{2cm}-\rho_t\gamma_{t+1}\lambda_{t+1}\mathbf{w}^\intercal\mathbf{x}\_{t+1}+\rho_t\gamma_{t+1}\lambda_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w}) \\\\ &=\rho_t\Big(R_{t+1}+\gamma_{t+1}\mathbf{w}^\intercal\mathbf{x}\_{t+1}-\mathbf{w}^\intercal\mathbf{x}\_t\Big)+\rho_t\mathbf{w}^\intercal\mathbf{x}\_t \\\\ &\hspace{2cm}+\rho_t\gamma_{t+1}\lambda_{t+1}\Big(G_{t+1}^{\lambda\rho}(\mathbf{w})-\mathbf{w}^\intercal\mathbf{x}\_{t+1}\Big) \\\\ &=\rho_t\delta_t(\mathbf{w})+\rho_t\mathbf{w}^\intercal\mathbf{x}\_t+\rho_t\gamma_{t+1}\lambda_{t+1}\delta_{t+1}^{\lambda\rho}(\mathbf{w}),
+\delta_t^{\lambda\rho}(\mathbf{w})&=G_t^{\lambda\rho}(\mathbf{w})-\mathbf{w}^\intercal\mathbf{x}\_t \\\\ &=\rho_t\Big(R_{t+1}+\gamma_{t+1}\big[(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}\_{t+1}+\lambda_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\big]\Big)-\mathbf{w}^\intercal\mathbf{x}\_t \\\\ &=\rho_t\Big(R_{t+1}+\gamma_{t+1}\mathbf{w}^\intercal\mathbf{x}\_{t+1}-\mathbf{w}^\intercal\mathbf{x}\_t+\mathbf{w}^\intercal\mathbf{x}\_t\Big) \\\\ &\hspace{2cm}-\rho_t\gamma_{t+1}\lambda_{t+1}\mathbf{w}^\intercal\mathbf{x}\_{t+1}+\rho_t\gamma_{t+1}\lambda_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})-\mathbf{w}^\intercal\mathbf{x}\_t \\\\ &=\rho_t\Big(R_{t+1}+\gamma_{t+1}\mathbf{w}^\intercal\mathbf{x}\_{t+1}-\mathbf{w}^\intercal\mathbf{x}\_t\Big)+\rho_t\mathbf{w}^\intercal\mathbf{x}\_t-\mathbf{w}^\intercal\mathbf{x}\_t \\\\ &\hspace{2cm}+\rho_t\gamma_{t+1}\lambda_{t+1}\Big(G_{t+1}^{\lambda\rho}(\mathbf{w})-\mathbf{w}^\intercal\mathbf{x}\_{t+1}\Big) \\\\ &=\rho_t\delta_t(\mathbf{w})+(\rho_t-1)\mathbf{w}^\intercal\mathbf{x}\_t+\rho_t\gamma_{t+1}\lambda_{t+1}\delta_{t+1}^{\lambda\rho}(\mathbf{w}),
 \end{align}
 where the TD error, $\delta_t(\mathbf{w})$, is defined as usual:
 \begin{equation}
 \delta_t(\mathbf{w})\doteq R_{t+1}+\gamma_{t+1}\mathbf{w}^\intercal\mathbf{x}\_{t+1}-\mathbf{w}^\intercal\mathbf{x}\_t
 \end{equation}
-Thus,
-\begin{align}
-\delta_t^{\lambda\rho}(\mathbf{w})&=G_t^{\lambda\rho}(\mathbf{w})-\mathbf{w}^\intercal\mathbf{x}\_t \\\\ &=\rho_t\delta_t(\mathbf{w})+\rho_t\mathbf{w}^\intercal\mathbf{x}\_t+\rho_t\gamma_{t+1}\lambda_{t+1}\delta_{t+1}^{\lambda\rho}(\mathbf{w})-\mathbf{w}^\intercal\mathbf{x}\_t \\\\ &=\rho_t\delta_t(\mathbf{w})+(\rho_t-1)\mathbf{w}^\intercal\mathbf{x}\_t+\rho_t\gamma_{t+1}\lambda_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})
-\end{align}
 Also, we have that:
 \begin{align}
 \mathbb{E}\Big[(1-\rho_t)\mathbf{w}^\intercal\mathbf{x}\_t\mathbf{x}\_t\Big]&=\sum_{s,a}\mu(s)b(a|s)\left(1-\frac{\pi(a|s)}{b(a|s)}\right)\mathbf{w}^\intercal\mathbf{x}(s)\mathbf{x}(s) \\\\ &=\sum_s\mu(s)\left(\sum_a b(a|s)-\sum_a\pi(a|s)\right)\mathbf{w}^\intercal\mathbf{x}(s)\mathbf{x}(s) \\\\ &=\sum_s\mu(s)(1-1)\mathbf{w}^\intercal\mathbf{x}(s)\mathbf{x}(s) \\\\ &=0
 \end{align}
 With these results, we have:
 \begin{align}
-\mathbb{E}\Big[\delta_t^{\lambda\rho}(\mathbf{w})\mathbf{x}\_t\Big]&=\mathbb{E}\Big[\rho_t\delta_t(\mathbf{w})\mathbf{x}\_t+(\rho_t-1)\mathbf{w}^\intercal\mathbf{x}\_t\mathbf{x}\_t+\rho_t\gamma_{t+1}\lambda_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\mathbf{x}\_t\Big] \\\\ &=\mathbb{E}\Big[\rho_t\delta_t(\mathbf{w})\mathbf{x}\_t\Big]+0+\mathbb{E}\_{\pi b}\Big[\rho_t\gamma_{t+1}\lambda_{t+1}\delta_{t+1}^{\lambda\rho}(\mathbf{w})\mathbf{x}\_t\Big] \\\\ &=\mathbb{E}\Big[\rho_t\delta_t(\mathbf{w})\mathbf{x}\_t+\rho_{t-1}\gamma_t\lambda_t\delta_t^{\lambda\rho}(\mathbf{w})\mathbf{x}\_{t-1}\Big] \\\\ &=\mathbb{E}\Big[\rho_t\delta_t(\mathbf{w})\mathbf{x}\_t+\rho_{t-1}\gamma_t\lambda_t\big(\rho_t\delta_t(\mathbf{w})+(\rho_t-1)\mathbf{w}^\intercal\mathbf{x}\_t \\\\ &\hspace{2cm}+\rho_t\gamma_{t+1}\lambda_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\big)\mathbf{x}\_{t-1}\Big] \\\\ &=\mathbb{E}\Big[\rho_t\delta_t(\mathbf{w})\mathbf{x}\_t+\rho_{t-1}\gamma_t\lambda_t\big(\rho_t\delta_t(\mathbf{w})+\rho_t\gamma_{t+1}\lambda_{t+1}\delta_{t+1}^{\lambda\rho}(\mathbf{w})\big)\mathbf{x}\_{t-1}\Big] \\\\ &=\mathbb{E}\Big[\rho_t\delta_t(\mathbf{w})\big(\mathbf{x}\_t+\rho_{t-1}\gamma_t\lambda_t\mathbf{x}\_{t-1}\big)+\rho_{t-1}\gamma_t\lambda_t\rho_t\gamma_{t+1}\lambda_{t+1}\delta_{t+1}^{\lambda\rho}(\mathbf{w})\mathbf{x}\_{t-1}\Big] \\\\ &=\mathbb{E}\Big[\rho_t\delta_t(\mathbf{w})\big(\mathbf{x}\_t+\rho_{t-1}\gamma_t\lambda_t\mathbf{x}\_{t-1}\big)+\rho_{t-2}\gamma_{t-1}\lambda_{t-1}\rho_{t-1}\gamma_t\lambda_t\delta_t^{\lambda\rho}(\mathbf{w})\mathbf{x}\_{t-2}\Big] \\\\ &\hspace{0.3cm}\vdots \\\\ &=\mathbb{E}\Big[\delta_t(\mathbf{w})\rho_t\big(\mathbf{x}\_t+\rho_{t-1}\gamma_t\lambda_t\mathbf{x}\_{t-1}+\rho_{t-2}\gamma_{t-1}\lambda_{t-1}\rho_{t-1}\gamma_t\lambda_t\mathbf{x}\_{t-2}+\dots\big)\Big] \\\\ &=\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big],
+\mathbb{E}\Big[\delta_t^{\lambda\rho}(\mathbf{w})\mathbf{x}\_t\Big]&=\mathbb{E}\Big[\rho_t\delta_t(\mathbf{w})\mathbf{x}\_t+(\rho_t-1)\mathbf{w}^\intercal\mathbf{x}\_t\mathbf{x}\_t+\rho_t\gamma_{t+1}\lambda_{t+1}\delta_{t+1}^{\lambda\rho}(\mathbf{w})\mathbf{x}\_t\Big] \\\\ &=\mathbb{E}\Big[\rho_t\delta_t(\mathbf{w})\mathbf{x}\_t\Big]+0+\mathbb{E}\_{\pi b}\Big[\rho_t\gamma_{t+1}\lambda_{t+1}\delta_{t+1}^{\lambda\rho}(\mathbf{w})\mathbf{x}\_t\Big] \\\\ &=\mathbb{E}\Big[\rho_t\delta_t(\mathbf{w})\mathbf{x}\_t+\rho_{t-1}\gamma_t\lambda_t\delta_t^{\lambda\rho}(\mathbf{w})\mathbf{x}\_{t-1}\Big] \\\\ &=\mathbb{E}\Big[\rho_t\delta_t(\mathbf{w})\mathbf{x}\_t+\rho_{t-1}\gamma_t\lambda_t\big(\rho_t\delta_t(\mathbf{w})+(\rho_t-1)\mathbf{w}^\intercal\mathbf{x}\_t \\\\ &\hspace{2cm}+\rho_t\gamma_{t+1}\lambda_{t+1}\delta_{t+1}^{\lambda\rho}(\mathbf{w})\big)\mathbf{x}\_{t-1}\Big] \\\\ &=\mathbb{E}\Big[\rho_t\delta_t(\mathbf{w})\mathbf{x}\_t+\rho_{t-1}\gamma_t\lambda_t\big(\rho_t\delta_t(\mathbf{w})+\rho_t\gamma_{t+1}\lambda_{t+1}\delta_{t+1}^{\lambda\rho}(\mathbf{w})\big)\mathbf{x}\_{t-1}\Big] \\\\ &=\mathbb{E}\Big[\rho_t\delta_t(\mathbf{w})\big(\mathbf{x}\_t+\rho_{t-1}\gamma_t\lambda_t\mathbf{x}\_{t-1}\big)+\rho_{t-1}\gamma_t\lambda_t\rho_t\gamma_{t+1}\lambda_{t+1}\delta_{t+1}^{\lambda\rho}(\mathbf{w})\mathbf{x}\_{t-1}\Big] \\\\ &=\mathbb{E}\Big[\rho_t\delta_t(\mathbf{w})\big(\mathbf{x}\_t+\rho_{t-1}\gamma_t\lambda_t\mathbf{x}\_{t-1}\big)+\rho_{t-2}\gamma_{t-1}\lambda_{t-1}\rho_{t-1}\gamma_t\lambda_t\delta_t^{\lambda\rho}(\mathbf{w})\mathbf{x}\_{t-2}\Big] \\\\ &\hspace{0.3cm}\vdots \\\\ &=\mathbb{E}\Big[\delta_t(\mathbf{w})\rho_t\big(\mathbf{x}\_t+\rho_{t-1}\gamma_t\lambda_t\mathbf{x}\_{t-1}+\rho_{t-2}\gamma_{t-1}\lambda_{t-1}\rho_{t-1}\gamma_t\lambda_t\mathbf{x}\_{t-2}+\dots\big)\Big] \\\\ &=\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}\_t\Big],
 \end{align}
 where
 \begin{equation}

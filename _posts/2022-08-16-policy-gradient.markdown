@@ -140,6 +140,9 @@ In order to obtain the backward view of the $\lambda$-return algorithm, we use s
 {: #policy-grad-theorem-cont}
 **Theorem 2**  
 
+**Proof**  
+
+
 
 ## References
 {: #references}

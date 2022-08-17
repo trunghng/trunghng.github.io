@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-16T20:30:45+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-17T12:24:11+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Policy Gradient Methods</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient.html" rel="alternate" type="text/html" title="Policy Gradient Methods" /><published>2022-08-16T14:00:00+07:00</published><updated>2022-08-16T14:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient.html">&lt;blockquote&gt;
   &lt;p&gt;So far in the series, we have been choosing the actions based on the estimated action value function. On the other hand, we can instead learn a &lt;strong&gt;parameterized policy&lt;/strong&gt;, $\boldsymbol{\theta}$, that can select actions without consulting a value function by considering the gradient of some performance measure w.r.t $\boldsymbol{\theta}$. Such methods are called &lt;strong&gt;policy gradient methods&lt;/strong&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -134,6 +134,8 @@ The natural state-value function learning method to pair with this is semi-gradi
 
 &lt;h3 id=&quot;policy-grad-theorem-cont&quot;&gt;The Policy Gradient Theorem&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Theorem 2&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;.&lt;/p&gt;
@@ -619,7 +621,7 @@ where $\mathbf{D}$ denotes $\vert\mathcal{S}\vert\times\vert\mathcal{S}\vert$ di
 
 &lt;p&gt;With linear function approximation, we can rewrite the $\lambda$-return \eqref{22} as:
 \begin{equation}
-G_t^{\lambda}(\mathbf{w})\doteq R_{t+1}+\gamma_{t+1}\left[(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}_{t+1}+\lambda_{t+1}G_{t+1}^{\lambda}(\mathbf{w})\right]\tag{24}\label{24}
+G_t^{\lambda}(\mathbf{w})\doteq R_{t+1}+\gamma_{t+1}\Big[(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}_{t+1}+\lambda_{t+1}G_{t+1}^{\lambda}(\mathbf{w})\Big]\tag{24}\label{24}
 \end{equation}
 Let
 \begin{equation}
@@ -627,22 +629,22 @@ Let
 \end{equation}
 and
 \begin{equation}
-\mathcal{P}_\mu^\pi\delta_t^\lambda(\mathbf{w})\mathbf{x}_t\doteq\sum_s\mu(s)\mathbb{E}\left[\delta_t^\lambda(\mathbf{w})|S_t=s,\pi\right]\mathbf{x}(s), 
+\mathcal{P}_\mu^\pi\delta_t^\lambda(\mathbf{w})\mathbf{x}_t\doteq\sum_s\mu(s)\mathbb{E}\Big[\delta_t^\lambda(\mathbf{w})\big|S_t=s,\pi\Big]\mathbf{x}(s), 
 \end{equation}
 where $\mathcal{P}_\mu^\pi$ is an operator.&lt;/p&gt;
 
 &lt;p&gt;The fixed point in \eqref{23} can be found by minimizing the Mean Square Projected Bellman Error (MSPBE):
 \begin{align}
-\overline{\text{PBE}}(\mathbf{w})&amp;amp;=\left\Vert v_\mathbf{w}-\Pi T_\pi^\lambda v_\mathbf{w}\right\Vert_\mu^2 \\ &amp;amp;=\left\Vert\Pi(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w})\right\Vert_\mu^2 \\ &amp;amp;=\left(\Pi\left(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w}\right)\right)^\intercal\mathbf{D}\left(\Pi\left(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w}\right)\right) \\ &amp;amp;=\left(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w}\right)^\intercal\Pi^\intercal\mathbf{D}\Pi\left(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w}\right) \\ &amp;amp;=\left(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w}\right)^\intercal\mathbf{D}^\intercal\mathbf{X}\left(\mathbf{X}^\intercal\mathbf{D}\mathbf{X}\right)^{-1}\mathbf{D}\left(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w}\right) \\ &amp;amp;=\left(\mathbf{X}^\intercal\mathbf{D}\left(T_\pi^\lambda v_\mathbf{w}-\mathbf{w}\right)\right)^\intercal\left(\mathbf{X}^\intercal\mathbf{D}\mathbf{X}\right)^{-1}\mathbf{X}^\intercal\mathbf{D}\left(T_\pi^\lambda v_\mathbf{w}-v_\mathbf{w}\right)\tag{25}\label{25}
+\overline{\text{PBE}}(\mathbf{w})&amp;amp;=\Big\Vert v_\mathbf{w}-\Pi T_\pi^\lambda v_\mathbf{w}\Big\Vert_\mu^2 \\ &amp;amp;=\Big\Vert\Pi(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w})\Big\Vert_\mu^2 \\ &amp;amp;=\Big(\Pi\left(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w}\right)\Big)^\intercal\mathbf{D}\Big(\Pi\left(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w}\right)\Big) \\ &amp;amp;=\left(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w}\right)^\intercal\Pi^\intercal\mathbf{D}\Pi\left(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w}\right) \\ &amp;amp;=\left(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w}\right)^\intercal\mathbf{D}^\intercal\mathbf{X}\left(\mathbf{X}^\intercal\mathbf{D}\mathbf{X}\right)^{-1}\mathbf{D}\left(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w}\right) \\ &amp;amp;=\Big(\mathbf{X}^\intercal\mathbf{D}\left(T_\pi^\lambda v_\mathbf{w}-\mathbf{w}\right)\Big)^\intercal\left(\mathbf{X}^\intercal\mathbf{D}\mathbf{X}\right)^{-1}\mathbf{X}^\intercal\mathbf{D}\left(T_\pi^\lambda v_\mathbf{w}-v_\mathbf{w}\right)\tag{25}\label{25}
 \end{align}&lt;/p&gt;
 
 &lt;p&gt;From the definition of $T_\pi^\lambda$ and $\delta_t^\lambda$, we have:
 \begin{align}
-(T_\pi^\lambda v_\mathbf{w}-v_\mathbf{v})(s)&amp;amp;=\mathbb{E}\left[G_t^\lambda(\mathbf{w})-\mathbf{w}^\intercal\mathbf{x}_t|S_t=s,\pi\right] \\ &amp;amp;=\mathbb{E}\left[\delta_t^\lambda(\mathbf{w})|S_t=s,\pi\right]\tag{26}\label{26}
+(T_\pi^\lambda v_\mathbf{w}-v_\mathbf{v})(s)&amp;amp;=\mathbb{E}\Big[G_t^\lambda(\mathbf{w})-\mathbf{w}^\intercal\mathbf{x}_t\big|S_t=s,\pi\Big] \\ &amp;amp;=\mathbb{E}\Big[\delta_t^\lambda(\mathbf{w})\big|S_t=s,\pi\Big]\tag{26}\label{26}
 \end{align}
 Therefore,
 \begin{align}
-\mathbf{X}^\intercal\mathbf{D}\left(T_\pi^\lambda v_\mathbf{w}-v_\mathbf{w}\right)&amp;amp;=\sum_s\mu(s)\left[\left(T_\pi^\lambda v_\mathbf{w}-v_\mathbf{w}\right)(s)\right]\mathbf{x}(s) \\ &amp;amp;=\sum_s\mu(s)\mathbb{E}\left[\delta_t^\lambda(\mathbf{w})|S_t=s,\pi\right]\mathbf{x}(s) \\ &amp;amp;=\mathcal{P}_\mu^\pi\delta_t^\lambda(\mathbf{w})\mathbf{x}_t\tag{27}\label{27}
+\mathbf{X}^\intercal\mathbf{D}\left(T_\pi^\lambda v_\mathbf{w}-v_\mathbf{w}\right)&amp;amp;=\sum_s\mu(s)\Big[\left(T_\pi^\lambda v_\mathbf{w}-v_\mathbf{w}\right)(s)\Big]\mathbf{x}(s) \\ &amp;amp;=\sum_s\mu(s)\mathbb{E}\Big[\delta_t^\lambda(\mathbf{w})|S_t=s,\pi\Big]\mathbf{x}(s) \\ &amp;amp;=\mathcal{P}_\mu^\pi\delta_t^\lambda(\mathbf{w})\mathbf{x}_t\tag{27}\label{27}
 \end{align}
 Moreover, we also have:
 \begin{equation}
@@ -684,25 +686,21 @@ because the state distribution is based on behavior state-distribution $\mu$.&lt
 \begin{align}
 \overline{\text{PBE}}(\mathbf{w})&amp;amp;=\Big(\mathcal{P}_\mu^\pi\delta_t^\lambda(\mathbf{w})\mathbf{x}_t\Big)^\intercal\mathbb{E}\Big[\mathbf{x}_t\mathbf{x}_t^\intercal\Big]^{-1}\Big(\mathcal{P}_\mu^\pi\delta_t^\lambda(\mathbf{w})\mathbf{x}_t\Big) \\ &amp;amp;=\mathbb{E}\Big[\delta_t^{\lambda\rho}(\mathbf{w})\mathbf{x}_t\Big]^\intercal\mathbb{E}\Big[\mathbf{x}_t\mathbf{x}_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t^{\lambda\rho}(\mathbf{w})\mathbf{x}_t\Big]\tag{30}\label{30}
 \end{align}
-From the definition of $G_t^{\lambda\rho}$, we have:
+From the definition of $\delta_t^{\lambda\rho}$, we have:
 \begin{align}
-G_t^{\lambda\rho}(\mathbf{w})&amp;amp;=\rho_t\Big(R_{t+1}+\gamma_{t+1}\big[(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}_{t+1}+\lambda_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\big]\Big) \\ &amp;amp;=\rho_t\Big(R_{t+1}+\gamma_{t+1}\mathbf{w}^\intercal\mathbf{x}_{t+1}-\mathbf{w}^\intercal\mathbf{x}_t+\mathbf{w}^\intercal\mathbf{x}_t\Big) \\ &amp;amp;\hspace{2cm}-\rho_t\gamma_{t+1}\lambda_{t+1}\mathbf{w}^\intercal\mathbf{x}_{t+1}+\rho_t\gamma_{t+1}\lambda_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w}) \\ &amp;amp;=\rho_t\Big(R_{t+1}+\gamma_{t+1}\mathbf{w}^\intercal\mathbf{x}_{t+1}-\mathbf{w}^\intercal\mathbf{x}_t\Big)+\rho_t\mathbf{w}^\intercal\mathbf{x}_t \\ &amp;amp;\hspace{2cm}+\rho_t\gamma_{t+1}\lambda_{t+1}\Big(G_{t+1}^{\lambda\rho}(\mathbf{w})-\mathbf{w}^\intercal\mathbf{x}_{t+1}\Big) \\ &amp;amp;=\rho_t\delta_t(\mathbf{w})+\rho_t\mathbf{w}^\intercal\mathbf{x}_t+\rho_t\gamma_{t+1}\lambda_{t+1}\delta_{t+1}^{\lambda\rho}(\mathbf{w}),
+\delta_t^{\lambda\rho}(\mathbf{w})&amp;amp;=G_t^{\lambda\rho}(\mathbf{w})-\mathbf{w}^\intercal\mathbf{x}_t \\ &amp;amp;=\rho_t\Big(R_{t+1}+\gamma_{t+1}\big[(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}_{t+1}+\lambda_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\big]\Big)-\mathbf{w}^\intercal\mathbf{x}_t \\ &amp;amp;=\rho_t\Big(R_{t+1}+\gamma_{t+1}\mathbf{w}^\intercal\mathbf{x}_{t+1}-\mathbf{w}^\intercal\mathbf{x}_t+\mathbf{w}^\intercal\mathbf{x}_t\Big) \\ &amp;amp;\hspace{2cm}-\rho_t\gamma_{t+1}\lambda_{t+1}\mathbf{w}^\intercal\mathbf{x}_{t+1}+\rho_t\gamma_{t+1}\lambda_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})-\mathbf{w}^\intercal\mathbf{x}_t \\ &amp;amp;=\rho_t\Big(R_{t+1}+\gamma_{t+1}\mathbf{w}^\intercal\mathbf{x}_{t+1}-\mathbf{w}^\intercal\mathbf{x}_t\Big)+\rho_t\mathbf{w}^\intercal\mathbf{x}_t-\mathbf{w}^\intercal\mathbf{x}_t \\ &amp;amp;\hspace{2cm}+\rho_t\gamma_{t+1}\lambda_{t+1}\Big(G_{t+1}^{\lambda\rho}(\mathbf{w})-\mathbf{w}^\intercal\mathbf{x}_{t+1}\Big) \\ &amp;amp;=\rho_t\delta_t(\mathbf{w})+(\rho_t-1)\mathbf{w}^\intercal\mathbf{x}_t+\rho_t\gamma_{t+1}\lambda_{t+1}\delta_{t+1}^{\lambda\rho}(\mathbf{w}),
 \end{align}
 where the TD error, $\delta_t(\mathbf{w})$, is defined as usual:
 \begin{equation}
 \delta_t(\mathbf{w})\doteq R_{t+1}+\gamma_{t+1}\mathbf{w}^\intercal\mathbf{x}_{t+1}-\mathbf{w}^\intercal\mathbf{x}_t
 \end{equation}
-Thus,
-\begin{align}
-\delta_t^{\lambda\rho}(\mathbf{w})&amp;amp;=G_t^{\lambda\rho}(\mathbf{w})-\mathbf{w}^\intercal\mathbf{x}_t \\ &amp;amp;=\rho_t\delta_t(\mathbf{w})+\rho_t\mathbf{w}^\intercal\mathbf{x}_t+\rho_t\gamma_{t+1}\lambda_{t+1}\delta_{t+1}^{\lambda\rho}(\mathbf{w})-\mathbf{w}^\intercal\mathbf{x}_t \\ &amp;amp;=\rho_t\delta_t(\mathbf{w})+(\rho_t-1)\mathbf{w}^\intercal\mathbf{x}_t+\rho_t\gamma_{t+1}\lambda_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})
-\end{align}
 Also, we have that:
 \begin{align}
 \mathbb{E}\Big[(1-\rho_t)\mathbf{w}^\intercal\mathbf{x}_t\mathbf{x}_t\Big]&amp;amp;=\sum_{s,a}\mu(s)b(a|s)\left(1-\frac{\pi(a|s)}{b(a|s)}\right)\mathbf{w}^\intercal\mathbf{x}(s)\mathbf{x}(s) \\ &amp;amp;=\sum_s\mu(s)\left(\sum_a b(a|s)-\sum_a\pi(a|s)\right)\mathbf{w}^\intercal\mathbf{x}(s)\mathbf{x}(s) \\ &amp;amp;=\sum_s\mu(s)(1-1)\mathbf{w}^\intercal\mathbf{x}(s)\mathbf{x}(s) \\ &amp;amp;=0
 \end{align}
 With these results, we have:
 \begin{align}
-\mathbb{E}\Big[\delta_t^{\lambda\rho}(\mathbf{w})\mathbf{x}_t\Big]&amp;amp;=\mathbb{E}\Big[\rho_t\delta_t(\mathbf{w})\mathbf{x}_t+(\rho_t-1)\mathbf{w}^\intercal\mathbf{x}_t\mathbf{x}_t+\rho_t\gamma_{t+1}\lambda_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\mathbf{x}_t\Big] \\ &amp;amp;=\mathbb{E}\Big[\rho_t\delta_t(\mathbf{w})\mathbf{x}_t\Big]+0+\mathbb{E}_{\pi b}\Big[\rho_t\gamma_{t+1}\lambda_{t+1}\delta_{t+1}^{\lambda\rho}(\mathbf{w})\mathbf{x}_t\Big] \\ &amp;amp;=\mathbb{E}\Big[\rho_t\delta_t(\mathbf{w})\mathbf{x}_t+\rho_{t-1}\gamma_t\lambda_t\delta_t^{\lambda\rho}(\mathbf{w})\mathbf{x}_{t-1}\Big] \\ &amp;amp;=\mathbb{E}\Big[\rho_t\delta_t(\mathbf{w})\mathbf{x}_t+\rho_{t-1}\gamma_t\lambda_t\big(\rho_t\delta_t(\mathbf{w})+(\rho_t-1)\mathbf{w}^\intercal\mathbf{x}_t \\ &amp;amp;\hspace{2cm}+\rho_t\gamma_{t+1}\lambda_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\big)\mathbf{x}_{t-1}\Big] \\ &amp;amp;=\mathbb{E}\Big[\rho_t\delta_t(\mathbf{w})\mathbf{x}_t+\rho_{t-1}\gamma_t\lambda_t\big(\rho_t\delta_t(\mathbf{w})+\rho_t\gamma_{t+1}\lambda_{t+1}\delta_{t+1}^{\lambda\rho}(\mathbf{w})\big)\mathbf{x}_{t-1}\Big] \\ &amp;amp;=\mathbb{E}\Big[\rho_t\delta_t(\mathbf{w})\big(\mathbf{x}_t+\rho_{t-1}\gamma_t\lambda_t\mathbf{x}_{t-1}\big)+\rho_{t-1}\gamma_t\lambda_t\rho_t\gamma_{t+1}\lambda_{t+1}\delta_{t+1}^{\lambda\rho}(\mathbf{w})\mathbf{x}_{t-1}\Big] \\ &amp;amp;=\mathbb{E}\Big[\rho_t\delta_t(\mathbf{w})\big(\mathbf{x}_t+\rho_{t-1}\gamma_t\lambda_t\mathbf{x}_{t-1}\big)+\rho_{t-2}\gamma_{t-1}\lambda_{t-1}\rho_{t-1}\gamma_t\lambda_t\delta_t^{\lambda\rho}(\mathbf{w})\mathbf{x}_{t-2}\Big] \\ &amp;amp;\hspace{0.3cm}\vdots \\ &amp;amp;=\mathbb{E}\Big[\delta_t(\mathbf{w})\rho_t\big(\mathbf{x}_t+\rho_{t-1}\gamma_t\lambda_t\mathbf{x}_{t-1}+\rho_{t-2}\gamma_{t-1}\lambda_{t-1}\rho_{t-1}\gamma_t\lambda_t\mathbf{x}_{t-2}+\dots\big)\Big] \\ &amp;amp;=\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}_t\Big],
+\mathbb{E}\Big[\delta_t^{\lambda\rho}(\mathbf{w})\mathbf{x}_t\Big]&amp;amp;=\mathbb{E}\Big[\rho_t\delta_t(\mathbf{w})\mathbf{x}_t+(\rho_t-1)\mathbf{w}^\intercal\mathbf{x}_t\mathbf{x}_t+\rho_t\gamma_{t+1}\lambda_{t+1}\delta_{t+1}^{\lambda\rho}(\mathbf{w})\mathbf{x}_t\Big] \\ &amp;amp;=\mathbb{E}\Big[\rho_t\delta_t(\mathbf{w})\mathbf{x}_t\Big]+0+\mathbb{E}_{\pi b}\Big[\rho_t\gamma_{t+1}\lambda_{t+1}\delta_{t+1}^{\lambda\rho}(\mathbf{w})\mathbf{x}_t\Big] \\ &amp;amp;=\mathbb{E}\Big[\rho_t\delta_t(\mathbf{w})\mathbf{x}_t+\rho_{t-1}\gamma_t\lambda_t\delta_t^{\lambda\rho}(\mathbf{w})\mathbf{x}_{t-1}\Big] \\ &amp;amp;=\mathbb{E}\Big[\rho_t\delta_t(\mathbf{w})\mathbf{x}_t+\rho_{t-1}\gamma_t\lambda_t\big(\rho_t\delta_t(\mathbf{w})+(\rho_t-1)\mathbf{w}^\intercal\mathbf{x}_t \\ &amp;amp;\hspace{2cm}+\rho_t\gamma_{t+1}\lambda_{t+1}\delta_{t+1}^{\lambda\rho}(\mathbf{w})\big)\mathbf{x}_{t-1}\Big] \\ &amp;amp;=\mathbb{E}\Big[\rho_t\delta_t(\mathbf{w})\mathbf{x}_t+\rho_{t-1}\gamma_t\lambda_t\big(\rho_t\delta_t(\mathbf{w})+\rho_t\gamma_{t+1}\lambda_{t+1}\delta_{t+1}^{\lambda\rho}(\mathbf{w})\big)\mathbf{x}_{t-1}\Big] \\ &amp;amp;=\mathbb{E}\Big[\rho_t\delta_t(\mathbf{w})\big(\mathbf{x}_t+\rho_{t-1}\gamma_t\lambda_t\mathbf{x}_{t-1}\big)+\rho_{t-1}\gamma_t\lambda_t\rho_t\gamma_{t+1}\lambda_{t+1}\delta_{t+1}^{\lambda\rho}(\mathbf{w})\mathbf{x}_{t-1}\Big] \\ &amp;amp;=\mathbb{E}\Big[\rho_t\delta_t(\mathbf{w})\big(\mathbf{x}_t+\rho_{t-1}\gamma_t\lambda_t\mathbf{x}_{t-1}\big)+\rho_{t-2}\gamma_{t-1}\lambda_{t-1}\rho_{t-1}\gamma_t\lambda_t\delta_t^{\lambda\rho}(\mathbf{w})\mathbf{x}_{t-2}\Big] \\ &amp;amp;\hspace{0.3cm}\vdots \\ &amp;amp;=\mathbb{E}\Big[\delta_t(\mathbf{w})\rho_t\big(\mathbf{x}_t+\rho_{t-1}\gamma_t\lambda_t\mathbf{x}_{t-1}+\rho_{t-2}\gamma_{t-1}\lambda_{t-1}\rho_{t-1}\gamma_t\lambda_t\mathbf{x}_{t-2}+\dots\big)\Big] \\ &amp;amp;=\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}_t\Big],
 \end{align}
 where
 \begin{equation}
