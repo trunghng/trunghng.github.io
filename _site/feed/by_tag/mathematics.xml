@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-17T18:39:11+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-17T19:19:03+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Normal Distribution</title><link href="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html" rel="alternate" type="text/html" title="Normal Distribution" /><published>2021-11-22T14:46:00+07:00</published><updated>2021-11-22T14:46:00+07:00</updated><id>http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist</id><content type="html" xml:base="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html">&lt;blockquote&gt;
   &lt;p&gt;A note on Normal distribution.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -591,11 +591,11 @@ f’(x)=g(x)=\sum na_nx^{n-1}
 \end{equation}&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;p&gt;[1] George F.Simmons. &lt;a href=&quot;https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424&quot;&gt;Calculus With Analytic Geometry - 2nd Edition&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[1] George F.Simmons. &lt;a href=&quot;https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424&quot;&gt;Calculus With Analytic Geometry - 2nd Edition&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[2] Marian M. &lt;a href=&quot;https://www.springer.com/gp/book/9780387789323&quot;&gt;A Concrete Approach to Classical Analysis&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[2] Marian M. &lt;a href=&quot;https://www.springer.com/gp/book/9780387789323&quot;&gt;A Concrete Approach to Classical Analysis&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[3] MIT 18.01. &lt;a href=&quot;https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/&quot;&gt;Single Variable Calculus&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[3] MIT 18.01. &lt;a href=&quot;https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/&quot;&gt;Single Variable Calculus&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
 
@@ -1502,11 +1502,11 @@ which implies that $T_n=s_1(b_1-b_2)+s_2(b_2-b_3)+\ldots$ converges absolutely, 
 which lets us conclude that the series \eqref{30} converges.&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;p&gt;[1] George F.Simmons. &lt;a href=&quot;https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424&quot;&gt;Calculus With Analytic Geometry - 2nd Edition&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[1] George F.Simmons. &lt;a href=&quot;https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424&quot;&gt;Calculus With Analytic Geometry - 2nd Edition&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[2] Marian M. &lt;a href=&quot;https://www.springer.com/gp/book/9780387789323&quot;&gt;A Concrete Approach to Classical Analysis&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[2] Marian M. &lt;a href=&quot;https://www.springer.com/gp/book/9780387789323&quot;&gt;A Concrete Approach to Classical Analysis&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[3] MIT 18.01. &lt;a href=&quot;https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/&quot;&gt;Single Variable Calculus&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[3] MIT 18.01. &lt;a href=&quot;https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/&quot;&gt;Single Variable Calculus&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
 &lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
@@ -1792,8 +1792,10 @@ And finally,
   &lt;li&gt;&lt;em&gt;Hyper-rectangles&lt;/em&gt;: An interval of form $[a, b]\subset\mathbb{R}^3$ has length $b-a$. The area of a rectangle $[a_1,b_1]\times[a_2,b_2]$ is $(b_1-a_1)(b_2-a_2)$. And the volume of a rectangular $[a_1,b_1]\times[a_2,b_2]\times[a_3,b_3]$ is $(b_1-a_1)(b_2-a_2)(b_3-a_3)$.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/lego.jpg&quot; alt=&quot;Lego&quot; /&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2021-07-03/lego.jpg&quot; alt=&quot;Lego&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 700px;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;#lebesgue-measure&quot;&gt;Lebesgue Measure&lt;/a&gt;&lt;/li&gt;
@@ -2113,19 +2115,19 @@ We say that $f$ is the &lt;em&gt;density&lt;/em&gt; of the measure $v$ w.r.t $\m
 
 &lt;p&gt;&lt;strong&gt;Markov chain&lt;/strong&gt;&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; is a stochastic process in which the random variables follow a special property called &lt;em&gt;Markov&lt;/em&gt;.&lt;/p&gt;
 
-&lt;h4 id=&quot;markov-property&quot;&gt;Markov Property&lt;/h4&gt;
+&lt;h2 id=&quot;markov-property&quot;&gt;Markov Property&lt;/h2&gt;
 &lt;p&gt;A sequence of random variables $X_0, X_1, X_2, \dots$ taking values in the &lt;em&gt;state space&lt;/em&gt; $S=${$1, 2,\dots, M$}. For all $n\geq0$,
 \begin{equation}
 P(X_{n+1}=j|X_n=i)=P(X_{n+1}=j|X_n=i,X_{n-1}=i_{n-1},X_{n-2}=i_{n-2},\dots,X_0=i_0)
 \end{equation}
 In other words, knowledge of the preceding state is all we need to determine the probability distribution of the current state&lt;sup id=&quot;fnref:3&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
 
-&lt;h4 id=&quot;transition-matrix&quot;&gt;Transition Matrix&lt;/h4&gt;
+&lt;h2 id=&quot;transition-matrix&quot;&gt;Transition Matrix&lt;/h2&gt;
 &lt;p&gt;The quantity $P(X_{n+1}=j|X_n=i)$ is &lt;em&gt;transition probability&lt;/em&gt; from state $i$ to $j$.&lt;br /&gt;
 If we denote that $q_{ij}=P(X_{n+1}=j|X_n=i)$ and let $Q=(q_{ij})$, which is a $M\times M$ matrix, there we have the &lt;em&gt;transition matrix&lt;/em&gt; $Q$ of the chain.&lt;br /&gt;
 Therefore, each row of $Q$ is a conditional probability mass function (PMF) of $X_{n+1}$ given $X_n$. And hence, sum of its entries is 1.&lt;/p&gt;
 
-&lt;h5 id=&quot;nstep-trans-prob&quot;&gt;n-step Transition Probability&lt;/h5&gt;
+&lt;h3 id=&quot;nstep-trans-prob&quot;&gt;n-step Transition Probability&lt;/h3&gt;
 &lt;p&gt;The n-step &lt;em&gt;transition probability&lt;/em&gt; from $i$ to $j$ is the probability of being at $i$ and $n$ steps later being at $j$, and be denoted as $q_{ij}^{(n)}$,
 \begin{equation}
 q_{ij}^{(n)}=P(X_n=j|X_0=i)
@@ -2140,14 +2142,14 @@ q_{ij}^{(n)}=Q_{ij}^{n}
 \end{equation}
 $Q^n$ is also called the &lt;em&gt;n-step transition matrix&lt;/em&gt;.&lt;/p&gt;
 
-&lt;h5 id=&quot;marginal-dist-xn&quot;&gt;Marginal Distribution of $X_n$&lt;/h5&gt;
+&lt;h3 id=&quot;marginal-dist-xn&quot;&gt;Marginal Distribution of $X_n$&lt;/h3&gt;
 &lt;p&gt;Let $t=(t_1,\dots,t_M)^\intercal$, where $t_i=P(X_0=i)$. By the law of total probability (LOTP), we have that:
 \begin{align}
 P(X_n=j)&amp;amp;=\sum_{i=1}^{M}P(X_0=i)P(X_n=j|X_0=i) \\&amp;amp;=\sum_{i=1}^{M}t_iq_{ij}^{(n)}
 \end{align}
 or the marginal distribution of $X_n$ is given by $tQ^n$.&lt;/p&gt;
 
-&lt;h4 id=&quot;properties&quot;&gt;Properties&lt;/h4&gt;
+&lt;h2 id=&quot;properties&quot;&gt;Properties&lt;/h2&gt;
 &lt;ol&gt;
   &lt;li&gt;State $i$ of a Markov chain is defined as &lt;em&gt;recurrent&lt;/em&gt; or &lt;em&gt;transient&lt;/em&gt; depending upon whether or not the Markov chain will eventually return to it. Starting with &lt;em&gt;recurrent&lt;/em&gt; state i, the chain will return to it with the probability of 1. Otherwise, it is &lt;em&gt;transient&lt;/em&gt;.
     &lt;ul&gt;
@@ -2163,7 +2165,7 @@ or the marginal distribution of $X_n$ is given by $tQ^n$.&lt;/p&gt;
 And thus, $k=gcd(n)$ such that $Q^n_{ii}&amp;gt;0$. $i$ is called &lt;em&gt;aperiodic&lt;/em&gt; if $k_i=1$, and &lt;em&gt;periodic&lt;/em&gt; otherwise. The chain itself is called &lt;em&gt;aperiodic&lt;/em&gt; if all its states are &lt;em&gt;aperiodic&lt;/em&gt;, and &lt;em&gt;periodic&lt;/em&gt; otherwise.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h4 id=&quot;stationary-distribution&quot;&gt;Stationary Distribution&lt;/h4&gt;
+&lt;h2 id=&quot;stationary-distribution&quot;&gt;Stationary Distribution&lt;/h2&gt;
 &lt;p&gt;A vector $s=(s_1,\dots,s_M)^\intercal$ such that $s_i\geq0$ and $\sum_{i}s_i=1$ is a &lt;em&gt;stationary distribution&lt;/em&gt; for a Markov chain if
 \begin{equation}
 \sum_{i}s_iq_{ij}=s_j
@@ -2181,7 +2183,7 @@ for all $j$, or equivalently $sQ=s$.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt; (&lt;em&gt;Expected time to run&lt;/em&gt;)&lt;br /&gt;
     Let $X_0,X_1,\dots$ be an &lt;em&gt;irreducible&lt;/em&gt; Markov chain with &lt;em&gt;stationary distribution&lt;/em&gt; $s$. Let $r_i$ be the expected time it takes the chain to return to $i$, given that it starts at $i$. Then $s_i=1/r_i$&lt;/p&gt;
 
-&lt;h4 id=&quot;reversibility&quot;&gt;Reversibility&lt;/h4&gt;
+&lt;h2 id=&quot;reversibility&quot;&gt;Reversibility&lt;/h2&gt;
 &lt;p&gt;Let $Q=(q_{ij})$ be the &lt;em&gt;transition matrix&lt;/em&gt; of a Markov chain. Suppose there is an $s=(s_1,\dots,s_M)^\intercal$ with $s_i\geq0,\sum_{i}s_i=1$, such that
 \begin{equation}
 s_iq_{ij}=s_jq_{ji}
@@ -2194,7 +2196,7 @@ for all states $i,j$. This equation is called &lt;em&gt;reversibility&lt;/em&gt;
 &lt;p&gt;&lt;strong&gt;Proposition&lt;/strong&gt;&lt;br /&gt;
     If each column of $Q$ sum to 1, then the &lt;em&gt;uniform distribution&lt;/em&gt; over all states $(1/M,\dots,1/M)$, is a &lt;em&gt;stationary distribution&lt;/em&gt;. (This kind of matrix is called &lt;em&gt;doubly stochastic matrix&lt;/em&gt;).&lt;/p&gt;
 
-&lt;h4 id=&quot;exp-app&quot;&gt;Examples and Applications&lt;/h4&gt;
+&lt;h2 id=&quot;exp-app&quot;&gt;Examples and Applications&lt;/h2&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Finite-state_machine&quot;&gt;&lt;em&gt;Finite-state machines&lt;/em&gt;&lt;/a&gt;, &lt;a href=&quot;https://en.wikipedia.org/wiki/Random_walk&quot;&gt;&lt;em&gt;random walks&lt;/em&gt;&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;Diced board games such as Ludo, Monopoly,…&lt;/li&gt;
@@ -2203,14 +2205,14 @@ for all states $i,j$. This equation is called &lt;em&gt;reversibility&lt;/em&gt;
   &lt;li&gt;And various other applications.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
-&lt;p&gt;[1] Joseph K. Blitzstein &amp;amp; Jessica Hwang. &lt;a href=&quot;https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573&quot;&gt;Introduction to Probability&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;p&gt;[1] Joseph K. Blitzstein &amp;amp; Jessica Hwang. &lt;a href=&quot;https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573&quot;&gt;Introduction to Probability&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[2] &lt;a href=&quot;https://brilliant.org/wiki/markov-chains/&quot;&gt;Brillant’s Markov chain&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[2] &lt;a href=&quot;https://brilliant.org/wiki/markov-chains/&quot;&gt;Brillant’s Markov chain&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[3] &lt;a href=&quot;https://en.wikipedia.org/wiki/Perron–Frobenius_theorem&quot;&gt;Perron-Frobenius theorem&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[3] &lt;a href=&quot;https://en.wikipedia.org/wiki/Perron–Frobenius_theorem&quot;&gt;Perron-Frobenius theorem&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h4 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h4&gt;
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
 &lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
   &lt;ol&gt;
     &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
@@ -2264,6 +2266,6 @@ u_k=A^ku_0=c_1{\lambda_1}^kx_1+\dots+c_n{\lambda_n}^kx_n
 &lt;em&gt;Fact&lt;/em&gt;: The \(\frac{1+\sqrt{5}}{2}\approx 1.618\) is so-called “&lt;strong&gt;golden ratio&lt;/strong&gt;”. And &lt;em&gt;for some reason a rectangle with sides 1.618 and 1 looks especially graceful&lt;/em&gt;.&lt;/p&gt;
 
 &lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
-&lt;p&gt;[1] Gilbert Strang. &lt;a href=&quot;http://math.mit.edu/~gs/linearalgebra/&quot;&gt;Introduction to Linear Algebra&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[1] Gilbert Strang. &lt;a href=&quot;http://math.mit.edu/~gs/linearalgebra/&quot;&gt;Introduction to Linear Algebra&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[2] MIT 18.06. &lt;a href=&quot;https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/&quot;&gt;Linear Algebrea&lt;/a&gt;&lt;/p&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="linear-algebra" /><category term="mathematics" /><category term="linear-algebra" /><category term="random-stuffs" /><summary type="html">Enjoy my index-zero-ed post while staying tuned for next ones!</summary></entry></feed>
+&lt;p&gt;[2] MIT 18.06. &lt;a href=&quot;https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/&quot;&gt;Linear Algebrea&lt;/a&gt;.&lt;/p&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="linear-algebra" /><category term="mathematics" /><category term="linear-algebra" /><category term="eigenvalue-eigenvector" /><category term="random-stuffs" /><summary type="html">Enjoy my index-zero-ed post while staying tuned for next ones!</summary></entry></feed>

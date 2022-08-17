@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-17T18:39:11+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-17T19:19:03+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Policy Gradient Methods</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient.html" rel="alternate" type="text/html" title="Policy Gradient Methods" /><published>2022-08-16T14:00:00+07:00</published><updated>2022-08-16T14:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient.html">&lt;blockquote&gt;
   &lt;p&gt;So far in the series, we have been choosing the actions based on the estimated action value function. On the other hand, we can instead learn a &lt;strong&gt;parameterized policy&lt;/strong&gt;, $\boldsymbol{\theta}$, that can select actions without consulting a value function by updating $\boldsymbol{\theta}$ on each step in the direction of an estimate of the gradient of some performance measure w.r.t $\boldsymbol{\theta}$. Such methods are called &lt;strong&gt;policy gradient methods&lt;/strong&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -1628,7 +1628,7 @@ This algorithm is known as &lt;strong&gt;TD(0) with gradient correction (TDC)&lt
 &lt;h3 id=&quot;em-td&quot;&gt;Emphatic-TD&lt;/h3&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;[2] Deepmind x UCL. &lt;a href=&quot;https://www.deepmind.com/learning-resources/reinforcement-learning-lecture-series-2021&quot;&gt;Reinforcement Learning Lecture Series 2021&lt;/a&gt;.&lt;/p&gt;
 
@@ -2528,15 +2528,15 @@ for $t\lt h\leq T$. The rescursion ends with $G_{h:h}\doteq Q_{h-1}(S_h,A_h)$ if
 &lt;/figure&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;[2] &lt;span id=&quot;td-convergence&quot;&gt;Sutton, R.S. &lt;a href=&quot;https://doi.org/10.1007/BF00115009&quot;&gt;Learning to predict by the methods of temporal differences&lt;/a&gt;. Mach Learn 3, 9–44 (1988).&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;[3] &lt;span id=&quot;q-learning-watkins&quot;&gt;Chris Watkins. &lt;a href=&quot;https://www.researchgate.net/publication/33784417_Learning_From_Delayed_Rewards&quot;&gt;Learning from Delayed Rewards&lt;/a&gt;. PhD Thesis (1989)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;[3] &lt;span id=&quot;q-learning-watkins&quot;&gt;Chris Watkins. &lt;a href=&quot;https://www.researchgate.net/publication/33784417_Learning_From_Delayed_Rewards&quot;&gt;Learning from Delayed Rewards&lt;/a&gt;. PhD Thesis (1989).&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;[4] Hado Hasselt. &lt;a href=&quot;https://papers.nips.cc/paper/2010/hash/091d584fced301b442654dd8c23b3fc9-Abstract.html&quot;&gt;Double Q-learning&lt;/a&gt;. NIPS 2010&lt;/p&gt;
+&lt;p&gt;[4] Hado Hasselt. &lt;a href=&quot;https://papers.nips.cc/paper/2010/hash/091d584fced301b442654dd8c23b3fc9-Abstract.html&quot;&gt;Double Q-learning&lt;/a&gt;. NIPS 2010.&lt;/p&gt;
 
-&lt;p&gt;[5] Shangtong Zhang. &lt;a href=&quot;https://github.com/ShangtongZhang/reinforcement-learning-an-introduction&quot;&gt;Reinforcement Learning: An Introduction implementation&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[5] Shangtong Zhang. &lt;a href=&quot;https://github.com/ShangtongZhang/reinforcement-learning-an-introduction&quot;&gt;Reinforcement Learning: An Introduction implementation&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;[6] &lt;span id=&quot;random_walk&quot;&gt;Singh, S.P., Sutton, R.S. &lt;a href=&quot;https://doi.org/10.1007/BF00114726&quot;&gt;Reinforcement learning with replacing eligibility traces&lt;/a&gt;. Mach Learn 22, 123–158 (1996).&lt;/span&gt;&lt;/p&gt;
 
@@ -3145,11 +3145,11 @@ f’(x)=g(x)=\sum na_nx^{n-1}
 \end{equation}&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;p&gt;[1] George F.Simmons. &lt;a href=&quot;https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424&quot;&gt;Calculus With Analytic Geometry - 2nd Edition&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[1] George F.Simmons. &lt;a href=&quot;https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424&quot;&gt;Calculus With Analytic Geometry - 2nd Edition&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[2] Marian M. &lt;a href=&quot;https://www.springer.com/gp/book/9780387789323&quot;&gt;A Concrete Approach to Classical Analysis&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[2] Marian M. &lt;a href=&quot;https://www.springer.com/gp/book/9780387789323&quot;&gt;A Concrete Approach to Classical Analysis&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[3] MIT 18.01. &lt;a href=&quot;https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/&quot;&gt;Single Variable Calculus&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[3] MIT 18.01. &lt;a href=&quot;https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/&quot;&gt;Single Variable Calculus&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
 
@@ -4056,11 +4056,11 @@ which implies that $T_n=s_1(b_1-b_2)+s_2(b_2-b_3)+\ldots$ converges absolutely, 
 which lets us conclude that the series \eqref{30} converges.&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;p&gt;[1] George F.Simmons. &lt;a href=&quot;https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424&quot;&gt;Calculus With Analytic Geometry - 2nd Edition&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[1] George F.Simmons. &lt;a href=&quot;https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424&quot;&gt;Calculus With Analytic Geometry - 2nd Edition&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[2] Marian M. &lt;a href=&quot;https://www.springer.com/gp/book/9780387789323&quot;&gt;A Concrete Approach to Classical Analysis&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[2] Marian M. &lt;a href=&quot;https://www.springer.com/gp/book/9780387789323&quot;&gt;A Concrete Approach to Classical Analysis&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[3] MIT 18.01. &lt;a href=&quot;https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/&quot;&gt;Single Variable Calculus&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[3] MIT 18.01. &lt;a href=&quot;https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/&quot;&gt;Single Variable Calculus&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
 &lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
@@ -4135,7 +4135,7 @@ implies
 &lt;p&gt;&lt;strong&gt;Monte Carlo&lt;/strong&gt;, named after a casino in Monaco, simulates complex probabilistic events using simple random events, such as tossing a pair of dice to simulate the casino’s overall business model.&lt;/p&gt;
 
 &lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2021-08-21/mc-pi.gif&quot; alt=&quot;monte carlo method&quot; width=&quot;480&quot; height=&quot;360px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;img src=&quot;/assets/images/2021-08-21/mc-pi.gif&quot; alt=&quot;monte carlo method&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 480; height:360px&quot; /&gt;
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 1&lt;/b&gt;: Using Monte Carlo method to approximate the value of $\pi$. The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/maths-visualization/blob/main/monte-carlo/monte_carlo_pi.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
@@ -4629,7 +4629,7 @@ We begin by importing some useful packages.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;We end up with this result after running the code.&lt;/p&gt;
 &lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2021-08-21/racetrack-result.png&quot; alt=&quot;racetrack&apos;s result&quot; width=&quot;450&quot; height=&quot;400px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;img src=&quot;/assets/images/2021-08-21/racetrack-result.png&quot; alt=&quot;racetrack&apos;s result&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 450px; height: 400px&quot; /&gt;
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 5&lt;/b&gt;: Example - Racetrack&apos;s result&lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
@@ -4710,25 +4710,25 @@ V(s)\doteq\dfrac{\sum_{t\in\mathcal{T}(s)}\tilde{G}_t}{\vert\mathcal{T}(s)\vert}
 \end{equation}&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[2] Adrian Barbu &amp;amp; Song-Chun Zhu. &lt;a href=&quot;https://link.springer.com/book/10.1007/978-981-13-2971-5&quot;&gt;Monte Carlo Methods&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[2] Adrian Barbu &amp;amp; Song-Chun Zhu. &lt;a href=&quot;https://link.springer.com/book/10.1007/978-981-13-2971-5&quot;&gt;Monte Carlo Methods&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[3] David Silver. &lt;a href=&quot;https://www.davidsilver.uk/teaching/&quot;&gt;UCL course on RL&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[3] David Silver. &lt;a href=&quot;https://www.davidsilver.uk/teaching/&quot;&gt;UCL course on RL&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[4] Csaba Szepesvári. &lt;a href=&quot;https://www.amazon.com/Algorithms-Reinforcement-Synthesis-Artificial-Intelligence/dp/1608454924&quot;&gt;Algorithms for Reinforcement Learning&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[4] Csaba Szepesvári. &lt;a href=&quot;https://www.amazon.com/Algorithms-Reinforcement-Synthesis-Artificial-Intelligence/dp/1608454924&quot;&gt;Algorithms for Reinforcement Learning&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;[5] Singh, S.P., Sutton, R.S. &lt;a href=&quot;https://doi.org/10.1007/BF00114726&quot;&gt;Reinforcement learning with replacing eligibility traces&lt;/a&gt;. Mach Learn 22, 123–158 (1996)&lt;/p&gt;
 
-&lt;p&gt;[6] John N. Tsitsiklis. &lt;a href=&quot;https://www.mit.edu/~jnt/Papers/J089-02-jnt-optimistic.pdf&quot;&gt;On the Convergence of Optimistic Policy Iteration&lt;/a&gt;. Journal of Machine Learning Research 3 (2002) 59–72&lt;/p&gt;
+&lt;p&gt;[6] John N. Tsitsiklis. &lt;a href=&quot;https://www.mit.edu/~jnt/Papers/J089-02-jnt-optimistic.pdf&quot;&gt;On the Convergence of Optimistic Policy Iteration&lt;/a&gt;. Journal of Machine Learning Research 3 (2002) 59–72.&lt;/p&gt;
 
-&lt;p&gt;[7] Yuanlong Chen. &lt;a href=&quot;https://arxiv.org/abs/1808.08763&quot;&gt;On the convergence of optimistic policy iteration for stochastic shortest path problem&lt;/a&gt; (2018)&lt;/p&gt;
+&lt;p&gt;[7] Yuanlong Chen. &lt;a href=&quot;https://arxiv.org/abs/1808.08763&quot;&gt;On the convergence of optimistic policy iteration for stochastic shortest path problem&lt;/a&gt; (2018).&lt;/p&gt;
 
-&lt;p&gt;[8] Jun Liu. &lt;a href=&quot;https://arxiv.org/abs/2007.10916&quot;&gt;On the Convergence of Reinforcement Learning with Monte Carlo Exploring Starts&lt;/a&gt; (2020)&lt;/p&gt;
+&lt;p&gt;[8] Jun Liu. &lt;a href=&quot;https://arxiv.org/abs/2007.10916&quot;&gt;On the Convergence of Reinforcement Learning with Monte Carlo Exploring Starts&lt;/a&gt; (2020).&lt;/p&gt;
 
-&lt;p&gt;[9] Daphne Koller &amp;amp; Nir Friedman. &lt;a href=&quot;https://mitpress.mit.edu/books/probabilistic-graphical-models&quot;&gt;Probabilistic Graphical Models: Principles and Techniques&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[9] Daphne Koller &amp;amp; Nir Friedman. &lt;a href=&quot;https://mitpress.mit.edu/books/probabilistic-graphical-models&quot;&gt;Probabilistic Graphical Models: Principles and Techniques&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[10] A. Rupam Mahmood, Hado P. van Hasselt, Richard S. Sutton. &lt;a href=&quot;https://papers.nips.cc/paper/2014/hash/be53ee61104935234b174e62a07e53cf-Abstract.html&quot;&gt;Weighted importance sampling for off-policy learning with linear function approximation&lt;/a&gt;. Advances in Neural Information Processing Systems 27 (NIPS 2014)&lt;/p&gt;
+&lt;p&gt;[10] A. Rupam Mahmood, Hado P. van Hasselt, Richard S. Sutton. &lt;a href=&quot;https://papers.nips.cc/paper/2014/hash/be53ee61104935234b174e62a07e53cf-Abstract.html&quot;&gt;Weighted importance sampling for off-policy learning with linear function approximation&lt;/a&gt;. Advances in Neural Information Processing Systems 27 (NIPS 2014).&lt;/p&gt;
 
 &lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
 &lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
@@ -4811,7 +4811,7 @@ v_{k+1}(s)&amp;amp;\doteq\mathbb{E}_\pi\left[R_{t+1}+\gamma v_k(S_{k+1})\vert S_
 for all $s\in\mathcal{S}$. Thanks to &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html#banach-fixed-pts&quot;&gt;Banach’s fixed points theorem&lt;/a&gt; and as we talked in that post, we have that the sequence $\{v_k\}\to v_\pi$ as $k\to\infty$. This algorithm is called &lt;strong&gt;iterative policy evaluation&lt;/strong&gt;.&lt;br /&gt;
 We have the backup diagram for this update.&lt;/p&gt;
 &lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2021-07-25/backup-iterative-policy-evaluation.png&quot; alt=&quot;Backup diagram for iterative policy evalution update&quot; width=&quot;360&quot; height=&quot;200px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;img src=&quot;/assets/images/2021-07-25/backup-iterative-policy-evaluation.png&quot; alt=&quot;Backup diagram for iterative policy evalution update&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 360px; height: 200px&quot; /&gt;
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 2&lt;/b&gt;: Backup diagram for Iterative policy evaluation update&lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;p&gt;&lt;br /&gt;
@@ -4882,7 +4882,7 @@ v_{k+1}&amp;amp;\doteq\max_a\mathbb{E}\left[R_{t+1}+\gamma v_k(S_{t+1})|S_t=s,A_
 for all $s\in\mathcal{S}$. Once again, thanks to &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html#banach-fixed-pts&quot;&gt;Banach’s fixed point theorem&lt;/a&gt;, for an arbitrary $v_0$, we have that the sequence $\{v_k\}\to v_*$ as $k\to\infty$.&lt;br /&gt;
 We have the backup diagram for this update&lt;sup id=&quot;fnref:3&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
 &lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2021-07-25/backup-value-iteration.png&quot; alt=&quot;Backup diagram of value iteration update&quot; width=&quot;360&quot; height=&quot;200px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;img src=&quot;/assets/images/2021-07-25/backup-value-iteration.png&quot; alt=&quot;Backup diagram of value iteration update&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 360px; height: 200px&quot; /&gt;
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 3&lt;/b&gt;: Backup diagram of Value Iteration update&lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;p&gt;&lt;br /&gt;
@@ -4896,14 +4896,15 @@ And here is the pseudocode of the value iteration.&lt;/p&gt;
 &lt;p&gt;The &lt;strong&gt;Generalized Policy Iteration (GPI)&lt;/strong&gt; algorithm refers to the idea of combining policy evaluation and policy improvement together to improve the original policy.&lt;br /&gt;
 In GPI, the value function is repeatedly driven toward the true value of the current policy and at the same time the policy is being improved optimality with respect to its value function, as in the following diagram.&lt;/p&gt;
 &lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2021-07-25/gpi.png&quot; alt=&quot;GPI&quot; width=&quot;200&quot; height=&quot;320px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;img src=&quot;/assets/images/2021-07-25/gpi.png&quot; alt=&quot;GPI&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width:200px; height: 320px&quot; /&gt;
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 4&lt;/b&gt;: Generalized Policy Iteration&lt;/figcaption&gt;
 &lt;/figure&gt;
-&lt;p&gt;&lt;br /&gt;
-Once it reaches the stationary state (when both evaluation and improvement no long produce any updates), then the current value function and policy must be optimal.&lt;br /&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Once it reaches the stationary state (when both evaluation and improvement no long produce any updates), then the current value function and policy must be optimal.&lt;br /&gt;
 The evaluation and improvement processes in GPI can be viewed as both competing and cooperating. They competing in the sense that on the one hand, making policy greedy w.r.t the value function typically makes value function incorrect for the new policy. And on the other hand, approximating the value function closer to the true value of the policy typically forces the policy is no longer to be greedy. But in the long run, they two processes cooperate to find a single joint solution: the optimal value function and an optimal policy.&lt;/p&gt;
 &lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2021-07-25/gpi-rel.png&quot; alt=&quot;GPI interaction&quot; width=&quot;360&quot; height=&quot;200px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;img src=&quot;/assets/images/2021-07-25/gpi-rel.png&quot; alt=&quot;GPI interaction&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 360px; height: 200px&quot; /&gt;
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 5&lt;/b&gt;: Interaction between the evaluation and improvement processes in GPI&lt;/figcaption&gt;
 &lt;/figure&gt;
 
@@ -5001,24 +5002,24 @@ The code can be found &lt;a href=&quot;https://github.com/trunghng/reinforcement
 &lt;/div&gt;
 &lt;p&gt;And here is our results after running the code&lt;/p&gt;
 &lt;figure&gt;
-    &lt;img src=&quot;/assets/images/2021-07-25/gambler.png&quot; alt=&quot;gambler&quot; width=&quot;450&quot; height=&quot;900px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+    &lt;img src=&quot;/assets/images/2021-07-25/gambler.png&quot; alt=&quot;gambler&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 450px; height: 900px&quot; /&gt;
     &lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 7&lt;/b&gt;: Example - Gambler&apos;s Problem Result&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[2] David Silver. &lt;a href=&quot;https://www.davidsilver.uk/teaching/&quot;&gt;UCL course on RL&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[2] David Silver. &lt;a href=&quot;https://www.davidsilver.uk/teaching/&quot;&gt;UCL course on RL&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[3] Csaba Szepesvári. &lt;a href=&quot;https://www.amazon.com/Algorithms-Reinforcement-Synthesis-Artificial-Intelligence/dp/1608454924&quot;&gt;Algorithms for Reinforcement Learning&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[3] Csaba Szepesvári. &lt;a href=&quot;https://www.amazon.com/Algorithms-Reinforcement-Synthesis-Artificial-Intelligence/dp/1608454924&quot;&gt;Algorithms for Reinforcement Learning&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[4] A. Lazaric. &lt;a href=&quot;http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf&quot;&gt;Markov Decision Processes and Dynamic Programming&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[4] A. Lazaric. &lt;a href=&quot;http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf&quot;&gt;Markov Decision Processes and Dynamic Programming&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[5] &lt;a href=&quot;https://en.wikipedia.org/wiki/Dynamic_programming&quot;&gt;Dynamic Programming&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[5] &lt;a href=&quot;https://en.wikipedia.org/wiki/Dynamic_programming&quot;&gt;Dynamic Programming&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[6] &lt;a href=&quot;https://github.com/ShangtongZhang/reinforcement-learning-an-introduction&quot;&gt;Shangtong Zhang’s repo&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[6] &lt;a href=&quot;https://github.com/ShangtongZhang/reinforcement-learning-an-introduction&quot;&gt;Shangtong Zhang’s repo&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[7] &lt;a href=&quot;https://stats.stackexchange.com/a/258783&quot;&gt;Policy Improvement theorem&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[7] &lt;a href=&quot;https://stats.stackexchange.com/a/258783&quot;&gt;Policy Improvement theorem&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
 

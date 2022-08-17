@@ -783,11 +783,11 @@ which implies that $T_n=s_1(b_1-b_2)+s_2(b_2-b_3)+\ldots$ converges absolutely, 
 which lets us conclude that the series \eqref{30} converges.
 
 ## References
-[1] George F.Simmons. [Calculus With Analytic Geometry - 2nd Edition](https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424)  
+[1] George F.Simmons. [Calculus With Analytic Geometry - 2nd Edition](https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424).  
 
-[2] Marian M. [A Concrete Approach to Classical Analysis](https://www.springer.com/gp/book/9780387789323)  
+[2] Marian M. [A Concrete Approach to Classical Analysis](https://www.springer.com/gp/book/9780387789323).  
 
-[3] MIT 18.01. [Single Variable Calculus](https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/)  
+[3] MIT 18.01. [Single Variable Calculus](https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/).  
 
 ## Footnotes
 [^1]: We will be going through power series in more detailed in another [post]({% post_url 2021-09-21-power-series %}).

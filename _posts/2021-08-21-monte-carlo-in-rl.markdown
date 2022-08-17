@@ -40,7 +40,7 @@ comments: true
 **Monte Carlo**, named after a casino in Monaco, simulates complex probabilistic events using simple random events, such as tossing a pair of dice to simulate the casino's overall business model.
 
 <figure>
-	<img src="/assets/images/2021-08-21/mc-pi.gif" alt="monte carlo method" width="480" height="360px" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<img src="/assets/images/2021-08-21/mc-pi.gif" alt="monte carlo method" style="display: block; margin-left: auto; margin-right: auto; width: 480; height:360px"/>
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Using Monte Carlo method to approximate the value of $\pi$. The code can be found <span markdown="1">[here](https://github.com/trunghng/maths-visualization/blob/main/monte-carlo/monte_carlo_pi.py)</span></figcaption>
 </figure><br/>
 
@@ -526,7 +526,7 @@ if __name__ == '__main__':
 </div>
 We end up with this result after running the code.
 <figure>
-	<img src="/assets/images/2021-08-21/racetrack-result.png" alt="racetrack's result" width="450" height="400px" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<img src="/assets/images/2021-08-21/racetrack-result.png" alt="racetrack's result" style="display: block; margin-left: auto; margin-right: auto; width: 450px; height: 400px"/>
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 5</b>: Example - Racetrack's result</figcaption>
 </figure><br/>
 
@@ -605,25 +605,25 @@ V(s)\doteq\dfrac{\sum_{t\in\mathcal{T}(s)}\tilde{G}\_t}{\vert\mathcal{T}(s)\vert
 \end{equation}
 
 ## References
-[1] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition)  
+[1] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition).  
 
-[2] Adrian Barbu & Song-Chun Zhu. [Monte Carlo Methods](https://link.springer.com/book/10.1007/978-981-13-2971-5)  
+[2] Adrian Barbu & Song-Chun Zhu. [Monte Carlo Methods](https://link.springer.com/book/10.1007/978-981-13-2971-5).  
 
-[3] David Silver. [UCL course on RL](https://www.davidsilver.uk/teaching/)  
+[3] David Silver. [UCL course on RL](https://www.davidsilver.uk/teaching/).  
 
-[4] Csaba Szepesvári. [Algorithms for Reinforcement Learning](https://www.amazon.com/Algorithms-Reinforcement-Synthesis-Artificial-Intelligence/dp/1608454924)  
+[4] Csaba Szepesvári. [Algorithms for Reinforcement Learning](https://www.amazon.com/Algorithms-Reinforcement-Synthesis-Artificial-Intelligence/dp/1608454924).  
 
 [5] Singh, S.P., Sutton, R.S. [Reinforcement learning with replacing eligibility traces](https://doi.org/10.1007/BF00114726). Mach Learn 22, 123–158 (1996)  
 
-[6] John N. Tsitsiklis. [On the Convergence of Optimistic Policy Iteration](https://www.mit.edu/~jnt/Papers/J089-02-jnt-optimistic.pdf). Journal of Machine Learning Research 3 (2002) 59–72  
+[6] John N. Tsitsiklis. [On the Convergence of Optimistic Policy Iteration](https://www.mit.edu/~jnt/Papers/J089-02-jnt-optimistic.pdf). Journal of Machine Learning Research 3 (2002) 59–72.  
 
-[7] Yuanlong Chen. [On the convergence of optimistic policy iteration for stochastic shortest path problem](https://arxiv.org/abs/1808.08763) (2018)  
+[7] Yuanlong Chen. [On the convergence of optimistic policy iteration for stochastic shortest path problem](https://arxiv.org/abs/1808.08763) (2018).  
 
-[8] Jun Liu. [On the Convergence of Reinforcement Learning with Monte Carlo Exploring Starts](https://arxiv.org/abs/2007.10916) (2020)  
+[8] Jun Liu. [On the Convergence of Reinforcement Learning with Monte Carlo Exploring Starts](https://arxiv.org/abs/2007.10916) (2020).  
 
-[9] Daphne Koller & Nir Friedman. [Probabilistic Graphical Models: Principles and Techniques](https://mitpress.mit.edu/books/probabilistic-graphical-models)  
+[9] Daphne Koller & Nir Friedman. [Probabilistic Graphical Models: Principles and Techniques](https://mitpress.mit.edu/books/probabilistic-graphical-models).  
 
-[10] A. Rupam Mahmood, Hado P. van Hasselt, Richard S. Sutton. [Weighted importance sampling for off-policy learning with linear function approximation](https://papers.nips.cc/paper/2014/hash/be53ee61104935234b174e62a07e53cf-Abstract.html). Advances in Neural Information Processing Systems 27 (NIPS 2014)
+[10] A. Rupam Mahmood, Hado P. van Hasselt, Richard S. Sutton. [Weighted importance sampling for off-policy learning with linear function approximation](https://papers.nips.cc/paper/2014/hash/be53ee61104935234b174e62a07e53cf-Abstract.html). Advances in Neural Information Processing Systems 27 (NIPS 2014).
 
 ## Footnotes
 [^1]: We are gonna talk about Monte Carlo methods in more detail in another post.
