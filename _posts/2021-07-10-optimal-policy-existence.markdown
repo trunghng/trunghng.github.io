@@ -10,11 +10,11 @@ comments: true
 > In the previous post about [**Markov Decision Processes, Bellman equations**]({% post_url 2021-06-27-mdp-bellman-eqn %}), we mentioned that there exists a policy $\pi_\*$ that is better than or equal to all other policies. And now, we are here to prove it.  
 
 <!-- excerpt-end -->
-- [Norms, Contractions, Banach's Fixed-point Theorem](#norms-contractions-banach-fixed-pts)
+- [Preliminaries](#preliminaries)
 	- [Norms](#norms)
 	- [Contractions](#contractions)
 	- [Banach's Fixed-point Theorem](#banach-fixed-pts)
-- [Bellman Operator](#bellman-operator)
+	- [Bellman Operator](#bellman-operator)
 - [Proof of the existence](#proof)
 - [References](#references)
 - [Footnotes](#footnotes)
@@ -22,8 +22,8 @@ comments: true
 
 Before catching the pokémon, we need to prepare ourselves some pokéball.  
 
-## Norms, Contractions, Banach's Fixed-point Theorem
-{: #norms-contractions-banach-fixed-pts}
+## Preliminaries
+{: #preliminaries}
 
 ### Norms
 **Definition** (*Norm*)  
@@ -104,8 +104,8 @@ Let $\mathcal{V}$ be a Banach space and $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ 
 \end{equation}
 
 
-## Bellman Operator
-Previously, we defined Bellman equation for state-value function $v_\pi(s)$ as:
+### Bellman Operator
+Previously, we defined [Bellman equation]({% post_url 2021-06-27-mdp-bellman-eqn %}#bellman-equations) for state-value function $v_\pi(s)$ as:
 \begin{align}
 v_\pi(s)&=\sum_{a\in\mathcal{A}}\pi(a|s)\sum_{s'\in\mathcal{S},r}p(s',r|s,a)\left[r+\gamma v_\pi(s')\right] \\\\\text{or}\quad v_\pi(s)&=\sum_{a\in\mathcal{A}}\pi(a|s)\left(\mathcal{R}^a_s+\gamma\sum_{s'\in\mathcal{S}}\mathcal{P}^a_{ss'}v_\pi(s')\right)\tag{1}\label{1}
 \end{align}
@@ -145,23 +145,29 @@ Now everything is all set, we can move on to the next step.
 
 ## Proof of the existence
 {: #proof}
-- Let $B(\mathcal{S})$ be the space of *uniformly bounded functions* with domain $\mathcal{S}$:
+Let $B(\mathcal{S})$ be the space of *uniformly bounded functions* with domain $\mathcal{S}$:
 \begin{equation}
 B(\mathcal{S})=\\{v:\mathcal{S}\to\mathbb{R}:\Vert v\Vert_\infty<+\infty\\}
 \end{equation}
-- We will view $B(\mathcal{S})$ as a normed vector space with the norm $\Vert\cdot\Vert_\infty$. It is easily seen that $(B(\mathcal{S}),\Vert\cdot\Vert_\infty)$ is complete: If ($v_n;n\geq0$) is a Cauchy sequence in it then for any $s\in\mathcal{S}$, ($v_n(s);n\geq0$) is also a Cauchy sequence over the reals. Denoting by $v(s)$ the limit of ($v_n(s)$), we can show that $\Vert v_n-v\Vert_\infty\to0$. Vaguely speaking, this holds because ($v_n;n\geq0$) is a Cauchy sequence in the norm $\Vert\cdot\Vert_\infty$  so the rate of convergence of $v_n(s)$ to $v(s)$ is independent of $s$.   
+We will view $B(\mathcal{S})$ as a normed vector space with the norm $\Vert\cdot\Vert_\infty$.
 
-- Pick any stationary policy $\pi$.
-- We have that $\mathcal{T}^\pi$ is *well-defined* since: if $u\in B(\mathcal{S})$, then also $\mathcal{T}^\pi u\in B(S)$.
-- From equation \eqref{3}, we have that $v_\pi$ is a fixed point to $\mathcal{T}^\pi$.  
+It is easily seen that $(B(\mathcal{S}),\Vert\cdot\Vert_\infty)$ is complete: If $(v_n;n\geq0)$ is a Cauchy sequence in it then for any $s\in\mathcal{S}$, $(v_n(s);n\geq0)$ is also a Cauchy sequence over the reals. Denoting by $v(s)$ the limit of $(v_n(s))$, we can show that $\Vert v_n-v\Vert_\infty\to0$. Vaguely speaking, this holds because $(v_n;n\geq0)$ is a Cauchy sequence in the norm $\Vert\cdot\Vert_\infty$, so the rate of convergence of $v_n(s)$ to $v(s)$ is independent of $s$. 
+
+Let $\pi$ be some stationary policy. We have that $\mathcal{T}^\pi$ is *well-defined* since: if $u\in B(\mathcal{S})$, then also $\mathcal{T}^\pi u\in B(S)$.
+
+From equation \eqref{3}, we have that $v_\pi$ is a fixed point to $\mathcal{T}^\pi$.
+
 We also have that $\mathcal{T}^\pi$ is a $\gamma$-contraction in $\Vert\cdot\Vert_\infty$ since for any $u, v\in B(\mathcal{S})$,
 \begin{align}
-\Vert\mathcal{T}^\pi u-\mathcal{T}^\pi v\Vert_\infty&=\gamma\max_{s\in\mathcal{S}}\left|\sum_{s'\in\mathcal{S}}\mathcal{P}^\pi_{ss'}\left(u(s')-v(s')\right)\right| \\\\ &\leq\gamma\max_{s\in\mathcal{S}}\sum_{s'\in\mathcal{S}}\mathcal{P}^\pi_{ss'}\left|u(s')-v(s')\right| \\\\ &\leq\gamma\max_{s\in\mathcal{S}}\sum_{s'\in\mathcal{S}}\mathcal{P}^\pi_{ss'}\Vert u-v\Vert_\infty \\\\ &=\gamma\Vert u-v\Vert_\infty,
+\Vert\mathcal{T}^\pi u-\mathcal{T}^\pi v\Vert_\infty&=\gamma\max_{s\in\mathcal{S}}\left|\sum_{s'\in\mathcal{S}}\mathcal{P}^\pi_{ss'}\left(u(s')-v(s')\right)\right| \\\\ &\leq\gamma\max_{s\in\mathcal{S}}\sum_{s'\in\mathcal{S}}\mathcal{P}^\pi_{ss'}\big|u(s')-v(s')\big| \\\\ &\leq\gamma\max_{s\in\mathcal{S}}\sum_{s'\in\mathcal{S}}\mathcal{P}^\pi_{ss'}\big\Vert u-v\big\Vert_\infty \\\\ &=\gamma\Vert u-v\Vert_\infty,
 \end{align}
 where the last line follows from $\sum_{s'\in\mathcal{S}}\mathcal{P}^\pi_{ss'}=1$.
-- It follows that in order to find $v_\pi$, we can construct the sequence $v_0,\mathcal{T}^\pi v_0,(\mathcal{T}^\pi)^2 v_0,\dots$, which, by Banach's fixed-point theorem will converge to $v_\pi$ at a geometric rate.
-- From the definition \eqref{5} of $\mathcal{T}^\*$, we have that $\mathcal{T}^\*$ is well-defined.
-- Using the fact that $\left|\max_{a\in\mathcal{A}}f(a)-\max_{a\in\mathcal{A}}g(a)\right|\leq\max_{a\in\mathcal{A}}\left|f(a)-g(a)\right|$, similarly, we have:
+
+It follows that in order to find $v_\pi$, we can construct the sequence $v_0,\mathcal{T}^\pi v_0,(\mathcal{T}^\pi)^2 v_0,\dots$, which, by Banach's fixed-point theorem will converge to $v_\pi$ at a geometric rate.
+
+From the definition \eqref{5} of $\mathcal{T}^\*$, we have that $\mathcal{T}^\*$ is well-defined.
+
+Using the fact that $\left|\max_{a\in\mathcal{A}}f(a)-\max_{a\in\mathcal{A}}g(a)\right|\leq\max_{a\in\mathcal{A}}\left|f(a)-g(a)\right|$, similarly, we have:
 \begin{align}
 \Vert\mathcal{T}^\*u-\mathcal{T}^\*v\Vert_\infty&\leq\gamma\max_{(s,a)\in\mathcal{S}\times\mathcal{A}}\sum_{s'\in\mathcal{S}}\mathcal{P}^a_{ss'}\left|u(s')-v(s')\right| \\\\ &\leq\gamma\max_{(s,a)\in\mathcal{S}\times\mathcal{A}}\sum_{s'\in\mathcal{S}}\mathcal{P}^a_{ss'}\Vert u-v\Vert_\infty \\\\ &=\gamma\Vert u-v\Vert_\infty,
 \end{align}
@@ -169,9 +175,11 @@ which tells us that $\mathcal{T}^\*$ is a $\gamma$-contraction in $\Vert\cdot\Ve
 <br/>
 
 **Theorem**  
-Let $v$ be the fixed point of $\mathcal{T}^\*$ and assume that there is policy $\pi$ which is greedy w.r.t $v:\mathcal{T}^\pi v=\mathcal{T}^\* v$. Then $v=v_\*$ and $\pi$ is an optimal policy.  
+Let $v$ be the fixed point of $\mathcal{T}^\*$ and assume that there is policy $\pi$ which is greedy w.r.t $v:\mathcal{T}^\pi v=\mathcal{T}^\* v$. Then $v=v_\*$ and $\pi$ is an optimal policy.
+
 ***Proof***  
-Pick any stationary policy $\pi$. Then $\mathcal{T}^\pi\leq\mathcal{T}^\*$ in the sense that for any function $v\in B(\mathcal{S})$, $\mathcal{T}^\pi v\leq\mathcal{T}^\* v$ holds ($u\leq v$ means that $u(s)\leq v(s),\forall s\in\mathcal{S}$).  
+Pick any stationary policy $\pi$. Then $\mathcal{T}^\pi\leq\mathcal{T}^\*$ in the sense that for any function $v\in B(\mathcal{S})$, $\mathcal{T}^\pi v\leq\mathcal{T}^\* v$ holds ($u\leq v$ means that $u(s)\leq v(s),\forall s\in\mathcal{S}$).
+
 Hence, for all $n\geq0$,
 \begin{equation}
 v_\pi=\mathcal{T}^\pi v_\pi\leq\mathcal{T}^\*v_\pi\leq(\mathcal{T}^\*)^2 v_\pi\leq\dots\leq(\mathcal{T}^\*)^n v_\pi
@@ -180,21 +188,20 @@ or
 \begin{equation}
 v_\pi\leq(\mathcal{T}^\*)^n v_\pi
 \end{equation}
-Since $\mathcal{T}^\*$ is a contraction, the right-hand side converges to $v$, the unique fixed point of $\mathcal{T}^\*$. Thus, $v_\pi\leq v$. And since $\pi$ was arbitrary, we obtain that $v_\*\leq v$.  
-Pick a policy $\pi$ such that $\mathcal{T}^\pi v=\mathcal{T}^\*v$, then $v$ is also a fixed point of $\mathcal{V}^\pi$. Since $v_\pi$ is the unique fixed point of $\mathcal{T}^\pi$, we have that $v=v_\pi$, which shows that $v_\*=v$ and that $\pi$ is an optimal policy.  
+Since $\mathcal{T}^\*$ is a contraction, the right-hand side converges to $v$, the unique fixed point of $\mathcal{T}^\*$. Thus, $v_\pi\leq v$. And since $\pi$ was arbitrary, we obtain that $v_\*\leq v$.
 
+Pick a policy $\pi$ such that $\mathcal{T}^\pi v=\mathcal{T}^\*v$, then $v$ is also a fixed point of $\mathcal{V}^\pi$. Since $v_\pi$ is the unique fixed point of $\mathcal{T}^\pi$, we have that $v=v_\pi$, which shows that $v_\*=v$ and that $\pi$ is an optimal policy.
 
 ## References
-[1] Csaba Szepesvári. [Algorithms for Reinforcement Learning](https://www.amazon.com/Algorithms-Reinforcement-Synthesis-Artificial-Intelligence/dp/1608454924)  
+[1] Csaba Szepesvári. [Algorithms for Reinforcement Learning](https://www.amazon.com/Algorithms-Reinforcement-Synthesis-Artificial-Intelligence/dp/1608454924).  
 
-[2] A. Lazaric. [Markov Decision Processes and Dynamic Programming](http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf)  
+[2] A. Lazaric. [Markov Decision Processes and Dynamic Programming](http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf).  
 
-[3] [What is the Bellman operator in reinforcement learning?](https://ai.stackexchange.com/a/11133)  
+[3] [What is the Bellman operator in reinforcement learning?](https://ai.stackexchange.com/a/11133). AI.StackExchange. 
 
-[4] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition)  
+[4] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition).  
 
-[5] [Normed vector space](https://en.wikipedia.org/wiki/Normed_vector_space)
-
+[5] [Normed vector space](https://en.wikipedia.org/wiki/Normed_vector_space). Wikipedia.
 
 ## Footnotes
 [^1]: A function is called *uniformly bounded* exactly when $\Vert f\Vert_\infty<+\infty$.

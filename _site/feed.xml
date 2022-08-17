@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-17T12:24:11+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-17T18:08:38+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Policy Gradient Methods</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient.html" rel="alternate" type="text/html" title="Policy Gradient Methods" /><published>2022-08-16T14:00:00+07:00</published><updated>2022-08-16T14:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient.html">&lt;blockquote&gt;
-  &lt;p&gt;So far in the series, we have been choosing the actions based on the estimated action value function. On the other hand, we can instead learn a &lt;strong&gt;parameterized policy&lt;/strong&gt;, $\boldsymbol{\theta}$, that can select actions without consulting a value function by considering the gradient of some performance measure w.r.t $\boldsymbol{\theta}$. Such methods are called &lt;strong&gt;policy gradient methods&lt;/strong&gt;.
+  &lt;p&gt;So far in the series, we have been choosing the actions based on the estimated action value function. On the other hand, we can instead learn a &lt;strong&gt;parameterized policy&lt;/strong&gt;, $\boldsymbol{\theta}$, that can select actions without consulting a value function by updating $\boldsymbol{\theta}$ on each step in the direction of an estimate of the gradient of some performance measure w.r.t $\boldsymbol{\theta}$. Such methods are called &lt;strong&gt;policy gradient methods&lt;/strong&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -18,6 +18,7 @@
       &lt;li&gt;&lt;a href=&quot;#policy-grad-theorem-cont&quot;&gt;The Policy Gradient Theorem&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#policy-prm-cont-actions&quot;&gt;Policy Parameterization for Continuous Actions&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -38,19 +39,19 @@ The policy gradient theorem for the episodic case establishes that
 where $\pi$ represents the policy corresponding to parameter vector $\boldsymbol{\theta}$.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
-We have that the gradient of the state-value function w.r.t $\boldsymbol{\theta}$ can be written in terms of the action-value function as:
+We have that the gradient of the state-value function w.r.t $\boldsymbol{\theta}$ can be written in terms of the action-value function, for any $s\in\mathcal{S}$, as:
 \begin{align}
-\nabla_\boldsymbol{\theta}v_\pi(s)&amp;amp;=\nabla_\boldsymbol{\theta}\Big[\sum_a\pi(a|s)q_\pi(s,a)\Big],\hspace{1cm}\forall s\in\mathcal{S} \\ &amp;amp;=\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(a|s)q_\pi(s,a)+\pi(a|s)\nabla_\boldsymbol{\theta}q_\pi(s,a)\Big] \\ &amp;amp;=\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(s|a)q_\pi(a,s)+\pi(a|s)\nabla_\boldsymbol{\theta}\sum_{s’,r}p(s’,r|s,a)\big(r+v_\pi(s’)\big)\Big] \\ &amp;amp;=\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(a|s)q_\pi(s,a)+\pi(a|s)\sum_{s’}p(s’|s,a)\nabla_\boldsymbol{\theta}v_\pi(s’)\Big] \\ &amp;amp;=\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(a|s)q_\pi(s,a)+\pi(a|s)\sum_{s’}p(s’|s,a)\sum_{a’}\big(\nabla_\boldsymbol{\theta}\pi(s’|a’)q_\pi(s’,a’) \\ &amp;amp;\hspace{2cm}+\pi(a’|s’)\sum_{s&apos;&apos;}p(s&apos;&apos;\vert s’,a’)\nabla_\boldsymbol{\theta}v_\pi(s&apos;&apos;)\big)\Big] \\ &amp;amp;=\sum_{x\in\mathcal{S}}\sum_{k=0}^{\infty}P(s\to x,k,\pi)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s)q_\pi(s,a),
+\nabla_\boldsymbol{\theta}v_\pi(s)&amp;amp;=\nabla_\boldsymbol{\theta}\Big[\sum_a\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)\Big],\hspace{1cm}\forall s\in\mathcal{S} \\ &amp;amp;=\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)+\pi(a|s,\boldsymbol{\theta})\nabla_\boldsymbol{\theta}q_\pi(s,a)\Big] \\ &amp;amp;=\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(s|a)q_\pi(a,s)+\pi(a|s,\boldsymbol{\theta})\nabla_\boldsymbol{\theta}\sum_{s’,r}p(s’,r|s,a)\big(r+v_\pi(s’)\big)\Big] \\ &amp;amp;=\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)+\pi(a|s,\boldsymbol{\theta})\sum_{s’}p(s’|s,a)\nabla_\boldsymbol{\theta}v_\pi(s’)\Big] \\ &amp;amp;=\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)+\pi(a|s,\boldsymbol{\theta})\sum_{s’}p(s’|s,a)\sum_{a’}\big(\nabla_\boldsymbol{\theta}\pi(s’|a’,\boldsymbol{\theta})q_\pi(s’,a’) \\ &amp;amp;\hspace{2cm}+\pi(a’|s’,\boldsymbol{\theta})\sum_{s&apos;&apos;}p(s&apos;&apos;\vert s’,a’)\nabla_\boldsymbol{\theta}v_\pi(s&apos;&apos;)\big)\Big] \\ &amp;amp;=\sum_{x\in\mathcal{S}}\sum_{k=0}^{\infty}P(s\to x,k,\pi)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a),
 \end{align}
 After repeated unrolling as in the fifth step, where $P(s\to x,k,\pi)$ is the probability of transitioning from state $s$ to state $x$ in $k$ steps under policy $\pi$. It is then immediate that:
 \begin{align}
-\nabla_\boldsymbol{\theta}J(\boldsymbol{\theta})&amp;amp;=\nabla_\boldsymbol{\theta}v_\pi(s_0) \\ &amp;amp;=\sum_s\Big(\sum_{k=0}^{\infty}P(s_0\to s,k,\pi)\Big)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s)q_\pi(s,a) \\ &amp;amp;=\sum_s\eta(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s)q_\pi(s,a) \\ &amp;amp;=\sum_{s’}\eta(s’)\sum_s\frac{\eta(s)}{\sum_{s’}\eta(s’)}\sum_a\nabla_\boldsymbol{\theta}\pi(a|s)q_\pi(s,a) \\ &amp;amp;=\sum_{s’}\eta(s’)\sum_s\mu(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s)q_\pi(s,a) \\ &amp;amp;\propto\sum_s\mu(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s)q_\pi(s,a),
+\nabla_\boldsymbol{\theta}J(\boldsymbol{\theta})&amp;amp;=\nabla_\boldsymbol{\theta}v_\pi(s_0) \\ &amp;amp;=\sum_s\Big(\sum_{k=0}^{\infty}P(s_0\to s,k,\pi)\Big)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a) \\ &amp;amp;=\sum_s\eta(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a) \\ &amp;amp;=\sum_{s’}\eta(s’)\sum_s\frac{\eta(s)}{\sum_{s’}\eta(s’)}\sum_a\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a) \\ &amp;amp;=\sum_{s’}\eta(s’)\sum_s\mu(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a) \\ &amp;amp;\propto\sum_s\mu(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a),
 \end{align}
 where $\eta(s)$ denotes the number of time steps spent, on average, in state $s$ in a single episode:
 \begin{equation}
-\eta(s)=h(s)+\sum_{\bar{s}}\eta(\bar{s})\sum_a\pi(a|s)p(s|\bar{s},a),\hspace{1cm}\forall s\in\mathcal{S}
+\eta(s)=h(s)+\sum_{\bar{s}}\eta(\bar{s})\sum_a\pi(a|s,\boldsymbol{\theta})p(s|\bar{s},a),\hspace{1cm}\forall s\in\mathcal{S}
 \end{equation}
-where $h(s)$ denotes the probability that an episode begins in each state $s$; $\bar{s}$ denotes the preceding state of $s$. This leads to the result that we have used in the fifth step:
+where $h(s)$ denotes the probability that an episode begins in each state $s$; $\bar{s}$ denotes a preceding state of $s$. This leads to the result that we have used in the fifth step:
 \begin{equation}
 \mu(s)=\frac{\eta(s)}{\sum_{s’}\eta(s’)},\hspace{1cm}\forall s\in\mathcal{S}
 \end{equation}&lt;/p&gt;
@@ -89,6 +90,19 @@ Pseudocode of the algorithm is given below.&lt;/p&gt;
 \frac{\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})}{\pi(a|s,\boldsymbol{\theta})}=\nabla_\boldsymbol{\theta}\ln\pi(a|s,\boldsymbol{\theta})
 \end{equation}
 in \eqref{3} is called the &lt;strong&gt;eligibility vector&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Consider using &lt;strong&gt;soft-max in action preferences&lt;/strong&gt; with linear action preferences, which means that:
+\begin{equation}
+\pi(a|s,\boldsymbol{\theta})\doteq\dfrac{\exp\Big[h(s,a,\boldsymbol{\theta})\Big]}{\sum_b\exp\Big[h(s,b,\boldsymbol{\theta})\Big]},
+\end{equation}
+where the preferences $h(s,a,\boldsymbol{\theta})$ is defined as:
+\begin{equation}
+h(s,a,\boldsymbol{\theta})=\boldsymbol{\theta}^\intercal\mathbf{x}(s,a)
+\end{equation}
+Using the chain rule we can rewrite the eligibility vector as:
+\begin{align}
+\nabla_\boldsymbol{\theta}\ln\pi(a|s,\boldsymbol{\theta})&amp;amp;=\nabla_\boldsymbol{\theta}\ln{\frac{\exp\Big[\boldsymbol{\theta}^\intercal\mathbf{x}(s,a)\Big]}{\sum_b\exp\Big[\boldsymbol{\theta}^\intercal\mathbf{x}(s,b)\Big]}} \\ &amp;amp;=\nabla_\boldsymbol{\theta}\Big(\boldsymbol{\theta}^\intercal\mathbf{x}(s,a)\Big)-\nabla_\boldsymbol{\theta}\ln\sum_b\exp\Big[\boldsymbol{\theta}^\intercal\mathbf{x}(s,b)\Big] \\ &amp;amp;=\mathbf{x}(s,a)-\dfrac{\sum_b\exp\Big[\boldsymbol{\theta}^\intercal\mathbf{x}(s,b)\Big]\mathbf{x}(s,b)}{\sum_{b’}\exp\Big[\boldsymbol{\theta}^\intercal\mathbf{x}(s,b’)\Big]} \\ &amp;amp;=\mathbf{x}(s,a)-\sum_b\pi(b|s,\boldsymbol{\theta})\mathbf{x}(s,b)
+\end{align}&lt;/p&gt;
 
 &lt;h3 id=&quot;reinforce-baseline&quot;&gt;REINFORCE with Baseline&lt;/h3&gt;
 &lt;p&gt;The policy gradient theorem \eqref{1} can be generalized to include a comparison of the action value to an arbitrary &lt;em&gt;baseline&lt;/em&gt; $b(s)$:
@@ -131,18 +145,65 @@ The natural state-value function learning method to pair with this is semi-gradi
 &lt;/figure&gt;
 
 &lt;h2 id=&quot;policy-grad-cont&quot;&gt;Policy Gradient with Continuing Problems&lt;/h2&gt;
+&lt;p&gt;In the continuing tasks, we define the performance measure in terms of &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#avg-reward&quot;&gt;average-reward&lt;/a&gt;, as:
+\begin{align}
+J(\boldsymbol{\theta})\doteq r(\pi)&amp;amp;\doteq\lim_{h\to\infty}\frac{1}{h}\sum_{t=1}^{h}\mathbb{E}\Big[R_t\big|S_0,A_{0:1}\sim\pi\Big] \\ &amp;amp;=\lim_{t\to\infty}\mathbb{E}\Big[R_t|S_0,A_{0:1}\sim\pi\Big] \\ &amp;amp;=\sum_s\mu(s)\sum_a\pi(a|s)\sum_{s’,r}p(s’,r|s,a)r,\tag{7}\label{7}
+\end{align}
+where $\mu$ is the steady-state distribution under $\pi$, $\mu(s)\doteq\lim_{t\to\infty}P(S_t=s|A_{0:t}\sim\pi)$ which is assumed to exist and to be independent of $S_0$; and we also have that:
+\begin{equation}
+\sum_s\mu(s)\sum_a\pi(a|s,\boldsymbol{\theta})p(s’|s,a)=\mu(s’),\hspace{1cm}\forall s’\in\mathcal{S}
+\end{equation}
+Recall that in continuing tasks with average-reward setting, we use the &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#differential-return&quot;&gt;differential return&lt;/a&gt;, which is defined in terms of differences between rewards and the average reward:
+\begin{equation}
+G_t\doteq R_{t+1}-r(\pi)+R_{t+2}-r(\pi)+R_{t+3}-r(\pi)+\dots\tag{8}\label{8}
+\end{equation}
+And thus, we also use the differential version of value functions, which are defined as usual except that they use the differential return \eqref{8}:
+\begin{align}
+v_\pi(s)&amp;amp;\doteq\mathbb{E}_\pi\left[G_t|S_t=s\right] \\ q_\pi(s,a)&amp;amp;\doteq\mathbb{E}_\pi\left[G_t|S_t=s,A_t=s\right]
+\end{align}&lt;/p&gt;
 
 &lt;h3 id=&quot;policy-grad-theorem-cont&quot;&gt;The Policy Gradient Theorem&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Theorem 2&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Theorem 2&lt;/strong&gt;&lt;br /&gt;
+The policy gradient theorem for continuing case with average-reward states that
+\begin{equation}
+\nabla_\boldsymbol{\theta}J(\boldsymbol{\theta})=\sum_s\mu(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s)q_\pi(s,a)
+\end{equation}&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
+We have that the gradient of the state-value function w.r.t $\boldsymbol{\theta}$ can be written, for any $s\in\mathcal{S}$, as:
+\begin{align}
+\nabla_\boldsymbol{\theta}v_\pi(s)&amp;amp;=\boldsymbol{\theta}\Big[\sum_a\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)\Big],\hspace{1cm}\forall s\in\mathcal{S} \\ &amp;amp;=\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)+\pi(a|s,\boldsymbol{\theta})\nabla_\boldsymbol{\theta}q_\pi(s,a)\Big] \\ &amp;amp;=\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)+\pi(a|s,\boldsymbol{\theta})\nabla_\boldsymbol{\theta}\sum_{s’,r}p(s’,r|s,a)\big(r-r(\boldsymbol{\theta})+v_\pi(s’)\big)\Big] \\ &amp;amp;=\sum_a\Bigg[\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)+\pi(a|s,\boldsymbol{\theta})\Big[-\nabla_\boldsymbol{\theta}r(\boldsymbol{\theta})+\sum_{s’}p(s’|s,a)\nabla_\boldsymbol{\theta}v_\pi(s’)\Big]\Bigg]
+\end{align}
+Thus, the gradient of the performance measure w.r.t $\boldsymbol{\theta}$ is:
+\begin{align}
+\nabla_\boldsymbol{\theta}J(\boldsymbol{\theta})&amp;amp;=\nabla_\boldsymbol{\theta}r(\boldsymbol{\theta}) \\ &amp;amp;=\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)+\pi(a|s,\boldsymbol{\theta})\sum_{s’}p(s’|s,a)\nabla_\boldsymbol{\theta}v_\pi(s’)\Big]-\nabla_\boldsymbol{\theta}v_\pi(s) \\ &amp;amp;=\sum_s\mu(s)\Bigg(\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a) \\ &amp;amp;\hspace{2cm}+\pi(a|s,\boldsymbol{\theta})\sum_{s’}p(s’|s,a)\nabla_\boldsymbol{\theta}v_\pi(s’)\Big]-\nabla_\boldsymbol{\theta}v_\pi(s)\Bigg) \\ &amp;amp;=\sum_s\mu(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a) \\ &amp;amp;\hspace{2cm}+\sum_s\mu(s)\sum_a\pi(a|s,\boldsymbol{\theta})\sum_{s’}p(s’|s,a)\nabla_\boldsymbol{\theta}v_\pi(s’)-\sum_s\mu(s)\nabla_\boldsymbol{\theta}v_\pi(s) \\ &amp;amp;=\sum_s\mu(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a) \\ &amp;amp;\hspace{2cm}+\sum_{s’}\sum_s\mu(s)\sum_a\pi(a|s,\boldsymbol{\theta})p(s’|s,a)\nabla_\boldsymbol{\theta}v_\pi(s’)-\sum_s\mu(s)\nabla_\boldsymbol{\theta}v_\pi(s) \\ &amp;amp;=\sum_s\mu(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)+\sum_{s’}\mu(s’)\nabla_\boldsymbol{\theta}v_\pi(s’)-\sum_s\mu(s)\nabla_\boldsymbol{\theta}v_\pi(s) \\ &amp;amp;=\sum_s\mu(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)
+\end{align}&lt;/p&gt;
+
+&lt;h2 id=&quot;policy-prm-cont-actions&quot;&gt;Policy Parameterization for Continuous Actions&lt;/h2&gt;
+&lt;p&gt;For tasks having continuous action space with an infinite number of actions, instead of computing learned probabilities for each action, we can learn statistics of the probability distribution.&lt;/p&gt;
+
+&lt;p&gt;In particular, to produce a policy parameterization, the policy can be defined as the &lt;a href=&quot;/mathematics/probability-statistics/2021/11/22/normal-dist.html&quot;&gt;Normal distribution&lt;/a&gt; over a real-valued scalar action, with mean and standard deviation given by parametric function approximators that depend on the state, as given:
+\begin{equation}
+\pi(a|s,\boldsymbol{\theta})\doteq\frac{1}{\sigma(s,\boldsymbol{\theta})\sqrt{2\pi}}\exp\left(-\frac{(a-\mu(s,\boldsymbol{\theta}))^2}{2\sigma(s,\boldsymbol{\theta})^2}\right),
+\end{equation}
+where $\mu:\mathcal{S}\times\mathbb{R}^{d’}\to\mathbb{R}$ and $\sigma:\mathcal{S}\times\mathbb{R}^{d’}\to\mathbb{R}^+$ are two parameterized function approximators.&lt;/p&gt;
+
+&lt;p&gt;We continue by dividing the policy’s parameter vector, $\boldsymbol{\theta}=[\boldsymbol{\theta}_\mu, \boldsymbol{\theta}_\sigma]^\intercal$, into two parts: one part, $\boldsymbol{\theta}_\mu$, is used for the approximation of the mean and the other, $\boldsymbol{\theta}_\sigma$, is used for the approximation of the standard deviation.&lt;/p&gt;
+
+&lt;p&gt;The mean, $\mu$, can be approximated as a linear function, while the standard deviation, $\sigma$, must always be positive, which should be approximated as the exponential of a linear function, as:
+\begin{align}
+\mu(s,\boldsymbol{\theta})&amp;amp;\doteq\boldsymbol{\theta}_\mu^\intercal\mathbf{x}_\mu(s) \\ \sigma(s,\boldsymbol{\theta})&amp;amp;\doteq\exp\Big(\boldsymbol{\theta}_\sigma^\intercal\mathbf{x}_\sigma(s)\Big),
+\end{align}
+where $\mathbf{x}_\mu(s)$ and $\mathbf{x}_\sigma(s)$ are state feature vectors corresponding to each approximator.&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;[2] Deepmind x UCL. &lt;a href=&quot;https://www.deepmind.com/learning-resources/reinforcement-learning-lecture-series-2021&quot;&gt;Reinforcement Learning Lecture Series 2021&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="policy-gradient" /><category term="actor-critic" /><category term="function-approximation" /><category term="my-rl" /><summary type="html">So far in the series, we have been choosing the actions based on the estimated action value function. On the other hand, we can instead learn a parameterized policy, $\boldsymbol{\theta}$, that can select actions without consulting a value function by considering the gradient of some performance measure w.r.t $\boldsymbol{\theta}$. Such methods are called policy gradient methods.</summary></entry><entry><title type="html">Eligible Traces</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html" rel="alternate" type="text/html" title="Eligible Traces" /><published>2022-08-08T14:11:00+07:00</published><updated>2022-08-08T14:11:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html">&lt;blockquote&gt;
+&lt;p&gt;[3] Richard S. Sutton &amp;amp; David McAllester &amp;amp; Satinder Singh &amp;amp; Yishay Mansour. &lt;a href=&quot;https://papers.nips.cc/paper/1999/hash/464d828b85b0bed98e80ade0a5c43b0f-Abstract.html&quot;&gt;Policy Gradient Methods for Reinforcement Learning with Function Approximation&lt;/a&gt;. NIPS 1999.&lt;/p&gt;
+
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="policy-gradient" /><category term="actor-critic" /><category term="function-approximation" /><category term="my-rl" /><summary type="html">So far in the series, we have been choosing the actions based on the estimated action value function. On the other hand, we can instead learn a parameterized policy, $\boldsymbol{\theta}$, that can select actions without consulting a value function by updating $\boldsymbol{\theta}$ on each step in the direction of an estimate of the gradient of some performance measure w.r.t $\boldsymbol{\theta}$. Such methods are called policy gradient methods.</summary></entry><entry><title type="html">Eligible Traces</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html" rel="alternate" type="text/html" title="Eligible Traces" /><published>2022-08-08T14:11:00+07:00</published><updated>2022-08-08T14:11:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html">&lt;blockquote&gt;
   &lt;p&gt;Beside &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#n-step-td&quot;&gt;$n$-step TD&lt;/a&gt; methods, there is another mechanism called &lt;strong&gt;Eligible traces&lt;/strong&gt; that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -1382,11 +1443,11 @@ which is assumed to exist for any $\pi$ and to be independent of $S_0$.&lt;/li&g
 \begin{equation}
 \sum_s\mu_\pi(x)\sum_a\pi(a\vert s)p(s’\vert s,a)=\mu_\pi(s’)
 \end{equation}
-In the average-reward setting, returns are defined in terms of differences between rewards and the average reward:
-\begin{equation}
-G_t\doteq R_{t+1}-r(\pi)+R_{t+2}(\mu)-r(\pi)+R_{t+3}-r(\pi)+\dots\tag{15}\label{15}
-\end{equation}
-This is known as the &lt;strong&gt;differential return&lt;/strong&gt;, and the corresponding value functions are known as &lt;strong&gt;differential value functions&lt;/strong&gt;, $v_\pi(s)$ and $q_\pi(s,a)$, which are defined in the same way as we have done before:
+In the average-reward setting, returns are defined in terms of differences between rewards and the average reward:&lt;/p&gt;
+&lt;tag id=&quot;differential-return&quot;&gt;\begin{equation}
+G_t\doteq R_{t+1}-r(\pi)+R_{t+2}-r(\pi)+R_{t+3}-r(\pi)+\dots\tag{15}\label{15}
+\end{equation}&lt;/tag&gt;
+&lt;p&gt;This is known as the &lt;strong&gt;differential return&lt;/strong&gt;, and the corresponding value functions are known as &lt;strong&gt;differential value functions&lt;/strong&gt;, $v_\pi(s)$ and $q_\pi(s,a)$, which are defined in the same way as we have done before:
 \begin{align}
 v_\pi(s)&amp;amp;\doteq\mathbb{E}\big[G_t\vert S_t=s\big]; \\ q_\pi(s,a)&amp;amp;\doteq\mathbb{E}\big[G_t\vert S_t=s,A_t=a\big],
 \end{align}
@@ -2492,7 +2553,93 @@ for $t\lt h\leq T$. The rescursion ends with $G_{h:h}\doteq Q_{h-1}(S_h,A_h)$ if
       &lt;p&gt;For the definition of Importance Sampling method, you can read more in this &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html#is&quot;&gt;section&lt;/a&gt;. &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="td-learning" /><category term="importance-sampling" /><category term="q-learning" /><category term="my-rl" /><summary type="html">So far in this series, we have gone through the ideas of dynamic programming (DP) and Monte Carlo. What will happen if we combine these ideas together? Temporal-difference (TD) learning is our answer.</summary></entry><entry><title type="html">Power Series</title><link href="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>http://localhost:4000/mathematics/calculus/2021/09/21/power-series</id><content type="html" xml:base="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html">&lt;blockquote&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="td-learning" /><category term="importance-sampling" /><category term="q-learning" /><category term="my-rl" /><summary type="html">So far in this series, we have gone through the ideas of dynamic programming (DP) and Monte Carlo. What will happen if we combine these ideas together? Temporal-difference (TD) learning is our answer.</summary></entry><entry><title type="html">Normal Distribution</title><link href="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html" rel="alternate" type="text/html" title="Normal Distribution" /><published>2021-11-22T14:46:00+07:00</published><updated>2021-11-22T14:46:00+07:00</updated><id>http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist</id><content type="html" xml:base="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html">&lt;blockquote&gt;
+  &lt;p&gt;A note on Normal distribution.
+&lt;!-- excerpt-end --&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#gauss-dist&quot;&gt;Gaussian (Normal) Distribution&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#std-norm&quot;&gt;Standard Normal&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#mvn&quot;&gt;Multivariate Normal Distribution&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#bvn&quot;&gt;Bivariate Normal&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;$\newcommand{\Var}{\mathrm{Var}}$
+$\newcommand{\Cov}{\mathrm{Cov}}$&lt;/p&gt;
+&lt;h2 id=&quot;gauss-dist&quot;&gt;Gaussian (Normal) Distribution&lt;/h2&gt;
+&lt;p&gt;A random variable $X$ is said to be &lt;strong&gt;Gaussian&lt;/strong&gt; or to have the &lt;strong&gt;Normal distribution&lt;/strong&gt; with mean $\mu$ and variance $\sigma^2$ if its probability density function (PDF) is
+\begin{equation}
+f_X(x)=\dfrac{1}{\sqrt{2\pi}\sigma}\exp\left(-\dfrac{(x-\mu)^2}{2\sigma^2}\right)
+\end{equation}
+which we denote as $X\sim\mathcal{N}(\mu,\sigma)$.&lt;/p&gt;
+
+&lt;h3 id=&quot;std-normal&quot;&gt;Standard Normal&lt;/h3&gt;
+&lt;p&gt;When $X$ is normally distributed with mean $\mu=0$ and variance $\sigma^2=1$, we call its distribution &lt;strong&gt;Standard Normal&lt;/strong&gt;.
+\begin{equation}
+X\sim\mathcal{N}(0,1)
+\end{equation}
+In this case, $X$ has special notations to denote its PDF and CDF, which are
+\begin{equation}
+\varphi(x)=\dfrac{1}{\sqrt{2\pi}}e^{-z^2/2}
+\end{equation}
+\begin{equation}
+\Phi(x)=\int_{-\infty}^{x}\varphi(t)\,dt=\int_{-\infty}^{x}\dfrac{1}{\sqrt{2\pi}}e^{-t^2/2}\,dt
+\end{equation}
+Below is some visualizations of Normal distribution.&lt;/p&gt;
+
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2021-11-22/normal.png&quot; alt=&quot;normal distribution&quot; width=&quot;900&quot; height=&quot;380px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 1&lt;/b&gt;: 10K normally distributed data points (5K each plot) were plotted as vertical bars on x-axis. The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/maths-visualization/blob/main/bayes-optimization/gauss-dist.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;mvn&quot;&gt;Multivariate Normal Distribution&lt;/h2&gt;
+&lt;p&gt;A $k$-dimensional random vector $\mathbf{X}=\left(X_1,\dots,X_k\right)^\intercal$ is said to have a &lt;strong&gt;Multivariate Normal (MVN)&lt;/strong&gt; distribution if every linear combination of the $X_i$ has a Normal distribution. Which means
+\begin{equation}
+t_1X_1+\ldots+t_kX_k
+\end{equation}
+is normally distributed for any choice of constants $t_1,\dots,t_k$. Distribution of $\mathbf{X}$ then can be written in the following notation
+\begin{equation}
+\mathbf{X}\sim\mathcal{N}(\mathbf{\mu},\mathbf{\Sigma})
+\end{equation}
+where
+\begin{equation}
+	\mathbf{\mu}=\mathbb{E}\mathbf{X}=\mathbb{E}\left(\mu_1,\ldots,\mu_k\right)^\intercal=\left(\mathbb{E}X_1,\ldots,\mathbb{E}X_k\right)^\intercal
+\end{equation}
+is the $k$-dimensional mean vector, and covariance matrix $\mathbf{\Sigma}\in\mathbb{R}^{k\times k}$ with
+\begin{equation}
+	\mathbf{\Sigma}_{ij}=\mathbb{E}\left(X_i-\mu_i\right)\left(X_j-\mu_j\right)=\Cov(X_i,X_j)
+\end{equation}
+We also have that $\mathbf{\Sigma}\geq 0$ (positive semi-definite matrix)[^1].&lt;/p&gt;
+
+&lt;p&gt;Thus, the PDF of an MVN is defined as
+\begin{equation}
+f_X(x_1,\ldots,x_k)=\dfrac{1}{(2\pi)^{k/2}\vert\mathbf{\Sigma}\vert^{1/2}}\exp\left[\dfrac{1}{2}\left(\mathbf{x}-\mathbf{\mu}\right)^\intercal\mathbf{\Sigma}^{-1}(\mathbf{x}-\mathbf{\mu})\right]
+\end{equation}
+With this idea, &lt;em&gt;Standard Normal&lt;/em&gt; distribution in multi-dimensional case can be defined as a Gaussian with mean $\mathbf{\mu}=0$ (here $0$ is an $k$-dimensional vector) and identity covariance matrix $\mathbf{\Sigma}=\mathbf{I}_{k\times k}$.&lt;/p&gt;
+
+&lt;h3 id=&quot;bvn&quot;&gt;Bivariate Normal&lt;/h3&gt;
+&lt;p&gt;When the number of dimensions in $\mathbf{X}$, $k=2$, this special case of MVN is called the &lt;strong&gt;Bivariate Normal (BVN)&lt;/strong&gt;. An example of an BVN is shown as following.&lt;/p&gt;
+
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2021-11-22/bvn.png&quot; alt=&quot;monte carlo method&quot; width=&quot;750&quot; height=&quot;350px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 2&lt;/b&gt;: The PDF of $\mathcal{N}\left(\left[\begin{smallmatrix}0\\0\end{smallmatrix}\right],\left[\begin{smallmatrix}1&amp;amp;0.5\\0.8&amp;amp;1\end{smallmatrix}\right]\right)$. The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/maths-visualization/blob/main/bayes-optimization/mvn.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;p&gt;[1] Joseph K. Blitzstein &amp;amp; Jessica Hwang. &lt;a href=&quot;https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573&quot;&gt;Introduction to Probability&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="probability-statistics" /><category term="mathematics" /><category term="probability-statistics" /><category term="normal-distribution" /><summary type="html">A note on Normal distribution.</summary></entry><entry><title type="html">Power Series</title><link href="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>http://localhost:4000/mathematics/calculus/2021/09/21/power-series</id><content type="html" xml:base="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html">&lt;blockquote&gt;
   &lt;p&gt;Recall that in the previous post, &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html&quot;&gt;Infinite Series of Constants&lt;/a&gt;, we mentioned a type of series called &lt;strong&gt;power series&lt;/strong&gt; a lot. In the content of this post, we will be diving deeper into details of that series.&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -4904,14 +5051,14 @@ Yep, that’s right, the sequence $\{q_k\}\to q_*$ as $k\to\infty$ at a geometri
 
 &lt;!-- excerpt-end --&gt;
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#norms-contractions-banach-fixed-pts&quot;&gt;Norms, Contractions, Banach’s Fixed-point Theorem&lt;/a&gt;
+  &lt;li&gt;&lt;a href=&quot;#preliminaries&quot;&gt;Preliminaries&lt;/a&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#norms&quot;&gt;Norms&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#contractions&quot;&gt;Contractions&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#banach-fixed-pts&quot;&gt;Banach’s Fixed-point Theorem&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#bellman-operator&quot;&gt;Bellman Operator&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#bellman-operator&quot;&gt;Bellman Operator&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#proof&quot;&gt;Proof of the existence&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
@@ -4919,7 +5066,7 @@ Yep, that’s right, the sequence $\{q_k\}\to q_*$ as $k\to\infty$ at a geometri
 
 &lt;p&gt;Before catching the pokémon, we need to prepare ourselves some pokéball.&lt;/p&gt;
 
-&lt;h2 id=&quot;norms-contractions-banach-fixed-pts&quot;&gt;Norms, Contractions, Banach’s Fixed-point Theorem&lt;/h2&gt;
+&lt;h2 id=&quot;preliminaries&quot;&gt;Preliminaries&lt;/h2&gt;
 
 &lt;h3 id=&quot;norms&quot;&gt;Norms&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Norm&lt;/em&gt;)&lt;br /&gt;
@@ -5002,8 +5149,8 @@ Let $\mathcal{V}$ be a Banach space and $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ 
 \end{equation}&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h2 id=&quot;bellman-operator&quot;&gt;Bellman Operator&lt;/h2&gt;
-&lt;p&gt;Previously, we defined Bellman equation for state-value function $v_\pi(s)$ as:
+&lt;h3 id=&quot;bellman-operator&quot;&gt;Bellman Operator&lt;/h3&gt;
+&lt;p&gt;Previously, we defined &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html#bellman-equations&quot;&gt;Bellman equation&lt;/a&gt; for state-value function $v_\pi(s)$ as:
 \begin{align}
 v_\pi(s)&amp;amp;=\sum_{a\in\mathcal{A}}\pi(a|s)\sum_{s’\in\mathcal{S},r}p(s’,r|s,a)\left[r+\gamma v_\pi(s’)\right] \\\text{or}\quad v_\pi(s)&amp;amp;=\sum_{a\in\mathcal{A}}\pi(a|s)\left(\mathcal{R}^a_s+\gamma\sum_{s’\in\mathcal{S}}\mathcal{P}^a_{ss’}v_\pi(s’)\right)\tag{1}\label{1}
 \end{align}
@@ -5042,37 +5189,42 @@ And thus, with the help of $\mathcal{T}^*$, we can rewrite the equation \eqref{4
 Now everything is all set, we can move on to the next step.&lt;/p&gt;
 
 &lt;h2 id=&quot;proof&quot;&gt;Proof of the existence&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;Let $B(\mathcal{S})$ be the space of &lt;em&gt;uniformly bounded functions&lt;/em&gt; with domain $\mathcal{S}$:
+&lt;p&gt;Let $B(\mathcal{S})$ be the space of &lt;em&gt;uniformly bounded functions&lt;/em&gt; with domain $\mathcal{S}$:
 \begin{equation}
 B(\mathcal{S})=\{v:\mathcal{S}\to\mathbb{R}:\Vert v\Vert_\infty&amp;lt;+\infty\}
-\end{equation}&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;We will view $B(\mathcal{S})$ as a normed vector space with the norm $\Vert\cdot\Vert_\infty$. It is easily seen that $(B(\mathcal{S}),\Vert\cdot\Vert_\infty)$ is complete: If ($v_n;n\geq0$) is a Cauchy sequence in it then for any $s\in\mathcal{S}$, ($v_n(s);n\geq0$) is also a Cauchy sequence over the reals. Denoting by $v(s)$ the limit of ($v_n(s)$), we can show that $\Vert v_n-v\Vert_\infty\to0$. Vaguely speaking, this holds because ($v_n;n\geq0$) is a Cauchy sequence in the norm $\Vert\cdot\Vert_\infty$  so the rate of convergence of $v_n(s)$ to $v(s)$ is independent of $s$.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Pick any stationary policy $\pi$.&lt;/li&gt;
-  &lt;li&gt;We have that $\mathcal{T}^\pi$ is &lt;em&gt;well-defined&lt;/em&gt; since: if $u\in B(\mathcal{S})$, then also $\mathcal{T}^\pi u\in B(S)$.&lt;/li&gt;
-  &lt;li&gt;From equation \eqref{3}, we have that $v_\pi$ is a fixed point to $\mathcal{T}^\pi$.&lt;br /&gt;
-We also have that $\mathcal{T}^\pi$ is a $\gamma$-contraction in $\Vert\cdot\Vert_\infty$ since for any $u, v\in B(\mathcal{S})$,
+\end{equation}
+We will view $B(\mathcal{S})$ as a normed vector space with the norm $\Vert\cdot\Vert_\infty$.&lt;/p&gt;
+
+&lt;p&gt;It is easily seen that $(B(\mathcal{S}),\Vert\cdot\Vert_\infty)$ is complete: If $(v_n;n\geq0)$ is a Cauchy sequence in it then for any $s\in\mathcal{S}$, $(v_n(s);n\geq0)$ is also a Cauchy sequence over the reals. Denoting by $v(s)$ the limit of $(v_n(s))$, we can show that $\Vert v_n-v\Vert_\infty\to0$. Vaguely speaking, this holds because $(v_n;n\geq0)$ is a Cauchy sequence in the norm $\Vert\cdot\Vert_\infty$, so the rate of convergence of $v_n(s)$ to $v(s)$ is independent of $s$.&lt;/p&gt;
+
+&lt;p&gt;Let $\pi$ be some stationary policy. We have that $\mathcal{T}^\pi$ is &lt;em&gt;well-defined&lt;/em&gt; since: if $u\in B(\mathcal{S})$, then also $\mathcal{T}^\pi u\in B(S)$.&lt;/p&gt;
+
+&lt;p&gt;From equation \eqref{3}, we have that $v_\pi$ is a fixed point to $\mathcal{T}^\pi$.&lt;/p&gt;
+
+&lt;p&gt;We also have that $\mathcal{T}^\pi$ is a $\gamma$-contraction in $\Vert\cdot\Vert_\infty$ since for any $u, v\in B(\mathcal{S})$,
 \begin{align}
-\Vert\mathcal{T}^\pi u-\mathcal{T}^\pi v\Vert_\infty&amp;amp;=\gamma\max_{s\in\mathcal{S}}\left|\sum_{s’\in\mathcal{S}}\mathcal{P}^\pi_{ss’}\left(u(s’)-v(s’)\right)\right| \\ &amp;amp;\leq\gamma\max_{s\in\mathcal{S}}\sum_{s’\in\mathcal{S}}\mathcal{P}^\pi_{ss’}\left|u(s’)-v(s’)\right| \\ &amp;amp;\leq\gamma\max_{s\in\mathcal{S}}\sum_{s’\in\mathcal{S}}\mathcal{P}^\pi_{ss’}\Vert u-v\Vert_\infty \\ &amp;amp;=\gamma\Vert u-v\Vert_\infty,
+\Vert\mathcal{T}^\pi u-\mathcal{T}^\pi v\Vert_\infty&amp;amp;=\gamma\max_{s\in\mathcal{S}}\left|\sum_{s’\in\mathcal{S}}\mathcal{P}^\pi_{ss’}\left(u(s’)-v(s’)\right)\right| \\ &amp;amp;\leq\gamma\max_{s\in\mathcal{S}}\sum_{s’\in\mathcal{S}}\mathcal{P}^\pi_{ss’}\big|u(s’)-v(s’)\big| \\ &amp;amp;\leq\gamma\max_{s\in\mathcal{S}}\sum_{s’\in\mathcal{S}}\mathcal{P}^\pi_{ss’}\big\Vert u-v\big\Vert_\infty \\ &amp;amp;=\gamma\Vert u-v\Vert_\infty,
 \end{align}
-where the last line follows from $\sum_{s’\in\mathcal{S}}\mathcal{P}^\pi_{ss’}=1$.&lt;/li&gt;
-  &lt;li&gt;It follows that in order to find $v_\pi$, we can construct the sequence $v_0,\mathcal{T}^\pi v_0,(\mathcal{T}^\pi)^2 v_0,\dots$, which, by Banach’s fixed-point theorem will converge to $v_\pi$ at a geometric rate.&lt;/li&gt;
-  &lt;li&gt;From the definition \eqref{5} of $\mathcal{T}^*$, we have that $\mathcal{T}^*$ is well-defined.&lt;/li&gt;
-  &lt;li&gt;Using the fact that $\left|\max_{a\in\mathcal{A}}f(a)-\max_{a\in\mathcal{A}}g(a)\right|\leq\max_{a\in\mathcal{A}}\left|f(a)-g(a)\right|$, similarly, we have:
+where the last line follows from $\sum_{s’\in\mathcal{S}}\mathcal{P}^\pi_{ss’}=1$.&lt;/p&gt;
+
+&lt;p&gt;It follows that in order to find $v_\pi$, we can construct the sequence $v_0,\mathcal{T}^\pi v_0,(\mathcal{T}^\pi)^2 v_0,\dots$, which, by Banach’s fixed-point theorem will converge to $v_\pi$ at a geometric rate.&lt;/p&gt;
+
+&lt;p&gt;From the definition \eqref{5} of $\mathcal{T}^*$, we have that $\mathcal{T}^*$ is well-defined.&lt;/p&gt;
+
+&lt;p&gt;Using the fact that $\left|\max_{a\in\mathcal{A}}f(a)-\max_{a\in\mathcal{A}}g(a)\right|\leq\max_{a\in\mathcal{A}}\left|f(a)-g(a)\right|$, similarly, we have:
 \begin{align}
 \Vert\mathcal{T}^*u-\mathcal{T}^*v\Vert_\infty&amp;amp;\leq\gamma\max_{(s,a)\in\mathcal{S}\times\mathcal{A}}\sum_{s’\in\mathcal{S}}\mathcal{P}^a_{ss’}\left|u(s’)-v(s’)\right| \\ &amp;amp;\leq\gamma\max_{(s,a)\in\mathcal{S}\times\mathcal{A}}\sum_{s’\in\mathcal{S}}\mathcal{P}^a_{ss’}\Vert u-v\Vert_\infty \\ &amp;amp;=\gamma\Vert u-v\Vert_\infty,
 \end{align}
 which tells us that $\mathcal{T}^*$ is a $\gamma$-contraction in $\Vert\cdot\Vert_\infty$.
-&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;br /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt;&lt;br /&gt;
-Let $v$ be the fixed point of $\mathcal{T}^*$ and assume that there is policy $\pi$ which is greedy w.r.t $v:\mathcal{T}^\pi v=\mathcal{T}^* v$. Then $v=v_*$ and $\pi$ is an optimal policy.&lt;br /&gt;
-&lt;strong&gt;&lt;em&gt;Proof&lt;/em&gt;&lt;/strong&gt;&lt;br /&gt;
-Pick any stationary policy $\pi$. Then $\mathcal{T}^\pi\leq\mathcal{T}^*$ in the sense that for any function $v\in B(\mathcal{S})$, $\mathcal{T}^\pi v\leq\mathcal{T}^* v$ holds ($u\leq v$ means that $u(s)\leq v(s),\forall s\in\mathcal{S}$).&lt;br /&gt;
-Hence, for all $n\geq0$,
+Let $v$ be the fixed point of $\mathcal{T}^*$ and assume that there is policy $\pi$ which is greedy w.r.t $v:\mathcal{T}^\pi v=\mathcal{T}^* v$. Then $v=v_*$ and $\pi$ is an optimal policy.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Proof&lt;/em&gt;&lt;/strong&gt;&lt;br /&gt;
+Pick any stationary policy $\pi$. Then $\mathcal{T}^\pi\leq\mathcal{T}^*$ in the sense that for any function $v\in B(\mathcal{S})$, $\mathcal{T}^\pi v\leq\mathcal{T}^* v$ holds ($u\leq v$ means that $u(s)\leq v(s),\forall s\in\mathcal{S}$).&lt;/p&gt;
+
+&lt;p&gt;Hence, for all $n\geq0$,
 \begin{equation}
 v_\pi=\mathcal{T}^\pi v_\pi\leq\mathcal{T}^*v_\pi\leq(\mathcal{T}^*)^2 v_\pi\leq\dots\leq(\mathcal{T}^*)^n v_\pi
 \end{equation}
@@ -5080,19 +5232,20 @@ or
 \begin{equation}
 v_\pi\leq(\mathcal{T}^*)^n v_\pi
 \end{equation}
-Since $\mathcal{T}^*$ is a contraction, the right-hand side converges to $v$, the unique fixed point of $\mathcal{T}^*$. Thus, $v_\pi\leq v$. And since $\pi$ was arbitrary, we obtain that $v_*\leq v$.&lt;br /&gt;
-Pick a policy $\pi$ such that $\mathcal{T}^\pi v=\mathcal{T}^*v$, then $v$ is also a fixed point of $\mathcal{V}^\pi$. Since $v_\pi$ is the unique fixed point of $\mathcal{T}^\pi$, we have that $v=v_\pi$, which shows that $v_*=v$ and that $\pi$ is an optimal policy.&lt;/p&gt;
+Since $\mathcal{T}^*$ is a contraction, the right-hand side converges to $v$, the unique fixed point of $\mathcal{T}^*$. Thus, $v_\pi\leq v$. And since $\pi$ was arbitrary, we obtain that $v_*\leq v$.&lt;/p&gt;
+
+&lt;p&gt;Pick a policy $\pi$ such that $\mathcal{T}^\pi v=\mathcal{T}^*v$, then $v$ is also a fixed point of $\mathcal{V}^\pi$. Since $v_\pi$ is the unique fixed point of $\mathcal{T}^\pi$, we have that $v=v_\pi$, which shows that $v_*=v$ and that $\pi$ is an optimal policy.&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;p&gt;[1] Csaba Szepesvári. &lt;a href=&quot;https://www.amazon.com/Algorithms-Reinforcement-Synthesis-Artificial-Intelligence/dp/1608454924&quot;&gt;Algorithms for Reinforcement Learning&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[1] Csaba Szepesvári. &lt;a href=&quot;https://www.amazon.com/Algorithms-Reinforcement-Synthesis-Artificial-Intelligence/dp/1608454924&quot;&gt;Algorithms for Reinforcement Learning&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[2] A. Lazaric. &lt;a href=&quot;http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf&quot;&gt;Markov Decision Processes and Dynamic Programming&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[2] A. Lazaric. &lt;a href=&quot;http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf&quot;&gt;Markov Decision Processes and Dynamic Programming&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[3] &lt;a href=&quot;https://ai.stackexchange.com/a/11133&quot;&gt;What is the Bellman operator in reinforcement learning?&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[3] &lt;a href=&quot;https://ai.stackexchange.com/a/11133&quot;&gt;What is the Bellman operator in reinforcement learning?&lt;/a&gt;. AI.StackExchange.&lt;/p&gt;
 
-&lt;p&gt;[4] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[4] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[5] &lt;a href=&quot;https://en.wikipedia.org/wiki/Normed_vector_space&quot;&gt;Normed vector space&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[5] &lt;a href=&quot;https://en.wikipedia.org/wiki/Normed_vector_space&quot;&gt;Normed vector space&lt;/a&gt;. Wikipedia.&lt;/p&gt;
 
 &lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
 
@@ -5142,318 +5295,4 @@ And finally,
       &lt;p&gt;Also, there’s gonna be a post about &lt;em&gt;rate of convergence&lt;/em&gt;. &lt;a href=&quot;#fnref:5&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="mathematics" /><category term="my-rl" /><summary type="html">In the previous post about Markov Decision Processes, Bellman equations, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here to prove it.</summary></entry><entry><title type="html">Measures</title><link href="http://localhost:4000/random-stuffs/measure-theory/2021/07/03/measure.html" rel="alternate" type="text/html" title="Measures" /><published>2021-07-03T07:00:00+07:00</published><updated>2021-07-03T07:00:00+07:00</updated><id>http://localhost:4000/random-stuffs/measure-theory/2021/07/03/measure</id><content type="html" xml:base="http://localhost:4000/random-stuffs/measure-theory/2021/07/03/measure.html">&lt;blockquote&gt;
-  &lt;p&gt;When talking about &lt;em&gt;measure&lt;/em&gt;, you might associate it with the idea of &lt;em&gt;length&lt;/em&gt;, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with &lt;em&gt;area&lt;/em&gt;, or even three dimensions with &lt;em&gt;volume&lt;/em&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;!-- excerpt-end --&gt;
-&lt;p&gt;Despite of having different number of dimensions, all &lt;em&gt;length&lt;/em&gt;, &lt;em&gt;area&lt;/em&gt;, &lt;em&gt;volume&lt;/em&gt; share the same properties:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;em&gt;Non-negative&lt;/em&gt;: In principle, length, area, and volume can be any positive value. But negative length has no meaning. Same thing happens with negative area and negative volume.&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Additivity&lt;/em&gt;: To get from Hanoi to Singapore by air, you have to transit at Ho Chi Minh city (HCMC). If we cut that path into two non-overlapping pieces, say Hanoi - HCMC, and HCMC - Singapore, then the total length of the two pieces must be equal to the length of original path. If we divide a rectangular into non-overlapping pieces, the area of pieces combined must be the same as the original one. The same is true for volume as well.&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Empty Set&lt;/em&gt;: An empty cup of water has volume zero.&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Other Null Sets&lt;/em&gt;: The length of a point is 0. The area of a line, or a curve is 0. The volume of a plane or a surface is 0.&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Translation Invariance&lt;/em&gt;: Length, area and volume are unchanged (&lt;em&gt;invariant&lt;/em&gt;) under shifts (&lt;em&gt;translation&lt;/em&gt;) in space.&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Hyper-rectangles&lt;/em&gt;: An interval of form $[a, b]\subset\mathbb{R}^3$ has length $b-a$. The area of a rectangle $[a_1,b_1]\times[a_2,b_2]$ is $(b_1-a_1)(b_2-a_2)$. And the volume of a rectangular $[a_1,b_1]\times[a_2,b_2]\times[a_3,b_3]$ is $(b_1-a_1)(b_2-a_2)(b_3-a_3)$.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/lego.jpg&quot; alt=&quot;Lego&quot; /&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#lebesgue-measure&quot;&gt;Lebesgue Measure&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#measures&quot;&gt;Measures&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#int-measure-idea&quot;&gt;Integration with respect to a Measure: The Idea&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#prop-int&quot;&gt;Properties of the Integral&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#int-measure-detail&quot;&gt;Integration with respect to a Measure: The Details&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#construct-measure&quot;&gt;Constructing Measures from old ones&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#other-types&quot;&gt;Other types of Measures&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#other-resources&quot;&gt;Other Resources&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;lebesgue-measure&quot;&gt;Lebesgue Measure&lt;/h2&gt;
-&lt;p&gt;Is an extension of the classical notion of length in $\mathbb{R}$, area in $\mathbb{R}^2$ to any $\mathbb{R}^k$ using k-dimensional hyper-rectangles.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt;&lt;br /&gt;
-Given an open set $S\equiv\sum_k(a_k,b_k)$ containing disjoint intervals, the &lt;strong&gt;Lebesgue measure&lt;/strong&gt; is defined by:
-\begin{equation}
-\mu_L(S)\equiv\sum_{k}(b_k-a_k)
-\end{equation}
-Given a closed set $S’\equiv[a,b]-\sum_k(a_k,b_k)$,
-\begin{equation}
-\mu_L(S’)\equiv(b-a)-\sum_k(b_k-a_k)
-\end{equation}&lt;/p&gt;
-
-&lt;h2 id=&quot;measures&quot;&gt;Measures&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt;&lt;br /&gt;
-Let $\mathcal{X}$ be any set. A &lt;em&gt;measure&lt;/em&gt; on $\mathcal{X}$ is a function $\mu$ that maps the set of subsets on $\mathcal{X}$ to $[0,\infty]$ ($\mu:2^\mathcal{X}\rightarrow[0,\infty]$) that satisfies:&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;$\mu(\emptyset)=0$&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Countable additivity property&lt;/em&gt;: for any countable and pairwise disjoint collection of subsets of $\mathcal{X},\mathcal{A_1},\mathcal{A_2},\dots$,
-\begin{equation}
-\mu\left(\bigcup_i\mathcal{A_i}\right)=\sum_i\mu(\mathcal{A_i})
-\end{equation}
-$\mu(\mathcal{A})$ is called &lt;em&gt;measure of the set $\mathcal{A}$&lt;/em&gt;, or &lt;em&gt;measure of $\mathcal{A}$&lt;/em&gt;.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;strong&gt;Properties&lt;/strong&gt;&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;em&gt;Monotonicity&lt;/em&gt;: If $\mathcal{A}\subset\mathcal{B}$, then $\mu(\mathcal{A})\leq\mu(\mathcal{B})$&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Subadditivity&lt;/em&gt;: If $\mathcal{A_1},\mathcal{A_2},\dots$ is a countable collection of sets, not necessarily disjoint, then
-\begin{equation}
-\mu\left(\bigcup_i\mathcal{A_i}\right)\leq\sum_i\mu(\mathcal{A_i})
-\end{equation}&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;strong&gt;Examples&lt;/strong&gt;&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;em&gt;Cardinality of a set&lt;/em&gt; \(\#\mathcal{A}\)&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;A point mass at 0&lt;/em&gt;. Consider a measure \(\delta_{\{0\}}\) on $\mathbb{R}$ defined to give measure 1 to any set that contains 0 and measure 0 to any set that does not
-\begin{equation}\delta_{{0}}(\mathcal{A})=\#\left(A\cap\{0\}\right)=\begin{cases}
-1\quad\textsf{if }0\in\mathcal{A} \\ 0\quad\textsf{otherwise}
-\end{cases}\end{equation}
-for $\mathcal{A}\subset\mathbb{R}$&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Counting measure on the integers&lt;/em&gt;. Consider a measure $\mu_\mathbb{Z}$ that assigns to each set $\mathcal{A}$ the number of integers contained in $\mathcal{A}$
-\begin{equation}
-\delta_\mathbb{Z}(\mathcal{A})=\#\left(\mathcal{A}\cap\mathbb{Z}\right)
-\end{equation}&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Geometric measure&lt;/em&gt;. Suppose that $0&amp;lt;r&amp;lt;1$. We define a measure on $\mathbb{R}$ that assigns to a set $\mathcal{A}$ a geometrically weighted sum over non-negative integers in $\mathcal{A}$
-\begin{equation}
-\mu(\mathcal{A})=\sum_{i\in\mathcal{A}\cap\mathbb{Z}^+}r^i
-\end{equation}&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Binomial measure&lt;/em&gt;. Let $n\in\mathbb{N}^+$ and let $0&amp;lt;p&amp;lt;1$. We define $\mu$ as:
-\begin{equation}
-\mu(\mathcal{A})=\sum_{k\in\mathcal{A}\cap\{0,1,\dots,n\}}{n\choose k}p^k(1-p)^{n-k}
-\end{equation}&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Bivariate Gaussian&lt;/em&gt;. We define a measure on $\mathbb{R}^2$ by:
-\begin{equation}
-\mu({\mathcal{A}})=\int_\mathcal{A}\dfrac{1}{2\pi}\exp\left({\dfrac{-1}{2}(x^2+y^2)}\right)\,dx\,dy
-\end{equation}&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Uniform on a Ball in $\mathbb{R}^3$&lt;/em&gt;. Let $\mathcal{B}$ be the set of points in $\mathbb{R}^3$ that are within a distance 1 from the origin (unit ball in $\mathbb{R}^3$). We define a measure on $\mathbb{R}^3$ as:
-\begin{equation}
-\mu(\mathcal{A})=\dfrac{3}{4\pi}\mu_L(\mathcal{A}\cap\mathcal{B})
-\end{equation}&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;int-measure-idea&quot;&gt;Integration with respect to a Measure: The Idea&lt;/h2&gt;
-&lt;p&gt;Consider $f:\mathcal{X}\rightarrow\mathbb{R}$, where $\mathcal{X}$ is any set and a measure $\mu$ on $\mathcal{X}$ and compute the integral of $f$ w.r.t $\mu$: $\int f(x)\,\mu(dx)$. We have:&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;For any function $f$,
-\begin{equation}
-\int g(x)\,\mu_L(dx)=\int g(x)\,dx
-\end{equation}
-Because $\mu_L(dx)\equiv\mu_L([x,x+dx[)=dx$&lt;/li&gt;
-  &lt;li&gt;For any function $f$,
-\begin{equation}
-\int g(x)\,\delta_{\{\alpha\}}(dx)=g(\alpha)
-\end{equation}
-Consider the infinitesimal $\delta_{\{\alpha\}}(dx)$ as $x$ ranges over $\mathbb{R}$. If $x\neq\alpha$, then the infinitesimal interval $[x,x+dx[$ does not contain $\alpha$, so
-\begin{equation}
-\delta_{\{\alpha\}}(dx)\equiv\delta_{\{\alpha\}}([x,x+dx[)=0
-\end{equation}
-If $x=\alpha,\delta_{\{\alpha\}}(dx)\equiv\delta_{\{\alpha\}}([x,x+dx[)=1$. Thus, when we add up all of the infinitesimals, we get $g(\alpha)\cdot1=g(\alpha)$&lt;/li&gt;
-  &lt;li&gt;For any function $f$,
-\begin{equation}
-\int g(x)\,\delta_\mathbb{Z}(dx)=\sum_{i\in\mathbb{Z}}g(i)
-\end{equation}
-Similarly, consider the infinitesimal $\delta_\mathbb{Z}(dx)$ as $x$ ranges over $\mathbb{R}$. If $x\notin\mathbb{Z}$, then $\delta_\mathbb{Z}(dx)\equiv\delta_\mathbb{Z}([x,x+dx[)=0$. And otherwise if $x\in\mathbb{Z}$, $\delta_\mathbb{Z}(dx)\equiv\delta_\mathbb{Z}([x,x+dx[)=1$ since an infinitesimal interval can contain at most one integer. Hence, $g(x)\,\delta_\mathbb{Z}=g(x)$ if $x\in\mathbb{Z}$ and $=0$ otherwise. When we add up all of the infinitesimals over $x$, we get the sum above.&lt;/li&gt;
-  &lt;li&gt;Suppose $\mathcal{C}$ is a countable set. We can define &lt;em&gt;counting measure&lt;/em&gt; on $\mathcal{C}$ to map $\mathcal{A}\rightarrow\#(\mathcal{A}\cap\mathcal{C})$ (recall that $\delta_\mathcal{C}(\mathcal{A})=\#(\mathcal{A}\cap\mathcal{C})$). For any function $f$,
-\begin{equation}
-\int g(x)\,\delta_\mathcal{C}(dx)=\sum_{v\in\mathcal{C}}g(v),
-\end{equation}
-using the same basic argument as in the above example.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;From the above examples, we have that &lt;em&gt;integrals w.r.t to Lebesgue measure are just ordinary integrals, and that integrals w.r.t Counting measure are just ordinary summation&lt;/em&gt;.&lt;br /&gt;
-Consider measures built from Lebesgue and Counting measure, we have:&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;Suppose $\mu$ is a measure that satisfies $\mu(dx)=f(x)\,\mu_L(dx)$, then for any function $g$,
-\begin{equation}
-\int g(x)\,\mu(dx)=\int g(x)\,f(x)\,\mu_L(dx)=\int g(x)\,f(x)\,dx
-\end{equation}
-We say that $f$ is the density of $\mu$ w.r.t Lebesgue measure in this case.&lt;/li&gt;
-  &lt;li&gt;Suppose $\mu$ is a measure that satisfies $\mu(dx)=p(x)\delta_\mathcal{C}(dx)$ for a countable set $\mathcal{C}$, then for any function g,
-\begin{equation}
-\int g(x)\,\mu(dx)=\int g(x)\,p(x)\,\delta_\mathcal{C}(dx)=\sum_{v\in\mathcal{C}}g(v)\,f(v)
-\end{equation}
-We say that $p$ is the density of $\mu$ w.r.t Counting measure on $\mathcal{C}$.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;prop-int&quot;&gt;Properties of the Integral&lt;/h2&gt;
-&lt;p&gt;A function is said to be &lt;em&gt;integrable&lt;/em&gt; w.r.t $\mu$ if $\int|f(x)|\,\mu(dx)&amp;lt;\infty$. An integrable function has a well-defined and finite integral. If $f(x)\geq0$, the integral is always well-defined but may be $\infty$.&lt;br /&gt;
-Suppose $\mu$ is a measure on $\mathcal{X},\mathcal{A}\subset\mathcal{X}$, and $g$ is a real-valued function on $\mathcal{X}$. We define the integral of $g$ over the set $\mathcal{A}$, denoted by $\int_\mathcal{A}g(x)\,\mu(dx)$, as
-\begin{equation}
-\int_\mathcal{A}g(x)\,\mu(dx)=\int g(x)\,𝟙_\mathcal{A}(x)\,\mu(dx),
-\end{equation}
-where \(𝟙_\mathcal{A}\) is an &lt;em&gt;indicator function&lt;/em&gt; (\(𝟙_\mathcal{A}(x)=1\) if $x\in\mathcal{A}$, and $=0$ otherwise).&lt;/p&gt;
-
-&lt;p&gt;Let $\mu$ is a measure on $\mathcal{X},\mathcal{A},\mathcal{B}\subset\mathcal{X},c\in\mathbb{R}$ and $f,g$ are integrable functions. The following properties hold for every $\mu$&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;em&gt;Constant Functions&lt;/em&gt;
-\begin{equation}
-\int_\mathcal{A}c\,\mu(dx)=c\cdot\mu(\mathcal{A})
-\end{equation}&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Linearity&lt;/em&gt;
-\begin{align}
-\int_\mathcal{A}cf(x)\,\mu(dx)&amp;amp;=c\int_\mathcal{A}f(x)\,\mu(dx) \\\int_\mathcal{A}\left(f(x)+g(x)\right)\,\mu(dx)&amp;amp;=\int_\mathcal{A}f(x)\,\mu(dx)+\int_\mathcal{A}g(x)\,\mu(dx)
-\end{align}&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Monotonicity&lt;/em&gt;. If $f\leq g$, then $\int_\mathcal{A}f(x)\,\mu(dx)\leq\int_\mathcal{A}g(x)\,\mu(dx),\forall\mathcal{A}$. This implies:
-    &lt;ul&gt;
-      &lt;li&gt;If $f\geq0$, then $\int f(x)\,\mu(dx)\geq0$.&lt;/li&gt;
-      &lt;li&gt;If $f\geq0$ and $\mathcal{A}\subset\mathcal{B}$, then $\int_\mathcal{A}f(x)\,\mu(dx)\leq\int_\mathcal{B}f(x)\,\mu(dx)$.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Null Sets&lt;/em&gt;. If $\mu(\mathcal{A})=0$, then $\int_\mathcal{A}f(x)\,\mu(dx)=0$.&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Absolute Values&lt;/em&gt;
-\begin{equation}
-\left|\int f(x)\,\mu(dx)\right|\leq\int\left|f(x)\right|\,\mu(dx)
-\end{equation}&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Monotone Convergence&lt;/em&gt;. If $0\leq f_1\leq f_2\leq\dots$ is an increasing sequence of integrable functions that converge to $f$, then
-\begin{equation}
-\lim_{k\to\infty}\int f_k(x)\,\mu(dx)=\int f(x)\,\mu(dx)
-\end{equation}&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Linearity in region of integration&lt;/em&gt;. If $\mathcal{A}\cap\mathcal{B}=\emptyset$,
-\begin{equation}
-\int_{\mathcal{A}\cup\mathcal{B}}f(x)\,\mu(dx)=\int_\mathcal{A}f(x)\,\mu(dx)+\int_\mathcal{B}f(x)\,\mu(dx)
-\end{equation}&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;int-measure-detail&quot;&gt;Integration with respect to a Measure: The Details&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;Step 1&lt;/strong&gt;. Define the integral for simple functions.
-    &lt;ul&gt;
-      &lt;li&gt;&lt;em&gt;Simple function&lt;/em&gt;: is a function that takes only a finite number of different values.
-        &lt;ul&gt;
-          &lt;li&gt;All constant functions are simple functions.&lt;/li&gt;
-          &lt;li&gt;The indicator function ($𝟙_\mathcal{A}$) of a set $\mathcal{A}\subset\mathcal{X}$ is a simple function (taking values in $\{0,1\}$).&lt;/li&gt;
-          &lt;li&gt;Any constant times an indicator ($c𝟙_\mathcal{A}$) is also a simple function (taking values in $\{0,c\}$).&lt;/li&gt;
-          &lt;li&gt;Similarly, given disjoint sets $\mathcal{A_1},\mathcal{A_2}$, the linear combination \(c_1𝟙_\mathcal{A_1}+c_2𝟙_\mathcal{A_2}\) is a simple function (taking values in $\{0,c_1,c_2\}$)&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/li&gt;
-          &lt;li&gt;In fact, any simple function can be expressed as a linear combination of a finite number of indicator functions. That is, if $f$ is &lt;em&gt;any&lt;/em&gt; simple function on $\mathcal{X}$, then there exists some finite integer $n$, non-zero constants $c_1,\dots,c_n$ and &lt;em&gt;disjoint&lt;/em&gt; sets $\mathcal{A_1},\dots\mathcal{A_n}\subset\mathcal{X}$ such that
-   \begin{equation}
-   f=c_1𝟙_\mathcal{A_1}+\dots+c_n𝟙_\mathcal{A_n}
-   \end{equation}&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;So, if $f:\mathcal{X}\to\mathbb{R}$ is a simple function as just defined, we have that
-\begin{equation}
-\int \mu(dx)=c_1\mu(\mathcal{A_1})+\dots+c_n\mu(\mathcal{A_n})
-\end{equation}&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Step 2&lt;/strong&gt;. Define the integral for general non-negative functions, approximating the general function by simple functions.
-    &lt;ul&gt;
-      &lt;li&gt;The idea is that we can approximate any general non-negative function $f:\mathcal{X}\to[0,\infty[$ well by some non-negative simple functions that $\leq f$ &lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;.&lt;/li&gt;
-      &lt;li&gt;If $f:\mathcal{X}\to[0,\infty[$ is a general function and $0\leq s\leq f$ is a simple function (then $\int s(x)\,\mu(dx)\leq\int f(x)\,\mu(dx)$). The closer that $s$ approximates $f$, the closer we expect $\int s(x)\,\mu(dx)$ and $\int f(x)\,\mu(x)$ to be.&lt;/li&gt;
-      &lt;li&gt;To be more precise, we define the integral $\int f(x)\,\mu(dx)$ to be the smallest value $I$ such that $\int s(x)\,\mu(x)\leq I$, for all simple functions $0\leq s\leq f$.
-\begin{equation}
-\int f(x)\,\mu(dx)\approx\sup\left\{\int s(x)\,\mu(dx)\right\}
-\end{equation}&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Step 3&lt;/strong&gt;. Define the integral for general real-valued functions by separately integrating the positive and negative parts of the function.
-    &lt;ul&gt;
-      &lt;li&gt;If $f:\mathcal{X}\to\mathbb{R}$ is a general function, we can define its &lt;em&gt;positive part&lt;/em&gt; $f^+$ and its &lt;em&gt;negative part&lt;/em&gt; $f^-$ by
-\begin{align}
-f^+(x)&amp;amp;=\max\left(f(x),0\right) \\ f^-(x)&amp;amp;=\max\left(-f(x),0\right)
-\end{align}&lt;/li&gt;
-      &lt;li&gt;Since both $f^+$ and $f^-$ are non-negative functions and $f=f^+-f^-$, we have
-\begin{equation}
-\int f(x)\,\mu(dx)=\int f^+(x)\,\mu(dx)-\int f^-(x)\,\mu(dx)
-\end{equation}
-This is a well-defined number (possibly infinite) if and only if at least one of $f^+$ and $f^-$ has a finite integral.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;construct-measure&quot;&gt;Constructing Measures from old ones&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;em&gt;Sums and multiples&lt;/em&gt;
-    &lt;ul&gt;
-      &lt;li&gt;Consider the point mass measures at 0 and 1, \(\delta_{\\{0\\}},\delta_1\), and construct a two new measures on $\mathbb{R}$, \(\mu=\delta_{\\{0\\}}+\delta_{\\{1\\}}\) and \(v=4\delta_{\\{0\\}}\), defined by
-\begin{align}
-\mu(\mathcal{A})&amp;amp;=\delta_{\{0\}}(\mathcal{A})+\delta_{\{0\}}(\mathcal{A}) \\ v(\mathcal{A})&amp;amp;=4\delta_{\{0\}}(\mathcal{A})
-\end{align}&lt;/li&gt;
-      &lt;li&gt;The measure $\mu$ counts how many elements of \(\\{0,1\\}\) are in its argument. Thus, the counting measure of the integers can be re-expressed as
-\begin{equation}
-\delta_\mathbb{Z}=\sum_{i=-\infty}^{\infty}\delta_{\{i\}}
-\end{equation}&lt;/li&gt;
-      &lt;li&gt;By combining the operations of summation and multiplication, we can write the Geometric measure in the above example 
-\begin{equation}
-\sum_{i=0}^{\infty}r^i\delta_{\{i\}}
-\end{equation}&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Restriction to a Subset&lt;/em&gt;
-    &lt;ul&gt;
-      &lt;li&gt;Suppose $\mu$ is a measure on $\mathcal{X}$ and $\mathcal{B}\subset\mathcal{X}$. We can define a new measure on $\mathcal{B}$ which maps $\mathcal{A}\subset\mathcal{B}\to\mu(\mathcal{A})$. This is called the restriction of $\mu$ to the set $\mathcal{B}$.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Measure Induced by a Function&lt;/em&gt;
-    &lt;ul&gt;
-      &lt;li&gt;Suppose $\mu$ is a measure on $\mathcal{X}$ and $g:\mathcal{X}\to\mathcal{Y}$. We can use $\mu$ and $g$ to define a new measure $v$ on $\mathcal{Y}$ by
-\begin{equation}
-v(\mathcal{A})=\mu(g^{-1}(\mathcal{A})),
-\end{equation}
-for $\mathcal{A}\subset\mathcal{Y}$. This is called the &lt;em&gt;measure induced from $\mu$ by $g$&lt;/em&gt;.&lt;/li&gt;
-      &lt;li&gt;Therefore, for any $f:\mathcal{Y}\to\mathbb{R}$,
-\begin{equation}
-\int f(y)\,v(dy)=\int f(g(x))\,\mu(dx)
-\end{equation}&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Integrating a Density&lt;/em&gt;
-    &lt;ul&gt;
-      &lt;li&gt;Suppose $\mu$ is a measure on $\mathcal{X}$ and $f:\mathcal{X}\to\mathbb{R}$. We can define a new measure $v$ on $\mathcal{X}$ as
-\begin{equation}
-v(\mathcal{A})=\int_\mathcal{A}f(x)\,\mu(dx)\tag{1}\label{1}
-\end{equation}
-We say that $f$ is the &lt;em&gt;density&lt;/em&gt; of the measure $v$ w.r.t $\mu$.&lt;/li&gt;
-      &lt;li&gt;If $v,\mu$ are measures for which the equation \eqref{1} holds for every $\mathcal{A}\subset\mathcal{X}$, we say that $v$ has a density $f$ w.r.t $\mu$. This implies two useful results:
-        &lt;ul&gt;
-          &lt;li&gt;$\mu(\mathcal{A})=0$ implies $v(\mathcal{A})=0$.&lt;/li&gt;
-          &lt;li&gt;$v(dx)=f(x)\,\mu(dx)$.&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;other-types&quot;&gt;Other types of Measures&lt;/h2&gt;
-&lt;p&gt;Suppose that $\mu$ is a measure on $\mathcal{X}$&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;If $\mu(\mathcal{X})=\infty$, we say that $\mu$ is an &lt;em&gt;infinite measure&lt;/em&gt;.&lt;/li&gt;
-  &lt;li&gt;If $\mu(\mathcal{X}&amp;lt;\infty)$, we say that $\mu$ is a &lt;em&gt;finite measure&lt;/em&gt;.&lt;/li&gt;
-  &lt;li&gt;If $\mu(\mathcal{X}&amp;lt;1)$, we say that $\mu$ is a &lt;em&gt;probability measure&lt;/em&gt;.&lt;/li&gt;
-  &lt;li&gt;If there exists a countable set $\mathcal{S}$ such that $\mu(\mathcal{X}-\mathcal{S})=0$, we say that $\mu$ is a &lt;em&gt;discrete measure&lt;/em&gt;. Equivalently, $\mu$ has a density w.r.t &lt;em&gt;counting measure&lt;/em&gt; on $\mathcal{S}$.&lt;/li&gt;
-  &lt;li&gt;If $\mu$ has a density w.r.t Lebesgue measure, we say that $\mu$ is a &lt;em&gt;continuous measure&lt;/em&gt;.&lt;/li&gt;
-  &lt;li&gt;If $\mu$ is neither &lt;em&gt;continuous&lt;/em&gt; nor &lt;em&gt;discrete&lt;/em&gt;, we say that $\mu$ is a &lt;em&gt;mixed measure&lt;/em&gt;.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;p&gt;[1] Literally, this post is mainly written from a source that I’ve lost the reference :(. Hope that I can update this line soon.&lt;/p&gt;
-
-&lt;p&gt;[2] &lt;a href=&quot;https://mathworld.wolfram.com/LebesgueMeasure.html&quot;&gt;Lebesgue Measure&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;[3] &lt;a href=&quot;https://www.countbayesie.com/blog/2015/8/17/a-very-brief-and-non-mathematical-introduction-to-measure-theory-for-probability&quot;&gt;Measure Theory for Probability: A Very Brief Introduction&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;other-resources&quot;&gt;Other Resources&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=cyW5z-M2yzw&quot;&gt;Music and Measure Theory - 3Blue1Brown&lt;/a&gt; - this is one of my favourite Youtube channels.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
-
-&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;If $\mathcal{A_1},\mathcal{A_2}$ were not disjoint, we could define $\mathcal{B_1}=\mathcal{A_1}-\mathcal{A_2}$, $\mathcal{B_2}=\mathcal{A_2}-\mathcal{A_1}$, and $\mathcal{B_3}=\mathcal{A_1}\cap\mathcal{A_2}$. Then the function is equal to \(c_1𝟙_\mathcal{B_1}+c_2𝟙_\mathcal{B_2}+(c_1+c_2)𝟙_\mathcal{B_3}\). &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:2&quot; role=&quot;doc-endnote&quot;&gt;
-
-      &lt;p&gt;&lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="random-stuffs" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><category term="random-stuffs" /><summary type="html">When talking about measure, you might associate it with the idea of length, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with area, or even three dimensions with volume.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="mathematics" /><category term="my-rl" /><summary type="html">In the previous post about Markov Decision Processes, Bellman equations, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here to prove it.</summary></entry></feed>

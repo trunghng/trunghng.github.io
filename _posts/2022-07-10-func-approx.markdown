@@ -472,9 +472,9 @@ The steady state distribution is the special distribution under which, if we sel
 \sum_s\mu_\pi(x)\sum_a\pi(a\vert s)p(s'\vert s,a)=\mu\_\pi(s')
 \end{equation}
 In the average-reward setting, returns are defined in terms of differences between rewards and the average reward:
-\begin{equation}
-G_t\doteq R_{t+1}-r(\pi)+R_{t+2}(\mu)-r(\pi)+R_{t+3}-r(\pi)+\dots\tag{15}\label{15}
-\end{equation}
+<tag id='differential-return'>\begin{equation}
+G_t\doteq R_{t+1}-r(\pi)+R_{t+2}-r(\pi)+R_{t+3}-r(\pi)+\dots\tag{15}\label{15}
+\end{equation}</tag>
 This is known as the **differential return**, and the corresponding value functions are known as **differential value functions**, $v_\pi(s)$ and $q_\pi(s,a)$, which are defined in the same way as we have done before:
 \begin{align}
 v_\pi(s)&\doteq\mathbb{E}\big[G_t\vert S_t=s\big]; \\\\ q_\pi(s,a)&\doteq\mathbb{E}\big[G_t\vert S_t=s,A_t=a\big],

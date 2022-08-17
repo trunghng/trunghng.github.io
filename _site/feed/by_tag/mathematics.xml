@@ -1,5 +1,91 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-17T12:24:11+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
-</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Power Series</title><link href="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>http://localhost:4000/mathematics/calculus/2021/09/21/power-series</id><content type="html" xml:base="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-17T18:08:38+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Normal Distribution</title><link href="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html" rel="alternate" type="text/html" title="Normal Distribution" /><published>2021-11-22T14:46:00+07:00</published><updated>2021-11-22T14:46:00+07:00</updated><id>http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist</id><content type="html" xml:base="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html">&lt;blockquote&gt;
+  &lt;p&gt;A note on Normal distribution.
+&lt;!-- excerpt-end --&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#gauss-dist&quot;&gt;Gaussian (Normal) Distribution&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#std-norm&quot;&gt;Standard Normal&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#mvn&quot;&gt;Multivariate Normal Distribution&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#bvn&quot;&gt;Bivariate Normal&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;$\newcommand{\Var}{\mathrm{Var}}$
+$\newcommand{\Cov}{\mathrm{Cov}}$&lt;/p&gt;
+&lt;h2 id=&quot;gauss-dist&quot;&gt;Gaussian (Normal) Distribution&lt;/h2&gt;
+&lt;p&gt;A random variable $X$ is said to be &lt;strong&gt;Gaussian&lt;/strong&gt; or to have the &lt;strong&gt;Normal distribution&lt;/strong&gt; with mean $\mu$ and variance $\sigma^2$ if its probability density function (PDF) is
+\begin{equation}
+f_X(x)=\dfrac{1}{\sqrt{2\pi}\sigma}\exp\left(-\dfrac{(x-\mu)^2}{2\sigma^2}\right)
+\end{equation}
+which we denote as $X\sim\mathcal{N}(\mu,\sigma)$.&lt;/p&gt;
+
+&lt;h3 id=&quot;std-normal&quot;&gt;Standard Normal&lt;/h3&gt;
+&lt;p&gt;When $X$ is normally distributed with mean $\mu=0$ and variance $\sigma^2=1$, we call its distribution &lt;strong&gt;Standard Normal&lt;/strong&gt;.
+\begin{equation}
+X\sim\mathcal{N}(0,1)
+\end{equation}
+In this case, $X$ has special notations to denote its PDF and CDF, which are
+\begin{equation}
+\varphi(x)=\dfrac{1}{\sqrt{2\pi}}e^{-z^2/2}
+\end{equation}
+\begin{equation}
+\Phi(x)=\int_{-\infty}^{x}\varphi(t)\,dt=\int_{-\infty}^{x}\dfrac{1}{\sqrt{2\pi}}e^{-t^2/2}\,dt
+\end{equation}
+Below is some visualizations of Normal distribution.&lt;/p&gt;
+
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2021-11-22/normal.png&quot; alt=&quot;normal distribution&quot; width=&quot;900&quot; height=&quot;380px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 1&lt;/b&gt;: 10K normally distributed data points (5K each plot) were plotted as vertical bars on x-axis. The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/maths-visualization/blob/main/bayes-optimization/gauss-dist.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;mvn&quot;&gt;Multivariate Normal Distribution&lt;/h2&gt;
+&lt;p&gt;A $k$-dimensional random vector $\mathbf{X}=\left(X_1,\dots,X_k\right)^\intercal$ is said to have a &lt;strong&gt;Multivariate Normal (MVN)&lt;/strong&gt; distribution if every linear combination of the $X_i$ has a Normal distribution. Which means
+\begin{equation}
+t_1X_1+\ldots+t_kX_k
+\end{equation}
+is normally distributed for any choice of constants $t_1,\dots,t_k$. Distribution of $\mathbf{X}$ then can be written in the following notation
+\begin{equation}
+\mathbf{X}\sim\mathcal{N}(\mathbf{\mu},\mathbf{\Sigma})
+\end{equation}
+where
+\begin{equation}
+	\mathbf{\mu}=\mathbb{E}\mathbf{X}=\mathbb{E}\left(\mu_1,\ldots,\mu_k\right)^\intercal=\left(\mathbb{E}X_1,\ldots,\mathbb{E}X_k\right)^\intercal
+\end{equation}
+is the $k$-dimensional mean vector, and covariance matrix $\mathbf{\Sigma}\in\mathbb{R}^{k\times k}$ with
+\begin{equation}
+	\mathbf{\Sigma}_{ij}=\mathbb{E}\left(X_i-\mu_i\right)\left(X_j-\mu_j\right)=\Cov(X_i,X_j)
+\end{equation}
+We also have that $\mathbf{\Sigma}\geq 0$ (positive semi-definite matrix)[^1].&lt;/p&gt;
+
+&lt;p&gt;Thus, the PDF of an MVN is defined as
+\begin{equation}
+f_X(x_1,\ldots,x_k)=\dfrac{1}{(2\pi)^{k/2}\vert\mathbf{\Sigma}\vert^{1/2}}\exp\left[\dfrac{1}{2}\left(\mathbf{x}-\mathbf{\mu}\right)^\intercal\mathbf{\Sigma}^{-1}(\mathbf{x}-\mathbf{\mu})\right]
+\end{equation}
+With this idea, &lt;em&gt;Standard Normal&lt;/em&gt; distribution in multi-dimensional case can be defined as a Gaussian with mean $\mathbf{\mu}=0$ (here $0$ is an $k$-dimensional vector) and identity covariance matrix $\mathbf{\Sigma}=\mathbf{I}_{k\times k}$.&lt;/p&gt;
+
+&lt;h3 id=&quot;bvn&quot;&gt;Bivariate Normal&lt;/h3&gt;
+&lt;p&gt;When the number of dimensions in $\mathbf{X}$, $k=2$, this special case of MVN is called the &lt;strong&gt;Bivariate Normal (BVN)&lt;/strong&gt;. An example of an BVN is shown as following.&lt;/p&gt;
+
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2021-11-22/bvn.png&quot; alt=&quot;monte carlo method&quot; width=&quot;750&quot; height=&quot;350px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 2&lt;/b&gt;: The PDF of $\mathcal{N}\left(\left[\begin{smallmatrix}0\\0\end{smallmatrix}\right],\left[\begin{smallmatrix}1&amp;amp;0.5\\0.8&amp;amp;1\end{smallmatrix}\right]\right)$. The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/maths-visualization/blob/main/bayes-optimization/mvn.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;p&gt;[1] Joseph K. Blitzstein &amp;amp; Jessica Hwang. &lt;a href=&quot;https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573&quot;&gt;Introduction to Probability&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="probability-statistics" /><category term="mathematics" /><category term="probability-statistics" /><category term="normal-distribution" /><summary type="html">A note on Normal distribution.</summary></entry><entry><title type="html">Power Series</title><link href="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>http://localhost:4000/mathematics/calculus/2021/09/21/power-series</id><content type="html" xml:base="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html">&lt;blockquote&gt;
   &lt;p&gt;Recall that in the previous post, &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html&quot;&gt;Infinite Series of Constants&lt;/a&gt;, we mentioned a type of series called &lt;strong&gt;power series&lt;/strong&gt; a lot. In the content of this post, we will be diving deeper into details of that series.&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -1446,14 +1532,14 @@ implies
 
 &lt;!-- excerpt-end --&gt;
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#norms-contractions-banach-fixed-pts&quot;&gt;Norms, Contractions, Banach’s Fixed-point Theorem&lt;/a&gt;
+  &lt;li&gt;&lt;a href=&quot;#preliminaries&quot;&gt;Preliminaries&lt;/a&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#norms&quot;&gt;Norms&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#contractions&quot;&gt;Contractions&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#banach-fixed-pts&quot;&gt;Banach’s Fixed-point Theorem&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#bellman-operator&quot;&gt;Bellman Operator&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#bellman-operator&quot;&gt;Bellman Operator&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#proof&quot;&gt;Proof of the existence&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
@@ -1461,7 +1547,7 @@ implies
 
 &lt;p&gt;Before catching the pokémon, we need to prepare ourselves some pokéball.&lt;/p&gt;
 
-&lt;h2 id=&quot;norms-contractions-banach-fixed-pts&quot;&gt;Norms, Contractions, Banach’s Fixed-point Theorem&lt;/h2&gt;
+&lt;h2 id=&quot;preliminaries&quot;&gt;Preliminaries&lt;/h2&gt;
 
 &lt;h3 id=&quot;norms&quot;&gt;Norms&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Norm&lt;/em&gt;)&lt;br /&gt;
@@ -1544,8 +1630,8 @@ Let $\mathcal{V}$ be a Banach space and $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ 
 \end{equation}&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h2 id=&quot;bellman-operator&quot;&gt;Bellman Operator&lt;/h2&gt;
-&lt;p&gt;Previously, we defined Bellman equation for state-value function $v_\pi(s)$ as:
+&lt;h3 id=&quot;bellman-operator&quot;&gt;Bellman Operator&lt;/h3&gt;
+&lt;p&gt;Previously, we defined &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html#bellman-equations&quot;&gt;Bellman equation&lt;/a&gt; for state-value function $v_\pi(s)$ as:
 \begin{align}
 v_\pi(s)&amp;amp;=\sum_{a\in\mathcal{A}}\pi(a|s)\sum_{s’\in\mathcal{S},r}p(s’,r|s,a)\left[r+\gamma v_\pi(s’)\right] \\\text{or}\quad v_\pi(s)&amp;amp;=\sum_{a\in\mathcal{A}}\pi(a|s)\left(\mathcal{R}^a_s+\gamma\sum_{s’\in\mathcal{S}}\mathcal{P}^a_{ss’}v_\pi(s’)\right)\tag{1}\label{1}
 \end{align}
@@ -1584,37 +1670,42 @@ And thus, with the help of $\mathcal{T}^*$, we can rewrite the equation \eqref{4
 Now everything is all set, we can move on to the next step.&lt;/p&gt;
 
 &lt;h2 id=&quot;proof&quot;&gt;Proof of the existence&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;Let $B(\mathcal{S})$ be the space of &lt;em&gt;uniformly bounded functions&lt;/em&gt; with domain $\mathcal{S}$:
+&lt;p&gt;Let $B(\mathcal{S})$ be the space of &lt;em&gt;uniformly bounded functions&lt;/em&gt; with domain $\mathcal{S}$:
 \begin{equation}
 B(\mathcal{S})=\{v:\mathcal{S}\to\mathbb{R}:\Vert v\Vert_\infty&amp;lt;+\infty\}
-\end{equation}&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;We will view $B(\mathcal{S})$ as a normed vector space with the norm $\Vert\cdot\Vert_\infty$. It is easily seen that $(B(\mathcal{S}),\Vert\cdot\Vert_\infty)$ is complete: If ($v_n;n\geq0$) is a Cauchy sequence in it then for any $s\in\mathcal{S}$, ($v_n(s);n\geq0$) is also a Cauchy sequence over the reals. Denoting by $v(s)$ the limit of ($v_n(s)$), we can show that $\Vert v_n-v\Vert_\infty\to0$. Vaguely speaking, this holds because ($v_n;n\geq0$) is a Cauchy sequence in the norm $\Vert\cdot\Vert_\infty$  so the rate of convergence of $v_n(s)$ to $v(s)$ is independent of $s$.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Pick any stationary policy $\pi$.&lt;/li&gt;
-  &lt;li&gt;We have that $\mathcal{T}^\pi$ is &lt;em&gt;well-defined&lt;/em&gt; since: if $u\in B(\mathcal{S})$, then also $\mathcal{T}^\pi u\in B(S)$.&lt;/li&gt;
-  &lt;li&gt;From equation \eqref{3}, we have that $v_\pi$ is a fixed point to $\mathcal{T}^\pi$.&lt;br /&gt;
-We also have that $\mathcal{T}^\pi$ is a $\gamma$-contraction in $\Vert\cdot\Vert_\infty$ since for any $u, v\in B(\mathcal{S})$,
+\end{equation}
+We will view $B(\mathcal{S})$ as a normed vector space with the norm $\Vert\cdot\Vert_\infty$.&lt;/p&gt;
+
+&lt;p&gt;It is easily seen that $(B(\mathcal{S}),\Vert\cdot\Vert_\infty)$ is complete: If $(v_n;n\geq0)$ is a Cauchy sequence in it then for any $s\in\mathcal{S}$, $(v_n(s);n\geq0)$ is also a Cauchy sequence over the reals. Denoting by $v(s)$ the limit of $(v_n(s))$, we can show that $\Vert v_n-v\Vert_\infty\to0$. Vaguely speaking, this holds because $(v_n;n\geq0)$ is a Cauchy sequence in the norm $\Vert\cdot\Vert_\infty$, so the rate of convergence of $v_n(s)$ to $v(s)$ is independent of $s$.&lt;/p&gt;
+
+&lt;p&gt;Let $\pi$ be some stationary policy. We have that $\mathcal{T}^\pi$ is &lt;em&gt;well-defined&lt;/em&gt; since: if $u\in B(\mathcal{S})$, then also $\mathcal{T}^\pi u\in B(S)$.&lt;/p&gt;
+
+&lt;p&gt;From equation \eqref{3}, we have that $v_\pi$ is a fixed point to $\mathcal{T}^\pi$.&lt;/p&gt;
+
+&lt;p&gt;We also have that $\mathcal{T}^\pi$ is a $\gamma$-contraction in $\Vert\cdot\Vert_\infty$ since for any $u, v\in B(\mathcal{S})$,
 \begin{align}
-\Vert\mathcal{T}^\pi u-\mathcal{T}^\pi v\Vert_\infty&amp;amp;=\gamma\max_{s\in\mathcal{S}}\left|\sum_{s’\in\mathcal{S}}\mathcal{P}^\pi_{ss’}\left(u(s’)-v(s’)\right)\right| \\ &amp;amp;\leq\gamma\max_{s\in\mathcal{S}}\sum_{s’\in\mathcal{S}}\mathcal{P}^\pi_{ss’}\left|u(s’)-v(s’)\right| \\ &amp;amp;\leq\gamma\max_{s\in\mathcal{S}}\sum_{s’\in\mathcal{S}}\mathcal{P}^\pi_{ss’}\Vert u-v\Vert_\infty \\ &amp;amp;=\gamma\Vert u-v\Vert_\infty,
+\Vert\mathcal{T}^\pi u-\mathcal{T}^\pi v\Vert_\infty&amp;amp;=\gamma\max_{s\in\mathcal{S}}\left|\sum_{s’\in\mathcal{S}}\mathcal{P}^\pi_{ss’}\left(u(s’)-v(s’)\right)\right| \\ &amp;amp;\leq\gamma\max_{s\in\mathcal{S}}\sum_{s’\in\mathcal{S}}\mathcal{P}^\pi_{ss’}\big|u(s’)-v(s’)\big| \\ &amp;amp;\leq\gamma\max_{s\in\mathcal{S}}\sum_{s’\in\mathcal{S}}\mathcal{P}^\pi_{ss’}\big\Vert u-v\big\Vert_\infty \\ &amp;amp;=\gamma\Vert u-v\Vert_\infty,
 \end{align}
-where the last line follows from $\sum_{s’\in\mathcal{S}}\mathcal{P}^\pi_{ss’}=1$.&lt;/li&gt;
-  &lt;li&gt;It follows that in order to find $v_\pi$, we can construct the sequence $v_0,\mathcal{T}^\pi v_0,(\mathcal{T}^\pi)^2 v_0,\dots$, which, by Banach’s fixed-point theorem will converge to $v_\pi$ at a geometric rate.&lt;/li&gt;
-  &lt;li&gt;From the definition \eqref{5} of $\mathcal{T}^*$, we have that $\mathcal{T}^*$ is well-defined.&lt;/li&gt;
-  &lt;li&gt;Using the fact that $\left|\max_{a\in\mathcal{A}}f(a)-\max_{a\in\mathcal{A}}g(a)\right|\leq\max_{a\in\mathcal{A}}\left|f(a)-g(a)\right|$, similarly, we have:
+where the last line follows from $\sum_{s’\in\mathcal{S}}\mathcal{P}^\pi_{ss’}=1$.&lt;/p&gt;
+
+&lt;p&gt;It follows that in order to find $v_\pi$, we can construct the sequence $v_0,\mathcal{T}^\pi v_0,(\mathcal{T}^\pi)^2 v_0,\dots$, which, by Banach’s fixed-point theorem will converge to $v_\pi$ at a geometric rate.&lt;/p&gt;
+
+&lt;p&gt;From the definition \eqref{5} of $\mathcal{T}^*$, we have that $\mathcal{T}^*$ is well-defined.&lt;/p&gt;
+
+&lt;p&gt;Using the fact that $\left|\max_{a\in\mathcal{A}}f(a)-\max_{a\in\mathcal{A}}g(a)\right|\leq\max_{a\in\mathcal{A}}\left|f(a)-g(a)\right|$, similarly, we have:
 \begin{align}
 \Vert\mathcal{T}^*u-\mathcal{T}^*v\Vert_\infty&amp;amp;\leq\gamma\max_{(s,a)\in\mathcal{S}\times\mathcal{A}}\sum_{s’\in\mathcal{S}}\mathcal{P}^a_{ss’}\left|u(s’)-v(s’)\right| \\ &amp;amp;\leq\gamma\max_{(s,a)\in\mathcal{S}\times\mathcal{A}}\sum_{s’\in\mathcal{S}}\mathcal{P}^a_{ss’}\Vert u-v\Vert_\infty \\ &amp;amp;=\gamma\Vert u-v\Vert_\infty,
 \end{align}
 which tells us that $\mathcal{T}^*$ is a $\gamma$-contraction in $\Vert\cdot\Vert_\infty$.
-&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;br /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt;&lt;br /&gt;
-Let $v$ be the fixed point of $\mathcal{T}^*$ and assume that there is policy $\pi$ which is greedy w.r.t $v:\mathcal{T}^\pi v=\mathcal{T}^* v$. Then $v=v_*$ and $\pi$ is an optimal policy.&lt;br /&gt;
-&lt;strong&gt;&lt;em&gt;Proof&lt;/em&gt;&lt;/strong&gt;&lt;br /&gt;
-Pick any stationary policy $\pi$. Then $\mathcal{T}^\pi\leq\mathcal{T}^*$ in the sense that for any function $v\in B(\mathcal{S})$, $\mathcal{T}^\pi v\leq\mathcal{T}^* v$ holds ($u\leq v$ means that $u(s)\leq v(s),\forall s\in\mathcal{S}$).&lt;br /&gt;
-Hence, for all $n\geq0$,
+Let $v$ be the fixed point of $\mathcal{T}^*$ and assume that there is policy $\pi$ which is greedy w.r.t $v:\mathcal{T}^\pi v=\mathcal{T}^* v$. Then $v=v_*$ and $\pi$ is an optimal policy.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Proof&lt;/em&gt;&lt;/strong&gt;&lt;br /&gt;
+Pick any stationary policy $\pi$. Then $\mathcal{T}^\pi\leq\mathcal{T}^*$ in the sense that for any function $v\in B(\mathcal{S})$, $\mathcal{T}^\pi v\leq\mathcal{T}^* v$ holds ($u\leq v$ means that $u(s)\leq v(s),\forall s\in\mathcal{S}$).&lt;/p&gt;
+
+&lt;p&gt;Hence, for all $n\geq0$,
 \begin{equation}
 v_\pi=\mathcal{T}^\pi v_\pi\leq\mathcal{T}^*v_\pi\leq(\mathcal{T}^*)^2 v_\pi\leq\dots\leq(\mathcal{T}^*)^n v_\pi
 \end{equation}
@@ -1622,19 +1713,20 @@ or
 \begin{equation}
 v_\pi\leq(\mathcal{T}^*)^n v_\pi
 \end{equation}
-Since $\mathcal{T}^*$ is a contraction, the right-hand side converges to $v$, the unique fixed point of $\mathcal{T}^*$. Thus, $v_\pi\leq v$. And since $\pi$ was arbitrary, we obtain that $v_*\leq v$.&lt;br /&gt;
-Pick a policy $\pi$ such that $\mathcal{T}^\pi v=\mathcal{T}^*v$, then $v$ is also a fixed point of $\mathcal{V}^\pi$. Since $v_\pi$ is the unique fixed point of $\mathcal{T}^\pi$, we have that $v=v_\pi$, which shows that $v_*=v$ and that $\pi$ is an optimal policy.&lt;/p&gt;
+Since $\mathcal{T}^*$ is a contraction, the right-hand side converges to $v$, the unique fixed point of $\mathcal{T}^*$. Thus, $v_\pi\leq v$. And since $\pi$ was arbitrary, we obtain that $v_*\leq v$.&lt;/p&gt;
+
+&lt;p&gt;Pick a policy $\pi$ such that $\mathcal{T}^\pi v=\mathcal{T}^*v$, then $v$ is also a fixed point of $\mathcal{V}^\pi$. Since $v_\pi$ is the unique fixed point of $\mathcal{T}^\pi$, we have that $v=v_\pi$, which shows that $v_*=v$ and that $\pi$ is an optimal policy.&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;p&gt;[1] Csaba Szepesvári. &lt;a href=&quot;https://www.amazon.com/Algorithms-Reinforcement-Synthesis-Artificial-Intelligence/dp/1608454924&quot;&gt;Algorithms for Reinforcement Learning&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[1] Csaba Szepesvári. &lt;a href=&quot;https://www.amazon.com/Algorithms-Reinforcement-Synthesis-Artificial-Intelligence/dp/1608454924&quot;&gt;Algorithms for Reinforcement Learning&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[2] A. Lazaric. &lt;a href=&quot;http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf&quot;&gt;Markov Decision Processes and Dynamic Programming&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[2] A. Lazaric. &lt;a href=&quot;http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf&quot;&gt;Markov Decision Processes and Dynamic Programming&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[3] &lt;a href=&quot;https://ai.stackexchange.com/a/11133&quot;&gt;What is the Bellman operator in reinforcement learning?&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[3] &lt;a href=&quot;https://ai.stackexchange.com/a/11133&quot;&gt;What is the Bellman operator in reinforcement learning?&lt;/a&gt;. AI.StackExchange.&lt;/p&gt;
 
-&lt;p&gt;[4] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[4] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[5] &lt;a href=&quot;https://en.wikipedia.org/wiki/Normed_vector_space&quot;&gt;Normed vector space&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[5] &lt;a href=&quot;https://en.wikipedia.org/wiki/Normed_vector_space&quot;&gt;Normed vector space&lt;/a&gt;. Wikipedia.&lt;/p&gt;
 
 &lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
 

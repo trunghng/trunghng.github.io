@@ -7,7 +7,7 @@ tags: artificial-intelligent reinforcement-learning policy-gradient actor-critic
 description: Policy Gradient Methods
 comments: true
 ---
-> So far in the series, we have been choosing the actions based on the estimated action value function. On the other hand, we can instead learn a **parameterized policy**, $\boldsymbol{\theta}$, that can select actions without consulting a value function by considering the gradient of some performance measure w.r.t $\boldsymbol{\theta}$. Such methods are called **policy gradient methods**.
+> So far in the series, we have been choosing the actions based on the estimated action value function. On the other hand, we can instead learn a **parameterized policy**, $\boldsymbol{\theta}$, that can select actions without consulting a value function by updating $\boldsymbol{\theta}$ on each step in the direction of an estimate of the gradient of some performance measure w.r.t $\boldsymbol{\theta}$. Such methods are called **policy gradient methods**.
 <!-- excerpt-end -->
 
 - [Policy Gradient for Episodic Problems](#policy-grad-ep)
@@ -17,6 +17,7 @@ comments: true
 	- [Actor-Critic Methods](#actor-critic-methods)
 - [Policy Gradient for Continuing Problems](#policy-grad-cont)
 	- [The Policy Gradient Theorem](#policy-grad-theorem-cont)
+- [Policy Parameterization for Continuous Actions](#policy-prm-cont-actions)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -38,19 +39,19 @@ The policy gradient theorem for the episodic case establishes that
 where $\pi$ represents the policy corresponding to parameter vector $\boldsymbol{\theta}$.
 
 **Proof**  
-We have that the gradient of the state-value function w.r.t $\boldsymbol{\theta}$ can be written in terms of the action-value function as:
+We have that the gradient of the state-value function w.r.t $\boldsymbol{\theta}$ can be written in terms of the action-value function, for any $s\in\mathcal{S}$, as:
 \begin{align}
-\nabla_\boldsymbol{\theta}v_\pi(s)&=\nabla_\boldsymbol{\theta}\Big[\sum_a\pi(a|s)q_\pi(s,a)\Big],\hspace{1cm}\forall s\in\mathcal{S} \\\\ &=\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(a|s)q_\pi(s,a)+\pi(a|s)\nabla_\boldsymbol{\theta}q_\pi(s,a)\Big] \\\\ &=\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(s|a)q_\pi(a,s)+\pi(a|s)\nabla_\boldsymbol{\theta}\sum_{s',r}p(s',r|s,a)\big(r+v_\pi(s')\big)\Big] \\\\ &=\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(a|s)q_\pi(s,a)+\pi(a|s)\sum_{s'}p(s'|s,a)\nabla_\boldsymbol{\theta}v_\pi(s')\Big] \\\\ &=\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(a|s)q_\pi(s,a)+\pi(a|s)\sum_{s'}p(s'|s,a)\sum_{a'}\big(\nabla_\boldsymbol{\theta}\pi(s'|a')q_\pi(s',a') \\\\ &\hspace{2cm}+\pi(a'|s')\sum_{s\'\'}p(s\'\'\vert s',a')\nabla_\boldsymbol{\theta}v_\pi(s\'\')\big)\Big] \\\\ &=\sum_{x\in\mathcal{S}}\sum_{k=0}^{\infty}P(s\to x,k,\pi)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s)q_\pi(s,a),
+\nabla_\boldsymbol{\theta}v_\pi(s)&=\nabla_\boldsymbol{\theta}\Big[\sum_a\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)\Big],\hspace{1cm}\forall s\in\mathcal{S} \\\\ &=\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)+\pi(a|s,\boldsymbol{\theta})\nabla_\boldsymbol{\theta}q_\pi(s,a)\Big] \\\\ &=\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(s|a)q_\pi(a,s)+\pi(a|s,\boldsymbol{\theta})\nabla_\boldsymbol{\theta}\sum_{s',r}p(s',r|s,a)\big(r+v_\pi(s')\big)\Big] \\\\ &=\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)+\pi(a|s,\boldsymbol{\theta})\sum_{s'}p(s'|s,a)\nabla_\boldsymbol{\theta}v_\pi(s')\Big] \\\\ &=\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)+\pi(a|s,\boldsymbol{\theta})\sum_{s'}p(s'|s,a)\sum_{a'}\big(\nabla_\boldsymbol{\theta}\pi(s'|a',\boldsymbol{\theta})q_\pi(s',a') \\\\ &\hspace{2cm}+\pi(a'|s',\boldsymbol{\theta})\sum_{s\'\'}p(s\'\'\vert s',a')\nabla_\boldsymbol{\theta}v_\pi(s\'\')\big)\Big] \\\\ &=\sum_{x\in\mathcal{S}}\sum_{k=0}^{\infty}P(s\to x,k,\pi)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a),
 \end{align}
 After repeated unrolling as in the fifth step, where $P(s\to x,k,\pi)$ is the probability of transitioning from state $s$ to state $x$ in $k$ steps under policy $\pi$. It is then immediate that:
 \begin{align}
-\nabla_\boldsymbol{\theta}J(\boldsymbol{\theta})&=\nabla_\boldsymbol{\theta}v_\pi(s_0) \\\\ &=\sum_s\Big(\sum_{k=0}^{\infty}P(s_0\to s,k,\pi)\Big)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s)q_\pi(s,a) \\\\ &=\sum_s\eta(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s)q_\pi(s,a) \\\\ &=\sum_{s'}\eta(s')\sum_s\frac{\eta(s)}{\sum_{s'}\eta(s')}\sum_a\nabla_\boldsymbol{\theta}\pi(a|s)q_\pi(s,a) \\\\ &=\sum_{s'}\eta(s')\sum_s\mu(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s)q_\pi(s,a) \\\\ &\propto\sum_s\mu(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s)q_\pi(s,a),
+\nabla_\boldsymbol{\theta}J(\boldsymbol{\theta})&=\nabla_\boldsymbol{\theta}v_\pi(s_0) \\\\ &=\sum_s\Big(\sum_{k=0}^{\infty}P(s_0\to s,k,\pi)\Big)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a) \\\\ &=\sum_s\eta(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a) \\\\ &=\sum_{s'}\eta(s')\sum_s\frac{\eta(s)}{\sum_{s'}\eta(s')}\sum_a\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a) \\\\ &=\sum_{s'}\eta(s')\sum_s\mu(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a) \\\\ &\propto\sum_s\mu(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a),
 \end{align}
 where $\eta(s)$ denotes the number of time steps spent, on average, in state $s$ in a single episode:
 \begin{equation}
-\eta(s)=h(s)+\sum_{\bar{s}}\eta(\bar{s})\sum_a\pi(a|s)p(s|\bar{s},a),\hspace{1cm}\forall s\in\mathcal{S}
+\eta(s)=h(s)+\sum_{\bar{s}}\eta(\bar{s})\sum_a\pi(a|s,\boldsymbol{\theta})p(s|\bar{s},a),\hspace{1cm}\forall s\in\mathcal{S}
 \end{equation}
-where $h(s)$ denotes the probability that an episode begins in each state $s$; $\bar{s}$ denotes the preceding state of $s$. This leads to the result that we have used in the fifth step:
+where $h(s)$ denotes the probability that an episode begins in each state $s$; $\bar{s}$ denotes a preceding state of $s$. This leads to the result that we have used in the fifth step:
 \begin{equation}
 \mu(s)=\frac{\eta(s)}{\sum_{s'}\eta(s')},\hspace{1cm}\forall s\in\mathcal{S}
 \end{equation}
@@ -90,6 +91,19 @@ The vector
 \frac{\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})}{\pi(a|s,\boldsymbol{\theta})}=\nabla_\boldsymbol{\theta}\ln\pi(a|s,\boldsymbol{\theta})
 \end{equation}
 in \eqref{3} is called the **eligibility vector**.
+
+Consider using **soft-max in action preferences** with linear action preferences, which means that:
+\begin{equation}
+\pi(a|s,\boldsymbol{\theta})\doteq\dfrac{\exp\Big[h(s,a,\boldsymbol{\theta})\Big]}{\sum_b\exp\Big[h(s,b,\boldsymbol{\theta})\Big]},
+\end{equation}
+where the preferences $h(s,a,\boldsymbol{\theta})$ is defined as:
+\begin{equation}
+h(s,a,\boldsymbol{\theta})=\boldsymbol{\theta}^\intercal\mathbf{x}(s,a)
+\end{equation}
+Using the chain rule we can rewrite the eligibility vector as:
+\begin{align}
+\nabla_\boldsymbol{\theta}\ln\pi(a|s,\boldsymbol{\theta})&=\nabla_\boldsymbol{\theta}\ln{\frac{\exp\Big[\boldsymbol{\theta}^\intercal\mathbf{x}(s,a)\Big]}{\sum_b\exp\Big[\boldsymbol{\theta}^\intercal\mathbf{x}(s,b)\Big]}} \\\\ &=\nabla_\boldsymbol{\theta}\Big(\boldsymbol{\theta}^\intercal\mathbf{x}(s,a)\Big)-\nabla_\boldsymbol{\theta}\ln\sum_b\exp\Big[\boldsymbol{\theta}^\intercal\mathbf{x}(s,b)\Big] \\\\ &=\mathbf{x}(s,a)-\dfrac{\sum_b\exp\Big[\boldsymbol{\theta}^\intercal\mathbf{x}(s,b)\Big]\mathbf{x}(s,b)}{\sum_{b'}\exp\Big[\boldsymbol{\theta}^\intercal\mathbf{x}(s,b')\Big]} \\\\ &=\mathbf{x}(s,a)-\sum_b\pi(b|s,\boldsymbol{\theta})\mathbf{x}(s,b)
+\end{align}
 
 ### REINFORCE with Baseline
 {: #reinforce-baseline}
@@ -135,20 +149,66 @@ In order to obtain the backward view of the $\lambda$-return algorithm, we use s
 
 ## Policy Gradient with Continuing Problems
 {: #policy-grad-cont}
+In the continuing tasks, we define the performance measure in terms of [average-reward]({% post_url 2022-07-10-func-approx %}#avg-reward), as:
+\begin{align}
+J(\boldsymbol{\theta})\doteq r(\pi)&\doteq\lim_{h\to\infty}\frac{1}{h}\sum_{t=1}^{h}\mathbb{E}\Big[R_t\big|S_0,A_{0:1}\sim\pi\Big] \\\\ &=\lim_{t\to\infty}\mathbb{E}\Big[R_t|S_0,A_{0:1}\sim\pi\Big] \\\\ &=\sum_s\mu(s)\sum_a\pi(a|s)\sum_{s',r}p(s',r|s,a)r,\tag{7}\label{7}
+\end{align}
+where $\mu$ is the steady-state distribution under $\pi$, $\mu(s)\doteq\lim_{t\to\infty}P(S_t=s|A_{0:t}\sim\pi)$ which is assumed to exist and to be independent of $S_0$; and we also have that:
+\begin{equation}
+\sum_s\mu(s)\sum_a\pi(a|s,\boldsymbol{\theta})p(s'|s,a)=\mu(s'),\hspace{1cm}\forall s'\in\mathcal{S}
+\end{equation}
+Recall that in continuing tasks with average-reward setting, we use the [differential return]({% post_url 2022-07-10-func-approx %}#differential-return), which is defined in terms of differences between rewards and the average reward:
+\begin{equation}
+G_t\doteq R_{t+1}-r(\pi)+R_{t+2}-r(\pi)+R_{t+3}-r(\pi)+\dots\tag{8}\label{8}
+\end{equation}
+And thus, we also use the differential version of value functions, which are defined as usual except that they use the differential return \eqref{8}:
+\begin{align}
+v_\pi(s)&\doteq\mathbb{E}\_\pi\left[G_t|S_t=s\right] \\\\ q_\pi(s,a)&\doteq\mathbb{E}\_\pi\left[G_t|S_t=s,A_t=s\right]
+\end{align}
 
 ### The Policy Gradient Theorem
 {: #policy-grad-theorem-cont}
 **Theorem 2**  
+The policy gradient theorem for continuing case with average-reward states that
+\begin{equation}
+\nabla_\boldsymbol{\theta}J(\boldsymbol{\theta})=\sum_s\mu(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s)q_\pi(s,a)
+\end{equation}
 
 **Proof**  
+We have that the gradient of the state-value function w.r.t $\boldsymbol{\theta}$ can be written, for any $s\in\mathcal{S}$, as:
+\begin{align}
+\nabla_\boldsymbol{\theta}v_\pi(s)&=\boldsymbol{\theta}\Big[\sum_a\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)\Big],\hspace{1cm}\forall s\in\mathcal{S} \\\\ &=\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)+\pi(a|s,\boldsymbol{\theta})\nabla_\boldsymbol{\theta}q_\pi(s,a)\Big] \\\\ &=\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)+\pi(a|s,\boldsymbol{\theta})\nabla_\boldsymbol{\theta}\sum_{s',r}p(s',r|s,a)\big(r-r(\boldsymbol{\theta})+v_\pi(s')\big)\Big] \\\\ &=\sum_a\Bigg[\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)+\pi(a|s,\boldsymbol{\theta})\Big[-\nabla_\boldsymbol{\theta}r(\boldsymbol{\theta})+\sum_{s'}p(s'|s,a)\nabla_\boldsymbol{\theta}v_\pi(s')\Big]\Bigg]
+\end{align}
+Thus, the gradient of the performance measure w.r.t $\boldsymbol{\theta}$ is:
+\begin{align}
+\nabla_\boldsymbol{\theta}J(\boldsymbol{\theta})&=\nabla_\boldsymbol{\theta}r(\boldsymbol{\theta}) \\\\ &=\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)+\pi(a|s,\boldsymbol{\theta})\sum_{s'}p(s'|s,a)\nabla_\boldsymbol{\theta}v_\pi(s')\Big]-\nabla_\boldsymbol{\theta}v_\pi(s) \\\\ &=\sum_s\mu(s)\Bigg(\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a) \\\\ &\hspace{2cm}+\pi(a|s,\boldsymbol{\theta})\sum_{s'}p(s'|s,a)\nabla_\boldsymbol{\theta}v_\pi(s')\Big]-\nabla_\boldsymbol{\theta}v_\pi(s)\Bigg) \\\\ &=\sum_s\mu(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a) \\\\ &\hspace{2cm}+\sum_s\mu(s)\sum_a\pi(a|s,\boldsymbol{\theta})\sum_{s'}p(s'|s,a)\nabla_\boldsymbol{\theta}v_\pi(s')-\sum_s\mu(s)\nabla_\boldsymbol{\theta}v_\pi(s) \\\\ &=\sum_s\mu(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a) \\\\ &\hspace{2cm}+\sum_{s'}\sum_s\mu(s)\sum_a\pi(a|s,\boldsymbol{\theta})p(s'|s,a)\nabla_\boldsymbol{\theta}v_\pi(s')-\sum_s\mu(s)\nabla_\boldsymbol{\theta}v_\pi(s) \\\\ &=\sum_s\mu(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)+\sum_{s'}\mu(s')\nabla_\boldsymbol{\theta}v_\pi(s')-\sum_s\mu(s)\nabla_\boldsymbol{\theta}v_\pi(s) \\\\ &=\sum_s\mu(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)
+\end{align}
 
+## Policy Parameterization for Continuous Actions
+{: #policy-prm-cont-actions}
+For tasks having continuous action space with an infinite number of actions, instead of computing learned probabilities for each action, we can learn statistics of the probability distribution.  
 
+In particular, to produce a policy parameterization, the policy can be defined as the [Normal distribution]({% post_url 2021-11-22-normal-dist %}) over a real-valued scalar action, with mean and standard deviation given by parametric function approximators that depend on the state, as given:
+\begin{equation}
+\pi(a|s,\boldsymbol{\theta})\doteq\frac{1}{\sigma(s,\boldsymbol{\theta})\sqrt{2\pi}}\exp\left(-\frac{(a-\mu(s,\boldsymbol{\theta}))^2}{2\sigma(s,\boldsymbol{\theta})^2}\right),
+\end{equation}
+where $\mu:\mathcal{S}\times\mathbb{R}^{d'}\to\mathbb{R}$ and $\sigma:\mathcal{S}\times\mathbb{R}^{d'}\to\mathbb{R}^+$ are two parameterized function approximators. 
+
+We continue by dividing the policy's parameter vector, $\boldsymbol{\theta}=[\boldsymbol{\theta}\_\mu, \boldsymbol{\theta}\_\sigma]^\intercal$, into two parts: one part, $\boldsymbol{\theta}\_\mu$, is used for the approximation of the mean and the other, $\boldsymbol{\theta}\_\sigma$, is used for the approximation of the standard deviation.
+
+The mean, $\mu$, can be approximated as a linear function, while the standard deviation, $\sigma$, must always be positive, which should be approximated as the exponential of a linear function, as:
+\begin{align}
+\mu(s,\boldsymbol{\theta})&\doteq\boldsymbol{\theta}\_\mu^\intercal\mathbf{x}\_\mu(s) \\\\ \sigma(s,\boldsymbol{\theta})&\doteq\exp\Big(\boldsymbol{\theta}\_\sigma^\intercal\mathbf{x}\_\sigma(s)\Big),
+\end{align}
+where $\mathbf{x}\_\mu(s)$ and $\mathbf{x}\_\sigma(s)$ are state feature vectors corresponding to each approximator.
 
 ## References
 {: #references}
 [1] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition).  
 
 [2] Deepmind x UCL. [Reinforcement Learning Lecture Series 2021](https://www.deepmind.com/learning-resources/reinforcement-learning-lecture-series-2021). 
+
+[3] Richard S. Sutton & David McAllester & Satinder Singh & Yishay Mansour. [Policy Gradient Methods for Reinforcement Learning with Function Approximation](https://papers.nips.cc/paper/1999/hash/464d828b85b0bed98e80ade0a5c43b0f-Abstract.html). NIPS 1999.
 
 
 
