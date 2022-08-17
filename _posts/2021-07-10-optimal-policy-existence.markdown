@@ -2,8 +2,8 @@
 layout: post
 title:  "Optimal Policy Existence"
 date:   2021-07-10 13:03:00 +0700
-categories: [artificial-intelligent, reinforcement-learning]
-tags: artificial-intelligent reinforcement-learning mathematics my-rl
+categories: artificial-intelligent reinforcement-learning
+tags: artificial-intelligent reinforcement-learning mathematics bellman-equation my-rl
 description: Proof of the existence of optimal policy in finite Markov Decision Processes (MDPs)
 comments: true
 ---

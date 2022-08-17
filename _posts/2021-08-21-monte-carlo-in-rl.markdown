@@ -2,7 +2,7 @@
 layout: post
 title:  "Monte Carlo Methods in Reinforcement Learning"
 date:   2021-08-21 13:03:00 +0700
-categories: [artificial-intelligent, reinforcement-learning]
+categories: artificial-intelligent reinforcement-learning
 tags: artificial-intelligent reinforcement-learning monte-carlo importance-sampling my-rl
 description: Monte Carlo methods for solving Reinforcement Learning problems
 comments: true

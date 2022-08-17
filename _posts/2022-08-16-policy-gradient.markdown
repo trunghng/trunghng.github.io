@@ -210,7 +210,5 @@ where $\mathbf{x}\_\mu(s)$ and $\mathbf{x}\_\sigma(s)$ are state feature vectors
 
 [3] Richard S. Sutton & David McAllester & Satinder Singh & Yishay Mansour. [Policy Gradient Methods for Reinforcement Learning with Function Approximation](https://papers.nips.cc/paper/1999/hash/464d828b85b0bed98e80ade0a5c43b0f-Abstract.html). NIPS 1999.
 
-
-
 ## Footnotes
 {: #footnotes}

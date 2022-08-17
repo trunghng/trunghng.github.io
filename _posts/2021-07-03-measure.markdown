@@ -2,7 +2,7 @@
 layout: post
 title:  "Measures"
 date:   2021-07-03 07:00:00 +0700
-categories: [random-stuffs, measure-theory]
+categories: mathematics measure-theory
 tags: mathematics measure-theory random-stuffs
 description: A brief look into Measure theory
 comments: true
