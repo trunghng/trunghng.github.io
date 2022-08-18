@@ -188,10 +188,10 @@ In this case, $X$ has special notations to denote its PDF and CDF, which are
 \begin{equation}
 \Phi(x)=\int_{-\infty}^{x}\varphi(t)\,dt=\int_{-\infty}^{x}\dfrac{1}{\sqrt{2\pi}}e^{-t^2/2}\,dt
 \end{equation}
-Below is some visualizations of Normal distribution.</p>
+Below are some visualizations of Normal distribution.</p>
 
 <figure>
-	<img src="/assets/images/2021-11-22/normal.png" alt="normal distribution" width="900" height="380px" style="display: block; margin-left: auto; margin-right: auto;" />
+	<img src="/assets/images/2021-11-22/normal.png" alt="normal distribution" style="display: block; margin-left: auto; margin-right: auto; width:  900px; height: 380px" />
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: 10K normally distributed data points (5K each plot) were plotted as vertical bars on x-axis. The code can be found <span><a href="https://github.com/trunghng/maths-visualization/blob/main/bayes-optimization/gauss-dist.py">here</a></span></figcaption>
 </figure>
 <p><br /></p>
@@ -213,7 +213,7 @@ is the $k$-dimensional mean vector, and covariance matrix $\mathbf{\Sigma}\in\ma
 \begin{equation}
 	\mathbf{\Sigma}_{ij}=\mathbb{E}\left(X_i-\mu_i\right)\left(X_j-\mu_j\right)=\Cov(X_i,X_j)
 \end{equation}
-We also have that $\mathbf{\Sigma}\geq 0$ (positive semi-definite matrix)[^1].</p>
+We also have that $\mathbf{\Sigma}\geq 0$ (positive semi-definite matrix)<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>.</p>
 
 <p>Thus, the PDF of an MVN is defined as
 \begin{equation}
@@ -222,10 +222,12 @@ f_X(x_1,\ldots,x_k)=\dfrac{1}{(2\pi)^{k/2}\vert\mathbf{\Sigma}\vert^{1/2}}\exp\l
 With this idea, <em>Standard Normal</em> distribution in multi-dimensional case can be defined as a Gaussian with mean $\mathbf{\mu}=0$ (here $0$ is an $k$-dimensional vector) and identity covariance matrix $\mathbf{\Sigma}=\mathbf{I}_{k\times k}$.</p>
 
 <h3 id="bvn">Bivariate Normal</h3>
-<p>When the number of dimensions in $\mathbf{X}$, $k=2$, this special case of MVN is called the <strong>Bivariate Normal (BVN)</strong>. An example of an BVN is shown as following.</p>
+<p>When the number of dimensions in $\mathbf{X}$, $k=2$, this special case of MVN is called the <strong>Bivariate Normal (BVN)</strong>.</p>
+
+<p>An example of an BVN, $\mathcal{N}\left(\left[\begin{smallmatrix}0\\0\end{smallmatrix}\right],\left[\begin{smallmatrix}1&amp;0.5\\0.8&amp;1\end{smallmatrix}\right]\right)$, is shown as following.</p>
 
 <figure>
-	<img src="/assets/images/2021-11-22/bvn.png" alt="monte carlo method" width="750" height="350px" style="display: block; margin-left: auto; margin-right: auto;" />
+	<img src="/assets/images/2021-11-22/bvn.png" alt="monte carlo method" style="display: block; margin-left: auto; margin-right: auto; width: 750px; height: 350px" />
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: The PDF of $\mathcal{N}\left(\left[\begin{smallmatrix}0\\0\end{smallmatrix}\right],\left[\begin{smallmatrix}1&amp;0.5\\0.8&amp;1\end{smallmatrix}\right]\right)$. The code can be found <span><a href="https://github.com/trunghng/maths-visualization/blob/main/bayes-optimization/mvn.py">here</a></span></figcaption>
 </figure>
 <p><br /></p>
@@ -234,6 +236,21 @@ With this idea, <em>Standard Normal</em> distribution in multi-dimensional case 
 <p>[1] Joseph K. Blitzstein &amp; Jessica Hwang. <a href="https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573">Introduction to Probability</a>.</p>
 
 <h2 id="footnotes">Footnotes</h2>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>The definition of covariance matrix $\mathbf{\Sigma}$ can be rewritten as
+\begin{equation}
+\mathbf{\Sigma}=\Cov(\mathbf{X},\mathbf{X})=\Var(\mathbf{X})
+\end{equation}
+Let $\mathbf{z}\in\mathbb{R}^k$, we have
+\begin{equation}
+\Var(\mathbf{z}^\intercal\mathbf{X})=\mathbf{z}^\intercal\Var(\mathbf{X})\mathbf{z}=\mathbf{z}^\intercal\mathbf{\Sigma}\mathbf{z}
+\end{equation}
+And since $\Var(\mathbf{z}^\intercal\mathbf{X})\geq0$, we also have that $\mathbf{z}^\intercal\mathbf{\Sigma}\mathbf{z}\geq0$, which proves that $\mathbf{\Sigma}$ is a positive semi-definite matrix. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
 
   </div>
 <div id="disqus_thread"></div>

@@ -28,6 +28,7 @@ comments: true
 		- [Greedy-GQ(λ)](#greedy-gq-lambda)
 	- [HTD(\\(\lambda\\))](#htd-lambda)
 	- [Emphatic TD(λ)](#em-td-lambda)
+		- [Stability](#etd-stability)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -527,7 +528,7 @@ This also leads to an another version of $\delta_t^\lambda$, defined as:
 \end{equation}
 With this definition of the $\lambda$-return, we have:
 \begin{align}
-\mathbb{E}\Big[G_t^{\lambda\rho}(\mathbf{w})\big|S_t=s\Big]&=\mathbb{E}\Big[\rho_t\big(R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}\_{t+1}\big)+\rho_t\gamma_{t+1}\lambda_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_t=s\Big] \\\\ &=\mathbb{E}\Big[\rho_t\big(R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}\_{t+1}\big)\big|S_t=s\Big] \\\\ &\hspace{2cm}+\rho_t\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_t=s\Big] \\\\ &=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}\_{t+1}\big|S_t=s,\pi\Big] \\\\ &\hspace{2cm}+\sum_{a,s'}P(s'|s,a)b(a|s)\frac{\pi(a|s)}{b(a|s)}\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}\big|S_{t+1}=s'\Big] \\\\ &=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}\_{t+1}\big|S_t=s,\pi\Big] \\\\ &\hspace{2cm}+\sum_{a,s'}P(s'|s,a)\pi(a|s)\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_{t+1}=s'\Big] \\\\ &=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}\_{t+1} \\\\ &\hspace{2cm}+\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_{t+1}=s'\Big]\big|S_t=s,\pi\Big],
+\mathbb{E}\Big[G_t^{\lambda\rho}(\mathbf{w})\big|S_t=s\Big]&=\mathbb{E}\Big[\rho_t\big(R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}\_{t+1}\big)+\rho_t\gamma_{t+1}\lambda_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_t=s\Big] \\\\ &=\mathbb{E}\Big[\rho_t\big(R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}\_{t+1}\big)\big|S_t=s\Big] \\\\ &\hspace{2cm}+\rho_t\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_t=s\Big] \\\\ &=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}\_{t+1}\big|S_t=s,\pi\Big] \\\\ &\hspace{2cm}+\sum_{a,s'}p(s'|s,a)b(a|s)\frac{\pi(a|s)}{b(a|s)}\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}\big|S_{t+1}=s'\Big] \\\\ &=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}\_{t+1}\big|S_t=s,\pi\Big] \\\\ &\hspace{2cm}+\sum_{a,s'}p(s'|s,a)\pi(a|s)\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_{t+1}=s'\Big] \\\\ &=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}\_{t+1} \\\\ &\hspace{2cm}+\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_{t+1}=s'\Big]\big|S_t=s,\pi\Big],
 \end{align}
 which, as it continues to roll out, gives us:
 \begin{equation}
@@ -633,7 +634,7 @@ Let
 \end{equation}
 With the definition of the $\lambda$-return \eqref{35}, we have that:
 \begin{align}
-\mathbb{E}\Big[G_t^{\lambda\rho}(\mathbf{w})\big|S_t=s,A_t=s\Big]&=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}\Big((1-\lambda_{t+1})\mathbf{w}^\intercal\bar{\mathbf{x}}\_{t+1} \\\\ &\hspace{1cm}+\lambda_{t+1}\rho_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\Big)\big|S_t=s,A_t=a\Big] \\\\ &=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\bar{\mathbf{x}}\_{t+1}\big|S_t=s,A_t=a,\pi\Big] \\\\ &\hspace{1cm}+\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[\rho_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_t=s,A_t=a\Big] \\\\ &=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\bar{\mathbf{x}}\_{t+1}\big|S_t=s,A_t=a,\pi\Big] \\\\ &\hspace{1cm}+\sum_{s'}P(s'|s,a)\sum_{a'}b(a'|s')\frac{\pi(a'|s')}{b(a'|s')}\gamma_{t+1}\lambda_{t+1} \\\\ &\hspace{1cm}\times\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_{t+1}=s',A_{t+1}=a'\Big] \\\\ &=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\bar{\mathbf{x}}\_{t+1}\big|S_t=s,A_t=a,\pi\Big] \\\\ &\hspace{1cm}+\sum_{s',a'}P(s'|s,a)\pi(a'|s')\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_{t+1}=s',A_{t+1}=a'\Big] \\\\ &=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\bar{\mathbf{x}}\_{t+1} \\\\ &\hspace{1cm}+\gamma_{t+1}\lambda_{t_1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_{t+1}=s',A_{t+1}=a'\Big]\big|S_t=s,A_t=a,\pi\Big],
+\mathbb{E}\Big[G_t^{\lambda\rho}(\mathbf{w})\big|S_t=s,A_t=s\Big]&=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}\Big((1-\lambda_{t+1})\mathbf{w}^\intercal\bar{\mathbf{x}}\_{t+1} \\\\ &\hspace{1cm}+\lambda_{t+1}\rho_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\Big)\big|S_t=s,A_t=a\Big] \\\\ &=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\bar{\mathbf{x}}\_{t+1}\big|S_t=s,A_t=a,\pi\Big] \\\\ &\hspace{1cm}+\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[\rho_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_t=s,A_t=a\Big] \\\\ &=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\bar{\mathbf{x}}\_{t+1}\big|S_t=s,A_t=a,\pi\Big] \\\\ &\hspace{1cm}+\sum_{s'}p(s'|s,a)\sum_{a'}b(a'|s')\frac{\pi(a'|s')}{b(a'|s')}\gamma_{t+1}\lambda_{t+1} \\\\ &\hspace{1cm}\times\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_{t+1}=s',A_{t+1}=a'\Big] \\\\ &=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\bar{\mathbf{x}}\_{t+1}\big|S_t=s,A_t=a,\pi\Big] \\\\ &\hspace{1cm}+\sum_{s',a'}p(s'|s,a)\pi(a'|s')\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_{t+1}=s',A_{t+1}=a'\Big] \\\\ &=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\bar{\mathbf{x}}\_{t+1} \\\\ &\hspace{1cm}+\gamma_{t+1}\lambda_{t_1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_{t+1}=s',A_{t+1}=a'\Big]\big|S_t=s,A_t=a,\pi\Big],
 \end{align}
 which, as continues to roll out, gives us:
 \begin{equation}
@@ -728,6 +729,86 @@ Emphatic TD($\lambda$) is defined by:
 \end{align}
 where $M_t\geq 0$ is the general form of *emphasis*, $F_t\geq 0$ is the *followon trace*, and $I_t\geq 0$ is the *interest*.
 
+#### Stability
+{: #etd-stability}
+Consider any stochastic algorithm of the form,
+\begin{equation}
+\mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha(\mathbf{b}\_t-\mathbf{A}\_t\mathbf{w}\_t),
+\end{equation}
+where $\mathbf{A}\_t\in\mathbb{R}^d\times\mathbb{R}^d$ be a matrix and $\mathbf{b}\_t\in\mathbb{R}^d$ be a vector that varies over time. Let
+\begin{align}
+\mathbf{A}&\doteq\lim_{t\to\infty}\mathbb{E}\left[\mathbf{A}\_t\right], \\\\ \mathbf{b}&\doteq\lim_{t\to\infty}\mathbb{E}\left[\mathbf{b}\_t\right]
+\end{align}
+We define the stochastic update to be **stable** if and only if the corresponding deterministic algorithm,
+\begin{equation}
+\bar{\mathbf{w}}\_{t+1}\doteq\bar{\mathbf{w}}\_t+\alpha\left(\mathbf{b}-\mathbf{A}\bar{\mathbf{w}}\_t\right),
+\end{equation}
+is convergent to a unique fixed point independent of the initial $\bar{\mathbf{w}}\_0$. This will occur iff $\mathbf{A}$ has a full set of eigenvalues having positive real parts, which can be proved if $\mathbf{A}$ is positive definite.
+
+With this definition of stability, in order to exam the stability of ETD($\lambda$), we begin by considering the SGD update for the weight vector $\mathbf{w}$ at time step $t$.
+\begin{align}
+\mathbf{w}\_{t+1}&\doteq\mathbf{w}\_t+\alpha\left(R_{t+1}+\gamma_{t+1}\mathbf{w}\_t^\intercal\mathbf{x}\_{t+1}-\mathbf{w}\_t^\intercal\mathbf{x}\_t\right)\mathbf{z}\_t \\\\ &=\mathbf{w}\_t+\alpha\left(\mathbf{z}\_t R_{t+1}-\mathbf{z}\_t\left(\mathbf{x}\_t-\gamma_{t+1}\mathbf{x}\_{t+1}\right)^\intercal\mathbf{w}\_t\right)
+\end{align}
+Let $\mathbf{A}\_t\in\mathbb{R}^d\times\mathbb{R}^d$ be a matrix and $\mathbf{b}\_t\in\mathbb{R}^d$ be a vector such that:
+\begin{align}
+\mathbf{A}\_t&\doteq\mathbf{z}\_t\left(\mathbf{x}\_t-\gamma_{t+1}\mathbf{x}\_{t+1}\right)^\intercal, \\\\ \mathbf{b}\_t&\doteq\mathbf{z}\_t R_{t+1}
+\end{align}
+The stochastic update is then can be written as:
+\begin{align}
+\mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\left(\mathbf{b}\_t-\mathbf{A}\_t\mathbf{w}\_t\right)
+\end{align}
+From the definition of $\mathbf{A}$, we have:
+\begin{align}
+\mathbf{A}&=\lim_{t\to\infty}\mathbb{E}\left[\mathbf{A}\_t\right] \\\\ &=\lim_{t\to\infty}\mathbb{E}\_b\Big[\mathbf{z}\_t\big(\mathbf{x}\_t-\gamma_{t+1}\mathbf{x}\_{t+1}\big)^\intercal\Big] \\\\ &=\sum_s\mu(s)\lim_{t\to\infty}\mathbb{E}\_b\Big[\mathbf{z}\_t\big(\mathbf{x}\_t-\gamma_{t+1}\mathbf{x}\_{t+1}\big)^\intercal\big|S_t=s\Big] \\\\ &=\sum_s\mu(s)\lim_{t\to\infty}\mathbb{E}\_b\Big[\rho_t\big(\gamma_t\lambda_t\mathbf{z}\_{t-1}+M_t\mathbf{x}\_t\big)\big(\mathbf{x}\_t-\gamma_{t+1}\mathbf{x}\_{t+1}\big)^\intercal\big|S_t=s\Big] \\\\ &=\sum_s\mu(s)\lim_{t\to\infty}\mathbb{E}\_b\Big[\gamma_t\lambda_t\mathbf{z}\_{t-1}+M_t\mathbf{x}\_t\big|S_t=s\Big]\mathbb{E}\_b\Big[\rho_t\big(\mathbf{x}\_t-\gamma_{t+1}\mathbf{x}\_{t+1}\big)^\intercal\big|S_t=s\Big] \\\\ &=\sum_s\underbrace{\mu(s)\lim_{t\to\infty}\mathbb{E}\_b\Big[\gamma_t\lambda_t\mathbf{z}\_{t-1}+M_t\mathbf{x}\_t\big|S_t=s\Big]}\_{\mathbf{z}(s)}\mathbb{E}\_b\Big[\rho_k\big(\mathbf{x}\_k-\gamma_{k+1}\mathbf{x}\_{k+1}\big)^\intercal\big|S_k=s\Big] \\\\ &=\sum_s\mathbf{z}(s)\mathbb{E}\_\pi\Big[\mathbf{x}\_k-\gamma_{k+1}\mathbf{x}\_{k+1}\big|S_k=s\Big] \\\\ &=\sum_s\mathbf{z}(s)\Big(\mathbf{x}\_t-\sum_{s'}\left[\mathbf{P}\_\pi\right]\_{ss'}\gamma(s')\mathbf{x}(s')\Big)^\intercal \\\\ &=\mathbf{Z}\left(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma}\right)\mathbf{X},\tag{40}\label{40}
+\end{align}
+where
+- in the fifth step, given $S_t=s$, $\mathbf{z}\_{t-1}$ and $M_t$ are independent of $\rho_t(\mathbf{x}\_t-\gamma_{t+1}\mathbf{x}\_{t+1})^\intercal$;
+- $\mathbf{P}\_\pi$ represents the $\vert\mathcal{S}\vert\times\vert\mathcal{S}\vert$ matrix of transition probabilities:
+\begin{equation}
+\left[\mathbf{P}\_\pi\right]\_{ij}\doteq\sum_a\pi(a|i)p(j|i,a),
+\end{equation}
+where $p(j|i,a)\doteq P(S_{t+1}=j|S_i=s,A_i=a)$.
+- $\mathbf{Z}$ is a $\vert\mathcal{S}\vert\times d$ matrix, whose rows are $\mathbf{z}(s)$'s (i.e., $\mathbf{Z}^\intercal\doteq\left[\mathbf{z}(s_1),\dots,\mathbf{z}(s_{\vert\mathcal{S}\vert})\right]$), with $\mathbf{z}(s)\in\mathbb{R}^d$ is a vector defined by[^1]:
+\begin{align}
+\mathbf{z}(s)&\doteq\mu(s)\lim_{t\to\infty}\mathbb{E}\_b\Big[\gamma_t\lambda_t\mathbf{z}\_{t-1}+M_t\mathbf{x}\_t\big|S_t=s\Big] \\\\ &=\underbrace{\mu_(s)\lim_{t\to\infty}\mathbb{E}\_b\Big[M_t\big|S_t=s\Big]}\_{m(s)}\mathbf{x}\_t+\gamma(s)\lambda(s)\mu(s)\lim_{t\to\infty}\mathbb{E}\_b\Big[\mathbf{z}\_{t-1}\big|S_t=s\Big] \\\\ &=m(s)\mathbf{x}(s)+\gamma(s)\lambda(s)\mu(s)\lim_{t\to\infty}\sum_{\bar{s},\bar{a}}p(S_{t-1}=\bar{s},A_{t-1}=\bar{a}|S_t=s) \\\\ &\hspace{2cm}\times\mathbb{E}\_b\Big[\mathbf{z}\_{t-1}\big|S_{t-1}=\bar{s},A_{t-1}=\bar{a}\Big] \\\\ &=m(s)\mathbf{x}(s)+\gamma(s)\lambda(s)\mu(s)\sum_{\bar{s},\bar{a}}\frac{\mu(\bar{s})b(\bar{a}|\bar{s})p(s|\bar{s},\bar{a})}{\mu(s)} \\\\ &\hspace{2cm}\times\lim_{t\to\infty}\mathbb{E}\_b\Big[\mathbf{z}\_{t-1}\big|S_{t-1}=\bar{s},A_{t-1}=\bar{a}\Big] \\\\ &=m(s)\mathbf{x}(s)+\gamma(s)\lambda(s)\sum_{\bar{s},\bar{a}}\mu(\bar{s})b(\bar{a}|\bar{s})p(s|\bar{s},\bar{a})\frac{\pi(\bar{a}|\bar{s})}{b(\bar{a}|\bar{s})} \\\\\ &\hspace{2cm}\times\lim_{t\to\infty}\mathbb{E}\_b\Big[\gamma_{t-1}\lambda_{t-1}\mathbf{z}\_{t-2}+M_{t-1}\mathbf{x}\_{t-1}\big|S_t=s\Big] \\\\ &=m(s)\mathbf{x}(s)+\gamma(s)\lambda(s)\sum_{\bar{s}}\Big(\sum_{\bar{a}}\pi(\bar{a}|\bar{s})p(s|\bar{s},\bar{a})\Big)\mathbf{z}(\bar{s}) \\\\ &=m(s)\mathbf{x}(s)+\gamma(s)\lambda(s)\sum_{\bar{s}}\left[\mathbf{P}\_\pi\right]\_{\bar{s}s}\mathbf{z}(\bar{s})\tag{41}\label{41}
+\end{align}
+
+We now introduce three $\vert\mathcal{S}\vert\times\vert\mathcal{S}\vert$ diagonal matrices:
+- $\mathbf{M}$, which has the $m(s)\doteq\mu(s)\lim_{t\to\infty}\mathbb{E}\_b\Big[M_t\big\vert S_t=s\Big]$ on its diagonal;
+- $\mathbf{\Gamma}$, which has the $\gamma(s)$ on its diagonal;
+- $\mathbf{\Lambda}$, which has the $\lambda(s)$ on its diagonal. 
+
+With these matrices, we can rewrite \eqref{41} in matrix form, as:
+\begin{align}
+\mathbf{Z}^\intercal&=\mathbf{X}^\intercal\mathbf{M}+\mathbf{Z}^\intercal\mathbf{P}\_\pi\mathbf{\Gamma}\mathbf{\Lambda} \\\\ \Rightarrow\mathbf{Z}^\intercal&=\mathbf{X}^\intercal\mathbf{M}(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}
+\end{align}
+Substitute this equation back to \eqref{40}, we obtain:
+\begin{equation}
+\mathbf{A}=\mathbf{X}^\intercal\mathbf{M}(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma})\mathbf{X}\tag{42}\label{42}
+\end{equation}
+Doing similar steps, we can also obtain the ETD($\lambda$)'s $\mathbf{b}$ vector:
+\begin{equation}
+\mathbf{b}=\mathbf{Z}\mathbf{r}\_\pi=\mathbf{X}^\intercal\mathbf{M}(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}\mathbf{r}\_\pi,
+\end{equation}
+where $\mathbf{r}\_\pi\in\mathbb{R}^{\vert\mathcal{S}\vert}$ is the vector of expected immediate rewards from each state under $\pi$.
+
+Since the positive definiteness of $\mathbf{A}$ implies the stability of the algorithm, from \eqref{42}, it is sufficient to prove the positive definiteness of the **key matrix** $\mathbf{M}(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma})$ because this matrix can written in the form of:
+\begin{equation}
+\mathbf{X}^\intercal\mathbf{M}(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma})\mathbf{X}=\sum_{i=1}^{\vert\mathcal{S}\vert}\mathbf{x}\_i^\intercal\mathbf{M}(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma})\mathbf{x}\_i
+\end{equation}
+To prove this definiteness, we begin by writing the last part of the key matrix in form of the identity matrix minus a probability matrix.
+
+Let $\mathbf{P}\_\pi^\lambda$ be the matrix with this probability as its $\\{ij\\}$-component. This matrix can be written as:
+\begin{align}
+\mathbf{P}\_\pi^\lambda&=\mathbf{P}\_\pi\mathbf{\Gamma}(\mathbf{I}-\mathbf{\Lambda})+\mathbf{P}\_\pi\mathbf{\Gamma}\mathbf{\Lambda}\mathbf{P}\_\pi\mathbf{\Gamma}(\mathbf{I}-\mathbf{\Lambda})+\mathbf{P}\_\pi\mathbf{\Gamma}(\mathbf{\Lambda}\mathbf{P}\_\pi\mathbf{\Gamma})^2(\mathbf{I}-\mathbf{\Gamma}) \\\\ &=\left(\sum_{k=0}^{\infty}(\mathbf{P}\_\pi\mathbf{\Gamma}\mathbf{\Lambda})^k\right)\mathbf{P}\_\pi\mathbf{\Gamma}(\mathbf{I}-\mathbf{\Lambda}) \\\\ &=(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}\mathbf{P}\_\pi\mathbf{\Gamma}(\mathbf{I}-\mathbf{\Lambda}) \\\\ &=(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{P}\_\pi\mathbf{\Gamma}-\mathbf{P}\_\pi\mathbf{\Gamma}\mathbf{\Lambda}) \\\\ &=(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{P}\_\pi\mathbf{\Gamma}-\mathbf{I}+\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma}\mathbf{\Lambda}) \\\\ &=\mathbf{I}-(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma}),
+\end{align}
+or
+\begin{equation}
+\mathbf{I}-\mathbf{P}\_\pi^\lambda=\mathbf{P}\_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma})\tag{43}\label{43}
+\end{equation}
+
+
+
 ## References
 {: #references}
 [1] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition).  
@@ -744,9 +825,10 @@ where $M_t\geq 0$ is the general form of *emphasis*, $F_t\geq 0$ is the *followo
 
 [7] Hamid Reza Maei & Richard S. Sutton [GQ($\lambda$): A general gradient algorithm for temporal-difference prediction learning with eligibility traces](http://dx.doi.org/10.2991/agi.2010.22). 
 
-[8] A. Rupam Mahmood & Huizhen Yu & Martha White & Richard S. Sutton. [Emphatic Temporal-Difference Learning](https://doi.org/10.48550/arXiv.1507.01569). 
+[8] Richard S. Sutton & A. Rupam Mahmood & Martha White. [An Emphatic Approach to the Problem of Off-policy Temporal-Difference Learning](https://arxiv.org/abs/1503.04269). 
 
 [9] Shangtong Zhang. [Reinforcement Learning: An Introduction implementation](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction). 
 
 ## Footnotes
 {: #footnotes}
+[^1]: $\mathbf{z}\_t$ is a vector random variable, one per time step, while $\mathbf{z}(s)$ is a vector expectation, one per state.

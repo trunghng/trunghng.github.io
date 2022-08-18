@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-17T19:19:03+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-18T16:17:22+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Normal Distribution</title><link href="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html" rel="alternate" type="text/html" title="Normal Distribution" /><published>2021-11-22T14:46:00+07:00</published><updated>2021-11-22T14:46:00+07:00</updated><id>http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist</id><content type="html" xml:base="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html">&lt;blockquote&gt;
   &lt;p&gt;A note on Normal distribution.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -40,10 +40,10 @@ In this case, $X$ has special notations to denote its PDF and CDF, which are
 \begin{equation}
 \Phi(x)=\int_{-\infty}^{x}\varphi(t)\,dt=\int_{-\infty}^{x}\dfrac{1}{\sqrt{2\pi}}e^{-t^2/2}\,dt
 \end{equation}
-Below is some visualizations of Normal distribution.&lt;/p&gt;
+Below are some visualizations of Normal distribution.&lt;/p&gt;
 
 &lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2021-11-22/normal.png&quot; alt=&quot;normal distribution&quot; width=&quot;900&quot; height=&quot;380px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;img src=&quot;/assets/images/2021-11-22/normal.png&quot; alt=&quot;normal distribution&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width:  900px; height: 380px&quot; /&gt;
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 1&lt;/b&gt;: 10K normally distributed data points (5K each plot) were plotted as vertical bars on x-axis. The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/maths-visualization/blob/main/bayes-optimization/gauss-dist.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
@@ -65,7 +65,7 @@ is the $k$-dimensional mean vector, and covariance matrix $\mathbf{\Sigma}\in\ma
 \begin{equation}
 	\mathbf{\Sigma}_{ij}=\mathbb{E}\left(X_i-\mu_i\right)\left(X_j-\mu_j\right)=\Cov(X_i,X_j)
 \end{equation}
-We also have that $\mathbf{\Sigma}\geq 0$ (positive semi-definite matrix)[^1].&lt;/p&gt;
+We also have that $\mathbf{\Sigma}\geq 0$ (positive semi-definite matrix)&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
 
 &lt;p&gt;Thus, the PDF of an MVN is defined as
 \begin{equation}
@@ -74,10 +74,12 @@ f_X(x_1,\ldots,x_k)=\dfrac{1}{(2\pi)^{k/2}\vert\mathbf{\Sigma}\vert^{1/2}}\exp\l
 With this idea, &lt;em&gt;Standard Normal&lt;/em&gt; distribution in multi-dimensional case can be defined as a Gaussian with mean $\mathbf{\mu}=0$ (here $0$ is an $k$-dimensional vector) and identity covariance matrix $\mathbf{\Sigma}=\mathbf{I}_{k\times k}$.&lt;/p&gt;
 
 &lt;h3 id=&quot;bvn&quot;&gt;Bivariate Normal&lt;/h3&gt;
-&lt;p&gt;When the number of dimensions in $\mathbf{X}$, $k=2$, this special case of MVN is called the &lt;strong&gt;Bivariate Normal (BVN)&lt;/strong&gt;. An example of an BVN is shown as following.&lt;/p&gt;
+&lt;p&gt;When the number of dimensions in $\mathbf{X}$, $k=2$, this special case of MVN is called the &lt;strong&gt;Bivariate Normal (BVN)&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;An example of an BVN, $\mathcal{N}\left(\left[\begin{smallmatrix}0\\0\end{smallmatrix}\right],\left[\begin{smallmatrix}1&amp;amp;0.5\\0.8&amp;amp;1\end{smallmatrix}\right]\right)$, is shown as following.&lt;/p&gt;
 
 &lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2021-11-22/bvn.png&quot; alt=&quot;monte carlo method&quot; width=&quot;750&quot; height=&quot;350px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;img src=&quot;/assets/images/2021-11-22/bvn.png&quot; alt=&quot;monte carlo method&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 750px; height: 350px&quot; /&gt;
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 2&lt;/b&gt;: The PDF of $\mathcal{N}\left(\left[\begin{smallmatrix}0\\0\end{smallmatrix}\right],\left[\begin{smallmatrix}1&amp;amp;0.5\\0.8&amp;amp;1\end{smallmatrix}\right]\right)$. The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/maths-visualization/blob/main/bayes-optimization/mvn.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
@@ -85,7 +87,22 @@ With this idea, &lt;em&gt;Standard Normal&lt;/em&gt; distribution in multi-dimen
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Joseph K. Blitzstein &amp;amp; Jessica Hwang. &lt;a href=&quot;https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573&quot;&gt;Introduction to Probability&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="probability-statistics" /><category term="mathematics" /><category term="probability-statistics" /><category term="normal-distribution" /><summary type="html">A note on Normal distribution.</summary></entry><entry><title type="html">Power Series</title><link href="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>http://localhost:4000/mathematics/calculus/2021/09/21/power-series</id><content type="html" xml:base="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html">&lt;blockquote&gt;
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;The definition of covariance matrix $\mathbf{\Sigma}$ can be rewritten as
+\begin{equation}
+\mathbf{\Sigma}=\Cov(\mathbf{X},\mathbf{X})=\Var(\mathbf{X})
+\end{equation}
+Let $\mathbf{z}\in\mathbb{R}^k$, we have
+\begin{equation}
+\Var(\mathbf{z}^\intercal\mathbf{X})=\mathbf{z}^\intercal\Var(\mathbf{X})\mathbf{z}=\mathbf{z}^\intercal\mathbf{\Sigma}\mathbf{z}
+\end{equation}
+And since $\Var(\mathbf{z}^\intercal\mathbf{X})\geq0$, we also have that $\mathbf{z}^\intercal\mathbf{\Sigma}\mathbf{z}\geq0$, which proves that $\mathbf{\Sigma}$ is a positive semi-definite matrix. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="probability-statistics" /><category term="mathematics" /><category term="probability-statistics" /><category term="normal-distribution" /><summary type="html">A note on Normal distribution.</summary></entry><entry><title type="html">Power Series</title><link href="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>http://localhost:4000/mathematics/calculus/2021/09/21/power-series</id><content type="html" xml:base="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html">&lt;blockquote&gt;
   &lt;p&gt;Recall that in the previous post, &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html&quot;&gt;Infinite Series of Constants&lt;/a&gt;, we mentioned a type of series called &lt;strong&gt;power series&lt;/strong&gt; a lot. In the content of this post, we will be diving deeper into details of that series.&lt;/p&gt;
 &lt;/blockquote&gt;
 

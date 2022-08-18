@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-17T19:19:03+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-18T16:17:22+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Policy Gradient Methods</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient.html" rel="alternate" type="text/html" title="Policy Gradient Methods" /><published>2022-08-16T14:00:00+07:00</published><updated>2022-08-16T14:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient.html">&lt;blockquote&gt;
   &lt;p&gt;So far in the series, we have been choosing the actions based on the estimated action value function. On the other hand, we can instead learn a &lt;strong&gt;parameterized policy&lt;/strong&gt;, $\boldsymbol{\theta}$, that can select actions without consulting a value function by updating $\boldsymbol{\theta}$ on each step in the direction of an estimate of the gradient of some performance measure w.r.t $\boldsymbol{\theta}$. Such methods are called &lt;strong&gt;policy gradient methods&lt;/strong&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -236,7 +236,11 @@ where $\mathbf{x}_\mu(s)$ and $\mathbf{x}_\sigma(s)$ are state feature vectors c
         &lt;/ul&gt;
       &lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#htd-lambda&quot;&gt;HTD(\(\lambda\))&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#em-td-lambda&quot;&gt;Emphatic TD(λ)&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#em-td-lambda&quot;&gt;Emphatic TD(λ)&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#etd-stability&quot;&gt;Stability&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
@@ -731,7 +735,7 @@ This also leads to an another version of $\delta_t^\lambda$, defined as:
 \end{equation}
 With this definition of the $\lambda$-return, we have:
 \begin{align}
-\mathbb{E}\Big[G_t^{\lambda\rho}(\mathbf{w})\big|S_t=s\Big]&amp;amp;=\mathbb{E}\Big[\rho_t\big(R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}_{t+1}\big)+\rho_t\gamma_{t+1}\lambda_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_t=s\Big] \\ &amp;amp;=\mathbb{E}\Big[\rho_t\big(R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}_{t+1}\big)\big|S_t=s\Big] \\ &amp;amp;\hspace{2cm}+\rho_t\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_t=s\Big] \\ &amp;amp;=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}_{t+1}\big|S_t=s,\pi\Big] \\ &amp;amp;\hspace{2cm}+\sum_{a,s’}P(s’|s,a)b(a|s)\frac{\pi(a|s)}{b(a|s)}\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}\big|S_{t+1}=s’\Big] \\ &amp;amp;=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}_{t+1}\big|S_t=s,\pi\Big] \\ &amp;amp;\hspace{2cm}+\sum_{a,s’}P(s’|s,a)\pi(a|s)\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_{t+1}=s’\Big] \\ &amp;amp;=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}_{t+1} \\ &amp;amp;\hspace{2cm}+\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_{t+1}=s’\Big]\big|S_t=s,\pi\Big],
+\mathbb{E}\Big[G_t^{\lambda\rho}(\mathbf{w})\big|S_t=s\Big]&amp;amp;=\mathbb{E}\Big[\rho_t\big(R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}_{t+1}\big)+\rho_t\gamma_{t+1}\lambda_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_t=s\Big] \\ &amp;amp;=\mathbb{E}\Big[\rho_t\big(R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}_{t+1}\big)\big|S_t=s\Big] \\ &amp;amp;\hspace{2cm}+\rho_t\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_t=s\Big] \\ &amp;amp;=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}_{t+1}\big|S_t=s,\pi\Big] \\ &amp;amp;\hspace{2cm}+\sum_{a,s’}p(s’|s,a)b(a|s)\frac{\pi(a|s)}{b(a|s)}\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}\big|S_{t+1}=s’\Big] \\ &amp;amp;=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}_{t+1}\big|S_t=s,\pi\Big] \\ &amp;amp;\hspace{2cm}+\sum_{a,s’}p(s’|s,a)\pi(a|s)\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_{t+1}=s’\Big] \\ &amp;amp;=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}_{t+1} \\ &amp;amp;\hspace{2cm}+\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_{t+1}=s’\Big]\big|S_t=s,\pi\Big],
 \end{align}
 which, as it continues to roll out, gives us:
 \begin{equation}
@@ -836,7 +840,7 @@ Let
 \end{equation}
 With the definition of the $\lambda$-return \eqref{35}, we have that:
 \begin{align}
-\mathbb{E}\Big[G_t^{\lambda\rho}(\mathbf{w})\big|S_t=s,A_t=s\Big]&amp;amp;=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}\Big((1-\lambda_{t+1})\mathbf{w}^\intercal\bar{\mathbf{x}}_{t+1} \\ &amp;amp;\hspace{1cm}+\lambda_{t+1}\rho_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\Big)\big|S_t=s,A_t=a\Big] \\ &amp;amp;=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\bar{\mathbf{x}}_{t+1}\big|S_t=s,A_t=a,\pi\Big] \\ &amp;amp;\hspace{1cm}+\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[\rho_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_t=s,A_t=a\Big] \\ &amp;amp;=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\bar{\mathbf{x}}_{t+1}\big|S_t=s,A_t=a,\pi\Big] \\ &amp;amp;\hspace{1cm}+\sum_{s’}P(s’|s,a)\sum_{a’}b(a’|s’)\frac{\pi(a’|s’)}{b(a’|s’)}\gamma_{t+1}\lambda_{t+1} \\ &amp;amp;\hspace{1cm}\times\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_{t+1}=s’,A_{t+1}=a’\Big] \\ &amp;amp;=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\bar{\mathbf{x}}_{t+1}\big|S_t=s,A_t=a,\pi\Big] \\ &amp;amp;\hspace{1cm}+\sum_{s’,a’}P(s’|s,a)\pi(a’|s’)\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_{t+1}=s’,A_{t+1}=a’\Big] \\ &amp;amp;=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\bar{\mathbf{x}}_{t+1} \\ &amp;amp;\hspace{1cm}+\gamma_{t+1}\lambda_{t_1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_{t+1}=s’,A_{t+1}=a’\Big]\big|S_t=s,A_t=a,\pi\Big],
+\mathbb{E}\Big[G_t^{\lambda\rho}(\mathbf{w})\big|S_t=s,A_t=s\Big]&amp;amp;=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}\Big((1-\lambda_{t+1})\mathbf{w}^\intercal\bar{\mathbf{x}}_{t+1} \\ &amp;amp;\hspace{1cm}+\lambda_{t+1}\rho_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\Big)\big|S_t=s,A_t=a\Big] \\ &amp;amp;=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\bar{\mathbf{x}}_{t+1}\big|S_t=s,A_t=a,\pi\Big] \\ &amp;amp;\hspace{1cm}+\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[\rho_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_t=s,A_t=a\Big] \\ &amp;amp;=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\bar{\mathbf{x}}_{t+1}\big|S_t=s,A_t=a,\pi\Big] \\ &amp;amp;\hspace{1cm}+\sum_{s’}p(s’|s,a)\sum_{a’}b(a’|s’)\frac{\pi(a’|s’)}{b(a’|s’)}\gamma_{t+1}\lambda_{t+1} \\ &amp;amp;\hspace{1cm}\times\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_{t+1}=s’,A_{t+1}=a’\Big] \\ &amp;amp;=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\bar{\mathbf{x}}_{t+1}\big|S_t=s,A_t=a,\pi\Big] \\ &amp;amp;\hspace{1cm}+\sum_{s’,a’}p(s’|s,a)\pi(a’|s’)\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_{t+1}=s’,A_{t+1}=a’\Big] \\ &amp;amp;=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\bar{\mathbf{x}}_{t+1} \\ &amp;amp;\hspace{1cm}+\gamma_{t+1}\lambda_{t_1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_{t+1}=s’,A_{t+1}=a’\Big]\big|S_t=s,A_t=a,\pi\Big],
 \end{align}
 which, as continues to roll out, gives us:
 \begin{equation}
@@ -928,6 +932,87 @@ where $\beta&amp;gt;0$ is a step-size parameter; $\mathbf{v}_t$ is initialized a
 \end{align}
 where $M_t\geq 0$ is the general form of &lt;em&gt;emphasis&lt;/em&gt;, $F_t\geq 0$ is the &lt;em&gt;followon trace&lt;/em&gt;, and $I_t\geq 0$ is the &lt;em&gt;interest&lt;/em&gt;.&lt;/p&gt;
 
+&lt;h4 id=&quot;etd-stability&quot;&gt;Stability&lt;/h4&gt;
+&lt;p&gt;Consider any stochastic algorithm of the form,
+\begin{equation}
+\mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha(\mathbf{b}_t-\mathbf{A}_t\mathbf{w}_t),
+\end{equation}
+where $\mathbf{A}_t\in\mathbb{R}^d\times\mathbb{R}^d$ be a matrix and $\mathbf{b}_t\in\mathbb{R}^d$ be a vector that varies over time. Let
+\begin{align}
+\mathbf{A}&amp;amp;\doteq\lim_{t\to\infty}\mathbb{E}\left[\mathbf{A}_t\right], \\ \mathbf{b}&amp;amp;\doteq\lim_{t\to\infty}\mathbb{E}\left[\mathbf{b}_t\right]
+\end{align}
+We define the stochastic update to be &lt;strong&gt;stable&lt;/strong&gt; if and only if the corresponding deterministic algorithm,
+\begin{equation}
+\bar{\mathbf{w}}_{t+1}\doteq\bar{\mathbf{w}}_t+\alpha\left(\mathbf{b}-\mathbf{A}\bar{\mathbf{w}}_t\right),
+\end{equation}
+is convergent to a unique fixed point independent of the initial $\bar{\mathbf{w}}_0$. This will occur iff $\mathbf{A}$ has a full set of eigenvalues having positive real parts, which can be proved if $\mathbf{A}$ is positive definite.&lt;/p&gt;
+
+&lt;p&gt;With this definition of stability, in order to exam the stability of ETD($\lambda$), we begin by considering the SGD update for the weight vector $\mathbf{w}$ at time step $t$.
+\begin{align}
+\mathbf{w}_{t+1}&amp;amp;\doteq\mathbf{w}_t+\alpha\left(R_{t+1}+\gamma_{t+1}\mathbf{w}_t^\intercal\mathbf{x}_{t+1}-\mathbf{w}_t^\intercal\mathbf{x}_t\right)\mathbf{z}_t \\ &amp;amp;=\mathbf{w}_t+\alpha\left(\mathbf{z}_t R_{t+1}-\mathbf{z}_t\left(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\right)^\intercal\mathbf{w}_t\right)
+\end{align}
+Let $\mathbf{A}_t\in\mathbb{R}^d\times\mathbb{R}^d$ be a matrix and $\mathbf{b}_t\in\mathbb{R}^d$ be a vector such that:
+\begin{align}
+\mathbf{A}_t&amp;amp;\doteq\mathbf{z}_t\left(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\right)^\intercal, \\ \mathbf{b}_t&amp;amp;\doteq\mathbf{z}_t R_{t+1}
+\end{align}
+The stochastic update is then can be written as:
+\begin{align}
+\mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\left(\mathbf{b}_t-\mathbf{A}_t\mathbf{w}_t\right)
+\end{align}
+From the definition of $\mathbf{A}$, we have:
+\begin{align}
+\mathbf{A}&amp;amp;=\lim_{t\to\infty}\mathbb{E}\left[\mathbf{A}_t\right] \\ &amp;amp;=\lim_{t\to\infty}\mathbb{E}_b\Big[\mathbf{z}_t\big(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\big)^\intercal\Big] \\ &amp;amp;=\sum_s\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\mathbf{z}_t\big(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\big)^\intercal\big|S_t=s\Big] \\ &amp;amp;=\sum_s\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\rho_t\big(\gamma_t\lambda_t\mathbf{z}_{t-1}+M_t\mathbf{x}_t\big)\big(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\big)^\intercal\big|S_t=s\Big] \\ &amp;amp;=\sum_s\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\gamma_t\lambda_t\mathbf{z}_{t-1}+M_t\mathbf{x}_t\big|S_t=s\Big]\mathbb{E}_b\Big[\rho_t\big(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\big)^\intercal\big|S_t=s\Big] \\ &amp;amp;=\sum_s\underbrace{\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\gamma_t\lambda_t\mathbf{z}_{t-1}+M_t\mathbf{x}_t\big|S_t=s\Big]}_{\mathbf{z}(s)}\mathbb{E}_b\Big[\rho_k\big(\mathbf{x}_k-\gamma_{k+1}\mathbf{x}_{k+1}\big)^\intercal\big|S_k=s\Big] \\ &amp;amp;=\sum_s\mathbf{z}(s)\mathbb{E}_\pi\Big[\mathbf{x}_k-\gamma_{k+1}\mathbf{x}_{k+1}\big|S_k=s\Big] \\ &amp;amp;=\sum_s\mathbf{z}(s)\Big(\mathbf{x}_t-\sum_{s’}\left[\mathbf{P}_\pi\right]_{ss’}\gamma(s’)\mathbf{x}(s’)\Big)^\intercal \\ &amp;amp;=\mathbf{Z}\left(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\right)\mathbf{X},\tag{40}\label{40}
+\end{align}
+where&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;in the fifth step, given $S_t=s$, $\mathbf{z}_{t-1}$ and $M_t$ are independent of $\rho_t(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1})^\intercal$;&lt;/li&gt;
+  &lt;li&gt;$\mathbf{P}_\pi$ represents the $\vert\mathcal{S}\vert\times\vert\mathcal{S}\vert$ matrix of transition probabilities:
+\begin{equation}
+\left[\mathbf{P}_\pi\right]_{ij}\doteq\sum_a\pi(a|i)p(j|i,a),
+\end{equation}
+where $p(j|i,a)\doteq P(S_{t+1}=j|S_i=s,A_i=a)$.&lt;/li&gt;
+  &lt;li&gt;$\mathbf{Z}$ is a $\vert\mathcal{S}\vert\times d$ matrix, whose rows are $\mathbf{z}(s)$’s (i.e., $\mathbf{Z}^\intercal\doteq\left[\mathbf{z}(s_1),\dots,\mathbf{z}(s_{\vert\mathcal{S}\vert})\right]$), with $\mathbf{z}(s)\in\mathbb{R}^d$ is a vector defined by&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;:
+\begin{align}
+\mathbf{z}(s)&amp;amp;\doteq\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\gamma_t\lambda_t\mathbf{z}_{t-1}+M_t\mathbf{x}_t\big|S_t=s\Big] \\ &amp;amp;=\underbrace{\mu_(s)\lim_{t\to\infty}\mathbb{E}_b\Big[M_t\big|S_t=s\Big]}_{m(s)}\mathbf{x}_t+\gamma(s)\lambda(s)\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\mathbf{z}_{t-1}\big|S_t=s\Big] \\ &amp;amp;=m(s)\mathbf{x}(s)+\gamma(s)\lambda(s)\mu(s)\lim_{t\to\infty}\sum_{\bar{s},\bar{a}}p(S_{t-1}=\bar{s},A_{t-1}=\bar{a}|S_t=s) \\ &amp;amp;\hspace{2cm}\times\mathbb{E}_b\Big[\mathbf{z}_{t-1}\big|S_{t-1}=\bar{s},A_{t-1}=\bar{a}\Big] \\ &amp;amp;=m(s)\mathbf{x}(s)+\gamma(s)\lambda(s)\mu(s)\sum_{\bar{s},\bar{a}}\frac{\mu(\bar{s})b(\bar{a}|\bar{s})p(s|\bar{s},\bar{a})}{\mu(s)} \\ &amp;amp;\hspace{2cm}\times\lim_{t\to\infty}\mathbb{E}_b\Big[\mathbf{z}_{t-1}\big|S_{t-1}=\bar{s},A_{t-1}=\bar{a}\Big] \\ &amp;amp;=m(s)\mathbf{x}(s)+\gamma(s)\lambda(s)\sum_{\bar{s},\bar{a}}\mu(\bar{s})b(\bar{a}|\bar{s})p(s|\bar{s},\bar{a})\frac{\pi(\bar{a}|\bar{s})}{b(\bar{a}|\bar{s})} \\\ &amp;amp;\hspace{2cm}\times\lim_{t\to\infty}\mathbb{E}_b\Big[\gamma_{t-1}\lambda_{t-1}\mathbf{z}_{t-2}+M_{t-1}\mathbf{x}_{t-1}\big|S_t=s\Big] \\ &amp;amp;=m(s)\mathbf{x}(s)+\gamma(s)\lambda(s)\sum_{\bar{s}}\Big(\sum_{\bar{a}}\pi(\bar{a}|\bar{s})p(s|\bar{s},\bar{a})\Big)\mathbf{z}(\bar{s}) \\ &amp;amp;=m(s)\mathbf{x}(s)+\gamma(s)\lambda(s)\sum_{\bar{s}}\left[\mathbf{P}_\pi\right]_{\bar{s}s}\mathbf{z}(\bar{s})\tag{41}\label{41}
+\end{align}&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We now introduce three $\vert\mathcal{S}\vert\times\vert\mathcal{S}\vert$ diagonal matrices:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;$\mathbf{M}$, which has the $m(s)\doteq\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[M_t\big\vert S_t=s\Big]$ on its diagonal;&lt;/li&gt;
+  &lt;li&gt;$\mathbf{\Gamma}$, which has the $\gamma(s)$ on its diagonal;&lt;/li&gt;
+  &lt;li&gt;$\mathbf{\Lambda}$, which has the $\lambda(s)$ on its diagonal.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;With these matrices, we can rewrite \eqref{41} in matrix form, as:
+\begin{align}
+\mathbf{Z}^\intercal&amp;amp;=\mathbf{X}^\intercal\mathbf{M}+\mathbf{Z}^\intercal\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda} \\ \Rightarrow\mathbf{Z}^\intercal&amp;amp;=\mathbf{X}^\intercal\mathbf{M}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}
+\end{align}
+Substitute this equation back to \eqref{40}, we obtain:
+\begin{equation}
+\mathbf{A}=\mathbf{X}^\intercal\mathbf{M}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma})\mathbf{X}\tag{42}\label{42}
+\end{equation}
+Doing similar steps, we can also obtain the ETD($\lambda$)’s $\mathbf{b}$ vector:
+\begin{equation}
+\mathbf{b}=\mathbf{Z}\mathbf{r}_\pi=\mathbf{X}^\intercal\mathbf{M}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}\mathbf{r}_\pi,
+\end{equation}
+where $\mathbf{r}_\pi\in\mathbb{R}^{\vert\mathcal{S}\vert}$ is the vector of expected immediate rewards from each state under $\pi$.&lt;/p&gt;
+
+&lt;p&gt;Since the positive definiteness of $\mathbf{A}$ implies the stability of the algorithm, from \eqref{42}, it is sufficient to prove the positive definiteness of the &lt;strong&gt;key matrix&lt;/strong&gt; $\mathbf{M}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma})$ because this matrix can written in the form of:
+\begin{equation}
+\mathbf{X}^\intercal\mathbf{M}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma})\mathbf{X}=\sum_{i=1}^{\vert\mathcal{S}\vert}\mathbf{x}_i^\intercal\mathbf{M}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma})\mathbf{x}_i
+\end{equation}
+To prove this definiteness, we begin by writing the last part of the key matrix in form of the identity matrix minus a probability matrix.&lt;/p&gt;
+
+&lt;p&gt;Let $\mathbf{P}_\pi^\lambda$ be the matrix with this probability as its $\{ij\}$-component. This matrix can be written as:
+\begin{align}
+\mathbf{P}_\pi^\lambda&amp;amp;=\mathbf{P}_\pi\mathbf{\Gamma}(\mathbf{I}-\mathbf{\Lambda})+\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda}\mathbf{P}_\pi\mathbf{\Gamma}(\mathbf{I}-\mathbf{\Lambda})+\mathbf{P}_\pi\mathbf{\Gamma}(\mathbf{\Lambda}\mathbf{P}_\pi\mathbf{\Gamma})^2(\mathbf{I}-\mathbf{\Gamma}) \\ &amp;amp;=\left(\sum_{k=0}^{\infty}(\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^k\right)\mathbf{P}_\pi\mathbf{\Gamma}(\mathbf{I}-\mathbf{\Lambda}) \\ &amp;amp;=(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}\mathbf{P}_\pi\mathbf{\Gamma}(\mathbf{I}-\mathbf{\Lambda}) \\ &amp;amp;=(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{P}_\pi\mathbf{\Gamma}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda}) \\ &amp;amp;=(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{P}_\pi\mathbf{\Gamma}-\mathbf{I}+\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda}) \\ &amp;amp;=\mathbf{I}-(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}),
+\end{align}
+or
+\begin{equation}
+\mathbf{I}-\mathbf{P}_\pi^\lambda=\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma})\tag{43}\label{43}
+\end{equation}&lt;/p&gt;
+
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;.&lt;/p&gt;
 
@@ -943,11 +1028,18 @@ where $M_t\geq 0$ is the general form of &lt;em&gt;emphasis&lt;/em&gt;, $F_t\geq
 
 &lt;p&gt;[7] Hamid Reza Maei &amp;amp; Richard S. Sutton &lt;a href=&quot;http://dx.doi.org/10.2991/agi.2010.22&quot;&gt;GQ($\lambda$): A general gradient algorithm for temporal-difference prediction learning with eligibility traces&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[8] A. Rupam Mahmood &amp;amp; Huizhen Yu &amp;amp; Martha White &amp;amp; Richard S. Sutton. &lt;a href=&quot;https://doi.org/10.48550/arXiv.1507.01569&quot;&gt;Emphatic Temporal-Difference Learning&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;[8] Richard S. Sutton &amp;amp; A. Rupam Mahmood &amp;amp; Martha White. &lt;a href=&quot;https://arxiv.org/abs/1503.04269&quot;&gt;An Emphatic Approach to the Problem of Off-policy Temporal-Difference Learning&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;[9] Shangtong Zhang. &lt;a href=&quot;https://github.com/ShangtongZhang/reinforcement-learning-an-introduction&quot;&gt;Reinforcement Learning: An Introduction implementation&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="td-learning" /><category term="eligible-traces" /><category term="function-approximation" /><category term="importance-sampling" /><category term="my-rl" /><summary type="html">Beside $n$-step TD methods, there is another mechanism called Eligible traces that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.</summary></entry><entry><title type="html">Function Approximation</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html" rel="alternate" type="text/html" title="Function Approximation" /><published>2022-07-10T15:26:00+07:00</published><updated>2022-07-10T15:26:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html">&lt;blockquote&gt;
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;$\mathbf{z}_t$ is a vector random variable, one per time step, while $\mathbf{z}(s)$ is a vector expectation, one per state. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="td-learning" /><category term="eligible-traces" /><category term="function-approximation" /><category term="importance-sampling" /><category term="my-rl" /><summary type="html">Beside $n$-step TD methods, there is another mechanism called Eligible traces that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.</summary></entry><entry><title type="html">Function Approximation</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html" rel="alternate" type="text/html" title="Function Approximation" /><published>2022-07-10T15:26:00+07:00</published><updated>2022-07-10T15:26:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html">&lt;blockquote&gt;
   &lt;p&gt;Reinforcement Learning in continuous state space requires function approximation.&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -1636,9 +1728,9 @@ This algorithm is known as &lt;strong&gt;TD(0) with gradient correction (TDC)&lt
 
 &lt;p&gt;[4] Konidaris, G. &amp;amp; Osentoski, S. &amp;amp; Thomas, P.. &lt;a href=&quot;https://dl.acm.org/doi/10.5555/2900423.2900483&quot;&gt;Value Function Approximation in Reinforcement Learning Using the Fourier Basis&lt;/a&gt;. AAAI Conference on Artificial Intelligence, North America, aug. 2011.&lt;/p&gt;
 
-&lt;p&gt;[5] Shangtong Zhang. &lt;a href=&quot;https://github.com/ShangtongZhang/reinforcement-learning-an-introduction&quot;&gt;Reinforcement Learning: An Introduction implementation&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;[5] Joseph K. Blitzstein &amp;amp; Jessica Hwang. &lt;a href=&quot;https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573&quot;&gt;Introduction to Probability&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[6] Joseph K. Blitzstein &amp;amp; Jessica Hwang. &lt;a href=&quot;https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573&quot;&gt;Introduction to Probability&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;[6] Shangtong Zhang. &lt;a href=&quot;https://github.com/ShangtongZhang/reinforcement-learning-an-introduction&quot;&gt;Reinforcement Learning: An Introduction implementation&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
 
@@ -2594,10 +2686,10 @@ In this case, $X$ has special notations to denote its PDF and CDF, which are
 \begin{equation}
 \Phi(x)=\int_{-\infty}^{x}\varphi(t)\,dt=\int_{-\infty}^{x}\dfrac{1}{\sqrt{2\pi}}e^{-t^2/2}\,dt
 \end{equation}
-Below is some visualizations of Normal distribution.&lt;/p&gt;
+Below are some visualizations of Normal distribution.&lt;/p&gt;
 
 &lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2021-11-22/normal.png&quot; alt=&quot;normal distribution&quot; width=&quot;900&quot; height=&quot;380px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;img src=&quot;/assets/images/2021-11-22/normal.png&quot; alt=&quot;normal distribution&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width:  900px; height: 380px&quot; /&gt;
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 1&lt;/b&gt;: 10K normally distributed data points (5K each plot) were plotted as vertical bars on x-axis. The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/maths-visualization/blob/main/bayes-optimization/gauss-dist.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
@@ -2619,7 +2711,7 @@ is the $k$-dimensional mean vector, and covariance matrix $\mathbf{\Sigma}\in\ma
 \begin{equation}
 	\mathbf{\Sigma}_{ij}=\mathbb{E}\left(X_i-\mu_i\right)\left(X_j-\mu_j\right)=\Cov(X_i,X_j)
 \end{equation}
-We also have that $\mathbf{\Sigma}\geq 0$ (positive semi-definite matrix)[^1].&lt;/p&gt;
+We also have that $\mathbf{\Sigma}\geq 0$ (positive semi-definite matrix)&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
 
 &lt;p&gt;Thus, the PDF of an MVN is defined as
 \begin{equation}
@@ -2628,10 +2720,12 @@ f_X(x_1,\ldots,x_k)=\dfrac{1}{(2\pi)^{k/2}\vert\mathbf{\Sigma}\vert^{1/2}}\exp\l
 With this idea, &lt;em&gt;Standard Normal&lt;/em&gt; distribution in multi-dimensional case can be defined as a Gaussian with mean $\mathbf{\mu}=0$ (here $0$ is an $k$-dimensional vector) and identity covariance matrix $\mathbf{\Sigma}=\mathbf{I}_{k\times k}$.&lt;/p&gt;
 
 &lt;h3 id=&quot;bvn&quot;&gt;Bivariate Normal&lt;/h3&gt;
-&lt;p&gt;When the number of dimensions in $\mathbf{X}$, $k=2$, this special case of MVN is called the &lt;strong&gt;Bivariate Normal (BVN)&lt;/strong&gt;. An example of an BVN is shown as following.&lt;/p&gt;
+&lt;p&gt;When the number of dimensions in $\mathbf{X}$, $k=2$, this special case of MVN is called the &lt;strong&gt;Bivariate Normal (BVN)&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;An example of an BVN, $\mathcal{N}\left(\left[\begin{smallmatrix}0\\0\end{smallmatrix}\right],\left[\begin{smallmatrix}1&amp;amp;0.5\\0.8&amp;amp;1\end{smallmatrix}\right]\right)$, is shown as following.&lt;/p&gt;
 
 &lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2021-11-22/bvn.png&quot; alt=&quot;monte carlo method&quot; width=&quot;750&quot; height=&quot;350px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;img src=&quot;/assets/images/2021-11-22/bvn.png&quot; alt=&quot;monte carlo method&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 750px; height: 350px&quot; /&gt;
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 2&lt;/b&gt;: The PDF of $\mathcal{N}\left(\left[\begin{smallmatrix}0\\0\end{smallmatrix}\right],\left[\begin{smallmatrix}1&amp;amp;0.5\\0.8&amp;amp;1\end{smallmatrix}\right]\right)$. The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/maths-visualization/blob/main/bayes-optimization/mvn.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
@@ -2639,7 +2733,22 @@ With this idea, &lt;em&gt;Standard Normal&lt;/em&gt; distribution in multi-dimen
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Joseph K. Blitzstein &amp;amp; Jessica Hwang. &lt;a href=&quot;https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573&quot;&gt;Introduction to Probability&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="probability-statistics" /><category term="mathematics" /><category term="probability-statistics" /><category term="normal-distribution" /><summary type="html">A note on Normal distribution.</summary></entry><entry><title type="html">Power Series</title><link href="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>http://localhost:4000/mathematics/calculus/2021/09/21/power-series</id><content type="html" xml:base="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html">&lt;blockquote&gt;
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;The definition of covariance matrix $\mathbf{\Sigma}$ can be rewritten as
+\begin{equation}
+\mathbf{\Sigma}=\Cov(\mathbf{X},\mathbf{X})=\Var(\mathbf{X})
+\end{equation}
+Let $\mathbf{z}\in\mathbb{R}^k$, we have
+\begin{equation}
+\Var(\mathbf{z}^\intercal\mathbf{X})=\mathbf{z}^\intercal\Var(\mathbf{X})\mathbf{z}=\mathbf{z}^\intercal\mathbf{\Sigma}\mathbf{z}
+\end{equation}
+And since $\Var(\mathbf{z}^\intercal\mathbf{X})\geq0$, we also have that $\mathbf{z}^\intercal\mathbf{\Sigma}\mathbf{z}\geq0$, which proves that $\mathbf{\Sigma}$ is a positive semi-definite matrix. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="probability-statistics" /><category term="mathematics" /><category term="probability-statistics" /><category term="normal-distribution" /><summary type="html">A note on Normal distribution.</summary></entry><entry><title type="html">Power Series</title><link href="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>http://localhost:4000/mathematics/calculus/2021/09/21/power-series</id><content type="html" xml:base="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html">&lt;blockquote&gt;
   &lt;p&gt;Recall that in the previous post, &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html&quot;&gt;Infinite Series of Constants&lt;/a&gt;, we mentioned a type of series called &lt;strong&gt;power series&lt;/strong&gt; a lot. In the content of this post, we will be diving deeper into details of that series.&lt;/p&gt;
 &lt;/blockquote&gt;
 

@@ -669,9 +669,9 @@ This algorithm is known as **TD(0) with gradient correction (TDC)**, or as **GTD
 
 [4] Konidaris, G. & Osentoski, S. & Thomas, P.. [Value Function Approximation in Reinforcement Learning Using the Fourier Basis](https://dl.acm.org/doi/10.5555/2900423.2900483). AAAI Conference on Artificial Intelligence, North America, aug. 2011. 
 
-[5] Shangtong Zhang. [Reinforcement Learning: An Introduction implementation](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction). 
+[5] Joseph K. Blitzstein & Jessica Hwang. [Introduction to Probability](https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573).  
 
-[6] Joseph K. Blitzstein & Jessica Hwang. [Introduction to Probability](https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573).
+[6] Shangtong Zhang. [Reinforcement Learning: An Introduction implementation](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction). 
 
 ## Footnotes
 {: #footnotes}

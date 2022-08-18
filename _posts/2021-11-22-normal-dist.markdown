@@ -40,10 +40,10 @@ In this case, $X$ has special notations to denote its PDF and CDF, which are
 \begin{equation}
 \Phi(x)=\int_{-\infty}^{x}\varphi(t)\,dt=\int_{-\infty}^{x}\dfrac{1}{\sqrt{2\pi}}e^{-t^2/2}\,dt
 \end{equation}
-Below is some visualizations of Normal distribution.
+Below are some visualizations of Normal distribution.
 
 <figure>
-	<img src="/assets/images/2021-11-22/normal.png" alt="normal distribution" width="900" height="380px" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<img src="/assets/images/2021-11-22/normal.png" alt="normal distribution" style="display: block; margin-left: auto; margin-right: auto; width:  900px; height: 380px"/>
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: 10K normally distributed data points (5K each plot) were plotted as vertical bars on x-axis. The code can be found <span markdown="1">[here](https://github.com/trunghng/maths-visualization/blob/main/bayes-optimization/gauss-dist.py)</span></figcaption>
 </figure><br/>
 
@@ -75,10 +75,12 @@ With this idea, *Standard Normal* distribution in multi-dimensional case can be 
 
 ### Bivariate Normal
 {: #bvn}
-When the number of dimensions in $\mathbf{X}$, $k=2$, this special case of MVN is called the **Bivariate Normal (BVN)**. An example of an BVN is shown as following.  
+When the number of dimensions in $\mathbf{X}$, $k=2$, this special case of MVN is called the **Bivariate Normal (BVN)**.
+
+An example of an BVN, $\mathcal{N}\left(\left[\begin{smallmatrix}0\\\\0\end{smallmatrix}\right],\left[\begin{smallmatrix}1&0.5\\\\0.8&1\end{smallmatrix}\right]\right)$, is shown as following.  
 
 <figure>
-	<img src="/assets/images/2021-11-22/bvn.png" alt="monte carlo method" width="750" height="350px" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<img src="/assets/images/2021-11-22/bvn.png" alt="monte carlo method" style="display: block; margin-left: auto; margin-right: auto; width: 750px; height: 350px"/>
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: The PDF of $\mathcal{N}\left(\left[\begin{smallmatrix}0\\0\end{smallmatrix}\right],\left[\begin{smallmatrix}1&0.5\\0.8&1\end{smallmatrix}\right]\right)$. The code can be found <span markdown="1">[here](https://github.com/trunghng/maths-visualization/blob/main/bayes-optimization/mvn.py)</span></figcaption>
 </figure><br/>
 
@@ -88,3 +90,12 @@ When the number of dimensions in $\mathbf{X}$, $k=2$, this special case of MVN i
 
 ## Footnotes
 {: #footnotes}
+[^1]: The definition of covariance matrix $\mathbf{\Sigma}$ can be rewritten as
+	\begin{equation}
+	\mathbf{\Sigma}=\Cov(\mathbf{X},\mathbf{X})=\Var(\mathbf{X})
+	\end{equation}
+	Let $\mathbf{z}\in\mathbb{R}^k$, we have
+	\begin{equation}
+	\Var(\mathbf{z}^\intercal\mathbf{X})=\mathbf{z}^\intercal\Var(\mathbf{X})\mathbf{z}=\mathbf{z}^\intercal\mathbf{\Sigma}\mathbf{z}
+	\end{equation}
+	And since $\Var(\mathbf{z}^\intercal\mathbf{X})\geq0$, we also have that $\mathbf{z}^\intercal\mathbf{\Sigma}\mathbf{z}\geq0$, which proves that $\mathbf{\Sigma}$ is a positive semi-definite matrix.
