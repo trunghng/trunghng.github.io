@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-18T16:17:22+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-18T18:25:27+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Policy Gradient Methods</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient.html" rel="alternate" type="text/html" title="Policy Gradient Methods" /><published>2022-08-16T14:00:00+07:00</published><updated>2022-08-16T14:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient.html">&lt;blockquote&gt;
   &lt;p&gt;So far in the series, we have been choosing the actions based on the estimated action value function. On the other hand, we can instead learn a &lt;strong&gt;parameterized policy&lt;/strong&gt;, $\boldsymbol{\theta}$, that can select actions without consulting a value function by updating $\boldsymbol{\theta}$ on each step in the direction of an estimate of the gradient of some performance measure w.r.t $\boldsymbol{\theta}$. Such methods are called &lt;strong&gt;policy gradient methods&lt;/strong&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -928,9 +928,14 @@ where $\beta&amp;gt;0$ is a step-size parameter; $\mathbf{v}_t$ is initialized a
 
 &lt;p&gt;Emphatic TD($\lambda$) is defined by:
 \begin{align}
-\mathbf{w}_{t+1}&amp;amp;\doteq\mathbf{w}_t+\alpha\delta_t\mathbf{z}_t, \\ \delta_t&amp;amp;\doteq R_{t+1}+\gamma_{t+1}\mathbf{w}_t^\intercal\mathbf{x}_{t+1}-\mathbf{w}_t^\intercal\mathbf{x}_t, \\ \mathbf{z}_t&amp;amp;\doteq\rho_t\left(\gamma_t\lambda_t\mathbf{z}_{t-1}+M_t\mathbf{x}_t\right), \\ M_t&amp;amp;\doteq\gamma_t\lambda_t+(1-\lambda_t)F_t, \\ F_t&amp;amp;\doteq\rho_{t-1}\gamma_t F_{t-1}+I_t,
+\mathbf{w}_{t+1}&amp;amp;\doteq\mathbf{w}_t+\alpha\delta_t\mathbf{z}_t, \\ \delta_t&amp;amp;\doteq R_{t+1}+\gamma_{t+1}\mathbf{w}_t^\intercal\mathbf{x}_{t+1}-\mathbf{w}_t^\intercal\mathbf{x}_t, \\ \mathbf{z}_t&amp;amp;\doteq\rho_t\left(\gamma_t\lambda_t\mathbf{z}_{t-1}+M_t\mathbf{x}_t\right), \\ M_t&amp;amp;\doteq\gamma_t i(S_t)+(1-\lambda_t)F_t, \\ F_t&amp;amp;\doteq\rho_{t-1}\gamma_t F_{t-1}+i(S_t),
 \end{align}
-where $M_t\geq 0$ is the general form of &lt;em&gt;emphasis&lt;/em&gt;, $F_t\geq 0$ is the &lt;em&gt;followon trace&lt;/em&gt;, and $I_t\geq 0$ is the &lt;em&gt;interest&lt;/em&gt;.&lt;/p&gt;
+where&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;$M_t\geq 0$ is the general form of &lt;strong&gt;emphasis&lt;/strong&gt;;&lt;/li&gt;
+  &lt;li&gt;$i:\mathcal{S}\to[0,\infty)$ is the &lt;strong&gt;interest function&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;$F_t\geq 0$ is the &lt;strong&gt;followon trace&lt;/strong&gt;, with $F_0\doteq i(S_0)$.&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h4 id=&quot;etd-stability&quot;&gt;Stability&lt;/h4&gt;
 &lt;p&gt;Consider any stochastic algorithm of the form,
@@ -998,7 +1003,7 @@ Doing similar steps, we can also obtain the ETD($\lambda$)’s $\mathbf{b}$ vect
 \end{equation}
 where $\mathbf{r}_\pi\in\mathbb{R}^{\vert\mathcal{S}\vert}$ is the vector of expected immediate rewards from each state under $\pi$.&lt;/p&gt;
 
-&lt;p&gt;Since the positive definiteness of $\mathbf{A}$ implies the stability of the algorithm, from \eqref{42}, it is sufficient to prove the positive definiteness of the &lt;strong&gt;key matrix&lt;/strong&gt; $\mathbf{M}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma})$ because this matrix can written in the form of:
+&lt;p&gt;Since the positive definiteness of $\mathbf{A}$ implies the stability of the algorithm, from \eqref{42}, it is sufficient to prove the positive definiteness of the &lt;strong&gt;key matrix&lt;/strong&gt; $\mathbf{M}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma})$ because this matrix can be written in the form of:
 \begin{equation}
 \mathbf{X}^\intercal\mathbf{M}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma})\mathbf{X}=\sum_{i=1}^{\vert\mathcal{S}\vert}\mathbf{x}_i^\intercal\mathbf{M}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma})\mathbf{x}_i
 \end{equation}
@@ -1010,8 +1015,41 @@ To prove this definiteness, we begin by writing the last part of the key matrix 
 \end{align}
 or
 \begin{equation}
-\mathbf{I}-\mathbf{P}_\pi^\lambda=\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma})\tag{43}\label{43}
-\end{equation}&lt;/p&gt;
+\mathbf{I}-\mathbf{P}_\pi^\lambda=(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma})
+\end{equation}
+Then our key matrix now can be written as:
+\begin{equation}
+\mathbf{M}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma})=\mathbf{M}(\mathbf{I}-\mathbf{P}_\pi^\lambda)
+\end{equation}
+In order to prove the positive definiteness of $\mathbf{M}(\mathbf{I}-\mathbf{P}_\pi^\lambda)$, analogous to the &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#td-fixed-pt-proof&quot;&gt;proof&lt;/a&gt; of the convergence to TD fixed point of semi-gradient TD, we use two lemmas:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Lemma 1&lt;/strong&gt;: &lt;em&gt;Any matrix $\mathbf{A}$ is positive definite iff the symmetric matrix $\mathbf{S}=\mathbf{A}+\mathbf{A}^\intercal$ is positive definite&lt;/em&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Lemma 2&lt;/strong&gt;: &lt;em&gt;Any symmetric real matrix $\mathbf{S}$ is positive definite if all of its diagonal entries are positive and greater than the sum of the corresponding off-diagonal entries&lt;/em&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Since $\mathbf{M}$ is a diagonal matrix whose diagonal is a distribution and $\mathbf{P}_\pi^\lambda$ is a probability matrix, we have that the matrix $\mathbf{M}(\mathbf{I}-\mathbf{P}_\pi^\lambda)$ has a diagonal of non-negative entries, and non-positive off-diagonal entries, and its row sums also are non-negative. Hence, our problem remains to show that the column sums of the key matrix are positive.&lt;/p&gt;
+
+&lt;p&gt;To show this we need to analyze the matrix $\mathbf{M}$, and to do that we first analyze the vector $\mathbf{f}\in\mathbb{R}^{\vert\mathcal{S}\vert}$, which having $f(s)\doteq\mu(s)\lim_{t\to\infty}\mathbb{E}_b\left[F_t|S_t=s\right]$ as its components. We have:
+\begin{align}
+f(s)&amp;amp;=\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[F_t\big|S_t=s\Big] \\ &amp;amp;=\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[i(S_t)+\rho_{t-1}\gamma_t F_{t-1}\big|S_t=s\Big] \\ &amp;amp;=\mu(s)i(s)+\mu(s)\gamma(s)\lim_{t\to\infty}\sum_{\bar{s},\bar{a}}p(S_{t-1}=\bar{s},A_{t-1}=\bar{a}|S_t=s)\frac{\pi(\bar{a}|\bar{s})}{b(\bar{a}|\bar{s})}]\mathbb{E}_b\Big[F_{t-1}\big|S_{t-1}=\bar{s}\Big] \\ &amp;amp;=\mu(s)i(s)+\mu(s)\gamma(s)\sum_{\bar{s},\bar{a}}\frac{\mu(\bar{s})b(\bar{a}|\bar{s})p(s|\bar{s},\bar{a})}{\mu(s)}\frac{\pi(\bar{a}|\bar{s})}{b(\bar{a}|\bar{s})}\lim_{t\to\infty}\mathbb{E}_b\Big[F_{t-1}\big|S_{t-1}=\bar{s}\Big] \\ &amp;amp;=\mu(s)i(s)+\gamma(s)\sum_{\bar{s},\bar{a}}\pi(\bar{a}|\bar{s})p(s|\bar{s},\bar{a})\mu(\bar{s})\lim_{t\to\infty}\mathbb{E}_b\Big[F_{t-1}\big|S_{t-1}=\bar{s}\Big] \\ &amp;amp;=\mu(s)i(s)+\gamma(s)\sum_s\left[\mathbf{P}_\pi\right]_{\bar{s}s}f(\bar{s})\tag{43}\label{43}
+\end{align}
+Let $\mathbf{i}\in\mathbb{R}^{\vert\mathcal{S}\vert}$ be the vector having components $[\mathbf{i}]_s\doteq\mu(s)i(s)$. Equation \eqref{43} allows  us to write $\mathbf{f}$ in matrix-vector form, as:
+\begin{align}
+\mathbf{f}&amp;amp;=\mathbf{i}+\mathbf{\Gamma}\mathbf{P}_\pi^\intercal\mathbf{f} \\ &amp;amp;=\mathbf{i}+\mathbf{\Gamma}\mathbf{P}_\pi^\intercal\mathbf{i}+(\mathbf{\Gamma}\mathbf{P}_\pi^\intercal)^2\mathbf{i}+\dots \\ &amp;amp;=\left(\mathbf{I}-\mathbf{\Gamma}\mathbf{P}_\pi^\intercal\right)^{-1}
+\end{align}
+Back to the definition of $m(s)$, we have:
+\begin{align}
+m(s)&amp;amp;=\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[M_t\big|S_t=s\Big] \\ &amp;amp;=\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\lambda_t i(S_t)+(1-\lambda_t)F_t\big|S_t=s\Big] \\ &amp;amp;=\mu(s)\lambda(s)i(s)+(1-\lambda(s))f(s)
+\end{align}
+Continuing as usual, we rewrite this equation in matrix-vector form by letting $\mathbf{m}\in\mathbb{R}^{\vert\mathcal{S}\vert}$ be a vector having $m(s)$ as its components:
+\begin{align}
+\mathbf{m}&amp;amp;=\mathbf{\Lambda}\mathbf{i}+(\mathbf{I}-\mathbf{\Lambda})\mathbf{f} \\ &amp;amp;=\mathbf{\Lambda}\mathbf{i}+(\mathbf{I}-\mathbf{\Lambda})(\mathbf{I}-\mathbf{\Gamma}\mathbf{P}_\pi^\intercal)^{-1}\mathbf{i} \\ &amp;amp;=\Big[\mathbf{\Lambda}(\mathbf{I}-\mathbf{\Gamma}\mathbf{P}_\pi^\intercal)+(\mathbf{I}-\mathbf{\Lambda})\Big]\left(\mathbf{I}-\mathbf{\Gamma}\mathbf{P}_\pi^\intercal\right)\mathbf{i} \\ &amp;amp;=\Big(\mathbf{I}-\mathbf{\Lambda}\mathbf{\Gamma}\mathbf{P}_\pi^\intercal\Big)\Big(\mathbf{I}-\mathbf{\Gamma}\mathbf{P}_\pi^\intercal\Big)^{-1}\mathbf{i} \\ &amp;amp;=\Big(\mathbf{I}-{\mathbf{P}_\pi^\lambda}^\intercal\Big)^{-1}\mathbf{i}
+\end{align}
+Let $\mathbf{1}$ denote the column vector with all components equal to $1$. And using the result above, we have the vector of column sums of the key matrix $\mathbf{M}(\mathbf{I}-\mathbf{P}_\pi^\lambda)$ is:
+\begin{align}
+\mathbf{1}^\intercal{M}(\mathbf{I}-\mathbf{P}_\pi^\lambda)&amp;amp;=\mathbf{m}^\intercal(\mathbf{I}-\mathbf{P}_\pi^\lambda) \\ &amp;amp;=\mathbf{i}^\intercal(\mathbf{I}-\mathbf{P}_\pi^\lambda)^{-1}(\mathbf{I}-\mathbf{P}_\pi^\lambda) \\ &amp;amp;=\mathbf{i}^\intercal
+\end{align}
+Instead of having domain of $[0,\infty)$, if we further assume that $i(s)&amp;gt;0,\,\forall s\in\mathcal{S}$, then it implies immediately that the column sums are all positive, the key matrix is positive definite, so is the matrix $\mathbf{A}$, and the ETD($\lambda$) and its expected update are stable.&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;.&lt;/p&gt;
@@ -1262,7 +1300,7 @@ Thus, with linear approximation, the SGD update can be rewrite as
   \mathbf{b}-\mathbf{A}\mathbf{w}_{\text{TD}}&amp;amp;=\mathbf{0} \\ \mathbf{w}_{\text{TD}}&amp;amp;=\mathbf{A}^{-1}\mathbf{b}
   \end{align}
   This quantity, $\mathbf{w}_{\text{TD}}$, is called the &lt;strong&gt;TD fixed point&lt;/strong&gt;. And in fact, linear semi-gradient TD(0) converges to this point.&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;Proof&lt;/strong&gt;:&lt;br /&gt;
+      &lt;li&gt;&lt;span id=&quot;td-fixed-pt-proof&quot;&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/span&gt;:&lt;br /&gt;
   We have \eqref{4} can be written as
   \begin{equation}
   \mathbb{E}\left[\mathbf{w}_{t+1}\vert\mathbf{w}_t\right]=\left(\mathbf{I}-\alpha\mathbf{A}\right)\mathbf{w}_t+\alpha\mathbf{b}
@@ -1285,7 +1323,7 @@ Thus, with linear approximation, the SGD update can be rewrite as
 
         &lt;p&gt;To continue proving the positive definiteness of $\mathbf{A}$, we use two lemmas:&lt;/p&gt;
         &lt;ul&gt;
-          &lt;li&gt;&lt;strong&gt;Lemma 1&lt;/strong&gt;: &lt;em&gt;A square matrix $\mathbf{A}$ is positive definite if $\mathbf{A}+\mathbf{A}^\intercal$&lt;/em&gt; is positive definite.&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Lemma 1&lt;/strong&gt;: &lt;em&gt;A square matrix $\mathbf{A}$ is positive definite if the symmetric matrix $\mathbf{S}=\mathbf{A}+\mathbf{A}^\intercal$ is positive definite&lt;/em&gt;.&lt;/li&gt;
           &lt;li&gt;&lt;strong&gt;Lemma 2&lt;/strong&gt;: &lt;em&gt;If $\mathbf{A}$ is a real, symmetric, and strictly diagonally dominant matrix with positive diagonal entries, then $\mathbf{A}$ is positive definite&lt;/em&gt;.&lt;/li&gt;
         &lt;/ul&gt;
 

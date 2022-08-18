@@ -725,9 +725,12 @@ where $\beta>0$ is a step-size parameter; $\mathbf{v}\_t$ is initialized at $\ma
 
 Emphatic TD($\lambda$) is defined by:
 \begin{align}
-\mathbf{w}\_{t+1}&\doteq\mathbf{w}\_t+\alpha\delta_t\mathbf{z}\_t, \\\\ \delta_t&\doteq R_{t+1}+\gamma_{t+1}\mathbf{w}\_t^\intercal\mathbf{x}\_{t+1}-\mathbf{w}\_t^\intercal\mathbf{x}\_t, \\\\ \mathbf{z}\_t&\doteq\rho_t\left(\gamma_t\lambda_t\mathbf{z}\_{t-1}+M_t\mathbf{x}\_t\right), \\\\ M_t&\doteq\gamma_t\lambda_t+(1-\lambda_t)F_t, \\\\ F_t&\doteq\rho_{t-1}\gamma_t F_{t-1}+I_t,
+\mathbf{w}\_{t+1}&\doteq\mathbf{w}\_t+\alpha\delta_t\mathbf{z}\_t, \\\\ \delta_t&\doteq R_{t+1}+\gamma_{t+1}\mathbf{w}\_t^\intercal\mathbf{x}\_{t+1}-\mathbf{w}\_t^\intercal\mathbf{x}\_t, \\\\ \mathbf{z}\_t&\doteq\rho_t\left(\gamma_t\lambda_t\mathbf{z}\_{t-1}+M_t\mathbf{x}\_t\right), \\\\ M_t&\doteq\gamma_t i(S_t)+(1-\lambda_t)F_t, \\\\ F_t&\doteq\rho_{t-1}\gamma_t F_{t-1}+i(S_t),
 \end{align}
-where $M_t\geq 0$ is the general form of *emphasis*, $F_t\geq 0$ is the *followon trace*, and $I_t\geq 0$ is the *interest*.
+where
+- $M_t\geq 0$ is the general form of **emphasis**;
+- $i:\mathcal{S}\to[0,\infty)$ is the **interest function** 
+- $F_t\geq 0$ is the **followon trace**, with $F_0\doteq i(S_0)$.
 
 #### Stability
 {: #etd-stability}
@@ -792,7 +795,7 @@ Doing similar steps, we can also obtain the ETD($\lambda$)'s $\mathbf{b}$ vector
 \end{equation}
 where $\mathbf{r}\_\pi\in\mathbb{R}^{\vert\mathcal{S}\vert}$ is the vector of expected immediate rewards from each state under $\pi$.
 
-Since the positive definiteness of $\mathbf{A}$ implies the stability of the algorithm, from \eqref{42}, it is sufficient to prove the positive definiteness of the **key matrix** $\mathbf{M}(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma})$ because this matrix can written in the form of:
+Since the positive definiteness of $\mathbf{A}$ implies the stability of the algorithm, from \eqref{42}, it is sufficient to prove the positive definiteness of the **key matrix** $\mathbf{M}(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma})$ because this matrix can be written in the form of:
 \begin{equation}
 \mathbf{X}^\intercal\mathbf{M}(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma})\mathbf{X}=\sum_{i=1}^{\vert\mathcal{S}\vert}\mathbf{x}\_i^\intercal\mathbf{M}(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma})\mathbf{x}\_i
 \end{equation}
@@ -804,10 +807,39 @@ Let $\mathbf{P}\_\pi^\lambda$ be the matrix with this probability as its $\\{ij\
 \end{align}
 or
 \begin{equation}
-\mathbf{I}-\mathbf{P}\_\pi^\lambda=\mathbf{P}\_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma})\tag{43}\label{43}
+\mathbf{I}-\mathbf{P}\_\pi^\lambda=(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma})
 \end{equation}
+Then our key matrix now can be written as:
+\begin{equation}
+\mathbf{M}(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma})=\mathbf{M}(\mathbf{I}-\mathbf{P}\_\pi^\lambda)
+\end{equation}
+In order to prove the positive definiteness of $\mathbf{M}(\mathbf{I}-\mathbf{P}\_\pi^\lambda)$, analogous to the [proof]({% post_url 2022-07-10-func-approx %}#td-fixed-pt-proof) of the convergence to TD fixed point of semi-gradient TD, we use two lemmas:
+- **Lemma 1**: *Any matrix $\mathbf{A}$ is positive definite iff the symmetric matrix $\mathbf{S}=\mathbf{A}+\mathbf{A}^\intercal$ is positive definite*.
+- **Lemma 2**: *Any symmetric real matrix $\mathbf{S}$ is positive definite if all of its diagonal entries are positive and greater than the sum of the corresponding off-diagonal entries*. 
 
+Since $\mathbf{M}$ is a diagonal matrix whose diagonal is a distribution and $\mathbf{P}\_\pi^\lambda$ is a probability matrix, we have that the matrix $\mathbf{M}(\mathbf{I}-\mathbf{P}\_\pi^\lambda)$ has a diagonal of non-negative entries, and non-positive off-diagonal entries, and its row sums also are non-negative. Hence, our problem remains to show that the column sums of the key matrix are positive.
 
+To show this we need to analyze the matrix $\mathbf{M}$, and to do that we first analyze the vector $\mathbf{f}\in\mathbb{R}^{\vert\mathcal{S}\vert}$, which having $f(s)\doteq\mu(s)\lim_{t\to\infty}\mathbb{E}\_b\left[F_t|S_t=s\right]$ as its components. We have:
+\begin{align}
+f(s)&=\mu(s)\lim_{t\to\infty}\mathbb{E}\_b\Big[F_t\big|S_t=s\Big] \\\\ &=\mu(s)\lim_{t\to\infty}\mathbb{E}\_b\Big[i(S_t)+\rho_{t-1}\gamma_t F_{t-1}\big|S_t=s\Big] \\\\ &=\mu(s)i(s)+\mu(s)\gamma(s)\lim_{t\to\infty}\sum_{\bar{s},\bar{a}}p(S_{t-1}=\bar{s},A_{t-1}=\bar{a}|S_t=s)\frac{\pi(\bar{a}|\bar{s})}{b(\bar{a}|\bar{s})}]\mathbb{E}\_b\Big[F_{t-1}\big|S_{t-1}=\bar{s}\Big] \\\\ &=\mu(s)i(s)+\mu(s)\gamma(s)\sum_{\bar{s},\bar{a}}\frac{\mu(\bar{s})b(\bar{a}|\bar{s})p(s|\bar{s},\bar{a})}{\mu(s)}\frac{\pi(\bar{a}|\bar{s})}{b(\bar{a}|\bar{s})}\lim_{t\to\infty}\mathbb{E}\_b\Big[F_{t-1}\big|S_{t-1}=\bar{s}\Big] \\\\ &=\mu(s)i(s)+\gamma(s)\sum_{\bar{s},\bar{a}}\pi(\bar{a}|\bar{s})p(s|\bar{s},\bar{a})\mu(\bar{s})\lim_{t\to\infty}\mathbb{E}\_b\Big[F_{t-1}\big|S_{t-1}=\bar{s}\Big] \\\\ &=\mu(s)i(s)+\gamma(s)\sum_s\left[\mathbf{P}\_\pi\right]\_{\bar{s}s}f(\bar{s})\tag{43}\label{43}
+\end{align}
+Let $\mathbf{i}\in\mathbb{R}^{\vert\mathcal{S}\vert}$ be the vector having components $[\mathbf{i}]\_s\doteq\mu(s)i(s)$. Equation \eqref{43} allows  us to write $\mathbf{f}$ in matrix-vector form, as:
+\begin{align}
+\mathbf{f}&=\mathbf{i}+\mathbf{\Gamma}\mathbf{P}\_\pi^\intercal\mathbf{f} \\\\ &=\mathbf{i}+\mathbf{\Gamma}\mathbf{P}\_\pi^\intercal\mathbf{i}+(\mathbf{\Gamma}\mathbf{P}\_\pi^\intercal)^2\mathbf{i}+\dots \\\\ &=\left(\mathbf{I}-\mathbf{\Gamma}\mathbf{P}\_\pi^\intercal\right)^{-1}
+\end{align}
+Back to the definition of $m(s)$, we have:
+\begin{align}
+m(s)&=\mu(s)\lim_{t\to\infty}\mathbb{E}\_b\Big[M_t\big|S_t=s\Big] \\\\ &=\mu(s)\lim_{t\to\infty}\mathbb{E}\_b\Big[\lambda_t i(S_t)+(1-\lambda_t)F_t\big|S_t=s\Big] \\\\ &=\mu(s)\lambda(s)i(s)+(1-\lambda(s))f(s)
+\end{align}
+Continuing as usual, we rewrite this equation in matrix-vector form by letting $\mathbf{m}\in\mathbb{R}^{\vert\mathcal{S}\vert}$ be a vector having $m(s)$ as its components:
+\begin{align}
+\mathbf{m}&=\mathbf{\Lambda}\mathbf{i}+(\mathbf{I}-\mathbf{\Lambda})\mathbf{f} \\\\ &=\mathbf{\Lambda}\mathbf{i}+(\mathbf{I}-\mathbf{\Lambda})(\mathbf{I}-\mathbf{\Gamma}\mathbf{P}\_\pi^\intercal)^{-1}\mathbf{i} \\\\ &=\Big[\mathbf{\Lambda}(\mathbf{I}-\mathbf{\Gamma}\mathbf{P}\_\pi^\intercal)+(\mathbf{I}-\mathbf{\Lambda})\Big]\left(\mathbf{I}-\mathbf{\Gamma}\mathbf{P}\_\pi^\intercal\right)\mathbf{i} \\\\ &=\Big(\mathbf{I}-\mathbf{\Lambda}\mathbf{\Gamma}\mathbf{P}\_\pi^\intercal\Big)\Big(\mathbf{I}-\mathbf{\Gamma}\mathbf{P}\_\pi^\intercal\Big)^{-1}\mathbf{i} \\\\ &=\Big(\mathbf{I}-{\mathbf{P}\_\pi^\lambda}^\intercal\Big)^{-1}\mathbf{i}
+\end{align}
+Let $\mathbf{1}$ denote the column vector with all components equal to $1$. And using the result above, we have the vector of column sums of the key matrix $\mathbf{M}(\mathbf{I}-\mathbf{P}\_\pi^\lambda)$ is:
+\begin{align}
+\mathbf{1}^\intercal{M}(\mathbf{I}-\mathbf{P}\_\pi^\lambda)&=\mathbf{m}^\intercal(\mathbf{I}-\mathbf{P}\_\pi^\lambda) \\\\ &=\mathbf{i}^\intercal(\mathbf{I}-\mathbf{P}\_\pi^\lambda)^{-1}(\mathbf{I}-\mathbf{P}\_\pi^\lambda) \\\\ &=\mathbf{i}^\intercal
+\end{align}
+Instead of having domain of $[0,\infty)$, if we further assume that $i(s)>0,\,\forall s\in\mathcal{S}$, then it implies immediately that the column sums are all positive, the key matrix is positive definite, so is the matrix $\mathbf{A}$, and the ETD($\lambda$) and its expected update are stable.
 
 ## References
 {: #references}

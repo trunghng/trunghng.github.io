@@ -199,7 +199,7 @@ In the linear case, there is only one optimum, and thus any method that is guara
 	\mathbf{b}-\mathbf{A}\mathbf{w}\_{\text{TD}}&=\mathbf{0} \\\\ \mathbf{w}\_{\text{TD}}&=\mathbf{A}^{-1}\mathbf{b}
 	\end{align}
 	This quantity, $\mathbf{w}\_{\text{TD}}$, is called the **TD fixed point**. And in fact, linear semi-gradient TD(0) converges to this point.
-	- **Proof**:  
+	- <span id='td-fixed-pt-proof'>**Proof**</span>:  
 		We have \eqref{4} can be written as
 		\begin{equation}
 		\mathbb{E}\left[\mathbf{w}\_{t+1}\vert\mathbf{w}\_t\right]=\left(\mathbf{I}-\alpha\mathbf{A}\right)\mathbf{w}\_t+\alpha\mathbf{b}
@@ -219,7 +219,7 @@ In the linear case, there is only one optimum, and thus any method that is guara
 		Hence, it is clear that the positive definiteness of $A$ depends on the matrix $\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})$ in \eqref{6}. 
 
 		To continue proving the positive definiteness of $\mathbf{A}$, we use two lemmas:
-		- **Lemma 1**: *A square matrix $\mathbf{A}$ is positive definite if $\mathbf{A}+\mathbf{A}^\intercal$* is positive definite.
+		- **Lemma 1**: *A square matrix $\mathbf{A}$ is positive definite if the symmetric matrix $\mathbf{S}=\mathbf{A}+\mathbf{A}^\intercal$ is positive definite*.
 		- **Lemma 2**: *If $\mathbf{A}$ is a real, symmetric, and strictly diagonally dominant matrix with positive diagonal entries, then $\mathbf{A}$ is positive definite*. 
 
 		With these lemmas, plus since $\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})$ has positive diagonal entries and negative off-diagonal entries, so all we have to show is that each row sum plus the corresponding column sum is positive. The row sums are all positive because $\mathbf{P}$ is a stochastic matrix and $\gamma<1$. Thus the problem remains to show that the column sums are nonnegative.
