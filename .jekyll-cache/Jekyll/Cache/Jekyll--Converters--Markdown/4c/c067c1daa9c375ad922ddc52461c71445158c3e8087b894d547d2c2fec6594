@@ -1,165 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-<link href="https://fonts.googleapis.com/css?family=Merriweather:400,900,900i" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<style type="text/css">
-  #button {
-    display: inline-block;
-    background-color: #A5CCF1;
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    border-radius: 4px;
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    transition: background-color .3s, 
-      opacity .5s, visibility .5s;
-    opacity: 0;
-    visibility: hidden;
-    z-index: 1000;
-  }
-  #button::after {
-    content: "\f077";
-    font-family: FontAwesome;
-    font-weight: normal;
-    font-style: normal;
-    font-size: 2em;
-    line-height: 50px;
-    color: #fff;
-  }
-  #button:hover {
-    cursor: pointer;
-    background-color: #333;
-    text-decoration: none;
-  }
-  #button:active {
-    background-color: #555;
-  }
-  #button.show {
-    opacity: 1;
-    visibility: visible;
-  }
-</style><head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Eligible Traces | Trung’s cabin</title>
-<meta name="generator" content="Jekyll v4.2.1" />
-<meta property="og:title" content="Eligible Traces" />
-<meta name="author" content="Trung H. Nguyen" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="Eligible Traces" />
-<meta property="og:description" content="Eligible Traces" />
-<link rel="canonical" href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html" />
-<meta property="og:url" content="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html" />
-<meta property="og:site_name" content="Trung’s cabin" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2022-08-08T14:11:00+07:00" />
-<meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Eligible Traces" />
-<script type="application/ld+json">
-{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","description":"Eligible Traces","headline":"Eligible Traces","dateModified":"2022-08-08T14:11:00+07:00","datePublished":"2022-08-08T14:11:00+07:00","url":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html"},"@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Trung&apos;s cabin" />
-    
-
-
-
-
-
-  
-
-<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
-<link rel="manifest" href="/assets/images/site.webmanifest">
-<link rel="mask-icon" href="/assets/images/safari-pinned-tab.svg" color="#5bbad5">
-<meta name="msapplication-TileColor" content="#da532c">
-<meta name="theme-color" content="#ffffff"></head>
-<body><header class="site-header">
-  <div class="snorlax"></div>
-
-  <div class="wrapper"><a class="site-title" rel="author" href="/">Trung&#39;s cabin</a><nav class="site-nav">
-        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
-        <label for="nav-trigger">
-          <span class="menu-icon">
-            <svg viewBox="0 0 18 15" width="18px" height="15px">
-              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
-            </svg>
-          </span>
-        </label>
-
-        <div class="trigger"><a class="page-link" href="/archive/">Archive</a><a class="page-link" href="/about/">About</a></div>
-      </nav></div>
-</header>
-<main class="page-content" aria-label="Content">
-      <a id="button"></a>
-      <div class="wrapper">
-        <style>
-@import "/assets/css/default.css"
-</style>
-<style>
-  .collapsible {
-    background-color: #A5CCF1;
-    color: white;
-    cursor: pointer;
-    padding: 5px;
-    /*width: 100%;*/
-    border: none;
-    text-align: center;
-    outline: none;
-    font-size: 15px;
-  }
-
-  .active, .collapsible:hover {
-    background-color: #82B9EE;
-  }
-
-  .codePanel {
-    padding: 0 18px;
-    display: none;
-    overflow: hidden;
-    background-color: #f1f1f1;
-  }
-</style>
-<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <header class="post-header">
-    <meta name="description" content="Eligible Traces">
-    <h1 class="post-title p-name" itemprop="name headline">Eligible Traces</h1>
-    <p><span>
-      
-        
-        <a href="/tag/artificial-intelligent"><code class="highligher-rouge"><nobr>artificial-intelligent</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/reinforcement-learning"><code class="highligher-rouge"><nobr>reinforcement-learning</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/td-learning"><code class="highligher-rouge"><nobr>td-learning</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/eligible-traces"><code class="highligher-rouge"><nobr>eligible-traces</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/function-approximation"><code class="highligher-rouge"><nobr>function-approximation</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/importance-sampling"><code class="highligher-rouge"><nobr>importance-sampling</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/my-rl"><code class="highligher-rouge"><nobr>my-rl</nobr></code>&nbsp;</a>
-      
-    </span></p>
-    <p class="post-meta"><time class="dt-published" datetime="2022-08-08T14:11:00+07:00" itemprop="datePublished">
-        Aug 8, 2022
-      </time></p>
-  </header>
-
-  <div class="post-content e-content" itemprop="articleBody">
-    <blockquote>
+I"/q<blockquote>
   <p>Beside <a href="/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#n-step-td">$n$-step TD</a> methods, there is another mechanism called <strong>Eligible traces</strong> that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.
 <!-- excerpt-end --></p>
 </blockquote>
@@ -374,17 +213,17 @@ and in the twelfth step, we also define $\delta_t$ as:
 \end{align}
 which is the same as the TD error of TD($\lambda$) we have defined earlier.</p>
 
-<p>We then need to derive an update rule to recursively compute $\mathbf{z}_t$ from $\mathbf{z}_{t-1}$, as:
+<p>We then need to derive an update rule to compute $\mathbf{z}_t$ from $\mathbf{z}_{t-1}$, as:
 \begin{align}
-\mathbf{z}_t&amp;=\sum_{i=0}^{t}\mathbf{A}_{i+1}^t\mathbf{x}_i(\gamma\lambda)^{t-i} \\ &amp;=\sum_{i=0}^{t-1}\mathbf{A}_{i+1}^t\mathbf{x}_i(\gamma\lambda)^{t-i}+\mathbf{x}_t \\ &amp;=\left(\mathbf{I}-\alpha\mathbf{x}_t\mathbf{x}_t^\intercal\right)\gamma\lambda\sum_{i=0}^{t-1}\mathbf{A}_{i+1}^{t-1}\mathbf{x}_i(\gamma\lambda)^{t-i-1}+\mathbf{x}_t \\ &amp;=\left(\mathbf{I}-\alpha\mathbf{x}_t\mathbf{x}_t^\intercal\right)\gamma\lambda\mathbf{z}_{t-1}+\mathbf{x}_t \\ &amp;=\gamma\lambda\mathbf{z}_{t-1}+\left(1-\alpha\gamma\lambda\left(\mathbf{z}_{t-1}^\intercal\mathbf{x}_t\right)\right)\mathbf{x}_t\tag{9}\label{9}
+\mathbf{z}_t&amp;=\sum_{i=0}^{t}\mathbf{A}_{i+1}^t\mathbf{x}_i(\gamma\lambda)^{t-i} \\ &amp;=\sum_{i=0}^{t-1}\mathbf{A}_{i+1}^t\mathbf{x}_i(\gamma\lambda)^{t-i}+\mathbf{x}_t \\ &amp;=\left(\mathbf{I}-\alpha\mathbf{x}_t\mathbf{x}_t^\intercal\right)\gamma\lambda\sum_{i=0}^{t-1}\mathbf{A}_{i+1}^{t-1}\mathbf{x}_i(\gamma\lambda)^{t-i-1}+\mathbf{x}_t \\ &amp;=\left(\mathbf{I}-\alpha\mathbf{x}_t\mathbf{x}_t^\intercal\right)\gamma\lambda\mathbf{z}_{t-1}+\mathbf{x}_t \\ &amp;=\gamma\lambda\mathbf{z}_{t-1}+\left(1-\alpha\gamma\lambda\left(\mathbf{z}_t^\intercal\mathbf{x}_t\right)\right)\mathbf{x}_t\tag{9}\label{9}
 \end{align}
-Equations \eqref{8} and \eqref{9} form the update of the <strong>true online TD($\lambda$)</strong> algorithm:
+Equation \eqref{8} and \eqref{9} form the update of the <strong>true online TD($\lambda$)</strong> algorithm:
 \begin{equation}
 \mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\delta_t\mathbf{z}_t+\alpha\left(\mathbf{w}_t^\intercal\mathbf{x}_t-\mathbf{w}_{t-1}^\intercal\mathbf{x}_t\right)\left(\mathbf{z}t_t-\mathbf{x}_t\right),
 \end{equation}
 where
 \begin{align}
-\mathbf{z}_t&amp;\doteq\gamma\lambda\mathbf{z}_{t-1}+\left(1-\alpha\gamma\lambda\left(\mathbf{z}_{t-1}^\intercal\mathbf{x}_t\right)\right)\mathbf{x}_t,\tag{10}\label{10} \\ \delta_t&amp;\doteq R_{t+1}+\gamma\mathbf{w}_t^\intercal\mathbf{x}_{t+1}-\mathbf{w}_t^\intercal\mathbf{x}_t
+\mathbf{z}_t&amp;\doteq\gamma\lambda\mathbf{z}_{t-1}+\left(1-\alpha\gamma\lambda\left(\mathbf{z}_t^\intercal\mathbf{x}_t\right)\right)\mathbf{x}_t,\tag{10}\label{10} \\ \delta_t&amp;\doteq R_{t+1}+\gamma\mathbf{w}_t^\intercal\mathbf{x}_{t+1}-\mathbf{w}_t^\intercal\mathbf{x}_t
 \end{align}
 Pseudocode of the algorithm is given below.</p>
 <figure>
@@ -470,7 +309,7 @@ and so it is with eligible trace vector:
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
 </figure>
 
-<p>There is also an action-value version of the online $\lambda$-return algorithm, and its efficient implementation as true online TD($\lambda$), called <strong>True online Sarsa($\lambda$)</strong>, which can be achieved by using $n$-step return \eqref{14} instead (which also leads to the change of $\mathbf{x}_t=\mathbf{x}(S_t)$ to $\mathbf{x}_t=\mathbf{x}(S_t,A_t)$).</p>
+<p>There is also an action-value version of the online $\lambda$-return algorithm, and its efficient implementation as true online TD($\lambda$), called <strong>True online TD($\lambda$)</strong>, which can be achieved by using $n$-step return \eqref{14} instead (which also leads to the change of $\mathbf{x}_t=\mathbf{x}(S_t)$ to $\mathbf{x}_t=\mathbf{x}(S_t,A_t)$).</p>
 
 <p>Pseudocode of the true online Sarsa($\lambda$) is given below.</p>
 <figure>
@@ -747,15 +586,10 @@ By direct sampling from \eqref{32} and following TDC derivation steps we obtain 
 \begin{equation}
 \mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\delta_t^s\mathbf{z}_t-\alpha\gamma_{t+1}(1-\lambda_{t+1})(\mathbf{z}_t^\intercal\mathbf{v}_t)\mathbf{x}_{t+1},
 \end{equation}
-where</p>
-<ul>
-  <li>the TD error $\delta_t^s$ is defined, as usual, as state-based TD error \eqref{18};</li>
-  <li>the eligible trace vector $\mathbf{z}_t$ is defined as given in \eqref{20} for state value;</li>
-  <li>and $\mathbf{v}_t$ is a vector of the same dimension as $\mathbf{w}$, initialized to $\mathbf{v}_0=\mathbf{0}$ with $\beta&gt;0$ is a step-size parameter:
+where the TD error $\delta_t^s$ is defined, as usual, as state-based TD error \eqref{18}; the eligible trace vector $\mathbf{z}_t$ is defined as given in \eqref{20} for state value; and $\mathbf{v}_t$ is a vector of the same dimension as $\mathbf{w}$, initialized to $\mathbf{v}_0=\mathbf{0}$ with $\beta&gt;0$ is a step-size parameter:
 \begin{align}
 \delta_t^s&amp;\doteq R_{t+1}+\gamma_{t+1}\mathbf{w}_t^\intercal\mathbf{x}_{t+1}-\mathbf{w}_t^\intercal\mathbf{x}_t, \\ \mathbf{z}_t&amp;\doteq\rho_t(\gamma_t\lambda_t\mathbf{z}_{t-1}+\mathbf{x}_t), \\ \mathbf{v}_{t+1}&amp;\doteq\mathbf{v}_t+\beta\delta_t^s\mathbf{z}_t-\beta(\mathbf{v}_t^\intercal\mathbf{x}_t)\mathbf{x}_t
-\end{align}</li>
-</ul>
+\end{align}</p>
 
 <h3 id="gq-lambda">GQ($\lambda$)</h3>
 <p><strong>GQ($\lambda$)</strong> is another eligible trace version of a Gradient-TD method but with action values. Its goal is to learn a parameter $\mathbf{w}_t$ such that $\hat{q}(s,a,\mathbf{w}_t)\doteq\mathbf{w}_t^\intercal\mathbf{x}(s,a)\approx q_\pi(s,a)$ from data given by following a behavior policy $b$.</p>
@@ -857,16 +691,10 @@ By direct sampling from the above gradient-descent direction and weight-duplicat
 \begin{equation}
 \mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\delta_t^a\mathbf{z}_t-\alpha\gamma_{t+1}(1-\lambda_{t+1})(\mathbf{z}_t^\intercal\mathbf{v}_t)\bar{\mathbf{x}}_{t+1},
 \end{equation}
-where</p>
-<ul>
-  <li>$\bar{\mathbf{x}}_t$ is the average feature vector for $S_t$ under the target policy $\pi$;</li>
-  <li>$\delta_t^a$ is the expectation form of the TD error, defined as \eqref{38};</li>
-  <li>the eligible trace vector $\mathbf{z}_t$ is defined as \eqref{39} for action value;</li>
-  <li>and $\mathbf{v}_t$ is defined as in GTD($\lambda$):
+where $\bar{\mathbf{x}}_t$ is the average feature vector for $S_t$ under the target policy $\pi$; $\delta_t^a$ is the expectation form of the TD error, defined as \eqref{38}; the eligible trace vector $\mathbf{z}_t$ is defined as \eqref{39} for action value; and $\mathbf{v}_t$ is defined as in GTD($\lambda$):
 \begin{align}
 \bar{\mathbf{x}}_t&amp;\doteq\sum_a\pi(a|S_t)\mathbf{x}(S_t,a), \\ \delta_t^a&amp;\doteq R_{t+1}+\lambda_{t+1}\mathbf{w}^\intercal\bar{\mathbf{x}}_{t+1}-\mathbf{w}^\intercal\mathbf{x}_t, \\ \mathbf{z}_t&amp;\doteq\gamma_t\lambda_t\rho_t\mathbf{z}_{t-1}+\mathbf{x}_t, \\ \mathbf{v}_{t+1}&amp;\doteq\mathbf{v}_t+\beta\delta_t^a\mathbf{z}_t-\beta(\mathbf{v}_t^\intercal\mathbf{x}_t)\mathbf{x}_t
-\end{align}</li>
-</ul>
+\end{align}</p>
 
 <h4 id="greedy-gq-lambda">Greedy-GQ($\lambda$)</h4>
 <p>If the target policy is $\varepsilon$-greedy, or otherwise biased towards the greedy policy for $\hat{q}$, then GQ($\lambda$) can be used as a control algorithm, called <strong>Greedy-GQ($\lambda$)</strong>.</p>
@@ -884,13 +712,25 @@ where $\beta&gt;0$ is a step-size parameter.</p>
 <h3 id="htd-lambda">HTD($\lambda$)</h3>
 <p><strong>HTD($\lambda$)</strong> is a hybrid state-value algorithm combining aspects of GTD($\lambda$) and TD($\lambda$).</p>
 
-<p>HTD($\lambda$) has the following update:
+<p>The key idea behind the derivation of HTD($\lambda$) is to modify the gradient of the MSPBE, $\overline{\text{PBE}}(\mathbf{w})$, to produce a new learning algorithm. Recall that GTD($\lambda$) derivation, we have written the MSPBE as in \eqref{31}, as:
+\begin{equation}
+\overline{\text{PBE}}(\mathbf{w})=\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}_t\Big]^\intercal\mathbb{E}\Big[\mathbf{x}_t\mathbf{x}_t^\intercal\Big]^{-1}\mathbb{E}\Big[\delta_t(\mathbf{w})\mathbf{z}_t\Big]\tag{40}\label{40}
+\end{equation}
+Let $\mathbf{A}_\pi, \mathbf{C}$ be matrices and $\mathbf{b}_\pi$ is a vector such that:
 \begin{align}
-\mathbf{w}_{t+1}&amp;\doteq\mathbf{w}_t+\alpha\delta_t^s\mathbf{z}_t+\alpha\left(\left(\mathbf{z}_t-\mathbf{z}_t^b\right)^\intercal\mathbf{v}_t\right)\left(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\right), \\ \mathbf{v}_{t+1}&amp;\doteq\mathbf{v}_t+\beta\delta_t^s\mathbf{z}_t-\beta\left({\mathbf{z}_t^b}^\intercal\mathbf{v}_t\right)\left(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\right), \\ \mathbf{z}_t&amp;\doteq\rho_t\left(\gamma_t\lambda_t\mathbf{z}_{t-1}+\mathbf{x}_t\right), \\ \mathbf{z}_t^b&amp;\doteq\gamma_t\lambda_t\mathbf{z}_{t-1}^b+\mathbf{x}_t,
+\mathbf{A}_\pi&amp;\doteq\mathbb{E}\Big[\mathbf{z}_t\big(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\big)^\intercal\Big]; \\ \mathbf{C}&amp;\doteq\mathbb{E}\Big[\mathbf{x}_t\mathbf{x}_t^\intercal\Big]; \\ \mathbf{b}_\pi&amp;\doteq\mathbb{E}\Big[R_{t+1}\mathbf{z}_t\Big]
+\end{align}
+The objective function \eqref{40} is then can be written as:
+\begin{equation}
+\overline{\text{PBE}}(\mathbf{w})=\left(-\mathbf{A}_\pi\mathbf{w}+\mathbf{b}_\pi\right)^\intercal\mathbf{C}^{-1}\left(-\mathbf{A}_\pi\mathbf{w}+\mathbf{b}_\pi\right)
+\end{equation}
+Thus, the gradient w.r.t the weight vector $\mathbf{w}$ of the MSPBE is:
+\begin{align}
+-\frac{1}{2}\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w})&amp;=-\frac{1}{2}\nabla_\mathbf{w}\Big[\left(-\mathbf{A}_\pi\mathbf{w}+\mathbf{b}_\pi\right)^\intercal\mathbf{C}^{-1}\left(-\mathbf{A}_\pi\mathbf{w}+\mathbf{b}_\pi\right)\Big] \\ &amp;=-\mathbf{A}_\pi^\intercal\mathbf{C}^{-1}\left(-\mathbf{A}_\pi\mathbf{w}+\mathbf{b}_\pi\right)
 \end{align}</p>
 
 <h3 id="em-td-lambda">Emphatic TD($\lambda$)</h3>
-<p><strong>Emphatic TD($\lambda$) (ETD($\lambda$))</strong> is the extension of the <a href="/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#em-td">one-step Emphatic-TD algorithm</a> to eligible traces.</p>
+<p><strong>Emphatic TD($\lambda$)</strong> is the extension of the <a href="/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#em-td">one-step Emphatic-TD algorithm</a> to eligible traces.</p>
 
 <p>Emphatic TD($\lambda$) is defined by:
 \begin{align}
@@ -920,19 +760,19 @@ is convergent to a unique fixed point independent of the initial $\bar{\mathbf{w
 
 <p>With this definition of stability, in order to exam the stability of ETD($\lambda$), we begin by considering the SGD update for the weight vector $\mathbf{w}$ at time step $t$.
 \begin{align}
-\mathbf{w}_{t+1}&amp;\doteq\mathbf{w}_t+\alpha\left(R_{t+1}+\gamma_{t+1}\mathbf{w}_t^\intercal\mathbf{x}_{t+1}-\mathbf{w}_t^\intercal\mathbf{x}_t\right)\mathbf{z}_t \\ &amp;=\mathbf{w}_t+\alpha\left(\mathbf{z}_t R_{t+1}-\mathbf{z}_t\left(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\right)^\intercal\mathbf{w}_t\right)\tag{40}\label{40}
+\mathbf{w}_{t+1}&amp;\doteq\mathbf{w}_t+\alpha\left(R_{t+1}+\gamma_{t+1}\mathbf{w}_t^\intercal\mathbf{x}_{t+1}-\mathbf{w}_t^\intercal\mathbf{x}_t\right)\mathbf{z}_t \\ &amp;=\mathbf{w}_t+\alpha\left(\mathbf{z}_t R_{t+1}-\mathbf{z}_t\left(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\right)^\intercal\mathbf{w}_t\right)
 \end{align}
 Let $\mathbf{A}_t\in\mathbb{R}^d\times\mathbb{R}^d$ be a matrix and $\mathbf{b}_t\in\mathbb{R}^d$ be a vector such that:
 \begin{align}
 \mathbf{A}_t&amp;\doteq\mathbf{z}_t\left(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\right)^\intercal, \\ \mathbf{b}_t&amp;\doteq\mathbf{z}_t R_{t+1}
 \end{align}
-The stochastic update \eqref{40} is then can be written as:
+The stochastic update is then can be written as:
 \begin{align}
 \mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\left(\mathbf{b}_t-\mathbf{A}_t\mathbf{w}_t\right)
 \end{align}
 From the definition of $\mathbf{A}$, we have:
 \begin{align}
-\mathbf{A}&amp;=\lim_{t\to\infty}\mathbb{E}\left[\mathbf{A}_t\right] \\ &amp;=\lim_{t\to\infty}\mathbb{E}_b\Big[\mathbf{z}_t\big(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\big)^\intercal\Big] \\ &amp;=\sum_s\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\mathbf{z}_t\big(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\big)^\intercal\big|S_t=s\Big] \\ &amp;=\sum_s\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\rho_t\big(\gamma_t\lambda_t\mathbf{z}_{t-1}+M_t\mathbf{x}_t\big)\big(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\big)^\intercal\big|S_t=s\Big] \\ &amp;=\sum_s\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\gamma_t\lambda_t\mathbf{z}_{t-1}+M_t\mathbf{x}_t\big|S_t=s\Big]\mathbb{E}_b\Big[\rho_t\big(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\big)^\intercal\big|S_t=s\Big] \\ &amp;=\sum_s\underbrace{\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\gamma_t\lambda_t\mathbf{z}_{t-1}+M_t\mathbf{x}_t\big|S_t=s\Big]}_{\mathbf{z}(s)}\mathbb{E}_b\Big[\rho_k\big(\mathbf{x}_k-\gamma_{k+1}\mathbf{x}_{k+1}\big)^\intercal\big|S_k=s\Big] \\ &amp;=\sum_s\mathbf{z}(s)\mathbb{E}_\pi\Big[\mathbf{x}_k-\gamma_{k+1}\mathbf{x}_{k+1}\big|S_k=s\Big] \\ &amp;=\sum_s\mathbf{z}(s)\Big(\mathbf{x}_t-\sum_{s’}\left[\mathbf{P}_\pi\right]_{ss’}\gamma(s’)\mathbf{x}(s’)\Big)^\intercal \\ &amp;=\mathbf{Z}\left(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\right)\mathbf{X},\tag{41}\label{41}
+\mathbf{A}&amp;=\lim_{t\to\infty}\mathbb{E}\left[\mathbf{A}_t\right] \\ &amp;=\lim_{t\to\infty}\mathbb{E}_b\Big[\mathbf{z}_t\big(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\big)^\intercal\Big] \\ &amp;=\sum_s\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\mathbf{z}_t\big(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\big)^\intercal\big|S_t=s\Big] \\ &amp;=\sum_s\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\rho_t\big(\gamma_t\lambda_t\mathbf{z}_{t-1}+M_t\mathbf{x}_t\big)\big(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\big)^\intercal\big|S_t=s\Big] \\ &amp;=\sum_s\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\gamma_t\lambda_t\mathbf{z}_{t-1}+M_t\mathbf{x}_t\big|S_t=s\Big]\mathbb{E}_b\Big[\rho_t\big(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\big)^\intercal\big|S_t=s\Big] \\ &amp;=\sum_s\underbrace{\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\gamma_t\lambda_t\mathbf{z}_{t-1}+M_t\mathbf{x}_t\big|S_t=s\Big]}_{\mathbf{z}(s)}\mathbb{E}_b\Big[\rho_k\big(\mathbf{x}_k-\gamma_{k+1}\mathbf{x}_{k+1}\big)^\intercal\big|S_k=s\Big] \\ &amp;=\sum_s\mathbf{z}(s)\mathbb{E}_\pi\Big[\mathbf{x}_k-\gamma_{k+1}\mathbf{x}_{k+1}\big|S_k=s\Big] \\ &amp;=\sum_s\mathbf{z}(s)\Big(\mathbf{x}_t-\sum_{s’}\left[\mathbf{P}_\pi\right]_{ss’}\gamma(s’)\mathbf{x}(s’)\Big)^\intercal \\ &amp;=\mathbf{Z}\left(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\right)\mathbf{X},\tag{40}\label{40}
 \end{align}
 where</p>
 <ul>
@@ -944,7 +784,7 @@ where</p>
 where $p(j|i,a)\doteq P(S_{t+1}=j|S_i=s,A_i=a)$.</li>
   <li>$\mathbf{Z}$ is a $\vert\mathcal{S}\vert\times d$ matrix, whose rows are $\mathbf{z}(s)$’s (i.e., $\mathbf{Z}^\intercal\doteq\left[\mathbf{z}(s_1),\dots,\mathbf{z}(s_{\vert\mathcal{S}\vert})\right]$), with $\mathbf{z}(s)\in\mathbb{R}^d$ is a vector defined by<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>:
 \begin{align}
-\mathbf{z}(s)&amp;\doteq\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\gamma_t\lambda_t\mathbf{z}_{t-1}+M_t\mathbf{x}_t\big|S_t=s\Big] \\ &amp;=\underbrace{\mu_(s)\lim_{t\to\infty}\mathbb{E}_b\Big[M_t\big|S_t=s\Big]}_{m(s)}\mathbf{x}_t+\gamma(s)\lambda(s)\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\mathbf{z}_{t-1}\big|S_t=s\Big] \\ &amp;=m(s)\mathbf{x}(s)+\gamma(s)\lambda(s)\mu(s)\lim_{t\to\infty}\sum_{\bar{s},\bar{a}}p(S_{t-1}=\bar{s},A_{t-1}=\bar{a}|S_t=s) \\ &amp;\hspace{2cm}\times\mathbb{E}_b\Big[\mathbf{z}_{t-1}\big|S_{t-1}=\bar{s},A_{t-1}=\bar{a}\Big] \\ &amp;=m(s)\mathbf{x}(s)+\gamma(s)\lambda(s)\mu(s)\sum_{\bar{s},\bar{a}}\frac{\mu(\bar{s})b(\bar{a}|\bar{s})p(s|\bar{s},\bar{a})}{\mu(s)} \\ &amp;\hspace{2cm}\times\lim_{t\to\infty}\mathbb{E}_b\Big[\mathbf{z}_{t-1}\big|S_{t-1}=\bar{s},A_{t-1}=\bar{a}\Big] \\ &amp;=m(s)\mathbf{x}(s)+\gamma(s)\lambda(s)\sum_{\bar{s},\bar{a}}\mu(\bar{s})b(\bar{a}|\bar{s})p(s|\bar{s},\bar{a})\frac{\pi(\bar{a}|\bar{s})}{b(\bar{a}|\bar{s})} \\\ &amp;\hspace{2cm}\times\lim_{t\to\infty}\mathbb{E}_b\Big[\gamma_{t-1}\lambda_{t-1}\mathbf{z}_{t-2}+M_{t-1}\mathbf{x}_{t-1}\big|S_t=s\Big] \\ &amp;=m(s)\mathbf{x}(s)+\gamma(s)\lambda(s)\sum_{\bar{s}}\Big(\sum_{\bar{a}}\pi(\bar{a}|\bar{s})p(s|\bar{s},\bar{a})\Big)\mathbf{z}(\bar{s}) \\ &amp;=m(s)\mathbf{x}(s)+\gamma(s)\lambda(s)\sum_{\bar{s}}\left[\mathbf{P}_\pi\right]_{\bar{s}s}\mathbf{z}(\bar{s})\tag{42}\label{42}
+\mathbf{z}(s)&amp;\doteq\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\gamma_t\lambda_t\mathbf{z}_{t-1}+M_t\mathbf{x}_t\big|S_t=s\Big] \\ &amp;=\underbrace{\mu_(s)\lim_{t\to\infty}\mathbb{E}_b\Big[M_t\big|S_t=s\Big]}_{m(s)}\mathbf{x}_t+\gamma(s)\lambda(s)\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\mathbf{z}_{t-1}\big|S_t=s\Big] \\ &amp;=m(s)\mathbf{x}(s)+\gamma(s)\lambda(s)\mu(s)\lim_{t\to\infty}\sum_{\bar{s},\bar{a}}p(S_{t-1}=\bar{s},A_{t-1}=\bar{a}|S_t=s) \\ &amp;\hspace{2cm}\times\mathbb{E}_b\Big[\mathbf{z}_{t-1}\big|S_{t-1}=\bar{s},A_{t-1}=\bar{a}\Big] \\ &amp;=m(s)\mathbf{x}(s)+\gamma(s)\lambda(s)\mu(s)\sum_{\bar{s},\bar{a}}\frac{\mu(\bar{s})b(\bar{a}|\bar{s})p(s|\bar{s},\bar{a})}{\mu(s)} \\ &amp;\hspace{2cm}\times\lim_{t\to\infty}\mathbb{E}_b\Big[\mathbf{z}_{t-1}\big|S_{t-1}=\bar{s},A_{t-1}=\bar{a}\Big] \\ &amp;=m(s)\mathbf{x}(s)+\gamma(s)\lambda(s)\sum_{\bar{s},\bar{a}}\mu(\bar{s})b(\bar{a}|\bar{s})p(s|\bar{s},\bar{a})\frac{\pi(\bar{a}|\bar{s})}{b(\bar{a}|\bar{s})} \\\ &amp;\hspace{2cm}\times\lim_{t\to\infty}\mathbb{E}_b\Big[\gamma_{t-1}\lambda_{t-1}\mathbf{z}_{t-2}+M_{t-1}\mathbf{x}_{t-1}\big|S_t=s\Big] \\ &amp;=m(s)\mathbf{x}(s)+\gamma(s)\lambda(s)\sum_{\bar{s}}\Big(\sum_{\bar{a}}\pi(\bar{a}|\bar{s})p(s|\bar{s},\bar{a})\Big)\mathbf{z}(\bar{s}) \\ &amp;=m(s)\mathbf{x}(s)+\gamma(s)\lambda(s)\sum_{\bar{s}}\left[\mathbf{P}_\pi\right]_{\bar{s}s}\mathbf{z}(\bar{s})\tag{41}\label{41}
 \end{align}</li>
 </ul>
 
@@ -955,13 +795,13 @@ where $p(j|i,a)\doteq P(S_{t+1}=j|S_i=s,A_i=a)$.</li>
   <li>$\mathbf{\Lambda}$, which has the $\lambda(s)$ on its diagonal.</li>
 </ul>
 
-<p>With these matrices, we can rewrite \eqref{42} in matrix form, as:
+<p>With these matrices, we can rewrite \eqref{41} in matrix form, as:
 \begin{align}
 \mathbf{Z}^\intercal&amp;=\mathbf{X}^\intercal\mathbf{M}+\mathbf{Z}^\intercal\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda} \\ \Rightarrow\mathbf{Z}^\intercal&amp;=\mathbf{X}^\intercal\mathbf{M}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}
 \end{align}
-Substitute this equation back to \eqref{41}, we obtain:
+Substitute this equation back to \eqref{40}, we obtain:
 \begin{equation}
-\mathbf{A}=\mathbf{X}^\intercal\mathbf{M}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma})\mathbf{X}\tag{43}\label{43}
+\mathbf{A}=\mathbf{X}^\intercal\mathbf{M}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma})\mathbf{X}\tag{42}\label{42}
 \end{equation}
 Doing similar steps, we can also obtain the ETD($\lambda$)’s $\mathbf{b}$ vector:
 \begin{equation}
@@ -969,7 +809,7 @@ Doing similar steps, we can also obtain the ETD($\lambda$)’s $\mathbf{b}$ vect
 \end{equation}
 where $\mathbf{r}_\pi\in\mathbb{R}^{\vert\mathcal{S}\vert}$ is the vector of expected immediate rewards from each state under $\pi$.</p>
 
-<p>Since the positive definiteness of $\mathbf{A}$ implies the stability of the algorithm, from \eqref{43}, it is sufficient to prove the positive definiteness of the <strong>key matrix</strong> $\mathbf{M}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma})$ because this matrix can be written in the form of:
+<p>Since the positive definiteness of $\mathbf{A}$ implies the stability of the algorithm, from \eqref{42}, it is sufficient to prove the positive definiteness of the <strong>key matrix</strong> $\mathbf{M}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma})$ because this matrix can be written in the form of:
 \begin{equation}
 \mathbf{X}^\intercal\mathbf{M}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma})\mathbf{X}=\sum_{i=1}^{\vert\mathcal{S}\vert}\mathbf{x}_i^\intercal\mathbf{M}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma})\mathbf{x}_i
 \end{equation}
@@ -997,9 +837,9 @@ In order to prove the positive definiteness of $\mathbf{M}(\mathbf{I}-\mathbf{P}
 
 <p>To show this we need to analyze the matrix $\mathbf{M}$, and to do that we first analyze the vector $\mathbf{f}\in\mathbb{R}^{\vert\mathcal{S}\vert}$, which having $f(s)\doteq\mu(s)\lim_{t\to\infty}\mathbb{E}_b\left[F_t|S_t=s\right]$ as its components. We have:
 \begin{align}
-f(s)&amp;=\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[F_t\big|S_t=s\Big] \\ &amp;=\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[i(S_t)+\rho_{t-1}\gamma_t F_{t-1}\big|S_t=s\Big] \\ &amp;=\mu(s)i(s)+\mu(s)\gamma(s)\lim_{t\to\infty}\sum_{\bar{s},\bar{a}}P(S_{t-1}=\bar{s},A_{t-1}=\bar{a}|S_t=s)\frac{\pi(\bar{a}|\bar{s})}{b(\bar{a}|\bar{s})}]\mathbb{E}_b\Big[F_{t-1}\big|S_{t-1}=\bar{s}\Big] \\ &amp;=\mu(s)i(s)+\mu(s)\gamma(s)\sum_{\bar{s},\bar{a}}\frac{\mu(\bar{s})b(\bar{a}|\bar{s})p(s|\bar{s},\bar{a})}{\mu(s)}\frac{\pi(\bar{a}|\bar{s})}{b(\bar{a}|\bar{s})}\lim_{t\to\infty}\mathbb{E}_b\Big[F_{t-1}\big|S_{t-1}=\bar{s}\Big] \\ &amp;=\mu(s)i(s)+\gamma(s)\sum_{\bar{s},\bar{a}}\pi(\bar{a}|\bar{s})p(s|\bar{s},\bar{a})\mu(\bar{s})\lim_{t\to\infty}\mathbb{E}_b\Big[F_{t-1}\big|S_{t-1}=\bar{s}\Big] \\ &amp;=\mu(s)i(s)+\gamma(s)\sum_s\left[\mathbf{P}_\pi\right]_{\bar{s}s}f(\bar{s})\tag{44}\label{44}
+f(s)&amp;=\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[F_t\big|S_t=s\Big] \\ &amp;=\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[i(S_t)+\rho_{t-1}\gamma_t F_{t-1}\big|S_t=s\Big] \\ &amp;=\mu(s)i(s)+\mu(s)\gamma(s)\lim_{t\to\infty}\sum_{\bar{s},\bar{a}}P(S_{t-1}=\bar{s},A_{t-1}=\bar{a}|S_t=s)\frac{\pi(\bar{a}|\bar{s})}{b(\bar{a}|\bar{s})}]\mathbb{E}_b\Big[F_{t-1}\big|S_{t-1}=\bar{s}\Big] \\ &amp;=\mu(s)i(s)+\mu(s)\gamma(s)\sum_{\bar{s},\bar{a}}\frac{\mu(\bar{s})b(\bar{a}|\bar{s})p(s|\bar{s},\bar{a})}{\mu(s)}\frac{\pi(\bar{a}|\bar{s})}{b(\bar{a}|\bar{s})}\lim_{t\to\infty}\mathbb{E}_b\Big[F_{t-1}\big|S_{t-1}=\bar{s}\Big] \\ &amp;=\mu(s)i(s)+\gamma(s)\sum_{\bar{s},\bar{a}}\pi(\bar{a}|\bar{s})p(s|\bar{s},\bar{a})\mu(\bar{s})\lim_{t\to\infty}\mathbb{E}_b\Big[F_{t-1}\big|S_{t-1}=\bar{s}\Big] \\ &amp;=\mu(s)i(s)+\gamma(s)\sum_s\left[\mathbf{P}_\pi\right]_{\bar{s}s}f(\bar{s})\tag{43}\label{43}
 \end{align}
-Let $\mathbf{i}\in\mathbb{R}^{\vert\mathcal{S}\vert}$ be the vector having components $[\mathbf{i}]_s\doteq\mu(s)i(s)$. Equation \eqref{44} allows  us to write $\mathbf{f}$ in matrix-vector form, as:
+Let $\mathbf{i}\in\mathbb{R}^{\vert\mathcal{S}\vert}$ be the vector having components $[\mathbf{i}]_s\doteq\mu(s)i(s)$. Equation \eqref{43} allows  us to write $\mathbf{f}$ in matrix-vector form, as:
 \begin{align}
 \mathbf{f}&amp;=\mathbf{i}+\mathbf{\Gamma}\mathbf{P}_\pi^\intercal\mathbf{f} \\ &amp;=\mathbf{i}+\mathbf{\Gamma}\mathbf{P}_\pi^\intercal\mathbf{i}+(\mathbf{\Gamma}\mathbf{P}_\pi^\intercal)^2\mathbf{i}+\dots \\ &amp;=\left(\mathbf{I}-\mathbf{\Gamma}\mathbf{P}_\pi^\intercal\right)^{-1}
 \end{align}
@@ -1044,111 +884,4 @@ Instead of having domain of $[0,\infty)$, if we further assume that $i(s)&gt;0,\
     </li>
   </ol>
 </div>
-
-  </div>
-<div id="disqus_thread"></div>
-<script>
-    /**
-    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
-    
-    var disqus_config = function () {
-    this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
-    this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-    };
-    
-    (function() { // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-    s.src = 'https://https-trunghng-github-io.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-
-<script id="dsq-count-scr" src="//https-trunghng-github-io.disqus.com/count.js" async></script>
-
-  <a class="u-url" href="/artificial-intelligent/reinforcement-learning/2022/08/08/eligible-traces.html" hidden></a>
-</article>
- <!-- mathjax javascript -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
-  "HTML-CSS": {availableFonts: []}
-  });
-</script>
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-<script>
-  var coll = document.getElementsByClassName("collapsible");
-  var i;
-  for (i = 0; i < coll.length; i++) {
-    coll[i].addEventListener("click", function() {
-      this.classList.toggle("active");
-      var content = document.getElementById(this.id+"data");
-      var btn = document.getElementById(this.id)
-      if (content.style.display === "block") {
-        content.style.display = "none";
-        btn.innerText = "Click to show the code";
-      } else {
-        content.style.display = "block";
-        btn.innerText = "Click to hide the code"
-      }
-    });
-  }
-</script>
-
-      </div>
-
-    </main><footer class="site-footer h-card">
-  <data class="u-url" href="/"></data>
-
-  <div class="wrapper">
-
-    <div class="footer-col-wrapper">
-      <div class="footer-col">
-        <p class="feed-subscribe">
-          <a href="/feed.xml">
-            <svg class="svg-icon orange">
-              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
-            </svg><span>Subscribe</span>
-          </a>
-        </p>
-        <ul class="contact-list">
-          <li class="p-name">Trung H. Nguyen</li>
-          <li><a class="u-email" href="mailto:trung.skipper@gmail.com">trung.skipper@gmail.com</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <p>To document something I&#39;ve learned
-</p>
-      </div>
-    </div>
-
-    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/trunghng" title="trunghng"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
-</div>
-
-  </div>
-
-</footer>
-</body>
-
-</html>
-<script type="text/javascript">
-  var btn = $('#button');
-
-  $(window).scroll(function() {
-    if ($(window).scrollTop() > 300) {
-      btn.addClass('show');
-    } else {
-      btn.removeClass('show');
-    }
-  });
-
-  btn.on('click', function(e) {
-    e.preventDefault();
-    $('html, body').animate({scrollTop:0}, '300');
-  });
-</script>
+:ET

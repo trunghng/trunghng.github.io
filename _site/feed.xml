@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-18T18:27:56+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-19T19:13:23+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Policy Gradient Methods</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient.html" rel="alternate" type="text/html" title="Policy Gradient Methods" /><published>2022-08-16T14:00:00+07:00</published><updated>2022-08-16T14:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient.html">&lt;blockquote&gt;
   &lt;p&gt;So far in the series, we have been choosing the actions based on the estimated action value function. On the other hand, we can instead learn a &lt;strong&gt;parameterized policy&lt;/strong&gt;, $\boldsymbol{\theta}$, that can select actions without consulting a value function by updating $\boldsymbol{\theta}$ on each step in the direction of an estimate of the gradient of some performance measure w.r.t $\boldsymbol{\theta}$. Such methods are called &lt;strong&gt;policy gradient methods&lt;/strong&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -418,17 +418,17 @@ and in the twelfth step, we also define $\delta_t$ as:
 \end{align}
 which is the same as the TD error of TD($\lambda$) we have defined earlier.&lt;/p&gt;
 
-&lt;p&gt;We then need to derive an update rule to compute $\mathbf{z}_t$ from $\mathbf{z}_{t-1}$, as:
+&lt;p&gt;We then need to derive an update rule to recursively compute $\mathbf{z}_t$ from $\mathbf{z}_{t-1}$, as:
 \begin{align}
-\mathbf{z}_t&amp;amp;=\sum_{i=0}^{t}\mathbf{A}_{i+1}^t\mathbf{x}_i(\gamma\lambda)^{t-i} \\ &amp;amp;=\sum_{i=0}^{t-1}\mathbf{A}_{i+1}^t\mathbf{x}_i(\gamma\lambda)^{t-i}+\mathbf{x}_t \\ &amp;amp;=\left(\mathbf{I}-\alpha\mathbf{x}_t\mathbf{x}_t^\intercal\right)\gamma\lambda\sum_{i=0}^{t-1}\mathbf{A}_{i+1}^{t-1}\mathbf{x}_i(\gamma\lambda)^{t-i-1}+\mathbf{x}_t \\ &amp;amp;=\left(\mathbf{I}-\alpha\mathbf{x}_t\mathbf{x}_t^\intercal\right)\gamma\lambda\mathbf{z}_{t-1}+\mathbf{x}_t \\ &amp;amp;=\gamma\lambda\mathbf{z}_{t-1}+\left(1-\alpha\gamma\lambda\left(\mathbf{z}_t^\intercal\mathbf{x}_t\right)\right)\mathbf{x}_t\tag{9}\label{9}
+\mathbf{z}_t&amp;amp;=\sum_{i=0}^{t}\mathbf{A}_{i+1}^t\mathbf{x}_i(\gamma\lambda)^{t-i} \\ &amp;amp;=\sum_{i=0}^{t-1}\mathbf{A}_{i+1}^t\mathbf{x}_i(\gamma\lambda)^{t-i}+\mathbf{x}_t \\ &amp;amp;=\left(\mathbf{I}-\alpha\mathbf{x}_t\mathbf{x}_t^\intercal\right)\gamma\lambda\sum_{i=0}^{t-1}\mathbf{A}_{i+1}^{t-1}\mathbf{x}_i(\gamma\lambda)^{t-i-1}+\mathbf{x}_t \\ &amp;amp;=\left(\mathbf{I}-\alpha\mathbf{x}_t\mathbf{x}_t^\intercal\right)\gamma\lambda\mathbf{z}_{t-1}+\mathbf{x}_t \\ &amp;amp;=\gamma\lambda\mathbf{z}_{t-1}+\left(1-\alpha\gamma\lambda\left(\mathbf{z}_{t-1}^\intercal\mathbf{x}_t\right)\right)\mathbf{x}_t\tag{9}\label{9}
 \end{align}
-Equation \eqref{8} and \eqref{9} form the update of the &lt;strong&gt;true online TD($\lambda$)&lt;/strong&gt; algorithm:
+Equations \eqref{8} and \eqref{9} form the update of the &lt;strong&gt;true online TD($\lambda$)&lt;/strong&gt; algorithm:
 \begin{equation}
 \mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\delta_t\mathbf{z}_t+\alpha\left(\mathbf{w}_t^\intercal\mathbf{x}_t-\mathbf{w}_{t-1}^\intercal\mathbf{x}_t\right)\left(\mathbf{z}t_t-\mathbf{x}_t\right),
 \end{equation}
 where
 \begin{align}
-\mathbf{z}_t&amp;amp;\doteq\gamma\lambda\mathbf{z}_{t-1}+\left(1-\alpha\gamma\lambda\left(\mathbf{z}_t^\intercal\mathbf{x}_t\right)\right)\mathbf{x}_t,\tag{10}\label{10} \\ \delta_t&amp;amp;\doteq R_{t+1}+\gamma\mathbf{w}_t^\intercal\mathbf{x}_{t+1}-\mathbf{w}_t^\intercal\mathbf{x}_t
+\mathbf{z}_t&amp;amp;\doteq\gamma\lambda\mathbf{z}_{t-1}+\left(1-\alpha\gamma\lambda\left(\mathbf{z}_{t-1}^\intercal\mathbf{x}_t\right)\right)\mathbf{x}_t,\tag{10}\label{10} \\ \delta_t&amp;amp;\doteq R_{t+1}+\gamma\mathbf{w}_t^\intercal\mathbf{x}_{t+1}-\mathbf{w}_t^\intercal\mathbf{x}_t
 \end{align}
 Pseudocode of the algorithm is given below.&lt;/p&gt;
 &lt;figure&gt;
@@ -514,7 +514,7 @@ and so it is with eligible trace vector:
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
 
-&lt;p&gt;There is also an action-value version of the online $\lambda$-return algorithm, and its efficient implementation as true online TD($\lambda$), called &lt;strong&gt;True online TD($\lambda$)&lt;/strong&gt;, which can be achieved by using $n$-step return \eqref{14} instead (which also leads to the change of $\mathbf{x}_t=\mathbf{x}(S_t)$ to $\mathbf{x}_t=\mathbf{x}(S_t,A_t)$).&lt;/p&gt;
+&lt;p&gt;There is also an action-value version of the online $\lambda$-return algorithm, and its efficient implementation as true online TD($\lambda$), called &lt;strong&gt;True online Sarsa($\lambda$)&lt;/strong&gt;, which can be achieved by using $n$-step return \eqref{14} instead (which also leads to the change of $\mathbf{x}_t=\mathbf{x}(S_t)$ to $\mathbf{x}_t=\mathbf{x}(S_t,A_t)$).&lt;/p&gt;
 
 &lt;p&gt;Pseudocode of the true online Sarsa($\lambda$) is given below.&lt;/p&gt;
 &lt;figure&gt;
@@ -791,10 +791,15 @@ By direct sampling from \eqref{32} and following TDC derivation steps we obtain 
 \begin{equation}
 \mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\delta_t^s\mathbf{z}_t-\alpha\gamma_{t+1}(1-\lambda_{t+1})(\mathbf{z}_t^\intercal\mathbf{v}_t)\mathbf{x}_{t+1},
 \end{equation}
-where the TD error $\delta_t^s$ is defined, as usual, as state-based TD error \eqref{18}; the eligible trace vector $\mathbf{z}_t$ is defined as given in \eqref{20} for state value; and $\mathbf{v}_t$ is a vector of the same dimension as $\mathbf{w}$, initialized to $\mathbf{v}_0=\mathbf{0}$ with $\beta&amp;gt;0$ is a step-size parameter:
+where&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;the TD error $\delta_t^s$ is defined, as usual, as state-based TD error \eqref{18};&lt;/li&gt;
+  &lt;li&gt;the eligible trace vector $\mathbf{z}_t$ is defined as given in \eqref{20} for state value;&lt;/li&gt;
+  &lt;li&gt;and $\mathbf{v}_t$ is a vector of the same dimension as $\mathbf{w}$, initialized to $\mathbf{v}_0=\mathbf{0}$ with $\beta&amp;gt;0$ is a step-size parameter:
 \begin{align}
 \delta_t^s&amp;amp;\doteq R_{t+1}+\gamma_{t+1}\mathbf{w}_t^\intercal\mathbf{x}_{t+1}-\mathbf{w}_t^\intercal\mathbf{x}_t, \\ \mathbf{z}_t&amp;amp;\doteq\rho_t(\gamma_t\lambda_t\mathbf{z}_{t-1}+\mathbf{x}_t), \\ \mathbf{v}_{t+1}&amp;amp;\doteq\mathbf{v}_t+\beta\delta_t^s\mathbf{z}_t-\beta(\mathbf{v}_t^\intercal\mathbf{x}_t)\mathbf{x}_t
-\end{align}&lt;/p&gt;
+\end{align}&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h3 id=&quot;gq-lambda&quot;&gt;GQ($\lambda$)&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;GQ($\lambda$)&lt;/strong&gt; is another eligible trace version of a Gradient-TD method but with action values. Its goal is to learn a parameter $\mathbf{w}_t$ such that $\hat{q}(s,a,\mathbf{w}_t)\doteq\mathbf{w}_t^\intercal\mathbf{x}(s,a)\approx q_\pi(s,a)$ from data given by following a behavior policy $b$.&lt;/p&gt;
@@ -896,10 +901,16 @@ By direct sampling from the above gradient-descent direction and weight-duplicat
 \begin{equation}
 \mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\delta_t^a\mathbf{z}_t-\alpha\gamma_{t+1}(1-\lambda_{t+1})(\mathbf{z}_t^\intercal\mathbf{v}_t)\bar{\mathbf{x}}_{t+1},
 \end{equation}
-where $\bar{\mathbf{x}}_t$ is the average feature vector for $S_t$ under the target policy $\pi$; $\delta_t^a$ is the expectation form of the TD error, defined as \eqref{38}; the eligible trace vector $\mathbf{z}_t$ is defined as \eqref{39} for action value; and $\mathbf{v}_t$ is defined as in GTD($\lambda$):
+where&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;$\bar{\mathbf{x}}_t$ is the average feature vector for $S_t$ under the target policy $\pi$;&lt;/li&gt;
+  &lt;li&gt;$\delta_t^a$ is the expectation form of the TD error, defined as \eqref{38};&lt;/li&gt;
+  &lt;li&gt;the eligible trace vector $\mathbf{z}_t$ is defined as \eqref{39} for action value;&lt;/li&gt;
+  &lt;li&gt;and $\mathbf{v}_t$ is defined as in GTD($\lambda$):
 \begin{align}
 \bar{\mathbf{x}}_t&amp;amp;\doteq\sum_a\pi(a|S_t)\mathbf{x}(S_t,a), \\ \delta_t^a&amp;amp;\doteq R_{t+1}+\lambda_{t+1}\mathbf{w}^\intercal\bar{\mathbf{x}}_{t+1}-\mathbf{w}^\intercal\mathbf{x}_t, \\ \mathbf{z}_t&amp;amp;\doteq\gamma_t\lambda_t\rho_t\mathbf{z}_{t-1}+\mathbf{x}_t, \\ \mathbf{v}_{t+1}&amp;amp;\doteq\mathbf{v}_t+\beta\delta_t^a\mathbf{z}_t-\beta(\mathbf{v}_t^\intercal\mathbf{x}_t)\mathbf{x}_t
-\end{align}&lt;/p&gt;
+\end{align}&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h4 id=&quot;greedy-gq-lambda&quot;&gt;Greedy-GQ($\lambda$)&lt;/h4&gt;
 &lt;p&gt;If the target policy is $\varepsilon$-greedy, or otherwise biased towards the greedy policy for $\hat{q}$, then GQ($\lambda$) can be used as a control algorithm, called &lt;strong&gt;Greedy-GQ($\lambda$)&lt;/strong&gt;.&lt;/p&gt;
@@ -920,11 +931,10 @@ where $\beta&amp;gt;0$ is a step-size parameter.&lt;/p&gt;
 &lt;p&gt;HTD($\lambda$) has the following update:
 \begin{align}
 \mathbf{w}_{t+1}&amp;amp;\doteq\mathbf{w}_t+\alpha\delta_t^s\mathbf{z}_t+\alpha\left(\left(\mathbf{z}_t-\mathbf{z}_t^b\right)^\intercal\mathbf{v}_t\right)\left(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\right), \\ \mathbf{v}_{t+1}&amp;amp;\doteq\mathbf{v}_t+\beta\delta_t^s\mathbf{z}_t-\beta\left({\mathbf{z}_t^b}^\intercal\mathbf{v}_t\right)\left(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\right), \\ \mathbf{z}_t&amp;amp;\doteq\rho_t\left(\gamma_t\lambda_t\mathbf{z}_{t-1}+\mathbf{x}_t\right), \\ \mathbf{z}_t^b&amp;amp;\doteq\gamma_t\lambda_t\mathbf{z}_{t-1}^b+\mathbf{x}_t,
-\end{align}
-where $\beta&amp;gt;0$ is a step-size parameter; $\mathbf{v}_t$ is initialized at $\mathbf{v}_0\doteq\mathbf{0}$; $\mathbf{z}_t$ is initialized at $\mathbf{z}_{-1}\doteq\mathbf{0}$; and $\mathbf{z}_t^b$ is initialized at $\mathbf{z}_{-1}^b\doteq\mathbf{0}$.&lt;/p&gt;
+\end{align}&lt;/p&gt;
 
 &lt;h3 id=&quot;em-td-lambda&quot;&gt;Emphatic TD($\lambda$)&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Emphatic TD($\lambda$)&lt;/strong&gt; is the extension of the &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#em-td&quot;&gt;one-step Emphatic-TD algorithm&lt;/a&gt; to eligible traces.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Emphatic TD($\lambda$) (ETD($\lambda$))&lt;/strong&gt; is the extension of the &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#em-td&quot;&gt;one-step Emphatic-TD algorithm&lt;/a&gt; to eligible traces.&lt;/p&gt;
 
 &lt;p&gt;Emphatic TD($\lambda$) is defined by:
 \begin{align}
@@ -954,19 +964,19 @@ is convergent to a unique fixed point independent of the initial $\bar{\mathbf{w
 
 &lt;p&gt;With this definition of stability, in order to exam the stability of ETD($\lambda$), we begin by considering the SGD update for the weight vector $\mathbf{w}$ at time step $t$.
 \begin{align}
-\mathbf{w}_{t+1}&amp;amp;\doteq\mathbf{w}_t+\alpha\left(R_{t+1}+\gamma_{t+1}\mathbf{w}_t^\intercal\mathbf{x}_{t+1}-\mathbf{w}_t^\intercal\mathbf{x}_t\right)\mathbf{z}_t \\ &amp;amp;=\mathbf{w}_t+\alpha\left(\mathbf{z}_t R_{t+1}-\mathbf{z}_t\left(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\right)^\intercal\mathbf{w}_t\right)
+\mathbf{w}_{t+1}&amp;amp;\doteq\mathbf{w}_t+\alpha\left(R_{t+1}+\gamma_{t+1}\mathbf{w}_t^\intercal\mathbf{x}_{t+1}-\mathbf{w}_t^\intercal\mathbf{x}_t\right)\mathbf{z}_t \\ &amp;amp;=\mathbf{w}_t+\alpha\left(\mathbf{z}_t R_{t+1}-\mathbf{z}_t\left(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\right)^\intercal\mathbf{w}_t\right)\tag{40}\label{40}
 \end{align}
 Let $\mathbf{A}_t\in\mathbb{R}^d\times\mathbb{R}^d$ be a matrix and $\mathbf{b}_t\in\mathbb{R}^d$ be a vector such that:
 \begin{align}
 \mathbf{A}_t&amp;amp;\doteq\mathbf{z}_t\left(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\right)^\intercal, \\ \mathbf{b}_t&amp;amp;\doteq\mathbf{z}_t R_{t+1}
 \end{align}
-The stochastic update is then can be written as:
+The stochastic update \eqref{40} is then can be written as:
 \begin{align}
 \mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\left(\mathbf{b}_t-\mathbf{A}_t\mathbf{w}_t\right)
 \end{align}
 From the definition of $\mathbf{A}$, we have:
 \begin{align}
-\mathbf{A}&amp;amp;=\lim_{t\to\infty}\mathbb{E}\left[\mathbf{A}_t\right] \\ &amp;amp;=\lim_{t\to\infty}\mathbb{E}_b\Big[\mathbf{z}_t\big(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\big)^\intercal\Big] \\ &amp;amp;=\sum_s\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\mathbf{z}_t\big(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\big)^\intercal\big|S_t=s\Big] \\ &amp;amp;=\sum_s\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\rho_t\big(\gamma_t\lambda_t\mathbf{z}_{t-1}+M_t\mathbf{x}_t\big)\big(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\big)^\intercal\big|S_t=s\Big] \\ &amp;amp;=\sum_s\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\gamma_t\lambda_t\mathbf{z}_{t-1}+M_t\mathbf{x}_t\big|S_t=s\Big]\mathbb{E}_b\Big[\rho_t\big(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\big)^\intercal\big|S_t=s\Big] \\ &amp;amp;=\sum_s\underbrace{\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\gamma_t\lambda_t\mathbf{z}_{t-1}+M_t\mathbf{x}_t\big|S_t=s\Big]}_{\mathbf{z}(s)}\mathbb{E}_b\Big[\rho_k\big(\mathbf{x}_k-\gamma_{k+1}\mathbf{x}_{k+1}\big)^\intercal\big|S_k=s\Big] \\ &amp;amp;=\sum_s\mathbf{z}(s)\mathbb{E}_\pi\Big[\mathbf{x}_k-\gamma_{k+1}\mathbf{x}_{k+1}\big|S_k=s\Big] \\ &amp;amp;=\sum_s\mathbf{z}(s)\Big(\mathbf{x}_t-\sum_{s’}\left[\mathbf{P}_\pi\right]_{ss’}\gamma(s’)\mathbf{x}(s’)\Big)^\intercal \\ &amp;amp;=\mathbf{Z}\left(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\right)\mathbf{X},\tag{40}\label{40}
+\mathbf{A}&amp;amp;=\lim_{t\to\infty}\mathbb{E}\left[\mathbf{A}_t\right] \\ &amp;amp;=\lim_{t\to\infty}\mathbb{E}_b\Big[\mathbf{z}_t\big(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\big)^\intercal\Big] \\ &amp;amp;=\sum_s\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\mathbf{z}_t\big(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\big)^\intercal\big|S_t=s\Big] \\ &amp;amp;=\sum_s\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\rho_t\big(\gamma_t\lambda_t\mathbf{z}_{t-1}+M_t\mathbf{x}_t\big)\big(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\big)^\intercal\big|S_t=s\Big] \\ &amp;amp;=\sum_s\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\gamma_t\lambda_t\mathbf{z}_{t-1}+M_t\mathbf{x}_t\big|S_t=s\Big]\mathbb{E}_b\Big[\rho_t\big(\mathbf{x}_t-\gamma_{t+1}\mathbf{x}_{t+1}\big)^\intercal\big|S_t=s\Big] \\ &amp;amp;=\sum_s\underbrace{\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\gamma_t\lambda_t\mathbf{z}_{t-1}+M_t\mathbf{x}_t\big|S_t=s\Big]}_{\mathbf{z}(s)}\mathbb{E}_b\Big[\rho_k\big(\mathbf{x}_k-\gamma_{k+1}\mathbf{x}_{k+1}\big)^\intercal\big|S_k=s\Big] \\ &amp;amp;=\sum_s\mathbf{z}(s)\mathbb{E}_\pi\Big[\mathbf{x}_k-\gamma_{k+1}\mathbf{x}_{k+1}\big|S_k=s\Big] \\ &amp;amp;=\sum_s\mathbf{z}(s)\Big(\mathbf{x}_t-\sum_{s’}\left[\mathbf{P}_\pi\right]_{ss’}\gamma(s’)\mathbf{x}(s’)\Big)^\intercal \\ &amp;amp;=\mathbf{Z}\left(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\right)\mathbf{X},\tag{41}\label{41}
 \end{align}
 where&lt;/p&gt;
 &lt;ul&gt;
@@ -978,7 +988,7 @@ where&lt;/p&gt;
 where $p(j|i,a)\doteq P(S_{t+1}=j|S_i=s,A_i=a)$.&lt;/li&gt;
   &lt;li&gt;$\mathbf{Z}$ is a $\vert\mathcal{S}\vert\times d$ matrix, whose rows are $\mathbf{z}(s)$’s (i.e., $\mathbf{Z}^\intercal\doteq\left[\mathbf{z}(s_1),\dots,\mathbf{z}(s_{\vert\mathcal{S}\vert})\right]$), with $\mathbf{z}(s)\in\mathbb{R}^d$ is a vector defined by&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;:
 \begin{align}
-\mathbf{z}(s)&amp;amp;\doteq\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\gamma_t\lambda_t\mathbf{z}_{t-1}+M_t\mathbf{x}_t\big|S_t=s\Big] \\ &amp;amp;=\underbrace{\mu_(s)\lim_{t\to\infty}\mathbb{E}_b\Big[M_t\big|S_t=s\Big]}_{m(s)}\mathbf{x}_t+\gamma(s)\lambda(s)\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\mathbf{z}_{t-1}\big|S_t=s\Big] \\ &amp;amp;=m(s)\mathbf{x}(s)+\gamma(s)\lambda(s)\mu(s)\lim_{t\to\infty}\sum_{\bar{s},\bar{a}}p(S_{t-1}=\bar{s},A_{t-1}=\bar{a}|S_t=s) \\ &amp;amp;\hspace{2cm}\times\mathbb{E}_b\Big[\mathbf{z}_{t-1}\big|S_{t-1}=\bar{s},A_{t-1}=\bar{a}\Big] \\ &amp;amp;=m(s)\mathbf{x}(s)+\gamma(s)\lambda(s)\mu(s)\sum_{\bar{s},\bar{a}}\frac{\mu(\bar{s})b(\bar{a}|\bar{s})p(s|\bar{s},\bar{a})}{\mu(s)} \\ &amp;amp;\hspace{2cm}\times\lim_{t\to\infty}\mathbb{E}_b\Big[\mathbf{z}_{t-1}\big|S_{t-1}=\bar{s},A_{t-1}=\bar{a}\Big] \\ &amp;amp;=m(s)\mathbf{x}(s)+\gamma(s)\lambda(s)\sum_{\bar{s},\bar{a}}\mu(\bar{s})b(\bar{a}|\bar{s})p(s|\bar{s},\bar{a})\frac{\pi(\bar{a}|\bar{s})}{b(\bar{a}|\bar{s})} \\\ &amp;amp;\hspace{2cm}\times\lim_{t\to\infty}\mathbb{E}_b\Big[\gamma_{t-1}\lambda_{t-1}\mathbf{z}_{t-2}+M_{t-1}\mathbf{x}_{t-1}\big|S_t=s\Big] \\ &amp;amp;=m(s)\mathbf{x}(s)+\gamma(s)\lambda(s)\sum_{\bar{s}}\Big(\sum_{\bar{a}}\pi(\bar{a}|\bar{s})p(s|\bar{s},\bar{a})\Big)\mathbf{z}(\bar{s}) \\ &amp;amp;=m(s)\mathbf{x}(s)+\gamma(s)\lambda(s)\sum_{\bar{s}}\left[\mathbf{P}_\pi\right]_{\bar{s}s}\mathbf{z}(\bar{s})\tag{41}\label{41}
+\mathbf{z}(s)&amp;amp;\doteq\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\gamma_t\lambda_t\mathbf{z}_{t-1}+M_t\mathbf{x}_t\big|S_t=s\Big] \\ &amp;amp;=\underbrace{\mu_(s)\lim_{t\to\infty}\mathbb{E}_b\Big[M_t\big|S_t=s\Big]}_{m(s)}\mathbf{x}_t+\gamma(s)\lambda(s)\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[\mathbf{z}_{t-1}\big|S_t=s\Big] \\ &amp;amp;=m(s)\mathbf{x}(s)+\gamma(s)\lambda(s)\mu(s)\lim_{t\to\infty}\sum_{\bar{s},\bar{a}}p(S_{t-1}=\bar{s},A_{t-1}=\bar{a}|S_t=s) \\ &amp;amp;\hspace{2cm}\times\mathbb{E}_b\Big[\mathbf{z}_{t-1}\big|S_{t-1}=\bar{s},A_{t-1}=\bar{a}\Big] \\ &amp;amp;=m(s)\mathbf{x}(s)+\gamma(s)\lambda(s)\mu(s)\sum_{\bar{s},\bar{a}}\frac{\mu(\bar{s})b(\bar{a}|\bar{s})p(s|\bar{s},\bar{a})}{\mu(s)} \\ &amp;amp;\hspace{2cm}\times\lim_{t\to\infty}\mathbb{E}_b\Big[\mathbf{z}_{t-1}\big|S_{t-1}=\bar{s},A_{t-1}=\bar{a}\Big] \\ &amp;amp;=m(s)\mathbf{x}(s)+\gamma(s)\lambda(s)\sum_{\bar{s},\bar{a}}\mu(\bar{s})b(\bar{a}|\bar{s})p(s|\bar{s},\bar{a})\frac{\pi(\bar{a}|\bar{s})}{b(\bar{a}|\bar{s})} \\\ &amp;amp;\hspace{2cm}\times\lim_{t\to\infty}\mathbb{E}_b\Big[\gamma_{t-1}\lambda_{t-1}\mathbf{z}_{t-2}+M_{t-1}\mathbf{x}_{t-1}\big|S_t=s\Big] \\ &amp;amp;=m(s)\mathbf{x}(s)+\gamma(s)\lambda(s)\sum_{\bar{s}}\Big(\sum_{\bar{a}}\pi(\bar{a}|\bar{s})p(s|\bar{s},\bar{a})\Big)\mathbf{z}(\bar{s}) \\ &amp;amp;=m(s)\mathbf{x}(s)+\gamma(s)\lambda(s)\sum_{\bar{s}}\left[\mathbf{P}_\pi\right]_{\bar{s}s}\mathbf{z}(\bar{s})\tag{42}\label{42}
 \end{align}&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -989,13 +999,13 @@ where $p(j|i,a)\doteq P(S_{t+1}=j|S_i=s,A_i=a)$.&lt;/li&gt;
   &lt;li&gt;$\mathbf{\Lambda}$, which has the $\lambda(s)$ on its diagonal.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;With these matrices, we can rewrite \eqref{41} in matrix form, as:
+&lt;p&gt;With these matrices, we can rewrite \eqref{42} in matrix form, as:
 \begin{align}
 \mathbf{Z}^\intercal&amp;amp;=\mathbf{X}^\intercal\mathbf{M}+\mathbf{Z}^\intercal\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda} \\ \Rightarrow\mathbf{Z}^\intercal&amp;amp;=\mathbf{X}^\intercal\mathbf{M}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}
 \end{align}
-Substitute this equation back to \eqref{40}, we obtain:
+Substitute this equation back to \eqref{41}, we obtain:
 \begin{equation}
-\mathbf{A}=\mathbf{X}^\intercal\mathbf{M}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma})\mathbf{X}\tag{42}\label{42}
+\mathbf{A}=\mathbf{X}^\intercal\mathbf{M}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma})\mathbf{X}\tag{43}\label{43}
 \end{equation}
 Doing similar steps, we can also obtain the ETD($\lambda$)’s $\mathbf{b}$ vector:
 \begin{equation}
@@ -1003,7 +1013,7 @@ Doing similar steps, we can also obtain the ETD($\lambda$)’s $\mathbf{b}$ vect
 \end{equation}
 where $\mathbf{r}_\pi\in\mathbb{R}^{\vert\mathcal{S}\vert}$ is the vector of expected immediate rewards from each state under $\pi$.&lt;/p&gt;
 
-&lt;p&gt;Since the positive definiteness of $\mathbf{A}$ implies the stability of the algorithm, from \eqref{42}, it is sufficient to prove the positive definiteness of the &lt;strong&gt;key matrix&lt;/strong&gt; $\mathbf{M}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma})$ because this matrix can be written in the form of:
+&lt;p&gt;Since the positive definiteness of $\mathbf{A}$ implies the stability of the algorithm, from \eqref{43}, it is sufficient to prove the positive definiteness of the &lt;strong&gt;key matrix&lt;/strong&gt; $\mathbf{M}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma})$ because this matrix can be written in the form of:
 \begin{equation}
 \mathbf{X}^\intercal\mathbf{M}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma})\mathbf{X}=\sum_{i=1}^{\vert\mathcal{S}\vert}\mathbf{x}_i^\intercal\mathbf{M}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}_\pi\mathbf{\Gamma})\mathbf{x}_i
 \end{equation}
@@ -1031,9 +1041,9 @@ In order to prove the positive definiteness of $\mathbf{M}(\mathbf{I}-\mathbf{P}
 
 &lt;p&gt;To show this we need to analyze the matrix $\mathbf{M}$, and to do that we first analyze the vector $\mathbf{f}\in\mathbb{R}^{\vert\mathcal{S}\vert}$, which having $f(s)\doteq\mu(s)\lim_{t\to\infty}\mathbb{E}_b\left[F_t|S_t=s\right]$ as its components. We have:
 \begin{align}
-f(s)&amp;amp;=\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[F_t\big|S_t=s\Big] \\ &amp;amp;=\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[i(S_t)+\rho_{t-1}\gamma_t F_{t-1}\big|S_t=s\Big] \\ &amp;amp;=\mu(s)i(s)+\mu(s)\gamma(s)\lim_{t\to\infty}\sum_{\bar{s},\bar{a}}P(S_{t-1}=\bar{s},A_{t-1}=\bar{a}|S_t=s)\frac{\pi(\bar{a}|\bar{s})}{b(\bar{a}|\bar{s})}]\mathbb{E}_b\Big[F_{t-1}\big|S_{t-1}=\bar{s}\Big] \\ &amp;amp;=\mu(s)i(s)+\mu(s)\gamma(s)\sum_{\bar{s},\bar{a}}\frac{\mu(\bar{s})b(\bar{a}|\bar{s})p(s|\bar{s},\bar{a})}{\mu(s)}\frac{\pi(\bar{a}|\bar{s})}{b(\bar{a}|\bar{s})}\lim_{t\to\infty}\mathbb{E}_b\Big[F_{t-1}\big|S_{t-1}=\bar{s}\Big] \\ &amp;amp;=\mu(s)i(s)+\gamma(s)\sum_{\bar{s},\bar{a}}\pi(\bar{a}|\bar{s})p(s|\bar{s},\bar{a})\mu(\bar{s})\lim_{t\to\infty}\mathbb{E}_b\Big[F_{t-1}\big|S_{t-1}=\bar{s}\Big] \\ &amp;amp;=\mu(s)i(s)+\gamma(s)\sum_s\left[\mathbf{P}_\pi\right]_{\bar{s}s}f(\bar{s})\tag{43}\label{43}
+f(s)&amp;amp;=\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[F_t\big|S_t=s\Big] \\ &amp;amp;=\mu(s)\lim_{t\to\infty}\mathbb{E}_b\Big[i(S_t)+\rho_{t-1}\gamma_t F_{t-1}\big|S_t=s\Big] \\ &amp;amp;=\mu(s)i(s)+\mu(s)\gamma(s)\lim_{t\to\infty}\sum_{\bar{s},\bar{a}}P(S_{t-1}=\bar{s},A_{t-1}=\bar{a}|S_t=s)\frac{\pi(\bar{a}|\bar{s})}{b(\bar{a}|\bar{s})}]\mathbb{E}_b\Big[F_{t-1}\big|S_{t-1}=\bar{s}\Big] \\ &amp;amp;=\mu(s)i(s)+\mu(s)\gamma(s)\sum_{\bar{s},\bar{a}}\frac{\mu(\bar{s})b(\bar{a}|\bar{s})p(s|\bar{s},\bar{a})}{\mu(s)}\frac{\pi(\bar{a}|\bar{s})}{b(\bar{a}|\bar{s})}\lim_{t\to\infty}\mathbb{E}_b\Big[F_{t-1}\big|S_{t-1}=\bar{s}\Big] \\ &amp;amp;=\mu(s)i(s)+\gamma(s)\sum_{\bar{s},\bar{a}}\pi(\bar{a}|\bar{s})p(s|\bar{s},\bar{a})\mu(\bar{s})\lim_{t\to\infty}\mathbb{E}_b\Big[F_{t-1}\big|S_{t-1}=\bar{s}\Big] \\ &amp;amp;=\mu(s)i(s)+\gamma(s)\sum_s\left[\mathbf{P}_\pi\right]_{\bar{s}s}f(\bar{s})\tag{44}\label{44}
 \end{align}
-Let $\mathbf{i}\in\mathbb{R}^{\vert\mathcal{S}\vert}$ be the vector having components $[\mathbf{i}]_s\doteq\mu(s)i(s)$. Equation \eqref{43} allows  us to write $\mathbf{f}$ in matrix-vector form, as:
+Let $\mathbf{i}\in\mathbb{R}^{\vert\mathcal{S}\vert}$ be the vector having components $[\mathbf{i}]_s\doteq\mu(s)i(s)$. Equation \eqref{44} allows  us to write $\mathbf{f}$ in matrix-vector form, as:
 \begin{align}
 \mathbf{f}&amp;amp;=\mathbf{i}+\mathbf{\Gamma}\mathbf{P}_\pi^\intercal\mathbf{f} \\ &amp;amp;=\mathbf{i}+\mathbf{\Gamma}\mathbf{P}_\pi^\intercal\mathbf{i}+(\mathbf{\Gamma}\mathbf{P}_\pi^\intercal)^2\mathbf{i}+\dots \\ &amp;amp;=\left(\mathbf{I}-\mathbf{\Gamma}\mathbf{P}_\pi^\intercal\right)^{-1}
 \end{align}
