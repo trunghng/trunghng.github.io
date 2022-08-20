@@ -1,5 +1,88 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-19T19:33:17+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
-</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Policy Gradient Methods</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient.html" rel="alternate" type="text/html" title="Policy Gradient Methods" /><published>2022-08-16T14:00:00+07:00</published><updated>2022-08-16T14:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient.html">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-20T23:17:10+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure Theory (more formal)</title><link href="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-formal.html" rel="alternate" type="text/html" title="Measure Theory (more formal)" /><published>2022-08-20T13:00:00+07:00</published><updated>2022-08-20T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-formal</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-formal.html">&lt;blockquote&gt;
+
+  &lt;!-- excerpt-end --&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#preliminaries&quot;&gt;Preliminaries&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#pts-sets&quot;&gt;Points, sets&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#open-closed-compact-sets&quot;&gt;Open, closed and compact sets&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#rect-cube&quot;&gt;Rectangles and cubes&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#cantor-set&quot;&gt;The Cantor set&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#exterior-measure&quot;&gt;The exterior measure&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#ex-measure-def&quot;&gt;Definition&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#ex-measure-properties&quot;&gt;Properties&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#measurable-sets-lebesgue-measure&quot;&gt;Measurable sets, the Lebesgue measure&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#inv-properties-lebesgue-measure&quot;&gt;Invariance properties of Lebesgue measure&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#sigma-algebras-borel-sets&quot;&gt;\(\sigma\)-algebras, Borel sets&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#non-measurable-set-const&quot;&gt;Non-measurable set construction&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#measurable-funcs&quot;&gt;Measurable functions&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#measurable-func-def&quot;&gt;Definition&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#measurable-func-properties&quot;&gt;Properties&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#measurable-func-approx&quot;&gt;Approximation by simple functions or step functions&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#littlewoods-principles&quot;&gt;Littlewood’s three principles&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;Refereces&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;preliminaries&quot;&gt;Preliminaries&lt;/h2&gt;
+&lt;p&gt;Before diving into details, we need some elementary concepts.&lt;/p&gt;
+
+&lt;h3 id=&quot;pts-sets&quot;&gt;Points, sets&lt;/h3&gt;
+&lt;p&gt;A &lt;strong&gt;point&lt;/strong&gt; $x\in\mathbb{R}^d$ consists of a $d$-tuple of real numbers
+\begin{equation}
+x=\left(x_1,x_2,\dots,x_d\right),\hspace{1cm}x_i\in\mathbb{R}, i=1,\dots,d
+\end{equation}
+Addition between points and multiplication of a point by a real scalar is elementwise.&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;norm&lt;/strong&gt; of $x$ is denoted by $\vert x\vert$ and is defined to be the standard &lt;strong&gt;Euclidean norm&lt;/strong&gt; given by
+\begin{equation}
+\vert x\vert=\left(x_1^2+\dots+x_d^2\right)^{1/2}
+\end{equation}
+We can then calculate the &lt;strong&gt;distance&lt;/strong&gt; between two points $x$ and $y$, which is \begin{equation}
+d(x,y)=\vert x-y\vert
+\end{equation}
+The &lt;strong&gt;complement&lt;/strong&gt; of a set $E$ in $\mathbb{R}^d$ is denoted as $E^c$, and defined by
+\begin{equation}
+E^c=\{x\in\mathbb{R}^d:x\notin E\}
+\end{equation}
+If $E$ and $F$ are two subsets of $\mathbb{R}^d$, we denote the complement of $F$ in $E$ by
+\begin{equation}
+E-F=\{x\in\mathbb{R}^d:x\in E;\,x\notin F\}
+\end{equation}
+The &lt;strong&gt;distance&lt;/strong&gt; between two sets $E$ and $F$ is defined by
+\begin{equation}
+d(E,F)=\inf_{x\in E,\,y\in F}\vert x-y\vert
+\end{equation}&lt;/p&gt;
+
+&lt;h3 id=&quot;open-closed-compact-sets&quot;&gt;Open, closed and compact sets&lt;/h3&gt;
+&lt;p&gt;The &lt;strong&gt;open ball&lt;/strong&gt; in $\mathbb{R}^d$ centered at $x$ and of radius $r$ is defined by
+\begin{equation}
+B_r(x)=\{y\in\mathbb{R}^d:\vert y-x\vert&amp;lt; r\}
+\end{equation}
+A subset $\mbox{for}$ for&lt;/p&gt;
+
+&lt;h3 id=&quot;rect-cube&quot;&gt;Rectangles and cubes&lt;/h3&gt;
+
+&lt;h3 id=&quot;cantor-sets&quot;&gt;The Cantor sets&lt;/h3&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;p&gt;[1] Elias M. Stein &amp;amp; Rami Shakarchi. &lt;a href=&quot;#http://www.cmat.edu.uy/~mordecki/courses/medida2013/book.pdf&quot;&gt;Real Analysis: Measure Theory, Integration, and Hilbert Spaces&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><category term="random-stuffs" /><summary type="html"></summary></entry><entry><title type="html">Policy Gradient Methods</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient.html" rel="alternate" type="text/html" title="Policy Gradient Methods" /><published>2022-08-16T14:00:00+07:00</published><updated>2022-08-16T14:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient.html">&lt;blockquote&gt;
   &lt;p&gt;So far in the series, we have been choosing the actions based on the estimated action value function. On the other hand, we can instead learn a &lt;strong&gt;parameterized policy&lt;/strong&gt;, $\boldsymbol{\theta}$, that can select actions without consulting a value function by updating $\boldsymbol{\theta}$ on each step in the direction of an estimate of the gradient of some performance measure w.r.t $\boldsymbol{\theta}$. Such methods are called &lt;strong&gt;policy gradient methods&lt;/strong&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -283,6 +366,12 @@ The $G_t^\lambda$ is called &lt;strong&gt;$\lambda$-return&lt;/strong&gt; of the
 \mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\left[G_t^\lambda-\hat{v}(S_t,\mathbf{w}_t)\right]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t),\hspace{1cm}t=0,\dots,T-1
 \end{equation}&lt;/p&gt;
 
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-08-08/offline-lambda-return.png&quot; alt=&quot;Offline lambda-return on random walk&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 2&lt;/b&gt;: Using offline lambda-return on 19-state random walk. The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-12/random_walk.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
 &lt;h2 id=&quot;td-lambda&quot;&gt;TD($\lambda$)&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;TD($\lambda$)&lt;/strong&gt; improves over the offline $\lambda$-return algorithm since:&lt;/p&gt;
 &lt;ul&gt;
@@ -345,7 +434,7 @@ From \eqref{3}, we can see that the $k$-step $\lambda$-return can be written as 
 
 &lt;figure&gt;
 	&lt;img src=&quot;/assets/images/2022-08-08/ttd-lambda-backup.png&quot; alt=&quot;Backup diagram of truncated TD(lambda)&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 500px; height: 370px&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 2&lt;/b&gt;: The backup diagram of truncated TD($\lambda$)&lt;/figcaption&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 3&lt;/b&gt;: The backup diagram of truncated TD($\lambda$)&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;h2 id=&quot;onl-lambda-return&quot;&gt;Online $\lambda$-return&lt;/h2&gt;
@@ -506,7 +595,7 @@ and so it is with eligible trace vector:
 \end{align}&lt;/p&gt;
 &lt;figure&gt;
 	&lt;img src=&quot;/assets/images/2022-08-08/sarsa-lambda-backup.png&quot; alt=&quot;Backup diagram of Sarsa(lambda)&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 450px; height: 390px&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 2&lt;/b&gt;: The backup diagram of Sarsa($\lambda$)&lt;/figcaption&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 4&lt;/b&gt;: The backup diagram of Sarsa($\lambda$)&lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;p&gt;Pseudocode of the Sarsa($\lambda$) is given below.&lt;/p&gt;
 &lt;figure&gt;
@@ -646,7 +735,7 @@ Using this eligible trace vector with the parameter update rule \eqref{2} of TD(
 
 &lt;figure&gt;
 	&lt;img src=&quot;/assets/images/2022-08-08/tree-backup-lambda-backup.png&quot; alt=&quot;Backup diagram of Tree Backup(lambda)&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 450px; height: 390px&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 3&lt;/b&gt;: The backup diagram of Tree Backup($\lambda$)&lt;/figcaption&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 5&lt;/b&gt;: The backup diagram of Tree Backup($\lambda$)&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;h2 id=&quot;other-off-policy-methods-traces&quot;&gt;Other Off-policy Methods with Traces&lt;/h2&gt;
@@ -936,7 +1025,7 @@ where $\beta&amp;gt;0$ is a step-size parameter.&lt;/p&gt;
 &lt;h3 id=&quot;em-td-lambda&quot;&gt;Emphatic TD($\lambda$)&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Emphatic TD($\lambda$) (ETD($\lambda$))&lt;/strong&gt; is the extension of the &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#em-td&quot;&gt;one-step Emphatic-TD algorithm&lt;/a&gt; to eligible traces.&lt;/p&gt;
 
-&lt;p&gt;Emphatic TD($\lambda$) is defined by:
+&lt;p&gt;Emphatic TD($\lambda$) or ETD($\lambda$) is defined by:
 \begin{align}
 \mathbf{w}_{t+1}&amp;amp;\doteq\mathbf{w}_t+\alpha\delta_t\mathbf{z}_t, \\ \delta_t&amp;amp;\doteq R_{t+1}+\gamma_{t+1}\mathbf{w}_t^\intercal\mathbf{x}_{t+1}-\mathbf{w}_t^\intercal\mathbf{x}_t, \\ \mathbf{z}_t&amp;amp;\doteq\rho_t\left(\gamma_t\lambda_t\mathbf{z}_{t-1}+M_t\mathbf{x}_t\right), \\ M_t&amp;amp;\doteq\gamma_t i(S_t)+(1-\lambda_t)F_t, \\ F_t&amp;amp;\doteq\rho_{t-1}\gamma_t F_{t-1}+i(S_t),
 \end{align}
@@ -5203,254 +5292,4 @@ q_{k+1}(s,a)&amp;amp;\doteq\mathbb{E}\left[R_{t+1}+\gamma\max_{a’}q_k(S_{t+1},
 Yep, that’s right, the sequence $\{q_k\}\to q_*$ as $k\to\infty$ at a geometric rate thanks to &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html#banach-fixed-pts&quot;&gt;Banach’s fixed point theorem&lt;/a&gt;. &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="dynamic-programming" /><category term="my-rl" /><summary type="html">In two previous posts, Markov Decision Process (MDP) and Bellman equations and Optimal Policy Existence, we have known how MDPs, Bellman equations are defined and how they work. In this post, we are going to talk about how these MDPs are solved with Dynamic Programming.</summary></entry><entry><title type="html">Optimal Policy Existence</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html" rel="alternate" type="text/html" title="Optimal Policy Existence" /><published>2021-07-10T13:03:00+07:00</published><updated>2021-07-10T13:03:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html">&lt;blockquote&gt;
-  &lt;p&gt;In the previous post about &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html&quot;&gt;&lt;strong&gt;Markov Decision Processes, Bellman equations&lt;/strong&gt;&lt;/a&gt;, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here to prove it.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;!-- excerpt-end --&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#preliminaries&quot;&gt;Preliminaries&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#norms&quot;&gt;Norms&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#contractions&quot;&gt;Contractions&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#banach-fixed-pts&quot;&gt;Banach’s Fixed-point Theorem&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#bellman-operator&quot;&gt;Bellman Operator&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#proof&quot;&gt;Proof of the existence&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Before catching the pokémon, we need to prepare ourselves some pokéball.&lt;/p&gt;
-
-&lt;h2 id=&quot;preliminaries&quot;&gt;Preliminaries&lt;/h2&gt;
-
-&lt;h3 id=&quot;norms&quot;&gt;Norms&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Norm&lt;/em&gt;)&lt;br /&gt;
-Given a vector space $\mathcal{V}\subseteq\mathbb{R}^d$, a function $f:\mathcal{V}\to\mathbb{R}^+_0$ is a &lt;em&gt;norm&lt;/em&gt; if and only if&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;If $f(v)=0$ for some $v\in\mathcal{V}$, then $v=0$&lt;/li&gt;
-  &lt;li&gt;For any $\lambda\in\mathbb{R},v\in\mathcal{V},f(\lambda v)=|\lambda|v$&lt;/li&gt;
-  &lt;li&gt;For any $u,v\in\mathbb{R}, f(u+v)\leq f(u)+f(v)$&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;strong&gt;Examples&lt;/strong&gt; (&lt;em&gt;Norm&lt;/em&gt;)&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;$\ell^p$ norms: for $p\geq 1$,
-\begin{equation}
-\Vert v\Vert_p=\left(\sum_{i=1}^{d}|v_i|^p\right)^{1/p}
-\end{equation}&lt;/li&gt;
-  &lt;li&gt;$\ell^\infty$ norms:
-\begin{equation}
-\Vert v\Vert_\infty=\max_{1\leq i\leq d}|v_i|
-\end{equation}&lt;/li&gt;
-  &lt;li&gt;$\ell^{\mu,p}$: the weighted variants of these norm are defined as
-\begin{equation}
-\Vert v\Vert_p=\begin{cases}\left(\sum_{i=1}^{d}\frac{|v_i|^p}{w_i}\right)^{1/p}&amp;amp;\text{if }1\leq p&amp;lt;\infty\\ \max_{1\leq i\leq d}\frac{|v_i|}{w_i}&amp;amp;\text{if }p=\infty\end{cases}
-\end{equation}&lt;/li&gt;
-  &lt;li&gt;$\ell^{2,P}$: the matrix-weighted 2-norm is defined as
-\begin{equation}
-\Vert v\Vert^2_P=v^\intercal Pv
-\end{equation}
-Similarly, we can define norms over spaces of functions. For example, if $\mathcal{V}$ is the vector space of functions over domain $\mathcal{X}$ which are &lt;em&gt;uniformly bounded&lt;/em&gt;&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;, then
-\begin{equation}
-\Vert f\Vert_\infty=\sup_{x\in\mathcal{X}}\vert f(x)\vert
-\end{equation}&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Convergence in norm&lt;/em&gt;)&lt;br /&gt;
-Let $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$ be a &lt;em&gt;normed vector space&lt;/em&gt;&lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;. Let $v_n\in\mathcal{V}$ is a sequence of vectors ($n\in\mathbb{N}$). The sequence ($v_n,n\geq 0$) is said to &lt;em&gt;converge to&lt;/em&gt; $v\in\mathcal{V}$ in the norm $\Vert\cdot\Vert$, denoted as $v_n\to_{\Vert\cdot\Vert}v$ if
-\begin{equation}
-\lim_{n\to\infty}\Vert v_n-v\Vert=0,
-\end{equation}
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Cauchy sequence&lt;/em&gt;&lt;sup id=&quot;fnref:3&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;)&lt;br /&gt;
-Let ($v_n;n\geq 0$) be a sequence of vectors of a normed vector space $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$. Then $v_n$ is called a &lt;em&gt;Cauchy sequence&lt;/em&gt; if
-\begin{equation}
-\lim_{n\to\infty}\sup_{m\geq n}\Vert v_n-v_m\Vert=0
-\end{equation}
-Normed vector spaces where all Cauchy sequences are convergent are special: we can find examples of normed vector spaces such that some of the Cauchy sequences in the vector space do not have a limit.&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Completeness&lt;/em&gt;)&lt;br /&gt;
-A normed vector space $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$ is called &lt;em&gt;complete&lt;/em&gt; if every Cauchy sequence in $\mathcal{V}$ is convergent in the norm of the vector space.&lt;/p&gt;
-
-&lt;h3 id=&quot;contractions&quot;&gt;Contractions&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Lipschitz function&lt;/em&gt;, &lt;em&gt;Contraction&lt;/em&gt;) &lt;br /&gt;
-Let $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$ be a normed vector space. A mapping $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ is called &lt;em&gt;L-Lipschitz&lt;/em&gt; if for any $u,v\in\mathcal{V}$,
-\begin{equation}
-\Vert\mathcal{T}u-\mathcal{T}v\Vert\leq L\Vert u-v\Vert
-\end{equation}
-A mapping $\mathcal{T}$ is called a &lt;em&gt;non-expansion&lt;/em&gt; if it is &lt;em&gt;Lipschitzian&lt;/em&gt; with $L\leq 1$. It is called a &lt;em&gt;contraction&lt;/em&gt; if it is &lt;em&gt;Lipschitzian&lt;/em&gt; with $L&amp;lt;1$. In this case, $L$ is called the &lt;em&gt;contraction factor of&lt;/em&gt; $\mathcal{T}$ and $\mathcal{T}$ is called an &lt;em&gt;L-contraction&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Remark&lt;/strong&gt;&lt;br /&gt;
-If $\mathcal{T}$ is &lt;em&gt;Lipschitz&lt;/em&gt;, it is also continuous in the sense that if $v_n\to_{\Vert\cdot\Vert}v$, then also $\mathcal{T}v_n\to_{\Vert\cdot\Vert}\mathcal{T}v$. This is because $\Vert\mathcal{T}v_n-\mathcal{T}v\Vert\leq L\Vert v_n-v\Vert\to 0$ as $n\to\infty$.&lt;/p&gt;
-
-&lt;h3 id=&quot;banach-fixed-pts&quot;&gt;Banach’s Fixed-point Theorem&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Banach space&lt;/em&gt;)&lt;br /&gt;
-A complete, normed vector space is called a &lt;em&gt;Banach space&lt;/em&gt;.&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Fixed point&lt;/em&gt;)&lt;br /&gt;
-Let $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ be some mapping. The vector $v\in\mathcal{V}$ is called a &lt;em&gt;fixed point of&lt;/em&gt; $\mathcal{T}$ if $\mathcal{T}v=v$.&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt; (&lt;em&gt;Banach’s fixed-point&lt;/em&gt;)&lt;sup id=&quot;fnref:4&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:4&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;    &lt;br /&gt;
-Let $\mathcal{V}$ be a Banach space and $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ be a $\gamma$-contraction mapping. Then&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;$\mathcal{T}$ admits a &lt;em&gt;unique fixed point&lt;/em&gt; $v$.&lt;/li&gt;
-  &lt;li&gt;For any $v_0\in\mathcal{V}$, if $v_{n+1}=\mathcal{T}v_n$, then $v_n\to_{\Vert\cdot\Vert}v$ with a &lt;em&gt;geometric convergence rate&lt;/em&gt;&lt;sup id=&quot;fnref:5&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:5&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;:
-\begin{equation}
-\Vert v_n-v\Vert\leq\gamma^n\Vert v_0-v\Vert
-\end{equation}&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;bellman-operator&quot;&gt;Bellman Operator&lt;/h3&gt;
-&lt;p&gt;Previously, we defined &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html#bellman-equations&quot;&gt;Bellman equation&lt;/a&gt; for state-value function $v_\pi(s)$ as:
-\begin{align}
-v_\pi(s)&amp;amp;=\sum_{a\in\mathcal{A}}\pi(a|s)\sum_{s’\in\mathcal{S},r}p(s’,r|s,a)\left[r+\gamma v_\pi(s’)\right] \\\text{or}\quad v_\pi(s)&amp;amp;=\sum_{a\in\mathcal{A}}\pi(a|s)\left(\mathcal{R}^a_s+\gamma\sum_{s’\in\mathcal{S}}\mathcal{P}^a_{ss’}v_\pi(s’)\right)\tag{1}\label{1}
-\end{align}
-If we let
-\begin{align}
-\mathcal{P}^\pi_{ss’}&amp;amp;=\sum_{a\in\mathcal{A}}\pi(a|s)\mathcal{P}^a_{ss’}; \\\mathcal{R}^\pi_s&amp;amp;=\sum_{a\in\mathcal{A}}\pi(a|s)\mathcal{R}^a_s
-\end{align}
-then we can rewrite \eqref{1} in another form as
-\begin{equation}
-v_\pi(s)=\mathcal{R}^\pi_s+\gamma\sum_{s’\in\mathcal{S}}\mathcal{P}^\pi_{ss’}v_\pi(s’)\tag{2}\label{2}
-\end{equation}
-&lt;br /&gt;
-&lt;strong&gt;Definition&lt;/strong&gt; (&lt;em&gt;Bellman operator&lt;/em&gt;)&lt;br /&gt;
-We define the &lt;em&gt;Bellman operator&lt;/em&gt; underlying $\pi,\mathcal{T}:\mathbb{R}^\mathcal{S}\to\mathbb{R}^\mathcal{S}$, by:
-\begin{equation}
-(\mathcal{T}^\pi v)(s)=\mathcal{R}^\pi_s+\gamma\sum_{s’\in\mathcal{S}}\mathcal{P}^\pi_{ss’}v(s’)
-\end{equation}
-&lt;br /&gt;
-With the help of $\mathcal{T}^\pi$, equation \eqref{2} can be rewrite as:
-\begin{equation}
-\mathcal{T}^\pi v_\pi=v_\pi\tag{3}\label{3}
-\end{equation}
-Similarly, we can rewrite the &lt;em&gt;Bellman optimality equation for&lt;/em&gt; $v_*$
-\begin{align}
-v_*(s)&amp;amp;=\max_{a\in\mathcal{A}}\sum_{s’\in\mathcal{S},r}p(s’,r|s,a)\left[r+\gamma v_*(s’)\right] \\ &amp;amp;=\max_{a\in\mathcal{A}}\left(\mathcal{R}^a_s+\gamma\sum_{s’\in\mathcal{S}}\mathcal{P}^a_{ss’}v_*(s’)\right)\tag{4}\label{4}
-\end{align}
-and thus, we can define the &lt;em&gt;Bellman optimality operator&lt;/em&gt; $\mathcal{T}^*:\mathcal{R}^\mathcal{S}\to\mathcal{R}^\mathcal{S}$, by:
-\begin{equation}
-(\mathcal{T}^* v)(s)=\max_{a\in\mathcal{A}}\left(\mathcal{R}^a_s+\gamma\sum_{s’\in\mathcal{S}}\mathcal{P}^a_{ss’}v(s’)\right)
-\end{equation}
-And thus, with the help of $\mathcal{T}^*$, we can rewrite the equation \eqref{4} as:
-\begin{equation}
-\mathcal{T}^*v_*=v_*\tag{5}\label{5}
-\end{equation}
-&lt;br /&gt;
-Now everything is all set, we can move on to the next step.&lt;/p&gt;
-
-&lt;h2 id=&quot;proof&quot;&gt;Proof of the existence&lt;/h2&gt;
-&lt;p&gt;Let $B(\mathcal{S})$ be the space of &lt;em&gt;uniformly bounded functions&lt;/em&gt; with domain $\mathcal{S}$:
-\begin{equation}
-B(\mathcal{S})=\{v:\mathcal{S}\to\mathbb{R}:\Vert v\Vert_\infty&amp;lt;+\infty\}
-\end{equation}
-We will view $B(\mathcal{S})$ as a normed vector space with the norm $\Vert\cdot\Vert_\infty$.&lt;/p&gt;
-
-&lt;p&gt;It is easily seen that $(B(\mathcal{S}),\Vert\cdot\Vert_\infty)$ is complete: If $(v_n;n\geq0)$ is a Cauchy sequence in it then for any $s\in\mathcal{S}$, $(v_n(s);n\geq0)$ is also a Cauchy sequence over the reals. Denoting by $v(s)$ the limit of $(v_n(s))$, we can show that $\Vert v_n-v\Vert_\infty\to0$. Vaguely speaking, this holds because $(v_n;n\geq0)$ is a Cauchy sequence in the norm $\Vert\cdot\Vert_\infty$, so the rate of convergence of $v_n(s)$ to $v(s)$ is independent of $s$.&lt;/p&gt;
-
-&lt;p&gt;Let $\pi$ be some stationary policy. We have that $\mathcal{T}^\pi$ is &lt;em&gt;well-defined&lt;/em&gt; since: if $u\in B(\mathcal{S})$, then also $\mathcal{T}^\pi u\in B(S)$.&lt;/p&gt;
-
-&lt;p&gt;From equation \eqref{3}, we have that $v_\pi$ is a fixed point to $\mathcal{T}^\pi$.&lt;/p&gt;
-
-&lt;p&gt;We also have that $\mathcal{T}^\pi$ is a $\gamma$-contraction in $\Vert\cdot\Vert_\infty$ since for any $u, v\in B(\mathcal{S})$,
-\begin{align}
-\Vert\mathcal{T}^\pi u-\mathcal{T}^\pi v\Vert_\infty&amp;amp;=\gamma\max_{s\in\mathcal{S}}\left|\sum_{s’\in\mathcal{S}}\mathcal{P}^\pi_{ss’}\left(u(s’)-v(s’)\right)\right| \\ &amp;amp;\leq\gamma\max_{s\in\mathcal{S}}\sum_{s’\in\mathcal{S}}\mathcal{P}^\pi_{ss’}\big|u(s’)-v(s’)\big| \\ &amp;amp;\leq\gamma\max_{s\in\mathcal{S}}\sum_{s’\in\mathcal{S}}\mathcal{P}^\pi_{ss’}\big\Vert u-v\big\Vert_\infty \\ &amp;amp;=\gamma\Vert u-v\Vert_\infty,
-\end{align}
-where the last line follows from $\sum_{s’\in\mathcal{S}}\mathcal{P}^\pi_{ss’}=1$.&lt;/p&gt;
-
-&lt;p&gt;It follows that in order to find $v_\pi$, we can construct the sequence $v_0,\mathcal{T}^\pi v_0,(\mathcal{T}^\pi)^2 v_0,\dots$, which, by Banach’s fixed-point theorem will converge to $v_\pi$ at a geometric rate.&lt;/p&gt;
-
-&lt;p&gt;From the definition \eqref{5} of $\mathcal{T}^*$, we have that $\mathcal{T}^*$ is well-defined.&lt;/p&gt;
-
-&lt;p&gt;Using the fact that $\left|\max_{a\in\mathcal{A}}f(a)-\max_{a\in\mathcal{A}}g(a)\right|\leq\max_{a\in\mathcal{A}}\left|f(a)-g(a)\right|$, similarly, we have:
-\begin{align}
-\Vert\mathcal{T}^*u-\mathcal{T}^*v\Vert_\infty&amp;amp;\leq\gamma\max_{(s,a)\in\mathcal{S}\times\mathcal{A}}\sum_{s’\in\mathcal{S}}\mathcal{P}^a_{ss’}\left|u(s’)-v(s’)\right| \\ &amp;amp;\leq\gamma\max_{(s,a)\in\mathcal{S}\times\mathcal{A}}\sum_{s’\in\mathcal{S}}\mathcal{P}^a_{ss’}\Vert u-v\Vert_\infty \\ &amp;amp;=\gamma\Vert u-v\Vert_\infty,
-\end{align}
-which tells us that $\mathcal{T}^*$ is a $\gamma$-contraction in $\Vert\cdot\Vert_\infty$.
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt;&lt;br /&gt;
-Let $v$ be the fixed point of $\mathcal{T}^*$ and assume that there is policy $\pi$ which is greedy w.r.t $v:\mathcal{T}^\pi v=\mathcal{T}^* v$. Then $v=v_*$ and $\pi$ is an optimal policy.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;Proof&lt;/em&gt;&lt;/strong&gt;&lt;br /&gt;
-Pick any stationary policy $\pi$. Then $\mathcal{T}^\pi\leq\mathcal{T}^*$ in the sense that for any function $v\in B(\mathcal{S})$, $\mathcal{T}^\pi v\leq\mathcal{T}^* v$ holds ($u\leq v$ means that $u(s)\leq v(s),\forall s\in\mathcal{S}$).&lt;/p&gt;
-
-&lt;p&gt;Hence, for all $n\geq0$,
-\begin{equation}
-v_\pi=\mathcal{T}^\pi v_\pi\leq\mathcal{T}^*v_\pi\leq(\mathcal{T}^*)^2 v_\pi\leq\dots\leq(\mathcal{T}^*)^n v_\pi
-\end{equation}
-or
-\begin{equation}
-v_\pi\leq(\mathcal{T}^*)^n v_\pi
-\end{equation}
-Since $\mathcal{T}^*$ is a contraction, the right-hand side converges to $v$, the unique fixed point of $\mathcal{T}^*$. Thus, $v_\pi\leq v$. And since $\pi$ was arbitrary, we obtain that $v_*\leq v$.&lt;/p&gt;
-
-&lt;p&gt;Pick a policy $\pi$ such that $\mathcal{T}^\pi v=\mathcal{T}^*v$, then $v$ is also a fixed point of $\mathcal{V}^\pi$. Since $v_\pi$ is the unique fixed point of $\mathcal{T}^\pi$, we have that $v=v_\pi$, which shows that $v_*=v$ and that $\pi$ is an optimal policy.&lt;/p&gt;
-
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;p&gt;[1] Csaba Szepesvári. &lt;a href=&quot;https://www.amazon.com/Algorithms-Reinforcement-Synthesis-Artificial-Intelligence/dp/1608454924&quot;&gt;Algorithms for Reinforcement Learning&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;[2] A. Lazaric. &lt;a href=&quot;http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf&quot;&gt;Markov Decision Processes and Dynamic Programming&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;[3] &lt;a href=&quot;https://ai.stackexchange.com/a/11133&quot;&gt;What is the Bellman operator in reinforcement learning?&lt;/a&gt;. AI.StackExchange.&lt;/p&gt;
-
-&lt;p&gt;[4] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;[5] &lt;a href=&quot;https://en.wikipedia.org/wiki/Normed_vector_space&quot;&gt;Normed vector space&lt;/a&gt;. Wikipedia.&lt;/p&gt;
-
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
-
-&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;A function is called &lt;em&gt;uniformly bounded&lt;/em&gt; exactly when $\Vert f\Vert_\infty&amp;lt;+\infty$. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:2&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;A &lt;em&gt;normed vector space&lt;/em&gt; is a vector space over the real or complex number, on which a norm is defined. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:3&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;We are gonna talk further about &lt;em&gt;sequences&lt;/em&gt; in another &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#convergent-sequences&quot;&gt;post&lt;/a&gt;. &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:4&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;&lt;strong&gt;&lt;em&gt;Proof&lt;/em&gt;&lt;/strong&gt;&lt;br /&gt;
-Pick any $v_0\in\mathcal{V}$ and define $v_n$ as in the statement of the theorem. a. We first demonstrate that $(v_n)$ converges to some vector. b. Then we will show that this vector is a fixed point to $\mathcal{T}$. c. Finally, we show that $\mathcal{T}$ has a single fixed point. Assume that $\mathcal{T}$ is a $\gamma$-contraction.&lt;br /&gt;
-a. To show that $(v_n)$ converges, it suffices  to show that $(v_n)$ is a Cauchy sequence. We have:
-\begin{align}
-\Vert v_{n+1}-v_n\Vert&amp;amp;=\Vert\mathcal{T}v_{n}-\mathcal{T}v_{n-1}\Vert \\ &amp;amp;\leq\gamma\Vert v_{n}-v_{n-1}\Vert \\ &amp;amp;\quad\vdots \\ &amp;amp;\leq\gamma^n\Vert v_1-v_0\Vert
-\end{align}
-From the properties of norms, we have:
-\begin{align}
-\Vert v_{n+k}-v_n\Vert&amp;amp;\leq\Vert v_{n+1}-v_n\Vert+\dots+\Vert v_{n+k}-v_{n+k-1}\Vert \\ &amp;amp;\leq\left(\gamma^n+\dots+\gamma^{n+k-1}\right)\Vert v_1-v_0\Vert \\ &amp;amp;=\gamma^n\dfrac{1-\gamma^{k}}{1-\gamma}\Vert v_1-v_0\Vert
-\end{align}
-and so
-\begin{equation}
-\lim_{n\to\infty}\sup_{k\geq0}\Vert v_{n+k}-v_n\Vert=0,
-\end{equation}
-shows us that $(v_n;n\geq0)$ is indeed a Cauchy sequence. Let $v$ be its limit.&lt;br /&gt;
-b. Recall that the definition of the sequence $(v_n;n\geq0)$
-\begin{equation}
-v_{n+1}=\mathcal{T}v_n
-\end{equation}
-Taking the limes as $n\to\infty$ of both sides, one the one hand, we get that $v_{n+1}\to _{\Vert\cdot\Vert}v$. On the other hand, $\mathcal{T}v_n\to _{\Vert\cdot\Vert}\mathcal{T}v$, since $\mathcal{T}$ is a contraction, hence it is continuous. Therefore, we must have $v=\mathcal{T}v$, which tells us that $v$ is a fixed point of $\mathcal{T}$.&lt;br /&gt;
-c. Let us assume that $v,v’$ are both fixed points of $\mathcal{T}$. Then,
-\begin{align}
-\Vert v-v’\Vert&amp;amp;=\Vert\mathcal{T}v-\mathcal{v’}\Vert \\ &amp;amp;\leq\gamma\Vert v-v’\Vert \\ \text{or}\quad(1-\gamma)\Vert v-v’\Vert&amp;amp;\leq0
-\end{align}
-Thus, we must have that $\Vert v-v’\Vert=0$. Therefore, $v-v’=0$ or $v=v’$.&lt;br /&gt;
-And finally,
-\begin{align}
-\Vert v_n-v\Vert&amp;amp;=\Vert\mathcal{T}v_{n-1}-\mathcal{T}v\Vert \\ &amp;amp;\leq\gamma\Vert v_{n-1}-v\Vert \\ &amp;amp;\quad\vdots \\ &amp;amp;\leq\gamma^n\Vert v_0-v\Vert
-\end{align} &lt;a href=&quot;#fnref:4&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:5&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;Also, there’s gonna be a post about &lt;em&gt;rate of convergence&lt;/em&gt;. &lt;a href=&quot;#fnref:5&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="mathematics" /><category term="bellman-equation" /><category term="my-rl" /><summary type="html">In the previous post about Markov Decision Processes, Bellman equations, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here to prove it.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="dynamic-programming" /><category term="my-rl" /><summary type="html">In two previous posts, Markov Decision Process (MDP) and Bellman equations and Optimal Policy Existence, we have known how MDPs, Bellman equations are defined and how they work. In this post, we are going to talk about how these MDPs are solved with Dynamic Programming.</summary></entry></feed>

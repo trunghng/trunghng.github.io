@@ -239,6 +239,12 @@ The $G_t^\lambda$ is called <strong>$\lambda$-return</strong> of the update.</p>
 \mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\left[G_t^\lambda-\hat{v}(S_t,\mathbf{w}_t)\right]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t),\hspace{1cm}t=0,\dots,T-1
 \end{equation}</p>
 
+<figure>
+	<img src="/assets/images/2022-08-08/offline-lambda-return.png" alt="Offline lambda-return on random walk" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: Using offline lambda-return on 19-state random walk. The code can be found <span><a href="https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-12/random_walk.py">here</a></span></figcaption>
+</figure>
+<p><br /></p>
+
 <h2 id="td-lambda">TD($\lambda$)</h2>
 <p><strong>TD($\lambda$)</strong> improves over the offline $\lambda$-return algorithm since:</p>
 <ul>
@@ -301,7 +307,7 @@ From \eqref{3}, we can see that the $k$-step $\lambda$-return can be written as 
 
 <figure>
 	<img src="/assets/images/2022-08-08/ttd-lambda-backup.png" alt="Backup diagram of truncated TD(lambda)" style="display: block; margin-left: auto; margin-right: auto; width: 500px; height: 370px" />
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: The backup diagram of truncated TD($\lambda$)</figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: The backup diagram of truncated TD($\lambda$)</figcaption>
 </figure>
 
 <h2 id="onl-lambda-return">Online $\lambda$-return</h2>
@@ -462,7 +468,7 @@ and so it is with eligible trace vector:
 \end{align}</p>
 <figure>
 	<img src="/assets/images/2022-08-08/sarsa-lambda-backup.png" alt="Backup diagram of Sarsa(lambda)" style="display: block; margin-left: auto; margin-right: auto; width: 450px; height: 390px" />
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: The backup diagram of Sarsa($\lambda$)</figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: The backup diagram of Sarsa($\lambda$)</figcaption>
 </figure>
 <p>Pseudocode of the Sarsa($\lambda$) is given below.</p>
 <figure>
@@ -602,7 +608,7 @@ Using this eligible trace vector with the parameter update rule \eqref{2} of TD(
 
 <figure>
 	<img src="/assets/images/2022-08-08/tree-backup-lambda-backup.png" alt="Backup diagram of Tree Backup(lambda)" style="display: block; margin-left: auto; margin-right: auto; width: 450px; height: 390px" />
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: The backup diagram of Tree Backup($\lambda$)</figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 5</b>: The backup diagram of Tree Backup($\lambda$)</figcaption>
 </figure>
 
 <h2 id="other-off-policy-methods-traces">Other Off-policy Methods with Traces</h2>
@@ -892,7 +898,7 @@ where $\beta&gt;0$ is a step-size parameter.</p>
 <h3 id="em-td-lambda">Emphatic TD($\lambda$)</h3>
 <p><strong>Emphatic TD($\lambda$) (ETD($\lambda$))</strong> is the extension of the <a href="/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html#em-td">one-step Emphatic-TD algorithm</a> to eligible traces.</p>
 
-<p>Emphatic TD($\lambda$) is defined by:
+<p>Emphatic TD($\lambda$) or ETD($\lambda$) is defined by:
 \begin{align}
 \mathbf{w}_{t+1}&amp;\doteq\mathbf{w}_t+\alpha\delta_t\mathbf{z}_t, \\ \delta_t&amp;\doteq R_{t+1}+\gamma_{t+1}\mathbf{w}_t^\intercal\mathbf{x}_{t+1}-\mathbf{w}_t^\intercal\mathbf{x}_t, \\ \mathbf{z}_t&amp;\doteq\rho_t\left(\gamma_t\lambda_t\mathbf{z}_{t-1}+M_t\mathbf{x}_t\right), \\ M_t&amp;\doteq\gamma_t i(S_t)+(1-\lambda_t)F_t, \\ F_t&amp;\doteq\rho_{t-1}\gamma_t F_{t-1}+i(S_t),
 \end{align}

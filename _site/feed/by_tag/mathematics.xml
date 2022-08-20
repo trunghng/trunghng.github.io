@@ -1,5 +1,88 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-19T19:33:17+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
-</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Normal Distribution</title><link href="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html" rel="alternate" type="text/html" title="Normal Distribution" /><published>2021-11-22T14:46:00+07:00</published><updated>2021-11-22T14:46:00+07:00</updated><id>http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist</id><content type="html" xml:base="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-20T23:17:10+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure Theory (more formal)</title><link href="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-formal.html" rel="alternate" type="text/html" title="Measure Theory (more formal)" /><published>2022-08-20T13:00:00+07:00</published><updated>2022-08-20T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-formal</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-formal.html">&lt;blockquote&gt;
+
+  &lt;!-- excerpt-end --&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#preliminaries&quot;&gt;Preliminaries&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#pts-sets&quot;&gt;Points, sets&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#open-closed-compact-sets&quot;&gt;Open, closed and compact sets&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#rect-cube&quot;&gt;Rectangles and cubes&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#cantor-set&quot;&gt;The Cantor set&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#exterior-measure&quot;&gt;The exterior measure&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#ex-measure-def&quot;&gt;Definition&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#ex-measure-properties&quot;&gt;Properties&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#measurable-sets-lebesgue-measure&quot;&gt;Measurable sets, the Lebesgue measure&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#inv-properties-lebesgue-measure&quot;&gt;Invariance properties of Lebesgue measure&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#sigma-algebras-borel-sets&quot;&gt;\(\sigma\)-algebras, Borel sets&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#non-measurable-set-const&quot;&gt;Non-measurable set construction&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#measurable-funcs&quot;&gt;Measurable functions&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#measurable-func-def&quot;&gt;Definition&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#measurable-func-properties&quot;&gt;Properties&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#measurable-func-approx&quot;&gt;Approximation by simple functions or step functions&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#littlewoods-principles&quot;&gt;Littlewood’s three principles&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;Refereces&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;preliminaries&quot;&gt;Preliminaries&lt;/h2&gt;
+&lt;p&gt;Before diving into details, we need some elementary concepts.&lt;/p&gt;
+
+&lt;h3 id=&quot;pts-sets&quot;&gt;Points, sets&lt;/h3&gt;
+&lt;p&gt;A &lt;strong&gt;point&lt;/strong&gt; $x\in\mathbb{R}^d$ consists of a $d$-tuple of real numbers
+\begin{equation}
+x=\left(x_1,x_2,\dots,x_d\right),\hspace{1cm}x_i\in\mathbb{R}, i=1,\dots,d
+\end{equation}
+Addition between points and multiplication of a point by a real scalar is elementwise.&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;norm&lt;/strong&gt; of $x$ is denoted by $\vert x\vert$ and is defined to be the standard &lt;strong&gt;Euclidean norm&lt;/strong&gt; given by
+\begin{equation}
+\vert x\vert=\left(x_1^2+\dots+x_d^2\right)^{1/2}
+\end{equation}
+We can then calculate the &lt;strong&gt;distance&lt;/strong&gt; between two points $x$ and $y$, which is \begin{equation}
+d(x,y)=\vert x-y\vert
+\end{equation}
+The &lt;strong&gt;complement&lt;/strong&gt; of a set $E$ in $\mathbb{R}^d$ is denoted as $E^c$, and defined by
+\begin{equation}
+E^c=\{x\in\mathbb{R}^d:x\notin E\}
+\end{equation}
+If $E$ and $F$ are two subsets of $\mathbb{R}^d$, we denote the complement of $F$ in $E$ by
+\begin{equation}
+E-F=\{x\in\mathbb{R}^d:x\in E;\,x\notin F\}
+\end{equation}
+The &lt;strong&gt;distance&lt;/strong&gt; between two sets $E$ and $F$ is defined by
+\begin{equation}
+d(E,F)=\inf_{x\in E,\,y\in F}\vert x-y\vert
+\end{equation}&lt;/p&gt;
+
+&lt;h3 id=&quot;open-closed-compact-sets&quot;&gt;Open, closed and compact sets&lt;/h3&gt;
+&lt;p&gt;The &lt;strong&gt;open ball&lt;/strong&gt; in $\mathbb{R}^d$ centered at $x$ and of radius $r$ is defined by
+\begin{equation}
+B_r(x)=\{y\in\mathbb{R}^d:\vert y-x\vert&amp;lt; r\}
+\end{equation}
+A subset $\mbox{for}$ for&lt;/p&gt;
+
+&lt;h3 id=&quot;rect-cube&quot;&gt;Rectangles and cubes&lt;/h3&gt;
+
+&lt;h3 id=&quot;cantor-sets&quot;&gt;The Cantor sets&lt;/h3&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;p&gt;[1] Elias M. Stein &amp;amp; Rami Shakarchi. &lt;a href=&quot;#http://www.cmat.edu.uy/~mordecki/courses/medida2013/book.pdf&quot;&gt;Real Analysis: Measure Theory, Integration, and Hilbert Spaces&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><category term="random-stuffs" /><summary type="html"></summary></entry><entry><title type="html">Normal Distribution</title><link href="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html" rel="alternate" type="text/html" title="Normal Distribution" /><published>2021-11-22T14:46:00+07:00</published><updated>2021-11-22T14:46:00+07:00</updated><id>http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist</id><content type="html" xml:base="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html">&lt;blockquote&gt;
   &lt;p&gt;A note on Normal distribution.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
