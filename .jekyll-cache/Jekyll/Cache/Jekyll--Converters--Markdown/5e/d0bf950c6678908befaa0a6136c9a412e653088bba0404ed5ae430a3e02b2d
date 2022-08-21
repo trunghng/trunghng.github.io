@@ -1,0 +1,40 @@
+I"N	<blockquote>
+
+  <!-- excerpt-end -->
+</blockquote>
+
+<ul>
+  <li><a href="#prob-spaces">Probability Spaces</a></li>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h2 id="prob-spaces">Probabilities Spaces</h2>
+<p>A <strong>probability space</strong> is a triple $(\Omega,\mathcal{F},P)$ where</p>
+<ul>
+  <li>$\Omega$ is a set of “outcomes”;</li>
+  <li>$\mathcal{F}$ is a set of “events”;</li>
+  <li>$P:\mathcal{F}\to[0,1]$ is a function that assigns probabilities to events.<br />
+We assume that $\mathcal{F}$ is a <strong>$\sigma$-field</strong> (or <strong>$\sigma$-algebra</strong>), i.e., a (nonempty) collection of subsets of $\Omega$, that satisfy<br />
+(i) If $A\in\mathcal{F}$ then $A^c\in\mathcal{F}$<a href="The **complement** of a set $A\in\mathbb{R}^d$, denoted as $A^c$, is defined by">1^</a>.<br />
+(ii) If $A_i\in\mathcal{F}$ is a countable sequence of sets then $\cup_i A_i\in\mathcal{F}$.<br />
+Since $\cap_i A_i=\left(\cup_i A_i\right)^c$, it follows that a $\sigma$-field is closed[^2] under countable intersection.</li>
+</ul>
+
+<h2 id="references">References</h2>
+<p>[1] Rick Durrett. <a href="https://www.amazon.com/Probability-Cambridge-Statistical-Probabilistic-Mathematics/dp/0521765390">Probability: Theory and Examples</a>. Cambridge University Press; 4th edition (August 30, 2010).</p>
+
+<p>[2] Elias M. Stein &amp; Rami Shakarchi. <a href="#http://www.cmat.edu.uy/~mordecki/courses/medida2013/book.pdf">Real Analysis: Measure Theory, Integration, and Hilbert Spaces</a>.</p>
+
+<h2 id="footnotes">Footnotes</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\begin{equation}
+A^c=\\{x\in\mathbb{R}^d:\,x\notin A\\}
+\end{equation} [2]: The **open ball** in $\mathbb{R}^d$ centered at $x$ and of radius $r$ is defined by
+\begin{equation}
+B_r(x)=\\{y\in\mathbb{R}^d:\vert y-x\vert&lt; r\\}
+\end{equation}
+A subset $E\subset\mathbb{R}^d$ is **open** if for every $x\in E$ there exists $r&gt;0$ with $B_r(x)\subset E$. And a set is **closed** if its complement is open.  
+Any (not necessarily countable) union of open sets is open, while in general, the intersection of only finitely many open sets is open. A similar statement holds for the class of closed sets, if we interchange the roles of unions and intersections.
+</code></pre></div></div>
+
+:ET

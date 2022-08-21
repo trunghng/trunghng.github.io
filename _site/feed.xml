@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-21T16:21:30+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-21T22:20:48+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">The Convergence of Q-learning</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/21/q-learning-convergence.html" rel="alternate" type="text/html" title="The Convergence of Q-learning" /><published>2022-08-21T07:00:00+07:00</published><updated>2022-08-21T07:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/21/q-learning-convergence</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/21/q-learning-convergence.html">&lt;blockquote&gt;
   &lt;p&gt;A note on convergence proofs for Q-learning by exploiting the connection with stochastic approximation and the idea of parallel asynchronous.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -20,90 +20,96 @@
 &lt;h2 id=&quot;preferences&quot;&gt;Preferences&lt;/h2&gt;
 &lt;p&gt;[1] John N. Tsitsiklis. &lt;a href=&quot;https://doi.org/10.1023/A:1022689125041&quot;&gt;Asynchronous Stochastic Approximation and Q-Learning&lt;/a&gt;. Machine Learning 16, 185–202 (1994).&lt;/p&gt;
 
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="Q-learning" /><category term="dynamic-programing" /><summary type="html">A note on convergence proofs for Q-learning by exploiting the connection with stochastic approximation and the idea of parallel asynchronous.</summary></entry><entry><title type="html">Measure Theory (more formal)</title><link href="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-formal.html" rel="alternate" type="text/html" title="Measure Theory (more formal)" /><published>2022-08-20T13:00:00+07:00</published><updated>2022-08-20T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-formal</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-formal.html">&lt;blockquote&gt;
-
-  &lt;!-- excerpt-end --&gt;
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="Q-learning" /><category term="dynamic-programing" /><summary type="html">A note on convergence proofs for Q-learning by exploiting the connection with stochastic approximation and the idea of parallel asynchronous.</summary></entry><entry><title type="html">Measure Theory (in probability perspective)</title><link href="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-prob-perspective.html" rel="alternate" type="text/html" title="Measure Theory (in probability perspective)" /><published>2022-08-20T13:00:00+07:00</published><updated>2022-08-20T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-prob-perspective</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-prob-perspective.html">&lt;blockquote&gt;
+  &lt;p&gt;Measure Theory (in probability perspective)
+&lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#preliminaries&quot;&gt;Preliminaries&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#pts-sets&quot;&gt;Points, sets&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#open-closed-compact-sets&quot;&gt;Open, closed and compact sets&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#rect-cube&quot;&gt;Rectangles and cubes&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#cantor-set&quot;&gt;The Cantor set&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#exterior-measure&quot;&gt;The exterior measure&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#ex-measure-def&quot;&gt;Definition&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#ex-measure-properties&quot;&gt;Properties&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#measurable-sets-lebesgue-measure&quot;&gt;Measurable sets, the Lebesgue measure&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#inv-properties-lebesgue-measure&quot;&gt;Invariance properties of Lebesgue measure&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#sigma-algebras-borel-sets&quot;&gt;\(\sigma\)-algebras, Borel sets&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#non-measurable-set-const&quot;&gt;Non-measurable set construction&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#measurable-funcs&quot;&gt;Measurable functions&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#measurable-func-def&quot;&gt;Definition&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#measurable-func-properties&quot;&gt;Properties&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#measurable-func-approx&quot;&gt;Approximation by simple functions or step functions&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#littlewoods-principles&quot;&gt;Littlewood’s three principles&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;Refereces&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#prob-spaces&quot;&gt;Probability Spaces&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;preliminaries&quot;&gt;Preliminaries&lt;/h2&gt;
-&lt;p&gt;Before diving into details, we need some elementary concepts.&lt;/p&gt;
+&lt;h2 id=&quot;prob-spaces&quot;&gt;Probabilities Spaces&lt;/h2&gt;
+&lt;p&gt;A &lt;strong&gt;probability space&lt;/strong&gt; is a triple $(\Omega,\mathcal{F},P)$ where&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;$\Omega$ is a set of “outcomes”;&lt;/li&gt;
+  &lt;li&gt;$\mathcal{F}$ is a set of “events”;&lt;/li&gt;
+  &lt;li&gt;$P:\mathcal{F}\to[0,1]$ is a function that assigns probabilities to events.&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;h3 id=&quot;pts-sets&quot;&gt;Points, sets&lt;/h3&gt;
-&lt;p&gt;A &lt;strong&gt;point&lt;/strong&gt; $x\in\mathbb{R}^d$ consists of a $d$-tuple of real numbers
-\begin{equation}
-x=\left(x_1,x_2,\dots,x_d\right),\hspace{1cm}x_i\in\mathbb{R}, i=1,\dots,d
-\end{equation}
-Addition between points and multiplication of a point by a real scalar is elementwise.&lt;/p&gt;
+&lt;p&gt;We assume that $\mathcal{F}$ is a &lt;strong&gt;$\sigma$-field&lt;/strong&gt; (or &lt;strong&gt;$\sigma$-algebra&lt;/strong&gt;), i.e., a (nonempty) collection of subsets of $\Omega$, that satisfy&lt;br /&gt;
+(i) If $A\in\mathcal{F}$ then $A^c\in\mathcal{F}$&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;br /&gt;
+(ii) If $A_i\in\mathcal{F}$ is a countable sequence of sets then $\cup_i A_i\in\mathcal{F}$.&lt;br /&gt;
+Since $\cap_i A_i=\left(\cup_i A_i\right)^c$, it follows that a $\sigma$-field is closed&lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; under countable intersection.&lt;/p&gt;
 
-&lt;p&gt;The &lt;strong&gt;norm&lt;/strong&gt; of $x$ is denoted by $\vert x\vert$ and is defined to be the standard &lt;strong&gt;Euclidean norm&lt;/strong&gt; given by
+&lt;p&gt;Without $P$, $(\Omega,\mathcal{F})$ is called a &lt;strong&gt;measurable space&lt;/strong&gt;, i.e., a space on which we can put on a measure. A &lt;strong&gt;measure&lt;/strong&gt; is a nonnegative countably additive set function; that is, a function $\mu:\mathcal{F}\to\mathbb{R}$ with&lt;br /&gt;
+(i) $\mu(A)\geq\mu(\emptyset)=0$ for all $A\in\mathcal{F}$.
+(ii) If $A_i\in\mathcal{F}$ is a countable sequence of disjoint sets, then
 \begin{equation}
-\vert x\vert=\left(x_1^2+\dots+x_d^2\right)^{1/2}
-\end{equation}
-We can then calculate the &lt;strong&gt;distance&lt;/strong&gt; between two points $x$ and $y$, which is \begin{equation}
-d(x,y)=\vert x-y\vert
-\end{equation}
-The &lt;strong&gt;complement&lt;/strong&gt; of a set $E$ in $\mathbb{R}^d$ is denoted as $E^c$, and defined by
-\begin{equation}
-E^c=\{x\in\mathbb{R}^d:x\notin E\}
-\end{equation}
-If $E$ and $F$ are two subsets of $\mathbb{R}^d$, we denote the complement of $F$ in $E$ by
-\begin{equation}
-E-F=\{x\in\mathbb{R}^d:x\in E;\,x\notin F\}
-\end{equation}
-The &lt;strong&gt;distance&lt;/strong&gt; between two sets $E$ and $F$ is defined by
-\begin{equation}
-d(E,F)=\inf_{x\in E,\,y\in F}\vert x-y\vert
+\mu\left(\bigcup_i A_i\right)=\sum_i\mu(A_i)
 \end{equation}&lt;/p&gt;
 
-&lt;h3 id=&quot;open-closed-compact-sets&quot;&gt;Open, closed and compact sets&lt;/h3&gt;
-&lt;p&gt;The &lt;strong&gt;open ball&lt;/strong&gt; in $\mathbb{R}^d$ centered at $x$ and of radius $r$ is defined by
+&lt;p&gt;If $\mu(\Omega)=1$, then $\mu$ is called a &lt;strong&gt;probability measure&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Theorem 1&lt;/strong&gt;&lt;br /&gt;
+Let $\mu$ be a measure on $(\Omega,\mathcal{F})$. Then $\mu$ has these following properties:&lt;br /&gt;
+&lt;em&gt;(i)&lt;/em&gt; &lt;strong&gt;monotonicity&lt;/strong&gt;. If $A\subset B$ then $\mu(A)\leq\mu(B)$.&lt;br /&gt;
+&lt;em&gt;(ii)&lt;/em&gt; &lt;strong&gt;subadditivity&lt;/strong&gt;. If $A\subset\bigcup_{i=1}^{\infty}A_i$ then $\mu(A)\leq\sum_{i=1}^{\infty}\mu(A_i)$.&lt;br /&gt;
+&lt;em&gt;(iii)&lt;/em&gt; &lt;strong&gt;continuity from below&lt;/strong&gt;. If $A_i\uparrow A$ (i.e., $A_1\subset A_2\subset\dots$ and $\bigcup_i A_i=A$) then $\mu(A_i)\uparrow\mu(A)$.&lt;br /&gt;
+&lt;em&gt;(iv)&lt;/em&gt; &lt;strong&gt;continuity from above&lt;/strong&gt;. If $A_i\downarrow A$ (i.e., $A_1\supset A_2\supset\dots$ and $\bigcap_i A_i=A$) with $\mu(A_i)&amp;lt;\infty$ then $\mu(A_i)\downarrow\mu(A)$.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
+(i) Using $+$ to denote disjoint union and $-$ to represent &lt;strong&gt;difference&lt;/strong&gt; of the two sets&lt;sup id=&quot;fnref:3&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;, since $B=A+(B-A)$ so
+\begin{equation}
+\mu(B)=\mu(A)+\mu(B-A)\geq\mu(A)
+\end{equation}
+(ii) Let $A_i’\doteq A\cup A_i$; let $B_i\doteq A_i’-\bigcup_{j=1}^{i=1}(A_j’)^c$ and $B_1\doteq A_1’$. Thus, we have that $B_i$’s are disjoint and $A=\bigcup_i B_i$.&lt;br /&gt;
+Using (i) in the definition of measure, $B_i\subset A_i$, and (i) of this theorem, we have
+\begin{equation}
+\mu(A)\doteq\sum_{i=1}^{\infty}\mu(B_i)\leq\sum_{i=1}^{\infty}\mu(A_i)
+\end{equation}
+(iii) Let $B_i\doteq A_i-A_{i-1}$. Therefore, $B_i$’s are disjoint and $\bigcup_{i=1}^{\infty}B_i=A$ and $\bigcup_{i=1}^{n}B_i=A_n$, thus,
+\begin{equation}
+\mu(A)=\sum_{i=1}^{\infty}\mu(B_i)=\lim_{n\to\infty}\sum_{i=1}^{n}\mu(B_i)=\lim_{n\to\infty}\mu(A_n)
+\end{equation}
+(iv) Since $A_i\downarrow A$, we have that $A_1-A_i\uparrow A_1-A$.&lt;br /&gt;
+Using (iii) and $A_1\supset A$, we obtain that $\mu(A_1-A_i)\uparrow\mu(A_1-A)$. And since $A_1\supset A_i$, we also have that $\mu(A_1-A_i)=\mu(A_1)-\mu(A_i)$.&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;p&gt;[1] Rick Durrett. &lt;a href=&quot;https://www.amazon.com/Probability-Cambridge-Statistical-Probabilistic-Mathematics/dp/0521765390&quot;&gt;Probability: Theory and Examples&lt;/a&gt;. Cambridge University Press; 4th edition (August 30, 2010).&lt;/p&gt;
+
+&lt;p&gt;[2] Elias M. Stein &amp;amp; Rami Shakarchi. &lt;a href=&quot;#http://www.cmat.edu.uy/~mordecki/courses/medida2013/book.pdf&quot;&gt;Real Analysis: Measure Theory, Integration, and Hilbert Spaces&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
+
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;The &lt;strong&gt;complement&lt;/strong&gt; of a set $A\in\mathbb{R}^d$, denoted as $A^c$, is defined by
+\begin{equation}
+A^c=\{x\in\mathbb{R}^d:\,x\notin A\}
+\end{equation} &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;The &lt;strong&gt;open ball&lt;/strong&gt; in $\mathbb{R}^d$ centered at $x$ and of radius $r$ is defined by
 \begin{equation}
 B_r(x)=\{y\in\mathbb{R}^d:\vert y-x\vert&amp;lt; r\}
 \end{equation}
-A subset $\mbox{for}$ for&lt;/p&gt;
-
-&lt;h3 id=&quot;rect-cube&quot;&gt;Rectangles and cubes&lt;/h3&gt;
-
-&lt;h3 id=&quot;cantor-sets&quot;&gt;The Cantor sets&lt;/h3&gt;
-
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;p&gt;[1] Elias M. Stein &amp;amp; Rami Shakarchi. &lt;a href=&quot;#http://www.cmat.edu.uy/~mordecki/courses/medida2013/book.pdf&quot;&gt;Real Analysis: Measure Theory, Integration, and Hilbert Spaces&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><category term="random-stuffs" /><summary type="html"></summary></entry><entry><title type="html">Policy Gradient Methods</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient.html" rel="alternate" type="text/html" title="Policy Gradient Methods" /><published>2022-08-16T14:00:00+07:00</published><updated>2022-08-16T14:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient.html">&lt;blockquote&gt;
+A subset $E\subset\mathbb{R}^d$ is &lt;strong&gt;open&lt;/strong&gt; if for every $x\in E$ there exists $r&amp;gt;0$ with $B_r(x)\subset E$.&lt;br /&gt;
+And a set is &lt;strong&gt;closed&lt;/strong&gt; if its complement is open.&lt;br /&gt;
+Any (not necessarily countable) union of open sets is open, while in general, the intersection of only finitely many open sets is open.&lt;br /&gt;
+A similar statement holds for the class of closed sets, if we interchange the roles of unions and intersections. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:3&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;&lt;strong&gt;Difference&lt;/strong&gt; of two sets $A$ and $B$, denoted as $B-A$, is defined as
+\begin{equation}
+B-A=B\cap A^c
+\end{equation} &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><category term="probability-statistics" /><category term="random-stuffs" /><summary type="html">Measure Theory (in probability perspective)</summary></entry><entry><title type="html">Policy Gradient Methods</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient.html" rel="alternate" type="text/html" title="Policy Gradient Methods" /><published>2022-08-16T14:00:00+07:00</published><updated>2022-08-16T14:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/16/policy-gradient.html">&lt;blockquote&gt;
   &lt;p&gt;So far in the series, we have been choosing the actions based on the estimated action value function. On the other hand, we can instead learn a &lt;strong&gt;parameterized policy&lt;/strong&gt;, $\boldsymbol{\theta}$, that can select actions without consulting a value function by updating $\boldsymbol{\theta}$ on each step in the direction of an estimate of the gradient of some performance measure w.r.t $\boldsymbol{\theta}$. Such methods are called &lt;strong&gt;policy gradient methods&lt;/strong&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -858,7 +864,7 @@ This also leads to an another version of $\delta_t^\lambda$, defined as:
 \end{equation}
 With this definition of the $\lambda$-return, we have:
 \begin{align}
-\mathbb{E}\Big[G_t^{\lambda\rho}(\mathbf{w})\big|S_t=s\Big]&amp;amp;=\mathbb{E}\Big[\rho_t\big(R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}_{t+1}\big)+\rho_t\gamma_{t+1}\lambda_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_t=s\Big] \\ &amp;amp;=\mathbb{E}\Big[\rho_t\big(R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}_{t+1}\big)\big|S_t=s\Big] \\ &amp;amp;\hspace{2cm}+\rho_t\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_t=s\Big] \\ &amp;amp;=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}_{t+1}\big|S_t=s,\pi\Big] \\ &amp;amp;\hspace{2cm}+\sum_{a,s’}p(s’|s,a)b(a|s)\frac{\pi(a|s)}{b(a|s)}\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}\big|S_{t+1}=s’\Big] \\ &amp;amp;=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}_{t+1}\big|S_t=s,\pi\Big] \\ &amp;amp;\hspace{2cm}+\sum_{a,s’}p(s’|s,a)\pi(a|s)\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_{t+1}=s’\Big] \\ &amp;amp;=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}_{t+1} \\ &amp;amp;\hspace{2cm}+\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_{t+1}=s’\Big]\big|S_t=s,\pi\Big],
+\mathbb{E}\Big[G_t^{\lambda\rho}(\mathbf{w})\big|S_t=s\Big]&amp;amp;=\mathbb{E}\Big[\rho_t\big(R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}_{t+1}\big)+\rho_t\gamma_{t+1}\lambda_{t+1}G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_t=s\Big] \\ &amp;amp;=\mathbb{E}\Big[\rho_t\big(R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}_{t+1}\big)\big|S_t=s\Big] \\ &amp;amp;\hspace{2cm}+\rho_t\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_t=s\Big] \\ &amp;amp;=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}_{t+1}\big|S_t=s,\pi\Big] \\ &amp;amp;\hspace{2cm}+\sum_{a,s’}p(s’|s,a)b(a|s)\frac{\pi(a|s)}{b(a|s)}\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_{t+1}=s’\Big] \\ &amp;amp;=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}_{t+1}\big|S_t=s,\pi\Big] \\ &amp;amp;\hspace{2cm}+\sum_{a,s’}p(s’|s,a)\pi(a|s)\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_{t+1}=s’\Big] \\ &amp;amp;=\mathbb{E}\Big[R_{t+1}+\gamma_{t+1}(1-\lambda_{t+1})\mathbf{w}^\intercal\mathbf{x}_{t+1} \\ &amp;amp;\hspace{2cm}+\gamma_{t+1}\lambda_{t+1}\mathbb{E}\Big[G_{t+1}^{\lambda\rho}(\mathbf{w})\big|S_{t+1}=s’\Big]\big|S_t=s,\pi\Big],
 \end{align}
 which, as it continues to roll out, gives us:
 \begin{equation}

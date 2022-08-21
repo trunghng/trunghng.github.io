@@ -1,0 +1,99 @@
+I"Ú<blockquote>
+
+  <!-- excerpt-end -->
+</blockquote>
+
+<ul>
+  <li><a href="#preliminaries">Preliminaries</a>
+    <ul>
+      <li><a href="#pts-sets">Points, sets</a></li>
+      <li><a href="#open-closed-compact-sets">Open, closed and compact sets</a></li>
+      <li><a href="#rect-cube">Rectangles and cubes</a></li>
+      <li><a href="#cantor-set">The Cantor set</a></li>
+    </ul>
+  </li>
+  <li><a href="#exterior-measure">The exterior measure</a>
+    <ul>
+      <li><a href="#ex-measure-def">Definition</a></li>
+      <li><a href="#ex-measure-properties">Properties</a></li>
+    </ul>
+  </li>
+  <li><a href="#measurable-sets-lebesgue-measure">Measurable sets, the Lebesgue measure</a>
+    <ul>
+      <li><a href="#inv-properties-lebesgue-measure">Invariance properties of Lebesgue measure</a></li>
+      <li><a href="#sigma-algebras-borel-sets">\(\sigma\)-algebras, Borel sets</a></li>
+      <li><a href="#non-measurable-set-const">Non-measurable set construction</a></li>
+    </ul>
+  </li>
+  <li><a href="#measurable-funcs">Measurable functions</a>
+    <ul>
+      <li><a href="#measurable-func-def">Definition</a></li>
+      <li><a href="#measurable-func-properties">Properties</a></li>
+      <li><a href="#measurable-func-approx">Approximation by simple functions or step functions</a></li>
+      <li><a href="#littlewoods-principles">Littlewoodâ€™s three principles</a></li>
+    </ul>
+  </li>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h2 id="preliminaries">Preliminaries</h2>
+<p>Before diving into details, we need some elementary concepts.</p>
+
+<h3 id="pts-sets">Points, sets</h3>
+<p>A <strong>point</strong> $x\in\mathbb{R}^d$ consists of a $d$-tuple of real numbers
+\begin{equation}
+x=\left(x_1,x_2,\dots,x_d\right),\hspace{1cm}x_i\in\mathbb{R}, i=1,\dots,d
+\end{equation}
+Addition between points and multiplication of a point by a real scalar is elementwise.</p>
+
+<p>The <strong>norm</strong> of $x$ is denoted by $\vert x\vert$ and is defined to be the standard <strong>Euclidean norm</strong> given by
+\begin{equation}
+\vert x\vert=\left(x_1^2+\dots+x_d^2\right)^{1/2}
+\end{equation}
+We can then calculate the <strong>distance</strong> between two points $x$ and $y$, which is \begin{equation}
+d(x,y)=\vert x-y\vert
+\end{equation}
+The <strong>complement</strong> of a set $E$ in $\mathbb{R}^d$ is denoted as $E^c$, and defined by
+\begin{equation}
+E^c=\{x\in\mathbb{R}^d:x\notin E\}
+\end{equation}
+If $E$ and $F$ are two subsets of $\mathbb{R}^d$, we denote the complement of $F$ in $E$ by
+\begin{equation}
+E-F=\{x\in\mathbb{R}^d:x\in E;\,x\notin F\}
+\end{equation}
+The <strong>distance</strong> between two sets $E$ and $F$ is defined by
+\begin{equation}
+d(E,F)=\inf_{x\in E,\,y\in F}\vert x-y\vert
+\end{equation}</p>
+
+<h3 id="open-closed-compact-sets">Open, closed and compact sets</h3>
+<p>The <strong>open ball</strong> in $\mathbb{R}^d$ centered at $x$ and of radius $r$ is defined by
+\begin{equation}
+B_r(x)=\{y\in\mathbb{R}^d:\vert y-x\vert&lt; r\}
+\end{equation}
+A subset $E\subset\mathbb{R}^d$ is <strong>open</strong> if for every $x\in E$ there exists $r&gt;0$ with $B_r(x)\subset E$. And a set is <strong>closed</strong> if its complement is open.<br />
+Any (not necessarily countable) union of open sets is open, while in general, the intersection of only finitely many open sets is open. A similar statement holds for the class of closed sets, if we interchange the roles of unions and intersections.</p>
+
+<p>A set $E$ is <strong>bounded</strong> if it is contained in some ball of finite radius. A set is <strong>compact</strong> if it is bounded and is also closed. Compact sets enjoy the <strong>Heine-Borel</strong> covering property:</p>
+<ul>
+  <li>Assume $E$ is compact, $E\subset\bigcup_\alpha\mathcal{O}_\alpha$, and each $\mathcal{O}_\alpha$ is open. Then there are finitely many of the open sets $\mathcal{O}_{\alpha_1},\mathcal{O}_{\alpha_2},\dots,\mathcal{O}_{\alpha_N}$, such that $E\subset\bigcup_{j=1}^{N}\mathcal{O}_{\alpha_j}$.</li>
+</ul>
+
+<p>In words, <em>any</em> covering of a compact set by a collection of open sets contains a <em>finite</em> subcovering.</p>
+
+<p>A point $x\in\mathbb{R}^d$ is a <strong>limit point</strong> of the set $E$ if for every $r&gt;0$, the ball $B_r(x)$ contains points of $E$. This means that there are points in $E$ which are arbitrarily close to $x$. An <strong>isolated point</strong> of $E$ is a point $x\in E$ such that there exists an $r&gt;0$ where $B_r(x)\cap E=\{x\}$.</p>
+
+<p>A point $x\in E$ is an <strong>interior point</strong> of $E$ if there exists $r&gt;0$ such that $B_r(x)\subset E$. The set of all interior points of $E$ is called the <strong>interior</strong> of $E$.</p>
+
+<p>The <strong>closure</strong> of $E$, denoted as $\bar{E}$, consists the union of $E$ and all its limit points. The <strong>boundary</strong> of $E$, denoted as $\partial E$, is the set of points which are in the closure of $E$ but not in the interior of $E$.</p>
+
+<h3 id="rect-cube">Rectangles and cubes</h3>
+
+<h3 id="cantor-sets">The Cantor sets</h3>
+
+<h2 id="references">References</h2>
+<p>[1] Elias M. Stein &amp; Rami Shakarchi. <a href="#http://www.cmat.edu.uy/~mordecki/courses/medida2013/book.pdf">Real Analysis: Measure Theory, Integration, and Hilbert Spaces</a>.</p>
+
+<h2 id="footnotes">Footnotes</h2>
+:ET

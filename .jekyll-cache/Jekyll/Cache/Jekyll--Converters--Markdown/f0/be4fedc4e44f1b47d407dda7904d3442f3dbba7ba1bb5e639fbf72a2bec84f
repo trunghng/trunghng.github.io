@@ -1,0 +1,30 @@
+I"�<blockquote>
+
+  <!-- excerpt-end -->
+</blockquote>
+
+<ul>
+  <li><a href="#prob-spaces">Probability Spaces</a></li>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h2 id="prob-spaces">Probabilities Spaces</h2>
+<p>A <strong>probability space</strong> is a triple $(\Omega,\mathcal{F},P)$ where</p>
+<ul>
+  <li>$\Omega$ is a set of “outcomes”;</li>
+  <li>$\mathcal{F}$ is a set of “events”;</li>
+  <li>$P:\mathcal{F}\to[0,1]$ is a function that assigns probabilities to events.<br />
+We assume that $\mathcal{F}$ is a <strong>$\sigma$-field</strong> (or <strong>$\sigma$-algebra</strong>), i.e., a (nonempty) collection of subsets of $\Omega$, that satisfy<br />
+(i) If $A\in\mathcal{F}$ then $A^c\in\mathcal{F}$<a href="The **complement** of a set $A\in\mathbb{R}^d$, denoted as $A^c$, is defined by">1^</a>.<br />
+(ii)</li>
+</ul>
+
+<h2 id="references">References</h2>
+<p>[1] Rick Durrett. <a href="https://www.amazon.com/Probability-Cambridge-Statistical-Probabilistic-Mathematics/dp/0521765390">Probability: Theory and Examples</a>. Cambridge University Press; 4th edition (August 30, 2010).</p>
+
+<h2 id="footnotes">Footnotes</h2>
+<p>\begin{equation}
+A^c=\{x\in\mathbb{R}^d:\,x\notin A\}
+\end{equation}</p>
+:ET
