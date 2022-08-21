@@ -70,10 +70,11 @@ With the definition of $\lambda$-return, we can define the **offline $\lambda$-r
 \mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\left[G_t^\lambda-\hat{v}(S_t,\mathbf{w}\_t)\right]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t),\hspace{1cm}t=0,\dots,T-1
 \end{equation}
 
+A result when applying offline $\lambda$-return on the randon walk problem is shown below.
 <figure>
 	<img src="/assets/images/2022-08-08/offline-lambda-return.png" alt="Offline lambda-return on random walk" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: Using offline lambda-return on 19-state random walk. The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-12/random_walk.py)</span></figcaption>
-</figure><br/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: Using offline $\lambda$-return on 19-state random walk. The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-12/random_walk.py)</span></figcaption>
+</figure>
 
 ## TD($\lambda$)
 {: #td-lambda}
@@ -108,6 +109,12 @@ Linear TD($\lambda$) has been proved to converge in the on-policy case if the st
 \overline{\text{VE}}(\mathbf{w}\_\infty)\leq\dfrac{1-\gamma\lambda}{1-\gamma}\min_\mathbf{w}\overline{\text{VE}}(\mathbf{w})
 \end{equation}
 
+The figure below illustrates the result for using TD($\lambda$) on the usual random walk task.
+<figure>
+	<img src="/assets/images/2022-08-08/td-lambda.png" alt="TD(lambda) on random walk" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: Using TD($\lambda$) on 19-state random walk. The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-12/random_walk.py)</span></figcaption>
+</figure><br/>
+
 ## Truncated TD Methods
 {: #truncated-td}
 Since in the offline $\lambda$-return, the target $\lambda$-return is not known until the end of episode. And moreover, in the continuing case, since the $n$-step returns depend on arbitrary large $n$, it maybe never known.
@@ -137,7 +144,7 @@ From \eqref{3}, we can see that the $k$-step $\lambda$-return can be written as 
 
 <figure>
 	<img src="/assets/images/2022-08-08/ttd-lambda-backup.png" alt="Backup diagram of truncated TD(lambda)" style="display: block; margin-left: auto; margin-right: auto; width: 500px; height: 370px"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: The backup diagram of truncated TD($\lambda$)</figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: The backup diagram of truncated TD($\lambda$)</figcaption>
 </figure>
 
 ## Online $\lambda$-return
@@ -303,7 +310,7 @@ and so it is with eligible trace vector:
 \end{align}
 <figure>
 	<img src="/assets/images/2022-08-08/sarsa-lambda-backup.png" alt="Backup diagram of Sarsa(lambda)" style="display: block; margin-left: auto; margin-right: auto; width: 450px; height: 390px"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: The backup diagram of Sarsa($\lambda$)</figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 5</b>: The backup diagram of Sarsa($\lambda$)</figcaption>
 </figure>
 Pseudocode of the Sarsa($\lambda$) is given below.
 <figure>
@@ -442,7 +449,7 @@ Using this eligible trace vector with the parameter update rule \eqref{2} of TD(
 
 <figure>
 	<img src="/assets/images/2022-08-08/tree-backup-lambda-backup.png" alt="Backup diagram of Tree Backup(lambda)" style="display: block; margin-left: auto; margin-right: auto; width: 450px; height: 390px"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 5</b>: The backup diagram of Tree Backup($\lambda$)</figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 6</b>: The backup diagram of Tree Backup($\lambda$)</figcaption>
 </figure>
 
 ## Other Off-policy Methods with Traces

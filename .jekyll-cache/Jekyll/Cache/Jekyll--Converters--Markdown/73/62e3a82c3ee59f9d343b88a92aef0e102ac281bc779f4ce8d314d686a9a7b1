@@ -1,0 +1,23 @@
+I"<blockquote>
+  <p>A note on convergence proofs for Q-learning by exploiting the connection with stochastic approximation and the idea of parallel asynchronous.
+<!-- excerpt-end --></p>
+</blockquote>
+
+<ul>
+  <li><a href="#preliminaries">Preliminaries</a></li>
+  <li>[The convergence of Q-learning]</li>
+  <li><a href="#preferences">Preferences</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<p>In Q-learning, transtition probabilities and costs are unknown but information of them is obtained either by simulation or by experimenting. Q-learning uses simulation or experimental information to estimate the expected cost-to-go. Additionally, the algorithm is recursive and each new piece of information is used for computing an additive correction term to the old estimates. As these correcction terms are rnadom, Q-learning therefore has the same general structure as the stochastic approximation algorithms.</p>
+
+<h2 id="preliminaries">Preliminaries</h2>
+
+<h2 id="the-convergence-of-q-learning">The convergence of Q-learning</h2>
+
+<h2 id="preferences">Preferences</h2>
+<p>[1] John N. Tsitsiklis. <a href="https://doi.org/10.1023/A:1022689125041">Asynchronous Stochastic Approximation and Q-Learning</a>. Machine Learning 16, 185–202 (1994).</p>
+
+<h2 id="footnotes">Footnotes</h2>
+:ET
