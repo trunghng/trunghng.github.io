@@ -237,6 +237,12 @@ Pseudocode of the algorithm is given below.
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
 </figure>
 
+As other methods above, below is an illustration of using true online TD($\lambda$) on the random walk problem.
+<figure>
+	<img src="/assets/images/2022-08-08/true-online-td-lambda.png" alt="True online TD(lambda) on random walk" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 5</b>: Using True online TD($\lambda$) on 19-state random walk. The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-12/random_walk.py)</span></figcaption>
+</figure>
+
 The eligible trace \eqref{10} is called **dutch trace** to distinguish it from the trace \eqref{1} of TD($\lambda$), which is called **accumulating trace**. 
 
 There is another kind of trace called **replacing trace**, defined for the tabular case or for binary feature vectors
@@ -310,7 +316,7 @@ and so it is with eligible trace vector:
 \end{align}
 <figure>
 	<img src="/assets/images/2022-08-08/sarsa-lambda-backup.png" alt="Backup diagram of Sarsa(lambda)" style="display: block; margin-left: auto; margin-right: auto; width: 450px; height: 390px"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 5</b>: The backup diagram of Sarsa($\lambda$)</figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 6</b>: The backup diagram of Sarsa($\lambda$)</figcaption>
 </figure>
 Pseudocode of the Sarsa($\lambda$) is given below.
 <figure>
@@ -449,7 +455,7 @@ Using this eligible trace vector with the parameter update rule \eqref{2} of TD(
 
 <figure>
 	<img src="/assets/images/2022-08-08/tree-backup-lambda-backup.png" alt="Backup diagram of Tree Backup(lambda)" style="display: block; margin-left: auto; margin-right: auto; width: 450px; height: 390px"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 6</b>: The backup diagram of Tree Backup($\lambda$)</figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 7</b>: The backup diagram of Tree Backup($\lambda$)</figcaption>
 </figure>
 
 ## Other Off-policy Methods with Traces
