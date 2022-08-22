@@ -37,8 +37,6 @@ comments: true
 	- [Semi-gradient](#off-policy-semi-grad)
 	- [Residual Bellman Update](#residual-bellman-update)
 	- [Gradient-TD](#grad-td)
-		- [Objective Functions](#obj-funcs)
-		- [Algorithm Derivation](#alg-derivation)
 	- [Emphatic-TD](#em-td)
 - [References](#references)
 - [Footnotes](#footnotes)
@@ -599,11 +597,6 @@ with $\delta_t$ is defined similar to the case of **semi-gradient Expected Sarsa
 
 ### Gradient-TD
 {: #grad-td}
-
-### Objective Functions
-{: #obj-funcs}
-
-
 In this section, we will be considering SGD methods for minimizing the $\overline{\text{PBE}}$.
 
 Rewrite the objective $\overline{\text{PBE}}$ in matrix terms, we have:
@@ -675,6 +668,7 @@ This algorithm is known as **TD(0) with gradient correction (TDC)**, or as **GTD
 
 ## Footnotes
 {: #footnotes}
+
 [^1]: A $n\times n$ matrix $A$ is called *positive definite* if and only if for any non-zero vector $\mathbf{x}\in\mathbb{R}^n$, we always have
 	\begin{equation}
 	\mathbf{x}^\intercal\mathbf{A}\mathbf{x}>0

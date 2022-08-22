@@ -887,4 +887,5 @@ Instead of having domain of $[0,\infty)$, if we further assume that $i(s)>0,\,\f
 
 ## Footnotes
 {: #footnotes}
+
 [^1]: $\mathbf{z}\_t$ is a vector random variable, one per time step, while $\mathbf{z}(s)$ is a vector expectation, one per state.

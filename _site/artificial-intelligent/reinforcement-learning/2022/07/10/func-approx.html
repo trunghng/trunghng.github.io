@@ -60,7 +60,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Function Approximation" />
 <script type="application/ld+json">
-{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","description":"Function approximation","headline":"Function Approximation","dateModified":"2022-07-10T15:26:00+07:00","datePublished":"2022-07-10T15:26:00+07:00","url":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html"},"@context":"https://schema.org"}</script>
+{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","headline":"Function Approximation","dateModified":"2022-07-10T15:26:00+07:00","datePublished":"2022-07-10T15:26:00+07:00","description":"Function approximation","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html"},"url":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/07/10/func-approx.html","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Trung&apos;s cabin" />
     
@@ -207,12 +207,7 @@
     <ul>
       <li><a href="#off-policy-semi-grad">Semi-gradient</a></li>
       <li><a href="#residual-bellman-update">Residual Bellman Update</a></li>
-      <li><a href="#grad-td">Gradient-TD</a>
-        <ul>
-          <li><a href="#obj-funcs">Objective Functions</a></li>
-          <li><a href="#alg-derivation">Algorithm Derivation</a></li>
-        </ul>
-      </li>
+      <li><a href="#grad-td">Gradient-TD</a></li>
       <li><a href="#em-td">Emphatic-TD</a></li>
     </ul>
   </li>
@@ -779,9 +774,6 @@ with $\delta_t$ is defined similar to the case of <strong>semi-gradient Expected
 <h3 id="residual-bellman-update">Residual Bellman Update</h3>
 
 <h3 id="grad-td">Gradient-TD</h3>
-
-<h3 id="obj-funcs">Objective Functions</h3>
-
 <p>In this section, we will be considering SGD methods for minimizing the $\overline{\text{PBE}}$.</p>
 
 <p>Rewrite the objective $\overline{\text{PBE}}$ in matrix terms, we have:
