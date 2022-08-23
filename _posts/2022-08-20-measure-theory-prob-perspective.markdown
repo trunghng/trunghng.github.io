@@ -14,7 +14,8 @@ comments: true
 - [Elementary measure](#elementary-measure)
 	- [Intervals, boxes, elementary sets](#intervals-boxes-elementary-sets)
 	- [Measure of an elementary set](#measure-elementary-set)
-	- [Jordan measure](#jordan-measure)
+- [Jordan measure](#jordan-measure)
+	- [Characteristic](#jordan-m-characteristic)
 	- [Connection with the Riemann integral](#connect-riemann-int)
 - [References](#references)
 - [Footnotes](#footnotes)
@@ -39,7 +40,7 @@ A **box** in $\mathbb{R}^d$ is a Cartesian product $B\doteq I_1\times\dots\times
 \end{equation}
 An **elementary set** is any subset of $\mathbb{R}^d$ which is the union of a finite number of boxes.
 
-**Example 1**  
+**Example 1** (**Boolean closure**) 
 If $E,F\subset\mathbb{R}^d$ are elementary sets, then the union $E\cup F$, the intersection $E\cap F$, the set theoretic difference $E\backslash F\doteq\\{x\in E:x\notin F\\}$, and the symmetric difference $E\Delta F\doteq(E\backslash F)\cup(F\backslash E)$ are also elementary. If $x\in\mathbb{R}^d$, then the translate $E+x\doteq\\{y+x:y\in E\\}$ is also an elementary set.
 
 **Solution**  
@@ -84,7 +85,7 @@ Let $E\subset\mathbb{R}^d$ be an elementary set
 We refer to $m(E)$ as the **elementary measure** of $E$.
 
 **Proof**  
-<ul id="roman-list">
+<ul id='roman-list'>
 	<li>Consider the one-dimensional case, with these $k$ intervals, we can put their $2k$ endpoints into an increasing-order list (discarding repetitions). By looking at the open intervals between these end points, together with the endpoints themselves (viewed as intervals of length zero), we see that there exists a finite collection of disjoint intervals $J_1,\dots,J_{k'}$, such that each of the $I_1,\dots,I_k$ are union of some collection of the $J_1,\dots,J_{k'}$. And since each interval is a one-dimensional box, our statement has been proved with $d=1$.<br>
 	In order to prove the multi-dimensional case, we begin by expressing $E$ as
 	\begin{equation}
@@ -150,7 +151,7 @@ for all elementary sets $E$. In particular, if we impose the additional normaliz
 **Solution**  
 
 
-#### Jordan measure
+### Jordan measure
 {: #jordan-measure}
 Let $E\subset\mathbb{R}^d$ be a bounded set.
 - The **Jordan inner measure** $m_{\*,(J)}(E)$ of $E$ is defined as
@@ -166,6 +167,21 @@ m^{\*,(J)}(E)\doteq\inf_{B\supset E,B\text{ elementary}}m(B)
 m(E)\doteq m_{\*,(J)}(E)=m^{\*,(J)}(E)
 \end{equation}
 the **Jordan measure** of $E$.
+
+#### Characteristic
+{: #jordan-m-characteristic}
+Let $E\subset\mathbb{R}^d$ be bounded. Then these following statement are equivalence
+<ul id='number-list'>
+	<li>$E$ is Jordan measurable.</li>
+	<li>For every $\epsilon>0$, there exists elementary sets $A\subset E\subset B$ such that $m(B\backslash A)\leq\epsilon$.</li>
+	<li>For every $\epsilon>0$, there exists an elementary set $A$ such that $m^{*,(J)}(A\Delta E)\leq\epsilon$.</li>
+</ul>
+
+**Proof**  
+
+
+**Corollary**  
+Every elementary set $E$ is Jordan measurable.
 
 #### Connection with the Riemann integral
 {: #connect-riemann-int}

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-23T16:41:15+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-23T16:56:05+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">The Convergence of Q-learning</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/21/q-learning-convergence.html" rel="alternate" type="text/html" title="The Convergence of Q-learning" /><published>2022-08-21T07:00:00+07:00</published><updated>2022-08-21T07:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/21/q-learning-convergence</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/21/q-learning-convergence.html">&lt;blockquote&gt;
   &lt;p&gt;A note on convergence proofs for Q-learning by exploiting the connection with stochastic approximation and the idea of parallel asynchronous.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -30,7 +30,11 @@
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#intervals-boxes-elementary-sets&quot;&gt;Intervals, boxes, elementary sets&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#measure-elementary-set&quot;&gt;Measure of an elementary set&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#jordan-measure&quot;&gt;Jordan measure&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#jordan-measure&quot;&gt;Jordan measure&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#jordan-m-characteristic&quot;&gt;Characteristic&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#connect-riemann-int&quot;&gt;Connection with the Riemann integral&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
@@ -56,7 +60,7 @@ A &lt;strong&gt;box&lt;/strong&gt; in $\mathbb{R}^d$ is a Cartesian product $B\d
 \end{equation}
 An &lt;strong&gt;elementary set&lt;/strong&gt; is any subset of $\mathbb{R}^d$ which is the union of a finite number of boxes.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Example 1&lt;/strong&gt;&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Example 1&lt;/strong&gt; (&lt;strong&gt;Boolean closure&lt;/strong&gt;) 
 If $E,F\subset\mathbb{R}^d$ are elementary sets, then the union $E\cup F$, the intersection $E\cap F$, the set theoretic difference $E\backslash F\doteq\{x\in E:x\notin F\}$, and the symmetric difference $E\Delta F\doteq(E\backslash F)\cup(F\backslash E)$ are also elementary. If $x\in\mathbb{R}^d$, then the translate $E+x\doteq\{y+x:y\in E\}$ is also an elementary set.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;br /&gt;
@@ -169,7 +173,7 @@ for all elementary sets $E$. In particular, if we impose the additional normaliz
 
 &lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;jordan-measure&quot;&gt;Jordan measure&lt;/h4&gt;
+&lt;h3 id=&quot;jordan-measure&quot;&gt;Jordan measure&lt;/h3&gt;
 &lt;p&gt;Let $E\subset\mathbb{R}^d$ be a bounded set.&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;The &lt;strong&gt;Jordan inner measure&lt;/strong&gt; $m_{*,(J)}(E)$ of $E$ is defined as
@@ -186,6 +190,19 @@ m(E)\doteq m_{*,(J)}(E)=m^{*,(J)}(E)
 \end{equation}
 the &lt;strong&gt;Jordan measure&lt;/strong&gt; of $E$.&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;h4 id=&quot;jordan-m-characteristic&quot;&gt;Characteristic&lt;/h4&gt;
+&lt;p&gt;Let $E\subset\mathbb{R}^d$ be bounded. Then these following statement are equivalence&lt;/p&gt;
+&lt;ul id=&quot;number-list&quot;&gt;
+	&lt;li&gt;$E$ is Jordan measurable.&lt;/li&gt;
+	&lt;li&gt;For every $\epsilon&amp;gt;0$, there exists elementary sets $A\subset E\subset B$ such that $m(B\backslash A)\leq\epsilon$.&lt;/li&gt;
+	&lt;li&gt;For every $\epsilon&amp;gt;0$, there exists an elementary set $A$ such that $m^{*,(J)}(A\Delta E)\leq\epsilon$.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Corollary&lt;/strong&gt;&lt;br /&gt;
+Every elementary set $E$ is Jordan measurable.&lt;/p&gt;
 
 &lt;h4 id=&quot;connect-riemann-int&quot;&gt;Connection with the Riemann integral&lt;/h4&gt;
 
