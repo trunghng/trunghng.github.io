@@ -12,11 +12,10 @@ comments: true
 
 
 - [Elementary measure](#elementary-measure)
-	- [Intervals, boxes, elementary sets](#intervals-boxs-elementarys-sets)
+	- [Intervals, boxes, elementary sets](#intervals-boxes-elementary-sets)
 	- [Measure of an elementary set](#measure-elementary-set)
-	- [Uniqueness of elementary measure](#uniqueness-elementary-measure)
 	- [Jordan measure](#jordan-measure)
-	- [Connnection with the Riemann integral](#connect-riemann-int)
+	- [Connection with the Riemann integral](#connect-riemann-int)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -24,7 +23,7 @@ comments: true
 {: #elementary-measure}
 
 #### Intervals, boxes, elementary sets
-{: #intervals-boxs-elementarys-sets} 
+{: #intervals-boxes-elementary-sets} 
 An **interval** is a subset of $\mathbb{R}$ having one of the forms
 \begin{align}
 [a,b]&\doteq\\{x\in\mathbb{R}:a\leq x\leq b\\}, \\\\ [a,b)&\doteq\\{x\in\mathbb{R}:a\leq x\lt b\\}, \\\\ (a,b]&\doteq\\{x\in\mathbb{R}:a\lt x\lt b\\}, \\\\ (a,b)&\doteq\\{x\in\mathbb{R}:a\lt x\lt b\\},
@@ -34,7 +33,7 @@ The **length** of an interval $I=[a,b],[a,b),(a,b],(a,b)$ is denoted as $\vert I
 \begin{equation}
 \vert I\vert\doteq b-a
 \end{equation}
-A **box** in $\mathbb{R}^d$ is a Catersian product $B\doteq I_1\times\dots\times I_d$ of $d$ intervals $I_1,\dots,I_d$ (not necessarily the same length). The **volume** $\vert B\vert$ of such a box $B$ is defined as
+A **box** in $\mathbb{R}^d$ is a Cartesian product $B\doteq I_1\times\dots\times I_d$ of $d$ intervals $I_1,\dots,I_d$ (not necessarily the same length). The **volume** $\vert B\vert$ of such a box $B$ is defined as
 \begin{equation}
 \vert B\vert\doteq \vert I_1\vert\times\dots\times\vert I_d\vert
 \end{equation}
@@ -48,7 +47,27 @@ With their definitions as elementary sets, we can assume that
 \begin{align}
 E&=B_1\cup\dots\cup B_k, \\\\ F&=B_1'\cup\dots\cup B_{k'}',
 \end{align}
-where each $B_i$ and $B_i'$ is a d-dimensional box.
+where each $B_i$ and $B_i'$ is a d-dimensional box. By set theory, we have that
+- The union of $E$ and $F$ can be written as
+\begin{equation}
+E\cup F=B_1\cup\dots\cup B_k\cup B_1'\cup\dots\cup B_{k'}',
+\end{equation}
+which is an elementary set.
+- The intersection of $E$ and $F$ can be written as
+\begin{align}
+E\cap F&=\left(B_1\cup\dots\cup B_k\right)\cup\left(B_1'\cup\dots\cup B_{k'}'\right) \\\\ &=\bigcup_{i=1,j=1}^{k,k'}\left(B_i\cap B_j'\right),
+\end{align}
+which is also an elementary set.
+- The set theoretic difference of $E$ and $F$ can be written as
+\begin{align}
+E\backslash F&=\left(B_1\cup\dots\cup B_k\right)\backslash\left(B_1'\cup\dots\cup B_{k'}'\right) \\\\ &=\bigcup_{i=1,j=1}^{k,k'}\left(B_i\backslash B_j'\right),
+\end{align}
+which is, once again, an elementary set.
+- With this display, the symmetric difference of $E$ and $F$ can be written as
+\begin{align}
+E\Delta F&=\left(E\backslash F\right)\cup\left(F\backslash E\right) \\\\ &=\Bigg[\bigcup_{i=1,j=1}^{k,k'}\left(B_i\backslash B_j'\right)\Bigg]\cup\Bigg[\bigcup_{i=1,j=1}^{k,k'}\left(B_j'\backslash B_i\right)\Bigg],
+\end{align}
+which satisfies conditions of an elementary set.
 
 #### Measure of an elementary set
 {: #measure-elementary-set}
@@ -62,7 +81,7 @@ Let $E\subset\mathbb{R}^d$ be an elementary set
 	\end{equation}
 </ul>
 
-We refer to $m(E)$ as the **elementary measure of $E$**.
+We refer to $m(E)$ as the **elementary measure** of $E$.
 
 **Proof**  
 <ul id="roman-list">
@@ -71,7 +90,7 @@ We refer to $m(E)$ as the **elementary measure of $E$**.
 	\begin{equation}
 	E=\bigcap_{i=1}^{k}B_i,
 	\end{equation}
-	where each box $B_i=I_{i,1}\times\dots\times I_{i,d}$. For each $j=1,\dots,d$, since we has proved the one-dimensional case, we can express $I_{1,j},\dots I_{k,j}$ as the union of subcollections of collections $J_{1,j},\dots,J_{k',j}$ of disjoint intervals. Taking Catersian product, we can express the $B_1,\dots,B_k$ as finite unions of box $J_{i_1,1}\times\times J_{i_d,d}$, where $1\leq i_j\leq k_j'$ for all $1\leq j\leq d$. Moreover such boxes are disjoint, which proved our argument.</li>
+	where each box $B_i=I_{i,1}\times\dots\times I_{i,d}$. For each $j=1,\dots,d$, since we has proved the one-dimensional case, we can express $I_{1,j},\dots I_{k,j}$ as the union of subcollections of collections $J_{1,j},\dots,J_{k',j}$ of disjoint intervals. Taking Cartesian product, we can express the $B_1,\dots,B_k$ as finite unions of box $J_{i_1,1}\times\dots\times J_{i_d,d}$, where $1\leq i_j\leq k_j'$ for all $1\leq j\leq d$. Moreover such boxes are disjoint, which proved our argument.</li>
 	<li> We have that the length for an interval $I$ can be computed as
 	\begin{equation}
 	\vert I\vert=\lim_{N\to\infty}\frac{1}{N}\#\left(I\cap\frac{1}{N}\mathbb{Z}\right),
@@ -80,7 +99,7 @@ We refer to $m(E)$ as the **elementary measure of $E$**.
 	\begin{equation}
 	\frac{1}{N}\mathbb{Z}\doteq\left\{\frac{x}{N}:x\in\mathbb{Z}\right\}
 	\end{equation}
-	Thus, volume of the box, say $B$, established from $d$ intervals $I_1,\dots,I_d$ by taking Catersian product of them can be written as
+	Thus, volume of the box, say $B$, established from $d$ intervals $I_1,\dots,I_d$ by taking Cartesian product of them can be written as
 	\begin{equation}
 	\vert B\vert=\lim_{N\to\infty}\frac{1}{N^d}\#\left(B\cap\frac{1}{N}\mathbb{Z}^d\right)
 	\end{equation}
@@ -91,8 +110,8 @@ We refer to $m(E)$ as the **elementary measure of $E$**.
 	</li>
 </ul>
 
-**Remark**: From the definition of $m(E)$, it is easily seen that
-- $m(E)$ is a nonnegative real number for every elementary set $E$, and has **finite additivity property**:
+**Remark**: From the definition of elementary measure, it is easily seen that, for any elementary sets $E$ and $F$ (not necessarily disjoint),
+- $m(E)$ is a nonnegative real number (**non-negativity**), and has **finite additivity property**:
 \begin{equation}
 m(E\cup F)=m(E)+m(F)
 \end{equation}
@@ -101,16 +120,54 @@ And by induction, it also implies that
 m(E_1\cup\dots\cup E_k)=m(E_1)+\dots+m(E_k),
 \end{equation}
 whenever $E_1,\dots,E_k$ are disjoint elementary sets.
-- $m(\emptyset)=0$
-- 
+- $m(\emptyset)=0$.
+- $m(B)=\vert B\vert$ for all box $B$.
+- From non-negativity, finite additivity and **Example 1**, we conclude the **monotonicity** property, i.e., $E\subset F$ implies that
+\begin{equation}
+m(E)\leq m(F)
+\end{equation}
+- From the above and finite additivity, we also obtain the **finite subadditivity** property
+\begin{equation}
+m(E\cup F)\leq m(E)+m(F)
+\end{equation}
+- And by induction, we then have
+\begin{equation}
+m(E_1\cup\dots\cup E_k)\leq m(E_1)+\dots+m(E_k),
+\end{equation}
+whenever $E_1,\dots,E_k$ are elementary sets (not necessarily disjoint).
+- we also have the **translation invariance** property
+\begin{equation}
+m(E+x)=m(E),\hspace{1cm}\forall x\in\mathbb{R}^d
+\end{equation}
 
-#### Uniqueness of elementary measure
-{: #uniqueness-elementary-measure}
+**Example 2**. (**Uniqueness of elementary measure**)  
+Let $d\geq 1$ and let $m':\mathcal{E}(\mathbb{R}^d)\to\mathbb{R}^+$ be a map from the collection $\mathcal{E}(\mathbb{R}^d)$ of elementary subsets of $\mathbb{R}^d$ to the nonnegative reals that obeys the non-negativity, finite additivity, and translation invariance properties. Then there exists a constant $c\in\mathbb{R}^+$ such that
+\begin{equation}
+m'(E)=cm(E),
+\end{equation}
+for all elementary sets $E$. In particular, if we impose the additional normalization $m'([0,1)^d)=1$, then $m'\equiv m$.
+
+**Solution**  
+
 
 #### Jordan measure
 {: #jordan-measure}
+Let $E\subset\mathbb{R}^d$ be a bounded set.
+- The **Jordan inner measure** $m_{\*,(J)}(E)$ of $E$ is defined as
+\begin{equation}
+m_{\*,(J)}(E)\doteq\sup_{A\subset E,A\text{ elementary}}m(A)
+\end{equation}
+- The **Jordan outer measure** $m^{\*,(J)}(E)$ of $E$ is defined as
+\begin{equation}
+m^{\*,(J)}(E)\doteq\inf_{B\supset E,B\text{ elementary}}m(B)
+\end{equation}
+- If $m_{\*,(J)}(E)=m^{\*,(J)}(E)$, then we say that $E$ is **Jordan measurable**, and call
+\begin{equation}
+m(E)\doteq m_{\*,(J)}(E)=m^{\*,(J)}(E)
+\end{equation}
+the **Jordan measure** of $E$.
 
-#### Connnection with the Riemann integral
+#### Connection with the Riemann integral
 {: #connect-riemann-int}
 
 

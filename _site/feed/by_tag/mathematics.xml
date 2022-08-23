@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-23T15:23:15+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-23T16:41:15+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory</title><link href="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-prob-perspective.html" rel="alternate" type="text/html" title="Measure theory" /><published>2022-08-20T13:00:00+07:00</published><updated>2022-08-20T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-prob-perspective</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-prob-perspective.html">&lt;blockquote&gt;
   &lt;p&gt;A note on measure theory 
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -7,11 +7,10 @@
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;#elementary-measure&quot;&gt;Elementary measure&lt;/a&gt;
     &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#intervals-boxs-elementarys-sets&quot;&gt;Intervals, boxes, elementary sets&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#intervals-boxes-elementary-sets&quot;&gt;Intervals, boxes, elementary sets&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#measure-elementary-set&quot;&gt;Measure of an elementary set&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#uniqueness-elementary-measure&quot;&gt;Uniqueness of elementary measure&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#jordan-measure&quot;&gt;Jordan measure&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#connect-riemann-int&quot;&gt;Connnection with the Riemann integral&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#connect-riemann-int&quot;&gt;Connection with the Riemann integral&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
@@ -20,7 +19,7 @@
 
 &lt;h3 id=&quot;elementary-measure&quot;&gt;Elementary measure&lt;/h3&gt;
 
-&lt;h4 id=&quot;intervals-boxs-elementarys-sets&quot;&gt;Intervals, boxes, elementary sets&lt;/h4&gt;
+&lt;h4 id=&quot;intervals-boxes-elementary-sets&quot;&gt;Intervals, boxes, elementary sets&lt;/h4&gt;
 &lt;p&gt;An &lt;strong&gt;interval&lt;/strong&gt; is a subset of $\mathbb{R}$ having one of the forms
 \begin{align}
 [a,b]&amp;amp;\doteq\{x\in\mathbb{R}:a\leq x\leq b\}, \\ [a,b)&amp;amp;\doteq\{x\in\mathbb{R}:a\leq x\lt b\}, \\ (a,b]&amp;amp;\doteq\{x\in\mathbb{R}:a\lt x\lt b\}, \\ (a,b)&amp;amp;\doteq\{x\in\mathbb{R}:a\lt x\lt b\},
@@ -30,7 +29,7 @@ The &lt;strong&gt;length&lt;/strong&gt; of an interval $I=[a,b],[a,b),(a,b],(a,b
 \begin{equation}
 \vert I\vert\doteq b-a
 \end{equation}
-A &lt;strong&gt;box&lt;/strong&gt; in $\mathbb{R}^d$ is a Catersian product $B\doteq I_1\times\dots\times I_d$ of $d$ intervals $I_1,\dots,I_d$ (not necessarily the same length). The &lt;strong&gt;volume&lt;/strong&gt; $\vert B\vert$ of such a box $B$ is defined as
+A &lt;strong&gt;box&lt;/strong&gt; in $\mathbb{R}^d$ is a Cartesian product $B\doteq I_1\times\dots\times I_d$ of $d$ intervals $I_1,\dots,I_d$ (not necessarily the same length). The &lt;strong&gt;volume&lt;/strong&gt; $\vert B\vert$ of such a box $B$ is defined as
 \begin{equation}
 \vert B\vert\doteq \vert I_1\vert\times\dots\times\vert I_d\vert
 \end{equation}
@@ -44,7 +43,29 @@ With their definitions as elementary sets, we can assume that
 \begin{align}
 E&amp;amp;=B_1\cup\dots\cup B_k, \\ F&amp;amp;=B_1’\cup\dots\cup B_{k’}’,
 \end{align}
-where each $B_i$ and $B_i’$ is a d-dimensional box.&lt;/p&gt;
+where each $B_i$ and $B_i’$ is a d-dimensional box. By set theory, we have that&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;The union of $E$ and $F$ can be written as
+\begin{equation}
+E\cup F=B_1\cup\dots\cup B_k\cup B_1’\cup\dots\cup B_{k’}’,
+\end{equation}
+which is an elementary set.&lt;/li&gt;
+  &lt;li&gt;The intersection of $E$ and $F$ can be written as
+\begin{align}
+E\cap F&amp;amp;=\left(B_1\cup\dots\cup B_k\right)\cup\left(B_1’\cup\dots\cup B_{k’}’\right) \\ &amp;amp;=\bigcup_{i=1,j=1}^{k,k’}\left(B_i\cap B_j’\right),
+\end{align}
+which is also an elementary set.&lt;/li&gt;
+  &lt;li&gt;The set theoretic difference of $E$ and $F$ can be written as
+\begin{align}
+E\backslash F&amp;amp;=\left(B_1\cup\dots\cup B_k\right)\backslash\left(B_1’\cup\dots\cup B_{k’}’\right) \\ &amp;amp;=\bigcup_{i=1,j=1}^{k,k’}\left(B_i\backslash B_j’\right),
+\end{align}
+which is, once again, an elementary set.&lt;/li&gt;
+  &lt;li&gt;With this display, the symmetric difference of $E$ and $F$ can be written as
+\begin{align}
+E\Delta F&amp;amp;=\left(E\backslash F\right)\cup\left(F\backslash E\right) \\ &amp;amp;=\Bigg[\bigcup_{i=1,j=1}^{k,k’}\left(B_i\backslash B_j’\right)\Bigg]\cup\Bigg[\bigcup_{i=1,j=1}^{k,k’}\left(B_j’\backslash B_i\right)\Bigg],
+\end{align}
+which satisfies conditions of an elementary set.&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h4 id=&quot;measure-elementary-set&quot;&gt;Measure of an elementary set&lt;/h4&gt;
 &lt;p&gt;&lt;strong&gt;Lemma 1&lt;/strong&gt;&lt;br /&gt;
@@ -57,7 +78,7 @@ Let $E\subset\mathbb{R}^d$ be an elementary set&lt;/p&gt;
 	\end{equation}
 &lt;/ul&gt;
 
-&lt;p&gt;We refer to $m(E)$ as the &lt;strong&gt;elementary measure of $E$&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;We refer to $m(E)$ as the &lt;strong&gt;elementary measure&lt;/strong&gt; of $E$.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 &lt;ul id=&quot;roman-list&quot;&gt;
@@ -66,7 +87,7 @@ Let $E\subset\mathbb{R}^d$ be an elementary set&lt;/p&gt;
 	\begin{equation}
 	E=\bigcap_{i=1}^{k}B_i,
 	\end{equation}
-	where each box $B_i=I_{i,1}\times\dots\times I_{i,d}$. For each $j=1,\dots,d$, since we has proved the one-dimensional case, we can express $I_{1,j},\dots I_{k,j}$ as the union of subcollections of collections $J_{1,j},\dots,J_{k&apos;,j}$ of disjoint intervals. Taking Catersian product, we can express the $B_1,\dots,B_k$ as finite unions of box $J_{i_1,1}\times\times J_{i_d,d}$, where $1\leq i_j\leq k_j&apos;$ for all $1\leq j\leq d$. Moreover such boxes are disjoint, which proved our argument.&lt;/li&gt;
+	where each box $B_i=I_{i,1}\times\dots\times I_{i,d}$. For each $j=1,\dots,d$, since we has proved the one-dimensional case, we can express $I_{1,j},\dots I_{k,j}$ as the union of subcollections of collections $J_{1,j},\dots,J_{k&apos;,j}$ of disjoint intervals. Taking Cartesian product, we can express the $B_1,\dots,B_k$ as finite unions of box $J_{i_1,1}\times\dots\times J_{i_d,d}$, where $1\leq i_j\leq k_j&apos;$ for all $1\leq j\leq d$. Moreover such boxes are disjoint, which proved our argument.&lt;/li&gt;
 	&lt;li&gt; We have that the length for an interval $I$ can be computed as
 	\begin{equation}
 	\vert I\vert=\lim_{N\to\infty}\frac{1}{N}\#\left(I\cap\frac{1}{N}\mathbb{Z}\right),
@@ -75,7 +96,7 @@ Let $E\subset\mathbb{R}^d$ be an elementary set&lt;/p&gt;
 	\begin{equation}
 	\frac{1}{N}\mathbb{Z}\doteq\left\{\frac{x}{N}:x\in\mathbb{Z}\right\}
 	\end{equation}
-	Thus, volume of the box, say $B$, established from $d$ intervals $I_1,\dots,I_d$ by taking Catersian product of them can be written as
+	Thus, volume of the box, say $B$, established from $d$ intervals $I_1,\dots,I_d$ by taking Cartesian product of them can be written as
 	\begin{equation}
 	\vert B\vert=\lim_{N\to\infty}\frac{1}{N^d}\#\left(B\cap\frac{1}{N}\mathbb{Z}^d\right)
 	\end{equation}
@@ -86,9 +107,9 @@ Let $E\subset\mathbb{R}^d$ be an elementary set&lt;/p&gt;
 	&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;Remark&lt;/strong&gt;: From the definition of $m(E)$, it is easily seen that&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Remark&lt;/strong&gt;: From the definition of elementary measure, it is easily seen that, for any elementary sets $E$ and $F$ (not necessarily disjoint),&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;$m(E)$ is a nonnegative real number for every elementary set $E$, and has &lt;strong&gt;finite additivity property&lt;/strong&gt;:
+  &lt;li&gt;$m(E)$ is a nonnegative real number (&lt;strong&gt;non-negativity&lt;/strong&gt;), and has &lt;strong&gt;finite additivity property&lt;/strong&gt;:
 \begin{equation}
 m(E\cup F)=m(E)+m(F)
 \end{equation}
@@ -97,15 +118,55 @@ And by induction, it also implies that
 m(E_1\cup\dots\cup E_k)=m(E_1)+\dots+m(E_k),
 \end{equation}
 whenever $E_1,\dots,E_k$ are disjoint elementary sets.&lt;/li&gt;
-  &lt;li&gt;$m(\emptyset)=0$&lt;/li&gt;
-  &lt;li&gt;&lt;/li&gt;
+  &lt;li&gt;$m(\emptyset)=0$.&lt;/li&gt;
+  &lt;li&gt;$m(B)=\vert B\vert$ for all box $B$.&lt;/li&gt;
+  &lt;li&gt;From non-negativity, finite additivity and &lt;strong&gt;Example 1&lt;/strong&gt;, we conclude the &lt;strong&gt;monotonicity&lt;/strong&gt; property, i.e., $E\subset F$ implies that
+\begin{equation}
+m(E)\leq m(F)
+\end{equation}&lt;/li&gt;
+  &lt;li&gt;From the above and finite additivity, we also obtain the &lt;strong&gt;finite subadditivity&lt;/strong&gt; property
+\begin{equation}
+m(E\cup F)\leq m(E)+m(F)
+\end{equation}&lt;/li&gt;
+  &lt;li&gt;And by induction, we then have
+\begin{equation}
+m(E_1\cup\dots\cup E_k)\leq m(E_1)+\dots+m(E_k),
+\end{equation}
+whenever $E_1,\dots,E_k$ are elementary sets (not necessarily disjoint).&lt;/li&gt;
+  &lt;li&gt;we also have the &lt;strong&gt;translation invariance&lt;/strong&gt; property
+\begin{equation}
+m(E+x)=m(E),\hspace{1cm}\forall x\in\mathbb{R}^d
+\end{equation}&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&quot;uniqueness-elementary-measure&quot;&gt;Uniqueness of elementary measure&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;Example 2&lt;/strong&gt;. (&lt;strong&gt;Uniqueness of elementary measure&lt;/strong&gt;)&lt;br /&gt;
+Let $d\geq 1$ and let $m’:\mathcal{E}(\mathbb{R}^d)\to\mathbb{R}^+$ be a map from the collection $\mathcal{E}(\mathbb{R}^d)$ of elementary subsets of $\mathbb{R}^d$ to the nonnegative reals that obeys the non-negativity, finite additivity, and translation invariance properties. Then there exists a constant $c\in\mathbb{R}^+$ such that
+\begin{equation}
+m’(E)=cm(E),
+\end{equation}
+for all elementary sets $E$. In particular, if we impose the additional normalization $m’([0,1)^d)=1$, then $m’\equiv m$.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;jordan-measure&quot;&gt;Jordan measure&lt;/h4&gt;
+&lt;p&gt;Let $E\subset\mathbb{R}^d$ be a bounded set.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;The &lt;strong&gt;Jordan inner measure&lt;/strong&gt; $m_{*,(J)}(E)$ of $E$ is defined as
+\begin{equation}
+m_{*,(J)}(E)\doteq\sup_{A\subset E,A\text{ elementary}}m(A)
+\end{equation}&lt;/li&gt;
+  &lt;li&gt;The &lt;strong&gt;Jordan outer measure&lt;/strong&gt; $m^{*,(J)}(E)$ of $E$ is defined as
+\begin{equation}
+m^{*,(J)}(E)\doteq\inf_{B\supset E,B\text{ elementary}}m(B)
+\end{equation}&lt;/li&gt;
+  &lt;li&gt;If $m_{*,(J)}(E)=m^{*,(J)}(E)$, then we say that $E$ is &lt;strong&gt;Jordan measurable&lt;/strong&gt;, and call
+\begin{equation}
+m(E)\doteq m_{*,(J)}(E)=m^{*,(J)}(E)
+\end{equation}
+the &lt;strong&gt;Jordan measure&lt;/strong&gt; of $E$.&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;h4 id=&quot;connect-riemann-int&quot;&gt;Connnection with the Riemann integral&lt;/h4&gt;
+&lt;h4 id=&quot;connect-riemann-int&quot;&gt;Connection with the Riemann integral&lt;/h4&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Terence Tao. &lt;a href=&quot;https://terrytao.wordpress.com/books/an-introduction-to-measure-theory/&quot;&gt;An introduction to measure theory&lt;/a&gt;. Graduate Studies in Mathematics, vol. 126.&lt;/p&gt;
