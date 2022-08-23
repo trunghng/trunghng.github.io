@@ -1,0 +1,23 @@
+I"<blockquote>
+  <p>A note on measure theory 
+<!-- excerpt-end --></p>
+</blockquote>
+
+<ul>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<p><strong>Definition</strong>. <strong>Intervals, boxes, elementary sets</strong> <br />
+An <strong>interval</strong> is a subset of $\mathbb{R}$ having one of the forms
+\begin{align}
+[a,b]&amp;\doteq\{x\in\mathbb{R}:a\leq x\leq b\}, \\ [a,b)&amp;\doteq\{x\in\mathbb{R}:a\leq x\lt b\}, \\ (a,b]&amp;\doteq\{x\in\mathbb{R}:a\lt x\lt b\}, \\ \text{or }(a,b)&amp;\doteq\{x\in\mathbb{R}:a\lt x\lt b\},
+\end{align}
+where $a\leq b$ are real numbers.</p>
+
+<h2 id="references">References</h2>
+<p>[1] Terence Tao. [An introduction to measure theory]</p>
+
+<h2 id="footnotes">Footnotes</h2>
+
+:ET

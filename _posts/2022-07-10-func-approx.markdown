@@ -326,7 +326,7 @@ This defines a feature for each of the $(n+1)^d$ possible integer vector $\mathb
 
 <figure>
 	<img src="/assets/images/2022-07-10/gradient_mc_bases.png" alt="Fourier basis vs polynomial basis" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: Fourier basis vs Polynomial basis on the 1000-state random walk<br><span>(Eg9.2 - RL: An Introduction book).</span><br>The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-9/random_walk.py)</span></figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: Fourier basis vs Polynomial basis on the 1000-state random walk<br><span>(<span markdown="1">[RL book](#rl-book)</span> - Example 9.2).</span><br>The code can be found <span markdown="1">[chere](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-9/random_walk.py)</span></figcaption>
 </figure><br/>
 
 ##### Coarse Coding
@@ -334,7 +334,7 @@ This defines a feature for each of the $(n+1)^d$ possible integer vector $\mathb
 
 <figure>
 	<img src="/assets/images/2022-07-10/square_wave_function.png" alt="Square wave function approximated using Coarse Coding" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: Using linear function approximation based on coarse coding to learn a one-dimensional square-wave function <br><span>(Eg9.3 - RL: An Introduction book).</span><br> The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-9/square_wave.py)</span></figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: Using linear function approximation based on coarse coding to learn a one-dimensional square-wave function <br><span>(<span markdown="1">[RL book](#rl-book)</span> - Example 9.3).</span><br> The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-9/square_wave.py)</span></figcaption>
 </figure><br/>
 
 ##### Tile Coding
@@ -342,7 +342,7 @@ This defines a feature for each of the $(n+1)^d$ possible integer vector $\mathb
 
 <figure>
 	<img src="/assets/images/2022-07-10/gradient_mc_tile_coding.png" alt="Gradient MC with tile coding" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: Gradient Monte Carlo with single tiling and with multiple tilings on the 1000-state random walk<br><span>(Eg9.2 - RL: An Introduction book).</span><br>The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-9/random_walk.py)</span></figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: Gradient Monte Carlo with single tiling and with multiple tilings on the 1000-state random walk<br><span>(<span markdown="1">[RL book](#rl-book)</span> - Example 9.2).</span><br>The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-9/random_walk.py)</span></figcaption>
 </figure><br/>
 
 ##### Radial Basis Functions
@@ -654,7 +654,7 @@ This algorithm is known as **TD(0) with gradient correction (TDC)**, or as **GTD
 
 ## References
 {: #references}
-[1] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition).  
+[1] <span id='rl-book'>Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition)</span>.  
 
 [2] Deepmind x UCL. [Reinforcement Learning Lecture Series 2021](https://www.deepmind.com/learning-resources/reinforcement-learning-lecture-series-2021). 
 

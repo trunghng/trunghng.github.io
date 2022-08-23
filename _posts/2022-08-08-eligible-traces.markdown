@@ -70,7 +70,7 @@ With the definition of $\lambda$-return, we can define the **offline $\lambda$-r
 \mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\left[G_t^\lambda-\hat{v}(S_t,\mathbf{w}\_t)\right]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t),\hspace{1cm}t=0,\dots,T-1
 \end{equation}
 
-A result when applying offline $\lambda$-return on the randon walk problem is shown below.
+A result when applying offline $\lambda$-return on the random walk problem is shown below.
 <figure>
 	<img src="/assets/images/2022-08-08/offline-lambda-return.png" alt="Offline lambda-return on random walk" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: Using offline $\lambda$-return on 19-state random walk. The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-12/random_walk.py)</span></figcaption>

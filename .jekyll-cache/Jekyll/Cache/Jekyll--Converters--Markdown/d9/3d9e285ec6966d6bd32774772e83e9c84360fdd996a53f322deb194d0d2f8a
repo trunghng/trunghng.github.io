@@ -1,0 +1,59 @@
+I"0<blockquote>
+  <p>A note on measure theory 
+<!-- excerpt-end --></p>
+</blockquote>
+
+<ul>
+  <li><a href="#elementary-measure">Elementary measure</a>
+    <ul>
+      <li><a href="#intervals-boxs-elementarys-sets">Intervals, boxes, elementary sets</a></li>
+      <li><a href="#measure-elementary-set">Measure of an elementary set</a></li>
+    </ul>
+  </li>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h3 id="elementary-measure">Elementary measure</h3>
+
+<h4 id="intervals-boxs-elementarys-sets">Intervals, boxes, elementary sets</h4>
+<p>An <strong>interval</strong> is a subset of $\mathbb{R}$ having one of the forms
+\begin{align}
+[a,b]&amp;\doteq\{x\in\mathbb{R}:a\leq x\leq b\}, \\ [a,b)&amp;\doteq\{x\in\mathbb{R}:a\leq x\lt b\}, \\ (a,b]&amp;\doteq\{x\in\mathbb{R}:a\lt x\lt b\}, \\ (a,b)&amp;\doteq\{x\in\mathbb{R}:a\lt x\lt b\},
+\end{align}
+where $a\leq b$ are real numbers.<br />
+The <strong>length</strong> of an interval $I=[a,b],[a,b),(a,b],(a,b)$ is denoted as $\vert I\vert$ and is defined by
+\begin{equation}
+\vert I\vert\doteq b-a
+\end{equation}
+A <strong>box</strong> in $\mathbb{R}^d$ is a Catersian product $B\doteq I_1\times\dots\times I_d$ of $d$ intervals $I_1,\dots,I_d$ (not necessarily the same length). The <strong>volume</strong> $\vert B\vert$ of such a box $B$ is defined as
+\begin{equation}
+\vert B\vert\doteq \vert I_1\vert\times\dots\times\vert I_d\vert
+\end{equation}
+An <strong>elementary set</strong> is any subset of $\mathbb{R}^d$ which is the union of a finite number of boxes.</p>
+
+<h4 id="measure-elementary-set">Measure of an elementary set</h4>
+<p><strong>Lemma 1</strong><br />
+Let $E\subset\mathbb{R}^d$ be an elementary set</p>
+<ul id="roman-list">
+	<li>$E$ can be expressed as the finite union of disjoint boxes</li>
+	<li>If $E$ is partitioned as the finite union $B_1\cup\dots\cup B_k$ of disjoint boxes, then the quantity $m(E)\doteq\vert B_1\vert+\dots+\vert B_k\vert$ is independent of the partition. In other words, given any other partition $B_1'\cup\dots\cup B_{k'}'$ of $E$, we have</li>
+	\begin{equation}
+	\vert B_1\vert+\dots+\vert B_k\vert=\vert B_1'\vert+\dots+\vert B_{k'}'\vert
+	\end{equation}
+</ul>
+
+<p>We refer to $m(E)$ as the <strong>elementary measure of $E$</strong>.</p>
+
+<p><strong>Proof</strong></p>
+<ul id="roman-list">
+	<li>Consider the one-dimensional case, with these $k$ intervals, we can put their $2k$ endpoints into an increasing-order list (discarding repetitions). By looking at the open intervals between these end points, together with the endpoints themselves (viewed as intervals of length zero), we see that there exists a finite collection of disjoint intervals $I_1,\dots,I_{k'}$
+	</li>
+</ul>
+
+<h2 id="references">References</h2>
+<p>[1] Terence Tao. [An introduction to measure theory]</p>
+
+<h2 id="footnotes">Footnotes</h2>
+
+:ET

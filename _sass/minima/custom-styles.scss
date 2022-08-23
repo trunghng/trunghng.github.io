@@ -30,3 +30,18 @@ blockquote {
 	font-weight: bold;
 }
 .post-content { text-align: justify; }
+
+#roman-list {
+  counter-reset: list;
+}
+
+#roman-list > li {
+    list-style: none;
+    position: relative;
+}
+#roman-list > li:before {
+    counter-increment: list;
+    content: "(" counter(list, lower-roman) ") ";
+    position: absolute;
+    left: -1.4em;
+}

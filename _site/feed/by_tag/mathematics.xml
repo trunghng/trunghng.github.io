@@ -1,195 +1,116 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-22T16:33:09+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
-</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure Theory (in probability perspective)</title><link href="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-prob-perspective.html" rel="alternate" type="text/html" title="Measure Theory (in probability perspective)" /><published>2022-08-20T13:00:00+07:00</published><updated>2022-08-20T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-prob-perspective</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-prob-perspective.html">&lt;blockquote&gt;
-  &lt;p&gt;Measure Theory (in probability perspective)
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-23T15:23:15+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory</title><link href="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-prob-perspective.html" rel="alternate" type="text/html" title="Measure theory" /><published>2022-08-20T13:00:00+07:00</published><updated>2022-08-20T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-prob-perspective</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-prob-perspective.html">&lt;blockquote&gt;
+  &lt;p&gt;A note on measure theory 
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#prob-spaces&quot;&gt;Probability Spaces&lt;/a&gt;
+  &lt;li&gt;&lt;a href=&quot;#elementary-measure&quot;&gt;Elementary measure&lt;/a&gt;
     &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#sigma-field&quot;&gt;\(\sigma\)-field (\(\sigma\)-algebra)&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#measurable-space-measure-prob-measure&quot;&gt;Measurable space, measure, probability measure&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#lebesgue-measure&quot;&gt;Lebesgue measure&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#semialgebra&quot;&gt;Semialgebra&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#field&quot;&gt;Algebra (field)&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#measure-on-an-algebra&quot;&gt;Measure on an algebra&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#intervals-boxs-elementarys-sets&quot;&gt;Intervals, boxes, elementary sets&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#measure-elementary-set&quot;&gt;Measure of an elementary set&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#uniqueness-elementary-measure&quot;&gt;Uniqueness of elementary measure&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#jordan-measure&quot;&gt;Jordan measure&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#connect-riemann-int&quot;&gt;Connnection with the Riemann integral&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;prob-spaces&quot;&gt;Probabilities Spaces&lt;/h2&gt;
-&lt;p&gt;A &lt;strong&gt;probability space&lt;/strong&gt; is a triple $(\Omega,\mathcal{F},P)$ where&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;$\Omega$ is a set of “outcomes”;&lt;/li&gt;
-  &lt;li&gt;$\mathcal{F}$ is a set of “events”;&lt;/li&gt;
-  &lt;li&gt;$P:\mathcal{F}\to[0,1]$ is a function that assigns probabilities to events.&lt;/li&gt;
-&lt;/ul&gt;
+&lt;h3 id=&quot;elementary-measure&quot;&gt;Elementary measure&lt;/h3&gt;
 
-&lt;h5 id=&quot;boldsymbolsigma-field&quot;&gt;$\boldsymbol{\sigma}$-field&lt;/h5&gt;
-&lt;p&gt;We assume that $\mathcal{F}$ is a &lt;strong&gt;$\boldsymbol{\sigma}$-field&lt;/strong&gt; (or &lt;strong&gt;$\boldsymbol{\sigma}$-algebra&lt;/strong&gt;), i.e., a (nonempty) collection of subsets of $\Omega$ that satisfy&lt;br /&gt;
-(i) If $A\in\mathcal{F}$ then $A^c\in\mathcal{F}$&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;br /&gt;
-(ii) If $A_i\in\mathcal{F}$ is a countable sequence of sets then $\cup_i A_i\in\mathcal{F}$.&lt;br /&gt;
-Since $\cap_i A_i=\left(\cup_i A_i\right)^c$, it follows that a $\sigma$-field is closed&lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; under countable intersection.&lt;/p&gt;
-
-&lt;h5 id=&quot;measurable-space-measure-prob-measure&quot;&gt;Measurable space, measure, probability measure&lt;/h5&gt;
-&lt;p&gt;Without $P$, $(\Omega,\mathcal{F})$ is called a &lt;strong&gt;measurable space&lt;/strong&gt;, i.e., a space on which we can put on a measure. A &lt;strong&gt;measure&lt;/strong&gt; is a nonnegative countably additive set function; that is, a function $\mu:\mathcal{F}\to\mathbb{R}$ with&lt;br /&gt;
-(i) $\mu(A)\geq\mu(\emptyset)=0$ for all $A\in\mathcal{F}$.
-(ii) If $A_i\in\mathcal{F}$ is a countable sequence of disjoint sets, then
-\begin{equation}
-\mu\left(\bigcup_i A_i\right)=\sum_i\mu(A_i)
-\end{equation}&lt;/p&gt;
-
-&lt;p&gt;If $\mu(\Omega)=1$, then $\mu$ is called a &lt;strong&gt;probability measure&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Theorem 1&lt;/strong&gt;&lt;br /&gt;
-&lt;em&gt;Let $\mu$ be a measure on $(\Omega,\mathcal{F})$. Then $\mu$ has these following properties:&lt;br /&gt;
-(i) &lt;b&gt;monotonicity&lt;/b&gt;. If $A\subset B$ then $\mu(A)\leq\mu(B)$.&lt;br /&gt;
-(ii) &lt;b&gt;subadditivity&lt;/b&gt;. If $A\subset\bigcup_{i=1}^{\infty}A_i$ then $\mu(A)\leq\sum_{i=1}^{\infty}\mu(A_i)$.&lt;br /&gt;
-(iii) &lt;b&gt;continuity from below&lt;/b&gt;. If $A_i\uparrow A$ (i.e., $A_1\subset A_2\subset\dots$ and $\bigcup_i A_i=A$) then $\mu(A_i)\uparrow\mu(A)$.&lt;br /&gt;
-(iv) &lt;b&gt;continuity from above&lt;/b&gt;. If $A_i\downarrow A$ (i.e., $A_1\supset A_2\supset\dots$ and $\bigcap_i A_i=A$) with $\mu(A_i)&amp;lt;\infty$ then $\mu(A_i)\downarrow\mu(A)$.&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Proof&lt;/em&gt;    &lt;br /&gt;
-(i) Using $+$ to denote disjoint union and $-$ to represent &lt;strong&gt;difference&lt;/strong&gt; of the two sets&lt;sup id=&quot;fnref:3&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;, since $B=A+(B-A)$ so
-\begin{equation}
-\mu(B)=\mu(A)+\mu(B-A)\geq\mu(A)
-\end{equation}
-(ii) Let $A_i’\doteq A\cup A_i$; let $B_i\doteq A_i’-\bigcup_{j=1}^{i=1}(A_j’)^c$ and $B_1\doteq A_1’$. Thus, we have that $B_i$’s are disjoint and $A=\bigcup_i B_i$.&lt;br /&gt;
-Using (i) in the definition of measure, $B_i\subset A_i$, and (i) of this theorem, we have
-\begin{equation}
-\mu(A)\doteq\sum_{i=1}^{\infty}\mu(B_i)\leq\sum_{i=1}^{\infty}\mu(A_i)
-\end{equation}
-(iii) Let $B_i\doteq A_i-A_{i-1}$. Therefore, $B_i$’s are disjoint and $\bigcup_{i=1}^{\infty}B_i=A$ and $\bigcup_{i=1}^{n}B_i=A_n$, thus,
-\begin{equation}
-\mu(A)=\sum_{i=1}^{\infty}\mu(B_i)=\lim_{n\to\infty}\sum_{i=1}^{n}\mu(B_i)=\lim_{n\to\infty}\mu(A_n)
-\end{equation}
-(iv) Since $A_i\downarrow A$, we have that $A_1-A_i\uparrow A_1-A$.&lt;br /&gt;
-Using (iii) and $A_1\supset A$, we obtain that $\mu(A_1-A_i)\uparrow\mu(A_1-A)$. Moreover since $A_1\supset A_i\supset A$, from (i), we also have that
+&lt;h4 id=&quot;intervals-boxs-elementarys-sets&quot;&gt;Intervals, boxes, elementary sets&lt;/h4&gt;
+&lt;p&gt;An &lt;strong&gt;interval&lt;/strong&gt; is a subset of $\mathbb{R}$ having one of the forms
 \begin{align}
-\mu(A_1)-\mu(A_i)&amp;amp;\uparrow\mu(A_1)-\mu(A) \\ \Rightarrow\mu(A_i)&amp;amp;\downarrow\mu(A)
-\end{align}&lt;/p&gt;
+[a,b]&amp;amp;\doteq\{x\in\mathbb{R}:a\leq x\leq b\}, \\ [a,b)&amp;amp;\doteq\{x\in\mathbb{R}:a\leq x\lt b\}, \\ (a,b]&amp;amp;\doteq\{x\in\mathbb{R}:a\lt x\lt b\}, \\ (a,b)&amp;amp;\doteq\{x\in\mathbb{R}:a\lt x\lt b\},
+\end{align}
+where $a\leq b$ are real numbers.&lt;br /&gt;
+The &lt;strong&gt;length&lt;/strong&gt; of an interval $I=[a,b],[a,b),(a,b],(a,b)$ is denoted as $\vert I\vert$ and is defined by
+\begin{equation}
+\vert I\vert\doteq b-a
+\end{equation}
+A &lt;strong&gt;box&lt;/strong&gt; in $\mathbb{R}^d$ is a Catersian product $B\doteq I_1\times\dots\times I_d$ of $d$ intervals $I_1,\dots,I_d$ (not necessarily the same length). The &lt;strong&gt;volume&lt;/strong&gt; $\vert B\vert$ of such a box $B$ is defined as
+\begin{equation}
+\vert B\vert\doteq \vert I_1\vert\times\dots\times\vert I_d\vert
+\end{equation}
+An &lt;strong&gt;elementary set&lt;/strong&gt; is any subset of $\mathbb{R}^d$ which is the union of a finite number of boxes.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Example 1&lt;/strong&gt;&lt;br /&gt;
-(i) If $\mathcal{F}_i,i\in I$ ($I\neq\emptyset$ is an arbitrary index set) are $\sigma$-fields then $\bigcap_{i\in I}\mathcal{F}_i$ also is.&lt;br /&gt;
-(ii) If we are given a set $\Omega$ and a collection $\mathcal{A}$ of subsets of $\Omega$, then there is a smallest $\sigma$-field containing $\mathcal{A}$, called the &lt;strong&gt;$\boldsymbol{\sigma}$-field generated by $\mathbf{\mathcal{A}}$&lt;/strong&gt; and denoted as $\sigma(\mathcal{A})$.&lt;/p&gt;
+If $E,F\subset\mathbb{R}^d$ are elementary sets, then the union $E\cup F$, the intersection $E\cap F$, the set theoretic difference $E\backslash F\doteq\{x\in E:x\notin F\}$, and the symmetric difference $E\Delta F\doteq(E\backslash F)\cup(F\backslash E)$ are also elementary. If $x\in\mathbb{R}^d$, then the translate $E+x\doteq\{y+x:y\in E\}$ is also an elementary set.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;br /&gt;
-(i) In order to proof that $\bigcap_{i\in I}\mathcal{F}_i$ is a $\sigma$-field, we proves that it satisfies two properties of a $\sigma$-field.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;On the one hand, consider an arbitrary set $A\in\bigcap_{i\in I}\mathcal{A}$, so $A\in\mathcal{F}_i,\,\forall i\in I$. Since $\mathcal{F}_i$ is a $\sigma$-field for all $i\in I$, we have that $A^c\in\mathcal{F}_i,\,\forall i\in I$. Therefore, $A^c\in\bigcap_{i\in I}\mathcal{F}_i$.&lt;/li&gt;
-  &lt;li&gt;On the other hand, consider a countable of sets $A_j\in\bigcap_{i\in I}\mathcal{F}_i$, then $A_j\in\mathcal{F}_i,\,\forall i\in I$ and for all $A_j$ in the sequence. Since $\mathcal{F}_i,i\in I$ are $\sigma$-fields, it implies that $\bigcup_j A_j\in\mathcal{F}_i,\,\forall i\in I$, which leads to the result that $\bigcup_j A_j\in\bigcap_{i\in I}\mathcal{F}_i$.&lt;/li&gt;
+With their definitions as elementary sets, we can assume that
+\begin{align}
+E&amp;amp;=B_1\cup\dots\cup B_k, \\ F&amp;amp;=B_1’\cup\dots\cup B_{k’}’,
+\end{align}
+where each $B_i$ and $B_i’$ is a d-dimensional box.&lt;/p&gt;
+
+&lt;h4 id=&quot;measure-elementary-set&quot;&gt;Measure of an elementary set&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;Lemma 1&lt;/strong&gt;&lt;br /&gt;
+Let $E\subset\mathbb{R}^d$ be an elementary set&lt;/p&gt;
+&lt;ul id=&quot;roman-list&quot;&gt;
+	&lt;li&gt;$E$ can be expressed as the finite union of disjoint boxes&lt;/li&gt;
+	&lt;li&gt;If $E$ is partitioned as the finite union $B_1\cup\dots\cup B_k$ of disjoint boxes, then the quantity $m(E)\doteq\vert B_1\vert+\dots+\vert B_k\vert$ is independent of the partition. In other words, given any other partition $B_1&apos;\cup\dots\cup B_{k&apos;}&apos;$ of $E$, we have&lt;/li&gt;
+	\begin{equation}
+	\vert B_1\vert+\dots+\vert B_k\vert=\vert B_1&apos;\vert+\dots+\vert B_{k&apos;}&apos;\vert
+	\end{equation}
 &lt;/ul&gt;
 
-&lt;p&gt;With these two satisfied properties, we can conclude that $\bigcap_{i\in I}\mathcal{A}_i$ is also a $\sigma$-field.&lt;/p&gt;
+&lt;p&gt;We refer to $m(E)$ as the &lt;strong&gt;elementary measure of $E$&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;(ii) Let $\mathcal{F}_i$ be a sequence of $\sigma$-field containing $A$. From (i), we have that $\bigcap_i\mathcal{F}_i$ is also a $\sigma$-field, and $A\in\bigcap_i\mathcal{F}_i$. Hence, there exists a smallest $\sigma$-field containing $A$.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+&lt;ul id=&quot;roman-list&quot;&gt;
+	&lt;li&gt;Consider the one-dimensional case, with these $k$ intervals, we can put their $2k$ endpoints into an increasing-order list (discarding repetitions). By looking at the open intervals between these end points, together with the endpoints themselves (viewed as intervals of length zero), we see that there exists a finite collection of disjoint intervals $J_1,\dots,J_{k&apos;}$, such that each of the $I_1,\dots,I_k$ are union of some collection of the $J_1,\dots,J_{k&apos;}$. And since each interval is a one-dimensional box, our statement has been proved with $d=1$.&lt;br /&gt;
+	In order to prove the multi-dimensional case, we begin by expressing $E$ as
+	\begin{equation}
+	E=\bigcap_{i=1}^{k}B_i,
+	\end{equation}
+	where each box $B_i=I_{i,1}\times\dots\times I_{i,d}$. For each $j=1,\dots,d$, since we has proved the one-dimensional case, we can express $I_{1,j},\dots I_{k,j}$ as the union of subcollections of collections $J_{1,j},\dots,J_{k&apos;,j}$ of disjoint intervals. Taking Catersian product, we can express the $B_1,\dots,B_k$ as finite unions of box $J_{i_1,1}\times\times J_{i_d,d}$, where $1\leq i_j\leq k_j&apos;$ for all $1\leq j\leq d$. Moreover such boxes are disjoint, which proved our argument.&lt;/li&gt;
+	&lt;li&gt; We have that the length for an interval $I$ can be computed as
+	\begin{equation}
+	\vert I\vert=\lim_{N\to\infty}\frac{1}{N}\#\left(I\cap\frac{1}{N}\mathbb{Z}\right),
+	\end{equation}
+	where $\#A$ represents the cardinality of a finite set $A$ and 
+	\begin{equation}
+	\frac{1}{N}\mathbb{Z}\doteq\left\{\frac{x}{N}:x\in\mathbb{Z}\right\}
+	\end{equation}
+	Thus, volume of the box, say $B$, established from $d$ intervals $I_1,\dots,I_d$ by taking Catersian product of them can be written as
+	\begin{equation}
+	\vert B\vert=\lim_{N\to\infty}\frac{1}{N^d}\#\left(B\cap\frac{1}{N}\mathbb{Z}^d\right)
+	\end{equation}
+	Therefore, with $k$ disjoint boxes $B_1,\dots,B_k$, we have that
+	\begin{align}
+	\vert B_1\vert+\dots+\vert B_k\vert&amp;amp;=\lim_{N\to\infty}\frac{1}{N^d}\#\left[\left(\bigcup_{i=1}^{k}B_i\right)\cap\frac{1}{N}\mathbb{Z}^d\right] \\\\ &amp;amp;=\lim_{N\to\infty}\frac{1}{N^d}\#\left(E\cap\frac{1}{N}\mathbb{Z}^d\right) \\\\ &amp;amp;=\lim_{N\to\infty}\frac{1}{N^d}\#\left[\left(\bigcup_{i=1}^{k&apos;}B_i&apos;\right)\cap\frac{1}{N}\mathbb{Z}^d\right] \\\\ &amp;amp;=\vert B_1&apos;\vert+\dots+\vert B_{k&apos;}&apos;\vert
+	\end{align}
+	&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;Example 2&lt;/strong&gt;. &lt;strong&gt;Measure on the real line&lt;/strong&gt;&lt;br /&gt;
-Measures on $(\mathbb{R},\mathcal{R})$&lt;sup id=&quot;fnref:4&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:4&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;, are defined by giving probability a &lt;strong&gt;Stieltjes measure function&lt;/strong&gt;, denoted as $F$, with the following properties:&lt;br /&gt;
-(i) $F$ is non-decreasing.&lt;br /&gt;
-(ii) $F$ is right continuous, i.e., $\lim_{y\downarrow x}F(y)=F(x)$.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Theorem 2&lt;/strong&gt;&lt;br /&gt;
-&lt;em&gt;Associated with each Stieltjes measure function $F$, there is a measure $\mu$ on $(\mathbb{R},\mathcal{R})$ with
+&lt;p&gt;&lt;strong&gt;Remark&lt;/strong&gt;: From the definition of $m(E)$, it is easily seen that&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;$m(E)$ is a nonnegative real number for every elementary set $E$, and has &lt;strong&gt;finite additivity property&lt;/strong&gt;:
 \begin{equation}
-\mu((a,b])=F(b)-F(a)\tag{1}\label{1}
-\end{equation}&lt;/em&gt;&lt;/p&gt;
-
-&lt;h5 id=&quot;lebesgue-measure&quot;&gt;Lebesgue measure&lt;/h5&gt;
-&lt;p&gt;When $F(x)=x$, the resulting measure is called &lt;strong&gt;Lebesgue measure&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;h5 id=&quot;semialgebra&quot;&gt;Semialgebra&lt;/h5&gt;
-&lt;p&gt;A collection $\mathcal{S}$ of sets is said to be &lt;strong&gt;semialgebra&lt;/strong&gt; if&lt;br /&gt;
-(i) it is &lt;strong&gt;closed under intersection&lt;/strong&gt;, i.e., $S,T\in\mathcal{S}$ implies that $S\cap T\in\mathcal{S}$.&lt;br /&gt;
-(ii) If $S\in\mathcal{S}$, then $S^c$ is a finite disjoint union of sets in $\mathcal{S}$.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Example 3&lt;/strong&gt;&lt;br /&gt;
-Let $\mathcal{S}_d$ is the set of the empty set plus all sets of the form
-\begin{equation}
-(a_1,b_1]\times\dots\times(a_d,b_d]\subset\mathbb{R}^d,\hspace{2cm}-\infty\leq a_i\lt b_i\leq\infty
+m(E\cup F)=m(E)+m(F)
 \end{equation}
-We have that $\mathcal{S}_d$ is a semialgebra.&lt;/p&gt;
-
-&lt;h5 id=&quot;field&quot;&gt;Algebra (field)&lt;/h5&gt;
-&lt;p&gt;The definition in \eqref{1} gives that values of $\mu$ on the semialgebra $\mathcal{S}_1$. To go from semialgebra to $\sigma$-algebra we use an intermediate step.&lt;br /&gt;
-A collection $\mathcal{A}$ of subsets of $\Omega$ is called an &lt;strong&gt;algebra&lt;/strong&gt; (or &lt;strong&gt;field&lt;/strong&gt;) if $A,B\in\mathcal{A}$ implies that $A^c\in\mathcal{A}$ and $A\cup B\in\mathcal{A}$, which also implies that $A\cap B\in\mathcal{A}$ (since $A\cap B=(A^c\cup B^c)^c$).&lt;/p&gt;
-
-&lt;p&gt;A $\sigma$-algebra is an algebra, but the converse is false.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Example 4&lt;/strong&gt;&lt;br /&gt;
-Let $\Omega=\mathbb{Z}$, the integer space; and let $\mathcal{A}$ be the the collection of $A\subset\mathbb{Z}$ so that $A$ or $A^c$ is finite is an algebra.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Proof&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Lemma 3&lt;/strong&gt;&lt;br /&gt;
-&lt;em&gt;If $\mathcal{S}$ is a semialgebra then $\bar{\mathcal{S}}=\Big\{$ finite disjoint unions of sets in $\mathcal{S}\Big\}$ is an algebra, called the&lt;/em&gt; &lt;strong&gt;algebra generated by $\mathbf{\mathcal{S}}$&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Proof&lt;/em&gt;&lt;br /&gt;
-Suppose $A=+_i S_i$ and $B=+_j T_j$, where $+$ denotes disjoint union and we assume the index sets are finite. Then by definition of $\bar{\mathcal{S}}$, we have that $A,B\in\bar{\mathcal{S}}$. And moreover
+And by induction, it also implies that
 \begin{equation}
-A\cap B=+_{i,j}S_i\cap T_j\in\bar{\mathcal{S}},
+m(E_1\cup\dots\cup E_k)=m(E_1)+\dots+m(E_k),
 \end{equation}
-which proves that $\bar{\mathcal{S}}$ is closed under intersection.&lt;br /&gt;
-Also, if $A=+_i S_i$ then $A^c=\bigcap_i S_i^c$, the definition of $S$ says that $S_i^c\in\bar{\mathcal{S}}$. And since we just proved that $\bar{\mathcal{S}}$ is closed under intersection, we have that by induction
-\begin{equation}
-A^c=\bigcap_i S_i^c\in\bar{\mathcal{S}},
-\end{equation}
-which combined with the result of closed under intersection shows that $\bar{\mathcal{S}}$ is an algebra.&lt;/p&gt;
+whenever $E_1,\dots,E_k$ are disjoint elementary sets.&lt;/li&gt;
+  &lt;li&gt;$m(\emptyset)=0$&lt;/li&gt;
+  &lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;h5 id=&quot;measure-on-an-algebra&quot;&gt;Measure on an algebra&lt;/h5&gt;
-&lt;p&gt;A &lt;strong&gt;measure on an algebra&lt;/strong&gt; $\mathcal{A}$ is a set function $\mu$ with&lt;br /&gt;
-(i) $\mu(A)\geq\mu(\emptyset)=0$, for all $A\in\mathcal{A}$.&lt;br /&gt;
-(ii) If $A_i\in\mathcal{A}$ are disjoint and their union is in $\mathcal{A}$, then
-\begin{equation}
-\mu(\bigcup_{i=1}^{\infty}A_i)=\sum_{i=1}^{\infty}\mu(A_i)
-\end{equation}
-$\mu$ is said to be a &lt;strong&gt;$\boldsymbol{\sigma}$-finite&lt;/strong&gt; if there is a sequence of sets $A_n\in\mathcal{A}$ so that $\mu(A_n)&amp;lt;\infty$ and $\bigcup_n A_n=\Omega$. Letting $A_1’=A_1$ and for $n\geq 2$,
-\begin{equation}
-A_n’=\bigcup_{m=1}^{n}A_m
-\end{equation}
-or
-\begin{equation}
-A_n’=A_n\cap\left(\bigcap_{m=1}^{n-1}A_m^c\right)\in\mathcal{A}
-\end{equation}&lt;/p&gt;
+&lt;h4 id=&quot;uniqueness-elementary-measure&quot;&gt;Uniqueness of elementary measure&lt;/h4&gt;
+
+&lt;h4 id=&quot;jordan-measure&quot;&gt;Jordan measure&lt;/h4&gt;
+
+&lt;h4 id=&quot;connect-riemann-int&quot;&gt;Connnection with the Riemann integral&lt;/h4&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;p&gt;[1] Rick Durrett. &lt;a href=&quot;https://www.amazon.com/Probability-Cambridge-Statistical-Probabilistic-Mathematics/dp/0521765390&quot;&gt;Probability: Theory and Examples&lt;/a&gt;. Cambridge University Press; 4th edition (August 30, 2010).&lt;/p&gt;
+&lt;p&gt;[1] Terence Tao. &lt;a href=&quot;https://terrytao.wordpress.com/books/an-introduction-to-measure-theory/&quot;&gt;An introduction to measure theory&lt;/a&gt;. Graduate Studies in Mathematics, vol. 126.&lt;/p&gt;
 
-&lt;p&gt;[2] Elias M. Stein &amp;amp; Rami Shakarchi. &lt;a href=&quot;#http://www.cmat.edu.uy/~mordecki/courses/medida2013/book.pdf&quot;&gt;Real Analysis: Measure Theory, Integration, and Hilbert Spaces&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
-
-&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;The &lt;strong&gt;complement&lt;/strong&gt; of a set $A\in\mathbb{R}^d$, denoted as $A^c$, is defined by
-\begin{equation}
-A^c=\{x\in\mathbb{R}^d:\,x\notin A\}
-\end{equation} &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:2&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;The &lt;strong&gt;open ball&lt;/strong&gt; in $\mathbb{R}^d$ centered at $x$ and of radius $r$ is defined by
-\begin{equation}
-B_r(x)=\{y\in\mathbb{R}^d:\vert y-x\vert&amp;lt; r\}
-\end{equation}
-A subset $E\subset\mathbb{R}^d$ is &lt;strong&gt;open&lt;/strong&gt; if for every $x\in E$ there exists $r&amp;gt;0$ with $B_r(x)\subset E$.&lt;br /&gt;
-And a set is &lt;strong&gt;closed&lt;/strong&gt; if its complement is open.&lt;br /&gt;
-Any (not necessarily countable) union of open sets is open, while in general, the intersection of only finitely many open sets is open.&lt;br /&gt;
-A similar statement holds for the class of closed sets, if we interchange the roles of unions and intersections. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:3&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;&lt;strong&gt;Difference&lt;/strong&gt; of two sets $A$ and $B$, denoted as $B-A$, is defined as
-\begin{equation}
-B-A=B\cap A^c
-\end{equation} &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:4&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;The &lt;strong&gt;Borel $\boldsymbol{\sigma}$-algebra&lt;/strong&gt; in $\mathbb{R}^d$, denoted as $\mathcal{B}_{\mathbb{R}^d}$, is the smallest $\sigma$-field that contains all the open sets. That means, if $\mathcal{S}$ is any $\sigma$-field containing all open sets in $\mathbb{R}^d$, then necessarily $\mathcal{B}_{\mathbb{R}^d}\subset\mathcal{S}$.&lt;br /&gt;
-Elements of a Borel $\sigma$-algebra are called &lt;strong&gt;Borel sets&lt;/strong&gt;, denoted as $\mathcal{R}^d$, which is the smallest $\sigma$-field containing the open sets. &lt;a href=&quot;#fnref:4&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><category term="probability-statistics" /><category term="random-stuffs" /><summary type="html">Measure Theory (in probability perspective)</summary></entry><entry><title type="html">Normal Distribution</title><link href="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html" rel="alternate" type="text/html" title="Normal Distribution" /><published>2021-11-22T14:46:00+07:00</published><updated>2021-11-22T14:46:00+07:00</updated><id>http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist</id><content type="html" xml:base="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html">&lt;blockquote&gt;
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><category term="random-stuffs" /><summary type="html">A note on measure theory</summary></entry><entry><title type="html">Normal Distribution</title><link href="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html" rel="alternate" type="text/html" title="Normal Distribution" /><published>2021-11-22T14:46:00+07:00</published><updated>2021-11-22T14:46:00+07:00</updated><id>http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist</id><content type="html" xml:base="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html">&lt;blockquote&gt;
   &lt;p&gt;A note on Normal distribution.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
