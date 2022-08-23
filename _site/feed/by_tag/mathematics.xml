@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-23T18:19:34+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-23T19:59:59+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory</title><link href="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-prob-perspective.html" rel="alternate" type="text/html" title="Measure theory" /><published>2022-08-20T13:00:00+07:00</published><updated>2022-08-20T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-prob-perspective</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-prob-perspective.html">&lt;blockquote&gt;
   &lt;p&gt;A note on measure theory 
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -9,11 +9,13 @@
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#intervals-boxes-elementary-sets&quot;&gt;Intervals, boxes, elementary sets&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#measure-elementary-set&quot;&gt;Measure of an elementary set&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#elementary-measure-properties&quot;&gt;Properties of elementary measure&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#jordan-measure&quot;&gt;Jordan measure&lt;/a&gt;
     &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#jordan-m-characteristic&quot;&gt;Characteristic&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#jordan-measurability-characterisation&quot;&gt;Characterization of Jordan measurability&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#jordan-measurability-properties&quot;&gt;Properties of Jordan measurability&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#connect-riemann-int&quot;&gt;Connection with the Riemann integral&lt;/a&gt;
@@ -64,7 +66,7 @@ With their definitions as elementary sets, we can assume that
 \begin{align}
 E&amp;amp;=B_1\cup\dots\cup B_k, \\ F&amp;amp;=B_1’\cup\dots\cup B_{k’}’,
 \end{align}
-where each $B_i$ and $B_i’$ is a d-dimensional box. By set theory, we have that&lt;/p&gt;
+where each $B_i$ and $B_i’$ is a $d$-dimensional box. By set theory, we have that&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;The union of $E$ and $F$ can be written as
 \begin{equation}
@@ -141,36 +143,50 @@ Let $E\subset\mathbb{R}^d$ be an elementary set&lt;/p&gt;
 	&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;Remark&lt;/strong&gt;: From the definition of elementary measure, it is easily seen that, for any elementary sets $E$ and $F$ (not necessarily disjoint),&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;$m(E)$ is a nonnegative real number (&lt;strong&gt;non-negativity&lt;/strong&gt;), and has &lt;strong&gt;finite additivity property&lt;/strong&gt;:
-\begin{equation}
-m(E\cup F)=m(E)+m(F)
-\end{equation}
-And by induction, it also implies that
-\begin{equation}
-m(E_1\cup\dots\cup E_k)=m(E_1)+\dots+m(E_k),
-\end{equation}
-whenever $E_1,\dots,E_k$ are disjoint elementary sets.&lt;/li&gt;
-  &lt;li&gt;$m(\emptyset)=0$.&lt;/li&gt;
-  &lt;li&gt;$m(B)=\vert B\vert$ for all box $B$.&lt;/li&gt;
-  &lt;li&gt;From non-negativity, finite additivity and &lt;strong&gt;Example 1&lt;/strong&gt;, we conclude the &lt;strong&gt;monotonicity&lt;/strong&gt; property, i.e., $E\subset F$ implies that
-\begin{equation}
-m(E)\leq m(F)
-\end{equation}&lt;/li&gt;
-  &lt;li&gt;From the above and finite additivity, we also obtain the &lt;strong&gt;finite subadditivity&lt;/strong&gt; property
-\begin{equation}
-m(E\cup F)\leq m(E)+m(F)
-\end{equation}&lt;/li&gt;
-  &lt;li&gt;And by induction, we then have
-\begin{equation}
-m(E_1\cup\dots\cup E_k)\leq m(E_1)+\dots+m(E_k),
-\end{equation}
-whenever $E_1,\dots,E_k$ are elementary sets (not necessarily disjoint).&lt;/li&gt;
-  &lt;li&gt;we also have the &lt;strong&gt;translation invariance&lt;/strong&gt; property
-\begin{equation}
-m(E+x)=m(E),\hspace{1cm}\forall x\in\mathbb{R}^d
-\end{equation}&lt;/li&gt;
+&lt;h3 id=&quot;elementary-measure-properties&quot;&gt;Properties of elementary measure&lt;/h3&gt;
+&lt;p&gt;From the definition of elementary measure, it is easily seen that, for any elementary sets $E$ and $F$ (not necessarily disjoint),&lt;/p&gt;
+&lt;ul id=&quot;number-list&quot;&gt;
+	&lt;li&gt;
+		$m(E)$ is a nonnegative real number (&lt;b&gt;non-negativity&lt;/b&gt;), and has &lt;b&gt;finite additivity property&lt;/b&gt;:
+		\begin{equation}
+		m(E\cup F)=m(E)+m(F)
+		\end{equation}
+		And by induction, it also implies that
+		\begin{equation}
+		m(E_1\cup\dots\cup E_k)=m(E_1)+\dots+m(E_k),
+		\end{equation}
+		whenever $E_1,\dots,E_k$ are disjoint elementary sets.
+	&lt;/li&gt;
+	&lt;li&gt;
+		$m(\emptyset)=0$.
+	&lt;/li&gt;
+	&lt;li&gt;
+		$m(B)=\vert B\vert$ for all box $B$.
+	&lt;/li&gt;
+	&lt;li&gt;
+		From non-negativity, finite additivity and &lt;b&gt;Example 1&lt;/b&gt;, we conclude the &lt;b&gt;monotonicity&lt;/b&gt; property, i.e., $E\subset F$ implies that
+		\begin{equation}
+		m(E)\leq m(F)
+		\end{equation}
+	&lt;/li&gt;
+	&lt;li&gt;
+		From the above and finite additivity, we also obtain the &lt;b&gt;finite subadditivity&lt;/b&gt; property
+		\begin{equation}
+		m(E\cup F)\leq m(E)+m(F)
+		\end{equation}
+		And by induction, we then have
+		\begin{equation}
+		m(E_1\cup\dots\cup E_k)\leq m(E_1)+\dots+m(E_k),
+		\end{equation}
+		whenever $E_1,\dots,
+		E_k$ are elementary sets (not necessarily disjoint).
+	&lt;/li&gt;
+	&lt;li&gt;
+		We also have the &lt;b&gt;translation invariance&lt;/b&gt; property
+		\begin{equation}
+		m(E+x)=m(E),\hspace{1cm}\forall x\in\mathbb{R}^d
+		\end{equation}
+	&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;Example 2&lt;/strong&gt;. (&lt;strong&gt;Uniqueness of elementary measure&lt;/strong&gt;)&lt;br /&gt;
@@ -202,6 +218,20 @@ It then follows by induction that
 m’(E)=cm(E)
 \end{equation}&lt;/p&gt;
 
+&lt;p&gt;&lt;strong&gt;Example 3&lt;/strong&gt;&lt;br /&gt;
+Let $d_1,d_2\geq 1$, and let $E_1\subset\mathbb{R}^{d_1},E_2\subset\mathbb{R}^{d_2}$ be elementary sets. Then $E_1\times E_2\subset\mathbb{R}^{d_1+d_2}$ is also elementary, and $m^{d_1+d_2}(E_1\times E_2)=m^{d_1}(E_1)\times m^{d_2}(E_2)$.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;br /&gt;
+With their definitions as elementary sets, we can assume that
+\begin{align}
+E_1&amp;amp;=B_1\cup\dots\cup B_{k_1}, \\ E_2&amp;amp;=B_1’\cup\dots\cup B_{k_2}’,
+\end{align}
+where each $B_i$ is a $d_1$-dimensional box and each $B_i’$ is a $d_2$-dimensional box. By set theory, we have that
+\begin{align}
+E_1\times E_2&amp;amp;=\Big(B_1\cup\dots\cup B_{k_1}\Big)\times\Big(B_1’\cup\dots\cup B_{k_2}’\Big) \\ &amp;amp;=\bigcup_{i=1,j=1}^{k_1,k_2}\left(B_i\times B_j’\right),
+\end{align}
+which is an elementary set.&lt;/p&gt;
+
 &lt;h2 id=&quot;jordan-measure&quot;&gt;Jordan measure&lt;/h2&gt;
 &lt;p&gt;Let $E\subset\mathbb{R}^d$ be a bounded set.&lt;/p&gt;
 &lt;ul&gt;
@@ -220,7 +250,7 @@ m(E)\doteq m_{*,(J)}(E)=m^{*,(J)}(E)
 the &lt;strong&gt;Jordan measure&lt;/strong&gt; of $E$.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;jordan-m-characteristic&quot;&gt;Characteristic&lt;/h3&gt;
+&lt;h3 id=&quot;jordan-measurability-characterisation&quot;&gt;Characterization of Jordan measurability&lt;/h3&gt;
 &lt;p&gt;Let $E\subset\mathbb{R}^d$ be bounded. Then these following statement are equivalence&lt;/p&gt;
 &lt;ul id=&quot;number-list&quot;&gt;
 	&lt;li&gt;$E$ is Jordan measurable.&lt;/li&gt;
@@ -230,12 +260,79 @@ the &lt;strong&gt;Jordan measure&lt;/strong&gt; of $E$.&lt;/li&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Corollary&lt;/strong&gt;&lt;br /&gt;
-Every elementary set $E$ is Jordan measurable.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Corollary&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Every elementary set $E$ is Jordan measurable.&lt;/li&gt;
+  &lt;li&gt;On elementary sets, Jordan measure and elementary measure coincide.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Jordan measurability also inherits many of the properties of elementary measure.&lt;/p&gt;
+
+&lt;h3 id=&quot;jordan-measurability-properties&quot;&gt;Properties of Jordan measurability&lt;/h3&gt;
+&lt;p&gt;Let $E,F\in\mathbb{R}^d$ be Jordan measurable sets. Then&lt;/p&gt;
+&lt;ul id=&quot;number-list&quot;&gt;
+	&lt;li&gt;
+		&lt;b&gt;Boolean closure&lt;/b&gt;. $E\cup F,E\cap F,E\backslash F,E\Delta F$ are also Jordan measurable sets.
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Non-negativity&lt;/b&gt;. $m(E)\geq 0$.
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Finite additivity&lt;/b&gt;. If $E,F$ are disjoint, then $m(E\cup F)=m(E)+m(F)$.
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Monotonicity&lt;/b&gt;. If $E\subset F$, then $m(E)\leq m(F)$.
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Finite subadditivity&lt;/b&gt;. $m(E\cup F)\leq m(E)+m(F)$.
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Translation invariance&lt;/b&gt;. For any $x\in\mathbb{R}^d$, $E+x$ is Jordan measurable, and $m(E+x)=m(E)$.
+	&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+&lt;ul id=&quot;number-list&quot;&gt;
+	&lt;li&gt;
+		We ha
+	&lt;/li&gt;
+
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt;. (&lt;strong&gt;Uniqueness of Jordan measure&lt;/strong&gt;)&lt;br /&gt;
+Let $d\geq 1$ and let $m’:\mathcal{J}(\mathbb{R}^d)\to\mathbb{R}^+$  be a map from the collection of Jordan measurable subsets of $\mathbb{R}^d$ to the nonnegative reals that obeys the non-negativity, finite additivity and translation invariance properties. Then there exists a constant $c\in\mathbb{R}^+$ such that
+\begin{equation}
+m’(E)=cm(E),
+\end{equation}
+for all Jordan measurable sets $E$. In particular, if we impose the additional normalization $m’([0,1)^d)=1$, then $m’\equiv m$.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;br /&gt;
+Follow the same steps as the solution for &lt;strong&gt;Example 2&lt;/strong&gt;, the argument above can easily be proved.&lt;/p&gt;
 
 &lt;h2 id=&quot;connect-riemann-int&quot;&gt;Connection with the Riemann integral&lt;/h2&gt;
 
 &lt;h3 id=&quot;riemann-integrability&quot;&gt;Riemann integrability&lt;/h3&gt;
+&lt;p&gt;Let $[a,b]$ be an interval of positive length, and $f:[a,b]\to\mathbb{R}$ be a function. A &lt;strong&gt;tagged partition&lt;/strong&gt;
+\begin{equation}
+\mathcal{P}=\left(\left(x_0,x_1,\dots,x_n\right),\left(x_1^{*},\dots,x_n^{*}\right)\right)
+\end{equation}
+of $[a,b]$ is a finite sequence of real numbers $a=x_0&amp;lt; x_1&amp;lt;\dots&amp;lt; x_n=b$, together with additional numbers $x_{i-1}\leq x_i^{*}\leq x_i$ for each $i=1,\dots,n$. Let $\delta x_i\doteq x_i-x_{i-1}$, the quantity
+\begin{equation}
+\Delta(\mathcal{P})\doteq\sup_{1\leq i\leq n}\delta x_i
+\end{equation}
+is called the &lt;strong&gt;norm&lt;/strong&gt; of the tagged partition. The &lt;strong&gt;Riemann sum&lt;/strong&gt; $\mathcal{R}(f,\mathcal{P})$ of $f$ w.r.t the tagged partition $\mathcal{P}$ is defined as
+\begin{equation}
+\mathcal{R}(f,\mathcal{P})\doteq\sum_{i=1}^{n}f(x_i^{*})\delta x_i
+\end{equation}
+we say that $f$ is &lt;strong&gt;Riemann integrable&lt;/strong&gt; on $[a,b]$ if there exists a real number, denoted as $\int_{a}^{b}f(x)\,dx$ and referred to as the &lt;strong&gt;Riemann integral&lt;/strong&gt; on $[a,b]$, for which we have
+\begin{equation}
+\int_{a}^{b}f(x)\,dx=\lim_{\Delta\mathcal{P}\to 0}\mathcal{R}(f,\mathcal{P}),
+\end{equation}
+by which we mean that for every $\varepsilon&amp;gt;0$ there exists $\delta&amp;gt;0$ such that
+\begin{equation}
+\left\vert\mathcal{R}(f,\mathcal{P})-\int_{a}^{b}f(x)\,dx\right\vert\leq\varepsilon,
+\end{equation}
+for every tagged partition $\mathcal{P}$ with $\Delta(\mathcal{P})\leq\delta$.&lt;/p&gt;
 
 &lt;h3 id=&quot;darboux-int&quot;&gt;Darboux integral&lt;/h3&gt;
 

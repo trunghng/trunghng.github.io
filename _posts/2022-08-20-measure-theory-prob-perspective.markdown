@@ -14,8 +14,10 @@ comments: true
 - [Elementary measure](#elementary-measure)
 	- [Intervals, boxes, elementary sets](#intervals-boxes-elementary-sets)
 	- [Measure of an elementary set](#measure-elementary-set)
+	- [Properties of elementary measure](#elementary-measure-properties)
 - [Jordan measure](#jordan-measure)
-	- [Characteristic](#jordan-m-characteristic)
+	- [Characterization of Jordan measurability](#jordan-measurability-characterisation)
+	- [Properties of Jordan measurability](#jordan-measurability-properties)
 - [Connection with the Riemann integral](#connect-riemann-int)
 	- [Riemann integrability](#riemann-integrability)
 	- [Darboux integral](#darboux-int)
@@ -57,7 +59,7 @@ With their definitions as elementary sets, we can assume that
 \begin{align}
 E&=B_1\cup\dots\cup B_k, \\\\ F&=B_1'\cup\dots\cup B_{k'}',
 \end{align}
-where each $B_i$ and $B_i'$ is a d-dimensional box. By set theory, we have that
+where each $B_i$ and $B_i'$ is a $d$-dimensional box. By set theory, we have that
 - The union of $E$ and $F$ can be written as
 \begin{equation}
 E\cup F=B_1\cup\dots\cup B_k\cup B_1'\cup\dots\cup B_{k'}',
@@ -133,35 +135,52 @@ We refer to $m(E)$ as the **elementary measure** of $E$.
 	</li>
 </ul>
 
-**Remark**: From the definition of elementary measure, it is easily seen that, for any elementary sets $E$ and $F$ (not necessarily disjoint),
-- $m(E)$ is a nonnegative real number (**non-negativity**), and has **finite additivity property**:
-\begin{equation}
-m(E\cup F)=m(E)+m(F)
-\end{equation}
-And by induction, it also implies that
-\begin{equation}
-m(E_1\cup\dots\cup E_k)=m(E_1)+\dots+m(E_k),
-\end{equation}
-whenever $E_1,\dots,E_k$ are disjoint elementary sets.
-- $m(\emptyset)=0$.
-- $m(B)=\vert B\vert$ for all box $B$.
-- From non-negativity, finite additivity and **Example 1**, we conclude the **monotonicity** property, i.e., $E\subset F$ implies that
-\begin{equation}
-m(E)\leq m(F)
-\end{equation}
-- From the above and finite additivity, we also obtain the **finite subadditivity** property
-\begin{equation}
-m(E\cup F)\leq m(E)+m(F)
-\end{equation}
-- And by induction, we then have
-\begin{equation}
-m(E_1\cup\dots\cup E_k)\leq m(E_1)+\dots+m(E_k),
-\end{equation}
-whenever $E_1,\dots,E_k$ are elementary sets (not necessarily disjoint).
-- we also have the **translation invariance** property
-\begin{equation}
-m(E+x)=m(E),\hspace{1cm}\forall x\in\mathbb{R}^d
-\end{equation}
+### Properties of elementary measure
+{: #elementary-measure-properties}
+From the definition of elementary measure, it is easily seen that, for any elementary sets $E$ and $F$ (not necessarily disjoint),
+<ul id='number-list'>
+	<li>
+		$m(E)$ is a nonnegative real number (<b>non-negativity</b>), and has <b>finite additivity property</b>:
+		\begin{equation}
+		m(E\cup F)=m(E)+m(F)
+		\end{equation}
+		And by induction, it also implies that
+		\begin{equation}
+		m(E_1\cup\dots\cup E_k)=m(E_1)+\dots+m(E_k),
+		\end{equation}
+		whenever $E_1,\dots,E_k$ are disjoint elementary sets.
+	</li>
+	<li>
+		$m(\emptyset)=0$.
+	</li>
+	<li>
+		$m(B)=\vert B\vert$ for all box $B$.
+	</li>
+	<li>
+		From non-negativity, finite additivity and <b>Example 1</b>, we conclude the <b>monotonicity</b> property, i.e., $E\subset F$ implies that
+		\begin{equation}
+		m(E)\leq m(F)
+		\end{equation}
+	</li>
+	<li>
+		From the above and finite additivity, we also obtain the <b>finite subadditivity</b> property
+		\begin{equation}
+		m(E\cup F)\leq m(E)+m(F)
+		\end{equation}
+		And by induction, we then have
+		\begin{equation}
+		m(E_1\cup\dots\cup E_k)\leq m(E_1)+\dots+m(E_k),
+		\end{equation}
+		whenever $E_1,\dots,
+		E_k$ are elementary sets (not necessarily disjoint).
+	</li>
+	<li>
+		We also have the <b>translation invariance</b> property
+		\begin{equation}
+		m(E+x)=m(E),\hspace{1cm}\forall x\in\mathbb{R}^d
+		\end{equation}
+	</li>
+</ul>
 
 **Example 2**. (**Uniqueness of elementary measure**)  
 Let $d\geq 1$ and let $m':\mathcal{E}(\mathbb{R}^d)\to\mathbb{R}^+$ be a map from the collection $\mathcal{E}(\mathbb{R}^d)$ of elementary subsets of $\mathbb{R}^d$ to the nonnegative reals that obeys the non-negativity, finite additivity, and translation invariance properties. Then there exists a constant $c\in\mathbb{R}^+$ such that
@@ -192,6 +211,20 @@ It then follows by induction that
 m'(E)=cm(E)
 \end{equation}
 
+**Example 3**  
+Let $d_1,d_2\geq 1$, and let $E_1\subset\mathbb{R}^{d_1},E_2\subset\mathbb{R}^{d_2}$ be elementary sets. Then $E_1\times E_2\subset\mathbb{R}^{d_1+d_2}$ is also elementary, and $m^{d_1+d_2}(E_1\times E_2)=m^{d_1}(E_1)\times m^{d_2}(E_2)$.
+
+**Solution**  
+With their definitions as elementary sets, we can assume that
+\begin{align}
+E_1&=B_1\cup\dots\cup B_{k_1}, \\\\ E_2&=B_1'\cup\dots\cup B_{k_2}',
+\end{align}
+where each $B_i$ is a $d_1$-dimensional box and each $B_i'$ is a $d_2$-dimensional box. By set theory, we have that
+\begin{align}
+E_1\times E_2&=\Big(B_1\cup\dots\cup B_{k_1}\Big)\times\Big(B_1'\cup\dots\cup B_{k_2}'\Big) \\\\ &=\bigcup_{i=1,j=1}^{k_1,k_2}\left(B_i\times B_j'\right),
+\end{align}
+which is an elementary set.
+
 ## Jordan measure
 {: #jordan-measure}
 Let $E\subset\mathbb{R}^d$ be a bounded set.
@@ -209,8 +242,8 @@ m(E)\doteq m_{\*,(J)}(E)=m^{\*,(J)}(E)
 \end{equation}
 the **Jordan measure** of $E$.
 
-### Characteristic
-{: #jordan-m-characteristic}
+### Characterization of Jordan measurability
+{: #jordan-measurability-characterisation}
 Let $E\subset\mathbb{R}^d$ be bounded. Then these following statement are equivalence
 <ul id='number-list'>
 	<li>$E$ is Jordan measurable.</li>
@@ -222,13 +255,80 @@ Let $E\subset\mathbb{R}^d$ be bounded. Then these following statement are equiva
 
 
 **Corollary**  
-Every elementary set $E$ is Jordan measurable.
+- Every elementary set $E$ is Jordan measurable.
+- On elementary sets, Jordan measure and elementary measure coincide.
+
+Jordan measurability also inherits many of the properties of elementary measure.
+
+### Properties of Jordan measurability
+{: #jordan-measurability-properties}
+Let $E,F\in\mathbb{R}^d$ be Jordan measurable sets. Then
+<ul id='number-list'>
+	<li>
+		<b>Boolean closure</b>. $E\cup F,E\cap F,E\backslash F,E\Delta F$ are also Jordan measurable sets.
+	</li>
+	<li>
+		<b>Non-negativity</b>. $m(E)\geq 0$.
+	</li>
+	<li>
+		<b>Finite additivity</b>. If $E,F$ are disjoint, then $m(E\cup F)=m(E)+m(F)$.
+	</li>
+	<li>
+		<b>Monotonicity</b>. If $E\subset F$, then $m(E)\leq m(F)$.
+	</li>
+	<li>
+		<b>Finite subadditivity</b>. $m(E\cup F)\leq m(E)+m(F)$.
+	</li>
+	<li>
+		<b>Translation invariance</b>. For any $x\in\mathbb{R}^d$, $E+x$ is Jordan measurable, and $m(E+x)=m(E)$.
+	</li>
+</ul>
+
+**Proof**  
+<ul id='number-list'>
+	<li>
+		We ha
+	</li>
+
+</ul>
+
+
+**Example**. (**Uniqueness of Jordan measure**)  
+Let $d\geq 1$ and let $m':\mathcal{J}(\mathbb{R}^d)\to\mathbb{R}^+$  be a map from the collection of Jordan measurable subsets of $\mathbb{R}^d$ to the nonnegative reals that obeys the non-negativity, finite additivity and translation invariance properties. Then there exists a constant $c\in\mathbb{R}^+$ such that
+\begin{equation}
+m'(E)=cm(E),
+\end{equation}
+for all Jordan measurable sets $E$. In particular, if we impose the additional normalization $m'([0,1)^d)=1$, then $m'\equiv m$.
+
+**Solution**  
+Follow the same steps as the solution for **Example 2**, the argument above can easily be proved.
 
 ## Connection with the Riemann integral
 {: #connect-riemann-int}
 
 ### Riemann integrability
 {: #riemann-integrability}
+Let $[a,b]$ be an interval of positive length, and $f:[a,b]\to\mathbb{R}$ be a function. A **tagged partition**
+\begin{equation}
+\mathcal{P}=\left(\left(x_0,x_1,\dots,x_n\right),\left(x_1^{\*},\dots,x_n^{\*}\right)\right)
+\end{equation}
+of $[a,b]$ is a finite sequence of real numbers $a=x_0< x_1<\dots< x_n=b$, together with additional numbers $x_{i-1}\leq x_i^{\*}\leq x_i$ for each $i=1,\dots,n$. Let $\delta x_i\doteq x_i-x_{i-1}$, the quantity
+\begin{equation}
+\Delta(\mathcal{P})\doteq\sup_{1\leq i\leq n}\delta x_i
+\end{equation}
+is called the **norm** of the tagged partition. The **Riemann sum** $\mathcal{R}(f,\mathcal{P})$ of $f$ w.r.t the tagged partition $\mathcal{P}$ is defined as
+\begin{equation}
+\mathcal{R}(f,\mathcal{P})\doteq\sum_{i=1}^{n}f(x_i^{\*})\delta x_i
+\end{equation}
+we say that $f$ is **Riemann integrable** on $[a,b]$ if there exists a real number, denoted as $\int_{a}^{b}f(x)\,dx$ and referred to as the **Riemann integral** on $[a,b]$, for which we have
+\begin{equation}
+\int_{a}^{b}f(x)\,dx=\lim_{\Delta\mathcal{P}\to 0}\mathcal{R}(f,\mathcal{P}),
+\end{equation}
+by which we mean that for every $\varepsilon>0$ there exists $\delta>0$ such that
+\begin{equation}
+\left\vert\mathcal{R}(f,\mathcal{P})-\int_{a}^{b}f(x)\,dx\right\vert\leq\varepsilon,
+\end{equation}
+for every tagged partition $\mathcal{P}$ with $\Delta(\mathcal{P})\leq\delta$.
 
 ### Darboux integral
 {: #darboux-int}
@@ -240,13 +340,9 @@ Every elementary set $E$ is Jordan measurable.
 {: #lebesgue-measurability}
 
 
-
-
-
 ## References
 {: #references}
 [1] Terence Tao. [An introduction to measure theory](https://terrytao.wordpress.com/books/an-introduction-to-measure-theory/). Graduate Studies in Mathematics, vol. 126.
 
 ## Footnotes
 {: #footnotes}
-
