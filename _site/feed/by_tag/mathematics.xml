@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-23T16:56:05+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-23T17:23:44+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory</title><link href="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-prob-perspective.html" rel="alternate" type="text/html" title="Measure theory" /><published>2022-08-20T13:00:00+07:00</published><updated>2022-08-20T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-prob-perspective</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-prob-perspective.html">&lt;blockquote&gt;
   &lt;p&gt;A note on measure theory 
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -14,19 +14,29 @@
   &lt;li&gt;&lt;a href=&quot;#jordan-measure&quot;&gt;Jordan measure&lt;/a&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#jordan-m-characteristic&quot;&gt;Characteristic&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#connect-riemann-int&quot;&gt;Connection with the Riemann integral&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#connect-riemann-int&quot;&gt;Connection with the Riemann integral&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#riemann-integrability&quot;&gt;Riemann integrability&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#darboux-int&quot;&gt;Darboux integral&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#lebesgue-measure&quot;&gt;Lebesgue measure&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#lebesgue-measurability&quot;&gt;Lebesgue measurability&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;elementary-measure&quot;&gt;Elementary measure&lt;/h3&gt;
+&lt;h2 id=&quot;elementary-measure&quot;&gt;Elementary measure&lt;/h2&gt;
 
-&lt;h4 id=&quot;intervals-boxes-elementary-sets&quot;&gt;Intervals, boxes, elementary sets&lt;/h4&gt;
+&lt;h3 id=&quot;intervals-boxes-elementary-sets&quot;&gt;Intervals, boxes, elementary sets&lt;/h3&gt;
 &lt;p&gt;An &lt;strong&gt;interval&lt;/strong&gt; is a subset of $\mathbb{R}$ having one of the forms
 \begin{align}
-[a,b]&amp;amp;\doteq\{x\in\mathbb{R}:a\leq x\leq b\}, \\ [a,b)&amp;amp;\doteq\{x\in\mathbb{R}:a\leq x\lt b\}, \\ (a,b]&amp;amp;\doteq\{x\in\mathbb{R}:a\lt x\lt b\}, \\ (a,b)&amp;amp;\doteq\{x\in\mathbb{R}:a\lt x\lt b\},
+[a,b]&amp;amp;\doteq\{x\in\mathbb{R}:a\leq x\leq b\}, \\ [a,b)&amp;amp;\doteq\{x\in\mathbb{R}:a\leq x\lt b\}, \\ (a,b]&amp;amp;\doteq\{x\in\mathbb{R}:a\lt x\leq b\}, \\ (a,b)&amp;amp;\doteq\{x\in\mathbb{R}:a\lt x\lt b\},
 \end{align}
 where $a\leq b$ are real numbers.&lt;br /&gt;
 The &lt;strong&gt;length&lt;/strong&gt; of an interval $I=[a,b],[a,b),(a,b],(a,b)$ is denoted as $\vert I\vert$ and is defined by
@@ -40,7 +50,14 @@ A &lt;strong&gt;box&lt;/strong&gt; in $\mathbb{R}^d$ is a Cartesian product $B\d
 An &lt;strong&gt;elementary set&lt;/strong&gt; is any subset of $\mathbb{R}^d$ which is the union of a finite number of boxes.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Example 1&lt;/strong&gt; (&lt;strong&gt;Boolean closure&lt;/strong&gt;) 
-If $E,F\subset\mathbb{R}^d$ are elementary sets, then the union $E\cup F$, the intersection $E\cap F$, the set theoretic difference $E\backslash F\doteq\{x\in E:x\notin F\}$, and the symmetric difference $E\Delta F\doteq(E\backslash F)\cup(F\backslash E)$ are also elementary. If $x\in\mathbb{R}^d$, then the translate $E+x\doteq\{y+x:y\in E\}$ is also an elementary set.&lt;/p&gt;
+If $E,F\subset\mathbb{R}^d$ are elementary sets, then&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;the union $E\cup F$,&lt;/li&gt;
+  &lt;li&gt;the intersection $E\cap F$,&lt;/li&gt;
+  &lt;li&gt;the set theoretic difference $E\backslash F\doteq\{x\in E:x\notin F\}$,&lt;/li&gt;
+  &lt;li&gt;the symmetric difference $E\Delta F\doteq(E\backslash F)\cup(F\backslash E)$ 
+are also elementary. If $x\in\mathbb{R}^d$, then the translate $E+x\doteq\{y+x:y\in E\}$ is also an elementary set.&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;br /&gt;
 With their definitions as elementary sets, we can assume that
@@ -69,9 +86,22 @@ which is, once again, an elementary set.&lt;/li&gt;
 E\Delta F&amp;amp;=\left(E\backslash F\right)\cup\left(F\backslash E\right) \\ &amp;amp;=\Bigg[\bigcup_{i=1,j=1}^{k,k’}\left(B_i\backslash B_j’\right)\Bigg]\cup\Bigg[\bigcup_{i=1,j=1}^{k,k’}\left(B_j’\backslash B_i\right)\Bigg],
 \end{align}
 which satisfies conditions of an elementary set.&lt;/li&gt;
+  &lt;li&gt;Since $B_i$’s are $d$-dimensional boxes, we can express them as
+\begin{equation}
+B_i=I_{i,1}\times\dots I_{i,d},
+\end{equation}
+where each $I_{i,j}$ is an interval in $\mathbb{R}^d$. Without loss of generality, we assume that they are all closed. In particular, for $j=1,\dots,d$
+\begin{equation}
+I_{i,j}=(a_{i,j},b_{i,j})
+\end{equation}
+Thus, for any $x\in\mathbb{R}^d$, we have that
+\begin{align}
+E+x&amp;amp;=\left\{y+x:y\in E\right\} \\ &amp;amp;=\Big\{y+x:y\in B_1\cup\dots\cup B_k\Big\} \\ &amp;amp;=\Big\{y+x:y\in\bigcup_{i=1}^{k}B_i\Big\} \\ &amp;amp;=\left\{y+x:y\in\bigcup_{i=1,j=1}^{k,d}(a_{i,j},b_{i,j})\right\} \\ &amp;amp;=\bigcup_{i=1,j=1}^{k,d}(a_{i,j}+x,b_{i,j}+x),
+\end{align}
+which is an elementary set.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&quot;measure-elementary-set&quot;&gt;Measure of an elementary set&lt;/h4&gt;
+&lt;h3 id=&quot;measure-elementary-set&quot;&gt;Measure of an elementary set&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Lemma 1&lt;/strong&gt;&lt;br /&gt;
 Let $E\subset\mathbb{R}^d$ be an elementary set&lt;/p&gt;
 &lt;ul id=&quot;roman-list&quot;&gt;
@@ -152,7 +182,7 @@ for all elementary sets $E$. In particular, if we impose the additional normaliz
 
 &lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;jordan-measure&quot;&gt;Jordan measure&lt;/h3&gt;
+&lt;h2 id=&quot;jordan-measure&quot;&gt;Jordan measure&lt;/h2&gt;
 &lt;p&gt;Let $E\subset\mathbb{R}^d$ be a bounded set.&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;The &lt;strong&gt;Jordan inner measure&lt;/strong&gt; $m_{*,(J)}(E)$ of $E$ is defined as
@@ -170,7 +200,7 @@ m(E)\doteq m_{*,(J)}(E)=m^{*,(J)}(E)
 the &lt;strong&gt;Jordan measure&lt;/strong&gt; of $E$.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&quot;jordan-m-characteristic&quot;&gt;Characteristic&lt;/h4&gt;
+&lt;h3 id=&quot;jordan-m-characteristic&quot;&gt;Characteristic&lt;/h3&gt;
 &lt;p&gt;Let $E\subset\mathbb{R}^d$ be bounded. Then these following statement are equivalence&lt;/p&gt;
 &lt;ul id=&quot;number-list&quot;&gt;
 	&lt;li&gt;$E$ is Jordan measurable.&lt;/li&gt;
@@ -183,7 +213,15 @@ the &lt;strong&gt;Jordan measure&lt;/strong&gt; of $E$.&lt;/li&gt;
 &lt;p&gt;&lt;strong&gt;Corollary&lt;/strong&gt;&lt;br /&gt;
 Every elementary set $E$ is Jordan measurable.&lt;/p&gt;
 
-&lt;h4 id=&quot;connect-riemann-int&quot;&gt;Connection with the Riemann integral&lt;/h4&gt;
+&lt;h2 id=&quot;connect-riemann-int&quot;&gt;Connection with the Riemann integral&lt;/h2&gt;
+
+&lt;h3 id=&quot;riemann-integrability&quot;&gt;Riemann integrability&lt;/h3&gt;
+
+&lt;h3 id=&quot;darboux-int&quot;&gt;Darboux integral&lt;/h3&gt;
+
+&lt;h2 id=&quot;lebesgue-measure&quot;&gt;Lebesgue measure&lt;/h2&gt;
+
+&lt;h3 id=&quot;lebesgue-measurability&quot;&gt;Lebesgue measurability&lt;/h3&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Terence Tao. &lt;a href=&quot;https://terrytao.wordpress.com/books/an-introduction-to-measure-theory/&quot;&gt;An introduction to measure theory&lt;/a&gt;. Graduate Studies in Mathematics, vol. 126.&lt;/p&gt;

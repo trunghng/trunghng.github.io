@@ -16,18 +16,22 @@ comments: true
 	- [Measure of an elementary set](#measure-elementary-set)
 - [Jordan measure](#jordan-measure)
 	- [Characteristic](#jordan-m-characteristic)
-	- [Connection with the Riemann integral](#connect-riemann-int)
+- [Connection with the Riemann integral](#connect-riemann-int)
+	- [Riemann integrability](#riemann-integrability)
+	- [Darboux integral](#darboux-int)
+- [Lebesgue measure](#lebesgue-measure)
+	- [Lebesgue measurability](#lebesgue-measurability)
 - [References](#references)
 - [Footnotes](#footnotes)
 
-### Elementary measure
+## Elementary measure
 {: #elementary-measure}
 
-#### Intervals, boxes, elementary sets
+### Intervals, boxes, elementary sets
 {: #intervals-boxes-elementary-sets} 
 An **interval** is a subset of $\mathbb{R}$ having one of the forms
 \begin{align}
-[a,b]&\doteq\\{x\in\mathbb{R}:a\leq x\leq b\\}, \\\\ [a,b)&\doteq\\{x\in\mathbb{R}:a\leq x\lt b\\}, \\\\ (a,b]&\doteq\\{x\in\mathbb{R}:a\lt x\lt b\\}, \\\\ (a,b)&\doteq\\{x\in\mathbb{R}:a\lt x\lt b\\},
+[a,b]&\doteq\\{x\in\mathbb{R}:a\leq x\leq b\\}, \\\\ [a,b)&\doteq\\{x\in\mathbb{R}:a\leq x\lt b\\}, \\\\ (a,b]&\doteq\\{x\in\mathbb{R}:a\lt x\leq b\\}, \\\\ (a,b)&\doteq\\{x\in\mathbb{R}:a\lt x\lt b\\},
 \end{align}
 where $a\leq b$ are real numbers.  
 The **length** of an interval $I=[a,b],[a,b),(a,b],(a,b)$ is denoted as $\vert I\vert$ and is defined by
@@ -41,7 +45,12 @@ A **box** in $\mathbb{R}^d$ is a Cartesian product $B\doteq I_1\times\dots\times
 An **elementary set** is any subset of $\mathbb{R}^d$ which is the union of a finite number of boxes.
 
 **Example 1** (**Boolean closure**) 
-If $E,F\subset\mathbb{R}^d$ are elementary sets, then the union $E\cup F$, the intersection $E\cap F$, the set theoretic difference $E\backslash F\doteq\\{x\in E:x\notin F\\}$, and the symmetric difference $E\Delta F\doteq(E\backslash F)\cup(F\backslash E)$ are also elementary. If $x\in\mathbb{R}^d$, then the translate $E+x\doteq\\{y+x:y\in E\\}$ is also an elementary set.
+If $E,F\subset\mathbb{R}^d$ are elementary sets, then
+- the union $E\cup F$,
+- the intersection $E\cap F$, 
+- the set theoretic difference $E\backslash F\doteq\\{x\in E:x\notin F\\}$, 
+- the symmetric difference $E\Delta F\doteq(E\backslash F)\cup(F\backslash E)$ 
+are also elementary. If $x\in\mathbb{R}^d$, then the translate $E+x\doteq\\{y+x:y\in E\\}$ is also an elementary set.
 
 **Solution**  
 With their definitions as elementary sets, we can assume that
@@ -69,8 +78,21 @@ which is, once again, an elementary set.
 E\Delta F&=\left(E\backslash F\right)\cup\left(F\backslash E\right) \\\\ &=\Bigg[\bigcup_{i=1,j=1}^{k,k'}\left(B_i\backslash B_j'\right)\Bigg]\cup\Bigg[\bigcup_{i=1,j=1}^{k,k'}\left(B_j'\backslash B_i\right)\Bigg],
 \end{align}
 which satisfies conditions of an elementary set.
+- Since $B_i$'s are $d$-dimensional boxes, we can express them as
+\begin{equation}
+B_i=I_{i,1}\times\dots I_{i,d},
+\end{equation}
+where each $I_{i,j}$ is an interval in $\mathbb{R}^d$. Without loss of generality, we assume that they are all closed. In particular, for $j=1,\dots,d$
+\begin{equation}
+I_{i,j}=(a_{i,j},b_{i,j})
+\end{equation}
+Thus, for any $x\in\mathbb{R}^d$, we have that
+\begin{align}
+E+x&=\left\\{y+x:y\in E\right\\} \\\\ &=\Big\\{y+x:y\in B_1\cup\dots\cup B_k\Big\\} \\\\ &=\Big\\{y+x:y\in\bigcup_{i=1}^{k}B_i\Big\\} \\\\ &=\left\\{y+x:y\in\bigcup_{i=1,j=1}^{k,d}(a_{i,j},b_{i,j})\right\\} \\\\ &=\bigcup_{i=1,j=1}^{k,d}(a_{i,j}+x,b_{i,j}+x),
+\end{align}
+which is an elementary set.
 
-#### Measure of an elementary set
+### Measure of an elementary set
 {: #measure-elementary-set}
 **Lemma 1**  
 Let $E\subset\mathbb{R}^d$ be an elementary set  
@@ -151,7 +173,7 @@ for all elementary sets $E$. In particular, if we impose the additional normaliz
 **Solution**  
 
 
-### Jordan measure
+## Jordan measure
 {: #jordan-measure}
 Let $E\subset\mathbb{R}^d$ be a bounded set.
 - The **Jordan inner measure** $m_{\*,(J)}(E)$ of $E$ is defined as
@@ -168,7 +190,7 @@ m(E)\doteq m_{\*,(J)}(E)=m^{\*,(J)}(E)
 \end{equation}
 the **Jordan measure** of $E$.
 
-#### Characteristic
+### Characteristic
 {: #jordan-m-characteristic}
 Let $E\subset\mathbb{R}^d$ be bounded. Then these following statement are equivalence
 <ul id='number-list'>
@@ -183,8 +205,20 @@ Let $E\subset\mathbb{R}^d$ be bounded. Then these following statement are equiva
 **Corollary**  
 Every elementary set $E$ is Jordan measurable.
 
-#### Connection with the Riemann integral
+## Connection with the Riemann integral
 {: #connect-riemann-int}
+
+### Riemann integrability
+{: #riemann-integrability}
+
+### Darboux integral
+{: #darboux-int}
+
+## Lebesgue measure
+{: #lebesgue-measure}
+
+### Lebesgue measurability
+{: #lebesgue-measurability}
 
 
 
