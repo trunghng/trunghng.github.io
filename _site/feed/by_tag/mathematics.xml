@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-23T17:23:44+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-23T18:19:34+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory</title><link href="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-prob-perspective.html" rel="alternate" type="text/html" title="Measure theory" /><published>2022-08-20T13:00:00+07:00</published><updated>2022-08-20T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-prob-perspective</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-prob-perspective.html">&lt;blockquote&gt;
   &lt;p&gt;A note on measure theory 
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -180,7 +180,27 @@ m’(E)=cm(E),
 \end{equation}
 for all elementary sets $E$. In particular, if we impose the additional normalization $m’([0,1)^d)=1$, then $m’\equiv m$.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;br /&gt;
+Set $c\doteq m’([0,1)^d)$, we then have that $c\in\mathbb{R}^+$ by the non-negativity property. Using the translation invariance property, we have that for any positive integer $n$
+\begin{equation}
+m’\left(\left[0,\frac{1}{n}\right)^d\right)=m’\left(\left[\frac{1}{n},\frac{2}{n}\right)^d\right)=\dots=m’\left(\left[\frac{n-1}{n},1\right)^d\right)
+\end{equation}
+On other hand, using the finite additivity property, for any positive integer $n$, we obtain that
+\begin{align}
+m’([0,1)^d)&amp;amp;=m’\left(\left[0,\frac{1}{n}\right)^d\cup\left[\frac{1}{n},\frac{2}{n}\right)^d\cup\dots\cup\left[\frac{n-1}{n},1\right)^d\right) \\ &amp;amp;=m’\left(\left[0,\frac{1}{n}\right)^d\right)+m’\left(\left[\frac{1}{n},\frac{2}{n}\right)^d\right)+\dots+m’\left(\left[\frac{n-1}{n},1\right)^d\right) \\ &amp;amp;=n m’\left(\left[0,\frac{1}{n}\right)^d\right)
+\end{align}
+Thus,
+\begin{equation}
+m’\left(\left[0,\frac{1}{n}\right)^d\right)=\frac{c}{n},\hspace{1cm}\forall n\in\mathbb{Z}^+
+\end{equation}
+Moreover, since $m\left(\left[0,\frac{1}{n}\right)^d\right)=\frac{1}{n}$, we have that for any positive integer $n$
+\begin{equation}
+m’\left(\left[0,\frac{1}{n}\right)^d\right)=cm\left(\left[0,\frac{1}{n}\right)^d\right)
+\end{equation}
+It then follows by induction that
+\begin{equation}
+m’(E)=cm(E)
+\end{equation}&lt;/p&gt;
 
 &lt;h2 id=&quot;jordan-measure&quot;&gt;Jordan measure&lt;/h2&gt;
 &lt;p&gt;Let $E\subset\mathbb{R}^d$ be a bounded set.&lt;/p&gt;
@@ -204,8 +224,8 @@ the &lt;strong&gt;Jordan measure&lt;/strong&gt; of $E$.&lt;/li&gt;
 &lt;p&gt;Let $E\subset\mathbb{R}^d$ be bounded. Then these following statement are equivalence&lt;/p&gt;
 &lt;ul id=&quot;number-list&quot;&gt;
 	&lt;li&gt;$E$ is Jordan measurable.&lt;/li&gt;
-	&lt;li&gt;For every $\epsilon&amp;gt;0$, there exists elementary sets $A\subset E\subset B$ such that $m(B\backslash A)\leq\epsilon$.&lt;/li&gt;
-	&lt;li&gt;For every $\epsilon&amp;gt;0$, there exists an elementary set $A$ such that $m^{*,(J)}(A\Delta E)\leq\epsilon$.&lt;/li&gt;
+	&lt;li&gt;For every $\varepsilon&amp;gt;0$, there exists elementary sets $A\subset E\subset B$ such that $m(B\backslash A)\leq\varepsilon$.&lt;/li&gt;
+	&lt;li&gt;For every $\varepsilon&amp;gt;0$, there exists an elementary set $A$ such that $m^{*,(J)}(A\Delta E)\leq\varepsilon$.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;

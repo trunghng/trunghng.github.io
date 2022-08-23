@@ -171,7 +171,26 @@ m'(E)=cm(E),
 for all elementary sets $E$. In particular, if we impose the additional normalization $m'([0,1)^d)=1$, then $m'\equiv m$.
 
 **Solution**  
-
+Set $c\doteq m'([0,1)^d)$, we then have that $c\in\mathbb{R}^+$ by the non-negativity property. Using the translation invariance property, we have that for any positive integer $n$
+\begin{equation}
+m'\left(\left[0,\frac{1}{n}\right)^d\right)=m'\left(\left[\frac{1}{n},\frac{2}{n}\right)^d\right)=\dots=m'\left(\left[\frac{n-1}{n},1\right)^d\right)
+\end{equation}
+On other hand, using the finite additivity property, for any positive integer $n$, we obtain that
+\begin{align}
+m'([0,1)^d)&=m'\left(\left[0,\frac{1}{n}\right)^d\cup\left[\frac{1}{n},\frac{2}{n}\right)^d\cup\dots\cup\left[\frac{n-1}{n},1\right)^d\right) \\\\ &=m'\left(\left[0,\frac{1}{n}\right)^d\right)+m'\left(\left[\frac{1}{n},\frac{2}{n}\right)^d\right)+\dots+m'\left(\left[\frac{n-1}{n},1\right)^d\right) \\\\ &=n m'\left(\left[0,\frac{1}{n}\right)^d\right)
+\end{align}
+Thus,
+\begin{equation}
+m'\left(\left[0,\frac{1}{n}\right)^d\right)=\frac{c}{n},\hspace{1cm}\forall n\in\mathbb{Z}^+
+\end{equation}
+Moreover, since $m\left(\left[0,\frac{1}{n}\right)^d\right)=\frac{1}{n}$, we have that for any positive integer $n$
+\begin{equation}
+m'\left(\left[0,\frac{1}{n}\right)^d\right)=cm\left(\left[0,\frac{1}{n}\right)^d\right)
+\end{equation}
+It then follows by induction that
+\begin{equation}
+m'(E)=cm(E)
+\end{equation}
 
 ## Jordan measure
 {: #jordan-measure}
@@ -195,8 +214,8 @@ the **Jordan measure** of $E$.
 Let $E\subset\mathbb{R}^d$ be bounded. Then these following statement are equivalence
 <ul id='number-list'>
 	<li>$E$ is Jordan measurable.</li>
-	<li>For every $\epsilon>0$, there exists elementary sets $A\subset E\subset B$ such that $m(B\backslash A)\leq\epsilon$.</li>
-	<li>For every $\epsilon>0$, there exists an elementary set $A$ such that $m^{*,(J)}(A\Delta E)\leq\epsilon$.</li>
+	<li>For every $\varepsilon>0$, there exists elementary sets $A\subset E\subset B$ such that $m(B\backslash A)\leq\varepsilon$.</li>
+	<li>For every $\varepsilon>0$, there exists an elementary set $A$ such that $m^{*,(J)}(A\Delta E)\leq\varepsilon$.</li>
 </ul>
 
 **Proof**  
