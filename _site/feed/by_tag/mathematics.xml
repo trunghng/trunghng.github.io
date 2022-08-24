@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-24T16:06:23+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-24T18:34:14+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory</title><link href="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory.html" rel="alternate" type="text/html" title="Measure theory" /><published>2022-08-20T13:00:00+07:00</published><updated>2022-08-20T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory.html">&lt;blockquote&gt;
   &lt;p&gt;A note on measure theory 
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -32,9 +32,12 @@
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#lebesgue-measure&quot;&gt;Lebesgue measure&lt;/a&gt;
     &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#lebesgue-outer-measure-properties&quot;&gt;Properties of Lebesgue outer measure&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#lebesgue-measurability&quot;&gt;Lebesgue measurability&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#non-measurable-sets&quot;&gt;Non-measurable sets&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#lebesgue-int&quot;&gt;Lebesgue integral&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -264,8 +267,9 @@ where $c_{i,j},d_{i,j}\in\mathbb{R}$ for all $j=1,\dots,d_2$.&lt;/p&gt;
 \begin{equation}
 B_i\times B_j’=(e_1,f_1)\times\dots\times(e_{d_1+d_2},f_{d_1+d_2}),\tag{7}\label{7}
 \end{equation}
-where $e_k=a_{i,k};f_k=b_{i,k}$ for all $k=1,\dots,d_1$ and $e_k=c_{j,k-d_1};f_k=d_{j,k-d_1}$ for all $k=d_1,\dots,d_2$.
-From \eqref{5}, \eqref{6} and \eqref{7}, for any $i=1,\dots,k_1$ and for any $j=1,\dots,k_2$, we have
+where $e_k=a_{i,k};f_k=b_{i,k}$ for all $k=1,\dots,d_1$ and $e_k=c_{j,k-d_1};f_k=d_{j,k-d_1}$ for all $k=d_1+1,\dots,d_2$.&lt;/p&gt;
+
+&lt;p&gt;From \eqref{5}, \eqref{6} and \eqref{7}, for any $i=1,\dots,k_1$ and for any $j=1,\dots,k_2$, we have
 \begin{align}
 m^{d_1+d_2}(B_i\times B_j’)&amp;amp;=\prod_{k=1}^{d_1+d_2}(f_k-e_k) \\ &amp;amp;=\Bigg(\prod_{k=1}^{d_1}(b_{i,k}-a_{i,k})\Bigg)\Bigg(\prod_{k=1}^{d_2}(d_{j,k}-c_{j,k})\Bigg) \\ &amp;amp;=m^{d_1}(B_i)\times m^{d_2}(B_j’)
 \end{align}
@@ -294,14 +298,35 @@ the &lt;strong&gt;Jordan measure&lt;/strong&gt; of $E$.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;jordan-measurability-characterisation&quot;&gt;Characterization of Jordan measurability&lt;/h3&gt;
-&lt;p&gt;Let $E\subset\mathbb{R}^d$ be bounded. Then these following statement are equivalence&lt;/p&gt;
+&lt;p&gt;Let $E\subset\mathbb{R}^d$ be bounded. Then these following statements are equivalence&lt;/p&gt;
 &lt;ul id=&quot;number-list&quot;&gt;
 	&lt;li&gt;$E$ is Jordan measurable.&lt;/li&gt;
 	&lt;li&gt;For every $\varepsilon&amp;gt;0$, there exists elementary sets $A\subset E\subset B$ such that $m(B\backslash A)\leq\varepsilon$.&lt;/li&gt;
 	&lt;li&gt;For every $\varepsilon&amp;gt;0$, there exists an elementary set $A$ such that $m^{*,(J)}(A\Delta E)\leq\varepsilon$.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
+In order to prove these three statements are equivalence, we will be proving that (1) implies (2); (2) implies (3); and that (3) implies (1).&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;(1) implies (2).&lt;br /&gt;
+Since $E$ is Jordan measurable, we have that
+\begin{equation}
+m(E)=\sup_{A\subset E;A\text{ elementary}}m(A)=\inf_{B\supset E;B\text{ elementary}}m(B)
+\end{equation}
+By the definition of supremum, there exists an elementary set $A\subset E$ such that for any $\varepsilon&amp;gt;0$ 
+\begin{equation}
+m(A)\geq m(E)-\frac{\varepsilon}{2}\tag{8}\label{8}
+\end{equation}
+In addition, by the definition of infimum, there also exists an elementary set $B\supset E$ such that for any $\varepsilon&amp;gt;0$
+\begin{equation}
+m(B)\leq m(E)+\frac{\varepsilon}{2}\tag{9}\label{9}
+\end{equation}
+From \eqref{8} and \eqref{9}, we have that for any $\varepsilon&amp;gt;0$
+\begin{equation}
+m(B\backslash A)=m(B)-m(A)\leq\varepsilon
+\end{equation}&lt;/li&gt;
+  &lt;li&gt;(2) implies (3).&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;Corollary&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -334,12 +359,7 @@ the &lt;strong&gt;Jordan measure&lt;/strong&gt; of $E$.&lt;/li&gt;
 	&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
-&lt;ul id=&quot;number-list&quot;&gt;
-
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt;. (&lt;strong&gt;Uniqueness of Jordan measure&lt;/strong&gt;)&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Example 4&lt;/strong&gt;. (&lt;strong&gt;Uniqueness of Jordan measure&lt;/strong&gt;)&lt;br /&gt;
 Let $d\geq 1$ and let $m’:\mathcal{J}(\mathbb{R}^d)\to\mathbb{R}^+$  be a map from the collection of Jordan measurable subsets of $\mathbb{R}^d$ to the nonnegative reals that obeys the non-negativity, finite additivity and translation invariance properties. Then there exists a constant $c\in\mathbb{R}^+$ such that
 \begin{equation}
 m’(E)=cm(E),
@@ -348,6 +368,11 @@ for all Jordan measurable sets $E$. In particular, if we impose the additional n
 
 &lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;br /&gt;
 Follow the same steps as the solution for &lt;strong&gt;Example 2&lt;/strong&gt;, the argument above can easily be proved.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Example 5&lt;/strong&gt;&lt;br /&gt;
+Let $d_1,d_2\geq 1$, and let $E_1\subset\mathbb{R}^{d_1},E_2\subset\mathbb{R}^{d_2}$ be Jordan measurable sets. Then $E_1\times E_2\subset\mathbb{R}^{d_1+d_2}$ is also Jordan measurable, and $m^{d_1+d_2}(E_1\times E_2)=m^{d_1}(E_1)\times m^{d_2}(E_2)$.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;connect-riemann-int&quot;&gt;Connection with the Riemann integral&lt;/h2&gt;
 
@@ -377,7 +402,7 @@ for every tagged partition $\mathcal{P}$ with $\Delta(\mathcal{P})\leq\delta$.&l
 &lt;h3 id=&quot;pc-func&quot;&gt;Piecewise constant functions&lt;/h3&gt;
 &lt;p&gt;Let $[a,b]$ be an interval. a &lt;strong&gt;piecewise constant function&lt;/strong&gt; $f:[a,b]\to\mathbb{R}$ is a function for which there exists a partition of $[a,b]$ into infinitely many intervals $I_1,\dots,I_n$ such that $f$ is equal to a constant $c_i$ on each of the intervals $I_i$. Then, the expression
 \begin{equation}
-\sum_{i=1}^{n}c_i\vert I\vert
+\sum_{i=1}^{n}c_i\vert I_i\vert
 \end{equation}
 is independent of the choice of partition used to demonstrate the piecewise constant nature of $f$. We denote this quantity as $\text{p.c.}\int_{a}^{b}f(x)\,dx$, and refer it to as &lt;strong&gt;piecewise constant integral&lt;/strong&gt; of $f$ on $[a,b]$.&lt;/p&gt;
 
@@ -403,8 +428,6 @@ is independent of the choice of partition used to demonstrate the piecewise cons
 		\end{equation}
 	&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;darboux-int&quot;&gt;Darboux integral&lt;/h3&gt;
 &lt;p&gt;Let $[a,b]$ be an integral, and let $f:[a,b]\to\mathbb{R}$ be a bounded function. The &lt;strong&gt;lower Darboux integral&lt;/strong&gt; of $f$ on $[a,b]$, denoted as $\underline{\int_{a}^{b}}f(x)\,dx$, is defined as
@@ -446,12 +469,34 @@ It is easily seen that $\underline{\int_a^b}f(x)\,dx\leq\overline{\int_a^b}f(x)\
 		\end{equation}
 	&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;These properties uniquely define the Riemann integral, in the sense that the function $f\mapsto\int_{a}^{b}f(x)\,dx$ is the only map from the space of Riemann integrable functions on $[a,b]$ to $\mathbb{R}$ which obeys all of these above properties.&lt;/p&gt;
 
 &lt;h2 id=&quot;lebesgue-measure&quot;&gt;Lebesgue measure&lt;/h2&gt;
+&lt;p&gt;Recall that the Jordan outer measure of a set $E\subset\mathbb{R}^d$ has been defined as
+\begin{equation}
+m^{*,(J)}(E)\doteq\inf_{B\supset E;B\text{ elementary}}m(B)
+\end{equation}
+From the finite additivity and subadditivity of elementary measure, we can also write the Jordan outer measure as
+\begin{equation}
+m^{*,(J)}(E)\doteq\inf_{B_1\cup\dots\cup B_k\supset E;B_1,\dots,B_k\text{ boxes}}\vert B_1\vert+\dots+\vert B_k\vert,
+\end{equation}
+which means the Jordan outer measure is the infimal cost required to cover $E$ by a finite union of boxes. By replacing the finite union of boxes by a countable union of boxes, we obtain the &lt;strong&gt;Lebesgue outer measure&lt;/strong&gt; $m^{*}(E)$ of $E$:
+\begin{equation}
+m^{*}(E)\doteq\inf_{\bigcup_{n=1}^{\infty}B_n\supset E;B_1,B_2,\dots\text{ boxes}}\sum_{n=1}^{\infty}\vert B_n\vert,
+\end{equation}
+which is be seen as the infimal cost required to cover $E$ by a countable union of boxes.&lt;/p&gt;
+
+&lt;p&gt;A set $E\subset\mathbb{R}^d$ is said to be &lt;strong&gt;Lebesgue measurable&lt;/strong&gt; if, for every $\varepsilon&amp;gt;0$, there exists an open set $U\subset\mathbb{R}^d$ containing $E$ such that $m^{*}(U\backslash E)\leq\varepsilon$. If $E$ is Lebesgue measurable, we refer to
+\begin{equation}
+m(E)\doteq m^{*}(E)
+\end{equation}
+as the &lt;strong&gt;Lebesgue measure&lt;/strong&gt; of $E$.&lt;/p&gt;
+
+&lt;h3 id=&quot;lebesgue-outer-measure-properties&quot;&gt;Properties of Lebesgue outer measure&lt;/h3&gt;
 
 &lt;h3 id=&quot;lebesgue-measurability&quot;&gt;Lebesgue measurability&lt;/h3&gt;
+
+&lt;h3 id=&quot;non-measurable-sets&quot;&gt;Non-measurable sets&lt;/h3&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Terence Tao. &lt;a href=&quot;https://terrytao.wordpress.com/books/an-introduction-to-measure-theory/&quot;&gt;An introduction to measure theory&lt;/a&gt;. Graduate Studies in Mathematics, vol. 126.&lt;/p&gt;

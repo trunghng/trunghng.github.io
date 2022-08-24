@@ -25,7 +25,10 @@ comments: true
 	- [Darboux integral](#darboux-int)
 	- [Basic properties of Riemann integral](#riemann-int-properties)
 - [Lebesgue measure](#lebesgue-measure)
+	- [Properties of Lebesgue outer measure](#lebesgue-outer-measure-properties)
 	- [Lebesgue measurability](#lebesgue-measurability)
+	- [Non-measurable sets](#non-measurable-sets)
+- [Lebesgue integral](#lebesgue-int)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -254,7 +257,8 @@ Moreover, on the other hand, we also have that the $(d_1+d_2)$-dimensional box $
 \begin{equation}
 B_i\times B_j'=(e_1,f_1)\times\dots\times(e_{d_1+d_2},f_{d_1+d_2}),\tag{7}\label{7}
 \end{equation}
-where $e_k=a_{i,k};f_k=b_{i,k}$ for all $k=1,\dots,d_1$ and $e_k=c_{j,k-d_1};f_k=d_{j,k-d_1}$ for all $k=d_1,\dots,d_2$.
+where $e_k=a_{i,k};f_k=b_{i,k}$ for all $k=1,\dots,d_1$ and $e_k=c_{j,k-d_1};f_k=d_{j,k-d_1}$ for all $k=d_1+1,\dots,d_2$.
+
 From \eqref{5}, \eqref{6} and \eqref{7}, for any $i=1,\dots,k_1$ and for any $j=1,\dots,k_2$, we have
 \begin{align}
 m^{d_1+d_2}(B_i\times B_j')&=\prod_{k=1}^{d_1+d_2}(f_k-e_k) \\\\ &=\Bigg(\prod_{k=1}^{d_1}(b_{i,k}-a_{i,k})\Bigg)\Bigg(\prod_{k=1}^{d_2}(d_{j,k}-c_{j,k})\Bigg) \\\\ &=m^{d_1}(B_i)\times m^{d_2}(B_j')
@@ -284,7 +288,7 @@ the **Jordan measure** of $E$.
 
 ### Characterization of Jordan measurability
 {: #jordan-measurability-characterisation}
-Let $E\subset\mathbb{R}^d$ be bounded. Then these following statement are equivalence
+Let $E\subset\mathbb{R}^d$ be bounded. Then these following statements are equivalence
 <ul id='number-list'>
 	<li>$E$ is Jordan measurable.</li>
 	<li>For every $\varepsilon>0$, there exists elementary sets $A\subset E\subset B$ such that $m(B\backslash A)\leq\varepsilon$.</li>
@@ -292,6 +296,27 @@ Let $E\subset\mathbb{R}^d$ be bounded. Then these following statement are equiva
 </ul>
 
 **Proof**  
+In order to prove these three statements are equivalence, we will be proving that (1) implies (2); (2) implies (3); and that (3) implies (1).
+- (1) implies (2).  
+Since $E$ is Jordan measurable, we have that
+\begin{equation}
+m(E)=\sup_{A\subset E;A\text{ elementary}}m(A)=\inf_{B\supset E;B\text{ elementary}}m(B)
+\end{equation}
+By the definition of supremum, there exists an elementary set $A\subset E$ such that for any $\varepsilon>0$ 
+\begin{equation}
+m(A)\geq m(E)-\frac{\varepsilon}{2}\tag{8}\label{8}
+\end{equation}
+In addition, by the definition of infimum, there also exists an elementary set $B\supset E$ such that for any $\varepsilon>0$
+\begin{equation}
+m(B)\leq m(E)+\frac{\varepsilon}{2}\tag{9}\label{9}
+\end{equation}
+From \eqref{8} and \eqref{9}, we have that for any $\varepsilon>0$
+\begin{equation}
+m(B\backslash A)=m(B)-m(A)\leq\varepsilon
+\end{equation}
+- (2) implies (3).  
+
+
 
 
 **Corollary**  
@@ -324,13 +349,7 @@ Let $E,F\in\mathbb{R}^d$ be Jordan measurable sets. Then
 	</li>
 </ul>
 
-**Proof**  
-<ul id='number-list'>
-
-</ul>
-
-
-**Example**. (**Uniqueness of Jordan measure**)  
+**Example 4**. (**Uniqueness of Jordan measure**)  
 Let $d\geq 1$ and let $m':\mathcal{J}(\mathbb{R}^d)\to\mathbb{R}^+$  be a map from the collection of Jordan measurable subsets of $\mathbb{R}^d$ to the nonnegative reals that obeys the non-negativity, finite additivity and translation invariance properties. Then there exists a constant $c\in\mathbb{R}^+$ such that
 \begin{equation}
 m'(E)=cm(E),
@@ -339,6 +358,12 @@ for all Jordan measurable sets $E$. In particular, if we impose the additional n
 
 **Solution**  
 Follow the same steps as the solution for **Example 2**, the argument above can easily be proved.
+
+**Example 5**  
+Let $d_1,d_2\geq 1$, and let $E_1\subset\mathbb{R}^{d_1},E_2\subset\mathbb{R}^{d_2}$ be Jordan measurable sets. Then $E_1\times E_2\subset\mathbb{R}^{d_1+d_2}$ is also Jordan measurable, and $m^{d_1+d_2}(E_1\times E_2)=m^{d_1}(E_1)\times m^{d_2}(E_2)$.
+
+**Proof**  
+
 
 ## Connection with the Riemann integral
 {: #connect-riemann-int}
@@ -371,7 +396,7 @@ for every tagged partition $\mathcal{P}$ with $\Delta(\mathcal{P})\leq\delta$.
 {: #pc-func}
 Let $[a,b]$ be an interval. a **piecewise constant function** $f:[a,b]\to\mathbb{R}$ is a function for which there exists a partition of $[a,b]$ into infinitely many intervals $I_1,\dots,I_n$ such that $f$ is equal to a constant $c_i$ on each of the intervals $I_i$. Then, the expression
 \begin{equation}
-\sum_{i=1}^{n}c_i\vert I\vert
+\sum_{i=1}^{n}c_i\vert I_i\vert
 \end{equation}
 is independent of the choice of partition used to demonstrate the piecewise constant nature of $f$. We denote this quantity as $\text{p.c.}\int_{a}^{b}f(x)\,dx$, and refer it to as **piecewise constant integral** of $f$ on $[a,b]$.
 
@@ -398,9 +423,6 @@ Let $[a,b]$ be an interval, and let $f,g:[a,b]\to\mathbb{R}$ be piecewise consta
 		\end{equation}
 	</li>
 </ul>
-
-**Proof**  
-
 
 ### Darboux integral
 {: #darboux-int}
@@ -444,15 +466,38 @@ Let $[a,b]$ be an interval, and let $f,g:[a,b]\to\mathbb{R}$ be Riemann integrab
 		\end{equation}
 	</li>
 </ul>
-
-**Proof**  
-
+These properties uniquely define the Riemann integral, in the sense that the function $f\mapsto\int_{a}^{b}f(x)\,dx$ is the only map from the space of Riemann integrable functions on $[a,b]$ to $\mathbb{R}$ which obeys all of these above properties.
 
 ## Lebesgue measure
 {: #lebesgue-measure}
+Recall that the Jordan outer measure of a set $E\subset\mathbb{R}^d$ has been defined as
+\begin{equation}
+m^{\*,(J)}(E)\doteq\inf_{B\supset E;B\text{ elementary}}m(B)
+\end{equation}
+From the finite additivity and subadditivity of elementary measure, we can also write the Jordan outer measure as
+\begin{equation}
+m^{\*,(J)}(E)\doteq\inf_{B_1\cup\dots\cup B_k\supset E;B_1,\dots,B_k\text{ boxes}}\vert B_1\vert+\dots+\vert B_k\vert,
+\end{equation}
+which means the Jordan outer measure is the infimal cost required to cover $E$ by a finite union of boxes. By replacing the finite union of boxes by a countable union of boxes, we obtain the **Lebesgue outer measure** $m^{\*}(E)$ of $E$:
+\begin{equation}
+m^{\*}(E)\doteq\inf_{\bigcup_{n=1}^{\infty}B_n\supset E;B_1,B_2,\dots\text{ boxes}}\sum_{n=1}^{\infty}\vert B_n\vert,
+\end{equation}
+which is be seen as the infimal cost required to cover $E$ by a countable union of boxes.
+
+A set $E\subset\mathbb{R}^d$ is said to be **Lebesgue measurable** if, for every $\varepsilon>0$, there exists an open set $U\subset\mathbb{R}^d$ containing $E$ such that $m^{\*}(U\backslash E)\leq\varepsilon$. If $E$ is Lebesgue measurable, we refer to
+\begin{equation}
+m(E)\doteq m^{\*}(E)
+\end{equation}
+as the **Lebesgue measure** of $E$.
+
+### Properties of Lebesgue outer measure
+{: #lebesgue-outer-measure-properties}
 
 ### Lebesgue measurability
 {: #lebesgue-measurability}
+
+### Non-measurable sets
+{: #non-measurable-sets}
 
 
 ## References
