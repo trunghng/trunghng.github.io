@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-23T19:59:59+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
-</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory</title><link href="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-prob-perspective.html" rel="alternate" type="text/html" title="Measure theory" /><published>2022-08-20T13:00:00+07:00</published><updated>2022-08-20T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-prob-perspective</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory-prob-perspective.html">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-24T16:06:23+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory</title><link href="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory.html" rel="alternate" type="text/html" title="Measure theory" /><published>2022-08-20T13:00:00+07:00</published><updated>2022-08-20T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory.html">&lt;blockquote&gt;
   &lt;p&gt;A note on measure theory 
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -21,7 +21,13 @@
   &lt;li&gt;&lt;a href=&quot;#connect-riemann-int&quot;&gt;Connection with the Riemann integral&lt;/a&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#riemann-integrability&quot;&gt;Riemann integrability&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#pc-func&quot;&gt;Piecewise constant functions&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#pc-int-properties&quot;&gt;Basic properties of piecewise constant integral&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#darboux-int&quot;&gt;Darboux integral&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#riemann-int-properties&quot;&gt;Basic properties of Riemann integral&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#lebesgue-measure&quot;&gt;Lebesgue measure&lt;/a&gt;
@@ -51,7 +57,7 @@ A &lt;strong&gt;box&lt;/strong&gt; in $\mathbb{R}^d$ is a Cartesian product $B\d
 \end{equation}
 An &lt;strong&gt;elementary set&lt;/strong&gt; is any subset of $\mathbb{R}^d$ which is the union of a finite number of boxes.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Example 1&lt;/strong&gt; (&lt;strong&gt;Boolean closure&lt;/strong&gt;) 
+&lt;p&gt;&lt;strong&gt;Example 1&lt;/strong&gt; (&lt;strong&gt;Boolean closure&lt;/strong&gt;)&lt;br /&gt;
 If $E,F\subset\mathbb{R}^d$ are elementary sets, then&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;the union $E\cup F$,&lt;/li&gt;
@@ -75,17 +81,17 @@ E\cup F=B_1\cup\dots\cup B_k\cup B_1’\cup\dots\cup B_{k’}’,
 which is an elementary set.&lt;/li&gt;
   &lt;li&gt;The intersection of $E$ and $F$ can be written as
 \begin{align}
-E\cap F&amp;amp;=\left(B_1\cup\dots\cup B_k\right)\cup\left(B_1’\cup\dots\cup B_{k’}’\right) \\ &amp;amp;=\bigcup_{i=1,j=1}^{k,k’}\left(B_i\cap B_j’\right),
+E\cap F&amp;amp;=\left(B_1\cup\dots\cup B_k\right)\cup\left(B_1’\cup\dots\cup B_{k’}’\right) \\ &amp;amp;=\bigcup_{i=1}^{k}\bigcup_{j=1}^{k’}\left(B_i\cap B_j’\right),
 \end{align}
 which is also an elementary set.&lt;/li&gt;
   &lt;li&gt;The set theoretic difference of $E$ and $F$ can be written as
 \begin{align}
-E\backslash F&amp;amp;=\left(B_1\cup\dots\cup B_k\right)\backslash\left(B_1’\cup\dots\cup B_{k’}’\right) \\ &amp;amp;=\bigcup_{i=1,j=1}^{k,k’}\left(B_i\backslash B_j’\right),
+E\backslash F&amp;amp;=\left(B_1\cup\dots\cup B_k\right)\backslash\left(B_1’\cup\dots\cup B_{k’}’\right) \\ &amp;amp;=\bigcup_{i=1}^{k}\bigcup_{j=1}^{k’}\left(B_i\backslash B_j’\right),
 \end{align}
 which is, once again, an elementary set.&lt;/li&gt;
   &lt;li&gt;With this display, the symmetric difference of $E$ and $F$ can be written as
 \begin{align}
-E\Delta F&amp;amp;=\left(E\backslash F\right)\cup\left(F\backslash E\right) \\ &amp;amp;=\Bigg[\bigcup_{i=1,j=1}^{k,k’}\left(B_i\backslash B_j’\right)\Bigg]\cup\Bigg[\bigcup_{i=1,j=1}^{k,k’}\left(B_j’\backslash B_i\right)\Bigg],
+E\Delta F&amp;amp;=\left(E\backslash F\right)\cup\left(F\backslash E\right) \\ &amp;amp;=\Bigg[\bigcup_{i=1}^{k}\bigcup_{j=1}^{k’}\left(B_i\backslash B_j’\right)\Bigg]\cup\Bigg[\bigcup_{i=1}^{k}\bigcup_{j=1}^{k’}\left(B_j’\backslash B_i\right)\Bigg],
 \end{align}
 which satisfies conditions of an elementary set.&lt;/li&gt;
   &lt;li&gt;Since $B_i$’s are $d$-dimensional boxes, we can express them as
@@ -98,7 +104,7 @@ I_{i,j}=(a_{i,j},b_{i,j})
 \end{equation}
 Thus, for any $x\in\mathbb{R}^d$, we have that
 \begin{align}
-E+x&amp;amp;=\left\{y+x:y\in E\right\} \\ &amp;amp;=\Big\{y+x:y\in B_1\cup\dots\cup B_k\Big\} \\ &amp;amp;=\Big\{y+x:y\in\bigcup_{i=1}^{k}B_i\Big\} \\ &amp;amp;=\left\{y+x:y\in\bigcup_{i=1,j=1}^{k,d}(a_{i,j},b_{i,j})\right\} \\ &amp;amp;=\bigcup_{i=1,j=1}^{k,d}(a_{i,j}+x,b_{i,j}+x),
+E+x&amp;amp;=\left\{y+x:y\in E\right\} \\ &amp;amp;=\Big\{y+x:y\in B_1\cup\dots\cup B_k\Big\} \\ &amp;amp;=\Big\{y+x:y\in\bigcup_{i=1}^{k}B_i\Big\} \\ &amp;amp;=\left\{y+x:y\in\bigcup_{i=1}^{k}\bigcup_{j=1}^{d}(a_{i,j},b_{i,j})\right\} \\ &amp;amp;=\bigcup_{i=1}^{k}\bigcup_{j=1}^{d}(a_{i,j}+x,b_{i,j}+x),
 \end{align}
 which is an elementary set.&lt;/li&gt;
 &lt;/ul&gt;
@@ -222,15 +228,52 @@ m’(E)=cm(E)
 Let $d_1,d_2\geq 1$, and let $E_1\subset\mathbb{R}^{d_1},E_2\subset\mathbb{R}^{d_2}$ be elementary sets. Then $E_1\times E_2\subset\mathbb{R}^{d_1+d_2}$ is also elementary, and $m^{d_1+d_2}(E_1\times E_2)=m^{d_1}(E_1)\times m^{d_2}(E_2)$.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;br /&gt;
-With their definitions as elementary sets, we can assume that
+Without loss of generality, assume that $d_1\leq d_2$. With their definitions as elementary sets, we can assume that
 \begin{align}
 E_1&amp;amp;=B_1\cup\dots\cup B_{k_1}, \\ E_2&amp;amp;=B_1’\cup\dots\cup B_{k_2}’,
 \end{align}
-where each $B_i$ is a $d_1$-dimensional box and each $B_i’$ is a $d_2$-dimensional box. By set theory, we have that
+where each $B_i$ is a $d_1$-dimensional box while each $B_i’$ is a $d_2$-dimensional box. And using &lt;strong&gt;Lemma 1&lt;/strong&gt;, without loss of generality, we can assume that $B_i$ are disjoint boxes and $B_i’$ are also disjoint, which implies that
 \begin{align}
-E_1\times E_2&amp;amp;=\Big(B_1\cup\dots\cup B_{k_1}\Big)\times\Big(B_1’\cup\dots\cup B_{k_2}’\Big) \\ &amp;amp;=\bigcup_{i=1,j=1}^{k_1,k_2}\left(B_i\times B_j’\right),
+m^{d_1}(E_1)&amp;amp;=m^{d_1}(B_1)+\dots+m^{d_1}(B_{k_1}),\tag{1}\label{1} \\ m^{d_2}(E_2)&amp;amp;=m^{d_2}(B_1’)+\dots+m^{d_2}(B_{k_2}’)\tag{2}\label{2}
+\end{align}
+By set theory, we have that
+\begin{align}
+E_1\times E_2&amp;amp;=\Big(B_1\cup\dots\cup B_{k_1}\Big)\times\Big(B_1’\cup\dots\cup B_{k_2}’\Big) \\ &amp;amp;=\bigcup_{i=1}^{k_1}\bigcup_{j=1}^{k_2}\left(B_i\times B_j’\right),\tag{3}\label{3}
 \end{align}
 which is an elementary set.&lt;/p&gt;
+
+&lt;p&gt;Since $B_1,\dots,B_{k_1}$ are disjoint and $B_1’,\dots,B_{k_2}’$ are disjoint, the Cartesian products $B_i\times B_j’$ for $i=1,\dots,k_1$ and $j=1,\dots,k_2$ are also disjoint. From \eqref{3} and using the finite additivity property, we have that
+\begin{align}
+m^{d_1+d_2}(E_1\times E_2)&amp;amp;=m^{d_1+d_2}\Bigg(\bigcup_{i=1}^{k_1}\bigcup_{j=1}^{k_2}\left(B_i\times B_j’\right)\Bigg) \\ &amp;amp;=\sum_{i=1}^{k_1}\sum_{j=1}^{k_2}m^{d_1+d_2}\left(B_i\times B_j’\right)\tag{4}\label{4}
+\end{align}
+On the one hand, using the definition of boxes, and without loss of generality we can express, for each $i=1,\dots,k_1$, that:
+\begin{equation}
+B_i=(a_{i,1},b_{i,1})\times\dots\times(a_{i,d_1},b_{i,d_1}),
+\end{equation}
+where $a_{i,j},b_{i,j}\in\mathbb{R}$ for all $j=1,\dots,d_1$. Hence,
+\begin{equation}
+m^{d_1}(B_i)=\prod_{j=1}^{d_1}(b_{i,j}-a_{i,j}),\hspace{1cm}i=1,\dots,k_1\tag{5}\label{5}
+\end{equation}
+Similarly, we also have that
+\begin{equation}
+m^{d_2}(B_i’)=\prod_{j=1}^{d_2}(d_{i,j}-c_{i,j}),\hspace{1cm}i=1,\dots,k_2\tag{6}\label{6}
+\end{equation}
+where $c_{i,j},d_{i,j}\in\mathbb{R}$ for all $j=1,\dots,d_2$.&lt;/p&gt;
+
+&lt;p&gt;Moreover, on the other hand, we also have that the $(d_1+d_2)$-dimensional box $B_i\times B_j’$ can be expressed as
+\begin{equation}
+B_i\times B_j’=(e_1,f_1)\times\dots\times(e_{d_1+d_2},f_{d_1+d_2}),\tag{7}\label{7}
+\end{equation}
+where $e_k=a_{i,k};f_k=b_{i,k}$ for all $k=1,\dots,d_1$ and $e_k=c_{j,k-d_1};f_k=d_{j,k-d_1}$ for all $k=d_1,\dots,d_2$.
+From \eqref{5}, \eqref{6} and \eqref{7}, for any $i=1,\dots,k_1$ and for any $j=1,\dots,k_2$, we have
+\begin{align}
+m^{d_1+d_2}(B_i\times B_j’)&amp;amp;=\prod_{k=1}^{d_1+d_2}(f_k-e_k) \\ &amp;amp;=\Bigg(\prod_{k=1}^{d_1}(b_{i,k}-a_{i,k})\Bigg)\Bigg(\prod_{k=1}^{d_2}(d_{j,k}-c_{j,k})\Bigg) \\ &amp;amp;=m^{d_1}(B_i)\times m^{d_2}(B_j’)
+\end{align}
+With this result, combined with \eqref{1} and \eqref{2}, equation \eqref{4} can be written as
+\begin{align}
+m^{d_1+d_2}(E_1\times E_2)&amp;amp;=\sum_{i=1}^{k_1}\sum_{j=1}^{k_2}m^{d_1+d_2}\left(B_i\times B_j’\right) \\ &amp;amp;=\sum_{i=1}^{k_1}\sum_{j=1}^{k_2}m^{d_1}(B_i)\times m^{d_2}(B_j’) \\ &amp;amp;=m^{d_1}(E_1)\times m^{d_2}(E_2),
+\end{align}
+which concludes our proof.&lt;/p&gt;
 
 &lt;h2 id=&quot;jordan-measure&quot;&gt;Jordan measure&lt;/h2&gt;
 &lt;p&gt;Let $E\subset\mathbb{R}^d$ be a bounded set.&lt;/p&gt;
@@ -293,9 +336,6 @@ the &lt;strong&gt;Jordan measure&lt;/strong&gt; of $E$.&lt;/li&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 &lt;ul id=&quot;number-list&quot;&gt;
-	&lt;li&gt;
-		We ha
-	&lt;/li&gt;
 
 &lt;/ul&gt;
 
@@ -334,7 +374,80 @@ by which we mean that for every $\varepsilon&amp;gt;0$ there exists $\delta&amp;
 \end{equation}
 for every tagged partition $\mathcal{P}$ with $\Delta(\mathcal{P})\leq\delta$.&lt;/p&gt;
 
+&lt;h3 id=&quot;pc-func&quot;&gt;Piecewise constant functions&lt;/h3&gt;
+&lt;p&gt;Let $[a,b]$ be an interval. a &lt;strong&gt;piecewise constant function&lt;/strong&gt; $f:[a,b]\to\mathbb{R}$ is a function for which there exists a partition of $[a,b]$ into infinitely many intervals $I_1,\dots,I_n$ such that $f$ is equal to a constant $c_i$ on each of the intervals $I_i$. Then, the expression
+\begin{equation}
+\sum_{i=1}^{n}c_i\vert I\vert
+\end{equation}
+is independent of the choice of partition used to demonstrate the piecewise constant nature of $f$. We denote this quantity as $\text{p.c.}\int_{a}^{b}f(x)\,dx$, and refer it to as &lt;strong&gt;piecewise constant integral&lt;/strong&gt; of $f$ on $[a,b]$.&lt;/p&gt;
+
+&lt;h4 id=&quot;pc-int-properties&quot;&gt;Basic properties of piecewise constant integral&lt;/h4&gt;
+&lt;p&gt;Let $[a,b]$ be an interval, and let $f,g:[a,b]\to\mathbb{R}$ be piecewise constant functions. Then&lt;/p&gt;
+&lt;ul id=&quot;mumber-list&quot;&gt;
+	&lt;li&gt;
+		&lt;b&gt;Linearity&lt;/b&gt;. For any $c\in\mathbb{R}$, $cf$ and $f+g$ are piecewise constant functions, with
+		\begin{align}
+		\text{p.c.}\int_{a}^{b}cf(x)\,dx&amp;amp;=c\text{p.c.}\int_{a}^{b}f(x)\,dx \\\\ \text{p.c.}\int_{a}^{b}\left(f(x)+g(x)\right)\,dx&amp;amp;=\text{p.c.}\int_{a}^{b}f(x)\,dx+\text{p.c.}\int_{a}^{b}g(x)\,dx
+		\end{align}
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Monotonicity&lt;/b&gt;. If $f\leq g$ pointwise, i.e., $f(x)\leq g(x),\forall x\in[a,b]$, then
+		\begin{equation}
+		\text{p.c.}\int_{a}^{b}f(x)\,dx\leq\text{p.c.}\int_{a}^{b}g(x)\,dx
+		\end{equation}
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Indicator&lt;/b&gt;. If $E$ is an elementary subset of $[a,b]$, then the indicator function $1_E:[a,b]\to\mathbb{R}$ (defined by setting $1_E(x)\doteq 1$ if $x\in E$ and 0 otherwise) is piecewise constant, and
+		\begin{equation}
+		\text{p.c.}\int_{a}^{b}1_E(x)\,dx=m(E)
+		\end{equation}
+	&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+
 &lt;h3 id=&quot;darboux-int&quot;&gt;Darboux integral&lt;/h3&gt;
+&lt;p&gt;Let $[a,b]$ be an integral, and let $f:[a,b]\to\mathbb{R}$ be a bounded function. The &lt;strong&gt;lower Darboux integral&lt;/strong&gt; of $f$ on $[a,b]$, denoted as $\underline{\int_{a}^{b}}f(x)\,dx$, is defined as
+\begin{equation}
+\underline{\int_a^b}f(x)\,dx\doteq\sup_{g\leq f,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}g(x)\,dx,
+\end{equation}
+where $g$ ranges over all piecewise constant functions that are pointwise bounded above by $f$ (the hypothesis that $f$ is bounded ensures that the supremum is over a non-empty set).&lt;/p&gt;
+
+&lt;p&gt;Similarly, we can define the &lt;strong&gt;upper Darboux integral&lt;/strong&gt; of $f$ on $[a,b]$, denoted as $\overline{\int_a^b}f(x)\,dx$, as
+\begin{equation}
+\overline{\int_a^b}f(x)\,dx\doteq\inf_{h\geq f,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}h(x)\,dx
+\end{equation}
+It is easily seen that $\underline{\int_a^b}f(x)\,dx\leq\overline{\int_a^b}f(x)\,dx$. The equality holds when $f$ is &lt;strong&gt;Darboux integrable&lt;/strong&gt;, and we refer to this quantity as &lt;strong&gt;Darboux integral&lt;/strong&gt; of $f$ on $[a,b]$.&lt;/p&gt;
+
+&lt;p&gt;Note that the upper and lower Darboux integrals are related by
+\begin{equation}
+\overline{\int_a^b}-f(x)\,dx=-\underline{\int_a^b}f(x)\,dx
+\end{equation}&lt;/p&gt;
+
+&lt;h3 id=&quot;riemann-int-properties&quot;&gt;Basic properties of Riemann integral&lt;/h3&gt;
+&lt;p&gt;Let $[a,b]$ be an interval, and let $f,g:[a,b]\to\mathbb{R}$ be Riemann integrable. We then have that&lt;/p&gt;
+&lt;ul id=&quot;number-list&quot;&gt;
+	&lt;li&gt;
+		&lt;b&gt;Linearity&lt;/b&gt;. For any $c\in\mathbb{R}$, $cf$ and $f+g$ are Riemann integrable, with
+		\begin{align}
+		\int_{a}^{b}cf(x)\,dx&amp;amp;=c\int_{a}^{b}f(x)\,dx \\\\ \int_{a}^{b}\big(f(x)+g(x)\big)\,dx&amp;amp;=\int_{a}^{b}f(x)\,dx+\int_{a}^{b}g(x)\,dx
+		\end{align}
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Monotonicity&lt;/b&gt;. If $f\leq g$ pointwise, then
+		\begin{equation}
+		\int_{a}^{b}f(x)\,dx\leq\int_{a}^{b}g(x)\,dx
+		\end{equation}
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Indicator&lt;/b&gt;. If $E$ is a Jordan measurable of $[a,b]$, then the indicator function $1_E:[a,b]\to\mathbb{R}$ is Riemann integrable, and
+		\begin{equation}
+		\int_{a}^{b}1_E(x)\,dx=m(E)
+		\end{equation}
+	&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;lebesgue-measure&quot;&gt;Lebesgue measure&lt;/h2&gt;
 
@@ -342,6 +455,8 @@ for every tagged partition $\mathcal{P}$ with $\Delta(\mathcal{P})\leq\delta$.&l
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Terence Tao. &lt;a href=&quot;https://terrytao.wordpress.com/books/an-introduction-to-measure-theory/&quot;&gt;An introduction to measure theory&lt;/a&gt;. Graduate Studies in Mathematics, vol. 126.&lt;/p&gt;
+
+&lt;p&gt;[2] Elias M. Stein &amp;amp; Rami Shakarchi. &lt;a href=&quot;#http://www.cmat.edu.uy/~mordecki/courses/medida2013/book.pdf&quot;&gt;Real Analysis: Measure Theory, Integration, and Hilbert Spaces&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><category term="random-stuffs" /><summary type="html">A note on measure theory</summary></entry><entry><title type="html">Normal Distribution</title><link href="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html" rel="alternate" type="text/html" title="Normal Distribution" /><published>2021-11-22T14:46:00+07:00</published><updated>2021-11-22T14:46:00+07:00</updated><id>http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist</id><content type="html" xml:base="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html">&lt;blockquote&gt;
   &lt;p&gt;A note on Normal distribution.
