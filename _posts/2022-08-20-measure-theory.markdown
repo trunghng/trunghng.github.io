@@ -118,7 +118,8 @@ If $E,F\subset\mathbb{R}^d$ are elementary sets, then
 - the intersection $E\cap F$, 
 - the set theoretic difference $E\backslash F\doteq\\{x\in E:x\notin F\\}$,
 - the symmetric difference $E\Delta F\doteq(E\backslash F)\cup(F\backslash E)$ 
-are also elementary. If $x\in\mathbb{R}^d$, then the translate $E+x\doteq\\{y+x:y\in E\\}$ is also an elementary set.
+are also elementary,
+- if $x\in\mathbb{R}^d$, then the translate $E+x\doteq\\{y+x:y\in E\\}$ is also an elementary set.
 
 **Solution**  
 With their definitions as elementary sets, we can assume that
@@ -348,7 +349,7 @@ the **Jordan measure** of $E$.
 
 ### Characterization of Jordan measurability
 {: #jordan-measurability-characterisation}
-Let $E\subset\mathbb{R}^d$ be bounded. Then these following statements are equivalence
+Let $E\subset\mathbb{R}^d$ be bounded. These following statements are equivalence
 <ul id='number-list'>
 	<li>$E$ is Jordan measurable.</li>
 	<li>For every $\varepsilon>0$, there exists elementary sets $A\subset E\subset B$ such that $m(B\backslash A)\leq\varepsilon$.</li>
@@ -356,7 +357,7 @@ Let $E\subset\mathbb{R}^d$ be bounded. Then these following statements are equiv
 </ul>
 
 **Proof**  
-In order to prove these three statements are equivalence, we will be proving that (1) implies (2); (2) implies (3); and that (3) implies (1).
+In order to prove these three statements are equivalence, we will be proving that (1) implies (2); (2) implies (3); and that (2) implies (1).
 - (1) implies (2).  
 Since $E$ is Jordan measurable, we have that
 \begin{equation}
@@ -375,13 +376,56 @@ From \eqref{8} and \eqref{9}, we have that for any $\varepsilon>0$
 m(B\backslash A)=m(B)-m(A)\leq\varepsilon
 \end{equation}
 - (2) implies (3).  
+With (2) satisfied, we have that we can find elementary sets $A\subset E\subset B$ such that
+\begin{equation}
+m(B\backslash A)\leq\varepsilon,\hspace{1cm}\forall\varepsilon>0
+\end{equation}
+Since $A\subset E\subset B$ and by the definition of symmetric difference, we have
+\begin{equation}
+A\Delta E=(A\backslash E)\cup(E\backslash A)=(E\backslash A)\subset(B\backslash A)
+\end{equation}
+Hence
+\begin{equation}
+m^{\*,(J)}(A\Delta E)\leq m(B\backslash A)\leq\varepsilon
+\end{equation}
+- (2) implies (1).  
+Let $(A_n)\_{n\in\mathbb{N}}$ and $(B_n)\_{n\in\mathbb{N}}$ be sequences of elementary sets such that $A_n\subset E\subset B_n$ for all $n\in\mathbb{N}$. Statement (2) says that for all $\varepsilon>0$, there exists $i,j\in\mathbb{N}$ such that
+\begin{equation}
+m(B_j\backslash A_i)\leq\varepsilon
+\end{equation}
+or
+\begin{equation}
+m(B_j)\leq m(A_i)+\varepsilon\tag{10}\label{10}
+\end{equation}
+Let $A_\text{sup}$ and $B_\text{inf}$ be two sets in the two sequences above with
+\begin{align}
+m(A_\text{sup})&=\sup_{n\in\mathbb{N}}m(A_n), \\\\ m(B_\text{inf})&=\inf_{n\in\mathbb{N}}m(B_n),
+\end{align}
+which means
+\begin{align}
+m_{\*,(J)}(E)&=m(A_\text{sup}) \\\\ m^{\*,(J)}(E)&=m(B_\text{inf})
+\end{align}
+Using the monotonicity property of elementary measure, we have that
+\begin{equation}
+m(A_\text{sup})\leq m(B_\text{inf})
+\end{equation}
+Assume that $m(B_\text{inf})>m(A_\text{sup})$, and consider an $\varepsilon>0$ such that $\varepsilon< m(B_\text{inf})-m(A_\text{sup})$. We can continue to derive \eqref{10} as
+\begin{equation}
+m(B_j)\leq m(A_i)+\varepsilon< m(A_i)+m(B_\text{inf})-m(A_\text{sup})< m(B_\text{inf}),
+\end{equation}
+which is false with the definition of $B_\text{inf}$. Therefore, our assumption is also false, which means
+\begin{equation}
+m(A_\text{sup})=m(B_\text{inf})
+\end{equation}
+or
+\begin{equation}
+m_{\*,(J)}(E)=m^{\*,(J)}(E),
+\end{equation}
+or in other words, $E$ is Jordan measurable.
 
-
-
-
-**Corollary**  
+**Corollary 5**  
 - Every elementary set $E$ is Jordan measurable.
-- On elementary sets, Jordan measure and elementary measure coincide.
+- On elementary sets, Jordan measure is elementary measure.
 
 Jordan measurability also inherits many of the properties of elementary measure.
 
@@ -564,7 +608,7 @@ as the **Lebesgue measure** of $E$.
 	<li></li>
 </ul>
 
-**Corollary**  
+**Corollary 6**  
 Combining empty set with countable subadditivity axiom gives us the finite subadditivity property
 \begin{equation}
 m^{\*}\left(E_1\cup\ldots\cup E_k\right)\leq m^{\*}(E_1)+\ldots+m^{\*}(E_k),\hspace{1cm}\forall k\geq 0

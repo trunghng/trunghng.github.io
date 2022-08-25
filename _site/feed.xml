@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-25T14:04:18+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-25T16:19:14+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">The Convergence of Q-learning</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/21/q-learning-convergence.html" rel="alternate" type="text/html" title="The Convergence of Q-learning" /><published>2022-08-21T07:00:00+07:00</published><updated>2022-08-21T07:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/21/q-learning-convergence</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/21/q-learning-convergence.html">&lt;blockquote&gt;
   &lt;p&gt;A note on convergence proofs for Q-learning by exploiting the connection with stochastic approximation and the idea of parallel asynchronous.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -148,7 +148,8 @@ If $E,F\subset\mathbb{R}^d$ are elementary sets, then&lt;/p&gt;
   &lt;li&gt;the intersection $E\cap F$,&lt;/li&gt;
   &lt;li&gt;the set theoretic difference $E\backslash F\doteq\{x\in E:x\notin F\}$,&lt;/li&gt;
   &lt;li&gt;the symmetric difference $E\Delta F\doteq(E\backslash F)\cup(F\backslash E)$ 
-are also elementary. If $x\in\mathbb{R}^d$, then the translate $E+x\doteq\{y+x:y\in E\}$ is also an elementary set.&lt;/li&gt;
+are also elementary,&lt;/li&gt;
+  &lt;li&gt;if $x\in\mathbb{R}^d$, then the translate $E+x\doteq\{y+x:y\in E\}$ is also an elementary set.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;br /&gt;
@@ -379,7 +380,7 @@ the &lt;strong&gt;Jordan measure&lt;/strong&gt; of $E$.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;jordan-measurability-characterisation&quot;&gt;Characterization of Jordan measurability&lt;/h3&gt;
-&lt;p&gt;Let $E\subset\mathbb{R}^d$ be bounded. Then these following statements are equivalence&lt;/p&gt;
+&lt;p&gt;Let $E\subset\mathbb{R}^d$ be bounded. These following statements are equivalence&lt;/p&gt;
 &lt;ul id=&quot;number-list&quot;&gt;
 	&lt;li&gt;$E$ is Jordan measurable.&lt;/li&gt;
 	&lt;li&gt;For every $\varepsilon&amp;gt;0$, there exists elementary sets $A\subset E\subset B$ such that $m(B\backslash A)\leq\varepsilon$.&lt;/li&gt;
@@ -387,7 +388,7 @@ the &lt;strong&gt;Jordan measure&lt;/strong&gt; of $E$.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
-In order to prove these three statements are equivalence, we will be proving that (1) implies (2); (2) implies (3); and that (3) implies (1).&lt;/p&gt;
+In order to prove these three statements are equivalence, we will be proving that (1) implies (2); (2) implies (3); and that (2) implies (1).&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;(1) implies (2).&lt;br /&gt;
 Since $E$ is Jordan measurable, we have that
@@ -406,13 +407,59 @@ From \eqref{8} and \eqref{9}, we have that for any $\varepsilon&amp;gt;0$
 \begin{equation}
 m(B\backslash A)=m(B)-m(A)\leq\varepsilon
 \end{equation}&lt;/li&gt;
-  &lt;li&gt;(2) implies (3).&lt;/li&gt;
+  &lt;li&gt;(2) implies (3).&lt;br /&gt;
+With (2) satisfied, we have that we can find elementary sets $A\subset E\subset B$ such that
+\begin{equation}
+m(B\backslash A)\leq\varepsilon,\hspace{1cm}\forall\varepsilon&amp;gt;0
+\end{equation}
+Since $A\subset E\subset B$ and by the definition of symmetric difference, we have
+\begin{equation}
+A\Delta E=(A\backslash E)\cup(E\backslash A)=(E\backslash A)\subset(B\backslash A)
+\end{equation}
+Hence
+\begin{equation}
+m^{*,(J)}(A\Delta E)\leq m(B\backslash A)\leq\varepsilon
+\end{equation}&lt;/li&gt;
+  &lt;li&gt;(2) implies (1).&lt;br /&gt;
+Let $(A_n)_{n\in\mathbb{N}}$ and $(B_n)_{n\in\mathbb{N}}$ be sequences of elementary sets such that $A_n\subset E\subset B_n$ for all $n\in\mathbb{N}$. Statement (2) says that for all $\varepsilon&amp;gt;0$, there exists $i,j\in\mathbb{N}$ such that
+\begin{equation}
+m(B_j\backslash A_i)\leq\varepsilon
+\end{equation}
+or
+\begin{equation}
+m(B_j)\leq m(A_i)+\varepsilon\tag{10}\label{10}
+\end{equation}
+Let $A_\text{sup}$ and $B_\text{inf}$ be two sets in the two sequences above with
+\begin{align}
+m(A_\text{sup})&amp;amp;=\sup_{n\in\mathbb{N}}m(A_n), \\ m(B_\text{inf})&amp;amp;=\inf_{n\in\mathbb{N}}m(B_n),
+\end{align}
+which means
+\begin{align}
+m_{*,(J)}(E)&amp;amp;=m(A_\text{sup}) \\ m^{*,(J)}(E)&amp;amp;=m(B_\text{inf})
+\end{align}
+Using the monotonicity property of elementary measure, we have that
+\begin{equation}
+m(A_\text{sup})\leq m(B_\text{inf})
+\end{equation}
+Assume that $m(B_\text{inf})&amp;gt;m(A_\text{sup})$, and consider an $\varepsilon&amp;gt;0$ such that $\varepsilon&amp;lt; m(B_\text{inf})-m(A_\text{sup})$. We can continue to derive \eqref{10} as
+\begin{equation}
+m(B_j)\leq m(A_i)+\varepsilon&amp;lt; m(A_i)+m(B_\text{inf})-m(A_\text{sup})&amp;lt; m(B_\text{inf}),
+\end{equation}
+which is false with the definition of $B_\text{inf}$. Therefore, our assumption is also false, which means
+\begin{equation}
+m(A_\text{sup})=m(B_\text{inf})
+\end{equation}
+or
+\begin{equation}
+m_{*,(J)}(E)=m^{*,(J)}(E),
+\end{equation}
+or in other words, $E$ is Jordan measurable.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;Corollary&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Corollary 5&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;Every elementary set $E$ is Jordan measurable.&lt;/li&gt;
-  &lt;li&gt;On elementary sets, Jordan measure and elementary measure coincide.&lt;/li&gt;
+  &lt;li&gt;On elementary sets, Jordan measure is elementary measure.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Jordan measurability also inherits many of the properties of elementary measure.&lt;/p&gt;
@@ -586,7 +633,7 @@ as the &lt;strong&gt;Lebesgue measure&lt;/strong&gt; of $E$.&lt;/p&gt;
 	&lt;li&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;Corollary&lt;/strong&gt;&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Corollary 6&lt;/strong&gt;&lt;br /&gt;
 Combining empty set with countable subadditivity axiom gives us the finite subadditivity property
 \begin{equation}
 m^{*}\left(E_1\cup\ldots\cup E_k\right)\leq m^{*}(E_1)+\ldots+m^{*}(E_k),\hspace{1cm}\forall k\geq 0
