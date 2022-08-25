@@ -11,6 +11,9 @@ comments: true
 <!-- excerpt-end -->
 
 - [Preliminaries](#preliminaries)
+	- [Points, sets](#pts-sets)
+	- [Open, closed, compact sets](#open-closed-compact-sets)
+	- [Others](#others)
 - [Elementary measure](#elementary-measure)
 	- [Intervals, boxes, elementary sets](#intervals-boxes-elementary-sets)
 	- [Measure of an elementary set](#measure-elementary-set)
@@ -34,6 +37,66 @@ comments: true
 
 ## Preliminaries
 {: #preliminaries}
+### Points, sets
+{: #pts-sets}
+A **point** $x\in\mathbb{R}^d$ consists of a $d$-tuple of real numbers
+\begin{equation}
+x=\left(x_1,x_2,\dots,x_d\right),\hspace{1cm}x_i\in\mathbb{R}, i=1,\dots,d
+\end{equation}
+Addition between points and multiplication of a point by a real scalar is elementwise.
+
+The **norm** of $x$ is denoted by $\vert x\vert$ and is defined to be the standard **Euclidean norm** given by
+\begin{equation}
+\vert x\vert=\left(x_1^2+\dots+x_d^2\right)^{1/2}
+\end{equation}
+We can then calculate the **distance** between two points $x$ and $y$, which is
+\begin{equation}
+\text{dist}(x,y)=\vert x-y\vert
+\end{equation}
+The **complement** of a set $E$ in $\mathbb{R}^d$ is denoted as $E^c$, and defined by
+\begin{equation}
+E^c=\\{x\in\mathbb{R}^d:x\notin E\\}
+\end{equation}
+If $E$ and $F$ are two subsets of $\mathbb{R}^d$, we denote the complement of $F$ in $E$ by
+\begin{equation}
+E-F=\\{x\in\mathbb{R}^d:x\in E;\,x\notin F\\}
+\end{equation}
+The **distance** between two sets $E$ and $F$ is defined by
+\begin{equation}
+\text{dist}(E,F)=\inf_{x\in E,\,y\in F}\vert x-y\vert
+\end{equation}
+
+### Open, closed and compact sets
+{: #open-closed-compact-sets}
+The **open ball** in $\mathbb{R}^d$ centered at $x$ and of radius $r$ is defined by
+\begin{equation}
+B_r(x)=\\{y\in\mathbb{R}^d:\vert y-x\vert< r\\}
+\end{equation}
+A subset $E\subset\mathbb{R}^d$ is **open** if for every $x\in E$ there exists $r>0$ with $B_r(x)\subset E$. And a set is **closed** if its complement is open.  
+Any (not necessarily countable) union of open sets is open, while in general, the intersection of only finitely many open sets is open. A similar statement holds for the class of closed sets, if we interchange the roles of unions and intersections.
+
+A set $E$ is **bounded** if it is contained in some ball of finite radius. A set is **compact** if it is bounded and is also closed. Compact sets enjoy the **Heine-Borel** covering property:
+
+**Theorem 1**. (**Heine-Borel theorem**)  
+*Assume $E$ is compact, $E\subset\bigcup_\alpha\mathcal{O}\_\alpha$, and each $\mathcal{O}\_\alpha$ is open. Then there are finitely many of the open sets $\mathcal{O}\_{\alpha_1},\mathcal{O}\_{\alpha_2},\dots,\mathcal{O}\_{\alpha_N}$, such that $E\subset\bigcup_{j=1}^{N}\mathcal{O}\_{\alpha_j}$.*
+
+In words, *any* covering of a compact set by a collection of open sets contains a *finite* subcovering.  
+
+A point $x\in\mathbb{R}^d$ is a **limit point** of the set $E$ if for every $r>0$, the ball $B_r(x)$ contains points of $E$. This means that there are points in $E$ which are arbitrarily close to $x$. An **isolated point** of $E$ is a point $x\in E$ such that there exists an $r>0$ where $B_r(x)\cap E=\\{x\\}$. 
+
+A point $x\in E$ is an **interior point** of $E$ if there exists $r>0$ such that $B_r(x)\subset E$. The set of all interior points of $E$ is called the **interior** of $E$.
+
+The **closure** of $E$, denoted as $\bar{E}$, consists the union of $E$ and all its limit points. The **boundary** of $E$, denoted as $\partial E$, is the set of points which are in the closure of $E$ but not in the interior of $E$.
+
+A closed set $E$ is **perfect** if $E$ does not have any isolated point.
+
+**Remark**:  
+- The closure of a set is a closed set.
+- Every point in $E$ is a limit point of $E$.
+- A set is closed iff it contains all its limit points.
+
+### Others
+{: #others}
 Given any sequence $x_1,x_2,\ldots\in[0,+\infty]$. We can always form the sum
 \begin{equation}
 \sum_{n=1}^{n}x_n\in[0,+\infty]
@@ -51,7 +114,7 @@ Or moreover, given any bijection $\phi:B\to A$, we has the change of variables f
 \sum_{\alpha\in A}x_\alpha=\sum_{\beta\in B}x_{\phi(\beta)}
 \end{equation}
 
-**Theorem 1** (**Tonelli's theorem for series**)  
+**Theorem 2**. (**Tonelli's theorem for series**)  
 *Let $(x_{n,m})\_{n,m\in\mathbb{N}}$ be a doubly infinite sequence of extended nonnegative reals $x_{n,m}\in[0,+\infty]$. Then*
 \begin{equation}
 \sum_{(n,m)\in\mathbb{N}^2}x_{n,m}=\sum_{n=1}^{\infty}\sum_{m=1}^{\infty}x_{n,m}=\sum_{m=1}^{\infty}\sum_{n=1}^{\infty}x_{n,m}
@@ -86,10 +149,10 @@ Fix $N$, we have since each $\sum_{m=1}^{\infty}$ is the limit of $\sum_{m=1}^{M
 \end{equation}
 which is true for all finite $M,N$. And it concludes our proof.
 
-**Axiom 2** (**Axiom of choice**)  
+**Axiom 3**. (**Axiom of choice**)  
 *Let $(E_\alpha)\_{\alpha\in A}$ be a family of non-empty set $E_\alpha$, indexed by an index set $A$. Then we can find a family $(x_\alpha)\_{\alpha\in A}$ of elements $x_\alpha$ of $E_\alpha$, indexed by the same set $A$.*
 
-**Corollary 3** (**Axiom of countable choice**)  
+**Corollary 4**. (**Axiom of countable choice**)  
 *Let $E_1,E_2,\ldots$ be a sequence of non-empty sets. Then we can find a sequence $x_1,x_2,\ldots$ such that $x_n\in E_n,\forall n=1,2,\ldots$.*
 
 ## Elementary measure
@@ -163,7 +226,7 @@ which is an elementary set.
 
 ### Measure of an elementary set
 {: #measure-elementary-set}
-**Lemma 4**  
+**Lemma 5**  
 *Let $E\subset\mathbb{R}^d$ be an elementary set*.
 <ul id="roman-list" style='font-style: italic;'>
 	<li>$E$ <i>can be expressed as the finite union of disjoint boxes.</i></li>
@@ -286,7 +349,7 @@ Without loss of generality, assume that $d_1\leq d_2$. With their definitions as
 \begin{align}
 E_1&=B_1\cup\dots\cup B_{k_1}, \\\\ E_2&=B_1'\cup\dots\cup B_{k_2}',
 \end{align}
-where each $B_i$ is a $d_1$-dimensional box while each $B_i'$ is a $d_2$-dimensional box. And using **Lemma 4**, without loss of generality, we can assume that $B_i$ are disjoint boxes and $B_i'$ are also disjoint, which implies that
+where each $B_i$ is a $d_1$-dimensional box while each $B_i'$ is a $d_2$-dimensional box. And using **Lemma 5**, without loss of generality, we can assume that $B_i$ are disjoint boxes and $B_i'$ are also disjoint, which implies that
 \begin{align}
 m^{d_1}(E_1)&=m^{d_1}(B_1)+\dots+m^{d_1}(B_{k_1}),\tag{1}\label{1} \\\\ m^{d_2}(E_2)&=m^{d_2}(B_1')+\dots+m^{d_2}(B_{k_2}')\tag{2}\label{2}
 \end{align}
@@ -423,7 +486,7 @@ m_{\*,(J)}(E)=m^{\*,(J)}(E),
 \end{equation}
 or in other words, $E$ is Jordan measurable.
 
-**Corollary 5**  
+**Corollary 6**  
 - Every elementary set $E$ is Jordan measurable.
 - On elementary sets, Jordan measure is elementary measure.
 
@@ -588,6 +651,8 @@ m^{\*}(E)\doteq\inf_{\bigcup_{n=1}^{\infty}B_n\supset E;B_1,B_2,\dots\text{ boxe
 \end{equation}
 which is be seen as the infimal cost required to cover $E$ by a countable union of boxes.
 
+**Remark**. we always have $m^\*(E)\leq m^{\*,(J)}(E)$.
+
 A set $E\subset\mathbb{R}^d$ is said to be **Lebesgue measurable** if, for every $\varepsilon>0$, there exists an open set $U\subset\mathbb{R}^d$ containing $E$ such that $m^{\*}(U\backslash E)\leq\varepsilon$. If $E$ is Lebesgue measurable, we refer to
 \begin{equation}
 m(E)\doteq m^{\*}(E)
@@ -596,7 +661,7 @@ as the **Lebesgue measure** of $E$.
 
 ### Properties of Lebesgue outer measure
 {: #lebesgue-outer-measure-properties}
-**Remark** (**The outer measure axioms**)
+**Remark**. (**The outer measure axioms**)
 <ul id='roman-list'>
 	<li><b>Empty set</b>. $m^*(\emptyset)=0$.</li>
 	<li><b>Monotonicity</b>. If $E\subset F\subset\mathbb{R}^d$, then $m^*(E)\leq m^*(F)$.</li>
@@ -605,14 +670,128 @@ as the **Lebesgue measure** of $E$.
 
 **Proof**  
 <ul id='roman-list'>
-	<li></li>
+	<li>We have</li>
 </ul>
 
-**Corollary 6**  
+**Corollary 7**  
 Combining empty set with countable subadditivity axiom gives us the finite subadditivity property
 \begin{equation}
 m^{\*}\left(E_1\cup\ldots\cup E_k\right)\leq m^{\*}(E_1)+\ldots+m^{\*}(E_k),\hspace{1cm}\forall k\geq 0
 \end{equation}
+
+**Lemma 8**. (**Finite additivity for separated sets**)  
+*Let $E,F\subset\mathbb{R}^d$ be such that $\text{dist}(E,F)>0$, where
+\begin{equation}
+\text{dist}(E,F)\doteq\inf\left\\{\vert x-y\vert:x\in E,y\in F\right\\}
+\end{equation}
+is the distance between $E$ and $F$. Then $m^\*(E\cup F)=m^\*(E)+m^\*(F)$.*
+
+**Proof**  
+From subadditivity property, we have $m^\*(E\cup F)\leq m^\*(E)+m^\*(F)$. Then it suffices to prove the inverse, that
+\begin{equation}
+m^\*(E\cup F)\geq m^\*(E)+m^\*(F)
+\end{equation}
+Let $\varepsilon>0$. By definition of Lebesgue outer measure, we can cover $E\cup F$ by a countable family $B_1,B_2,\ldots$ of boxes such that
+\begin{equation}
+\sum_{n=1}^{\infty}\vert B_n\vert\leq m^\*(E\cup F)+\varepsilon
+\end{equation}
+Suppose it was the case that each box intersected at most one of $E$ and $F$. Then we could divide this family into two subfamilies $B_1',B_2',\ldots$ and $B_1\'\',B_2\'\',B_3\'\',\ldots$, the first of which covered $E$, while the second of which covered $F$. From definition of Lebesgue outer measure, we have
+\begin{equation}
+m^\*(E)\leq\sum_{n=1}^{\infty}\vert B_n'\vert
+\end{equation}
+and
+\begin{equation}
+m^\*(F)\leq\sum_{n=1}^{\infty}\vert B_n\'\'\vert
+\end{equation}
+Summing up these two equation, we obtain
+\begin{equation}
+m^\*(E)+m^\*(F)\leq\sum_{n=1}^{\infty}\vert B_n\vert
+\end{equation}
+and thus
+\begin{equation}
+m^\*(E)+m^\*(F)\leq m^\*(E\cup F)+\varepsilon
+\end{equation}
+Since $\varepsilon$ was arbitrary, this gives $m^\*(E)+m^\*(F)\leq m^\*(E\cup F)$ as required.
+
+[TODO]
+
+**Lemma 9**. (**Outer measure of elementary sets**)  
+*Let $E$ be an elementary set. Then the Lebesgue outer measure $m^\*(E)$ of $E$ is equal to the elementary measure of $E$:*
+\begin{equation}
+m^\*(E)=m(E)
+\end{equation}
+
+**Proof**  
+Since
+\begin{equation}
+m^\*(E)\leq m^{\*,(J)}(E)=m(E),
+\end{equation}
+then it suffices to show that
+\begin{equation}
+m(E)\leq m^\*(E)
+\end{equation}
+We first consider the case that $E$ is closed. Since $E$ is elementary, $E$ is also bounded, which implies that $E$ is compact.
+
+Let $\varepsilon>0$ be arbitrary, then we can find a countable family $B_1,B_2,\ldots$ of boxes that cover $E$
+\begin{equation}
+E\subset\bigcup_{n=1}^{\infty}B_n,
+\end{equation}
+such that
+\begin{equation}
+\sum_{n=1}^{\infty}\vert B_n\vert\leq m^\*+\varepsilon
+\end{equation}
+We have that for each box $B_n$, we can find an open box $B_n'$ containing $B_n$ such that
+\begin{equation}
+\vert B_n'\vert\leq\vert B_n\vert+\frac{\varepsilon}{2^n}
+\end{equation}
+The $B_n'$ still cover $E$ and we have
+\begin{equation}
+\sum_{n=1}^{\infty}\vert B_n'\vert\leq\sum_{n=1}^{\infty}\left(\vert B_n\vert+\frac{\varepsilon}{2^n}\right)=\left(\sum_{n=1}^{\infty}\vert B_n\vert\right)+\varepsilon\leq m^\*(E)+2\varepsilon\tag{11}\label{11}
+\end{equation}
+As the $B_n'$ are open, apply the **Heine-Borel theorem** (**Theorem 1**), we obtain
+\begin{equation}
+E\subset\bigcup_{n=1}^{N}B_n',
+\end{equation}
+for some finite $N$. Thus, using the finite subadditivity property of elementary measure, combined with the result \eqref{11}, we obtain
+\begin{equation}
+m(E)\leq\sum_{n=1}^{N}m(B_n')\leq m^\*(E)+2\varepsilon
+\end{equation}
+And since $\varepsilon>0$ was arbitrary, we can conclude that
+\begin{equation}
+m(E)\leq m^\*(E)
+\end{equation}
+Now we turn to considering the case that $E$ is not closed. Then we can write $E$ as the finite union of disjoint boxes
+\begin{equation}
+E=Q_1\cup\ldots\cup Q_k,
+\end{equation}
+which need not be closed.
+
+Analogy to before, we have that for every $\varepsilon>0$ and every $1\leq j\leq k$, we can find a closed sub-box $Q_j'$ of $Q_j$ such that
+\begin{equation}
+\vert Q_j'\vert\geq\vert Q_j\vert-\frac{\varepsilon}{k}
+\end{equation}
+Then $E$ now contains the finite union of $Q_1'\cup\ldots\cup Q_k'$ disjoint closed boxes, which is a closed elementary set. By the finite additivity property of elementary measure, the monotonicity property of Lebesgue measure, combined with the result we have proved in the first case, we have
+\begin{align}
+m^\*(E)&\geq m^\*(Q_1'\cup\ldots\cup Q_k') \\\\ &=m(Q_1'\cup\ldots\cup Q_k') \\\\ &=m(Q_1')+\ldots+m(Q_k') \\\\ &\geq m(Q_1)+\ldots+m(Q_k)-\varepsilon \\\\ &= m(E)-\varepsilon,
+\end{align}
+for every $\varepsilon>0$. And since $\varepsilon>0$ was arbitrary, our claim has been proved.
+
+**Corollary 10**  
+From the lemma above and the monotonicity property, we have
+\begin{equation}
+m_{\*,(J)}(E)\leq m^{\*}(E)\leq m^{\*,(J)}(E),
+\end{equation}
+for every $E\in\mathbb{R}^d$.
+
+**Lemma 11**. (**Outer measure of countable unions of almost disjoint boxes**)  
+*Let $E=\bigcup_{n=1}^{\infty}B_n$ be a countable union of almost disjoint boxes $B_1,B_2,\ldots$. Then*
+\begin{equation}
+m^\*(E)=\sum_{n=1}^{\infty}\vert B_n\vert
+\end{equation}
+Thus, for example, $\mathbb{R}^d$ has an infinite outer measure.
+
+**Proof**  
+
 
 ### Lebesgue measurability
 {: #lebesgue-measurability}

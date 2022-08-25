@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-25T16:19:14+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-25T18:58:51+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">The Convergence of Q-learning</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/21/q-learning-convergence.html" rel="alternate" type="text/html" title="The Convergence of Q-learning" /><published>2022-08-21T07:00:00+07:00</published><updated>2022-08-21T07:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/21/q-learning-convergence</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/21/q-learning-convergence.html">&lt;blockquote&gt;
   &lt;p&gt;A note on convergence proofs for Q-learning by exploiting the connection with stochastic approximation and the idea of parallel asynchronous.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -6,27 +6,33 @@
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;#preliminaries&quot;&gt;Preliminaries&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;[The convergence of Q-learning]&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#q-learning-convergence&quot;&gt;The convergence of Q-learning&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#preferences&quot;&gt;Preferences&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;In Q-learning, transtition probabilities and costs are unknown but information of them is obtained either by simulation or by experimenting. Q-learning uses simulation or experimental information to estimate the expected cost-to-go. Additionally, the algorithm is recursive and each new piece of information is used for computing an additive correction term to the old estimates. As these correcction terms are rnadom, Q-learning therefore has the same general structure as the stochastic approximation algorithms.&lt;/p&gt;
+&lt;p&gt;In Q-learning, transition probabilities and costs are unknown but information of them is obtained either by simulation or by experimenting. Q-learning uses simulation or experimental information to estimate the expected cost-to-go. Additionally, the algorithm is recursive and each new piece of information is used for computing an additive correction term to the old estimates. As these correction terms are random, Q-learning therefore has the same general structure as the stochastic approximation algorithms.&lt;/p&gt;
 
 &lt;h2 id=&quot;preliminaries&quot;&gt;Preliminaries&lt;/h2&gt;
 
-&lt;h2 id=&quot;the-convergence-of-q-learning&quot;&gt;The convergence of Q-learning&lt;/h2&gt;
+&lt;h2 id=&quot;q-learning-convergence&quot;&gt;The convergence of Q-learning&lt;/h2&gt;
 
 &lt;h2 id=&quot;preferences&quot;&gt;Preferences&lt;/h2&gt;
 &lt;p&gt;[1] John N. Tsitsiklis. &lt;a href=&quot;https://doi.org/10.1023/A:1022689125041&quot;&gt;Asynchronous Stochastic Approximation and Q-Learning&lt;/a&gt;. Machine Learning 16, 185–202 (1994).&lt;/p&gt;
 
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="Q-learning" /><category term="dynamic-programing" /><summary type="html">A note on convergence proofs for Q-learning by exploiting the connection with stochastic approximation and the idea of parallel asynchronous.</summary></entry><entry><title type="html">Measure theory</title><link href="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory.html" rel="alternate" type="text/html" title="Measure theory" /><published>2022-08-20T13:00:00+07:00</published><updated>2022-08-20T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory.html">&lt;blockquote&gt;
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="Q-learning" /><category term="dynamic-programming" /><summary type="html">A note on convergence proofs for Q-learning by exploiting the connection with stochastic approximation and the idea of parallel asynchronous.</summary></entry><entry><title type="html">Measure theory</title><link href="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory.html" rel="alternate" type="text/html" title="Measure theory" /><published>2022-08-20T13:00:00+07:00</published><updated>2022-08-20T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory.html">&lt;blockquote&gt;
   &lt;p&gt;A note on measure theory 
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#preliminaries&quot;&gt;Preliminaries&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#preliminaries&quot;&gt;Preliminaries&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#pts-sets&quot;&gt;Points, sets&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#open-closed-compact-sets&quot;&gt;Open, closed, compact sets&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#others&quot;&gt;Others&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#elementary-measure&quot;&gt;Elementary measure&lt;/a&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#intervals-boxes-elementary-sets&quot;&gt;Intervals, boxes, elementary sets&lt;/a&gt;&lt;/li&gt;
@@ -65,6 +71,65 @@
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;preliminaries&quot;&gt;Preliminaries&lt;/h2&gt;
+&lt;h3 id=&quot;pts-sets&quot;&gt;Points, sets&lt;/h3&gt;
+&lt;p&gt;A &lt;strong&gt;point&lt;/strong&gt; $x\in\mathbb{R}^d$ consists of a $d$-tuple of real numbers
+\begin{equation}
+x=\left(x_1,x_2,\dots,x_d\right),\hspace{1cm}x_i\in\mathbb{R}, i=1,\dots,d
+\end{equation}
+Addition between points and multiplication of a point by a real scalar is elementwise.&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;norm&lt;/strong&gt; of $x$ is denoted by $\vert x\vert$ and is defined to be the standard &lt;strong&gt;Euclidean norm&lt;/strong&gt; given by
+\begin{equation}
+\vert x\vert=\left(x_1^2+\dots+x_d^2\right)^{1/2}
+\end{equation}
+We can then calculate the &lt;strong&gt;distance&lt;/strong&gt; between two points $x$ and $y$, which is
+\begin{equation}
+\text{dist}(x,y)=\vert x-y\vert
+\end{equation}
+The &lt;strong&gt;complement&lt;/strong&gt; of a set $E$ in $\mathbb{R}^d$ is denoted as $E^c$, and defined by
+\begin{equation}
+E^c=\{x\in\mathbb{R}^d:x\notin E\}
+\end{equation}
+If $E$ and $F$ are two subsets of $\mathbb{R}^d$, we denote the complement of $F$ in $E$ by
+\begin{equation}
+E-F=\{x\in\mathbb{R}^d:x\in E;\,x\notin F\}
+\end{equation}
+The &lt;strong&gt;distance&lt;/strong&gt; between two sets $E$ and $F$ is defined by
+\begin{equation}
+\text{dist}(E,F)=\inf_{x\in E,\,y\in F}\vert x-y\vert
+\end{equation}&lt;/p&gt;
+
+&lt;h3 id=&quot;open-closed-compact-sets&quot;&gt;Open, closed and compact sets&lt;/h3&gt;
+&lt;p&gt;The &lt;strong&gt;open ball&lt;/strong&gt; in $\mathbb{R}^d$ centered at $x$ and of radius $r$ is defined by
+\begin{equation}
+B_r(x)=\{y\in\mathbb{R}^d:\vert y-x\vert&amp;lt; r\}
+\end{equation}
+A subset $E\subset\mathbb{R}^d$ is &lt;strong&gt;open&lt;/strong&gt; if for every $x\in E$ there exists $r&amp;gt;0$ with $B_r(x)\subset E$. And a set is &lt;strong&gt;closed&lt;/strong&gt; if its complement is open.&lt;br /&gt;
+Any (not necessarily countable) union of open sets is open, while in general, the intersection of only finitely many open sets is open. A similar statement holds for the class of closed sets, if we interchange the roles of unions and intersections.&lt;/p&gt;
+
+&lt;p&gt;A set $E$ is &lt;strong&gt;bounded&lt;/strong&gt; if it is contained in some ball of finite radius. A set is &lt;strong&gt;compact&lt;/strong&gt; if it is bounded and is also closed. Compact sets enjoy the &lt;strong&gt;Heine-Borel&lt;/strong&gt; covering property:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Theorem 1&lt;/strong&gt;. (&lt;strong&gt;Heine-Borel theorem&lt;/strong&gt;)&lt;br /&gt;
+&lt;em&gt;Assume $E$ is compact, $E\subset\bigcup_\alpha\mathcal{O}_\alpha$, and each $\mathcal{O}_\alpha$ is open. Then there are finitely many of the open sets $\mathcal{O}_{\alpha_1},\mathcal{O}_{\alpha_2},\dots,\mathcal{O}_{\alpha_N}$, such that $E\subset\bigcup_{j=1}^{N}\mathcal{O}_{\alpha_j}$.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;In words, &lt;em&gt;any&lt;/em&gt; covering of a compact set by a collection of open sets contains a &lt;em&gt;finite&lt;/em&gt; subcovering.&lt;/p&gt;
+
+&lt;p&gt;A point $x\in\mathbb{R}^d$ is a &lt;strong&gt;limit point&lt;/strong&gt; of the set $E$ if for every $r&amp;gt;0$, the ball $B_r(x)$ contains points of $E$. This means that there are points in $E$ which are arbitrarily close to $x$. An &lt;strong&gt;isolated point&lt;/strong&gt; of $E$ is a point $x\in E$ such that there exists an $r&amp;gt;0$ where $B_r(x)\cap E=\{x\}$.&lt;/p&gt;
+
+&lt;p&gt;A point $x\in E$ is an &lt;strong&gt;interior point&lt;/strong&gt; of $E$ if there exists $r&amp;gt;0$ such that $B_r(x)\subset E$. The set of all interior points of $E$ is called the &lt;strong&gt;interior&lt;/strong&gt; of $E$.&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;closure&lt;/strong&gt; of $E$, denoted as $\bar{E}$, consists the union of $E$ and all its limit points. The &lt;strong&gt;boundary&lt;/strong&gt; of $E$, denoted as $\partial E$, is the set of points which are in the closure of $E$ but not in the interior of $E$.&lt;/p&gt;
+
+&lt;p&gt;A closed set $E$ is &lt;strong&gt;perfect&lt;/strong&gt; if $E$ does not have any isolated point.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Remark&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;The closure of a set is a closed set.&lt;/li&gt;
+  &lt;li&gt;Every point in $E$ is a limit point of $E$.&lt;/li&gt;
+  &lt;li&gt;A set is closed iff it contains all its limit points.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;others&quot;&gt;Others&lt;/h3&gt;
 &lt;p&gt;Given any sequence $x_1,x_2,\ldots\in[0,+\infty]$. We can always form the sum
 \begin{equation}
 \sum_{n=1}^{n}x_n\in[0,+\infty]
@@ -82,7 +147,7 @@ Or moreover, given any bijection $\phi:B\to A$, we has the change of variables f
 \sum_{\alpha\in A}x_\alpha=\sum_{\beta\in B}x_{\phi(\beta)}
 \end{equation}&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Theorem 1&lt;/strong&gt; (&lt;strong&gt;Tonelli’s theorem for series&lt;/strong&gt;)&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Theorem 2&lt;/strong&gt;. (&lt;strong&gt;Tonelli’s theorem for series&lt;/strong&gt;)&lt;br /&gt;
 &lt;em&gt;Let $(x_{n,m})_{n,m\in\mathbb{N}}$ be a doubly infinite sequence of extended nonnegative reals $x_{n,m}\in[0,+\infty]$. Then&lt;/em&gt;
 \begin{equation}
 \sum_{(n,m)\in\mathbb{N}^2}x_{n,m}=\sum_{n=1}^{\infty}\sum_{m=1}^{\infty}x_{n,m}=\sum_{m=1}^{\infty}\sum_{n=1}^{\infty}x_{n,m}
@@ -117,10 +182,10 @@ Fix $N$, we have since each $\sum_{m=1}^{\infty}$ is the limit of $\sum_{m=1}^{M
 \end{equation}
 which is true for all finite $M,N$. And it concludes our proof.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Axiom 2&lt;/strong&gt; (&lt;strong&gt;Axiom of choice&lt;/strong&gt;)&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Axiom 3&lt;/strong&gt;. (&lt;strong&gt;Axiom of choice&lt;/strong&gt;)&lt;br /&gt;
 &lt;em&gt;Let $(E_\alpha)_{\alpha\in A}$ be a family of non-empty set $E_\alpha$, indexed by an index set $A$. Then we can find a family $(x_\alpha)_{\alpha\in A}$ of elements $x_\alpha$ of $E_\alpha$, indexed by the same set $A$.&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Corollary 3&lt;/strong&gt; (&lt;strong&gt;Axiom of countable choice&lt;/strong&gt;)&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Corollary 4&lt;/strong&gt;. (&lt;strong&gt;Axiom of countable choice&lt;/strong&gt;)&lt;br /&gt;
 &lt;em&gt;Let $E_1,E_2,\ldots$ be a sequence of non-empty sets. Then we can find a sequence $x_1,x_2,\ldots$ such that $x_n\in E_n,\forall n=1,2,\ldots$.&lt;/em&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;elementary-measure&quot;&gt;Elementary measure&lt;/h2&gt;
@@ -195,7 +260,7 @@ which is an elementary set.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;measure-elementary-set&quot;&gt;Measure of an elementary set&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Lemma 4&lt;/strong&gt;&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Lemma 5&lt;/strong&gt;&lt;br /&gt;
 &lt;em&gt;Let $E\subset\mathbb{R}^d$ be an elementary set&lt;/em&gt;.&lt;/p&gt;
 &lt;ul id=&quot;roman-list&quot; style=&quot;font-style: italic;&quot;&gt;
 	&lt;li&gt;$E$ &lt;i&gt;can be expressed as the finite union of disjoint boxes.&lt;/i&gt;&lt;/li&gt;
@@ -317,7 +382,7 @@ Without loss of generality, assume that $d_1\leq d_2$. With their definitions as
 \begin{align}
 E_1&amp;amp;=B_1\cup\dots\cup B_{k_1}, \\ E_2&amp;amp;=B_1’\cup\dots\cup B_{k_2}’,
 \end{align}
-where each $B_i$ is a $d_1$-dimensional box while each $B_i’$ is a $d_2$-dimensional box. And using &lt;strong&gt;Lemma 4&lt;/strong&gt;, without loss of generality, we can assume that $B_i$ are disjoint boxes and $B_i’$ are also disjoint, which implies that
+where each $B_i$ is a $d_1$-dimensional box while each $B_i’$ is a $d_2$-dimensional box. And using &lt;strong&gt;Lemma 5&lt;/strong&gt;, without loss of generality, we can assume that $B_i$ are disjoint boxes and $B_i’$ are also disjoint, which implies that
 \begin{align}
 m^{d_1}(E_1)&amp;amp;=m^{d_1}(B_1)+\dots+m^{d_1}(B_{k_1}),\tag{1}\label{1} \\ m^{d_2}(E_2)&amp;amp;=m^{d_2}(B_1’)+\dots+m^{d_2}(B_{k_2}’)\tag{2}\label{2}
 \end{align}
@@ -456,7 +521,7 @@ m_{*,(J)}(E)=m^{*,(J)}(E),
 or in other words, $E$ is Jordan measurable.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;Corollary 5&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Corollary 6&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;Every elementary set $E$ is Jordan measurable.&lt;/li&gt;
   &lt;li&gt;On elementary sets, Jordan measure is elementary measure.&lt;/li&gt;
@@ -614,6 +679,8 @@ m^{*}(E)\doteq\inf_{\bigcup_{n=1}^{\infty}B_n\supset E;B_1,B_2,\dots\text{ boxes
 \end{equation}
 which is be seen as the infimal cost required to cover $E$ by a countable union of boxes.&lt;/p&gt;
 
+&lt;p&gt;&lt;strong&gt;Remark&lt;/strong&gt;. we always have $m^*(E)\leq m^{*,(J)}(E)$.&lt;/p&gt;
+
 &lt;p&gt;A set $E\subset\mathbb{R}^d$ is said to be &lt;strong&gt;Lebesgue measurable&lt;/strong&gt; if, for every $\varepsilon&amp;gt;0$, there exists an open set $U\subset\mathbb{R}^d$ containing $E$ such that $m^{*}(U\backslash E)\leq\varepsilon$. If $E$ is Lebesgue measurable, we refer to
 \begin{equation}
 m(E)\doteq m^{*}(E)
@@ -621,7 +688,7 @@ m(E)\doteq m^{*}(E)
 as the &lt;strong&gt;Lebesgue measure&lt;/strong&gt; of $E$.&lt;/p&gt;
 
 &lt;h3 id=&quot;lebesgue-outer-measure-properties&quot;&gt;Properties of Lebesgue outer measure&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Remark&lt;/strong&gt; (&lt;strong&gt;The outer measure axioms&lt;/strong&gt;)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Remark&lt;/strong&gt;. (&lt;strong&gt;The outer measure axioms&lt;/strong&gt;)&lt;/p&gt;
 &lt;ul id=&quot;roman-list&quot;&gt;
 	&lt;li&gt;&lt;b&gt;Empty set&lt;/b&gt;. $m^*(\emptyset)=0$.&lt;/li&gt;
 	&lt;li&gt;&lt;b&gt;Monotonicity&lt;/b&gt;. If $E\subset F\subset\mathbb{R}^d$, then $m^*(E)\leq m^*(F)$.&lt;/li&gt;
@@ -630,14 +697,127 @@ as the &lt;strong&gt;Lebesgue measure&lt;/strong&gt; of $E$.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 &lt;ul id=&quot;roman-list&quot;&gt;
-	&lt;li&gt;&lt;/li&gt;
+	&lt;li&gt;We have&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;Corollary 6&lt;/strong&gt;&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Corollary 7&lt;/strong&gt;&lt;br /&gt;
 Combining empty set with countable subadditivity axiom gives us the finite subadditivity property
 \begin{equation}
 m^{*}\left(E_1\cup\ldots\cup E_k\right)\leq m^{*}(E_1)+\ldots+m^{*}(E_k),\hspace{1cm}\forall k\geq 0
 \end{equation}&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Lemma 8&lt;/strong&gt;. (&lt;strong&gt;Finite additivity for separated sets&lt;/strong&gt;)&lt;br /&gt;
+&lt;em&gt;Let $E,F\subset\mathbb{R}^d$ be such that $\text{dist}(E,F)&amp;gt;0$, where
+\begin{equation}
+\text{dist}(E,F)\doteq\inf\left\{\vert x-y\vert:x\in E,y\in F\right\}
+\end{equation}
+is the distance between $E$ and $F$. Then $m^*(E\cup F)=m^*(E)+m^*(F)$.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
+From subadditivity property, we have $m^*(E\cup F)\leq m^*(E)+m^*(F)$. Then it suffices to prove the inverse, that
+\begin{equation}
+m^*(E\cup F)\geq m^*(E)+m^*(F)
+\end{equation}
+Let $\varepsilon&amp;gt;0$. By definition of Lebesgue outer measure, we can cover $E\cup F$ by a countable family $B_1,B_2,\ldots$ of boxes such that
+\begin{equation}
+\sum_{n=1}^{\infty}\vert B_n\vert\leq m^*(E\cup F)+\varepsilon
+\end{equation}
+Suppose it was the case that each box intersected at most one of $E$ and $F$. Then we could divide this family into two subfamilies $B_1’,B_2’,\ldots$ and $B_1&apos;&apos;,B_2&apos;&apos;,B_3&apos;&apos;,\ldots$, the first of which covered $E$, while the second of which covered $F$. From definition of Lebesgue outer measure, we have
+\begin{equation}
+m^*(E)\leq\sum_{n=1}^{\infty}\vert B_n’\vert
+\end{equation}
+and
+\begin{equation}
+m^*(F)\leq\sum_{n=1}^{\infty}\vert B_n&apos;&apos;\vert
+\end{equation}
+Summing up these two equation, we obtain
+\begin{equation}
+m^*(E)+m^*(F)\leq\sum_{n=1}^{\infty}\vert B_n\vert
+\end{equation}
+and thus
+\begin{equation}
+m^*(E)+m^*(F)\leq m^*(E\cup F)+\varepsilon
+\end{equation}
+Since $\varepsilon$ was arbitrary, this gives $m^*(E)+m^*(F)\leq m^*(E\cup F)$ as required.&lt;/p&gt;
+
+&lt;p&gt;[TODO]&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Lemma 9&lt;/strong&gt;. (&lt;strong&gt;Outer measure of elementary sets&lt;/strong&gt;)&lt;br /&gt;
+&lt;em&gt;Let $E$ be an elementary set. Then the Lebesgue outer measure $m^*(E)$ of $E$ is equal to the elementary measure of $E$:&lt;/em&gt;
+\begin{equation}
+m^*(E)=m(E)
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
+Since
+\begin{equation}
+m^*(E)\leq m^{*,(J)}(E)=m(E),
+\end{equation}
+then it suffices to show that
+\begin{equation}
+m(E)\leq m^*(E)
+\end{equation}
+We first consider the case that $E$ is closed. Since $E$ is elementary, $E$ is also bounded, which implies that $E$ is compact.&lt;/p&gt;
+
+&lt;p&gt;Let $\varepsilon&amp;gt;0$ be arbitrary, then we can find a countable family $B_1,B_2,\ldots$ of boxes that cover $E$
+\begin{equation}
+E\subset\bigcup_{n=1}^{\infty}B_n,
+\end{equation}
+such that
+\begin{equation}
+\sum_{n=1}^{\infty}\vert B_n\vert\leq m^*+\varepsilon
+\end{equation}
+We have that for each box $B_n$, we can find an open box $B_n’$ containing $B_n$ such that
+\begin{equation}
+\vert B_n’\vert\leq\vert B_n\vert+\frac{\varepsilon}{2^n}
+\end{equation}
+The $B_n’$ still cover $E$ and we have
+\begin{equation}
+\sum_{n=1}^{\infty}\vert B_n’\vert\leq\sum_{n=1}^{\infty}\left(\vert B_n\vert+\frac{\varepsilon}{2^n}\right)=\left(\sum_{n=1}^{\infty}\vert B_n\vert\right)+\varepsilon\leq m^*(E)+2\varepsilon\tag{11}\label{11}
+\end{equation}
+As the $B_n’$ are open, apply the &lt;strong&gt;Heine-Borel theorem&lt;/strong&gt; (&lt;strong&gt;Theorem 1&lt;/strong&gt;), we obtain
+\begin{equation}
+E\subset\bigcup_{n=1}^{N}B_n’,
+\end{equation}
+for some finite $N$. Thus, using the finite subadditivity property of elementary measure, combined with the result \eqref{11}, we obtain
+\begin{equation}
+m(E)\leq\sum_{n=1}^{N}m(B_n’)\leq m^*(E)+2\varepsilon
+\end{equation}
+And since $\varepsilon&amp;gt;0$ was arbitrary, we can conclude that
+\begin{equation}
+m(E)\leq m^*(E)
+\end{equation}
+Now we turn to considering the case that $E$ is not closed. Then we can write $E$ as the finite union of disjoint boxes
+\begin{equation}
+E=Q_1\cup\ldots\cup Q_k,
+\end{equation}
+which need not be closed.&lt;/p&gt;
+
+&lt;p&gt;Analogy to before, we have that for every $\varepsilon&amp;gt;0$ and every $1\leq j\leq k$, we can find a closed sub-box $Q_j’$ of $Q_j$ such that
+\begin{equation}
+\vert Q_j’\vert\geq\vert Q_j\vert-\frac{\varepsilon}{k}
+\end{equation}
+Then $E$ now contains the finite union of $Q_1’\cup\ldots\cup Q_k’$ disjoint closed boxes, which is a closed elementary set. By the finite additivity property of elementary measure, the monotonicity property of Lebesgue measure, combined with the result we have proved in the first case, we have
+\begin{align}
+m^*(E)&amp;amp;\geq m^*(Q_1’\cup\ldots\cup Q_k’) \\ &amp;amp;=m(Q_1’\cup\ldots\cup Q_k’) \\ &amp;amp;=m(Q_1’)+\ldots+m(Q_k’) \\ &amp;amp;\geq m(Q_1)+\ldots+m(Q_k)-\varepsilon \\ &amp;amp;= m(E)-\varepsilon,
+\end{align}
+for every $\varepsilon&amp;gt;0$. And since $\varepsilon&amp;gt;0$ was arbitrary, our claim has been proved.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Corollary 10&lt;/strong&gt;&lt;br /&gt;
+From the lemma above and the monotonicity property, we have
+\begin{equation}
+m_{*,(J)}(E)\leq m^{*}(E)\leq m^{*,(J)}(E),
+\end{equation}
+for every $E\in\mathbb{R}^d$.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Lemma 11&lt;/strong&gt;. (&lt;strong&gt;Outer measure of countable unions of almost disjoint boxes&lt;/strong&gt;)&lt;br /&gt;
+&lt;em&gt;Let $E=\bigcup_{n=1}^{\infty}B_n$ be a countable union of almost disjoint boxes $B_1,B_2,\ldots$. Then&lt;/em&gt;
+\begin{equation}
+m^*(E)=\sum_{n=1}^{\infty}\vert B_n\vert
+\end{equation}
+Thus, for example, $\mathbb{R}^d$ has an infinite outer measure.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;lebesgue-measurability&quot;&gt;Lebesgue measurability&lt;/h3&gt;
 
