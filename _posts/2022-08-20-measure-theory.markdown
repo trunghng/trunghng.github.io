@@ -14,6 +14,7 @@ comments: true
 	- [Points, sets](#pts-sets)
 	- [Open, closed, compact sets](#open-closed-compact-sets)
 	- [Rectangles, cubes](#rects-cubes)
+	- [The Cantor set](#cantor-set)
 	- [Others](#others)
 - [Elementary measure](#elementary-measure)
 	- [Intervals, boxes, elementary sets](#intervals-boxes-elementary-sets)
@@ -124,26 +125,43 @@ A **cube** is a rectangle for which $b_1-a_1=\ldots=b_d-a_d$.
 
 A union of rectangles is said to be **almost disjoint** if the interiors of the rectangles are disjoint.
 
-**Lemma 1**  
+**Lemma 2**  
 *If a rectangle is the almost disjoint union of finitely many other rectangles, say $R=\bigcup_{k=1}^{N}R_k$, then*
 \begin{equation}
 \vert R\vert=\sum_{k=1}^{N}\vert R_k\vert
 \end{equation} 
 
-**Proof**  
-
-**Lemma 2**  
+**Lemma 3**  
 *If $R,R_1,\ldots,R_N$ are rectangles, and $R\subset\bigcup_{k=1}^{N}R_k$, then*
 \begin{equation}
 \vert R\vert\leq\sum_{k=1}^{N}\vert R_k\vert
 \end{equation}
 
-**Theorem 3**  
+**Theorem 4**  
 *Every open $\mathcal{O}\subset\mathbb{R}$ can be written uniquely as a countable union of disjoint open intervals*.
 
-**Proof**  
+**Theorem 5**  
+*Every open $\mathcal{O}\subset\mathbb{R}^d,d\geq 1$, can be written as countable union of almost disjoint closed cubes*.
 
-
+### The Cantor set
+{: #cantor-set}
+Let $C_0=[0,1]$ denote the closed unit interval and let $C_1$ represent the set obtained from deleting the middle third open interval from $[0,1]$, as
+\begin{equation}
+C_1=[0,1/3]\cup[2/3,1]
+\end{equation}
+We repeat this procedure of deleting the middle third open interval for each subinterval of $C_1$. In the second stage we obtain
+\begin{equation}
+C_1=[0,1/9]\cup[2/9,1/3]\cup[2/3,7/9]\cup[8/9,1]
+\end{equation}
+We continue to repeat this process for each subinterval of $C_2$, and so on. The result of this process is a sequence $(C_k)\_{k=0,1,\ldots}$ of compact sets with
+\begin{equation}
+C_0\supset C_1\supset C_2\supset\ldots\supset C_k\supset C_{k+1}\supset\ldots
+\end{equation}
+The **Cantor set** $\mathcal{C}$ is defined as the intersection of all $C_k$'s
+\begin{equation}
+\mathcal{C}=\bigcap_{k=0}^{\infty}C_k
+\end{equation}
+The set $\mathcal{C}$ is not empty, since all end-points of the intervals in $C_k$ (all $k$) belong to $\mathcal{C}$.
 
 ### Others
 {: #others}
@@ -164,7 +182,7 @@ Or moreover, given any bijection $\phi:B\to A$, we has the change of variables f
 \sum_{\alpha\in A}x_\alpha=\sum_{\beta\in B}x_{\phi(\beta)}
 \end{equation}
 
-**Theorem 2**. (**Tonelli's theorem for series**)  
+**Theorem 6**. (**Tonelli's theorem for series**)  
 *Let $(x_{n,m})\_{n,m\in\mathbb{N}}$ be a doubly infinite sequence of extended nonnegative reals $x_{n,m}\in[0,+\infty]$. Then*
 \begin{equation}
 \sum_{(n,m)\in\mathbb{N}^2}x_{n,m}=\sum_{n=1}^{\infty}\sum_{m=1}^{\infty}x_{n,m}=\sum_{m=1}^{\infty}\sum_{n=1}^{\infty}x_{n,m}
@@ -199,10 +217,10 @@ Fix $N$, we have since each $\sum_{m=1}^{\infty}$ is the limit of $\sum_{m=1}^{M
 \end{equation}
 which is true for all finite $M,N$. And it concludes our proof.
 
-**Axiom 3**. (**Axiom of choice**)  
+**Axiom 7**. (**Axiom of choice**)  
 *Let $(E_\alpha)\_{\alpha\in A}$ be a family of non-empty set $E_\alpha$, indexed by an index set $A$. Then we can find a family $(x_\alpha)\_{\alpha\in A}$ of elements $x_\alpha$ of $E_\alpha$, indexed by the same set $A$.*
 
-**Corollary 4**. (**Axiom of countable choice**)  
+**Corollary 8**. (**Axiom of countable choice**)  
 *Let $E_1,E_2,\ldots$ be a sequence of non-empty sets. Then we can find a sequence $x_1,x_2,\ldots$ such that $x_n\in E_n,\forall n=1,2,\ldots$.*
 
 ## Elementary measure
@@ -276,7 +294,7 @@ which is an elementary set.
 
 ### Measure of an elementary set
 {: #measure-elementary-set}
-**Lemma 5**  
+**Lemma 9**  
 *Let $E\subset\mathbb{R}^d$ be an elementary set*.
 <ul id="roman-list" style='font-style: italic;'>
 	<li>$E$ <i>can be expressed as the finite union of disjoint boxes.</i></li>
@@ -536,7 +554,7 @@ m_{\*,(J)}(E)=m^{\*,(J)}(E),
 \end{equation}
 or in other words, $E$ is Jordan measurable.
 
-**Corollary 6**  
+**Corollary 10**  
 - Every elementary set $E$ is Jordan measurable.
 - On elementary sets, Jordan measure is elementary measure.
 
@@ -723,13 +741,13 @@ as the **Lebesgue measure** of $E$.
 	<li>We have</li>
 </ul>
 
-**Corollary 7**  
+**Corollary 11**  
 Combining empty set with countable subadditivity axiom gives us the finite subadditivity property
 \begin{equation}
 m^{\*}\left(E_1\cup\ldots\cup E_k\right)\leq m^{\*}(E_1)+\ldots+m^{\*}(E_k),\hspace{1cm}\forall k\geq 0
 \end{equation}
 
-**Lemma 8**. (**Finite additivity for separated sets**)  
+**Lemma 12**. (**Finite additivity for separated sets**)  
 *Let $E,F\subset\mathbb{R}^d$ be such that $\text{dist}(E,F)>0$, where
 \begin{equation}
 \text{dist}(E,F)\doteq\inf\left\\{\vert x-y\vert:x\in E,y\in F\right\\}
@@ -765,7 +783,7 @@ Since $\varepsilon$ was arbitrary, this gives $m^\*(E)+m^\*(F)\leq m^\*(E\cup F)
 
 [TODO]
 
-**Lemma 9**. (**Outer measure of elementary sets**)  
+**Lemma 13**. (**Outer measure of elementary sets**)  
 *Let $E$ be an elementary set. Then the Lebesgue outer measure $m^\*(E)$ of $E$ is equal to the elementary measure of $E$:*
 \begin{equation}
 m^\*(E)=m(E)
@@ -798,7 +816,7 @@ The $B_n'$ still cover $E$ and we have
 \begin{equation}
 \sum_{n=1}^{\infty}\vert B_n'\vert\leq\sum_{n=1}^{\infty}\left(\vert B_n\vert+\frac{\varepsilon}{2^n}\right)=\left(\sum_{n=1}^{\infty}\vert B_n\vert\right)+\varepsilon\leq m^\*(E)+2\varepsilon\tag{11}\label{11}
 \end{equation}
-As the $B_n'$ are open, apply the **Heine-Borel theorem** (**Theorem 1**), we obtain
+As the $B_n'$ are open, apply the **Heine-Borel theorem** (**Theorem 5**), we obtain
 \begin{equation}
 E\subset\bigcup_{n=1}^{N}B_n',
 \end{equation}
@@ -826,7 +844,7 @@ m^\*(E)&\geq m^\*(Q_1'\cup\ldots\cup Q_k') \\\\ &=m(Q_1'\cup\ldots\cup Q_k') \\\
 \end{align}
 for every $\varepsilon>0$. And since $\varepsilon>0$ was arbitrary, our claim has been proved.
 
-**Corollary 10**  
+**Corollary 14**  
 From the lemma above and the monotonicity property, we have
 \begin{equation}
 m_{\*,(J)}(E)\leq m^{\*}(E)\leq m^{\*,(J)}(E),
@@ -841,7 +859,7 @@ m(B_1\cup\ldots\cup B_n)=\vert B_1\vert+\ldots+\vert B_n\vert\tag{12}\label{12}
 \end{equation}
 also holds for almost disjoint boxes $B_1,\ldots,B_n$.
 
-**Lemma 11**. (**Outer measure of countable unions of almost disjoint boxes**)  
+**Lemma 15**. (**Outer measure of countable unions of almost disjoint boxes**)  
 *Let $E=\bigcup_{n=1}^{\infty}B_n$ be a countable union of almost disjoint boxes $B_1,B_2,\ldots$. Then*
 \begin{equation}
 m^\*(E)=\sum_{n=1}^{\infty}\vert B_n\vert
@@ -849,7 +867,7 @@ m^\*(E)=\sum_{n=1}^{\infty}\vert B_n\vert
 Thus, for example, $\mathbb{R}^d$ has an infinite outer measure.
 
 **Proof**  
-From countable subadditivity property of Lebesgue measure and **Lemma 9**, we have
+From countable subadditivity property of Lebesgue measure and **Lemma 13**, we have
 \begin{equation}
 m^\*(E)\leq\sum_{n=1}^{\infty}m^\*(B_n)=\sum_{n=1}^{\infty}\vert B_n\vert,
 \end{equation}
@@ -857,7 +875,7 @@ so it suffices to show that
 \begin{equation}
 \sum_{n=1}^{\infty}\vert B_n\vert\leq m^\*(E)
 \end{equation}
-Since for each integer $N$, $E$ contains the elementary set $B_1\cup\ldots\cup B_N$, then by monotonicity property and **Lemma 9**
+Since for each integer $N$, $E$ contains the elementary set $B_1\cup\ldots\cup B_N$, then by monotonicity property and **Lemma 13**
 \begin{align}
 m^\*(E)&\geq m^\*(B_1\cup\ldots\cup B_N)=m(B_1\cup\ldots\cup B_N)
 \end{align}
@@ -867,13 +885,13 @@ And thus by \eqref{12}, we have
 \end{equation}
 Letting $N\to\infty$ we obtain the claim.
 
-**Corollary 12**  
+**Corollary 16**  
 If $E=\bigcup_{n=1}^{\infty}B_n=\bigcup_{n=1}^{\infty}B_n'$ can be decomposed in two different ways as the countable union of almost disjoint boxes, then
 \begin{equation}
 \sum_{n=1}^{\infty}\vert B_n\vert=\sum_{n=1}^{\infty}\vert B_n'\vert
 \end{equation}
 
-**Lemma 13**  
+**Lemma 17**  
 *Let $E\subset\mathbb{R}^d$ be an open set. Then $E$ can be expressed as the countable union of almost disjoint boxes (and, in fact, as the countable union of almost disjoint closed cubes)*.
 
 **Proof**  

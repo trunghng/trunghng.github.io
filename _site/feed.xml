@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-25T20:24:55+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-25T20:45:39+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">The Convergence of Q-learning</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/21/q-learning-convergence.html" rel="alternate" type="text/html" title="The Convergence of Q-learning" /><published>2022-08-21T07:00:00+07:00</published><updated>2022-08-21T07:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/21/q-learning-convergence</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/21/q-learning-convergence.html">&lt;blockquote&gt;
   &lt;p&gt;A note on convergence proofs for Q-learning by exploiting the connection with stochastic approximation and the idea of parallel asynchronous.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -31,6 +31,7 @@
       &lt;li&gt;&lt;a href=&quot;#pts-sets&quot;&gt;Points, sets&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#open-closed-compact-sets&quot;&gt;Open, closed, compact sets&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#rects-cubes&quot;&gt;Rectangles, cubes&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#cantor-set&quot;&gt;The Cantor set&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#others&quot;&gt;Others&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
@@ -157,24 +158,42 @@ A &lt;strong&gt;cube&lt;/strong&gt; is a rectangle for which $b_1-a_1=\ldots=b_d
 
 &lt;p&gt;A union of rectangles is said to be &lt;strong&gt;almost disjoint&lt;/strong&gt; if the interiors of the rectangles are disjoint.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Lemma 1&lt;/strong&gt;&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Lemma 2&lt;/strong&gt;&lt;br /&gt;
 &lt;em&gt;If a rectangle is the almost disjoint union of finitely many other rectangles, say $R=\bigcup_{k=1}^{N}R_k$, then&lt;/em&gt;
 \begin{equation}
 \vert R\vert=\sum_{k=1}^{N}\vert R_k\vert
 \end{equation}&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Lemma 2&lt;/strong&gt;&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Lemma 3&lt;/strong&gt;&lt;br /&gt;
 &lt;em&gt;If $R,R_1,\ldots,R_N$ are rectangles, and $R\subset\bigcup_{k=1}^{N}R_k$, then&lt;/em&gt;
 \begin{equation}
 \vert R\vert\leq\sum_{k=1}^{N}\vert R_k\vert
 \end{equation}&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Theorem 3&lt;/strong&gt;&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Theorem 4&lt;/strong&gt;&lt;br /&gt;
 &lt;em&gt;Every open $\mathcal{O}\subset\mathbb{R}$ can be written uniquely as a countable union of disjoint open intervals&lt;/em&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Theorem 5&lt;/strong&gt;&lt;br /&gt;
+&lt;em&gt;Every open $\mathcal{O}\subset\mathbb{R}^d,d\geq 1$, can be written as countable union of almost disjoint closed cubes&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;cantor-set&quot;&gt;The Cantor set&lt;/h3&gt;
+&lt;p&gt;Let $C_0=[0,1]$ denote the closed unit interval and let $C_1$ represent the set obtained from deleting the middle third open interval from $[0,1]$, as
+\begin{equation}
+C_1=[0,1/3]\cup[2/3,1]
+\end{equation}
+We repeat this procedure of deleting the middle third open interval for each subinterval of $C_1$. In the second stage we obtain
+\begin{equation}
+C_1=[0,1/9]\cup[2/9,1/3]\cup[2/3,7/9]\cup[8/9,1]
+\end{equation}
+We continue to repeat this process for each subinterval of $C_2$, and so on. The result of this process is a sequence $(C_k)_{k=0,1,\ldots}$ of compact sets with
+\begin{equation}
+C_0\supset C_1\supset C_2\supset\ldots\supset C_k\supset C_{k+1}\supset\ldots
+\end{equation}
+The &lt;strong&gt;Cantor set&lt;/strong&gt; $\mathcal{C}$ is defined as the intersection of all $C_k$’s
+\begin{equation}
+\mathcal{C}=\bigcap_{k=0}^{\infty}C_k
+\end{equation}
+The set $\mathcal{C}$ is not empty, since all end-points of the intervals in $C_k$ (all $k$) belong to $\mathcal{C}$.&lt;/p&gt;
 
 &lt;h3 id=&quot;others&quot;&gt;Others&lt;/h3&gt;
 &lt;p&gt;Given any sequence $x_1,x_2,\ldots\in[0,+\infty]$. We can always form the sum
@@ -194,7 +213,7 @@ Or moreover, given any bijection $\phi:B\to A$, we has the change of variables f
 \sum_{\alpha\in A}x_\alpha=\sum_{\beta\in B}x_{\phi(\beta)}
 \end{equation}&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Theorem 2&lt;/strong&gt;. (&lt;strong&gt;Tonelli’s theorem for series&lt;/strong&gt;)&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Theorem 6&lt;/strong&gt;. (&lt;strong&gt;Tonelli’s theorem for series&lt;/strong&gt;)&lt;br /&gt;
 &lt;em&gt;Let $(x_{n,m})_{n,m\in\mathbb{N}}$ be a doubly infinite sequence of extended nonnegative reals $x_{n,m}\in[0,+\infty]$. Then&lt;/em&gt;
 \begin{equation}
 \sum_{(n,m)\in\mathbb{N}^2}x_{n,m}=\sum_{n=1}^{\infty}\sum_{m=1}^{\infty}x_{n,m}=\sum_{m=1}^{\infty}\sum_{n=1}^{\infty}x_{n,m}
@@ -229,10 +248,10 @@ Fix $N$, we have since each $\sum_{m=1}^{\infty}$ is the limit of $\sum_{m=1}^{M
 \end{equation}
 which is true for all finite $M,N$. And it concludes our proof.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Axiom 3&lt;/strong&gt;. (&lt;strong&gt;Axiom of choice&lt;/strong&gt;)&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Axiom 7&lt;/strong&gt;. (&lt;strong&gt;Axiom of choice&lt;/strong&gt;)&lt;br /&gt;
 &lt;em&gt;Let $(E_\alpha)_{\alpha\in A}$ be a family of non-empty set $E_\alpha$, indexed by an index set $A$. Then we can find a family $(x_\alpha)_{\alpha\in A}$ of elements $x_\alpha$ of $E_\alpha$, indexed by the same set $A$.&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Corollary 4&lt;/strong&gt;. (&lt;strong&gt;Axiom of countable choice&lt;/strong&gt;)&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Corollary 8&lt;/strong&gt;. (&lt;strong&gt;Axiom of countable choice&lt;/strong&gt;)&lt;br /&gt;
 &lt;em&gt;Let $E_1,E_2,\ldots$ be a sequence of non-empty sets. Then we can find a sequence $x_1,x_2,\ldots$ such that $x_n\in E_n,\forall n=1,2,\ldots$.&lt;/em&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;elementary-measure&quot;&gt;Elementary measure&lt;/h2&gt;
@@ -307,7 +326,7 @@ which is an elementary set.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;measure-elementary-set&quot;&gt;Measure of an elementary set&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Lemma 5&lt;/strong&gt;&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Lemma 9&lt;/strong&gt;&lt;br /&gt;
 &lt;em&gt;Let $E\subset\mathbb{R}^d$ be an elementary set&lt;/em&gt;.&lt;/p&gt;
 &lt;ul id=&quot;roman-list&quot; style=&quot;font-style: italic;&quot;&gt;
 	&lt;li&gt;$E$ &lt;i&gt;can be expressed as the finite union of disjoint boxes.&lt;/i&gt;&lt;/li&gt;
@@ -568,7 +587,7 @@ m_{*,(J)}(E)=m^{*,(J)}(E),
 or in other words, $E$ is Jordan measurable.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;Corollary 6&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Corollary 10&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;Every elementary set $E$ is Jordan measurable.&lt;/li&gt;
   &lt;li&gt;On elementary sets, Jordan measure is elementary measure.&lt;/li&gt;
@@ -747,13 +766,13 @@ as the &lt;strong&gt;Lebesgue measure&lt;/strong&gt; of $E$.&lt;/p&gt;
 	&lt;li&gt;We have&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;Corollary 7&lt;/strong&gt;&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Corollary 11&lt;/strong&gt;&lt;br /&gt;
 Combining empty set with countable subadditivity axiom gives us the finite subadditivity property
 \begin{equation}
 m^{*}\left(E_1\cup\ldots\cup E_k\right)\leq m^{*}(E_1)+\ldots+m^{*}(E_k),\hspace{1cm}\forall k\geq 0
 \end{equation}&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Lemma 8&lt;/strong&gt;. (&lt;strong&gt;Finite additivity for separated sets&lt;/strong&gt;)&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Lemma 12&lt;/strong&gt;. (&lt;strong&gt;Finite additivity for separated sets&lt;/strong&gt;)&lt;br /&gt;
 &lt;em&gt;Let $E,F\subset\mathbb{R}^d$ be such that $\text{dist}(E,F)&amp;gt;0$, where
 \begin{equation}
 \text{dist}(E,F)\doteq\inf\left\{\vert x-y\vert:x\in E,y\in F\right\}
@@ -789,7 +808,7 @@ Since $\varepsilon$ was arbitrary, this gives $m^*(E)+m^*(F)\leq m^*(E\cup F)$ a
 
 &lt;p&gt;[TODO]&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Lemma 9&lt;/strong&gt;. (&lt;strong&gt;Outer measure of elementary sets&lt;/strong&gt;)&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Lemma 13&lt;/strong&gt;. (&lt;strong&gt;Outer measure of elementary sets&lt;/strong&gt;)&lt;br /&gt;
 &lt;em&gt;Let $E$ be an elementary set. Then the Lebesgue outer measure $m^*(E)$ of $E$ is equal to the elementary measure of $E$:&lt;/em&gt;
 \begin{equation}
 m^*(E)=m(E)
@@ -822,7 +841,7 @@ The $B_n’$ still cover $E$ and we have
 \begin{equation}
 \sum_{n=1}^{\infty}\vert B_n’\vert\leq\sum_{n=1}^{\infty}\left(\vert B_n\vert+\frac{\varepsilon}{2^n}\right)=\left(\sum_{n=1}^{\infty}\vert B_n\vert\right)+\varepsilon\leq m^*(E)+2\varepsilon\tag{11}\label{11}
 \end{equation}
-As the $B_n’$ are open, apply the &lt;strong&gt;Heine-Borel theorem&lt;/strong&gt; (&lt;strong&gt;Theorem 1&lt;/strong&gt;), we obtain
+As the $B_n’$ are open, apply the &lt;strong&gt;Heine-Borel theorem&lt;/strong&gt; (&lt;strong&gt;Theorem 5&lt;/strong&gt;), we obtain
 \begin{equation}
 E\subset\bigcup_{n=1}^{N}B_n’,
 \end{equation}
@@ -850,7 +869,7 @@ m^*(E)&amp;amp;\geq m^*(Q_1’\cup\ldots\cup Q_k’) \\ &amp;amp;=m(Q_1’\cup\l
 \end{align}
 for every $\varepsilon&amp;gt;0$. And since $\varepsilon&amp;gt;0$ was arbitrary, our claim has been proved.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Corollary 10&lt;/strong&gt;&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Corollary 14&lt;/strong&gt;&lt;br /&gt;
 From the lemma above and the monotonicity property, we have
 \begin{equation}
 m_{*,(J)}(E)\leq m^{*}(E)\leq m^{*,(J)}(E),
@@ -867,7 +886,7 @@ m(B_1\cup\ldots\cup B_n)=\vert B_1\vert+\ldots+\vert B_n\vert\tag{12}\label{12}
 also holds for almost disjoint boxes $B_1,\ldots,B_n$.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;Lemma 11&lt;/strong&gt;. (&lt;strong&gt;Outer measure of countable unions of almost disjoint boxes&lt;/strong&gt;)&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Lemma 15&lt;/strong&gt;. (&lt;strong&gt;Outer measure of countable unions of almost disjoint boxes&lt;/strong&gt;)&lt;br /&gt;
 &lt;em&gt;Let $E=\bigcup_{n=1}^{\infty}B_n$ be a countable union of almost disjoint boxes $B_1,B_2,\ldots$. Then&lt;/em&gt;
 \begin{equation}
 m^*(E)=\sum_{n=1}^{\infty}\vert B_n\vert
@@ -875,7 +894,7 @@ m^*(E)=\sum_{n=1}^{\infty}\vert B_n\vert
 Thus, for example, $\mathbb{R}^d$ has an infinite outer measure.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
-From countable subadditivity property of Lebesgue measure and &lt;strong&gt;Lemma 9&lt;/strong&gt;, we have
+From countable subadditivity property of Lebesgue measure and &lt;strong&gt;Lemma 13&lt;/strong&gt;, we have
 \begin{equation}
 m^*(E)\leq\sum_{n=1}^{\infty}m^*(B_n)=\sum_{n=1}^{\infty}\vert B_n\vert,
 \end{equation}
@@ -883,7 +902,7 @@ so it suffices to show that
 \begin{equation}
 \sum_{n=1}^{\infty}\vert B_n\vert\leq m^*(E)
 \end{equation}
-Since for each integer $N$, $E$ contains the elementary set $B_1\cup\ldots\cup B_N$, then by monotonicity property and &lt;strong&gt;Lemma 9&lt;/strong&gt;
+Since for each integer $N$, $E$ contains the elementary set $B_1\cup\ldots\cup B_N$, then by monotonicity property and &lt;strong&gt;Lemma 13&lt;/strong&gt;
 \begin{align}
 m^*(E)&amp;amp;\geq m^*(B_1\cup\ldots\cup B_N)=m(B_1\cup\ldots\cup B_N)
 \end{align}
@@ -893,13 +912,13 @@ And thus by \eqref{12}, we have
 \end{equation}
 Letting $N\to\infty$ we obtain the claim.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Corollary 12&lt;/strong&gt;&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Corollary 16&lt;/strong&gt;&lt;br /&gt;
 If $E=\bigcup_{n=1}^{\infty}B_n=\bigcup_{n=1}^{\infty}B_n’$ can be decomposed in two different ways as the countable union of almost disjoint boxes, then
 \begin{equation}
 \sum_{n=1}^{\infty}\vert B_n\vert=\sum_{n=1}^{\infty}\vert B_n’\vert
 \end{equation}&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Lemma 13&lt;/strong&gt;&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Lemma 17&lt;/strong&gt;&lt;br /&gt;
 &lt;em&gt;Let $E\subset\mathbb{R}^d$ be an open set. Then $E$ can be expressed as the countable union of almost disjoint boxes (and, in fact, as the countable union of almost disjoint closed cubes)&lt;/em&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
