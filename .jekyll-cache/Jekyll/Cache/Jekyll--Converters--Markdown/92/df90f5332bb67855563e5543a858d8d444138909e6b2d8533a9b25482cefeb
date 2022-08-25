@@ -1,153 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-<link href="https://fonts.googleapis.com/css?family=Merriweather:400,900,900i" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<style type="text/css">
-  #button {
-    display: inline-block;
-    background-color: #A5CCF1;
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    border-radius: 4px;
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    transition: background-color .3s, 
-      opacity .5s, visibility .5s;
-    opacity: 0;
-    visibility: hidden;
-    z-index: 1000;
-  }
-  #button::after {
-    content: "\f077";
-    font-family: FontAwesome;
-    font-weight: normal;
-    font-style: normal;
-    font-size: 2em;
-    line-height: 50px;
-    color: #fff;
-  }
-  #button:hover {
-    cursor: pointer;
-    background-color: #333;
-    text-decoration: none;
-  }
-  #button:active {
-    background-color: #555;
-  }
-  #button.show {
-    opacity: 1;
-    visibility: visible;
-  }
-</style><head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Measure theory | Trung’s cabin</title>
-<meta name="generator" content="Jekyll v4.2.1" />
-<meta property="og:title" content="Measure theory" />
-<meta name="author" content="Trung H. Nguyen" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="Note on measure theory" />
-<meta property="og:description" content="Note on measure theory" />
-<link rel="canonical" href="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory.html" />
-<meta property="og:url" content="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory.html" />
-<meta property="og:site_name" content="Trung’s cabin" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2022-08-20T13:00:00+07:00" />
-<meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Measure theory" />
-<script type="application/ld+json">
-{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","description":"Note on measure theory","headline":"Measure theory","dateModified":"2022-08-20T13:00:00+07:00","datePublished":"2022-08-20T13:00:00+07:00","url":"http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory.html"},"@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Trung&apos;s cabin" />
-    
-
-
-
-
-
-  
-
-<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
-<link rel="manifest" href="/assets/images/site.webmanifest">
-<link rel="mask-icon" href="/assets/images/safari-pinned-tab.svg" color="#5bbad5">
-<meta name="msapplication-TileColor" content="#da532c">
-<meta name="theme-color" content="#ffffff"></head>
-<body><header class="site-header">
-  <div class="snorlax"></div>
-
-  <div class="wrapper"><a class="site-title" rel="author" href="/">Trung&#39;s cabin</a><nav class="site-nav">
-        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
-        <label for="nav-trigger">
-          <span class="menu-icon">
-            <svg viewBox="0 0 18 15" width="18px" height="15px">
-              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
-            </svg>
-          </span>
-        </label>
-
-        <div class="trigger"><a class="page-link" href="/archive/">Archive</a><a class="page-link" href="/about/">About</a></div>
-      </nav></div>
-</header>
-<main class="page-content" aria-label="Content">
-      <a id="button"></a>
-      <div class="wrapper">
-        <style>
-@import "/assets/css/default.css"
-</style>
-<style>
-  .collapsible {
-    background-color: #A5CCF1;
-    color: white;
-    cursor: pointer;
-    padding: 5px;
-    /*width: 100%;*/
-    border: none;
-    text-align: center;
-    outline: none;
-    font-size: 15px;
-  }
-
-  .active, .collapsible:hover {
-    background-color: #82B9EE;
-  }
-
-  .codePanel {
-    padding: 0 18px;
-    display: none;
-    overflow: hidden;
-    background-color: #f1f1f1;
-  }
-</style>
-<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <header class="post-header">
-    <meta name="description" content="Note on measure theory">
-    <h1 class="post-title p-name" itemprop="name headline">Measure theory</h1>
-    <p><span>
-      
-        
-        <a href="/tag/mathematics"><code class="highligher-rouge"><nobr>mathematics</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/measure-theory"><code class="highligher-rouge"><nobr>measure-theory</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/random-stuffs"><code class="highligher-rouge"><nobr>random-stuffs</nobr></code>&nbsp;</a>
-      
-    </span></p>
-    <p class="post-meta"><time class="dt-published" datetime="2022-08-20T13:00:00+07:00" itemprop="datePublished">
-        Aug 20, 2022
-      </time></p>
-  </header>
-
-  <div class="post-content e-content" itemprop="articleBody">
-    <blockquote>
+I"�u<blockquote>
   <p>A note on measure theory 
 <!-- excerpt-end --></p>
 </blockquote>
@@ -192,7 +43,7 @@
 </ul>
 
 <h2 id="preliminaries">Preliminaries</h2>
-<p>Given any sequence $x_1,x_2,\ldots\in[0,+\infty]$. We can always form the sum
+<p>Given any sequence $x_1,x_2,\dots\in[0,+\infty]$. We can always form the sum
 \begin{equation}
 \sum_{n=1}^{n}x_n\in[0,+\infty]
 \end{equation}
@@ -210,7 +61,7 @@ Or moreover, given any bijection $\phi:B\to A$, we has the change of variables f
 \end{equation}</p>
 
 <p><strong>Theorem 1</strong> (<strong>Tonelli’s theorem for series</strong>)<br />
-<em>Let $(x_{n,m})_{n,m\in\mathbb{N}}$ be a doubly infinite sequence of extended nonnegative reals $x_{n,m}\in[0,+\infty]$. Then</em>
+Let $(x_{n,m})_{n,m\in\mathbb{N}}$ be a doubly infinite sequence of extended nonnegative reals $x_{n,m}\in[0,+\infty]$. Then
 \begin{equation}
 \sum_{(n,m)\in\mathbb{N}^2}x_{n,m}=\sum_{n=1}^{\infty}\sum_{m=1}^{\infty}x_{n,m}=\sum_{m=1}^{\infty}\sum_{n=1}^{\infty}x_{n,m}
 \end{equation}</p>
@@ -222,9 +73,9 @@ We will prove the equality between the first and second expression, the proof fo
 \begin{equation}
 \sum_{(n,m)\in\mathbb{N}^2}x_{n,m}\leq\sum_{n=1}^{\infty}\sum_{m=1}^{\infty}x_{n,m}
 \end{equation}
-Let $F\subset\mathbb{N}^2$ be any finite set. Then $F\subset\{1,\ldots,N\}\times\{1,\ldots,N\}$ for some finite $N$. Since $x_{n,m}$ are nonnegative, we have
+Let $F\subset\mathbb{N}^2$ be any finite set. Then $F\subset\{1,\dots,N\}\times\{1,\dots,N\}$ for some finite $N$. Since $x_{n,m}$ are nonnegative, we have
 \begin{align}
-\sum_{(n,m)\in F}x_{n,m}&amp;\leq\sum_{(n,m)\in\{1,\ldots,N\}\times\{1,\ldots,N\}}x_{n,m} \\ &amp;=\sum_{n=1}^{N}\sum_{m=1}^{N}x_{n,m} \\ &amp;\leq\sum_{n=1}^{\infty}\sum_{m=1}^{\infty}x_{n,m},
+\sum_{(n,m)\in F}x_{n,m}&amp;\leq\sum_{(n,m)\in\{1,\dots,N\}\times\{1,\dots,N\}}x_{n,m} \\ &amp;=\sum_{n=1}^{N}\sum_{m=1}^{N}x_{n,m} \\ &amp;\leq\sum_{n=1}^{\infty}\sum_{m=1}^{\infty}x_{n,m},
 \end{align}
 for any finite subset $F$ of $\mathbb{R}^2$. Then by \eqref{1}, we have
 \begin{equation}
@@ -237,18 +88,7 @@ The problem now remains to prove that
 which will be proved if we can show that
 \begin{equation}
 \sum_{(n,m)\in\mathbb{N}^2}x_{n,m}\geq\sum_{n=1}^{N}\sum_{m=1}^{\infty}x_{n,m}
-\end{equation}
-Fix $N$, we have since each $\sum_{m=1}^{\infty}$ is the limit of $\sum_{m=1}^{M}x_{n,m}$, LHS is the limit of $\sum_{n=1}^{N}\sum_{m=1}^{M}x_{n,m}$ as $M\to\infty$. Thus, it suffices to show that for each finite $M$
-\begin{equation}
-\sum_{(n,m)\in\mathbb{N}^2}x_{n,m}\geq\sum_{n=1}^{N}\sum_{m=1}^{M}x_{n,m}=\sum_{(n,m)\in\{1,\ldots,N\}\times\{1,ldots,M\}}x_{n,m}
-\end{equation}
-which is true for all finite $M,N$. And it concludes our proof.</p>
-
-<p><strong>Axiom 2</strong> (<strong>Axiom of choice</strong>)<br />
-<em>Let $(E_\alpha)_{\alpha\in A}$ be a family of non-empty set $E_\alpha$, indexed by an index set $A$. Then we can find a family $(x_\alpha)_{\alpha\in A}$ of elements $x_\alpha$ of $E_\alpha$, indexed by the same set $A$.</em></p>
-
-<p><strong>Corollary 3</strong> (<strong>Axiom of countable choice</strong>)<br />
-<em>Let $E_1,E_2,\ldots$ be a sequence of non-empty sets. Then we can find a sequence $x_1,x_2,\ldots$ such that $x_n\in E_n,\forall n=1,2,\ldots$.</em></p>
+\end{equation}</p>
 
 <h2 id="elementary-measure">Elementary measure</h2>
 
@@ -262,9 +102,9 @@ The <strong>length</strong> of an interval $I=[a,b],[a,b),(a,b],(a,b)$ is denote
 \begin{equation}
 \vert I\vert\doteq b-a
 \end{equation}
-A <strong>box</strong> in $\mathbb{R}^d$ is a Cartesian product $B\doteq I_1\times\ldots\times I_d$ of $d$ intervals $I_1,\ldots,I_d$ (not necessarily the same length). The <strong>volume</strong> $\vert B\vert$ of such a box $B$ is defined as
+A <strong>box</strong> in $\mathbb{R}^d$ is a Cartesian product $B\doteq I_1\times\dots\times I_d$ of $d$ intervals $I_1,\dots,I_d$ (not necessarily the same length). The <strong>volume</strong> $\vert B\vert$ of such a box $B$ is defined as
 \begin{equation}
-\vert B\vert\doteq \vert I_1\vert\times\ldots\times\vert I_d\vert
+\vert B\vert\doteq \vert I_1\vert\times\dots\times\vert I_d\vert
 \end{equation}
 An <strong>elementary set</strong> is any subset of $\mathbb{R}^d$ which is the union of a finite number of boxes.</p>
 
@@ -281,23 +121,23 @@ are also elementary. If $x\in\mathbb{R}^d$, then the translate $E+x\doteq\{y+x:y
 <p><strong>Solution</strong><br />
 With their definitions as elementary sets, we can assume that
 \begin{align}
-E&amp;=B_1\cup\ldots\cup B_k, \\ F&amp;=B_1’\cup\ldots\cup B_{k’}’,
+E&amp;=B_1\cup\dots\cup B_k, \\ F&amp;=B_1’\cup\dots\cup B_{k’}’,
 \end{align}
 where each $B_i$ and $B_i’$ is a $d$-dimensional box. By set theory, we have that</p>
 <ul>
   <li>The union of $E$ and $F$ can be written as
 \begin{equation}
-E\cup F=B_1\cup\ldots\cup B_k\cup B_1’\cup\ldots\cup B_{k’}’,
+E\cup F=B_1\cup\dots\cup B_k\cup B_1’\cup\dots\cup B_{k’}’,
 \end{equation}
 which is an elementary set.</li>
   <li>The intersection of $E$ and $F$ can be written as
 \begin{align}
-E\cap F&amp;=\left(B_1\cup\ldots\cup B_k\right)\cup\left(B_1’\cup\ldots\cup B_{k’}’\right) \\ &amp;=\bigcup_{i=1}^{k}\bigcup_{j=1}^{k’}\left(B_i\cap B_j’\right),
+E\cap F&amp;=\left(B_1\cup\dots\cup B_k\right)\cup\left(B_1’\cup\dots\cup B_{k’}’\right) \\ &amp;=\bigcup_{i=1}^{k}\bigcup_{j=1}^{k’}\left(B_i\cap B_j’\right),
 \end{align}
 which is also an elementary set.</li>
   <li>The set theoretic difference of $E$ and $F$ can be written as
 \begin{align}
-E\backslash F&amp;=\left(B_1\cup\ldots\cup B_k\right)\backslash\left(B_1’\cup\ldots\cup B_{k’}’\right) \\ &amp;=\bigcup_{i=1}^{k}\bigcup_{j=1}^{k’}\left(B_i\backslash B_j’\right),
+E\backslash F&amp;=\left(B_1\cup\dots\cup B_k\right)\backslash\left(B_1’\cup\dots\cup B_{k’}’\right) \\ &amp;=\bigcup_{i=1}^{k}\bigcup_{j=1}^{k’}\left(B_i\backslash B_j’\right),
 \end{align}
 which is, once again, an elementary set.</li>
   <li>With this display, the symmetric difference of $E$ and $F$ can be written as
@@ -307,27 +147,27 @@ E\Delta F&amp;=\left(E\backslash F\right)\cup\left(F\backslash E\right) \\ &amp;
 which satisfies conditions of an elementary set.</li>
   <li>Since $B_i$’s are $d$-dimensional boxes, we can express them as
 \begin{equation}
-B_i=I_{i,1}\times\ldots I_{i,d},
+B_i=I_{i,1}\times\dots I_{i,d},
 \end{equation}
-where each $I_{i,j}$ is an interval in $\mathbb{R}^d$. Without loss of generality, we assume that they are all closed. In particular, for $j=1,\ldots,d$
+where each $I_{i,j}$ is an interval in $\mathbb{R}^d$. Without loss of generality, we assume that they are all closed. In particular, for $j=1,\dots,d$
 \begin{equation}
 I_{i,j}=(a_{i,j},b_{i,j})
 \end{equation}
 Thus, for any $x\in\mathbb{R}^d$, we have that
 \begin{align}
-E+x&amp;=\left\{y+x:y\in E\right\} \\ &amp;=\Big\{y+x:y\in B_1\cup\ldots\cup B_k\Big\} \\ &amp;=\Big\{y+x:y\in\bigcup_{i=1}^{k}B_i\Big\} \\ &amp;=\left\{y+x:y\in\bigcup_{i=1}^{k}\bigcup_{j=1}^{d}(a_{i,j},b_{i,j})\right\} \\ &amp;=\bigcup_{i=1}^{k}\bigcup_{j=1}^{d}(a_{i,j}+x,b_{i,j}+x),
+E+x&amp;=\left\{y+x:y\in E\right\} \\ &amp;=\Big\{y+x:y\in B_1\cup\dots\cup B_k\Big\} \\ &amp;=\Big\{y+x:y\in\bigcup_{i=1}^{k}B_i\Big\} \\ &amp;=\left\{y+x:y\in\bigcup_{i=1}^{k}\bigcup_{j=1}^{d}(a_{i,j},b_{i,j})\right\} \\ &amp;=\bigcup_{i=1}^{k}\bigcup_{j=1}^{d}(a_{i,j}+x,b_{i,j}+x),
 \end{align}
 which is an elementary set.</li>
 </ul>
 
 <h3 id="measure-elementary-set">Measure of an elementary set</h3>
-<p><strong>Lemma 4</strong><br />
-<em>Let $E\subset\mathbb{R}^d$ be an elementary set</em>.</p>
-<ul id="roman-list" style="font-style: italic;">
-	<li>$E$ <i>can be expressed as the finite union of disjoint boxes.</i></li>
-	<li>If $E$ is partitioned as the finite union $B_1\cup\ldots\cup B_k$ of disjoint boxes, then the quantity $m(E)\doteq\vert B_1\vert+\ldots+\vert B_k\vert$ is independent of the partition. In other words, given any other partition $B_1'\cup\ldots\cup B_{k'}'$ of $E$, we have</li>
+<p><strong>Lemma 1</strong><br />
+Let $E\subset\mathbb{R}^d$ be an elementary set</p>
+<ul id="roman-list">
+	<li>$E$ can be expressed as the finite union of disjoint boxes</li>
+	<li>If $E$ is partitioned as the finite union $B_1\cup\dots\cup B_k$ of disjoint boxes, then the quantity $m(E)\doteq\vert B_1\vert+\dots+\vert B_k\vert$ is independent of the partition. In other words, given any other partition $B_1'\cup\dots\cup B_{k'}'$ of $E$, we have</li>
 	\begin{equation}
-	\vert B_1\vert+\ldots+\vert B_k\vert=\vert B_1'\vert+\ldots+\vert B_{k'}'\vert
+	\vert B_1\vert+\dots+\vert B_k\vert=\vert B_1'\vert+\dots+\vert B_{k'}'\vert
 	\end{equation}
 </ul>
 
@@ -443,7 +283,7 @@ Without loss of generality, assume that $d_1\leq d_2$. With their definitions as
 \begin{align}
 E_1&amp;=B_1\cup\dots\cup B_{k_1}, \\ E_2&amp;=B_1’\cup\dots\cup B_{k_2}’,
 \end{align}
-where each $B_i$ is a $d_1$-dimensional box while each $B_i’$ is a $d_2$-dimensional box. And using <strong>Lemma 4</strong>, without loss of generality, we can assume that $B_i$ are disjoint boxes and $B_i’$ are also disjoint, which implies that
+where each $B_i$ is a $d_1$-dimensional box while each $B_i’$ is a $d_2$-dimensional box. And using <strong>Lemma 1</strong>, without loss of generality, we can assume that $B_i$ are disjoint boxes and $B_i’$ are also disjoint, which implies that
 \begin{align}
 m^{d_1}(E_1)&amp;=m^{d_1}(B_1)+\dots+m^{d_1}(B_{k_1}),\tag{1}\label{1} \\ m^{d_2}(E_2)&amp;=m^{d_2}(B_1’)+\dots+m^{d_2}(B_{k_2}’)\tag{2}\label{2}
 \end{align}
@@ -701,23 +541,6 @@ m(E)\doteq m^{*}(E)
 as the <strong>Lebesgue measure</strong> of $E$.</p>
 
 <h3 id="lebesgue-outer-measure-properties">Properties of Lebesgue outer measure</h3>
-<p><strong>Remark</strong> (<strong>The outer measure axioms</strong>)</p>
-<ul id="roman-list">
-	<li><b>Empty set</b>. $m^*(\emptyset)=0$.</li>
-	<li><b>Monotonicity</b>. If $E\subset F\subset\mathbb{R}^d$, then $m^*(E)\leq m^*(F)$.</li>
-	<li><b>Countable subadditivity</b>. If $E_1,E_2,\ldots\subset\mathbb{R}^d$ is a countable sequence of sets, then $m^*\left(\bigcup_{n=1}^{\infty}E_n\right)\leq\sum_{n=1}^{\infty}m^*(E_n)$.</li>
-</ul>
-
-<p><strong>Proof</strong></p>
-<ul id="roman-list">
-	<li></li>
-</ul>
-
-<p><strong>Corollary</strong><br />
-Combining empty set with countable subadditivity axiom gives us the finite subadditivity property
-\begin{equation}
-m^{*}\left(E_1\cup\ldots\cup E_k\right)\leq m^{*}(E_1)+\ldots+m^{*}(E_k),\hspace{1cm}\forall k\geq 0
-\end{equation}</p>
 
 <h3 id="lebesgue-measurability">Lebesgue measurability</h3>
 
@@ -729,111 +552,4 @@ m^{*}\left(E_1\cup\ldots\cup E_k\right)\leq m^{*}(E_1)+\ldots+m^{*}(E_k),\hspace
 <p>[2] Elias M. Stein &amp; Rami Shakarchi. <a href="#http://www.cmat.edu.uy/~mordecki/courses/medida2013/book.pdf">Real Analysis: Measure Theory, Integration, and Hilbert Spaces</a>.</p>
 
 <h2 id="footnotes">Footnotes</h2>
-
-  </div>
-<div id="disqus_thread"></div>
-<script>
-    /**
-    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
-    
-    var disqus_config = function () {
-    this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
-    this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-    };
-    
-    (function() { // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-    s.src = 'https://https-trunghng-github-io.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-
-<script id="dsq-count-scr" src="//https-trunghng-github-io.disqus.com/count.js" async></script>
-
-  <a class="u-url" href="/mathematics/measure-theory/2022/08/20/measure-theory.html" hidden></a>
-</article>
- <!-- mathjax javascript -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
-  "HTML-CSS": {availableFonts: []}
-  });
-</script>
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-<script>
-  var coll = document.getElementsByClassName("collapsible");
-  var i;
-  for (i = 0; i < coll.length; i++) {
-    coll[i].addEventListener("click", function() {
-      this.classList.toggle("active");
-      var content = document.getElementById(this.id+"data");
-      var btn = document.getElementById(this.id)
-      if (content.style.display === "block") {
-        content.style.display = "none";
-        btn.innerText = "Click to show the code";
-      } else {
-        content.style.display = "block";
-        btn.innerText = "Click to hide the code"
-      }
-    });
-  }
-</script>
-
-      </div>
-
-    </main><footer class="site-footer h-card">
-  <data class="u-url" href="/"></data>
-
-  <div class="wrapper">
-
-    <div class="footer-col-wrapper">
-      <div class="footer-col">
-        <p class="feed-subscribe">
-          <a href="/feed.xml">
-            <svg class="svg-icon orange">
-              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
-            </svg><span>Subscribe</span>
-          </a>
-        </p>
-        <ul class="contact-list">
-          <li class="p-name">Trung H. Nguyen</li>
-          <li><a class="u-email" href="mailto:trung.skipper@gmail.com">trung.skipper@gmail.com</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <p>To document something I&#39;ve learned
-</p>
-      </div>
-    </div>
-
-    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/trunghng" title="trunghng"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
-</div>
-
-  </div>
-
-</footer>
-</body>
-
-</html>
-<script type="text/javascript">
-  var btn = $('#button');
-
-  $(window).scroll(function() {
-    if ($(window).scrollTop() > 300) {
-      btn.addClass('show');
-    } else {
-      btn.removeClass('show');
-    }
-  });
-
-  btn.on('click', function(e) {
-    e.preventDefault();
-    $('html, body').animate({scrollTop:0}, '300');
-  });
-</script>
+:ET

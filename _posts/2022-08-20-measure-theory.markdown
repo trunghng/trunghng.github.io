@@ -10,7 +10,7 @@ comments: true
 > A note on measure theory 
 <!-- excerpt-end -->
 
-
+- [Preliminaries](#preliminaries)
 - [Elementary measure](#elementary-measure)
 	- [Intervals, boxes, elementary sets](#intervals-boxes-elementary-sets)
 	- [Measure of an elementary set](#measure-elementary-set)
@@ -32,6 +32,66 @@ comments: true
 - [References](#references)
 - [Footnotes](#footnotes)
 
+## Preliminaries
+{: #preliminaries}
+Given any sequence $x_1,x_2,\ldots\in[0,+\infty]$. We can always form the sum
+\begin{equation}
+\sum_{n=1}^{n}x_n\in[0,+\infty]
+\end{equation}
+as the limit of the partial sums $\sum_{n=1}^{N}x_n$, which may be either finite or infinite. An equivalence definition of this infinite sum is as the supremum of all finite subsums:
+\begin{equation}
+\sum_{n=1}^{\infty}x_n=\sup_{F\subset\mathbb{N},F\text{ finite}}\sum_{n\in F}x_n
+\end{equation}
+From this equation, given any collection $(x_\alpha)\_{\alpha\in A}$ of numbers $x_\alpha\in[0,+\infty]$ indexed by an arbitrary set $A$, we can define the sum $\sum_{\alpha\in A}x_\alpha$ as
+\begin{equation}
+\sum_{\alpha\in A}x_\alpha=\sup_{F\subset A,F\text{ finite}}\sum_{\alpha\in F}x_\alpha
+\end{equation}
+Or moreover, given any bijection $\phi:B\to A$, we has the change of variables formula
+\begin{equation}
+\sum_{\alpha\in A}x_\alpha=\sum_{\beta\in B}x_{\phi(\beta)}
+\end{equation}
+
+**Theorem 1** (**Tonelli's theorem for series**)  
+*Let $(x_{n,m})\_{n,m\in\mathbb{N}}$ be a doubly infinite sequence of extended nonnegative reals $x_{n,m}\in[0,+\infty]$. Then*
+\begin{equation}
+\sum_{(n,m)\in\mathbb{N}^2}x_{n,m}=\sum_{n=1}^{\infty}\sum_{m=1}^{\infty}x_{n,m}=\sum_{m=1}^{\infty}\sum_{n=1}^{\infty}x_{n,m}
+\end{equation}
+
+**Proof**  
+We will prove the equality between the first and second expression, the proof for the equality between the first and the third one is similar.
+
+We begin by showing that
+\begin{equation}
+\sum_{(n,m)\in\mathbb{N}^2}x_{n,m}\leq\sum_{n=1}^{\infty}\sum_{m=1}^{\infty}x_{n,m}
+\end{equation}
+Let $F\subset\mathbb{N}^2$ be any finite set. Then $F\subset\\{1,\ldots,N\\}\times\\{1,\ldots,N\\}$ for some finite $N$. Since $x_{n,m}$ are nonnegative, we have
+\begin{align}
+\sum_{(n,m)\in F}x_{n,m}&\leq\sum_{(n,m)\in\\{1,\ldots,N\\}\times\\{1,\ldots,N\\}}x_{n,m} \\\\ &=\sum_{n=1}^{N}\sum_{m=1}^{N}x_{n,m} \\\\ &\leq\sum_{n=1}^{\infty}\sum_{m=1}^{\infty}x_{n,m},
+\end{align}
+for any finite subset $F$ of $\mathbb{R}^2$. Then by \eqref{1}, we have
+\begin{equation}
+\sum_{(n,m)\in\mathbb{N}^2}x_{n,m}=\sup_{F\subset\mathbb{N}^2,F\text{ finite}}x_{n,m}\leq\sum_{n=1}^{\infty}\sum_{m=1}^{\infty}x_{n,m}
+\end{equation}
+The problem now remains to prove that
+\begin{equation}
+\sum_{(n,m)\in\mathbb{N}^2}x_{n,m}\geq\sum_{n=1}^{\infty}\sum_{m=1}^{\infty}x_{n,m},
+\end{equation}
+which will be proved if we can show that
+\begin{equation}
+\sum_{(n,m)\in\mathbb{N}^2}x_{n,m}\geq\sum_{n=1}^{N}\sum_{m=1}^{\infty}x_{n,m}
+\end{equation}
+Fix $N$, we have since each $\sum_{m=1}^{\infty}$ is the limit of $\sum_{m=1}^{M}x_{n,m}$, LHS is the limit of $\sum_{n=1}^{N}\sum_{m=1}^{M}x_{n,m}$ as $M\to\infty$. Thus, it suffices to show that for each finite $M$
+\begin{equation}
+\sum_{(n,m)\in\mathbb{N}^2}x_{n,m}\geq\sum_{n=1}^{N}\sum_{m=1}^{M}x_{n,m}=\sum_{(n,m)\in\\{1,\ldots,N\\}\times\\{1,ldots,M\\}}x_{n,m}
+\end{equation}
+which is true for all finite $M,N$. And it concludes our proof.
+
+**Axiom 2** (**Axiom of choice**)  
+*Let $(E_\alpha)\_{\alpha\in A}$ be a family of non-empty set $E_\alpha$, indexed by an index set $A$. Then we can find a family $(x_\alpha)\_{\alpha\in A}$ of elements $x_\alpha$ of $E_\alpha$, indexed by the same set $A$.*
+
+**Corollary 3** (**Axiom of countable choice**)  
+*Let $E_1,E_2,\ldots$ be a sequence of non-empty sets. Then we can find a sequence $x_1,x_2,\ldots$ such that $x_n\in E_n,\forall n=1,2,\ldots$.*
+
 ## Elementary measure
 {: #elementary-measure}
 
@@ -46,9 +106,9 @@ The **length** of an interval $I=[a,b],[a,b),(a,b],(a,b)$ is denoted as $\vert I
 \begin{equation}
 \vert I\vert\doteq b-a
 \end{equation}
-A **box** in $\mathbb{R}^d$ is a Cartesian product $B\doteq I_1\times\dots\times I_d$ of $d$ intervals $I_1,\dots,I_d$ (not necessarily the same length). The **volume** $\vert B\vert$ of such a box $B$ is defined as
+A **box** in $\mathbb{R}^d$ is a Cartesian product $B\doteq I_1\times\ldots\times I_d$ of $d$ intervals $I_1,\ldots,I_d$ (not necessarily the same length). The **volume** $\vert B\vert$ of such a box $B$ is defined as
 \begin{equation}
-\vert B\vert\doteq \vert I_1\vert\times\dots\times\vert I_d\vert
+\vert B\vert\doteq \vert I_1\vert\times\ldots\times\vert I_d\vert
 \end{equation}
 An **elementary set** is any subset of $\mathbb{R}^d$ which is the union of a finite number of boxes.
 
@@ -63,22 +123,22 @@ are also elementary. If $x\in\mathbb{R}^d$, then the translate $E+x\doteq\\{y+x:
 **Solution**  
 With their definitions as elementary sets, we can assume that
 \begin{align}
-E&=B_1\cup\dots\cup B_k, \\\\ F&=B_1'\cup\dots\cup B_{k'}',
+E&=B_1\cup\ldots\cup B_k, \\\\ F&=B_1'\cup\ldots\cup B_{k'}',
 \end{align}
 where each $B_i$ and $B_i'$ is a $d$-dimensional box. By set theory, we have that
 - The union of $E$ and $F$ can be written as
 \begin{equation}
-E\cup F=B_1\cup\dots\cup B_k\cup B_1'\cup\dots\cup B_{k'}',
+E\cup F=B_1\cup\ldots\cup B_k\cup B_1'\cup\ldots\cup B_{k'}',
 \end{equation}
 which is an elementary set.
 - The intersection of $E$ and $F$ can be written as
 \begin{align}
-E\cap F&=\left(B_1\cup\dots\cup B_k\right)\cup\left(B_1'\cup\dots\cup B_{k'}'\right) \\\\ &=\bigcup_{i=1}^{k}\bigcup_{j=1}^{k'}\left(B_i\cap B_j'\right),
+E\cap F&=\left(B_1\cup\ldots\cup B_k\right)\cup\left(B_1'\cup\ldots\cup B_{k'}'\right) \\\\ &=\bigcup_{i=1}^{k}\bigcup_{j=1}^{k'}\left(B_i\cap B_j'\right),
 \end{align}
 which is also an elementary set.
 - The set theoretic difference of $E$ and $F$ can be written as
 \begin{align}
-E\backslash F&=\left(B_1\cup\dots\cup B_k\right)\backslash\left(B_1'\cup\dots\cup B_{k'}'\right) \\\\ &=\bigcup_{i=1}^{k}\bigcup_{j=1}^{k'}\left(B_i\backslash B_j'\right),
+E\backslash F&=\left(B_1\cup\ldots\cup B_k\right)\backslash\left(B_1'\cup\ldots\cup B_{k'}'\right) \\\\ &=\bigcup_{i=1}^{k}\bigcup_{j=1}^{k'}\left(B_i\backslash B_j'\right),
 \end{align}
 which is, once again, an elementary set.
 - With this display, the symmetric difference of $E$ and $F$ can be written as
@@ -88,27 +148,27 @@ E\Delta F&=\left(E\backslash F\right)\cup\left(F\backslash E\right) \\\\ &=\Bigg
 which satisfies conditions of an elementary set.
 - Since $B_i$'s are $d$-dimensional boxes, we can express them as
 \begin{equation}
-B_i=I_{i,1}\times\dots I_{i,d},
+B_i=I_{i,1}\times\ldots I_{i,d},
 \end{equation}
-where each $I_{i,j}$ is an interval in $\mathbb{R}^d$. Without loss of generality, we assume that they are all closed. In particular, for $j=1,\dots,d$
+where each $I_{i,j}$ is an interval in $\mathbb{R}^d$. Without loss of generality, we assume that they are all closed. In particular, for $j=1,\ldots,d$
 \begin{equation}
 I_{i,j}=(a_{i,j},b_{i,j})
 \end{equation}
 Thus, for any $x\in\mathbb{R}^d$, we have that
 \begin{align}
-E+x&=\left\\{y+x:y\in E\right\\} \\\\ &=\Big\\{y+x:y\in B_1\cup\dots\cup B_k\Big\\} \\\\ &=\Big\\{y+x:y\in\bigcup_{i=1}^{k}B_i\Big\\} \\\\ &=\left\\{y+x:y\in\bigcup_{i=1}^{k}\bigcup_{j=1}^{d}(a_{i,j},b_{i,j})\right\\} \\\\ &=\bigcup_{i=1}^{k}\bigcup_{j=1}^{d}(a_{i,j}+x,b_{i,j}+x),
+E+x&=\left\\{y+x:y\in E\right\\} \\\\ &=\Big\\{y+x:y\in B_1\cup\ldots\cup B_k\Big\\} \\\\ &=\Big\\{y+x:y\in\bigcup_{i=1}^{k}B_i\Big\\} \\\\ &=\left\\{y+x:y\in\bigcup_{i=1}^{k}\bigcup_{j=1}^{d}(a_{i,j},b_{i,j})\right\\} \\\\ &=\bigcup_{i=1}^{k}\bigcup_{j=1}^{d}(a_{i,j}+x,b_{i,j}+x),
 \end{align}
 which is an elementary set.
 
 ### Measure of an elementary set
 {: #measure-elementary-set}
-**Lemma 1**  
-Let $E\subset\mathbb{R}^d$ be an elementary set  
-<ul id="roman-list">
-	<li>$E$ can be expressed as the finite union of disjoint boxes</li>
-	<li>If $E$ is partitioned as the finite union $B_1\cup\dots\cup B_k$ of disjoint boxes, then the quantity $m(E)\doteq\vert B_1\vert+\dots+\vert B_k\vert$ is independent of the partition. In other words, given any other partition $B_1'\cup\dots\cup B_{k'}'$ of $E$, we have</li>
+**Lemma 4**  
+*Let $E\subset\mathbb{R}^d$ be an elementary set*.
+<ul id="roman-list" style='font-style: italic;'>
+	<li>$E$ <i>can be expressed as the finite union of disjoint boxes.</i></li>
+	<li>If $E$ is partitioned as the finite union $B_1\cup\ldots\cup B_k$ of disjoint boxes, then the quantity $m(E)\doteq\vert B_1\vert+\ldots+\vert B_k\vert$ is independent of the partition. In other words, given any other partition $B_1'\cup\ldots\cup B_{k'}'$ of $E$, we have</li>
 	\begin{equation}
-	\vert B_1\vert+\dots+\vert B_k\vert=\vert B_1'\vert+\dots+\vert B_{k'}'\vert
+	\vert B_1\vert+\ldots+\vert B_k\vert=\vert B_1'\vert+\ldots+\vert B_{k'}'\vert
 	\end{equation}
 </ul>
 
@@ -225,7 +285,7 @@ Without loss of generality, assume that $d_1\leq d_2$. With their definitions as
 \begin{align}
 E_1&=B_1\cup\dots\cup B_{k_1}, \\\\ E_2&=B_1'\cup\dots\cup B_{k_2}',
 \end{align}
-where each $B_i$ is a $d_1$-dimensional box while each $B_i'$ is a $d_2$-dimensional box. And using **Lemma 1**, without loss of generality, we can assume that $B_i$ are disjoint boxes and $B_i'$ are also disjoint, which implies that
+where each $B_i$ is a $d_1$-dimensional box while each $B_i'$ is a $d_2$-dimensional box. And using **Lemma 4**, without loss of generality, we can assume that $B_i$ are disjoint boxes and $B_i'$ are also disjoint, which implies that
 \begin{align}
 m^{d_1}(E_1)&=m^{d_1}(B_1)+\dots+m^{d_1}(B_{k_1}),\tag{1}\label{1} \\\\ m^{d_2}(E_2)&=m^{d_2}(B_1')+\dots+m^{d_2}(B_{k_2}')\tag{2}\label{2}
 \end{align}
@@ -492,6 +552,23 @@ as the **Lebesgue measure** of $E$.
 
 ### Properties of Lebesgue outer measure
 {: #lebesgue-outer-measure-properties}
+**Remark** (**The outer measure axioms**)
+<ul id='roman-list'>
+	<li><b>Empty set</b>. $m^*(\emptyset)=0$.</li>
+	<li><b>Monotonicity</b>. If $E\subset F\subset\mathbb{R}^d$, then $m^*(E)\leq m^*(F)$.</li>
+	<li><b>Countable subadditivity</b>. If $E_1,E_2,\ldots\subset\mathbb{R}^d$ is a countable sequence of sets, then $m^*\left(\bigcup_{n=1}^{\infty}E_n\right)\leq\sum_{n=1}^{\infty}m^*(E_n)$.</li>
+</ul>
+
+**Proof**  
+<ul id='roman-list'>
+	<li></li>
+</ul>
+
+**Corollary**  
+Combining empty set with countable subadditivity axiom gives us the finite subadditivity property
+\begin{equation}
+m^{\*}\left(E_1\cup\ldots\cup E_k\right)\leq m^{\*}(E_1)+\ldots+m^{\*}(E_k),\hspace{1cm}\forall k\geq 0
+\end{equation}
 
 ### Lebesgue measurability
 {: #lebesgue-measurability}

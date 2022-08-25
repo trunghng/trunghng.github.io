@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-24T18:34:14+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-25T14:04:18+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">The Convergence of Q-learning</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/21/q-learning-convergence.html" rel="alternate" type="text/html" title="The Convergence of Q-learning" /><published>2022-08-21T07:00:00+07:00</published><updated>2022-08-21T07:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/21/q-learning-convergence</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/21/q-learning-convergence.html">&lt;blockquote&gt;
   &lt;p&gt;A note on convergence proofs for Q-learning by exploiting the connection with stochastic approximation and the idea of parallel asynchronous.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -26,6 +26,7 @@
 &lt;/blockquote&gt;
 
 &lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#preliminaries&quot;&gt;Preliminaries&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#elementary-measure&quot;&gt;Elementary measure&lt;/a&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#intervals-boxes-elementary-sets&quot;&gt;Intervals, boxes, elementary sets&lt;/a&gt;&lt;/li&gt;
@@ -63,6 +64,65 @@
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;h2 id=&quot;preliminaries&quot;&gt;Preliminaries&lt;/h2&gt;
+&lt;p&gt;Given any sequence $x_1,x_2,\ldots\in[0,+\infty]$. We can always form the sum
+\begin{equation}
+\sum_{n=1}^{n}x_n\in[0,+\infty]
+\end{equation}
+as the limit of the partial sums $\sum_{n=1}^{N}x_n$, which may be either finite or infinite. An equivalence definition of this infinite sum is as the supremum of all finite subsums:
+\begin{equation}
+\sum_{n=1}^{\infty}x_n=\sup_{F\subset\mathbb{N},F\text{ finite}}\sum_{n\in F}x_n
+\end{equation}
+From this equation, given any collection $(x_\alpha)_{\alpha\in A}$ of numbers $x_\alpha\in[0,+\infty]$ indexed by an arbitrary set $A$, we can define the sum $\sum_{\alpha\in A}x_\alpha$ as
+\begin{equation}
+\sum_{\alpha\in A}x_\alpha=\sup_{F\subset A,F\text{ finite}}\sum_{\alpha\in F}x_\alpha
+\end{equation}
+Or moreover, given any bijection $\phi:B\to A$, we has the change of variables formula
+\begin{equation}
+\sum_{\alpha\in A}x_\alpha=\sum_{\beta\in B}x_{\phi(\beta)}
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Theorem 1&lt;/strong&gt; (&lt;strong&gt;Tonelli’s theorem for series&lt;/strong&gt;)&lt;br /&gt;
+&lt;em&gt;Let $(x_{n,m})_{n,m\in\mathbb{N}}$ be a doubly infinite sequence of extended nonnegative reals $x_{n,m}\in[0,+\infty]$. Then&lt;/em&gt;
+\begin{equation}
+\sum_{(n,m)\in\mathbb{N}^2}x_{n,m}=\sum_{n=1}^{\infty}\sum_{m=1}^{\infty}x_{n,m}=\sum_{m=1}^{\infty}\sum_{n=1}^{\infty}x_{n,m}
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
+We will prove the equality between the first and second expression, the proof for the equality between the first and the third one is similar.&lt;/p&gt;
+
+&lt;p&gt;We begin by showing that
+\begin{equation}
+\sum_{(n,m)\in\mathbb{N}^2}x_{n,m}\leq\sum_{n=1}^{\infty}\sum_{m=1}^{\infty}x_{n,m}
+\end{equation}
+Let $F\subset\mathbb{N}^2$ be any finite set. Then $F\subset\{1,\ldots,N\}\times\{1,\ldots,N\}$ for some finite $N$. Since $x_{n,m}$ are nonnegative, we have
+\begin{align}
+\sum_{(n,m)\in F}x_{n,m}&amp;amp;\leq\sum_{(n,m)\in\{1,\ldots,N\}\times\{1,\ldots,N\}}x_{n,m} \\ &amp;amp;=\sum_{n=1}^{N}\sum_{m=1}^{N}x_{n,m} \\ &amp;amp;\leq\sum_{n=1}^{\infty}\sum_{m=1}^{\infty}x_{n,m},
+\end{align}
+for any finite subset $F$ of $\mathbb{R}^2$. Then by \eqref{1}, we have
+\begin{equation}
+\sum_{(n,m)\in\mathbb{N}^2}x_{n,m}=\sup_{F\subset\mathbb{N}^2,F\text{ finite}}x_{n,m}\leq\sum_{n=1}^{\infty}\sum_{m=1}^{\infty}x_{n,m}
+\end{equation}
+The problem now remains to prove that
+\begin{equation}
+\sum_{(n,m)\in\mathbb{N}^2}x_{n,m}\geq\sum_{n=1}^{\infty}\sum_{m=1}^{\infty}x_{n,m},
+\end{equation}
+which will be proved if we can show that
+\begin{equation}
+\sum_{(n,m)\in\mathbb{N}^2}x_{n,m}\geq\sum_{n=1}^{N}\sum_{m=1}^{\infty}x_{n,m}
+\end{equation}
+Fix $N$, we have since each $\sum_{m=1}^{\infty}$ is the limit of $\sum_{m=1}^{M}x_{n,m}$, LHS is the limit of $\sum_{n=1}^{N}\sum_{m=1}^{M}x_{n,m}$ as $M\to\infty$. Thus, it suffices to show that for each finite $M$
+\begin{equation}
+\sum_{(n,m)\in\mathbb{N}^2}x_{n,m}\geq\sum_{n=1}^{N}\sum_{m=1}^{M}x_{n,m}=\sum_{(n,m)\in\{1,\ldots,N\}\times\{1,ldots,M\}}x_{n,m}
+\end{equation}
+which is true for all finite $M,N$. And it concludes our proof.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Axiom 2&lt;/strong&gt; (&lt;strong&gt;Axiom of choice&lt;/strong&gt;)&lt;br /&gt;
+&lt;em&gt;Let $(E_\alpha)_{\alpha\in A}$ be a family of non-empty set $E_\alpha$, indexed by an index set $A$. Then we can find a family $(x_\alpha)_{\alpha\in A}$ of elements $x_\alpha$ of $E_\alpha$, indexed by the same set $A$.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Corollary 3&lt;/strong&gt; (&lt;strong&gt;Axiom of countable choice&lt;/strong&gt;)&lt;br /&gt;
+&lt;em&gt;Let $E_1,E_2,\ldots$ be a sequence of non-empty sets. Then we can find a sequence $x_1,x_2,\ldots$ such that $x_n\in E_n,\forall n=1,2,\ldots$.&lt;/em&gt;&lt;/p&gt;
+
 &lt;h2 id=&quot;elementary-measure&quot;&gt;Elementary measure&lt;/h2&gt;
 
 &lt;h3 id=&quot;intervals-boxes-elementary-sets&quot;&gt;Intervals, boxes, elementary sets&lt;/h3&gt;
@@ -75,9 +135,9 @@ The &lt;strong&gt;length&lt;/strong&gt; of an interval $I=[a,b],[a,b),(a,b],(a,b
 \begin{equation}
 \vert I\vert\doteq b-a
 \end{equation}
-A &lt;strong&gt;box&lt;/strong&gt; in $\mathbb{R}^d$ is a Cartesian product $B\doteq I_1\times\dots\times I_d$ of $d$ intervals $I_1,\dots,I_d$ (not necessarily the same length). The &lt;strong&gt;volume&lt;/strong&gt; $\vert B\vert$ of such a box $B$ is defined as
+A &lt;strong&gt;box&lt;/strong&gt; in $\mathbb{R}^d$ is a Cartesian product $B\doteq I_1\times\ldots\times I_d$ of $d$ intervals $I_1,\ldots,I_d$ (not necessarily the same length). The &lt;strong&gt;volume&lt;/strong&gt; $\vert B\vert$ of such a box $B$ is defined as
 \begin{equation}
-\vert B\vert\doteq \vert I_1\vert\times\dots\times\vert I_d\vert
+\vert B\vert\doteq \vert I_1\vert\times\ldots\times\vert I_d\vert
 \end{equation}
 An &lt;strong&gt;elementary set&lt;/strong&gt; is any subset of $\mathbb{R}^d$ which is the union of a finite number of boxes.&lt;/p&gt;
 
@@ -94,23 +154,23 @@ are also elementary. If $x\in\mathbb{R}^d$, then the translate $E+x\doteq\{y+x:y
 &lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;br /&gt;
 With their definitions as elementary sets, we can assume that
 \begin{align}
-E&amp;amp;=B_1\cup\dots\cup B_k, \\ F&amp;amp;=B_1’\cup\dots\cup B_{k’}’,
+E&amp;amp;=B_1\cup\ldots\cup B_k, \\ F&amp;amp;=B_1’\cup\ldots\cup B_{k’}’,
 \end{align}
 where each $B_i$ and $B_i’$ is a $d$-dimensional box. By set theory, we have that&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;The union of $E$ and $F$ can be written as
 \begin{equation}
-E\cup F=B_1\cup\dots\cup B_k\cup B_1’\cup\dots\cup B_{k’}’,
+E\cup F=B_1\cup\ldots\cup B_k\cup B_1’\cup\ldots\cup B_{k’}’,
 \end{equation}
 which is an elementary set.&lt;/li&gt;
   &lt;li&gt;The intersection of $E$ and $F$ can be written as
 \begin{align}
-E\cap F&amp;amp;=\left(B_1\cup\dots\cup B_k\right)\cup\left(B_1’\cup\dots\cup B_{k’}’\right) \\ &amp;amp;=\bigcup_{i=1}^{k}\bigcup_{j=1}^{k’}\left(B_i\cap B_j’\right),
+E\cap F&amp;amp;=\left(B_1\cup\ldots\cup B_k\right)\cup\left(B_1’\cup\ldots\cup B_{k’}’\right) \\ &amp;amp;=\bigcup_{i=1}^{k}\bigcup_{j=1}^{k’}\left(B_i\cap B_j’\right),
 \end{align}
 which is also an elementary set.&lt;/li&gt;
   &lt;li&gt;The set theoretic difference of $E$ and $F$ can be written as
 \begin{align}
-E\backslash F&amp;amp;=\left(B_1\cup\dots\cup B_k\right)\backslash\left(B_1’\cup\dots\cup B_{k’}’\right) \\ &amp;amp;=\bigcup_{i=1}^{k}\bigcup_{j=1}^{k’}\left(B_i\backslash B_j’\right),
+E\backslash F&amp;amp;=\left(B_1\cup\ldots\cup B_k\right)\backslash\left(B_1’\cup\ldots\cup B_{k’}’\right) \\ &amp;amp;=\bigcup_{i=1}^{k}\bigcup_{j=1}^{k’}\left(B_i\backslash B_j’\right),
 \end{align}
 which is, once again, an elementary set.&lt;/li&gt;
   &lt;li&gt;With this display, the symmetric difference of $E$ and $F$ can be written as
@@ -120,27 +180,27 @@ E\Delta F&amp;amp;=\left(E\backslash F\right)\cup\left(F\backslash E\right) \\ &
 which satisfies conditions of an elementary set.&lt;/li&gt;
   &lt;li&gt;Since $B_i$’s are $d$-dimensional boxes, we can express them as
 \begin{equation}
-B_i=I_{i,1}\times\dots I_{i,d},
+B_i=I_{i,1}\times\ldots I_{i,d},
 \end{equation}
-where each $I_{i,j}$ is an interval in $\mathbb{R}^d$. Without loss of generality, we assume that they are all closed. In particular, for $j=1,\dots,d$
+where each $I_{i,j}$ is an interval in $\mathbb{R}^d$. Without loss of generality, we assume that they are all closed. In particular, for $j=1,\ldots,d$
 \begin{equation}
 I_{i,j}=(a_{i,j},b_{i,j})
 \end{equation}
 Thus, for any $x\in\mathbb{R}^d$, we have that
 \begin{align}
-E+x&amp;amp;=\left\{y+x:y\in E\right\} \\ &amp;amp;=\Big\{y+x:y\in B_1\cup\dots\cup B_k\Big\} \\ &amp;amp;=\Big\{y+x:y\in\bigcup_{i=1}^{k}B_i\Big\} \\ &amp;amp;=\left\{y+x:y\in\bigcup_{i=1}^{k}\bigcup_{j=1}^{d}(a_{i,j},b_{i,j})\right\} \\ &amp;amp;=\bigcup_{i=1}^{k}\bigcup_{j=1}^{d}(a_{i,j}+x,b_{i,j}+x),
+E+x&amp;amp;=\left\{y+x:y\in E\right\} \\ &amp;amp;=\Big\{y+x:y\in B_1\cup\ldots\cup B_k\Big\} \\ &amp;amp;=\Big\{y+x:y\in\bigcup_{i=1}^{k}B_i\Big\} \\ &amp;amp;=\left\{y+x:y\in\bigcup_{i=1}^{k}\bigcup_{j=1}^{d}(a_{i,j},b_{i,j})\right\} \\ &amp;amp;=\bigcup_{i=1}^{k}\bigcup_{j=1}^{d}(a_{i,j}+x,b_{i,j}+x),
 \end{align}
 which is an elementary set.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;measure-elementary-set&quot;&gt;Measure of an elementary set&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Lemma 1&lt;/strong&gt;&lt;br /&gt;
-Let $E\subset\mathbb{R}^d$ be an elementary set&lt;/p&gt;
-&lt;ul id=&quot;roman-list&quot;&gt;
-	&lt;li&gt;$E$ can be expressed as the finite union of disjoint boxes&lt;/li&gt;
-	&lt;li&gt;If $E$ is partitioned as the finite union $B_1\cup\dots\cup B_k$ of disjoint boxes, then the quantity $m(E)\doteq\vert B_1\vert+\dots+\vert B_k\vert$ is independent of the partition. In other words, given any other partition $B_1&apos;\cup\dots\cup B_{k&apos;}&apos;$ of $E$, we have&lt;/li&gt;
+&lt;p&gt;&lt;strong&gt;Lemma 4&lt;/strong&gt;&lt;br /&gt;
+&lt;em&gt;Let $E\subset\mathbb{R}^d$ be an elementary set&lt;/em&gt;.&lt;/p&gt;
+&lt;ul id=&quot;roman-list&quot; style=&quot;font-style: italic;&quot;&gt;
+	&lt;li&gt;$E$ &lt;i&gt;can be expressed as the finite union of disjoint boxes.&lt;/i&gt;&lt;/li&gt;
+	&lt;li&gt;If $E$ is partitioned as the finite union $B_1\cup\ldots\cup B_k$ of disjoint boxes, then the quantity $m(E)\doteq\vert B_1\vert+\ldots+\vert B_k\vert$ is independent of the partition. In other words, given any other partition $B_1&apos;\cup\ldots\cup B_{k&apos;}&apos;$ of $E$, we have&lt;/li&gt;
 	\begin{equation}
-	\vert B_1\vert+\dots+\vert B_k\vert=\vert B_1&apos;\vert+\dots+\vert B_{k&apos;}&apos;\vert
+	\vert B_1\vert+\ldots+\vert B_k\vert=\vert B_1&apos;\vert+\ldots+\vert B_{k&apos;}&apos;\vert
 	\end{equation}
 &lt;/ul&gt;
 
@@ -256,7 +316,7 @@ Without loss of generality, assume that $d_1\leq d_2$. With their definitions as
 \begin{align}
 E_1&amp;amp;=B_1\cup\dots\cup B_{k_1}, \\ E_2&amp;amp;=B_1’\cup\dots\cup B_{k_2}’,
 \end{align}
-where each $B_i$ is a $d_1$-dimensional box while each $B_i’$ is a $d_2$-dimensional box. And using &lt;strong&gt;Lemma 1&lt;/strong&gt;, without loss of generality, we can assume that $B_i$ are disjoint boxes and $B_i’$ are also disjoint, which implies that
+where each $B_i$ is a $d_1$-dimensional box while each $B_i’$ is a $d_2$-dimensional box. And using &lt;strong&gt;Lemma 4&lt;/strong&gt;, without loss of generality, we can assume that $B_i$ are disjoint boxes and $B_i’$ are also disjoint, which implies that
 \begin{align}
 m^{d_1}(E_1)&amp;amp;=m^{d_1}(B_1)+\dots+m^{d_1}(B_{k_1}),\tag{1}\label{1} \\ m^{d_2}(E_2)&amp;amp;=m^{d_2}(B_1’)+\dots+m^{d_2}(B_{k_2}’)\tag{2}\label{2}
 \end{align}
@@ -514,6 +574,23 @@ m(E)\doteq m^{*}(E)
 as the &lt;strong&gt;Lebesgue measure&lt;/strong&gt; of $E$.&lt;/p&gt;
 
 &lt;h3 id=&quot;lebesgue-outer-measure-properties&quot;&gt;Properties of Lebesgue outer measure&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Remark&lt;/strong&gt; (&lt;strong&gt;The outer measure axioms&lt;/strong&gt;)&lt;/p&gt;
+&lt;ul id=&quot;roman-list&quot;&gt;
+	&lt;li&gt;&lt;b&gt;Empty set&lt;/b&gt;. $m^*(\emptyset)=0$.&lt;/li&gt;
+	&lt;li&gt;&lt;b&gt;Monotonicity&lt;/b&gt;. If $E\subset F\subset\mathbb{R}^d$, then $m^*(E)\leq m^*(F)$.&lt;/li&gt;
+	&lt;li&gt;&lt;b&gt;Countable subadditivity&lt;/b&gt;. If $E_1,E_2,\ldots\subset\mathbb{R}^d$ is a countable sequence of sets, then $m^*\left(\bigcup_{n=1}^{\infty}E_n\right)\leq\sum_{n=1}^{\infty}m^*(E_n)$.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+&lt;ul id=&quot;roman-list&quot;&gt;
+	&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Corollary&lt;/strong&gt;&lt;br /&gt;
+Combining empty set with countable subadditivity axiom gives us the finite subadditivity property
+\begin{equation}
+m^{*}\left(E_1\cup\ldots\cup E_k\right)\leq m^{*}(E_1)+\ldots+m^{*}(E_k),\hspace{1cm}\forall k\geq 0
+\end{equation}&lt;/p&gt;
 
 &lt;h3 id=&quot;lebesgue-measurability&quot;&gt;Lebesgue measurability&lt;/h3&gt;
 
