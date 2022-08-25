@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-25T18:58:51+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-25T20:24:55+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory</title><link href="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory.html" rel="alternate" type="text/html" title="Measure theory" /><published>2022-08-20T13:00:00+07:00</published><updated>2022-08-20T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory.html">&lt;blockquote&gt;
   &lt;p&gt;A note on measure theory 
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -9,6 +9,7 @@
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#pts-sets&quot;&gt;Points, sets&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#open-closed-compact-sets&quot;&gt;Open, closed, compact sets&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#rects-cubes&quot;&gt;Rectangles, cubes&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#others&quot;&gt;Others&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
@@ -107,6 +108,52 @@ Any (not necessarily countable) union of open sets is open, while in general, th
   &lt;li&gt;Every point in $E$ is a limit point of $E$.&lt;/li&gt;
   &lt;li&gt;A set is closed iff it contains all its limit points.&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;h3 id=&quot;rects-cubes&quot;&gt;Rectangles, cubes&lt;/h3&gt;
+&lt;p&gt;A (closed) &lt;strong&gt;rectangle&lt;/strong&gt; $R$ in $\mathbb{R}^d$ is given by the product of $d$ one-dimensional closed and bounded intervals
+\begin{equation}
+R\doteq[a_1,b_1]\times[a_2,b_2]\times\ldots\times[a_d,b_d],
+\end{equation}
+where $a_j\leq b_j$, for $j=1,\ldots,d$, are real numbers. In other words, we have
+\begin{equation}
+R=\left\{\left(x_1,\ldots,x_d\right)\in\mathbb{R}^d:a_j\leq x_j\leq b_j,\forall j=1,\ldots,d\right\}
+\end{equation}
+With this definition, a rectangle is closed and has sides parallel to the coordinate axis. In $\mathbb{R}$, the rectangles are the closed and bounded intervals; they becomes the usual rectangles as we usually see in $\mathbb{R}^2$; while in $\mathbb{R}^3$, they are the closed parallelepipeds.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-08-20/rectangles.png&quot; alt=&quot;Rectangles in R^d&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 500px; height: 370px&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 1&lt;/b&gt;: Rectangles in $\mathbb{R}^d,d=1,2,3$&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;The lengths of the sides of the rectangle $R$ in $\mathbb{R}^d$ are $b_1-a_1,\ldots,b_d-a_d$. The &lt;strong&gt;volume&lt;/strong&gt; of its, denoted as $\vert R\vert$, is defined as
+\begin{equation}
+\vert R\vert\doteq(b_1-a_1)\dots(b_d-a_d)
+\end{equation}
+An open rectangle is the product of open intervals, and the interior of the rectangle $R$ is then
+\begin{equation}
+(a_1,b_1)\times\ldots\times(a_d,b_d)
+\end{equation}
+A &lt;strong&gt;cube&lt;/strong&gt; is a rectangle for which $b_1-a_1=\ldots=b_d-a_d$.&lt;/p&gt;
+
+&lt;p&gt;A union of rectangles is said to be &lt;strong&gt;almost disjoint&lt;/strong&gt; if the interiors of the rectangles are disjoint.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Lemma 1&lt;/strong&gt;&lt;br /&gt;
+&lt;em&gt;If a rectangle is the almost disjoint union of finitely many other rectangles, say $R=\bigcup_{k=1}^{N}R_k$, then&lt;/em&gt;
+\begin{equation}
+\vert R\vert=\sum_{k=1}^{N}\vert R_k\vert
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Lemma 2&lt;/strong&gt;&lt;br /&gt;
+&lt;em&gt;If $R,R_1,\ldots,R_N$ are rectangles, and $R\subset\bigcup_{k=1}^{N}R_k$, then&lt;/em&gt;
+\begin{equation}
+\vert R\vert\leq\sum_{k=1}^{N}\vert R_k\vert
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Theorem 3&lt;/strong&gt;&lt;br /&gt;
+&lt;em&gt;Every open $\mathcal{O}\subset\mathbb{R}$ can be written uniquely as a countable union of disjoint open intervals&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;others&quot;&gt;Others&lt;/h3&gt;
 &lt;p&gt;Given any sequence $x_1,x_2,\ldots\in[0,+\infty]$. We can always form the sum
@@ -789,6 +836,16 @@ m_{*,(J)}(E)\leq m^{*}(E)\leq m^{*,(J)}(E),
 \end{equation}
 for every $E\in\mathbb{R}^d$.&lt;/p&gt;
 
+&lt;p&gt;&lt;strong&gt;Remark&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Not every bounded open set or compact set (bounded closed) is Jordan measurable.&lt;/li&gt;
+  &lt;li&gt;Two boxes are &lt;strong&gt;almost disjoint&lt;/strong&gt; if their interiors are disjoint. E.g., $[0,1]$ and $[1,2]$ are almost disjoint. If a box has the same elementary as its interior, we see that the finite additivity property
+\begin{equation}
+m(B_1\cup\ldots\cup B_n)=\vert B_1\vert+\ldots+\vert B_n\vert\tag{12}\label{12}
+\end{equation}
+also holds for almost disjoint boxes $B_1,\ldots,B_n$.&lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;p&gt;&lt;strong&gt;Lemma 11&lt;/strong&gt;. (&lt;strong&gt;Outer measure of countable unions of almost disjoint boxes&lt;/strong&gt;)&lt;br /&gt;
 &lt;em&gt;Let $E=\bigcup_{n=1}^{\infty}B_n$ be a countable union of almost disjoint boxes $B_1,B_2,\ldots$. Then&lt;/em&gt;
 \begin{equation}
@@ -796,9 +853,39 @@ m^*(E)=\sum_{n=1}^{\infty}\vert B_n\vert
 \end{equation}
 Thus, for example, $\mathbb{R}^d$ has an infinite outer measure.&lt;/p&gt;
 
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
+From countable subadditivity property of Lebesgue measure and &lt;strong&gt;Lemma 9&lt;/strong&gt;, we have
+\begin{equation}
+m^*(E)\leq\sum_{n=1}^{\infty}m^*(B_n)=\sum_{n=1}^{\infty}\vert B_n\vert,
+\end{equation}
+so it suffices to show that
+\begin{equation}
+\sum_{n=1}^{\infty}\vert B_n\vert\leq m^*(E)
+\end{equation}
+Since for each integer $N$, $E$ contains the elementary set $B_1\cup\ldots\cup B_N$, then by monotonicity property and &lt;strong&gt;Lemma 9&lt;/strong&gt;
+\begin{align}
+m^*(E)&amp;amp;\geq m^*(B_1\cup\ldots\cup B_N)=m(B_1\cup\ldots\cup B_N)
+\end{align}
+And thus by \eqref{12}, we have
+\begin{equation}
+\sum_{n=1}^{N}\vert B_n\vert\leq m^*(E)
+\end{equation}
+Letting $N\to\infty$ we obtain the claim.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Corollary 12&lt;/strong&gt;&lt;br /&gt;
+If $E=\bigcup_{n=1}^{\infty}B_n=\bigcup_{n=1}^{\infty}B_n’$ can be decomposed in two different ways as the countable union of almost disjoint boxes, then
+\begin{equation}
+\sum_{n=1}^{\infty}\vert B_n\vert=\sum_{n=1}^{\infty}\vert B_n’\vert
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Lemma 13&lt;/strong&gt;&lt;br /&gt;
+&lt;em&gt;Let $E\subset\mathbb{R}^d$ be an open set. Then $E$ can be expressed as the countable union of almost disjoint boxes (and, in fact, as the countable union of almost disjoint closed cubes)&lt;/em&gt;.&lt;/p&gt;
+
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;lebesgue-measurability&quot;&gt;Lebesgue measurability&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Lemma&lt;/strong&gt;. (&lt;strong&gt;Existence of Lebesgue measurable sets&lt;/strong&gt;)&lt;/p&gt;
 
 &lt;h3 id=&quot;non-measurable-sets&quot;&gt;Non-measurable sets&lt;/h3&gt;
 

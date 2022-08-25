@@ -13,6 +13,7 @@ comments: true
 - [Preliminaries](#preliminaries)
 	- [Points, sets](#pts-sets)
 	- [Open, closed, compact sets](#open-closed-compact-sets)
+	- [Rectangles, cubes](#rects-cubes)
 	- [Others](#others)
 - [Elementary measure](#elementary-measure)
 	- [Intervals, boxes, elementary sets](#intervals-boxes-elementary-sets)
@@ -94,6 +95,55 @@ A closed set $E$ is **perfect** if $E$ does not have any isolated point.
 - The closure of a set is a closed set.
 - Every point in $E$ is a limit point of $E$.
 - A set is closed iff it contains all its limit points.
+
+### Rectangles, cubes
+{: #rects-cubes}
+A (closed) **rectangle** $R$ in $\mathbb{R}^d$ is given by the product of $d$ one-dimensional closed and bounded intervals
+\begin{equation}
+R\doteq[a_1,b_1]\times[a_2,b_2]\times\ldots\times[a_d,b_d],
+\end{equation}
+where $a_j\leq b_j$, for $j=1,\ldots,d$, are real numbers. In other words, we have
+\begin{equation}
+R=\left\\{\left(x_1,\ldots,x_d\right)\in\mathbb{R}^d:a_j\leq x_j\leq b_j,\forall j=1,\ldots,d\right\\}
+\end{equation}
+With this definition, a rectangle is closed and has sides parallel to the coordinate axis. In $\mathbb{R}$, the rectangles are the closed and bounded intervals; they becomes the usual rectangles as we usually see in $\mathbb{R}^2$; while in $\mathbb{R}^3$, they are the closed parallelepipeds.
+<figure>
+	<img src="/assets/images/2022-08-20/rectangles.png" alt="Rectangles in R^d" style="display: block; margin-left: auto; margin-right: auto; width: 500px; height: 370px"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Rectangles in $\mathbb{R}^d,d=1,2,3$</figcaption>
+</figure>
+
+The lengths of the sides of the rectangle $R$ in $\mathbb{R}^d$ are $b_1-a_1,\ldots,b_d-a_d$. The **volume** of its, denoted as $\vert R\vert$, is defined as
+\begin{equation}
+\vert R\vert\doteq(b_1-a_1)\dots(b_d-a_d)
+\end{equation}
+An open rectangle is the product of open intervals, and the interior of the rectangle $R$ is then
+\begin{equation}
+(a_1,b_1)\times\ldots\times(a_d,b_d)
+\end{equation}
+A **cube** is a rectangle for which $b_1-a_1=\ldots=b_d-a_d$. 
+
+A union of rectangles is said to be **almost disjoint** if the interiors of the rectangles are disjoint.
+
+**Lemma 1**  
+*If a rectangle is the almost disjoint union of finitely many other rectangles, say $R=\bigcup_{k=1}^{N}R_k$, then*
+\begin{equation}
+\vert R\vert=\sum_{k=1}^{N}\vert R_k\vert
+\end{equation} 
+
+**Proof**  
+
+**Lemma 2**  
+*If $R,R_1,\ldots,R_N$ are rectangles, and $R\subset\bigcup_{k=1}^{N}R_k$, then*
+\begin{equation}
+\vert R\vert\leq\sum_{k=1}^{N}\vert R_k\vert
+\end{equation}
+
+**Theorem 3**  
+*Every open $\mathcal{O}\subset\mathbb{R}$ can be written uniquely as a countable union of disjoint open intervals*.
+
+**Proof**  
+
+
 
 ### Others
 {: #others}
@@ -783,6 +833,14 @@ m_{\*,(J)}(E)\leq m^{\*}(E)\leq m^{\*,(J)}(E),
 \end{equation}
 for every $E\in\mathbb{R}^d$.
 
+**Remark**  
+- Not every bounded open set or compact set (bounded closed) is Jordan measurable.
+- Two boxes are **almost disjoint** if their interiors are disjoint. E.g., $[0,1]$ and $[1,2]$ are almost disjoint. If a box has the same elementary as its interior, we see that the finite additivity property
+\begin{equation}
+m(B_1\cup\ldots\cup B_n)=\vert B_1\vert+\ldots+\vert B_n\vert\tag{12}\label{12}
+\end{equation}
+also holds for almost disjoint boxes $B_1,\ldots,B_n$.
+
 **Lemma 11**. (**Outer measure of countable unions of almost disjoint boxes**)  
 *Let $E=\bigcup_{n=1}^{\infty}B_n$ be a countable union of almost disjoint boxes $B_1,B_2,\ldots$. Then*
 \begin{equation}
@@ -791,10 +849,41 @@ m^\*(E)=\sum_{n=1}^{\infty}\vert B_n\vert
 Thus, for example, $\mathbb{R}^d$ has an infinite outer measure.
 
 **Proof**  
+From countable subadditivity property of Lebesgue measure and **Lemma 9**, we have
+\begin{equation}
+m^\*(E)\leq\sum_{n=1}^{\infty}m^\*(B_n)=\sum_{n=1}^{\infty}\vert B_n\vert,
+\end{equation}
+so it suffices to show that
+\begin{equation}
+\sum_{n=1}^{\infty}\vert B_n\vert\leq m^\*(E)
+\end{equation}
+Since for each integer $N$, $E$ contains the elementary set $B_1\cup\ldots\cup B_N$, then by monotonicity property and **Lemma 9**
+\begin{align}
+m^\*(E)&\geq m^\*(B_1\cup\ldots\cup B_N)=m(B_1\cup\ldots\cup B_N)
+\end{align}
+And thus by \eqref{12}, we have
+\begin{equation}
+\sum_{n=1}^{N}\vert B_n\vert\leq m^\*(E)
+\end{equation}
+Letting $N\to\infty$ we obtain the claim.
+
+**Corollary 12**  
+If $E=\bigcup_{n=1}^{\infty}B_n=\bigcup_{n=1}^{\infty}B_n'$ can be decomposed in two different ways as the countable union of almost disjoint boxes, then
+\begin{equation}
+\sum_{n=1}^{\infty}\vert B_n\vert=\sum_{n=1}^{\infty}\vert B_n'\vert
+\end{equation}
+
+**Lemma 13**  
+*Let $E\subset\mathbb{R}^d$ be an open set. Then $E$ can be expressed as the countable union of almost disjoint boxes (and, in fact, as the countable union of almost disjoint closed cubes)*.
+
+**Proof**  
 
 
 ### Lebesgue measurability
 {: #lebesgue-measurability}
+
+**Lemma**. (**Existence of Lebesgue measurable sets**)  
+
 
 ### Non-measurable sets
 {: #non-measurable-sets}
