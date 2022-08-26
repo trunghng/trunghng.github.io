@@ -33,6 +33,7 @@ comments: true
 - [Lebesgue measure](#lebesgue-measure)
 	- [Properties of Lebesgue outer measure](#lebesgue-outer-measure-properties)
 	- [Lebesgue measurability](#lebesgue-measurability)
+		- [Criteria for measurability](#criteria-measurability)
 	- [Non-measurable sets](#non-measurable-sets)
 - [Lebesgue integral](#lebesgue-int)
 - [References](#references)
@@ -786,7 +787,7 @@ as the **Lebesgue measure** of $E$.
 		\begin{equation}
 		m^*(E_i)=\inf_{\bigcup_{n=1}^{\infty}B_n\supset E_i;B_1,B_2,\ldots\text{ boxes}}\sum_{n=1}^{\infty}\vert B_n\vert
 		\end{equation}
-		Thus, by definition of infimum and by axiom of countable choice (<b>Axiom 8</b>), for each $E_i$ in the sequence $(E_n)_{n\in\mathbb{N}}$, there exist boxes $B_{i,1},B_{i,2},\ldots\supset E_i$ such that
+		Thus, by definition of infimum and by axiom of countable choice (<b>Axiom 8</b>), for each $E_i$ in the sequence $(E_n)_{n\in\mathbb{N}}$, there exists a family of boxes $B_{i,1},B_{i,2},\ldots$ in the doubly sequence $(B_{i,j})_{(i,j)\in\mathbb{N}^2}$ covering $E_i$ such that
 		\begin{equation}
 		\sum_{j=1}^{\infty}\vert B_{i,j}\vert\lt m^*(E_i)+\frac{\varepsilon}{i},
 		\end{equation}
@@ -854,6 +855,12 @@ Now we consider the case that some of the boxes $B_n$ intersect both $E$ and $F$
 Since given any $r>0$, we can always partition a box $B_n$ into a finite number of smaller boxes, each of which has diameter[^1] at most $r$, with the total volume of these sub-boxes equal to the volume of the original box $B_n$. Therefore, given any $r>0$, we may assume without loss of generality that the boxes $B_1,B_2,\ldots$ covering $E\cup F$ have diameter at most $r$. Or in particular, we may assume that all such boxes have diameter strictly less than $\text{dist}(E,f)$.
 
 Once we do this, then it is no longer possible for any box to intersect both $E$ and $F$, which allows the previous argument be applicable.
+
+**Example**  
+Let $E,F\subset\mathbb{R}^d$ be disjoint closed sets, with at least one of $E,F$ being compact. Then $\text{dist}(E,F)>0$.
+
+**Solution**  
+
 
 **Lemma 13**. (**Outer measure of elementary sets**)  
 *Let $E$ be an elementary set. Then the Lebesgue outer measure of $E$ is equal to the elementary measure of $E$:*
@@ -1011,7 +1018,23 @@ Let $\varepsilon>0$. By the definition of Lebesgue outer measure, there exists a
 \begin{equation}
 \sum_{n=1}^{\infty}\vert B_n\vert\leq m^\*(E)+\varepsilon
 \end{equation}
-
+We can enlarge each of these boxes $B_n$ to an open box $B_n'$ such that
+\begin{equation}
+\vert B_n'\vert\leq\vert B_n\vert+\frac{\varepsilon}{2^n},
+\end{equation}
+for any $\varepsilon>0$. Then the set $\bigcup_{n=1}^{\infty}B_n'$, being a union of open sets, is itself open, and contains $E$, and
+\begin{equation}
+\sum_{n=1}^{\infty}\vert B_n'\vert\leq m^\*(E)+\varepsilon+\sum_{n=1}^{\infty}\frac{\varepsilon}{2^n}=m^\*(E)+2\varepsilon
+\end{equation}
+By countable subadditivity property, it implies that
+\begin{equation}
+m^\*\left(\bigcup_{n=1}^{\infty}B_n'\right)\leq m^\*(E)+2\varepsilon
+\end{equation}
+and thus
+\begin{equation}
+\inf_{E\subset U,U\text{ open}}m^\*(U)\leq m^\*(E)+2\varepsilon
+\end{equation}
+And since $\varepsilon>0$ was arbitrary, the claim follows.
 
 ### Lebesgue measurability
 {: #lebesgue-measurability}
@@ -1030,7 +1053,96 @@ Let $\varepsilon>0$. By the definition of Lebesgue outer measure, there exists a
 **Proof**
 <ul id='roman-list'>
 	<li>This follows from definition.</li>
-	<li></li>
+</ul>
+
+**Remark**. (**Criteria for measurability**)
+{: #criteria-measurability}
+Let $E\subset\mathbb{R}^d$. The following are equivalent
+<ul id='roman-list'>
+	<li>$E$ is Lebesgue measurable.</li>
+	<li><b>Outer approximation by open</b>. For every $\varepsilon>0$, $E$ can be contained in an open set $U$ with $m^*(U\backslash E)\leq\varepsilon$.</li>
+	<li><b>Almost open</b>. For every $\varepsilon>0$, we can find an open set $U$ such that $m^*(U\Delta E)\leq\varepsilon$. ($E$ differs from an open set by a set of outer measure at most $\varepsilon$.)</li>
+	<li><b>Inner approximation by closed</b>. For every $\varepsilon>0$, we can find a closed set $F$ contained in $E$ with $m^*(E\backslash F)\leq\varepsilon$.</li>
+	<li><b>Almost closed</b>. For every $\varepsilon>0$, we can find a closed set $F$ such that $m^*(F\Delta E)\leq\varepsilon$. ($E$ differs from a closed set by a set of outer measure at most $\varepsilon$.)</li>
+	<li><b>Almost measurable</b>. For every $\varepsilon>0$, we can find a Lebesgue measurable set $E_\varepsilon$ such that $m^*(E_\varepsilon\Delta E)\leq\varepsilon$. ($E$ differs from a measurable set by a set of outer measure at most $\varepsilon$.)</li>
+</ul>
+
+**Proof**  
+
+**Lemma 21**. (**The measure axioms**)
+<ul id='roman-list' style='font-style: italic;'>
+	<li><b>Empty set</b>. $m(\emptyset)=0$.</li>
+	<li><b>Countable additivity</b>. If $E_1,E_2,\ldots\subset\mathbb{R}^d$ is a countable sequence of disjoint Lebesgue measurable sets, then</li>
+	\begin{equation}
+	m\left(\bigcup_{n=1}^{\infty}E_n\right)=\sum_{n=1}^{\infty}m(E_n)
+	\end{equation}
+</ul>
+
+**Proof**
+<ul id='roman-list'>
+	<li>
+		We have that empty set $\emptyset$ is Lebesgue measurable since for every $\varepsilon>0$, there exists an open set $U\subset\mathbb{R}^d$ containing $\emptyset$ such that $m^*(U\backslash\emptyset)\leq\varepsilon$. Thus,
+		\begin{equation}
+		m(\emptyset)=m^*(\emptyset)=0
+		\end{equation}
+	</li>
+	<li>
+		We begin by considering the case that $E_n$ are all compact sets.
+		<br>
+		By repeated use of <b>Lemma 12</b> and <b>Example ?</b>, we have
+		\begin{equation}
+		m\left(\bigcup_{n=1}^{N}E_n\right)=\sum_{n=1}^{N}m(E_n)
+		\end{equation}
+		Thus, using monotonicity property, we have
+		\begin{equation}
+		m\left(\bigcup_{n=1}^{\infty}E_n\right)\geq\sum_{n=1}^{N}m(E_n)
+		\end{equation}
+		Let $N\to\infty$, we obtain
+		\begin{equation}
+		m\left(\bigcup_{n=1}^{\infty}E_n\right)\geq\sum_{n=1}^{\infty}m(E_n)
+		\end{equation}
+		On the other hand, by countable subadditivity, we also have
+		\begin{equation}
+		m\left(\bigcup_{n=1}^{\infty}E_n\right)\leq\sum_{n=1}^{N}m(E_n)
+		\end{equation}
+		Therefore, we can conclude that
+		\begin{equation}
+		m\left(\bigcup_{n=1}^{\infty}E_n\right)=\sum_{n=1}^{N}m(E_n)
+		\end{equation}
+		Next, we consider the case that $E_n$ are bounded but not necessarily compact.
+		<br>
+		Let $\varepsilon>0$. By criteria for measurability, we know that each $E_n$ is the union of a compact set $K_n$ and a set of outer measure at most $\varepsilon/2^n$. Thus
+		\begin{equation}
+		m(E_n)\leq m(K_n)+\frac{\varepsilon}{2^n}
+		\end{equation}
+		And hence
+		\begin{equation}
+		\sum_{n=1}^{\infty}m(E_n)\leq\left(\sum_{n=1}^{\infty}m(K_n)\right)+\varepsilon
+		\end{equation}
+		From the first case, we know that
+		\begin{equation}
+		m\left(\bigcup_{n=1}^{\infty}K_n\right)=\sum_{n=1}^{\infty}m(K_n)
+		\end{equation}
+		while from monotonicity property of Lebesgue measure
+		\begin{equation}
+		m\left(\bigcup_{n=1}^{\infty}K_n\right)\leq m\left(\bigcup_{n=1}^{\infty}E_n\right)
+		\end{equation}
+		Putting these results together we obtain
+		\begin{equation}
+		\sum_{n=1}^{\infty}m(E_n)\leq m\left(\bigcup_{n=1}^{\infty}E_n\right)+\varepsilon,
+		\end{equation}
+		for every $\varepsilon>0$. And since $\varepsilon$ was arbitrary, we have
+		\begin{equation}
+		\sum_{n=1}^{\infty}m(E_n)\leq m\left(\bigcup_{n=1}^{\infty}E_n\right)
+		\end{equation}
+		while from countable subadditivity property we have
+		\begin{equation}
+		\sum_{n=1}^{\infty}m(E_n)\geq m\left(\bigcup_{n=1}^{\infty}E_n\right)
+		\end{equation}
+		Therefore, the claim follows.
+		<br>
+		Finally, we consider the case that $E_n$ are not bounded or closed.
+	</li>
 </ul>
 
 

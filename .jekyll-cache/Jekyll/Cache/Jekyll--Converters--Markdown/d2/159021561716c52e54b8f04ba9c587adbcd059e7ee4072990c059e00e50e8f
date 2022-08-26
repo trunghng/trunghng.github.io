@@ -1,153 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-<link href="https://fonts.googleapis.com/css?family=Merriweather:400,900,900i" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<style type="text/css">
-  #button {
-    display: inline-block;
-    background-color: #A5CCF1;
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    border-radius: 4px;
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    transition: background-color .3s, 
-      opacity .5s, visibility .5s;
-    opacity: 0;
-    visibility: hidden;
-    z-index: 1000;
-  }
-  #button::after {
-    content: "\f077";
-    font-family: FontAwesome;
-    font-weight: normal;
-    font-style: normal;
-    font-size: 2em;
-    line-height: 50px;
-    color: #fff;
-  }
-  #button:hover {
-    cursor: pointer;
-    background-color: #333;
-    text-decoration: none;
-  }
-  #button:active {
-    background-color: #555;
-  }
-  #button.show {
-    opacity: 1;
-    visibility: visible;
-  }
-</style><head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Measure theory | Trung’s cabin</title>
-<meta name="generator" content="Jekyll v4.2.1" />
-<meta property="og:title" content="Measure theory" />
-<meta name="author" content="Trung H. Nguyen" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="Note on measure theory" />
-<meta property="og:description" content="Note on measure theory" />
-<link rel="canonical" href="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory.html" />
-<meta property="og:url" content="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory.html" />
-<meta property="og:site_name" content="Trung’s cabin" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2022-08-20T13:00:00+07:00" />
-<meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Measure theory" />
-<script type="application/ld+json">
-{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","description":"Note on measure theory","headline":"Measure theory","dateModified":"2022-08-20T13:00:00+07:00","datePublished":"2022-08-20T13:00:00+07:00","url":"http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory.html"},"@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Trung&apos;s cabin" />
-    
-
-
-
-
-
-  
-
-<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
-<link rel="manifest" href="/assets/images/site.webmanifest">
-<link rel="mask-icon" href="/assets/images/safari-pinned-tab.svg" color="#5bbad5">
-<meta name="msapplication-TileColor" content="#da532c">
-<meta name="theme-color" content="#ffffff"></head>
-<body><header class="site-header">
-  <div class="snorlax"></div>
-
-  <div class="wrapper"><a class="site-title" rel="author" href="/">Trung&#39;s cabin</a><nav class="site-nav">
-        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
-        <label for="nav-trigger">
-          <span class="menu-icon">
-            <svg viewBox="0 0 18 15" width="18px" height="15px">
-              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
-            </svg>
-          </span>
-        </label>
-
-        <div class="trigger"><a class="page-link" href="/archive/">Archive</a><a class="page-link" href="/about/">About</a></div>
-      </nav></div>
-</header>
-<main class="page-content" aria-label="Content">
-      <a id="button"></a>
-      <div class="wrapper">
-        <style>
-@import "/assets/css/default.css"
-</style>
-<style>
-  .collapsible {
-    background-color: #A5CCF1;
-    color: white;
-    cursor: pointer;
-    padding: 5px;
-    /*width: 100%;*/
-    border: none;
-    text-align: center;
-    outline: none;
-    font-size: 15px;
-  }
-
-  .active, .collapsible:hover {
-    background-color: #82B9EE;
-  }
-
-  .codePanel {
-    padding: 0 18px;
-    display: none;
-    overflow: hidden;
-    background-color: #f1f1f1;
-  }
-</style>
-<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <header class="post-header">
-    <meta name="description" content="Note on measure theory">
-    <h1 class="post-title p-name" itemprop="name headline">Measure theory</h1>
-    <p><span>
-      
-        
-        <a href="/tag/mathematics"><code class="highligher-rouge"><nobr>mathematics</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/measure-theory"><code class="highligher-rouge"><nobr>measure-theory</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/random-stuffs"><code class="highligher-rouge"><nobr>random-stuffs</nobr></code>&nbsp;</a>
-      
-    </span></p>
-    <p class="post-meta"><time class="dt-published" datetime="2022-08-20T13:00:00+07:00" itemprop="datePublished">
-        Aug 20, 2022
-      </time></p>
-  </header>
-
-  <div class="post-content e-content" itemprop="articleBody">
-    <blockquote>
+I"\�<blockquote>
   <p>A note on measure theory 
 <!-- excerpt-end --></p>
 </blockquote>
@@ -191,11 +42,7 @@
   <li><a href="#lebesgue-measure">Lebesgue measure</a>
     <ul>
       <li><a href="#lebesgue-outer-measure-properties">Properties of Lebesgue outer measure</a></li>
-      <li><a href="#lebesgue-measurability">Lebesgue measurability</a>
-        <ul>
-          <li><a href="#criteria-measurability">Criteria for measurability</a></li>
-        </ul>
-      </li>
+      <li><a href="#lebesgue-measurability">Lebesgue measurability</a></li>
       <li><a href="#non-measurable-sets">Non-measurable sets</a></li>
     </ul>
   </li>
@@ -940,7 +787,7 @@ as the <strong>Lebesgue measure</strong> of $E$.</p>
 		\begin{equation}
 		m^*(E_i)=\inf_{\bigcup_{n=1}^{\infty}B_n\supset E_i;B_1,B_2,\ldots\text{ boxes}}\sum_{n=1}^{\infty}\vert B_n\vert
 		\end{equation}
-		Thus, by definition of infimum and by axiom of countable choice (<b>Axiom 8</b>), for each $E_i$ in the sequence $(E_n)_{n\in\mathbb{N}}$, there exists a family of boxes $B_{i,1},B_{i,2},\ldots$ in the doubly sequence $(B_{i,j})_{(i,j)\in\mathbb{N}^2}$ covering $E_i$ such that
+		Thus, by definition of infimum and by axiom of countable choice (<b>Axiom 8</b>), for each $E_i$ in the sequence $(E_n)_{n\in\mathbb{N}}$, there exist boxes $B_{i,1},B_{i,2},\ldots$ covering $E_i$ such that
 		\begin{equation}
 		\sum_{j=1}^{\infty}\vert B_{i,j}\vert\lt m^*(E_i)+\frac{\varepsilon}{i},
 		\end{equation}
@@ -1008,11 +855,6 @@ Since $\varepsilon$ was arbitrary, this gives $m^*(E)+m^*(F)\leq m^*(E\cup F)$ a
 <p>Since given any $r&gt;0$, we can always partition a box $B_n$ into a finite number of smaller boxes, each of which has diameter<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> at most $r$, with the total volume of these sub-boxes equal to the volume of the original box $B_n$. Therefore, given any $r&gt;0$, we may assume without loss of generality that the boxes $B_1,B_2,\ldots$ covering $E\cup F$ have diameter at most $r$. Or in particular, we may assume that all such boxes have diameter strictly less than $\text{dist}(E,f)$.</p>
 
 <p>Once we do this, then it is no longer possible for any box to intersect both $E$ and $F$, which allows the previous argument be applicable.</p>
-
-<p><strong>Example</strong><br />
-Let $E,F\subset\mathbb{R}^d$ be disjoint closed sets, with at least one of $E,F$ being compact. Then $\text{dist}(E,F)&gt;0$.</p>
-
-<p><strong>Solution</strong></p>
 
 <p><strong>Lemma 13</strong>. (<strong>Outer measure of elementary sets</strong>)<br />
 <em>Let $E$ be an elementary set. Then the Lebesgue outer measure of $E$ is equal to the elementary measure of $E$:</em>
@@ -1171,24 +1013,7 @@ which is obvious in the case that $m^*(E)$ is infinite. Thus, we now assume that
 <p>Let $\varepsilon&gt;0$. By the definition of Lebesgue outer measure, there exists a countable family $B_1,B_2,\ldots$ of boxes covering $E$ such that
 \begin{equation}
 \sum_{n=1}^{\infty}\vert B_n\vert\leq m^*(E)+\varepsilon
-\end{equation}
-We can enlarge each of these boxes $B_n$ to an open box $B_n’$ such that
-\begin{equation}
-\vert B_n’\vert\leq\vert B_n\vert+\frac{\varepsilon}{2^n},
-\end{equation}
-for any $\varepsilon&gt;0$. Then the set $\bigcup_{n=1}^{\infty}B_n’$, being a union of open sets, is itself open, and contains $E$, and
-\begin{equation}
-\sum_{n=1}^{\infty}\vert B_n’\vert\leq m^*(E)+\varepsilon+\sum_{n=1}^{\infty}\frac{\varepsilon}{2^n}=m^*(E)+2\varepsilon
-\end{equation}
-By countable subadditivity property, it implies that
-\begin{equation}
-m^*\left(\bigcup_{n=1}^{\infty}B_n’\right)\leq m^*(E)+2\varepsilon
-\end{equation}
-and thus
-\begin{equation}
-\inf_{E\subset U,U\text{ open}}m^*(U)\leq m^*(E)+2\varepsilon
-\end{equation}
-And since $\varepsilon&gt;0$ was arbitrary, the claim follows.</p>
+\end{equation}</p>
 
 <h3 id="lebesgue-measurability">Lebesgue measurability</h3>
 
@@ -1206,95 +1031,7 @@ And since $\varepsilon&gt;0$ was arbitrary, the claim follows.</p>
 <p><strong>Proof</strong></p>
 <ul id="roman-list">
 	<li>This follows from definition.</li>
-</ul>
-
-<p id="criteria-measurability"><strong>Remark</strong>. (<strong>Criteria for measurability</strong>)</p>
-<p>Let $E\subset\mathbb{R}^d$. The following are equivalent</p>
-<ul id="roman-list">
-	<li>$E$ is Lebesgue measurable.</li>
-	<li><b>Outer approximation by open</b>. For every $\varepsilon&gt;0$, $E$ can be contained in an open set $U$ with $m^*(U\backslash E)\leq\varepsilon$.</li>
-	<li><b>Almost open</b>. For every $\varepsilon&gt;0$, we can find an open set $U$ such that $m^*(U\Delta E)\leq\varepsilon$. ($E$ differs from an open set by a set of outer measure at most $\varepsilon$.)</li>
-	<li><b>Inner approximation by closed</b>. For every $\varepsilon&gt;0$, we can find a closed set $F$ contained in $E$ with $m^*(E\backslash F)\leq\varepsilon$.</li>
-	<li><b>Almost closed</b>. For every $\varepsilon&gt;0$, we can find a closed set $F$ such that $m^*(F\Delta E)\leq\varepsilon$. ($E$ differs from a closed set by a set of outer measure at most $\varepsilon$.)</li>
-	<li><b>Almost measurable</b>. For every $\varepsilon&gt;0$, we can find a Lebesgue measurable set $E_\varepsilon$ such that $m^*(E_\varepsilon\Delta E)\leq\varepsilon$. ($E$ differs from a measurable set by a set of outer measure at most $\varepsilon$.)</li>
-</ul>
-
-<p><strong>Proof</strong></p>
-
-<p><strong>Lemma 21</strong>. (<strong>The measure axioms</strong>)</p>
-<ul id="roman-list" style="font-style: italic;">
-	<li><b>Empty set</b>. $m(\emptyset)=0$.</li>
-	<li><b>Countable additivity</b>. If $E_1,E_2,\ldots\subset\mathbb{R}^d$ is a countable sequence of disjoint Lebesgue measurable sets, then</li>
-	\begin{equation}
-	m\left(\bigcup_{n=1}^{\infty}E_n\right)=\sum_{n=1}^{\infty}m(E_n)
-	\end{equation}
-</ul>
-
-<p><strong>Proof</strong></p>
-<ul id="roman-list">
-	<li>
-		We have that empty set $\emptyset$ is Lebesgue measurable since for every $\varepsilon&gt;0$, there exists an open set $U\subset\mathbb{R}^d$ containing $\emptyset$ such that $m^*(U\backslash\emptyset)\leq\varepsilon$. Thus,
-		\begin{equation}
-		m(\emptyset)=m^*(\emptyset)=0
-		\end{equation}
-	</li>
-	<li>
-		We begin by considering the case that $E_n$ are all compact sets.
-		<br />
-		By repeated use of <b>Lemma 12</b> and <b>Example ?</b>, we have
-		\begin{equation}
-		m\left(\bigcup_{n=1}^{N}E_n\right)=\sum_{n=1}^{N}m(E_n)
-		\end{equation}
-		Thus, using monotonicity property, we have
-		\begin{equation}
-		m\left(\bigcup_{n=1}^{\infty}E_n\right)\geq\sum_{n=1}^{N}m(E_n)
-		\end{equation}
-		Let $N\to\infty$, we obtain
-		\begin{equation}
-		m\left(\bigcup_{n=1}^{\infty}E_n\right)\geq\sum_{n=1}^{\infty}m(E_n)
-		\end{equation}
-		On the other hand, by countable subadditivity, we also have
-		\begin{equation}
-		m\left(\bigcup_{n=1}^{\infty}E_n\right)\leq\sum_{n=1}^{N}m(E_n)
-		\end{equation}
-		Therefore, we can conclude that
-		\begin{equation}
-		m\left(\bigcup_{n=1}^{\infty}E_n\right)=\sum_{n=1}^{N}m(E_n)
-		\end{equation}
-		Next, we consider the case that $E_n$ are bounded but not necessarily compact.
-		<br />
-		Let $\varepsilon&gt;0$. By criteria for measurability, we know that each $E_n$ is the union of a compact set $K_n$ and a set of outer measure at most $\varepsilon/2^n$. Thus
-		\begin{equation}
-		m(E_n)\leq m(K_n)+\frac{\varepsilon}{2^n}
-		\end{equation}
-		And hence
-		\begin{equation}
-		\sum_{n=1}^{\infty}m(E_n)\leq\left(\sum_{n=1}^{\infty}m(K_n)\right)+\varepsilon
-		\end{equation}
-		From the first case, we know that
-		\begin{equation}
-		m\left(\bigcup_{n=1}^{\infty}K_n\right)=\sum_{n=1}^{\infty}m(K_n)
-		\end{equation}
-		while from monotonicity property of Lebesgue measure
-		\begin{equation}
-		m\left(\bigcup_{n=1}^{\infty}K_n\right)\leq m\left(\bigcup_{n=1}^{\infty}E_n\right)
-		\end{equation}
-		Putting these results together we obtain
-		\begin{equation}
-		\sum_{n=1}^{\infty}m(E_n)\leq m\left(\bigcup_{n=1}^{\infty}E_n\right)+\varepsilon,
-		\end{equation}
-		for every $\varepsilon&gt;0$. And since $\varepsilon$ was arbitrary, we have
-		\begin{equation}
-		\sum_{n=1}^{\infty}m(E_n)\leq m\left(\bigcup_{n=1}^{\infty}E_n\right)
-		\end{equation}
-		while from countable subadditivity property we have
-		\begin{equation}
-		\sum_{n=1}^{\infty}m(E_n)\geq m\left(\bigcup_{n=1}^{\infty}E_n\right)
-		\end{equation}
-		Therefore, the claim follows.
-		<br />
-		Finally, we consider the case that $E_n$ are not bounded or closed.
-	</li>
+	<li></li>
 </ul>
 
 <h3 id="non-measurable-sets">Non-measurable sets</h3>
@@ -1316,111 +1053,4 @@ And since $\varepsilon&gt;0$ was arbitrary, the claim follows.</p>
     </li>
   </ol>
 </div>
-
-  </div>
-<div id="disqus_thread"></div>
-<script>
-    /**
-    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
-    
-    var disqus_config = function () {
-    this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
-    this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-    };
-    
-    (function() { // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-    s.src = 'https://https-trunghng-github-io.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-
-<script id="dsq-count-scr" src="//https-trunghng-github-io.disqus.com/count.js" async></script>
-
-  <a class="u-url" href="/mathematics/measure-theory/2022/08/20/measure-theory.html" hidden></a>
-</article>
- <!-- mathjax javascript -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
-  "HTML-CSS": {availableFonts: []}
-  });
-</script>
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-<script>
-  var coll = document.getElementsByClassName("collapsible");
-  var i;
-  for (i = 0; i < coll.length; i++) {
-    coll[i].addEventListener("click", function() {
-      this.classList.toggle("active");
-      var content = document.getElementById(this.id+"data");
-      var btn = document.getElementById(this.id)
-      if (content.style.display === "block") {
-        content.style.display = "none";
-        btn.innerText = "Click to show the code";
-      } else {
-        content.style.display = "block";
-        btn.innerText = "Click to hide the code"
-      }
-    });
-  }
-</script>
-
-      </div>
-
-    </main><footer class="site-footer h-card">
-  <data class="u-url" href="/"></data>
-
-  <div class="wrapper">
-
-    <div class="footer-col-wrapper">
-      <div class="footer-col">
-        <p class="feed-subscribe">
-          <a href="/feed.xml">
-            <svg class="svg-icon orange">
-              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
-            </svg><span>Subscribe</span>
-          </a>
-        </p>
-        <ul class="contact-list">
-          <li class="p-name">Trung H. Nguyen</li>
-          <li><a class="u-email" href="mailto:trung.skipper@gmail.com">trung.skipper@gmail.com</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <p>To document something I&#39;ve learned
-</p>
-      </div>
-    </div>
-
-    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/trunghng" title="trunghng"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
-</div>
-
-  </div>
-
-</footer>
-</body>
-
-</html>
-<script type="text/javascript">
-  var btn = $('#button');
-
-  $(window).scroll(function() {
-    if ($(window).scrollTop() > 300) {
-      btn.addClass('show');
-    } else {
-      btn.removeClass('show');
-    }
-  });
-
-  btn.on('click', function(e) {
-    e.preventDefault();
-    $('html, body').animate({scrollTop:0}, '300');
-  });
-</script>
+:ET

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-26T16:53:40+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-26T18:36:07+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">The Convergence of Q-learning</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/21/q-learning-convergence.html" rel="alternate" type="text/html" title="The Convergence of Q-learning" /><published>2022-08-21T07:00:00+07:00</published><updated>2022-08-21T07:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/21/q-learning-convergence</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/21/q-learning-convergence.html">&lt;blockquote&gt;
   &lt;p&gt;A note on convergence proofs for Q-learning by exploiting the connection with stochastic approximation and the idea of parallel asynchronous.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -64,7 +64,11 @@
   &lt;li&gt;&lt;a href=&quot;#lebesgue-measure&quot;&gt;Lebesgue measure&lt;/a&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#lebesgue-outer-measure-properties&quot;&gt;Properties of Lebesgue outer measure&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#lebesgue-measurability&quot;&gt;Lebesgue measurability&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#lebesgue-measurability&quot;&gt;Lebesgue measurability&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#criteria-measurability&quot;&gt;Criteria for measurability&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#non-measurable-sets&quot;&gt;Non-measurable sets&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
@@ -809,7 +813,7 @@ as the &lt;strong&gt;Lebesgue measure&lt;/strong&gt; of $E$.&lt;/p&gt;
 		\begin{equation}
 		m^*(E_i)=\inf_{\bigcup_{n=1}^{\infty}B_n\supset E_i;B_1,B_2,\ldots\text{ boxes}}\sum_{n=1}^{\infty}\vert B_n\vert
 		\end{equation}
-		Thus, by definition of infimum and by axiom of countable choice (&lt;b&gt;Axiom 8&lt;/b&gt;), for each $E_i$ in the sequence $(E_n)_{n\in\mathbb{N}}$, there exist boxes $B_{i,1},B_{i,2},\ldots\supset E_i$ such that
+		Thus, by definition of infimum and by axiom of countable choice (&lt;b&gt;Axiom 8&lt;/b&gt;), for each $E_i$ in the sequence $(E_n)_{n\in\mathbb{N}}$, there exists a family of boxes $B_{i,1},B_{i,2},\ldots$ in the doubly sequence $(B_{i,j})_{(i,j)\in\mathbb{N}^2}$ covering $E_i$ such that
 		\begin{equation}
 		\sum_{j=1}^{\infty}\vert B_{i,j}\vert\lt m^*(E_i)+\frac{\varepsilon}{i},
 		\end{equation}
@@ -877,6 +881,11 @@ Since $\varepsilon$ was arbitrary, this gives $m^*(E)+m^*(F)\leq m^*(E\cup F)$ a
 &lt;p&gt;Since given any $r&amp;gt;0$, we can always partition a box $B_n$ into a finite number of smaller boxes, each of which has diameter&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; at most $r$, with the total volume of these sub-boxes equal to the volume of the original box $B_n$. Therefore, given any $r&amp;gt;0$, we may assume without loss of generality that the boxes $B_1,B_2,\ldots$ covering $E\cup F$ have diameter at most $r$. Or in particular, we may assume that all such boxes have diameter strictly less than $\text{dist}(E,f)$.&lt;/p&gt;
 
 &lt;p&gt;Once we do this, then it is no longer possible for any box to intersect both $E$ and $F$, which allows the previous argument be applicable.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt;&lt;br /&gt;
+Let $E,F\subset\mathbb{R}^d$ be disjoint closed sets, with at least one of $E,F$ being compact. Then $\text{dist}(E,F)&amp;gt;0$.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Lemma 13&lt;/strong&gt;. (&lt;strong&gt;Outer measure of elementary sets&lt;/strong&gt;)&lt;br /&gt;
 &lt;em&gt;Let $E$ be an elementary set. Then the Lebesgue outer measure of $E$ is equal to the elementary measure of $E$:&lt;/em&gt;
@@ -1035,7 +1044,24 @@ which is obvious in the case that $m^*(E)$ is infinite. Thus, we now assume that
 &lt;p&gt;Let $\varepsilon&amp;gt;0$. By the definition of Lebesgue outer measure, there exists a countable family $B_1,B_2,\ldots$ of boxes covering $E$ such that
 \begin{equation}
 \sum_{n=1}^{\infty}\vert B_n\vert\leq m^*(E)+\varepsilon
-\end{equation}&lt;/p&gt;
+\end{equation}
+We can enlarge each of these boxes $B_n$ to an open box $B_n’$ such that
+\begin{equation}
+\vert B_n’\vert\leq\vert B_n\vert+\frac{\varepsilon}{2^n},
+\end{equation}
+for any $\varepsilon&amp;gt;0$. Then the set $\bigcup_{n=1}^{\infty}B_n’$, being a union of open sets, is itself open, and contains $E$, and
+\begin{equation}
+\sum_{n=1}^{\infty}\vert B_n’\vert\leq m^*(E)+\varepsilon+\sum_{n=1}^{\infty}\frac{\varepsilon}{2^n}=m^*(E)+2\varepsilon
+\end{equation}
+By countable subadditivity property, it implies that
+\begin{equation}
+m^*\left(\bigcup_{n=1}^{\infty}B_n’\right)\leq m^*(E)+2\varepsilon
+\end{equation}
+and thus
+\begin{equation}
+\inf_{E\subset U,U\text{ open}}m^*(U)\leq m^*(E)+2\varepsilon
+\end{equation}
+And since $\varepsilon&amp;gt;0$ was arbitrary, the claim follows.&lt;/p&gt;
 
 &lt;h3 id=&quot;lebesgue-measurability&quot;&gt;Lebesgue measurability&lt;/h3&gt;
 
@@ -1053,7 +1079,95 @@ which is obvious in the case that $m^*(E)$ is infinite. Thus, we now assume that
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 &lt;ul id=&quot;roman-list&quot;&gt;
 	&lt;li&gt;This follows from definition.&lt;/li&gt;
-	&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p id=&quot;criteria-measurability&quot;&gt;&lt;strong&gt;Remark&lt;/strong&gt;. (&lt;strong&gt;Criteria for measurability&lt;/strong&gt;)&lt;/p&gt;
+&lt;p&gt;Let $E\subset\mathbb{R}^d$. The following are equivalent&lt;/p&gt;
+&lt;ul id=&quot;roman-list&quot;&gt;
+	&lt;li&gt;$E$ is Lebesgue measurable.&lt;/li&gt;
+	&lt;li&gt;&lt;b&gt;Outer approximation by open&lt;/b&gt;. For every $\varepsilon&amp;gt;0$, $E$ can be contained in an open set $U$ with $m^*(U\backslash E)\leq\varepsilon$.&lt;/li&gt;
+	&lt;li&gt;&lt;b&gt;Almost open&lt;/b&gt;. For every $\varepsilon&amp;gt;0$, we can find an open set $U$ such that $m^*(U\Delta E)\leq\varepsilon$. ($E$ differs from an open set by a set of outer measure at most $\varepsilon$.)&lt;/li&gt;
+	&lt;li&gt;&lt;b&gt;Inner approximation by closed&lt;/b&gt;. For every $\varepsilon&amp;gt;0$, we can find a closed set $F$ contained in $E$ with $m^*(E\backslash F)\leq\varepsilon$.&lt;/li&gt;
+	&lt;li&gt;&lt;b&gt;Almost closed&lt;/b&gt;. For every $\varepsilon&amp;gt;0$, we can find a closed set $F$ such that $m^*(F\Delta E)\leq\varepsilon$. ($E$ differs from a closed set by a set of outer measure at most $\varepsilon$.)&lt;/li&gt;
+	&lt;li&gt;&lt;b&gt;Almost measurable&lt;/b&gt;. For every $\varepsilon&amp;gt;0$, we can find a Lebesgue measurable set $E_\varepsilon$ such that $m^*(E_\varepsilon\Delta E)\leq\varepsilon$. ($E$ differs from a measurable set by a set of outer measure at most $\varepsilon$.)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Lemma 21&lt;/strong&gt;. (&lt;strong&gt;The measure axioms&lt;/strong&gt;)&lt;/p&gt;
+&lt;ul id=&quot;roman-list&quot; style=&quot;font-style: italic;&quot;&gt;
+	&lt;li&gt;&lt;b&gt;Empty set&lt;/b&gt;. $m(\emptyset)=0$.&lt;/li&gt;
+	&lt;li&gt;&lt;b&gt;Countable additivity&lt;/b&gt;. If $E_1,E_2,\ldots\subset\mathbb{R}^d$ is a countable sequence of disjoint Lebesgue measurable sets, then&lt;/li&gt;
+	\begin{equation}
+	m\left(\bigcup_{n=1}^{\infty}E_n\right)=\sum_{n=1}^{\infty}m(E_n)
+	\end{equation}
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+&lt;ul id=&quot;roman-list&quot;&gt;
+	&lt;li&gt;
+		We have that empty set $\emptyset$ is Lebesgue measurable since for every $\varepsilon&amp;gt;0$, there exists an open set $U\subset\mathbb{R}^d$ containing $\emptyset$ such that $m^*(U\backslash\emptyset)\leq\varepsilon$. Thus,
+		\begin{equation}
+		m(\emptyset)=m^*(\emptyset)=0
+		\end{equation}
+	&lt;/li&gt;
+	&lt;li&gt;
+		We begin by considering the case that $E_n$ are all compact sets.
+		&lt;br /&gt;
+		By repeated use of &lt;b&gt;Lemma 12&lt;/b&gt; and &lt;b&gt;Example ?&lt;/b&gt;, we have
+		\begin{equation}
+		m\left(\bigcup_{n=1}^{N}E_n\right)=\sum_{n=1}^{N}m(E_n)
+		\end{equation}
+		Thus, using monotonicity property, we have
+		\begin{equation}
+		m\left(\bigcup_{n=1}^{\infty}E_n\right)\geq\sum_{n=1}^{N}m(E_n)
+		\end{equation}
+		Let $N\to\infty$, we obtain
+		\begin{equation}
+		m\left(\bigcup_{n=1}^{\infty}E_n\right)\geq\sum_{n=1}^{\infty}m(E_n)
+		\end{equation}
+		On the other hand, by countable subadditivity, we also have
+		\begin{equation}
+		m\left(\bigcup_{n=1}^{\infty}E_n\right)\leq\sum_{n=1}^{N}m(E_n)
+		\end{equation}
+		Therefore, we can conclude that
+		\begin{equation}
+		m\left(\bigcup_{n=1}^{\infty}E_n\right)=\sum_{n=1}^{N}m(E_n)
+		\end{equation}
+		Next, we consider the case that $E_n$ are bounded but not necessarily compact.
+		&lt;br /&gt;
+		Let $\varepsilon&amp;gt;0$. By criteria for measurability, we know that each $E_n$ is the union of a compact set $K_n$ and a set of outer measure at most $\varepsilon/2^n$. Thus
+		\begin{equation}
+		m(E_n)\leq m(K_n)+\frac{\varepsilon}{2^n}
+		\end{equation}
+		And hence
+		\begin{equation}
+		\sum_{n=1}^{\infty}m(E_n)\leq\left(\sum_{n=1}^{\infty}m(K_n)\right)+\varepsilon
+		\end{equation}
+		From the first case, we know that
+		\begin{equation}
+		m\left(\bigcup_{n=1}^{\infty}K_n\right)=\sum_{n=1}^{\infty}m(K_n)
+		\end{equation}
+		while from monotonicity property of Lebesgue measure
+		\begin{equation}
+		m\left(\bigcup_{n=1}^{\infty}K_n\right)\leq m\left(\bigcup_{n=1}^{\infty}E_n\right)
+		\end{equation}
+		Putting these results together we obtain
+		\begin{equation}
+		\sum_{n=1}^{\infty}m(E_n)\leq m\left(\bigcup_{n=1}^{\infty}E_n\right)+\varepsilon,
+		\end{equation}
+		for every $\varepsilon&amp;gt;0$. And since $\varepsilon$ was arbitrary, we have
+		\begin{equation}
+		\sum_{n=1}^{\infty}m(E_n)\leq m\left(\bigcup_{n=1}^{\infty}E_n\right)
+		\end{equation}
+		while from countable subadditivity property we have
+		\begin{equation}
+		\sum_{n=1}^{\infty}m(E_n)\geq m\left(\bigcup_{n=1}^{\infty}E_n\right)
+		\end{equation}
+		Therefore, the claim follows.
+		&lt;br /&gt;
+		Finally, we consider the case that $E_n$ are not bounded or closed.
+	&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;non-measurable-sets&quot;&gt;Non-measurable sets&lt;/h3&gt;
