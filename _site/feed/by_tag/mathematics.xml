@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-26T15:04:21+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-26T16:53:40+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory</title><link href="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory.html" rel="alternate" type="text/html" title="Measure theory" /><published>2022-08-20T13:00:00+07:00</published><updated>2022-08-20T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/08/20/measure-theory.html">&lt;blockquote&gt;
   &lt;p&gt;A note on measure theory 
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -783,7 +783,32 @@ as the &lt;strong&gt;Lebesgue measure&lt;/strong&gt; of $E$.&lt;/p&gt;
 		m^*(E)&amp;lt; m^*(F)
 		\end{equation}
 	&lt;/li&gt;
-	&lt;li&gt;&lt;/li&gt;
+	&lt;li&gt;
+		By the definition of Lebesgue outer measure, for any positive integer $i$, we have
+		\begin{equation}
+		m^*(E_i)=\inf_{\bigcup_{n=1}^{\infty}B_n\supset E_i;B_1,B_2,\ldots\text{ boxes}}\sum_{n=1}^{\infty}\vert B_n\vert
+		\end{equation}
+		Thus, by definition of infimum and by axiom of countable choice (&lt;b&gt;Axiom 8&lt;/b&gt;), for each $E_i$ in the sequence $(E_n)_{n\in\mathbb{N}}$, there exist boxes $B_{i,1},B_{i,2},\ldots\supset E_i$ such that
+		\begin{equation}
+		\sum_{j=1}^{\infty}\vert B_{i,j}\vert\lt m^*(E_i)+\frac{\varepsilon}{i},
+		\end{equation}
+		for any $\varepsilon&amp;gt;0$, and for $i=1,2,\ldots$. Plus, we also have
+		\begin{equation}
+		\bigcup_{n=1}^{infty}E_n\subset\bigcup_{i=1}^{\infty}\bigcup_{j=1}^{\infty}B_{i,j}
+		\end{equation}
+		Moreover, by the Tonelli&apos;s theorem for series (&lt;b&gt;Theorem 6&lt;/b&gt;), we have
+		\begin{equation}
+		\bigcup_{i=1}^{\infty}\bigcup_{j=1}^{\infty}B_{i,j}=\bigcup_{(i,j)\in\mathbb{N}^2}B_{i,j}
+		\end{equation}
+		Therefore once again, by definition of outer measure and definition of infimum, we obtain
+		\begin{align}
+		m^*\left(\bigcup_{n=1}^{\infty}E_n\right)&amp;amp;=\inf_{\bigcup_{(i,j)\in\mathbb{N}^2}B_{i,j}}\sum_{i=1}^{\infty}\sum_{j=1}^{\infty}\vert B_{i,j}\vert\leq\sum_{i=1}^{\infty}\sum_{j=1}^{\infty}\vert B_{i,j}\vert \\\\ &amp;amp;\lt\sum_{i=1}^{\infty}m^*(E_i)+\frac{\varepsilon}{2^i}=\sum_{i=1}^{\infty}m^*(E_i)+\varepsilon
+		\end{align}
+		And since $\varepsilon&amp;gt;0$ was arbitrary, we can conclude that
+		\begin{equation}
+		m^*\left(\bigcup_{n=1}^{\infty}E_n\right)\leq\sum_{i=n}^{\infty}m^*(E_n)
+		\end{equation}
+	&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;Corollary 11&lt;/strong&gt;&lt;br /&gt;
@@ -855,7 +880,7 @@ E\subset\bigcup_{n=1}^{\infty}B_n,
 \end{equation}
 such that
 \begin{equation}
-\sum_{n=1}^{\infty}\vert B_n\vert\leq m^*+\varepsilon
+\sum_{n=1}^{\infty}\vert B_n\vert\leq m^*(E)+\varepsilon
 \end{equation}
 We have that for each box $B_n$, we can find an open box $B_n’$ containing $B_n$ such that
 \begin{equation}

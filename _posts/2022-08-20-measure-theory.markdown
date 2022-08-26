@@ -781,7 +781,32 @@ as the **Lebesgue measure** of $E$.
 		m^*(E)< m^*(F)
 		\end{equation}
 	</li>
-	<li></li>
+	<li>
+		By the definition of Lebesgue outer measure, for any positive integer $i$, we have
+		\begin{equation}
+		m^*(E_i)=\inf_{\bigcup_{n=1}^{\infty}B_n\supset E_i;B_1,B_2,\ldots\text{ boxes}}\sum_{n=1}^{\infty}\vert B_n\vert
+		\end{equation}
+		Thus, by definition of infimum and by axiom of countable choice (<b>Axiom 8</b>), for each $E_i$ in the sequence $(E_n)_{n\in\mathbb{N}}$, there exist boxes $B_{i,1},B_{i,2},\ldots\supset E_i$ such that
+		\begin{equation}
+		\sum_{j=1}^{\infty}\vert B_{i,j}\vert\lt m^*(E_i)+\frac{\varepsilon}{i},
+		\end{equation}
+		for any $\varepsilon>0$, and for $i=1,2,\ldots$. Plus, we also have
+		\begin{equation}
+		\bigcup_{n=1}^{infty}E_n\subset\bigcup_{i=1}^{\infty}\bigcup_{j=1}^{\infty}B_{i,j}
+		\end{equation}
+		Moreover, by the Tonelli's theorem for series (<b>Theorem 6</b>), we have
+		\begin{equation}
+		\bigcup_{i=1}^{\infty}\bigcup_{j=1}^{\infty}B_{i,j}=\bigcup_{(i,j)\in\mathbb{N}^2}B_{i,j}
+		\end{equation}
+		Therefore once again, by definition of outer measure and definition of infimum, we obtain
+		\begin{align}
+		m^*\left(\bigcup_{n=1}^{\infty}E_n\right)&=\inf_{\bigcup_{(i,j)\in\mathbb{N}^2}B_{i,j}}\sum_{i=1}^{\infty}\sum_{j=1}^{\infty}\vert B_{i,j}\vert\leq\sum_{i=1}^{\infty}\sum_{j=1}^{\infty}\vert B_{i,j}\vert \\\\ &\lt\sum_{i=1}^{\infty}m^*(E_i)+\frac{\varepsilon}{2^i}=\sum_{i=1}^{\infty}m^*(E_i)+\varepsilon
+		\end{align}
+		And since $\varepsilon>0$ was arbitrary, we can conclude that
+		\begin{equation}
+		m^*\left(\bigcup_{n=1}^{\infty}E_n\right)\leq\sum_{i=n}^{\infty}m^*(E_n)
+		\end{equation}
+	</li>
 </ul>
 
 **Corollary 11**  
@@ -853,7 +878,7 @@ E\subset\bigcup_{n=1}^{\infty}B_n,
 \end{equation}
 such that
 \begin{equation}
-\sum_{n=1}^{\infty}\vert B_n\vert\leq m^\*+\varepsilon
+\sum_{n=1}^{\infty}\vert B_n\vert\leq m^\*(E)+\varepsilon
 \end{equation}
 We have that for each box $B_n$, we can find an open box $B_n'$ containing $B_n$ such that
 \begin{equation}
