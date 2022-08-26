@@ -28,7 +28,8 @@ comments: true
 	- [Piecewise constant functions](#pc-func)
 		- [Basic properties of piecewise constant integral](#pc-int-properties)
 	- [Darboux integral](#darboux-int)
-	- [Basic properties of Riemann integral](#riemann-int-properties)
+	- [Basic properties of the Riemann integral](#riemann-int-properties)
+	- [Area interpretation of the Riemann integral](#riemann-int-area-interpret)
 - [Lebesgue measure](#lebesgue-measure)
 	- [Properties of Lebesgue outer measure](#lebesgue-outer-measure-properties)
 	- [Lebesgue measurability](#lebesgue-measurability)
@@ -599,6 +600,14 @@ Let $d_1,d_2\geq 1$, and let $E_1\subset\mathbb{R}^{d_1},E_2\subset\mathbb{R}^{d
 
 **Proof**  
 
+**Example**. (**Carathéodory type property**)  
+Let $E\subset\mathbb{R}^d$ be a bounded set, and $F\subset\mathbb{R}^d$ be an elementary set. Then we have that
+\begin{equation}
+m^{\*,(J)}(E)=m^{\*,(J)}(E\cap F)+m^{\*,(J)}(E\backslash F)
+\end{equation}
+
+**Solution**  
+
 
 ## Connection with the Riemann integral
 {: #connect-riemann-int}
@@ -678,6 +687,17 @@ Note that the upper and lower Darboux integrals are related by
 \overline{\int_a^b}-f(x)\,dx=-\underline{\int_a^b}f(x)\,dx
 \end{equation}
 
+**Example**  
+Let $[a,b]$ be an interval, and $f:[a,b]\to\mathbb{R}$ be a bounded function. Then $f$ is Riemann integrable iff it is Darboux integrable, in which case the Riemann integrals and Darboux integrals are the same.
+
+**Solution**
+
+**Example**  
+Any continuous function $f:[a,b]\to\mathbb{R}$ is Riemann integrable. More generally, any bounded, piecewise continuous function $f:[a,b]\to\mathbb{R}$ is Riemann integrable.
+
+**Solution**  
+
+
 ### Basic properties of Riemann integral
 {: #riemann-int-properties}
 Let $[a,b]$ be an interval, and let $f,g:[a,b]\to\mathbb{R}$ be Riemann integrable. We then have that
@@ -702,6 +722,14 @@ Let $[a,b]$ be an interval, and let $f,g:[a,b]\to\mathbb{R}$ be Riemann integrab
 	</li>
 </ul>
 These properties uniquely define the Riemann integral, in the sense that the function $f\mapsto\int_{a}^{b}f(x)\,dx$ is the only map from the space of Riemann integrable functions on $[a,b]$ to $\mathbb{R}$ which obeys all of these above properties.
+
+### Area interpretation of the Riemann integral
+{: #riemann-int-area-interpret}
+Let $[a,b]$ be an interval, and let $f:[a,b]\to\mathbb{R}$ be a bounded function. Then $f$ is Riemann integrable iff the sets $E_+\doteq\\{(x,t):x\in[a,b];0\leq t\leq f(x)\\}$ and $E_-\doteq\\{(x,t):x\in[a,b];f(x)\leq t\leq 0\\}$ are both Jordan measurable in $R^2$, in which case we have
+\begin{equation}
+\int_{a}^{b}f(x)\,dx=m^2(E_+)-m^(E_-),
+\end{equation}
+where $m^2$ denotes two-dimensional Jordan measure.
 
 ## Lebesgue measure
 {: #lebesgue-measure}
@@ -738,7 +766,22 @@ as the **Lebesgue measure** of $E$.
 
 **Proof**  
 <ul id='roman-list'>
-	<li>We have</li>
+	<li>This follows from the definition of Lebesgue outer measure.</li>
+	<li>
+		Since $E\subset F\subset\mathbb{R}^d$, then any set containing $F$ also includes $E$, but not every set having $E$ contains $F$. That means
+		\begin{equation}
+		\left\{\sum_{n=1}^{\infty}\vert B_n\vert:E\subset\bigcup_{n=1}^{\infty}B_n;B_n\text{ boxes}\right\}\supset\left\{\sum_{n=1}^{\infty}\vert B_n\vert:F\subset\bigcup_{n=1}^{\infty}B_n;B_n\text{ boxes}\right\}
+		\end{equation}
+		Thus,
+		\begin{equation}
+		\inf\left\{\sum_{n=1}^{\infty}\vert B_n\vert:E\subset\bigcup_{n=1}^{\infty}B_n;B_n\text{ boxes}\right\}\leq\inf\left\{\sum_{n=1}^{\infty}\vert B_n\vert:F\subset\bigcup_{n=1}^{\infty}B_n;B_n\text{ boxes}\right\}
+		\end{equation}
+		or
+		\begin{equation}
+		m^*(E)< m^*(F)
+		\end{equation}
+	</li>
+	<li></li>
 </ul>
 
 **Corollary 11**  
@@ -781,10 +824,14 @@ m^\*(E)+m^\*(F)\leq m^\*(E\cup F)+\varepsilon
 \end{equation}
 Since $\varepsilon$ was arbitrary, this gives $m^\*(E)+m^\*(F)\leq m^\*(E\cup F)$ as required.
 
-[TODO]
+Now we consider the case that some of the boxes $B_n$ intersect both $E$ and $F$. 
+
+Since given any $r>0$, we can always partition a box $B_n$ into a finite number of smaller boxes, each of which has diameter[^1] at most $r$, with the total volume of these sub-boxes equal to the volume of the original box $B_n$. Therefore, given any $r>0$, we may assume without loss of generality that the boxes $B_1,B_2,\ldots$ covering $E\cup F$ have diameter at most $r$. Or in particular, we may assume that all such boxes have diameter strictly less than $\text{dist}(E,f)$.
+
+Once we do this, then it is no longer possible for any box to intersect both $E$ and $F$, which allows the previous argument be applicable.
 
 **Lemma 13**. (**Outer measure of elementary sets**)  
-*Let $E$ be an elementary set. Then the Lebesgue outer measure $m^\*(E)$ of $E$ is equal to the elementary measure of $E$:*
+*Let $E$ be an elementary set. Then the Lebesgue outer measure of $E$ is equal to the elementary measure of $E$:*
 \begin{equation}
 m^\*(E)=m(E)
 \end{equation}
@@ -845,11 +892,11 @@ m^\*(E)&\geq m^\*(Q_1'\cup\ldots\cup Q_k') \\\\ &=m(Q_1'\cup\ldots\cup Q_k') \\\
 for every $\varepsilon>0$. And since $\varepsilon>0$ was arbitrary, our claim has been proved.
 
 **Corollary 14**  
-From the lemma above and the monotonicity property, we have
+From the lemma above and the monotonicity property, 
+for every $E\in\mathbb{R}^d$, we have
 \begin{equation}
-m_{\*,(J)}(E)\leq m^{\*}(E)\leq m^{\*,(J)}(E),
+m_{\*,(J)}(E)\leq m^{\*}(E)\leq m^{\*,(J)}(E)
 \end{equation}
-for every $E\in\mathbb{R}^d$.
 
 **Remark**  
 - Not every bounded open set or compact set (bounded closed) is Jordan measurable.
@@ -895,12 +942,71 @@ If $E=\bigcup_{n=1}^{\infty}B_n=\bigcup_{n=1}^{\infty}B_n'$ can be decomposed in
 *Let $E\subset\mathbb{R}^d$ be an open set. Then $E$ can be expressed as the countable union of almost disjoint boxes (and, in fact, as the countable union of almost disjoint closed cubes)*.
 
 **Proof**  
+We begin by defining a **closed dyadic cube** to be a cube $Q$ of the form
+\begin{equation}
+Q=\left[\frac{i_1}{2^n},\frac{i_1+1}{2^n}\right]\times\ldots\times\left[\frac{i_d}{2^n},\frac{i_d+1}{2^n}\right],
+\end{equation}
+for some integers $n,i_1,\ldots,i_d;n\geq 0$.
+
+We have that such closed dyadic cubes of a fixed sidelength $2^{-n}$ are almost disjoint and cover all of $\mathbb{R}^d$. And also, each dyadic cube of sidelength $2^{-n}$ is contained in exactly one "parent" of sidelength $2^{-n+1}$ (which, conversely, has $2^d$ "children" of sidelength $2^{-n}$), giving the dyadic cubes a structure analogous to that of a binary tree. 
+
+As a consequence of these facts, we also obtain the **dyadic nesting property**: given any two closed dyadic cubes (not necessarily same sidelength), then either they are almost disjoint, or one of them is contained in the other.
+
+If $E$ is open, and $x\in E$, then by definition there is an open ball centered at $x$ that is contained in $E$. Also, it is easily seen that there is also a closed dyadic cube containing $x$ that is contained in $E$. Hence, if we let $\mathcal{Q}$ be the collection of all the dyadic cubes $Q$ that are contained in $E$, we see that
+\begin{equation}
+E=\bigcup_{Q\in\mathcal{Q}}Q
+\end{equation}
+Let $\mathcal{Q}^\*$ denote cubes in $\mathcal{Q}$ such that they are not contained in any other cube in $\mathcal{Q}$. From the nesting property, we see that every cube in $\mathcal{Q}$ is contained in exactly one maximal cube in $\mathcal{Q}^\*$, and that any two such maximal cubes in $\mathcal{Q}^\*$ are almost disjoint. Thus, we have that
+\begin{equation}
+E=\bigcup_{Q\in\mathcal{Q}^\*}Q,
+\end{equation}
+which is union of almost disjoint cubes. As $\mathcal{Q}^\*$ is at most countable, the claim follows.
+
+**Corollary 18**  
+The Lebesgue outer measure of any open set is equal to the Jordan inner measure of that set, or of the total volume of any partitioning of that set into almost disjoint boxes.
+
+**Lemma 19**. (**Outer regularity**)  
+*Let $E\subset\mathbb{R}^d$ be an arbitrary set. Then we have*
+\begin{equation}
+m^\*(E)=\inf_{E\subset U,U\text{ open}}m^\*(U)
+\end{equation}
+
+**Proof**  
+From monotonicity property, we have
+\begin{equation}
+m^\*(E)\leq\inf_{E\subset U,U\text{ open}}m^\*(U)
+\end{equation}
+Then, it suffices to show that
+\begin{equation}
+m^\*(E)\geq\inf_{E\subset U,U\text{ open}}m^\*(U),
+\end{equation}
+which is obvious in the case that $m^\*(E)$ is infinite. Thus, we now assume that $m^\*(E)$ is finite.
+
+Let $\varepsilon>0$. By the definition of Lebesgue outer measure, there exists a countable family $B_1,B_2,\ldots$ of boxes covering $E$ such that
+\begin{equation}
+\sum_{n=1}^{\infty}\vert B_n\vert\leq m^\*(E)+\varepsilon
+\end{equation}
 
 
 ### Lebesgue measurability
 {: #lebesgue-measurability}
 
-**Lemma**. (**Existence of Lebesgue measurable sets**)  
+**Lemma 20**. (**Existence of Lebesgue measurable sets**)  
+<ul id='roman-list' style='font-style: italic;'>
+	<li>Every open set is Lebesgue measurable.</li>
+	<li>Every closed set is Lebesgue measurable.</li>
+	<li>Every set of Lebesgue outer measure zero is measurable. (Such sets are called <b>null sets</b>.)</li>
+	<li>The empty set $\emptyset$ is Lebesgue measurable.</li>
+	<li>If $E\subset\mathbb{R}^d$ is Lebesgue measurable, then so its complement $\mathbb{R}^d\backslash E$.</li>
+	<li>If $E_1,E_2,\ldots\subset\mathbb{R}^d$ are a sequence of Lebesgue measurable sets, then the union $\bigcup_{n=1}^{\infty}E_n$ is Lebesgue measurable.</li>
+	<li>If $E_1,E_2,\ldots\subset\mathbb{R}^d$ are a sequence of Lebesgue measurable sets, then the intersection $\bigcap_{n=1}^{\infty}E_n$ is Lebesgue measurable.</li>
+</ul>
+
+**Proof**
+<ul id='roman-list'>
+	<li>This follows from definition.</li>
+	<li></li>
+</ul>
 
 
 ### Non-measurable sets
@@ -915,3 +1021,8 @@ If $E=\bigcup_{n=1}^{\infty}B_n=\bigcup_{n=1}^{\infty}B_n'$ can be decomposed in
 
 ## Footnotes
 {: #footnotes}
+
+[^1]: The **diameter** of a set $B$ is defined as
+	\begin{equation}
+	\text{dia}(B)\doteq\sup\\{\vert x-y\vert:x,y\in B\\}
+	\end{equation}
