@@ -7,7 +7,7 @@ tags: mathematics measure-theory random-stuffs
 description: Note on measure theory
 comments: true
 ---
-> A note on measure theory 
+> A note on measure theory: materials were mostly taken from [Tao's book]({% post_url 2022-06-16-measure-theory %}#taos-book), except for some notations needed from [Stein's book]({% post_url 2022-06-16-measure-theory %}#steins-book).
 <!-- excerpt-end -->
 
 - [Preliminaries](#preliminaries)
@@ -729,9 +729,9 @@ where $m^2$ denotes two-dimensional Jordan measure.
 
 ## References
 {: #references}
-[1] Terence Tao. [An introduction to measure theory](https://terrytao.wordpress.com/books/an-introduction-to-measure-theory/). Graduate Studies in Mathematics, vol. 126.
+[1] <span id='taos-book'>Terence Tao. [An introduction to measure theory](https://terrytao.wordpress.com/books/an-introduction-to-measure-theory/). Graduate Studies in Mathematics, vol. 126.</span>
 
-[2] Elias M. Stein & Rami Shakarchi. [Real Analysis: Measure Theory, Integration, and Hilbert Spaces](#http://www.cmat.edu.uy/~mordecki/courses/medida2013/book.pdf). 
+[2] <span id='steins-book'>Elias M. Stein & Rami Shakarchi. [Real Analysis: Measure Theory, Integration, and Hilbert Spaces](#http://www.cmat.edu.uy/~mordecki/courses/medida2013/book.pdf). </span>
 
 ## Footnotes
 {: #footnotes}
