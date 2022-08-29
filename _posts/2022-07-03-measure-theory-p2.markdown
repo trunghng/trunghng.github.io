@@ -437,6 +437,10 @@ Let $E\subset\mathbb{R}^d$. The following are equivalent
 {: #non-measurable-sets}
 
 
+## Lebesgue integral
+{: #lebesgue-integral}
+
+
 ## References
 {: #references}
 [1] <span id='taos-book'>Terence Tao. [An introduction to measure theory](https://terrytao.wordpress.com/books/an-introduction-to-measure-theory/). Graduate Studies in Mathematics, vol. 126.</span>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-28T18:58:50+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-29T15:17:15+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">The Convergence of Q-learning</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/21/q-learning-convergence.html" rel="alternate" type="text/html" title="The Convergence of Q-learning" /><published>2022-08-21T07:00:00+07:00</published><updated>2022-08-21T07:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/21/q-learning-convergence</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/21/q-learning-convergence.html">&lt;blockquote&gt;
   &lt;p&gt;A note on convergence proofs for Q-learning by exploiting the connection with stochastic approximation and the idea of parallel asynchronous.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -18,9 +18,9 @@
 &lt;h2 id=&quot;q-learning-convergence&quot;&gt;The convergence of Q-learning&lt;/h2&gt;
 
 &lt;h2 id=&quot;preferences&quot;&gt;Preferences&lt;/h2&gt;
-&lt;p&gt;[1] John N. Tsitsiklis. &lt;a href=&quot;https://doi.org/10.1023/A:1022689125041&quot;&gt;Asynchronous Stochastic Approximation and Q-Learning&lt;/a&gt;. Machine Learning 16, 185–202 (1994).&lt;/p&gt;
+&lt;p&gt;[1] T. Jaakkola &amp;amp; M. I. Jordan &amp;amp; S. P. Singh. &lt;a href=&quot;doi: 10.1162/neco.1994.6.6.1185&quot;&gt;On the Convergence of Stochastic Iterative Dynamic Programming Algorithms&lt;/a&gt; in Neural Computation, vol. 6, no. 6, pp. 1185-1201, Nov. 1994.&lt;/p&gt;
 
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="Q-learning" /><category term="dynamic-programming" /><summary type="html">A note on convergence proofs for Q-learning by exploiting the connection with stochastic approximation and the idea of parallel asynchronous.</summary></entry><entry><title type="html">Measure theory - II</title><link href="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html" rel="alternate" type="text/html" title="Measure theory - II" /><published>2022-07-03T13:00:00+07:00</published><updated>2022-07-03T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html">&lt;blockquote&gt;
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="q-learning" /><category term="dynamic-programming" /><summary type="html">A note on convergence proofs for Q-learning by exploiting the connection with stochastic approximation and the idea of parallel asynchronous.</summary></entry><entry><title type="html">Measure theory - II</title><link href="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html" rel="alternate" type="text/html" title="Measure theory - II" /><published>2022-07-03T13:00:00+07:00</published><updated>2022-07-03T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html">&lt;blockquote&gt;
   &lt;p&gt;A note on measure theory (continued from &lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-theory.html&quot;&gt;part I&lt;/a&gt;): materials were mostly taken from &lt;a href=&quot;/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some notations needed from &lt;a href=&quot;/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -453,6 +453,8 @@ And since $\varepsilon&amp;gt;0$ was arbitrary, the claim follows.&lt;/p&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;non-measurable-sets&quot;&gt;Non-measurable sets&lt;/h3&gt;
+
+&lt;h2 id=&quot;lebesgue-integral&quot;&gt;Lebesgue integral&lt;/h2&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] &lt;span id=&quot;taos-book&quot;&gt;Terence Tao. &lt;a href=&quot;https://terrytao.wordpress.com/books/an-introduction-to-measure-theory/&quot;&gt;An introduction to measure theory&lt;/a&gt;. Graduate Studies in Mathematics, vol. 126.&lt;/span&gt;&lt;/p&gt;
@@ -2767,6 +2769,13 @@ We call this method &lt;strong&gt;episodic semi-gradient one-step Sarsa&lt;/stro
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
 
+&lt;p&gt;The following figure illustrates the cost-to-go function $\max_a\hat{q}(s,a,\mathbf{w})$ learned during one run of the semi-gradient Sarsa on Mountain Car task.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-02-11/mountain-car-ep-semi-grad-sarsa.png&quot; alt=&quot;Semi-gradient Sarsa on Mountain Car task&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 6&lt;/b&gt;: Cost-to-go learned during one run of Semi-gradient Sarsa on Mountain Car problem&lt;br /&gt;&lt;span&gt;(&lt;span&gt;&lt;a href=&quot;#rl-book&quot;&gt;RL book&lt;/a&gt;&lt;/span&gt; - Example 10.1).&lt;/span&gt;&lt;br /&gt;The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-10/mountain_car.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
 &lt;h3 id=&quot;ep-semi-grad-n-step-sarsa&quot;&gt;Episodic Semi-gradient $\boldsymbol{n}$-step Sarsa&lt;/h3&gt;
 &lt;p&gt;Similar to how we defined the one-step Sarsa version of semi-gradient, we can replace the update target in \eqref{12} by an &lt;span id=&quot;n-step-return&quot;&gt;$n$-step return&lt;/span&gt;,
 \begin{equation}
@@ -2781,6 +2790,13 @@ for $0\leq t\lt T$. The pseudocode is given below.&lt;/p&gt;
 	&lt;img src=&quot;/assets/images/2022-02-11/ep-semi-grad-n-step-sarsa.png&quot; alt=&quot;Episodic Semi-gradient n-step Sarsa&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
 	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
+
+&lt;p&gt;The figure below shows how the $n$-step ($8$-step in particular) tends to learn faster than the one-step algorithm.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-02-11/mountain-car-ep-semi-grad-n-step-sarsa.png&quot; alt=&quot;one-step vs 8-step Semi-gradient Sarsa on Mountain Car task&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 7&lt;/b&gt;: Performance of one-step vs 8-step Semi-gradient Sarsa on Mountain Car task&lt;br /&gt;&lt;span&gt;(&lt;span&gt;&lt;a href=&quot;#rl-book&quot;&gt;RL book&lt;/a&gt;&lt;/span&gt;).&lt;/span&gt;&lt;br /&gt;The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-10/mountain_car.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;avg-reward&quot;&gt;Average Reward&lt;/h3&gt;
 &lt;p&gt;We now consider a new setting for continuing tasks - alongside the episodic and discounted settings - &lt;strong&gt;average reward&lt;/strong&gt;.&lt;/p&gt;

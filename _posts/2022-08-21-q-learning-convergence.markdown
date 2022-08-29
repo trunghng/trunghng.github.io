@@ -3,8 +3,8 @@ layout: post
 title:  "The Convergence of Q-learning"
 date:   2022-08-21 07:00:00 +0700
 categories: artificial-intelligent reinforcement-learning
-tags: artificial-intelligent reinforcement-learning Q-learning dynamic-programming
-description: Convergence of Q-learning
+tags: artificial-intelligent reinforcement-learning q-learning dynamic-programming
+description: Convergence of Q-learning, TD(lambda)
 comments: true
 ---
 > A note on convergence proofs for Q-learning by exploiting the connection with stochastic approximation and the idea of parallel asynchronous.
@@ -29,7 +29,7 @@ In Q-learning, transition probabilities and costs are unknown but information of
 
 ## Preferences
 {: #preferences}
-[1] John N. Tsitsiklis. [Asynchronous Stochastic Approximation and Q-Learning](https://doi.org/10.1023/A:1022689125041). Machine Learning 16, 185–202 (1994).
+[1] T. Jaakkola & M. I. Jordan & S. P. Singh. [On the Convergence of Stochastic Iterative Dynamic Programming Algorithms](doi: 10.1162/neco.1994.6.6.1185) in Neural Computation, vol. 6, no. 6, pp. 1185-1201, Nov. 1994.
 
 
 ## Footnotes

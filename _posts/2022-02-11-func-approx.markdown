@@ -433,6 +433,12 @@ To form the control method, we need to couple the action-value
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
 </figure>
 
+The following figure illustrates the cost-to-go function $\max_a\hat{q}(s,a,\mathbf{w})$ learned during one run of the semi-gradient Sarsa on Mountain Car task.
+<figure>
+	<img src="/assets/images/2022-02-11/mountain-car-ep-semi-grad-sarsa.png" alt="Semi-gradient Sarsa on Mountain Car task" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 6</b>: Cost-to-go learned during one run of Semi-gradient Sarsa on Mountain Car problem<br><span>(<span markdown="1">[RL book](#rl-book)</span> - Example 10.1).</span><br>The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-10/mountain_car.py)</span></figcaption>
+</figure><br/>
+
 ### Episodic Semi-gradient $\boldsymbol{n}$-step Sarsa
 {: #ep-semi-grad-n-step-sarsa}
 Similar to how we defined the one-step Sarsa version of semi-gradient, we can replace the update target in \eqref{12} by an <span id='n-step-return'>$n$-step return</span>,
@@ -448,6 +454,12 @@ for $0\leq t\lt T$. The pseudocode is given below.
 	<img src="/assets/images/2022-02-11/ep-semi-grad-n-step-sarsa.png" alt="Episodic Semi-gradient n-step Sarsa" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
 </figure>
+
+The figure below shows how the $n$-step ($8$-step in particular) tends to learn faster than the one-step algorithm.
+<figure>
+	<img src="/assets/images/2022-02-11/mountain-car-ep-semi-grad-n-step-sarsa.png" alt="one-step vs 8-step Semi-gradient Sarsa on Mountain Car task" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 7</b>: Performance of one-step vs 8-step Semi-gradient Sarsa on Mountain Car task<br><span>(<span markdown="1">[RL book](#rl-book)</span>).</span><br>The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-10/mountain_car.py)</span></figcaption>
+</figure><br/>
 
 ### Average Reward
 {: #avg-reward}

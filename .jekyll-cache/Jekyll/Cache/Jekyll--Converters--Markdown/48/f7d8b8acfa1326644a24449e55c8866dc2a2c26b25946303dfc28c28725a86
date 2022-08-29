@@ -1,4 +1,4 @@
-I",<blockquote>
+I"o<blockquote>
   <p>A note on convergence proofs for Q-learning by exploiting the connection with stochastic approximation and the idea of parallel asynchronous.
 <!-- excerpt-end --></p>
 </blockquote>
@@ -17,7 +17,7 @@
 <h2 id="q-learning-convergence">The convergence of Q-learning</h2>
 
 <h2 id="preferences">Preferences</h2>
-<p>[1] John N. Tsitsiklis. <a href="https://doi.org/10.1023/A:1022689125041">Asynchronous Stochastic Approximation and Q-Learning</a>. Machine Learning 16, 185–202 (1994).</p>
+<p>[1] T. Jaakkola &amp; M. I. Jordan &amp; S. P. Singh. <a href="doi: 10.1162/neco.1994.6.6.1185">On the Convergence of Stochastic Iterative Dynamic Programming Algorithms</a> in Neural Computation, vol. 6, no. 6, pp. 1185-1201, Nov. 1994.</p>
 
 <h2 id="footnotes">Footnotes</h2>
 :ET

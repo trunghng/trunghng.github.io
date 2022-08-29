@@ -1,4 +1,4 @@
-I"0Þ<blockquote>
+I"Tä<blockquote>
   <p>Reinforcement Learning in continuous state space requires function approximation.</p>
 </blockquote>
 
@@ -453,6 +453,13 @@ We call this method <strong>episodic semi-gradient one-step Sarsa</strong>.</p>
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
 </figure>
 
+<p>The following figure illustrates the cost-to-go function $\max_a\hat{q}(s,a,\mathbf{w})$ learned during one run of the semi-gradient Sarsa on Mountain Car task.</p>
+<figure>
+	<img src="/assets/images/2022-02-11/moutain-car-ep-semi-grad-sarsa.png" alt="Semi-gradient Sarsa on Mountain Car task" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 6</b>: Cost-to-go learned during one run of Semi-gradient Sarsa on Mountain Car problem<br /><span>(<span><a href="#rl-book">RL book</a></span> - Example 10.1).</span><br />The code can be found <span><a href="https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-10/mountain_car.py">here</a></span></figcaption>
+</figure>
+<p><br /></p>
+
 <h3 id="ep-semi-grad-n-step-sarsa">Episodic Semi-gradient $\boldsymbol{n}$-step Sarsa</h3>
 <p>Similar to how we defined the one-step Sarsa version of semi-gradient, we can replace the update target in \eqref{12} by an <span id="n-step-return">$n$-step return</span>,
 \begin{equation}
@@ -467,6 +474,13 @@ for $0\leq t\lt T$. The pseudocode is given below.</p>
 	<img src="/assets/images/2022-02-11/ep-semi-grad-n-step-sarsa.png" alt="Episodic Semi-gradient n-step Sarsa" style="display: block; margin-left: auto; margin-right: auto;" />
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
 </figure>
+
+<p>The figure below shows how the $n$-step ($8$-step in particular) tends to learn faster than the one-step algorithm.</p>
+<figure>
+	<img src="/assets/images/2022-02-11/moutain-car-ep-semi-grad-n-step-sarsa.png" alt="one-step vs 8-step Semi-gradient Sarsa on Mountain Car task" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 7</b>: Performance of one-step vs 8-step Semi-gradient Sarsa on Mountain Car task<br /><span>(<span><a href="#rl-book">RL book</a></span>).</span><br />The code can be found <span><a href="https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-10/mountain_car.py">here</a></span></figcaption>
+</figure>
+<p><br /></p>
 
 <h3 id="avg-reward">Average Reward</h3>
 <p>We now consider a new setting for continuing tasks - alongside the episodic and discounted settings - <strong>average reward</strong>.</p>
