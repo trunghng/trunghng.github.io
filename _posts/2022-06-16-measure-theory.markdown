@@ -21,7 +21,7 @@ comments: true
 	- [Measure of an elementary set](#measure-elementary-set)
 	- [Properties of elementary measure](#elementary-measure-properties)
 - [Jordan measure](#jordan-measure)
-	- [Characterization of Jordan measurability](#jordan-measurability-characterisation)
+	- [Characterisation of Jordan measurability](#jordan-measurability-characterisation)
 	- [Properties of Jordan measurability](#jordan-measurability-properties)
 - [Connection with the Riemann integral](#connect-riemann-int)
 	- [Riemann integrability](#riemann-integrability)
@@ -475,7 +475,7 @@ m(E)\doteq m_{\*,(J)}(E)=m^{\*,(J)}(E)
 \end{equation}
 the **Jordan measure** of $E$.
 
-### Characterization of Jordan measurability
+### Characterisation of Jordan measurability
 {: #jordan-measurability-characterisation}
 Let $E\subset\mathbb{R}^d$ be bounded. These following statements are equivalence
 <ul id='number-list'>
@@ -580,6 +580,46 @@ Let $E,F\in\mathbb{R}^d$ be Jordan measurable sets. Then
 		<b>Translation invariance</b>. For any $x\in\mathbb{R}^d$, $E+x$ is Jordan measurable, and $m(E+x)=m(E)$.
 	</li>
 </ul>
+
+**Proof**  
+<ol id='number-list'>
+	<li><b>Boolean closure</b>.
+		<ol>
+			<li>
+				By characterisation of Jordan measurability, we can find elementary sets $A_1\subset E\subset B_1$ and $A_2\subset F\subset B_2$ such that for any $\varepsilon>0$
+				\begin{align}
+				m(B_1\backslash A_1)&\leq\frac{\varepsilon}{2}, \\ m(B_2\backslash A_2)&\leq\frac{\varepsilon}{2}
+				\end{align}
+				Thus, we have that
+				\begin{equation}
+				\left(A_1\cap A_2\right)\subset\left(E\cap F\right)\subset\left(B_1\cap B_2\right)
+				\end{equation}
+				and
+				\begin{equation}
+				\left(A_1\cup A_2\right)\subset\left(E\cup F\right)\subset\left(B_1\cup B_2\right)
+				\end{equation}
+				Moreover, for any $\varepsilon>0$, we have that
+				\begin{align}
+				m\big((B_1\cup B_2)\backslash(A_1\cup A_2)\big)&=m(B_1\cup B_2)-m(A_1\cup A_2) \\ &=m(B_1)+m(B_2\backslash B_1)-m(A_1\cup A_2) \\ &\leq m(B_1)+m(B_2\backslash A_1)-m(A_1\cup A_2) \\ &=m(B_1)-m(A_1)+m(B_2\backslash A_1)+m(A_1)-m(A_1\cup A_2) \\ &=m(B_1)-m(A_1)+m(B_2\cup A_1)-m(A_1\cup A_2) \\ &=m(B_1\backslash A_1)+m\big((B_2\cup A_1)\backslash(A_1\cup A_2)\big) \\ &=m(B_1\backslash A_1)+m(B_2\backslash A_2) \\ &\leq\varepsilon/2+\varepsilon/2 \\ &=\varepsilon,
+				\end{align}
+				which implies that $E\cup F$ is Jordan measurable.
+			</li>
+			<li>
+				From the result above, and by monotonicity, finite addititivy, finite subadditity properties of elementary measure, for any $\varepsilon>0$, we also have that
+				\begin{align}
+				m\big((B_1\cap B_2)\backslash(A_1\cap A_2)\big)&=m(B_1\cap B_2)-m(A_1\cap A_2) \\ &=m\Big(\big(B_1\cup B_2\big)\backslash\big((B_1\backslash B_2)\cup(B_2\backslash B_1)\big)\Big) \\ &\hspace{1cm}-m\Big(\big(A_1\cup A_2\big)\backslash\big((A_1\backslash A_2)\cup(A_2\backslash A_1)\big)\Big) \\ &=m(B_1\cup B_2)-m(B_1\backslash B_2)-m(B_2\backslash B_1) \\ &\hspace{1cm}-m(A_1\cup A_2)+m(A_1\backslash A_2)+m(A_2\backslash A_1) \\ &=m(B_1\cup B_2)-m(A_1\cup A_2)+m(A_1\backslash A_2)-m(B_1\backslash B_2) \\ &\hspace{1cm}+m(A_2\backslash A_1)-m(B_2\backslash B_1) \\ &\leq m(B_1\cup B_2)-m(A_1\cup A_2)+m(B_1\backslash A_2)-m(B_1\backslash B_2) \\ &\hspace{1cm}+m(B_2\backslash A_1)-m(B_2\backslash B_1) \\ &\leq m(B_1\cup B_2)-m(A_1\cup A_2) \\ &\leq\varepsilon,
+				\end{align}
+				which also implies that $E\cap F$ is Jordan measurable.
+			</li>
+		</ol>
+	</li>
+	<li>
+		<b>Non-negativity</b>. This follows directly from definition.
+	</li>
+	<li>
+		<b>Finite additivity</b>.
+	</li>
+</ol>
 
 **Example 4**. (**Uniqueness of Jordan measure**)  
 Let $d\geq 1$ and let $m':\mathcal{J}(\mathbb{R}^d)\to\mathbb{R}^+$  be a map from the collection of Jordan measurable subsets of $\mathbb{R}^d$ to the nonnegative reals that obeys the non-negativity, finite additivity and translation invariance properties. Then there exists a constant $c\in\mathbb{R}^+$ such that

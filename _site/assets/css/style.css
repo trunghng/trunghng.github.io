@@ -335,12 +335,12 @@ blockquote { font-size: 16px; background-color: #f0f0f0; padding: 10px; font-sty
 
 .post-content { text-align: justify; }
 
-#roman-list, #number-list { counter-reset: list; }
+#roman-list, #number-list { counter-reset: section; }
 
 #roman-list, #number-list > li { list-style: none; position: relative; }
 
-#roman-list > li:before { counter-increment: list; content: "(" counter(list, lower-roman) ") "; position: absolute; left: -1.4em; }
+#roman-list > li:before { counter-increment: list; content: "(" counter(list, lower-roman) ") "; position: absolute; left: -1.5em; }
 
-#number-list > li:before { counter-increment: list; content: "(" counter(list, decimal) ") "; position: absolute; left: -1.4em; }
+#number-list > li:before { counter-increment: section; content: "(" counter(section, decimal) ") "; position: absolute; left: -1.5em; }
 
 /*# sourceMappingURL=style.css.map */

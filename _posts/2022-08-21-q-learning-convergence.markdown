@@ -29,8 +29,9 @@ In Q-learning, transition probabilities and costs are unknown but information of
 
 ## Preferences
 {: #preferences}
-[1] T. Jaakkola & M. I. Jordan & S. P. Singh. [On the Convergence of Stochastic Iterative Dynamic Programming Algorithms](doi: 10.1162/neco.1994.6.6.1185) in Neural Computation, vol. 6, no. 6, pp. 1185-1201, Nov. 1994.
+[1] T. Jaakkola & M. I. Jordan & S. P. Singh. [On the Convergence of Stochastic Iterative Dynamic Programming Algorithms](doi: 10.1162/neco.1994.6.6.1185) in Neural Computation, vol. 6, no. 6, pp. 1185-1201, Nov. 1994. 
 
+[2] Dvoretzky A. [On stochastic approximation](https://projecteuclid.org/proceedings/berkeley-symposium-on-mathematical-statistics-and-probability/Proceedings-of-the-Third-Berkeley-Symposium-on-Mathematical-Statistics-and/Chapter/On-Stochastic-Approximation/bsmsp/1200501645?tab=ArticleFirstPage). Berkeley Symposium on Mathematical Statistics and Probability, 1956: 39-55 (1956).
 
 ## Footnotes
 {: #footnotes}

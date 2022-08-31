@@ -146,9 +146,6 @@ Once we do this, then it is no longer possible for any box to intersect both $E$
 **Example**  
 Let $E,F\subset\mathbb{R}^d$ be disjoint closed sets, with at least one of $E,F$ being compact. Then $\text{dist}(E,F)>0$.
 
-**Solution**  
-
-
 **Lemma 13**. (**Outer measure of elementary sets**)  
 *Let $E$ be an elementary set. Then the Lebesgue outer measure of $E$ is equal to the elementary measure of $E$:*
 \begin{equation}
@@ -428,8 +425,32 @@ Let $E\subset\mathbb{R}^d$. The following are equivalent
 		\end{equation}
 		Therefore, the claim follows.
 		<br>
-		Finally, we consider the case that $E_n$ are not bounded or closed.
+		Finally, we consider the case that $E_n$ are not bounded or closed with the idea of decomposing each $E_n$ as a countable disjoint union of bounded Lebesgue measurable sets.
+		<br>
 	</li>
+</ul>
+
+**Example** (**Monotone convergence theorem for measurable sets**)  
+<ul id='roman-list'>
+	<li>
+		<b>Upward monotone convergence</b>. Let $E_1\subset E_2\subset\ldots\subset\mathbb{R}^d$ be a countable non-decreasing sequence of Lebesgue measurable sets. Then
+		\begin{equation}
+		m\left(\bigcup_{n=1}^{\infty}E_n\right)=\lim_{n\to\infty}m(E_n)
+		\end{equation}
+	</li>
+	<li>
+		<b>Downward monotone convergence</b>. Let $\mathbb{R}^d\supset E_1\supset E_2\supset\ldots$ be a countable non-increasing sequence of Lebesgue measurable sets. If at least one of the $m(E_n)$ is finite, then
+		\begin{equation}
+		m\left(\bigcap_{n=1}^{\infty}E_n\right)=\lim_{n\to\infty}m(E_n)
+		\end{equation}
+	</li>
+</ul>
+
+**Example**  
+We say that a sequence $E_n$ of sets in $\mathbb{R}^d$ **converges pointwise** to another set $E$ in $\mathbb{R}^d$ if the indicator function $1_{E_n}$ converges pointwise to $1_E$.
+<ul id='roman-list'>
+	<li>If the $E_n$ are all Lebesgue measurable, and converge pointwise to $E$, then $E_n$ is Lebesgue measurable also.</li>
+	<li><b>Dominated convergence theorem</b>. Suppose that the $E_n$ are all contained in another Lebesgue measurable set $F$ of finite measure. Then $m(E_n)$ converges to $m(E)$.</li>
 </ul>
 
 

@@ -32,7 +32,7 @@ blockquote {
 .post-content { text-align: justify; }
 
 #roman-list, #number-list {
-  counter-reset: list;
+  counter-reset: section;
 }
 
 #roman-list, #number-list > li {
@@ -44,12 +44,12 @@ blockquote {
     counter-increment: list;
     content: "(" counter(list, lower-roman) ") ";
     position: absolute;
-    left: -1.4em;
+    left: -1.5em;
 }
 
 #number-list > li:before {
-    counter-increment: list;
-    content: "(" counter(list, decimal) ") ";
+    counter-increment: section;
+    content: "(" counter(section, decimal) ") ";
     position: absolute;
-    left: -1.4em;
+    left: -1.5em;
 }

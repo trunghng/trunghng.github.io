@@ -1,4 +1,4 @@
-I"֞<blockquote>
+I"ۢ<blockquote>
   <p>A note on measure theory: materials were mostly taken from <a href="/mathematics/measure-theory/2022/06/16/measure-theory.html#taos-book">Tao’s book</a>, except for some notations needed from <a href="/mathematics/measure-theory/2022/06/16/measure-theory.html#steins-book">Stein’s book</a>.
 <!-- excerpt-end --></p>
 </blockquote>
@@ -22,7 +22,7 @@
   </li>
   <li><a href="#jordan-measure">Jordan measure</a>
     <ul>
-      <li><a href="#jordan-measurability-characterisation">Characterization of Jordan measurability</a></li>
+      <li><a href="#jordan-measurability-characterisation">Characterisation of Jordan measurability</a></li>
       <li><a href="#jordan-measurability-properties">Properties of Jordan measurability</a></li>
     </ul>
   </li>
@@ -482,7 +482,7 @@ m(E)\doteq m_{*,(J)}(E)=m^{*,(J)}(E)
 the <strong>Jordan measure</strong> of $E$.</li>
 </ul>
 
-<h3 id="jordan-measurability-characterisation">Characterization of Jordan measurability</h3>
+<h3 id="jordan-measurability-characterisation">Characterisation of Jordan measurability</h3>
 <p>Let $E\subset\mathbb{R}^d$ be bounded. These following statements are equivalence</p>
 <ul id="number-list">
 	<li>$E$ is Jordan measurable.</li>
@@ -589,6 +589,32 @@ or in other words, $E$ is Jordan measurable.</li>
 		<b>Translation invariance</b>. For any $x\in\mathbb{R}^d$, $E+x$ is Jordan measurable, and $m(E+x)=m(E)$.
 	</li>
 </ul>
+
+<p><strong>Proof</strong></p>
+<ol id="number-list">
+	<li>
+		<ol>
+			<li>
+				By characterisation of Jordan measurability, we can find elementary sets $A_1\subset E\subset B_1$ and $A_2\subset F\subset B_2$ such that for any $\varepsilon&gt;0$
+				\begin{align}
+				m(B_1\backslash A_1)&amp;\leq\frac{\varepsilon}{2}, \\ m(B_2\backslash A_2)&amp;\leq\frac{\varepsilon}{2}
+				\end{align}
+				Thus, we have that
+				\begin{equation}
+				\left(A_1\cap A_2\right)\subset\left(E\cap F\right)\subset\left(B_1\cap B_2\right)
+				\end{equation}
+				and
+				\begin{equation}
+				\left(A_1\cup A_2\right)\subset\left(E\cup F\right)\subset\left(B_1\cup B_2\right)
+				\end{equation}
+				Moreover, we have that
+				\begin{align}
+				m(B_1\cup B_2)-m(A_1\cup A_2)&amp;=m(B_1)+m(B_2\backslash B_1)-m(A_1\cup A_2) \\ &amp;\leq m(B_1)+m(B_2\backslash A_1)-m(A_1\cup A_2) \\ &amp;=\leq m(B_1)-m(A_2)+m(B_2\backslash A_1)+m(A_1)-m(A_1\cup A_2) \\ &amp;=m(B_1)-m(A_2)+m(B_2\cup A_1)-m(A_1\cup A_2) \\
+				\end{align}
+			</li>
+		</ol>
+	</li>
+</ol>
 
 <p><strong>Example 4</strong>. (<strong>Uniqueness of Jordan measure</strong>)<br />
 Let $d\geq 1$ and let $m’:\mathcal{J}(\mathbb{R}^d)\to\mathbb{R}^+$  be a map from the collection of Jordan measurable subsets of $\mathbb{R}^d$ to the nonnegative reals that obeys the non-negativity, finite additivity and translation invariance properties. Then there exists a constant $c\in\mathbb{R}^+$ such that

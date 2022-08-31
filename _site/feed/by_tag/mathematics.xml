@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-29T15:17:15+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-31T16:07:31+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory - II</title><link href="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html" rel="alternate" type="text/html" title="Measure theory - II" /><published>2022-07-03T13:00:00+07:00</published><updated>2022-07-03T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html">&lt;blockquote&gt;
   &lt;p&gt;A note on measure theory (continued from &lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-theory.html&quot;&gt;part I&lt;/a&gt;): materials were mostly taken from &lt;a href=&quot;/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some notations needed from &lt;a href=&quot;/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -145,8 +145,6 @@ Since $\varepsilon$ was arbitrary, this gives $m^*(E)+m^*(F)\leq m^*(E\cup F)$ a
 
 &lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt;&lt;br /&gt;
 Let $E,F\subset\mathbb{R}^d$ be disjoint closed sets, with at least one of $E,F$ being compact. Then $\text{dist}(E,F)&amp;gt;0$.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Lemma 13&lt;/strong&gt;. (&lt;strong&gt;Outer measure of elementary sets&lt;/strong&gt;)&lt;br /&gt;
 &lt;em&gt;Let $E$ be an elementary set. Then the Lebesgue outer measure of $E$ is equal to the elementary measure of $E$:&lt;/em&gt;
@@ -427,8 +425,32 @@ And since $\varepsilon&amp;gt;0$ was arbitrary, the claim follows.&lt;/p&gt;
 		\end{equation}
 		Therefore, the claim follows.
 		&lt;br /&gt;
-		Finally, we consider the case that $E_n$ are not bounded or closed.
+		Finally, we consider the case that $E_n$ are not bounded or closed with the idea of decomposing each $E_n$ as a countable disjoint union of bounded Lebesgue measurable sets.
+		&lt;br /&gt;
 	&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt; (&lt;strong&gt;Monotone convergence theorem for measurable sets&lt;/strong&gt;)&lt;/p&gt;
+&lt;ul id=&quot;roman-list&quot;&gt;
+	&lt;li&gt;
+		&lt;b&gt;Upward monotone convergence&lt;/b&gt;. Let $E_1\subset E_2\subset\ldots\subset\mathbb{R}^d$ be a countable non-decreasing sequence of Lebesgue measurable sets. Then
+		\begin{equation}
+		m\left(\bigcup_{n=1}^{\infty}E_n\right)=\lim_{n\to\infty}m(E_n)
+		\end{equation}
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Downward monotone convergence&lt;/b&gt;. Let $\mathbb{R}^d\supset E_1\supset E_2\supset\ldots$ be a countable non-increasing sequence of Lebesgue measurable sets. If at least one of the $m(E_n)$ is finite, then
+		\begin{equation}
+		m\left(\bigcap_{n=1}^{\infty}E_n\right)=\lim_{n\to\infty}m(E_n)
+		\end{equation}
+	&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt;&lt;br /&gt;
+We say that a sequence $E_n$ of sets in $\mathbb{R}^d$ &lt;strong&gt;converges pointwise&lt;/strong&gt; to another set $E$ in $\mathbb{R}^d$ if the indicator function $1_{E_n}$ converges pointwise to $1_E$.&lt;/p&gt;
+&lt;ul id=&quot;roman-list&quot;&gt;
+	&lt;li&gt;If the $E_n$ are all Lebesgue measurable, and converge pointwise to $E$, then $E_n$ is Lebesgue measurable also.&lt;/li&gt;
+	&lt;li&gt;&lt;b&gt;Dominated convergence theorem&lt;/b&gt;. Suppose that the $E_n$ are all contained in another Lebesgue measurable set $F$ of finite measure. Then $m(E_n)$ converges to $m(E)$.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;non-measurable-sets&quot;&gt;Non-measurable sets&lt;/h3&gt;
@@ -475,7 +497,7 @@ And since $\varepsilon&amp;gt;0$ was arbitrary, the claim follows.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#jordan-measure&quot;&gt;Jordan measure&lt;/a&gt;
     &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#jordan-measurability-characterisation&quot;&gt;Characterization of Jordan measurability&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#jordan-measurability-characterisation&quot;&gt;Characterisation of Jordan measurability&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#jordan-measurability-properties&quot;&gt;Properties of Jordan measurability&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
@@ -935,7 +957,7 @@ m(E)\doteq m_{*,(J)}(E)=m^{*,(J)}(E)
 the &lt;strong&gt;Jordan measure&lt;/strong&gt; of $E$.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;jordan-measurability-characterisation&quot;&gt;Characterization of Jordan measurability&lt;/h3&gt;
+&lt;h3 id=&quot;jordan-measurability-characterisation&quot;&gt;Characterisation of Jordan measurability&lt;/h3&gt;
 &lt;p&gt;Let $E\subset\mathbb{R}^d$ be bounded. These following statements are equivalence&lt;/p&gt;
 &lt;ul id=&quot;number-list&quot;&gt;
 	&lt;li&gt;$E$ is Jordan measurable.&lt;/li&gt;
@@ -1042,6 +1064,46 @@ or in other words, $E$ is Jordan measurable.&lt;/li&gt;
 		&lt;b&gt;Translation invariance&lt;/b&gt;. For any $x\in\mathbb{R}^d$, $E+x$ is Jordan measurable, and $m(E+x)=m(E)$.
 	&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+&lt;ol id=&quot;number-list&quot;&gt;
+	&lt;li&gt;&lt;b&gt;Boolean closure&lt;/b&gt;.
+		&lt;ol&gt;
+			&lt;li&gt;
+				By characterisation of Jordan measurability, we can find elementary sets $A_1\subset E\subset B_1$ and $A_2\subset F\subset B_2$ such that for any $\varepsilon&amp;gt;0$
+				\begin{align}
+				m(B_1\backslash A_1)&amp;amp;\leq\frac{\varepsilon}{2}, \\ m(B_2\backslash A_2)&amp;amp;\leq\frac{\varepsilon}{2}
+				\end{align}
+				Thus, we have that
+				\begin{equation}
+				\left(A_1\cap A_2\right)\subset\left(E\cap F\right)\subset\left(B_1\cap B_2\right)
+				\end{equation}
+				and
+				\begin{equation}
+				\left(A_1\cup A_2\right)\subset\left(E\cup F\right)\subset\left(B_1\cup B_2\right)
+				\end{equation}
+				Moreover, for any $\varepsilon&amp;gt;0$, we have that
+				\begin{align}
+				m\big((B_1\cup B_2)\backslash(A_1\cup A_2)\big)&amp;amp;=m(B_1\cup B_2)-m(A_1\cup A_2) \\ &amp;amp;=m(B_1)+m(B_2\backslash B_1)-m(A_1\cup A_2) \\ &amp;amp;\leq m(B_1)+m(B_2\backslash A_1)-m(A_1\cup A_2) \\ &amp;amp;=m(B_1)-m(A_1)+m(B_2\backslash A_1)+m(A_1)-m(A_1\cup A_2) \\ &amp;amp;=m(B_1)-m(A_1)+m(B_2\cup A_1)-m(A_1\cup A_2) \\ &amp;amp;=m(B_1\backslash A_1)+m\big((B_2\cup A_1)\backslash(A_1\cup A_2)\big) \\ &amp;amp;=m(B_1\backslash A_1)+m(B_2\backslash A_2) \\ &amp;amp;\leq\varepsilon/2+\varepsilon/2 \\ &amp;amp;=\varepsilon,
+				\end{align}
+				which implies that $E\cup F$ is Jordan measurable.
+			&lt;/li&gt;
+			&lt;li&gt;
+				From the result above, and by monotonicity, finite addititivy, finite subadditity properties of elementary measure, for any $\varepsilon&amp;gt;0$, we also have that
+				\begin{align}
+				m\big((B_1\cap B_2)\backslash(A_1\cap A_2)\big)&amp;amp;=m(B_1\cap B_2)-m(A_1\cap A_2) \\ &amp;amp;=m\Big(\big(B_1\cup B_2\big)\backslash\big((B_1\backslash B_2)\cup(B_2\backslash B_1)\big)\Big) \\ &amp;amp;\hspace{1cm}-m\Big(\big(A_1\cup A_2\big)\backslash\big((A_1\backslash A_2)\cup(A_2\backslash A_1)\big)\Big) \\ &amp;amp;=m(B_1\cup B_2)-m(B_1\backslash B_2)-m(B_2\backslash B_1) \\ &amp;amp;\hspace{1cm}-m(A_1\cup A_2)+m(A_1\backslash A_2)+m(A_2\backslash A_1) \\ &amp;amp;=m(B_1\cup B_2)-m(A_1\cup A_2)+m(A_1\backslash A_2)-m(B_1\backslash B_2) \\ &amp;amp;\hspace{1cm}+m(A_2\backslash A_1)-m(B_2\backslash B_1) \\ &amp;amp;\leq m(B_1\cup B_2)-m(A_1\cup A_2)+m(B_1\backslash A_2)-m(B_1\backslash B_2) \\ &amp;amp;\hspace{1cm}+m(B_2\backslash A_1)-m(B_2\backslash B_1) \\ &amp;amp;\leq m(B_1\cup B_2)-m(A_1\cup A_2) \\ &amp;amp;\leq\varepsilon,
+				\end{align}
+				which also implies that $E\cap F$ is Jordan measurable.
+			&lt;/li&gt;
+		&lt;/ol&gt;
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Non-negativity&lt;/b&gt;. This follows directly from definition.
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Finite additivity&lt;/b&gt;.
+	&lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;p&gt;&lt;strong&gt;Example 4&lt;/strong&gt;. (&lt;strong&gt;Uniqueness of Jordan measure&lt;/strong&gt;)&lt;br /&gt;
 Let $d\geq 1$ and let $m’:\mathcal{J}(\mathbb{R}^d)\to\mathbb{R}^+$  be a map from the collection of Jordan measurable subsets of $\mathbb{R}^d$ to the nonnegative reals that obeys the non-negativity, finite additivity and translation invariance properties. Then there exists a constant $c\in\mathbb{R}^+$ such that

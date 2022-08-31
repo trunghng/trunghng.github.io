@@ -1,4 +1,4 @@
-I"è\<blockquote>
+I"Úa<blockquote>
   <p>A note on measure theory (continued from <a href="/mathematics/measure-theory/2022/06/16/measure-theory.html">part I</a>): materials were mostly taken from <a href="/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#taos-book">Tao‚Äôs book</a>, except for some notations needed from <a href="/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#steins-book">Stein‚Äôs book</a>.
 <!-- excerpt-end --></p>
 </blockquote>
@@ -144,8 +144,6 @@ Since $\varepsilon$ was arbitrary, this gives $m^*(E)+m^*(F)\leq m^*(E\cup F)$ a
 
 <p><strong>Example</strong><br />
 Let $E,F\subset\mathbb{R}^d$ be disjoint closed sets, with at least one of $E,F$ being compact. Then $\text{dist}(E,F)&gt;0$.</p>
-
-<p><strong>Solution</strong></p>
 
 <p><strong>Lemma 13</strong>. (<strong>Outer measure of elementary sets</strong>)<br />
 <em>Let $E$ be an elementary set. Then the Lebesgue outer measure of $E$ is equal to the elementary measure of $E$:</em>
@@ -426,8 +424,32 @@ And since $\varepsilon&gt;0$ was arbitrary, the claim follows.</p>
 		\end{equation}
 		Therefore, the claim follows.
 		<br />
-		Finally, we consider the case that $E_n$ are not bounded or closed.
+		Finally, we consider the case that $E_n$ are not bounded or closed with the idea of decomposing each $E_n$ as a countable disjoint union of bounded Lebesgue measurable sets.
+		<br />
 	</li>
+</ul>
+
+<p><strong>Example</strong> (<strong>Monotone convergence theorem for measurable sets</strong>)</p>
+<ul id="roman-list">
+	<li>
+		<b>Upward monotone convergence</b>. Let $E_1\subset E_2\subset\ldots\subset\mathbb{R}^d$ be a countable non-decreasing sequence of Lebesgue measurable sets. Then
+		\begin{equation}
+		m\left(\bigcup_{n=1}^{\infty}E_n\right)=\lim_{n\to\infty}m(E_n)
+		\end{equation}
+	</li>
+	<li>
+		<b>Downward monotone convergence</b>. Let $\mathbb{R}^d\supset E_1\supset E_2\supset\ldots$ be a countable non-increasing sequence of Lebesgue measurable sets. If at least one of the $m(E_n)$ is finite, then
+		\begin{equation}
+		m\left(\bigcap_{n=1}^{\infty}E_n\right)=\lim_{n\to\infty}m(E_n)
+		\end{equation}
+	</li>
+</ul>
+
+<p><strong>Example</strong><br />
+We say that a sequence $E_n$ of sets in $\mathbb{R}^d$ <strong>converges pointwise</strong> to another set $E$ in $\mathbb{R}^d$ if the indicator function $1_{E_n}$ converges pointwise to $1_E$.</p>
+<ul id="roman-list">
+	<li>If the $E_n$ are all Lebesgue measurable, and converge pointwise to $E$, then $E_n$ is Lebesgue measurable also.</li>
+	<li><b>Dominated convergence theorem</b>. Suppose that the $E_n$ are all contained in another Lebesgue measurable set $F$ of finite measure. Then $m(E_n)$ converges to $m(E)$.</li>
 </ul>
 
 <h3 id="non-measurable-sets">Non-measurable sets</h3>
