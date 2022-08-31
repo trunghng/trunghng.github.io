@@ -339,7 +339,7 @@ blockquote { font-size: 16px; background-color: #f0f0f0; padding: 10px; font-sty
 
 #roman-list, #number-list > li { list-style: none; position: relative; }
 
-#roman-list > li:before { counter-increment: list; content: "(" counter(list, lower-roman) ") "; position: absolute; left: -1.5em; }
+#roman-list > li:before { counter-increment: section; content: "(" counter(section, lower-roman) ") "; position: absolute; left: -1.5em; }
 
 #number-list > li:before { counter-increment: section; content: "(" counter(section, decimal) ") "; position: absolute; left: -1.5em; }
 

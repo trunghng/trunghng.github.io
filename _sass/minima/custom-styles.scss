@@ -41,8 +41,8 @@ blockquote {
 }
 
 #roman-list > li:before {
-    counter-increment: list;
-    content: "(" counter(list, lower-roman) ") ";
+    counter-increment: section;
+    content: "(" counter(section, lower-roman) ") ";
     position: absolute;
     left: -1.5em;
 }
