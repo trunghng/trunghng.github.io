@@ -3,7 +3,7 @@ layout: post
 title:  "Planning & Learning"
 date:   2022-05-19 14:09:00 +0700
 categories: artificial-intelligent reinforcement-learning
-tags: artificial-intelligent reinforcement-learning dyna q-learning mcts my-rl
+tags: artificial-intelligent reinforcement-learning planning learning dyna q-learning mcts my-rl
 description: Planning & Learning
 comments: true
 ---
@@ -114,7 +114,6 @@ Consider a gridworld with some obstacles, called "maze" in this example, shown i
 As usual, four action, $\text{up}, \text{down}, \text{right}$ and $\text{left}$ will take agent to its neighboring state, except when the agent is standing on the edge or is blocked by the obstacles, they do nothing, i.e., the agent stays still. Starting at state $S$, each transition to a non-goal state will give a reward of zero, while moving to the goal state, $G$, will reward $+1$. The episode resets when the agent reaches the goal state.
 
 The task is discounted, episodic with $\gamma=0.95$.
-
 <figure>
     <img src="/assets/images/2022-05-19/dyna-maze-dyna-q.png" alt="Dyna maze solved with Dyna-Q" style="display: block; margin-left: auto; margin-right: auto; width: 500px; height: 400px"/>
     <figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: Using Dyna-Q with different setting of number of planning steps on the maze.<br>The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-8/maze.py).</span></figcaption>
@@ -129,16 +128,13 @@ Consider a maze like the one on the left of the figure below. Suppose that after
 </figure>
 With this modification, eventually a new optimal path will be found by the Dyna-Q agent but this will takes hundreds more steps. 
 
-In this case, we want the agent to explore in order to find changes in the environment, but not so much that performance is greatly degraded. To encourage the exploration, we give it an **exploration bonus**.
-- Keeps track for each state-action pair of how many time steps have elapsed since the pair was last
-tried in a real interaction with the environment.
-- An special **bonus reward** is added for transitions caused by state-action pairs related how long ago
-they were tried: the long unvisited, the more reward for visiting:
+In this case, we want the agent to explore in order to find changes in the environment, but not so much that performance is greatly degraded. To encourage the exploration, we give it an **exploration bonus**:
+- Keeps track for each state-action pair of how many time steps have elapsed since the pair was last tried in a real interaction with the environment.
+- An special **bonus reward** is added for transitions caused by state-action pairs related how long ago they were tried: the long unvisited, the more reward for visiting:
 \begin{equation}
 r+\kappa\sqrt{\tau},
 \end{equation}
-for a small (time weight) $\kappa$; where $r$ is the modeled reward for a transition; and the transition has
-not been tried in $\tau$ time steps.
+for a small (time weight) $\kappa$; where $r$ is the modeled reward for a transition; and the transition has not been tried in $\tau$ time steps.
 - The agent actually plans how to visit long unvisited state-action pairs.
 
 The following plot shows the performance comparison between Dyna-Q and Dyna-Q+ on this blocking task, with changing in the environment happens after 1000 steps.

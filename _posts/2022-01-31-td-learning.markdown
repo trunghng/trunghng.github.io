@@ -3,7 +3,7 @@ layout: post
 title:  "Temporal-Difference Learning"
 date:   2022-01-31 16:55:00 +0700
 categories: artificial-intelligent reinforcement-learning
-tags: artificial-intelligent reinforcement-learning td-learning importance-sampling q-learning my-rl
+tags: artificial-intelligent reinforcement-learning td-learning importance-sampling q-learning learning my-rl
 description: Temporal-Difference Learning, Q-learning
 comments: true
 ---

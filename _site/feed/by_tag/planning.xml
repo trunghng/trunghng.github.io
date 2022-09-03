@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/planning.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-03T19:18:49+07:00</updated><id>http://localhost:4000/feed/by_tag/planning.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Planning &amp;amp; Learning</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/05/19/planning-learning.html" rel="alternate" type="text/html" title="Planning &amp;amp; Learning" /><published>2022-05-19T14:09:00+07:00</published><updated>2022-05-19T14:09:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/05/19/planning-learning</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/05/19/planning-learning.html">&lt;blockquote&gt;
+  &lt;p&gt;Recall that when using &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html&quot;&gt;dynamic programming (DP) method&lt;/a&gt; in solving reinforcement learning problems, we required the availability of a model of the environment. Whereas with &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html&quot;&gt;Monte Carlo methods&lt;/a&gt; and &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/01/31/td-learning.html&quot;&gt;temporal-difference learning&lt;/a&gt;, the models are unnecessary. Such methods with requirement of a model like the case of DP is called &lt;strong&gt;model-based&lt;/strong&gt;, while methods without using a model is called &lt;strong&gt;model-free&lt;/strong&gt;. Model-based methods primarily rely on &lt;strong&gt;planning&lt;/strong&gt;; and model-free methods, on the other hand, primarily rely on &lt;strong&gt;learning&lt;/strong&gt;.
+&lt;!-- excerpt-end --&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#models-planning&quot;&gt;Models &amp;amp; Planning&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#models&quot;&gt;Models&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#planning&quot;&gt;Planning&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#dyna&quot;&gt;Dyna&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#dyna-q&quot;&gt;Dyna-Q&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#dyna-q-eg&quot;&gt;Example&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#dyna-q-plus&quot;&gt;Dyna-Q+&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#prior-sweep&quot;&gt;Prioritized Sweeping&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#exp-updates-sample-updates&quot;&gt;Expected updates vs. Sample updates&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#trajectory-sampling&quot;&gt;Trajectory Sampling&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#heuristic-search&quot;&gt;Heuristic Search&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#preferences&quot;&gt;Preferences&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;models-planning&quot;&gt;Models &amp;amp; Planning&lt;/h2&gt;
+
+&lt;h3 id=&quot;models&quot;&gt;Models&lt;/h3&gt;
+&lt;p&gt;A &lt;strong&gt;model&lt;/strong&gt; of the environment represents anything that an agent can use to predict responses - in particular, next state and corresponding reward - of the environment to its chosen actions.&lt;/p&gt;
+
+&lt;p&gt;When the model is stochastic, there are several next states and rewards corresponding, each with some probability of occurring.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;If a model produces a description of all possibilities and their probabilities, we call it &lt;strong&gt;distribution model&lt;/strong&gt;. For example, consider the task of tossing coin multiple times, the distribution model will produce the probability of head and the probability of tail, which is 50% for each with a fair coin.&lt;/li&gt;
+  &lt;li&gt;On the other hand, if the model produces an individual sample (head or tail) according to the probability distribution, we call it &lt;strong&gt;sample model&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Both types of models above can be used to mimic or simulate experience. Given a starting state and a policy, a sample model would generate an entire episode, while a distribution model could produce all possible episodes and their probabilities. We say that the model is used to &lt;strong&gt;simulate&lt;/strong&gt; the environment in order to produce &lt;strong&gt;simulated experience&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;planning&quot;&gt;Planning&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Planning&lt;/strong&gt; in reinforcement learning is the process of taking a model as input then output a new policy or an improved policy for interacting with the modeled environment
+\begin{equation}
+\text{model}\hspace{0.5cm}\xrightarrow[]{\hspace{1cm}\text{planning}\hspace{1cm}}\hspace{0.5cm}\text{policy}
+\end{equation}
+There are two types of planning:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;State-space planning&lt;/strong&gt; is a search through the state space for an optimal policy or an optimal path to a goal, with two basic ideas:
+    &lt;ul&gt;
+      &lt;li&gt;Involving computing value functions as a key intermediate step toward improving the policy.&lt;/li&gt;
+      &lt;li&gt;Computing value functions by updates or backup applied to simulated experience.
+  \begin{equation}
+  \text{model}\xrightarrow[]{\hspace{1.5cm}}\text{simulated experience}\xrightarrow[]{\hspace{0.3cm}\text{backups}\hspace{0.3cm}}\text{backups}\xrightarrow[]{\hspace{1.5cm}}\text{policy}
+  \end{equation}&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Plan-space planning&lt;/strong&gt; is a search through the space of plans.
+    &lt;ul&gt;
+      &lt;li&gt;Plan-space planning methods consist of &lt;strong&gt;evolutionary methods&lt;/strong&gt; and &lt;strong&gt;partial-order planning&lt;/strong&gt;, in which the ordering of steps is not completely determined at all states of planning.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Both learning and planning methods estimate value functions by backup operations. The difference is planning uses simulated experience generated by a model compared to the uses of simulated experience generated by the environment in learning methods. This common structure lets several ideas and algorithms can be transferred between learning and planning with some modifications in the update step.&lt;/p&gt;
+
+&lt;p&gt;For instance, following is pseudocode of a planning method, called &lt;strong&gt;random-sample one-step tabular Q-planning&lt;/strong&gt;, based on &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/01/31/td-learning.html#q-learning&quot;&gt;one-step tabular Q-learning&lt;/a&gt;, and on random samples from a sample model.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-05-19/rand-samp-one-step-q-planning.png&quot; alt=&quot;Random-sample one-step Q-planning&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h2 id=&quot;dyna&quot;&gt;Dyna&lt;/h2&gt;
+&lt;p&gt;Within a planning agent, experience plays at least two roles:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;model learning&lt;/strong&gt;: improving the model;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;direct reinforcement learning (RL)&lt;/strong&gt;: improving the value function and policy&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The figure below illustrates the possible relationships between experience, model, value functions and policy.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&quot;/assets/images/2022-05-19/exp-model-value-policy.png&quot; alt=&quot;Exp, model, values and policy relationships&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 300px; height: 250px&quot; /&gt;
+    &lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 1&lt;/b&gt;: The possible relationships between experience, model, values and policy&lt;br /&gt;(the figure is taken from &lt;span&gt;&lt;a href=&quot;#rl-book&quot;&gt;RL book&lt;/a&gt;&lt;/span&gt;)&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Each arrows in the diagram represents a relationship of influence and presumed improvement. It is noticeable in the diagram that experience can improve value functions and policy either directly or indirectly via model (called &lt;strong&gt;indirect RL&lt;/strong&gt;), which involved in planning.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;direct RL: simpler, not affected by bad models;&lt;/li&gt;
+  &lt;li&gt;indirect RL: make fuller use of experience, i.e., getting better policy with fewer environment interactions.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;dyna-q&quot;&gt;Dyna-Q&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Dyna-Q&lt;/strong&gt; is the method having all of the processes shown in the diagram in &lt;strong&gt;&lt;em&gt;Figure 1&lt;/em&gt;&lt;/strong&gt; - planning, acting, model-learning and direct RL - all occurring continually:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;the &lt;em&gt;planning&lt;/em&gt; method is the random-sample one-step tabular Q-planning in the previous section;&lt;/li&gt;
+  &lt;li&gt;the &lt;em&gt;direct RL&lt;/em&gt; method is the one-step tabular Q-learning;&lt;/li&gt;
+  &lt;li&gt;the &lt;em&gt;model-learning&lt;/em&gt; method is also table-based and assumes the environment is deterministic.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;After each transition $S_t,A_t\to S_{t+1},R_{t+1}$, the model records its table entry for $S_t,A_t$ the prediction that $S_{t+1},R_{t+1}$ will deterministically follow. This lets the model simply return the last resultant next state and corresponding reward of a state-action pair when meeting them in the future.&lt;/p&gt;
+
+&lt;p&gt;During planning, the Q-planning algorithm randomly samples only from state-action pair that have previously been experienced. This helps the model to not be queried with a pair whose information is unknown.&lt;/p&gt;
+
+&lt;p&gt;Following is the general architecture of Dyna methods, of which Dyna-Q is an instance.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&quot;/assets/images/2022-05-19/dyna-arch.png&quot; alt=&quot;Dyna architecture&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 400px; height: 320px&quot; /&gt;
+    &lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 2&lt;/b&gt;: The general Dyna Architecture&lt;br /&gt;(the figure is taken from &lt;span&gt;&lt;a href=&quot;#rl-book&quot;&gt;RL book&lt;/a&gt;&lt;/span&gt;)&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;In most cases, the same reinforcement learning method is used for both learning from real experience and planning from simulated experience, which is - in this case of Dyna-Q - the Q-learning update.&lt;/p&gt;
+
+&lt;p&gt;Pseudocode of Dyna-Q method is shown below.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-05-19/tabular-dyna-q.png&quot; alt=&quot;Tabular Dyna-Q&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h4 id=&quot;dyna-q-eg&quot;&gt;Example&lt;/h4&gt;
+&lt;p&gt;(This example is taken from &lt;a href=&quot;#rl-book&quot;&gt;RL book&lt;/a&gt; - example 8.1.)&lt;/p&gt;
+
+&lt;p&gt;Consider a gridworld with some obstacles, called “maze” in this example, shown in the figure below.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-05-19/dyna-maze.png&quot; alt=&quot;Dyna maze&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 400px; height: 200px&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 3&lt;/b&gt;: The maze with some obstacles&lt;br /&gt;(the figure is taken from &lt;span&gt;&lt;a href=&quot;#rl-book&quot;&gt;RL book&lt;/a&gt;&lt;/span&gt;)&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;As usual, four action, $\text{up}, \text{down}, \text{right}$ and $\text{left}$ will take agent to its neighboring state, except when the agent is standing on the edge or is blocked by the obstacles, they do nothing, i.e., the agent stays still. Starting at state $S$, each transition to a non-goal state will give a reward of zero, while moving to the goal state, $G$, will reward $+1$. The episode resets when the agent reaches the goal state.&lt;/p&gt;
+
+&lt;p&gt;The task is discounted, episodic with $\gamma=0.95$.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&quot;/assets/images/2022-05-19/dyna-maze-dyna-q.png&quot; alt=&quot;Dyna maze solved with Dyna-Q&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 500px; height: 400px&quot; /&gt;
+    &lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 4&lt;/b&gt;: Using Dyna-Q with different setting of number of planning steps on the maze.&lt;br /&gt;The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-8/maze.py&quot;&gt;here&lt;/a&gt;.&lt;/span&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h3 id=&quot;dyna-q-plus&quot;&gt;Dyna-Q+&lt;/h3&gt;
+&lt;p&gt;Consider a maze like the one on the left of the figure below. Suppose that after applying Dyna-Q has learned the optimal path, we make some changes to transform the gridworld into the one on the right that block the found optimal path.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&quot;/assets/images/2022-05-19/blocking-maze.png&quot; alt=&quot;Blocking maze&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 600px; height: 150px&quot; /&gt;
+    &lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 5&lt;/b&gt;: The maze before and after change&lt;br /&gt;(the figure is taken from &lt;span&gt;&lt;a href=&quot;#rl-book&quot;&gt;RL book&lt;/a&gt;&lt;/span&gt;)&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;With this modification, eventually a new optimal path will be found by the Dyna-Q agent but this will takes hundreds more steps.&lt;/p&gt;
+
+&lt;p&gt;In this case, we want the agent to explore in order to find changes in the environment, but not so much that performance is greatly degraded. To encourage the exploration, we give it an &lt;strong&gt;exploration bonus&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Keeps track for each state-action pair of how many time steps have elapsed since the pair was last tried in a real interaction with the environment.&lt;/li&gt;
+  &lt;li&gt;An special &lt;strong&gt;bonus reward&lt;/strong&gt; is added for transitions caused by state-action pairs related how long ago they were tried: the long unvisited, the more reward for visiting:
+\begin{equation}
+r+\kappa\sqrt{\tau},
+\end{equation}
+for a small (time weight) $\kappa$; where $r$ is the modeled reward for a transition; and the transition has not been tried in $\tau$ time steps.&lt;/li&gt;
+  &lt;li&gt;The agent actually plans how to visit long unvisited state-action pairs.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following plot shows the performance comparison between Dyna-Q and Dyna-Q+ on this blocking task, with changing in the environment happens after 1000 steps.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&quot;/assets/images/2022-05-19/blocking-maze-dyna-q-qplus.png&quot; alt=&quot;Dyna-Q, Dyna-Q+ on blocking maze&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 500px; height: 400px&quot; /&gt;
+    &lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 6&lt;/b&gt;: Average performance of Dyna-Q and Dyna-Q+ on blocking maze.&lt;br /&gt;The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-8/maze.py&quot;&gt;here&lt;/a&gt;.&lt;/span&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;We also make a comparison between with and without giving an exploration bonus to the Dyna-Q agent on the shortcut maze below.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&quot;/assets/images/2022-05-19/shortcut-maze.png&quot; alt=&quot;shortcut maze&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 600px; height: 150px&quot; /&gt;
+    &lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 7&lt;/b&gt;: The maze before and after change&lt;br /&gt;(the figure is taken from &lt;span&gt;&lt;a href=&quot;#rl-book&quot;&gt;RL book&lt;/a&gt;&lt;/span&gt;)&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Below is the result of using two agents solving the shortcut maze with environment modification appears after 3000 steps.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&quot;/assets/images/2022-05-19/shortcut-maze-dyna-q-qplus.png&quot; alt=&quot;Dyna-Q, Dyna-Q+ on blocking maze&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 500px; height: 400px&quot; /&gt;
+    &lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 7&lt;/b&gt;: Average performance of Dyna-Q and Dyna-Q+ on shortcut maze.&lt;br /&gt;The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-8/maze.py&quot;&gt;here&lt;/a&gt;.&lt;/span&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;It can be seen from the plot above that the difference between Dyna-Q+ and Dyna-Q narrowed slightly over the first part of the experiment (the one using the left maze as its environment).&lt;/p&gt;
+
+&lt;p&gt;The reason for that is both agents were spending much more time steps than the case of blocking maze, which let the gap created by the faster convergence of Dyna-Q+ with Dyna-Q be narrowed down by exploration task, which Dyna-Q+ had to do but not Dyna-Q. This result will be more noticeable if they were stick to this first environment more time steps.&lt;/p&gt;
+
+&lt;h2 id=&quot;prior-sweep&quot;&gt;Prioritized Sweeping&lt;/h2&gt;
+
+&lt;h2 id=&quot;exp-updates-sample-updates&quot;&gt;Expected updates vs. Sample updates&lt;/h2&gt;
+
+&lt;h2 id=&quot;trajectory-sampling&quot;&gt;Trajectory Sampling&lt;/h2&gt;
+
+&lt;h2 id=&quot;heuristic-search&quot;&gt;Heuristic Search&lt;/h2&gt;
+
+&lt;h2 id=&quot;preferences&quot;&gt;Preferences&lt;/h2&gt;
+&lt;p&gt;[1] &lt;span id=&quot;rl-book&quot;&gt;Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/span&gt;.&lt;/p&gt;
+
+&lt;p&gt;[2] Richard S. Sutton. &lt;a href=&quot;https://doi.org/10.1016/B978-1-55860-141-3.50030-4&quot;&gt;Integrated Architectures for Learning, Planning, and Reacting Based on Approximating Dynamic Programming&lt;/a&gt;. Proceedings of the Seventh International Conference, Austin, Texas, June 21–23, 1990.&lt;/p&gt;
+
+&lt;p&gt;[3] Shangtong Zhang. &lt;a href=&quot;https://github.com/ShangtongZhang/reinforcement-learning-an-introduction&quot;&gt;Reinforcement Learning: An Introduction implementation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="planning" /><category term="learning" /><category term="dyna" /><category term="q-learning" /><category term="mcts" /><category term="my-rl" /><summary type="html">Recall that when using dynamic programming (DP) method in solving reinforcement learning problems, we required the availability of a model of the environment. Whereas with Monte Carlo methods and temporal-difference learning, the models are unnecessary. Such methods with requirement of a model like the case of DP is called model-based, while methods without using a model is called model-free. Model-based methods primarily rely on planning; and model-free methods, on the other hand, primarily rely on learning.</summary></entry><entry><title type="html">Dynamic Programming Algorithms for Solving Markov Decision Processes</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html" rel="alternate" type="text/html" title="Dynamic Programming Algorithms for Solving Markov Decision Processes" /><published>2021-07-25T15:30:00+07:00</published><updated>2021-07-25T15:30:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html">&lt;blockquote&gt;
+  &lt;p&gt;In two previous posts, &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html&quot;&gt;&lt;strong&gt;Markov Decision Process (MDP) and Bellman equations&lt;/strong&gt;&lt;/a&gt; and &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html&quot;&gt;&lt;strong&gt;Optimal Policy Existence&lt;/strong&gt;&lt;/a&gt;, we have known how MDPs, Bellman equations are defined and how they work. In this post, we are going to talk about how these MDPs are solved with &lt;strong&gt;Dynamic Programming&lt;/strong&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;!-- excerpt-end --&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#what-is-dp&quot;&gt;What is Dynamic Programming?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#dp-in-mdps&quot;&gt;Dynamic Programming applied in Markov Decision Processes&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#policy-evaluation&quot;&gt;Policy Evaluation&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#policy-improvement&quot;&gt;Policy Improvement&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#policy-iteration&quot;&gt;Policy Iteration&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#value-iteration&quot;&gt;Value Iteration&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#example&quot;&gt;Example - Gambler’s Problem&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#gpi&quot;&gt;Generalized Policy Iteration&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;what-is-dp&quot;&gt;What is Dynamic Programming?&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Dynamic Programming (DP)&lt;/strong&gt; is a method of simplifying a complicated problem by breaking it down into more straightforward sub-problems. Then it finds the solutions for the sub-problems, and combines them together.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2021-07-25/dp.png&quot; alt=&quot;dynamic programming&quot; width=&quot;360&quot; height=&quot;200px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 1&lt;/b&gt;: Using Dynamic Programming to find the shortest path in graph&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h2 id=&quot;dp-in-mdps&quot;&gt;Dynamic Programming applied in Markov Decision Processes&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;DP is a very general method for solving problems having two properties:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;em&gt;Optimal substructure&lt;/em&gt;
+  	- Principle of optimality applies.
+  	- Optimal solution can be decomposed into sub-problems.&lt;/li&gt;
+      &lt;li&gt;&lt;em&gt;Overlapping sub-problems&lt;/em&gt;
+  	- Sub-problems recur many times.
+  	- Solutions can be cached and reused.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;MDPs satisfy both properties since:
+    &lt;ul&gt;
+      &lt;li&gt;Bellman equation gives recursive decomposition.&lt;/li&gt;
+      &lt;li&gt;Value function stores and reuses solutions.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;DP assumes the model is already known.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;policy-evaluation&quot;&gt;Policy Evaluation&lt;/h3&gt;
+&lt;p&gt;Recall from the definition of &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html#bellman-equations&quot;&gt;Bellman equation&lt;/a&gt; that, for all $s\in\mathcal{S}$,
+\begin{equation}
+v_\pi(s)\doteq\sum_a\pi(a|s)\sum_{s’,r}p(s’,r|s,a)\left[r+\gamma v_\pi(s’)\right]\tag{1}\label{1}
+\end{equation}
+If the environment’s dynamics are completely known, then \eqref{1} is a system of $\vert\mathcal{S}\vert$ linear equations in $\vert\mathcal{S}\vert$ unknowns. We can use iterative methods to solve this problem.&lt;br /&gt;
+Consider a sequence of approximate value functions $v_0,v_1,\dots$, each mapping $\mathcal{S}^+\to\mathbb{R}$. Choosing $v_0$ arbitrarily (the terminal state, if any, must be given value 0). Using Bellman equation for $v_\pi$, we have an update rule:
+\begin{align}
+v_{k+1}(s)&amp;amp;\doteq\mathbb{E}_\pi\left[R_{t+1}+\gamma v_k(S_{k+1})\vert S_t=s\right] \\ &amp;amp;=\sum_a\pi(a|s)\sum_{s’,r}p(s’,r|s,a)\left[r+\gamma v_k(s’)\right]
+\end{align}
+for all $s\in\mathcal{S}$. Thanks to &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html#banach-fixed-pts&quot;&gt;Banach’s fixed points theorem&lt;/a&gt; and as we talked in that post, we have that the sequence $\{v_k\}\to v_\pi$ as $k\to\infty$. This algorithm is called &lt;strong&gt;iterative policy evaluation&lt;/strong&gt;.&lt;br /&gt;
+We have the backup diagram for this update.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2021-07-25/backup-iterative-policy-evaluation.png&quot; alt=&quot;Backup diagram for iterative policy evalution update&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 360px; height: 200px&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 2&lt;/b&gt;: Backup diagram for Iterative policy evaluation update&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;&lt;br /&gt;
+When implementing &lt;em&gt;iterative policy evaluation&lt;/em&gt;, for all $s\in\mathcal{S}$, we can use:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;one array to store the value functions, and update them ‘‘in-place” (&lt;em&gt;asynchronous DP&lt;/em&gt;)
+\begin{equation}
+\color{red}{v(s)}\leftarrow\sum_a\pi(a|s)\sum_{s’,r}p(s’,r|s,a)\left[r+\color{red}{v(s’)}\right]
+\end{equation}&lt;/li&gt;
+  &lt;li&gt;two arrays in which the new value functions can be computed one by one from the old functions without the old ones being changed (&lt;em&gt;synchronous DP&lt;/em&gt;)
+\begin{align}
+\color{red}{v_{new}(s)}&amp;amp;\leftarrow\sum_a\pi(a|s)\sum_{s’,r}p(s’,r|s,a)\left[r+\color{red}{v_{old}(s’)}\right]\\ \color{red}{v_{old}}&amp;amp;\leftarrow\color{red}{v_{new}}
+\end{align}
+Here is the pseudocode of the &lt;em&gt;in-place iterative policy evaluation&lt;/em&gt;, given a policy $\pi$, for estimating $V\approx v_\pi$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2021-07-25/iterative-policy-evaluation.png&quot; alt=&quot;iterative policy evalution pseudocode&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+    &lt;figcaption&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;h3 id=&quot;policy-improvement&quot;&gt;Policy Improvement&lt;/h3&gt;
+&lt;p&gt;The reason why we compute the value function for a given policy $\pi$ is to find better policies. Given the computed value function $v_\pi$ for an deterministic policy $\pi$, we already know how good it is for a state $s$ to choose action $a=\pi(s)$. Now what we are considering is, in $s$, if we instead take action $a\neq\pi$, will it be better?&lt;br /&gt;
+In particular, in state $s$, selecting action $a$ and thereafter following the policy $\pi$, we have:
+\begin{align}
+q_\pi(s,a)&amp;amp;\doteq\mathbb{E}\left[R_{t+1}+\gamma v_\pi(S_{t+1})|S_t=s,A_t=a\right]\tag{2}\label{2} \\ &amp;amp;=\sum_{s’,r}p(s’,r|s,a)\left[r+\gamma v_\pi(s’)\right]
+\end{align}
+&lt;strong&gt;Theorem&lt;/strong&gt; (&lt;em&gt;Policy improvement&lt;/em&gt;)&lt;br /&gt;
+Let $\pi,\pi’$ be any pair of deterministic policies such that, for all $s\in\mathcal{S}$,
+\begin{equation}
+q_\pi(s,\pi’(s))\geq v_\pi(s)\tag{3}\label{3}
+\end{equation}
+Then $\pi’\geq\pi$, which means for all $s\in\mathcal{S}$, we have $v_{\pi’}(s)\geq v_\pi(s)$.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
+Deriving \eqref{3} combined with \eqref{2}, we have&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;:
+\begin{align}
+v_\pi(s)&amp;amp;\leq q_\pi(s,\pi’(s)) \\ &amp;amp;=\mathbb{E}\left[R_{t+1}+\gamma v_\pi(S_{t+1})|S_t=s,A_t=\pi’(s)\right]\tag{by \eqref{2}} \\ &amp;amp;=\mathbb{E}_{\pi’}\left[R_{t+1}+\gamma v_\pi(S_{t+1})|S_t=s\right] \\ &amp;amp;\leq\mathbb{E}_{\pi’}\left[R_{t+1}+\gamma q_\pi(S_{t+1},\pi’(S_{t+1}))|S_t=s\right]\tag{by \eqref{3}} \\ &amp;amp;=\mathbb{E}_{\pi’}\left[R_{t+1}+\gamma\mathbb{E}_{\pi’}\left[R_{t+2}+\gamma v_\pi(S_{t+2})|S_{t+1},A_{t+1}=\pi’(S_{t+1})\right]|S_t=s\right] \\ &amp;amp;=\mathbb{E}_{\pi’}\left[R_{t+1}+\gamma R_{t+2}+\gamma^2 v_\pi(S_{t+2})|S_t=s\right] \\ &amp;amp;\leq\mathbb{E}_{\pi’}\left[R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+\gamma^3 v_\pi(S_{t+3})|S_t=s\right] \\ &amp;amp;\quad\vdots \\ &amp;amp;\leq\mathbb{E}_{\pi’}\left[R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+\gamma^3 R_{t+4}+\dots|S_t=s\right] \\ &amp;amp;=v_{\pi’}(s)
+\end{align}&lt;/p&gt;
+
+&lt;p&gt;Consider the new &lt;em&gt;greedy policy&lt;/em&gt;, $\pi’$, which takes the action that looks best in the short term - after one step of lookahead - according to $v_\pi$, given by
+\begin{align}
+\pi’(s)&amp;amp;\doteq\arg\max_a q_\pi(s,a) \\ &amp;amp;=\arg\max_a\mathbb{E}\left[R_{t+1}+\gamma v_\pi(S_{t+1})|S_t=s,A_t=a\right]\tag{4}\label{4} \\ &amp;amp;=\arg\max_a\sum_{s’,r}p(s’,r|s,a)\left[r+\gamma v_\pi(s’)\right]
+\end{align}
+By the above theorem, we have that the greedy policy is as good as, or better than, the original policy.&lt;br /&gt;
+Suppose the new greedy policy, $\pi’$, is as good as, but not better than, $\pi$. Or in other words, $v_\pi=v_{\pi’}$. And from \eqref{4}, we have for all $s\in\mathcal{S}$,
+\begin{align}
+v_{\pi’}(s)&amp;amp;=\max_a\mathbb{E}\left[R_{t+1}+\gamma v_{\pi’}(S_{t+1})|S_t=s,A_t=a\right] \\ &amp;amp;=\max_a\sum_{s’,r}p(s’,r|s,a)\left[r+\gamma v_{\pi’}(s’)\right]
+\end{align}
+which is the Bellman optimality equation for action-value function. And therefore, $v_{\pi’}$ must be $v_*$. Hence, &lt;em&gt;policy improvement&lt;/em&gt; must give us a strictly better policy except when the original one is already optimal&lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;policy-iteration&quot;&gt;Policy Iteration&lt;/h3&gt;
+&lt;p&gt;Once we have obtained a better policy, $\pi’$, by improving a policy $\pi$ using $v_\pi$, we can repeat the same process by computing $v_{\pi’}$, and improve it to yield an even better $\pi’’$. Repeating it again and again, we get an iterative procedure to improve the policy
+\begin{equation}
+\pi_0\xrightarrow[]{\text{evaluation}}v_{\pi_0}\xrightarrow[]{\text{improvement}}\pi_1\xrightarrow[]{\text{evaluation}}v_{\pi_1}\xrightarrow[]{\text{improvement}}\pi_2\xrightarrow[]{\text{evaluation}}\dots\xrightarrow[]{\text{improvement}}\pi_*\xrightarrow[]{\text{evaluation}}v_*
+\end{equation}
+Each following policy is a strictly improved version of the previous one (unless it is already optimal). Because a finite MDP has only a finite number of policies, this process must converge to an optimal policy and optimal value function in a finite number of iterations.
+This algorithm is called &lt;strong&gt;policy iteration&lt;/strong&gt;. And here is the pseudocode of the policy iteration.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2021-07-25/policy-iteration.png&quot; alt=&quot;policy iteration pseudocode&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;An example of using policy iteration on the Jack’s rental problem (&lt;a href=&quot;#rl-book&quot;&gt;&lt;strong&gt;RL book - example 4.2&lt;/strong&gt;&lt;/a&gt;)&lt;/p&gt;
+
+&lt;figure&gt;
+    &lt;img src=&quot;/assets/images/2021-07-25/jackscar.png&quot; alt=&quot;Using policy iteration on Jack&apos;s car rental problem&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+    &lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 3&lt;/b&gt;: Policy Iteration on Jack&apos;s car rental task. The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-4/jackscar.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;value-iteration&quot;&gt;Value Iteration&lt;/h3&gt;
+&lt;p&gt;When using &lt;em&gt;policy iteration&lt;/em&gt;, each of its iterations involves policy evaluation, which requires multiple sweeps through the state set, and thus affects the computation performance.&lt;br /&gt;
+Policy evaluation step of policy iteration, in fact, can be truncated in several ways without losing the convergence guarantees of policy iteration. One important special case is when policy evaluation is stopped after just one sweep (one update of each state). This algorithm is called &lt;strong&gt;value iteration&lt;/strong&gt;, which follows this update:
+\begin{align}
+v_{k+1}&amp;amp;\doteq\max_a\mathbb{E}\left[R_{t+1}+\gamma v_k(S_{t+1})|S_t=s,A_t=a\right] \\ &amp;amp;=\max_a\sum_{s’,r}p(s’,r|s,a)\left[r+\gamma v_k(s’)\right],
+\end{align}
+for all $s\in\mathcal{S}$. Once again, thanks to &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html#banach-fixed-pts&quot;&gt;Banach’s fixed point theorem&lt;/a&gt;, for an arbitrary $v_0$, we have that the sequence $\{v_k\}\to v_*$ as $k\to\infty$.&lt;br /&gt;
+We have the backup diagram for this update&lt;sup id=&quot;fnref:3&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2021-07-25/backup-value-iteration.png&quot; alt=&quot;Backup diagram of value iteration update&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 360px; height: 200px&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 4&lt;/b&gt;: Backup diagram of Value Iteration update&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;And here is the pseudocode of the value iteration.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2021-07-25/value-iteration.png&quot; alt=&quot;value iteration pseudocode&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h4 id=&quot;example&quot;&gt;Example - Gambler’s Problem&lt;/h4&gt;
+&lt;p&gt;(This example is taken from &lt;a href=&quot;#rl-book&quot;&gt;&lt;strong&gt;RL book - example 4.3&lt;/strong&gt;&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;Let’s say you are a gambler, who decides to bet on the outcomes of sequence of coin flips. On each flip, you have to decide how many dollars, in integer, you will bet. Each time you win, when the coin comes up head, the amount of money you get is exactly the same as the money that you staked on that flip. Same it goes in the tail case, you will lose that amount of dollars. The game ends when you reach your goal, let’s assume, $\$100$, or when your hands are empty, $\$0$. This task can be formulated as undiscounted, episodic, finite MDP. The state is your capital, $s\in\{1,2,\dots,99\}$; the actions are stakes, $a\in\{0,1,\dots,\min\left(s,100-s\right)\}$. The reward is zero on all trainsitions except those on which you reach your goal, when it is $+1$.
+And we also assume that the probability of the coin coming up heads, $p_h=0.4$.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Solution code&lt;/strong&gt;&lt;br /&gt;
+The code can be found &lt;a href=&quot;https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-4/gambler.py&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;button type=&quot;button&quot; class=&quot;collapsible&quot; id=&quot;codeP&quot;&gt;Click to show the code&lt;/button&gt;&lt;/p&gt;
+&lt;div class=&quot;codePanel&quot; id=&quot;codePdata&quot;&gt;
+  &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+  &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;GOAL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#For convenience, we introduce 2 dummy states: 0 and terminal state
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;states&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GOAL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;rewards&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;terminal&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&apos;non-terminal&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;HEAD_PROB&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.4&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;GAMMA&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# discount factor
+&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;value_iteration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;theta&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;V&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zeros&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;states&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;V_set&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;policy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zeros&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;delta&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;V_set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;copy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;state&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;states&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GOAL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;old_value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;copy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+            &lt;span class=&quot;n&quot;&gt;actions&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GOAL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;new_value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;actions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;next_head_state&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;states&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;next_tail_state&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;states&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;head_reward&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rewards&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;terminal&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;next_head_state&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GOAL&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rewards&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;non-terminal&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;tail_reward&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rewards&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;non-terminal&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HEAD_PROB&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head_reward&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GAMMA&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next_head_state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; \
+                    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HEAD_PROB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tail_reward&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GAMMA&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next_tail_state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new_value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;new_value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;
+
+            &lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new_value&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;delta&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;delta&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;old_value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Max value changed: &apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;delta&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;delta&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;theta&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;V_set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;state&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;states&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GOAL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;actions&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;actions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;next_head_state&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;states&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;next_tail_state&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;states&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;head_reward&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rewards&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;terminal&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;next_head_state&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GOAL&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rewards&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;non-terminal&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;tail_reward&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rewards&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;non-terminal&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HEAD_PROB&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head_reward&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GAMMA&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next_head_state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+                          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HEAD_PROB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tail_reward&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GAMMA&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next_tail_state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;policy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;actions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;argmax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;round&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:],&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;V_set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;policy&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&apos;__main__&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;theta&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1e-13&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;value_funcs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;optimal_policy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value_iteration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;theta&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;optimal_value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value_funcs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;optimal_value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;figure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;figsize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;211&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sweep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enumerate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value_funcs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;sweep {}&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sweep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Capital&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ylabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Value estimates&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;legend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;best&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;212&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;scatter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;states&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;optimal_policy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Capital&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ylabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Final policy (stake)&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;savefig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;./gambler.png&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;And here is our results after running the code&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&quot;/assets/images/2021-07-25/gambler.png&quot; alt=&quot;gambler&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 450px; height: 900px&quot; /&gt;
+    &lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 5&lt;/b&gt;: Gambler&apos;s Problem solved by Value Iteration Result&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h3 id=&quot;gpi&quot;&gt;Generalized Policy Iteration&lt;/h3&gt;
+&lt;p&gt;The &lt;strong&gt;Generalized Policy Iteration (GPI)&lt;/strong&gt; algorithm refers to the idea of combining policy evaluation and policy improvement together to improve the original policy.&lt;br /&gt;
+In GPI, the value function is repeatedly driven toward the true value of the current policy and at the same time the policy is being improved optimality with respect to its value function, as in the following diagram.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2021-07-25/gpi.png&quot; alt=&quot;GPI&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width:200px; height: 320px&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 6&lt;/b&gt;: Generalized Policy Iteration&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Once it reaches the stationary state (when both evaluation and improvement no long produce any updates), then the current value function and policy must be optimal.&lt;br /&gt;
+The evaluation and improvement processes in GPI can be viewed as both competing and cooperating. They competing in the sense that on the one hand, making policy greedy w.r.t the value function typically makes value function incorrect for the new policy. And on the other hand, approximating the value function closer to the true value of the policy typically forces the policy is no longer to be greedy. But in the long run, they two processes cooperate to find a single joint solution: the optimal value function and an optimal policy.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2021-07-25/gpi-rel.png&quot; alt=&quot;GPI interaction&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 360px; height: 200px&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 7&lt;/b&gt;: Interaction between the evaluation and improvement processes in GPI&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;p&gt;[1] &lt;span id=&quot;rl-book&quot;&gt;Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;.&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;[2] David Silver. &lt;a href=&quot;https://www.davidsilver.uk/teaching/&quot;&gt;UCL course on RL&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;[3] Csaba Szepesvári. &lt;a href=&quot;https://www.amazon.com/Algorithms-Reinforcement-Synthesis-Artificial-Intelligence/dp/1608454924&quot;&gt;Algorithms for Reinforcement Learning&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;[4] A. Lazaric. &lt;a href=&quot;http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf&quot;&gt;Markov Decision Processes and Dynamic Programming&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;[5] &lt;a href=&quot;https://en.wikipedia.org/wiki/Dynamic_programming&quot;&gt;Dynamic Programming&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;[6] &lt;a href=&quot;https://github.com/ShangtongZhang/reinforcement-learning-an-introduction&quot;&gt;Shangtong Zhang’s repo&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;[7] &lt;a href=&quot;https://stats.stackexchange.com/a/258783&quot;&gt;Policy Improvement theorem&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
+
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;In the third step, the expression
+\begin{equation}
+\mathbb{E}_{\pi’}\left[R_{t+1}+\gamma v_\pi(S_{t+1})|S_t=s\right]
+\end{equation}
+means ‘‘the discounted expected value when starting in state $s$, choosing action according to $\pi’$ for the next time step, and following $\pi$ thereafter”. And so on for the two, or n next steps. Therefore, we have that:
+\begin{equation}
+\mathbb{E}_{\pi’}\left[R_{t+1}+\gamma v_\pi(S_{t+1})|S_t=s\right]=\mathbb{E}\left[R_{t+1}+\gamma v_\pi(S_{t+1})|S_t=s,A_t=\pi’(s)\right]
+\end{equation} &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;The idea of policy improvement also extends to stochastic policies. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:3&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;Value iteration can be used in conjunction with action-value function, which takes the following update:
+\begin{align}
+q_{k+1}(s,a)&amp;amp;\doteq\mathbb{E}\left[R_{t+1}+\gamma\max_{a’}q_k(S_{t+1},a’)|S_t=s,A_t=a\right] \\ &amp;amp;=\sum_{s’,r}p(s’,r|s,a)\left[r+\gamma\max_{a’}q_k(s’,a’)\right]
+\end{align}
+Yep, that’s right, the sequence $\{q_k\}\to q_*$ as $k\to\infty$ at a geometric rate thanks to &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html#banach-fixed-pts&quot;&gt;Banach’s fixed point theorem&lt;/a&gt;. &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="dynamic-programming" /><category term="planning" /><category term="my-rl" /><summary type="html">In two previous posts, Markov Decision Process (MDP) and Bellman equations and Optimal Policy Existence, we have known how MDPs, Bellman equations are defined and how they work. In this post, we are going to talk about how these MDPs are solved with Dynamic Programming.</summary></entry></feed>

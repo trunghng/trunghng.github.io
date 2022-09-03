@@ -7,7 +7,7 @@ tags: mathematics calculus series random-stuffs
 description: A note on infinite series of constants
 comments: true
 ---
-> No idea what to say yet :D
+> A note on infinite series of constants.
 
 <!-- excerpt-end -->
 - [Infinite Series](#infinite-series)
