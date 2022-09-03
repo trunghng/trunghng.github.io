@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:400,900,900i" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<style type="text/css">
+  #button {
+    display: inline-block;
+    background-color: #A5CCF1;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border-radius: 4px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    transition: background-color .3s, 
+      opacity .5s, visibility .5s;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+  }
+  #button::after {
+    content: "\f077";
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 2em;
+    line-height: 50px;
+    color: #fff;
+  }
+  #button:hover {
+    cursor: pointer;
+    background-color: #333;
+    text-decoration: none;
+  }
+  #button:active {
+    background-color: #555;
+  }
+  #button.show {
+    opacity: 1;
+    visibility: visible;
+  }
+</style><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Normal Distribution | Trung’s cabin</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Normal Distribution" />
+<meta name="author" content="Trung H. Nguyen" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Normal Distribution" />
+<meta property="og:description" content="Normal Distribution" />
+<link rel="canonical" href="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html" />
+<meta property="og:url" content="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html" />
+<meta property="og:site_name" content="Trung’s cabin" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-11-22T14:46:00+07:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Normal Distribution" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","description":"Normal Distribution","headline":"Normal Distribution","dateModified":"2021-11-22T14:46:00+07:00","datePublished":"2021-11-22T14:46:00+07:00","url":"http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Trung&apos;s cabin" />
+    
+
+
+
+
+
+  
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+<link rel="manifest" href="/assets/images/site.webmanifest">
+<link rel="mask-icon" href="/assets/images/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff"></head>
+<body><header class="site-header">
+  <div class="snorlax"></div>
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Trung&#39;s cabin</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/archive/">Archive</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <a id="button"></a>
+      <div class="wrapper">
+        <style>
+@import "/assets/css/default.css"
+</style>
+<style>
+  .collapsible {
+    background-color: #A5CCF1;
+    color: white;
+    cursor: pointer;
+    padding: 5px;
+    /*width: 100%;*/
+    border: none;
+    text-align: center;
+    outline: none;
+    font-size: 15px;
+  }
+
+  .active, .collapsible:hover {
+    background-color: #82B9EE;
+  }
+
+  .codePanel {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+  }
+</style>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <meta name="description" content="Normal Distribution">
+    <h1 class="post-title p-name" itemprop="name headline">Normal Distribution</h1>
+    <p><span>
+      
+        
+        <a href="/tag/mathematics"><code class="highligher-rouge"><nobr>mathematics</nobr></code>&nbsp;</a>
+      
+        
+        <a href="/tag/probability-statistics"><code class="highligher-rouge"><nobr>probability-statistics</nobr></code>&nbsp;</a>
+      
+        
+        <a href="/tag/normal-distribution"><code class="highligher-rouge"><nobr>normal-distribution</nobr></code>&nbsp;</a>
+      
+    </span></p>
+    <p class="post-meta"><time class="dt-published" datetime="2021-11-22T14:46:00+07:00" itemprop="datePublished">
+        Nov 22, 2021
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <blockquote>
+  <p>A note on Normal distribution.
+<!-- excerpt-end --></p>
+</blockquote>
+
+<ul>
+  <li><a href="#gauss-dist">Gaussian (Normal) Distribution</a>
+    <ul>
+      <li><a href="#std-norm">Standard Normal</a></li>
+    </ul>
+  </li>
+  <li><a href="#mvn">Multivariate Normal Distribution</a>
+    <ul>
+      <li><a href="#bvn">Bivariate Normal</a></li>
+    </ul>
+  </li>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<p>$\newcommand{\Var}{\mathrm{Var}}$
+$\newcommand{\Cov}{\mathrm{Cov}}$</p>
+<h2 id="gauss-dist">Gaussian (Normal) Distribution</h2>
+<p>A random variable $X$ is said to be <strong>Gaussian</strong> or to have the <strong>Normal distribution</strong> with mean $\mu$ and variance $\sigma^2$ if its probability density function (PDF) is
+\begin{equation}
+f_X(x)=\dfrac{1}{\sqrt{2\pi}\sigma}\exp\left(-\dfrac{(x-\mu)^2}{2\sigma^2}\right)
+\end{equation}
+which we denote as $X\sim\mathcal{N}(\mu,\sigma)$.</p>
+
+<h3 id="std-normal">Standard Normal</h3>
+<p>When $X$ is normally distributed with mean $\mu=0$ and variance $\sigma^2=1$, we call its distribution <strong>Standard Normal</strong>.
+\begin{equation}
+X\sim\mathcal{N}(0,1)
+\end{equation}
+In this case, $X$ has special notations to denote its PDF and CDF, which are
+\begin{equation}
+\varphi(x)=\dfrac{1}{\sqrt{2\pi}}e^{-z^2/2}
+\end{equation}
+\begin{equation}
+\Phi(x)=\int_{-\infty}^{x}\varphi(t)\,dt=\int_{-\infty}^{x}\dfrac{1}{\sqrt{2\pi}}e^{-t^2/2}\,dt
+\end{equation}
+Below are some visualizations of Normal distribution.</p>
+
+<figure>
+	<img src="/assets/images/2021-11-22/normal.png" alt="normal distribution" style="display: block; margin-left: auto; margin-right: auto; width:  900px; height: 380px" />
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: 10K normally distributed data points (5K each plot) were plotted as vertical bars on x-axis. The code can be found <span><a href="https://github.com/trunghng/maths-visualization/blob/main/bayes-optimization/gauss-dist.py">here</a></span></figcaption>
+</figure>
+<p><br /></p>
+
+<h2 id="mvn">Multivariate Normal Distribution</h2>
+<p>A $k$-dimensional random vector $\mathbf{X}=\left(X_1,\dots,X_k\right)^\intercal$ is said to have a <strong>Multivariate Normal (MVN)</strong> distribution if every linear combination of the $X_i$ has a Normal distribution. Which means
+\begin{equation}
+t_1X_1+\ldots+t_kX_k
+\end{equation}
+is normally distributed for any choice of constants $t_1,\dots,t_k$. Distribution of $\mathbf{X}$ then can be written in the following notation
+\begin{equation}
+\mathbf{X}\sim\mathcal{N}(\mathbf{\mu},\mathbf{\Sigma})
+\end{equation}
+where
+\begin{equation}
+	\mathbf{\mu}=\mathbb{E}\mathbf{X}=\mathbb{E}\left(\mu_1,\ldots,\mu_k\right)^\intercal=\left(\mathbb{E}X_1,\ldots,\mathbb{E}X_k\right)^\intercal
+\end{equation}
+is the $k$-dimensional mean vector, and covariance matrix $\mathbf{\Sigma}\in\mathbb{R}^{k\times k}$ with
+\begin{equation}
+	\mathbf{\Sigma}_{ij}=\mathbb{E}\left(X_i-\mu_i\right)\left(X_j-\mu_j\right)=\Cov(X_i,X_j)
+\end{equation}
+We also have that $\mathbf{\Sigma}\geq 0$ (positive semi-definite matrix)<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>.</p>
+
+<p>Thus, the PDF of an MVN is defined as
+\begin{equation}
+f_X(x_1,\ldots,x_k)=\dfrac{1}{(2\pi)^{k/2}\vert\mathbf{\Sigma}\vert^{1/2}}\exp\left[\dfrac{1}{2}\left(\mathbf{x}-\mathbf{\mu}\right)^\intercal\mathbf{\Sigma}^{-1}(\mathbf{x}-\mathbf{\mu})\right]
+\end{equation}
+With this idea, <em>Standard Normal</em> distribution in multi-dimensional case can be defined as a Gaussian with mean $\mathbf{\mu}=0$ (here $0$ is an $k$-dimensional vector) and identity covariance matrix $\mathbf{\Sigma}=\mathbf{I}_{k\times k}$.</p>
+
+<h3 id="bvn">Bivariate Normal</h3>
+<p>When the number of dimensions in $\mathbf{X}$, $k=2$, this special case of MVN is called the <strong>Bivariate Normal (BVN)</strong>.</p>
+
+<p>An example of an BVN, $\mathcal{N}\left(\left[\begin{smallmatrix}0\\0\end{smallmatrix}\right],\left[\begin{smallmatrix}1&amp;0.5\\0.8&amp;1\end{smallmatrix}\right]\right)$, is shown as following.</p>
+
+<figure>
+	<img src="/assets/images/2021-11-22/bvn.png" alt="monte carlo method" style="display: block; margin-left: auto; margin-right: auto; width: 750px; height: 350px" />
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: The PDF of $\mathcal{N}\left(\left[\begin{smallmatrix}0\\0\end{smallmatrix}\right],\left[\begin{smallmatrix}1&amp;0.5\\0.8&amp;1\end{smallmatrix}\right]\right)$. The code can be found <span><a href="https://github.com/trunghng/maths-visualization/blob/main/bayes-optimization/mvn.py">here</a></span></figcaption>
+</figure>
+<p><br /></p>
+
+<h2 id="references">References</h2>
+<p>[1] Joseph K. Blitzstein &amp; Jessica Hwang. <a href="https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573">Introduction to Probability</a>.</p>
+
+<h2 id="footnotes">Footnotes</h2>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>The definition of covariance matrix $\mathbf{\Sigma}$ can be rewritten as
+\begin{equation}
+\mathbf{\Sigma}=\Cov(\mathbf{X},\mathbf{X})=\Var(\mathbf{X})
+\end{equation}
+Let $\mathbf{z}\in\mathbb{R}^k$, we have
+\begin{equation}
+\Var(\mathbf{z}^\intercal\mathbf{X})=\mathbf{z}^\intercal\Var(\mathbf{X})\mathbf{z}=\mathbf{z}^\intercal\mathbf{\Sigma}\mathbf{z}
+\end{equation}
+And since $\Var(\mathbf{z}^\intercal\mathbf{X})\geq0$, we also have that $\mathbf{z}^\intercal\mathbf{\Sigma}\mathbf{z}\geq0$, which proves that $\mathbf{\Sigma}$ is a positive semi-definite matrix. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+  </div>
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    
+    var disqus_config = function () {
+    this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://https-trunghng-github-io.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+<script id="dsq-count-scr" src="//https-trunghng-github-io.disqus.com/count.js" async></script>
+
+  <a class="u-url" href="/mathematics/probability-statistics/2021/11/22/normal-dist.html" hidden></a>
+</article>
+ <!-- mathjax javascript -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+  "HTML-CSS": {availableFonts: []}
+  });
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<script>
+  var coll = document.getElementsByClassName("collapsible");
+  var i;
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      var content = document.getElementById(this.id+"data");
+      var btn = document.getElementById(this.id)
+      if (content.style.display === "block") {
+        content.style.display = "none";
+        btn.innerText = "Click to show the code";
+      } else {
+        content.style.display = "block";
+        btn.innerText = "Click to hide the code"
+      }
+    });
+  }
+</script>
+
+      </div>
+
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+        <ul class="contact-list">
+          <li class="p-name">Trung H. Nguyen</li>
+          <li><a class="u-email" href="mailto:trung.skipper@gmail.com">trung.skipper@gmail.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p>To document something I&#39;ve learned
+</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/trunghng" title="trunghng"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
+<script type="text/javascript">
+  var btn = $('#button');
+
+  $(window).scroll(function() {
+    if ($(window).scrollTop() > 300) {
+      btn.addClass('show');
+    } else {
+      btn.removeClass('show');
+    }
+  });
+
+  btn.on('click', function(e) {
+    e.preventDefault();
+    $('html, body').animate({scrollTop:0}, '300');
+  });
+</script>

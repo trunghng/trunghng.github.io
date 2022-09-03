@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mcts.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-03T18:59:52+07:00</updated><id>http://localhost:4000/feed/by_tag/mcts.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Planning &amp;amp; Learning</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/05/19/planning-learning.html" rel="alternate" type="text/html" title="Planning &amp;amp; Learning" /><published>2022-05-19T14:09:00+07:00</published><updated>2022-05-19T14:09:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/05/19/planning-learning</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/05/19/planning-learning.html">&lt;blockquote&gt;
+  &lt;p&gt;Recall that when using &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html&quot;&gt;dynamic programming (DP) method&lt;/a&gt; in solving reinforcement learning problems, we required the availability of a model of the environment. Whereas with &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html&quot;&gt;Monte Carlo methods&lt;/a&gt; and &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/01/31/td-learning.html&quot;&gt;temporal-difference learning&lt;/a&gt;, the models are unnecessary. Such methods with requirement of a model like the case of DP is called &lt;strong&gt;model-based&lt;/strong&gt;, while methods without using a model is called &lt;strong&gt;model-free&lt;/strong&gt;. Model-based methods primarily rely on &lt;strong&gt;planning&lt;/strong&gt;; and model-free methods, on the other hand, primarily rely on &lt;strong&gt;learning&lt;/strong&gt;.
+&lt;!-- excerpt-end --&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#models-planning&quot;&gt;Models &amp;amp; Planning&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#models&quot;&gt;Models&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#planning&quot;&gt;Planning&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#dyna&quot;&gt;Dyna&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#dyna-q&quot;&gt;Dyna-Q&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#dyna-q-eg&quot;&gt;Example&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#dyna-q-plus&quot;&gt;Dyna-Q+&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#prior-sweep&quot;&gt;Prioritized Sweeping&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#exp-updates-sample-updates&quot;&gt;Expected updates vs. Sample updates&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#trajectory-sampling&quot;&gt;Trajectory Sampling&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#heuristic-search&quot;&gt;Heuristic Search&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#preferences&quot;&gt;Preferences&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;models-planning&quot;&gt;Models &amp;amp; Planning&lt;/h2&gt;
+
+&lt;h3 id=&quot;models&quot;&gt;Models&lt;/h3&gt;
+&lt;p&gt;A &lt;strong&gt;model&lt;/strong&gt; of the environment represents anything that an agent can use to predict responses - in particular, next state and corresponding reward - of the environment to its chosen actions.&lt;/p&gt;
+
+&lt;p&gt;When the model is stochastic, there are several next states and rewards corresponding, each with some probability of occurring.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;If a model produces a description of all possibilities and their probabilities, we call it &lt;strong&gt;distribution model&lt;/strong&gt;. For example, consider the task of tossing coin multiple times, the distribution model will produce the probability of head and the probability of tail, which is 50% for each with a fair coin.&lt;/li&gt;
+  &lt;li&gt;On the other hand, if the model produces an individual sample (head or tail) according to the probability distribution, we call it &lt;strong&gt;sample model&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Both types of models above can be used to mimic or simulate experience. Given a starting state and a policy, a sample model would generate an entire episode, while a distribution model could produce all possible episodes and their probabilities. We say that the model is used to &lt;strong&gt;simulate&lt;/strong&gt; the environment in order to produce &lt;strong&gt;simulated experience&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;planning&quot;&gt;Planning&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Planning&lt;/strong&gt; in reinforcement learning is the process of taking a model as input then output a new policy or an improved policy for interacting with the modeled environment
+\begin{equation}
+\text{model}\hspace{0.5cm}\xrightarrow[]{\hspace{1cm}\text{planning}\hspace{1cm}}\hspace{0.5cm}\text{policy}
+\end{equation}
+There are two types of planning:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;State-space planning&lt;/strong&gt; is a search through the state space for an optimal policy or an optimal path to a goal, with two basic ideas:
+    &lt;ul&gt;
+      &lt;li&gt;Involving computing value functions as a key intermediate step toward improving the policy.&lt;/li&gt;
+      &lt;li&gt;Computing value functions by updates or backup applied to simulated experience.
+  \begin{equation}
+  \text{model}\xrightarrow[]{\hspace{1.5cm}}\text{simulated experience}\xrightarrow[]{\hspace{0.3cm}\text{backups}\hspace{0.3cm}}\text{backups}\xrightarrow[]{\hspace{1.5cm}}\text{policy}
+  \end{equation}&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Plan-space planning&lt;/strong&gt; is a search through the space of plans.
+    &lt;ul&gt;
+      &lt;li&gt;Plan-space planning methods consist of &lt;strong&gt;evolutionary methods&lt;/strong&gt; and &lt;strong&gt;partial-order planning&lt;/strong&gt;, in which the ordering of steps is not completely determined at all states of planning.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Both learning and planning methods estimate value functions by backup operations. The difference is planning uses simulated experience generated by a model compared to the uses of simulated experience generated by the environment in learning methods. This common structure lets several ideas and algorithms can be transferred between learning and planning with some modifications in the update step.&lt;/p&gt;
+
+&lt;p&gt;For instance, following is pseudocode of a planning method, called &lt;strong&gt;random-sample one-step tabular Q-planning&lt;/strong&gt;, based on &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/01/31/td-learning.html#q-learning&quot;&gt;one-step tabular Q-learning&lt;/a&gt;, and on random samples from a sample model.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-05-19/rand-samp-one-step-q-planning.png&quot; alt=&quot;Random-sample one-step Q-planning&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h2 id=&quot;dyna&quot;&gt;Dyna&lt;/h2&gt;
+&lt;p&gt;Within a planning agent, experience plays at least two roles:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;model learning&lt;/strong&gt;: improving the model;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;direct reinforcement learning (RL)&lt;/strong&gt;: improving the value function and policy&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The figure below illustrates the possible relationships between experience, model, value functions and policy.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&quot;/assets/images/2022-05-19/exp-model-value-policy.png&quot; alt=&quot;Exp, model, values and policy relationships&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 300px; height: 250px&quot; /&gt;
+    &lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 1&lt;/b&gt;: The possible relationships between experience, model, values and policy&lt;br /&gt;(the figure is taken from &lt;span&gt;&lt;a href=&quot;#rl-book&quot;&gt;RL book&lt;/a&gt;&lt;/span&gt;)&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Each arrows in the diagram represents a relationship of influence and presumed improvement. It is noticeable in the diagram that experience can improve value functions and policy either directly or indirectly via model (called &lt;strong&gt;indirect RL&lt;/strong&gt;), which involved in planning.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;direct RL: simpler, not affected by bad models;&lt;/li&gt;
+  &lt;li&gt;indirect RL: make fuller use of experience, i.e., getting better policy with fewer environment interactions.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;dyna-q&quot;&gt;Dyna-Q&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Dyna-Q&lt;/strong&gt; is the method having all of the processes shown in the diagram in &lt;strong&gt;&lt;em&gt;Figure 1&lt;/em&gt;&lt;/strong&gt; - planning, acting, model-learning and direct RL - all occurring continually:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;the &lt;em&gt;planning&lt;/em&gt; method is the random-sample one-step tabular Q-planning in the previous section;&lt;/li&gt;
+  &lt;li&gt;the &lt;em&gt;direct RL&lt;/em&gt; method is the one-step tabular Q-learning;&lt;/li&gt;
+  &lt;li&gt;the &lt;em&gt;model-learning&lt;/em&gt; method is also table-based and assumes the environment is deterministic.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;After each transition $S_t,A_t\to S_{t+1},R_{t+1}$, the model records its table entry for $S_t,A_t$ the prediction that $S_{t+1},R_{t+1}$ will deterministically follow. This lets the model simply return the last resultant next state and corresponding reward of a state-action pair when meeting them in the future.&lt;/p&gt;
+
+&lt;p&gt;During planning, the Q-planning algorithm randomly samples only from state-action pair that have previously been experienced. This helps the model to not be queried with a pair whose information is unknown.&lt;/p&gt;
+
+&lt;p&gt;Following is the general architecture of Dyna methods, of which Dyna-Q is an instance.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&quot;/assets/images/2022-05-19/dyna-arch.png&quot; alt=&quot;Dyna architecture&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 400px; height: 320px&quot; /&gt;
+    &lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 2&lt;/b&gt;: The general Dyna Architecture&lt;br /&gt;(the figure is taken from &lt;span&gt;&lt;a href=&quot;#rl-book&quot;&gt;RL book&lt;/a&gt;&lt;/span&gt;)&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;In most cases, the same reinforcement learning method is used for both learning from real experience and planning from simulated experience, which is - in this case of Dyna-Q - the Q-learning update.&lt;/p&gt;
+
+&lt;p&gt;Pseudocode of Dyna-Q method is shown below.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-05-19/tabular-dyna-q.png&quot; alt=&quot;Tabular Dyna-Q&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h4 id=&quot;dyna-q-eg&quot;&gt;Example&lt;/h4&gt;
+&lt;p&gt;(This example is taken from &lt;a href=&quot;#rl-book&quot;&gt;RL book&lt;/a&gt; - example 8.1.)&lt;/p&gt;
+
+&lt;p&gt;Consider a gridworld with some obstacles, called “maze” in this example, shown in the figure below.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-05-19/dyna-maze.png&quot; alt=&quot;Dyna maze&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 400px; height: 200px&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 3&lt;/b&gt;: The maze with some obstacles&lt;br /&gt;(the figure is taken from &lt;span&gt;&lt;a href=&quot;#rl-book&quot;&gt;RL book&lt;/a&gt;&lt;/span&gt;)&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;As usual, four action, $\text{up}, \text{down}, \text{right}$ and $\text{left}$ will take agent to its neighboring state, except when the agent is standing on the edge or is blocked by the obstacles, they do nothing, i.e., the agent stays still. Starting at state $S$, each transition to a non-goal state will give a reward of zero, while moving to the goal state, $G$, will reward $+1$. The episode resets when the agent reaches the goal state.&lt;/p&gt;
+
+&lt;p&gt;The task is discounted, episodic with $\gamma=0.95$.&lt;/p&gt;
+
+&lt;figure&gt;
+    &lt;img src=&quot;/assets/images/2022-05-19/dyna-maze-dyna-q.png&quot; alt=&quot;Dyna maze solved with Dyna-Q&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 500px; height: 400px&quot; /&gt;
+    &lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 4&lt;/b&gt;: Using Dyna-Q with different setting of number of planning steps on the maze.&lt;br /&gt;The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-8/maze.py&quot;&gt;here&lt;/a&gt;.&lt;/span&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h3 id=&quot;dyna-q-plus&quot;&gt;Dyna-Q+&lt;/h3&gt;
+&lt;p&gt;Consider a maze like the one on the left of the figure below. Suppose that after applying Dyna-Q has learned the optimal path, we make some changes to transform the gridworld into the one on the right that block the found optimal path.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&quot;/assets/images/2022-05-19/blocking-maze.png&quot; alt=&quot;Blocking maze&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 600px; height: 150px&quot; /&gt;
+    &lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 5&lt;/b&gt;: The maze before and after change&lt;br /&gt;(the figure is taken from &lt;span&gt;&lt;a href=&quot;#rl-book&quot;&gt;RL book&lt;/a&gt;&lt;/span&gt;)&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;With this modification, eventually a new optimal path will be found by the Dyna-Q agent but this will takes hundreds more steps.&lt;/p&gt;
+
+&lt;p&gt;In this case, we want the agent to explore in order to find changes in the environment, but not so much that performance is greatly degraded. To encourage the exploration, we give it an &lt;strong&gt;exploration bonus&lt;/strong&gt;.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Keeps track for each state-action pair of how many time steps have elapsed since the pair was last
+tried in a real interaction with the environment.&lt;/li&gt;
+  &lt;li&gt;An special &lt;strong&gt;bonus reward&lt;/strong&gt; is added for transitions caused by state-action pairs related how long ago
+they were tried: the long unvisited, the more reward for visiting:
+\begin{equation}
+r+\kappa\sqrt{\tau},
+\end{equation}
+for a small (time weight) $\kappa$; where $r$ is the modeled reward for a transition; and the transition has
+not been tried in $\tau$ time steps.&lt;/li&gt;
+  &lt;li&gt;The agent actually plans how to visit long unvisited state-action pairs.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following plot shows the performance comparison between Dyna-Q and Dyna-Q+ on this blocking task, with changing in the environment happens after 1000 steps.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&quot;/assets/images/2022-05-19/blocking-maze-dyna-q-qplus.png&quot; alt=&quot;Dyna-Q, Dyna-Q+ on blocking maze&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 500px; height: 400px&quot; /&gt;
+    &lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 6&lt;/b&gt;: Average performance of Dyna-Q and Dyna-Q+ on blocking maze.&lt;br /&gt;The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-8/maze.py&quot;&gt;here&lt;/a&gt;.&lt;/span&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;We also make a comparison between with and without giving an exploration bonus to the Dyna-Q agent on the shortcut maze below.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&quot;/assets/images/2022-05-19/shortcut-maze.png&quot; alt=&quot;shortcut maze&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 600px; height: 150px&quot; /&gt;
+    &lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 7&lt;/b&gt;: The maze before and after change&lt;br /&gt;(the figure is taken from &lt;span&gt;&lt;a href=&quot;#rl-book&quot;&gt;RL book&lt;/a&gt;&lt;/span&gt;)&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Below is the result of using two agents solving the shortcut maze with environment modification appears after 3000 steps.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&quot;/assets/images/2022-05-19/shortcut-maze-dyna-q-qplus.png&quot; alt=&quot;Dyna-Q, Dyna-Q+ on blocking maze&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 500px; height: 400px&quot; /&gt;
+    &lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 7&lt;/b&gt;: Average performance of Dyna-Q and Dyna-Q+ on shortcut maze.&lt;br /&gt;The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-8/maze.py&quot;&gt;here&lt;/a&gt;.&lt;/span&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;It can be seen from the plot above that the difference between Dyna-Q+ and Dyna-Q narrowed slightly over the first part of the experiment (the one using the left maze as its environment).&lt;/p&gt;
+
+&lt;p&gt;The reason for that is both agents were spending much more time steps than the case of blocking maze, which let the gap created by the faster convergence of Dyna-Q+ with Dyna-Q be narrowed down by exploration task, which Dyna-Q+ had to do but not Dyna-Q. This result will be more noticeable if they were stick to this first environment more time steps.&lt;/p&gt;
+
+&lt;h2 id=&quot;prior-sweep&quot;&gt;Prioritized Sweeping&lt;/h2&gt;
+
+&lt;h2 id=&quot;exp-updates-sample-updates&quot;&gt;Expected updates vs. Sample updates&lt;/h2&gt;
+
+&lt;h2 id=&quot;trajectory-sampling&quot;&gt;Trajectory Sampling&lt;/h2&gt;
+
+&lt;h2 id=&quot;heuristic-search&quot;&gt;Heuristic Search&lt;/h2&gt;
+
+&lt;h2 id=&quot;preferences&quot;&gt;Preferences&lt;/h2&gt;
+&lt;p&gt;[1] &lt;span id=&quot;rl-book&quot;&gt;Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/span&gt;.&lt;/p&gt;
+
+&lt;p&gt;[2] Richard S. Sutton. &lt;a href=&quot;https://doi.org/10.1016/B978-1-55860-141-3.50030-4&quot;&gt;Integrated Architectures for Learning, Planning, and Reacting Based on Approximating Dynamic Programming&lt;/a&gt;. Proceedings of the Seventh International Conference, Austin, Texas, June 21–23, 1990.&lt;/p&gt;
+
+&lt;p&gt;[3] Shangtong Zhang. &lt;a href=&quot;https://github.com/ShangtongZhang/reinforcement-learning-an-introduction&quot;&gt;Reinforcement Learning: An Introduction implementation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="dyna" /><category term="q-learning" /><category term="mcts" /><category term="my-rl" /><summary type="html">Recall that when using dynamic programming (DP) method in solving reinforcement learning problems, we required the availability of a model of the environment. Whereas with Monte Carlo methods and temporal-difference learning, the models are unnecessary. Such methods with requirement of a model like the case of DP is called model-based, while methods without using a model is called model-free. Model-based methods primarily rely on planning; and model-free methods, on the other hand, primarily rely on learning.</summary></entry></feed>

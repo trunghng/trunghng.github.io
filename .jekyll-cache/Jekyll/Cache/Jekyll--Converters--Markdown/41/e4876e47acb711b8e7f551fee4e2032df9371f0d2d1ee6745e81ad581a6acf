@@ -1,0 +1,17 @@
+I"h<blockquote>
+  <p>Recall that when using <a href="/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html">dynamic programming (DP) method</a> in solving reinforcement learning problems, we required the availability of a model of the enviroment. Whereas with <a href="/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html">Monte Carlo methods</a> and <a href="/artificial-intelligent/reinforcement-learning/2022/01/31/td-learning.html">temporal-difference learning</a>, the models are unnecessary. Such methods with requirement of a model like the case of DP is called <strong>model-based</strong>, while methods without using a model is called <strong>model-free</strong>. 
+<!-- excerpt-end --></p>
+</blockquote>
+
+<ul>
+  <li><a href="#preferences">Preferences</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h2 id="preferences">Preferences</h2>
+<p>[1] Richard S. Sutton &amp; Andrew G. Barto. <a href="https://mitpress.mit.edu/books/reinforcement-learning-second-edition">Reinforcement Learning: An Introduction</a>.</p>
+
+<p>[2]</p>
+
+<h2 id="footnotes">Footnotes</h2>
+:ET
