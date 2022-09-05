@@ -34,7 +34,6 @@ comments: true
 - [Footnotes](#footnotes)
 
 
-
 ## Monte Carlo Methods[^1]
 {: #mc-methods}
 **Monte Carlo**, named after a casino in Monaco, simulates complex probabilistic events using simple random events, such as tossing a pair of dice to simulate the casino's overall business model.

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/learning.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-03T19:18:49+07:00</updated><id>http://localhost:4000/feed/by_tag/learning.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/learning.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-04T12:58:03+07:00</updated><id>http://localhost:4000/feed/by_tag/learning.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Planning &amp;amp; Learning</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/05/19/planning-learning.html" rel="alternate" type="text/html" title="Planning &amp;amp; Learning" /><published>2022-05-19T14:09:00+07:00</published><updated>2022-05-19T14:09:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/05/19/planning-learning</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/05/19/planning-learning.html">&lt;blockquote&gt;
   &lt;p&gt;Recall that when using &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html&quot;&gt;dynamic programming (DP) method&lt;/a&gt; in solving reinforcement learning problems, we required the availability of a model of the environment. Whereas with &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html&quot;&gt;Monte Carlo methods&lt;/a&gt; and &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/01/31/td-learning.html&quot;&gt;temporal-difference learning&lt;/a&gt;, the models are unnecessary. Such methods with requirement of a model like the case of DP is called &lt;strong&gt;model-based&lt;/strong&gt;, while methods without using a model is called &lt;strong&gt;model-free&lt;/strong&gt;. Model-based methods primarily rely on &lt;strong&gt;planning&lt;/strong&gt;; and model-free methods, on the other hand, primarily rely on &lt;strong&gt;learning&lt;/strong&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -21,8 +21,11 @@
       &lt;li&gt;&lt;a href=&quot;#dyna-q-plus&quot;&gt;Dyna-Q+&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#prior-sweep&quot;&gt;Prioritized Sweeping&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#exp-updates-sample-updates&quot;&gt;Expected updates vs. Sample updates&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#prioritized-sweeping&quot;&gt;Prioritized Sweeping&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#small-backups&quot;&gt;Small backups&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#trajectory-sampling&quot;&gt;Trajectory Sampling&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#heuristic-search&quot;&gt;Heuristic Search&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#preferences&quot;&gt;Preferences&lt;/a&gt;&lt;/li&gt;
@@ -168,15 +171,25 @@ for a small (time weight) $\kappa$; where $r$ is the modeled reward for a transi
 &lt;p&gt;Below is the result of using two agents solving the shortcut maze with environment modification appears after 3000 steps.&lt;/p&gt;
 &lt;figure&gt;
     &lt;img src=&quot;/assets/images/2022-05-19/shortcut-maze-dyna-q-qplus.png&quot; alt=&quot;Dyna-Q, Dyna-Q+ on blocking maze&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 500px; height: 400px&quot; /&gt;
-    &lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 7&lt;/b&gt;: Average performance of Dyna-Q and Dyna-Q+ on shortcut maze.&lt;br /&gt;The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-8/maze.py&quot;&gt;here&lt;/a&gt;.&lt;/span&gt;&lt;/figcaption&gt;
+    &lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 8&lt;/b&gt;: Average performance of Dyna-Q and Dyna-Q+ on shortcut maze.&lt;br /&gt;The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-8/maze.py&quot;&gt;here&lt;/a&gt;.&lt;/span&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;p&gt;It can be seen from the plot above that the difference between Dyna-Q+ and Dyna-Q narrowed slightly over the first part of the experiment (the one using the left maze as its environment).&lt;/p&gt;
 
 &lt;p&gt;The reason for that is both agents were spending much more time steps than the case of blocking maze, which let the gap created by the faster convergence of Dyna-Q+ with Dyna-Q be narrowed down by exploration task, which Dyna-Q+ had to do but not Dyna-Q. This result will be more noticeable if they were stick to this first environment more time steps.&lt;/p&gt;
 
-&lt;h2 id=&quot;prior-sweep&quot;&gt;Prioritized Sweeping&lt;/h2&gt;
+&lt;h2 id=&quot;prioritized-sweeping&quot;&gt;Prioritized Sweeping&lt;/h2&gt;
+&lt;p&gt;Recall that in the Dyna methods presented above, the search control process selected a state-action pair randomly from all previously experienced pairs. It means that we can improve the planning if the search control instead focused on some particular state-action pairs.&lt;/p&gt;
 
-&lt;h2 id=&quot;exp-updates-sample-updates&quot;&gt;Expected updates vs. Sample updates&lt;/h2&gt;
+&lt;p&gt;Pseudocode of prioritized sweeping is shown below.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-05-19/prioritized-sweeping.png&quot; alt=&quot;Prioritized sweeping&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;figure&gt;
+    &lt;img src=&quot;/assets/images/2022-05-19/dyna-maze-prioritized-sweeping.png&quot; alt=&quot;Prioritized sweeping on dyna maze&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 500px; height: 400px&quot; /&gt;
+    &lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 9&lt;/b&gt;: Using prioritized sweeping on mazes.&lt;br /&gt;The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-8/maze.py&quot;&gt;here&lt;/a&gt;.&lt;/span&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
 
 &lt;h2 id=&quot;trajectory-sampling&quot;&gt;Trajectory Sampling&lt;/h2&gt;
 
@@ -186,6 +199,9 @@ for a small (time weight) $\kappa$; where $r$ is the modeled reward for a transi
 &lt;p&gt;[1] &lt;span id=&quot;rl-book&quot;&gt;Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/span&gt;.&lt;/p&gt;
 
 &lt;p&gt;[2] Richard S. Sutton. &lt;a href=&quot;https://doi.org/10.1016/B978-1-55860-141-3.50030-4&quot;&gt;Integrated Architectures for Learning, Planning, and Reacting Based on Approximating Dynamic Programming&lt;/a&gt;. Proceedings of the Seventh International Conference, Austin, Texas, June 21–23, 1990.&lt;/p&gt;
+
+&lt;p&gt;[3] Harm van Seijen &amp;amp; Richard S. Sutton. &lt;a href=&quot;https://proceedings.mlr.press/v28/vanseijen13.pdf&quot;&gt;Efficient planning in MDPs by small backups&lt;/a&gt;. Proceedings
+of the 30th International Conference on Machine Learning (ICML 2013).&lt;/p&gt;
 
 &lt;p&gt;[3] Shangtong Zhang. &lt;a href=&quot;https://github.com/ShangtongZhang/reinforcement-learning-an-introduction&quot;&gt;Reinforcement Learning: An Introduction implementation&lt;/a&gt;.&lt;/p&gt;
 

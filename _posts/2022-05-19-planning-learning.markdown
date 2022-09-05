@@ -17,8 +17,8 @@ comments: true
 	- [Dyna-Q](#dyna-q)
 		- [Example](#dyna-q-eg)
 	- [Dyna-Q+](#dyna-q-plus)
-- [Prioritized Sweeping](#prior-sweep)
-- [Expected updates vs. Sample updates](#exp-updates-sample-updates)
+- [Prioritized Sweeping](#prioritized-sweeping)
+	- [Small backups](#small-backups)
 - [Trajectory Sampling](#trajectory-sampling)
 - [Heuristic Search](#heuristic-search)
 - [Preferences](#preferences)
@@ -152,17 +152,26 @@ We also make a comparison between with and without giving an exploration bonus t
 Below is the result of using two agents solving the shortcut maze with environment modification appears after 3000 steps.
 <figure>
     <img src="/assets/images/2022-05-19/shortcut-maze-dyna-q-qplus.png" alt="Dyna-Q, Dyna-Q+ on blocking maze" style="display: block; margin-left: auto; margin-right: auto; width: 500px; height: 400px"/>
-    <figcaption style="text-align: center;font-style: italic;"><b>Figure 7</b>: Average performance of Dyna-Q and Dyna-Q+ on shortcut maze.<br>The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-8/maze.py).</span></figcaption>
+    <figcaption style="text-align: center;font-style: italic;"><b>Figure 8</b>: Average performance of Dyna-Q and Dyna-Q+ on shortcut maze.<br>The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-8/maze.py).</span></figcaption>
 </figure>
 It can be seen from the plot above that the difference between Dyna-Q+ and Dyna-Q narrowed slightly over the first part of the experiment (the one using the left maze as its environment).
 
 The reason for that is both agents were spending much more time steps than the case of blocking maze, which let the gap created by the faster convergence of Dyna-Q+ with Dyna-Q be narrowed down by exploration task, which Dyna-Q+ had to do but not Dyna-Q. This result will be more noticeable if they were stick to this first environment more time steps.
 
 ## Prioritized Sweeping
-{: #prior-sweep}
+{: #prioritized-sweeping}
+Recall that in the Dyna methods presented above, the search control process selected a state-action pair randomly from all previously experienced pairs. It means that we can improve the planning if the search control instead focused on some particular state-action pairs.
 
-## Expected updates vs. Sample updates
-{: #exp-updates-sample-updates}
+Pseudocode of prioritized sweeping is shown below.
+<figure>
+	<img src="/assets/images/2022-05-19/prioritized-sweeping.png" alt="Prioritized sweeping" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption></figcaption>
+</figure>
+
+<figure>
+    <img src="/assets/images/2022-05-19/dyna-maze-prioritized-sweeping.png" alt="Prioritized sweeping on dyna maze" style="display: block; margin-left: auto; margin-right: auto; width: 500px; height: 400px"/>
+    <figcaption style="text-align: center;font-style: italic;"><b>Figure 9</b>: Using prioritized sweeping on mazes.<br>The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-8/maze.py).</span></figcaption>
+</figure>
 
 ## Trajectory Sampling
 {: #trajectory-sampling}
@@ -175,6 +184,9 @@ The reason for that is both agents were spending much more time steps than the c
 [1] <span id='rl-book'>Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition)</span>.  
 
 [2] Richard S. Sutton. [Integrated Architectures for Learning, Planning, and Reacting Based on Approximating Dynamic Programming](https://doi.org/10.1016/B978-1-55860-141-3.50030-4). Proceedings of the Seventh International Conference, Austin, Texas, June 21–23, 1990. 
+
+[3] Harm van Seijen & Richard S. Sutton. [Efficient planning in MDPs by small backups](https://proceedings.mlr.press/v28/vanseijen13.pdf). Proceedings
+of the 30th International Conference on Machine Learning (ICML 2013).
 
 [3] Shangtong Zhang. [Reinforcement Learning: An Introduction implementation](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction).
 
