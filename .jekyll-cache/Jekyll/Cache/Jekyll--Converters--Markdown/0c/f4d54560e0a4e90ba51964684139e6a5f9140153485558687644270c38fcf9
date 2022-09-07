@@ -1,0 +1,19 @@
+I"3<blockquote>
+
+  <!-- excerpt-end -->
+</blockquote>
+
+<ul>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h2 id="references">References</h2>
+<p>[1] joelgrus <a href="https://github.com/joelgrus/joelnet">JoelNet</a>.</p>
+
+<p>[2] Ian Goodfellow &amp; Yoshua Bengio &amp; Aaron Courville. <a href="https://www.deeplearningbook.org">Deep Learning</a>. MIT Press (2016).</p>
+
+<p>[3] Pytorch Documentation <a href="https://pytorch.org/docs/stable/index.html">Pytorch Docs</a>.</p>
+
+<h2 id="footnotes">Footnotes</h2>
+:ET
