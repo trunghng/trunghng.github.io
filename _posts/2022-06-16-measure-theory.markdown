@@ -605,7 +605,7 @@ Let $E,F\in\mathbb{R}^d$ be Jordan measurable sets. Then
 				which implies that $E\cup F$ is Jordan measurable.
 			</li>
 			<li>
-				From the result above, and by monotonicity, finite addititivy, finite subadditity properties of elementary measure, for any $\varepsilon>0$, we also have that
+				From the result above, and by monotonicity, finite additivity, finite subadditivity properties of elementary measure, for any $\varepsilon>0$, we also have that
 				\begin{align}
 				m\big((B_1\cap B_2)\backslash(A_1\cap A_2)\big)&=m(B_1\cap B_2)-m(A_1\cap A_2) \\ &=m\Big(\big(B_1\cup B_2\big)\backslash\big((B_1\backslash B_2)\cup(B_2\backslash B_1)\big)\Big) \\ &\hspace{1cm}-m\Big(\big(A_1\cup A_2\big)\backslash\big((A_1\backslash A_2)\cup(A_2\backslash A_1)\big)\Big) \\ &=m(B_1\cup B_2)-m(B_1\backslash B_2)-m(B_2\backslash B_1) \\ &\hspace{1cm}-m(A_1\cup A_2)+m(A_1\backslash A_2)+m(A_2\backslash A_1) \\ &=m(B_1\cup B_2)-m(A_1\cup A_2)+m(A_1\backslash A_2)-m(B_1\backslash B_2) \\ &\hspace{1cm}+m(A_2\backslash A_1)-m(B_2\backslash B_1) \\ &\leq m(B_1\cup B_2)-m(A_1\cup A_2)+m(B_1\backslash A_2)-m(B_1\backslash B_2) \\ &\hspace{1cm}+m(B_2\backslash A_1)-m(B_2\backslash B_1) \\ &\leq m(B_1\cup B_2)-m(A_1\cup A_2) \\ &\leq\varepsilon,
 				\end{align}
@@ -680,10 +680,24 @@ Let $[a,b]$ be an interval. a **piecewise constant function** $f:[a,b]\to\mathbb
 \end{equation}
 is independent of the choice of partition used to demonstrate the piecewise constant nature of $f$. We denote this quantity as $\text{p.c.}\int_{a}^{b}f(x)\,dx$, and refer it to as **piecewise constant integral** of $f$ on $[a,b]$.
 
+**Proof**  
+Consider two partitions of the interval $[a,b]$ into finitely many intervals $(I_i)\_{i=1,\ldots,n}=I_1,\ldots,I_n$ and $(J_i)\_{i=1,\ldots,m}=J_1,\ldots,J_m$ such that:
+\begin{align}
+f(x)&=c_i,\hspace{1cm}\forall x\in I_i, \\\\ f(x)&=d_i,\hspace{1cm}\forall x\in J_i
+\end{align}
+Thus, we have that:
+\begin{equation}
+c_i=d_j,\hspace{1cm}\forall x\in\left(I_i\cap J_j\right)
+\end{equation}
+With this result, we have:
+\begin{align}
+\sum_{i=1}^{n}c_i\vert I_i\vert&=\sum_{i=1}^{n}c_i\left\vert\bigcup_{j=1}^{m}\left(I_i\cap J_j\right)\right\vert \\\\ &=\sum_{i=1}^{n}\sum_{j=1}^{m}c_i\left\vert I_i\cap J_j\right\vert \\\\ &=\sum_{j=1}^{m}\sum_{i=1}^{n}d_j\left\vert I_i\cap J_j\right\vert \\\\ &=\sum_{j=1}^{m}d_j\left\vert\bigcup_{i=1}^{n}\left(J_j\cap I_i\right)\right\vert \\\\ &=\sum_{j=1}^{m}d_j\vert J_j\vert
+\end{align}
+
 #### Basic properties of piecewise constant integral
 {: #pc-int-properties}
 Let $[a,b]$ be an interval, and let $f,g:[a,b]\to\mathbb{R}$ be piecewise constant functions. Then
-<ul id='mumber-list'>
+<ul id='number-list'>
 	<li>
 		<b>Linearity</b>. For any $c\in\mathbb{R}$, $cf$ and $f+g$ are piecewise constant functions, with
 		\begin{align}
@@ -700,6 +714,52 @@ Let $[a,b]$ be an interval, and let $f,g:[a,b]\to\mathbb{R}$ be piecewise consta
 		<b>Indicator</b>. If $E$ is an elementary subset of $[a,b]$, then the indicator function $1_E:[a,b]\to\mathbb{R}$ (defined by setting $1_E(x)\doteq 1$ if $x\in E$ and 0 otherwise) is piecewise constant, and
 		\begin{equation}
 		\text{p.c.}\int_{a}^{b}1_E(x)\,dx=m(E)
+		\end{equation}
+	</li>
+</ul>
+
+**Proof**  
+<ul id='number-list'>
+	<li>
+		<b>Linearity</b><br>
+		For any $c\in\mathbb{R}$, we have:
+		\begin{equation}
+		\text{p.c.}\int_{a}^{b}cf(x)\,dx=\sum_{i=1}^{n}cc_i\vert I_i\vert=c\sum_{i=1}^{n}c_i\vert I_i\vert=c\text{p.c.}\int_{a}^{b}f(x)\,dx
+		\end{equation}
+		From the partitioning independence of piecewise constant functions, there exists a partition of the interval $[a,b]$ into finitely many intervals, $I_1,\ldots,I_n$, such that
+		\begin{equation}
+		f(x)=c_i,\hspace{1cm}\forall x\in I_i,
+		\end{equation}
+		and
+		\begin{equation}
+		g(x)=d_i,\hspace{1cm}\forall x\in I_i,
+		\end{equation}
+		Thus, we have
+		\begin{align}
+		\text{p.c.}\int_{a}^{b}f(x)+g(x)\,dx&=\sum_{i=1}^{n}\left(c_i+d_i\right)\vert I_i\vert \\ &=\sum_{i=1}^{n}c_i\vert I_i\vert+\sum_{i=1}^{n}d_i\vert I_i\vert \\ &=\text{p.c.}\int_{a}^{b}f(x)\,dx+\text{p.c.}\int_{a}^{b}g(x)\,dx
+		\end{align}
+	</li>
+	<li>
+		<b>Monotonicity</b><br>
+		Analogy to the above proof, there exists a partition of the interval $[a,b]$ into finitely many intervals, $I_1,\ldots,I_n$, such that
+		\begin{align}
+		f(x)&=c_i,\hspace{1cm}\forall x\in I_i, \\ g(x)&=d_i,\hspace{1cm}\forall x\in I_i,
+		\end{align}
+		Since $f\leq g$ pointwise, in any interval $I_i$, we also have that $c_i=f(x)\leq g(x)=d_i$. Therefore,
+		\begin{equation}
+		\text{p.c.}\int_{a}^{b}f(x)\,dx=\sum_{i=1}^{n}c_i\vert I_i\vert\leq\sum_{i=1}^{n}d_i\vert I_i\vert=\text{p.c.}\int_{a}^{b}g(x)\,dx
+		\end{equation}
+	</li>
+	<li>
+		<b>Indicator</b><br>
+		Since $E\subset[a,b]\subset\mathbb{R}$ is an elementary set, we can represent the elementary measure $m(E)$ of set $E$ as
+		\begin{equation}
+		m(E)=\sum_{i=1}^{n}\vert I_i\vert
+		\end{equation}
+		Therefore, for any $x\in I_i$ for $i=1,\ldots n$, we have that $1_E(x)=1$; and for any $x\in[b-a]\backslash E=\bigcup_{j=1}^{m}J_j$, we get that $1_E(x)=0$, which lets $1_E$ satisfy the condition of a piecewise constant function.<br>
+		Moreover, we have that
+		\begin{equation}
+		\text{p.c.}\int_{a}^{b}1_E(x)\,dx=\sum_{i=1}^{n}1\vert I_i\vert+\sum_{j=1}^{m}0\vert J_j\vert=\sum_{i=1}^{n}\vert I_i\vert=m(E)
 		\end{equation}
 	</li>
 </ul>

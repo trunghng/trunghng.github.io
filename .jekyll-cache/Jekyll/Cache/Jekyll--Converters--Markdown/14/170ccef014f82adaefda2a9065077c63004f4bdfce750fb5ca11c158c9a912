@@ -1,0 +1,60 @@
+I"ï<blockquote>
+
+  <!-- excerpt-end -->
+  <ul>
+    <li><a href="#fnn">Feedforward neural networks</a>
+      <ul>
+        <li><a href="#xor">The XOR function</a></li>
+      </ul>
+    </li>
+    <li><a href="#references">References</a></li>
+    <li><a href="#footnotes">Footnotes</a></li>
+  </ul>
+</blockquote>
+
+<h2 id="fnn">Feedforward neural networks</h2>
+
+<h3 id="xor">The XOR function</h3>
+<p>The <strong>XOR function</strong> (or <strong>exclusive or function</strong>), denoted as $\oplus:\{0,1\}\times\{0,1\}\to\{0,1\}$, is defined as:
+\begin{align}
+\oplus(0,0)&amp;=0, \\ \oplus(0,1)&amp;=1, \\ \oplus(1,0)&amp;=1, \\ \oplus(1,1)&amp;=0,
+\end{align}
+or by words, $f(x_1,x_2)=1$ only if exactly one of the two binary inputs having the value of $1$, otherwise it returns the value of $0$.</p>
+
+<p>Suppose given a set of four points $\mathbb{X}=\left\{(0,0),(0,1),(1,0),(1,1)\right\}$ and their projected value of them on $\oplus$ space, $\hat{f}(\mathbf{x}),\mathbf{x}\in\mathbb{X}$, we will learn an approximator of $\oplus$, denoted as $f$, by a feedforward network.</p>
+
+<p>Consider this as a regression problem, we will be using the MSE as our loss function. Or in particular,
+\begin{equation}
+J(\mathbf{w},b)=\frac{1}{4}\sum_{\mathbf{x}\in\mathbb{X}}\left(\hat{f}(\mathbf{x})-f(\mathbf{x};\mathbf{w},b)\right)^2\tag{1}\label{1}
+\end{equation}
+Let us assume that we can learn a linear model $f$, that means
+\begin{equation}
+f(\mathbf{x};\mathbf{w},b)=\mathbf{x}^\intercal\mathbf{w}+b,
+\end{equation}
+which lets equation \eqref{1} be written as
+\begin{equation}
+J(\mathbf{w},b)=\frac{1}{4}\sum_{\mathbf{x}\in\mathbb{X}}\left(\hat{f}(\mathbf{x})-\left(\mathbf{x}^\intercal\mathbf{w}+b\right)\right)^2
+\end{equation}
+Taking the derivatives of $J$ w.r.t $\mathbf{w}$ and $b$, we have
+\begin{align}
+\nabla_\mathbf{w}J(\mathbf{w},b)&amp;\propto\sum_{\mathbf{x}\in\mathbb{X}}\left(\hat{f}(x)-\left(\mathbf{x}^\intercal\mathbf{w}+b\right)\right)\mathbf{x}, \\ \nabla_b J(\mathbf{w},b)&amp;\propto\sum_{\mathbf{x}\in\mathbb{X}}\left(\hat{f}(x)-\left(\mathbf{x}^\intercal\mathbf{w}+b\right)\right)
+\end{align}
+Letting these gradients be zero gives us $\mathbf{w}=\mathbf{0}$ and $b=\frac{1}{2}$. With this solution, our model simply returns $\frac{1}{2}$ for any given input. This means that we can not find a linear function that describes exactly how the XOR works.</p>
+
+<p>One possible solution to this problem is that we continue to let the space of $f$ be a domain space of a function that successfully maps $f(\mathbf{x})=\mathbf{x}^\intercal\mathbf{w}+b$ to $\oplus(\mathbf{x})$. In other words, we select a function $g$ such that
+\begin{equation}
+g(f(\mathbf{x}))=\oplus(\mathbf{x})
+\end{equation}
+Clearly we can not pick $g$ as a linear function, because this will take us back to the problem of $f$.</p>
+
+<h2 id="references">References</h2>
+<p>[1] joelgrus <a href="https://github.com/joelgrus/joelnet">JoelNet</a>.</p>
+
+<p>[2] Ian Goodfellow &amp; Yoshua Bengio &amp; Aaron Courville. <a href="https://www.deeplearningbook.org">Deep Learning</a>. MIT Press (2016).</p>
+
+<p>[3] Adrew Ng. <a href="https://coursera.com">Deep Learning Specialization</a>. Coursera.</p>
+
+<p>[4] Pytorch Documentation <a href="https://pytorch.org/docs/stable/index.html">Pytorch Docs</a>.</p>
+
+<h2 id="footnotes">Footnotes</h2>
+:ET
