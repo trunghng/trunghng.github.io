@@ -804,13 +804,13 @@ Thus, for any $\varepsilon^{(1)}>0$ we obtain
 \end{equation}
 which implies that for any $\varepsilon^{(1)}>0$
 \begin{equation}
-\left\vert\sum_{i=1}^{n}f(x_i^{(1)})\vert I_i\vert-\vert\sum_{n=1}^{n}\inf_{x\in I_i}f(x)\vert I_i\right\vert<\varepsilon^{(1)}\tag{15}\label{15}
+\left\vert\sum_{i=1}^{n}f(x_i^{(1)})\vert I_i\vert-\vert\sum_{n=1}^{n}\inf_{x\in I_i}f(x)\vert I_i\right\vert<\varepsilon^{(1)}\tag{11}\label{11}
 \end{equation}
 Moreover, we also have that
 \begin{equation}
-\sum_{n=1}^{n}\inf_{x\in I_i}f(x)\vert I_i\vert=\sup_{g\leq f, \text{piecewise constant}}\text{p.c.}\int_{a}^{b}g(x)\,dx=\underline{\int_{a}^{b}}f(x)\,dx,\tag{16}\label{16}
+\sum_{n=1}^{n}\inf_{x\in I_i}f(x)\vert I_i\vert=\sup_{g\leq f, \text{piecewise constant}}\text{p.c.}\int_{a}^{b}g(x)\,dx=\underline{\int_{a}^{b}}f(x)\,dx,\tag{12}\label{12}
 \end{equation}
-which is the lower Darboux integral of $f$ on $[a,b]$. Additionally, from \eqref{15} and \eqref{16} we have that for any $\varepsilon^{(1)}>0$
+which is the lower Darboux integral of $f$ on $[a,b]$. Additionally, from \eqref{11} and \eqref{12} we have that for any $\varepsilon^{(1)}>0$
 \begin{equation}
 \left\vert\sum_{i=1}^{n}f(x_i^{(1)})\vert I_i\vert-\underline{\int_{a}^{b}}f(x)\,dx\right\vert<\varepsilon^{(1)},
 \end{equation}
@@ -837,11 +837,11 @@ which claims that $f$ is Darboux integrable on $[a,b]$ with the Darboux integral
 \end{equation}
 By definition of the lower Darboux integral, there exists a piecewise constant function $g(x)$ bounded above by $f$ (i.e., $g\leq f$ piecewise), such that for any $\varepsilon>0$
 \begin{equation}
-\text{p.c.}\int_{a}^{b}g(x)\,dx>\underline{\int_{a}^{b}}f(x)\,dx-\varepsilon=\text{d.}\int_{a}^{b}f(x)\,dx-\varepsilon\tag{11}\label{11}
+\text{p.c.}\int_{a}^{b}g(x)\,dx>\underline{\int_{a}^{b}}f(x)\,dx-\varepsilon=\text{d.}\int_{a}^{b}f(x)\,dx-\varepsilon\tag{13}\label{13}
 \end{equation}
 Likewise, by definition of the upper Darboux integral, there exists a piecewise constant function $h(x)$ bounded below by $f$ (i.e., $h\geq f$ piecewise), such that for any $\varepsilon>0$
 \begin{equation}
-\text{p.c.}\int_{a}^{b}h(x)\,dx<\overline{\int_{a}^{b}}f(x)\,dx+\varepsilon=\text{d.}\int_{a}^{b}f(x)\,dx+\varepsilon\tag{12}\label{12}
+\text{p.c.}\int_{a}^{b}h(x)\,dx<\overline{\int_{a}^{b}}f(x)\,dx+\varepsilon=\text{d.}\int_{a}^{b}f(x)\,dx+\varepsilon\tag{14}\label{14}
 \end{equation}
 From the independence of choice of partition of piecewise constant functions $g$ and $h$, there exists a partition $I_1,\ldots,I_n$ such that
 \begin{align}
@@ -849,9 +849,9 @@ g(x)&=c_i,\hspace{1cm}\forall x\in I_i, \\\\ h(x)&=d_i,\hspace{1cm}\forall x\in 
 \end{align}
 and
 \begin{align}
-\text{p.c.}\int_{a}^{b}g(x)\,dx&=\sum_{i=1}^{n}c_i\vert I_i\vert,\tag{13}\label{13} \\\\ \text{p.c.}\int_{a}^{b}h(x)\,dx&=\sum_{i=1}^{n}d_i\vert I_i\vert,\tag{14}\label{14}
+\text{p.c.}\int_{a}^{b}g(x)\,dx&=\sum_{i=1}^{n}c_i\vert I_i\vert,\tag{15}\label{15} \\\\ \text{p.c.}\int_{a}^{b}h(x)\,dx&=\sum_{i=1}^{n}d_i\vert I_i\vert,\tag{16}\label{16}
 \end{align}
-then it follows immediately that $c_i\leq d_i$. And since $g\leq f\leq h$ piecewise, on each interval $I_i$, we can find a $x_i^\*$ such that $c_i\leq f(x_i^\*)\leq d_i$. Additionally, combining with \eqref{11}, \eqref{12}, \eqref{13} and \eqref{14}, we have that for any $\varepsilon>0$
+then it follows immediately that $c_i\leq d_i$. And since $g\leq f\leq h$ piecewise, on each interval $I_i$, we can find a $x_i^\*$ such that $c_i\leq f(x_i^\*)\leq d_i$. Additionally, combining with \eqref{13}, \eqref{14}, \eqref{15} and \eqref{16}, we have that for any $\varepsilon>0$
 \begin{equation}
 \text{d.}\int_{a}^{b}f(x)\,dx-\varepsilon<\sum_{i=1}^{n}c_i\vert I_i\vert\leq\sum_{i=1}^{n}f(x_i^\*)\vert I_i\vert\leq\sum_{i=1}^{n}d_i\vert I_i\vert<\text{d.}\int_{a}^{b}f(x)\,dx+\varepsilon
 \end{equation}
