@@ -790,7 +790,48 @@ Note that the upper and lower Darboux integrals are related by
 Let $[a,b]$ be an interval, and $f:[a,b]\to\mathbb{R}$ be a bounded function. Then $f$ is Riemann integrable iff it is Darboux integrable, in which case the Riemann integrals and Darboux integrals are the same.
 
 **Proof**  
-- Given $f$ is Darboux integrable on $[a,b]$, we have that the upper and lower Darboux integrals are equal, and equal to the Darboux integral of $f$ on $[a,b]$ which we denote as $\text{d.}\int_{a}^{b}f(x)\,dx\in\mathbb{R}$.
+- Given $f$ is Riemann integrable on $[a,b]$, we have that for any $\varepsilon>0$, there exists a tagged partition $((I_1,\ldots,I_n),(x_1^\*,\ldots,x_n^\*))$ of $[a,b]$ with $x_i^\*\in I_i$ such that
+\begin{equation}
+\left\vert\sum_{i=1}^{n}f(x_i^\*)\vert I_i\vert-\int_{a}^{b}f(x)\,dx\right\vert\leq\varepsilon
+\end{equation}
+For each interval $I_i$, there exist a $x_i^{(1)}$ such that for any $\varepsilon^{(1)}>0$
+\begin{equation}
+\inf_{x\in I_i}f(x)\leq f(x_i^{(1)})<\inf_{x\in I_i}f(x)+\frac{\varepsilon^{(1)}}{n}
+\end{equation}
+Thus, for any $\varepsilon^{(1)}>0$ we obtain
+\begin{equation}
+\sum_{n=1}^{n}\inf_{x\in I_i}f(x)\vert I_i\vert\leq\sum_{i=1}^{n}f(x_i^{(1)})\vert I_i\vert<\sum_{i=1}^{n}\inf_{x\in I_i}f(x)+\varepsilon^{(1)},
+\end{equation}
+which implies that for any $\varepsilon^{(1)}>0$
+\begin{equation}
+\left\vert\sum_{i=1}^{n}f(x_i^{(1)})\vert I_i\vert-\vert\sum_{n=1}^{n}\inf_{x\in I_i}f(x)\vert I_i\right\vert<\varepsilon^{(1)}\tag{15}\label{15}
+\end{equation}
+Moreover, we also have that
+\begin{equation}
+\sum_{n=1}^{n}\inf_{x\in I_i}f(x)\vert I_i\vert=\sup_{g\leq f, \text{piecewise constant}}\text{p.c.}\int_{a}^{b}g(x)\,dx=\underline{\int_{a}^{b}}f(x)\,dx,\tag{16}\label{16}
+\end{equation}
+which is the lower Darboux integral of $f$ on $[a,b]$. Additionally, from \eqref{15} and \eqref{16} we have that for any $\varepsilon^{(1)}>0$
+\begin{equation}
+\left\vert\sum_{i=1}^{n}f(x_i^{(1)})\vert I_i\vert-\underline{\int_{a}^{b}}f(x)\,dx\right\vert<\varepsilon^{(1)},
+\end{equation}
+which gives us that
+\begin{equation}
+\int_{a}^{b}f(x)\,dx=\underline{\int_{a}^{b}}f(x)\,dx
+\end{equation}
+Similarly, applying the same procedure as above, we also have that for any $\varepsilon^{(2)}>0$
+\begin{equation}
+\left\vert\sum_{i=1}^{n}f(x_i^{(1)})\vert I_i\vert-\overline{\int_{a}^{b}}f(x)\,dx\right\vert<\varepsilon^{(2)},
+\end{equation}
+which on the other hand gives us that
+\begin{equation}
+\int_{a}^{b}f(x)\,dx=\overline{\int_{a}^{b}}f(x)\,dx
+\end{equation}
+Therefore
+\begin{equation}
+\underline{\int_{a}^{b}}f(x)\,dx=\overline{\int_{a}^{b}}f(x)\,dx,
+\end{equation}
+which claims that $f$ is Darboux integrable on $[a,b]$ with the Darboux integral of $f$ on $[a,b]$ is exactly the Riemann integral, $\int_{a}^{b}f(x)\,dx$, of $f$ on $[a,b]$.
+- Given $f$ is Darboux integrable on $[a,b]$, we have that the upper and lower Darboux integrals are equal, and are equal to the Darboux integral of $f$ on $[a,b]$ which we denote as $\text{d.}\int_{a}^{b}f(x)\,dx\in\mathbb{R}$.
 \begin{equation}
 \underline{\int_a^b}f(x)\,dx=\overline{\int_a^b}f(x)\,dx=\text{d.}\int_{a}^{b}f(x)\,dx
 \end{equation}
@@ -810,7 +851,7 @@ and
 \begin{align}
 \text{p.c.}\int_{a}^{b}g(x)\,dx&=\sum_{i=1}^{n}c_i\vert I_i\vert,\tag{13}\label{13} \\\\ \text{p.c.}\int_{a}^{b}h(x)\,dx&=\sum_{i=1}^{n}d_i\vert I_i\vert,\tag{14}\label{14}
 \end{align}
-then it follows immediately that $c_i\leq d_i$. And since $g\leq f\leq h$ piecewise, in any interval $I_i$, we can find a $x_i^\*$ such that $c_i\leq f(x_i^\*)\leq d_i$. Additionally, combining with \eqref{11}, \eqref{12}, \eqref{13} and \eqref{14}, we have that for any $\varepsilon>0$
+then it follows immediately that $c_i\leq d_i$. And since $g\leq f\leq h$ piecewise, on each interval $I_i$, we can find a $x_i^\*$ such that $c_i\leq f(x_i^\*)\leq d_i$. Additionally, combining with \eqref{11}, \eqref{12}, \eqref{13} and \eqref{14}, we have that for any $\varepsilon>0$
 \begin{equation}
 \text{d.}\int_{a}^{b}f(x)\,dx-\varepsilon<\sum_{i=1}^{n}c_i\vert I_i\vert\leq\sum_{i=1}^{n}f(x_i^\*)\vert I_i\vert\leq\sum_{i=1}^{n}d_i\vert I_i\vert<\text{d.}\int_{a}^{b}f(x)\,dx+\varepsilon
 \end{equation}
@@ -819,13 +860,9 @@ Therefore, for any $\varepsilon>0$, we have
 \left\vert\sum_{i=1}^{n}f(x_i^\*)\vert I_i\vert-\text{d.}\int_{a}^{b}f(x)\,dx\right\vert<\varepsilon,
 \end{equation}
 which claims that $f$ is Riemann integrable on $[a,b]$ with $\text{d.}\int_{a}^{b}f(x)\,dx$ is the Riemann integral of $f$.
-- Given $f$ is Riemann integrable on $[a,b]$, for any $\varepsilon>0$, there exists a partition $\mathcal{P}=((x_0,x_1,\ldots,x_n),(x_1^\*,\ldots,x_n^\*))$ of $[a,b]$ with $0=x_0< x_1<\ldots< x_n=b$ and $x_{i-1}\leq x_i^\*\leq x_i$ such that
-\begin{equation}
-\left\vert\sum_{i=1}^{n}f(x_i^\*)\delta x_i-\int_{a}^{b}f(x)\,dx\right\vert\leq\varepsilon
-\end{equation}
 
 **Example**  
-Any continuous function $f:[a,b]\to\mathbb{R}$ is Riemann integrable. More generally, any bounded, piecewise continuous function[^1] $f:[a,b]\to\mathbb{R}$ is Riemann integrable.
+Any continuous function $f:[a,b]\to\mathbb{R}$ is Riemann integrable. More generally, any bounded, **piecewise continuous function**[^1] $f:[a,b]\to\mathbb{R}$ is Riemann integrable.
 
 **Solution**  
 
