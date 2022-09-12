@@ -60,7 +60,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Measure theory" />
 <script type="application/ld+json">
-{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","headline":"Measure theory","dateModified":"2022-06-16T13:00:00+07:00","datePublished":"2022-06-16T13:00:00+07:00","description":"Note on measure theory","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/mathematics/measure-theory/2022/06/16/measure-theory.html"},"url":"http://localhost:4000/mathematics/measure-theory/2022/06/16/measure-theory.html","@context":"https://schema.org"}</script>
+{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","description":"Note on measure theory","headline":"Measure theory","dateModified":"2022-06-16T13:00:00+07:00","datePublished":"2022-06-16T13:00:00+07:00","url":"http://localhost:4000/mathematics/measure-theory/2022/06/16/measure-theory.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/mathematics/measure-theory/2022/06/16/measure-theory.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Trung&apos;s cabin" />
     
@@ -183,7 +183,11 @@
           <li><a href="#pc-int-properties">Basic properties of piecewise constant integral</a></li>
         </ul>
       </li>
-      <li><a href="#darboux-int">Darboux integral</a></li>
+      <li><a href="#darboux-int">Darboux integral</a>
+        <ul>
+          <li><a href="#equiv-riemann-darboux-int">Equivalence of Riemann integral and Darboux integral</a></li>
+        </ul>
+      </li>
       <li><a href="#riemann-int-properties">Basic properties of the Riemann integral</a></li>
       <li><a href="#riemann-int-area-interpret">Area interpretation of the Riemann integral</a></li>
     </ul>
@@ -845,8 +849,9 @@ c_i=d_j,\hspace{1cm}\forall x\in\left(I_i\cap J_j\right)
 \end{equation}
 With this result, we have:
 \begin{align}
-\sum_{i=1}^{n}c_i\vert I_i\vert&amp;=\sum_{i=1}^{n}c_i\left\vert\bigcup_{j=1}^{m}\left(I_i\cap J_j\right)\right\vert \\ &amp;=\sum_{i=1}^{n}\sum_{j=1}^{m}c_i\left\vert I_i\cap J_j\right\vert \\ &amp;=\sum_{j=1}^{m}\sum_{i=1}^{n}d_j\left\vert I_i\cap J_j\right\vert \\ &amp;=\sum_{j=1}^{m}d_j\left\vert\bigcup_{i=1}^{n}\left(J_j\cap I_i\right)\right\vert \\ &amp;=\sum_{j=1}^{m}d_j\vert J_j\vert
-\end{align}</p>
+\sum_{i=1}^{n}c_i\vert I_i\vert&amp;=\sum_{i=1}^{n}c_i\left\vert\bigcup_{j=1}^{m}\left(I_i\cap J_j\right)\right\vert \\ &amp;=\sum_{i=1}^{n}\sum_{j=1}^{m}c_i\left\vert I_i\cap J_j\right\vert \\ &amp;=\sum_{j=1}^{m}\sum_{i=1}^{n}d_j\left\vert I_i\cap J_j\right\vert \\ &amp;=\sum_{j=1}^{m}d_j\left\vert\bigcup_{i=1}^{n}\left(J_j\cap I_i\right)\right\vert \\ &amp;=\sum_{j=1}^{m}d_j\vert J_j\vert,
+\end{align}
+which claims the independence of the choices of partition of $f$.</p>
 
 <h4 id="pc-int-properties">Basic properties of piecewise constant integral</h4>
 <p>Let $[a,b]$ be an interval, and let $f,g:[a,b]\to\mathbb{R}$ be piecewise constant functions. Then</p>
@@ -935,13 +940,48 @@ It is easily seen that $\underline{\int_a^b}f(x)\,dx\leq\overline{\int_a^b}f(x)\
 \overline{\int_a^b}-f(x)\,dx=-\underline{\int_a^b}f(x)\,dx
 \end{equation}</p>
 
-<p><strong>Example</strong><br />
-Let $[a,b]$ be an interval, and $f:[a,b]\to\mathbb{R}$ be a bounded function. Then $f$ is Riemann integrable iff it is Darboux integrable, in which case the Riemann integrals and Darboux integrals are the same.</p>
+<h4 id="equiv-riemann-darboux-int">Equivalence of Riemann integral and Darboux integral</h4>
+<p>Let $[a,b]$ be an interval, and $f:[a,b]\to\mathbb{R}$ be a bounded function. Then $f$ is Riemann integrable iff it is Darboux integrable, in which case the Riemann integrals and Darboux integrals are the same.</p>
 
-<p><strong>Solution</strong></p>
+<p><strong>Proof</strong></p>
+<ul>
+  <li>Given $f$ is Darboux integrable on $[a,b]$, we have that the upper and lower Darboux integrals are equal, and equal to the Darboux integral of $f$ on $[a,b]$ which we denote as $\text{d.}\int_{a}^{b}f(x)\,dx\in\mathbb{R}$.
+\begin{equation}
+\underline{\int_a^b}f(x)\,dx=\overline{\int_a^b}f(x)\,dx=\text{d.}\int_{a}^{b}f(x)\,dx
+\end{equation}
+By definition of the lower Darboux integral, there exists a piecewise constant function $g(x)$ bounded above by $f$ (i.e., $g\leq f$ piecewise), such that for any $\varepsilon&gt;0$
+\begin{equation}
+\text{p.c.}\int_{a}^{b}g(x)\,dx&gt;\underline{\int_{a}^{b}}f(x)\,dx-\varepsilon=\text{d.}\int_{a}^{b}f(x)\,dx-\varepsilon\tag{11}\label{11}
+\end{equation}
+Likewise, by definition of the upper Darboux integral, there exists a piecewise constant function $h(x)$ bounded below by $f$ (i.e., $h\geq f$ piecewise), such that for any $\varepsilon&gt;0$
+\begin{equation}
+\text{p.c.}\int_{a}^{b}h(x)\,dx&lt;\overline{\int_{a}^{b}}f(x)\,dx+\varepsilon=\text{d.}\int_{a}^{b}f(x)\,dx+\varepsilon\tag{12}\label{12}
+\end{equation}
+From the independence of choice of partition of piecewise constant functions $g$ and $h$, there exists a partition $I_1,\ldots,I_n$ such that
+\begin{align}
+g(x)&amp;=c_i,\hspace{1cm}\forall x\in I_i, \\ h(x)&amp;=d_i,\hspace{1cm}\forall x\in I_i
+\end{align}
+and
+\begin{align}
+\text{p.c.}\int_{a}^{b}g(x)\,dx&amp;=\sum_{i=1}^{n}c_i\vert I_i\vert,\tag{13}\label{13} \\ \text{p.c.}\int_{a}^{b}h(x)\,dx&amp;=\sum_{i=1}^{n}d_i\vert I_i\vert,\tag{14}\label{14}
+\end{align}
+then it follows immediately that $c_i\leq d_i$. And since $g\leq f\leq h$ piecewise, in any interval $I_i$, we can find a $x_i^*$ such that $c_i\leq f(x_i^*)\leq d_i$. Additionally, combining with \eqref{11}, \eqref{12}, \eqref{13} and \eqref{14}, we have that for any $\varepsilon&gt;0$
+\begin{equation}
+\text{d.}\int_{a}^{b}f(x)\,dx-\varepsilon&lt;\sum_{i=1}^{n}c_i\vert I_i\vert\leq\sum_{i=1}^{n}f(x_i^*)\vert I_i\vert\leq\sum_{i=1}^{n}d_i\vert I_i\vert&lt;\text{d.}\int_{a}^{b}f(x)\,dx+\varepsilon
+\end{equation}
+Therefore, for any $\varepsilon&gt;0$, we have
+\begin{equation}
+\left\vert\sum_{i=1}^{n}f(x_i^*)\vert I_i\vert-\text{d.}\int_{a}^{b}f(x)\,dx\right\vert&lt;\varepsilon,
+\end{equation}
+which claims that $f$ is Riemann integrable on $[a,b]$ with $\text{d.}\int_{a}^{b}f(x)\,dx$ is the Riemann integral of $f$.</li>
+  <li>Given $f$ is Riemann integrable on $[a,b]$, for any $\varepsilon&gt;0$, there exists a partition $\mathcal{P}=((x_0,x_1,\ldots,x_n),(x_1^*,\ldots,x_n^*))$ of $[a,b]$ with $0=x_0&lt; x_1&lt;\ldots&lt; x_n=b$ and $x_{i-1}\leq x_i^*\leq x_i$ such that
+\begin{equation}
+\left\vert\sum_{i=1}^{n}f(x_i^*)\delta x_i-\int_{a}^{b}f(x)\,dx\right\vert\leq\varepsilon
+\end{equation}</li>
+</ul>
 
 <p><strong>Example</strong><br />
-Any continuous function $f:[a,b]\to\mathbb{R}$ is Riemann integrable. More generally, any bounded, piecewise continuous function $f:[a,b]\to\mathbb{R}$ is Riemann integrable.</p>
+Any continuous function $f:[a,b]\to\mathbb{R}$ is Riemann integrable. More generally, any bounded, piecewise continuous function<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> $f:[a,b]\to\mathbb{R}$ is Riemann integrable.</p>
 
 <p><strong>Solution</strong></p>
 
@@ -967,6 +1007,19 @@ Any continuous function $f:[a,b]\to\mathbb{R}$ is Riemann integrable. More gener
 		\end{equation}
 	</li>
 </ul>
+
+<p><strong>Proof</strong></p>
+<ul id="number-list">
+	<li>
+		<b>Linearity</b>
+	</li>
+	<li>
+		<b>Monotonicity</b>
+	</li>
+	<li>
+		<b>Indicator</b>
+	</li>
+</ul>
 <p>These properties uniquely define the Riemann integral, in the sense that the function $f\mapsto\int_{a}^{b}f(x)\,dx$ is the only map from the space of Riemann integrable functions on $[a,b]$ to $\mathbb{R}$ which obeys all of these above properties.</p>
 
 <h3 id="riemann-int-area-interpret">Area interpretation of the Riemann integral</h3>
@@ -982,6 +1035,14 @@ where $m^2$ denotes two-dimensional Jordan measure.</p>
 <p>[2] <span id="steins-book">Elias M. Stein &amp; Rami Shakarchi. <a href="#http://www.cmat.edu.uy/~mordecki/courses/medida2013/book.pdf">Real Analysis: Measure Theory, Integration, and Hilbert Spaces</a>. </span></p>
 
 <h2 id="footnotes">Footnotes</h2>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>A function $f:[a,b]\to\mathbb{R}$ is <strong>piecewise continuous</strong> if we can partition $[a,b]$ into finitely many intervals, such that $f$ is continuous on each interval. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
 
   </div>
 <div id="disqus_thread"></div>

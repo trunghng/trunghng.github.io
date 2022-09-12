@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-11T20:56:37+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-12T15:04:07+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory - II</title><link href="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html" rel="alternate" type="text/html" title="Measure theory - II" /><published>2022-07-03T13:00:00+07:00</published><updated>2022-07-03T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html">&lt;blockquote&gt;
   &lt;p&gt;A note on measure theory (continued from &lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-theory.html&quot;&gt;part I&lt;/a&gt;): materials were mostly taken from &lt;a href=&quot;/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some notations needed from &lt;a href=&quot;/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -509,7 +509,11 @@ We say that a sequence $E_n$ of sets in $\mathbb{R}^d$ &lt;strong&gt;converges p
           &lt;li&gt;&lt;a href=&quot;#pc-int-properties&quot;&gt;Basic properties of piecewise constant integral&lt;/a&gt;&lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#darboux-int&quot;&gt;Darboux integral&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#darboux-int&quot;&gt;Darboux integral&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#equiv-riemann-darboux-int&quot;&gt;Equivalence of Riemann integral and Darboux integral&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#riemann-int-properties&quot;&gt;Basic properties of the Riemann integral&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#riemann-int-area-interpret&quot;&gt;Area interpretation of the Riemann integral&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
@@ -1171,8 +1175,9 @@ c_i=d_j,\hspace{1cm}\forall x\in\left(I_i\cap J_j\right)
 \end{equation}
 With this result, we have:
 \begin{align}
-\sum_{i=1}^{n}c_i\vert I_i\vert&amp;amp;=\sum_{i=1}^{n}c_i\left\vert\bigcup_{j=1}^{m}\left(I_i\cap J_j\right)\right\vert \\ &amp;amp;=\sum_{i=1}^{n}\sum_{j=1}^{m}c_i\left\vert I_i\cap J_j\right\vert \\ &amp;amp;=\sum_{j=1}^{m}\sum_{i=1}^{n}d_j\left\vert I_i\cap J_j\right\vert \\ &amp;amp;=\sum_{j=1}^{m}d_j\left\vert\bigcup_{i=1}^{n}\left(J_j\cap I_i\right)\right\vert \\ &amp;amp;=\sum_{j=1}^{m}d_j\vert J_j\vert
-\end{align}&lt;/p&gt;
+\sum_{i=1}^{n}c_i\vert I_i\vert&amp;amp;=\sum_{i=1}^{n}c_i\left\vert\bigcup_{j=1}^{m}\left(I_i\cap J_j\right)\right\vert \\ &amp;amp;=\sum_{i=1}^{n}\sum_{j=1}^{m}c_i\left\vert I_i\cap J_j\right\vert \\ &amp;amp;=\sum_{j=1}^{m}\sum_{i=1}^{n}d_j\left\vert I_i\cap J_j\right\vert \\ &amp;amp;=\sum_{j=1}^{m}d_j\left\vert\bigcup_{i=1}^{n}\left(J_j\cap I_i\right)\right\vert \\ &amp;amp;=\sum_{j=1}^{m}d_j\vert J_j\vert,
+\end{align}
+which claims the independence of the choices of partition of $f$.&lt;/p&gt;
 
 &lt;h4 id=&quot;pc-int-properties&quot;&gt;Basic properties of piecewise constant integral&lt;/h4&gt;
 &lt;p&gt;Let $[a,b]$ be an interval, and let $f,g:[a,b]\to\mathbb{R}$ be piecewise constant functions. Then&lt;/p&gt;
@@ -1261,13 +1266,48 @@ It is easily seen that $\underline{\int_a^b}f(x)\,dx\leq\overline{\int_a^b}f(x)\
 \overline{\int_a^b}-f(x)\,dx=-\underline{\int_a^b}f(x)\,dx
 \end{equation}&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt;&lt;br /&gt;
-Let $[a,b]$ be an interval, and $f:[a,b]\to\mathbb{R}$ be a bounded function. Then $f$ is Riemann integrable iff it is Darboux integrable, in which case the Riemann integrals and Darboux integrals are the same.&lt;/p&gt;
+&lt;h4 id=&quot;equiv-riemann-darboux-int&quot;&gt;Equivalence of Riemann integral and Darboux integral&lt;/h4&gt;
+&lt;p&gt;Let $[a,b]$ be an interval, and $f:[a,b]\to\mathbb{R}$ be a bounded function. Then $f$ is Riemann integrable iff it is Darboux integrable, in which case the Riemann integrals and Darboux integrals are the same.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Given $f$ is Darboux integrable on $[a,b]$, we have that the upper and lower Darboux integrals are equal, and equal to the Darboux integral of $f$ on $[a,b]$ which we denote as $\text{d.}\int_{a}^{b}f(x)\,dx\in\mathbb{R}$.
+\begin{equation}
+\underline{\int_a^b}f(x)\,dx=\overline{\int_a^b}f(x)\,dx=\text{d.}\int_{a}^{b}f(x)\,dx
+\end{equation}
+By definition of the lower Darboux integral, there exists a piecewise constant function $g(x)$ bounded above by $f$ (i.e., $g\leq f$ piecewise), such that for any $\varepsilon&amp;gt;0$
+\begin{equation}
+\text{p.c.}\int_{a}^{b}g(x)\,dx&amp;gt;\underline{\int_{a}^{b}}f(x)\,dx-\varepsilon=\text{d.}\int_{a}^{b}f(x)\,dx-\varepsilon\tag{11}\label{11}
+\end{equation}
+Likewise, by definition of the upper Darboux integral, there exists a piecewise constant function $h(x)$ bounded below by $f$ (i.e., $h\geq f$ piecewise), such that for any $\varepsilon&amp;gt;0$
+\begin{equation}
+\text{p.c.}\int_{a}^{b}h(x)\,dx&amp;lt;\overline{\int_{a}^{b}}f(x)\,dx+\varepsilon=\text{d.}\int_{a}^{b}f(x)\,dx+\varepsilon\tag{12}\label{12}
+\end{equation}
+From the independence of choice of partition of piecewise constant functions $g$ and $h$, there exists a partition $I_1,\ldots,I_n$ such that
+\begin{align}
+g(x)&amp;amp;=c_i,\hspace{1cm}\forall x\in I_i, \\ h(x)&amp;amp;=d_i,\hspace{1cm}\forall x\in I_i
+\end{align}
+and
+\begin{align}
+\text{p.c.}\int_{a}^{b}g(x)\,dx&amp;amp;=\sum_{i=1}^{n}c_i\vert I_i\vert,\tag{13}\label{13} \\ \text{p.c.}\int_{a}^{b}h(x)\,dx&amp;amp;=\sum_{i=1}^{n}d_i\vert I_i\vert,\tag{14}\label{14}
+\end{align}
+then it follows immediately that $c_i\leq d_i$. And since $g\leq f\leq h$ piecewise, in any interval $I_i$, we can find a $x_i^*$ such that $c_i\leq f(x_i^*)\leq d_i$. Additionally, combining with \eqref{11}, \eqref{12}, \eqref{13} and \eqref{14}, we have that for any $\varepsilon&amp;gt;0$
+\begin{equation}
+\text{d.}\int_{a}^{b}f(x)\,dx-\varepsilon&amp;lt;\sum_{i=1}^{n}c_i\vert I_i\vert\leq\sum_{i=1}^{n}f(x_i^*)\vert I_i\vert\leq\sum_{i=1}^{n}d_i\vert I_i\vert&amp;lt;\text{d.}\int_{a}^{b}f(x)\,dx+\varepsilon
+\end{equation}
+Therefore, for any $\varepsilon&amp;gt;0$, we have
+\begin{equation}
+\left\vert\sum_{i=1}^{n}f(x_i^*)\vert I_i\vert-\text{d.}\int_{a}^{b}f(x)\,dx\right\vert&amp;lt;\varepsilon,
+\end{equation}
+which claims that $f$ is Riemann integrable on $[a,b]$ with $\text{d.}\int_{a}^{b}f(x)\,dx$ is the Riemann integral of $f$.&lt;/li&gt;
+  &lt;li&gt;Given $f$ is Riemann integrable on $[a,b]$, for any $\varepsilon&amp;gt;0$, there exists a partition $\mathcal{P}=((x_0,x_1,\ldots,x_n),(x_1^*,\ldots,x_n^*))$ of $[a,b]$ with $0=x_0&amp;lt; x_1&amp;lt;\ldots&amp;lt; x_n=b$ and $x_{i-1}\leq x_i^*\leq x_i$ such that
+\begin{equation}
+\left\vert\sum_{i=1}^{n}f(x_i^*)\delta x_i-\int_{a}^{b}f(x)\,dx\right\vert\leq\varepsilon
+\end{equation}&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt;&lt;br /&gt;
-Any continuous function $f:[a,b]\to\mathbb{R}$ is Riemann integrable. More generally, any bounded, piecewise continuous function $f:[a,b]\to\mathbb{R}$ is Riemann integrable.&lt;/p&gt;
+Any continuous function $f:[a,b]\to\mathbb{R}$ is Riemann integrable. More generally, any bounded, piecewise continuous function&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; $f:[a,b]\to\mathbb{R}$ is Riemann integrable.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;/p&gt;
 
@@ -1293,6 +1333,19 @@ Any continuous function $f:[a,b]\to\mathbb{R}$ is Riemann integrable. More gener
 		\end{equation}
 	&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+&lt;ul id=&quot;number-list&quot;&gt;
+	&lt;li&gt;
+		&lt;b&gt;Linearity&lt;/b&gt;
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Monotonicity&lt;/b&gt;
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Indicator&lt;/b&gt;
+	&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;These properties uniquely define the Riemann integral, in the sense that the function $f\mapsto\int_{a}^{b}f(x)\,dx$ is the only map from the space of Riemann integrable functions on $[a,b]$ to $\mathbb{R}$ which obeys all of these above properties.&lt;/p&gt;
 
 &lt;h3 id=&quot;riemann-int-area-interpret&quot;&gt;Area interpretation of the Riemann integral&lt;/h3&gt;
@@ -1307,7 +1360,15 @@ where $m^2$ denotes two-dimensional Jordan measure.&lt;/p&gt;
 
 &lt;p&gt;[2] &lt;span id=&quot;steins-book&quot;&gt;Elias M. Stein &amp;amp; Rami Shakarchi. &lt;a href=&quot;#http://www.cmat.edu.uy/~mordecki/courses/medida2013/book.pdf&quot;&gt;Real Analysis: Measure Theory, Integration, and Hilbert Spaces&lt;/a&gt;. &lt;/span&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><category term="random-stuffs" /><summary type="html">A note on measure theory: materials were mostly taken from Tao’s book, except for some notations needed from Stein’s book.</summary></entry><entry><title type="html">Normal Distribution</title><link href="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html" rel="alternate" type="text/html" title="Normal Distribution" /><published>2021-11-22T14:46:00+07:00</published><updated>2021-11-22T14:46:00+07:00</updated><id>http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist</id><content type="html" xml:base="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html">&lt;blockquote&gt;
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
+
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;A function $f:[a,b]\to\mathbb{R}$ is &lt;strong&gt;piecewise continuous&lt;/strong&gt; if we can partition $[a,b]$ into finitely many intervals, such that $f$ is continuous on each interval. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><category term="random-stuffs" /><summary type="html">A note on measure theory: materials were mostly taken from Tao’s book, except for some notations needed from Stein’s book.</summary></entry><entry><title type="html">Normal Distribution</title><link href="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html" rel="alternate" type="text/html" title="Normal Distribution" /><published>2021-11-22T14:46:00+07:00</published><updated>2021-11-22T14:46:00+07:00</updated><id>http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist</id><content type="html" xml:base="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html">&lt;blockquote&gt;
   &lt;p&gt;A note on Normal distribution.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;

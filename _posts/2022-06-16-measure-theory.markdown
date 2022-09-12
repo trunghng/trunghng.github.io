@@ -28,6 +28,7 @@ comments: true
 	- [Piecewise constant functions](#pc-func)
 		- [Basic properties of piecewise constant integral](#pc-int-properties)
 	- [Darboux integral](#darboux-int)
+		- [Equivalence of Riemann integral and Darboux integral](#equiv-riemann-darboux-int)
 	- [Basic properties of the Riemann integral](#riemann-int-properties)
 	- [Area interpretation of the Riemann integral](#riemann-int-area-interpret)
 - [References](#references)
@@ -691,8 +692,9 @@ c_i=d_j,\hspace{1cm}\forall x\in\left(I_i\cap J_j\right)
 \end{equation}
 With this result, we have:
 \begin{align}
-\sum_{i=1}^{n}c_i\vert I_i\vert&=\sum_{i=1}^{n}c_i\left\vert\bigcup_{j=1}^{m}\left(I_i\cap J_j\right)\right\vert \\\\ &=\sum_{i=1}^{n}\sum_{j=1}^{m}c_i\left\vert I_i\cap J_j\right\vert \\\\ &=\sum_{j=1}^{m}\sum_{i=1}^{n}d_j\left\vert I_i\cap J_j\right\vert \\\\ &=\sum_{j=1}^{m}d_j\left\vert\bigcup_{i=1}^{n}\left(J_j\cap I_i\right)\right\vert \\\\ &=\sum_{j=1}^{m}d_j\vert J_j\vert
+\sum_{i=1}^{n}c_i\vert I_i\vert&=\sum_{i=1}^{n}c_i\left\vert\bigcup_{j=1}^{m}\left(I_i\cap J_j\right)\right\vert \\\\ &=\sum_{i=1}^{n}\sum_{j=1}^{m}c_i\left\vert I_i\cap J_j\right\vert \\\\ &=\sum_{j=1}^{m}\sum_{i=1}^{n}d_j\left\vert I_i\cap J_j\right\vert \\\\ &=\sum_{j=1}^{m}d_j\left\vert\bigcup_{i=1}^{n}\left(J_j\cap I_i\right)\right\vert \\\\ &=\sum_{j=1}^{m}d_j\vert J_j\vert,
 \end{align}
+which claims the independence of the choices of partition of $f$.
 
 #### Basic properties of piecewise constant integral
 {: #pc-int-properties}
@@ -783,13 +785,47 @@ Note that the upper and lower Darboux integrals are related by
 \overline{\int_a^b}-f(x)\,dx=-\underline{\int_a^b}f(x)\,dx
 \end{equation}
 
-**Example**  
+#### Equivalence of Riemann integral and Darboux integral
+{: #equiv-riemann-darboux-int}
 Let $[a,b]$ be an interval, and $f:[a,b]\to\mathbb{R}$ be a bounded function. Then $f$ is Riemann integrable iff it is Darboux integrable, in which case the Riemann integrals and Darboux integrals are the same.
 
-**Solution**
+**Proof**  
+- Given $f$ is Darboux integrable on $[a,b]$, we have that the upper and lower Darboux integrals are equal, and equal to the Darboux integral of $f$ on $[a,b]$ which we denote as $\text{d.}\int_{a}^{b}f(x)\,dx\in\mathbb{R}$.
+\begin{equation}
+\underline{\int_a^b}f(x)\,dx=\overline{\int_a^b}f(x)\,dx=\text{d.}\int_{a}^{b}f(x)\,dx
+\end{equation}
+By definition of the lower Darboux integral, there exists a piecewise constant function $g(x)$ bounded above by $f$ (i.e., $g\leq f$ piecewise), such that for any $\varepsilon>0$
+\begin{equation}
+\text{p.c.}\int_{a}^{b}g(x)\,dx>\underline{\int_{a}^{b}}f(x)\,dx-\varepsilon=\text{d.}\int_{a}^{b}f(x)\,dx-\varepsilon\tag{11}\label{11}
+\end{equation}
+Likewise, by definition of the upper Darboux integral, there exists a piecewise constant function $h(x)$ bounded below by $f$ (i.e., $h\geq f$ piecewise), such that for any $\varepsilon>0$
+\begin{equation}
+\text{p.c.}\int_{a}^{b}h(x)\,dx<\overline{\int_{a}^{b}}f(x)\,dx+\varepsilon=\text{d.}\int_{a}^{b}f(x)\,dx+\varepsilon\tag{12}\label{12}
+\end{equation}
+From the independence of choice of partition of piecewise constant functions $g$ and $h$, there exists a partition $I_1,\ldots,I_n$ such that
+\begin{align}
+g(x)&=c_i,\hspace{1cm}\forall x\in I_i, \\\\ h(x)&=d_i,\hspace{1cm}\forall x\in I_i
+\end{align}
+and
+\begin{align}
+\text{p.c.}\int_{a}^{b}g(x)\,dx&=\sum_{i=1}^{n}c_i\vert I_i\vert,\tag{13}\label{13} \\\\ \text{p.c.}\int_{a}^{b}h(x)\,dx&=\sum_{i=1}^{n}d_i\vert I_i\vert,\tag{14}\label{14}
+\end{align}
+then it follows immediately that $c_i\leq d_i$. And since $g\leq f\leq h$ piecewise, in any interval $I_i$, we can find a $x_i^\*$ such that $c_i\leq f(x_i^\*)\leq d_i$. Additionally, combining with \eqref{11}, \eqref{12}, \eqref{13} and \eqref{14}, we have that for any $\varepsilon>0$
+\begin{equation}
+\text{d.}\int_{a}^{b}f(x)\,dx-\varepsilon<\sum_{i=1}^{n}c_i\vert I_i\vert\leq\sum_{i=1}^{n}f(x_i^\*)\vert I_i\vert\leq\sum_{i=1}^{n}d_i\vert I_i\vert<\text{d.}\int_{a}^{b}f(x)\,dx+\varepsilon
+\end{equation}
+Therefore, for any $\varepsilon>0$, we have
+\begin{equation}
+\left\vert\sum_{i=1}^{n}f(x_i^\*)\vert I_i\vert-\text{d.}\int_{a}^{b}f(x)\,dx\right\vert<\varepsilon,
+\end{equation}
+which claims that $f$ is Riemann integrable on $[a,b]$ with $\text{d.}\int_{a}^{b}f(x)\,dx$ is the Riemann integral of $f$.
+- Given $f$ is Riemann integrable on $[a,b]$, for any $\varepsilon>0$, there exists a partition $\mathcal{P}=((x_0,x_1,\ldots,x_n),(x_1^\*,\ldots,x_n^\*))$ of $[a,b]$ with $0=x_0< x_1<\ldots< x_n=b$ and $x_{i-1}\leq x_i^\*\leq x_i$ such that
+\begin{equation}
+\left\vert\sum_{i=1}^{n}f(x_i^\*)\delta x_i-\int_{a}^{b}f(x)\,dx\right\vert\leq\varepsilon
+\end{equation}
 
 **Example**  
-Any continuous function $f:[a,b]\to\mathbb{R}$ is Riemann integrable. More generally, any bounded, piecewise continuous function $f:[a,b]\to\mathbb{R}$ is Riemann integrable.
+Any continuous function $f:[a,b]\to\mathbb{R}$ is Riemann integrable. More generally, any bounded, piecewise continuous function[^1] $f:[a,b]\to\mathbb{R}$ is Riemann integrable.
 
 **Solution**  
 
@@ -817,6 +853,19 @@ Let $[a,b]$ be an interval, and let $f,g:[a,b]\to\mathbb{R}$ be Riemann integrab
 		\end{equation}
 	</li>
 </ul>
+
+**Proof**  
+<ul id='number-list'>
+	<li>
+		<b>Linearity</b>
+	</li>
+	<li>
+		<b>Monotonicity</b>
+	</li>
+	<li>
+		<b>Indicator</b>
+	</li>
+</ul>
 These properties uniquely define the Riemann integral, in the sense that the function $f\mapsto\int_{a}^{b}f(x)\,dx$ is the only map from the space of Riemann integrable functions on $[a,b]$ to $\mathbb{R}$ which obeys all of these above properties.
 
 ### Area interpretation of the Riemann integral
@@ -835,3 +884,5 @@ where $m^2$ denotes two-dimensional Jordan measure.
 
 ## Footnotes
 {: #footnotes}
+
+[^1]: A function $f:[a,b]\to\mathbb{R}$ is **piecewise continuous** if we can partition $[a,b]$ into finitely many intervals, such that $f$ is continuous on each interval.
