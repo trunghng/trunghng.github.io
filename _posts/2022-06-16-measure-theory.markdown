@@ -794,7 +794,7 @@ Let $[a,b]$ be an interval, and $f:[a,b]\to\mathbb{R}$ be a bounded function. Th
 \begin{equation}
 \left\vert\sum_{i=1}^{n}f(x_i^\*)\vert I_i\vert-\int_{a}^{b}f(x)\,dx\right\vert\leq\varepsilon
 \end{equation}
-For each interval $I_i$, there exist a $x_i^{(1)}$ such that for any $\varepsilon^{(1)}>0$
+For each interval $I_i$, there exist an $x_i^{(1)}$ such that for any $\varepsilon^{(1)}>0$
 \begin{equation}
 \inf_{x\in I_i}f(x)\leq f(x_i^{(1)})<\inf_{x\in I_i}f(x)+\frac{\varepsilon^{(1)}}{n}
 \end{equation}
@@ -818,9 +818,9 @@ which gives us that
 \begin{equation}
 \int_{a}^{b}f(x)\,dx=\underline{\int_{a}^{b}}f(x)\,dx
 \end{equation}
-Similarly, applying the same procedure as above, we also have that for any $\varepsilon^{(2)}>0$
+Similarly, applying the same procedure as above, we also have that on each $I_i$ there exists an $x_i^{(2)}$ such that for any $\varepsilon^{(2)}>0$
 \begin{equation}
-\left\vert\sum_{i=1}^{n}f(x_i^{(1)})\vert I_i\vert-\overline{\int_{a}^{b}}f(x)\,dx\right\vert<\varepsilon^{(2)},
+\left\vert\sum_{i=1}^{n}f(x_i^{(2)})\vert I_i\vert-\overline{\int_{a}^{b}}f(x)\,dx\right\vert<\varepsilon^{(2)},
 \end{equation}
 which on the other hand gives us that
 \begin{equation}
@@ -865,7 +865,19 @@ which claims that $f$ is Riemann integrable on $[a,b]$ with $\text{d.}\int_{a}^{
 Any continuous function $f:[a,b]\to\mathbb{R}$ is Riemann integrable. More generally, any bounded, **piecewise continuous function**[^1] $f:[a,b]\to\mathbb{R}$ is Riemann integrable.
 
 **Solution**  
-
+Consider a partition of piecewise continuous f on $[a,b]$ into finitely many intervals $I_1,\ldots,I_n$. Using the procedure that we used for the above proof, we have that on each interval $I_i$, there exists an $x_i$ such that for any $\varepsilon>0$
+\begin{equation}
+\inf_{x\in I_i}f(x)\leq f(x_i)<\inf_{x\in I_i}f(x)+\frac{\varepsilon}{n}
+\end{equation}
+Hence,
+\begin{equation}
+\sum_{i=1}^{n}\inf_{x\in I_i}f(x)\vert I_i\vert\leq\sum_{i=1}^{n}f(x_i)\vert I_i\vert<\sum_{i=1}^{n}\inf_{x\in I_i}f(x)+\varepsilon,
+\end{equation}
+which implies that
+\begin{equation}
+\left\vert\sum_{i=1}^{n}f(x_i)\vert I_i\vert-\sum_{i=1}^{n}\inf_{x\in I_i}f(x)\vert I_i\vert\right\vert<\varepsilon,
+\end{equation}
+which proves that $f$ is Riemann integrable.
 
 ### Basic properties of Riemann integral
 {: #riemann-int-properties}

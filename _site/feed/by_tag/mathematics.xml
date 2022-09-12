@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-12T16:45:01+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-12T17:16:41+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory - II</title><link href="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html" rel="alternate" type="text/html" title="Measure theory - II" /><published>2022-07-03T13:00:00+07:00</published><updated>2022-07-03T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html">&lt;blockquote&gt;
   &lt;p&gt;A note on measure theory (continued from &lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-theory.html&quot;&gt;part I&lt;/a&gt;): materials were mostly taken from &lt;a href=&quot;/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some notations needed from &lt;a href=&quot;/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -1275,7 +1275,7 @@ It is easily seen that $\underline{\int_a^b}f(x)\,dx\leq\overline{\int_a^b}f(x)\
 \begin{equation}
 \left\vert\sum_{i=1}^{n}f(x_i^*)\vert I_i\vert-\int_{a}^{b}f(x)\,dx\right\vert\leq\varepsilon
 \end{equation}
-For each interval $I_i$, there exist a $x_i^{(1)}$ such that for any $\varepsilon^{(1)}&amp;gt;0$
+For each interval $I_i$, there exist an $x_i^{(1)}$ such that for any $\varepsilon^{(1)}&amp;gt;0$
 \begin{equation}
 \inf_{x\in I_i}f(x)\leq f(x_i^{(1)})&amp;lt;\inf_{x\in I_i}f(x)+\frac{\varepsilon^{(1)}}{n}
 \end{equation}
@@ -1299,9 +1299,9 @@ which gives us that
 \begin{equation}
 \int_{a}^{b}f(x)\,dx=\underline{\int_{a}^{b}}f(x)\,dx
 \end{equation}
-Similarly, applying the same procedure as above, we also have that for any $\varepsilon^{(2)}&amp;gt;0$
+Similarly, applying the same procedure as above, we also have that on each $I_i$ there exists an $x_i^{(2)}$ such that for any $\varepsilon^{(2)}&amp;gt;0$
 \begin{equation}
-\left\vert\sum_{i=1}^{n}f(x_i^{(1)})\vert I_i\vert-\overline{\int_{a}^{b}}f(x)\,dx\right\vert&amp;lt;\varepsilon^{(2)},
+\left\vert\sum_{i=1}^{n}f(x_i^{(2)})\vert I_i\vert-\overline{\int_{a}^{b}}f(x)\,dx\right\vert&amp;lt;\varepsilon^{(2)},
 \end{equation}
 which on the other hand gives us that
 \begin{equation}
@@ -1346,7 +1346,20 @@ which claims that $f$ is Riemann integrable on $[a,b]$ with $\text{d.}\int_{a}^{
 &lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt;&lt;br /&gt;
 Any continuous function $f:[a,b]\to\mathbb{R}$ is Riemann integrable. More generally, any bounded, &lt;strong&gt;piecewise continuous function&lt;/strong&gt;&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; $f:[a,b]\to\mathbb{R}$ is Riemann integrable.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;br /&gt;
+Consider a partition of piecewise continuous f on $[a,b]$ into finitely many intervals $I_1,\ldots,I_n$. Using the procedure that we used for the above proof, we have that on each interval $I_i$, there exists an $x_i$ such that for any $\varepsilon&amp;gt;0$
+\begin{equation}
+\inf_{x\in I_i}f(x)\leq f(x_i)&amp;lt;\inf_{x\in I_i}f(x)+\frac{\varepsilon}{n}
+\end{equation}
+Hence,
+\begin{equation}
+\sum_{i=1}^{n}\inf_{x\in I_i}f(x)\vert I_i\vert\leq\sum_{i=1}^{n}f(x_i)\vert I_i\vert&amp;lt;\sum_{i=1}^{n}\inf_{x\in I_i}f(x)+\varepsilon,
+\end{equation}
+which implies that
+\begin{equation}
+\left\vert\sum_{i=1}^{n}f(x_i)\vert I_i\vert-\sum_{i=1}^{n}\inf_{x\in I_i}f(x)\vert I_i\vert\right\vert&amp;lt;\varepsilon,
+\end{equation}
+which proves that $f$ is Riemann integrable.&lt;/p&gt;
 
 &lt;h3 id=&quot;riemann-int-properties&quot;&gt;Basic properties of Riemann integral&lt;/h3&gt;
 &lt;p&gt;Let $[a,b]$ be an interval, and let $f,g:[a,b]\to\mathbb{R}$ be Riemann integrable. We then have that&lt;/p&gt;
