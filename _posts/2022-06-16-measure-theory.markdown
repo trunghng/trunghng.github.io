@@ -3,7 +3,7 @@ layout: post
 title:  "Measure theory"
 date:   2022-06-16 13:00:00 +0700
 categories: mathematics measure-theory
-tags: mathematics measure-theory random-stuffs
+tags: mathematics measure-theory jordan-measure riemann-integral darboux-integral random-stuffs
 description: Note on measure theory
 comments: true
 ---
@@ -909,7 +909,7 @@ These properties uniquely define the Riemann integral, in the sense that the fun
 {: #riemann-int-area-interpret}
 Let $[a,b]$ be an interval, and let $f:[a,b]\to\mathbb{R}$ be a bounded function. Then $f$ is Riemann integrable iff the sets $E_+\doteq\\{(x,t):x\in[a,b];0\leq t\leq f(x)\\}$ and $E_-\doteq\\{(x,t):x\in[a,b];f(x)\leq t\leq 0\\}$ are both Jordan measurable in $R^2$, in which case we have
 \begin{equation}
-\int_{a}^{b}f(x)\,dx=m^2(E_+)-m^(E_-),
+\int_{a}^{b}f(x)\,dx=m^2(E_+)-m^2(E_-),
 \end{equation}
 where $m^2$ denotes two-dimensional Jordan measure.
 
