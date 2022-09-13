@@ -20,9 +20,13 @@ comments: true
 	- [Intervals, boxes, elementary sets](#intervals-boxes-elementary-sets)
 	- [Measure of an elementary set](#measure-elementary-set)
 	- [Properties of elementary measure](#elementary-measure-properties)
+	- [Uniqueness of elementary measure](#uniqueness-elementary-measure)
 - [Jordan measure](#jordan-measure)
 	- [Characterisation of Jordan measurability](#jordan-measurability-characterisation)
 	- [Properties of Jordan measurability](#jordan-measurability-properties)
+	- [Jordan null sets](#jordan-null-sets)
+	- [Uniqueness of Jordan measure](#uniqueness-jordan-measure)
+	- [Carathéodory type property](#caratheodory-type-property)
 - [Connection with the Riemann integral](#connect-riemann-int)
 	- [Riemann integrability](#riemann-integrability)
 	- [Piecewise constant functions](#pc-func)
@@ -241,7 +245,7 @@ A **box** in $\mathbb{R}^d$ is a Cartesian product $B\doteq I_1\times\ldots\time
 \end{equation}
 An **elementary set** is any subset of $\mathbb{R}^d$ which is the union of a finite number of boxes.
 
-**Example 1** (**Boolean closure**)  
+**Remark 9** (**Boolean closure**)  
 If $E,F\subset\mathbb{R}^d$ are elementary sets, then
 - the union $E\cup F$,
 - the intersection $E\cap F$, 
@@ -250,7 +254,7 @@ If $E,F\subset\mathbb{R}^d$ are elementary sets, then
 are also elementary,
 - if $x\in\mathbb{R}^d$, then the translate $E+x\doteq\\{y+x:y\in E\\}$ is also an elementary set.
 
-**Solution**  
+**Proof**  
 With their definitions as elementary sets, we can assume that
 \begin{align}
 E&=B_1\cup\ldots\cup B_k, \\\\ F&=B_1'\cup\ldots\cup B_{k'}',
@@ -292,7 +296,7 @@ which is an elementary set.
 
 ### Measure of an elementary set
 {: #measure-elementary-set}
-**Lemma 9**  
+**Lemma 10**  
 *Let $E\subset\mathbb{R}^d$ be an elementary set*.
 <ul id="roman-list" style='font-style: italic;'>
 	<li>$E$ <i>can be expressed as the finite union of disjoint boxes.</i></li>
@@ -353,7 +357,7 @@ From the definition of elementary measure, it is easily seen that, for any eleme
 		$m(B)=\vert B\vert$ for all box $B$.
 	</li>
 	<li>
-		From non-negativity, finite additivity and <b>Example 1</b>, we conclude the <b>monotonicity</b> property, i.e., $E\subset F$ implies that
+		From non-negativity, finite additivity and <b>Remark 9</b>, we conclude the <b>monotonicity</b> property, i.e., $E\subset F$ implies that
 		\begin{equation}
 		m(E)\leq m(F)
 		\end{equation}
@@ -378,14 +382,15 @@ From the definition of elementary measure, it is easily seen that, for any eleme
 	</li>
 </ul>
 
-**Example 2**. (**Uniqueness of elementary measure**)  
+### Uniqueness of elementary measure
+{: #uniqueness-elementary-measure} 
 Let $d\geq 1$ and let $m':\mathcal{E}(\mathbb{R}^d)\to\mathbb{R}^+$ be a map from the collection $\mathcal{E}(\mathbb{R}^d)$ of elementary subsets of $\mathbb{R}^d$ to the nonnegative reals that obeys the non-negativity, finite additivity, and translation invariance properties. Then there exists a constant $c\in\mathbb{R}^+$ such that
 \begin{equation}
 m'(E)=cm(E),
 \end{equation}
 for all elementary sets $E$. In particular, if we impose the additional normalization $m'([0,1)^d)=1$, then $m'\equiv m$.
 
-**Solution**  
+**Proof**  
 Set $c\doteq m'([0,1)^d)$, we then have that $c\in\mathbb{R}^+$ by the non-negativity property. Using the translation invariance property, we have that for any positive integer $n$
 \begin{equation}
 m'\left(\left[0,\frac{1}{n}\right)^d\right)=m'\left(\left[\frac{1}{n},\frac{2}{n}\right)^d\right)=\dots=m'\left(\left[\frac{n-1}{n},1\right)^d\right)
@@ -407,7 +412,7 @@ It then follows by induction that
 m'(E)=cm(E)
 \end{equation}
 
-**Example 3**  
+**Example**  
 Let $d_1,d_2\geq 1$, and let $E_1\subset\mathbb{R}^{d_1},E_2\subset\mathbb{R}^{d_2}$ be elementary sets. Then $E_1\times E_2\subset\mathbb{R}^{d_1+d_2}$ is also elementary, and $m^{d_1+d_2}(E_1\times E_2)=m^{d_1}(E_1)\times m^{d_2}(E_2)$.
 
 **Solution**  
@@ -584,8 +589,9 @@ Let $E,F\in\mathbb{R}^d$ be Jordan measurable sets. Then
 
 **Proof**  
 <ol id='number-list'>
-	<li><b>Boolean closure</b>.
-		<ol>
+	<li>
+		<b>Boolean closure</b>.
+		<ul>
 			<li>
 				By characterisation of Jordan measurability, we can find elementary sets $A_1\subset E\subset B_1$ and $A_2\subset F\subset B_2$ such that for any $\varepsilon>0$
 				\begin{align}
@@ -612,7 +618,7 @@ Let $E,F\in\mathbb{R}^d$ be Jordan measurable sets. Then
 				\end{align}
 				which also implies that $E\cap F$ is Jordan measurable.
 			</li>
-		</ol>
+		</ul>
 	</li>
 	<li>
 		<b>Non-negativity</b>. This follows directly from definition.
@@ -622,28 +628,37 @@ Let $E,F\in\mathbb{R}^d$ be Jordan measurable sets. Then
 	</li>
 </ol>
 
-**Example 4**. (**Uniqueness of Jordan measure**)  
+### Jordan null sets
+{: #jordan-null-sets}
+A **Jordan null set** is a Jordan measurable set of Jordan measure zero. We have that any subset of a Jordan null set is also a Jordan null set.
+
+**Proof**  
+
+
+### Uniqueness of Jordan measure
+{: #uniqueness-jordan-measure} 
 Let $d\geq 1$ and let $m':\mathcal{J}(\mathbb{R}^d)\to\mathbb{R}^+$  be a map from the collection of Jordan measurable subsets of $\mathbb{R}^d$ to the nonnegative reals that obeys the non-negativity, finite additivity and translation invariance properties. Then there exists a constant $c\in\mathbb{R}^+$ such that
 \begin{equation}
 m'(E)=cm(E),
 \end{equation}
 for all Jordan measurable sets $E$. In particular, if we impose the additional normalization $m'([0,1)^d)=1$, then $m'\equiv m$.
 
-**Solution**  
-Follow the same steps as the solution for **Example 2**, the argument above can easily be proved.
+**Proof**  
+Follow the same steps as the proof of the uniqueness of elementary measure, the argument above can easily be proved.
 
-**Example 5**  
+**Example**  
 Let $d_1,d_2\geq 1$, and let $E_1\subset\mathbb{R}^{d_1},E_2\subset\mathbb{R}^{d_2}$ be Jordan measurable sets. Then $E_1\times E_2\subset\mathbb{R}^{d_1+d_2}$ is also Jordan measurable, and $m^{d_1+d_2}(E_1\times E_2)=m^{d_1}(E_1)\times m^{d_2}(E_2)$.
 
-**Proof**  
+**Solution**  
 
-**Example**. (**Carathéodory type property**)  
+### Carathéodory type property
+{: #caratheodory-type-property}
 Let $E\subset\mathbb{R}^d$ be a bounded set, and $F\subset\mathbb{R}^d$ be an elementary set. Then we have that
 \begin{equation}
 m^{\*,(J)}(E)=m^{\*,(J)}(E\cap F)+m^{\*,(J)}(E\backslash F)
 \end{equation}
 
-**Solution**  
+**Proof**  
 
 
 ## Connection with the Riemann integral
@@ -926,7 +941,7 @@ Let $[a,b]$ be an interval, and let $f,g:[a,b]\to\mathbb{R}$ be Riemann integrab
 **Proof**  
 <ul id='number-list'>
 	<li>
-		<b>Linearity</b>
+		<b>Linearity</b>.
 		<ul>
 			<li>
 				Given $f$ Riemann integrable on $[a,b]$, we have that there exists a tagged partition $\mathcal{P}=((I_1,\ldots,I_n),(x_1^*,\ldots,x_n^*));(x_i^*\in I_i)$ of $[a,b]$ such that for any $\varepsilon>0$, we have
@@ -957,7 +972,7 @@ Let $[a,b]$ be an interval, and let $f,g:[a,b]\to\mathbb{R}$ be Riemann integrab
 		</ul>
 	</li>
 	<li>
-		<b>Monotonicity</b><br>
+		<b>Monotonicity</b>.<br>
 		Given $f$ and $g$, we obtain two consequential equations \eqref{18} and \eqref{19}. And since $f\leq g$ pointwise we have that
 		\begin{equation}
 		\sup_{f_1\leq f,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}f_1(x)\,dx\leq\sup_{g_1\leq g,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}g_1(x)\,dx
@@ -968,7 +983,7 @@ Let $[a,b]$ be an interval, and let $f,g:[a,b]\to\mathbb{R}$ be Riemann integrab
 		\end{equation}
 	</li>
 	<li>
-		<b>Indicator</b><br>
+		<b>Indicator</b>.<br>
 		Given $E\subset [a,b]$ is Jordan measurable, we have
 		\begin{equation}
 		\sup_{A\subset E,A\text{ elementary}}m(A)=\inf_{B\supset E,B\text{ elementary}}m(B)=m(E)\tag{20}\label{20}

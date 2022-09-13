@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-13T14:43:09+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-13T15:11:34+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">The Convergence of Q-learning</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/21/q-learning-convergence.html" rel="alternate" type="text/html" title="The Convergence of Q-learning" /><published>2022-08-21T07:00:00+07:00</published><updated>2022-08-21T07:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/21/q-learning-convergence</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/21/q-learning-convergence.html">&lt;blockquote&gt;
   &lt;p&gt;A note on convergence proofs for Q-learning by exploiting the connection with stochastic approximation and the idea of parallel asynchronous.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -579,12 +579,16 @@ We say that a sequence $E_n$ of sets in $\mathbb{R}^d$ &lt;strong&gt;converges p
       &lt;li&gt;&lt;a href=&quot;#intervals-boxes-elementary-sets&quot;&gt;Intervals, boxes, elementary sets&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#measure-elementary-set&quot;&gt;Measure of an elementary set&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#elementary-measure-properties&quot;&gt;Properties of elementary measure&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#uniqueness-elementary-measure&quot;&gt;Uniqueness of elementary measure&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#jordan-measure&quot;&gt;Jordan measure&lt;/a&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#jordan-measurability-characterisation&quot;&gt;Characterisation of Jordan measurability&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#jordan-measurability-properties&quot;&gt;Properties of Jordan measurability&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#jordan-null-sets&quot;&gt;Jordan null sets&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#uniqueness-jordan-measure&quot;&gt;Uniqueness of Jordan measure&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#caratheodory-type-property&quot;&gt;Carathéodory type property&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#connect-riemann-int&quot;&gt;Connection with the Riemann integral&lt;/a&gt;
@@ -809,7 +813,7 @@ A &lt;strong&gt;box&lt;/strong&gt; in $\mathbb{R}^d$ is a Cartesian product $B\d
 \end{equation}
 An &lt;strong&gt;elementary set&lt;/strong&gt; is any subset of $\mathbb{R}^d$ which is the union of a finite number of boxes.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Example 1&lt;/strong&gt; (&lt;strong&gt;Boolean closure&lt;/strong&gt;)&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Remark 9&lt;/strong&gt; (&lt;strong&gt;Boolean closure&lt;/strong&gt;)&lt;br /&gt;
 If $E,F\subset\mathbb{R}^d$ are elementary sets, then&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;the union $E\cup F$,&lt;/li&gt;
@@ -820,7 +824,7 @@ are also elementary,&lt;/li&gt;
   &lt;li&gt;if $x\in\mathbb{R}^d$, then the translate $E+x\doteq\{y+x:y\in E\}$ is also an elementary set.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
 With their definitions as elementary sets, we can assume that
 \begin{align}
 E&amp;amp;=B_1\cup\ldots\cup B_k, \\ F&amp;amp;=B_1’\cup\ldots\cup B_{k’}’,
@@ -863,7 +867,7 @@ which is an elementary set.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;measure-elementary-set&quot;&gt;Measure of an elementary set&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Lemma 9&lt;/strong&gt;&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Lemma 10&lt;/strong&gt;&lt;br /&gt;
 &lt;em&gt;Let $E\subset\mathbb{R}^d$ be an elementary set&lt;/em&gt;.&lt;/p&gt;
 &lt;ul id=&quot;roman-list&quot; style=&quot;font-style: italic;&quot;&gt;
 	&lt;li&gt;$E$ &lt;i&gt;can be expressed as the finite union of disjoint boxes.&lt;/i&gt;&lt;/li&gt;
@@ -923,7 +927,7 @@ which is an elementary set.&lt;/li&gt;
 		$m(B)=\vert B\vert$ for all box $B$.
 	&lt;/li&gt;
 	&lt;li&gt;
-		From non-negativity, finite additivity and &lt;b&gt;Example 1&lt;/b&gt;, we conclude the &lt;b&gt;monotonicity&lt;/b&gt; property, i.e., $E\subset F$ implies that
+		From non-negativity, finite additivity and &lt;b&gt;Remark 9&lt;/b&gt;, we conclude the &lt;b&gt;monotonicity&lt;/b&gt; property, i.e., $E\subset F$ implies that
 		\begin{equation}
 		m(E)\leq m(F)
 		\end{equation}
@@ -948,14 +952,14 @@ which is an elementary set.&lt;/li&gt;
 	&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;Example 2&lt;/strong&gt;. (&lt;strong&gt;Uniqueness of elementary measure&lt;/strong&gt;)&lt;br /&gt;
-Let $d\geq 1$ and let $m’:\mathcal{E}(\mathbb{R}^d)\to\mathbb{R}^+$ be a map from the collection $\mathcal{E}(\mathbb{R}^d)$ of elementary subsets of $\mathbb{R}^d$ to the nonnegative reals that obeys the non-negativity, finite additivity, and translation invariance properties. Then there exists a constant $c\in\mathbb{R}^+$ such that
+&lt;h3 id=&quot;uniqueness-elementary-measure&quot;&gt;Uniqueness of elementary measure&lt;/h3&gt;
+&lt;p&gt;Let $d\geq 1$ and let $m’:\mathcal{E}(\mathbb{R}^d)\to\mathbb{R}^+$ be a map from the collection $\mathcal{E}(\mathbb{R}^d)$ of elementary subsets of $\mathbb{R}^d$ to the nonnegative reals that obeys the non-negativity, finite additivity, and translation invariance properties. Then there exists a constant $c\in\mathbb{R}^+$ such that
 \begin{equation}
 m’(E)=cm(E),
 \end{equation}
 for all elementary sets $E$. In particular, if we impose the additional normalization $m’([0,1)^d)=1$, then $m’\equiv m$.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
 Set $c\doteq m’([0,1)^d)$, we then have that $c\in\mathbb{R}^+$ by the non-negativity property. Using the translation invariance property, we have that for any positive integer $n$
 \begin{equation}
 m’\left(\left[0,\frac{1}{n}\right)^d\right)=m’\left(\left[\frac{1}{n},\frac{2}{n}\right)^d\right)=\dots=m’\left(\left[\frac{n-1}{n},1\right)^d\right)
@@ -977,7 +981,7 @@ It then follows by induction that
 m’(E)=cm(E)
 \end{equation}&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Example 3&lt;/strong&gt;&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt;&lt;br /&gt;
 Let $d_1,d_2\geq 1$, and let $E_1\subset\mathbb{R}^{d_1},E_2\subset\mathbb{R}^{d_2}$ be elementary sets. Then $E_1\times E_2\subset\mathbb{R}^{d_1+d_2}$ is also elementary, and $m^{d_1+d_2}(E_1\times E_2)=m^{d_1}(E_1)\times m^{d_2}(E_2)$.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;br /&gt;
@@ -1157,8 +1161,9 @@ or in other words, $E$ is Jordan measurable.&lt;/li&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 &lt;ol id=&quot;number-list&quot;&gt;
-	&lt;li&gt;&lt;b&gt;Boolean closure&lt;/b&gt;.
-		&lt;ol&gt;
+	&lt;li&gt;
+		&lt;b&gt;Boolean closure&lt;/b&gt;.
+		&lt;ul&gt;
 			&lt;li&gt;
 				By characterisation of Jordan measurability, we can find elementary sets $A_1\subset E\subset B_1$ and $A_2\subset F\subset B_2$ such that for any $\varepsilon&amp;gt;0$
 				\begin{align}
@@ -1185,7 +1190,7 @@ or in other words, $E$ is Jordan measurable.&lt;/li&gt;
 				\end{align}
 				which also implies that $E\cap F$ is Jordan measurable.
 			&lt;/li&gt;
-		&lt;/ol&gt;
+		&lt;/ul&gt;
 	&lt;/li&gt;
 	&lt;li&gt;
 		&lt;b&gt;Non-negativity&lt;/b&gt;. This follows directly from definition.
@@ -1195,28 +1200,33 @@ or in other words, $E$ is Jordan measurable.&lt;/li&gt;
 	&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;strong&gt;Example 4&lt;/strong&gt;. (&lt;strong&gt;Uniqueness of Jordan measure&lt;/strong&gt;)&lt;br /&gt;
-Let $d\geq 1$ and let $m’:\mathcal{J}(\mathbb{R}^d)\to\mathbb{R}^+$  be a map from the collection of Jordan measurable subsets of $\mathbb{R}^d$ to the nonnegative reals that obeys the non-negativity, finite additivity and translation invariance properties. Then there exists a constant $c\in\mathbb{R}^+$ such that
+&lt;h3 id=&quot;jordan-null-sets&quot;&gt;Jordan null sets&lt;/h3&gt;
+&lt;p&gt;A &lt;strong&gt;Jordan null set&lt;/strong&gt; is a Jordan measurable set of Jordan measure zero. We have that any subset of a Jordan null set is also a Jordan null set.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;uniqueness-jordan-measure&quot;&gt;Uniqueness of Jordan measure&lt;/h3&gt;
+&lt;p&gt;Let $d\geq 1$ and let $m’:\mathcal{J}(\mathbb{R}^d)\to\mathbb{R}^+$  be a map from the collection of Jordan measurable subsets of $\mathbb{R}^d$ to the nonnegative reals that obeys the non-negativity, finite additivity and translation invariance properties. Then there exists a constant $c\in\mathbb{R}^+$ such that
 \begin{equation}
 m’(E)=cm(E),
 \end{equation}
 for all Jordan measurable sets $E$. In particular, if we impose the additional normalization $m’([0,1)^d)=1$, then $m’\equiv m$.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;br /&gt;
-Follow the same steps as the solution for &lt;strong&gt;Example 2&lt;/strong&gt;, the argument above can easily be proved.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
+Follow the same steps as the proof of the uniqueness of elementary measure, the argument above can easily be proved.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Example 5&lt;/strong&gt;&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt;&lt;br /&gt;
 Let $d_1,d_2\geq 1$, and let $E_1\subset\mathbb{R}^{d_1},E_2\subset\mathbb{R}^{d_2}$ be Jordan measurable sets. Then $E_1\times E_2\subset\mathbb{R}^{d_1+d_2}$ is also Jordan measurable, and $m^{d_1+d_2}(E_1\times E_2)=m^{d_1}(E_1)\times m^{d_2}(E_2)$.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt;. (&lt;strong&gt;Carathéodory type property&lt;/strong&gt;)&lt;br /&gt;
-Let $E\subset\mathbb{R}^d$ be a bounded set, and $F\subset\mathbb{R}^d$ be an elementary set. Then we have that
+&lt;h3 id=&quot;caratheodory-type-property&quot;&gt;Carathéodory type property&lt;/h3&gt;
+&lt;p&gt;Let $E\subset\mathbb{R}^d$ be a bounded set, and $F\subset\mathbb{R}^d$ be an elementary set. Then we have that
 \begin{equation}
 m^{*,(J)}(E)=m^{*,(J)}(E\cap F)+m^{*,(J)}(E\backslash F)
 \end{equation}&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;connect-riemann-int&quot;&gt;Connection with the Riemann integral&lt;/h2&gt;
 
@@ -1493,7 +1503,7 @@ As $\sup_{i=0,\ldots,n}\vert I_i\vert\to 0$&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 &lt;ul id=&quot;number-list&quot;&gt;
 	&lt;li&gt;
-		&lt;b&gt;Linearity&lt;/b&gt;
+		&lt;b&gt;Linearity&lt;/b&gt;.
 		&lt;ul&gt;
 			&lt;li&gt;
 				Given $f$ Riemann integrable on $[a,b]$, we have that there exists a tagged partition $\mathcal{P}=((I_1,\ldots,I_n),(x_1^*,\ldots,x_n^*));(x_i^*\in I_i)$ of $[a,b]$ such that for any $\varepsilon&amp;gt;0$, we have
@@ -1524,7 +1534,7 @@ As $\sup_{i=0,\ldots,n}\vert I_i\vert\to 0$&lt;/p&gt;
 		&lt;/ul&gt;
 	&lt;/li&gt;
 	&lt;li&gt;
-		&lt;b&gt;Monotonicity&lt;/b&gt;&lt;br /&gt;
+		&lt;b&gt;Monotonicity&lt;/b&gt;.&lt;br /&gt;
 		Given $f$ and $g$, we obtain two consequential equations \eqref{18} and \eqref{19}. And since $f\leq g$ pointwise we have that
 		\begin{equation}
 		\sup_{f_1\leq f,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}f_1(x)\,dx\leq\sup_{g_1\leq g,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}g_1(x)\,dx
@@ -1535,7 +1545,7 @@ As $\sup_{i=0,\ldots,n}\vert I_i\vert\to 0$&lt;/p&gt;
 		\end{equation}
 	&lt;/li&gt;
 	&lt;li&gt;
-		&lt;b&gt;Indicator&lt;/b&gt;&lt;br /&gt;
+		&lt;b&gt;Indicator&lt;/b&gt;.&lt;br /&gt;
 		Given $E\subset [a,b]$ is Jordan measurable, we have
 		\begin{equation}
 		\sup_{A\subset E,A\text{ elementary}}m(A)=\inf_{B\supset E,B\text{ elementary}}m(B)=m(E)\tag{20}\label{20}
