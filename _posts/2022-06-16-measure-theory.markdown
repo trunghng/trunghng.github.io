@@ -618,13 +618,53 @@ Let $E,F\in\mathbb{R}^d$ be Jordan measurable sets. Then
 				\end{align}
 				which also implies that $E\cap F$ is Jordan measurable.
 			</li>
+			<li></li>
 		</ul>
 	</li>
 	<li>
-		<b>Non-negativity</b>. This follows directly from definition.
+		<b>Non-negativity</b>.<br>
+		Given $E$ being Jordan measurable set, we have
+		\begin{equation}
+		m(E)=\sup_{A\subset E,A\text{ elementary}}m(A)\geq m(\emptyset)=0,
+		\end{equation}
+		by the monotonicity property of elementary measure.
 	</li>
 	<li>
-		<b>Finite additivity</b>.
+		<b>Finite additivity</b>.<br>
+		Since given $E,F$ being Jordan measurable sets, $E\cup F$ is also Jordan measurable set. And by the finite additivity property of elementary measure, we have
+		\begin{align}
+		m(E)+m(F)&=\sup_{A_1\subset E,A_1\text{ elementary}}m(A_1)+\sup_{A_2\subset F,A_2\text{ elementary}}m(A_2) \\ &=\sup_{A_1\subset E,A_2\subset F;A_1,A_2\text{ elementary}}m(A_1)+m(A_2) \\ &=\sup_{A_1\subset E,A_2\subset F;A_1,A_2\text{ elementary}}m(A_1\cup A_2)=m(E\cup F)
+		\end{align}
+	</li>
+	<li>
+		<b>Monotonicity</b>.<br>
+		Given $E\subset F$ are Jordan measurable sets, the we have
+		\begin{equation}
+		m(E)\leq\sup_{A\subset F,A\text{ elementary}}m(A)=m(F)
+		\end{equation}
+	</li>
+	<li>
+		<b>Finite subadditivity</b>.<br>
+		Since given $E,F$ being Jordan measurable sets, $E\cup F$ is also Jordan measurable set. And by the finite subadditivity property of elementary measure, we have
+		\begin{align}
+		m(E)+m(F)&=\sup_{A_1\subset E,A_1\text{ elementary}}m(A_1)+\sup_{A_2\subset E,A_2\text{ elementary}}m(A_2) \\ &\geq\sup_{A_1\subset E,A_2\subset F;A_1,A_2\text{ elementary}}m(A_1\cup A_2)=m(E\cup F)=m(E\cup F)
+		\end{align}
+	</li>
+	<li>
+		<b>Translation invariance</b>.<br>
+		By the translation invariance property of elementary measure, for any $x\in\mathbb{R}^d$, the Jordan inner measure of $E+x$ can be written as
+		\begin{align}
+		m_{*,(J)}(E+x)&=\sup_{A\subset E+x,A\text{ elementary}}m(A) \\ &=\sup_{A\subset E+x,A\text{ elementary}}m(A-x) \\ &=\sup_{A-x\subset E,A-x\text{ elementary}}m(A-x)=m(E)
+		\end{align}
+		Similarly, we also have the Jordan outer measure of $E+x$ is also equal to the Jordan measure of $E$
+		\begin{equation}
+		m^{*,(J)}(E+x)=m(E)
+		\end{equation}
+		Hence,
+		\begin{equation}
+		m_{*,(J)}(E+x)=m^{*,(J)}(E+x)=m(E),
+		\end{equation}
+		or in words, $E+x$ is Jordan measurable with $m(E+x)=m(E)$.
 	</li>
 </ol>
 

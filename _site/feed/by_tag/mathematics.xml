@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-13T15:11:34+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-13T16:02:18+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory - II</title><link href="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html" rel="alternate" type="text/html" title="Measure theory - II" /><published>2022-07-03T13:00:00+07:00</published><updated>2022-07-03T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html">&lt;blockquote&gt;
   &lt;p&gt;A note on measure theory (continued from &lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-theory.html&quot;&gt;part I&lt;/a&gt;): materials were mostly taken from &lt;a href=&quot;/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some notations needed from &lt;a href=&quot;/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -1104,13 +1104,53 @@ or in other words, $E$ is Jordan measurable.&lt;/li&gt;
 				\end{align}
 				which also implies that $E\cap F$ is Jordan measurable.
 			&lt;/li&gt;
+			&lt;li&gt;&lt;/li&gt;
 		&lt;/ul&gt;
 	&lt;/li&gt;
 	&lt;li&gt;
-		&lt;b&gt;Non-negativity&lt;/b&gt;. This follows directly from definition.
+		&lt;b&gt;Non-negativity&lt;/b&gt;.&lt;br /&gt;
+		Given $E$ being Jordan measurable set, we have
+		\begin{equation}
+		m(E)=\sup_{A\subset E,A\text{ elementary}}m(A)\geq m(\emptyset)=0,
+		\end{equation}
+		by the monotonicity property of elementary measure.
 	&lt;/li&gt;
 	&lt;li&gt;
-		&lt;b&gt;Finite additivity&lt;/b&gt;.
+		&lt;b&gt;Finite additivity&lt;/b&gt;.&lt;br /&gt;
+		Since given $E,F$ being Jordan measurable sets, $E\cup F$ is also Jordan measurable set. And by the finite additivity property of elementary measure, we have
+		\begin{align}
+		m(E)+m(F)&amp;amp;=\sup_{A_1\subset E,A_1\text{ elementary}}m(A_1)+\sup_{A_2\subset F,A_2\text{ elementary}}m(A_2) \\ &amp;amp;=\sup_{A_1\subset E,A_2\subset F;A_1,A_2\text{ elementary}}m(A_1)+m(A_2) \\ &amp;amp;=\sup_{A_1\subset E,A_2\subset F;A_1,A_2\text{ elementary}}m(A_1\cup A_2)=m(E\cup F)
+		\end{align}
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Monotonicity&lt;/b&gt;.&lt;br /&gt;
+		Given $E\subset F$ are Jordan measurable sets, the we have
+		\begin{equation}
+		m(E)\leq\sup_{A\subset F,A\text{ elementary}}m(A)=m(F)
+		\end{equation}
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Finite subadditivity&lt;/b&gt;.&lt;br /&gt;
+		Since given $E,F$ being Jordan measurable sets, $E\cup F$ is also Jordan measurable set. And by the finite subadditivity property of elementary measure, we have
+		\begin{align}
+		m(E)+m(F)&amp;amp;=\sup_{A_1\subset E,A_1\text{ elementary}}m(A_1)+\sup_{A_2\subset E,A_2\text{ elementary}}m(A_2) \\ &amp;amp;\geq\sup_{A_1\subset E,A_2\subset F;A_1,A_2\text{ elementary}}m(A_1\cup A_2)=m(E\cup F)=m(E\cup F)
+		\end{align}
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Translation invariance&lt;/b&gt;.&lt;br /&gt;
+		By the translation invariance property of elementary measure, for any $x\in\mathbb{R}^d$, the Jordan inner measure of $E+x$ can be written as
+		\begin{align}
+		m_{*,(J)}(E+x)&amp;amp;=\sup_{A\subset E+x,A\text{ elementary}}m(A) \\ &amp;amp;=\sup_{A\subset E+x,A\text{ elementary}}m(A-x) \\ &amp;amp;=\sup_{A-x\subset E,A-x\text{ elementary}}m(A-x)=m(E)
+		\end{align}
+		Similarly, we also have the Jordan outer measure of $E+x$ is also equal to the Jordan measure of $E$
+		\begin{equation}
+		m^{*,(J)}(E+x)=m(E)
+		\end{equation}
+		Hence,
+		\begin{equation}
+		m_{*,(J)}(E+x)=m^{*,(J)}(E+x)=m(E),
+		\end{equation}
+		or in words, $E+x$ is Jordan measurable with $m(E+x)=m(E)$.
 	&lt;/li&gt;
 &lt;/ol&gt;
 
