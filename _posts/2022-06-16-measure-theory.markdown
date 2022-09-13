@@ -412,10 +412,10 @@ It then follows by induction that
 m'(E)=cm(E)
 \end{equation}
 
-**Example**  
+**Remark 11**  
 Let $d_1,d_2\geq 1$, and let $E_1\subset\mathbb{R}^{d_1},E_2\subset\mathbb{R}^{d_2}$ be elementary sets. Then $E_1\times E_2\subset\mathbb{R}^{d_1+d_2}$ is also elementary, and $m^{d_1+d_2}(E_1\times E_2)=m^{d_1}(E_1)\times m^{d_2}(E_2)$.
 
-**Solution**  
+**Proof**  
 Without loss of generality, assume that $d_1\leq d_2$. With their definitions as elementary sets, we can assume that
 \begin{align}
 E_1&=B_1\cup\dots\cup B_{k_1}, \\\\ E_2&=B_1'\cup\dots\cup B_{k_2}',
@@ -557,7 +557,7 @@ m_{\*,(J)}(E)=m^{\*,(J)}(E),
 \end{equation}
 or in other words, $E$ is Jordan measurable.
 
-**Corollary 10**  
+**Corollary 12**  
 - Every elementary set $E$ is Jordan measurable.
 - On elementary sets, Jordan measure is elementary measure.
 
@@ -664,9 +664,26 @@ Let $E,F\in\mathbb{R}^d$ be Jordan measurable sets. Then
 		\begin{equation}
 		m_{*,(J)}(E+x)=m^{*,(J)}(E+x)=m(E),
 		\end{equation}
-		or in words, $E+x$ is Jordan measurable with $m(E+x)=m(E)$.
+		or in other words, $E+x$ is Jordan measurable with $m(E+x)=m(E)$.
 	</li>
 </ol>
+
+**Remark 13** (Regions under graphs are Jordan measurable)  
+Let $B$ be a closed box in $\mathbb{R}^d$, and let $f:B\to\mathbb{R}$ be a continuous function. Then
+<ul id='number-list'>
+	<li>
+		The graph $\{(x,f(x)):x\in B\}\subset\mathbb{R}^{d+1}$ is Jordan measurable in $\mathbb{R}^{d+1}$ with Jordan measure zero.
+	</li>
+	<li>
+		The set $\{(x,t):x\in B;0\leq t\leq f(x)\}\subset\mathbb{R}^{d+1}$ is Jordan measurable.
+	</li>
+</ul>
+
+**Proof**
+<ul id='number-list'>
+	<li></li>
+	<li></li>
+</ul>
 
 ### Jordan null sets
 {: #jordan-null-sets}
