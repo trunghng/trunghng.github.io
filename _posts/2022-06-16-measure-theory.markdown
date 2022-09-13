@@ -794,54 +794,74 @@ Let $[a,b]$ be an interval, and $f:[a,b]\to\mathbb{R}$ be a bounded function. Th
 \begin{equation}
 \left\vert\sum_{i=1}^{n}f(x_i^\*)\vert I_i\vert-\int_{a}^{b}f(x)\,dx\right\vert\leq\varepsilon
 \end{equation}
-For each interval $I_i$, there exist an $x_i^{(1)}$ such that for any $\varepsilon^{(1)}>0$
+For each interval $I_i$, there exist an $x_i^{(1)}$ such that for any $\varepsilon>0$
 \begin{equation}
-\inf_{x\in I_i}f(x)\leq f(x_i^{(1)})<\inf_{x\in I_i}f(x)+\frac{\varepsilon^{(1)}}{n}
+\inf_{x\in I_i}f(x)\leq f(x_i^{(1)})<\inf_{x\in I_i}f(x)+\frac{\varepsilon}{n}
 \end{equation}
-Thus, for any $\varepsilon^{(1)}>0$ we obtain
+Thus, for any $\varepsilon>0$ we obtain
 \begin{equation}
-\sum_{n=1}^{n}\inf_{x\in I_i}f(x)\vert I_i\vert\leq\sum_{i=1}^{n}f(x_i^{(1)})\vert I_i\vert<\sum_{i=1}^{n}\inf_{x\in I_i}f(x)+\varepsilon^{(1)},
+\sum_{n=1}^{n}\inf_{x\in I_i}f(x)\vert I_i\vert\leq\sum_{i=1}^{n}f(x_i^{(1)})\vert I_i\vert<\sum_{i=1}^{n}\inf_{x\in I_i}f(x)+\varepsilon,
 \end{equation}
-which implies that for any $\varepsilon^{(1)}>0$
+which implies that for any $\varepsilon>0$
 \begin{equation}
-\left\vert\sum_{i=1}^{n}f(x_i^{(1)})\vert I_i\vert-\vert\sum_{n=1}^{n}\inf_{x\in I_i}f(x)\vert I_i\right\vert<\varepsilon^{(1)}\tag{11}\label{11}
+\left\vert\sum_{i=1}^{n}f(x_i^{(1)})\vert I_i\vert-\sum_{n=1}^{n}\inf_{x\in I_i}f(x)\vert I_i\vert\right\vert<\varepsilon\tag{11}\label{11}
+\end{equation}
+Since $f$ is Riemann integrable on $[a,b]$, as $\sup_{i=1,\ldots,n}\to 0$, we have
+\begin{equation}
+\sum_{i=1}^{n}f(x_i^{(1)})\vert I_i\vert\to\int_{a}^{b}f(x)\,dx
+\end{equation}
+Combining with \eqref{11}, we have that as $\sup_{i=1,\ldots,n}\vert I_i\vert\to 0$
+\begin{equation}
+\sum_{n=1}^{n}\inf_{x\in I_i}f(x)\vert I_i\vert\to\int_{a}^{b}f(x)\,dx
 \end{equation}
 Moreover, we also have that
 \begin{equation}
-\sum_{n=1}^{n}\inf_{x\in I_i}f(x)\vert I_i\vert=\sup_{g\leq f, \text{piecewise constant}}\text{p.c.}\int_{a}^{b}g(x)\,dx=\underline{\int_{a}^{b}}f(x)\,dx,\tag{12}\label{12}
+\sum_{n=1}^{n}\inf_{x\in I_i}f(x)\vert I_i\vert\leq\sup_{g\leq f,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}g(x)\,dx=\underline{\int_{a}^{b}}f(x)\,dx,
 \end{equation}
-which is the lower Darboux integral of $f$ on $[a,b]$. Additionally, from \eqref{11} and \eqref{12} we have that for any $\varepsilon^{(1)}>0$
+which is the lower Darboux integral of $f$ on $[a,b]$. Thus,
 \begin{equation}
-\left\vert\sum_{i=1}^{n}f(x_i^{(1)})\vert I_i\vert-\underline{\int_{a}^{b}}f(x)\,dx\right\vert<\varepsilon^{(1)},
+\int_{a}^{b}f(x)\,dx\leq\underline{\int_{a}^{b}}f(x)\,dx\tag{12}\label{12}
 \end{equation}
-which gives us that
+Similarly, applying the same procedure as above, we also have that on each $I_i$ there exists an $x_i^{(2)}$ such that for any $\varepsilon>0$
 \begin{equation}
-\int_{a}^{b}f(x)\,dx=\underline{\int_{a}^{b}}f(x)\,dx
+\left\vert\sum_{i=1}^{n}f(x_i^{(2)})\vert I_i\vert-\sum_{n=1}^{n}\inf_{x\in I_i}f(x)\vert I_i\vert\right\vert<\varepsilon
 \end{equation}
-Similarly, applying the same procedure as above, we also have that on each $I_i$ there exists an $x_i^{(2)}$ such that for any $\varepsilon^{(2)}>0$
+Since $f$ is Riemann integrable on $[a,b]$, as $\sup_{i=1,\ldots,n}\vert I_i\vert\to 0$, we have
 \begin{equation}
-\left\vert\sum_{i=1}^{n}f(x_i^{(2)})\vert I_i\vert-\overline{\int_{a}^{b}}f(x)\,dx\right\vert<\varepsilon^{(2)},
+\sum_{i=1}^{n}f(x_i^{(2)})\vert I_i\vert\to\int_{a}^{b}f(x)\,dx
 \end{equation}
-which on the other hand gives us that
+Therefore,
 \begin{equation}
-\int_{a}^{b}f(x)\,dx=\overline{\int_{a}^{b}}f(x)\,dx
+\sum_{n=1}^{n}\sup_{x\in I_i}f(x)\vert I_i\vert\to\int_{a}^{b}f(x)\,dx,
 \end{equation}
-Therefore
+as $\sup_{i=1,\ldots,n}\vert I_i\vert\to 0$. Additionally, we also have
 \begin{equation}
-\underline{\int_{a}^{b}}f(x)\,dx=\overline{\int_{a}^{b}}f(x)\,dx,
+\sum_{i=1}^{n}\sup_{x\in I_i}f(x)\vert I_i\vert\geq\inf_{h\geq f, \text{ piecewise constant}}\text{p.c.}\int_{a}^{b}h(x)\,dx=\overline{\int_{a}^{b}}f(x)\,dx,
 \end{equation}
-which claims that $f$ is Darboux integrable on $[a,b]$ with the Darboux integral of $f$ on $[a,b]$ is exactly the Riemann integral, $\int_{a}^{b}f(x)\,dx$, of $f$ on $[a,b]$.
+which is the upper Darboux integral of $f$ on $[a,b]$. And hence
+\begin{equation}
+\overline{\int_{a}^{b}}f(x)\,dx\leq\int_{a}^{b}f(x)\,dx\tag{13}\label{13}
+\end{equation}
+From \eqref{12} and \eqref{13}, we end up with
+\begin{equation}
+\overline{\int_{a}^{b}}f(x)\,dx\leq\int_{a}^{b}f(x)\,dx\leq\underline{\int_{a}^{b}}f(x)\,dx,
+\end{equation}
+which happens iff
+\begin{equation}
+\overline{\int_{a}^{b}}f(x)\,dx=\int_{a}^{b}f(x)\,dx=\underline{\int_{a}^{b}}f(x)\,dx,
+\end{equation}
+which claims that $f$ is Darboux integrable on $[a,b]$, with the Darboux integral is exactly the Riemann integral $\int_{a}^{b}f(x)\,dx$.
 - Given $f$ is Darboux integrable on $[a,b]$, we have that the upper and lower Darboux integrals are equal, and are equal to the Darboux integral of $f$ on $[a,b]$ which we denote as $\text{d.}\int_{a}^{b}f(x)\,dx\in\mathbb{R}$.
 \begin{equation}
 \underline{\int_a^b}f(x)\,dx=\overline{\int_a^b}f(x)\,dx=\text{d.}\int_{a}^{b}f(x)\,dx
 \end{equation}
 By definition of the lower Darboux integral, there exists a piecewise constant function $g(x)$ bounded above by $f$ (i.e., $g\leq f$ piecewise), such that for any $\varepsilon>0$
 \begin{equation}
-\text{p.c.}\int_{a}^{b}g(x)\,dx>\underline{\int_{a}^{b}}f(x)\,dx-\varepsilon=\text{d.}\int_{a}^{b}f(x)\,dx-\varepsilon\tag{13}\label{13}
+\text{p.c.}\int_{a}^{b}g(x)\,dx>\underline{\int_{a}^{b}}f(x)\,dx-\varepsilon=\text{d.}\int_{a}^{b}f(x)\,dx-\varepsilon\tag{14}\label{14}
 \end{equation}
 Likewise, by definition of the upper Darboux integral, there exists a piecewise constant function $h(x)$ bounded below by $f$ (i.e., $h\geq f$ piecewise), such that for any $\varepsilon>0$
 \begin{equation}
-\text{p.c.}\int_{a}^{b}h(x)\,dx<\overline{\int_{a}^{b}}f(x)\,dx+\varepsilon=\text{d.}\int_{a}^{b}f(x)\,dx+\varepsilon\tag{14}\label{14}
+\text{p.c.}\int_{a}^{b}h(x)\,dx<\overline{\int_{a}^{b}}f(x)\,dx+\varepsilon=\text{d.}\int_{a}^{b}f(x)\,dx+\varepsilon\tag{15}\label{15}
 \end{equation}
 From the independence of choice of partition of piecewise constant functions $g$ and $h$, there exists a partition $I_1,\ldots,I_n$ such that
 \begin{align}
@@ -849,9 +869,9 @@ g(x)&=c_i,\hspace{1cm}\forall x\in I_i, \\\\ h(x)&=d_i,\hspace{1cm}\forall x\in 
 \end{align}
 and
 \begin{align}
-\text{p.c.}\int_{a}^{b}g(x)\,dx&=\sum_{i=1}^{n}c_i\vert I_i\vert,\tag{15}\label{15} \\\\ \text{p.c.}\int_{a}^{b}h(x)\,dx&=\sum_{i=1}^{n}d_i\vert I_i\vert,\tag{16}\label{16}
+\text{p.c.}\int_{a}^{b}g(x)\,dx&=\sum_{i=1}^{n}c_i\vert I_i\vert,\tag{16}\label{16} \\\\ \text{p.c.}\int_{a}^{b}h(x)\,dx&=\sum_{i=1}^{n}d_i\vert I_i\vert,\tag{17}\label{17}
 \end{align}
-then it follows immediately that $c_i\leq d_i$. And since $g\leq f\leq h$ piecewise, on each interval $I_i$, we can find a $x_i^\*$ such that $c_i\leq f(x_i^\*)\leq d_i$. Additionally, combining with \eqref{13}, \eqref{14}, \eqref{15} and \eqref{16}, we have that for any $\varepsilon>0$
+then it follows immediately that $c_i\leq d_i$. And since $g\leq f\leq h$ piecewise, on each interval $I_i$, we can find a $x_i^\*$ such that $c_i\leq f(x_i^\*)\leq d_i$. Additionally, combining with \eqref{14}, \eqref{15}, \eqref{16} and \eqref{17}, we have that for any $\varepsilon>0$
 \begin{equation}
 \text{d.}\int_{a}^{b}f(x)\,dx-\varepsilon<\sum_{i=1}^{n}c_i\vert I_i\vert\leq\sum_{i=1}^{n}f(x_i^\*)\vert I_i\vert\leq\sum_{i=1}^{n}d_i\vert I_i\vert<\text{d.}\int_{a}^{b}f(x)\,dx+\varepsilon
 \end{equation}
@@ -877,7 +897,7 @@ which implies that
 \begin{equation}
 \left\vert\sum_{i=1}^{n}f(x_i)\vert I_i\vert-\sum_{i=1}^{n}\inf_{x\in I_i}f(x)\vert I_i\vert\right\vert<\varepsilon,
 \end{equation}
-which proves that $f$ is Riemann integrable.
+As $\sup_{i=0,\ldots,n}\vert I_i\vert\to 0$
 
 ### Basic properties of Riemann integral
 {: #riemann-int-properties}
@@ -907,15 +927,75 @@ Let $[a,b]$ be an interval, and let $f,g:[a,b]\to\mathbb{R}$ be Riemann integrab
 <ul id='number-list'>
 	<li>
 		<b>Linearity</b>
+		<ul>
+			<li>
+				Given $f$ Riemann integrable on $[a,b]$, we have that there exists a tagged partition $\mathcal{P}=((I_1,\ldots,I_n),(x_1^*,\ldots,x_n^*));(x_i^*\in I_i)$ of $[a,b]$ such that for any $\varepsilon>0$, we have
+				\begin{equation}
+				\left\vert\sum_{i=1}^{n}f(x_i^*)\vert I_i\vert-\int_{a}^{b}f(x)\,dx\right\vert\leq\varepsilon
+				\end{equation}
+				Thus, for any $c\in\mathbb{R}$
+				\begin{equation}
+				\left\vert\sum_{i=1}^{n}cf(x_i^*)\vert I_i\vert-\int_{a}^{b}cf(x)\,dx\right\vert\leq\vert c\vert\varepsilon=\varepsilon',
+				\end{equation}
+				where $\varepsilon'>0$ arbitrarily. This implies that $cf$ is Riemann integrable on $[a,b]$ with Riemann integral $\int_{a}^{b}cf(x)\,dx=c\int_{a}^{b}f(x)\,dx$.
+			</li>
+			<li>
+				Given $f$ Riemann integrable on $[a,b]$, then $f$ is also Darboux integrable on $[a,b]$, which means
+				\begin{align}
+				\sup_{f_1\leq f,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}f_1(x)\,dx&=\inf_{f_2\geq f,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}f_2(x)\,dx \\ &\hspace{1cm}=\int_{a}^{b}f(x)\,dx\tag{18}\label{18}
+				\end{align}
+				Similarly, $g$ Riemann integrable on $[a,b]$ implies that $g$ is also Darboux integrable, or in particular
+				\begin{align}
+				\sup_{g_1\leq g,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}g_1(x)\,dx&=\inf_{g_2\geq g,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}g_2(x)\,dx \\ &\hspace{1cm}=\int_{a}^{b}g(x)\,dx\tag{19}\label{19}
+				\end{align}
+				By the linearity property of piecewise constant functions, combined with \eqref{18} and \eqref{19}, we obtain
+				\begin{align}
+				&\sup_{f_1\leq f,g_1\leq g,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}f_1(x)+g_1(x)\,dx \\ &\hspace{1cm}=\inf_{f_2\geq f,g_2\geq g,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}f_2(x)+g_2(x)\,dx=\int_{a}^{b}f(x)+g(x)\,dx,
+				\end{align}
+				which claims the Riemann integrability of $f+g$ on $[a,b]$.
+			</li>
+		</ul>
 	</li>
 	<li>
-		<b>Monotonicity</b>
+		<b>Monotonicity</b><br>
+		Given $f$ and $g$, we obtain two consequential equations \eqref{18} and \eqref{19}. And since $f\leq g$ pointwise we have that
+		\begin{equation}
+		\sup_{f_1\leq f,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}f_1(x)\,dx\leq\sup_{g_1\leq g,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}g_1(x)\,dx
+		\end{equation}
+		or
+		\begin{equation}
+		\int_{a}^{b}f(x)\,dx\leq\int_{a}^{b}g(x)\,dx
+		\end{equation}
 	</li>
 	<li>
-		<b>Indicator</b>
+		<b>Indicator</b><br>
+		Given $E\subset [a,b]$ is Jordan measurable, we have
+		\begin{equation}
+		\sup_{A\subset E,A\text{ elementary}}m(A)=\inf_{B\supset E,B\text{ elementary}}m(B)=m(E)\tag{20}\label{20}
+		\end{equation}
+		Recall that we have proved that for any elementary set $E'\subset[a,b]$, the indicator function $1_{E'}:[a,b]\to\mathbb{R}$ is also piecewise constant with
+		\begin{equation}
+		\text{p.c.}\int_{a}^{b}1_{E'}(x)\,dx=m(E')
+		\end{equation}
+		Moreover for any $A\subset E$, we have $1_A(x)\leq 1_E(x)$; and for any $B\supset E$, we have $1_B(x)\geq 1_E(x)$. Therefore the lower Darboux integral of $1_E$ on $[a,b]$ can be defined as
+		\begin{equation}
+		\underline{\int_{a}^{b}}1_E(x)\,dx=\sup_{1_A\leq 1_E,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}1_A(x)\,dx=\sup_{A\subset E,A\text{ elementary}}m(A)\tag{21}\label{21}
+		\end{equation}
+		And the upper Darboux integral of $1_E$ on $[a,b]$ can also be defined as
+		\begin{equation}
+		\overline{\int_{a}^{b}}1_E(x)\,dx=\inf_{1_B\geq 1_E,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}1_B(x)\,dx=\inf_{B\supset E,B\text{ elementary}}m(B)\tag{22}\label{22}
+		\end{equation}
+		Combine \eqref{20}, \eqref{21} and \eqref{22}, we have
+		\begin{equation}
+		\underline{\int_{a}^{b}}1_E(x)\,dx=\overline{\int_{a}^{b}}1_E(x)\,dx=m(E),
+		\end{equation}
+		which means $1_E$ is Darboux integrable on $[a,b]$ with the Darboux integrable $m(E)$. By the equivalence of Riemann and Darboux integral, $1_E$ is also Riemann integrable on $[a,b]$ with the Riemann integral
+		\begin{equation}
+		\int_{a}^{b}1_E(x)\,dx=m(E)
+		\end{equation}
 	</li>
 </ul>
-These properties uniquely define the Riemann integral, in the sense that the function $f\mapsto\int_{a}^{b}f(x)\,dx$ is the only map from the space of Riemann integrable functions on $[a,b]$ to $\mathbb{R}$ which obeys all of these above properties.
+These properties uniquely define the Riemann integral, in the sense that the functional $f\mapsto\int_{a}^{b}f(x)\,dx$ is the only map from the space of Riemann integrable functions on $[a,b]$ to $\mathbb{R}$ which obeys all of these above properties.
 
 ### Area interpretation of the Riemann integral
 {: #riemann-int-area-interpret}
