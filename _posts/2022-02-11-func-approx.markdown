@@ -326,7 +326,7 @@ This defines a feature for each of the $(n+1)^d$ possible integer vector $\mathb
 
 <figure>
 	<img src="/assets/images/2022-02-11/gradient_mc_bases.png" alt="Fourier basis vs polynomial basis" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: Fourier basis vs Polynomial basis on the 1000-state random walk<br><span>(<span markdown="1">[RL book](#rl-book)</span> - Example 9.2).</span><br>The code can be found <span markdown="1">[chere](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-9/random_walk.py)</span></figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: Fourier basis vs Polynomial basis on the 1000-state random walk<br><span>(<span markdown="1">[RL book](#rl-book)</span> - Example 9.2).</span><br>The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-9/random_walk.py)</span></figcaption>
 </figure><br/>
 
 ##### Coarse Coding
@@ -653,7 +653,7 @@ where $\beta>0$ is a step-size parameter.
 
 With a given stored estimate $\mathbf{v}\_t$ approximating \eqref{21}, we can apply SGD update to the parameter vector $\mathbf{w}\_t$:
 \begin{align}
-\mathbf{w}\_{t+1}&=\mathbf{w}\_t-\frac{1}{2}\alpha\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w}\_t) \\\\ &=\mathbf{w}\_t-\frac{1}{2}\alpha2\mathbb{E}\left[\rho_t\left(\gamma\mathbf{x}\_{t+1}-\mathbf{x}\_t\right)\mathbf{x}\_t^\intercal\right]\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right] \\\\ &=\mathbf{w}\_t+\alpha\mathbb{E}\left[\rho_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)\mathbf{x}\_t^\intercal\right]\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right]\tag{22}\label{22} \\\\ &\approx\mathbf{w}\_t+\alpha\mathbb{E}\left[\rho_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)\mathbf{x}\_t^\intercal\right]\mathbf{v}\_t \\\\ &\approx\mathbf{w}\_t+\alpha\rho_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)\mathbf{x}\_t\mathbf{v}\_t
+\mathbf{w}\_{t+1}&=\mathbf{w}\_t-\frac{1}{2}\alpha\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w}\_t) \\\\ &=\mathbf{w}\_t-\frac{1}{2}\alpha 2\mathbb{E}\left[\rho_t\left(\gamma\mathbf{x}\_{t+1}-\mathbf{x}\_t\right)\mathbf{x}\_t^\intercal\right]\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right] \\\\ &=\mathbf{w}\_t+\alpha\mathbb{E}\left[\rho_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)\mathbf{x}\_t^\intercal\right]\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right]\tag{22}\label{22} \\\\ &\approx\mathbf{w}\_t+\alpha\mathbb{E}\left[\rho_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)\mathbf{x}\_t^\intercal\right]\mathbf{v}\_t \\\\ &\approx\mathbf{w}\_t+\alpha\rho_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)\mathbf{x}\_t\mathbf{v}\_t
 \end{align}
 This algorithm is called **GTD2**. From \eqref{22}, we can also continue to derive as:
 <span id='tdc'>\begin{align}

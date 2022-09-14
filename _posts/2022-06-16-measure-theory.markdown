@@ -681,7 +681,41 @@ Let $B$ be a closed box in $\mathbb{R}^d$, and let $f:B\to\mathbb{R}$ be a conti
 
 **Proof**
 <ul id='number-list'>
-	<li></li>
+	<li>
+		For any closed box $C\in\mathbb{R}^d$, we have $\{(x,f(x)):x\in C\}\subset\mathbb{R}^{d+1}$ with $f:C\to\mathbb{R}$ is a compact metric space. And when $f$ continuous we also have $f$ is uniformly continuous, which means for any $\varepsilon>0$, there exists $\delta$ such that
+		\begin{equation}
+		\vert f(x)-f(x)\vert<\varepsilon,
+		\end{equation}
+		with $\vert y-x\vert<\delta$. Therefore, we can divide $C$ into finitely many disjoint boxes $C_1,\ldots,C_n$ such that $\vert x_i-y_i\vert<\delta$ and for any $\varepsilon>0$
+		\begin{equation}
+		\vert f(x_i)-f(y_i)\vert<\varepsilon
+		\end{equation}
+		Moreover, for each such box $C_i$ with center of the box $x_i$ we also have
+		\begin{equation}
+		\left\{(x,f(x)):x\in C_i\right\}\subset C_i\times\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)
+		\end{equation}
+		Therefore
+		\begin{equation}
+		\left\{(x,f(x)):x\in C\right\}=\bigcup_{i=1}^{n}\left\{(x,f(x)):x\in C_i\right\}\subset\bigcup_{i=1}^{n}C_i\times\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)
+		\end{equation}
+		With this result, and by the monotonicity, finite additivity of elementary measure, we have the outer Jordan measure of the graph $\{(x,f(x)):x\in B\}\subset\mathbb{R}^{d+1}$ can be written as
+		\begin{align}
+		m^{*,J}\left(\{(x,f(x)):x\in B\}\right)&=\inf_{C\supset B,C\text{ boxes}}m\left(\left\{(x,f(x)):x\in C\right\}\right) \\ &\leq m^{d+1}\left(\bigcup_{i=1}^{n}C_i\times\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &=\sum_{i=1}^{n}m^d(C_i)\times m^1\left(\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &=2n\varepsilon m^d(C)<2n\varepsilon\delta
+		\end{align}
+		And since $\varepsilon>0$ arbitrarily, we finally obtain
+		\begin{equation}
+		m^{*,J}\left(\{(x,f(x)):x\in B\}\right)=0
+		\end{equation}
+		Plus that, since
+		\begin{equation}
+		m^{*,J}\left(\{(x,f(x)):x\in B\}\right)\geq m_{*,J}\left(\{(x,f(x)):x\in B\}\right)\geq 0,
+		\end{equation}
+		we have that
+		\begin{equation}
+		m^{*,J}\left(\{(x,f(x)):x\in B\}\right)=m_{*,J}\left(\{(x,f(x)):x\in B\}\right)=0,
+		\end{equation}
+		or in other words, the graph $\left(\{(x,f(x)):x\in B\}\right)$ is Jordan measurable on $\mathbb{R}^{d+1}$ with Jordan measure zero.
+	</li>
 	<li></li>
 </ul>
 

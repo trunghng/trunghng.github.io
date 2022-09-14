@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-13T17:05:04+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-14T14:55:48+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory - II</title><link href="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html" rel="alternate" type="text/html" title="Measure theory - II" /><published>2022-07-03T13:00:00+07:00</published><updated>2022-07-03T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html">&lt;blockquote&gt;
   &lt;p&gt;A note on measure theory (continued from &lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-theory.html&quot;&gt;part I&lt;/a&gt;): materials were mostly taken from &lt;a href=&quot;/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some notations needed from &lt;a href=&quot;/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -1167,7 +1167,41 @@ Let $B$ be a closed box in $\mathbb{R}^d$, and let $f:B\to\mathbb{R}$ be a conti
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 &lt;ul id=&quot;number-list&quot;&gt;
-	&lt;li&gt;&lt;/li&gt;
+	&lt;li&gt;
+		For any closed box $C\in\mathbb{R}^d$, we have $\{(x,f(x)):x\in C\}\subset\mathbb{R}^{d+1}$ with $f:C\to\mathbb{R}$ is a compact metric space. And when $f$ continuous we also have $f$ is uniformly continuous, which means for any $\varepsilon&amp;gt;0$, there exists $\delta$ such that
+		\begin{equation}
+		\vert f(x)-f(x)\vert&amp;lt;\varepsilon,
+		\end{equation}
+		with $\vert y-x\vert&amp;lt;\delta$. Therefore, we can divide $C$ into finitely many disjoint boxes $C_1,\ldots,C_n$ such that $\vert x_i-y_i\vert&amp;lt;\delta$ and for any $\varepsilon&amp;gt;0$
+		\begin{equation}
+		\vert f(x_i)-f(y_i)\vert&amp;lt;\varepsilon
+		\end{equation}
+		Moreover, for each such box $C_i$ with center of the box $x_i$ we also have
+		\begin{equation}
+		\left\{(x,f(x)):x\in C_i\right\}\subset C_i\times\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)
+		\end{equation}
+		Therefore
+		\begin{equation}
+		\left\{(x,f(x)):x\in C\right\}=\bigcup_{i=1}^{n}\left\{(x,f(x)):x\in C_i\right\}\subset\bigcup_{i=1}^{n}C_i\times\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)
+		\end{equation}
+		With this result, and by the monotonicity, finite additivity of elementary measure, we have the outer Jordan measure of the graph $\{(x,f(x)):x\in B\}\subset\mathbb{R}^{d+1}$ can be written as
+		\begin{align}
+		m^{*,J}\left(\{(x,f(x)):x\in B\}\right)&amp;amp;=\inf_{C\supset B,C\text{ boxes}}m\left(\left\{(x,f(x)):x\in C\right\}\right) \\ &amp;amp;\leq m^{d+1}\left(\bigcup_{i=1}^{n}C_i\times\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &amp;amp;=\sum_{i=1}^{n}m^d(C_i)\times m^1\left(\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &amp;amp;=2n\varepsilon m^d(C)&amp;lt;2n\varepsilon\delta
+		\end{align}
+		And since $\varepsilon&amp;gt;0$ arbitrarily, we finally obtain
+		\begin{equation}
+		m^{*,J}\left(\{(x,f(x)):x\in B\}\right)=0
+		\end{equation}
+		Plus that, since
+		\begin{equation}
+		m^{*,J}\left(\{(x,f(x)):x\in B\}\right)\geq m_{*,J}\left(\{(x,f(x)):x\in B\}\right)\geq 0,
+		\end{equation}
+		we have that
+		\begin{equation}
+		m^{*,J}\left(\{(x,f(x)):x\in B\}\right)=m_{*,J}\left(\{(x,f(x)):x\in B\}\right)=0,
+		\end{equation}
+		or in other words, the graph $\left(\{(x,f(x)):x\in B\}\right)$ is Jordan measurable on $\mathbb{R}^{d+1}$ with Jordan measure zero.
+	&lt;/li&gt;
 	&lt;li&gt;&lt;/li&gt;
 &lt;/ul&gt;
 

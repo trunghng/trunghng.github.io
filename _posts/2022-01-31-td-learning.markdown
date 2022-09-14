@@ -773,7 +773,7 @@ Here is pseudocode of the off-policy $n$-step Sarsa.
 
 #### Per-decision Methods with Control Variates
 {: #per-decision-control-variates}
-Recall that in the post of [Monte Carlo Methods]({% post_url 2021-08-21-monte-carlo-in-rl %}), to reduce the variance even in the abasence of discounting (i.e., $\gamma=1$), we used a method called [**Per-decision Importance Sampling**]({% post_url 2021-08-21-monte-carlo-in-rl %}#per-decision-is). So how about we use it with multi-step off-policy TD methods?
+Recall that in the post of [Monte Carlo Methods]({% post_url 2021-08-21-monte-carlo-in-rl %}), to reduce the variance even in the absence of discounting (i.e., $\gamma=1$), we used a method called [**Per-decision Importance Sampling**]({% post_url 2021-08-21-monte-carlo-in-rl %}#per-decision-is). So how about we use it with multi-step off-policy TD methods?
 
 We begin rewriting the $n$-step return ending at horizon $h$ as:
 \begin{equation}
@@ -851,7 +851,7 @@ With the definition of $\sigma_t$, we can define the $n$-step return ending at h
 \begin{align}
 G_{t:h}&\doteq R_{t+1}+\gamma\Big(\sigma_{t+1}\rho_{t+1}+(1-\rho_{t+1})\pi(A_{t+1}|S_{t+1})\Big)\Big(G_{t+1:h}-Q_{h-1}(S_{t+1},A_{t+1})\Big) \\\\ &\hspace{2cm}+\gamma\bar{V}\_{h-1}(S_{t+1}),
 \end{align}
-for $t\lt h\leq T$. The rescursion ends with $G_{h:h}\doteq Q_{h-1}(S_h,A_h)$ if $h\lt T$, or with $G_{T-1:T}\doteq R_T$ if $h=T$. Then we use the off-policy $n$-step Sarsa update \eqref{11}, which produces the pseudocode below.
+for $t\lt h\leq T$. The recursion ends with $G_{h:h}\doteq Q_{h-1}(S_h,A_h)$ if $h\lt T$, or with $G_{T-1:T}\doteq R_T$ if $h=T$. Then we use the off-policy $n$-step Sarsa update \eqref{11}, which produces the pseudocode below.
 
 <figure>
     <img src="/assets/images/2022-01-31/n-step-q-sigma.png" alt="n-step Q(sigma)" style="display: block; margin-left: auto; margin-right: auto;"/>
