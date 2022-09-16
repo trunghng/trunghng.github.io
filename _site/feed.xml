@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-14T14:55:48+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-16T20:23:12+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">The Convergence of Q-learning</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/21/q-learning-convergence.html" rel="alternate" type="text/html" title="The Convergence of Q-learning" /><published>2022-08-21T07:00:00+07:00</published><updated>2022-08-21T07:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/21/q-learning-convergence</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/08/21/q-learning-convergence.html">&lt;blockquote&gt;
   &lt;p&gt;A note on convergence proofs for Q-learning by exploiting the connection with stochastic approximation and the idea of parallel asynchronous.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -85,7 +85,213 @@ f^{(2)}(f^{(1)}(\mathbf{x}))&amp;amp;=\left(\mathbf{W}^\intercal\mathbf{x}+\math
 
 &lt;p&gt;[4] Pytorch Documentation &lt;a href=&quot;https://pytorch.org/docs/stable/index.html&quot;&gt;Pytorch Docs&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="machine-learning" /><category term="deep-learning" /><category term="artificial-intelligent" /><category term="machine-learning" /><category term="deep-learning" /><category term="neural-network" /><summary type="html"></summary></entry><entry><title type="html">Measure theory - II</title><link href="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html" rel="alternate" type="text/html" title="Measure theory - II" /><published>2022-07-03T13:00:00+07:00</published><updated>2022-07-03T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html">&lt;blockquote&gt;
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="machine-learning" /><category term="deep-learning" /><category term="artificial-intelligent" /><category term="machine-learning" /><category term="deep-learning" /><category term="neural-network" /><summary type="html"></summary></entry><entry><title type="html">Linear models</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/linear-models.html" rel="alternate" type="text/html" title="Linear models" /><published>2022-08-13T13:00:00+07:00</published><updated>2022-08-13T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/linear-models</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/linear-models.html">&lt;blockquote&gt;
+  &lt;p&gt;Materials were taken mostly from &lt;a href=&quot;% post_url 2022-08-13-linear-models %}#bishops-book&quot;&gt;Bishop’s book&lt;/a&gt;.
+&lt;!-- excerpt-end --&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#preliminaries&quot;&gt;Preliminaries&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#ind-basis-dim&quot;&gt;Independence, basis, dimension&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#lin-ind&quot;&gt;Linear independence&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#basis&quot;&gt;Basis of a vector space&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#lin-models-regression&quot;&gt;Linear models for Regression&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#lin-basis-func-models&quot;&gt;Linear basis function models&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#least-squares&quot;&gt;Least squares&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#geo-least-squares&quot;&gt;Geometrical interpretation of least squares&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#reg-least-squares&quot;&gt;Regularized least squares&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;preliminaries&quot;&gt;Preliminaries&lt;/h2&gt;
+
+&lt;h3 id=&quot;ind-basis-dim&quot;&gt;Independence, basis, dimension&lt;/h3&gt;
+
+&lt;h4 id=&quot;lin-ind&quot;&gt;Linear independence&lt;/h4&gt;
+&lt;p&gt;The sequence of vectors $\mathbf{x}_1,\ldots,\mathbf{x}_n$ is said to be &lt;strong&gt;linearly independent&lt;/strong&gt; (or &lt;strong&gt;independent&lt;/strong&gt;) if
+\begin{equation}
+c_1\mathbf{x}_1+\ldots+c_n\mathbf{x}_n=\mathbf{0}
+\end{equation}
+only when $c_1,\ldots,c_n$ are all zero.&lt;/p&gt;
+
+&lt;p&gt;Considering those $n$ vectors $\mathbf{x}_1,\ldots,\mathbf{x}_n$ as $n$ columns of a matrix $\mathbf{A}$
+\begin{equation}
+\mathbf{A}=\left[\begin{matrix}\vert&amp;amp;&amp;amp;\vert \\ \mathbf{x}_1 &amp;amp; \ldots &amp;amp; \mathbf{x}_n \\ \vert&amp;amp;&amp;amp;\vert\end{matrix}\right]
+\end{equation}
+we have that the columns of $\mathbf{A}$ are independent when
+\begin{equation}
+\mathbf{A}\mathbf{x}=\mathbf{0}\hspace{0.5cm}\Leftrightarrow\hspace{0.5cm}\mathbf{x}=\mathbf{0},
+\end{equation}
+or in other words, the rank of $\mathbf{A}$ is equal to the number of columns of $\mathbf{A}$.&lt;/p&gt;
+
+&lt;h4 id=&quot;basis&quot;&gt;Basis of a vector space&lt;/h4&gt;
+&lt;p&gt;We say that vectors $\mathbf{v}_1,\ldots,\mathbf{v}_k$ span a space $S$ when the space consists of all combinations of those vectors. Or in other words, any vector $\mathbf{u}\in S$ can be displayed as linear combination of $\mathbf{v}_i$.&lt;br /&gt;
+In this case, $S$ is the smallest space containing those vectors.&lt;/p&gt;
+
+&lt;p&gt;A &lt;strong&gt;basis&lt;/strong&gt; for a vector space $S$ is a sequence of vectors $\mathbf{v}_1,\ldots,\mathbf{v}_d$ having two properties:&lt;/p&gt;
+&lt;ul id=&quot;roman-list&quot;&gt;
+	&lt;li&gt;$\mathbf{v}_1,\ldots,\mathbf{v}_d$ are independent&lt;/li&gt;
+	&lt;li&gt;$\mathbf{v}_1,\ldots,\mathbf{v}_d$ span $S$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In $S$, every basis for that space has the same number of vectors, which is the dimension of $S$. Therefore, there are exactly $n$ vectors in every basis for $\mathbb{R}^n$.&lt;/p&gt;
+
+&lt;p&gt;With that definition of a basis $\mathbf{v}_1,\dots,\mathbf{v}_d$ of $S$, for each vector $\mathbf{u}\in S$, there exists only one sequence $c_1,\ldots,c_d$ such that
+\begin{equation}
+\mathbf{u}=c_1\mathbf{v}_1+\ldots+c_d\mathbf{v}_d
+\end{equation}&lt;/p&gt;
+
+&lt;h2 id=&quot;lin-models-regression&quot;&gt;Linear models for Regression&lt;/h2&gt;
+&lt;p&gt;Regression refers to a problem of predicting the value of one or more continuous target variable $t$ given the value of a $D$-dimensional vector $\mathbf{x}$ of input variables.&lt;/p&gt;
+
+&lt;h3 id=&quot;lin-basis-func-models&quot;&gt;Linear basis function models&lt;/h3&gt;
+&lt;p&gt;The simplest linear model used for regression tasks is &lt;strong&gt;linear regression&lt;/strong&gt;, which is defined as a linear combination of the input variables
+\begin{equation}
+y(\mathbf{x},\mathbf{w})=w_0+w_1x_1+\ldots+w_Dx_D,\tag{1}\label{1}
+\end{equation}
+where $\mathbf{x}=(x_1,\ldots,x_D)^\intercal$ is the input variables, while $w_i$’s are the parameters parameterizing the space of linear function mapping from the input space $\mathcal{X}$ of $\mathbf{x}$ to $\mathcal{Y}$.&lt;/p&gt;
+
+&lt;p&gt;With the idea of spanning a space by its basis vectors, we can generalize it to establishing a function space by linear combinations of simpler basis functions. Or in other words, we can extend the class of models by instead using a linear combination of fixed nonlinear functions of the input variables $\mathbf{x}$, as
+\begin{equation}
+y(\mathbf{x},\mathbf{w})=w_0+w_1\phi_1(\mathbf{x})+\ldots+w_{M-1}\phi_{M-1}(\mathbf{x})=w_0+\sum_{i=1}^{M-1}w_i\phi_i(\mathbf{x}),\tag{2}\label{2}
+\end{equation}
+where $\phi_i(\mathbf{x})$’s are called the &lt;strong&gt;basis functions&lt;/strong&gt;; $w_0$ is called a &lt;strong&gt;bias parameter&lt;/strong&gt;. By letting $w_0$ be a coefficient corresponding to a dummy basis function $\phi_0(\mathbf{x})=1$, \eqref{2} can be written in a more convenient way
+\begin{equation}
+y(\mathbf{x},\mathbf{w})=\sum_{i=0}^{M-1}w_i\phi_i(\mathbf{x})=\mathbf{w}^\intercal\boldsymbol{\phi}(\mathbf{x}),\tag{3}\label{3}
+\end{equation}
+where $\mathbf{w}=(w_0,\ldots,w_{M-1})^\intercal$ and $\boldsymbol{\phi}=(\phi_0,\ldots,\phi_{M-1})^\intercal$, with $\phi_0(\cdot)=1$.&lt;/p&gt;
+
+&lt;p&gt;There are various choices of basis functions:&lt;/p&gt;
+&lt;ul id=&quot;number-list&quot;&gt;
+	&lt;li&gt;
+		&lt;b&gt;Polynomial basis&lt;/b&gt;. Each basis function $\phi_i$ is a powers of a $1$-dimensional input $x$
+		\begin{equation}
+		\phi_i(x)=x^i
+		\end{equation}
+		An example of polynomial basis functions is illustrated as below
+		&lt;figure&gt;
+			&lt;img src=&quot;/assets/images/2022-08-13/polynomial-basis.png&quot; alt=&quot;polynomial basis&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+			&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 1&lt;/b&gt;: Example of polynomial basis functions. The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/maths-visualization/blob/main/pattern-recognition-and-machine-learning-book/linear-regression-models/basis-funcs.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
+		&lt;/figure&gt;
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Gaussian basis function&lt;/b&gt;. Each basis function $\phi_i$ is a Gaussian function of a $1$-dimensional input $x$
+		\begin{equation}
+		\phi_i(x)=\exp\left(-\frac{(x-\mu_i)^2}{2\sigma_i^2}\right)
+		\end{equation}
+		An example of Gaussian basis functions is illustrated as below
+		&lt;figure&gt;
+			&lt;img src=&quot;/assets/images/2022-08-13/gaussian-basis.png&quot; alt=&quot;Gaussian basis&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+			&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 2&lt;/b&gt;: Example of Gaussian basis functions. The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/maths-visualization/blob/main/pattern-recognition-and-machine-learning-book/linear-regression-models/basis-funcs.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
+		&lt;/figure&gt;
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Sigmoidal basis function&lt;/b&gt;. Each basis function $\phi_i$ is defined as
+		\begin{equation}
+		\phi_i(x)=\sigma\left(\frac{x-\mu_i}{\sigma_i}\right),
+		\end{equation}
+		where $\sigma(\cdot)$ is the logistic sigmoid function
+		\begin{equation}
+		\sigma(x)=\frac{1}{1+\exp(-x)}
+		\end{equation}
+		An example of sigmoidal basis functions is illustrated as below
+		&lt;figure&gt;
+			&lt;img src=&quot;/assets/images/2022-08-13/sigmoidal-basis.png&quot; alt=&quot;sigmoidal basis&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+			&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 3&lt;/b&gt;: Example of sigmoidal basis functions. The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/maths-visualization/blob/main/pattern-recognition-and-machine-learning-book/linear-regression-models/basis-funcs.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
+		&lt;/figure&gt;
+	&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;least-squares&quot;&gt;Least squares&lt;/h4&gt;
+&lt;p&gt;Assume that the target variable $t$ and the inputs $\mathbf{x}$ is related via the equation
+\begin{equation}
+t=y(\mathbf{x},\mathbf{w})+\epsilon,
+\end{equation}
+where $\epsilon$ is an error term that captures random noise such that $\epsilon\sim\mathcal{N}(0,\sigma^2)$, which means the density of $\epsilon$ can be written as
+\begin{equation}
+p(\epsilon)=\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{\epsilon^2}{2\sigma^2}\right),
+\end{equation}
+which implies that
+\begin{equation}
+p(t|\mathbf{x};\mathbf{w},\beta)=\sqrt{\frac{\beta}{2\pi}}\exp\left(-\frac{(t-y(\mathbf{x},\mathbf{w}))^2\beta}{2}\right),\tag{4}\label{4}
+\end{equation}
+where $\beta=1/\sigma^2$ is the precision of $\epsilon$, or
+\begin{equation}
+t|\mathbf{x};\mathbf{w},\beta\sim\mathcal{N}(y(\mathbf{x},\mathbf{w}),\beta^{-1})\tag{5}\label{5}
+\end{equation}
+Consider a data set of inputs $\mathbf{X}=\{\mathbf{x}_1,\ldots,\mathbf{x}_N\}$ with corresponding target values $\mathbf{t}=(t_1,\ldots,t_N)^\intercal$ and assume that these data points are drawn independently from the distribution \eqref{5}, we obtain the batch version of \eqref{4}, called the &lt;strong&gt;likelihood function&lt;/strong&gt;, given as
+\begin{align}
+L(\mathbf{w},\beta)=p(\mathbf{t}|\mathbf{X};\mathbf{w},\beta)&amp;amp;=\prod_{i=1}^{N}p(t_i|\mathbf{x}_i;\mathbf{w},\beta) \\ &amp;amp;=\prod_{i=1}^{N}\sqrt{\frac{\beta}{2\pi}}\exp\left(-\frac{(t_i-y(\mathbf{x}_i,\mathbf{w}))^2\beta}{2}\right)
+\end{align}
+By maximum likelihood, we will be looking for values of $\mathbf{w}$ and $\beta$ that maximize the likelihood. We do this by considering maximizing a simpler likelihood, called &lt;strong&gt;log likelihood&lt;/strong&gt;, denoted as $\ell(\mathbf{w},\beta)$, defined as
+\begin{align}
+\ell(\mathbf{w},\beta)=\log{L(\mathbf{w},\beta)}&amp;amp;=\log\prod_{i=1}^{N}\sqrt{\frac{\beta}{2\pi}}\exp\left(-\frac{(t_i-y(\mathbf{x}_i,\mathbf{w}))^2\beta}{2}\right) \\ &amp;amp;=\sum_{i=1}^{N}\log\left[\sqrt{\frac{\beta}{2\pi}}\exp\left(-\frac{(t_i-y(\mathbf{x}_i,\mathbf{w}))^2\beta}{2}\right)\right] \\ &amp;amp;=\frac{N}{2}\log\beta-\frac{N}{2}\log(2\pi)-\sum_{i=1}^{N}\frac{(t_i-y(\mathbf{x}_i,\mathbf{w}))^2\beta}{2} \\ &amp;amp;=\frac{N}{2}\log\beta-\frac{N}{2}\log(2\pi)-\beta E_D(\mathbf{w})\tag{6}\label{6},
+\end{align}
+where $E_D(\mathbf{w})$ is the sum-of-squares error function, defined as
+\begin{equation}
+E_D(\mathbf{w})\doteq\frac{1}{2}\sum_{i=1}^{N}\left(t_i-y(\mathbf{x}_i,\mathbf{w})\right)^2\tag{7}\label{7}
+\end{equation}
+Consider the gradient of \eqref{6} w.r.t $\mathbf{w}$, we have
+\begin{align}
+\nabla_\mathbf{w}\ell(\mathbf{w},\beta)&amp;amp;=\nabla_\mathbf{w}\left[\frac{N}{2}\log\beta-\frac{N}{2}\log(2\pi)-\beta E_D(\mathbf{w})\right] \\ &amp;amp;\propto\nabla_\mathbf{w}\frac{1}{2}\sum_{i=1}^{N}\big(t_i-y(\mathbf{x}_i,\mathbf{w})\big)^2 \\ &amp;amp;=\nabla_\mathbf{w}\frac{1}{2}\sum_{i=1}^{N}\left(t_i-\mathbf{w}^\intercal\boldsymbol{\phi}\big(\mathbf{x}_i\right)\big)^2 \\ &amp;amp;=\sum_{i=1}^{N}(t_i-\mathbf{w}^\intercal\boldsymbol{\phi}(\mathbf{x}_i))\boldsymbol{\phi}(\mathbf{x}_i)^\intercal
+\end{align}
+By gradient descent, letting this gradient to zero gives us
+\begin{equation}
+\sum_{i=1}^{N}t_i\boldsymbol{\phi}(\mathbf{x}_i)^\intercal-\mathbf{w}^\intercal\sum_{i=1}^{N}\boldsymbol{\phi}(\mathbf{x}_i)\boldsymbol{\phi}(\mathbf{x}_i)^\intercal=0,
+\end{equation}
+which implies that
+\begin{equation}
+\mathbf{w}_\text{ML}=\left(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}^\intercal\mathbf{t},\tag{8}\label{8}
+\end{equation}
+which is known as the &lt;strong&gt;normal equations&lt;/strong&gt; for the least squares problem. In \eqref{8}, $\boldsymbol{\Phi}\in\mathbb{R}^{M\times N}$ is called the &lt;strong&gt;design matrix&lt;/strong&gt;, whose elements are given by $\boldsymbol{\Phi}_{ij}=\phi_j(\mathbf{x}_i)$
+\begin{equation}
+\boldsymbol{\Phi}=\left[\begin{matrix}-\hspace{0.1cm}\boldsymbol{\phi}(\mathbf{x}_1)\hspace{0.1cm}- \\ \hspace{0.1cm}\vdots\hspace{0.1cm} \\ -\hspace{0.1cm}\boldsymbol{\phi}(\mathbf{x}_N)\hspace{0.1cm}-\end{matrix}\right]=\left[\begin{matrix}\phi_0(\mathbf{x}_1)&amp;amp;\ldots&amp;amp;\phi_{M-1}(\mathbf{x}_1) \\ \vdots&amp;amp;\ddots&amp;amp;\vdots \\ \phi_0(\mathbf{x}_N)&amp;amp;\ldots&amp;amp;\phi_{M-1}(\mathbf{x}_N)\end{matrix}\right],
+\end{equation}
+and the quantity
+\begin{equation}
+\boldsymbol{\Phi}^\dagger\doteq\left(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}^\intercal
+\end{equation}
+is called the &lt;strong&gt;Moore-Penrose pseudoinverse&lt;/strong&gt; of the matrix $\boldsymbol{\Phi}$.
+On the other hand, consider the gradient of \eqref{6} w.r.t $\beta$ and set it equal to zero, we obtain
+\begin{equation}
+\beta=\frac{N}{\sum_{i=1}^{N}\big(t_i-\mathbf{w}_\text{ML}^\intercal\boldsymbol{\Phi}(\mathbf{x}_i)\big)^2}
+\end{equation}&lt;/p&gt;
+
+&lt;h4 id=&quot;geo-least-squares&quot;&gt;Geometrical interpretation of least squares&lt;/h4&gt;
+&lt;p&gt;As mentioned before, we have applied the idea of spanning a vector space by its basis vectors when constructing basis functions.&lt;/p&gt;
+
+&lt;p&gt;In particular, consider an $N$-dimensional space whose axes are given by $t_i$, which implies that $\mathbf{t}=(t_1,\ldots,t_N)^\intercal$ is a vector contained in the space.&lt;/p&gt;
+
+&lt;p&gt;Each basis function $\phi_j(\mathbf{x}_i)$, evaluated at the $N$ data points, then can also be presented as a vector in the same space, denoted by $\boldsymbol{\varphi}_j$, as illustrated in &lt;strong&gt;Figure 4&lt;/strong&gt; below.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-08-13/geo-least-squares.png&quot; alt=&quot;geometry of least squares&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 400px; height: 300px&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 4&lt;/b&gt;: Geometrical interpretation of the least-squares solution. The figure is taken from &lt;span&gt;&lt;a href=&quot;#bishops-book&quot;&gt;Bishop’s book&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;When the number $M$ of basis functions is smaller than the number $N$ of data points, the $M$ vectors $\phi_j(\mathbf{x}_i)$ will span a linear subspace $\mathcal{S}$ of $M$ dimensions.&lt;/p&gt;
+
+&lt;h4 id=&quot;reg-least-squares&quot;&gt;Regularized least squares&lt;/h4&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;p&gt;[1] &lt;span id=&quot;bishops-book&quot;&gt;Christopher M. Bishop. &lt;a href=&quot;https://link.springer.com/book/9780387310732&quot;&gt;Pattern Recognition and Machine Learning&lt;/a&gt;. Springer New York, NY.&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;[2] Gilbert Strang. &lt;a href=&quot;http://math.mit.edu/~gs/linearalgebra/&quot;&gt;Introduction to Linear Algebra&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;[3] MIT 18.06. &lt;a href=&quot;https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/&quot;&gt;Linear Algebra&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="machine-learning" /><category term="artificial-intelligent" /><category term="machine-learning" /><category term="linear-model" /><summary type="html">Materials were taken mostly from Bishop’s book.</summary></entry><entry><title type="html">Measure theory - II</title><link href="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html" rel="alternate" type="text/html" title="Measure theory - II" /><published>2022-07-03T13:00:00+07:00</published><updated>2022-07-03T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html">&lt;blockquote&gt;
   &lt;p&gt;A note on measure theory (continued from &lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-theory.html&quot;&gt;part I&lt;/a&gt;): materials were mostly taken from &lt;a href=&quot;/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some notations needed from &lt;a href=&quot;/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -1254,11 +1460,11 @@ Let $B$ be a closed box in $\mathbb{R}^d$, and let $f:B\to\mathbb{R}$ be a conti
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 &lt;ul id=&quot;number-list&quot;&gt;
 	&lt;li&gt;
-		For any closed box $C\in\mathbb{R}^d$, we have $\{(x,f(x)):x\in C\}\subset\mathbb{R}^{d+1}$ with $f:C\to\mathbb{R}$ is a compact metric space. And when $f$ continuous we also have $f$ is uniformly continuous, which means for any $\varepsilon&amp;gt;0$, there exists $\delta$ such that
+		For any closed box $C\in\mathbb{R}^d$, we have $\{(x,f(x)):x\in C\}\subset\mathbb{R}^{d+1}$ with $f:C\to\mathbb{R}$ is a compact metric space. And when $f$ continuous we also have $f$ is &lt;span&gt;uniformly continuous&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/span&gt;, which means for any $\varepsilon&amp;gt;0$, there exists $\delta$ such that
 		\begin{equation}
 		\vert f(x)-f(x)\vert&amp;lt;\varepsilon,
 		\end{equation}
-		with $\vert y-x\vert&amp;lt;\delta$. Therefore, we can divide $C$ into finitely many disjoint boxes $C_1,\ldots,C_n$ such that $\vert x_i-y_i\vert&amp;lt;\delta$ and for any $\varepsilon&amp;gt;0$
+		with $\Vert y-x\Vert_d&amp;lt;\delta$. Therefore, we can divide $C$ into finitely many disjoint boxes $C_1,\ldots,C_n$ such that $\vert x_i-y_i\vert&amp;lt;\delta$ and for any $\varepsilon&amp;gt;0$
 		\begin{equation}
 		\vert f(x_i)-f(y_i)\vert&amp;lt;\varepsilon
 		\end{equation}
@@ -1270,9 +1476,9 @@ Let $B$ be a closed box in $\mathbb{R}^d$, and let $f:B\to\mathbb{R}$ be a conti
 		\begin{equation}
 		\left\{(x,f(x)):x\in C\right\}=\bigcup_{i=1}^{n}\left\{(x,f(x)):x\in C_i\right\}\subset\bigcup_{i=1}^{n}C_i\times\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)
 		\end{equation}
-		With this result, and by the monotonicity, finite additivity of elementary measure, we have the outer Jordan measure of the graph $\{(x,f(x)):x\in B\}\subset\mathbb{R}^{d+1}$ can be written as
+		With this result, and by the monotonicity, finite additivity of elementary measure, we have the Jordan outer measure of the graph $\{(x,f(x)):x\in B\}\subset\mathbb{R}^{d+1}$ can be written as
 		\begin{align}
-		m^{*,J}\left(\{(x,f(x)):x\in B\}\right)&amp;amp;=\inf_{C\supset B,C\text{ boxes}}m\left(\left\{(x,f(x)):x\in C\right\}\right) \\ &amp;amp;\leq m^{d+1}\left(\bigcup_{i=1}^{n}C_i\times\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &amp;amp;=\sum_{i=1}^{n}m^d(C_i)\times m^1\left(\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &amp;amp;=2n\varepsilon m^d(C)&amp;lt;2n\varepsilon\delta
+		m^{*,J}\left(\{(x,f(x)):x\in B\}\right)&amp;amp;=\inf_{C\supset B,C\text{ closed box}}m\left(\left\{(x,f(x)):x\in C\right\}\right) \\ &amp;amp;\leq m^{d+1}\left(\bigcup_{i=1}^{n}C_i\times\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &amp;amp;=\sum_{i=1}^{n}m^d(C_i)\times m^1\left(\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &amp;amp;=2n\varepsilon m^d(C)&amp;lt;2n\varepsilon\delta
 		\end{align}
 		And since $\varepsilon&amp;gt;0$ arbitrarily, we finally obtain
 		\begin{equation}
@@ -1288,11 +1494,24 @@ Let $B$ be a closed box in $\mathbb{R}^d$, and let $f:B\to\mathbb{R}$ be a conti
 		\end{equation}
 		or in other words, the graph $\left(\{(x,f(x)):x\in B\}\right)$ is Jordan measurable on $\mathbb{R}^{d+1}$ with Jordan measure zero.
 	&lt;/li&gt;
-	&lt;li&gt;&lt;/li&gt;
+	&lt;li&gt;
+		We have the Jordan inner measure of the set $\left\{(x,t):x\in B,0\leq t\leq f(x)\right\}$ can be written as
+		\begin{align}
+		m_{*,J}\Big(\big\{(x,t):x\in B,0\leq t\leq f(x)\big\}\Big)&amp;amp;=\sup_{A\subset B,A\text{ closed box}}m\Big(\big\{(x,t):x\in A,0\leq t\leq f(x)\big\}\Big)
+		\end{align}
+	&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;jordan-null-sets&quot;&gt;Jordan null sets&lt;/h3&gt;
 &lt;p&gt;A &lt;strong&gt;Jordan null set&lt;/strong&gt; is a Jordan measurable set of Jordan measure zero. We have that any subset of a Jordan null set is also a Jordan null set.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Remark&lt;/strong&gt;&lt;br /&gt;
+For any Jordan measurable set $E\subset\mathbb{R}^d$, its Jordan measure can be written as
+\begin{equation}
+m(E)\doteq\lim_{N\to\infty}\frac{1}{N^d}\#\left(E\cup\frac{1}{N}\mathbb{Z}^d\right)
+\end{equation}&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 
@@ -1551,7 +1770,7 @@ which claims that $f$ is Riemann integrable on $[a,b]$ with $\text{d.}\int_{a}^{
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt;&lt;br /&gt;
-Any continuous function $f:[a,b]\to\mathbb{R}$ is Riemann integrable. More generally, any bounded, &lt;strong&gt;piecewise continuous function&lt;/strong&gt;&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; $f:[a,b]\to\mathbb{R}$ is Riemann integrable.&lt;/p&gt;
+Any continuous function $f:[a,b]\to\mathbb{R}$ is Riemann integrable. More generally, any bounded, &lt;strong&gt;piecewise continuous function&lt;/strong&gt;&lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; $f:[a,b]\to\mathbb{R}$ is Riemann integrable.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;br /&gt;
 Consider a partition of piecewise continuous f on $[a,b]$ into finitely many intervals $I_1,\ldots,I_n$. Using the procedure that we used for the above proof, we have that on each interval $I_i$, there exists an $x_i$ such that for any $\varepsilon&amp;gt;0$
@@ -1566,7 +1785,7 @@ which implies that
 \begin{equation}
 \left\vert\sum_{i=1}^{n}f(x_i)\vert I_i\vert-\sum_{i=1}^{n}\inf_{x\in I_i}f(x)\vert I_i\vert\right\vert&amp;lt;\varepsilon,
 \end{equation}
-As $\sup_{i=0,\ldots,n}\vert I_i\vert\to 0$&lt;/p&gt;
+which implies that $f$ is Riemann integrable on $[a,b]$.&lt;/p&gt;
 
 &lt;h3 id=&quot;riemann-int-properties&quot;&gt;Basic properties of Riemann integral&lt;/h3&gt;
 &lt;p&gt;Let $[a,b]$ be an interval, and let $f,g:[a,b]\to\mathbb{R}$ be Riemann integrable. We then have that&lt;/p&gt;
@@ -1682,7 +1901,10 @@ where $m^2$ denotes two-dimensional Jordan measure.&lt;/p&gt;
 &lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
   &lt;ol&gt;
     &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;A function $f:[a,b]\to\mathbb{R}$ is &lt;strong&gt;piecewise continuous&lt;/strong&gt; if we can partition $[a,b]$ into finitely many intervals, such that $f$ is continuous on each interval. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;A function $f$ is said to be &lt;strong&gt;uniformly continuous&lt;/strong&gt; if there. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;A function $f:[a,b]\to\mathbb{R}$ is &lt;strong&gt;piecewise continuous&lt;/strong&gt; if we can partition $[a,b]$ into finitely many intervals, such that $f$ is continuous on each interval. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><category term="jordan-measure" /><category term="riemann-integral" /><category term="darboux-integral" /><category term="random-stuffs" /><summary type="html">A note on measure theory: materials were mostly taken from Tao’s book, except for some notations needed from Stein’s book.</summary></entry><entry><title type="html">Monte Carlo Tree Search</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/05/25/mcts.html" rel="alternate" type="text/html" title="Monte Carlo Tree Search" /><published>2022-05-25T13:00:00+07:00</published><updated>2022-05-25T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/05/25/mcts</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/05/25/mcts.html">&lt;blockquote&gt;
@@ -3049,737 +3271,4 @@ Instead of having domain of $[0,\infty)$, if we further assume that $i(s)&amp;gt
       &lt;p&gt;$\mathbf{z}_t$ is a vector random variable, one per time step, while $\mathbf{z}(s)$ is a vector expectation, one per state. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="td-learning" /><category term="eligible-traces" /><category term="function-approximation" /><category term="importance-sampling" /><category term="my-rl" /><summary type="html">Beside $n$-step TD methods, there is another mechanism called Eligible traces that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.</summary></entry><entry><title type="html">Function Approximation</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/02/11/func-approx.html" rel="alternate" type="text/html" title="Function Approximation" /><published>2022-02-11T15:26:00+07:00</published><updated>2022-02-11T15:26:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/02/11/func-approx</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/02/11/func-approx.html">&lt;blockquote&gt;
-  &lt;p&gt;Reinforcement Learning in continuous state space requires function approximation.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;!-- excerpt-end --&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#on-policy-methods&quot;&gt;On-policy Methods&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#value-func-approx&quot;&gt;Value-function Approximation&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#pred-obj&quot;&gt;The Prediction Objective&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#grad-algs&quot;&gt;Gradient-based algorithms&lt;/a&gt;
-        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#stochastic-grad&quot;&gt;Stochastic-gradient&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#on-policy-semi-grad&quot;&gt;Semi-gradient&lt;/a&gt;&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#lin-func-approx&quot;&gt;Linear Function Approximation&lt;/a&gt;
-        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#lin-methods&quot;&gt;Linear Methods&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#feature-cons&quot;&gt;Feature Construction&lt;/a&gt;
-            &lt;ul&gt;
-              &lt;li&gt;&lt;a href=&quot;#polynomial&quot;&gt;Polynomial Basis&lt;/a&gt;&lt;/li&gt;
-              &lt;li&gt;&lt;a href=&quot;#fourier&quot;&gt;Fourier Basis&lt;/a&gt;
-                &lt;ul&gt;
-                  &lt;li&gt;&lt;a href=&quot;#uni-fourier-series&quot;&gt;The Univariate Fourier Series&lt;/a&gt;&lt;/li&gt;
-                  &lt;li&gt;&lt;a href=&quot;#even-odd-non-periodic-func&quot;&gt;Even, Odd and Non-Periodic Functions&lt;/a&gt;&lt;/li&gt;
-                  &lt;li&gt;&lt;a href=&quot;#mult-fourier-series&quot;&gt;The Multivariate Fourier Series&lt;/a&gt;&lt;/li&gt;
-                &lt;/ul&gt;
-              &lt;/li&gt;
-              &lt;li&gt;&lt;a href=&quot;#coarse-coding&quot;&gt;Coarse Coding&lt;/a&gt;&lt;/li&gt;
-              &lt;li&gt;&lt;a href=&quot;#tile-coding&quot;&gt;Tile Coding&lt;/a&gt;&lt;/li&gt;
-              &lt;li&gt;&lt;a href=&quot;#rbf&quot;&gt;Radial Basis Functions&lt;/a&gt;&lt;/li&gt;
-            &lt;/ul&gt;
-          &lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#lstd&quot;&gt;Least-Squares TD&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#ep-semi-grad-sarsa&quot;&gt;Episodic Semi-gradient Sarsa&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#ep-semi-grad-n-step-sarsa&quot;&gt;Episodic Semi-gradient n-step Sarsa&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#avg-reward&quot;&gt;Average Reward&lt;/a&gt;
-        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#dif-semi-grad-sarsa&quot;&gt;Differential Semi-gradient Sarsa&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#dif-semi-grad-n-step-sarsa&quot;&gt;Differential Semi-gradient n-step Sarsa&lt;/a&gt;&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#off-policy-methods&quot;&gt;Off-policy Methods&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#off-policy-semi-grad&quot;&gt;Semi-gradient&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#residual-bellman-update&quot;&gt;Residual Bellman Update&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#grad-td&quot;&gt;Gradient-TD&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#em-td&quot;&gt;Emphatic-TD&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;on-policy-methods&quot;&gt;On-policy Methods&lt;/h2&gt;
-&lt;p&gt;So far in the series, we have gone through tabular methods, which are used to solve problems with small state and action spaces. For larger spaces, rather than getting the exact solutions, we now have to approximate the value of them. To start, we begin with on-policy approximation methods.&lt;/p&gt;
-
-&lt;h3 id=&quot;value-func-approx&quot;&gt;Value-function Approximation&lt;/h3&gt;
-&lt;p&gt;All of the prediction methods so far have been described as updates to an estimated value function that shift its value at particular states toward a “backed-up value” (or &lt;em&gt;update target&lt;/em&gt;) for that state
-\begin{equation}
-s\mapsto u,
-\end{equation}
-where $s$ is the state updated and $u$ is the update target that $s$’s estimated value is shifted toward.&lt;/p&gt;
-
-&lt;p&gt;For example,&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;the MC update for value prediction is: $S_t\mapsto G_t$.&lt;/li&gt;
-  &lt;li&gt;the TD(0) update for value prediction is: $S_t\mapsto R_{t+1}+\gamma\hat{v}(S_{t+1},\mathbf{w}_t)$.&lt;/li&gt;
-  &lt;li&gt;the $n$-step TD update is: $S_t\mapsto G_{t:t+n}$.&lt;/li&gt;
-  &lt;li&gt;and in the DP, policy-evaluation update, $s\mapsto\mathbb{E}\big[R_{t+1}+\gamma\hat{v}(S_{t+1},\mathbf{w}_t)\vert S_t=s\big]$, an arbitrary $s$ is updated.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Each update $s\mapsto u$ can be viewed as example of the desired input-output behavior of the value function. And when the outputs are numbers, like $u$, we call the process &lt;strong&gt;function approximation&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;pred-obj&quot;&gt;The Prediction Objective&lt;/h3&gt;
-&lt;p&gt;In contrast to tabular case, where the solution of value function could be found equal to the true value function exactly, and an update at one state did not affect the others, with function approximation, it is impossible to find the exact value function of all states. And moreover, an update at one state also affects many others.&lt;/p&gt;
-
-&lt;p&gt;Hence, it is necessary to specify a state distribution $\mu(s)\geq0,\sum_s\mu(s)=1$, representing how much we care about the error (the difference between the approximate value $\hat{v}(s,\mathbf{w})$ and the true value $v_\pi(s)$) in each state $s$. Weighting this over the state space $\mathcal{S}$ by $\mu$, we obtain a natural objective function, called the &lt;em&gt;Mean Squared Value Error&lt;/em&gt;, denoted as $\overline{\text{VE}}$:
-\begin{equation}
-\overline{\text{VE}}(\mathbf{w})\doteq\sum_{s\in\mathcal{S}}\mu(s)\Big[v_\pi(s)-\hat{v}(s,\mathbf{w})\Big]^2
-\end{equation}
-The distribution $\mu(s)$ is usually chosen as the fraction of time spent in $s$ (number of time $s$ visited divided by total amount of visits). Under on-policy training this is called the &lt;em&gt;on-policy distribution&lt;/em&gt;.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;In continuing tasks, the on-policy distribution is the stationary distribution under $\pi$.&lt;/li&gt;
-  &lt;li&gt;In episodic tasks, the on-policy distribution depends on how the initial states are chosen.
-    &lt;ul&gt;
-      &lt;li&gt;Let $h(s)$ denote the probability that an episode begins in each state $s$, and let $\eta(s)$ denote the number of time steps spent, on average, in state $s$ in a single episode
-  \begin{equation}
-  \eta(s)=h(s)+\sum_\bar{s}\eta(\bar{s})\sum_a\pi(a\vert\bar{s})p(s\vert\bar{s},a),\hspace{1cm}\forall s\in\mathcal{S}
-  \end{equation}
-  This system of equation can be solved for the expected number of visits $\eta(s)$. The on-policy distribution is then
-  \begin{equation}
-  \mu(s)=\frac{\eta(s)}{\sum_{s’}\eta(s’)},\hspace{1cm}\forall s\in\mathcal{S}
-  \end{equation}&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;grad-algs&quot;&gt;Gradient-based algorithms&lt;/h3&gt;
-&lt;p&gt;To solve the least squares problem, we are going to use a popular method, named &lt;strong&gt;Gradient descent&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;Say, consider a differentiable function $J(\mathbf{w})$ of parameter vector $\mathbf{w}$.&lt;/p&gt;
-
-&lt;p&gt;The gradient of $J(\mathbf{w})$ w.r.t $\mathbf{w}$ is defined to be
-\begin{equation}
-\nabla_{\mathbf{w}}J(\mathbf{w})=\left(\begin{smallmatrix}\dfrac{\partial J(\mathbf{w})}{\partial\mathbf{w}_1} \\ \vdots \\ \dfrac{\partial J(\mathbf{w})}{\partial\mathbf{w}_d}\end{smallmatrix}\right)
-\end{equation}
-The idea of Gradient descent is to minimize the objective function $J(\mathbf{w})$, we repeatedly move $\mathbf{w}$ in the direction of steepest decrease of $J$, which is the direction of negative gradient $-\nabla_\mathbf{w}J(\mathbf{w})$.&lt;/p&gt;
-
-&lt;p&gt;Thus, we have the update rule of Gradient descent:
-\begin{equation}
-\mathbf{w}:=\mathbf{w}-\dfrac{1}{2}\alpha\nabla_\mathbf{w}J(\mathbf{w}),
-\end{equation}
-where $\alpha$ is a positive step-size parameter.&lt;/p&gt;
-
-&lt;h4 id=&quot;stochastic-grad&quot;&gt;Stochastic-gradient&lt;/h4&gt;
-&lt;p&gt;Apply gradient descent to our problem, which is we have to find the minimization of
-\begin{equation}
-\overline{\text{VE}}(\mathbf{w})=\sum_{s\in\mathcal{S}}\mu(s)\Big[v_\pi(s)-\hat{v}(s,\mathbf{w})\Big]^2
-\end{equation}
-Since $\mu(s)$ is the state distribution over state space $\mathcal{S}$, we can rewrite $\overline{\text{VE}}$ as
-\begin{equation}
-\overline{\text{VE}}(\mathbf{w})=\mathbb{E}_{s\sim\mu}\Big[v_\pi(s)-\hat{v}(s,\mathbf{w})\Big]^2
-\end{equation}
-By the update we have defined earlier, in each step, we need to decrease $\mathbf{w}$ by an amount of
-\begin{equation}
-\Delta\mathbf{w}=-\dfrac{1}{2}\alpha\nabla_\mathbf{w}\overline{\text{VE}}(\mathbf{w})=\alpha\mathbb{E}\Big[v_\pi(s)-\hat{v}(s,\mathbf{w})\Big]\nabla_\mathbf{w}\hat{v}(s,\mathbf{w})
-\end{equation}
-Assume that, on each step, we observe a new example $S_t\mapsto v_\pi(S_t)$ consisting of a state $S_t$ and its true value under the policy $\pi$.&lt;/p&gt;
-
-&lt;p&gt;Using &lt;strong&gt;Stochastic Gradient descent (SGD)&lt;/strong&gt;, we adjust the weight vector after each example by a small amount in the direction that would most reduce the error on that example:
-\begin{align}
-\mathbf{w}_{t+1}&amp;amp;\doteq\mathbf{w}_t-\frac{1}{2}\alpha\nabla_\mathbf{w}\big[v_\pi(S_t)-\hat{v}(S_t,\mathbf{w}_t)\big]^2 \\ &amp;amp;=\mathbf{w}_t+\alpha\big[v_\pi(S_t)-\hat{v}(S_t,\mathbf{w}_t)\big]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t)\tag{1}\label{1}
-\end{align}
-When the target output, here denoted as $U_t\in\mathbb{R}$, of the $t$-th training example, $S_t\mapsto U_t$, is not the true value, $v_\pi(S_t)$, but some approximation to it, we cannot perform the exact update \eqref{1} since $v_\pi(S_t)$ is unknown, but we can approximate it by substituting $U_t$ in place of $v_\pi(S_t)$. This yield the following general SGD method for state-value prediction:
-\begin{equation}
-\mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\big[U_t-\hat{v}(S_t,\mathbf{w}_t)\big]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t)\tag{2}\label{2}
-\end{equation}
-If $U_t$ is an &lt;em&gt;unbiased estimate&lt;/em&gt; of $v_\pi(S_t)$, i.e., $\mathbb{E}\left[U_t\vert S_t=s\right]=v_\pi(S_t)$, for each $t$, then $\mathbf{w}_t$ is guaranteed to converge to a local optimum under the usual stochastic conditions for decreasing $\alpha$.&lt;/p&gt;
-
-&lt;p&gt;In particular, since the true value of a state is the expected value of the return following it, the Monte Carlo target $U_t\doteq G_t$, we have that the SGD version of Monte Carlo state-value prediction,
-\begin{equation}
-\mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\big[G_t-\hat{v}(S_t,\mathbf{w}_t)\big]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t),
-\end{equation}
-is guaranteed to converge to a local optimal point.&lt;/p&gt;
-
-&lt;p&gt;We have the pseudocode of the algorithm:&lt;/p&gt;
-&lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-02-11/sgd-mc.png&quot; alt=&quot;SGD Monte Carlo&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;h4 id=&quot;on-policy-semi-grad&quot;&gt;Semi-gradient&lt;/h4&gt;
-&lt;p&gt;If instead of using MC target $G_t$, we use the bootstrapping targets such as $n$-step return $G_{t:t+n}$ or the DP target $\sum_{a,s’,r}\pi(a\vert S_t)p(s’,r\vert S_t,a)\left[r+\gamma\hat{v}(s’,\mathbf{w}_t)\right]$, which all depend on the current value of the weight vector $\mathbf{w}_t$, and then implies that they will be biased, and will not produce a true gradient-descent method.&lt;/p&gt;
-
-&lt;p&gt;Such methods are called &lt;strong&gt;semi-gradient&lt;/strong&gt; since they include only a part of the gradient.&lt;/p&gt;
-&lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-02-11/semi-grad-td.png&quot; alt=&quot;Semi-gradient TD(0)&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;h3 id=&quot;lin-func-approx&quot;&gt;Linear Function Approximation&lt;/h3&gt;
-&lt;p&gt;One of the most crucial special cases of function approximation is that in which the approximate function, $\hat{v}(\cdot,\mathbf{w})$, is a linear function of the weight vector, $\mathbf{w}$.&lt;/p&gt;
-
-&lt;p&gt;Corresponding to every state $s$, there is a real-valued vector $\mathbf{x}(s)\doteq\left(x_1(s),x_2(s),\dots,x_d(s)\right)^\intercal$, with the same number of components with $\mathbf{w}$.&lt;/p&gt;
-
-&lt;h4 id=&quot;lin-methods&quot;&gt;Linear Methods&lt;/h4&gt;
-&lt;p&gt;Linear methods approximate value function by the inner product between $\mathbf{w}$ and $\mathbf{x}(s)$:
-\begin{equation}
-\hat{v}(s,\mathbf{w})\doteq\mathbf{w}^\intercal\mathbf{x}(s)=\sum_{i=1}^{d}w_ix_i(s)\tag{3}\label{3}
-\end{equation}
-The vector $\mathbf{x}(s)$ is called a &lt;em&gt;feature vector&lt;/em&gt; representing state $s$, i.e., $x_i:\mathcal{S}\to\mathbb{R}$.&lt;/p&gt;
-
-&lt;p&gt;For linear methods, features are &lt;em&gt;basis functions&lt;/em&gt; because they form a linear basis for the set of approximate functions. Constructing $d$-dimensional feature vectors to represent states is the same as selecting a set of $d$ basis functions.&lt;/p&gt;
-
-&lt;p&gt;From \eqref{3}, when using SGD updates with linear approximation, we have the gradient of the approximate value function w.r.t $\mathbf{w}$ is
-\begin{equation}
-\nabla_\mathbf{w}\hat{v}(s,\mathbf{w})=\mathbf{x}(s)
-\end{equation}
-Thus, with linear approximation, the SGD update can be rewrite as
-\begin{equation}
-\mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\left[G_t-\hat{v}(S_t,\mathbf{w}_t)\right]\mathbf{x}(S_t)
-\end{equation}&lt;/p&gt;
-
-&lt;p&gt;In the linear case, there is only one optimum, and thus any method that is guaranteed to converge to or near a local optimum is automatically guaranteed to converge to or near the global optimum.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;The gradient MC algorithm in the previous section converges to the global optimum of the $\overline{\text{VE}}$ under linear function approximation if $\alpha$ is reduced over time according to the &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/01/31/td-learning.html#stochastic-approx-condition&quot;&gt;usual conditions&lt;/a&gt;. In particular, it converges to the fixed point, called $\mathbf{w}_{\text{MC}}$, with:
-\begin{align}
-\nabla_{\mathbf{w}_{\text{MC}}}\mathbb{E}\left[\big(G_t-v_{\mathbf{w}_{\text{MC}}}(S_t)\big)^2\right]&amp;amp;=0 \\ \mathbb{E}\Big[\big(G_t-v_{\mathbf{w}_{\text{MC}}}(S_t)\big)\mathbf{x}_t\Big]&amp;amp;=0 \\ \mathbb{E}\Big[(G_t-\mathbf{x}_t^\intercal\mathbf{w}_{\text{MC}})\mathbf{x}_t\Big]&amp;amp;=0 \\ \mathbb{E}\left[G_t\mathbf{x}_t-\mathbf{x}_t\mathbf{x}_t^\intercal\mathbf{w}_{\text{MC}}\right]&amp;amp;=0 \\ \mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]\mathbf{w}_\text{MC}&amp;amp;=\mathbb{E}\left[G_t\mathbf{x}_t\right] \\ \mathbf{w}_\text{MC}&amp;amp;=\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]^{-1}\mathbb{E}\left[G_t\mathbf{x}_t\right]
-\end{align}&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;The semi-gradient TD algorithm also converges under linear approximation.&lt;/p&gt;
-    &lt;ul&gt;
-      &lt;li&gt;Recall that, at each time $t$, the semi-gradient TD update is
-  \begin{align}
-  \mathbf{w}_{t+1}&amp;amp;\doteq\mathbf{w}_t+\alpha\left(R_{t+1}+\gamma\mathbf{w}_t^\intercal\mathbf{x}_{t+1}-\mathbf{w}_t^\intercal\mathbf{x}_t\right)\mathbf{x}_t \\ &amp;amp;=\mathbf{w}_t+\alpha\left(R_{t+1}\mathbf{x}_t-\mathbf{x}_t(\mathbf{x}_t-\gamma\mathbf{x}_{t+1})^\intercal\mathbf{w}_t\right),
-  \end{align}
-  where $\mathbf{x}_t=\mathbf{x}(S_t)$. Once the system has reached steady state, for any given $\mathbf{w}_t$, the expected next weight vector can be written as
-  \begin{equation}
-  \mathbb{E}\left[\mathbf{w}_{t+1}\vert\mathbf{w}_t\right]=\mathbf{w}_t+\alpha\left(\mathbf{b}-\mathbf{A}\mathbf{w}_t\right),\tag{4}\label{4}
-  \end{equation}
-  where
-  \begin{align}
-  \mathbf{b}&amp;amp;\doteq\mathbb{E}\left[R_{t+1}\mathbf{x}_t\right]\in\mathbb{R}^d, \\ \mathbf{A}&amp;amp;\doteq\mathbb{E}\left[\mathbf{x}_t\left(\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\right)^\intercal\right]\in\mathbb{R}^d\times\mathbb{R}^d\tag{5}\label{5}
-  \end{align}
-  From \eqref{4}, it is easily seen that if the system converges, it must converges to the weight vector $\mathbf{w}_{\text{TD}}$ at which
-  \begin{align}
-  \mathbf{b}-\mathbf{A}\mathbf{w}_{\text{TD}}&amp;amp;=\mathbf{0} \\ \mathbf{w}_{\text{TD}}&amp;amp;=\mathbf{A}^{-1}\mathbf{b}
-  \end{align}
-  This quantity, $\mathbf{w}_{\text{TD}}$, is called the &lt;strong&gt;TD fixed point&lt;/strong&gt;. And in fact, linear semi-gradient TD(0) converges to this point.&lt;/li&gt;
-      &lt;li&gt;&lt;span id=&quot;td-fixed-pt-proof&quot;&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/span&gt;:&lt;br /&gt;
-  We have \eqref{4} can be written as
-  \begin{equation}
-  \mathbb{E}\left[\mathbf{w}_{t+1}\vert\mathbf{w}_t\right]=\left(\mathbf{I}-\alpha\mathbf{A}\right)\mathbf{w}_t+\alpha\mathbf{b}
-  \end{equation}
-  The idea of the proof is prove that the matrix $\mathbf{A}$ in \eqref{5} is a positive definite matrix&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;, since $\mathbf{w}_t$ will be reduced toward zero whenever $\mathbf{A}$ is positive definite.&lt;br /&gt;
-  For linear TD(0), in the continuing case with $\gamma&amp;lt;1$, the matrix $\mathbf{A}$ can be written as
-  \begin{align}
-  \mathbf{A}&amp;amp;=\sum_s\mu(s)\sum_a\pi(a\vert s)\sum_{r,s’}p(r,s’\vert s,a)\mathbf{x}(s)\big(\mathbf{x}(s)-\gamma\mathbf{x}(s’)\big)^\intercal \\ &amp;amp;=\sum_s\mu(s)\sum_{s’}p(s’\vert s)\mathbf{x}(s)\big(\mathbf{x}(s)-\gamma\mathbf{x}(s’)\big)^\intercal \\ &amp;amp;=\sum_s\mu(s)\mathbf{x}(s)\Big(\mathbf{x}(s)-\gamma\sum_{s’}p(s’\vert s)\mathbf{x}(s’)\Big)^\intercal \\ &amp;amp;=\mathbf{X}^\intercal\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})\mathbf{X},\tag{6}\label{6}
-  \end{align}
-  where
-        &lt;ul&gt;
-          &lt;li&gt;$\mu(s)$ is the stationary distribution under $\pi$;&lt;/li&gt;
-          &lt;li&gt;$p(s’\vert s)$ is the probability transition from $s$ to $s’$ under policy $\pi$;&lt;/li&gt;
-          &lt;li&gt;$\mathbf{P}$ is the $\vert\mathcal{S}\vert\times\vert\mathcal{S}\vert$ matrix of these probabilities;&lt;/li&gt;
-          &lt;li&gt;$\mathbf{D}$ is the $\vert\mathcal{S}\vert\times\vert\mathcal{S}\vert$ diagonal matrix with the $\mu(s)$ on its diagonal;&lt;/li&gt;
-          &lt;li&gt;$\mathbf{X}$ is the $\vert\mathcal{S}\vert\times d$ matrix with $\mathbf{x}(s)$ as its row.&lt;/li&gt;
-        &lt;/ul&gt;
-
-        &lt;p&gt;Hence, it is clear that the positive definiteness of $A$ depends on the matrix $\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})$ in \eqref{6}.&lt;/p&gt;
-
-        &lt;p&gt;To continue proving the positive definiteness of $\mathbf{A}$, we use two lemmas:&lt;/p&gt;
-        &lt;ul&gt;
-          &lt;li&gt;&lt;strong&gt;Lemma 1&lt;/strong&gt;: &lt;em&gt;A square matrix $\mathbf{A}$ is positive definite if the symmetric matrix $\mathbf{S}=\mathbf{A}+\mathbf{A}^\intercal$ is positive definite&lt;/em&gt;.&lt;/li&gt;
-          &lt;li&gt;&lt;strong&gt;Lemma 2&lt;/strong&gt;: &lt;em&gt;If $\mathbf{A}$ is a real, symmetric, and strictly diagonally dominant matrix with positive diagonal entries, then $\mathbf{A}$ is positive definite&lt;/em&gt;.&lt;/li&gt;
-        &lt;/ul&gt;
-
-        &lt;p&gt;With these lemmas, plus since $\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})$ has positive diagonal entries and negative off-diagonal entries, so all we have to show is that each row sum plus the corresponding column sum is positive. The row sums are all positive because $\mathbf{P}$ is a stochastic matrix and $\gamma&amp;lt;1$. Thus the problem remains to show that the column sums are nonnegative.&lt;/p&gt;
-
-        &lt;p&gt;Let $\mathbf{1}$ denote the column vector with all components equal to $1$ and $\boldsymbol{\mu}(s)$ denote the vectorized version of $\mu(s)$: i.e., $\boldsymbol{\mu}\in\mathbb{R}^{\vert\mathcal{S}\vert}$. Thus, $\boldsymbol{\mu}=\mathbf{P}^\intercal\boldsymbol{\mu}$ since $\mu(s)$ is the stationary distribution. We have:
-  \begin{align}
-  \mathbf{1}^\intercal\mathbf{D}\left(\mathbf{I}-\gamma\mathbf{P}\right)&amp;amp;=\boldsymbol{\mu}^\intercal\left(\mathbf{I}-\gamma\mathbf{P}\right) \\ &amp;amp;=\boldsymbol{\mu}^\intercal-\gamma\boldsymbol{\mu}^\intercal\mathbf{P} \\ &amp;amp;=\boldsymbol{\mu}^\intercal-\gamma\boldsymbol{\mu}^\intercal \\ &amp;amp;=\left(1-\gamma\right)\boldsymbol{\mu}^\intercal,
-  \end{align}
-  which implies that the column sums of $\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})$ are positive.&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;At the TD fixed point, it has also been proven (in the continuing case) that $\overline{\text{VE}}$ is within a bounded expansion of the lowest possible error, while the Monte Carlo solutions minimize the value error $\overline{\text{VE}}$:
-  \begin{equation}
-  \overline{\text{VE}}(\mathbf{w}_{\text{TD}})\leq\dfrac{1}{1-\gamma}\overline{\text{VE}}(\mathbf{w}_{\text{MC}})=\dfrac{1}{1-\gamma}\min_{\mathbf{w}}\overline{\text{VE}}(\mathbf{w})
-  \end{equation}&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Based on the tabular &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/01/31/td-learning.html#n-step-td-update&quot;&gt;$n$-step TD&lt;/a&gt; we have defined before, applying the semi-gradient method, we have the function approximation version of its, called &lt;span id=&quot;semi-grad-n-step-td-update&quot;&gt;&lt;strong&gt;semi-gradient $\boldsymbol{n}$-step TD&lt;/strong&gt;&lt;/span&gt;, can be defined as:
-\begin{equation}
-\mathbf{w}_{t+n}\doteq\mathbf{w}_{t+n-1}+\alpha\left[G_{t:t+n}-\hat{v}(S_t,\mathbf{w}_{t+n-1})\right]\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_{t+n-1}),\hspace{1cm}0\leq t\lt T
-\end{equation}
-where the $n$-step return is generalized from the &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/01/31/td-learning.html#n-step-return&quot;&gt;tabular version&lt;/a&gt;:
-\begin{equation}
-G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{v}(S_{t+n},\mathbf{w}_{t+n-1}),\hspace{1cm}0\geq t\geq T-n
-\end{equation}
-We therefore have the pseudocode of the semi-gradient $n$-step TD algorithm.&lt;/p&gt;
-&lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-02-11/semi-grad-n-step-td.png&quot; alt=&quot;Semi-gradient n-step TD&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;h4 id=&quot;feature-cons&quot;&gt;Feature Construction&lt;/h4&gt;
-&lt;p&gt;There are various ways to define features. The simplest way is to use each variable directly as a basis function along with a constant function, i.e., setting:
-\begin{equation}
-x_0(s)=1;\hspace{1cm}x_i(s)=s_i,0\leq i\leq d
-\end{equation}
-However, most interesting value functions are too complex to be represented in this way. This scheme therefore was generalized into the polynomial basis.&lt;/p&gt;
-
-&lt;h5 id=&quot;polynomial&quot;&gt;Polynomial Basis&lt;/h5&gt;
-&lt;p&gt;Suppose each state $s$ corresponds to $d$ numbers, $s_1,s_2\dots,s_d$, with each $s_i\in\mathbb{R}$. For this $d$-dimensional state space, each order-$n$ polynomial basis feature $x_i$ can be written as
-\begin{equation}
-x_i(s)=\prod_{j=1}^{d}s_j^{c_{i,j}},
-\end{equation}
-where each $c_{i,j}\in\{0,1,\dots,n\}$ for an integer $n\geq 0$. These features make up the order-$n$ polynomial basis for dimension $d$, which contains $(n+1)^d$ different features.&lt;/p&gt;
-
-&lt;h5 id=&quot;fourier&quot;&gt;Fourier Basis&lt;/h5&gt;
-
-&lt;h6 id=&quot;uni-fourier-series&quot;&gt;The Univariate Fourier Series&lt;/h6&gt;
-&lt;p&gt;&lt;strong&gt;Fourier series&lt;/strong&gt; is applied widely in Mathematics to approximate a periodic function&lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;. For example:&lt;/p&gt;
-
-&lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-02-11/fourier_series.gif&quot; alt=&quot;Fourier series visualization&quot; width=&quot;480&quot; height=&quot;360px&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 1&lt;/b&gt;: Four partial sums (Fourier series) of lengths 1, 2, 3, and 4 terms, showing how the approximation to a square wave improves as the number of terms increases: where $f_1(\theta)=\frac{4\sin\theta}{\pi},f_2(\theta)=\frac{4\sin 3\theta}{3\pi},f_3(\theta)=\frac{4\sin 5\theta}{5\pi}$ and $f_4(\theta)=\frac{4\sin 7\theta}{7\pi}$. The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/maths-visualization/blob/main/fourier-series/fourier_series.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;p&gt;&lt;br /&gt;
-In particular, the $n$-degree Fourier expansion of $f$ with period $\tau$ is
-\begin{equation}
-\bar{f}(x)=\dfrac{a_0}{2}+\sum_{k=1}^{n}\left[a_k\cos\left(k\frac{2\pi}{\tau}x\right)+b_k\left(k\frac{2\pi}{\tau}x\right)\right],
-\end{equation}
-where
-\begin{align}
-a_k&amp;amp;=\frac{2}{\tau}\int_{0}^{\tau}f(x)\cos\left(\frac{2\pi kx}{\tau}\right)\,dx, \\ b_k&amp;amp;=\frac{2}{\tau}\int_{0}^{\tau}f(x)\sin\left(\frac{2\pi kx}{\tau}\right)\,dx
-\end{align}
-In the RL setting, $f$ is unknown so we cannot compute $a_0,\dots,a_n$ and $b_1,\dots,b_n$, but we can instead treat them as parameters in a linear function approximation scheme, with
-\begin{equation}
-\phi_i(x)=\begin{cases}1 &amp;amp;\text{if }i=0 \\ \cos\left(\frac{(i+1)\pi x}{\tau}\right) &amp;amp;\text{if }i&amp;gt;0,i\text{ odd} \\ \sin\left(\frac{i\pi x}{\tau}\right) &amp;amp;\text{if }i&amp;gt;0,i\text{ even}\end{cases}
-\end{equation}
-Thus, a full $n$-th order Fourier approximation to a one-dimensional value function results in a linear function approximation with $2n+1$ terms.&lt;/p&gt;
-
-&lt;h6 id=&quot;even-odd-non-periodic-func&quot;&gt;Even, Odd and Non-Periodic Functions&lt;/h6&gt;
-&lt;p&gt;If $f$ is known to be &lt;em&gt;even&lt;/em&gt; (i.e., $f(x)=f(-x)$), then $\forall i&amp;gt;0$, we have:
-\begin{align}
-b_i&amp;amp;=\frac{2}{\tau}\int_{0}^{\tau}f(x)\sin\left(\frac{2\pi ix}{\tau}\right)\,dx \\ &amp;amp;=\frac{2}{\tau}\left[\int_{0}^{\tau/2}f(x)\sin\left(\frac{2\pi ix}{\tau}\right)\,dx+\int_{\tau/2}^{\tau}f(x)\sin\left(\frac{2\pi ix}{\tau}\right)\,dx\right] \\ &amp;amp;=\frac{2}{\tau}\left[\int_{0}^{\tau/2}f(x)\sin\left(\frac{2\pi ix}{\tau}\right)\,dx+\int_{\tau/2}^{\tau}f(x-\tau)\sin\left(\frac{2\pi ix}{\tau}-2\pi i\right)\,dx\right] \\ &amp;amp;=\frac{2}{\tau}\left[\int_{0}^{\tau/2}f(x)\sin\left(\frac{2\pi ix}{\tau}\right)\,dx+\int_{\tau/2}^{\tau}f(x-\tau)\sin\left(\frac{2\pi i(x-\tau)}{\tau}\right)\,dx\right] \\ &amp;amp;=\frac{2}{\tau}\left[\int_{0}^{\tau/2}f(x)\sin\left(\frac{2\pi ix}{\tau}\right)\,dx+\int_{-\tau/2}^{0}f(x)\sin\left(\frac{2\pi ix}{\tau}\right)\,dx\right] \\ &amp;amp;=0,
-\end{align}
-so the $\sin$ terms can be dropped, which reduces the terms required for an $n$-th order Fourier approximation to $n+1$.&lt;/p&gt;
-
-&lt;p&gt;Similarly, if $f$ is known to be &lt;em&gt;odd&lt;/em&gt; (i.e., $f(x)=-f(-x)$), then $\forall i&amp;gt;0, a_i=0$, so we can omit the $\cos$ terms.&lt;/p&gt;
-
-&lt;p&gt;However, in general, value functions are not even, odd, or periodic (or known to be in advance). In such cases, if $f$ is defined over a bounded interval with length, let us assume, $\tau$, or without loss of generality, $\left[-\frac{\tau}{2},\frac{\tau}{2}\right]$, but only project the input variable to $\left[0,\frac{\tau}{2}\right]$. This results in a function periodic on $\left[-\frac{\tau}{2},\frac{\tau}{2}\right]$, but unconstrained on $\left(0,\frac{\tau}{2}\right]$. We are now free to choose whether or not the function is even or odd over $\left[-\frac{\tau}{2},\frac{\tau}{2}\right]$, and can drop half of the terms in the approximation.&lt;/p&gt;
-
-&lt;p&gt;In general, we expect it will be better to use the “half-even” approximation and drop the $\sin$ terms because this causes only a slight discontinuity at the origin. Thus, we can define the univariate $n$-th order Fourier basis as:
-\begin{equation}
-x_i(s)=\cos(i\pi s),
-\end{equation}
-for $i=0,\dots,n$.&lt;/p&gt;
-
-&lt;h6 id=&quot;mult-fourier-series&quot;&gt;The Multivariate Fourier Series&lt;/h6&gt;
-&lt;p&gt;The $n$-order Fourier expansion of the multivariate function $F$ with period $\tau$ in $d$ dimensions is
-\begin{equation}
-\overline{F}(\mathbf{x})=\sum_\mathbf{c}\left[a_\mathbf{c}\cos\left(\frac{2\pi}{\tau}\mathbf{c}\cdot\mathbf{x}\right)+b_\mathbf{c}\sin\left(\frac{2\pi}{\tau}\mathbf{c}\cdot\mathbf{x}\right)\right],
-\end{equation}
-where $\mathbf{c}=(c_1,\dots,c_d)^\intercal,c_i\in\left[0,\dots,n\right],1\leq i\leq d$.&lt;/p&gt;
-
-&lt;p&gt;This results in $2(n+1)^d$ basis functions for an $n$-th order full Fourier approximation to a value function in $d$ dimensions, which can be reduced to $(n+1)^d$ if we drop either the $sin$ or $cos$ terms for each variable as described above. Thus, we can define the $n$-th order Fourier basis in the multi-dimensional case as:&lt;/p&gt;
-
-&lt;p&gt;Suppose each state $s$ corresponds to a vector of $d$ numbers, $\mathbf{s}=(s_1,\dots,s_d)^\intercal$, with each $s_i\in[0,1]$. The $i$-th feature in the order-$n$ Fourier cosine basis can then be written as:
-\begin{equation}
-x_i(s)=\cos\left(\pi\mathbf{s}^\intercal\mathbf{c}^i\right),
-\end{equation}
-where $\mathbf{c}=(c_1^i,\dots,c_d^i)^\intercal$, with $c_j^i\in\{0,\dots,n\}$ for $j=1,\dots,d$ and $i=0,\dots,(n+1)^d$.&lt;/p&gt;
-
-&lt;p&gt;This defines a feature for each of the $(n+1)^d$ possible integer vector $\mathbf{c}^i$. The inner product $\mathbf{s}^\intercal\mathbf{c}^i$ has the effect of assigning an integer in $\{0,\dots,n\}$ to each dimension of $\mathbf{s}$. As in the one-dimensional case, this integer determines the feature’s frequency along that dimension. The feature thus can be shifted and scaled to suit the bounded state space of a particular application.&lt;/p&gt;
-
-&lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-02-11/gradient_mc_bases.png&quot; alt=&quot;Fourier basis vs polynomial basis&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 2&lt;/b&gt;: Fourier basis vs Polynomial basis on the 1000-state random walk&lt;br /&gt;&lt;span&gt;(&lt;span&gt;&lt;a href=&quot;#rl-book&quot;&gt;RL book&lt;/a&gt;&lt;/span&gt; - Example 9.2).&lt;/span&gt;&lt;br /&gt;The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-9/random_walk.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h5 id=&quot;coarse-coding&quot;&gt;Coarse Coding&lt;/h5&gt;
-
-&lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-02-11/square_wave_function.png&quot; alt=&quot;Square wave function approximated using Coarse Coding&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 3&lt;/b&gt;: Using linear function approximation based on coarse coding to learn a one-dimensional square-wave function &lt;br /&gt;&lt;span&gt;(&lt;span&gt;&lt;a href=&quot;#rl-book&quot;&gt;RL book&lt;/a&gt;&lt;/span&gt; - Example 9.3).&lt;/span&gt;&lt;br /&gt; The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-9/square_wave.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h5 id=&quot;tile-coding&quot;&gt;Tile Coding&lt;/h5&gt;
-
-&lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-02-11/gradient_mc_tile_coding.png&quot; alt=&quot;Gradient MC with tile coding&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 4&lt;/b&gt;: Gradient Monte Carlo with single tiling and with multiple tilings on the 1000-state random walk&lt;br /&gt;&lt;span&gt;(&lt;span&gt;&lt;a href=&quot;#rl-book&quot;&gt;RL book&lt;/a&gt;&lt;/span&gt; - Example 9.2).&lt;/span&gt;&lt;br /&gt;The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-9/random_walk.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h5 id=&quot;rbf&quot;&gt;Radial Basis Functions&lt;/h5&gt;
-&lt;p&gt;Another common scheme is &lt;strong&gt;Radial Basis Functions (RBFs)&lt;/strong&gt;. RBFs are the natural generalization of coarse coding to continuous valued features. Rather than each feature taking either $0$ or $1$, it can be anything within $[0,1]$, reflecting various degrees to which the feature is present.&lt;/p&gt;
-
-&lt;p&gt;A typical RBF feature, $x_i$, has a Gaussian response $x_i(s)$ dependent only on the distance between the state, $s$, and the feature’s prototypical or center state, $c_i$, and relative to the feature’s width, $\sigma_i$:
-\begin{equation}
-x_i(s)\doteq\exp\left(\frac{\Vert s-c_i\Vert^2}{2\sigma_i^2}\right)
-\end{equation}
-The figures below shows a one-dimensional example with a Euclidean distance metric.&lt;/p&gt;
-&lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-02-11/1-d-rbf.png&quot; alt=&quot;one-dimensional RBFs&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 300px; height: 100px&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 5&lt;/b&gt;: One-dimensional RBFs&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;lstd&quot;&gt;Least-Squares TD&lt;/h3&gt;
-&lt;p&gt;Recall when using TD(0) with linear function approximation, $v_\mathbf{w}(s)=\mathbf{w}^\intercal\mathbf{x}(s)$, we need to find a point $\mathbf{w}$ such that
-\begin{equation}
-\mathbb{E}\Big[\big(R_{t+1}+\gamma v_\mathbf{w}(S_{t+1})-v_{\mathbf{w}}(S_t)\big)\mathbf{x}_t\Big]=\mathbf{0}\tag{7}\label{7}
-\end{equation}
-or
-\begin{equation}
-\mathbb{E}\Big[R_{t+1}\mathbf{x}_t-\mathbf{x}_t(\mathbf{x}_t-\gamma\mathbf{x}_{t+1})^\intercal\mathbf{w}_t\Big]=\mathbf{0}
-\end{equation}
-We found out that the solution is:
-\begin{equation}
-\mathbf{w}_{\text{TD}}=\mathbf{A}^{-1}\mathbf{b},
-\end{equation}
-where
-\begin{align}
-\mathbf{A}&amp;amp;\doteq\mathbb{E}\left[\mathbf{x}_t\left(\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\right)^\intercal\right], \\ \mathbf{b}&amp;amp;\doteq\mathbb{E}\left[R_{t+1}\mathbf{x}_t\right]
-\end{align}
-Instead of computing these expectations over all possible states and all possible transitions that could happen, we now only care about the things that did happen. In particular, we now consider the empirical loss of \eqref{7}, as:
-\begin{equation}
-\frac{1}{t}\sum_{k=0}^{t-1}\big(R_{k+1}+\gamma v_\mathbf{w}(S_{k+1})-v_{\mathbf{w}}(S_k)\big)\mathbf{x}_i=\mathbf{0}\tag{8}\label{8}
-\end{equation}
-By the law of large numbers&lt;sup id=&quot;fnref:3&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;, when $t\to\infty$, \eqref{8} converges to its expectation, which is \eqref{7}. Hence, we now just have to compute the estimate of $\mathbf{w}_{\text{TD}}$, called $\mathbf{w}_{\text{LSTD}}$ (as LSTD stands for &lt;strong&gt;Least-Squares TD&lt;/strong&gt;), which is defined as:
-\begin{equation}
-\mathbf{w}_{\text{LSTD}}\doteq\left(\sum_{k=0}^{t-1}\mathbf{x}_i\left(\mathbf{x}_k-\gamma\mathbf{x}_{k+1}\right)^\intercal\right)^{-1}\left(\sum_{k=1}^{t-1}R_{k+1}\mathbf{x}_k\right)\tag{9}\label{9}
-\end{equation}
-In other words, our work is to compute estimates $\widehat{\mathbf{A}}_t$ and $\widehat{\mathbf{b}}_t$ of $\mathbf{A}$ and $\mathbf{b}$:
-\begin{align}
-\widehat{\mathbf{A}}_t&amp;amp;\doteq\sum_{k=0}^{t-1}\mathbf{x}_k\left(\mathbf{x}_k-\gamma\mathbf{x}_{k+1}\right)^\intercal+\varepsilon\mathbf{I};\tag{10}\label{10} \\ \widehat{\mathbf{b}}_t&amp;amp;\doteq\sum_{k=0}^{t-1}R_{k+1}\mathbf{x}_k,\tag{11}\label{11}
-\end{align}
-where $\mathbf{I}$ is the identity matrix, and $\varepsilon\mathbf{I}$, for some small $\varepsilon&amp;gt;0$, ensures that $\widehat{\mathbf{A}}_t$ is always invertible. Thus, \eqref{9} can be rewritten as:
-\begin{equation}
-\mathbf{w}_{\text{LSTD}}\doteq\widehat{\mathbf{A}}_t^{-1}\widehat{\mathbf{b}}_t
-\end{equation}
-The two approximations in \eqref{10} and \eqref{11} could be implemented incrementally using the same &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html#incremental-method&quot;&gt;technique&lt;/a&gt; we used to apply earlier so that they can be done in constant time per step. Even so, the update for $\widehat{\mathbf{A}}_t$ would have the computational complexity of $O(d^2)$, and so is its memory required to hold the $\widehat{\mathbf{A}}_t$ matrix.&lt;/p&gt;
-
-&lt;p&gt;This leads to a problem that our next step, which is the computation of the inverse $\widehat{\mathbf{A}}_t^{-1}$ of $\widehat{\mathbf{A}}_t$, is going to be $O(d^3)$. Fortunately, with the so-called &lt;strong&gt;Sherman-Morrison formula&lt;/strong&gt;, an inverse of our special form matrix - a sum of outer products - can also be updated incrementally with only $O(d^2)$ computations, as
-\begin{align}
-\widehat{\mathbf{A}}_t^{-1}&amp;amp;=\left(\widehat{\mathbf{A}}_t+\mathbf{x}_t\left(\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\right)^\intercal\right)^{-1} \\ &amp;amp;=\widehat{\mathbf{A}}_{t-1}^{-1}-\frac{\widehat{\mathbf{A}}_{t-1}^{-1}\mathbf{x}_t\left(\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\right)^\intercal\widehat{\mathbf{A}}_{t-1}^{-1}}{1+\left(\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\right)^\intercal\widehat{\mathbf{A}}_{t-1}^{-1}\mathbf{x}_t},
-\end{align}
-for $t&amp;gt;0$, with $\mathbf{\widehat{A}}_0\doteq\varepsilon\mathbf{I}$.&lt;/p&gt;
-
-&lt;p&gt;For the estimate $\widehat{\mathbf{b}}_t$ of $\mathbf{b}$, it can be updated using naive approach:
-\begin{equation}
-\widehat{\mathbf{b}}_{t+1}=\widehat{\mathbf{b}}_t+R_{t+1}\mathbf{x}_t
-\end{equation}
-The pseudocode for LSTD is given below&lt;/p&gt;
-&lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-02-11/lstd.png&quot; alt=&quot;LSTD&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;h3 id=&quot;ep-semi-grad-sarsa&quot;&gt;Episodic Semi-gradient Sarsa&lt;/h3&gt;
-&lt;p&gt;We now consider the control problem, with parametric approximation of the action-value function $\hat{q}(s,a,\mathbf{w})\approx q_*(s,a)$, where $\mathbf{w}\in\mathbb{R}^d$ is a finite-dimensional weight vector.&lt;/p&gt;
-
-&lt;p&gt;Similar to the prediction problem, we can apply semi-gradient methods in solving the control problem. The difference is rather than considering training examples of the form $S_t\mapsto U_t$, we now consider examples of the form $S_t,A_t\mapsto U_t$.&lt;/p&gt;
-
-&lt;p&gt;From \eqref{2}, we can derive the general SGD update for action-value prediction as 
-\begin{equation}
-\mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\big[U_t-\hat{q}(S_t,A_t,\mathbf{w}_t)\big]\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}_t)\tag{12}\label{12}
-\end{equation}
-The update for the one-step Sarsa method therefore would be
-\begin{equation}
-\mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\big[R_{t+1}+\gamma\hat{q}(S_{t+1},A_{t+1},\mathbf{w}_t)-\hat{q}(S_t,A_t,\mathbf{w}_t)\big]\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}_t)\tag{13}\label{13}
-\end{equation}
-We call this method &lt;strong&gt;episodic semi-gradient one-step Sarsa&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;To form the control method, we need to couple the action-value&lt;/p&gt;
-&lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-02-11/ep-semi-grad-sarsa.png&quot; alt=&quot;Episodic Semi-gradient Sarsa&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;The following figure illustrates the cost-to-go function $\max_a\hat{q}(s,a,\mathbf{w})$ learned during one run of the semi-gradient Sarsa on Mountain Car task.&lt;/p&gt;
-&lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-02-11/mountain-car-ep-semi-grad-sarsa.png&quot; alt=&quot;Semi-gradient Sarsa on Mountain Car task&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 6&lt;/b&gt;: Cost-to-go learned during one run of Semi-gradient Sarsa on Mountain Car problem&lt;br /&gt;&lt;span&gt;(&lt;span&gt;&lt;a href=&quot;#rl-book&quot;&gt;RL book&lt;/a&gt;&lt;/span&gt; - Example 10.1).&lt;/span&gt;&lt;br /&gt;The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-10/mountain_car.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;ep-semi-grad-n-step-sarsa&quot;&gt;Episodic Semi-gradient $\boldsymbol{n}$-step Sarsa&lt;/h3&gt;
-&lt;p&gt;Similar to how we defined the one-step Sarsa version of semi-gradient, we can replace the update target in \eqref{12} by an &lt;span id=&quot;n-step-return&quot;&gt;$n$-step return&lt;/span&gt;,
-\begin{equation}
-G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{q}(S_{t+n},A_{t+n},\mathbf{w}_{t+n-1}),\tag{14}\label{14}
-\end{equation}
-for $t+n\lt T$, with $G_{t:t+n}\doteq G_t$ if $t+n\geq T$, as usual, to obtain the &lt;strong&gt;semi-gradient $n$-step Sarsa&lt;/strong&gt; update:
-\begin{equation}
-\mathbf{w}_{t+n}\doteq\mathbf{w}_{t+n-1}+\alpha\big[G_{t:t+n}-\hat{q}(S_t,A_t,\mathbf{w}_{t+n-1})\big]\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}_{t+n-1}),
-\end{equation}
-for $0\leq t\lt T$. The pseudocode is given below.&lt;/p&gt;
-&lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-02-11/ep-semi-grad-n-step-sarsa.png&quot; alt=&quot;Episodic Semi-gradient n-step Sarsa&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;The figure below shows how the $n$-step ($8$-step in particular) tends to learn faster than the one-step algorithm.&lt;/p&gt;
-&lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-02-11/mountain-car-ep-semi-grad-n-step-sarsa.png&quot; alt=&quot;one-step vs 8-step Semi-gradient Sarsa on Mountain Car task&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 7&lt;/b&gt;: Performance of one-step vs 8-step Semi-gradient Sarsa on Mountain Car task&lt;br /&gt;&lt;span&gt;(&lt;span&gt;&lt;a href=&quot;#rl-book&quot;&gt;RL book&lt;/a&gt;&lt;/span&gt;).&lt;/span&gt;&lt;br /&gt;The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-10/mountain_car.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;avg-reward&quot;&gt;Average Reward&lt;/h3&gt;
-&lt;p&gt;We now consider a new setting for continuing tasks - alongside the episodic and discounted settings - &lt;strong&gt;average reward&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;In the average-reward setting, the quality of a policy $\pi$ is defined as the average rate of reward, or simply &lt;strong&gt;average reward&lt;/strong&gt;, while following that policy, which we denote as $r(\pi)$:
-\begin{align}
-r(\pi)&amp;amp;\doteq\lim_{h\to\infty}\frac{1}{h}\sum_{t=1}^{h}\mathbb{E}\Big[R_t\vert S_0,A_{0:t-1}\sim\pi\Big] \\ &amp;amp;=\lim_{t\to\infty}\mathbb{E}\Big[R_t\vert S_0,A_{0:t-1}\sim\pi\Big] \\ &amp;amp;=\sum_s\mu_\pi(s)\sum_a\pi(a\vert s)\sum_{s’,r}p(s’,r\vert s,a)r,
-\end{align}
-where:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;the expectations are conditioned on the initial state $S_0$, and on the subsequent action $A_0,A_1,\dots,A_{t-1}$, being taken according to $\pi$;&lt;/li&gt;
-  &lt;li&gt;$\mu_\pi$ is the steady-state distribution,
-\begin{equation}
-\mu_\pi\doteq\lim_{t\to\infty}P\left(S_t=s\vert A_{0:t-1}\sim\pi\right),
-\end{equation}
-which is assumed to exist for any $\pi$ and to be independent of $S_0$.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The steady state distribution is the special distribution under which, if we select actions according to $\pi$, we remain in the same distribution. That is, for which
-\begin{equation}
-\sum_s\mu_\pi(x)\sum_a\pi(a\vert s)p(s’\vert s,a)=\mu_\pi(s’)
-\end{equation}
-In the average-reward setting, returns are defined in terms of differences between rewards and the average reward:&lt;/p&gt;
-&lt;tag id=&quot;differential-return&quot;&gt;\begin{equation}
-G_t\doteq R_{t+1}-r(\pi)+R_{t+2}-r(\pi)+R_{t+3}-r(\pi)+\dots\tag{15}\label{15}
-\end{equation}&lt;/tag&gt;
-&lt;p&gt;This is known as the &lt;strong&gt;differential return&lt;/strong&gt;, and the corresponding value functions are known as &lt;strong&gt;differential value functions&lt;/strong&gt;, $v_\pi(s)$ and $q_\pi(s,a)$, which are defined in the same way as we have done before:
-\begin{align}
-v_\pi(s)&amp;amp;\doteq\mathbb{E}\big[G_t\vert S_t=s\big]; \\ q_\pi(s,a)&amp;amp;\doteq\mathbb{E}\big[G_t\vert S_t=s,A_t=a\big],
-\end{align}
-and similarly for $v_{*}$ and $q_{*}$. Likewise, differential value functions also have Bellman equations, with some modifications by replacing all discounted factor $\gamma$ and replacing all rewards, $r$, by the difference between the reward and the true average reward, $r-r(\pi)$, as:
-\begin{align}
-&amp;amp;v_\pi(s)=\sum_a\pi(a|s)\sum_{r,s’}p(r,s’|s,a)\left[r-r(\pi)+v_\pi(s’)\right], \\ &amp;amp;q_\pi(s,a)=\sum_{r,s’}p(s’,r|s,a)\left[r-r(\pi)+\sum_{a’}\pi(a’|s’)q_\pi(s’,a’)\right], \\ &amp;amp;v_{*}(s)=\max_a\sum_{r,s’}p(s’,r|s,a)\left[r-\max_\pi r(\pi)+v_{*}(s’)\right], \\ &amp;amp;q_{*}(s,a)=\sum_{r,s’}p(s’,r|s,a)\left[r-\max_\pi r(\pi)+\max_{a’}q_{*}(s’,a’)\right]
-\end{align}&lt;/p&gt;
-
-&lt;h4 id=&quot;dif-semi-grad-sarsa&quot;&gt;Differential Semi-gradient Sarsa&lt;/h4&gt;
-&lt;p&gt;There is also a differential form of the two &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/01/31/td-learning.html#td_error&quot;&gt;TD errors&lt;/a&gt;:
-\begin{equation}
-\delta_t\doteq R_{t+1}-\bar{R}_{t+1}+\hat{v}(S_{t+1},\mathbf{w}_t)-\hat{v}(S_t,\mathbf{w}_t),
-\end{equation}
-and
-\begin{equation}
-\delta_t\doteq R_{t+1}-\bar{R}_{t+1}+\hat{q}(S_{t+1},A_{t+1},\mathbf{w}_t)-\hat{q}(S_t,A_t,\mathbf{w}_t),\tag{16}\label{16}
-\end{equation}
-where $\bar{R}_t$ is an estimate at time $t$ of the average reward $r(\pi)$.&lt;/p&gt;
-
-&lt;p&gt;With these alternative definitions, most of our algorithms and many theoretical results carry through to the average-reward setting without change.&lt;/p&gt;
-
-&lt;p&gt;For example, the average reward version of semi-gradient Sarsa is defined just as in \eqref{13} except with the differential version of the TD error \eqref{16}:
-\begin{equation}
-\mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\delta_t\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}_t)\tag{17}\label{17}
-\end{equation}
-The pseudocode of the algorithm is then given below.&lt;/p&gt;
-&lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-02-11/dif-semi-grad-sarsa.png&quot; alt=&quot;Differential Semi-gradient Sarsa&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;h4 id=&quot;dif-semi-grad-n-step-sarsa&quot;&gt;Differential Semi-gradient $\boldsymbol{n}$-step Sarsa&lt;/h4&gt;
-&lt;p&gt;To derive the $n$-step version of \eqref{17}, we use the same update rule, except with an $n$-step version of the TD error.&lt;/p&gt;
-
-&lt;p&gt;First, we need to define the $n$-step differential return, with function approximation, by combining the idea of \eqref{14} and \eqref{15} together, as:
-\begin{equation}
-G_{t:t+n}\doteq R_{t+1}-\bar{R}_{t+1}+R_{t+2}-\bar{R}_{t+2}+\dots+R_{t+n}-\bar{R}_{t+n}+\hat{q}(S_{t+n},A_{t+n},\mathbf{w}_{t+n-1}),
-\end{equation}
-where $\bar{R}$ is an estimate of $r(\pi),n\geq 1$, $t+n\lt T$; $G_{t:t+n}\doteq G_t$ if $t+n\geq T$ as usual. The $n$-step TD error is then
-\begin{equation}
-\delta_t\doteq G_{t:t+n}-\hat{q}(S_t,A_t,\mathbf{w})
-\end{equation}
-The pseudocode of the algorithm is then given below.&lt;/p&gt;
-&lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-02-11/dif-semi-grad-n-step-sarsa.png&quot; alt=&quot;Differential Semi-gradient n-step Sarsa&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;h2 id=&quot;off-policy-methods&quot;&gt;Off-policy Methods&lt;/h2&gt;
-&lt;p&gt;We now consider off-policy methods with function approximation.&lt;/p&gt;
-
-&lt;h3 id=&quot;off-policy-semi-grad&quot;&gt;Semi-gradient&lt;/h3&gt;
-&lt;p&gt;To derive the semi-gradient form of off-policy tabular methods we have known, we simply replace the update to an array ($V$ or $Q$) to an update to a weight vector $\mathbf{w}$, using the approximate value function $\hat{v}$ or $\hat{q}$ and its gradient.&lt;/p&gt;
-
-&lt;p&gt;Recall that in off-policy learning we seek to learn a value function for a &lt;em&gt;target policy&lt;/em&gt; $\pi$, given data due to a different &lt;em&gt;behavior policy&lt;/em&gt; $b$.&lt;/p&gt;
-
-&lt;p&gt;Many of these algorithms use the per-step importance sampling ratio:
-\begin{equation}
-\rho_t\doteq\rho_{t:t}=\dfrac{\pi(A_t|S_t)}{b(A_t|S_t)}
-\end{equation}&lt;/p&gt;
-
-&lt;p&gt;In particular, for state-value functions, the one-step algorithm is &lt;strong&gt;semi-gradient off-policy TD(0)&lt;/strong&gt; has the update rule:
-\begin{equation}
-\mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\rho_t\delta_t\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}_t),\tag{18}\label{18}
-\end{equation}
-where&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;if the problem is episodic and discounted, we have:
-\begin{equation}
-\delta_t\doteq R_{t+1}+\gamma\hat{v}(S_{t+1},\mathbf{w}_t)-\hat{v}(S_t,\mathbf{w}_t)
-\end{equation}&lt;/li&gt;
-  &lt;li&gt;if the problem is continuing and undiscounted using average reward, we have:
-\begin{equation}
-\delta_t\doteq R_{t+1}-\bar{R}+\hat{v}(S_{t+1},\mathbf{w}_t)-\hat{v}(S_t,\mathbf{w}_t)
-\end{equation}&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;For action values, the one-step algorithm is &lt;strong&gt;semi-gradient Expected Sarsa&lt;/strong&gt;, which has the update rule:
-\begin{equation}
-\mathbf{w}_{t+1}\doteq\mathbf{w}_t+\alpha\delta_t\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}),
-\end{equation}
-with&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;episodic tasks:
-\begin{equation}
-\delta_t\doteq R_{t+1}+\gamma\sum_a\pi(a|S_{t+1})\hat{q}(S_{t+1},a,\mathbf{w}_t)-\hat{q}(S_t,A_t,\mathbf{w}_t)
-\end{equation}&lt;/li&gt;
-  &lt;li&gt;continuing tasks:
-\begin{equation}
-\delta_t\doteq R_{t+1}-\bar{R}+\sum_a\pi(a|S_{t+1})\hat{q}(S_{t+1},a,\mathbf{w}_t)-\hat{q}(S_t,A_t,\mathbf{w}_t)
-\end{equation}&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;With multi-step algorithms, we begin with &lt;strong&gt;semi-gradient $\boldsymbol{n}$-step Expected Sarsa&lt;/strong&gt;, which has the update rule:
-\begin{equation}
-\mathbf{w}_{t+n}\doteq\mathbf{w}_{t+n-1}+\alpha\rho_{t+1}\dots\rho_{t+n-1}\big[G_{t:t+n}-\hat{q}(S_t,A_t,\mathbf{w}_{t+n-1})\big]\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}_{t+n-1}),
-\end{equation}
-where $\rho_k=1$ for $k\geq T$ and $G_{t:n}\doteq G_t$ if $t+n\geq T$, and with&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;episodic tasks:
-\begin{equation}
-G_{t:t+n}\doteq R_{t+1}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{q}(S_{t+n},A_{t+n},\mathbf{w}_{t+n-1})
-\end{equation}&lt;/li&gt;
-  &lt;li&gt;continuing tasks:
-\begin{equation}
-G_{t:t+n}\doteq R_{t+1}-\bar{R}_t+\dots+R_{t+n}-\bar{R}_{t+n-1}+\hat{q}(S_{t+n},A_{t+n},\mathbf{w}_{t+n-1}),
-\end{equation}&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;For the semi-gradient version of &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/01/31/td-learning.html#n-step-tree-backup&quot;&gt;$n$-step tree-backup&lt;/a&gt;, called &lt;strong&gt;semi-gradient $\boldsymbol{n}$-step tree-backup&lt;/strong&gt;, the update rule is:
-\begin{equation}
-\mathbf{w}_{t+n}\doteq\mathbf{w}_{t+n-1}+\alpha\big[G_{t:t+n}-\hat{q}(S_t,A_t,\mathbf{w}_{t+n-1})\big]\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}_{t+n-1}),
-\end{equation}
-where
-\begin{equation}
-G_{t:t+n}\doteq\hat{q}(S_t,A_t,\mathbf{w}_{t-1})+\sum_{k=t}^{t+n-1}\delta_k\prod_{i=t+1}^{k}\gamma\pi(A_i|S_i),
-\end{equation}
-with $\delta_t$ is defined similar to the case of &lt;strong&gt;semi-gradient Expected Sarsa&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;residual-bellman-update&quot;&gt;Residual Bellman Update&lt;/h3&gt;
-
-&lt;h3 id=&quot;grad-td&quot;&gt;Gradient-TD&lt;/h3&gt;
-&lt;p&gt;In this section, we will be considering SGD methods for minimizing the $\overline{\text{PBE}}$.&lt;/p&gt;
-
-&lt;p&gt;Rewrite the objective $\overline{\text{PBE}}$ in matrix terms, we have:
-\begin{align}
-\overline{\text{PBE}}(\mathbf{w})&amp;amp;=\left\Vert\Pi\bar{\delta}_\mathbf{w}\right\Vert_{\mu}^{2} \\ &amp;amp;=\left(\Pi\bar{\delta}_\mathbf{w}\right)^\intercal\mathbf{D}\Pi\bar{\delta}_\mathbf{w} \\ &amp;amp;=\bar{\delta}_\mathbf{w}^\intercal\Pi^\intercal\mathbf{D}\Pi\bar{\delta}_\mathbf{w} \\ &amp;amp;=\bar{\delta}_\mathbf{w}^\intercal\mathbf{D}\mathbf{X}\left(\mathbf{X}^\intercal\mathbf{D}\mathbf{X}\right)^{-1}\mathbf{X}^\intercal\mathbf{D}\bar{\delta}_\mathbf{w} \\ &amp;amp;=\left(\mathbf{X}^\intercal\mathbf{D}\bar{\delta}_\mathbf{w}\right)^\intercal\left(\mathbf{X}^\intercal\mathbf{D}\mathbf{X}\right)^{-1}\left(\mathbf{X}^\intercal\mathbf{D}\bar{\delta}_\mathbf{w}\right),
-\end{align}
-where in the fourth step, we use the property of projection operation&lt;sup id=&quot;fnref:4&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:4&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt; and the identity
-\begin{equation}
-\Pi^\intercal\mathbf{D}\Pi=\mathbf{D}\mathbf{X}\left(\mathbf{X}^\intercal\mathbf{D}\mathbf{X}\right)^{-1}\mathbf{X}^\intercal\mathbf{D}
-\end{equation}
-Thus, the gradient w.r.t weight vector $\mathbf{w}$ is
-\begin{equation}
-\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w})=2\nabla_\mathbf{w}\left[\mathbf{X}^\intercal\mathbf{D}\bar{\delta}_\mathbf{w}\right]^\intercal\left(\mathbf{X}^\intercal\mathbf{D}\mathbf{X}\right)^{-1}\left(\mathbf{X}^\intercal\mathbf{D}\bar{\delta}_\mathbf{w}\right)\tag{19}\label{19}
-\end{equation}&lt;/p&gt;
-
-&lt;p&gt;To turn this into an SGD method, we have to sample something on every time step that has this gradient as its expected value. Let $\mu$ be the distribution of states visited under the behavior policy. The last factor of \eqref{19} can be written as:
-\begin{equation}
-\mathbf{X}^\intercal\mathbf{D}\bar{\delta}_\mathbf{w}=\sum_s\mu(s)\mathbf{x}(s)\bar{\delta}_\mathbf{w}=\mathbb{E}\left[\rho_t\delta_t\mathbf{x}_t\right],
-\end{equation}
-which is the expectation of the semi-gradient TD(0) update \eqref{18}. The first factor of \eqref{19}, which is the transpose of the gradient of this update, then can also be written as:
-\begin{align}
-\nabla_\mathbf{w}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}_t\right]^\intercal&amp;amp;=\mathbb{E}\left[\rho_t\nabla_\mathbf{w}\delta_t^\intercal\mathbf{x}_t^\intercal\right] \\ &amp;amp;=\mathbb{E}\left[\rho_t\nabla_\mathbf{w}\left(R_{t+1}+\gamma\mathbf{w}^\intercal\mathbf{x}_{t+1}-\mathbf{w}^\intercal\mathbf{x}_t\right)^\intercal\mathbf{x}_t^\intercal\right] \\ &amp;amp;=\mathbb{E}\left[\rho_t\left(\gamma\mathbf{x}_{t+1}-\mathbf{x}_t\right)\mathbf{x}_t^\intercal\right]
-\end{align}
-And the middle factor, without the inverse operation, can also be written as:
-\begin{equation}
-\mathbf{X}^\intercal\mathbf{D}\mathbf{X}=\sum_a\mu(s)\mathbf{x}_s\mathbf{x}_s^\intercal=\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]
-\end{equation}
-Substituting these expectations back to \eqref{19}, we obtain:
-\begin{equation}
-\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w})=2\mathbb{E}\left[\rho_t\left(\gamma\mathbf{x}_{t+1}-\mathbf{x}_t\right)\mathbf{x}_t^\intercal\right]\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}_t\right]\tag{20}\label{20}
-\end{equation}&lt;/p&gt;
-
-&lt;p&gt;Here, we use the &lt;strong&gt;Gradient-TD&lt;/strong&gt; to estimate and store the product of the second two factors in \eqref{20}, denoted as $\mathbf{v}$:
-\begin{equation}
-\mathbf{v}\approx\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}_t\right],\tag{21}\label{21}
-\end{equation}
-which is the solution of the linear least-squares problem that tries to approximate $\rho_t\delta_t$ from the features. The SGD for incrementally finding the vector $\mathbf{v}$ that minimizes the expected squared error $\left(\mathbf{v}^\intercal\mathbf{x}_t\right)^2$ is known as the &lt;strong&gt;Least Mean Square (LMS)&lt;/strong&gt; rule (here augmented with an IS ratio):
-\begin{equation}
-\mathbf{v}_{t+1}\doteq\mathbf{v}_t+\beta\rho_t\left(\delta_t-\mathbf{v}^\intercal\mathbf{x}_t\right)\mathbf{x}_t,
-\end{equation}
-where $\beta&amp;gt;0$ is a step-size parameter.&lt;/p&gt;
-
-&lt;p&gt;With a given stored estimate $\mathbf{v}_t$ approximating \eqref{21}, we can apply SGD update to the parameter vector $\mathbf{w}_t$:
-\begin{align}
-\mathbf{w}_{t+1}&amp;amp;=\mathbf{w}_t-\frac{1}{2}\alpha\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w}_t) \\ &amp;amp;=\mathbf{w}_t-\frac{1}{2}\alpha 2\mathbb{E}\left[\rho_t\left(\gamma\mathbf{x}_{t+1}-\mathbf{x}_t\right)\mathbf{x}_t^\intercal\right]\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}_t\right] \\ &amp;amp;=\mathbf{w}_t+\alpha\mathbb{E}\left[\rho_t\left(\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\right)\mathbf{x}_t^\intercal\right]\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}_t\right]\tag{22}\label{22} \\ &amp;amp;\approx\mathbf{w}_t+\alpha\mathbb{E}\left[\rho_t\left(\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\right)\mathbf{x}_t^\intercal\right]\mathbf{v}_t \\ &amp;amp;\approx\mathbf{w}_t+\alpha\rho_t\left(\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\right)\mathbf{x}_t\mathbf{v}_t
-\end{align}
-This algorithm is called &lt;strong&gt;GTD2&lt;/strong&gt;. From \eqref{22}, we can also continue to derive as:
-&lt;span id=&quot;tdc&quot;&gt;\begin{align}
-\mathbf{w}_{t+1}&amp;amp;=\mathbf{w}_t+\alpha\mathbb{E}\left[\rho_t\left(\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\right)\mathbf{x}_t^\intercal\right]\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}_t\right] \\ &amp;amp;=\mathbf{w}_t+\alpha\left(\mathbb{E}\left[\rho_t\mathbf{x}_t\mathbf{x}_t^\intercal\right]-\gamma\mathbb{E}\left[\rho_t\mathbf{x}_{t+1}\mathbf{x}_t^\intercal\right]\right)\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}_t\right] \\ &amp;amp;=\mathbf{w}_t+\alpha\left(\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]-\gamma\mathbb{E}\left[\rho_t\mathbf{x}_{t+1}\mathbf{x}_t^\intercal\right]\right)\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}_t\right] \\ &amp;amp;=\mathbf{w}_t+\alpha\left(\mathbb{E}\left[\mathbf{x}_t\rho_t\delta_t\right]-\gamma\mathbb{E}\left[\rho_t\mathbf{x}_{t+1}\mathbf{x}_t^\intercal\right]\mathbb{E}\left[\mathbf{x}_t\mathbf{x}_t^\intercal\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}_t\right]\right) \\ &amp;amp;\approx\mathbf{w}_t+\alpha\left(\mathbb{E}\left[\mathbf{x}_t\rho_t\delta_t\right]-\gamma\mathbb{E}\left[\rho_t\mathbf{x}_{t+1}\mathbf{x}_t^\intercal\right]\right)\mathbf{v}_t \\ &amp;amp;\approx\mathbf{w}_t+\alpha\rho_t\left(\delta_t\mathbf{x}_t-\gamma\mathbf{x}_{t+1}\mathbf{x}_t^\intercal\mathbf{v}_t\right)
-\end{align}&lt;/span&gt;
-This algorithm is known as &lt;strong&gt;TD(0) with gradient correction (TDC)&lt;/strong&gt;, or as &lt;strong&gt;GTD(0)&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;em-td&quot;&gt;Emphatic-TD&lt;/h3&gt;
-
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;p&gt;[1] &lt;span id=&quot;rl-book&quot;&gt;Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/span&gt;.&lt;/p&gt;
-
-&lt;p&gt;[2] Deepmind x UCL. &lt;a href=&quot;https://www.deepmind.com/learning-resources/reinforcement-learning-lecture-series-2021&quot;&gt;Reinforcement Learning Lecture Series 2021&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;[3] Sutton, R. S. (1988). &lt;a href=&quot;doi:10.1007/bf00115009&quot;&gt;Learning to predict by the methods of temporal differences&lt;/a&gt;. Machine Learning, 3(1), 9–44.&lt;/p&gt;
-
-&lt;p&gt;[4] Konidaris, G. &amp;amp; Osentoski, S. &amp;amp; Thomas, P.. &lt;a href=&quot;https://dl.acm.org/doi/10.5555/2900423.2900483&quot;&gt;Value Function Approximation in Reinforcement Learning Using the Fourier Basis&lt;/a&gt;. AAAI Conference on Artificial Intelligence, North America, aug. 2011.&lt;/p&gt;
-
-&lt;p&gt;[5] Joseph K. Blitzstein &amp;amp; Jessica Hwang. &lt;a href=&quot;https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573&quot;&gt;Introduction to Probability&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;[6] Shangtong Zhang. &lt;a href=&quot;https://github.com/ShangtongZhang/reinforcement-learning-an-introduction&quot;&gt;Reinforcement Learning: An Introduction implementation&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
-
-&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;A $n\times n$ matrix $A$ is called &lt;em&gt;positive definite&lt;/em&gt; if and only if for any non-zero vector $\mathbf{x}\in\mathbb{R}^n$, we always have
-\begin{equation}
-\mathbf{x}^\intercal\mathbf{A}\mathbf{x}&amp;gt;0
-\end{equation} &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:2&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;A function $f$ is periodic with period $\tau$ if
-\begin{equation}
-f(x+\tau)=f(x),\forall x
-\end{equation} &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:3&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;Consider i.i.d r.v.s $X_1,X_2,\dots$ with finite mean $\mu$ and finite variance $\sigma^2$. For all positive integer $n$, let: 
-\begin{equation}
-\overline{X}_n\doteq\frac{X_1+\dots+X_n}{n}
-\end{equation}
-be the &lt;em&gt;sample mean&lt;/em&gt; of $X_1$ through $X_n$.&lt;/p&gt;
-
-      &lt;p&gt;As $n\to\infty$, the sample mean $\overline{X}_n$ converges to the true mean $\mu$, with probability $1$. &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:4&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;For a linear function approximator, the projection is linear, which implies that it can be represented as an $\vert\mathcal{S}\vert\times\vert\mathcal{S}\vert$ matrix:
-\begin{equation}
-\Pi\doteq\mathbf{X}\left(\mathbf{X}^\intercal\mathbf{D}\mathbf{X}\right)^{-1}\mathbf{X}^\intercal\mathbf{D},
-\end{equation}&lt;/p&gt;
-
-      &lt;p&gt;where $\mathbf{D}$ denotes the $\vert\mathcal{S}\vert\times\vert\mathcal{S}\vert$ diagonal matrix with the $\mu(s)$ on the diagonal, and $\mathbf{X}$ denotes the $\vert\mathcal{S}\vert\times d$ matrix whose rows are the feature vectors $\mathbf{x}(s)^\intercal$, one for each state $s$. &lt;a href=&quot;#fnref:4&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="function-approximation" /><category term="td-learning" /><category term="importance-sampling" /><category term="my-rl" /><summary type="html">Reinforcement Learning in continuous state space requires function approximation.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="td-learning" /><category term="eligible-traces" /><category term="function-approximation" /><category term="importance-sampling" /><category term="my-rl" /><summary type="html">Beside $n$-step TD methods, there is another mechanism called Eligible traces that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.</summary></entry></feed>

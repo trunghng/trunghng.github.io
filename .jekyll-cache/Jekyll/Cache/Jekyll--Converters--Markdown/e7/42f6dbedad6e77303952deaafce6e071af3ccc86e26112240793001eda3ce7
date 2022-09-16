@@ -1,0 +1,182 @@
+I"�/<blockquote>
+  <p>Materials were taken mostly from <a href="#bishops-book">Bishop’s book</a>.
+<!-- excerpt-end --></p>
+  <ul>
+    <li><a href="#preliminaries">Preliminaries</a>
+      <ul>
+        <li><a href="#ind-basis-dim">Independence, basis, dimension</a>
+          <ul>
+            <li><a href="#lin-ind">Linear independence</a></li>
+            <li><a href="#basis">Basis of a vector space</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#lin-models-regression">Linear models for Regression</a>
+      <ul>
+        <li><a href="#lin-basis-func-models">Linear basis function models</a>
+          <ul>
+            <li><a href="#least-squares">Least squares</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#references">References</a></li>
+    <li><a href="#footnotes">Footnotes</a></li>
+  </ul>
+</blockquote>
+
+<h2 id="preliminaries">Preliminaries</h2>
+
+<h3 id="ind-basis-dim">Independence, basis, dimension</h3>
+
+<h4 id="lin-ind">Linear independence</h4>
+<p>The sequence of vectors $\mathbf{x}_1,\ldots,\mathbf{x}_n$ is said to be <strong>linearly independent</strong> (or <strong>independent</strong>) if
+\begin{equation}
+c_1\mathbf{x}_1+\ldots+c_n\mathbf{x}_n=\mathbf{0}
+\end{equation}
+only when $c_1,\ldots,c_n$ are all zero.</p>
+
+<p>Considering those $n$ vectors $\mathbf{x}_1,\ldots,\mathbf{x}_n$ as $n$ columns of a matrix $\mathbf{A}$
+\begin{equation}
+\mathbf{A}=\left[\begin{matrix}\vert&amp;&amp;\vert \\ \mathbf{x}_1 &amp; \ldots &amp; \mathbf{x}_n \\ \vert&amp;&amp;\vert\end{matrix}\right]
+\end{equation}
+we have that the columns of $\mathbf{A}$ are independent when
+\begin{equation}
+\mathbf{A}\mathbf{x}=\mathbf{0}\hspace{0.5cm}\Leftrightarrow\hspace{0.5cm}\mathbf{x}=\mathbf{0},
+\end{equation}
+or in other words, the rank of $\mathbf{A}$ is equal to the number of columns of $\mathbf{A}$.</p>
+
+<h4 id="basis">Basis of a vector space</h4>
+<p>We say that vectors $\mathbf{v}_1,\ldots,\mathbf{v}_k$ span a space $S$ when the space consists of all combinations of those vectors. Or in other words, any vector $\mathbf{u}\in S$ can be displayed as linear combination of $\mathbf{v}_i$.<br />
+In this case, $S$ is the smallest space containing those vectors.</p>
+
+<p>A <strong>basis</strong> for a vector space $S$ is a sequence of vectors $\mathbf{v}_1,\ldots,\mathbf{v}_d$ having two properties:</p>
+<ul id="roman-list">
+	<li>$\mathbf{v}_1,\ldots,\mathbf{v}_d$ are independent</li>
+	<li>$\mathbf{v}_1,\ldots,\mathbf{v}_d$ span $S$</li>
+</ul>
+<p>In $S$, every basis for that space has the same number of vectors, which is the dimension of $S$. Therefore, there are exactly $n$ vectors in every basis for $\mathbb{R}^n$.</p>
+
+<p>With that definition of a basis $\mathbf{v}_1,\dots,\mathbf{v}_d$ of $S$, for each vector $\mathbf{u}\in S$, there exists only one sequence $c_1,\ldots,c_d$ such that
+\begin{equation}
+\mathbf{u}=c_1\mathbf{v}_1+\ldots+c_d\mathbf{v}_d
+\end{equation}</p>
+
+<h2 id="lin-models-regression">Linear models for Regression</h2>
+<p>Regression refers to a problem of predicting the value of one or more continuous target variable $t$ given the value of a $D$-dimensional vector $\mathbf{x}$ of input variables.</p>
+
+<h3 id="lin-basis-func-models">Linear basis function models</h3>
+<p>The simplest linear model used for regression tasks is <strong>linear regression</strong>, which is defined as a linear combination of the input variables
+\begin{equation}
+y(\mathbf{x},\mathbf{w})=w_0+w_1x_1+\ldots+w_Dx_D,\tag{1}\label{1}
+\end{equation}
+where $\mathbf{x}=(x_1,\ldots,x_D)^\intercal$ is the input variables, while $w_i$’s are the parameters parameterizing the space of linear function mapping from the input space $\mathcal{X}$ of $\mathbf{x}$ to $\mathcal{Y}$.</p>
+
+<p>With the idea of spanning a space by its basis vectors, we can generalize it to establishing a function space by linear combinations of simpler basis functions. Or in other words, we can extend the class of models by instead using a linear combination of fixed nonlinear functions of the input variables $\mathbf{x}$, as
+\begin{equation}
+y(\mathbf{x},\mathbf{w})=w_0+w_1\phi_1(\mathbf{x})+\ldots+w_{M-1}\phi_{M-1}(\mathbf{x})=w_0+\sum_{i=1}^{M-1}w_i\phi_i(\mathbf{x}),\tag{2}\label{2}
+\end{equation}
+where $\phi_i(\mathbf{x})$’s are called the <strong>basis functions</strong>; $w_0$ is called a <strong>bias parameter</strong>. By letting $w_0$ be a coefficient corresponding to a dummy basis function $\phi_0(\mathbf{x})=1$, \eqref{2} can be written in a more convenient way
+\begin{equation}
+y(\mathbf{x},\mathbf{w})=\sum_{i=0}^{M-1}w_i\phi_i(\mathbf{x})=\mathbf{w}^\intercal\boldsymbol{\phi}(\mathbf{x}),\tag{3}\label{3}
+\end{equation}
+where $\mathbf{w}=(w_0,\ldots,w_{M-1})^\intercal$ and $\boldsymbol{\phi}=(\phi_0,\ldots,\phi_{M-1})^\intercal$, with $\phi_0(\cdot)=1$.</p>
+
+<p>There are various choices of basis functions:</p>
+<ul id="number-list">
+	<li>
+		<b>Polynomial basis</b>. Each basis function $\phi_i$ is a powers of a $1$-dimensional input $x$
+		\begin{equation}
+		\phi_i(x)=x^i
+		\end{equation}
+		An example of polynomial basis functions is illustrated as below
+		<figure>
+			<img src="/assets/images/2022-08-13/polynomial-basis.png" alt="polynomial basis" style="display: block; margin-left: auto; margin-right: auto;" />
+			<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Example of polynomial basis functions. The code can be found <span><a href="https://github.com/trunghng/maths-visualization/blob/main/pattern-recognition-and-machine-learning-book/linear-regression-models/basis-funcs.py">here</a></span></figcaption>
+		</figure>
+	</li>
+	<li>
+		<b>Gaussian basis function</b>. Each basis function $\phi_i$ is a Gaussian function of a $1$-dimensional input $x$
+		\begin{equation}
+		\phi_i(x)=\exp\left(-\frac{(x-\mu_i)^2}{2\sigma_i^2}\right)
+		\end{equation}
+		An example of Gaussian basis functions is illustrated as below
+		<figure>
+			<img src="/assets/images/2022-08-13/gaussian-basis.png" alt="Gaussian basis" style="display: block; margin-left: auto; margin-right: auto;" />
+			<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: Example of Gaussian basis functions. The code can be found <span><a href="https://github.com/trunghng/maths-visualization/blob/main/pattern-recognition-and-machine-learning-book/linear-regression-models/basis-funcs.py">here</a></span></figcaption>
+		</figure>
+	</li>
+	<li>
+		<b>Sigmoidal basis function</b>. Each basis function $\phi_i$ is defined as
+		\begin{equation}
+		\phi_i(x)=\sigma\left(\frac{x-\mu_i}{\sigma_i}\right),
+		\end{equation}
+		where $\sigma(\cdot)$ is the logistic sigmoid function
+		\begin{equation}
+		\sigma(x)=\frac{1}{1+\exp(-x)}
+		\end{equation}
+		An example of sigmoidal basis functions is illustrated as below
+		<figure>
+			<img src="/assets/images/2022-08-13/sigmoidal-basis.png" alt="sigmoidal basis" style="display: block; margin-left: auto; margin-right: auto;" />
+			<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: Example of sigmoidal basis functions. The code can be found <span><a href="https://github.com/trunghng/maths-visualization/blob/main/pattern-recognition-and-machine-learning-book/linear-regression-models/basis-funcs.py">here</a></span></figcaption>
+		</figure>
+	</li>
+</ul>
+
+<h4 id="least-squares">Least squares</h4>
+<p>Assume that the target variable $t$ and the inputs $\mathbf{x}$ is related via the equation
+\begin{equation}
+t=y(\mathbf{x},\mathbf{w})+\epsilon,
+\end{equation}
+where $\epsilon$ is an error term that captures random noise such that $\epsilon\sim\mathcal{N}(0,\sigma^2)$, which means the density of $\epsilon$ can be written as
+\begin{equation}
+p(\epsilon)=\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{\epsilon^2}{2\sigma^2}\right),
+\end{equation}
+which implies that
+\begin{equation}
+p(t|\mathbf{x};\mathbf{w},\beta)=\sqrt{\frac{\beta}{2\pi}}\exp\left(-\frac{(t-y(\mathbf{x},\mathbf{w}))^2\beta}{2}\right),\tag{4}\label{4}
+\end{equation}
+where $\beta=1/\sigma^2$ is the precision of $\epsilon$, or
+\begin{equation}
+t|\mathbf{x};\mathbf{w},\beta\sim\mathcal{N}(y(\mathbf{x},\mathbf{w}),\beta^{-1})\tag{5}\label{5}
+\end{equation}
+Consider a data set of inputs $\mathbf{X}=\{\mathbf{x}_1,\ldots,\mathbf{x}_N\}$ with corresponding target values $\mathbf{t}=(t_1,\ldots,t_N)^\intercal$ and assume that these data points are drawn independently from the distribution \eqref{5}, we obtain the batch version of \eqref{4}, called the <strong>likelihood function</strong>, given as
+\begin{align}
+L(\mathbf{w},\beta)=p(\mathbf{t}|\mathbf{X};\mathbf{w},\beta)&amp;=\prod_{i=1}^{N}p(t_i|\mathbf{x}_i;\mathbf{w},\beta) \\ &amp;=\prod_{i=1}^{N}\sqrt{\frac{\beta}{2\pi}}\exp\left(-\frac{(t_i-y(\mathbf{x}_i,\mathbf{w}))^2\beta}{2}\right)
+\end{align}
+By maximum likelihood, we will be looking for values of $\mathbf{w}$ and $\beta$ that maximize the likelihood. We do this by considering maximizing a simpler likelihood, called <strong>log likelihood</strong>, denoted as $\ell(\mathbf{w},\beta)$, defined as
+\begin{align}
+\ell(\mathbf{w},\beta)=\log{L(\mathbf{w},\beta)}&amp;=\log\prod_{i=1}^{N}\sqrt{\frac{\beta}{2\pi}}\exp\left(-\frac{(t_i-y(\mathbf{x}_i,\mathbf{w}))^2\beta}{2}\right) \\ &amp;=\sum_{i=1}^{N}\log\left[\sqrt{\frac{\beta}{2\pi}}\exp\left(-\frac{(t_i-y(\mathbf{x}_i,\mathbf{w}))^2\beta}{2}\right)\right] \\ &amp;=\frac{N}{2}\log\beta-\frac{N}{2}\log(2\pi)-\sum_{i=1}^{N}\frac{(t_i-y(\mathbf{x}_i,\mathbf{w}))^2\beta}{2} \\ &amp;=\frac{N}{2}\log\beta-\frac{N}{2}\log(2\pi)-\beta\cdot\frac{1}{2}\sum_{i=1}^{N}\left(t_i-y(\mathbf{x}_i,\mathbf{w})\right)^2\tag{6}\label{6}
+\end{align}
+Consider the gradient of \eqref{6} w.r.t $\mathbf{w}$, we have
+\begin{align}
+\nabla_\mathbf{w}\ell(\mathbf{w},\beta)&amp;=\nabla_\mathbf{w}\left[\frac{N}{2}\log\beta-\frac{N}{2}\log(2\pi)-\beta\cdot\frac{1}{2}\sum_{i=1}^{N}\big(t_i-y(\mathbf{x}_i,\mathbf{w})\big)^2\right] \\ &amp;\propto\nabla_\mathbf{w}\frac{1}{2}\sum_{i=1}^{N}\big(t_i-y(\mathbf{x}_i,\mathbf{w})\big)^2 \\ &amp;=\nabla_\mathbf{w}\frac{1}{2}\sum_{i=1}^{N}\left(t_i-\mathbf{w}^\intercal\boldsymbol{\phi}\big(\mathbf{x}_i\right)\big)^2 \\ &amp;=\sum_{i=1}^{N}(t_i-\mathbf{w}^\intercal\boldsymbol{\phi}(\mathbf{x}_i))\boldsymbol{\phi}(\mathbf{x}_i)^\intercal
+\end{align}
+By gradient descent, letting this gradient to zero gives us
+\begin{equation}
+\sum_{i=1}^{N}t_i\boldsymbol{\phi}(\mathbf{x}_i)^\intercal-\mathbf{w}^\intercal\sum_{i=1}^{N}\boldsymbol{\phi}(\mathbf{x}_i)\boldsymbol{\phi}(\mathbf{x}_i)^\intercal=0,
+\end{equation}
+which implies that
+\begin{equation}
+\mathbf{w}=\left(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}^\intercal\mathbf{t},\tag{7}\label{7}
+\end{equation}
+which is known as the <strong>normal equations</strong> for the least squares problem. In \eqref{7}, $\boldsymbol{\Phi}\in\mathbb{R}^{M\times N}$ is called the <strong>design matrix</strong>, whose elements are given by $\boldsymbol{\Phi}_{ij}=\phi_j(\mathbf{x}_i)$
+\begin{equation}
+\boldsymbol{\Phi}=\left[\begin{matrix}-\hspace{0.1cm}\boldsymbol{\phi}(\mathbf{x}_1)\hspace{0.1cm}- \\ \hspace{0.1cm}\vdots\hspace{0.1cm} \\ -\hspace{0.1cm}\boldsymbol{\phi}(\mathbf{x}_N)\hspace{0.1cm}-\end{matrix}\right]=\left[\begin{matrix}\phi_0(\mathbf{x}_1)&amp;\ldots&amp;\phi_{M-1}(\mathbf{x}_1) \\ \vdots&amp;\ddots&amp;\vdots \\ \phi_0(\mathbf{x}_N)&amp;\ldots&amp;\phi_{M-1}(\mathbf{x}_N)\end{matrix}\right],
+\end{equation}
+and the quantity
+\begin{equation}
+\left(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}^\intercal
+\end{equation}
+is called the <strong>Moore-Penrose pseudoinverse</strong> of the matrix $\boldsymbol{\Phi}$</p>
+
+<h2 id="references">References</h2>
+<p>[1] <span id="bishops-book">Christopher M. Bishop. <a href="https://link.springer.com/book/9780387310732">Pattern Recognition and Machine Learning</a>. Springer New York, NY.</span></p>
+
+<p>[2] Gilbert Strang. <a href="http://math.mit.edu/~gs/linearalgebra/">Introduction to Linear Algebra</a>.</p>
+
+<p>[3] MIT 18.06. <a href="https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/">Linear Algebra</a>.</p>
+
+<h2 id="footnotes">Footnotes</h2>
+:ET

@@ -1,0 +1,35 @@
+I"�<blockquote>
+  <p>Materials were taken from <a href="#bishops-book">Bishop’s book</a>.
+<!-- excerpt-end --></p>
+</blockquote>
+
+<ul>
+  <li><a href="#lin-models-regression">Linear models for Regression</a>
+    <ul>
+      <li><a href="#lin-basis-func-models">Linear basis function models</a></li>
+    </ul>
+  </li>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h2 id="lin-models-regression">Linear models for Regression</h2>
+<p>Regression refers to a problem of predicting the value of one or more continuous target variable $t$ given the value of a $D$-dimensional vector $\mathbf{x}$ of input variables.</p>
+
+<h3 id="lin-basis-func-models">Linear basis function models</h3>
+<p>The simplest linear regression model is <strong>linear regression</strong>, which is defined as a linear combination of the input variables
+\begin{equation}
+y(\mathbf{x},\mathbf{w})=w_0+w_1x_1+\ldots+w_Dx_D,\tag{1}\label{1}
+\end{equation}
+where $\mathbf{x}=(x_1,\ldots,x_D)^\intercal$ is the input variables, while $w_i$’s are the parameters paremeterizing the space of linear function mapping from the input space $\mathcal{X}$ of $\mathbf{x}$ to $\mathcal{Y}$.</p>
+
+<p>We can extend the class of models by instead using a linear combination of fixed nonlinear functions of the input variables $\mathbf{x}$, as
+\begin{equation}
+y(\mathbf{x},\mathbf{w})=w_0+w_1\phi_1(\mathbf{x})+\ldots+w_{M-1}\phi_{M-1}(\mathbf{x})=w_0\sum_{i=1}^{M-1}w_i\phi_i(\mathbf{x})
+\end{equation}</p>
+
+<h2 id="references">References</h2>
+<p>[1] <span id="bishops-book">Christopher M. Bishop. <a href="https://link.springer.com/book/9780387310732">Pattern Recognition and Machine Learning</a>. Springer New York, NY.</span></p>
+
+<h2 id="footnotes">Footnotes</h2>
+:ET

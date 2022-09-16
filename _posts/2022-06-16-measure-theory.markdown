@@ -682,11 +682,11 @@ Let $B$ be a closed box in $\mathbb{R}^d$, and let $f:B\to\mathbb{R}$ be a conti
 **Proof**
 <ul id='number-list'>
 	<li>
-		For any closed box $C\in\mathbb{R}^d$, we have $\{(x,f(x)):x\in C\}\subset\mathbb{R}^{d+1}$ with $f:C\to\mathbb{R}$ is a compact metric space. And when $f$ continuous we also have $f$ is uniformly continuous, which means for any $\varepsilon>0$, there exists $\delta$ such that
+		For any closed box $C\in\mathbb{R}^d$, we have $\{(x,f(x)):x\in C\}\subset\mathbb{R}^{d+1}$ with $f:C\to\mathbb{R}$ is a compact metric space. And when $f$ continuous we also have $f$ is <span markdown="1">uniformly continuous[^1]</span>, which means for any $\varepsilon>0$, there exists $\delta$ such that
 		\begin{equation}
 		\vert f(x)-f(x)\vert<\varepsilon,
 		\end{equation}
-		with $\vert y-x\vert<\delta$. Therefore, we can divide $C$ into finitely many disjoint boxes $C_1,\ldots,C_n$ such that $\vert x_i-y_i\vert<\delta$ and for any $\varepsilon>0$
+		with $\Vert y-x\Vert_d<\delta$. Therefore, we can divide $C$ into finitely many disjoint boxes $C_1,\ldots,C_n$ such that $\vert x_i-y_i\vert<\delta$ and for any $\varepsilon>0$
 		\begin{equation}
 		\vert f(x_i)-f(y_i)\vert<\varepsilon
 		\end{equation}
@@ -698,9 +698,9 @@ Let $B$ be a closed box in $\mathbb{R}^d$, and let $f:B\to\mathbb{R}$ be a conti
 		\begin{equation}
 		\left\{(x,f(x)):x\in C\right\}=\bigcup_{i=1}^{n}\left\{(x,f(x)):x\in C_i\right\}\subset\bigcup_{i=1}^{n}C_i\times\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)
 		\end{equation}
-		With this result, and by the monotonicity, finite additivity of elementary measure, we have the outer Jordan measure of the graph $\{(x,f(x)):x\in B\}\subset\mathbb{R}^{d+1}$ can be written as
+		With this result, and by the monotonicity, finite additivity of elementary measure, we have the Jordan outer measure of the graph $\{(x,f(x)):x\in B\}\subset\mathbb{R}^{d+1}$ can be written as
 		\begin{align}
-		m^{*,J}\left(\{(x,f(x)):x\in B\}\right)&=\inf_{C\supset B,C\text{ boxes}}m\left(\left\{(x,f(x)):x\in C\right\}\right) \\ &\leq m^{d+1}\left(\bigcup_{i=1}^{n}C_i\times\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &=\sum_{i=1}^{n}m^d(C_i)\times m^1\left(\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &=2n\varepsilon m^d(C)<2n\varepsilon\delta
+		m^{*,J}\left(\{(x,f(x)):x\in B\}\right)&=\inf_{C\supset B,C\text{ closed box}}m\left(\left\{(x,f(x)):x\in C\right\}\right) \\ &\leq m^{d+1}\left(\bigcup_{i=1}^{n}C_i\times\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &=\sum_{i=1}^{n}m^d(C_i)\times m^1\left(\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &=2n\varepsilon m^d(C)<2n\varepsilon\delta
 		\end{align}
 		And since $\varepsilon>0$ arbitrarily, we finally obtain
 		\begin{equation}
@@ -716,7 +716,12 @@ Let $B$ be a closed box in $\mathbb{R}^d$, and let $f:B\to\mathbb{R}$ be a conti
 		\end{equation}
 		or in other words, the graph $\left(\{(x,f(x)):x\in B\}\right)$ is Jordan measurable on $\mathbb{R}^{d+1}$ with Jordan measure zero.
 	</li>
-	<li></li>
+	<li>
+		We have the Jordan inner measure of the set $\left\{(x,t):x\in B,0\leq t\leq f(x)\right\}$ can be written as
+		\begin{align}
+		m_{*,J}\Big(\big\{(x,t):x\in B,0\leq t\leq f(x)\big\}\Big)&=\sup_{A\subset B,A\text{ closed box}}m\Big(\big\{(x,t):x\in A,0\leq t\leq f(x)\big\}\Big)
+		\end{align}
+	</li>
 </ul>
 
 ### Jordan null sets
@@ -724,6 +729,16 @@ Let $B$ be a closed box in $\mathbb{R}^d$, and let $f:B\to\mathbb{R}$ be a conti
 A **Jordan null set** is a Jordan measurable set of Jordan measure zero. We have that any subset of a Jordan null set is also a Jordan null set.
 
 **Proof**  
+
+
+**Remark**  
+For any Jordan measurable set $E\subset\mathbb{R}^d$, its Jordan measure can be written as
+\begin{equation}
+m(E)\doteq\lim_{N\to\infty}\frac{1}{N^d}\\#\left(E\cup\frac{1}{N}\mathbb{Z}^d\right)
+\end{equation}
+
+**Proof**  
+
 
 
 ### Uniqueness of Jordan measure
@@ -988,7 +1003,7 @@ Therefore, for any $\varepsilon>0$, we have
 which claims that $f$ is Riemann integrable on $[a,b]$ with $\text{d.}\int_{a}^{b}f(x)\,dx$ is the Riemann integral of $f$.
 
 **Example**  
-Any continuous function $f:[a,b]\to\mathbb{R}$ is Riemann integrable. More generally, any bounded, **piecewise continuous function**[^1] $f:[a,b]\to\mathbb{R}$ is Riemann integrable.
+Any continuous function $f:[a,b]\to\mathbb{R}$ is Riemann integrable. More generally, any bounded, **piecewise continuous function**[^2] $f:[a,b]\to\mathbb{R}$ is Riemann integrable.
 
 **Solution**  
 Consider a partition of piecewise continuous f on $[a,b]$ into finitely many intervals $I_1,\ldots,I_n$. Using the procedure that we used for the above proof, we have that on each interval $I_i$, there exists an $x_i$ such that for any $\varepsilon>0$
@@ -1003,7 +1018,7 @@ which implies that
 \begin{equation}
 \left\vert\sum_{i=1}^{n}f(x_i)\vert I_i\vert-\sum_{i=1}^{n}\inf_{x\in I_i}f(x)\vert I_i\vert\right\vert<\varepsilon,
 \end{equation}
-As $\sup_{i=0,\ldots,n}\vert I_i\vert\to 0$
+which implies that $f$ is Riemann integrable on $[a,b]$.
 
 ### Basic properties of Riemann integral
 {: #riemann-int-properties}
@@ -1120,4 +1135,5 @@ where $m^2$ denotes two-dimensional Jordan measure.
 ## Footnotes
 {: #footnotes}
 
-[^1]: A function $f:[a,b]\to\mathbb{R}$ is **piecewise continuous** if we can partition $[a,b]$ into finitely many intervals, such that $f$ is continuous on each interval.
+[^1]: A function $f$ is said to be **uniformly continuous** if there.
+[^2]: A function $f:[a,b]\to\mathbb{R}$ is **piecewise continuous** if we can partition $[a,b]$ into finitely many intervals, such that $f$ is continuous on each interval.

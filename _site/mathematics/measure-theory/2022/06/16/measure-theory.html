@@ -851,11 +851,11 @@ Let $B$ be a closed box in $\mathbb{R}^d$, and let $f:B\to\mathbb{R}$ be a conti
 <p><strong>Proof</strong></p>
 <ul id="number-list">
 	<li>
-		For any closed box $C\in\mathbb{R}^d$, we have $\{(x,f(x)):x\in C\}\subset\mathbb{R}^{d+1}$ with $f:C\to\mathbb{R}$ is a compact metric space. And when $f$ continuous we also have $f$ is uniformly continuous, which means for any $\varepsilon&gt;0$, there exists $\delta$ such that
+		For any closed box $C\in\mathbb{R}^d$, we have $\{(x,f(x)):x\in C\}\subset\mathbb{R}^{d+1}$ with $f:C\to\mathbb{R}$ is a compact metric space. And when $f$ continuous we also have $f$ is <span>uniformly continuous<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup></span>, which means for any $\varepsilon&gt;0$, there exists $\delta$ such that
 		\begin{equation}
 		\vert f(x)-f(x)\vert&lt;\varepsilon,
 		\end{equation}
-		with $\vert y-x\vert&lt;\delta$. Therefore, we can divide $C$ into finitely many disjoint boxes $C_1,\ldots,C_n$ such that $\vert x_i-y_i\vert&lt;\delta$ and for any $\varepsilon&gt;0$
+		with $\Vert y-x\Vert_d&lt;\delta$. Therefore, we can divide $C$ into finitely many disjoint boxes $C_1,\ldots,C_n$ such that $\vert x_i-y_i\vert&lt;\delta$ and for any $\varepsilon&gt;0$
 		\begin{equation}
 		\vert f(x_i)-f(y_i)\vert&lt;\varepsilon
 		\end{equation}
@@ -867,9 +867,9 @@ Let $B$ be a closed box in $\mathbb{R}^d$, and let $f:B\to\mathbb{R}$ be a conti
 		\begin{equation}
 		\left\{(x,f(x)):x\in C\right\}=\bigcup_{i=1}^{n}\left\{(x,f(x)):x\in C_i\right\}\subset\bigcup_{i=1}^{n}C_i\times\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)
 		\end{equation}
-		With this result, and by the monotonicity, finite additivity of elementary measure, we have the outer Jordan measure of the graph $\{(x,f(x)):x\in B\}\subset\mathbb{R}^{d+1}$ can be written as
+		With this result, and by the monotonicity, finite additivity of elementary measure, we have the Jordan outer measure of the graph $\{(x,f(x)):x\in B\}\subset\mathbb{R}^{d+1}$ can be written as
 		\begin{align}
-		m^{*,J}\left(\{(x,f(x)):x\in B\}\right)&amp;=\inf_{C\supset B,C\text{ boxes}}m\left(\left\{(x,f(x)):x\in C\right\}\right) \\ &amp;\leq m^{d+1}\left(\bigcup_{i=1}^{n}C_i\times\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &amp;=\sum_{i=1}^{n}m^d(C_i)\times m^1\left(\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &amp;=2n\varepsilon m^d(C)&lt;2n\varepsilon\delta
+		m^{*,J}\left(\{(x,f(x)):x\in B\}\right)&amp;=\inf_{C\supset B,C\text{ closed box}}m\left(\left\{(x,f(x)):x\in C\right\}\right) \\ &amp;\leq m^{d+1}\left(\bigcup_{i=1}^{n}C_i\times\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &amp;=\sum_{i=1}^{n}m^d(C_i)\times m^1\left(\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &amp;=2n\varepsilon m^d(C)&lt;2n\varepsilon\delta
 		\end{align}
 		And since $\varepsilon&gt;0$ arbitrarily, we finally obtain
 		\begin{equation}
@@ -885,11 +885,24 @@ Let $B$ be a closed box in $\mathbb{R}^d$, and let $f:B\to\mathbb{R}$ be a conti
 		\end{equation}
 		or in other words, the graph $\left(\{(x,f(x)):x\in B\}\right)$ is Jordan measurable on $\mathbb{R}^{d+1}$ with Jordan measure zero.
 	</li>
-	<li></li>
+	<li>
+		We have the Jordan inner measure of the set $\left\{(x,t):x\in B,0\leq t\leq f(x)\right\}$ can be written as
+		\begin{align}
+		m_{*,J}\Big(\big\{(x,t):x\in B,0\leq t\leq f(x)\big\}\Big)&amp;=\sup_{A\subset B,A\text{ closed box}}m\Big(\big\{(x,t):x\in A,0\leq t\leq f(x)\big\}\Big)
+		\end{align}
+	</li>
 </ul>
 
 <h3 id="jordan-null-sets">Jordan null sets</h3>
 <p>A <strong>Jordan null set</strong> is a Jordan measurable set of Jordan measure zero. We have that any subset of a Jordan null set is also a Jordan null set.</p>
+
+<p><strong>Proof</strong></p>
+
+<p><strong>Remark</strong><br />
+For any Jordan measurable set $E\subset\mathbb{R}^d$, its Jordan measure can be written as
+\begin{equation}
+m(E)\doteq\lim_{N\to\infty}\frac{1}{N^d}\#\left(E\cup\frac{1}{N}\mathbb{Z}^d\right)
+\end{equation}</p>
 
 <p><strong>Proof</strong></p>
 
@@ -1148,7 +1161,7 @@ which claims that $f$ is Riemann integrable on $[a,b]$ with $\text{d.}\int_{a}^{
 </ul>
 
 <p><strong>Example</strong><br />
-Any continuous function $f:[a,b]\to\mathbb{R}$ is Riemann integrable. More generally, any bounded, <strong>piecewise continuous function</strong><sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> $f:[a,b]\to\mathbb{R}$ is Riemann integrable.</p>
+Any continuous function $f:[a,b]\to\mathbb{R}$ is Riemann integrable. More generally, any bounded, <strong>piecewise continuous function</strong><sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup> $f:[a,b]\to\mathbb{R}$ is Riemann integrable.</p>
 
 <p><strong>Solution</strong><br />
 Consider a partition of piecewise continuous f on $[a,b]$ into finitely many intervals $I_1,\ldots,I_n$. Using the procedure that we used for the above proof, we have that on each interval $I_i$, there exists an $x_i$ such that for any $\varepsilon&gt;0$
@@ -1163,7 +1176,7 @@ which implies that
 \begin{equation}
 \left\vert\sum_{i=1}^{n}f(x_i)\vert I_i\vert-\sum_{i=1}^{n}\inf_{x\in I_i}f(x)\vert I_i\vert\right\vert&lt;\varepsilon,
 \end{equation}
-As $\sup_{i=0,\ldots,n}\vert I_i\vert\to 0$</p>
+which implies that $f$ is Riemann integrable on $[a,b]$.</p>
 
 <h3 id="riemann-int-properties">Basic properties of Riemann integral</h3>
 <p>Let $[a,b]$ be an interval, and let $f,g:[a,b]\to\mathbb{R}$ be Riemann integrable. We then have that</p>
@@ -1279,7 +1292,10 @@ where $m^2$ denotes two-dimensional Jordan measure.</p>
 <div class="footnotes" role="doc-endnotes">
   <ol>
     <li id="fn:1" role="doc-endnote">
-      <p>A function $f:[a,b]\to\mathbb{R}$ is <strong>piecewise continuous</strong> if we can partition $[a,b]$ into finitely many intervals, such that $f$ is continuous on each interval. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>A function $f$ is said to be <strong>uniformly continuous</strong> if there. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p>A function $f:[a,b]\to\mathbb{R}$ is <strong>piecewise continuous</strong> if we can partition $[a,b]$ into finitely many intervals, such that $f$ is continuous on each interval. <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>

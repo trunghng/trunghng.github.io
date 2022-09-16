@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:400,900,900i" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<style type="text/css">
+  #button {
+    display: inline-block;
+    background-color: #A5CCF1;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border-radius: 4px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    transition: background-color .3s, 
+      opacity .5s, visibility .5s;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+  }
+  #button::after {
+    content: "\f077";
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 2em;
+    line-height: 50px;
+    color: #fff;
+  }
+  #button:hover {
+    cursor: pointer;
+    background-color: #333;
+    text-decoration: none;
+  }
+  #button:active {
+    background-color: #555;
+  }
+  #button.show {
+    opacity: 1;
+    visibility: visible;
+  }
+</style><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Linear models | Trung’s cabin</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Linear models" />
+<meta name="author" content="Trung H. Nguyen" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A note on lienar models" />
+<meta property="og:description" content="A note on lienar models" />
+<link rel="canonical" href="http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/linear-models.html" />
+<meta property="og:url" content="http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/linear-models.html" />
+<meta property="og:site_name" content="Trung’s cabin" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-08-13T13:00:00+07:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Linear models" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","description":"A note on lienar models","headline":"Linear models","dateModified":"2022-08-13T13:00:00+07:00","datePublished":"2022-08-13T13:00:00+07:00","url":"http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/linear-models.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/linear-models.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Trung&apos;s cabin" />
+    
+
+
+
+
+
+  
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+<link rel="manifest" href="/assets/images/site.webmanifest">
+<link rel="mask-icon" href="/assets/images/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff"></head>
+<body><header class="site-header">
+  <div class="snorlax"></div>
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Trung&#39;s cabin</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/archive/">Archive</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <a id="button"></a>
+      <div class="wrapper">
+        <style>
+@import "/assets/css/default.css"
+</style>
+<style>
+  .collapsible {
+    background-color: #A5CCF1;
+    color: white;
+    cursor: pointer;
+    padding: 5px;
+    /*width: 100%;*/
+    border: none;
+    text-align: center;
+    outline: none;
+    font-size: 15px;
+  }
+
+  .active, .collapsible:hover {
+    background-color: #82B9EE;
+  }
+
+  .codePanel {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+  }
+</style>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <meta name="description" content="A note on lienar models">
+    <h1 class="post-title p-name" itemprop="name headline">Linear models</h1>
+    <p><span>
+      
+        
+        <a href="/tag/artificial-intelligent"><code class="highligher-rouge"><nobr>artificial-intelligent</nobr></code>&nbsp;</a>
+      
+        
+        <a href="/tag/machine-learning"><code class="highligher-rouge"><nobr>machine-learning</nobr></code>&nbsp;</a>
+      
+        
+        <a href="/tag/linear-model"><code class="highligher-rouge"><nobr>linear-model</nobr></code>&nbsp;</a>
+      
+    </span></p>
+    <p class="post-meta"><time class="dt-published" datetime="2022-08-13T13:00:00+07:00" itemprop="datePublished">
+        Aug 13, 2022
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <blockquote>
+  <p>Materials were taken mostly from <a href="% post_url 2022-08-13-linear-models %}#bishops-book">Bishop’s book</a>.
+<!-- excerpt-end --></p>
+</blockquote>
+
+<ul>
+  <li><a href="#preliminaries">Preliminaries</a>
+    <ul>
+      <li><a href="#ind-basis-dim">Independence, basis, dimension</a>
+        <ul>
+          <li><a href="#lin-ind">Linear independence</a></li>
+          <li><a href="#basis">Basis of a vector space</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#lin-models-regression">Linear models for Regression</a>
+    <ul>
+      <li><a href="#lin-basis-func-models">Linear basis function models</a>
+        <ul>
+          <li><a href="#least-squares">Least squares</a></li>
+          <li><a href="#geo-least-squares">Geometrical interpretation of least squares</a></li>
+          <li><a href="#reg-least-squares">Regularized least squares</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h2 id="preliminaries">Preliminaries</h2>
+
+<h3 id="ind-basis-dim">Independence, basis, dimension</h3>
+
+<h4 id="lin-ind">Linear independence</h4>
+<p>The sequence of vectors $\mathbf{x}_1,\ldots,\mathbf{x}_n$ is said to be <strong>linearly independent</strong> (or <strong>independent</strong>) if
+\begin{equation}
+c_1\mathbf{x}_1+\ldots+c_n\mathbf{x}_n=\mathbf{0}
+\end{equation}
+only when $c_1,\ldots,c_n$ are all zero.</p>
+
+<p>Considering those $n$ vectors $\mathbf{x}_1,\ldots,\mathbf{x}_n$ as $n$ columns of a matrix $\mathbf{A}$
+\begin{equation}
+\mathbf{A}=\left[\begin{matrix}\vert&amp;&amp;\vert \\ \mathbf{x}_1 &amp; \ldots &amp; \mathbf{x}_n \\ \vert&amp;&amp;\vert\end{matrix}\right]
+\end{equation}
+we have that the columns of $\mathbf{A}$ are independent when
+\begin{equation}
+\mathbf{A}\mathbf{x}=\mathbf{0}\hspace{0.5cm}\Leftrightarrow\hspace{0.5cm}\mathbf{x}=\mathbf{0},
+\end{equation}
+or in other words, the rank of $\mathbf{A}$ is equal to the number of columns of $\mathbf{A}$.</p>
+
+<h4 id="basis">Basis of a vector space</h4>
+<p>We say that vectors $\mathbf{v}_1,\ldots,\mathbf{v}_k$ span a space $S$ when the space consists of all combinations of those vectors. Or in other words, any vector $\mathbf{u}\in S$ can be displayed as linear combination of $\mathbf{v}_i$.<br />
+In this case, $S$ is the smallest space containing those vectors.</p>
+
+<p>A <strong>basis</strong> for a vector space $S$ is a sequence of vectors $\mathbf{v}_1,\ldots,\mathbf{v}_d$ having two properties:</p>
+<ul id="roman-list">
+	<li>$\mathbf{v}_1,\ldots,\mathbf{v}_d$ are independent</li>
+	<li>$\mathbf{v}_1,\ldots,\mathbf{v}_d$ span $S$</li>
+</ul>
+<p>In $S$, every basis for that space has the same number of vectors, which is the dimension of $S$. Therefore, there are exactly $n$ vectors in every basis for $\mathbb{R}^n$.</p>
+
+<p>With that definition of a basis $\mathbf{v}_1,\dots,\mathbf{v}_d$ of $S$, for each vector $\mathbf{u}\in S$, there exists only one sequence $c_1,\ldots,c_d$ such that
+\begin{equation}
+\mathbf{u}=c_1\mathbf{v}_1+\ldots+c_d\mathbf{v}_d
+\end{equation}</p>
+
+<h2 id="lin-models-regression">Linear models for Regression</h2>
+<p>Regression refers to a problem of predicting the value of one or more continuous target variable $t$ given the value of a $D$-dimensional vector $\mathbf{x}$ of input variables.</p>
+
+<h3 id="lin-basis-func-models">Linear basis function models</h3>
+<p>The simplest linear model used for regression tasks is <strong>linear regression</strong>, which is defined as a linear combination of the input variables
+\begin{equation}
+y(\mathbf{x},\mathbf{w})=w_0+w_1x_1+\ldots+w_Dx_D,\tag{1}\label{1}
+\end{equation}
+where $\mathbf{x}=(x_1,\ldots,x_D)^\intercal$ is the input variables, while $w_i$’s are the parameters parameterizing the space of linear function mapping from the input space $\mathcal{X}$ of $\mathbf{x}$ to $\mathcal{Y}$.</p>
+
+<p>With the idea of spanning a space by its basis vectors, we can generalize it to establishing a function space by linear combinations of simpler basis functions. Or in other words, we can extend the class of models by instead using a linear combination of fixed nonlinear functions of the input variables $\mathbf{x}$, as
+\begin{equation}
+y(\mathbf{x},\mathbf{w})=w_0+w_1\phi_1(\mathbf{x})+\ldots+w_{M-1}\phi_{M-1}(\mathbf{x})=w_0+\sum_{i=1}^{M-1}w_i\phi_i(\mathbf{x}),\tag{2}\label{2}
+\end{equation}
+where $\phi_i(\mathbf{x})$’s are called the <strong>basis functions</strong>; $w_0$ is called a <strong>bias parameter</strong>. By letting $w_0$ be a coefficient corresponding to a dummy basis function $\phi_0(\mathbf{x})=1$, \eqref{2} can be written in a more convenient way
+\begin{equation}
+y(\mathbf{x},\mathbf{w})=\sum_{i=0}^{M-1}w_i\phi_i(\mathbf{x})=\mathbf{w}^\intercal\boldsymbol{\phi}(\mathbf{x}),\tag{3}\label{3}
+\end{equation}
+where $\mathbf{w}=(w_0,\ldots,w_{M-1})^\intercal$ and $\boldsymbol{\phi}=(\phi_0,\ldots,\phi_{M-1})^\intercal$, with $\phi_0(\cdot)=1$.</p>
+
+<p>There are various choices of basis functions:</p>
+<ul id="number-list">
+	<li>
+		<b>Polynomial basis</b>. Each basis function $\phi_i$ is a powers of a $1$-dimensional input $x$
+		\begin{equation}
+		\phi_i(x)=x^i
+		\end{equation}
+		An example of polynomial basis functions is illustrated as below
+		<figure>
+			<img src="/assets/images/2022-08-13/polynomial-basis.png" alt="polynomial basis" style="display: block; margin-left: auto; margin-right: auto;" />
+			<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Example of polynomial basis functions. The code can be found <span><a href="https://github.com/trunghng/maths-visualization/blob/main/pattern-recognition-and-machine-learning-book/linear-regression-models/basis-funcs.py">here</a></span></figcaption>
+		</figure>
+	</li>
+	<li>
+		<b>Gaussian basis function</b>. Each basis function $\phi_i$ is a Gaussian function of a $1$-dimensional input $x$
+		\begin{equation}
+		\phi_i(x)=\exp\left(-\frac{(x-\mu_i)^2}{2\sigma_i^2}\right)
+		\end{equation}
+		An example of Gaussian basis functions is illustrated as below
+		<figure>
+			<img src="/assets/images/2022-08-13/gaussian-basis.png" alt="Gaussian basis" style="display: block; margin-left: auto; margin-right: auto;" />
+			<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: Example of Gaussian basis functions. The code can be found <span><a href="https://github.com/trunghng/maths-visualization/blob/main/pattern-recognition-and-machine-learning-book/linear-regression-models/basis-funcs.py">here</a></span></figcaption>
+		</figure>
+	</li>
+	<li>
+		<b>Sigmoidal basis function</b>. Each basis function $\phi_i$ is defined as
+		\begin{equation}
+		\phi_i(x)=\sigma\left(\frac{x-\mu_i}{\sigma_i}\right),
+		\end{equation}
+		where $\sigma(\cdot)$ is the logistic sigmoid function
+		\begin{equation}
+		\sigma(x)=\frac{1}{1+\exp(-x)}
+		\end{equation}
+		An example of sigmoidal basis functions is illustrated as below
+		<figure>
+			<img src="/assets/images/2022-08-13/sigmoidal-basis.png" alt="sigmoidal basis" style="display: block; margin-left: auto; margin-right: auto;" />
+			<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: Example of sigmoidal basis functions. The code can be found <span><a href="https://github.com/trunghng/maths-visualization/blob/main/pattern-recognition-and-machine-learning-book/linear-regression-models/basis-funcs.py">here</a></span></figcaption>
+		</figure>
+	</li>
+</ul>
+
+<h4 id="least-squares">Least squares</h4>
+<p>Assume that the target variable $t$ and the inputs $\mathbf{x}$ is related via the equation
+\begin{equation}
+t=y(\mathbf{x},\mathbf{w})+\epsilon,
+\end{equation}
+where $\epsilon$ is an error term that captures random noise such that $\epsilon\sim\mathcal{N}(0,\sigma^2)$, which means the density of $\epsilon$ can be written as
+\begin{equation}
+p(\epsilon)=\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{\epsilon^2}{2\sigma^2}\right),
+\end{equation}
+which implies that
+\begin{equation}
+p(t|\mathbf{x};\mathbf{w},\beta)=\sqrt{\frac{\beta}{2\pi}}\exp\left(-\frac{(t-y(\mathbf{x},\mathbf{w}))^2\beta}{2}\right),\tag{4}\label{4}
+\end{equation}
+where $\beta=1/\sigma^2$ is the precision of $\epsilon$, or
+\begin{equation}
+t|\mathbf{x};\mathbf{w},\beta\sim\mathcal{N}(y(\mathbf{x},\mathbf{w}),\beta^{-1})\tag{5}\label{5}
+\end{equation}
+Consider a data set of inputs $\mathbf{X}=\{\mathbf{x}_1,\ldots,\mathbf{x}_N\}$ with corresponding target values $\mathbf{t}=(t_1,\ldots,t_N)^\intercal$ and assume that these data points are drawn independently from the distribution \eqref{5}, we obtain the batch version of \eqref{4}, called the <strong>likelihood function</strong>, given as
+\begin{align}
+L(\mathbf{w},\beta)=p(\mathbf{t}|\mathbf{X};\mathbf{w},\beta)&amp;=\prod_{i=1}^{N}p(t_i|\mathbf{x}_i;\mathbf{w},\beta) \\ &amp;=\prod_{i=1}^{N}\sqrt{\frac{\beta}{2\pi}}\exp\left(-\frac{(t_i-y(\mathbf{x}_i,\mathbf{w}))^2\beta}{2}\right)
+\end{align}
+By maximum likelihood, we will be looking for values of $\mathbf{w}$ and $\beta$ that maximize the likelihood. We do this by considering maximizing a simpler likelihood, called <strong>log likelihood</strong>, denoted as $\ell(\mathbf{w},\beta)$, defined as
+\begin{align}
+\ell(\mathbf{w},\beta)=\log{L(\mathbf{w},\beta)}&amp;=\log\prod_{i=1}^{N}\sqrt{\frac{\beta}{2\pi}}\exp\left(-\frac{(t_i-y(\mathbf{x}_i,\mathbf{w}))^2\beta}{2}\right) \\ &amp;=\sum_{i=1}^{N}\log\left[\sqrt{\frac{\beta}{2\pi}}\exp\left(-\frac{(t_i-y(\mathbf{x}_i,\mathbf{w}))^2\beta}{2}\right)\right] \\ &amp;=\frac{N}{2}\log\beta-\frac{N}{2}\log(2\pi)-\sum_{i=1}^{N}\frac{(t_i-y(\mathbf{x}_i,\mathbf{w}))^2\beta}{2} \\ &amp;=\frac{N}{2}\log\beta-\frac{N}{2}\log(2\pi)-\beta E_D(\mathbf{w})\tag{6}\label{6},
+\end{align}
+where $E_D(\mathbf{w})$ is the sum-of-squares error function, defined as
+\begin{equation}
+E_D(\mathbf{w})\doteq\frac{1}{2}\sum_{i=1}^{N}\left(t_i-y(\mathbf{x}_i,\mathbf{w})\right)^2\tag{7}\label{7}
+\end{equation}
+Consider the gradient of \eqref{6} w.r.t $\mathbf{w}$, we have
+\begin{align}
+\nabla_\mathbf{w}\ell(\mathbf{w},\beta)&amp;=\nabla_\mathbf{w}\left[\frac{N}{2}\log\beta-\frac{N}{2}\log(2\pi)-\beta E_D(\mathbf{w})\right] \\ &amp;\propto\nabla_\mathbf{w}\frac{1}{2}\sum_{i=1}^{N}\big(t_i-y(\mathbf{x}_i,\mathbf{w})\big)^2 \\ &amp;=\nabla_\mathbf{w}\frac{1}{2}\sum_{i=1}^{N}\left(t_i-\mathbf{w}^\intercal\boldsymbol{\phi}\big(\mathbf{x}_i\right)\big)^2 \\ &amp;=\sum_{i=1}^{N}(t_i-\mathbf{w}^\intercal\boldsymbol{\phi}(\mathbf{x}_i))\boldsymbol{\phi}(\mathbf{x}_i)^\intercal
+\end{align}
+By gradient descent, letting this gradient to zero gives us
+\begin{equation}
+\sum_{i=1}^{N}t_i\boldsymbol{\phi}(\mathbf{x}_i)^\intercal-\mathbf{w}^\intercal\sum_{i=1}^{N}\boldsymbol{\phi}(\mathbf{x}_i)\boldsymbol{\phi}(\mathbf{x}_i)^\intercal=0,
+\end{equation}
+which implies that
+\begin{equation}
+\mathbf{w}_\text{ML}=\left(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}^\intercal\mathbf{t},\tag{8}\label{8}
+\end{equation}
+which is known as the <strong>normal equations</strong> for the least squares problem. In \eqref{8}, $\boldsymbol{\Phi}\in\mathbb{R}^{M\times N}$ is called the <strong>design matrix</strong>, whose elements are given by $\boldsymbol{\Phi}_{ij}=\phi_j(\mathbf{x}_i)$
+\begin{equation}
+\boldsymbol{\Phi}=\left[\begin{matrix}-\hspace{0.1cm}\boldsymbol{\phi}(\mathbf{x}_1)\hspace{0.1cm}- \\ \hspace{0.1cm}\vdots\hspace{0.1cm} \\ -\hspace{0.1cm}\boldsymbol{\phi}(\mathbf{x}_N)\hspace{0.1cm}-\end{matrix}\right]=\left[\begin{matrix}\phi_0(\mathbf{x}_1)&amp;\ldots&amp;\phi_{M-1}(\mathbf{x}_1) \\ \vdots&amp;\ddots&amp;\vdots \\ \phi_0(\mathbf{x}_N)&amp;\ldots&amp;\phi_{M-1}(\mathbf{x}_N)\end{matrix}\right],
+\end{equation}
+and the quantity
+\begin{equation}
+\boldsymbol{\Phi}^\dagger\doteq\left(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}^\intercal
+\end{equation}
+is called the <strong>Moore-Penrose pseudoinverse</strong> of the matrix $\boldsymbol{\Phi}$.
+On the other hand, consider the gradient of \eqref{6} w.r.t $\beta$ and set it equal to zero, we obtain
+\begin{equation}
+\beta=\frac{N}{\sum_{i=1}^{N}\big(t_i-\mathbf{w}_\text{ML}^\intercal\boldsymbol{\Phi}(\mathbf{x}_i)\big)^2}
+\end{equation}</p>
+
+<h4 id="geo-least-squares">Geometrical interpretation of least squares</h4>
+<p>As mentioned before, we have applied the idea of spanning a vector space by its basis vectors when constructing basis functions.</p>
+
+<p>In particular, consider an $N$-dimensional space whose axes are given by $t_i$, which implies that $\mathbf{t}=(t_1,\ldots,t_N)^\intercal$ is a vector contained in the space.</p>
+
+<p>Each basis function $\phi_j(\mathbf{x}_i)$, evaluated at the $N$ data points, then can also be presented as a vector in the same space, denoted by $\boldsymbol{\varphi}_j$, as illustrated in <strong>Figure 4</strong> below.</p>
+<figure>
+	<img src="/assets/images/2022-08-13/geo-least-squares.png" alt="geometry of least squares" style="display: block; margin-left: auto; margin-right: auto; width: 400px; height: 300px" />
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: Geometrical interpretation of the least-squares solution. The figure is taken from <span><a href="#bishops-book">Bishop’s book</a></span></figcaption>
+</figure>
+
+<p>When the number $M$ of basis functions is smaller than the number $N$ of data points, the $M$ vectors $\phi_j(\mathbf{x}_i)$ will span a linear subspace $\mathcal{S}$ of $M$ dimensions.</p>
+
+<h4 id="reg-least-squares">Regularized least squares</h4>
+
+<h2 id="references">References</h2>
+<p>[1] <span id="bishops-book">Christopher M. Bishop. <a href="https://link.springer.com/book/9780387310732">Pattern Recognition and Machine Learning</a>. Springer New York, NY.</span></p>
+
+<p>[2] Gilbert Strang. <a href="http://math.mit.edu/~gs/linearalgebra/">Introduction to Linear Algebra</a>.</p>
+
+<p>[3] MIT 18.06. <a href="https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/">Linear Algebra</a>.</p>
+
+<h2 id="footnotes">Footnotes</h2>
+
+  </div>
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    
+    var disqus_config = function () {
+    this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://https-trunghng-github-io.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+<script id="dsq-count-scr" src="//https-trunghng-github-io.disqus.com/count.js" async></script>
+
+  <a class="u-url" href="/artificial-intelligent/machine-learning/2022/08/13/linear-models.html" hidden></a>
+</article>
+ <!-- mathjax javascript -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+  "HTML-CSS": {availableFonts: []}
+  });
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<script>
+  var coll = document.getElementsByClassName("collapsible");
+  var i;
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      var content = document.getElementById(this.id+"data");
+      var btn = document.getElementById(this.id)
+      if (content.style.display === "block") {
+        content.style.display = "none";
+        btn.innerText = "Click to show the code";
+      } else {
+        content.style.display = "block";
+        btn.innerText = "Click to hide the code"
+      }
+    });
+  }
+</script>
+
+      </div>
+
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+        <ul class="contact-list">
+          <li class="p-name">Trung H. Nguyen</li>
+          <li><a class="u-email" href="mailto:trung.skipper@gmail.com">trung.skipper@gmail.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p>To document something I&#39;ve learned
+</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/trunghng" title="trunghng"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
+<script type="text/javascript">
+  var btn = $('#button');
+
+  $(window).scroll(function() {
+    if ($(window).scrollTop() > 300) {
+      btn.addClass('show');
+    } else {
+      btn.removeClass('show');
+    }
+  });
+
+  btn.on('click', function(e) {
+    e.preventDefault();
+    $('html, body').animate({scrollTop:0}, '300');
+  });
+</script>

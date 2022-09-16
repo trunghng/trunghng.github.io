@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-14T14:55:48+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-16T20:23:12+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory - II</title><link href="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html" rel="alternate" type="text/html" title="Measure theory - II" /><published>2022-07-03T13:00:00+07:00</published><updated>2022-07-03T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html">&lt;blockquote&gt;
   &lt;p&gt;A note on measure theory (continued from &lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-theory.html&quot;&gt;part I&lt;/a&gt;): materials were mostly taken from &lt;a href=&quot;/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some notations needed from &lt;a href=&quot;/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -1168,11 +1168,11 @@ Let $B$ be a closed box in $\mathbb{R}^d$, and let $f:B\to\mathbb{R}$ be a conti
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 &lt;ul id=&quot;number-list&quot;&gt;
 	&lt;li&gt;
-		For any closed box $C\in\mathbb{R}^d$, we have $\{(x,f(x)):x\in C\}\subset\mathbb{R}^{d+1}$ with $f:C\to\mathbb{R}$ is a compact metric space. And when $f$ continuous we also have $f$ is uniformly continuous, which means for any $\varepsilon&amp;gt;0$, there exists $\delta$ such that
+		For any closed box $C\in\mathbb{R}^d$, we have $\{(x,f(x)):x\in C\}\subset\mathbb{R}^{d+1}$ with $f:C\to\mathbb{R}$ is a compact metric space. And when $f$ continuous we also have $f$ is &lt;span&gt;uniformly continuous&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/span&gt;, which means for any $\varepsilon&amp;gt;0$, there exists $\delta$ such that
 		\begin{equation}
 		\vert f(x)-f(x)\vert&amp;lt;\varepsilon,
 		\end{equation}
-		with $\vert y-x\vert&amp;lt;\delta$. Therefore, we can divide $C$ into finitely many disjoint boxes $C_1,\ldots,C_n$ such that $\vert x_i-y_i\vert&amp;lt;\delta$ and for any $\varepsilon&amp;gt;0$
+		with $\Vert y-x\Vert_d&amp;lt;\delta$. Therefore, we can divide $C$ into finitely many disjoint boxes $C_1,\ldots,C_n$ such that $\vert x_i-y_i\vert&amp;lt;\delta$ and for any $\varepsilon&amp;gt;0$
 		\begin{equation}
 		\vert f(x_i)-f(y_i)\vert&amp;lt;\varepsilon
 		\end{equation}
@@ -1184,9 +1184,9 @@ Let $B$ be a closed box in $\mathbb{R}^d$, and let $f:B\to\mathbb{R}$ be a conti
 		\begin{equation}
 		\left\{(x,f(x)):x\in C\right\}=\bigcup_{i=1}^{n}\left\{(x,f(x)):x\in C_i\right\}\subset\bigcup_{i=1}^{n}C_i\times\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)
 		\end{equation}
-		With this result, and by the monotonicity, finite additivity of elementary measure, we have the outer Jordan measure of the graph $\{(x,f(x)):x\in B\}\subset\mathbb{R}^{d+1}$ can be written as
+		With this result, and by the monotonicity, finite additivity of elementary measure, we have the Jordan outer measure of the graph $\{(x,f(x)):x\in B\}\subset\mathbb{R}^{d+1}$ can be written as
 		\begin{align}
-		m^{*,J}\left(\{(x,f(x)):x\in B\}\right)&amp;amp;=\inf_{C\supset B,C\text{ boxes}}m\left(\left\{(x,f(x)):x\in C\right\}\right) \\ &amp;amp;\leq m^{d+1}\left(\bigcup_{i=1}^{n}C_i\times\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &amp;amp;=\sum_{i=1}^{n}m^d(C_i)\times m^1\left(\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &amp;amp;=2n\varepsilon m^d(C)&amp;lt;2n\varepsilon\delta
+		m^{*,J}\left(\{(x,f(x)):x\in B\}\right)&amp;amp;=\inf_{C\supset B,C\text{ closed box}}m\left(\left\{(x,f(x)):x\in C\right\}\right) \\ &amp;amp;\leq m^{d+1}\left(\bigcup_{i=1}^{n}C_i\times\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &amp;amp;=\sum_{i=1}^{n}m^d(C_i)\times m^1\left(\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &amp;amp;=2n\varepsilon m^d(C)&amp;lt;2n\varepsilon\delta
 		\end{align}
 		And since $\varepsilon&amp;gt;0$ arbitrarily, we finally obtain
 		\begin{equation}
@@ -1202,11 +1202,24 @@ Let $B$ be a closed box in $\mathbb{R}^d$, and let $f:B\to\mathbb{R}$ be a conti
 		\end{equation}
 		or in other words, the graph $\left(\{(x,f(x)):x\in B\}\right)$ is Jordan measurable on $\mathbb{R}^{d+1}$ with Jordan measure zero.
 	&lt;/li&gt;
-	&lt;li&gt;&lt;/li&gt;
+	&lt;li&gt;
+		We have the Jordan inner measure of the set $\left\{(x,t):x\in B,0\leq t\leq f(x)\right\}$ can be written as
+		\begin{align}
+		m_{*,J}\Big(\big\{(x,t):x\in B,0\leq t\leq f(x)\big\}\Big)&amp;amp;=\sup_{A\subset B,A\text{ closed box}}m\Big(\big\{(x,t):x\in A,0\leq t\leq f(x)\big\}\Big)
+		\end{align}
+	&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;jordan-null-sets&quot;&gt;Jordan null sets&lt;/h3&gt;
 &lt;p&gt;A &lt;strong&gt;Jordan null set&lt;/strong&gt; is a Jordan measurable set of Jordan measure zero. We have that any subset of a Jordan null set is also a Jordan null set.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Remark&lt;/strong&gt;&lt;br /&gt;
+For any Jordan measurable set $E\subset\mathbb{R}^d$, its Jordan measure can be written as
+\begin{equation}
+m(E)\doteq\lim_{N\to\infty}\frac{1}{N^d}\#\left(E\cup\frac{1}{N}\mathbb{Z}^d\right)
+\end{equation}&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 
@@ -1465,7 +1478,7 @@ which claims that $f$ is Riemann integrable on $[a,b]$ with $\text{d.}\int_{a}^{
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt;&lt;br /&gt;
-Any continuous function $f:[a,b]\to\mathbb{R}$ is Riemann integrable. More generally, any bounded, &lt;strong&gt;piecewise continuous function&lt;/strong&gt;&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; $f:[a,b]\to\mathbb{R}$ is Riemann integrable.&lt;/p&gt;
+Any continuous function $f:[a,b]\to\mathbb{R}$ is Riemann integrable. More generally, any bounded, &lt;strong&gt;piecewise continuous function&lt;/strong&gt;&lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; $f:[a,b]\to\mathbb{R}$ is Riemann integrable.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;br /&gt;
 Consider a partition of piecewise continuous f on $[a,b]$ into finitely many intervals $I_1,\ldots,I_n$. Using the procedure that we used for the above proof, we have that on each interval $I_i$, there exists an $x_i$ such that for any $\varepsilon&amp;gt;0$
@@ -1480,7 +1493,7 @@ which implies that
 \begin{equation}
 \left\vert\sum_{i=1}^{n}f(x_i)\vert I_i\vert-\sum_{i=1}^{n}\inf_{x\in I_i}f(x)\vert I_i\vert\right\vert&amp;lt;\varepsilon,
 \end{equation}
-As $\sup_{i=0,\ldots,n}\vert I_i\vert\to 0$&lt;/p&gt;
+which implies that $f$ is Riemann integrable on $[a,b]$.&lt;/p&gt;
 
 &lt;h3 id=&quot;riemann-int-properties&quot;&gt;Basic properties of Riemann integral&lt;/h3&gt;
 &lt;p&gt;Let $[a,b]$ be an interval, and let $f,g:[a,b]\to\mathbb{R}$ be Riemann integrable. We then have that&lt;/p&gt;
@@ -1596,7 +1609,10 @@ where $m^2$ denotes two-dimensional Jordan measure.&lt;/p&gt;
 &lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
   &lt;ol&gt;
     &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;A function $f:[a,b]\to\mathbb{R}$ is &lt;strong&gt;piecewise continuous&lt;/strong&gt; if we can partition $[a,b]$ into finitely many intervals, such that $f$ is continuous on each interval. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;A function $f$ is said to be &lt;strong&gt;uniformly continuous&lt;/strong&gt; if there. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;A function $f:[a,b]\to\mathbb{R}$ is &lt;strong&gt;piecewise continuous&lt;/strong&gt; if we can partition $[a,b]$ into finitely many intervals, such that $f$ is continuous on each interval. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><category term="jordan-measure" /><category term="riemann-integral" /><category term="darboux-integral" /><category term="random-stuffs" /><summary type="html">A note on measure theory: materials were mostly taken from Tao’s book, except for some notations needed from Stein’s book.</summary></entry><entry><title type="html">Normal Distribution</title><link href="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html" rel="alternate" type="text/html" title="Normal Distribution" /><published>2021-11-22T14:46:00+07:00</published><updated>2021-11-22T14:46:00+07:00</updated><id>http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist</id><content type="html" xml:base="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html">&lt;blockquote&gt;
@@ -3898,4 +3914,4 @@ u_k=A^ku_0=c_1{\lambda_1}^kx_1+\dots+c_n{\lambda_n}^kx_n
 &lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
 &lt;p&gt;[1] Gilbert Strang. &lt;a href=&quot;http://math.mit.edu/~gs/linearalgebra/&quot;&gt;Introduction to Linear Algebra&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[2] MIT 18.06. &lt;a href=&quot;https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/&quot;&gt;Linear Algebrea&lt;/a&gt;.&lt;/p&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="linear-algebra" /><category term="mathematics" /><category term="linear-algebra" /><category term="eigenvalue-eigenvector" /><category term="random-stuffs" /><summary type="html">Enjoy my index-zero-ed post while staying tuned for next ones!</summary></entry></feed>
+&lt;p&gt;[2] MIT 18.06. &lt;a href=&quot;https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/&quot;&gt;Linear Algebra&lt;/a&gt;.&lt;/p&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="linear-algebra" /><category term="mathematics" /><category term="linear-algebra" /><category term="eigenvalue-eigenvector" /><category term="random-stuffs" /><summary type="html">Enjoy my index-zero-ed post while staying tuned for next ones!</summary></entry></feed>
