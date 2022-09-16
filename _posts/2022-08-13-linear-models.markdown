@@ -168,7 +168,7 @@ which implies that
 \begin{equation}
 \mathbf{w}\_\text{ML}=\left(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}^\intercal\mathbf{t},\tag{8}\label{8}
 \end{equation}
-which is known as the **normal equations** for the least squares problem. In \eqref{8}, $\boldsymbol{\Phi}\in\mathbb{R}^{M\times N}$ is called the **design matrix**, whose elements are given by $\boldsymbol{\Phi}\_{ij}=\phi_j(\mathbf{x}\_i)$
+which is known as the **normal equations** for the least squares problem. In \eqref{8}, $\boldsymbol{\Phi}\in\mathbb{R}^{N\times M}$ is called the **design matrix**, whose elements are given by $\boldsymbol{\Phi}\_{ij}=\phi_j(\mathbf{x}\_i)$
 \begin{equation}
 \boldsymbol{\Phi}=\left[\begin{matrix}-\hspace{0.1cm}\boldsymbol{\phi}(\mathbf{x}\_1)\hspace{0.1cm}- \\\\ \hspace{0.1cm}\vdots\hspace{0.1cm} \\\\ -\hspace{0.1cm}\boldsymbol{\phi}(\mathbf{x}\_N)\hspace{0.1cm}-\end{matrix}\right]=\left[\begin{matrix}\phi_0(\mathbf{x}\_1)&\ldots&\phi_{M-1}(\mathbf{x}\_1) \\\\ \vdots&\ddots&\vdots \\\\ \phi_0(\mathbf{x}\_N)&\ldots&\phi_{M-1}(\mathbf{x}\_N)\end{matrix}\right],
 \end{equation}
@@ -186,15 +186,27 @@ On the other hand, consider the gradient of \eqref{6} w.r.t $\beta$ and set it e
 {: #geo-least-squares}
 As mentioned before, we have applied the idea of spanning a vector space by its basis vectors when constructing basis functions.
 
-In particular, consider an $N$-dimensional space whose axes are given by $t_i$, which implies that $\mathbf{t}=(t_1,\ldots,t_N)^\intercal$ is a vector contained in the space.
-
-Each basis function $\phi_j(\mathbf{x}\_i)$, evaluated at the $N$ data points, then can also be presented as a vector in the same space, denoted by $\boldsymbol{\varphi}\_j$, as illustrated in **Figure 4** below.
+In particular, consider an $N$-dimensional space whose axes are given by $t_i$, which implies that
+\begin{equation}
+\mathbf{t}=(t_1,\ldots,t_N)^\intercal
+\end{equation}
+is a vector contained in the space.
 <figure>
 	<img src="/assets/images/2022-08-13/geo-least-squares.png" alt="geometry of least squares" style="display: block; margin-left: auto; margin-right: auto; width: 400px; height: 300px"/>
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: Geometrical interpretation of the least-squares solution. The figure is taken from <span markdown="1">[Bishop's book](#bishops-book)</span></figcaption>
 </figure>
 
+Each basis function $\phi_j(\mathbf{x}\_i)$, evaluated at the $N$ data points, then can also be presented as a vector in the same space, denoted by $\boldsymbol{\varphi}\_j$, as illustrated in **Figure 4** above. Therefore, the design matrix $\boldsymbol{\Phi}$ can be represented as
+\begin{equation}
+\boldsymbol{\Phi}=\left[\begin{matrix}-\hspace{0.1cm}\boldsymbol{\phi}(\mathbf{x}\_1)\hspace{0.1cm}- \\\\ \hspace{0.1cm}\vdots\hspace{0.1cm} \\\\ -\hspace{0.1cm}\boldsymbol{\phi}(\mathbf{x}\_N)\hspace{0.1cm}-\end{matrix}\right]=\left[\begin{matrix}\vert&&\vert \\\\ \boldsymbol{\varphi}\_{0}&\ldots&\boldsymbol{\varphi}\_{M-1} \\\\ \vert&&\vert\end{matrix}\right]
+\end{equation}
+
 When the number $M$ of basis functions is smaller than the number $N$ of data points, the $M$ vectors $\phi_j(\mathbf{x}\_i)$ will span a linear subspace $\mathcal{S}$ of $M$ dimensions.
+
+We define $\mathbf{y}$ to be an $N$-dimensional vector whose the $i$-th element is given by $y(\mathbf{x}\_i,\mathbf{w})$
+\begin{equation}
+\mathbf{y}=\big(y(\mathbf{x}\_1,\mathbf{w}),\ldots,y(\mathbf{x}\_N,\mathbf{w})\big)^\intercal
+\end{equation}
 
 
 #### Regularized least squares
