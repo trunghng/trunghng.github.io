@@ -1,40 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mcts.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-16T20:35:48+07:00</updated><id>http://localhost:4000/feed/by_tag/mcts.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
-</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Monte Carlo Tree Search</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/05/25/mcts.html" rel="alternate" type="text/html" title="Monte Carlo Tree Search" /><published>2022-05-25T13:00:00+07:00</published><updated>2022-05-25T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/05/25/mcts</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/05/25/mcts.html">&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Monte Carlo Tree Search (MCTS)&lt;/strong&gt; is a method for finding optimal decisions in a given domain by taking random samples in the decision space and building a search tree according to the results.
-&lt;!-- excerpt-end --&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#mcts-vanilla&quot;&gt;(Vanilla) Monte Carlo Tree Search&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#uct&quot;&gt;Upper Confidence Bound for Trees (UCT)&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#example&quot;&gt;Example&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#alphazero&quot;&gt;AlphaZero&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;vanilla-mcts&quot;&gt;(Vanilla) Monte Carlo Tree Search&lt;/h2&gt;
-
-&lt;h2 id=&quot;uct&quot;&gt;Upper Confidence Bound for Trees (UCT)&lt;/h2&gt;
-
-&lt;h2 id=&quot;example&quot;&gt;Example&lt;/h2&gt;
-
-&lt;h2 id=&quot;alphazero&quot;&gt;AlphaZero&lt;/h2&gt;
-
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;[2] C. B. Browne et al. &lt;a href=&quot;https://ieeexplore.ieee.org/document/6145622&quot;&gt;A Survey of Monte Carlo Tree Search Methods&lt;/a&gt;, in IEEE Transactions on Computational Intelligence and AI in Games, vol. 4, no. 1, pp. 1-43, March 2012.&lt;/p&gt;
-
-&lt;p&gt;[3] Kocsis, L. &amp;amp; Szepesvári, C. (2006). &lt;a href=&quot;https://doi.org/10.1007/11871842_29&quot;&gt;Bandit Based Monte-Carlo Planning&lt;/a&gt;. In: Fürnkranz, J., Scheffer, T., Spiliopoulou, M. (eds) Machine Learning: ECML 2006. ECML 2006. Lecture Notes in Computer Science, vol 4212. Springer, Berlin, Heidelberg.&lt;/p&gt;
-
-&lt;p&gt;[4] David Silver &amp;amp; Julian Schrittwieser &amp;amp; Karen Simonyan et al. &lt;a href=&quot;https://doi.org/10.1038/nature24270&quot;&gt;Mastering the game of Go without human knowledge&lt;/a&gt;. Nature 550, 354–359 (2017).&lt;/p&gt;
-
-&lt;p&gt;[5] David Silver &amp;amp; Thomas Hubert &amp;amp; Julian Schrittwieser et al. &lt;a href=&quot;https://arxiv.org/abs/1712.01815&quot;&gt;Mastering Chess and Shogi by Self-Play with a General Reinforcement Learning Algorithm&lt;/a&gt;. arXiv.&lt;/p&gt;
-
-&lt;p&gt;[6] Shangtong Zhang. &lt;a href=&quot;https://github.com/ShangtongZhang/reinforcement-learning-an-introduction&quot;&gt;Reinforcement Learning: An Introduction implementation&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="monte-carlo" /><category term="mcts" /><category term="uct" /><category term="planning" /><summary type="html">Monte Carlo Tree Search (MCTS) is a method for finding optimal decisions in a given domain by taking random samples in the decision space and building a search tree according to the results.</summary></entry><entry><title type="html">Planning &amp;amp; Learning</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/05/19/planning-learning.html" rel="alternate" type="text/html" title="Planning &amp;amp; Learning" /><published>2022-05-19T14:09:00+07:00</published><updated>2022-05-19T14:09:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/05/19/planning-learning</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/05/19/planning-learning.html">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mcts.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-17T14:22:43+07:00</updated><id>http://localhost:4000/feed/by_tag/mcts.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Planning &amp;amp; Learning</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/05/19/planning-learning.html" rel="alternate" type="text/html" title="Planning &amp;amp; Learning" /><published>2022-05-19T14:09:00+07:00</published><updated>2022-05-19T14:09:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/05/19/planning-learning</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/05/19/planning-learning.html">&lt;blockquote&gt;
   &lt;p&gt;Recall that when using &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/07/25/dp-in-mdp.html&quot;&gt;dynamic programming (DP) method&lt;/a&gt; in solving reinforcement learning problems, we required the availability of a model of the environment. Whereas with &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/08/21/monte-carlo-in-rl.html&quot;&gt;Monte Carlo methods&lt;/a&gt; and &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/01/31/td-learning.html&quot;&gt;temporal-difference learning&lt;/a&gt;, the models are unnecessary. Such methods with requirement of a model like the case of DP is called &lt;strong&gt;model-based&lt;/strong&gt;, while methods without using a model is called &lt;strong&gt;model-free&lt;/strong&gt;. Model-based methods primarily rely on &lt;strong&gt;planning&lt;/strong&gt;; and model-free methods, on the other hand, primarily rely on &lt;strong&gt;learning&lt;/strong&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;

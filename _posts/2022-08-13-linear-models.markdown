@@ -177,6 +177,7 @@ and the quantity
 \boldsymbol{\Phi}^\dagger\doteq\left(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}^\intercal
 \end{equation}
 is called the **Moore-Penrose pseudoinverse** of the matrix $\boldsymbol{\Phi}$.
+
 On the other hand, consider the gradient of \eqref{6} w.r.t $\beta$ and set it equal to zero, we obtain
 \begin{equation}
 \beta=\frac{N}{\sum_{i=1}^{N}\big(t_i-\mathbf{w}\_\text{ML}^\intercal\boldsymbol{\Phi}(\mathbf{x}\_i)\big)^2}
@@ -198,16 +199,21 @@ is a vector contained in the space.
 
 Each basis function $\phi_j(\mathbf{x}\_i)$, evaluated at the $N$ data points, then can also be presented as a vector in the same space, denoted by $\boldsymbol{\varphi}\_j$, as illustrated in **Figure 4** above. Therefore, the design matrix $\boldsymbol{\Phi}$ can be represented as
 \begin{equation}
-\boldsymbol{\Phi}=\left[\begin{matrix}-\hspace{0.1cm}\boldsymbol{\phi}(\mathbf{x}\_1)\hspace{0.1cm}- \\\\ \hspace{0.1cm}\vdots\hspace{0.1cm} \\\\ -\hspace{0.1cm}\boldsymbol{\phi}(\mathbf{x}\_N)\hspace{0.1cm}-\end{matrix}\right]=\left[\begin{matrix}\vert&&\vert \\\\ \boldsymbol{\varphi}\_{0}&\ldots&\boldsymbol{\varphi}\_{M-1} \\\\ \vert&&\vert\end{matrix}\right]
+\boldsymbol{\Phi}=\left[\begin{matrix}-\hspace{0.1cm}\boldsymbol{\phi}(\mathbf{x}\_1)\hspace{0.1cm}- \\\\ \hspace{0.1cm}\vdots\hspace{0.1cm} \\\\ -\hspace{0.1cm}\boldsymbol{\phi}(\mathbf{x}\_N)\hspace{0.1cm}-\end{matrix}\right]=\left[\begin{matrix}\vert&&\vert \\\\ \boldsymbol{\varphi}\_{0}&\ldots&\boldsymbol{\varphi}\_{M-1} \\\\ \vert&&\vert\end{matrix}\right]\tag{9}\label{9}
 \end{equation}
-
 When the number $M$ of basis functions is smaller than the number $N$ of data points, the $M$ vectors $\phi_j(\mathbf{x}\_i)$ will span a linear subspace $\mathcal{S}$ of $M$ dimensions.
 
 We define $\mathbf{y}$ to be an $N$-dimensional vector whose the $i$-th element is given by $y(\mathbf{x}\_i,\mathbf{w})$
 \begin{equation}
 \mathbf{y}=\big(y(\mathbf{x}\_1,\mathbf{w}),\ldots,y(\mathbf{x}\_N,\mathbf{w})\big)^\intercal
 \end{equation}
+Since $\mathbf{y}$ is a linear combination of $\boldsymbol{\varphi}\_i$, then $\mathbf{y}\in\mathcal{S}$.
+Then the sum-of-squares error \eqref{7} is exactly (with a factor of $1/2$) the squared Euclidean distance between $\mathbf{y}$ and $\mathbf{t}$. Therefore, the least square solution to $\mathbf{w}$ is the one that makes $\mathbf{y}$ closest to $\mathbf{t}$.
 
+This solution corresponds to the orthogonal projection of $t$ onto the subspace $S$ spanned by $\boldsymbol{\varphi}\_i$, because we have that
+\begin{align}
+\mathbf{y}^\intercal(\mathbf{t}-\mathbf{y})&=\left(\boldsymbol{\Phi}\mathbf{w}\_\text{ML}\right)^\intercal\left(\mathbf{t}-\boldsymbol{\Phi}\mathbf{w}\_\text{ML}\right) \\\\ &=\left(\boldsymbol{\Phi}\left(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}\mathbf{t}\right)^\intercal\left(\mathbf{t}-\boldsymbol{\Phi}\left(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}\mathbf{t}\right) \\\\ &=\mathbf{t}^\intercal\boldsymbol{\Phi}\left(\left(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}\right)^{-1}\right)^\intercal\boldsymbol{\Phi}^\intercal\mathbf{t}-\mathbf{t}^\intercal\boldsymbol{\Phi}\left(\left(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}\right)^{-1}\right)^\intercal\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}\left(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}\mathbf{t} \\\\ &=\mathbf{t}^\intercal\boldsymbol{\Phi}\left(\left(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}\right)^{-1}\right)^\intercal\boldsymbol{\Phi}^\intercal\mathbf{t}-\mathbf{t}^\intercal\boldsymbol{\Phi}\left(\left(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}\right)^{-1}\right)^\intercal\boldsymbol{\Phi}^\intercal\mathbf{t} \\\\ &=0,
+\end{align}
 
 #### Regularized least squares
 {: #reg-least-squares}
