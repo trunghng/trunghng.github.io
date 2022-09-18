@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/fft.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-18T14:07:16+07:00</updated><id>http://localhost:4000/feed/by_tag/fft.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Fourier Series, Fourier Integrals, Fourier Transforms</title><link href="http://localhost:4000/mathematics/calculus/2021/10/07/fourier.html" rel="alternate" type="text/html" title="Fourier Series, Fourier Integrals, Fourier Transforms" /><published>2021-10-07T13:00:00+07:00</published><updated>2021-10-07T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/calculus/2021/10/07/fourier</id><content type="html" xml:base="http://localhost:4000/mathematics/calculus/2021/10/07/fourier.html">&lt;blockquote&gt;
+
+  &lt;!-- excerpt-end --&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;p&gt;[1] Gilbert Strangs. &lt;a href=&quot;https://math.mit.edu/~gs/cse/&quot;&gt;Computational Science and Engineering&lt;/a&gt;. Wellesley-Cambridge Press.&lt;/p&gt;
+
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="calculus" /><category term="mathematics" /><category term="calculus" /><category term="fourier-series" /><category term="fft" /><category term="random-stuffs" /><summary type="html"></summary></entry></feed>

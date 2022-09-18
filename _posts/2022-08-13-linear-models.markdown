@@ -11,22 +11,28 @@ comments: true
 <!-- excerpt-end -->
 
 - [Preliminaries](#preliminaries)
-	- [Independence, basis, dimension](#ind-basis-dim)
+	- [Independence, basis in vector space](#ind-basis)
 		- [Linear independence](#lin-ind)
 		- [Basis of a vector space](#basis)
-- [Linear models for Regression](#lin-models-regression)
+	- [Exponential family](#exp-fam)
+	- [Lagrange Multipliers](#lagrange-mult)
+- [Linear models for Regression](#lin-models-reg)
 	- [Linear basis function models](#lin-basis-func-models)
 		- [Least squares](#least-squares)
 		- [Geometrical interpretation of least squares](#geo-least-squares)
 		- [Regularized least squares](#reg-least-squares)
+		- [Multiple outputs](#mult-outputs)
+	- [Bayesian linear regression](#bayes-lin-reg)
+- [Linear models for Classification](#lin-models-clf)
+	- [Discriminant functions](#disc-funcs)
 - [References](#references)
 - [Footnotes](#footnotes)
 
 ## Preliminaries
 {: #preliminaries}
 
-### Independence, basis, dimension
-{: #ind-basis-dim}
+### Independence, basis in vector space
+{: #ind-basis}
 
 #### Linear independence
 {: #lin-ind}
@@ -63,8 +69,57 @@ With that definition of a basis $\mathbf{v}\_1,\dots,\mathbf{v}\_d$ of $S$, for 
 \mathbf{u}=c_1\mathbf{v}\_1+\ldots+c_d\mathbf{v}\_d
 \end{equation}
 
+### Exponential family
+{: #exp-fam}
+
+### Lagrange Multipliers
+{: #lagrange-mult}
+Consider the problem of finding the maximum (or minimum) of $w=f(x_1,x_2,x_3)$ subject to a constraint relating $x_1,x_2$ and $x_3$
+\begin{equation}
+g(x_1,x_2,x_3)=0
+\end{equation}
+Apart from solving $x_3$ in terms of $x_1$ and $x_2$ in the constraint and substituting into the original function, which now becomes an unconstrained, here we can also solve this problem as a constrained one.
+
+The idea is we are using the observation that the gradient vector $\nabla f(\mathbf{x})$ and $\nabla g(\mathbf{x})$ are parllel, because:
+
+Suppose $f(\mathbf{x})$ has a local maximum at $\mathbf{x}^\*$ on the constraint surface $g(\mathbf{x})=0$.
+
+Let $\mathbf{r}(t)=\langle x_1(t),x_2(t),x_3(t)\rangle$ be a parameterized curve on the constraint surface such that and $\mathbf{r}(t)$ has
+\begin{equation}
+(x_1(0),x_2(0),x_3(0))^\intercal=\mathbf{x}
+\end{equation}
+And also, let $h(t)=f(x_1(t),x_2(t),x_3(t))$, then it implies that $h$ has a maximum at $t=0$, which lets
+\begin{equation}
+h'(0)=0
+\end{equation}
+Taking the derivative of $h$ w.r.t, we obtain
+\begin{equation}
+h'(t)=\nabla f(\mathbf{x})\big\vert_{\mathbf{r}(t)}\mathbf{r}'(t)
+\end{equation}
+Therefore,
+\begin{equation}
+\nabla f(\mathbf{x})\big\vert_{\mathbf{x}^\*}\mathbf{r}'(0)=0,
+\end{equation}
+which implies that $\nabla f(\mathbf{x})$ is perpendicular to any curve in the constraint space that goes through $\mathbf{x}^\*$. And since $\nabla g(\mathbf{x})$ perpendicular to the constraint surface $g(x)=0$, then $\nabla g(\mathbf{x})$ is also perpendicular to those curves. This implies that $\nabla f(\mathbf{x})$ is parallel to $\nabla g(\mathbf{x})$.
+
+With this property, we can write $\nabla f(\mathbf{x})$ in terms of $\nabla g(\mathbf{x})$, as
+\begin{equation}
+\nabla f(\mathbf{x})=\lambda\nabla g(\mathbf{x}),
+\end{equation}
+where $\lambda\neq 0$ is a constant called **Lagrange multiplier**.
+
+With this definition of Lagrange multiplier, we continue to define the **Lagrangian** function, given as
+\begin{equation}
+\mathcal{L}(\mathbf{x},\lambda)=f(\mathbf{x})+\lambda g(\mathbf{x})
+\end{equation}
+Then letting the partial derivative of Lagrangian w.r.t $\lambda$ give us the contraint
+\begin{equation}
+0=\frac{\partial \mathcal{L}(\mathbf{x},\lambda)}{\partial\lambda}=g(\mathbf{x})
+\end{equation}
+With Lagrangian, in order to find the maximum of $f(\mathbf{x})$ that satisfies $g(\mathbf{x})=0$, we set the partial derivatives of the Lagrangian $\mathcal{L}$ w.r.t $x_i$ (which are components of $\mathbf{x}$) and $\lambda$ and solve for $x_i$'s, $\lambda$.
+
 ## Linear models for Regression
-{: #lin-models-regression}
+{: #lin-models-reg}
 Regression refers to a problem of predicting the value of one or more continuous target variable $t$ given the value of a $D$-dimensional vector $\mathbf{x}$ of input variables.
 
 ### Linear basis function models
@@ -199,7 +254,7 @@ is a vector contained in the space.
 
 Each basis function $\phi_j(\mathbf{x}\_i)$, evaluated at the $N$ data points, then can also be presented as a vector in the same space, denoted by $\boldsymbol{\varphi}\_j$, as illustrated in **Figure 4** above. Therefore, the design matrix $\boldsymbol{\Phi}$ can be represented as
 \begin{equation}
-\boldsymbol{\Phi}=\left[\begin{matrix}-\hspace{0.1cm}\boldsymbol{\phi}(\mathbf{x}\_1)\hspace{0.1cm}- \\\\ \hspace{0.1cm}\vdots\hspace{0.1cm} \\\\ -\hspace{0.1cm}\boldsymbol{\phi}(\mathbf{x}\_N)\hspace{0.1cm}-\end{matrix}\right]=\left[\begin{matrix}\vert&&\vert \\\\ \boldsymbol{\varphi}\_{0}&\ldots&\boldsymbol{\varphi}\_{M-1} \\\\ \vert&&\vert\end{matrix}\right]\tag{9}\label{9}
+\boldsymbol{\Phi}=\left[\begin{matrix}-\hspace{0.1cm}\boldsymbol{\phi}(\mathbf{x}\_1)\hspace{0.1cm}- \\\\ \hspace{0.1cm}\vdots\hspace{0.1cm} \\\\ -\hspace{0.1cm}\boldsymbol{\phi}(\mathbf{x}\_N)\hspace{0.1cm}-\end{matrix}\right]=\left[\begin{matrix}\vert&&\vert \\\\ \boldsymbol{\varphi}\_{0}&\ldots&\boldsymbol{\varphi}\_{M-1} \\\\ \vert&&\vert\end{matrix}\right]
 \end{equation}
 When the number $M$ of basis functions is smaller than the number $N$ of data points, the $M$ vectors $\phi_j(\mathbf{x}\_i)$ will span a linear subspace $\mathcal{S}$ of $M$ dimensions.
 
@@ -217,7 +272,78 @@ This solution corresponds to the orthogonal projection of $t$ onto the subspace 
 
 #### Regularized least squares
 {: #reg-least-squares}
+To control over-fitting, in the error function \eqref{7}, we add an regularization term, which makes the total error function to be minimized take the form
+\begin{equation}
+E_D(\mathbf{w})+\lambda E_W(\mathbf{w}),\tag{9}\label{9}
+\end{equation}
+where $\lambda$ is the regularization coefficient that controls the relative importance of the data-dependent error $E_D(\mathbf{w})$ and the regularization term $E_W(\mathbf{w})$. One simple possible form of regularizer is given as
+\begin{equation}
+E_W(\mathbf{w})=\frac{1}{2}\mathbf{w}^\intercal\mathbf{w}
+\end{equation}
+The total error function \eqref{9} then can be written as
+\begin{equation}
+E_D(\mathbf{w})+E_W(\mathbf{w})=\frac{1}{2}\sum_{i=1}^{N}\big(t_i-\mathbf{w}^\intercal\boldsymbol{\phi}(\mathbf{x}\_i)\big)^2+\frac{\lambda}{2}\mathbf{w}^\intercal\mathbf{w}\tag{10}\label{10}
+\end{equation}
+Setting the gradient of this error to zero and solving for $\mathbf{w}$, we have the solution
+\begin{equation}
+\mathbf{w}= (\lambda\mathbf{I}+\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}\mathbf{t}
+\end{equation}
+This particular choice of regularizer is called **weight decay** because it encourages weight values to decay towards zero in sequential learning.
 
+Another choice of regularizer which is more general lets the regularized error have the form
+\begin{equation}
+E_D(\mathbf{w})+E_W(\mathbf{w})=\frac{1}{2}\sum_{i=1}^{N}\big(t_i-\mathbf{w}^\intercal\boldsymbol{\phi}(\mathbf{x}\_i)\big)^2+\frac{\lambda}{2}\sum_{j=1}^{M}\vert w_j\vert^q,
+\end{equation}
+where $q=2$ corresponds to the regularizer \eqref{10}.
+
+#### Multiple outputs
+{: #mult-outputs}
+When the target of our model is instead in multiple-dimensional form, denoted as $\mathbf{t}$, we can generalize our model to be
+\begin{equation}
+\mathbf{y}(\mathbf{x},\mathbf{w})=\mathbf{W}^\intercal\boldsymbol{\phi}(\mathbf{x}),
+\end{equation}
+where $\mathbf{y}\in\mathbb{R}^K, \mathbf{W}\in\mathbb{R}^{M\times K}$ is the matrix of parameters, $\boldsymbol{\phi}\in\mathbb{R}^M$ with $\phi_i(\mathbf{x})$ as the $i$-th element, and with $\phi_0(\mathbf{x})=1$.
+
+With this generalization, \eqref{4} can be also be rewritten as
+\begin{equation}
+p(\mathbf{t}|\mathbf{x};\mathbf{W},\beta)=\sqrt{\frac{\beta}{2\pi\vert\mathbf{I}\vert}}\exp\left[-\frac{1}{2}\left(\mathbf{t}-\mathbf{W}^\intercal\boldsymbol{\phi}\left(\mathbf{x}\right)\right)^\intercal\left(\mathbf{t}-\mathbf{W}^\intercal\boldsymbol{\phi}\left(\mathbf{x}\right)\right)\beta\mathbf{I}^{-1}\right],\tag{11}\label{11}
+\end{equation}
+or in other words
+\begin{equation}
+\mathbf{t}|\mathbf{x};\mathbf{W},\beta\sim\mathcal{N}(\mathbf{W}^\intercal\boldsymbol{\phi}(\mathbf{x}),\beta^{-1}\mathbf{I})
+\end{equation}
+With a data set of inputs $\mathbf{X}=\\{\mathbf{x}\_1,\ldots,\mathbf{x}\_N\\}$, our target values can also be vectorized into $\mathbf{T}\in\mathbb{R}^{N\times K}$ given as
+\begin{equation}
+\mathbf{T}=\left[\begin{matrix}-\hspace{0.1cm}\mathbf{t}\_1^\intercal\hspace{0.1cm}- \\\\ \vdots \\\\ -\hspace{0.1cm}\mathbf{t}\_N^\intercal\hspace{0.1cm}-\end{matrix}\right],
+\end{equation}
+and likewise with the input matrix $\mathbf{X}$ vectorized from input vectors $\mathbf{x}\_1,\ldots,\mathbf{x}\_N$. With these definitions, the multi-dimensional likelihood can be defined as
+\begin{align}
+L(\mathbf{W},\beta)=p(\mathbf{T}|\mathbf{X};\mathbf{W},\beta)&=\prod_{i=1}^{N}p(\mathbf{t}\_i|\mathbf{x}\_i;\mathbf{W},\beta) \\\\ &=\prod_{i=1}^{N}\sqrt{\frac{\beta}{2\pi}}\exp\left[-\frac{\beta}{2}\big(\mathbf{t}\_i-\mathbf{W}^\intercal\boldsymbol{\phi}(\mathbf{x}\_i)\big)^\intercal\big(\mathbf{t}\_i-\mathbf{W}^\intercal\boldsymbol{\phi}(\mathbf{x}\_i)\big)\right]
+\end{align}
+And thus the log likelihood now becomes
+\begin{align}
+\ell(\mathbf{W},\beta)=\log L(\mathbf{W},\beta)&=\log\prod_{i=1}^{N}\sqrt{\frac{\beta}{2\pi}}\exp\left[-\frac{\beta}{2}\big(\mathbf{t}\_i-\mathbf{W}^\intercal\boldsymbol{\phi}(\mathbf{x}\_i)\big)^\intercal\big(\mathbf{t}\_i-\mathbf{W}^\intercal\boldsymbol{\phi}(\mathbf{x}\_i)\big)\right] \\\\ &=\sum_{i=1}^{N}\log\sqrt{\frac{\beta}{2\pi}}\exp\left[-\frac{\beta}{2}\big(\mathbf{t}\_i-\mathbf{W}^\intercal\boldsymbol{\phi}(\mathbf{x}\_i)\big)^\intercal\big(\mathbf{t}\_i-\mathbf{W}^\intercal\boldsymbol{\phi}(\mathbf{x}\_i)\big)\right] \\\\ &=\frac{N}{2}\log\frac{\beta}{2\pi}-\frac{\beta}{2}\sum_{i=1}^{N}\big(\mathbf{t}\_i-\mathbf{W}^\intercal\boldsymbol{\phi}(\mathbf{x}\_i)\big)^\intercal\big(\mathbf{t}\_i-\mathbf{W}^\intercal\boldsymbol{\phi}(\mathbf{x}\_i)\big)
+\end{align}
+Taking the gradient of the log likelihood w.r.t $\mathbf{W}$, setting it to zero and solving for $\mathbf{W}$ gives us
+\begin{equation}
+\mathbf{W}\_\text{ML}=(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}^\intercal\mathbf{T}
+\end{equation}
+
+### Bayesian linear regression
+{: #bayes-lin-reg}
+
+## Linear models for Classification
+{:# lin-models-clf}
+
+### Discriminant functions
+{: #disc-funcs}
+A discriminant is a function that takes an input vector $x$ and assigns it to one of $K$ class, denoted as $\mathcal{C}\_k$
+
+The simplest discriminant function is a linear function of the input vector
+\begin{equation}
+y(\mathbf{x})=\mathbf{w}^\intercal\mathbf{x}+w_0,
+\end{equation}
+where $\mathbf{w}$ is called the **weight vector**, and $w_0$ is the bias.
 
 ## References
 {: #references}
