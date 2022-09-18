@@ -25,6 +25,8 @@ comments: true
 	- [Bayesian linear regression](#bayes-lin-reg)
 - [Linear models for Classification](#lin-models-clf)
 	- [Discriminant functions](#disc-funcs)
+		- [Least squares](#least-squares-clf)
+		- [Fisher's linear discriminant](#fisher-lin-disc)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -80,7 +82,7 @@ g(x_1,x_2,x_3)=0
 \end{equation}
 Apart from solving $x_3$ in terms of $x_1$ and $x_2$ in the constraint and substituting into the original function, which now becomes an unconstrained, here we can also solve this problem as a constrained one.
 
-The idea is we are using the observation that the gradient vector $\nabla f(\mathbf{x})$ and $\nabla g(\mathbf{x})$ are parllel, because:
+The idea is we are using the observation that the gradient vector $\nabla f(\mathbf{x})$ and $\nabla g(\mathbf{x})$ are parallel, because:
 
 Suppose $f(\mathbf{x})$ has a local maximum at $\mathbf{x}^\*$ on the constraint surface $g(\mathbf{x})=0$.
 
@@ -112,7 +114,7 @@ With this definition of Lagrange multiplier, we continue to define the **Lagrang
 \begin{equation}
 \mathcal{L}(\mathbf{x},\lambda)=f(\mathbf{x})+\lambda g(\mathbf{x})
 \end{equation}
-Then letting the partial derivative of Lagrangian w.r.t $\lambda$ give us the contraint
+Then letting the partial derivative of Lagrangian w.r.t $\lambda$ give us the constraint
 \begin{equation}
 0=\frac{\partial \mathcal{L}(\mathbf{x},\lambda)}{\partial\lambda}=g(\mathbf{x})
 \end{equation}
@@ -343,7 +345,97 @@ The simplest discriminant function is a linear function of the input vector
 \begin{equation}
 y(\mathbf{x})=\mathbf{w}^\intercal\mathbf{x}+w_0,
 \end{equation}
-where $\mathbf{w}$ is called the **weight vector**, and $w_0$ is the bias.
+where $\mathbf{w}$ is called the **weight vector**, and $w_0$ is the **bias**.
+
+In the case of binary classification, an input $\mathbf{x}$ is assigned to class $\mathcal{C}\_1$ if $y(\mathbf{x})\geq 0$ and otherwise $y(\mathbf{x})\lt 0$, it belongs to class $\mathcal{C}\_2$, thus the decision boundary is defined by
+\begin{equation}
+y(\mathbf{x})=0,
+\end{equation}
+which corresponds to a $(D-1)$-dimensional hyperplane with an $D$-dimensional input space.
+
+Consider $\mathbf{x}\_A$ and $\mathbf{x}\_B$ lying on the hyperplane, thus $y(\mathbf{x}\_A)=y(\mathbf{x}\_B)=0$, which gives us that
+\begin{equation}
+0=y(\mathbf{x}\_A)-y(\mathbf{x}\_B)=\mathbf{w}^\intercal\mathbf{x}\_A-\mathbf{w}^\intercal\mathbf{x}\_B=\mathbf{w}^\intercal(\mathbf{x}\_A-\mathbf{x}\_B)
+\end{equation}
+This claims that $\mathbf{w}$ is perpendicular to any vector within the decision boundary, and thus $\mathbf{w}$ is a normal vector of the decision boundary itself.
+
+Hence, projecting a point $\mathbf{x}\_0$ into the hyperplane, we have that the distant of $\mathbf{x}\_0$ to the hyperplane is given by
+\begin{equation}
+\text{dist}(\mathbf{x}\_0,y(\mathbf{x}))=\frac{y(\mathbf{x}\_0)}{\Vert\mathbf{w}\Vert},
+\end{equation}
+which implies that
+\begin{equation}
+\text{dist}(\mathbf{0},y(\mathbf{x}))=\frac{w_0}{\Vert\mathbf{w}\Vert}
+\end{equation}
+To generalize the binary classification problem into multiple-class ones, we consider a $K$-class discriminant comprising $K$ linear functions of the form
+\begin{equation}
+y_k(\mathbf{x})=\mathbf{w}\_k^\intercal\mathbf{x}+w_{k,0}
+\end{equation}
+Then for each input $\mathbf{x}$, it will be assigned to class $\mathcal{C}\_k$ if $y_k(\mathbf{x})>y_i(\mathbf{x}),\forall i\neq k$, or in other words $\mathbf{x}$ is assigned to a class $C_k$ that
+\begin{equation}
+k=\text{argmax}\_{i=1,\ldots,K}y_i(\mathbf{x})
+\end{equation}
+The boundary between two class $\mathcal{C}\_i$ and $\mathcal{C}\_j$ is therefore given by
+\begin{equation}
+y_i(\mathbf{x})=y_j(\mathbf{x}),
+\end{equation}
+or
+\begin{equation}
+(\mathbf{w}\_i-\mathbf{w}\_j)^\intercal\mathbf{x}+w_{i,0}-w_{j,0}=0,
+\end{equation}
+which is an $(D-1)$-dimensional hyperplane.
+
+#### Least squares
+{: #least-squares-clf}
+Recall that in the regression task, we used least squares to find the models in form of linear functions of the parameters. We can also apply least squares approach to classification problems.
+
+To begin, we have that for $k=1,\ldots,K$, each class $\mathcal{C}\_k$ is represented the model
+\begin{equation}
+y_k(\mathbf{x})=\mathbf{w}\_k^\intercal\mathbf{x}+w_{k,0}\tag{12}\label{12}
+\end{equation}
+By giving the bias parameter $w_{k,0}$ a dummy input variable $x_0=0$, we can rewrite \eqref{12} in a more convenient form
+\begin{equation}
+y_k(\mathbf{x})=\widetilde{\mathbf{w}}\_k^\intercal\widetilde{\mathbf{x}},
+\end{equation}
+where
+\begin{equation}
+\widetilde{\mathbf{w}}\_k=\left(w_{k,0},\mathbf{w}\_k^\intercal\right)^\intercal;\hspace{1cm}\widetilde{\mathbf{x}}=\left(1,\mathbf{x}^\intercal\right)^\intercal
+\end{equation}
+Thus, we can vectorize the $K$ linear models into
+\begin{equation}
+\mathbf{y}(\mathbf{x})=\widetilde{\mathbf{W}}^\intercal\widetilde{\mathbf{x}},\tag{13}\label{13}
+\end{equation}
+where $\widetilde{\mathbf{W}}$ is the parameter matrix whose $k$-th column is the $(D+1)$-dimensional vector $\widetilde{\mathbf{w}}\_k$
+\begin{equation}
+\widetilde{\mathbf{W}}=\left[\begin{matrix}\vert&&\vert \\\\ \widetilde{\mathbf{w}}\_1&\ldots&\widetilde{\mathbf{w}}\_K \\\\ \vert&&\vert\end{matrix}\right]
+\end{equation}
+Consider a training set $\\{\mathbf{x}\_n,\mathbf{t}\_n\\}$ for $n=1,\ldots,N$, analogy to the parameter matrix $\widetilde{\mathbf{W}}$, we can vectorize those input variables and target values into
+\begin{equation}
+\widetilde{\mathbf{X}}=\left[\begin{matrix}-\hspace{0.15cm}\widetilde{\mathbf{x}}\_1^\intercal\hspace{0.15cm}- \\\\ \vdots \\\\ -\hspace{0.15cm}\widetilde{\mathbf{x}}\_N^\intercal\hspace{0.15cm}-\end{matrix}\right]
+\end{equation}
+and
+\begin{equation}
+\mathbf{T}=\left[\begin{matrix}-\hspace{0.15cm}\mathbf{t}\_1^\intercal\hspace{0.15cm}- \\\\ \vdots \\\\ -\hspace{0.15cm}\mathbf{t}\_N^\intercal\hspace{0.15cm}-\end{matrix}\right]
+\end{equation}
+With these definition, the sum-of-squares error function then can be written as
+\begin{equation}
+E_D(\widetilde{\mathbf{W}})=\frac{1}{2}\text{Tr}\Big[(\widetilde{\mathbf{X}}\widetilde{\mathbf{W}}-\mathbf{T})^\intercal(\widetilde{\mathbf{X}}\widetilde{\mathbf{W}}-\mathbf{T})\Big]
+\end{equation}
+Taking the derivative of $E_D(\widetilde{\mathbf{W}})$ w.r.t $\widetilde{\mathbf{W}}$, we obtain
+\begin{align}
+\nabla_\widetilde{\mathbf{W}}E_D(\widetilde{\mathbf{W}})&=\nabla_\widetilde{\mathbf{W}}\frac{1}{2}\text{Tr}\Big[(\widetilde{\mathbf{X}}\widetilde{\mathbf{W}}-\mathbf{T})^\intercal(\widetilde{\mathbf{X}}\widetilde{\mathbf{W}}-\mathbf{T})\Big] \\\\ &=\frac{1}{2}\nabla_\widetilde{\mathbf{W}}\text{Tr}\Big[\widetilde{\mathbf{W}}^\intercal\widetilde{\mathbf{X}}^\intercal\widetilde{\mathbf{X}}\widetilde{\mathbf{W}}-\widetilde{\mathbf{W}}^\intercal\widetilde{\mathbf{X}}^\intercal\mathbf{T}-\mathbf{T}^\intercal\widetilde{\mathbf{X}}\widetilde{\mathbf{W}}+\mathbf{T}^\intercal\mathbf{T}\Big] \\\\ &=\frac{1}{2}\Big[2\widetilde{\mathbf{X}}^\intercal\widetilde{\mathbf{X}}\widetilde{\mathbf{W}}-\widetilde{\mathbf{X}}^\intercal\mathbf{T}-\widetilde{\mathbf{X}}^\intercal\mathbf{T}\Big] \\\\ &=\widetilde{\mathbf{X}}^\intercal\widetilde{\mathbf{X}}\widetilde{\mathbf{W}}-\widetilde{\mathbf{X}}^\intercal\mathbf{T}
+\end{align}
+Setting this derivative equal to zero, we obtain the least squares solution for $\widetilde{\mathbf{W}}$ as
+\begin{equation}
+\widetilde{\mathbf{W}}=(\widetilde{\mathbf{X}}^\intercal\widetilde{\mathbf{X}})^{-1}\widetilde{\mathbf{X}}^\intercal\mathbf{T}=\widetilde{\mathbf{X}}^\dagger\mathbf{T}
+\end{equation}
+Therefore, the discriminant function \eqref{13} can be rewritten as
+\begin{equation}
+\mathbf{y}(\mathbf{x})=\widetilde{\mathbf{W}}^\intercal\widetilde{\mathbf{x}}=\mathbf{T}^\intercal\big(\widetilde{\mathbf{X}}^\dagger\big)^\intercal\widetilde{\mathbf{x}}
+\end{equation}
+
+#### Fisher's linear discriminant
+{: #fisher-lin-disc}
 
 ## References
 {: #references}
@@ -352,6 +444,8 @@ where $\mathbf{w}$ is called the **weight vector**, and $w_0$ is the bias.
 [2] Gilbert Strang. [Introduction to Linear Algebra](http://math.mit.edu/~gs/linearalgebra/).  
 
 [3] MIT 18.06. [Linear Algebra](https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/).
+
+[4] MIT 18.02. [Multivariable Calculus](https://ocw.mit.edu/courses/18-02-multivariable-calculus-fall-2007/).
 
 ## Footnotes
 {: #footnotes}

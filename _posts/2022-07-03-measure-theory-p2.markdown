@@ -7,7 +7,7 @@ tags: mathematics measure-theory lebesgue-measure random-stuffs
 description: Note on measure theory part 2
 comments: true
 ---
-> A note on measure theory (continued from [part I]({% post_url 2022-06-16-measure-theory %})): materials were mostly taken from [Tao's book]({% post_url 2022-07-03-measure-theory-p2 %}#taos-book), except for some notations needed from [Stein's book]({% post_url 2022-07-03-measure-theory-p2 %}#steins-book).
+> Part II of the measure theory series. Materials are mostly taken from [Tao's book]({% post_url 2022-07-03-measure-theory-p2 %}#taos-book), except for some needed notations extracted from [Stein's book]({% post_url 2022-07-03-measure-theory-p2 %}#steins-book).
 <!-- excerpt-end -->
 
 - [Lebesgue measure](#lebesgue-measure)
