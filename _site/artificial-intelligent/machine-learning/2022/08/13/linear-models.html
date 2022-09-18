@@ -183,7 +183,12 @@
       <li><a href="#disc-funcs">Discriminant functions</a>
         <ul>
           <li><a href="#least-squares-clf">Least squares</a></li>
-          <li><a href="#fisher-lin-disc">Fisher’s linear discriminant</a></li>
+          <li><a href="#fisher-ld">Fisher’s linear discriminant</a>
+            <ul>
+              <li><a href="#fisher-ld-bin-clf">Binary classification</a></li>
+              <li><a href="#fisher-ld-clf">Multi-class classification</a></li>
+            </ul>
+          </li>
         </ul>
       </li>
     </ul>
@@ -581,6 +586,81 @@ Therefore, the discriminant function \eqref{13} can be rewritten as
 \end{equation}</p>
 
 <h4 id="fisher-lin-disc">Fisher’s linear discriminant</h4>
+<p>One way to view a linear classification model is in terms of dimensional reduction. In particular, given an $D$-dimensional input $\mathbf{x}$, we project it down to one dimension using
+\begin{equation}
+y=\mathbf{w}^\intercal\mathbf{x}\tag{14}\label{14}
+\end{equation}</p>
+
+<h5 id="fisher-ld-bin-clf">Binary classification</h5>
+<p>Consider a binary classification in which there are $N_1$ points of class $\mathcal{C}_1$ and $N_2$ points of class $\mathcal{C}_2$, thus the mean vectors of those two classes are given by
+\begin{align}
+\mathbf{m}_1&amp;=\frac{1}{N_1}\sum_{n\in\mathcal{C}_1}\mathbf{x}_n, \\ \mathbf{m}_2&amp;=\frac{1}{N_2}\sum_{n\in\mathcal{C}_2}\mathbf{x}_n
+\end{align}
+The simplest measure of the separation of the classes, when projected onto $\mathbf{w}$, is the separation of the projected class means, which suggests us choosing $\mathbf{w}$ in order to maximize
+\begin{equation}
+m_2-m_1=\mathbf{w}^\intercal(\mathbf{m}_2-\mathbf{m}_1),
+\end{equation}
+where for $k=1,\ldots,K$
+\begin{equation}
+m_k=\mathbf{w}^\intercal\mathbf{m}_k
+\end{equation}
+is the mean of the projected data from class $\mathcal{C}_k$.</p>
+
+<p>Using Lagrange multiplier, in order to maximize $m_2-m_1$, we have that
+\begin{equation}
+\mathbf{w}\propto(\mathbf{m}_2-\mathbf{m}_1)
+\end{equation}
+To solve this problem, we use the Fisher’s LD approach to minimize the class overlap by maximizing the ratio of the <strong>between-class variance</strong> to the <strong>within-class variance</strong>.</p>
+
+<p>The within-class variance of projected data from class $\mathbf{C}_k$ is defined as
+\begin{equation}
+s_k^2\doteq\sum_{n\in\mathcal{C}_k}(y_n-m_k)^2,
+\end{equation}
+where $y_n=\mathbf{w}^\intercal\mathbf{x}_n$ is the projected of $\mathbf{x}_n$. Thus the total within-class variance for the whole data set is $s_1^2+s_2^2$.</p>
+
+<p>The between-class variance is simply defined to be the squared of the difference of means, given as
+\begin{equation}
+(m_2-m_1)^2
+\end{equation}
+Hence, the ratio of the between-class variance to the within-class variance, called the <strong>Fisher criterion</strong>, can be defined as
+\begin{align}
+J(\mathbf{w})&amp;=\frac{(m_2-m_1)^2}{s_1^2+s_2^2} \\ &amp;=\frac{\big\Vert\mathbf{w}^\intercal(\mathbf{m}_2-\mathbf{m}_1)\big\Vert_2^2}{\sum_{n\in\mathcal{C}_1}\big\Vert\mathbf{w}^\intercal(\mathbf{x}_n-\mathbf{m}_1)\big\Vert_2^2+\sum_{n\in\mathcal{C}_2}\big\Vert\mathbf{w}^\intercal(\mathbf{x}_n-\mathbf{m}_2)\big\Vert_2^2} \\ &amp;=\frac{\mathbf{w}^\intercal\mathbf{S}_B\mathbf{w}}{\mathbf{w}^\intercal\mathbf{S}_W\mathbf{w}},\tag{15}\label{15}
+\end{align}
+where
+\begin{equation}
+\mathbf{S}_B\doteq(\mathbf{m}_2-\mathbf{m}_1)(\mathbf{m}_2-\mathbf{m}_1)^\intercal,
+\end{equation}
+is called the <strong>between-class covariance matrix</strong> and
+\begin{equation}
+\mathbf{S}_W\doteq\sum_{n\in\mathcal{C}_1}(\mathbf{x}_n-\mathbf{m}_1)(\mathbf{x}_n-\mathbf{m}_1)^\intercal+\sum_{n\in\mathcal{C}_2}(\mathbf{x}_n-\mathbf{m}_2)(\mathbf{x}_n-\mathbf{m}_2)^\intercal,
+\end{equation}
+is called the <strong>total within-class covariance matrix</strong>.</p>
+
+<p>As usual, taking the gradient of \eqref{15} w.r.t $\mathbf{w}$, we have
+\begin{align}
+\nabla_\mathbf{w}J(\mathbf{w})&amp;=\nabla_\mathbf{w}\frac{\mathbf{w}^\intercal\mathbf{S}_B\mathbf{w}}{\mathbf{w}^\intercal\mathbf{S}_W\mathbf{w}} \\ &amp;=\frac{\mathbf{w}^\intercal\mathbf{S}_W\mathbf{w}(\mathbf{S}_B+\mathbf{S}_B^\intercal)\mathbf{w}-\mathbf{w}^\intercal\mathbf{S}_B\mathbf{w}(\mathbf{S}_W+\mathbf{S}_W^\intercal)\mathbf{w}}{\big\Vert\mathbf{w}^\intercal\mathbf{S}_W\mathbf{w}\big\Vert_2^2} \\ &amp;=\frac{\mathbf{w}^\intercal\mathbf{S}_W\mathbf{w}\mathbf{S}_B\mathbf{w}-\mathbf{w}^\intercal\mathbf{S}_B\mathbf{w}\mathbf{S}_W\mathbf{w}}{\big\Vert\mathbf{w}^\intercal\mathbf{S}_W\mathbf{w}\big\Vert_2^2} \\ &amp;\propto\mathbf{w}^\intercal\mathbf{S}_W\mathbf{w}\mathbf{S}_B\mathbf{w}-\mathbf{w}^\intercal\mathbf{S}_B\mathbf{w}\mathbf{S}_W\mathbf{w}
+\end{align}
+Setting the gradient equal to zero and solving for $\mathbf{w}$, we obtain that $\mathbf{w}$ satisfies
+\begin{equation}
+\mathbf{w}^\intercal\mathbf{S}_W\mathbf{w}\mathbf{S}_B\mathbf{w}=\mathbf{w}^\intercal\mathbf{S}_B\mathbf{w}\mathbf{S}_W\mathbf{w}
+\end{equation}
+Since $\mathbf{w}^\intercal\mathbf{S}_W\mathbf{w}$ and $\mathbf{w}^\intercal\mathbf{S}_B\mathbf{w}$ are two scalars, we then have
+\begin{equation}
+\mathbf{S}_W\mathbf{w}\propto\mathbf{S}_B\mathbf{w}
+\end{equation}
+Multiply both side by $\mathbf{S}_W^{-1}$, we obtain
+\begin{align}
+\mathbf{w}&amp;\propto\mathbf{S}_W^{-1}\mathbf{S}_B\mathbf{w} \\ &amp;=\mathbf{S}_W^{-1}(\mathbf{m}_2-\mathbf{m}_1)(\mathbf{m}_2-\mathbf{m}_1)^\intercal\mathbf{w} \\ &amp;\propto\mathbf{S}_W^{-1}(\mathbf{m}_2-\mathbf{m}_1),\tag{16}\label{16}
+\end{align}
+since $(\mathbf{m}_2-\mathbf{m}_1)^\intercal\mathbf{w}$ is a scalar.</p>
+
+<p>If the within-class covariance matrix $\mathbf{S}_W$ is isotropic<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>, we then have
+\begin{equation}
+\mathbf{w}\propto\mathbf{m}_2-\mathbf{m}_1
+\end{equation}
+The result \eqref{16} is called <strong>Fisher’s linear discriminant</strong>.</p>
+
+<h5 id="fisher-ld-clf">Multi-class classification</h5>
 
 <h2 id="references">References</h2>
 <p>[1] <span id="bishops-book">Christopher M. Bishop. <a href="https://link.springer.com/book/9780387310732">Pattern Recognition and Machine Learning</a>. Springer New York, NY.</span></p>
@@ -591,7 +671,21 @@ Therefore, the discriminant function \eqref{13} can be rewritten as
 
 <p>[4] MIT 18.02. <a href="https://ocw.mit.edu/courses/18-02-multivariable-calculus-fall-2007/">Multivariable Calculus</a>.</p>
 
+<p>[5] <a href="https://stats.stackexchange.com/users/28666/amoeba">amoeba</a>. <a href="https://stats.stackexchange.com/q/204599">What is an isotropic (spherical) covariance matrix?</a>. Cross Validated.</p>
+
 <h2 id="footnotes">Footnotes</h2>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>A covariance matrix $\mathbf{C}$ is <strong>isotropic</strong> if it is proportional to the identity matrix $\mathbf{I}$
+\begin{equation}
+\mathbf{C}=\lambda\mathbf{I},
+\end{equation}
+where $\lambda\in\mathbb{R}$ is a constant. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
 
   </div>
 <div id="disqus_thread"></div>

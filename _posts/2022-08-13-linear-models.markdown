@@ -26,7 +26,9 @@ comments: true
 - [Linear models for Classification](#lin-models-clf)
 	- [Discriminant functions](#disc-funcs)
 		- [Least squares](#least-squares-clf)
-		- [Fisher's linear discriminant](#fisher-lin-disc)
+		- [Fisher's linear discriminant](#fisher-ld)
+			- [Binary classification](#fisher-ld-bin-clf)
+			- [Multi-class classification](#fisher-ld-clf)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -436,6 +438,85 @@ Therefore, the discriminant function \eqref{13} can be rewritten as
 
 #### Fisher's linear discriminant
 {: #fisher-lin-disc}
+One way to view a linear classification model is in terms of dimensional reduction. In particular, given an $D$-dimensional input $\mathbf{x}$, we project it down to one dimension using
+\begin{equation}
+y=\mathbf{w}^\intercal\mathbf{x}\tag{14}\label{14}
+\end{equation}
+
+##### Binary classification
+{: #fisher-ld-bin-clf}
+Consider a binary classification in which there are $N_1$ points of class $\mathcal{C}\_1$ and $N_2$ points of class $\mathcal{C}\_2$, thus the mean vectors of those two classes are given by
+\begin{align}
+\mathbf{m}\_1&=\frac{1}{N_1}\sum_{n\in\mathcal{C}\_1}\mathbf{x}\_n, \\\\ \mathbf{m}\_2&=\frac{1}{N_2}\sum_{n\in\mathcal{C}\_2}\mathbf{x}\_n
+\end{align}
+The simplest measure of the separation of the classes, when projected onto $\mathbf{w}$, is the separation of the projected class means, which suggests us choosing $\mathbf{w}$ in order to maximize
+\begin{equation}
+m_2-m_1=\mathbf{w}^\intercal(\mathbf{m}\_2-\mathbf{m}\_1),
+\end{equation}
+where for $k=1,\ldots,K$
+\begin{equation}
+m_k=\mathbf{w}^\intercal\mathbf{m}\_k
+\end{equation}
+is the mean of the projected data from class $\mathcal{C}\_k$.
+
+Using Lagrange multiplier, in order to maximize $m_2-m_1$, we have that
+\begin{equation}
+\mathbf{w}\propto(\mathbf{m}\_2-\mathbf{m}\_1)
+\end{equation}
+To solve this problem, we use the Fisher's LD approach to minimize the class overlap by maximizing the ratio of the **between-class variance** to the **within-class variance**.
+
+The within-class variance of projected data from class $\mathbf{C}\_k$ is defined as
+\begin{equation}
+s_k^2\doteq\sum_{n\in\mathcal{C}\_k}(y_n-m_k)^2,
+\end{equation}
+where $y_n=\mathbf{w}^\intercal\mathbf{x}\_n$ is the projected of $\mathbf{x}\_n$. Thus the total within-class variance for the whole data set is $s_1^2+s_2^2$.
+
+The between-class variance is simply defined to be the squared of the difference of means, given as
+\begin{equation}
+(m_2-m_1)^2
+\end{equation}
+Hence, the ratio of the between-class variance to the within-class variance, called the **Fisher criterion**, can be defined as
+\begin{align}
+J(\mathbf{w})&=\frac{(m_2-m_1)^2}{s_1^2+s_2^2} \\\\ &=\frac{\big\Vert\mathbf{w}^\intercal(\mathbf{m}\_2-\mathbf{m}\_1)\big\Vert_2^2}{\sum_{n\in\mathcal{C}\_1}\big\Vert\mathbf{w}^\intercal(\mathbf{x}\_n-\mathbf{m}\_1)\big\Vert_2^2+\sum_{n\in\mathcal{C}\_2}\big\Vert\mathbf{w}^\intercal(\mathbf{x}\_n-\mathbf{m}\_2)\big\Vert_2^2} \\\\ &=\frac{\mathbf{w}^\intercal\mathbf{S}\_B\mathbf{w}}{\mathbf{w}^\intercal\mathbf{S}\_W\mathbf{w}},\tag{15}\label{15}
+\end{align}
+where
+\begin{equation}
+\mathbf{S}\_B\doteq(\mathbf{m}\_2-\mathbf{m}\_1)(\mathbf{m}\_2-\mathbf{m}\_1)^\intercal,
+\end{equation}
+is called the **between-class covariance matrix** and
+\begin{equation}
+\mathbf{S}\_W\doteq\sum_{n\in\mathcal{C}\_1}(\mathbf{x}\_n-\mathbf{m}\_1)(\mathbf{x}\_n-\mathbf{m}\_1)^\intercal+\sum_{n\in\mathcal{C}\_2}(\mathbf{x}\_n-\mathbf{m}\_2)(\mathbf{x}\_n-\mathbf{m}\_2)^\intercal,
+\end{equation}
+is called the **total within-class covariance matrix**.
+
+As usual, taking the gradient of \eqref{15} w.r.t $\mathbf{w}$, we have
+\begin{align}
+\nabla_\mathbf{w}J(\mathbf{w})&=\nabla_\mathbf{w}\frac{\mathbf{w}^\intercal\mathbf{S}\_B\mathbf{w}}{\mathbf{w}^\intercal\mathbf{S}\_W\mathbf{w}} \\\\ &=\frac{\mathbf{w}^\intercal\mathbf{S}\_W\mathbf{w}(\mathbf{S}\_B+\mathbf{S}\_B^\intercal)\mathbf{w}-\mathbf{w}^\intercal\mathbf{S}\_B\mathbf{w}(\mathbf{S}\_W+\mathbf{S}\_W^\intercal)\mathbf{w}}{\big\Vert\mathbf{w}^\intercal\mathbf{S}\_W\mathbf{w}\big\Vert_2^2} \\\\ &=\frac{\mathbf{w}^\intercal\mathbf{S}\_W\mathbf{w}\mathbf{S}\_B\mathbf{w}-\mathbf{w}^\intercal\mathbf{S}\_B\mathbf{w}\mathbf{S}\_W\mathbf{w}}{\big\Vert\mathbf{w}^\intercal\mathbf{S}\_W\mathbf{w}\big\Vert_2^2} \\\\ &\propto\mathbf{w}^\intercal\mathbf{S}\_W\mathbf{w}\mathbf{S}\_B\mathbf{w}-\mathbf{w}^\intercal\mathbf{S}\_B\mathbf{w}\mathbf{S}\_W\mathbf{w}
+\end{align}
+Setting the gradient equal to zero and solving for $\mathbf{w}$, we obtain that $\mathbf{w}$ satisfies
+\begin{equation}
+\mathbf{w}^\intercal\mathbf{S}\_W\mathbf{w}\mathbf{S}\_B\mathbf{w}=\mathbf{w}^\intercal\mathbf{S}\_B\mathbf{w}\mathbf{S}\_W\mathbf{w}
+\end{equation}
+Since $\mathbf{w}^\intercal\mathbf{S}\_W\mathbf{w}$ and $\mathbf{w}^\intercal\mathbf{S}\_B\mathbf{w}$ are two scalars, we then have
+\begin{equation}
+\mathbf{S}\_W\mathbf{w}\propto\mathbf{S}\_B\mathbf{w}
+\end{equation}
+Multiply both side by $\mathbf{S}\_W^{-1}$, we obtain
+\begin{align}
+\mathbf{w}&\propto\mathbf{S}\_W^{-1}\mathbf{S}\_B\mathbf{w} \\\\ &=\mathbf{S}\_W^{-1}(\mathbf{m}\_2-\mathbf{m}\_1)(\mathbf{m}\_2-\mathbf{m}\_1)^\intercal\mathbf{w} \\\\ &\propto\mathbf{S}\_W^{-1}(\mathbf{m}\_2-\mathbf{m}\_1),\tag{16}\label{16}
+\end{align}
+since $(\mathbf{m}\_2-\mathbf{m}\_1)^\intercal\mathbf{w}$ is a scalar.
+
+If the within-class covariance matrix $\mathbf{S}\_W$ is isotropic[^1], we then have
+\begin{equation}
+\mathbf{w}\propto\mathbf{m}\_2-\mathbf{m}\_1
+\end{equation}
+The result \eqref{16} is called **Fisher's linear discriminant**.
+
+##### Multi-class classification
+{: #fisher-ld-clf}
+
+
 
 ## References
 {: #references}
@@ -447,5 +528,13 @@ Therefore, the discriminant function \eqref{13} can be rewritten as
 
 [4] MIT 18.02. [Multivariable Calculus](https://ocw.mit.edu/courses/18-02-multivariable-calculus-fall-2007/).
 
+[5] [amoeba](https://stats.stackexchange.com/users/28666/amoeba). [What is an isotropic (spherical) covariance matrix?](https://stats.stackexchange.com/q/204599). Cross Validated.
+
 ## Footnotes
 {: #footnotes}
+
+[^1]: A covariance matrix $\mathbf{C}$ is **isotropic** if it is proportional to the identity matrix $\mathbf{I}$
+	\begin{equation}
+	\mathbf{C}=\lambda\mathbf{I},
+	\end{equation}
+	where $\lambda\in\mathbb{R}$ is a constant.

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-18T17:04:52+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-18T20:29:24+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Linear models</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/linear-models.html" rel="alternate" type="text/html" title="Linear models" /><published>2022-08-13T13:00:00+07:00</published><updated>2022-08-13T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/linear-models</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/linear-models.html">&lt;blockquote&gt;
   &lt;p&gt;Materials were taken mostly from &lt;a href=&quot;% post_url 2022-08-13-linear-models %}#bishops-book&quot;&gt;Bishop’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -35,7 +35,12 @@
       &lt;li&gt;&lt;a href=&quot;#disc-funcs&quot;&gt;Discriminant functions&lt;/a&gt;
         &lt;ul&gt;
           &lt;li&gt;&lt;a href=&quot;#least-squares-clf&quot;&gt;Least squares&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#fisher-lin-disc&quot;&gt;Fisher’s linear discriminant&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#fisher-ld&quot;&gt;Fisher’s linear discriminant&lt;/a&gt;
+            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#fisher-ld-bin-clf&quot;&gt;Binary classification&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#fisher-ld-clf&quot;&gt;Multi-class classification&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
@@ -433,6 +438,81 @@ Therefore, the discriminant function \eqref{13} can be rewritten as
 \end{equation}&lt;/p&gt;
 
 &lt;h4 id=&quot;fisher-lin-disc&quot;&gt;Fisher’s linear discriminant&lt;/h4&gt;
+&lt;p&gt;One way to view a linear classification model is in terms of dimensional reduction. In particular, given an $D$-dimensional input $\mathbf{x}$, we project it down to one dimension using
+\begin{equation}
+y=\mathbf{w}^\intercal\mathbf{x}\tag{14}\label{14}
+\end{equation}&lt;/p&gt;
+
+&lt;h5 id=&quot;fisher-ld-bin-clf&quot;&gt;Binary classification&lt;/h5&gt;
+&lt;p&gt;Consider a binary classification in which there are $N_1$ points of class $\mathcal{C}_1$ and $N_2$ points of class $\mathcal{C}_2$, thus the mean vectors of those two classes are given by
+\begin{align}
+\mathbf{m}_1&amp;amp;=\frac{1}{N_1}\sum_{n\in\mathcal{C}_1}\mathbf{x}_n, \\ \mathbf{m}_2&amp;amp;=\frac{1}{N_2}\sum_{n\in\mathcal{C}_2}\mathbf{x}_n
+\end{align}
+The simplest measure of the separation of the classes, when projected onto $\mathbf{w}$, is the separation of the projected class means, which suggests us choosing $\mathbf{w}$ in order to maximize
+\begin{equation}
+m_2-m_1=\mathbf{w}^\intercal(\mathbf{m}_2-\mathbf{m}_1),
+\end{equation}
+where for $k=1,\ldots,K$
+\begin{equation}
+m_k=\mathbf{w}^\intercal\mathbf{m}_k
+\end{equation}
+is the mean of the projected data from class $\mathcal{C}_k$.&lt;/p&gt;
+
+&lt;p&gt;Using Lagrange multiplier, in order to maximize $m_2-m_1$, we have that
+\begin{equation}
+\mathbf{w}\propto(\mathbf{m}_2-\mathbf{m}_1)
+\end{equation}
+To solve this problem, we use the Fisher’s LD approach to minimize the class overlap by maximizing the ratio of the &lt;strong&gt;between-class variance&lt;/strong&gt; to the &lt;strong&gt;within-class variance&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;The within-class variance of projected data from class $\mathbf{C}_k$ is defined as
+\begin{equation}
+s_k^2\doteq\sum_{n\in\mathcal{C}_k}(y_n-m_k)^2,
+\end{equation}
+where $y_n=\mathbf{w}^\intercal\mathbf{x}_n$ is the projected of $\mathbf{x}_n$. Thus the total within-class variance for the whole data set is $s_1^2+s_2^2$.&lt;/p&gt;
+
+&lt;p&gt;The between-class variance is simply defined to be the squared of the difference of means, given as
+\begin{equation}
+(m_2-m_1)^2
+\end{equation}
+Hence, the ratio of the between-class variance to the within-class variance, called the &lt;strong&gt;Fisher criterion&lt;/strong&gt;, can be defined as
+\begin{align}
+J(\mathbf{w})&amp;amp;=\frac{(m_2-m_1)^2}{s_1^2+s_2^2} \\ &amp;amp;=\frac{\big\Vert\mathbf{w}^\intercal(\mathbf{m}_2-\mathbf{m}_1)\big\Vert_2^2}{\sum_{n\in\mathcal{C}_1}\big\Vert\mathbf{w}^\intercal(\mathbf{x}_n-\mathbf{m}_1)\big\Vert_2^2+\sum_{n\in\mathcal{C}_2}\big\Vert\mathbf{w}^\intercal(\mathbf{x}_n-\mathbf{m}_2)\big\Vert_2^2} \\ &amp;amp;=\frac{\mathbf{w}^\intercal\mathbf{S}_B\mathbf{w}}{\mathbf{w}^\intercal\mathbf{S}_W\mathbf{w}},\tag{15}\label{15}
+\end{align}
+where
+\begin{equation}
+\mathbf{S}_B\doteq(\mathbf{m}_2-\mathbf{m}_1)(\mathbf{m}_2-\mathbf{m}_1)^\intercal,
+\end{equation}
+is called the &lt;strong&gt;between-class covariance matrix&lt;/strong&gt; and
+\begin{equation}
+\mathbf{S}_W\doteq\sum_{n\in\mathcal{C}_1}(\mathbf{x}_n-\mathbf{m}_1)(\mathbf{x}_n-\mathbf{m}_1)^\intercal+\sum_{n\in\mathcal{C}_2}(\mathbf{x}_n-\mathbf{m}_2)(\mathbf{x}_n-\mathbf{m}_2)^\intercal,
+\end{equation}
+is called the &lt;strong&gt;total within-class covariance matrix&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;As usual, taking the gradient of \eqref{15} w.r.t $\mathbf{w}$, we have
+\begin{align}
+\nabla_\mathbf{w}J(\mathbf{w})&amp;amp;=\nabla_\mathbf{w}\frac{\mathbf{w}^\intercal\mathbf{S}_B\mathbf{w}}{\mathbf{w}^\intercal\mathbf{S}_W\mathbf{w}} \\ &amp;amp;=\frac{\mathbf{w}^\intercal\mathbf{S}_W\mathbf{w}(\mathbf{S}_B+\mathbf{S}_B^\intercal)\mathbf{w}-\mathbf{w}^\intercal\mathbf{S}_B\mathbf{w}(\mathbf{S}_W+\mathbf{S}_W^\intercal)\mathbf{w}}{\big\Vert\mathbf{w}^\intercal\mathbf{S}_W\mathbf{w}\big\Vert_2^2} \\ &amp;amp;=\frac{\mathbf{w}^\intercal\mathbf{S}_W\mathbf{w}\mathbf{S}_B\mathbf{w}-\mathbf{w}^\intercal\mathbf{S}_B\mathbf{w}\mathbf{S}_W\mathbf{w}}{\big\Vert\mathbf{w}^\intercal\mathbf{S}_W\mathbf{w}\big\Vert_2^2} \\ &amp;amp;\propto\mathbf{w}^\intercal\mathbf{S}_W\mathbf{w}\mathbf{S}_B\mathbf{w}-\mathbf{w}^\intercal\mathbf{S}_B\mathbf{w}\mathbf{S}_W\mathbf{w}
+\end{align}
+Setting the gradient equal to zero and solving for $\mathbf{w}$, we obtain that $\mathbf{w}$ satisfies
+\begin{equation}
+\mathbf{w}^\intercal\mathbf{S}_W\mathbf{w}\mathbf{S}_B\mathbf{w}=\mathbf{w}^\intercal\mathbf{S}_B\mathbf{w}\mathbf{S}_W\mathbf{w}
+\end{equation}
+Since $\mathbf{w}^\intercal\mathbf{S}_W\mathbf{w}$ and $\mathbf{w}^\intercal\mathbf{S}_B\mathbf{w}$ are two scalars, we then have
+\begin{equation}
+\mathbf{S}_W\mathbf{w}\propto\mathbf{S}_B\mathbf{w}
+\end{equation}
+Multiply both side by $\mathbf{S}_W^{-1}$, we obtain
+\begin{align}
+\mathbf{w}&amp;amp;\propto\mathbf{S}_W^{-1}\mathbf{S}_B\mathbf{w} \\ &amp;amp;=\mathbf{S}_W^{-1}(\mathbf{m}_2-\mathbf{m}_1)(\mathbf{m}_2-\mathbf{m}_1)^\intercal\mathbf{w} \\ &amp;amp;\propto\mathbf{S}_W^{-1}(\mathbf{m}_2-\mathbf{m}_1),\tag{16}\label{16}
+\end{align}
+since $(\mathbf{m}_2-\mathbf{m}_1)^\intercal\mathbf{w}$ is a scalar.&lt;/p&gt;
+
+&lt;p&gt;If the within-class covariance matrix $\mathbf{S}_W$ is isotropic&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;, we then have
+\begin{equation}
+\mathbf{w}\propto\mathbf{m}_2-\mathbf{m}_1
+\end{equation}
+The result \eqref{16} is called &lt;strong&gt;Fisher’s linear discriminant&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h5 id=&quot;fisher-ld-clf&quot;&gt;Multi-class classification&lt;/h5&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] &lt;span id=&quot;bishops-book&quot;&gt;Christopher M. Bishop. &lt;a href=&quot;https://link.springer.com/book/9780387310732&quot;&gt;Pattern Recognition and Machine Learning&lt;/a&gt;. Springer New York, NY.&lt;/span&gt;&lt;/p&gt;
@@ -443,7 +523,21 @@ Therefore, the discriminant function \eqref{13} can be rewritten as
 
 &lt;p&gt;[4] MIT 18.02. &lt;a href=&quot;https://ocw.mit.edu/courses/18-02-multivariable-calculus-fall-2007/&quot;&gt;Multivariable Calculus&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="machine-learning" /><category term="artificial-intelligent" /><category term="machine-learning" /><category term="linear-model" /><summary type="html">Materials were taken mostly from Bishop’s book.</summary></entry><entry><title type="html">Measure theory - II</title><link href="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html" rel="alternate" type="text/html" title="Measure theory - II" /><published>2022-07-03T13:00:00+07:00</published><updated>2022-07-03T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html">&lt;blockquote&gt;
+&lt;p&gt;[5] &lt;a href=&quot;https://stats.stackexchange.com/users/28666/amoeba&quot;&gt;amoeba&lt;/a&gt;. &lt;a href=&quot;https://stats.stackexchange.com/q/204599&quot;&gt;What is an isotropic (spherical) covariance matrix?&lt;/a&gt;. Cross Validated.&lt;/p&gt;
+
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
+
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;A covariance matrix $\mathbf{C}$ is &lt;strong&gt;isotropic&lt;/strong&gt; if it is proportional to the identity matrix $\mathbf{I}$
+\begin{equation}
+\mathbf{C}=\lambda\mathbf{I},
+\end{equation}
+where $\lambda\in\mathbb{R}$ is a constant. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="machine-learning" /><category term="artificial-intelligent" /><category term="machine-learning" /><category term="linear-model" /><summary type="html">Materials were taken mostly from Bishop’s book.</summary></entry><entry><title type="html">Measure theory - II</title><link href="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html" rel="alternate" type="text/html" title="Measure theory - II" /><published>2022-07-03T13:00:00+07:00</published><updated>2022-07-03T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html">&lt;blockquote&gt;
   &lt;p&gt;Part II of the measure theory series. Materials are mostly taken from &lt;a href=&quot;/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some needed notations extracted from &lt;a href=&quot;/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
