@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-18T20:29:24+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-19T14:51:23+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory - II</title><link href="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html" rel="alternate" type="text/html" title="Measure theory - II" /><published>2022-07-03T13:00:00+07:00</published><updated>2022-07-03T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html">&lt;blockquote&gt;
   &lt;p&gt;Part II of the measure theory series. Materials are mostly taken from &lt;a href=&quot;/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some needed notations extracted from &lt;a href=&quot;/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -1665,7 +1665,7 @@ Below are some visualizations of Normal distribution.&lt;/p&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;mvn&quot;&gt;Multivariate Normal Distribution&lt;/h2&gt;
-&lt;p&gt;A $k$-dimensional random vector $\mathbf{X}=\left(X_1,\dots,X_k\right)^\intercal$ is said to have a &lt;strong&gt;Multivariate Normal (MVN)&lt;/strong&gt; distribution if every linear combination of the $X_i$ has a Normal distribution. Which means
+&lt;p&gt;A $k$-dimensional random vector $\mathbf{X}=\left(X_1,\dots,X_k\right)^T$ is said to have a &lt;strong&gt;Multivariate Normal (MVN)&lt;/strong&gt; distribution if every linear combination of the $X_i$ has a Normal distribution. Which means
 \begin{equation}
 t_1X_1+\ldots+t_kX_k
 \end{equation}
@@ -1675,7 +1675,7 @@ is normally distributed for any choice of constants $t_1,\dots,t_k$. Distributio
 \end{equation}
 where
 \begin{equation}
-	\mathbf{\mu}=\mathbb{E}\mathbf{X}=\mathbb{E}\left(\mu_1,\ldots,\mu_k\right)^\intercal=\left(\mathbb{E}X_1,\ldots,\mathbb{E}X_k\right)^\intercal
+	\mathbf{\mu}=\mathbb{E}\mathbf{X}=\mathbb{E}\left(\mu_1,\ldots,\mu_k\right)^T=\left(\mathbb{E}X_1,\ldots,\mathbb{E}X_k\right)^T
 \end{equation}
 is the $k$-dimensional mean vector, and covariance matrix $\mathbf{\Sigma}\in\mathbb{R}^{k\times k}$ with
 \begin{equation}
@@ -1685,7 +1685,7 @@ We also have that $\mathbf{\Sigma}\geq 0$ (positive semi-definite matrix)&lt;sup
 
 &lt;p&gt;Thus, the PDF of an MVN is defined as
 \begin{equation}
-f_X(x_1,\ldots,x_k)=\dfrac{1}{(2\pi)^{k/2}\vert\mathbf{\Sigma}\vert^{1/2}}\exp\left[\dfrac{1}{2}\left(\mathbf{x}-\mathbf{\mu}\right)^\intercal\mathbf{\Sigma}^{-1}(\mathbf{x}-\mathbf{\mu})\right]
+f_X(x_1,\ldots,x_k)=\dfrac{1}{(2\pi)^{k/2}\vert\mathbf{\Sigma}\vert^{1/2}}\exp\left[\dfrac{1}{2}\left(\mathbf{x}-\mathbf{\mu}\right)^T\mathbf{\Sigma}^{-1}(\mathbf{x}-\mathbf{\mu})\right]
 \end{equation}
 With this idea, &lt;em&gt;Standard Normal&lt;/em&gt; distribution in multi-dimensional case can be defined as a Gaussian with mean $\mathbf{\mu}=0$ (here $0$ is an $k$-dimensional vector) and identity covariance matrix $\mathbf{\Sigma}=\mathbf{I}_{k\times k}$.&lt;/p&gt;
 
@@ -1713,9 +1713,9 @@ With this idea, &lt;em&gt;Standard Normal&lt;/em&gt; distribution in multi-dimen
 \end{equation}
 Let $\mathbf{z}\in\mathbb{R}^k$, we have
 \begin{equation}
-\Var(\mathbf{z}^\intercal\mathbf{X})=\mathbf{z}^\intercal\Var(\mathbf{X})\mathbf{z}=\mathbf{z}^\intercal\mathbf{\Sigma}\mathbf{z}
+\Var(\mathbf{z}^T\mathbf{X})=\mathbf{z}^T\Var(\mathbf{X})\mathbf{z}=\mathbf{z}^T\mathbf{\Sigma}\mathbf{z}
 \end{equation}
-And since $\Var(\mathbf{z}^\intercal\mathbf{X})\geq0$, we also have that $\mathbf{z}^\intercal\mathbf{\Sigma}\mathbf{z}\geq0$, which proves that $\mathbf{\Sigma}$ is a positive semi-definite matrix. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+And since $\Var(\mathbf{z}^T\mathbf{X})\geq0$, we also have that $\mathbf{z}^T\mathbf{\Sigma}\mathbf{z}\geq0$, which proves that $\mathbf{\Sigma}$ is a positive semi-definite matrix. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="probability-statistics" /><category term="mathematics" /><category term="probability-statistics" /><category term="normal-distribution" /><summary type="html">A note on Normal distribution.</summary></entry><entry><title type="html">Power Series</title><link href="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>http://localhost:4000/mathematics/calculus/2021/09/21/power-series</id><content type="html" xml:base="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html">&lt;blockquote&gt;

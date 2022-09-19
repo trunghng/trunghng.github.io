@@ -3,11 +3,11 @@ layout: post
 title:  "Linear models"
 date:   2022-08-13 13:00:00 +0700
 categories: artificial-intelligent machine-learning
-tags: artificial-intelligent machine-learning linear-model
-description: A note on lienar models
+tags: artificial-intelligent machine-learning least-squares linear-discriminant-analysis
+description: A note on linear models
 comments: true
 ---
-> Materials were taken mostly from [Bishop's book](% post_url 2022-08-13-linear-models %}#bishops-book).
+> Linear models for solving regression and classification problems. Materials were taken mostly from [Bishop's book](% post_url 2022-08-13-linear-models %}#bishops-book).
 <!-- excerpt-end -->
 
 - [Preliminaries](#preliminaries)
@@ -29,6 +29,7 @@ comments: true
 		- [Fisher's linear discriminant](#fisher-ld)
 			- [Binary classification](#fisher-ld-bin-clf)
 			- [Multi-class classification](#fisher-ld-clf)
+		- [The perceptron algorithm](#perceptron)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -90,7 +91,7 @@ Suppose $f(\mathbf{x})$ has a local maximum at $\mathbf{x}^\*$ on the constraint
 
 Let $\mathbf{r}(t)=\langle x_1(t),x_2(t),x_3(t)\rangle$ be a parameterized curve on the constraint surface such that and $\mathbf{r}(t)$ has
 \begin{equation}
-(x_1(0),x_2(0),x_3(0))^\intercal=\mathbf{x}
+(x_1(0),x_2(0),x_3(0))^\text{T}=\mathbf{x}
 \end{equation}
 And also, let $h(t)=f(x_1(t),x_2(t),x_3(t))$, then it implies that $h$ has a maximum at $t=0$, which lets
 \begin{equation}
@@ -132,7 +133,7 @@ The simplest linear model used for regression tasks is **linear regression**, wh
 \begin{equation}
 y(\mathbf{x},\mathbf{w})=w_0+w_1x_1+\ldots+w_Dx_D,\tag{1}\label{1}
 \end{equation}
-where $\mathbf{x}=(x_1,\ldots,x_D)^\intercal$ is the input variables, while $w_i$'s are the parameters parameterizing the space of linear function mapping from the input space $\mathcal{X}$ of $\mathbf{x}$ to $\mathcal{Y}$.
+where $\mathbf{x}=(x_1,\ldots,x_D)^\text{T}$ is the input variables, while $w_i$'s are the parameters parameterizing the space of linear function mapping from the input space $\mathcal{X}$ of $\mathbf{x}$ to $\mathcal{Y}$.
 
 With the idea of spanning a space by its basis vectors, we can generalize it to establishing a function space by linear combinations of simpler basis functions. Or in other words, we can extend the class of models by instead using a linear combination of fixed nonlinear functions of the input variables $\mathbf{x}$, as
 \begin{equation}
@@ -140,9 +141,9 @@ y(\mathbf{x},\mathbf{w})=w_0+w_1\phi_1(\mathbf{x})+\ldots+w_{M-1}\phi_{M-1}(\mat
 \end{equation}
 where $\phi_i(\mathbf{x})$'s are called the **basis functions**; $w_0$ is called a **bias parameter**. By letting $w_0$ be a coefficient corresponding to a dummy basis function $\phi_0(\mathbf{x})=1$, \eqref{2} can be written in a more convenient way
 \begin{equation}
-y(\mathbf{x},\mathbf{w})=\sum_{i=0}^{M-1}w_i\phi_i(\mathbf{x})=\mathbf{w}^\intercal\boldsymbol{\phi}(\mathbf{x}),\tag{3}\label{3}
+y(\mathbf{x},\mathbf{w})=\sum_{i=0}^{M-1}w_i\phi_i(\mathbf{x})=\mathbf{w}^\text{T}\boldsymbol{\phi}(\mathbf{x}),\tag{3}\label{3}
 \end{equation}
-where $\mathbf{w}=(w_0,\ldots,w_{M-1})^\intercal$ and $\boldsymbol{\phi}=(\phi_0,\ldots,\phi_{M-1})^\intercal$, with $\phi_0(\cdot)=1$.
+where $\mathbf{w}=(w_0,\ldots,w_{M-1})^\text{T}$ and $\boldsymbol{\phi}=(\phi_0,\ldots,\phi_{M-1})^\text{T}$, with $\phi_0(\cdot)=1$.
 
 There are various choices of basis functions:
 <ul id='number-list'>
@@ -203,7 +204,7 @@ where $\beta=1/\sigma^2$ is the precision of $\epsilon$, or
 \begin{equation}
 t|\mathbf{x};\mathbf{w},\beta\sim\mathcal{N}(y(\mathbf{x},\mathbf{w}),\beta^{-1})\tag{5}\label{5}
 \end{equation}
-Consider a data set of inputs $\mathbf{X}=\\{\mathbf{x}\_1,\ldots,\mathbf{x}\_N\\}$ with corresponding target values $\mathbf{t}=(t_1,\ldots,t_N)^\intercal$ and assume that these data points are drawn independently from the distribution \eqref{5}, we obtain the batch version of \eqref{4}, called the **likelihood function**, given as
+Consider a data set of inputs $\mathbf{X}=\\{\mathbf{x}\_1,\ldots,\mathbf{x}\_N\\}$ with corresponding target values $\mathbf{t}=(t_1,\ldots,t_N)^\text{T}$ and assume that these data points are drawn independently from the distribution \eqref{5}, we obtain the batch version of \eqref{4}, called the **likelihood function**, given as
 \begin{align}
 L(\mathbf{w},\beta)=p(\mathbf{t}|\mathbf{X};\mathbf{w},\beta)&=\prod_{i=1}^{N}p(t_i|\mathbf{x}\_i;\mathbf{w},\beta) \\\\ &=\prod_{i=1}^{N}\sqrt{\frac{\beta}{2\pi}}\exp\left(-\frac{(t_i-y(\mathbf{x}\_i,\mathbf{w}))^2\beta}{2}\right)
 \end{align}
@@ -217,15 +218,15 @@ E_D(\mathbf{w})\doteq\frac{1}{2}\sum_{i=1}^{N}\left(t_i-y(\mathbf{x}\_i,\mathbf{
 \end{equation}
 Consider the gradient of \eqref{6} w.r.t $\mathbf{w}$, we have
 \begin{align}
-\nabla_\mathbf{w}\ell(\mathbf{w},\beta)&=\nabla_\mathbf{w}\left[\frac{N}{2}\log\beta-\frac{N}{2}\log(2\pi)-\beta E_D(\mathbf{w})\right] \\\\ &\propto\nabla_\mathbf{w}\frac{1}{2}\sum_{i=1}^{N}\big(t_i-y(\mathbf{x}\_i,\mathbf{w})\big)^2 \\\\ &=\nabla_\mathbf{w}\frac{1}{2}\sum_{i=1}^{N}\left(t_i-\mathbf{w}^\intercal\boldsymbol{\phi}\big(\mathbf{x}\_i\right)\big)^2 \\\\ &=\sum_{i=1}^{N}(t_i-\mathbf{w}^\intercal\boldsymbol{\phi}(\mathbf{x}\_i))\boldsymbol{\phi}(\mathbf{x}\_i)^\intercal
+\nabla_\mathbf{w}\ell(\mathbf{w},\beta)&=\nabla_\mathbf{w}\left[\frac{N}{2}\log\beta-\frac{N}{2}\log(2\pi)-\beta E_D(\mathbf{w})\right] \\\\ &\propto\nabla_\mathbf{w}\frac{1}{2}\sum_{i=1}^{N}\big(t_i-y(\mathbf{x}\_i,\mathbf{w})\big)^2 \\\\ &=\nabla_\mathbf{w}\frac{1}{2}\sum_{i=1}^{N}\left(t_i-\mathbf{w}^\text{T}\boldsymbol{\phi}\big(\mathbf{x}\_i\right)\big)^2 \\\\ &=\sum_{i=1}^{N}(t_i-\mathbf{w}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i))\boldsymbol{\phi}(\mathbf{x}\_i)^\text{T}
 \end{align}
 By gradient descent, letting this gradient to zero gives us
 \begin{equation}
-\sum_{i=1}^{N}t_i\boldsymbol{\phi}(\mathbf{x}\_i)^\intercal-\mathbf{w}^\intercal\sum_{i=1}^{N}\boldsymbol{\phi}(\mathbf{x}\_i)\boldsymbol{\phi}(\mathbf{x}\_i)^\intercal=0,
+\sum_{i=1}^{N}t_i\boldsymbol{\phi}(\mathbf{x}\_i)^\text{T}-\mathbf{w}^\text{T}\sum_{i=1}^{N}\boldsymbol{\phi}(\mathbf{x}\_i)\boldsymbol{\phi}(\mathbf{x}\_i)^\text{T}=0,
 \end{equation}
 which implies that
 \begin{equation}
-\mathbf{w}\_\text{ML}=\left(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}^\intercal\mathbf{t},\tag{8}\label{8}
+\mathbf{w}\_\text{ML}=\left(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}^\text{T}\mathbf{t},\tag{8}\label{8}
 \end{equation}
 which is known as the **normal equations** for the least squares problem. In \eqref{8}, $\boldsymbol{\Phi}\in\mathbb{R}^{N\times M}$ is called the **design matrix**, whose elements are given by $\boldsymbol{\Phi}\_{ij}=\phi_j(\mathbf{x}\_i)$
 \begin{equation}
@@ -233,13 +234,13 @@ which is known as the **normal equations** for the least squares problem. In \eq
 \end{equation}
 and the quantity
 \begin{equation}
-\boldsymbol{\Phi}^\dagger\doteq\left(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}^\intercal
+\boldsymbol{\Phi}^\dagger\doteq\left(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}^\text{T}
 \end{equation}
 is called the **Moore-Penrose pseudoinverse** of the matrix $\boldsymbol{\Phi}$.
 
 On the other hand, consider the gradient of \eqref{6} w.r.t $\beta$ and set it equal to zero, we obtain
 \begin{equation}
-\beta=\frac{N}{\sum_{i=1}^{N}\big(t_i-\mathbf{w}\_\text{ML}^\intercal\boldsymbol{\Phi}(\mathbf{x}\_i)\big)^2}
+\beta=\frac{N}{\sum_{i=1}^{N}\big(t_i-\mathbf{w}\_\text{ML}^\text{T}\boldsymbol{\Phi}(\mathbf{x}\_i)\big)^2}
 \end{equation}
 
 #### Geometrical interpretation of least squares
@@ -248,7 +249,7 @@ As mentioned before, we have applied the idea of spanning a vector space by its 
 
 In particular, consider an $N$-dimensional space whose axes are given by $t_i$, which implies that
 \begin{equation}
-\mathbf{t}=(t_1,\ldots,t_N)^\intercal
+\mathbf{t}=(t_1,\ldots,t_N)^\text{T}
 \end{equation}
 is a vector contained in the space.
 <figure>
@@ -264,14 +265,14 @@ When the number $M$ of basis functions is smaller than the number $N$ of data po
 
 We define $\mathbf{y}$ to be an $N$-dimensional vector whose the $i$-th element is given by $y(\mathbf{x}\_i,\mathbf{w})$
 \begin{equation}
-\mathbf{y}=\big(y(\mathbf{x}\_1,\mathbf{w}),\ldots,y(\mathbf{x}\_N,\mathbf{w})\big)^\intercal
+\mathbf{y}=\big(y(\mathbf{x}\_1,\mathbf{w}),\ldots,y(\mathbf{x}\_N,\mathbf{w})\big)^\text{T}
 \end{equation}
 Since $\mathbf{y}$ is a linear combination of $\boldsymbol{\varphi}\_i$, then $\mathbf{y}\in\mathcal{S}$.
 Then the sum-of-squares error \eqref{7} is exactly (with a factor of $1/2$) the squared Euclidean distance between $\mathbf{y}$ and $\mathbf{t}$. Therefore, the least square solution to $\mathbf{w}$ is the one that makes $\mathbf{y}$ closest to $\mathbf{t}$.
 
 This solution corresponds to the orthogonal projection of $t$ onto the subspace $S$ spanned by $\boldsymbol{\varphi}\_i$, because we have that
 \begin{align}
-\mathbf{y}^\intercal(\mathbf{t}-\mathbf{y})&=\left(\boldsymbol{\Phi}\mathbf{w}\_\text{ML}\right)^\intercal\left(\mathbf{t}-\boldsymbol{\Phi}\mathbf{w}\_\text{ML}\right) \\\\ &=\left(\boldsymbol{\Phi}\left(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}\mathbf{t}\right)^\intercal\left(\mathbf{t}-\boldsymbol{\Phi}\left(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}\mathbf{t}\right) \\\\ &=\mathbf{t}^\intercal\boldsymbol{\Phi}\left(\left(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}\right)^{-1}\right)^\intercal\boldsymbol{\Phi}^\intercal\mathbf{t}-\mathbf{t}^\intercal\boldsymbol{\Phi}\left(\left(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}\right)^{-1}\right)^\intercal\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}\left(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}\mathbf{t} \\\\ &=\mathbf{t}^\intercal\boldsymbol{\Phi}\left(\left(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}\right)^{-1}\right)^\intercal\boldsymbol{\Phi}^\intercal\mathbf{t}-\mathbf{t}^\intercal\boldsymbol{\Phi}\left(\left(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}\right)^{-1}\right)^\intercal\boldsymbol{\Phi}^\intercal\mathbf{t} \\\\ &=0,
+\mathbf{y}^\text{T}(\mathbf{t}-\mathbf{y})&=\left(\boldsymbol{\Phi}\mathbf{w}\_\text{ML}\right)^\text{T}\left(\mathbf{t}-\boldsymbol{\Phi}\mathbf{w}\_\text{ML}\right) \\\\ &=\left(\boldsymbol{\Phi}\left(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}\mathbf{t}\right)^\text{T}\left(\mathbf{t}-\boldsymbol{\Phi}\left(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}\mathbf{t}\right) \\\\ &=\mathbf{t}^\text{T}\boldsymbol{\Phi}\left(\left(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\right)^{-1}\right)^\text{T}\boldsymbol{\Phi}^\text{T}\mathbf{t}-\mathbf{t}^\text{T}\boldsymbol{\Phi}\left(\left(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\right)^{-1}\right)^\text{T}\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\left(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}\mathbf{t} \\\\ &=\mathbf{t}^\text{T}\boldsymbol{\Phi}\left(\left(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\right)^{-1}\right)^\text{T}\boldsymbol{\Phi}^\text{T}\mathbf{t}-\mathbf{t}^\text{T}\boldsymbol{\Phi}\left(\left(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\right)^{-1}\right)^\text{T}\boldsymbol{\Phi}^\text{T}\mathbf{t} \\\\ &=0,
 \end{align}
 
 #### Regularized least squares
@@ -282,21 +283,21 @@ E_D(\mathbf{w})+\lambda E_W(\mathbf{w}),\tag{9}\label{9}
 \end{equation}
 where $\lambda$ is the regularization coefficient that controls the relative importance of the data-dependent error $E_D(\mathbf{w})$ and the regularization term $E_W(\mathbf{w})$. One simple possible form of regularizer is given as
 \begin{equation}
-E_W(\mathbf{w})=\frac{1}{2}\mathbf{w}^\intercal\mathbf{w}
+E_W(\mathbf{w})=\frac{1}{2}\mathbf{w}^\text{T}\mathbf{w}
 \end{equation}
 The total error function \eqref{9} then can be written as
 \begin{equation}
-E_D(\mathbf{w})+E_W(\mathbf{w})=\frac{1}{2}\sum_{i=1}^{N}\big(t_i-\mathbf{w}^\intercal\boldsymbol{\phi}(\mathbf{x}\_i)\big)^2+\frac{\lambda}{2}\mathbf{w}^\intercal\mathbf{w}\tag{10}\label{10}
+E_D(\mathbf{w})+E_W(\mathbf{w})=\frac{1}{2}\sum_{i=1}^{N}\big(t_i-\mathbf{w}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)^2+\frac{\lambda}{2}\mathbf{w}^\text{T}\mathbf{w}\tag{10}\label{10}
 \end{equation}
 Setting the gradient of this error to zero and solving for $\mathbf{w}$, we have the solution
 \begin{equation}
-\mathbf{w}= (\lambda\mathbf{I}+\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}\mathbf{t}
+\mathbf{w}= (\lambda\mathbf{I}+\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}\mathbf{t}
 \end{equation}
 This particular choice of regularizer is called **weight decay** because it encourages weight values to decay towards zero in sequential learning.
 
 Another choice of regularizer which is more general lets the regularized error have the form
 \begin{equation}
-E_D(\mathbf{w})+E_W(\mathbf{w})=\frac{1}{2}\sum_{i=1}^{N}\big(t_i-\mathbf{w}^\intercal\boldsymbol{\phi}(\mathbf{x}\_i)\big)^2+\frac{\lambda}{2}\sum_{j=1}^{M}\vert w_j\vert^q,
+E_D(\mathbf{w})+E_W(\mathbf{w})=\frac{1}{2}\sum_{i=1}^{N}\big(t_i-\mathbf{w}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)^2+\frac{\lambda}{2}\sum_{j=1}^{M}\vert w_j\vert^q,
 \end{equation}
 where $q=2$ corresponds to the regularizer \eqref{10}.
 
@@ -304,33 +305,33 @@ where $q=2$ corresponds to the regularizer \eqref{10}.
 {: #mult-outputs}
 When the target of our model is instead in multiple-dimensional form, denoted as $\mathbf{t}$, we can generalize our model to be
 \begin{equation}
-\mathbf{y}(\mathbf{x},\mathbf{w})=\mathbf{W}^\intercal\boldsymbol{\phi}(\mathbf{x}),
+\mathbf{y}(\mathbf{x},\mathbf{w})=\mathbf{W}^\text{T}\boldsymbol{\phi}(\mathbf{x}),
 \end{equation}
 where $\mathbf{y}\in\mathbb{R}^K, \mathbf{W}\in\mathbb{R}^{M\times K}$ is the matrix of parameters, $\boldsymbol{\phi}\in\mathbb{R}^M$ with $\phi_i(\mathbf{x})$ as the $i$-th element, and with $\phi_0(\mathbf{x})=1$.
 
 With this generalization, \eqref{4} can be also be rewritten as
 \begin{equation}
-p(\mathbf{t}|\mathbf{x};\mathbf{W},\beta)=\sqrt{\frac{\beta}{2\pi\vert\mathbf{I}\vert}}\exp\left[-\frac{1}{2}\left(\mathbf{t}-\mathbf{W}^\intercal\boldsymbol{\phi}\left(\mathbf{x}\right)\right)^\intercal\left(\mathbf{t}-\mathbf{W}^\intercal\boldsymbol{\phi}\left(\mathbf{x}\right)\right)\beta\mathbf{I}^{-1}\right],\tag{11}\label{11}
+p(\mathbf{t}|\mathbf{x};\mathbf{W},\beta)=\sqrt{\frac{\beta}{2\pi\vert\mathbf{I}\vert}}\exp\left[-\frac{1}{2}\left(\mathbf{t}-\mathbf{W}^\text{T}\boldsymbol{\phi}\left(\mathbf{x}\right)\right)^\text{T}\left(\mathbf{t}-\mathbf{W}^\text{T}\boldsymbol{\phi}\left(\mathbf{x}\right)\right)\beta\mathbf{I}^{-1}\right],\tag{11}\label{11}
 \end{equation}
 or in other words
 \begin{equation}
-\mathbf{t}|\mathbf{x};\mathbf{W},\beta\sim\mathcal{N}(\mathbf{W}^\intercal\boldsymbol{\phi}(\mathbf{x}),\beta^{-1}\mathbf{I})
+\mathbf{t}|\mathbf{x};\mathbf{W},\beta\sim\mathcal{N}(\mathbf{W}^\text{T}\boldsymbol{\phi}(\mathbf{x}),\beta^{-1}\mathbf{I})
 \end{equation}
 With a data set of inputs $\mathbf{X}=\\{\mathbf{x}\_1,\ldots,\mathbf{x}\_N\\}$, our target values can also be vectorized into $\mathbf{T}\in\mathbb{R}^{N\times K}$ given as
 \begin{equation}
-\mathbf{T}=\left[\begin{matrix}-\hspace{0.1cm}\mathbf{t}\_1^\intercal\hspace{0.1cm}- \\\\ \vdots \\\\ -\hspace{0.1cm}\mathbf{t}\_N^\intercal\hspace{0.1cm}-\end{matrix}\right],
+\mathbf{T}=\left[\begin{matrix}-\hspace{0.1cm}\mathbf{t}\_1^\text{T}\hspace{0.1cm}- \\\\ \vdots \\\\ -\hspace{0.1cm}\mathbf{t}\_N^\text{T}\hspace{0.1cm}-\end{matrix}\right],
 \end{equation}
 and likewise with the input matrix $\mathbf{X}$ vectorized from input vectors $\mathbf{x}\_1,\ldots,\mathbf{x}\_N$. With these definitions, the multi-dimensional likelihood can be defined as
 \begin{align}
-L(\mathbf{W},\beta)=p(\mathbf{T}|\mathbf{X};\mathbf{W},\beta)&=\prod_{i=1}^{N}p(\mathbf{t}\_i|\mathbf{x}\_i;\mathbf{W},\beta) \\\\ &=\prod_{i=1}^{N}\sqrt{\frac{\beta}{2\pi}}\exp\left[-\frac{\beta}{2}\big(\mathbf{t}\_i-\mathbf{W}^\intercal\boldsymbol{\phi}(\mathbf{x}\_i)\big)^\intercal\big(\mathbf{t}\_i-\mathbf{W}^\intercal\boldsymbol{\phi}(\mathbf{x}\_i)\big)\right]
+L(\mathbf{W},\beta)=p(\mathbf{T}|\mathbf{X};\mathbf{W},\beta)&=\prod_{i=1}^{N}p(\mathbf{t}\_i|\mathbf{x}\_i;\mathbf{W},\beta) \\\\ &=\prod_{i=1}^{N}\sqrt{\frac{\beta}{2\pi}}\exp\left[-\frac{\beta}{2}\big(\mathbf{t}\_i-\mathbf{W}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)^\text{T}\big(\mathbf{t}\_i-\mathbf{W}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)\right]
 \end{align}
 And thus the log likelihood now becomes
 \begin{align}
-\ell(\mathbf{W},\beta)=\log L(\mathbf{W},\beta)&=\log\prod_{i=1}^{N}\sqrt{\frac{\beta}{2\pi}}\exp\left[-\frac{\beta}{2}\big(\mathbf{t}\_i-\mathbf{W}^\intercal\boldsymbol{\phi}(\mathbf{x}\_i)\big)^\intercal\big(\mathbf{t}\_i-\mathbf{W}^\intercal\boldsymbol{\phi}(\mathbf{x}\_i)\big)\right] \\\\ &=\sum_{i=1}^{N}\log\sqrt{\frac{\beta}{2\pi}}\exp\left[-\frac{\beta}{2}\big(\mathbf{t}\_i-\mathbf{W}^\intercal\boldsymbol{\phi}(\mathbf{x}\_i)\big)^\intercal\big(\mathbf{t}\_i-\mathbf{W}^\intercal\boldsymbol{\phi}(\mathbf{x}\_i)\big)\right] \\\\ &=\frac{N}{2}\log\frac{\beta}{2\pi}-\frac{\beta}{2}\sum_{i=1}^{N}\big(\mathbf{t}\_i-\mathbf{W}^\intercal\boldsymbol{\phi}(\mathbf{x}\_i)\big)^\intercal\big(\mathbf{t}\_i-\mathbf{W}^\intercal\boldsymbol{\phi}(\mathbf{x}\_i)\big)
+\ell(\mathbf{W},\beta)=\log L(\mathbf{W},\beta)&=\log\prod_{i=1}^{N}\sqrt{\frac{\beta}{2\pi}}\exp\left[-\frac{\beta}{2}\big(\mathbf{t}\_i-\mathbf{W}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)^\text{T}\big(\mathbf{t}\_i-\mathbf{W}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)\right] \\\\ &=\sum_{i=1}^{N}\log\sqrt{\frac{\beta}{2\pi}}\exp\left[-\frac{\beta}{2}\big(\mathbf{t}\_i-\mathbf{W}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)^\text{T}\big(\mathbf{t}\_i-\mathbf{W}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)\right] \\\\ &=\frac{N}{2}\log\frac{\beta}{2\pi}-\frac{\beta}{2}\sum_{i=1}^{N}\big(\mathbf{t}\_i-\mathbf{W}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)^\text{T}\big(\mathbf{t}\_i-\mathbf{W}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)
 \end{align}
 Taking the gradient of the log likelihood w.r.t $\mathbf{W}$, setting it to zero and solving for $\mathbf{W}$ gives us
 \begin{equation}
-\mathbf{W}\_\text{ML}=(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}^\intercal\mathbf{T}
+\mathbf{W}\_\text{ML}=(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}^\text{T}\mathbf{T}
 \end{equation}
 
 ### Bayesian linear regression
@@ -345,7 +346,7 @@ A discriminant is a function that takes an input vector $x$ and assigns it to on
 
 The simplest discriminant function is a linear function of the input vector
 \begin{equation}
-y(\mathbf{x})=\mathbf{w}^\intercal\mathbf{x}+w_0,
+y(\mathbf{x})=\mathbf{w}^\text{T}\mathbf{x}+w_0,
 \end{equation}
 where $\mathbf{w}$ is called the **weight vector**, and $w_0$ is the **bias**.
 
@@ -357,7 +358,7 @@ which corresponds to a $(D-1)$-dimensional hyperplane with an $D$-dimensional in
 
 Consider $\mathbf{x}\_A$ and $\mathbf{x}\_B$ lying on the hyperplane, thus $y(\mathbf{x}\_A)=y(\mathbf{x}\_B)=0$, which gives us that
 \begin{equation}
-0=y(\mathbf{x}\_A)-y(\mathbf{x}\_B)=\mathbf{w}^\intercal\mathbf{x}\_A-\mathbf{w}^\intercal\mathbf{x}\_B=\mathbf{w}^\intercal(\mathbf{x}\_A-\mathbf{x}\_B)
+0=y(\mathbf{x}\_A)-y(\mathbf{x}\_B)=\mathbf{w}^\text{T}\mathbf{x}\_A-\mathbf{w}^\text{T}\mathbf{x}\_B=\mathbf{w}^\text{T}(\mathbf{x}\_A-\mathbf{x}\_B)
 \end{equation}
 This claims that $\mathbf{w}$ is perpendicular to any vector within the decision boundary, and thus $\mathbf{w}$ is a normal vector of the decision boundary itself.
 
@@ -371,7 +372,7 @@ which implies that
 \end{equation}
 To generalize the binary classification problem into multiple-class ones, we consider a $K$-class discriminant comprising $K$ linear functions of the form
 \begin{equation}
-y_k(\mathbf{x})=\mathbf{w}\_k^\intercal\mathbf{x}+w_{k,0}
+y_k(\mathbf{x})=\mathbf{w}\_k^\text{T}\mathbf{x}+w_{k,0}
 \end{equation}
 Then for each input $\mathbf{x}$, it will be assigned to class $\mathcal{C}\_k$ if $y_k(\mathbf{x})>y_i(\mathbf{x}),\forall i\neq k$, or in other words $\mathbf{x}$ is assigned to a class $C_k$ that
 \begin{equation}
@@ -383,7 +384,7 @@ y_i(\mathbf{x})=y_j(\mathbf{x}),
 \end{equation}
 or
 \begin{equation}
-(\mathbf{w}\_i-\mathbf{w}\_j)^\intercal\mathbf{x}+w_{i,0}-w_{j,0}=0,
+(\mathbf{w}\_i-\mathbf{w}\_j)^\text{T}\mathbf{x}+w_{i,0}-w_{j,0}=0,
 \end{equation}
 which is an $(D-1)$-dimensional hyperplane.
 
@@ -393,19 +394,19 @@ Recall that in the regression task, we used least squares to find the models in 
 
 To begin, we have that for $k=1,\ldots,K$, each class $\mathcal{C}\_k$ is represented the model
 \begin{equation}
-y_k(\mathbf{x})=\mathbf{w}\_k^\intercal\mathbf{x}+w_{k,0}\tag{12}\label{12}
+y_k(\mathbf{x})=\mathbf{w}\_k^\text{T}\mathbf{x}+w_{k,0}\tag{12}\label{12}
 \end{equation}
 By giving the bias parameter $w_{k,0}$ a dummy input variable $x_0=0$, we can rewrite \eqref{12} in a more convenient form
 \begin{equation}
-y_k(\mathbf{x})=\widetilde{\mathbf{w}}\_k^\intercal\widetilde{\mathbf{x}},
+y_k(\mathbf{x})=\widetilde{\mathbf{w}}\_k^\text{T}\widetilde{\mathbf{x}},
 \end{equation}
 where
 \begin{equation}
-\widetilde{\mathbf{w}}\_k=\left(w_{k,0},\mathbf{w}\_k^\intercal\right)^\intercal;\hspace{1cm}\widetilde{\mathbf{x}}=\left(1,\mathbf{x}^\intercal\right)^\intercal
+\widetilde{\mathbf{w}}\_k=\left(w_{k,0},\mathbf{w}\_k^\text{T}\right)^\text{T};\hspace{1cm}\widetilde{\mathbf{x}}=\left(1,\mathbf{x}^\text{T}\right)^\text{T}
 \end{equation}
 Thus, we can vectorize the $K$ linear models into
 \begin{equation}
-\mathbf{y}(\mathbf{x})=\widetilde{\mathbf{W}}^\intercal\widetilde{\mathbf{x}},\tag{13}\label{13}
+\mathbf{y}(\mathbf{x})=\widetilde{\mathbf{W}}^\text{T}\widetilde{\mathbf{x}},\tag{13}\label{13}
 \end{equation}
 where $\widetilde{\mathbf{W}}$ is the parameter matrix whose $k$-th column is the $(D+1)$-dimensional vector $\widetilde{\mathbf{w}}\_k$
 \begin{equation}
@@ -413,34 +414,34 @@ where $\widetilde{\mathbf{W}}$ is the parameter matrix whose $k$-th column is th
 \end{equation}
 Consider a training set $\\{\mathbf{x}\_n,\mathbf{t}\_n\\}$ for $n=1,\ldots,N$, analogy to the parameter matrix $\widetilde{\mathbf{W}}$, we can vectorize those input variables and target values into
 \begin{equation}
-\widetilde{\mathbf{X}}=\left[\begin{matrix}-\hspace{0.15cm}\widetilde{\mathbf{x}}\_1^\intercal\hspace{0.15cm}- \\\\ \vdots \\\\ -\hspace{0.15cm}\widetilde{\mathbf{x}}\_N^\intercal\hspace{0.15cm}-\end{matrix}\right]
+\widetilde{\mathbf{X}}=\left[\begin{matrix}-\hspace{0.15cm}\widetilde{\mathbf{x}}\_1^\text{T}\hspace{0.15cm}- \\\\ \vdots \\\\ -\hspace{0.15cm}\widetilde{\mathbf{x}}\_N^\text{T}\hspace{0.15cm}-\end{matrix}\right]
 \end{equation}
 and
 \begin{equation}
-\mathbf{T}=\left[\begin{matrix}-\hspace{0.15cm}\mathbf{t}\_1^\intercal\hspace{0.15cm}- \\\\ \vdots \\\\ -\hspace{0.15cm}\mathbf{t}\_N^\intercal\hspace{0.15cm}-\end{matrix}\right]
+\mathbf{T}=\left[\begin{matrix}-\hspace{0.15cm}\mathbf{t}\_1^\text{T}\hspace{0.15cm}- \\\\ \vdots \\\\ -\hspace{0.15cm}\mathbf{t}\_N^\text{T}\hspace{0.15cm}-\end{matrix}\right]
 \end{equation}
 With these definition, the sum-of-squares error function then can be written as
 \begin{equation}
-E_D(\widetilde{\mathbf{W}})=\frac{1}{2}\text{Tr}\Big[(\widetilde{\mathbf{X}}\widetilde{\mathbf{W}}-\mathbf{T})^\intercal(\widetilde{\mathbf{X}}\widetilde{\mathbf{W}}-\mathbf{T})\Big]
+E_D(\widetilde{\mathbf{W}})=\frac{1}{2}\text{Tr}\Big[(\widetilde{\mathbf{X}}\widetilde{\mathbf{W}}-\mathbf{T})^\text{T}(\widetilde{\mathbf{X}}\widetilde{\mathbf{W}}-\mathbf{T})\Big]
 \end{equation}
 Taking the derivative of $E_D(\widetilde{\mathbf{W}})$ w.r.t $\widetilde{\mathbf{W}}$, we obtain
 \begin{align}
-\nabla_\widetilde{\mathbf{W}}E_D(\widetilde{\mathbf{W}})&=\nabla_\widetilde{\mathbf{W}}\frac{1}{2}\text{Tr}\Big[(\widetilde{\mathbf{X}}\widetilde{\mathbf{W}}-\mathbf{T})^\intercal(\widetilde{\mathbf{X}}\widetilde{\mathbf{W}}-\mathbf{T})\Big] \\\\ &=\frac{1}{2}\nabla_\widetilde{\mathbf{W}}\text{Tr}\Big[\widetilde{\mathbf{W}}^\intercal\widetilde{\mathbf{X}}^\intercal\widetilde{\mathbf{X}}\widetilde{\mathbf{W}}-\widetilde{\mathbf{W}}^\intercal\widetilde{\mathbf{X}}^\intercal\mathbf{T}-\mathbf{T}^\intercal\widetilde{\mathbf{X}}\widetilde{\mathbf{W}}+\mathbf{T}^\intercal\mathbf{T}\Big] \\\\ &=\frac{1}{2}\Big[2\widetilde{\mathbf{X}}^\intercal\widetilde{\mathbf{X}}\widetilde{\mathbf{W}}-\widetilde{\mathbf{X}}^\intercal\mathbf{T}-\widetilde{\mathbf{X}}^\intercal\mathbf{T}\Big] \\\\ &=\widetilde{\mathbf{X}}^\intercal\widetilde{\mathbf{X}}\widetilde{\mathbf{W}}-\widetilde{\mathbf{X}}^\intercal\mathbf{T}
+\nabla_\widetilde{\mathbf{W}}E_D(\widetilde{\mathbf{W}})&=\nabla_\widetilde{\mathbf{W}}\frac{1}{2}\text{Tr}\Big[(\widetilde{\mathbf{X}}\widetilde{\mathbf{W}}-\mathbf{T})^\text{T}(\widetilde{\mathbf{X}}\widetilde{\mathbf{W}}-\mathbf{T})\Big] \\\\ &=\frac{1}{2}\nabla_\widetilde{\mathbf{W}}\text{Tr}\Big[\widetilde{\mathbf{W}}^\text{T}\widetilde{\mathbf{X}}^\text{T}\widetilde{\mathbf{X}}\widetilde{\mathbf{W}}-\widetilde{\mathbf{W}}^\text{T}\widetilde{\mathbf{X}}^\text{T}\mathbf{T}-\mathbf{T}^\text{T}\widetilde{\mathbf{X}}\widetilde{\mathbf{W}}+\mathbf{T}^\text{T}\mathbf{T}\Big] \\\\ &=\frac{1}{2}\Big[2\widetilde{\mathbf{X}}^\text{T}\widetilde{\mathbf{X}}\widetilde{\mathbf{W}}-\widetilde{\mathbf{X}}^\text{T}\mathbf{T}-\widetilde{\mathbf{X}}^\text{T}\mathbf{T}\Big] \\\\ &=\widetilde{\mathbf{X}}^\text{T}\widetilde{\mathbf{X}}\widetilde{\mathbf{W}}-\widetilde{\mathbf{X}}^\text{T}\mathbf{T}
 \end{align}
 Setting this derivative equal to zero, we obtain the least squares solution for $\widetilde{\mathbf{W}}$ as
 \begin{equation}
-\widetilde{\mathbf{W}}=(\widetilde{\mathbf{X}}^\intercal\widetilde{\mathbf{X}})^{-1}\widetilde{\mathbf{X}}^\intercal\mathbf{T}=\widetilde{\mathbf{X}}^\dagger\mathbf{T}
+\widetilde{\mathbf{W}}=(\widetilde{\mathbf{X}}^\text{T}\widetilde{\mathbf{X}})^{-1}\widetilde{\mathbf{X}}^\text{T}\mathbf{T}=\widetilde{\mathbf{X}}^\dagger\mathbf{T}
 \end{equation}
 Therefore, the discriminant function \eqref{13} can be rewritten as
 \begin{equation}
-\mathbf{y}(\mathbf{x})=\widetilde{\mathbf{W}}^\intercal\widetilde{\mathbf{x}}=\mathbf{T}^\intercal\big(\widetilde{\mathbf{X}}^\dagger\big)^\intercal\widetilde{\mathbf{x}}
+\mathbf{y}(\mathbf{x})=\widetilde{\mathbf{W}}^\text{T}\widetilde{\mathbf{x}}=\mathbf{T}^\text{T}\big(\widetilde{\mathbf{X}}^\dagger\big)^\text{T}\widetilde{\mathbf{x}}
 \end{equation}
 
 #### Fisher's linear discriminant
 {: #fisher-lin-disc}
 One way to view a linear classification model is in terms of dimensional reduction. In particular, given an $D$-dimensional input $\mathbf{x}$, we project it down to one dimension using
 \begin{equation}
-y=\mathbf{w}^\intercal\mathbf{x}\tag{14}\label{14}
+y=\mathbf{w}^\text{T}\mathbf{x}\tag{14}\label{14}
 \end{equation}
 
 ##### Binary classification
@@ -451,11 +452,11 @@ Consider a binary classification in which there are $N_1$ points of class $\math
 \end{align}
 The simplest measure of the separation of the classes, when projected onto $\mathbf{w}$, is the separation of the projected class means, which suggests us choosing $\mathbf{w}$ in order to maximize
 \begin{equation}
-m_2-m_1=\mathbf{w}^\intercal(\mathbf{m}\_2-\mathbf{m}\_1),
+m_2-m_1=\mathbf{w}^\text{T}(\mathbf{m}\_2-\mathbf{m}\_1),
 \end{equation}
 where for $k=1,\ldots,K$
 \begin{equation}
-m_k=\mathbf{w}^\intercal\mathbf{m}\_k
+m_k=\mathbf{w}^\text{T}\mathbf{m}\_k
 \end{equation}
 is the mean of the projected data from class $\mathcal{C}\_k$.
 
@@ -469,7 +470,7 @@ The within-class variance of projected data from class $\mathbf{C}\_k$ is define
 \begin{equation}
 s_k^2\doteq\sum_{n\in\mathcal{C}\_k}(y_n-m_k)^2,
 \end{equation}
-where $y_n=\mathbf{w}^\intercal\mathbf{x}\_n$ is the projected of $\mathbf{x}\_n$. Thus the total within-class variance for the whole data set is $s_1^2+s_2^2$.
+where $y_n=\mathbf{w}^\text{T}\mathbf{x}\_n$ is the projected of $\mathbf{x}\_n$. Thus the total within-class variance for the whole data set is $s_1^2+s_2^2$.
 
 The between-class variance is simply defined to be the squared of the difference of means, given as
 \begin{equation}
@@ -477,37 +478,37 @@ The between-class variance is simply defined to be the squared of the difference
 \end{equation}
 Hence, the ratio of the between-class variance to the within-class variance, called the **Fisher criterion**, can be defined as
 \begin{align}
-J(\mathbf{w})&=\frac{(m_2-m_1)^2}{s_1^2+s_2^2} \\\\ &=\frac{\big\Vert\mathbf{w}^\intercal(\mathbf{m}\_2-\mathbf{m}\_1)\big\Vert_2^2}{\sum_{n\in\mathcal{C}\_1}\big\Vert\mathbf{w}^\intercal(\mathbf{x}\_n-\mathbf{m}\_1)\big\Vert_2^2+\sum_{n\in\mathcal{C}\_2}\big\Vert\mathbf{w}^\intercal(\mathbf{x}\_n-\mathbf{m}\_2)\big\Vert_2^2} \\\\ &=\frac{\mathbf{w}^\intercal\mathbf{S}\_B\mathbf{w}}{\mathbf{w}^\intercal\mathbf{S}\_W\mathbf{w}},\tag{15}\label{15}
+J(\mathbf{w})&=\frac{(m_2-m_1)^2}{s_1^2+s_2^2} \\\\ &=\frac{\big\Vert\mathbf{w}^\text{T}(\mathbf{m}\_2-\mathbf{m}\_1)\big\Vert_2^2}{\sum_{n\in\mathcal{C}\_1}\big\Vert\mathbf{w}^\text{T}(\mathbf{x}\_n-\mathbf{m}\_1)\big\Vert_2^2+\sum_{n\in\mathcal{C}\_2}\big\Vert\mathbf{w}^\text{T}(\mathbf{x}\_n-\mathbf{m}\_2)\big\Vert_2^2} \\\\ &=\frac{\mathbf{w}^\text{T}\mathbf{S}\_\text{B}\mathbf{w}}{\mathbf{w}^\text{T}\mathbf{S}\_\text{W}\mathbf{w}},\tag{15}\label{15}
 \end{align}
 where
 \begin{equation}
-\mathbf{S}\_B\doteq(\mathbf{m}\_2-\mathbf{m}\_1)(\mathbf{m}\_2-\mathbf{m}\_1)^\intercal,
+\mathbf{S}\_\text{B}\doteq(\mathbf{m}\_2-\mathbf{m}\_1)(\mathbf{m}\_2-\mathbf{m}\_1)^\text{T},
 \end{equation}
 is called the **between-class covariance matrix** and
 \begin{equation}
-\mathbf{S}\_W\doteq\sum_{n\in\mathcal{C}\_1}(\mathbf{x}\_n-\mathbf{m}\_1)(\mathbf{x}\_n-\mathbf{m}\_1)^\intercal+\sum_{n\in\mathcal{C}\_2}(\mathbf{x}\_n-\mathbf{m}\_2)(\mathbf{x}\_n-\mathbf{m}\_2)^\intercal,
+\mathbf{S}\_\text{W}\doteq\sum_{n\in\mathcal{C}\_1}(\mathbf{x}\_n-\mathbf{m}\_1)(\mathbf{x}\_n-\mathbf{m}\_1)^\text{T}+\sum_{n\in\mathcal{C}\_2}(\mathbf{x}\_n-\mathbf{m}\_2)(\mathbf{x}\_n-\mathbf{m}\_2)^\text{T},
 \end{equation}
 is called the **total within-class covariance matrix**.
 
 As usual, taking the gradient of \eqref{15} w.r.t $\mathbf{w}$, we have
 \begin{align}
-\nabla_\mathbf{w}J(\mathbf{w})&=\nabla_\mathbf{w}\frac{\mathbf{w}^\intercal\mathbf{S}\_B\mathbf{w}}{\mathbf{w}^\intercal\mathbf{S}\_W\mathbf{w}} \\\\ &=\frac{\mathbf{w}^\intercal\mathbf{S}\_W\mathbf{w}(\mathbf{S}\_B+\mathbf{S}\_B^\intercal)\mathbf{w}-\mathbf{w}^\intercal\mathbf{S}\_B\mathbf{w}(\mathbf{S}\_W+\mathbf{S}\_W^\intercal)\mathbf{w}}{\big\Vert\mathbf{w}^\intercal\mathbf{S}\_W\mathbf{w}\big\Vert_2^2} \\\\ &=\frac{\mathbf{w}^\intercal\mathbf{S}\_W\mathbf{w}\mathbf{S}\_B\mathbf{w}-\mathbf{w}^\intercal\mathbf{S}\_B\mathbf{w}\mathbf{S}\_W\mathbf{w}}{\big\Vert\mathbf{w}^\intercal\mathbf{S}\_W\mathbf{w}\big\Vert_2^2} \\\\ &\propto\mathbf{w}^\intercal\mathbf{S}\_W\mathbf{w}\mathbf{S}\_B\mathbf{w}-\mathbf{w}^\intercal\mathbf{S}\_B\mathbf{w}\mathbf{S}\_W\mathbf{w}
+\nabla_\mathbf{w}J(\mathbf{w})&=\nabla_\mathbf{w}\frac{\mathbf{w}^\text{T}\mathbf{S}\_\text{B}\mathbf{w}}{\mathbf{w}^\text{T}\mathbf{S}\_\text{W}\mathbf{w}} \\\\ &=\frac{\mathbf{w}^\text{T}\mathbf{S}\_\text{W}\mathbf{w}(\mathbf{S}\_\text{B}+\mathbf{S}\_\text{B}^\text{T})\mathbf{w}-\mathbf{w}^\text{T}\mathbf{S}\_\text{B}\mathbf{w}(\mathbf{S}\_\text{W}+\mathbf{S}\_\text{W}^\text{T})\mathbf{w}}{\big\Vert\mathbf{w}^\text{T}\mathbf{S}\_\text{W}\mathbf{w}\big\Vert_2^2} \\\\ &=\frac{\mathbf{w}^\text{T}\mathbf{S}\_\text{W}\mathbf{w}\mathbf{S}\_\text{B}\mathbf{w}-\mathbf{w}^\text{T}\mathbf{S}\_\text{B}\mathbf{w}\mathbf{S}\_\text{W}\mathbf{w}}{\big\Vert\mathbf{w}^\text{T}\mathbf{S}\_\text{W}\mathbf{w}\big\Vert_2^2} \\\\ &\propto\mathbf{w}^\text{T}\mathbf{S}\_\text{W}\mathbf{w}\mathbf{S}\_\text{B}\mathbf{w}-\mathbf{w}^\text{T}\mathbf{S}\_\text{B}\mathbf{w}\mathbf{S}\_\text{W}\mathbf{w}
 \end{align}
 Setting the gradient equal to zero and solving for $\mathbf{w}$, we obtain that $\mathbf{w}$ satisfies
 \begin{equation}
-\mathbf{w}^\intercal\mathbf{S}\_W\mathbf{w}\mathbf{S}\_B\mathbf{w}=\mathbf{w}^\intercal\mathbf{S}\_B\mathbf{w}\mathbf{S}\_W\mathbf{w}
+\mathbf{w}^\text{T}\mathbf{S}\_\text{W}\mathbf{w}\mathbf{S}\_\text{B}\mathbf{w}=\mathbf{w}^\text{T}\mathbf{S}\_\text{B}\mathbf{w}\mathbf{S}\_\text{W}\mathbf{w}
 \end{equation}
-Since $\mathbf{w}^\intercal\mathbf{S}\_W\mathbf{w}$ and $\mathbf{w}^\intercal\mathbf{S}\_B\mathbf{w}$ are two scalars, we then have
+Since $\mathbf{w}^\text{T}\mathbf{S}\_\text{W}\mathbf{w}$ and $\mathbf{w}^\text{T}\mathbf{S}\_\text{B}\mathbf{w}$ are two scalars, we then have
 \begin{equation}
-\mathbf{S}\_W\mathbf{w}\propto\mathbf{S}\_B\mathbf{w}
+\mathbf{S}\_\text{W}\mathbf{w}\propto\mathbf{S}\_\text{B}\mathbf{w}
 \end{equation}
-Multiply both side by $\mathbf{S}\_W^{-1}$, we obtain
+Multiply both side by $\mathbf{S}\_\text{W}^{-1}$, we obtain
 \begin{align}
-\mathbf{w}&\propto\mathbf{S}\_W^{-1}\mathbf{S}\_B\mathbf{w} \\\\ &=\mathbf{S}\_W^{-1}(\mathbf{m}\_2-\mathbf{m}\_1)(\mathbf{m}\_2-\mathbf{m}\_1)^\intercal\mathbf{w} \\\\ &\propto\mathbf{S}\_W^{-1}(\mathbf{m}\_2-\mathbf{m}\_1),\tag{16}\label{16}
+\mathbf{w}&\propto\mathbf{S}\_\text{W}^{-1}\mathbf{S}\_\text{B}\mathbf{w} \\\\ &=\mathbf{S}\_\text{W}^{-1}(\mathbf{m}\_2-\mathbf{m}\_1)(\mathbf{m}\_2-\mathbf{m}\_1)^\text{T}\mathbf{w} \\\\ &\propto\mathbf{S}\_\text{W}^{-1}(\mathbf{m}\_2-\mathbf{m}\_1),\tag{16}\label{16}
 \end{align}
-since $(\mathbf{m}\_2-\mathbf{m}\_1)^\intercal\mathbf{w}$ is a scalar.
+since $(\mathbf{m}\_2-\mathbf{m}\_1)^\text{T}\mathbf{w}$ is a scalar.
 
-If the within-class covariance matrix $\mathbf{S}\_W$ is isotropic[^1], we then have
+If the within-class covariance matrix $\mathbf{S}\_\text{W}$ is isotropic[^1], we then have
 \begin{equation}
 \mathbf{w}\propto\mathbf{m}\_2-\mathbf{m}\_1
 \end{equation}
@@ -515,7 +516,71 @@ The result \eqref{16} is called **Fisher's linear discriminant**.
 
 ##### Multi-class classification
 {: #fisher-ld-clf}
+To generalize the Fisher discriminant to the case of $K>2$, we first assume that $D>K$ and consider the $D'>1$ linear features
+\begin{equation}
+y=\mathbf{w}\_k^\text{T}\mathbf{x},
+\end{equation}
+where $k=1,\ldots,D'$. Thus, as usual we can vectorize these feature values as
+\begin{equation}
+\mathbf{y}=\mathbf{W}^\text{T}\mathbf{x},\tag{17}\label{17}
+\end{equation}
+where
+\begin{equation}
+\mathbf{y}=(y_1,\ldots,y_k)^\text{T},\hspace{2cm}\mathbf{W}=\left[\begin{matrix}\vert&&\vert \\\\ \mathbf{w}\_1&\ldots&\mathbf{w}\_{D'} \\\\ \vert&&\vert\end{matrix}\right]
+\end{equation}
+The mean vector for each class is unchanged, which is given as
+\begin{equation}
+\mathbf{m}\_k=\frac{1}{N_k}\sum_{n\in\mathcal{C}\_k}\mathbf{x}\_n,
+\end{equation}
+where $N_k$ is the number of points in class $\mathcal{C}\_k$  for $k=1,\ldots,K$.
 
+The within-class variance covariance matrix $\mathbf{S}\_\text{W}$ now can be simply generalized as
+\begin{equation}
+\mathbf{S}\_\text{W}=\sum_{k=1}^{K}\mathbf{S}\_k,\tag{18}\label{18}
+\end{equation}
+where
+\begin{equation}
+\mathbf{S}\_k=\sum_{n\in\mathcal{C}\_k}(\mathbf{x}\_n-\mathbf{m}\_k)(\mathbf{x}\_n-\mathbf{m}\_k)^\text{T}
+\end{equation}
+To find the generalization of the between-class covariance matrix $\mathbf{S}\_\text{B}$, we first consider the total covariance matrix
+\begin{equation}
+\mathbf{S}\_T=\sum_{n=1}^{N}(\mathbf{x}\_n-\mathbf{m})(\mathbf{x}\_n-\mathbf{m})^\text{T},
+\end{equation}
+where
+\begin{equation}
+\mathbf{m}=\frac{1}{N}\sum_{n=1}^{N}\mathbf{x}\_n=\frac{1}{N}\sum_{k=1}^{K}N_k\mathbf{m}\_k
+\end{equation}
+is the mean of the whole data set, where $N=\sum_{k=1}^{K}N_k$ is the number of the data points. The total covariance matrix can be decomposed into the sum of the within-class covariance matrix $\mathbf{S}\_\text{W}$, as given in \eqref{18} with a matrix $\mathbf{S}\_\text{B}$, defined as a measure of the between-class covariance
+\begin{equation}
+\mathbf{S}\_\text{T}=\mathbf{S}\_\text{W}+\mathbf{S}\_\text{B},
+\end{equation}
+where
+\begin{equation}
+\mathbf{S}\_\text{B}=\sum_{k=1}^{K}N_k(\mathbf{m}\_k-\mathbf{m})(\mathbf{m}\_k-\mathbf{m})^\text{T}
+\end{equation}
+Using \eqref{17}, we project the whole data set into the $D'$-dimensional space of $\mathbf{y}$, the corresponding within-class covariance matrix of the transformed data are given as
+\begin{align}
+\mathbf{s}\_\text{W}&=\sum_{k=1}^{K}\sum_{n\in\mathcal{C}\_k}\left(\mathbf{W}^\text{T}\mathbf{x}\_n-\mathbf{W}^\text{T}\mathbf{m}\_k\right)\left(\mathbf{W}^\text{T}\mathbf{x}\_n-\mathbf{W}^\text{T}\mathbf{m}\_k\right)^\text{T} \\\\ &=\sum_{k=1}^{K}\sum_{n\in\mathcal{C}\_k}(\mathbf{y}\_n-\boldsymbol{\mu}\_k)(\mathbf{y}\_n-\boldsymbol{\mu}\_k)^\text{T} \\\\ &=\mathbf{W}\mathbf{S}\_\text{W}\mathbf{W}^\text{T}
+\end{align}
+and also the transformed between-class covariance matrix
+\begin{align}
+\mathbf{s}\_\text{B}&=\sum_{k=1}^{K}N_k(\mathbf{W}^\text{T}\mathbf{m}\_k-\mathbf{W}^\text{T}\mathbf{m})(\mathbf{W}^\text{T}\mathbf{m}\_k-\mathbf{W}^\text{T}\mathbf{m})^\text{T} \\\\ &=\sum_{k=1}^{K}(\boldsymbol{\mu}\_k-\boldsymbol{\mu})(\boldsymbol{\mu}\_k-\boldsymbol{\mu})^\text{T} \\\\ &=\mathbf{W}\mathbf{S}\_\text{B}\mathbf{W}^\text{T},
+\end{align}
+where
+\begin{align}
+\boldsymbol{\mu}\_k&=\mathbf{W}^\text{T}\mathbf{m}\_k=\mathbf{W}^\text{T}\frac{1}{N_k}\sum_{n\in\mathcal{C}\_k}\mathbf{x}\_n=\frac{1}{N_k}\sum_{n\in\mathcal{C}\_k}\mathbf{y}\_n, \\\\ \boldsymbol{\mu}&=\mathbf{W}^\text{T}\mathbf{m}=\mathbf{W}^\text{T}\frac{1}{N}\sum_{k=1}^{K}N_k\mathbf{m}\_k=\frac{1}{N}\sum_{k=1}^{K}N_k\boldsymbol{\mu}\_k
+\end{align}
+Analogous to the case of binary classification with Fisher's criterion \eqref{15}, we need a new measure that is large when the between-class covariance is large and when the within-class covariance is small. A simple choice of criterion is given as
+\begin{equation}
+J(\mathbf{W})=\text{Tr}\left(\mathbf{s}\_\text{W}^{-1}\mathbf{s}\_\text{B}\right)
+\end{equation}
+or
+\begin{equation}
+J(\mathbf{w})=\text{Tr}\big[(\mathbf{W}\mathbf{S}\_\text{W}\mathbf{W}^\text{T})^{-1}(\mathbf{W}\mathbf{S}\_\text{B}\mathbf{W}^\text{T})\big]
+\end{equation}
+
+#### The perceptron algorithm
+{: #perceptron}
 
 
 ## References
@@ -533,7 +598,7 @@ The result \eqref{16} is called **Fisher's linear discriminant**.
 ## Footnotes
 {: #footnotes}
 
-[^1]: A covariance matrix $\mathbf{C}$ is **isotropic** if it is proportional to the identity matrix $\mathbf{I}$
+[^1]: A covariance matrix $\mathbf{C}$ is **isotropic** (or **spherical**) if it is proportional to the identity matrix $\mathbf{I}$
 	\begin{equation}
 	\mathbf{C}=\lambda\mathbf{I},
 	\end{equation}

@@ -60,7 +60,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Policy Gradient Methods" />
 <script type="application/ld+json">
-{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","headline":"Policy Gradient Methods","dateModified":"2022-05-04T14:00:00+07:00","datePublished":"2022-05-04T14:00:00+07:00","description":"Policy Gradient Methods","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/05/04/policy-gradient.html"},"url":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/05/04/policy-gradient.html","@context":"https://schema.org"}</script>
+{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","description":"Policy Gradient Methods","headline":"Policy Gradient Methods","dateModified":"2022-05-04T14:00:00+07:00","datePublished":"2022-05-04T14:00:00+07:00","url":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/05/04/policy-gradient.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/05/04/policy-gradient.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Trung&apos;s cabin" />
     
@@ -254,11 +254,11 @@ in \eqref{3} is called the <strong>eligibility vector</strong>.</p>
 \end{equation}
 where the preferences $h(s,a,\boldsymbol{\theta})$ is defined as:
 \begin{equation}
-h(s,a,\boldsymbol{\theta})=\boldsymbol{\theta}^\intercal\mathbf{x}(s,a)
+h(s,a,\boldsymbol{\theta})=\boldsymbol{\theta}^\text{T}\mathbf{x}(s,a)
 \end{equation}
 Using the chain rule we can rewrite the eligibility vector as:
 \begin{align}
-\nabla_\boldsymbol{\theta}\ln\pi(a|s,\boldsymbol{\theta})&amp;=\nabla_\boldsymbol{\theta}\ln{\frac{\exp\Big[\boldsymbol{\theta}^\intercal\mathbf{x}(s,a)\Big]}{\sum_b\exp\Big[\boldsymbol{\theta}^\intercal\mathbf{x}(s,b)\Big]}} \\ &amp;=\nabla_\boldsymbol{\theta}\Big(\boldsymbol{\theta}^\intercal\mathbf{x}(s,a)\Big)-\nabla_\boldsymbol{\theta}\ln\sum_b\exp\Big[\boldsymbol{\theta}^\intercal\mathbf{x}(s,b)\Big] \\ &amp;=\mathbf{x}(s,a)-\dfrac{\sum_b\exp\Big[\boldsymbol{\theta}^\intercal\mathbf{x}(s,b)\Big]\mathbf{x}(s,b)}{\sum_{b’}\exp\Big[\boldsymbol{\theta}^\intercal\mathbf{x}(s,b’)\Big]} \\ &amp;=\mathbf{x}(s,a)-\sum_b\pi(b|s,\boldsymbol{\theta})\mathbf{x}(s,b)
+\nabla_\boldsymbol{\theta}\ln\pi(a|s,\boldsymbol{\theta})&amp;=\nabla_\boldsymbol{\theta}\ln{\frac{\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,a)\Big]}{\sum_b\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,b)\Big]}} \\ &amp;=\nabla_\boldsymbol{\theta}\Big(\boldsymbol{\theta}^\text{T}\mathbf{x}(s,a)\Big)-\nabla_\boldsymbol{\theta}\ln\sum_b\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,b)\Big] \\ &amp;=\mathbf{x}(s,a)-\dfrac{\sum_b\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,b)\Big]\mathbf{x}(s,b)}{\sum_{b’}\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,b’)\Big]} \\ &amp;=\mathbf{x}(s,a)-\sum_b\pi(b|s,\boldsymbol{\theta})\mathbf{x}(s,b)
 \end{align}</p>
 
 <h3 id="reinforce-baseline">REINFORCE with Baseline</h3>
@@ -345,11 +345,11 @@ Thus, the gradient of the performance measure w.r.t $\boldsymbol{\theta}$ is:
 \end{equation}
 where $\mu:\mathcal{S}\times\mathbb{R}^{d’}\to\mathbb{R}$ and $\sigma:\mathcal{S}\times\mathbb{R}^{d’}\to\mathbb{R}^+$ are two parameterized function approximators.</p>
 
-<p>We continue by dividing the policy’s parameter vector, $\boldsymbol{\theta}=[\boldsymbol{\theta}_\mu, \boldsymbol{\theta}_\sigma]^\intercal$, into two parts: one part, $\boldsymbol{\theta}_\mu$, is used for the approximation of the mean and the other, $\boldsymbol{\theta}_\sigma$, is used for the approximation of the standard deviation.</p>
+<p>We continue by dividing the policy’s parameter vector, $\boldsymbol{\theta}=[\boldsymbol{\theta}_\mu, \boldsymbol{\theta}_\sigma]^\text{T}$, into two parts: one part, $\boldsymbol{\theta}_\mu$, is used for the approximation of the mean and the other, $\boldsymbol{\theta}_\sigma$, is used for the approximation of the standard deviation.</p>
 
 <p>The mean, $\mu$, can be approximated as a linear function, while the standard deviation, $\sigma$, must always be positive, which should be approximated as the exponential of a linear function, as:
 \begin{align}
-\mu(s,\boldsymbol{\theta})&amp;\doteq\boldsymbol{\theta}_\mu^\intercal\mathbf{x}_\mu(s) \\ \sigma(s,\boldsymbol{\theta})&amp;\doteq\exp\Big(\boldsymbol{\theta}_\sigma^\intercal\mathbf{x}_\sigma(s)\Big),
+\mu(s,\boldsymbol{\theta})&amp;\doteq\boldsymbol{\theta}_\mu^\text{T}\mathbf{x}_\mu(s) \\ \sigma(s,\boldsymbol{\theta})&amp;\doteq\exp\Big(\boldsymbol{\theta}_\sigma^\text{T}\mathbf{x}_\sigma(s)\Big),
 \end{align}
 where $\mathbf{x}_\mu(s)$ and $\mathbf{x}_\sigma(s)$ are state feature vectors corresponding to each approximator.</p>
 

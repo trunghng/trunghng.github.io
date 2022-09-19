@@ -198,7 +198,7 @@ q_{ij}^{(n)}=Q_{ij}^{n}
 $Q^n$ is also called the <em>n-step transition matrix</em>.</p>
 
 <h3 id="marginal-dist-xn">Marginal Distribution of $X_n$</h3>
-<p>Let $t=(t_1,\dots,t_M)^\intercal$, where $t_i=P(X_0=i)$. By the law of total probability (LOTP), we have that:
+<p>Let $t=(t_1,\dots,t_M)^T$, where $t_i=P(X_0=i)$. By the law of total probability (LOTP), we have that:
 \begin{align}
 P(X_n=j)&amp;=\sum_{i=1}^{M}P(X_0=i)P(X_n=j|X_0=i) \\&amp;=\sum_{i=1}^{M}t_iq_{ij}^{(n)}
 \end{align}
@@ -221,7 +221,7 @@ And thus, $k=gcd(n)$ such that $Q^n_{ii}&gt;0$. $i$ is called <em>aperiodic</em>
 </ol>
 
 <h2 id="stationary-distribution">Stationary Distribution</h2>
-<p>A vector $s=(s_1,\dots,s_M)^\intercal$ such that $s_i\geq0$ and $\sum_{i}s_i=1$ is a <em>stationary distribution</em> for a Markov chain if
+<p>A vector $s=(s_1,\dots,s_M)^T$ such that $s_i\geq0$ and $\sum_{i}s_i=1$ is a <em>stationary distribution</em> for a Markov chain if
 \begin{equation}
 \sum_{i}s_iq_{ij}=s_j
 \end{equation}
@@ -239,14 +239,14 @@ for all $j$, or equivalently $sQ=s$.</p>
     Let $X_0,X_1,\dots$ be an <em>irreducible</em> Markov chain with <em>stationary distribution</em> $s$. Let $r_i$ be the expected time it takes the chain to return to $i$, given that it starts at $i$. Then $s_i=1/r_i$</p>
 
 <h2 id="reversibility">Reversibility</h2>
-<p>Let $Q=(q_{ij})$ be the <em>transition matrix</em> of a Markov chain. Suppose there is an $s=(s_1,\dots,s_M)^\intercal$ with $s_i\geq0,\sum_{i}s_i=1$, such that
+<p>Let $Q=(q_{ij})$ be the <em>transition matrix</em> of a Markov chain. Suppose there is an $s=(s_1,\dots,s_M)^T$ with $s_i\geq0,\sum_{i}s_i=1$, such that
 \begin{equation}
 s_iq_{ij}=s_jq_{ji}
 \end{equation}
 for all states $i,j$. This equation is called <em>reversibility</em> or <em>detailed balance</em> condition. And if the condition holds, we say that the chain is <em>reversible</em> w.r.t $s$.</p>
 
 <p><strong>Proposition</strong> (<em>Reversible implies stationary</em>)<br />
-    Suppose that $Q=(q_{ij})$ be the <em>transition matrix</em> of a Markov chain that is <em>reversible</em> w.r.t to an $s=(s_1,\dots,s_M)^\intercal$ with with $s_i\geq0,\sum_{i}s_i=1$. Then $s$ is a <em>stationary distribution</em> of the chain. (<em>proof</em>:$\sum_{j}s_jq_{ji}=\sum_{j}s_iq_{ij}=s_i\sum_{j}q_{ij}=s_i$)</p>
+    Suppose that $Q=(q_{ij})$ be the <em>transition matrix</em> of a Markov chain that is <em>reversible</em> w.r.t to an $s=(s_1,\dots,s_M)^T$ with with $s_i\geq0,\sum_{i}s_i=1$. Then $s$ is a <em>stationary distribution</em> of the chain. (<em>proof</em>:$\sum_{j}s_jq_{ji}=\sum_{j}s_iq_{ij}=s_i\sum_{j}q_{ij}=s_i$)</p>
 
 <p><strong>Proposition</strong><br />
     If each column of $Q$ sum to 1, then the <em>uniform distribution</em> over all states $(1/M,\dots,1/M)$, is a <em>stationary distribution</em>. (This kind of matrix is called <em>doubly stochastic matrix</em>).</p>

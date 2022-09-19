@@ -49,7 +49,7 @@ Below are some visualizations of Normal distribution.
 
 ## Multivariate Normal Distribution
 {: #mvn}
-A $k$-dimensional random vector $\mathbf{X}=\left(X_1,\dots,X_k\right)^\intercal$ is said to have a **Multivariate Normal (MVN)** distribution if every linear combination of the $X_i$ has a Normal distribution. Which means
+A $k$-dimensional random vector $\mathbf{X}=\left(X_1,\dots,X_k\right)^T$ is said to have a **Multivariate Normal (MVN)** distribution if every linear combination of the $X_i$ has a Normal distribution. Which means
 \begin{equation}
 t_1X_1+\ldots+t_kX_k
 \end{equation}
@@ -59,7 +59,7 @@ is normally distributed for any choice of constants $t_1,\dots,t_k$. Distributio
 \end{equation}
 where
 \begin{equation}
-	\mathbf{\mu}=\mathbb{E}\mathbf{X}=\mathbb{E}\left(\mu_1,\ldots,\mu_k\right)^\intercal=\left(\mathbb{E}X_1,\ldots,\mathbb{E}X_k\right)^\intercal
+	\mathbf{\mu}=\mathbb{E}\mathbf{X}=\mathbb{E}\left(\mu_1,\ldots,\mu_k\right)^T=\left(\mathbb{E}X_1,\ldots,\mathbb{E}X_k\right)^T
 \end{equation}
 is the $k$-dimensional mean vector, and covariance matrix $\mathbf{\Sigma}\in\mathbb{R}^{k\times k}$ with
 \begin{equation}
@@ -69,7 +69,7 @@ We also have that $\mathbf{\Sigma}\geq 0$ (positive semi-definite matrix)[^1].
 
 Thus, the PDF of an MVN is defined as
 \begin{equation}
-f_X(x_1,\ldots,x_k)=\dfrac{1}{(2\pi)^{k/2}\vert\mathbf{\Sigma}\vert^{1/2}}\exp\left[\dfrac{1}{2}\left(\mathbf{x}-\mathbf{\mu}\right)^\intercal\mathbf{\Sigma}^{-1}(\mathbf{x}-\mathbf{\mu})\right]
+f_X(x_1,\ldots,x_k)=\dfrac{1}{(2\pi)^{k/2}\vert\mathbf{\Sigma}\vert^{1/2}}\exp\left[\dfrac{1}{2}\left(\mathbf{x}-\mathbf{\mu}\right)^T\mathbf{\Sigma}^{-1}(\mathbf{x}-\mathbf{\mu})\right]
 \end{equation}
 With this idea, *Standard Normal* distribution in multi-dimensional case can be defined as a Gaussian with mean $\mathbf{\mu}=0$ (here $0$ is an $k$-dimensional vector) and identity covariance matrix $\mathbf{\Sigma}=\mathbf{I}\_{k\times k}$.
 
@@ -96,6 +96,6 @@ An example of an BVN, $\mathcal{N}\left(\left[\begin{smallmatrix}0\\\\0\end{smal
 	\end{equation}
 	Let $\mathbf{z}\in\mathbb{R}^k$, we have
 	\begin{equation}
-	\Var(\mathbf{z}^\intercal\mathbf{X})=\mathbf{z}^\intercal\Var(\mathbf{X})\mathbf{z}=\mathbf{z}^\intercal\mathbf{\Sigma}\mathbf{z}
+	\Var(\mathbf{z}^T\mathbf{X})=\mathbf{z}^T\Var(\mathbf{X})\mathbf{z}=\mathbf{z}^T\mathbf{\Sigma}\mathbf{z}
 	\end{equation}
-	And since $\Var(\mathbf{z}^\intercal\mathbf{X})\geq0$, we also have that $\mathbf{z}^\intercal\mathbf{\Sigma}\mathbf{z}\geq0$, which proves that $\mathbf{\Sigma}$ is a positive semi-definite matrix.
+	And since $\Var(\mathbf{z}^T\mathbf{X})\geq0$, we also have that $\mathbf{z}^T\mathbf{\Sigma}\mathbf{z}\geq0$, which proves that $\mathbf{\Sigma}$ is a positive semi-definite matrix.

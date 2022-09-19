@@ -98,11 +98,11 @@ Consider using **soft-max in action preferences** with linear action preferences
 \end{equation}
 where the preferences $h(s,a,\boldsymbol{\theta})$ is defined as:
 \begin{equation}
-h(s,a,\boldsymbol{\theta})=\boldsymbol{\theta}^\intercal\mathbf{x}(s,a)
+h(s,a,\boldsymbol{\theta})=\boldsymbol{\theta}^\text{T}\mathbf{x}(s,a)
 \end{equation}
 Using the chain rule we can rewrite the eligibility vector as:
 \begin{align}
-\nabla_\boldsymbol{\theta}\ln\pi(a|s,\boldsymbol{\theta})&=\nabla_\boldsymbol{\theta}\ln{\frac{\exp\Big[\boldsymbol{\theta}^\intercal\mathbf{x}(s,a)\Big]}{\sum_b\exp\Big[\boldsymbol{\theta}^\intercal\mathbf{x}(s,b)\Big]}} \\\\ &=\nabla_\boldsymbol{\theta}\Big(\boldsymbol{\theta}^\intercal\mathbf{x}(s,a)\Big)-\nabla_\boldsymbol{\theta}\ln\sum_b\exp\Big[\boldsymbol{\theta}^\intercal\mathbf{x}(s,b)\Big] \\\\ &=\mathbf{x}(s,a)-\dfrac{\sum_b\exp\Big[\boldsymbol{\theta}^\intercal\mathbf{x}(s,b)\Big]\mathbf{x}(s,b)}{\sum_{b'}\exp\Big[\boldsymbol{\theta}^\intercal\mathbf{x}(s,b')\Big]} \\\\ &=\mathbf{x}(s,a)-\sum_b\pi(b|s,\boldsymbol{\theta})\mathbf{x}(s,b)
+\nabla_\boldsymbol{\theta}\ln\pi(a|s,\boldsymbol{\theta})&=\nabla_\boldsymbol{\theta}\ln{\frac{\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,a)\Big]}{\sum_b\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,b)\Big]}} \\\\ &=\nabla_\boldsymbol{\theta}\Big(\boldsymbol{\theta}^\text{T}\mathbf{x}(s,a)\Big)-\nabla_\boldsymbol{\theta}\ln\sum_b\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,b)\Big] \\\\ &=\mathbf{x}(s,a)-\dfrac{\sum_b\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,b)\Big]\mathbf{x}(s,b)}{\sum_{b'}\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,b')\Big]} \\\\ &=\mathbf{x}(s,a)-\sum_b\pi(b|s,\boldsymbol{\theta})\mathbf{x}(s,b)
 \end{align}
 
 ### REINFORCE with Baseline
@@ -194,11 +194,11 @@ In particular, to produce a policy parameterization, the policy can be defined a
 \end{equation}
 where $\mu:\mathcal{S}\times\mathbb{R}^{d'}\to\mathbb{R}$ and $\sigma:\mathcal{S}\times\mathbb{R}^{d'}\to\mathbb{R}^+$ are two parameterized function approximators. 
 
-We continue by dividing the policy's parameter vector, $\boldsymbol{\theta}=[\boldsymbol{\theta}\_\mu, \boldsymbol{\theta}\_\sigma]^\intercal$, into two parts: one part, $\boldsymbol{\theta}\_\mu$, is used for the approximation of the mean and the other, $\boldsymbol{\theta}\_\sigma$, is used for the approximation of the standard deviation.
+We continue by dividing the policy's parameter vector, $\boldsymbol{\theta}=[\boldsymbol{\theta}\_\mu, \boldsymbol{\theta}\_\sigma]^\text{T}$, into two parts: one part, $\boldsymbol{\theta}\_\mu$, is used for the approximation of the mean and the other, $\boldsymbol{\theta}\_\sigma$, is used for the approximation of the standard deviation.
 
 The mean, $\mu$, can be approximated as a linear function, while the standard deviation, $\sigma$, must always be positive, which should be approximated as the exponential of a linear function, as:
 \begin{align}
-\mu(s,\boldsymbol{\theta})&\doteq\boldsymbol{\theta}\_\mu^\intercal\mathbf{x}\_\mu(s) \\\\ \sigma(s,\boldsymbol{\theta})&\doteq\exp\Big(\boldsymbol{\theta}\_\sigma^\intercal\mathbf{x}\_\sigma(s)\Big),
+\mu(s,\boldsymbol{\theta})&\doteq\boldsymbol{\theta}\_\mu^\text{T}\mathbf{x}\_\mu(s) \\\\ \sigma(s,\boldsymbol{\theta})&\doteq\exp\Big(\boldsymbol{\theta}\_\sigma^\text{T}\mathbf{x}\_\sigma(s)\Big),
 \end{align}
 where $\mathbf{x}\_\mu(s)$ and $\mathbf{x}\_\sigma(s)$ are state feature vectors corresponding to each approximator.
 
