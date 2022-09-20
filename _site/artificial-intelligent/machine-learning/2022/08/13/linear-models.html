@@ -817,6 +817,86 @@ where
 \end{align}
 The simplification we can make also come from the assumption of sharing the same covariance matrix between densities, which is analogous to the binary case that cancelled out the quadratic terms.</p>
 
+<p>Once we have specified a parametric functional form of $p(\mathbf{x}\vert\mathcal{C}_k)$, using maximum likelihood, we can solve for the values of the parameters and also the prior probabilities $p(\mathcal{C}_k)$.</p>
+
+<p>In particular, first off for the binary case, in which each class-conditional densities $p(\mathbf{x}\vert\mathcal{C}_k)$ is a Bivariate Normal, with a shared covariance matrix, as
+\begin{equation}
+\mathbf{x}\vert\mathcal{C}_k\sim\mathcal{N}(\boldsymbol{\mu}_k,\boldsymbol{\Sigma}^{-1})
+\end{equation}
+Consider the data set $\{\mathbf{x}_n,t_n\}$ for $n=1,\ldots,N$, i.e., $t_n=1$ denotes class $\mathcal{C}_1$ and $t_n=0$ denotes class $\mathcal{C}_2$. Let the class prior probability $p(\mathcal{C}_1)=\pi$, thus $p(\mathcal{C}_2)=1-\pi$. Or
+\begin{align}
+p(\mathbf{x}_n,\mathcal{C}_1)&amp;=p(\mathcal{C}_1)p(\mathbf{x}_n\vert\mathcal{C}_1)=\pi\mathcal{N}(\mathbf{x}_n\vert\boldsymbol{\mu}_1,\boldsymbol{\Sigma}), \\ p(\mathbf{x}_n,\mathcal{C}_2)&amp;=p(\mathcal{C}_2)p(\mathbf{x}_n\vert\mathcal{C}_2)=\pi\mathcal{N}(\mathbf{x}_n\vert\boldsymbol{\mu}_2,\boldsymbol{\Sigma})
+\end{align}
+We also have that
+\begin{equation}
+p(t_n\vert\pi,\boldsymbol{\mu}_1,\boldsymbol{\mu}_2,\boldsymbol{\Sigma})=p(\mathbf{x}_n,\mathcal{C}_1)^{t_n}p(\mathbf{x}_n,\mathcal{C}_2)^{1-t_n}
+\end{equation}
+Therefore, the likelihood can be defined as
+\begin{align}
+L(\pi,\boldsymbol{\mu}_1,\boldsymbol{\mu}_2,\boldsymbol{\Sigma})&amp;=p(\mathbf{t}\vert\pi,\boldsymbol{\mu}_1,\boldsymbol{\mu}_2,\boldsymbol{\Sigma}) \\ &amp;=\prod_{n=1}^{N}p(t_n\vert\pi,\boldsymbol{\mu}_1,\boldsymbol{\mu}_2,\boldsymbol{\Sigma}) \\ &amp;=\prod_{n=1}^{N}p(\mathbf{x}_n,\mathcal{C}_1)^{t_n}p(\mathbf{x}_n,\mathcal{C}_2)^{1-t_n} \\ &amp;=\prod_{n=1}^{N}\Big[\pi\mathcal{N}(\mathbf{x}_n\vert\boldsymbol{\mu}_1,\boldsymbol{\Sigma})\Big]^{t_n}\Big[(1-\pi)\mathcal{N}(\mathbf{x}_n\vert\boldsymbol{\mu}_2,\boldsymbol{\Sigma})\Big]^{1-t_n},
+\end{align}
+where $\mathbf{t}=(t_1,\ldots,t_N)^\text{T}$. As usual, we continue to consider the log likelihood $\ell(\cdot)$
+\begin{align}
+\ell(\pi,\boldsymbol{\mu}_1,\boldsymbol{\mu}_2,\boldsymbol{\Sigma})&amp;=\log L(\pi,\boldsymbol{\mu}_1,\boldsymbol{\mu}_2,\boldsymbol{\Sigma}) \\ &amp;=\sum_{n=1}^{N}t_n\log\Big[\pi\mathcal{N}(\mathbf{x}_n\vert\boldsymbol{\mu}_1,\boldsymbol{\Sigma})\Big]+(1-t_n)\log\Big[(1-\pi)\mathcal{N}(\mathbf{x}_n\vert\boldsymbol{\mu}_2,\boldsymbol{\Sigma})\Big]\tag{22}\label{22}
+\end{align}
+Taking the gradient of the log likelihood w.r.t $\pi$ we have
+\begin{align}
+\nabla_\pi\ell(\pi,\boldsymbol{\mu}_1,\boldsymbol{\mu}_2,\boldsymbol{\Sigma})&amp;=\nabla_\pi\sum_{n=1}^{N}t_n\log\Big[\pi\mathcal{N}(\mathbf{x}_n\vert\boldsymbol{\mu}_1,\boldsymbol{\Sigma})\Big]+(1-t_n)\log\Big[(1-\pi)\mathcal{N}(\mathbf{x}_n\vert\boldsymbol{\mu}_2,\boldsymbol{\Sigma})\Big] \\ &amp;=\nabla_\pi\sum_{n=1}^{N}t_n\log\pi+(1-t_n)\log(1-\pi) \\ &amp;=\sum_{n=1}^{N}\left[\frac{t_n}{\pi}-\frac{1-t_n}{1-\pi}\right]
+\end{align}
+Setting the derivative to zero and solve for $\pi$ as usual, we have
+\begin{equation}
+\sum_{n=1}^{N}t_n-\pi=0
+\end{equation}
+Thus, we obtain the solution
+\begin{equation}
+\pi=\frac{1}{N}\sum_{n=1}^{N}t_n=\frac{N_1}{N}=\frac{N_1}{N_1+N_2},
+\end{equation}
+where $N_1,N_2$ denote the total number of data points in class $\mathcal{C}_1$ and $\mathcal{C}_2$ respectively.</p>
+
+<p>On the other hand, taking the gradient of the log likelihood \eqref{22} w.r.t $\boldsymbol{\mu}_1$, we have
+\begin{align}
+\nabla_{\boldsymbol{\mu}_1}\ell(\pi,\boldsymbol{\mu}_1,\boldsymbol{\mu}_2,\boldsymbol{\Sigma})&amp;=\nabla_{\boldsymbol{\mu}_1}\sum_{n=1}^{N}t_n\log\Big[\pi\mathcal{N}(\mathbf{x}_n\vert\boldsymbol{\mu}_1,\boldsymbol{\Sigma})\Big]+(1-t_n)\log\Big[(1-\pi)\mathcal{N}(\mathbf{x}_n\vert\boldsymbol{\mu}_2,\boldsymbol{\Sigma})\Big] \\ &amp;=\nabla_{\boldsymbol{\mu}_1}\sum_{n=1}^{N}t_n\log\mathcal{N}(\mathbf{x}_n\vert\boldsymbol{\mu}_1,\boldsymbol{\Sigma}) \\ &amp;=\nabla_{\boldsymbol{\mu}_1}\sum_{n=1}^{N}t_n\left[-\frac{1}{2}(\mathbf{x}_n-\boldsymbol{\mu}_1)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}_n-\boldsymbol{\mu}_1)\right] \\ &amp;\propto\nabla_{\boldsymbol{\mu}_1}\sum_{n=1}^{N}t_n\big(-\boldsymbol{x}_n^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}_1-\boldsymbol{\mu}_1^\text{T}\boldsymbol{\Sigma}^{-1}+\boldsymbol{\mu}_1^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}_1\big) \\ &amp;=\sum_{n=1}^{N}t_n\Big[\big(\boldsymbol{\Sigma}^{-1}+(\boldsymbol{\Sigma}^{-1})^\text{T}\big)\big(\boldsymbol{\mu}_1-\mathbf{x}_n\big)\Big] \\ &amp;\propto\sum_{n=1}^{N}t_n(\boldsymbol{\mu}_1-\mathbf{x}_n)
+\end{align}
+Setting the above gradient to zero and solve for $\boldsymbol{\mu}_1$, we obtain the solution
+\begin{equation}
+\boldsymbol{\mu}_1=\frac{1}{N_1}\sum_{n=1}^{N}t_n\mathbf{x}_n,
+\end{equation}
+which is simply the mean of all input vectors $\mathbf{x}_n$ assigned to class $\mathcal{C}_1$.</p>
+
+<p>Similarly, with the same procedure, we have that the maximum likelihood solution for $\boldsymbol{\mu}_2$ is the mean of all inputs vectors $\mathbf{x}_n$ assigned to class $\mathcal{C}_2$, as
+\begin{equation}
+\boldsymbol{\mu}_2=\frac{1}{N_2}\sum_{n=1}^{N}(1-t_n)\mathbf{x}_n
+\end{equation}
+Lastly, taking the gradient of the log likelihood \eqref{22} w.r.t $\boldsymbol{\Sigma}$, we have
+\begin{align}
+\nabla_\boldsymbol{\Sigma}\ell(\pi,\boldsymbol{\mu}_1,\boldsymbol{\mu}_2,\boldsymbol{\Sigma})&amp;=\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}t_n\log\Big[\pi\mathcal{N}(\mathbf{x}_n\vert\boldsymbol{\mu}_1,\boldsymbol{\Sigma})\Big]+(1-t_n)\log\Big[(1-\pi)\mathcal{N}(\mathbf{x}_n\vert\boldsymbol{\mu}_2,\boldsymbol{\Sigma})\Big] \\ &amp;=\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}t_n\log\mathcal{N}(\mathbf{x}_n\vert\boldsymbol{\mu}_1,\boldsymbol{\Sigma})+(1-t_n)\log\mathcal{N}(\mathbf{x}_n\vert\boldsymbol{\mu}_2,\boldsymbol{\Sigma}) \\ &amp;=\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}t_n\log\big\vert\boldsymbol{\Sigma}\big\vert^{-1/2}+t_n\left[-\frac{1}{2}(\mathbf{x}_n-\boldsymbol{\mu}_1)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}_n-\boldsymbol{\mu}_1)\right] \\ &amp;\hspace{2cm}+(1-t_n)\log\big\vert\boldsymbol{\Sigma}\big\vert^{-1/2}+t_n\left[-\frac{1}{2}(\mathbf{x}_n-\boldsymbol{\mu}_2)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}_n-\boldsymbol{\mu}_2)\right] \\ &amp;\propto\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}\log\big\vert\boldsymbol{\Sigma}\big\vert+t_n(\mathbf{x}_n-\boldsymbol{\mu}_1)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}_n-\boldsymbol{\mu}_1) \\ &amp;\hspace{2cm}+(1-t_n)(\mathbf{x}_n-\boldsymbol{\mu}_2)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}_n-\boldsymbol{\mu}_2) \\ &amp;=N\nabla_\boldsymbol{\Sigma}\log\big\vert\boldsymbol{\Sigma}\big\vert-\boldsymbol{\Sigma}^{-1}\Big[\sum_{n=1}^{N}t_n(\mathbf{x}_n-\boldsymbol{\mu}_1)(\mathbf{x}_n-\boldsymbol{\mu}_1)^\text{T} \\ &amp;\hspace{2cm}+(1-t_n)(\mathbf{x}_n-\boldsymbol{\mu}_2)(\mathbf{x}_n-\boldsymbol{\mu}_2)^\text{T}\Big]\boldsymbol{\Sigma}^{-1}\tag{23}\label{23}
+\end{align}
+The first term of the gradient can be computed as
+\begin{align}
+\frac{\partial\log\big\vert\boldsymbol{\Sigma}\big\vert}{\partial\boldsymbol{\Sigma}_{ij}}=\frac{1}{\big\vert\boldsymbol{\Sigma}\big\vert}\frac{\partial\big\vert\boldsymbol{\Sigma}\big\vert}{\partial\boldsymbol{\Sigma}_{ij}}=\frac{1}{\big\vert\boldsymbol{\Sigma}\big\vert}\text{adj}(\boldsymbol{\Sigma})_{ji}=(\boldsymbol{\Sigma}^{-1})_{ji}=(\boldsymbol{\Sigma}^{-1})_{ij},
+\end{align}
+since $\boldsymbol{\Sigma}$ is symmetric and so is its inverse. This implies that
+\begin{equation}
+\nabla_\boldsymbol{\Sigma}\log\big\vert\boldsymbol{\Sigma}\big\vert=\boldsymbol{\Sigma}^{-1}
+\end{equation}
+Let $\mathbf{S}$ be a matrix defined as
+\begin{equation}
+\mathbf{S}=\frac{1}{N}\sum_{n=1}^{N}t_n(\mathbf{x}_n-\boldsymbol{\mu}_1)(\mathbf{x}_n-\boldsymbol{\mu}_1)^\text{T}+(1-t_n)(\mathbf{x}_n-\boldsymbol{\mu}_2)(\mathbf{x}_n-\boldsymbol{\mu}_2)^\text{T}
+\end{equation}
+Therefore, the derivative \eqref{23} can be rewritten as
+\begin{equation}
+\nabla_\boldsymbol{\Sigma}\ell(\pi,\boldsymbol{\mu}_1,\boldsymbol{\mu}_2,\boldsymbol{\Sigma})=N\boldsymbol{\Sigma}^{-1}-N\boldsymbol{\Sigma}^{-1}\mathbf{S}\boldsymbol{\Sigma}^{-1}
+\end{equation}
+Setting this gradient to zero and solve for $\boldsymbol{\Sigma}$, we obtain the solution
+\begin{equation}
+\boldsymbol{\Sigma}=\mathbf{S},
+\end{equation}
+where $\mathbf{S}$ can be continued to derive as
+\begin{align}
+\mathbf{S}&amp;=\frac{1}{N}\sum_{n=1}^{N}t_n(\mathbf{x}_n-\boldsymbol{\mu}_1)(\mathbf{x}_n-\boldsymbol{\mu}_1)^\text{T}+(1-t_n)(\mathbf{x}_n-\boldsymbol{\mu}_2)(\mathbf{x}_n-\boldsymbol{\mu}_2)^\text{T} \\ &amp;=\frac{N_1}{N}\sum_{n\in\mathcal{C}_1}(\mathbf{x}_n-\boldsymbol{\mu}_1)(\mathbf{x}_n-\boldsymbol{\mu}_1)^\text{T}+\frac{N_2}{N}\sum_{n\in\mathcal{C}_2}(\mathbf{x}_n-\boldsymbol{\mu}_2)(\mathbf{x}_n-\boldsymbol{\mu}_2)^\text{T},
+\end{align}
+which is the weighted average of the covariance matrices corresponded to each of the two classes $\mathcal{C}_1,\mathcal{C}_2$.</p>
+
 <h2 id="references">References</h2>
 <p>[1] <span id="bishops-book">Christopher M. Bishop. <a href="https://link.springer.com/book/9780387310732">Pattern Recognition and Machine Learning</a>. Springer New York, NY.</span></p>
 
