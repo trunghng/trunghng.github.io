@@ -30,6 +30,8 @@ comments: true
 			- [Binary classification](#fisher-ld-bin-clf)
 			- [Multi-class classification](#fisher-ld-clf)
 		- [The perceptron algorithm](#perceptron)
+	- [Probabilistic Generative models](#prob-gen-models)
+		- [Gaussian Generative models](#gauss-gen-models)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -155,7 +157,7 @@ There are various choices of basis functions:
 		An example of polynomial basis functions is illustrated as below
 		<figure>
 			<img src="/assets/images/2022-08-13/polynomial-basis.png" alt="polynomial basis" style="display: block; margin-left: auto; margin-right: auto;"/>
-			<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Example of polynomial basis functions. The code can be found <span markdown="1">[here](https://github.com/trunghng/maths-visualization/blob/main/pattern-recognition-and-machine-learning-book/linear-regression-models/basis-funcs.py)</span></figcaption>
+			<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Example of polynomial basis functions. The code can be found <span markdown="1">[here](https://github.com/trunghng/maths-visualization/blob/main/pattern-recognition-and-machine-learning-book/linear-models/regression/basis-funcs.py)</span></figcaption>
 		</figure>
 	</li>
 	<li>
@@ -166,7 +168,7 @@ There are various choices of basis functions:
 		An example of Gaussian basis functions is illustrated as below
 		<figure>
 			<img src="/assets/images/2022-08-13/gaussian-basis.png" alt="Gaussian basis" style="display: block; margin-left: auto; margin-right: auto;"/>
-			<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: Example of Gaussian basis functions. The code can be found <span markdown="1">[here](https://github.com/trunghng/maths-visualization/blob/main/pattern-recognition-and-machine-learning-book/linear-regression-models/basis-funcs.py)</span></figcaption>
+			<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: Example of Gaussian basis functions. The code can be found <span markdown="1">[here](https://github.com/trunghng/maths-visualization/blob/main/pattern-recognition-and-machine-learning-book/linear-models/regression/basis-funcs.py)</span></figcaption>
 		</figure>
 	</li>
 	<li>
@@ -181,7 +183,7 @@ There are various choices of basis functions:
 		An example of sigmoidal basis functions is illustrated as below
 		<figure>
 			<img src="/assets/images/2022-08-13/sigmoidal-basis.png" alt="sigmoidal basis" style="display: block; margin-left: auto; margin-right: auto;"/>
-			<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: Example of sigmoidal basis functions. The code can be found <span markdown="1">[here](https://github.com/trunghng/maths-visualization/blob/main/pattern-recognition-and-machine-learning-book/linear-regression-models/basis-funcs.py)</span></figcaption>
+			<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: Example of sigmoidal basis functions. The code can be found <span markdown="1">[here](https://github.com/trunghng/maths-visualization/blob/main/pattern-recognition-and-machine-learning-book/linear-models/regression/basis-funcs.py)</span></figcaption>
 		</figure>
 	</li>
 </ul>
@@ -460,7 +462,11 @@ m_k=\mathbf{w}^\text{T}\mathbf{m}\_k
 \end{equation}
 is the mean of the projected data from class $\mathcal{C}\_k$.
 
-Using Lagrange multiplier, in order to maximize $m_2-m_1$, we have that
+To make the computation simpler, we normalize the projection simply by making a constraint of $\mathbf{w}$ being a unit vector, which means
+\begin{equation}
+\big\Vert\mathbf{w}\big\Vert_2=\sum_{i}w_i=1
+\end{equation}
+Therefore, by Lagrange multiplier, in order to maximize $m_2-m_1$, we have that
 \begin{equation}
 \mathbf{w}\propto(\mathbf{m}\_2-\mathbf{m}\_1)
 \end{equation}
@@ -581,7 +587,86 @@ J(\mathbf{w})=\text{Tr}\big[(\mathbf{W}\mathbf{S}\_\text{W}\mathbf{W}^\text{T})^
 
 #### The perceptron algorithm
 {: #perceptron}
+Another example of linear discriminant model is the perceptron algorithm
 
+### Probabilistic Generative models
+{: #prob-gen-models}
+When solving the classification problems, we divide the strategy into two stage
+<ul id='number-list'>
+	<li>
+		<b>Inference stage</b>. In this stage we use training data to learn a model for $p(\mathcal{C}_k|\mathbf{x})$ 
+	</li>
+	<li>
+		<b>Decision stage</b>. In this stage we use those posterior probabilities to make optimal class assignments.
+	</li>
+</ul>
+We can solve both inference and decision problems at the same time by learning a function, which is the discriminant function, maps inputs $\mathbf{x}$ directly into decisions.
+
+When using the generative approach to solve the problem of classification, we first model the class-conditional densities $p(\mathbf{x}\vert\mathcal{C}\_k)$ and the class priors $p(\mathcal{C}\_k)$ then apply Bayes' theorem to compute the posterior probabilities $p(\mathcal{C}\_k\vert\mathbf{x})$.
+
+Consider the binary case, in which specifically the posterior probability for class $\mathcal{C}\_1$ can be computed as
+\begin{align}
+p(\mathcal{C}\_1\vert\mathbf{x})&=\frac{p(\mathbf{x}\vert\mathcal{C}\_1)p(\mathcal{C}\_1)}{p(\mathbf{x}\vert\mathcal{C}\_1)p(\mathcal{C}\_1)+p(\mathbf{x}\vert\mathcal{C}\_2)p(\mathcal{C}\_2)} \\\\ &=\frac{1}{1+\frac{p(\mathbf{x}\vert\mathcal{C}\_2)p(\mathcal{C}\_2)}{p(\mathbf{x}\vert\mathcal{C}\_1)p(\mathcal{C}\_1)}} \\\\ &=\frac{1}{1+\exp(-a)}=\sigma(a)\tag{19}\label{19}
+\end{align}
+where
+\begin{equation}
+a=\log\frac{p(\mathbf{x}\vert\mathcal{C}\_2)p(\mathcal{C}\_2)}{p(\mathbf{x}\vert\mathcal{C}\_1)p(\mathcal{C}\_1)}
+\end{equation}
+and where $\sigma(\cdot)$ is the logistic sigmoid function, defined before as
+\begin{equation}
+\sigma(a)\doteq\frac{1}{1+\exp(-a)}
+\end{equation}
+For the case of multi-class, $K>2$, the posterior probability for class $\mathcal{C}\_k$ can be generalized as
+\begin{align}
+p(\mathcal{C}\_k\vert\mathbf{x})&=\frac{p(\mathbf{x}\vert\mathcal{C}\_k)p(\mathcal{C}\_k)}{\sum_{i=1}^{K}p(\mathbf{x}\vert\mathcal{C}\_i)p(\mathcal{C}\_i)}=\dfrac{\exp\Big[\log\big(p(\mathbf{x}\vert\mathcal{C}\_k)p(\mathcal{C}\_k)\big)\Big]}{\sum_{i=1}^{K}\exp\Big[\log\big(p(\mathbf{x}\vert\mathcal{C}\_i)p(\mathcal{C}\_i)\big)\Big]} \\\\ &=\frac{\exp(a_k)}{\sum_{i=1}^{K}\exp(a_i)}=\sigma(\mathbf{a})\_k\tag{20}\label{20}
+\end{align}
+where
+\begin{align}
+a_k&=\log\big(p(\mathbf{x}\vert\mathcal{C}\_k)p(\mathcal{C}\_k)\big), \\\\ \mathbf{a}&=(a_1,\ldots,a_K)^\text{T},
+\end{align}
+and the function $\sigma:\mathbb{R}^K\to(0,1)^K$, known as the **normalized exponential** or **softmax function** - a generalization of sigmoid into multi-dimensional, in which the $k$-th element is defined as
+\begin{equation}
+\sigma(\mathbf{a})\_k\doteq\frac{\exp(a_k)}{\sum_{i=1}^{K}\exp(a_i)},
+\end{equation}
+for $k=1,\ldots,K$ and $\mathbf{a}=(a_1,\ldots,a_K)^\text{T}$.
+
+#### Gaussian Generative models
+{: #gauss-gen-models}
+If the class-conditional probabilities are Gaussian, or specifically Multivariate Normal and share the same covariance matrix $\boldsymbol{\Sigma}$. This means for $k=1,\ldots,K$,
+\begin{equation}
+\mathbf{x}\vert\mathcal{C}\_k\sim\mathcal{N}(\boldsymbol{\mu}\_k,\boldsymbol{\Sigma})
+\end{equation}
+Thus, the density for class $\mathcal{C}\_k$ is defined as
+\begin{equation}
+p(\mathbf{x}\vert\mathcal{C}\_k)=\frac{1}{(2\pi)^{D/2}\big\vert\boldsymbol{\Sigma}\big\vert^{1/2}}\exp\left[-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu}\_k)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu}\_k)\right]
+\end{equation}
+In the binary case, in which the densities above become Bivariate Normal, by \eqref{19} we have that
+\begin{align}
+p(\mathcal{C}\_1\vert\mathbf{x})&=\sigma\left(\log\frac{p(\mathbf{x}\vert\mathcal{C}\_2)p(\mathcal{C}\_2)}{p(\mathbf{x}\vert\mathcal{C}\_1)p(\mathcal{C}\_1)}\right) \\\\ &=\sigma\left(\log\frac{\exp\Big[-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu}\_2)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu}\_2)\Big]p(\mathcal{C}\_2)}{\exp\Big[-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu}\_1)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu}\_1)\Big]p(\mathcal{C}\_1)}\right) \\\\ &=\sigma\Bigg(-\frac{1}{2}\Big[-\mathbf{x}^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_2-\boldsymbol{\mu}\_2^\text{T}\boldsymbol{\Sigma}^{-1}\mathbf{x}+\boldsymbol{\mu}\_2^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_2+\mathbf{x}^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_1 \\\\ &\hspace{2cm}+\boldsymbol{\mu}\_1^\text{T}\boldsymbol{\Sigma}^{-1}\mathbf{x}-\boldsymbol{\mu}\_1^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_1\Big]-\log\frac{p(\mathcal{C}\_2)}{p(\mathcal{C}\_1)}\Bigg) \\\\ &=\sigma\left(\boldsymbol{\Sigma}^{-1}\left(\boldsymbol{\mu}\_1-\boldsymbol{\mu}\_2\right)^\text{T}\mathbf{x}-\frac{1}{2}\boldsymbol{\mu}\_1^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_1+\frac{1}{2}\boldsymbol{\mu}\_2^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_2+\log\frac{p(\mathcal{C}\_1)}{p(\mathcal{C}\_2)}\right)\tag{21}\label{21}
+\end{align}
+Let
+\begin{align}
+\mathbf{w}&=\boldsymbol{\Sigma}^{-1}(\boldsymbol{\mu}\_1-\boldsymbol{\mu}\_2), \\\\ w_0&=-\frac{1}{2}\boldsymbol{\mu}\_1^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_1+\frac{1}{2}\boldsymbol{\mu}\_2^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_2+\log\frac{p(\mathcal{C}\_1)}{p(\mathcal{C}\_2)},
+\end{align}
+we have \eqref{21} can be rewritten in more convenient form as
+\begin{equation}
+p(\mathcal{C}\_1\vert\mathbf{x})=\sigma\big(\mathbf{w}^\text{T}\mathbf{x}+w_0\big)
+\end{equation}
+From the derivation, we see that by making an assumption of having the same covariance matrix $\boldsymbol{\Sigma}$ across the densities helped us remove out the quadratic terms of $\mathbf{x}$, which leads us to ending up with a logistic sigmoid of a linear function of $\mathbf{x}$.
+
+For the multi-dimensional case, $K>2$, by \eqref{20}, we have that the density for class $\mathcal{C}\_k$ is
+\begin{align}
+p(\mathcal{C}\_k\vert\mathbf{x})&=\frac{\exp\Big[-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu}\_k)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu}\_k)+\log p(\mathcal{C}\_k)\Big]}{\sum_{i=1}^{K}\exp\Big[-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu}\_i)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu}\_i)+\log p(\mathcal{C}\_i)\Big]} \\\\ &=\frac{\exp\Big[\mathbf{x}^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_k-\frac{1}{2}\boldsymbol{\mu}\_k^\text{T}\boldsymbol{\Sigma}\boldsymbol{\mu}\_k+\log p(\mathbf{C}\_k)\Big]}{\sum_{i=1}^{K}\exp\Big[\mathbf{x}^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_i-\frac{1}{2}\boldsymbol{\mu}\_i^\text{T}\boldsymbol{\Sigma}\boldsymbol{\mu}\_i+\log p(\mathbf{C}\_i)\Big]}
+\end{align}
+Or in other words, we can simplify each element of $\mathbf{a}$ into a linear function as
+\begin{equation}
+a_k\doteq a_k(\mathbf{x})=\mathbf{w}\_k^\text{T}\mathbf{x}+w_{k,0},
+\end{equation}
+where
+\begin{align}
+\mathbf{w}\_k&=\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_k, \\\\ w_{k,0}&=-\frac{1}{2}\boldsymbol{\mu}\_k^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_k+\log p(\mathcal{C}\_k)
+\end{align}
+The simplification we can make also come from the assumption of sharing the same covariance matrix between densities, which is analogous to the binary case that cancelled out the quadratic terms.
 
 ## References
 {: #references}
