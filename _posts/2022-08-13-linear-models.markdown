@@ -14,7 +14,6 @@ comments: true
 	- [Independence, basis in vector space](#ind-basis)
 		- [Linear independence](#lin-ind)
 		- [Basis of a vector space](#basis)
-	- [Exponential family](#exp-fam)
 	- [Lagrange Multipliers](#lagrange-mult)
 - [Linear models for Regression](#lin-models-reg)
 	- [Linear basis function models](#lin-basis-func-models)
@@ -30,8 +29,14 @@ comments: true
 			- [Binary classification](#fisher-ld-bin-clf)
 			- [Multi-class classification](#fisher-ld-clf)
 		- [The perceptron algorithm](#perceptron)
-	- [Probabilistic Generative models](#prob-gen-models)
-		- [Gaussian Generative models](#gauss-gen-models)
+	- [Probabilistic Generative Models](#prob-gen-models)
+		- [Gaussian Generative Models](#gauss-gen-models)
+			- [Maximum likelihood solutions](#max-likelihood-sols)
+				- [Binary classification](#ggm-bin-clf)
+				- [Multi-class classification](#ggm-clf)
+		- [Exponential Family](#exp-family)
+	- [Probabilistic Discriminative Models](#prob-disc-models)
+		- [Logistic Regression](#log-reg)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -589,7 +594,7 @@ J(\mathbf{w})=\text{Tr}\big[(\mathbf{W}\mathbf{S}\_\text{W}\mathbf{W}^\text{T})^
 {: #perceptron}
 Another example of linear discriminant model is the perceptron algorithm
 
-### Probabilistic Generative models
+### Probabilistic Generative Models
 {: #prob-gen-models}
 When solving the classification problems, we divide the strategy into two stage
 <ul id='number-list'>
@@ -632,7 +637,7 @@ for $k=1,\ldots,K$ and $\mathbf{a}=(a_1,\ldots,a_K)^\text{T}$.
 
 #### Gaussian Generative models
 {: #gauss-gen-models}
-If the class-conditional probabilities are Gaussian, or specifically Multivariate Normal and share the same covariance matrix $\boldsymbol{\Sigma}$. This means for $k=1,\ldots,K$,
+If the class-conditional probabilities are Gaussian, or specifically Multivariate Normal and share the same covariance matrix $\boldsymbol{\Sigma}$, then for $k=1,\ldots,K$,
 \begin{equation}
 \mathbf{x}\vert\mathcal{C}\_k\sim\mathcal{N}(\boldsymbol{\mu}\_k,\boldsymbol{\Sigma})
 \end{equation}
@@ -668,11 +673,15 @@ where
 \end{align}
 The simplification we can make also come from the assumption of sharing the same covariance matrix between densities, which is analogous to the binary case that cancelled out the quadratic terms.
 
+##### Maximum likelihood solutions
+{: #max-likelihood-sols}
 Once we have specified a parametric functional form of $p(\mathbf{x}\vert\mathcal{C}\_k)$, using maximum likelihood, we can solve for the values of the parameters and also the prior probabilities $p(\mathcal{C}\_k)$.
 
+###### Binary classification
+{: #ggm-bin-clf}
 In particular, first off for the binary case, in which each class-conditional densities $p(\mathbf{x}\vert\mathcal{C}\_k)$ is a Bivariate Normal, with a shared covariance matrix, as
 \begin{equation}
-\mathbf{x}\vert\mathcal{C}\_k\sim\mathcal{N}(\boldsymbol{\mu}\_k,\boldsymbol{\Sigma}^{-1})
+\mathbf{x}\vert\mathcal{C}\_k\sim\mathcal{N}(\boldsymbol{\mu}\_k,\boldsymbol{\Sigma})
 \end{equation}
 Consider the data set $\\{\mathbf{x}\_n,t_n\\}$ for $n=1,\ldots,N$, i.e., $t_n=1$ denotes class $\mathcal{C}\_1$ and $t_n=0$ denotes class $\mathcal{C}\_2$. Let the class prior probability $p(\mathcal{C}\_1)=\pi$, thus $p(\mathcal{C}\_2)=1-\pi$. Or
 \begin{align}
@@ -706,7 +715,7 @@ where $N_1,N_2$ denote the total number of data points in class $\mathcal{C}\_1$
 
 On the other hand, taking the gradient of the log likelihood \eqref{22} w.r.t $\boldsymbol{\mu}\_1$, we have
 \begin{align}
-\nabla_{\boldsymbol{\mu}\_1}\ell(\pi,\boldsymbol{\mu}\_1,\boldsymbol{\mu}\_2,\boldsymbol{\Sigma})&=\nabla_{\boldsymbol{\mu}\_1}\sum_{n=1}^{N}t_n\log\Big[\pi\mathcal{N}(\mathbf{x}\_n\vert\boldsymbol{\mu}\_1,\boldsymbol{\Sigma})\Big]+(1-t_n)\log\Big[(1-\pi)\mathcal{N}(\mathbf{x}\_n\vert\boldsymbol{\mu}\_2,\boldsymbol{\Sigma})\Big] \\\\ &=\nabla_{\boldsymbol{\mu}\_1}\sum_{n=1}^{N}t_n\log\mathcal{N}(\mathbf{x}\_n\vert\boldsymbol{\mu}\_1,\boldsymbol{\Sigma}) \\\\ &=\nabla_{\boldsymbol{\mu}\_1}\sum_{n=1}^{N}t_n\left[-\frac{1}{2}(\mathbf{x}\_n-\boldsymbol{\mu}\_1)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}\_n-\boldsymbol{\mu}\_1)\right] \\\\ &\propto\nabla_{\boldsymbol{\mu}\_1}\sum_{n=1}^{N}t_n\big(-\boldsymbol{x}\_n^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_1-\boldsymbol{\mu}\_1^\text{T}\boldsymbol{\Sigma}^{-1}+\boldsymbol{\mu}\_1^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_1\big) \\\\ &=\sum_{n=1}^{N}t_n\Big[\big(\boldsymbol{\Sigma}^{-1}+(\boldsymbol{\Sigma}^{-1})^\text{T}\big)\big(\boldsymbol{\mu}\_1-\mathbf{x}\_n\big)\Big] \\\\ &\propto\sum_{n=1}^{N}t_n(\boldsymbol{\mu}\_1-\mathbf{x}\_n)
+\nabla_{\boldsymbol{\mu}\_1}\ell(\pi,\boldsymbol{\mu}\_1,\boldsymbol{\mu}\_2,\boldsymbol{\Sigma})&=\nabla_{\boldsymbol{\mu}\_1}\sum_{n=1}^{N}t_n\log\Big[\pi\mathcal{N}(\mathbf{x}\_n\vert\boldsymbol{\mu}\_1,\boldsymbol{\Sigma})\Big]+(1-t_n)\log\Big[(1-\pi)\mathcal{N}(\mathbf{x}\_n\vert\boldsymbol{\mu}\_2,\boldsymbol{\Sigma})\Big] \\\\ &=\nabla_{\boldsymbol{\mu}\_1}\sum_{n=1}^{N}t_n\log\mathcal{N}(\mathbf{x}\_n\vert\boldsymbol{\mu}\_1,\boldsymbol{\Sigma}) \\\\ &=\nabla_{\boldsymbol{\mu}\_1}\sum_{n=1}^{N}t_n\left[-\frac{1}{2}(\mathbf{x}\_n-\boldsymbol{\mu}\_1)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}\_n-\boldsymbol{\mu}\_1)\right] \\\\ &\propto\nabla_{\boldsymbol{\mu}\_1}\sum_{n=1}^{N}t_n\big(-\boldsymbol{x}\_n^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_1-\boldsymbol{\mu}\_1^\text{T}\boldsymbol{\Sigma}^{-1}\mathbf{x}\_n+\boldsymbol{\mu}\_1^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_1\big) \\\\ &=\sum_{n=1}^{N}t_n\Big[\big(\boldsymbol{\Sigma}^{-1}+(\boldsymbol{\Sigma}^{-1})^\text{T}\big)\big(\boldsymbol{\mu}\_1-\mathbf{x}\_n\big)\Big] \\\\ &\propto\sum_{n=1}^{N}t_n(\boldsymbol{\mu}\_1-\mathbf{x}\_n)
 \end{align}
 Setting the above gradient to zero and solve for $\boldsymbol{\mu}\_1$, we obtain the solution
 \begin{equation}
@@ -728,7 +737,7 @@ The first term of the gradient can be computed as
 \end{align}
 since $\boldsymbol{\Sigma}$ is symmetric and so is its inverse. This implies that
 \begin{equation}
-\nabla_\boldsymbol{\Sigma}\log\big\vert\boldsymbol{\Sigma}\big\vert=\boldsymbol{\Sigma}^{-1}
+\nabla_\boldsymbol{\Sigma}\log\big\vert\boldsymbol{\Sigma}\big\vert=\boldsymbol{\Sigma}^{-1}\tag{24}\label{24}
 \end{equation}
 Let $\mathbf{S}$ be a matrix defined as
 \begin{equation}
@@ -747,6 +756,102 @@ where $\mathbf{S}$ can be continued to derive as
 \mathbf{S}&=\frac{1}{N}\sum_{n=1}^{N}t_n(\mathbf{x}\_n-\boldsymbol{\mu}\_1)(\mathbf{x}\_n-\boldsymbol{\mu}\_1)^\text{T}+(1-t_n)(\mathbf{x}\_n-\boldsymbol{\mu}\_2)(\mathbf{x}\_n-\boldsymbol{\mu}\_2)^\text{T} \\\\ &=\frac{N_1}{N}\sum_{n\in\mathcal{C}\_1}(\mathbf{x}\_n-\boldsymbol{\mu}\_1)(\mathbf{x}\_n-\boldsymbol{\mu}\_1)^\text{T}+\frac{N_2}{N}\sum_{n\in\mathcal{C}\_2}(\mathbf{x}\_n-\boldsymbol{\mu}\_2)(\mathbf{x}\_n-\boldsymbol{\mu}\_2)^\text{T},
 \end{align}
 which is the weighted average of the covariance matrices corresponded to each of the two classes $\mathcal{C}\_1,\mathcal{C}\_2$.
+
+###### Multi-class classification
+{: #ggm-clf}
+To generalize the Gaussian generative binary classification, we consider a model for $K>2$ classes defined by prior class probabilities $p(\mathcal{C}\_k)=\pi_k$ and Multivariate Normal class-conditional densities with shared covariance matrix, given as
+\begin{equation}
+p({\boldsymbol{\phi}}\vert\mathcal{C}\_k)=\mathcal{N}(\boldsymbol{\phi}\vert\boldsymbol{\mu}\_k,\boldsymbol{\Sigma}),
+\end{equation}
+where $\boldsymbol{\phi}$ is the input feature vector.
+
+Given a data set $\\{\boldsymbol{\phi}\_n,\mathcal{t}\_n\\}$ for $n=1,\ldots,N$ where $\mathbf{t}\_n$ is the target vector of length $K$ using the 1-of-$K$ scheme, i.e., $(\mathbf{t}\_n)\_k=1$ denotes class $\mathcal{C}\_k$ and $(\mathbf{t}\_n)\_i=0$ for all $i\neq k$. Therefore, we have that
+\begin{equation}
+p(\boldsymbol{\phi}\_n,\mathcal{C}\_k)=p(\mathcal{C}\_k)p(\boldsymbol{\phi}\_n\vert\mathcal{C}\_k)=\pi_k\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_k,\boldsymbol{\Sigma})
+\end{equation}
+Analogy to the binary case, we also have that
+\begin{equation}
+p(\mathbf{t}\_n\vert\pi_1,\ldots,\pi_K,\boldsymbol{\phi}\_1,\ldots,\boldsymbol{\phi}\_K,\boldsymbol{\Sigma})=\prod_{k=1}^{K}p(\boldsymbol{\phi}\_n,\mathcal{C}\_k)^{(\mathbf{t}\_n)\_k}
+\end{equation}
+To simplify the notation, we let $\mathbf{C}$ denote
+\begin{equation}
+\pi_1,\ldots,\pi_K,\boldsymbol{\phi}\_1,\ldots,\boldsymbol{\phi}\_K,\boldsymbol{\Sigma}
+\end{equation}
+We continue by letting
+\begin{equation}
+\mathbf{T}=\left[\begin{matrix}\vert&&\vert \\\\ \mathbf{t}\_1&\ldots&\mathbf{t}\_N \\\\ \vert&&\vert\end{matrix}\right]
+\end{equation}
+Thus, the likelihood is given as
+\begin{align}
+L(\mathbf{C})&=p(\mathbf{T}\vert\mathbf{C}) \\\\ &=\prod_{n=1}^{N}p(\mathbf{t}\_n\vert\mathbf{C}) \\\\ &=\prod_{n=1}^{N}\prod_{k=1}^{K}p(\boldsymbol{\phi}\_n,\mathcal{C}\_k)^{(\mathbf{t}\_n)\_k} \\\\ &=\prod_{n=1}^{N}\prod_{k=1}^{K}\Big[\pi_k\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_k,\boldsymbol{\Sigma})\Big]^{(\mathbf{t}\_n)\_k}
+\end{align}
+And thus, the log likelihood $\ell(\cdot)$ can be computed as
+\begin{align}
+\ell(\mathbf{C})&=\log L(\mathbf{C}) \\\\ &=\log\prod_{n=1}^{N}\prod_{k=1}^{K}\Big[\pi_k\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_k,\boldsymbol{\Sigma})\Big]^{(\mathbf{t}\_n)\_k} \\\\ &=\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k\Big[\log\pi_k+\log\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_k,\boldsymbol{\Sigma})\Big]\tag{25}\label{25}
+\end{align}
+As usual, we continue by using maximum likelihood, which begins by taking gradient of the log likelihood w.r.t to the parameters. However, when maximizing the likelihood w.r.t $\pi_k$, we have to compute subject to a constraint that
+\begin{equation}
+\sum_{k=1}^{K}\pi_k=1
+\end{equation}
+Therefore, using a Lagrange multiplier $\lambda$, we instead maximize the Lagrangian w.r.t $\pi_k$, which is
+\begin{equation}
+\mathcal{L}(\pi_1,\ldots,\pi_K,\lambda)=\ell(\mathbf{C})+\lambda\left(\sum_{k=1}^{K}\pi_k-1\right)
+\end{equation}
+Differentiating $\mathcal{L}$ w.r.t $\pi_k$, we have
+\begin{align}
+\nabla_{\pi_k}\mathcal{L}(\pi_1,\ldots,\pi_K,\lambda)&=\nabla_{\pi_k}\sum_{n=1}^{N}\sum_{i=1}^{K}(\mathbf{t}\_n)\_i\Big[\log\pi_i+\log\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_i,\boldsymbol{\Sigma})\Big]+\nabla_{\pi_k}\lambda\left(\sum_{i=1}^{K}\pi_i-1\right) \\\\ &=\lambda+\sum_{n=1}^{N}(\mathbf{t}\_n)\_k\nabla_{\pi_k}\log\pi_k \\\\ &=\lambda+\frac{\sum_{n=1}^{N}(\mathbf{t}\_n)\_k}{\pi_k}
+\end{align}
+Setting the derivative equal to zero and solve for $\pi_k$, we have
+\begin{equation}
+\pi_k=-\frac{\sum_{n=1}^{N}(\mathbf{t}\_n)\_k}{\lambda}=\frac{N_k}{\lambda},
+\end{equation}
+where $N_k$ denotes the number of data points in class $\mathcal{C}\_k$. Moreover, since $\sum_{k=1}^{K}\pi_k=1$, we have
+\begin{equation}
+1=-\sum_{k=1}^{K}\frac{N_k}{\lambda}=\frac{-N}{\lambda},
+\end{equation}
+which implies that
+\begin{equation}
+\lambda=-N
+\end{equation}
+Hence, the maximum likelihood solution for $\pi_k$ is
+\begin{equation}
+\pi_k=-\frac{N_k}{\lambda}=\frac{N_k}{N}
+\end{equation}
+We continue by taking the gradient of the log likelihood \eqref{25} w.r.t $\boldsymbol{\mu}\_k$, as
+\begin{align}
+\nabla_{\boldsymbol{\mu}\_k}\ell(\mathbf{C})&=\nabla_{\boldsymbol{\mu}\_k}\sum_{n=1}^{N}\sum_{i=1}^{K}(\mathbf{t}\_n)\_i\Big[\log\pi_i+\log\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_i,\boldsymbol{\Sigma})\Big] \\\\ &=\nabla_{\boldsymbol{\mu}\_k}\sum_{n=1}^{N}(\mathbf{t}\_n)\_k\log\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_k,\boldsymbol{\Sigma}) \\\\ &=\nabla_{\boldsymbol{\mu}\_k}\sum_{n=1}^{N}(\mathbf{t}\_n)\_k\Big[-\frac{1}{2}(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)^\text{T}\boldsymbol{\Sigma}^{-1}(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)\Big] \\\\ &=-\frac{1}{2}\sum_{n=1}^{N}(\mathbf{t}\_n)\_k\nabla_{\boldsymbol{\mu}\_k}\Big[\boldsymbol{\mu}\_k^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_k-2\boldsymbol{\mu}\_k^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\phi}\_n\Big] \\\\ &=\sum_{n=1}^{N}(\mathbf{t}\_n)\_k\Big[\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_k-\boldsymbol{\Sigma}^{-1}\boldsymbol{\phi}\_n\Big]
+\end{align}
+Setting the above gradient equal to zero and solve for $\boldsymbol{\mu}\_k$ we obtain the solution
+\begin{equation}
+\boldsymbol{\mu}\_k=\frac{1}{\sum_{n=1}^{N}(\mathbf{t}\_n)\_k}\sum_{n=1}^{N}(\mathbf{t}\_n)\_k\boldsymbol{\phi}\_n=\frac{1}{N_k}\sum_{n=1}^{N}(\mathbf{t}\_n)\_k\boldsymbol{\phi}\_n,
+\end{equation}
+which is the mean of feature vectors assigned to class $\mathcal{C}\_k$.
+
+Finally, consider the gradient of \eqref{25} w.r.t $\boldsymbol{\Sigma}$, combined with the result \eqref{24} we have
+\begin{align}
+\nabla_\boldsymbol{\Sigma}\ell(\mathbf{C})&=\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k\Big[\log\pi_k+\log\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_k\boldsymbol{\Sigma})\Big] \\\\ &=\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k\log\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_k\boldsymbol{\Sigma}) \\\\ &=\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k\log\big\vert\boldsymbol{\Sigma}\big\vert^{-1/2}+(\mathbf{t}\_n)\_k\Big[-\frac{1}{2}(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)^\text{T}\boldsymbol{\Sigma}^{-1}(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)\Big] \\\\ &=-\frac{N}{2}\boldsymbol{\Sigma}^{-1}+\frac{1}{2}\boldsymbol{\Sigma}^{-1}\Big[\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)^\text{T}\Big]\boldsymbol{\Sigma}^{-1} \\\\ &\propto N\boldsymbol{\Sigma}^{-1}-\boldsymbol{\Sigma}^{-1}\Big[\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)^\text{T}\Big]\boldsymbol{\Sigma}^{-1}\tag{26}\label{26}
+\end{align}
+Let $\mathbf{S}\_k$ be the covariance of the data associated with class $\mathcal{C}\_k$, defined as
+\begin{equation}
+\mathcal{S}\_k=\frac{1}{N_k}\sum_{n=1}^{N}(\mathbf{t}\_n)\_k(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)^\text{T}
+\end{equation}
+Therefore, letting the derivative \eqref{26} equal to zero, we have
+\begin{equation}
+N\boldsymbol{\Sigma}^{-1}-\boldsymbol{\Sigma}^{-1}\Big[\sum_{k=1}^{K}N_k\mathbf{S}\_k\Big]\boldsymbol{\Sigma}^{-1}=0
+\end{equation}
+Solving this equation for $\Sigma$, we obtain the solution
+\begin{equation}
+\boldsymbol{\Sigma}=\sum_{k=1}^{K}\frac{N_k}{N}\mathbf{S}\_k
+\end{equation}
+
+#### Exponential Family
+{: #exp-family}
+
+### Probabilistic Discriminative Models
+{: #prob-disc-models}
+
+#### Logistic Regression
+{: #log-reg}
 
 ## References
 {: #references}
