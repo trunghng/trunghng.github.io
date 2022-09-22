@@ -40,6 +40,9 @@ comments: true
 		- [Logistic Regression](#log-reg)
 		- [Softmax Regression](#softmax-reg)
 		- [Newton's method](#newtons-method)
+			- [Linear Regression](#nm-lin-reg)
+			- [Logistic Regression](#nm-log-reg)
+			- [Softmax Regression](#nm-softmax-reg)
 	- [Generalized linear models](#glm)
 - [References](#references)
 - [Footnotes](#footnotes)
@@ -238,7 +241,7 @@ which implies that
 \end{equation}
 which is known as the **normal equations** for the least squares problem. In \eqref{8}, $\boldsymbol{\Phi}\in\mathbb{R}^{N\times M}$ is called the **design matrix**, whose elements are given by $\boldsymbol{\Phi}\_{ij}=\phi_j(\mathbf{x}\_i)$
 \begin{equation}
-\boldsymbol{\Phi}=\left[\begin{matrix}-\hspace{0.1cm}\boldsymbol{\phi}(\mathbf{x}\_1)\hspace{0.1cm}- \\\\ \hspace{0.1cm}\vdots\hspace{0.1cm} \\\\ -\hspace{0.1cm}\boldsymbol{\phi}(\mathbf{x}\_N)\hspace{0.1cm}-\end{matrix}\right]=\left[\begin{matrix}\phi_0(\mathbf{x}\_1)&\ldots&\phi_{M-1}(\mathbf{x}\_1) \\\\ \vdots&\ddots&\vdots \\\\ \phi_0(\mathbf{x}\_N)&\ldots&\phi_{M-1}(\mathbf{x}\_N)\end{matrix}\right],
+\boldsymbol{\Phi}=\left[\begin{matrix}-\hspace{0.1cm}\boldsymbol{\phi}(\mathbf{x}\_1)^\text{T}\hspace{0.1cm}- \\\\ \hspace{0.1cm}\vdots\hspace{0.1cm} \\\\ -\hspace{0.1cm}\boldsymbol{\phi}(\mathbf{x}\_N)^\text{T}\hspace{0.1cm}-\end{matrix}\right]=\left[\begin{matrix}\phi_0(\mathbf{x}\_1)&\ldots&\phi_{M-1}(\mathbf{x}\_1) \\\\ \vdots&\ddots&\vdots \\\\ \phi_0(\mathbf{x}\_N)&\ldots&\phi_{M-1}(\mathbf{x}\_N)\end{matrix}\right],
 \end{equation}
 and the quantity
 \begin{equation}
@@ -592,7 +595,7 @@ where
 \begin{align}
 \boldsymbol{\mu}\_k&=\mathbf{W}^\text{T}\mathbf{m}\_k=\mathbf{W}^\text{T}\frac{1}{N_k}\sum_{n\in\mathcal{C}\_k}\mathbf{x}\_n=\frac{1}{N_k}\sum_{n\in\mathcal{C}\_k}\mathbf{y}\_n, \\\\ \boldsymbol{\mu}&=\mathbf{W}^\text{T}\mathbf{m}=\mathbf{W}^\text{T}\frac{1}{N}\sum_{k=1}^{K}N_k\mathbf{m}\_k=\frac{1}{N}\sum_{k=1}^{K}N_k\boldsymbol{\mu}\_k
 \end{align}
-Analogous to the case of binary classification with Fisher's criterion \eqref{15}, we need a new measure that is large when the between-class covariance is large and when the within-class covariance is small. A simple choice of criterion is given as
+Analogy to the case of binary classification with Fisher's criterion \eqref{15}, we need a new measure that is large when the between-class covariance is large and when the within-class covariance is small. A simple choice of criterion is given as
 \begin{equation}
 J(\mathbf{W})=\text{Tr}\left(\mathbf{s}\_\text{W}^{-1}\mathbf{s}\_\text{B}\right)
 \end{equation}
@@ -776,7 +779,7 @@ p({\boldsymbol{\phi}}\vert\mathcal{C}\_k)=\mathcal{N}(\boldsymbol{\phi}\vert\bol
 \end{equation}
 where $\boldsymbol{\phi}$ is the input feature vector.
 
-Given a data set $\\{\boldsymbol{\phi}\_n,\mathcal{t}\_n\\}$ for $n=1,\ldots,N$ where $\mathbf{t}\_n$ is the target vector of length $K$ using the 1-of-$K$ scheme, i.e., $(\mathbf{t}\_n)\_k=1$ denotes class $\mathcal{C}\_k$ and $(\mathbf{t}\_n)\_i=0$ for all $i\neq k$. Therefore, we have that
+Given a data set $\\{\boldsymbol{\phi}\_n,\mathbf{t}\_n\\}$ for $n=1,\ldots,N$ where $\mathbf{t}\_n$ is the target vector of length $K$ using the 1-of-$K$ scheme, i.e., $(\mathbf{t}\_n)\_k=1$ denotes class $\mathcal{C}\_k$ and $(\mathbf{t}\_n)\_i=0$ for all $i\neq k$. Therefore, we have that
 \begin{equation}
 p(\boldsymbol{\phi}\_n,\mathcal{C}\_k)=p(\mathcal{C}\_k)p(\boldsymbol{\phi}\_n\vert\mathcal{C}\_k)=\pi_k\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_k,\boldsymbol{\Sigma})
 \end{equation}
@@ -788,9 +791,9 @@ To simplify the notation, we let $\mathbf{w}$ denote
 \begin{equation}
 \pi_1,\ldots,\pi_K,\boldsymbol{\phi}\_1,\ldots,\boldsymbol{\phi}\_K,\boldsymbol{\Sigma}
 \end{equation}
-And let $\mathbf{T}$ be a matrix that associate those targets $\mathbf{t}\_n$'s together, given as
+And let $\mathbf{T}$ be a matrix that associates those targets $\mathbf{t}\_n$'s together, given as
 \begin{equation}
-\mathbf{T}=\left[\begin{matrix}\vert&&\vert \\\\ \mathbf{t}\_1&\ldots&\mathbf{t}\_N \\\\ \vert&&\vert\end{matrix}\right]
+\mathbf{T}=\left[\begin{matrix}-\hspace{0.15cm}\mathbf{t}\_1^\text{T}\hspace{0.15cm}- \\\\ \vdots \\\\ -\hspace{0.15cm}\mathbf{t}\_N^\text{T}\hspace{0.15cm}-\end{matrix}\right]
 \end{equation}
 Thus, the likelihood is given as
 \begin{align}
@@ -869,7 +872,7 @@ p(\mathcal{C}\_1\vert\mathbf{x})=\sigma\big(\mathbf{w}^\text{T}\mathbf{x}+w_0\bi
 \end{equation}
 In general, the posterior probabilities can be written as the logistic sigmoid of a linear function of instead feature vector $\boldsymbol{\phi}$, as
 \begin{equation}
-p(\mathcal{C}\_1\vert\boldsymbol{\phi})=\sigma\big(\mathbf{w}^\text{T}\boldsymbol{\phi}+w_0\big)
+p(\mathcal{C}\_1\vert\boldsymbol{\phi})=y(\boldsymbol{\phi})=\sigma\big(\mathbf{w}^\text{T}\boldsymbol{\phi}+w_0\big)
 \end{equation}
 This model is called **logistic regression**, although it is applied for classification tasks.
 Consider a data set $\\{\boldsymbol{\phi}\_n,t_n\\}$, where $\boldsymbol{\phi}\_n=\boldsymbol{\phi}(\mathbf{x}\_n)$ and $t_n\in\\{0,1\\}$, with $n=1,\ldots,N$. Therefore,
@@ -901,9 +904,126 @@ and the chain rule to compute the gradient of $y_n$ w.r.t $\mathbf{w}$ as
 
 #### Softmax Regression
 {: #softmax-reg}
+Analogy to the generalization of the binary case into logistic regression, for the multi-class case, the posterior probability for class $\mathcal{C}\_k$ can be written as the softmax function of a linear function of feature vectors $\boldsymbol{\phi}$ as
+\begin{equation}
+p(\mathcal{C}\_k\vert\boldsymbol{\phi})=y_k(\boldsymbol{\phi})=\frac{\exp(a_k)}{\sum_{i=1}^{K}\exp(a_i)},
+\end{equation}
+where $a_k$'s is called the **activations**, defined as
+\begin{equation}
+a_k=\mathbf{w}\_k^\text{T}\boldsymbol{\phi}
+\end{equation}
+Given a data set $\\{\boldsymbol{\phi}\_n,\mathbf{t}\_n\\}$ for $n=1,\ldots,N$ where $\mathbf{t}\_n$ is the target vector of length $K$ using the 1-of-$K$ scheme, i.e., $(\mathbf{t}\_n)\_k=1$ denotes class $\mathcal{C}\_k$ and $(\mathbf{t}\_n)\_i=0$ for all $i\neq k$. Similar to the binary case, we also have that
+\begin{equation}
+p(\mathbf{t}\_n\vert\mathbf{w}\_1,\ldots,\mathbf{w}\_K)=\prod_{k=1}^{K}p(\mathcal{C}\_k\vert\boldsymbol{\phi}\_n)^{(\mathbf{t}\_n)\_k}=\prod_{k=1}^{K}(y_{n})\_k^{(\mathbf{t}\_n)\_k},
+\end{equation}
+where $(y_{n})\_k=y_k(\boldsymbol{\phi}\_n)$.
+
+Let $\mathbf{T}$ be a $N\times K$ matrix comprising $\mathbf{t}\_n$'s together as
+\begin{equation}
+\mathbf{T}=\left[\begin{matrix}-\hspace{0.15cm}\mathbf{t}\_1^\text{T}\hspace{0.15cm}- \\\\ \vdots \\\\ -\hspace{0.15cm}\mathbf{t}\_N^\text{T}\hspace{0.15cm}-\end{matrix}\right]
+\end{equation}
+Therefore, the likelihood function can be written by
+\begin{align}
+L(\mathbf{w}\_1,\ldots,\mathbf{w}\_K)&=p(\mathbf{T}\vert\mathbf{w}\_1,\ldots,\mathbf{w}\_K) \\\\ &=\prod_{n=1}^{N}p(\mathbf{t}\_n\vert\mathbf{w}\_1,\ldots,\mathbf{w}\_K) \\\\ &=\prod_{n=1}^{N}\prod_{k=1}^{K}(y_{n})\_k^{(\mathbf{t}\_n)\_k}
+\end{align}
+We also obtain the cross-entropy error function by taking the negative logarithm of the likelihood, as
+\begin{align}
+E(\mathbf{w}\_1,\ldots,\mathbf{w}\_K)&=-\log L(\mathbf{w}\_1,\ldots,\mathbf{w}\_K) \\\\ &=-\log\prod_{n=1}^{N}\prod_{k=1}^{K}(y_{n})\_k^{(\mathbf{t}\_n)\_k} \\\\ &=-\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k\log(y_{n})\_k\tag{29}\label{29}
+\end{align}
+As usual, taking the gradient of the error function $E(\mathbf{w}\_1,\ldots,\mathbf{w}\_K)$ w.r.t $\mathbf{w}\_k$ we have
+\begin{align}
+\nabla_{\mathbf{w}\_k}E(\mathbf{w}\_1,\ldots,\mathbf{w}\_K)&=\nabla_{\mathbf{w}\_k}-\sum_{n=1}^{N}\sum_{i=1}^{K}(\mathbf{t}\_n)\_i\log(y_{n})\_i \\\\ &=\sum_{n=1}^{N}\sum_{i=1}^{K}(\mathbf{t}\_n)\_i\frac{(y_n)\_k-(y_n)\_i(1\\{i=k\\})\boldsymbol{\phi}\_n}{(y_n)\_i} \\\\ &=\sum_{n=1}^{N}\Big[(y_n)\_k\sum_{i=1}^{K}(\mathbf{t}\_n)\_i-\sum_{i=1}^{K}(\mathbf{t}\_n)\_i 1\\{i=k\\}\Big]\boldsymbol{\phi}\_n \\\\ &=\sum_{n=1}^{N}\big[(y_n)\_k-(\mathbf{t}\_n)\_k\big]\boldsymbol{\phi}\_n\tag{30}\label{30}
+\end{align}
+where in the second step, we have used the identity
+\begin{align}
+\frac{\partial y_k}{\partial a_j}&=\frac{\big(\partial\exp(a_k)/\partial\exp(a_j)\big)\sum_{i=1}^{K}\exp(a_i)-\exp(a_j)\exp(a_k)}{\big(\sum_{i=1}^{K}\exp(a_i)\big)^2} \\\\ &=\frac{\exp(a_k)1\\{k=j\\}}{\sum_{i=1}^{K}\exp(a_i)}-y_k y_j \\\\ &=y_k(1\\{k=j\\}-y_j)
+\end{align}
+where $1\\{k=j\\}$ is the indicator function, which returns $1$ if $k=j$ and returns $0$ otherwise. Hence, by chain rule, we obtain the gradient of $(y_n)\_i$ w.r.t $\mathbf{w}\_k$ given by
+\begin{align}
+\nabla_{\mathbf{w}\_k}(y_n)\_i&=\frac{\partial(y_n)\_i}{\partial a_k}\frac{\partial a_k(\mathbf{w}\_k,\boldsymbol{\phi}\_n)}{\partial\mathbf{w}\_k} \\\\ &=(y_n)\_i(1\\{i=k\\}-(y_n)\_k)\boldsymbol{\phi}\_n
+\end{align}
 
 #### Newton's method
 {: #newtons-method}
+<figure>
+	<img src="/assets/images/2022-08-13/newtons-method.gif" alt="Newton's method)" style="display: block; margin-left: auto; margin-right: auto; width: 450px; height: 370px"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 5</b>: Newton's method. The code can be found <span markdown="1">[here](https://github.com/trunghng/maths-visualization/blob/main/pattern-recognition-and-machine-learning-book/linear-models/classification/newtons-method.py)</span></figcaption>
+</figure>
+
+\begin{equation}
+\mathbf{w}^{(\text{new})}=\mathbf{w}^{(\text{old})}-\mathbf{H}^{-1}\nabla_\mathbf{w}E(\mathbf{w})
+\end{equation}
+
+##### Linear Regression
+{: #nm-lin-reg}
+Consider applying the Newton's method to the sum-of-squares error function \eqref{7} for the linear regression model \eqref{3}. The gradient and Hessian of this error function are
+\begin{align}
+\nabla_\mathbf{w}E(\mathbf{w})&=\nabla_\mathbf{w}\sum_{n=1}^{N}\left(t_n-\mathbf{w}^\text{T}\boldsymbol{\phi}\_n)\right)^2 \\\\ &=\sum_{n=1}^{N}(\mathbf{w}^\text{T}\boldsymbol{\phi}\_n-t_n)\boldsymbol{\phi}\_n=\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\mathbf{w}-\boldsymbol{\Phi}^\text{T}\mathbf{t},
+\end{align}
+and
+\begin{equation}
+\mathbf{H}=\nabla_\mathbf{w}^2 E(\mathbf{w})=\nabla_\mathbf{w}\big(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\mathbf{w}-\boldsymbol{\Phi}^\text{T}\mathbf{t}\big)=\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi},
+\end{equation}
+where $\boldsymbol{\Phi}$, as defined before, is the $N\times M$ design matrix
+\begin{equation}
+\boldsymbol{\Phi}=\left[\begin{matrix}-\hspace{0.1cm}\boldsymbol{\phi}(\mathbf{x}\_1)^\text{T}\hspace{0.1cm}- \\\\ \hspace{0.1cm}\vdots\hspace{0.1cm} \\\\ -\hspace{0.1cm}\boldsymbol{\phi}(\mathbf{x}\_N)^\text{T}\hspace{0.1cm}-\end{matrix}\right]=\left[\begin{matrix}\phi_0(\mathbf{x}\_1)&\ldots&\phi_{M-1}(\mathbf{x}\_1) \\\\ \vdots&\ddots&\vdots \\\\ \phi_0(\mathbf{x}\_N)&\ldots&\phi_{M-1}(\mathbf{x}\_N)\end{matrix}\right],
+\end{equation}
+Hence, we have that the Newton's update of the model is given by
+\begin{align}
+\mathbf{w}^{(\text{new})}&=\mathbf{w}^{(\text{old})}-(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi})^{-1}\big(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\mathbf{w}^{(\text{old})}-\boldsymbol{\Phi}^\text{T}\mathbf{t}\big) \\\\ &=(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}^\text{T}\mathbf{t},\tag{31}\label{31}
+\end{align}
+which is exactly the standard least-squares solution.
+
+##### Logistic Regression
+{: #nm-log-reg}
+Consider using the Newton's method to the logistic regression model with the cross-entropy error function \eqref{27}. By the result \eqref{28}, we have the gradient and Hessian of this error function are given as
+\begin{equation}
+\nabla_\mathbf{w}E(\mathbf{w})=\sum_{n=1}^{N}(y_n-t_n)\boldsymbol{\phi}\_n=\boldsymbol{\Phi}(\mathbf{y}-\mathbf{t})
+\end{equation}
+and
+\begin{align}
+\mathbf{H}=\nabla_{\mathbf{w}}^2 E(\mathbf{w})&=\nabla_\mathbf{w}\sum_{n=1}^{N}(y_n-t_n)\boldsymbol{\phi}\_n \\\\ &=\sum_{n=1}^{N}y_n(1-y_n)\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T} \\\\ &=\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi},
+\end{align}
+where $\mathbf{R}$ is the $N\times N$ diagonal matrix with diagonal elements
+\begin{equation}
+\mathbf{R}\_{n n}=y_n(1-y_n)
+\end{equation}
+It is noticeable that hessian matrix $\mathbf{H}$ is positive definite because for any vector $\mathbf{v}$
+\begin{equation}
+\mathbf{v}^\text{T}\mathbf{H}\mathbf{v}=\mathbf{v}^\text{T}\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi}\mathbf{v}>0,
+\end{equation}
+since $\mathbf{R}$ is positive definite due to $y_n\in(0,1)$ letting all the diagonal elements of $\mathbf{R}$ are positive. This positive definiteness claims that the cross-entropy error function is a concave function of $\mathbf{w}$ and thus has a unique minimum.
+
+Back to our main attention, the Newton's update of the model then takes the form
+\begin{align}
+\mathbf{w}^{(\text{new})}&=\mathbf{w}^{(\text{old})}-(\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}(\mathbf{y}-\mathbf{t}) \\\\ &=(\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi})^{-1}\Big[\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi}\mathbf{w}^{(\text{old})}-\boldsymbol{\Phi}^\text{T}(\mathbf{y}-\mathbf{t})\Big] \\\\ &=(\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}^\text{T}\mathbf{R}\mathbf{z},\tag{32}\label{32}
+\end{align}
+where $\mathbf{z}$ is an $N$-dimensional vector given by
+\begin{equation}
+\mathbf{z}=\boldsymbol{\Phi}\mathbf{w}^{(\text{old})}-\mathbf{R}^{-1}(\mathbf{y}-\mathbf{t})
+\end{equation}
+This algorithm is known as **iterative reweighted least squares**, or **IRLS**.
+
+##### Softmax Regression
+{: #nm-softmax-reg}
+Consider applying the Newton's method to the cross-entropy error function \eqref{29} for the softmax regression model.
+
+First, let $\mathbf{W}$ be the $M\times K$ matrix that comprises $\mathbf{w}\_1,\ldots,\mathbf{w}\_K$ together, as
+\begin{equation}
+\mathbf{W}=\left[\begin{matrix}\vert&&\vert \\\\ \mathbf{w}\_1&\ldots&\mathbf{w}\_K \\\\ \vert&&\vert\end{matrix}\right]
+\end{equation}
+By the result \eqref{30}, we have that the $k$-th element of the gradient of this error function is given by
+\begin{equation}
+\nabla_{\mathbf{w}\_k}E(\mathbf{W})=\sum_{n=1}^{N}\big[(y_n)\_k-(\mathbf{t}\_n)\_k\big]\boldsymbol{\phi}\_n=\boldsymbol{\Phi}^\text{T}(\mathbf{y}\_n-\mathbf{t}\_n),
+\end{equation}
+where $\boldsymbol{\Phi}$ be the $N\times M$ design matrix, given as
+\begin{equation}
+\boldsymbol{\Phi}=\left[\begin{matrix}-\hspace{0.1cm}\boldsymbol{\phi}\_1^\text{T}\hspace{0.1cm}- \\\\ \hspace{0.1cm}\vdots\hspace{0.1cm} \\\\ -\hspace{0.1cm}\boldsymbol{\phi}\_N^\text{T}\hspace{0.1cm}-\end{matrix}\right]
+\end{equation}
+Therefore, the gradient of the error function w.r.t $\mathbf{W}$ is
+\begin{equation}
+
+\end{equation}
 
 ### Generalized linear models
 {: #glm}

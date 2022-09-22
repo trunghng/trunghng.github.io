@@ -26,7 +26,7 @@ comments: true
 {: #exp-fam}
 The **exponential family** of distributions of $x$ given a measure $\eta$, is defined as family of distribution of form
 \begin{equation}
-p(x\vert\eta)=h(x)\exp\Big[\eta^\\Big]
+p(x\vert\eta)=h(x)\exp\Big[\eta^\text{T}T(x)-A(\eta)\Big]
 \end{equation}
 
 ## References
