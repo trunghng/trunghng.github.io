@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-21T15:33:31+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-22T14:29:41+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory - II</title><link href="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html" rel="alternate" type="text/html" title="Measure theory - II" /><published>2022-07-03T13:00:00+07:00</published><updated>2022-07-03T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html">&lt;blockquote&gt;
   &lt;p&gt;Part II of the measure theory series. Materials are mostly taken from &lt;a href=&quot;/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some needed notations extracted from &lt;a href=&quot;/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -1615,7 +1615,40 @@ where $m^2$ denotes two-dimensional Jordan measure.&lt;/p&gt;
       &lt;p&gt;A function $f:[a,b]\to\mathbb{R}$ is &lt;strong&gt;piecewise continuous&lt;/strong&gt; if we can partition $[a,b]$ into finitely many intervals, such that $f$ is continuous on each interval. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><category term="jordan-measure" /><category term="riemann-integral" /><category term="darboux-integral" /><category term="random-stuffs" /><summary type="html">Part I of the measure theory series. Materials are mostly taken from Tao’s book, except for some needed notations extracted from Stein’s book.</summary></entry><entry><title type="html">Normal Distribution</title><link href="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html" rel="alternate" type="text/html" title="Normal Distribution" /><published>2021-11-22T14:46:00+07:00</published><updated>2021-11-22T14:46:00+07:00</updated><id>http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist</id><content type="html" xml:base="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html">&lt;blockquote&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><category term="jordan-measure" /><category term="riemann-integral" /><category term="darboux-integral" /><category term="random-stuffs" /><summary type="html">Part I of the measure theory series. Materials are mostly taken from Tao’s book, except for some needed notations extracted from Stein’s book.</summary></entry><entry><title type="html">The exponential family</title><link href="http://localhost:4000/mathematics/probability-statistics/2022/05/04/exponential-family.html" rel="alternate" type="text/html" title="The exponential family" /><published>2022-05-04T14:00:00+07:00</published><updated>2022-05-04T14:00:00+07:00</updated><id>http://localhost:4000/mathematics/probability-statistics/2022/05/04/exponential-family</id><content type="html" xml:base="http://localhost:4000/mathematics/probability-statistics/2022/05/04/exponential-family.html">&lt;blockquote&gt;
+
+&lt;/blockquote&gt;
+
+&lt;!-- excerpt-end --&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#exp-fam&quot;&gt;The exponential family&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#examples&quot;&gt;Examples&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#bern-dist&quot;&gt;Bernoulli distribution&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#bino-dist&quot;&gt;Binomial distribution&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#pois&quot;&gt;Poisson distribution&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#gauss-dist&quot;&gt;Gaussian distribution&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#mult-dist&quot;&gt;Multinomial distribution&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#max-llh&quot;&gt;Maximum likelihood estimates&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;exp-fam&quot;&gt;The exponential family&lt;/h2&gt;
+&lt;p&gt;The &lt;strong&gt;exponential family&lt;/strong&gt; of distributions of $x$ given a measure $\eta$, is defined as family of distribution of form
+\begin{equation}
+p(x\vert\eta)=h(x)\exp\Big[\eta^\Big]
+\end{equation}&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;p&gt;[1] Christopher M. Bishop. &lt;a href=&quot;https://link.springer.com/book/9780387310732&quot;&gt;Pattern Recognition and Machine Learning&lt;/a&gt;. Springer New York, NY.&lt;/p&gt;
+
+&lt;p&gt;[2] M. Jordan. &lt;a href=&quot;https://people.eecs.berkeley.edu/~jordan/courses/260-spring10/other-readings/chapter8.pdf&quot;&gt;The Exponential Family: Basics&lt;/a&gt;. 2009.&lt;/p&gt;
+
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="probability-statistics" /><category term="mathematics" /><category term="probability-statistics" /><category term="exponential-family" /><summary type="html"></summary></entry><entry><title type="html">Normal Distribution</title><link href="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html" rel="alternate" type="text/html" title="Normal Distribution" /><published>2021-11-22T14:46:00+07:00</published><updated>2021-11-22T14:46:00+07:00</updated><id>http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist</id><content type="html" xml:base="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html">&lt;blockquote&gt;
   &lt;p&gt;A note on Normal distribution.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;

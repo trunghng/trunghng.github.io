@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-21T15:33:31+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-22T14:29:41+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Linear models</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/linear-models.html" rel="alternate" type="text/html" title="Linear models" /><published>2022-08-13T13:00:00+07:00</published><updated>2022-08-13T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/linear-models</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/linear-models.html">&lt;blockquote&gt;
   &lt;p&gt;Linear models for solving regression and classification problems. Materials were taken mostly from &lt;a href=&quot;% post_url 2022-08-13-linear-models %}#bishops-book&quot;&gt;Bishop’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -22,6 +22,7 @@
         &lt;ul&gt;
           &lt;li&gt;&lt;a href=&quot;#least-squares&quot;&gt;Least squares&lt;/a&gt;&lt;/li&gt;
           &lt;li&gt;&lt;a href=&quot;#geo-least-squares&quot;&gt;Geometrical interpretation of least squares&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#lms&quot;&gt;The LMS algorithm&lt;/a&gt;&lt;/li&gt;
           &lt;li&gt;&lt;a href=&quot;#reg-least-squares&quot;&gt;Regularized least squares&lt;/a&gt;&lt;/li&gt;
           &lt;li&gt;&lt;a href=&quot;#mult-outputs&quot;&gt;Multiple outputs&lt;/a&gt;&lt;/li&gt;
         &lt;/ul&gt;
@@ -61,8 +62,11 @@
       &lt;li&gt;&lt;a href=&quot;#prob-disc-models&quot;&gt;Probabilistic Discriminative Models&lt;/a&gt;
         &lt;ul&gt;
           &lt;li&gt;&lt;a href=&quot;#log-reg&quot;&gt;Logistic Regression&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#softmax-reg&quot;&gt;Softmax Regression&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#newtons-method&quot;&gt;Newton’s method&lt;/a&gt;&lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#glm&quot;&gt;Generalized linear models&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
@@ -105,8 +109,6 @@ In this case, $S$ is the smallest space containing those vectors.&lt;/p&gt;
 \begin{equation}
 \mathbf{u}=c_1\mathbf{v}_1+\ldots+c_d\mathbf{v}_d
 \end{equation}&lt;/p&gt;
-
-&lt;h3 id=&quot;exp-fam&quot;&gt;Exponential family&lt;/h3&gt;
 
 &lt;h3 id=&quot;lagrange-mult&quot;&gt;Lagrange Multipliers&lt;/h3&gt;
 &lt;p&gt;Consider the problem of finding the maximum (or minimum) of $w=f(x_1,x_2,x_3)$ subject to a constraint relating $x_1,x_2$ and $x_3$
@@ -267,7 +269,7 @@ is called the &lt;strong&gt;Moore-Penrose pseudoinverse&lt;/strong&gt; of the ma
 
 &lt;p&gt;On the other hand, consider the gradient of \eqref{6} w.r.t $\beta$ and set it equal to zero, we obtain
 \begin{equation}
-\beta=\frac{N}{\sum_{i=1}^{N}\big(t_i-\mathbf{w}_\text{ML}^\text{T}\boldsymbol{\Phi}(\mathbf{x}_i)\big)^2}
+\beta=\frac{N}{\sum_{i=1}^{N}\big(t_i-\mathbf{w}_\text{ML}^\text{T}\boldsymbol{\phi}(\mathbf{x}_i)\big)^2}
 \end{equation}&lt;/p&gt;
 
 &lt;h4 id=&quot;geo-least-squares&quot;&gt;Geometrical interpretation of least squares&lt;/h4&gt;
@@ -300,6 +302,13 @@ Then the sum-of-squares error \eqref{7} is exactly (with a factor of $1/2$) the 
 \begin{align}
 \mathbf{y}^\text{T}(\mathbf{t}-\mathbf{y})&amp;amp;=\left(\boldsymbol{\Phi}\mathbf{w}_\text{ML}\right)^\text{T}\left(\mathbf{t}-\boldsymbol{\Phi}\mathbf{w}_\text{ML}\right) \\ &amp;amp;=\left(\boldsymbol{\Phi}\left(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}\mathbf{t}\right)^\text{T}\left(\mathbf{t}-\boldsymbol{\Phi}\left(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}\mathbf{t}\right) \\ &amp;amp;=\mathbf{t}^\text{T}\boldsymbol{\Phi}\left(\left(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\right)^{-1}\right)^\text{T}\boldsymbol{\Phi}^\text{T}\mathbf{t}-\mathbf{t}^\text{T}\boldsymbol{\Phi}\left(\left(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\right)^{-1}\right)^\text{T}\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\left(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}\mathbf{t} \\ &amp;amp;=\mathbf{t}^\text{T}\boldsymbol{\Phi}\left(\left(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\right)^{-1}\right)^\text{T}\boldsymbol{\Phi}^\text{T}\mathbf{t}-\mathbf{t}^\text{T}\boldsymbol{\Phi}\left(\left(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\right)^{-1}\right)^\text{T}\boldsymbol{\Phi}^\text{T}\mathbf{t} \\ &amp;amp;=0,
 \end{align}&lt;/p&gt;
+
+&lt;h4 id=&quot;lms&quot;&gt;The LMS algorithm&lt;/h4&gt;
+&lt;p&gt;The &lt;strong&gt;least-means-squares&lt;/strong&gt;, or &lt;strong&gt;LMS&lt;/strong&gt; algorithm for the sum-of-squares error \eqref{7}, which start with some initial vector $\mathbf{w}_0$ of $\mathbf{w}$, and repeatedly perform the update
+\begin{equation}
+\mathbf{w}_{t+1}=\mathbf{w}_t+\eta(t_n-\mathbf{w}_t^\text{T}\boldsymbol{\phi}_n)\boldsymbol{\phi}_n,
+\end{equation}
+where $\boldsymbol{\phi}_n$ denotes $\boldsymbol{\phi}(\mathbf{x}_n)$, and $\eta$ is called the &lt;strong&gt;learning rate&lt;/strong&gt; which controls the update amount.&lt;/p&gt;
 
 &lt;h4 id=&quot;reg-least-squares&quot;&gt;Regularized least squares&lt;/h4&gt;
 &lt;p&gt;To control over-fitting, in the error function \eqref{7}, we add an regularization term, which makes the total error function to be minimized take the form
@@ -488,7 +497,7 @@ Therefore, by Lagrange multiplier, in order to maximize $m_2-m_1$, we have that
 \end{equation}
 To solve this problem, we use the Fisher’s LD approach to minimize the class overlap by maximizing the ratio of the &lt;strong&gt;between-class variance&lt;/strong&gt; to the &lt;strong&gt;within-class variance&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;The within-class variance of projected data from class $\mathbf{C}_k$ is defined as
+&lt;p&gt;The within-class variance of projected data from class $\mathbf{w}_k$ is defined as
 \begin{equation}
 s_k^2\doteq\sum_{n\in\mathcal{C}_k}(y_n-m_k)^2,
 \end{equation}
@@ -535,6 +544,8 @@ since $(\mathbf{m}_2-\mathbf{m}_1)^\text{T}\mathbf{w}$ is a scalar.&lt;/p&gt;
 \mathbf{w}\propto\mathbf{m}_2-\mathbf{m}_1
 \end{equation}
 The result \eqref{16} is called &lt;strong&gt;Fisher’s linear discriminant&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;With this $\mathbf{w}$, we can project our data down into one dimension and from projected data, we construct a discriminant by selecting a threshold $y_0$ such that $\mathbf{x}$ belongs to class $\mathcal{C}_1$ if $y(\mathbf{x})\gg y_0$ and otherwise it belongs to $\mathcal{C}_1$.&lt;/p&gt;
 
 &lt;h5 id=&quot;fisher-ld-clf&quot;&gt;Multi-class classification&lt;/h5&gt;
 &lt;p&gt;To generalize the Fisher discriminant to the case of $K&amp;gt;2$, we first assume that $D&amp;gt;K$ and consider the $D’&amp;gt;1$ linear features
@@ -668,7 +679,7 @@ From the derivation, we see that by making an assumption of having the same cova
 
 &lt;p&gt;For the multi-dimensional case, $K&amp;gt;2$, by \eqref{20}, we have that the density for class $\mathcal{C}_k$ is
 \begin{align}
-p(\mathcal{C}_k\vert\mathbf{x})&amp;amp;=\frac{\exp\Big[-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu}_k)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu}_k)+\log p(\mathcal{C}_k)\Big]}{\sum_{i=1}^{K}\exp\Big[-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu}_i)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu}_i)+\log p(\mathcal{C}_i)\Big]} \\ &amp;amp;=\frac{\exp\Big[\mathbf{x}^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}_k-\frac{1}{2}\boldsymbol{\mu}_k^\text{T}\boldsymbol{\Sigma}\boldsymbol{\mu}_k+\log p(\mathbf{C}_k)\Big]}{\sum_{i=1}^{K}\exp\Big[\mathbf{x}^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}_i-\frac{1}{2}\boldsymbol{\mu}_i^\text{T}\boldsymbol{\Sigma}\boldsymbol{\mu}_i+\log p(\mathbf{C}_i)\Big]}
+p(\mathcal{C}_k\vert\mathbf{x})&amp;amp;=\frac{\exp\Big[-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu}_k)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu}_k)+\log p(\mathcal{C}_k)\Big]}{\sum_{i=1}^{K}\exp\Big[-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu}_i)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu}_i)+\log p(\mathcal{C}_i)\Big]} \\ &amp;amp;=\frac{\exp\Big[\mathbf{x}^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}_k-\frac{1}{2}\boldsymbol{\mu}_k^\text{T}\boldsymbol{\Sigma}\boldsymbol{\mu}_k+\log p(\mathbf{w}_k)\Big]}{\sum_{i=1}^{K}\exp\Big[\mathbf{x}^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}_i-\frac{1}{2}\boldsymbol{\mu}_i^\text{T}\boldsymbol{\Sigma}\boldsymbol{\mu}_i+\log p(\mathbf{w}_i)\Big]}
 \end{align}
 Or in other words, we can simplify each element of $\mathbf{a}$ into a linear function as
 \begin{equation}
@@ -777,21 +788,21 @@ Analogy to the binary case, we also have that
 \begin{equation}
 p(\mathbf{t}_n\vert\pi_1,\ldots,\pi_K,\boldsymbol{\phi}_1,\ldots,\boldsymbol{\phi}_K,\boldsymbol{\Sigma})=\prod_{k=1}^{K}p(\boldsymbol{\phi}_n,\mathcal{C}_k)^{(\mathbf{t}_n)_k}
 \end{equation}
-To simplify the notation, we let $\mathbf{C}$ denote
+To simplify the notation, we let $\mathbf{w}$ denote
 \begin{equation}
 \pi_1,\ldots,\pi_K,\boldsymbol{\phi}_1,\ldots,\boldsymbol{\phi}_K,\boldsymbol{\Sigma}
 \end{equation}
-We continue by letting
+And let $\mathbf{T}$ be a matrix that associate those targets $\mathbf{t}_n$’s together, given as
 \begin{equation}
 \mathbf{T}=\left[\begin{matrix}\vert&amp;amp;&amp;amp;\vert \\ \mathbf{t}_1&amp;amp;\ldots&amp;amp;\mathbf{t}_N \\ \vert&amp;amp;&amp;amp;\vert\end{matrix}\right]
 \end{equation}
 Thus, the likelihood is given as
 \begin{align}
-L(\mathbf{C})&amp;amp;=p(\mathbf{T}\vert\mathbf{C}) \\ &amp;amp;=\prod_{n=1}^{N}p(\mathbf{t}_n\vert\mathbf{C}) \\ &amp;amp;=\prod_{n=1}^{N}\prod_{k=1}^{K}p(\boldsymbol{\phi}_n,\mathcal{C}_k)^{(\mathbf{t}_n)_k} \\ &amp;amp;=\prod_{n=1}^{N}\prod_{k=1}^{K}\Big[\pi_k\mathcal{N}(\boldsymbol{\phi}_n\vert\boldsymbol{\mu}_k,\boldsymbol{\Sigma})\Big]^{(\mathbf{t}_n)_k}
+L(\mathbf{w})&amp;amp;=p(\mathbf{T}\vert\mathbf{w}) \\ &amp;amp;=\prod_{n=1}^{N}p(\mathbf{t}_n\vert\mathbf{w}) \\ &amp;amp;=\prod_{n=1}^{N}\prod_{k=1}^{K}p(\boldsymbol{\phi}_n,\mathcal{C}_k)^{(\mathbf{t}_n)_k} \\ &amp;amp;=\prod_{n=1}^{N}\prod_{k=1}^{K}\Big[\pi_k\mathcal{N}(\boldsymbol{\phi}_n\vert\boldsymbol{\mu}_k,\boldsymbol{\Sigma})\Big]^{(\mathbf{t}_n)_k}
 \end{align}
 And thus, the log likelihood $\ell(\cdot)$ can be computed as
 \begin{align}
-\ell(\mathbf{C})&amp;amp;=\log L(\mathbf{C}) \\ &amp;amp;=\log\prod_{n=1}^{N}\prod_{k=1}^{K}\Big[\pi_k\mathcal{N}(\boldsymbol{\phi}_n\vert\boldsymbol{\mu}_k,\boldsymbol{\Sigma})\Big]^{(\mathbf{t}_n)_k} \\ &amp;amp;=\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}_n)_k\Big[\log\pi_k+\log\mathcal{N}(\boldsymbol{\phi}_n\vert\boldsymbol{\mu}_k,\boldsymbol{\Sigma})\Big]\tag{25}\label{25}
+\ell(\mathbf{w})&amp;amp;=\log L(\mathbf{w}) \\ &amp;amp;=\log\prod_{n=1}^{N}\prod_{k=1}^{K}\Big[\pi_k\mathcal{N}(\boldsymbol{\phi}_n\vert\boldsymbol{\mu}_k,\boldsymbol{\Sigma})\Big]^{(\mathbf{t}_n)_k} \\ &amp;amp;=\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}_n)_k\Big[\log\pi_k+\log\mathcal{N}(\boldsymbol{\phi}_n\vert\boldsymbol{\mu}_k,\boldsymbol{\Sigma})\Big]\tag{25}\label{25}
 \end{align}
 As usual, we continue by using maximum likelihood, which begins by taking gradient of the log likelihood w.r.t to the parameters. However, when maximizing the likelihood w.r.t $\pi_k$, we have to compute subject to a constraint that
 \begin{equation}
@@ -799,7 +810,7 @@ As usual, we continue by using maximum likelihood, which begins by taking gradie
 \end{equation}
 Therefore, using a Lagrange multiplier $\lambda$, we instead maximize the Lagrangian w.r.t $\pi_k$, which is
 \begin{equation}
-\mathcal{L}(\pi_1,\ldots,\pi_K,\lambda)=\ell(\mathbf{C})+\lambda\left(\sum_{k=1}^{K}\pi_k-1\right)
+\mathcal{L}(\pi_1,\ldots,\pi_K,\lambda)=\ell(\mathbf{w})+\lambda\left(\sum_{k=1}^{K}\pi_k-1\right)
 \end{equation}
 Differentiating $\mathcal{L}$ w.r.t $\pi_k$, we have
 \begin{align}
@@ -823,7 +834,7 @@ Hence, the maximum likelihood solution for $\pi_k$ is
 \end{equation}
 We continue by taking the gradient of the log likelihood \eqref{25} w.r.t $\boldsymbol{\mu}_k$, as
 \begin{align}
-\nabla_{\boldsymbol{\mu}_k}\ell(\mathbf{C})&amp;amp;=\nabla_{\boldsymbol{\mu}_k}\sum_{n=1}^{N}\sum_{i=1}^{K}(\mathbf{t}_n)_i\Big[\log\pi_i+\log\mathcal{N}(\boldsymbol{\phi}_n\vert\boldsymbol{\mu}_i,\boldsymbol{\Sigma})\Big] \\ &amp;amp;=\nabla_{\boldsymbol{\mu}_k}\sum_{n=1}^{N}(\mathbf{t}_n)_k\log\mathcal{N}(\boldsymbol{\phi}_n\vert\boldsymbol{\mu}_k,\boldsymbol{\Sigma}) \\ &amp;amp;=\nabla_{\boldsymbol{\mu}_k}\sum_{n=1}^{N}(\mathbf{t}_n)_k\Big[-\frac{1}{2}(\boldsymbol{\phi}_n-\boldsymbol{\mu}_k)^\text{T}\boldsymbol{\Sigma}^{-1}(\boldsymbol{\phi}_n-\boldsymbol{\mu}_k)\Big] \\ &amp;amp;=-\frac{1}{2}\sum_{n=1}^{N}(\mathbf{t}_n)_k\nabla_{\boldsymbol{\mu}_k}\Big[\boldsymbol{\mu}_k^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}_k-2\boldsymbol{\mu}_k^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\phi}_n\Big] \\ &amp;amp;=\sum_{n=1}^{N}(\mathbf{t}_n)_k\Big[\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}_k-\boldsymbol{\Sigma}^{-1}\boldsymbol{\phi}_n\Big]
+\nabla_{\boldsymbol{\mu}_k}\ell(\mathbf{w})&amp;amp;=\nabla_{\boldsymbol{\mu}_k}\sum_{n=1}^{N}\sum_{i=1}^{K}(\mathbf{t}_n)_i\Big[\log\pi_i+\log\mathcal{N}(\boldsymbol{\phi}_n\vert\boldsymbol{\mu}_i,\boldsymbol{\Sigma})\Big] \\ &amp;amp;=\nabla_{\boldsymbol{\mu}_k}\sum_{n=1}^{N}(\mathbf{t}_n)_k\log\mathcal{N}(\boldsymbol{\phi}_n\vert\boldsymbol{\mu}_k,\boldsymbol{\Sigma}) \\ &amp;amp;=\nabla_{\boldsymbol{\mu}_k}\sum_{n=1}^{N}(\mathbf{t}_n)_k\Big[-\frac{1}{2}(\boldsymbol{\phi}_n-\boldsymbol{\mu}_k)^\text{T}\boldsymbol{\Sigma}^{-1}(\boldsymbol{\phi}_n-\boldsymbol{\mu}_k)\Big] \\ &amp;amp;=-\frac{1}{2}\sum_{n=1}^{N}(\mathbf{t}_n)_k\nabla_{\boldsymbol{\mu}_k}\Big[\boldsymbol{\mu}_k^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}_k-2\boldsymbol{\mu}_k^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\phi}_n\Big] \\ &amp;amp;=\sum_{n=1}^{N}(\mathbf{t}_n)_k\Big[\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}_k-\boldsymbol{\Sigma}^{-1}\boldsymbol{\phi}_n\Big]
 \end{align}
 Setting the above gradient equal to zero and solve for $\boldsymbol{\mu}_k$ we obtain the solution
 \begin{equation}
@@ -833,17 +844,17 @@ which is the mean of feature vectors assigned to class $\mathcal{C}_k$.&lt;/p&gt
 
 &lt;p&gt;Finally, consider the gradient of \eqref{25} w.r.t $\boldsymbol{\Sigma}$, combined with the result \eqref{24} we have
 \begin{align}
-\nabla_\boldsymbol{\Sigma}\ell(\mathbf{C})&amp;amp;=\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}_n)_k\Big[\log\pi_k+\log\mathcal{N}(\boldsymbol{\phi}_n\vert\boldsymbol{\mu}_k\boldsymbol{\Sigma})\Big] \\ &amp;amp;=\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}_n)_k\log\mathcal{N}(\boldsymbol{\phi}_n\vert\boldsymbol{\mu}_k\boldsymbol{\Sigma}) \\ &amp;amp;=\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}_n)_k\log\big\vert\boldsymbol{\Sigma}\big\vert^{-1/2}+(\mathbf{t}_n)_k\Big[-\frac{1}{2}(\boldsymbol{\phi}_n-\boldsymbol{\mu}_k)^\text{T}\boldsymbol{\Sigma}^{-1}(\boldsymbol{\phi}_n-\boldsymbol{\mu}_k)\Big] \\ &amp;amp;=-\frac{N}{2}\boldsymbol{\Sigma}^{-1}+\frac{1}{2}\boldsymbol{\Sigma}^{-1}\Big[\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}_n)_k(\boldsymbol{\phi}_n-\boldsymbol{\mu}_k)(\boldsymbol{\phi}_n-\boldsymbol{\mu}_k)^\text{T}\Big]\boldsymbol{\Sigma}^{-1} \\ &amp;amp;\propto N\boldsymbol{\Sigma}^{-1}-\boldsymbol{\Sigma}^{-1}\Big[\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}_n)_k(\boldsymbol{\phi}_n-\boldsymbol{\mu}_k)(\boldsymbol{\phi}_n-\boldsymbol{\mu}_k)^\text{T}\Big]\boldsymbol{\Sigma}^{-1}\tag{26}\label{26}
+\nabla_\boldsymbol{\Sigma}\ell(\mathbf{w})&amp;amp;=\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}_n)_k\Big[\log\pi_k+\log\mathcal{N}(\boldsymbol{\phi}_n\vert\boldsymbol{\mu}_k\boldsymbol{\Sigma})\Big] \\ &amp;amp;=\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}_n)_k\log\mathcal{N}(\boldsymbol{\phi}_n\vert\boldsymbol{\mu}_k\boldsymbol{\Sigma}) \\ &amp;amp;=\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}_n)_k\log\big\vert\boldsymbol{\Sigma}\big\vert^{-1/2}+(\mathbf{t}_n)_k\Big[-\frac{1}{2}(\boldsymbol{\phi}_n-\boldsymbol{\mu}_k)^\text{T}\boldsymbol{\Sigma}^{-1}(\boldsymbol{\phi}_n-\boldsymbol{\mu}_k)\Big] \\ &amp;amp;=-\frac{N}{2}\boldsymbol{\Sigma}^{-1}+\frac{1}{2}\boldsymbol{\Sigma}^{-1}\Big[\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}_n)_k(\boldsymbol{\phi}_n-\boldsymbol{\mu}_k)(\boldsymbol{\phi}_n-\boldsymbol{\mu}_k)^\text{T}\Big]\boldsymbol{\Sigma}^{-1} \\ &amp;amp;\propto N\boldsymbol{\Sigma}^{-1}-\boldsymbol{\Sigma}^{-1}\Big[\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}_n)_k(\boldsymbol{\phi}_n-\boldsymbol{\mu}_k)(\boldsymbol{\phi}_n-\boldsymbol{\mu}_k)^\text{T}\Big]\boldsymbol{\Sigma}^{-1}\tag{26}\label{26}
 \end{align}
 Let $\mathbf{S}_k$ be the covariance of the data associated with class $\mathcal{C}_k$, defined as
 \begin{equation}
-\mathcal{S}_k=\frac{1}{N_k}\sum_{n=1}^{N}(\mathbf{t}_n)_k(\boldsymbol{\phi}_n-\boldsymbol{\mu}_k)(\boldsymbol{\phi}_n-\boldsymbol{\mu}_k)^\text{T}
+\mathbf{S}_k=\frac{1}{N_k}\sum_{n=1}^{N}(\mathbf{t}_n)_k(\boldsymbol{\phi}_n-\boldsymbol{\mu}_k)(\boldsymbol{\phi}_n-\boldsymbol{\mu}_k)^\text{T}
 \end{equation}
 Therefore, letting the derivative \eqref{26} equal to zero, we have
 \begin{equation}
 N\boldsymbol{\Sigma}^{-1}-\boldsymbol{\Sigma}^{-1}\Big[\sum_{k=1}^{K}N_k\mathbf{S}_k\Big]\boldsymbol{\Sigma}^{-1}=0
 \end{equation}
-Solving this equation for $\Sigma$, we obtain the solution
+Solving this equation for $\boldsymbol{\Sigma}$, we obtain the solution
 \begin{equation}
 \boldsymbol{\Sigma}=\sum_{k=1}^{K}\frac{N_k}{N}\mathbf{S}_k
 \end{equation}&lt;/p&gt;
@@ -853,6 +864,47 @@ Solving this equation for $\Sigma$, we obtain the solution
 &lt;h3 id=&quot;prob-disc-models&quot;&gt;Probabilistic Discriminative Models&lt;/h3&gt;
 
 &lt;h4 id=&quot;log-reg&quot;&gt;Logistic Regression&lt;/h4&gt;
+&lt;p&gt;Recall that in the previous section of generative approach, in particular for the binary case we knew that the posterior probability for class $\mathcal{C}_1$ can be defined as the logistic sigmoid of a linear function of the input vector $\mathbf{x}$
+\begin{equation}
+p(\mathcal{C}_1\vert\mathbf{x})=\sigma\big(\mathbf{w}^\text{T}\mathbf{x}+w_0\big)
+\end{equation}
+In general, the posterior probabilities can be written as the logistic sigmoid of a linear function of instead feature vector $\boldsymbol{\phi}$, as
+\begin{equation}
+p(\mathcal{C}_1\vert\boldsymbol{\phi})=\sigma\big(\mathbf{w}^\text{T}\boldsymbol{\phi}+w_0\big)
+\end{equation}
+This model is called &lt;strong&gt;logistic regression&lt;/strong&gt;, although it is applied for classification tasks.
+Consider a data set $\{\boldsymbol{\phi}_n,t_n\}$, where $\boldsymbol{\phi}_n=\boldsymbol{\phi}(\mathbf{x}_n)$ and $t_n\in\{0,1\}$, with $n=1,\ldots,N$. Therefore,
+\begin{equation}
+p(t_n\vert\mathbf{w})=y_n^{t_n}(1-y_n)^{1-t_n},
+\end{equation}
+where $y_n=p(\mathcal{C}_1\vert\boldsymbol{\phi}_n)$.&lt;/p&gt;
+
+&lt;p&gt;Comprise $t_n$’s into $\mathbf{t}\doteq(t_1,\ldots,t_N)^\text{T}$, then we have that the likelihood function can be defined as
+\begin{equation}
+L(\mathbf{w})=p(\mathbf{t}\vert\mathbf{w})=\prod_{n=1}^{N}p(t_n\vert\mathbf{w})=\prod_{n=1}^{N}y_n^{t_n}(1-y_n)^{1-t_n}
+\end{equation}
+Taking the negative logarithm of the likelihood gives us the &lt;strong&gt;cross-entropy&lt;/strong&gt; error function, as
+\begin{align}
+E(\mathbf{w})=-\log L(\mathbf{w})&amp;amp;=-\log\prod_{n=1}^{N}p(t_n\vert\mathbf{w})=\prod_{n=1}^{N}y_n^{t_n}(1-y_n)^{1-t_n} \\ &amp;amp;=-\sum_{n=1}^{N}t_n\log y_n+(1-t_n)\log(1-y_n)\tag{27}\label{27}
+\end{align}
+Differentiating the error function $E(\mathbf{w})$ w.r.t $\mathbf{w}$ we have that
+\begin{align}
+\nabla_\mathbf{w}E(\mathbf{w})&amp;amp;=\nabla_\mathbf{w}-\sum_{n=1}^{N}t_n\log y_n+(1-t_n)\log(1-y_n) \\ &amp;amp;=\sum_{n=1}^{N}\frac{(1-t_n)\nabla_\mathbf{w}y_n}{1-y_n}-\frac{t_n\nabla_\mathbf{w}y_n}{y_n} \\ &amp;amp;=\sum_{n=1}^{N}\frac{(1-t_n)y_n(1-y_n)\boldsymbol{\phi}_n}{1-y_n}-\frac{t_n y_n(1-y_n)\boldsymbol{\phi}_n}{y_n} \\ &amp;amp;=\sum_{n=1}^{N}(1-t_n)y_n\boldsymbol{\phi}_n-t_n(1-y_n)\boldsymbol{\phi}_n \\ &amp;amp;=\sum_{n=1}^{N}(y_n-t_n)\boldsymbol{\phi}_n,\tag{28}\label{28}
+\end{align}
+where in the third step, we have used the identity of the derivative of the logistic sigmoid function
+\begin{equation}
+\frac{d\sigma}{d a}=\sigma(1-\sigma)
+\end{equation}
+and the chain rule to compute the gradient of $y_n$ w.r.t $\mathbf{w}$ as
+\begin{align}
+\nabla_\mathbf{w}y_n&amp;amp;=\nabla_\mathbf{w}\sigma(\mathbf{w}^\text{T}\boldsymbol{\phi}_n+w_0) \\ &amp;amp;=\frac{d\sigma(\mathbf{w}^\text{T}\boldsymbol{\phi}_n+w_0)}{d(\mathbf{w}^\text{T}\boldsymbol{\phi}_n+w_0)}\nabla_\mathbf{w}(\mathbf{w}^\text{T}\boldsymbol{\phi}_n+w_0) \\ &amp;amp;=\sigma(\mathbf{w}^\text{T}\boldsymbol{\phi}_n+w_0)\big(1-\sigma(\mathbf{w}^\text{T}\boldsymbol{\phi}_n+w_0)\big)\boldsymbol{\phi}_n \\ &amp;amp;=y_n(1-y_n)\boldsymbol{\phi}_n
+\end{align}&lt;/p&gt;
+
+&lt;h4 id=&quot;softmax-reg&quot;&gt;Softmax Regression&lt;/h4&gt;
+
+&lt;h4 id=&quot;newtons-method&quot;&gt;Newton’s method&lt;/h4&gt;
+
+&lt;h3 id=&quot;glm&quot;&gt;Generalized linear models&lt;/h3&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] &lt;span id=&quot;bishops-book&quot;&gt;Christopher M. Bishop. &lt;a href=&quot;https://link.springer.com/book/9780387310732&quot;&gt;Pattern Recognition and Machine Learning&lt;/a&gt;. Springer New York, NY.&lt;/span&gt;&lt;/p&gt;
@@ -2903,7 +2955,40 @@ where $\mathbf{x}_\mu(s)$ and $\mathbf{x}_\sigma(s)$ are state feature vectors c
 
 &lt;p&gt;[3] Richard S. Sutton &amp;amp; David McAllester &amp;amp; Satinder Singh &amp;amp; Yishay Mansour. &lt;a href=&quot;https://papers.nips.cc/paper/1999/hash/464d828b85b0bed98e80ade0a5c43b0f-Abstract.html&quot;&gt;Policy Gradient Methods for Reinforcement Learning with Function Approximation&lt;/a&gt;. NIPS 1999.&lt;/p&gt;
 
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="policy-gradient" /><category term="actor-critic" /><category term="function-approximation" /><category term="my-rl" /><summary type="html">So far in the series, we have been choosing the actions based on the estimated action value function. On the other hand, we can instead learn a parameterized policy, $\boldsymbol{\theta}$, that can select actions without consulting a value function by updating $\boldsymbol{\theta}$ on each step in the direction of an estimate of the gradient of some performance measure w.r.t $\boldsymbol{\theta}$. Such methods are called policy gradient methods.</summary></entry><entry><title type="html">Eligible Traces</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/03/13/eligible-traces.html" rel="alternate" type="text/html" title="Eligible Traces" /><published>2022-03-13T14:11:00+07:00</published><updated>2022-03-13T14:11:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/03/13/eligible-traces</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/03/13/eligible-traces.html">&lt;blockquote&gt;
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="policy-gradient" /><category term="actor-critic" /><category term="function-approximation" /><category term="my-rl" /><summary type="html">So far in the series, we have been choosing the actions based on the estimated action value function. On the other hand, we can instead learn a parameterized policy, $\boldsymbol{\theta}$, that can select actions without consulting a value function by updating $\boldsymbol{\theta}$ on each step in the direction of an estimate of the gradient of some performance measure w.r.t $\boldsymbol{\theta}$. Such methods are called policy gradient methods.</summary></entry><entry><title type="html">The exponential family</title><link href="http://localhost:4000/mathematics/probability-statistics/2022/05/04/exponential-family.html" rel="alternate" type="text/html" title="The exponential family" /><published>2022-05-04T14:00:00+07:00</published><updated>2022-05-04T14:00:00+07:00</updated><id>http://localhost:4000/mathematics/probability-statistics/2022/05/04/exponential-family</id><content type="html" xml:base="http://localhost:4000/mathematics/probability-statistics/2022/05/04/exponential-family.html">&lt;blockquote&gt;
+
+&lt;/blockquote&gt;
+
+&lt;!-- excerpt-end --&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#exp-fam&quot;&gt;The exponential family&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#examples&quot;&gt;Examples&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#bern-dist&quot;&gt;Bernoulli distribution&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#bino-dist&quot;&gt;Binomial distribution&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#pois&quot;&gt;Poisson distribution&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#gauss-dist&quot;&gt;Gaussian distribution&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#mult-dist&quot;&gt;Multinomial distribution&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#max-llh&quot;&gt;Maximum likelihood estimates&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;exp-fam&quot;&gt;The exponential family&lt;/h2&gt;
+&lt;p&gt;The &lt;strong&gt;exponential family&lt;/strong&gt; of distributions of $x$ given a measure $\eta$, is defined as family of distribution of form
+\begin{equation}
+p(x\vert\eta)=h(x)\exp\Big[\eta^\Big]
+\end{equation}&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;p&gt;[1] Christopher M. Bishop. &lt;a href=&quot;https://link.springer.com/book/9780387310732&quot;&gt;Pattern Recognition and Machine Learning&lt;/a&gt;. Springer New York, NY.&lt;/p&gt;
+
+&lt;p&gt;[2] M. Jordan. &lt;a href=&quot;https://people.eecs.berkeley.edu/~jordan/courses/260-spring10/other-readings/chapter8.pdf&quot;&gt;The Exponential Family: Basics&lt;/a&gt;. 2009.&lt;/p&gt;
+
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="probability-statistics" /><category term="mathematics" /><category term="probability-statistics" /><category term="exponential-family" /><summary type="html"></summary></entry><entry><title type="html">Eligible Traces</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/03/13/eligible-traces.html" rel="alternate" type="text/html" title="Eligible Traces" /><published>2022-03-13T14:11:00+07:00</published><updated>2022-03-13T14:11:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/03/13/eligible-traces</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/03/13/eligible-traces.html">&lt;blockquote&gt;
   &lt;p&gt;Beside &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/02/11/func-approx.html#n-step-td&quot;&gt;$n$-step TD&lt;/a&gt; methods, there is another mechanism called &lt;strong&gt;Eligible traces&lt;/strong&gt; that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -5522,573 +5607,4 @@ Let $\mathbf{z}\in\mathbb{R}^k$, we have
 And since $\Var(\mathbf{z}^T\mathbf{X})\geq0$, we also have that $\mathbf{z}^T\mathbf{\Sigma}\mathbf{z}\geq0$, which proves that $\mathbf{\Sigma}$ is a positive semi-definite matrix. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="probability-statistics" /><category term="mathematics" /><category term="probability-statistics" /><category term="normal-distribution" /><summary type="html">A note on Normal distribution.</summary></entry><entry><title type="html">Power Series</title><link href="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>http://localhost:4000/mathematics/calculus/2021/09/21/power-series</id><content type="html" xml:base="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html">&lt;blockquote&gt;
-  &lt;p&gt;Recall that in the previous post, &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html&quot;&gt;Infinite Series of Constants&lt;/a&gt;, we mentioned a type of series called &lt;strong&gt;power series&lt;/strong&gt; a lot. In the content of this post, we will be diving deeper into details of that series.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;!-- excerpt-end --&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#power-series&quot;&gt;Power Series&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#int-conv&quot;&gt;The Interval of Convergence&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#eg1&quot;&gt;Example&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#dif-int-power-series&quot;&gt;Differentiation and Integration of Power Series&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#dif-power-series&quot;&gt;Differentiation of Power Series&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#int-power-series&quot;&gt;Integration of Power Series&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#eg2&quot;&gt;Example&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#taylor-series-formula&quot;&gt;Taylor Series, Taylor’s Formula&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#taylor-series&quot;&gt;Taylor Series&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#taylors-formula&quot;&gt;Taylor’s Formula&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#op-power-series&quot;&gt;Operations on Power Series&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#mult&quot;&gt;Multiplication&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#div&quot;&gt;Division&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#sub&quot;&gt;Substitution&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#even-odd-funcs&quot;&gt;Even and Odd Functions&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#uni-conv-power-series&quot;&gt;Uniform Convergence for Power Series&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#cont-sum&quot;&gt;Continuity of the Sum&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#int&quot;&gt;Integrating term by term&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#dif&quot;&gt;Differentiating term by term&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;power-series&quot;&gt;Power Series&lt;/h2&gt;
-&lt;p&gt;A &lt;strong&gt;power series&lt;/strong&gt; is a series of the form
-\begin{equation}
-\sum_{n=0}^{\infty}a_nx^n=a_0+a_1x+a_2x^2+\ldots+a_nx^n+\ldots,
-\end{equation}
-where the coefficient $a_n$ are constants and $x$ is a variable.&lt;/p&gt;
-
-&lt;h2 id=&quot;int-conv&quot;&gt;The Interval of Convergence&lt;/h2&gt;
-&lt;p&gt;Similar to what we have done in the post of &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html&quot;&gt;infinite series of constants&lt;/a&gt;, we begin studying properties of power series by considering their convergence behavior.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Lemma 1&lt;/strong&gt;&lt;br /&gt;
-&lt;em&gt;If a power series $\sum a_nx^n$ converges at $x_1$, with $x_1\neq 0$, then it converges &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#abs-conv&quot;&gt;absolutely&lt;/a&gt; at all $x$ with $\vert x\vert&amp;lt;\vert x_1\vert$; and if it diverges at $x_1$, then it diverges at all $x$ with $\vert x\vert&amp;gt;\vert x_1\vert$.&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
-By the &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#nth-term-test&quot;&gt;$n$-th term test&lt;/a&gt;, we have that if $\sum a_nx^n$ converges, then $a_nx^n\to 0$. In particular, if $n$ is sufficiently large, then $\vert a_n{x_1}^n\vert&amp;lt;1$, and therefore
-\begin{equation}
-\vert a_nx^n\vert=\vert a_n{x_1}^n\vert\left\vert\dfrac{x}{x_1}\right\vert^n&amp;lt;r^n,\tag{1}\label{1}
-\end{equation}
-where $r=\vert\frac{x}{x_1}\vert$. Suppose that $\vert x\vert&amp;lt;\vert x_1\vert$, we have
-\begin{equation}
-r=\left\vert\dfrac{x}{x_1}\right\vert&amp;lt;1,
-\end{equation}
-which leads to the result that geometric series $\sum r^n$ converges (with the sum $\frac{1}{1-r}$). And hence, from \eqref{1} and by the &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#comparison-test&quot;&gt;comparison test&lt;/a&gt;, the series $\sum\vert a_nx^n\vert$ also converges.&lt;/p&gt;
-
-&lt;p&gt;Moreover, if $\sum a_n{x_1}^n$ diverges, then $\sum\vert a_n{x_1}^n\vert$ also diverges. By the &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#comparison-test&quot;&gt;comparison test&lt;/a&gt;, for any $x$ such that $\vert x\vert&amp;gt;\vert x_1\vert$, we also have that $\sum\vert a_nx^n\vert$ diverges. This leads to the divergence of $\sum a_nx^n$, because if the series $\sum a_nx^n$ converges, so does $\sum\vert a_nx^n\vert$, which contradicts to our result.&lt;/p&gt;
-
-&lt;p&gt;These are some main facts about the convergence behavior of an arbitrary power series and some properties of its:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Given a power series $\sum a_nx^n$, precisely one of the following is true:
-    &lt;ul&gt;
-      &lt;li&gt;The series converges only for $x=0$.&lt;/li&gt;
-      &lt;li&gt;The series is absolutely convergent for all $x$.&lt;/li&gt;
-      &lt;li&gt;There exists a positive real number $R$ such that the series is absolutely convergent for $\vert x\vert&amp;lt;R$ and divergent for $\vert x\vert&amp;gt;R$.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;The positive real number $R$ is called &lt;strong&gt;radius of convergence&lt;/strong&gt; of the power series: the series converges absolutely at every point of the open interval $(-R,R)$, and diverges outside the closed interval $[-R,R]$.&lt;/li&gt;
-  &lt;li&gt;The set of all $x$’s for which a power series converges is called its &lt;strong&gt;interval of convergence&lt;/strong&gt;.&lt;/li&gt;
-  &lt;li&gt;When the series converges only for $x=0$, we define $R=0$; and we define $R=\infty$ when the series converges for all $x$.&lt;/li&gt;
-  &lt;li&gt;Every power series $\sum a_nx^n$ has a radius of convergence $R$, where $0\leq R\leq\infty$, with the property that the series converges absolutely if $\vert x\vert&amp;lt;R$ and diverges if $\vert x\vert&amp;gt;R$.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;eg1&quot;&gt;Example&lt;/h3&gt;
-&lt;p&gt;Find the interval of convergence of the series
-\begin{equation}
-\sum_{n=0}^{\infty}\dfrac{x^n}{n+1}=1+\dfrac{x}{2}+\dfrac{x^2}{3}+\ldots
-\end{equation}&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;br /&gt;
-In order to find the interval of convergence of a series, we begin by identifying its radius of convergence.&lt;/p&gt;
-
-&lt;p&gt;Consider a power series $\sum a_nx^n$. Suppose that this limit exists, and has $\infty$ as an allowed value, we have
-\begin{equation}
-\lim_{n\to\infty}\dfrac{\vert a_{n+1}x^{n+1}\vert}{a_nx^n}=\lim_{n\to\infty}\left\vert\dfrac{a_{n+1}}{a_n}\right\vert.\vert x\vert=\dfrac{\vert x\vert}{\lim_{n\to\infty}\left\vert\frac{a_n}{a_{n+1}}\right\vert}=L
-\end{equation}
-By the &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#ratio-test&quot;&gt;ratio test&lt;/a&gt;, we have $\sum a_nx^n$ converges absolutely if $L&amp;lt;1$ and diverges in case of $L&amp;gt;1$. Or in other words, the series converges absolutely if
-\begin{equation}
-\vert x\vert&amp;lt;\lim_{n\to\infty}\left\vert\dfrac{a_n}{a_{n+1}}\right\vert,
-\end{equation}
-or diverges if
-\begin{equation}
-\vert x\vert&amp;gt;\lim_{n\to\infty}\left\vert\dfrac{a_n}{a_{n+1}}\right\vert
-\end{equation}
-From the definition of radius of convergence, we can choose the radius of converge of $\sum a_nx^n$ as
-\begin{equation}
-R=\lim_{n\to\infty}\left\vert\dfrac{a_n}{a_{n+1}}\right\vert
-\end{equation}&lt;/p&gt;
-
-&lt;p&gt;Back to our problem, for the series $\sum\frac{x^n}{n+1}$, we have its radius of convergence is
-\begin{equation}
-R=\lim_{n\to\infty}\left\vert\dfrac{a_n}{a_{n+1}}\right\vert=\lim_{n\to\infty}\dfrac{\frac{1}{n+1}}{\frac{1}{n+2}}=\lim_{n\to\infty}\dfrac{n+2}{n+1}=1
-\end{equation}
-At $x=1$, the series becomes the &lt;em&gt;harmonic series&lt;/em&gt; $1+\frac{1}{2}+\frac{1}{3}+\ldots$, which diverges; and at $x=-1$, it is the &lt;em&gt;alternating harmonic series&lt;/em&gt; $1-\frac{1}{2}+\frac{1}{3}-\ldots$, which converges. Hence, the interval of convergence of the series is $[-1,1)$.&lt;/p&gt;
-
-&lt;h2 id=&quot;dif-int-power-series&quot;&gt;Differentiation and Integration of Power Series&lt;/h2&gt;
-
-&lt;p&gt;It is easily seen that the sum of the series $\sum_{n=0}^{\infty}a_nx^n$  is a function of $x$ since the sum depends only on $x$ for any value of $x$. Hence, we can denote this as
-\begin{equation}
-f(x)=\sum_{n=0}^{\infty}a_nx^n=a_0+a_1x+a_2x^2+\ldots+a_nx^n+\ldots\tag{2}\label{2}
-\end{equation}
-This relation between the series and the function is also expressed by saying that $\sum a_nx^n$ is a &lt;strong&gt;power series expansion&lt;/strong&gt; of $f(x)$.&lt;/p&gt;
-
-&lt;p&gt;These are some crucial facts about that relation.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;(i) The function $f(x)$ defined by \eqref{2} is continuous on the open interval $(-R,R)$.&lt;/li&gt;
-  &lt;li&gt;(ii) The function $f(x)$ is differentiable on $(-R,R)$, and its derivative is given by the formula
-\begin{equation}
-f’(x)=a_1+2a_2x+3a_3x^2+\ldots+na_nx^{n-1}+\ldots\tag{3}\label{3}
-\end{equation}&lt;/li&gt;
-  &lt;li&gt;(iii) If $x$ is any point in $(-R,R)$, then
-\begin{equation}
-\int_{0}^{x}f(t)\,dt=a_0x+\dfrac{1}{2}a_1x^2+\dfrac{1}{3}a_2x^3+\ldots+\dfrac{1}{n+1}a_nx^{n+1}+\ldots\tag{4}\label{4}
-\end{equation}&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Remark&lt;/strong&gt;&lt;br /&gt;
-We have that series \eqref{3} and \eqref{4} converge on the interval $(-R,R)$.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;We begin by proving the convergence on $(-R,R)$ of \eqref{3}.&lt;br /&gt;
-Let $x$ be a point in the interval $(-R,R)$ and choose $\epsilon&amp;gt;0$ so that $\vert x\vert+\epsilon&amp;lt;R$. Since $\vert x\vert+\epsilon$ is in the interval, $\sum\vert a_n\left(\vert x\vert+\epsilon\right)^n\vert$ converges.&lt;br /&gt;
-We continue by proving the inequality
-\begin{equation}
-\vert nx^{n-1}\vert\leq\left(\vert x\vert+\epsilon\right)^n\hspace{1cm}\forall n\geq n_0,
-\end{equation}
-where $\epsilon&amp;gt;0$, $n_0$ is a positive integer.&lt;br /&gt;
-We have
-\begin{align}
-\lim_{n\to\infty}n^{1/n}&amp;amp;=\lim_{n\to\infty} \\ &amp;amp;=\lim_{n\to\infty}\exp\left(\frac{\ln n}{n}\right) \\ &amp;amp;=\exp\left(\lim_{n\to\infty}\frac{\ln n}{n}\right) \\ &amp;amp;={\rm e}^0=1,
-\end{align}
-where in the fourth step, we use the &lt;em&gt;L’Hospital theorem&lt;/em&gt;&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;. Therefore, as $n\to\infty$
-\begin{equation}
-n^{1/n}\vert x\vert^{1-1/n}\to\vert x\vert
-\end{equation}
-Then for all sufficiently large $n$’s
-\begin{align}
-n^{1/n}\vert x\vert^{1-1/n}&amp;amp;\leq\vert x\vert+\epsilon \\ \vert nx^{n-1}\vert&amp;amp;\leq\left(\vert x\vert+\epsilon\right)^n
-\end{align}
-This implies that
-\begin{equation}
-\vert na_nx^{n-1}\vert\leq\vert a_n\left(\vert x\vert+\epsilon\right)^n\vert
-\end{equation}
-By the &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#comparison-test&quot;&gt;comparison test&lt;/a&gt;, we have that the series $\sum\vert na_nx^{n-1}\vert$ converges, and so does $\sum na_nx^{n-1}$.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Since $\sum\vert a_nx^n\vert$ converges and
-\begin{equation}
-\left\vert\dfrac{a_nx^n}{n+1}\right\vert\leq\vert a_nx^n\vert,
-\end{equation}
-the &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#comparison-test&quot;&gt;comparison test&lt;/a&gt; implies that $\sum\left\vert\frac{a_nx^n}{n+1}\right\vert$ converges, and therefore
-\begin{equation}
-x\sum\frac{a_nx^n}{n+1}=\sum\frac{1}{n+1}a_nx^{n+1}
-\end{equation}
-also converges.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;dif-power-series&quot;&gt;Differentiation of Power Series&lt;/h3&gt;
-
-&lt;p&gt;If we instead apply (ii) to the function $f’(x)$ in \eqref{3}, then it follows that $f’(x)$ is also differentiable. Doing the exact same process to $f’&apos;(x)$, we also have that $f’&apos;(x)$ is differentiable, and so on. Hence, the original $f(x)$ has derivatives of all orders, as expressed in the following statement:&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;In the interior of its interval of convergence, a power series defines an finitely differentiable function whose derivatives can be calculated by differentiating the series term by term&lt;/em&gt;.
-\begin{equation}
-\dfrac{d}{dx}\left(\sum a_nx^n\right)=\sum\dfrac{d}{dx}(a_nx^n)
-\end{equation}&lt;/p&gt;
-
-&lt;h3 id=&quot;int-power-series&quot;&gt;Integration of Power Series&lt;/h3&gt;
-
-&lt;p&gt;Similarly, from (iii), the term-by-term integration of power series can be emphasized by writing \eqref{4} as
-\begin{equation}
-\int\left(\sum a_nx^n\right)\,dx=\sum\left(\int a_nx^n\,dx\right)
-\end{equation}&lt;/p&gt;
-
-&lt;h3 id=&quot;eg2&quot;&gt;Example&lt;/h3&gt;
-
-&lt;p&gt;Find a power series expansion of ${\rm e}^x$.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;br /&gt;
-Since ${\rm e}^x$ is the only function that equals its own derivatives&lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; and has the value $1$ at $x=0$. To construct a power series equal to its own derivative, we use the fact that when such a series is differentiated, the degree of each term drops by $1$. We therefore want each term to be the derivative of the one that follows it.&lt;/p&gt;
-
-&lt;p&gt;Starting with $1$ as the constant term, the next should be $x$, then $\frac{1}{2}x^2$, then $\frac{1}{2.3}x^3$, and so on. This produces the series
-\begin{equation}
-1+x+\dfrac{x^2}{2!}+\dfrac{x^3}{3!}+\ldots+\dfrac{x^n}{n!}+\ldots,\tag{5}\label{5}
-\end{equation}
-which converges for all $x$ because
-\begin{equation}
-R=\lim_{n\to\infty}\dfrac{\frac{1}{n!}}{\frac{1}{(n+1)!}}=\lim_{n\to\infty}(n+1)=\infty
-\end{equation}
-We have constructed the series \eqref{5} so that its sum is unchanged by differentiated and has the value $1$ at $x=0$. Therefore, for all $x$,
-\begin{equation}
-{\rm e}^x=1+x+\dfrac{x^2}{2!}+\dfrac{x^3}{3!}+\ldots+\dfrac{x^n}{n!}+\ldots
-\end{equation}&lt;/p&gt;
-
-&lt;h2 id=&quot;taylor-series-formula&quot;&gt;Taylor Series, Taylor’s Formula&lt;/h2&gt;
-
-&lt;h3 id=&quot;taylor-series&quot;&gt;Taylor Series&lt;/h3&gt;
-&lt;p&gt;Assume that $f(x)$ is the sum of a power series with positive radius of convergence
-\begin{equation}
-f(x)=\sum_{n=0}^{\infty}a_nx^n=a_0+a_1x+a_2x^2+\ldots,\hspace{1cm}R&amp;gt;0\tag{6}\label{6}
-\end{equation}
-By the results obtained from previous section, differentiating \eqref{6} term by term we have
-\begin{align}
-f^{(1)}(x)&amp;amp;=a_1+2a_2x+3a_3x^2+\ldots \\ f^{(2)}(x)&amp;amp;=1.2a_2+2.3a_3x+3.4a_4x^2+\ldots \\ f^{(3)}(x)&amp;amp;=1.2.3a_3+2.3.4a_4x+3.4.5a_5x^2+\ldots
-\end{align}
-and in general,
-\begin{equation}
-f^{(n)}(x)=n!a_n+A(x),\tag{7}\label{7}
-\end{equation}
-where $A(x)$ contains $x$ as a factor.&lt;/p&gt;
-
-&lt;p&gt;Since these series expansions of the derivatives are valid on the open interval $(-R,R)$, putting $x=0$ in \eqref{7} we obtain
-\begin{equation}
-f^{(n)}(0)=n!a_n
-\end{equation}
-so
-\begin{equation}
-a_n=\dfrac{f^{(n)}(0)}{n!}
-\end{equation}
-Putting this result in \eqref{6}, our series becomes
-\begin{equation}
-f(x)=f(0)+f^{(1)}(0)x+\dfrac{f^{(2)}(0)}{2!}x^2+\ldots+\dfrac{f^{(n)}(0)}{n!}x^n+\ldots\tag{8}\label{8}
-\end{equation}
-This power series is called &lt;strong&gt;Taylor series&lt;/strong&gt; of $f(x)$ [at $x=0$], which is named after the person who introduced it, Brook Taylor.&lt;/p&gt;
-
-&lt;p&gt;If we use the convention that $0!=1$, then \eqref{8} can be written as
-\begin{equation}
-f(x)=\sum_{n=0}^{\infty}\dfrac{f^{(n)}(0)}{n!}x^n
-\end{equation}
-The numbers $a_n=\frac{f^{(n)}(0)}{n!}$ are called the &lt;strong&gt;Taylor coefficients&lt;/strong&gt; of $f(x)$.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Remark&lt;/strong&gt;&lt;br /&gt;
-Given a function $f(x)$ that is infinitely differentiable in some interval containing the point $x=0$, we have already examined the possibility of expanding this function as a power series in $x$. More generally, if $f(x)$ is infinitely differentiable in some interval containing the point $x=a$, is there any possibility for the power series expansion of $f(x)$ in $x-a$ instead of $x$?&lt;br /&gt;
-\begin{equation}
-f(x)=\sum_{n=0}^{\infty}a_n(x-a)^n=a_0+a_1(x-a)+a_2(x-a)^2+\ldots
-\end{equation}
-Let $w=x-a$, and $g(w)=f(x)$, we have that $g^{(n)}(0)=f^{(n)}(a)$. Thus, the Taylor series of $f(x)$ in power of $x-a$ (or at $x=a$) is
-\begin{align}
-f(x)&amp;amp;=\sum_{n=0}^{\infty}\dfrac{f^{(n)}(a)}{n!}(x-a)^n \\ &amp;amp;=f(a)+f^{(1)}(a)(x-a)+\dfrac{f^{(2)}(a)}{2!}(x-a)^2+\ldots+\dfrac{f^{(n)}(a)}{n!}(x-a)^n+\ldots\tag{9}\label{9}
-\end{align}&lt;/p&gt;
-
-&lt;h3 id=&quot;taylors-formula&quot;&gt;Taylor’s Formula&lt;/h3&gt;
-&lt;p&gt;If we break off the Taylor series on the right side of \eqref{8} at the term containing $x^n$ and define the &lt;em&gt;remainder&lt;/em&gt; $R_n(x)$ by the equation
-\begin{equation}
-f(x)=f(0)+f^{(1)}(0)x+\dfrac{f^{(2)}(0)}{2!}x^2+\ldots+\dfrac{f^{(n)}(0)}{n!}x^n+R_n(x),\tag{10}\label{10}
-\end{equation}
-then the Taylor series on the right side of \eqref{8} converges to the function $f(x)$ as $n$ tends to infinity precisely when
-\begin{equation}
-\lim_{n\to\infty}R_n(x)=0
-\end{equation}
-Since $R_n(x)$ contains $x^{n+1}$ as a factor, we can define a function $S_n(x)$ by writing
-\begin{equation}
-R_n(x)=S_n(x)x^{n+1}
-\end{equation}
-for $x\neq 0$. Next, we keep $x$ fixed and define a function $F(t)$ for $0\leq t\leq x$ (or $x\leq t\leq 0$) by writing
-\begin{multline}
-F(t)=f(x)-f(t)-f^{(1)}(t)(x-t)-\dfrac{f^{(2)}(t)}{2!}(x-t)^2-\ldots \\ -\dfrac{f^{(n)}(t)}{n!}(x-t)^n-S_n(x)(x-t)^{n+1}
-\end{multline}
-It is easily seen that $F(x)=0$. Also, from equation \eqref{10}, we have that $F(0)=0$. Then by the &lt;em&gt;Mean Value Theorem&lt;/em&gt;&lt;sup id=&quot;fnref:3&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;, $F’(c)=0$ for some constant $c$ between $0$ and $x$.&lt;/p&gt;
-
-&lt;p&gt;By differentiating $F(t)$ w.r.t $t$, and evaluate it at $t=c$, we have
-\begin{equation}
-F’(c)=-\dfrac{f^{(n+1)}(c)}{n!}(x-c)^n+S_n(x)(n+1)(x-c)^n=0
-\end{equation}
-so
-\begin{equation}
-S_n(x)=\dfrac{f^{(n+1)}(c)}{(n+1)!}
-\end{equation}
-and
-\begin{equation}
-R_n(x)=S_n(x)x^{n+1}=\dfrac{f^{(n+1)}(c)}{(n+1)!}x^{n+1}
-\end{equation}
-which makes \eqref{10} become
-\begin{equation}
-f(x)=f(0)+f^{(1)}(0)x+\dfrac{f^{(2)}(0)}{2!}x^2+\ldots+\dfrac{f^{(n)}(0)}{n!}x^n+\dfrac{f^{(n+1)}(c)}{(n+1)!}x^{n+1},
-\end{equation}
-where $c$ is some number between $0$ and $x$. This equation is called &lt;strong&gt;Taylor’s formula with derivative remainder&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;Moreover, with this formula we can rewrite \eqref{9} as
-\begin{multline}
-f(x)=f(a)+f^{(1)}(a)(x-a)+\dfrac{f^{(2)}(a)}{2!}(x-a)^2+\ldots \\ +\dfrac{f^{(n)}(a)}{n!}(x-a)^n+\dfrac{f^{(n+1)}(a)}{(n+1)!}(x-a)^{n+1},\tag{11}\label{11}
-\end{multline}
-where $c$ is some number between $a$ and $x$.&lt;/p&gt;
-
-&lt;p&gt;The polynomial part of \eqref{11}
-\begin{multline}
-\sum_{j=0}^{n}\dfrac{f^{(j)}(a)}{j!}(x-a)^j=f(a)+f^{(1)}(a)(x-a) \\ +\dfrac{f^{(2)}(a)}{2!}(x-a)^2+\ldots+\dfrac{f^{(n)}(a)}{n!}(x-a)^n
-\end{multline}
-is called the &lt;strong&gt;nth-degree Taylor polynomial at&lt;/strong&gt; $x=a$.&lt;/p&gt;
-
-&lt;p&gt;On the other hand, the remainder part of \eqref{11}
-\begin{equation}
-R_n(x)=\dfrac{f^{(n+1)}(a)}{(n+1)!}(x-a)^{n+1}
-\end{equation}
-is often called &lt;strong&gt;Lagrange’s remainder formula&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Remark&lt;/strong&gt;&lt;br /&gt;
-It is worth remarking that power series expansions are &lt;em&gt;unique&lt;/em&gt;. This means that if a function $f(x)$ can be expressed as a sum of a power series by &lt;em&gt;any method&lt;/em&gt;, then this series must be the Taylor series of $f(x)$.&lt;/p&gt;
-
-&lt;h2 id=&quot;op-power-series&quot;&gt;Operations on Power Series&lt;/h2&gt;
-
-&lt;h3 id=&quot;mult&quot;&gt;Multiplication&lt;/h3&gt;
-&lt;p&gt;Suppose we are given two power series expansions
-\begin{align}
-f(x)&amp;amp;=\sum a_nx^n=a_0+a_1x+a_2x^2+a_3x^3+\ldots\tag{12}\label{12} \\ g(x)&amp;amp;=\sum b_nx^n=b_0+b_1x+b_2x^2+b_3x^3+\ldots\tag{13}\label{13}
-\end{align}
-both valid on $(-R,R)$. If we multiply these two series term by term, we obtain the power series
-\begin{multline}
-a_0b_0+(a_0b_1+a_1b_0)x+(a_0b_2+a_1b_1+a_2b_0)x^2 \\ +(a_0b_3+a_1b_2+a_2b_1+a_3b_0)x^3+\ldots
-\end{multline}
-Briefly, we have multiplied \eqref{12} and \eqref{13} to obtain
-\begin{equation}
-f(x)g(x)=\sum_{n=0}^{\infty}\left(\sum_{k=0}^{n}a_kb_{n-k}\right)x^n\tag{14}\label{14}
-\end{equation}
-By the &lt;strong&gt;Theorem 10&lt;/strong&gt; from &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#abs-vs-cond&quot;&gt;Absolute vs Conditionally Convergence&lt;/a&gt;, we have that this product of the series \eqref{12} and \eqref{13} actually converges on the interval $(-R,R)$ to the product of the functions $f(x)$ and $g(x)$, as indicated by \eqref{14}.&lt;/p&gt;
-
-&lt;h3 id=&quot;div&quot;&gt;Division&lt;/h3&gt;
-&lt;p&gt;With the two series \eqref{12} and \eqref{13}, we have
-\begin{equation}
-\dfrac{\sum a_nx^n}{\sum b_nx^n}=\left(\sum a_nx^n\right).\left(\dfrac{1}{\sum b_nx^n}\right)
-\end{equation}
-This suggests us that if we can expand $\frac{1}{\sum b_nx^n}$ in a power series with positive radius of convergence $\sum c_nx^n$, and multiply this series by $\sum a_nx^n$, we can compute the division of our two series $\sum a_nx^n$ and $\sum b_nx^n$.&lt;/p&gt;
-
-&lt;p&gt;To do the division properly, it is necessary to assume that $b_0\neq0$ (for the case $x=0$). Moreover, without any loss of generality, we may assume that $b_0=1$, because with the assumption that $b_0\neq0$, we simply factor it out
-\begin{equation}
-\dfrac{1}{b_0+b_1x+b_2x^2+\ldots}=\dfrac{1}{b_0}.\dfrac{1}{1+\frac{b_1}{b_0}x+\frac{b_2}{b_0}x^2+\ldots}
-\end{equation}&lt;/p&gt;
-
-&lt;p&gt;We begin by determining the $c_n$’s. Since $\frac{1}{\sum b_nx^n}=\sum c_nx^n$, then $(\sum b_nx^n)(\sum c_nx^n)=1$, so
-\begin{multline}
-b_0c_0+(b_0c_1+b_1c_0)x+(b_0c_2+b_1c_1+b_2c_0)x^2+\ldots \\ +(b_0c_n+b_1c_{n-1}+\ldots+b_nc_0)x^n+\ldots=1,
-\end{multline}
-and since $b_0=1$, we can determine the $c_n$’s recursively
-\begin{align}
-c_0&amp;amp;=1 \\ c_1&amp;amp;=-b_1c_0 \\ c_2&amp;amp;=-b_1c_1-b_2c_0 \\ &amp;amp;\vdots \\ c_n&amp;amp;=-b_1c_{n-1}-b_2c_{n-2}-\ldots-b_nc_0 \\ &amp;amp;\vdots
-\end{align}
-Now our work reduces to proving that the power series $\sum c_nx^n$ with these coefficients has positive radius of convergence, and for this it suffices to show that the series converges for at least one nonzero $x$.&lt;/p&gt;
-
-&lt;p&gt;Let $r$ be any number such that $0&amp;lt;r&amp;lt;R$, so that $\sum b_nr^n$ converges. Then there exists a constant $K\geq 1$ with the property that $\vert b_nr^n\vert\leq K$ or $\vert b_n\vert\leq\frac{K}{r^n}$ for all $n$. Therefore,
-\begin{align}
-\vert c_0\vert&amp;amp;=1\leq K, \\ \vert c_1\vert&amp;amp;=\vert b_1c_0\vert=\vert b_1\vert\leq \dfrac{K}{r}, \\ \vert c_2\vert&amp;amp;\leq\vert b_1c_1\vert+\vert b_2c_0\vert\leq\dfrac{K}{r}.\dfrac{K}{r}+\dfrac{K}{r^2}.K=\dfrac{2K^2}{r^2}, \\ \vert c_3\vert&amp;amp;\leq\vert b_1c_2\vert+\vert b_2c_1\vert+\vert b_3c_0\vert\leq\dfrac{K}{r}.\dfrac{2K^2}{r^2}+\dfrac{K}{r^2}.\dfrac{K}{r}+\dfrac{K}{r^3}.K \\ &amp;amp;\hspace{5.3cm}\leq(2+1+1)\dfrac{K^3}{r^3}=\dfrac{4K^3}{r^3}=\dfrac{2^2K^3}{r^3},
-\end{align}
-since $K^2\leq K^3$ since $K\geq1$. In general,
-\begin{align}
-\vert c_n\vert&amp;amp;\leq\vert c_1b_{n-1}\vert+\vert c_2b_{n-2}\vert+\ldots+\vert b_nc_0\vert \\ &amp;amp;\leq\dfrac{K}{r}.\dfrac{2^{n-2}K^{n-1}}{r^{n-1}}+\dfrac{K}{r^2}.\dfrac{2^{n-3}K^{n-2}}{r^{n-2}}+\ldots+\dfrac{K}{r^n}.K \\ &amp;amp;\leq(2^{n-2}+2^{n-3}+\ldots+1+1)\dfrac{K^n}{r^n}=\dfrac{2^{n-1}K^n}{r^n}\leq\dfrac{2^nK^n}{r^n}
-\end{align}
-Hence, for any $x$ such that $\vert x\vert&amp;lt;\frac{r}{2K}$, we have that the series $\sum c_nx^n$ converges absolutely, and therefore converges, or in other words, $\sum c_nx^n$ has nonzero radius of convergence.&lt;/p&gt;
-
-&lt;h3 id=&quot;sub&quot;&gt;Substitution&lt;/h3&gt;
-&lt;p&gt;If a power series
-\begin{equation}
-f(X)=a_0+a_1x+a_2x^2+\ldots\tag{15}\label{15}
-\end{equation}
-converges for $\vert x\vert&amp;lt;R$ and if $\vert g(x)\vert&amp;lt;R$, then we can find $f(g(x))$ by substituting $g(x)$ for $x$ in \eqref{15}.&lt;/p&gt;
-
-&lt;p&gt;Suppose $g(x)$ is given by a power series,
-\begin{equation}
-g(x)=b_0+b_1x+b_2x^2+\ldots,\tag{16}\label{16}
-\end{equation}
-therefore,
-\begin{align}
-f(g(x))&amp;amp;=a_0+a_1g(x)+a_2g(x)^2+\ldots \\ &amp;amp;=a_0+a_1(b+0+b_1x+\ldots)+a_2(b_0+b_1x+\ldots)^2+\ldots
-\end{align}
-The power series formed in this way converges to $f(g(x))$ whenever \eqref{16} is absolutely convergent and $\vert g(x)\vert&amp;lt;R$.&lt;/p&gt;
-
-&lt;h3 id=&quot;even-odd-funcs&quot;&gt;Even and Odd Functions&lt;/h3&gt;
-&lt;p&gt;A function $f(x)$ defined on $(-R,R)$ is said to be &lt;strong&gt;even&lt;/strong&gt; if
-\begin{equation}
-f(-x)=f(x),
-\end{equation}
-and &lt;strong&gt;odd&lt;/strong&gt; if
-\begin{equation}
-f(-x)=-f(x)
-\end{equation}
-Then if $f(x)$ is an even function, then its Taylor series has the form
-\begin{equation}
-\sum_{n=0}^{\infty}a_{2n}x^{2n}=a_0+a_2x^2+a_4x^4+\ldots
-\end{equation}
-and if $f(x)$ is an odd function, then its Taylor series has the form
-\begin{equation}
-\sum_{n=0}^{\infty}a_{2n+1}x^{2n+1}=a_1x+a_3x^3+a_5x^5+\ldots
-\end{equation}
-since if $f(x)=\sum_{n=0}^{\infty}a_nx^n$ is even, then $\sum_{n=0}^{\infty}a_nx^n=\sum_{n=0}^{\infty}(-1)^na_nx^n$, so by the uniqueness of the Taylor series expansion, we have that $a_n=(-1)^na_n$; similarly, $a_n=(-1)^{n+1}a_n$ if $f(x)$ is an odd function.&lt;/p&gt;
-
-&lt;h2 id=&quot;uni-conv-power-series&quot;&gt;Uniform Convergence for Power Series&lt;/h2&gt;
-&lt;p&gt;Consider a power series $\sum a_nx^n$ with positive radius of convergence $R$, and let $f(x)$ be its sum.&lt;/p&gt;
-
-&lt;p&gt;In the &lt;a href=&quot;#dif-int-power-series&quot;&gt;section&lt;/a&gt; above, we stated that $f(x)$ is continuous and differentiable on $(-R,R)$, and we can differentiate and integrate it term by term. So let’s prove these statements!&lt;/p&gt;
-
-&lt;p&gt;Let $S_n(x)$ be the $n$-th partial sum of the series, so that
-\begin{equation}
-S_n(x)=\sum_{i=0}^{n}a_ix^i=a_0+a_1x+a_2x^2+\ldots+a_nx^n
-\end{equation}
-Similar to what we did in &lt;a href=&quot;#taylors-formula&quot;&gt;Taylor’s formula&lt;/a&gt;, we write
-\begin{equation}
-f(x)=S_n(x)+R_n(x)
-\end{equation}
-Thus, the remainder
-\begin{equation}
-R_n(x)=a_{n+1}x^{n+1}+a_{n+2}x^{n+2}+\ldots
-\end{equation}&lt;/p&gt;
-
-&lt;p&gt;For each $x$ in the interval of convergence, we know that $R_n(x)\to0$ as $n\to\infty$; that is, for any given $\epsilon&amp;gt;0$, and for an integer $n_0$ large enough, we have
-\begin{equation}
-\vert R_n(x)\vert&amp;lt;\epsilon\hspace{1cm}n\geq n_0,\tag{17}\label{17}
-\end{equation}
-This is true for each $x$ individually, and is an equivalent way of expressing the fact that $\sum a_nx^n$ converges to $f(x)$.&lt;/p&gt;
-
-&lt;p&gt;Moreover, for every $x$ in the given a closed interval $\vert x\vert\leq\vert x_1\vert&amp;lt;R$, we have
-\begin{align}
-\vert R_n(x)\vert&amp;amp;=\left\vert a_{n+1}x^{n+1}+a_{n+2}x^{n+2}+\ldots\right\vert \\ &amp;amp;\leq\left\vert a_{n+1}x^{n+1}\right\vert+\left\vert a_{n+2}x^{n+2}\right\vert+\ldots \\ &amp;amp;\leq\left\vert a_{n+1}{x_1}^{n+1}\right\vert+\left\vert a_{n+2}{x_1}^{n+2}\right\vert+\ldots
-\end{align}
-Because of the &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#abs-conv&quot;&gt;absolute convergence&lt;/a&gt; of $\sum a_n{x_1}^n$, the last sum can be made $&amp;lt;\epsilon$ by taking $n$ large enough, $n\geq n_0$. Therefore, we have that \eqref{17} holds for all $x$ inside the closed interval $\vert x\vert\leq\vert x_1\vert$ inside the interval of convergence $(-R,R)$.&lt;/p&gt;
-
-&lt;p&gt;Or in other words, $R_n(x)$ can be made small &lt;em&gt;independently of $x$ in the given closed interval&lt;/em&gt; $\vert x\vert\leq\vert x_1\vert$, which is equivalent to saying that the series $\sum a_nx^n$ is &lt;strong&gt;uniformly convergent&lt;/strong&gt; in this interval&lt;sup id=&quot;fnref:4&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:4&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;cont-sum&quot;&gt;Continuity of the Sum&lt;/h3&gt;
-&lt;p&gt;In order to prove that $f(x)$ is continuous on $(-R,R)$, it suffices to prove that $f(x)$ is continuous at each point $x_0$ in the interval of convergence.&lt;/p&gt;
-
-&lt;p&gt;Consider a closed subinterval $\vert x\vert\leq\vert x_1\vert&amp;lt;R$ containing $x_0$ in its interior. If $\epsilon&amp;gt;0$ is given, then by uniform convergence we can find an $n$ such that $\vert R_n(x)\vert&amp;lt;\epsilon$ for all $x$’s in the subinterval.&lt;/p&gt;
-
-&lt;p&gt;Since the polynomial $S_n(x)$ is continuous at $x_0$, we can find $\delta&amp;gt;0$ small that $\vert x-x_0\vert&amp;lt;\delta$ implies $x$ lies in the subinterval and $\vert S_n(x)-S_n(x_0)\vert&amp;lt;\epsilon$. Putting these conditions together we find that $\vert x-x_0\vert&amp;lt;\delta$ implies
-\begin{align}
-\vert f(x)-f(x_0)\vert&amp;amp;=\left\vert S_n(x)+R_n(x)-\left(S_n(x_0)+R_n(x_0)\right)\right\vert \\ &amp;amp;=\left\vert\left(S_n(x)-S_n(x_0)\right)+R_n(x)-R_n(x_0)\right\vert \\ &amp;amp;\leq\left\vert S_n(x)-S_n(x_0)\right\vert+\left\vert R_n(x)\right\vert+\left\vert R_n(x_0)\right\vert \\ &amp;amp;&amp;lt;\epsilon+\epsilon+\epsilon=3\epsilon
-\end{align}
-which proves the continuity of $f(x)$ at $x_0$.&lt;/p&gt;
-
-&lt;h3 id=&quot;int&quot;&gt;Integrating term by term&lt;/h3&gt;
-&lt;p&gt;With what we have just proved that $f(x)=\sum a_nx^n$ is continuous on $(-R,R)$, we can therefore integrate this function between $a$ and $b$ that lie inside the interval
-\begin{equation}
-\int_{a}^{b}f(x)\,dx=\int_{a}^{b}\left(\sum a_nx^n\right)\,dx
-\end{equation}
-We need to prove that the right side of this equation can be integrated term by term, which is
-\begin{equation}
-\int_{a}^{b}f(x)\,dx=\int_{a}^{b}\left(\sum a_nx^n\right)\,dx=\sum\int_{a}^{b}a_nx^n\,dx\tag{18}\label{18}
-\end{equation}
-In order to prove this, we begin by observing that $S_n(x)$ is a polynomial, and for that reason it is continuous. Thus, all there of the functions in
-\begin{equation}
-f(x)=S_n(x)+R_n(x)
-\end{equation}
-are continuous on $(-R,R)$. This allows us to write
-\begin{equation}
-\int_{a}^{b}f(x)\,dx=\int_{a}^{b}S_n(x)\,dx+\int_{a}^{b}R_n(x)\,dx
-\end{equation}
-Moreover, we can integrate $S_n(x)$ term by term
-\begin{align}
-\int_{a}^{b}S_n(x)\,dx&amp;amp;=\int_{a}^{b}\left(a_0+a_1x+a_2x^2+\ldots+a_nx^n\right)\,dx \\ &amp;amp;=\int_{a}^{b}a_0\,dx+\int_{a}^{b}a_1x\,dx+\int_{a}^{b}a_2x^2\,dx+\ldots+\int_{a}^{b}a_nx^n\,dx
-\end{align}
-To prove \eqref{18}, it therefore suffices to show that as $n\to\infty$
-\begin{equation}
-\int_{a}^{b}R_n(x)\,dx\to 0
-\end{equation}
-By uniform convergence, if $\epsilon&amp;gt;0$ is given and $\vert x\vert\leq\vert x_1\vert&amp;lt;R$ is a closed subinterval of $(-R,R)$ that contains both $a,b$, then $\vert R_n(x)\vert&amp;lt;\epsilon$ for all $x$ in the subinterval and $n$ large enough. Hence,
-\begin{equation}
-\left\vert\int_{a}^{b}R_n(x)\,dx\right\vert\leq\int_{a}^{b}\left\vert R_n(x)\right\vert\,dx&amp;lt;\epsilon\vert b-a\vert
-\end{equation}
-for any $n$ large enough, which proves our statement.&lt;/p&gt;
-
-&lt;p&gt;As a special case of \eqref{18}, we take the limits $0$ and $x$ instead of $a$ and $b$, and obtain
-\begin{align}
-\int_{a}^{b}f(t)\,dt&amp;amp;=\sum\dfrac{1}{n+1}a_nx^{n+1} \\ &amp;amp;=a_0x+\dfrac{1}{2}a_1x^2+\dfrac{1}{3}a_2x^3+\ldots+\dfrac{1}{n+1}a_nx^{n+1}+\ldots\tag{19}\label{19}
-\end{align}&lt;/p&gt;
-
-&lt;h3 id=&quot;dif&quot;&gt;Differentiating term by term&lt;/h3&gt;
-&lt;p&gt;We now prove that the function $f(x)$ is not only continuous but also differentiable on $(-R,R)$, and that its derivative can be calculated by differentiating term by term
-\begin{equation}
-f’(x)=\sum na_nx^{n-1}
-\end{equation}
-It is easily seen that the series on right side of this equation is exact the series on the right side of \eqref{3}, which is convergent on $(-R,R)$ as we proved. If we denote its sum by $g(x)$
-\begin{equation}
-g(x)=\sum na_nx^{n-1}=a_1+2a_2x+3a_3x^2+\ldots+na_nx^{n-1}+\ldots,
-\end{equation}
-then \eqref{19} tells us that
-\begin{align}
-\int_{0}^{x}g(t)\,dt&amp;amp;=a_1x+a_2x^2+a_3x^3+\ldots \\ &amp;amp;=f(x)-a_0
-\end{align}
-Since the left side of this has a derivative, so does the right side, and by differentiating we obtain
-\begin{equation}
-f’(x)=g(x)=\sum na_nx^{n-1}
-\end{equation}&lt;/p&gt;
-
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;p&gt;[1] George F.Simmons. &lt;a href=&quot;https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424&quot;&gt;Calculus With Analytic Geometry - 2nd Edition&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;[2] Marian M. &lt;a href=&quot;https://www.springer.com/gp/book/9780387789323&quot;&gt;A Concrete Approach to Classical Analysis&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;[3] MIT 18.01. &lt;a href=&quot;https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/&quot;&gt;Single Variable Calculus&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
-
-&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt; (&lt;em&gt;L’Hospital&lt;/em&gt;)&lt;br /&gt;
-&lt;em&gt;Assume $f$ and $g$ are real and differentiable on $]a,b[$ and $g’(x)\neq 0$ for all $x\in]a,b[$, where $-\infty\leq a&amp;lt;b\leq\infty$. Suppose as $x\to a$,
-\begin{equation}
-\dfrac{f’(x)}{g’(x)}\to A\,(\in[-\infty,\infty])
-\end{equation}
-If as $x\to a$, $f(x)\to 0$ and $g(x)\to 0$ or if $g(x)\to+\infty$ as $x\to a$, then
-\begin{equation}
-\dfrac{f(x)}{g(x)}\to A
-\end{equation}
-as $x\to a$.&lt;/em&gt; &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:2&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
-Consider the function $f(x)=a^x$.&lt;br /&gt;
-Using the definition of the derivative, we have
-\begin{align}
-\dfrac{d}{dx}f(x)&amp;amp;=\lim_{h\to 0}\dfrac{f(x+h)-f(x)}{h} \\ &amp;amp;=\lim_{h\to 0}\dfrac{a^{x+h}-a^x}{h} \\ &amp;amp;=a^x\lim_{h\to 0}\dfrac{a^h-1}{h}
-\end{align}
-Therefore,
-\begin{equation}
-\lim_{h\to 0}\dfrac{a^h-1}{h}=1
-\end{equation}
-then, let $n=\frac{1}{h}$, we have
-\begin{equation}
-a=\lim_{h\to 0}\left(1+\dfrac{1}{h}\right)^{1/h}=\lim_{n\to\infty}\left(1+\dfrac{1}{n}\right)^n={\rm e}
-\end{equation}
-Thus, $f(x)=a^x={\rm e}^x$. Every function $y=c{\rm e}^x$ also satisfies the differential equation $\frac{dy}{dx}=y$, because
-\begin{equation}
-\dfrac{dy}{dx}=\dfrac{d}{dx}c{\rm e}^x=c\dfrac{d}{dx}{\rm e}^x=c{\rm e}^x=y
-\end{equation}&lt;br /&gt;
-The rest of our proof is to prove that these are only functions that are unchanged by differentiation.&lt;br /&gt;
-To prove this, suppose $f(x)$ is any function with that property. By the quotient rule,
-\begin{equation}
-\dfrac{d}{dx}\dfrac{f(x)}{e^x}=\dfrac{f’(x)e^x-e^x f(x)}{e^{2x}}=\dfrac{e^x f(x)-e^x f(x)}{e^{2x}}=0
-\end{equation}
-which implies that
-\begin{equation}
-\dfrac{f(x)}{e^x}=c,
-\end{equation}
-for some constant $c$, and so $f(x)=ce^x$. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:3&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt; (&lt;em&gt;Mean Value Theorem&lt;/em&gt;)&lt;br /&gt;
-&lt;em&gt;If a function $f(x)$ is continuous on the closed interval $[a,b]$ and differentiable in the open interval $(a,b)$, then there exists at least one number $c$ between $a$ and $b$ with the property that&lt;/em&gt;
-\begin{equation}
-f’(c)=\frac{f(b)-f(a)}{b-a}
-\end{equation} &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:4&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;We will talk more about uniform convergence in the post of sequences. &lt;a href=&quot;#fnref:4&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="calculus" /><category term="mathematics" /><category term="calculus" /><category term="series" /><category term="power-series" /><category term="taylor-series" /><category term="random-stuffs" /><summary type="html">Recall that in the previous post, Infinite Series of Constants, we mentioned a type of series called power series a lot. In the content of this post, we will be diving deeper into details of that series.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="probability-statistics" /><category term="mathematics" /><category term="probability-statistics" /><category term="normal-distribution" /><summary type="html">A note on Normal distribution.</summary></entry></feed>

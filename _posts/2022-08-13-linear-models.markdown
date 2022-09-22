@@ -19,6 +19,7 @@ comments: true
 	- [Linear basis function models](#lin-basis-func-models)
 		- [Least squares](#least-squares)
 		- [Geometrical interpretation of least squares](#geo-least-squares)
+		- [The LMS algorithm](#lms)
 		- [Regularized least squares](#reg-least-squares)
 		- [Multiple outputs](#mult-outputs)
 	- [Bayesian linear regression](#bayes-lin-reg)
@@ -37,6 +38,9 @@ comments: true
 		- [Exponential Family](#exp-family)
 	- [Probabilistic Discriminative Models](#prob-disc-models)
 		- [Logistic Regression](#log-reg)
+		- [Softmax Regression](#softmax-reg)
+		- [Newton's method](#newtons-method)
+	- [Generalized linear models](#glm)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -80,9 +84,6 @@ With that definition of a basis $\mathbf{v}\_1,\dots,\mathbf{v}\_d$ of $S$, for 
 \begin{equation}
 \mathbf{u}=c_1\mathbf{v}\_1+\ldots+c_d\mathbf{v}\_d
 \end{equation}
-
-### Exponential family
-{: #exp-fam}
 
 ### Lagrange Multipliers
 {: #lagrange-mult}
@@ -247,7 +248,7 @@ is called the **Moore-Penrose pseudoinverse** of the matrix $\boldsymbol{\Phi}$.
 
 On the other hand, consider the gradient of \eqref{6} w.r.t $\beta$ and set it equal to zero, we obtain
 \begin{equation}
-\beta=\frac{N}{\sum_{i=1}^{N}\big(t_i-\mathbf{w}\_\text{ML}^\text{T}\boldsymbol{\Phi}(\mathbf{x}\_i)\big)^2}
+\beta=\frac{N}{\sum_{i=1}^{N}\big(t_i-\mathbf{w}\_\text{ML}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)^2}
 \end{equation}
 
 #### Geometrical interpretation of least squares
@@ -281,6 +282,14 @@ This solution corresponds to the orthogonal projection of $t$ onto the subspace 
 \begin{align}
 \mathbf{y}^\text{T}(\mathbf{t}-\mathbf{y})&=\left(\boldsymbol{\Phi}\mathbf{w}\_\text{ML}\right)^\text{T}\left(\mathbf{t}-\boldsymbol{\Phi}\mathbf{w}\_\text{ML}\right) \\\\ &=\left(\boldsymbol{\Phi}\left(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}\mathbf{t}\right)^\text{T}\left(\mathbf{t}-\boldsymbol{\Phi}\left(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}\mathbf{t}\right) \\\\ &=\mathbf{t}^\text{T}\boldsymbol{\Phi}\left(\left(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\right)^{-1}\right)^\text{T}\boldsymbol{\Phi}^\text{T}\mathbf{t}-\mathbf{t}^\text{T}\boldsymbol{\Phi}\left(\left(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\right)^{-1}\right)^\text{T}\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\left(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}\mathbf{t} \\\\ &=\mathbf{t}^\text{T}\boldsymbol{\Phi}\left(\left(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\right)^{-1}\right)^\text{T}\boldsymbol{\Phi}^\text{T}\mathbf{t}-\mathbf{t}^\text{T}\boldsymbol{\Phi}\left(\left(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\right)^{-1}\right)^\text{T}\boldsymbol{\Phi}^\text{T}\mathbf{t} \\\\ &=0,
 \end{align}
+
+#### The LMS algorithm
+{: #lms}
+The **least-means-squares**, or **LMS** algorithm for the sum-of-squares error \eqref{7}, which start with some initial vector $\mathbf{w}\_0$ of $\mathbf{w}$, and repeatedly perform the update
+\begin{equation}
+\mathbf{w}\_{t+1}=\mathbf{w}\_t+\eta(t_n-\mathbf{w}\_t^\text{T}\boldsymbol{\phi}\_n)\boldsymbol{\phi}\_n,
+\end{equation}
+where $\boldsymbol{\phi}\_n$ denotes $\boldsymbol{\phi}(\mathbf{x}\_n)$, and $\eta$ is called the **learning rate** which controls the update amount.
 
 #### Regularized least squares
 {: #reg-least-squares}
@@ -477,7 +486,7 @@ Therefore, by Lagrange multiplier, in order to maximize $m_2-m_1$, we have that
 \end{equation}
 To solve this problem, we use the Fisher's LD approach to minimize the class overlap by maximizing the ratio of the **between-class variance** to the **within-class variance**.
 
-The within-class variance of projected data from class $\mathbf{C}\_k$ is defined as
+The within-class variance of projected data from class $\mathbf{w}\_k$ is defined as
 \begin{equation}
 s_k^2\doteq\sum_{n\in\mathcal{C}\_k}(y_n-m_k)^2,
 \end{equation}
@@ -524,6 +533,8 @@ If the within-class covariance matrix $\mathbf{S}\_\text{W}$ is isotropic[^1], w
 \mathbf{w}\propto\mathbf{m}\_2-\mathbf{m}\_1
 \end{equation}
 The result \eqref{16} is called **Fisher's linear discriminant**.
+
+With this $\mathbf{w}$, we can project our data down into one dimension and from projected data, we construct a discriminant by selecting a threshold $y_0$ such that $\mathbf{x}$ belongs to class $\mathcal{C}\_1$ if $y(\mathbf{x})\gg y_0$ and otherwise it belongs to $\mathcal{C}\_1$.
 
 ##### Multi-class classification
 {: #fisher-ld-clf}
@@ -661,7 +672,7 @@ From the derivation, we see that by making an assumption of having the same cova
 
 For the multi-dimensional case, $K>2$, by \eqref{20}, we have that the density for class $\mathcal{C}\_k$ is
 \begin{align}
-p(\mathcal{C}\_k\vert\mathbf{x})&=\frac{\exp\Big[-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu}\_k)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu}\_k)+\log p(\mathcal{C}\_k)\Big]}{\sum_{i=1}^{K}\exp\Big[-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu}\_i)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu}\_i)+\log p(\mathcal{C}\_i)\Big]} \\\\ &=\frac{\exp\Big[\mathbf{x}^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_k-\frac{1}{2}\boldsymbol{\mu}\_k^\text{T}\boldsymbol{\Sigma}\boldsymbol{\mu}\_k+\log p(\mathbf{C}\_k)\Big]}{\sum_{i=1}^{K}\exp\Big[\mathbf{x}^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_i-\frac{1}{2}\boldsymbol{\mu}\_i^\text{T}\boldsymbol{\Sigma}\boldsymbol{\mu}\_i+\log p(\mathbf{C}\_i)\Big]}
+p(\mathcal{C}\_k\vert\mathbf{x})&=\frac{\exp\Big[-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu}\_k)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu}\_k)+\log p(\mathcal{C}\_k)\Big]}{\sum_{i=1}^{K}\exp\Big[-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu}\_i)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu}\_i)+\log p(\mathcal{C}\_i)\Big]} \\\\ &=\frac{\exp\Big[\mathbf{x}^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_k-\frac{1}{2}\boldsymbol{\mu}\_k^\text{T}\boldsymbol{\Sigma}\boldsymbol{\mu}\_k+\log p(\mathbf{w}\_k)\Big]}{\sum_{i=1}^{K}\exp\Big[\mathbf{x}^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_i-\frac{1}{2}\boldsymbol{\mu}\_i^\text{T}\boldsymbol{\Sigma}\boldsymbol{\mu}\_i+\log p(\mathbf{w}\_i)\Big]}
 \end{align}
 Or in other words, we can simplify each element of $\mathbf{a}$ into a linear function as
 \begin{equation}
@@ -773,21 +784,21 @@ Analogy to the binary case, we also have that
 \begin{equation}
 p(\mathbf{t}\_n\vert\pi_1,\ldots,\pi_K,\boldsymbol{\phi}\_1,\ldots,\boldsymbol{\phi}\_K,\boldsymbol{\Sigma})=\prod_{k=1}^{K}p(\boldsymbol{\phi}\_n,\mathcal{C}\_k)^{(\mathbf{t}\_n)\_k}
 \end{equation}
-To simplify the notation, we let $\mathbf{C}$ denote
+To simplify the notation, we let $\mathbf{w}$ denote
 \begin{equation}
 \pi_1,\ldots,\pi_K,\boldsymbol{\phi}\_1,\ldots,\boldsymbol{\phi}\_K,\boldsymbol{\Sigma}
 \end{equation}
-We continue by letting
+And let $\mathbf{T}$ be a matrix that associate those targets $\mathbf{t}\_n$'s together, given as
 \begin{equation}
 \mathbf{T}=\left[\begin{matrix}\vert&&\vert \\\\ \mathbf{t}\_1&\ldots&\mathbf{t}\_N \\\\ \vert&&\vert\end{matrix}\right]
 \end{equation}
 Thus, the likelihood is given as
 \begin{align}
-L(\mathbf{C})&=p(\mathbf{T}\vert\mathbf{C}) \\\\ &=\prod_{n=1}^{N}p(\mathbf{t}\_n\vert\mathbf{C}) \\\\ &=\prod_{n=1}^{N}\prod_{k=1}^{K}p(\boldsymbol{\phi}\_n,\mathcal{C}\_k)^{(\mathbf{t}\_n)\_k} \\\\ &=\prod_{n=1}^{N}\prod_{k=1}^{K}\Big[\pi_k\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_k,\boldsymbol{\Sigma})\Big]^{(\mathbf{t}\_n)\_k}
+L(\mathbf{w})&=p(\mathbf{T}\vert\mathbf{w}) \\\\ &=\prod_{n=1}^{N}p(\mathbf{t}\_n\vert\mathbf{w}) \\\\ &=\prod_{n=1}^{N}\prod_{k=1}^{K}p(\boldsymbol{\phi}\_n,\mathcal{C}\_k)^{(\mathbf{t}\_n)\_k} \\\\ &=\prod_{n=1}^{N}\prod_{k=1}^{K}\Big[\pi_k\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_k,\boldsymbol{\Sigma})\Big]^{(\mathbf{t}\_n)\_k}
 \end{align}
 And thus, the log likelihood $\ell(\cdot)$ can be computed as
 \begin{align}
-\ell(\mathbf{C})&=\log L(\mathbf{C}) \\\\ &=\log\prod_{n=1}^{N}\prod_{k=1}^{K}\Big[\pi_k\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_k,\boldsymbol{\Sigma})\Big]^{(\mathbf{t}\_n)\_k} \\\\ &=\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k\Big[\log\pi_k+\log\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_k,\boldsymbol{\Sigma})\Big]\tag{25}\label{25}
+\ell(\mathbf{w})&=\log L(\mathbf{w}) \\\\ &=\log\prod_{n=1}^{N}\prod_{k=1}^{K}\Big[\pi_k\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_k,\boldsymbol{\Sigma})\Big]^{(\mathbf{t}\_n)\_k} \\\\ &=\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k\Big[\log\pi_k+\log\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_k,\boldsymbol{\Sigma})\Big]\tag{25}\label{25}
 \end{align}
 As usual, we continue by using maximum likelihood, which begins by taking gradient of the log likelihood w.r.t to the parameters. However, when maximizing the likelihood w.r.t $\pi_k$, we have to compute subject to a constraint that
 \begin{equation}
@@ -795,7 +806,7 @@ As usual, we continue by using maximum likelihood, which begins by taking gradie
 \end{equation}
 Therefore, using a Lagrange multiplier $\lambda$, we instead maximize the Lagrangian w.r.t $\pi_k$, which is
 \begin{equation}
-\mathcal{L}(\pi_1,\ldots,\pi_K,\lambda)=\ell(\mathbf{C})+\lambda\left(\sum_{k=1}^{K}\pi_k-1\right)
+\mathcal{L}(\pi_1,\ldots,\pi_K,\lambda)=\ell(\mathbf{w})+\lambda\left(\sum_{k=1}^{K}\pi_k-1\right)
 \end{equation}
 Differentiating $\mathcal{L}$ w.r.t $\pi_k$, we have
 \begin{align}
@@ -819,7 +830,7 @@ Hence, the maximum likelihood solution for $\pi_k$ is
 \end{equation}
 We continue by taking the gradient of the log likelihood \eqref{25} w.r.t $\boldsymbol{\mu}\_k$, as
 \begin{align}
-\nabla_{\boldsymbol{\mu}\_k}\ell(\mathbf{C})&=\nabla_{\boldsymbol{\mu}\_k}\sum_{n=1}^{N}\sum_{i=1}^{K}(\mathbf{t}\_n)\_i\Big[\log\pi_i+\log\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_i,\boldsymbol{\Sigma})\Big] \\\\ &=\nabla_{\boldsymbol{\mu}\_k}\sum_{n=1}^{N}(\mathbf{t}\_n)\_k\log\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_k,\boldsymbol{\Sigma}) \\\\ &=\nabla_{\boldsymbol{\mu}\_k}\sum_{n=1}^{N}(\mathbf{t}\_n)\_k\Big[-\frac{1}{2}(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)^\text{T}\boldsymbol{\Sigma}^{-1}(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)\Big] \\\\ &=-\frac{1}{2}\sum_{n=1}^{N}(\mathbf{t}\_n)\_k\nabla_{\boldsymbol{\mu}\_k}\Big[\boldsymbol{\mu}\_k^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_k-2\boldsymbol{\mu}\_k^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\phi}\_n\Big] \\\\ &=\sum_{n=1}^{N}(\mathbf{t}\_n)\_k\Big[\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_k-\boldsymbol{\Sigma}^{-1}\boldsymbol{\phi}\_n\Big]
+\nabla_{\boldsymbol{\mu}\_k}\ell(\mathbf{w})&=\nabla_{\boldsymbol{\mu}\_k}\sum_{n=1}^{N}\sum_{i=1}^{K}(\mathbf{t}\_n)\_i\Big[\log\pi_i+\log\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_i,\boldsymbol{\Sigma})\Big] \\\\ &=\nabla_{\boldsymbol{\mu}\_k}\sum_{n=1}^{N}(\mathbf{t}\_n)\_k\log\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_k,\boldsymbol{\Sigma}) \\\\ &=\nabla_{\boldsymbol{\mu}\_k}\sum_{n=1}^{N}(\mathbf{t}\_n)\_k\Big[-\frac{1}{2}(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)^\text{T}\boldsymbol{\Sigma}^{-1}(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)\Big] \\\\ &=-\frac{1}{2}\sum_{n=1}^{N}(\mathbf{t}\_n)\_k\nabla_{\boldsymbol{\mu}\_k}\Big[\boldsymbol{\mu}\_k^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_k-2\boldsymbol{\mu}\_k^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\phi}\_n\Big] \\\\ &=\sum_{n=1}^{N}(\mathbf{t}\_n)\_k\Big[\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_k-\boldsymbol{\Sigma}^{-1}\boldsymbol{\phi}\_n\Big]
 \end{align}
 Setting the above gradient equal to zero and solve for $\boldsymbol{\mu}\_k$ we obtain the solution
 \begin{equation}
@@ -829,17 +840,17 @@ which is the mean of feature vectors assigned to class $\mathcal{C}\_k$.
 
 Finally, consider the gradient of \eqref{25} w.r.t $\boldsymbol{\Sigma}$, combined with the result \eqref{24} we have
 \begin{align}
-\nabla_\boldsymbol{\Sigma}\ell(\mathbf{C})&=\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k\Big[\log\pi_k+\log\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_k\boldsymbol{\Sigma})\Big] \\\\ &=\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k\log\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_k\boldsymbol{\Sigma}) \\\\ &=\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k\log\big\vert\boldsymbol{\Sigma}\big\vert^{-1/2}+(\mathbf{t}\_n)\_k\Big[-\frac{1}{2}(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)^\text{T}\boldsymbol{\Sigma}^{-1}(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)\Big] \\\\ &=-\frac{N}{2}\boldsymbol{\Sigma}^{-1}+\frac{1}{2}\boldsymbol{\Sigma}^{-1}\Big[\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)^\text{T}\Big]\boldsymbol{\Sigma}^{-1} \\\\ &\propto N\boldsymbol{\Sigma}^{-1}-\boldsymbol{\Sigma}^{-1}\Big[\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)^\text{T}\Big]\boldsymbol{\Sigma}^{-1}\tag{26}\label{26}
+\nabla_\boldsymbol{\Sigma}\ell(\mathbf{w})&=\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k\Big[\log\pi_k+\log\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_k\boldsymbol{\Sigma})\Big] \\\\ &=\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k\log\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_k\boldsymbol{\Sigma}) \\\\ &=\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k\log\big\vert\boldsymbol{\Sigma}\big\vert^{-1/2}+(\mathbf{t}\_n)\_k\Big[-\frac{1}{2}(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)^\text{T}\boldsymbol{\Sigma}^{-1}(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)\Big] \\\\ &=-\frac{N}{2}\boldsymbol{\Sigma}^{-1}+\frac{1}{2}\boldsymbol{\Sigma}^{-1}\Big[\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)^\text{T}\Big]\boldsymbol{\Sigma}^{-1} \\\\ &\propto N\boldsymbol{\Sigma}^{-1}-\boldsymbol{\Sigma}^{-1}\Big[\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)^\text{T}\Big]\boldsymbol{\Sigma}^{-1}\tag{26}\label{26}
 \end{align}
 Let $\mathbf{S}\_k$ be the covariance of the data associated with class $\mathcal{C}\_k$, defined as
 \begin{equation}
-\mathcal{S}\_k=\frac{1}{N_k}\sum_{n=1}^{N}(\mathbf{t}\_n)\_k(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)^\text{T}
+\mathbf{S}\_k=\frac{1}{N_k}\sum_{n=1}^{N}(\mathbf{t}\_n)\_k(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)^\text{T}
 \end{equation}
 Therefore, letting the derivative \eqref{26} equal to zero, we have
 \begin{equation}
 N\boldsymbol{\Sigma}^{-1}-\boldsymbol{\Sigma}^{-1}\Big[\sum_{k=1}^{K}N_k\mathbf{S}\_k\Big]\boldsymbol{\Sigma}^{-1}=0
 \end{equation}
-Solving this equation for $\Sigma$, we obtain the solution
+Solving this equation for $\boldsymbol{\Sigma}$, we obtain the solution
 \begin{equation}
 \boldsymbol{\Sigma}=\sum_{k=1}^{K}\frac{N_k}{N}\mathbf{S}\_k
 \end{equation}
@@ -852,6 +863,50 @@ Solving this equation for $\Sigma$, we obtain the solution
 
 #### Logistic Regression
 {: #log-reg}
+Recall that in the previous section of generative approach, in particular for the binary case we knew that the posterior probability for class $\mathcal{C}\_1$ can be defined as the logistic sigmoid of a linear function of the input vector $\mathbf{x}$
+\begin{equation}
+p(\mathcal{C}\_1\vert\mathbf{x})=\sigma\big(\mathbf{w}^\text{T}\mathbf{x}+w_0\big)
+\end{equation}
+In general, the posterior probabilities can be written as the logistic sigmoid of a linear function of instead feature vector $\boldsymbol{\phi}$, as
+\begin{equation}
+p(\mathcal{C}\_1\vert\boldsymbol{\phi})=\sigma\big(\mathbf{w}^\text{T}\boldsymbol{\phi}+w_0\big)
+\end{equation}
+This model is called **logistic regression**, although it is applied for classification tasks.
+Consider a data set $\\{\boldsymbol{\phi}\_n,t_n\\}$, where $\boldsymbol{\phi}\_n=\boldsymbol{\phi}(\mathbf{x}\_n)$ and $t_n\in\\{0,1\\}$, with $n=1,\ldots,N$. Therefore,
+\begin{equation}
+p(t_n\vert\mathbf{w})=y_n^{t_n}(1-y_n)^{1-t_n},
+\end{equation}
+where $y_n=p(\mathcal{C}\_1\vert\boldsymbol{\phi}\_n)$.
+
+Comprise $t_n$'s into $\mathbf{t}\doteq(t_1,\ldots,t_N)^\text{T}$, then we have that the likelihood function can be defined as
+\begin{equation}
+L(\mathbf{w})=p(\mathbf{t}\vert\mathbf{w})=\prod_{n=1}^{N}p(t_n\vert\mathbf{w})=\prod_{n=1}^{N}y_n^{t_n}(1-y_n)^{1-t_n}
+\end{equation}
+Taking the negative logarithm of the likelihood gives us the **cross-entropy** error function, as
+\begin{align}
+E(\mathbf{w})=-\log L(\mathbf{w})&=-\log\prod_{n=1}^{N}p(t_n\vert\mathbf{w})=\prod_{n=1}^{N}y_n^{t_n}(1-y_n)^{1-t_n} \\\\ &=-\sum_{n=1}^{N}t_n\log y_n+(1-t_n)\log(1-y_n)\tag{27}\label{27}
+\end{align}
+Differentiating the error function $E(\mathbf{w})$ w.r.t $\mathbf{w}$ we have that
+\begin{align}
+\nabla_\mathbf{w}E(\mathbf{w})&=\nabla_\mathbf{w}-\sum_{n=1}^{N}t_n\log y_n+(1-t_n)\log(1-y_n) \\\\ &=\sum_{n=1}^{N}\frac{(1-t_n)\nabla_\mathbf{w}y_n}{1-y_n}-\frac{t_n\nabla_\mathbf{w}y_n}{y_n} \\\\ &=\sum_{n=1}^{N}\frac{(1-t_n)y_n(1-y_n)\boldsymbol{\phi}\_n}{1-y_n}-\frac{t_n y_n(1-y_n)\boldsymbol{\phi}\_n}{y_n} \\\\ &=\sum_{n=1}^{N}(1-t_n)y_n\boldsymbol{\phi}\_n-t_n(1-y_n)\boldsymbol{\phi}\_n \\\\ &=\sum_{n=1}^{N}(y_n-t_n)\boldsymbol{\phi}\_n,\tag{28}\label{28}
+\end{align}
+where in the third step, we have used the identity of the derivative of the logistic sigmoid function
+\begin{equation}
+\frac{d\sigma}{d a}=\sigma(1-\sigma)
+\end{equation}
+and the chain rule to compute the gradient of $y_n$ w.r.t $\mathbf{w}$ as
+\begin{align}
+\nabla_\mathbf{w}y_n&=\nabla_\mathbf{w}\sigma(\mathbf{w}^\text{T}\boldsymbol{\phi}\_n+w_0) \\\\ &=\frac{d\sigma(\mathbf{w}^\text{T}\boldsymbol{\phi}\_n+w_0)}{d(\mathbf{w}^\text{T}\boldsymbol{\phi}\_n+w_0)}\nabla_\mathbf{w}(\mathbf{w}^\text{T}\boldsymbol{\phi}\_n+w_0) \\\\ &=\sigma(\mathbf{w}^\text{T}\boldsymbol{\phi}\_n+w_0)\big(1-\sigma(\mathbf{w}^\text{T}\boldsymbol{\phi}\_n+w_0)\big)\boldsymbol{\phi}\_n \\\\ &=y_n(1-y_n)\boldsymbol{\phi}\_n
+\end{align}
+
+#### Softmax Regression
+{: #softmax-reg}
+
+#### Newton's method
+{: #newtons-method}
+
+### Generalized linear models
+{: #glm}
 
 ## References
 {: #references}
