@@ -7,7 +7,7 @@ tags: artificial-intelligent machine-learning least-squares linear-discriminant-
 description: A note on linear models
 comments: true
 ---
-> Linear models for solving regression and classification problems. Materials were taken mostly from [Bishop's book](% post_url 2022-08-13-linear-models %}#bishops-book).
+> Linear models for solving regression and classification problems. Materials were taken mostly from [Bishop's book]({% post_url 2022-08-13-linear-models %}#bishops-book).
 <!-- excerpt-end -->
 
 - [Preliminaries](#preliminaries)
@@ -213,11 +213,11 @@ p(t|\mathbf{x};\mathbf{w},\beta)=\sqrt{\frac{\beta}{2\pi}}\exp\left(-\frac{(t-y(
 \end{equation}
 where $\beta=1/\sigma^2$ is the precision of $\epsilon$, or
 \begin{equation}
-t|\mathbf{x};\mathbf{w},\beta\sim\mathcal{N}(y(\mathbf{x},\mathbf{w}),\beta^{-1})\tag{5}\label{5}
+t|\mathbf{x};\mathbf{w},\beta\sim\mathcal{N}(y(\mathbf{x},\mathbf{w}),\beta^{-1})
 \end{equation}
-Consider a data set of inputs $\mathbf{X}=\\{\mathbf{x}\_1,\ldots,\mathbf{x}\_N\\}$ with corresponding target values $\mathbf{t}=(t_1,\ldots,t_N)^\text{T}$ and assume that these data points are drawn independently from the distribution \eqref{5}, we obtain the batch version of \eqref{4}, called the **likelihood function**, given as
+Consider a data set of inputs $\mathbf{X}=\\{\mathbf{x}\_1,\ldots,\mathbf{x}\_N\\}$ with corresponding target values $\mathbf{t}=(t_1,\ldots,t_N)^\text{T}$ and assume that these data points are drawn independently from the distribution above, we obtain the batch version of \eqref{4}, called the **likelihood function**, given as
 \begin{align}
-L(\mathbf{w},\beta)=p(\mathbf{t}|\mathbf{X};\mathbf{w},\beta)&=\prod_{i=1}^{N}p(t_i|\mathbf{x}\_i;\mathbf{w},\beta) \\\\ &=\prod_{i=1}^{N}\sqrt{\frac{\beta}{2\pi}}\exp\left(-\frac{(t_i-y(\mathbf{x}\_i,\mathbf{w}))^2\beta}{2}\right)
+L(\mathbf{w},\beta)=p(\mathbf{t}|\mathbf{X};\mathbf{w},\beta)&=\prod_{i=1}^{N}p(t_i|\mathbf{x}\_i;\mathbf{w},\beta) \\\\ &=\prod_{i=1}^{N}\sqrt{\frac{\beta}{2\pi}}\exp\left(-\frac{(t_i-y(\mathbf{x}\_i,\mathbf{w}))^2\beta}{2}\right)\tag{5}\label{5}
 \end{align}
 By maximum likelihood, we will be looking for values of $\mathbf{w}$ and $\beta$ that maximize the likelihood. We do this by considering maximizing a simpler likelihood, called **log likelihood**, denoted as $\ell(\mathbf{w},\beta)$, defined as
 \begin{align}
@@ -355,6 +355,11 @@ Taking the gradient of the log likelihood w.r.t $\mathbf{W}$, setting it to zero
 
 ### Bayesian linear regression
 {: #bayes-lin-reg}
+Consider the noise precision parameter $\beta$ as a constant. From the equation \eqref{5}, we see that the likelihood function $L(\mathbf{w})=p(\mathbf{t}\vert\mathbf{w})$ takes the form of an exponential of a quadratic form in $\mathbf{w}$. Thus, if we choose the prior $p(\mathbf{w})$ as a Gaussian, the corresponding posterior will also become a Gaussian due to being computed as a product of two exponentials of quadratic forms of $\mathbf{w}$. This makes the prior be a conjugate distribution for the likelihood function, and hence be given by
+\begin{equation}
+p(\mathbf{w})=\mathcal{N}(\mathbf{w}\vert\mathbf{m}\_0,\mathbf{S}\_0),
+\end{equation}
+where $\mathbf{m}\_0$ is the mean vector and $\mathbf{S}\_0$ is the covariance matrix.
 
 ## Linear models for Classification
 {:# lin-models-clf}
@@ -932,7 +937,7 @@ E(\mathbf{w}\_1,\ldots,\mathbf{w}\_K)&=-\log L(\mathbf{w}\_1,\ldots,\mathbf{w}\_
 \end{align}
 As usual, taking the gradient of the error function $E(\mathbf{w}\_1,\ldots,\mathbf{w}\_K)$ w.r.t $\mathbf{w}\_k$ we have
 \begin{align}
-\nabla_{\mathbf{w}\_k}E(\mathbf{w}\_1,\ldots,\mathbf{w}\_K)&=\nabla_{\mathbf{w}\_k}-\sum_{n=1}^{N}\sum_{i=1}^{K}(\mathbf{t}\_n)\_i\log(y_{n})\_i \\\\ &=\sum_{n=1}^{N}\sum_{i=1}^{K}(\mathbf{t}\_n)\_i\frac{(y_n)\_k-(y_n)\_i(1\\{i=k\\})\boldsymbol{\phi}\_n}{(y_n)\_i} \\\\ &=\sum_{n=1}^{N}\Big[(y_n)\_k\sum_{i=1}^{K}(\mathbf{t}\_n)\_i-\sum_{i=1}^{K}(\mathbf{t}\_n)\_i 1\\{i=k\\}\Big]\boldsymbol{\phi}\_n \\\\ &=\sum_{n=1}^{N}\big[(y_n)\_k-(\mathbf{t}\_n)\_k\big]\boldsymbol{\phi}\_n\tag{30}\label{30}
+\nabla_{\mathbf{w}\_k}E(\mathbf{w}\_1,\ldots,\mathbf{w}\_K)&=\nabla_{\mathbf{w}\_k}-\sum_{n=1}^{N}\sum_{i=1}^{K}(\mathbf{t}\_n)\_i\log(y_{n})\_i \\\\ &=-\sum_{n=1}^{N}\sum_{i=1}^{K}(\mathbf{t}\_n)\_i\frac{(y_n)\_i(1\\{i=k\\}-(y_n)\_k)\boldsymbol{\phi}\_n}{(y_n)\_i} \\\\ &=\sum_{n=1}^{N}\Big[(y_n)\_k\sum_{i=1}^{K}(\mathbf{t}\_n)\_i-\sum_{i=1}^{K}(\mathbf{t}\_n)\_i 1\\{i=k\\}\Big]\boldsymbol{\phi}\_n \\\\ &=\sum_{n=1}^{N}\big[(y_n)\_k-(\mathbf{t}\_n)\_k\big]\boldsymbol{\phi}\_n\tag{30}\label{30}
 \end{align}
 where in the second step, we have used the identity
 \begin{align}
@@ -1012,18 +1017,26 @@ First, let $\mathbf{W}$ be the $M\times K$ matrix that comprises $\mathbf{w}\_1,
 \begin{equation}
 \mathbf{W}=\left[\begin{matrix}\vert&&\vert \\\\ \mathbf{w}\_1&\ldots&\mathbf{w}\_K \\\\ \vert&&\vert\end{matrix}\right]
 \end{equation}
-By the result \eqref{30}, we have that the $k$-th element of the gradient of this error function is given by
+By the result \eqref{30}, we have that the $k$-th column of the gradient of this error function is given by
 \begin{equation}
-\nabla_{\mathbf{w}\_k}E(\mathbf{W})=\sum_{n=1}^{N}\big[(y_n)\_k-(\mathbf{t}\_n)\_k\big]\boldsymbol{\phi}\_n=\boldsymbol{\Phi}^\text{T}(\mathbf{y}\_n-\mathbf{t}\_n),
+\nabla_{\mathbf{w}\_k}E(\mathbf{W})=\sum_{n=1}^{N}\big[(y_n)\_k-(\mathbf{t}\_n)\_k\big]\boldsymbol{\phi}\_n=\boldsymbol{\Phi}^\text{T}(\mathbf{Y}\_k-\mathbf{T}\_k),
 \end{equation}
 where $\boldsymbol{\Phi}$ be the $N\times M$ design matrix, given as
 \begin{equation}
 \boldsymbol{\Phi}=\left[\begin{matrix}-\hspace{0.1cm}\boldsymbol{\phi}\_1^\text{T}\hspace{0.1cm}- \\\\ \hspace{0.1cm}\vdots\hspace{0.1cm} \\\\ -\hspace{0.1cm}\boldsymbol{\phi}\_N^\text{T}\hspace{0.1cm}-\end{matrix}\right]
 \end{equation}
-Therefore, the gradient of the error function w.r.t $\mathbf{W}$ is
+and where $\mathbf{Y}\_k,\mathbf{T}\_k$ are the $k$th columns of the $N\times K$ matrices
 \begin{equation}
-
+\mathbf{Y}=\left[\begin{matrix}-\hspace{0.15cm}\mathbf{y}\_1^\text{T}\hspace{0.15cm}- \\\\ \vdots \\\\ -\hspace{0.15cm}\mathbf{y}\_N^\text{T}\hspace{0.15cm}-\end{matrix}\right];\hspace{2cm}\mathbf{T}=\left[\begin{matrix}-\hspace{0.15cm}\mathbf{t}\_1^\text{T}\hspace{0.15cm}- \\\\ \vdots \\\\ -\hspace{0.15cm}\mathbf{t}\_N^\text{T}\hspace{0.15cm}-\end{matrix}\right]
 \end{equation}
+Therefore, the gradient of the error function w.r.t $\mathbf{W}$ can be written as
+\begin{equation}
+\nabla_\mathbf{W}E(\mathbf{W})=\boldsymbol{\Phi}^\text{T}(\mathbf{Y}-\mathbf{T})
+\end{equation}
+Now we consider the hessian matrix $\mathbf{H}$ of the error function, whose block $\mathbf{H}\_{kj}$ is given by
+\begin{align}
+\mathbf{H}\_{kj}&=\nabla_{\mathbf{w}\_j}\nabla_{\mathbf{w}\_k} E(\mathbf{W}) \\\\ &=\nabla_{\mathbf{w}\_j}\sum_{n=1}^{N}\big[(y_n)\_k-(\mathbf{t}\_n)\_k\big]\boldsymbol{\phi}\_n \\\\ &=\sum_{n=1}^{N}(y_n)\_k\big(1\\{j=k\\}-(y_n)\_j\big)\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}
+\end{align}
 
 ### Generalized linear models
 {: #glm}
