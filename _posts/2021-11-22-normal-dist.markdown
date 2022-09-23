@@ -255,10 +255,12 @@ p(\mathbf{y})=\mathbf{x}\vert\mathbf{J}\vert=\prod_{j=1}^{D}\frac{1}{(2\pi\lambd
 \end{equation}
 which is the product of $D$ independent univariate Gaussian distributions.
 
-
 ## Conditional Gaussian distribution
 {: #cond-gauss-dist}
-
+Let $\mathbf{x}$ be a $D$-dimensional r.v vector such that $\mathbf{x}\sim\mathcal{N}(\boldsymbol{\mu},\boldsymbol{\Sigma})$, and that we partition $\mathbf{x}$ into two disjoint subsets $\mathbf{x}\_a$ and $\mathbf{x}\_b$ with $\mathbf{x}\_a$ is an $M$-dimensional vector and $\mathbf{x}\_b$ is a $(D-M)$-dimensional vector.
+\begin{equation}
+\mathbf{x}=\left[\begin{matrix}\mathbf{x}\_a \\\\ \mathbf{x}\_b\end{matrix}\right]
+\end{equation}
 
 ## References
 {: #references}

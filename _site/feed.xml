@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-23T20:02:58+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-23T20:45:44+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Linear models</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/linear-models.html" rel="alternate" type="text/html" title="Linear models" /><published>2022-08-13T13:00:00+07:00</published><updated>2022-08-13T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/linear-models</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/linear-models.html">&lt;blockquote&gt;
   &lt;p&gt;Linear models for solving regression and classification problems. Materials were taken mostly from &lt;a href=&quot;/artificial-intelligent/machine-learning/2022/08/13/linear-models.html#bishops-book&quot;&gt;Bishop’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -5892,6 +5892,10 @@ p(\mathbf{y})=\mathbf{x}\vert\mathbf{J}\vert=\prod_{j=1}^{D}\frac{1}{(2\pi\lambd
 which is the product of $D$ independent univariate Gaussian distributions.&lt;/p&gt;
 
 &lt;h2 id=&quot;cond-gauss-dist&quot;&gt;Conditional Gaussian distribution&lt;/h2&gt;
+&lt;p&gt;Let $\mathbf{x}$ be a $D$-dimensional r.v vector such that $\mathbf{x}\sim\mathcal{N}(\boldsymbol{\mu},\boldsymbol{\Sigma})$, and that we partition $\mathbf{x}$ into two disjoint subsets $\mathbf{x}_a$ and $\mathbf{x}_b$ with $\mathbf{x}_a$ is an $M$-dimensional vector and $\mathbf{x}_b$ is a $(D-M)$-dimensional vector.
+\begin{equation}
+\mathbf{x}=\left[\begin{matrix}\mathbf{x}_a \\ \mathbf{x}_b\end{matrix}\right]
+\end{equation}&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Joseph K. Blitzstein &amp;amp; Jessica Hwang. &lt;a href=&quot;https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573&quot;&gt;Introduction to Probability&lt;/a&gt;.&lt;/p&gt;
