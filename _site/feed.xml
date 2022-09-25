@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-23T20:45:44+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-25T16:11:34+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Linear models</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/linear-models.html" rel="alternate" type="text/html" title="Linear models" /><published>2022-08-13T13:00:00+07:00</published><updated>2022-08-13T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/linear-models</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/linear-models.html">&lt;blockquote&gt;
   &lt;p&gt;Linear models for solving regression and classification problems. Materials were taken mostly from &lt;a href=&quot;/artificial-intelligent/machine-learning/2022/08/13/linear-models.html#bishops-book&quot;&gt;Bishop’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -27,7 +27,7 @@
           &lt;li&gt;&lt;a href=&quot;#mult-outputs&quot;&gt;Multiple outputs&lt;/a&gt;&lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#bayes-lin-reg&quot;&gt;Bayesian linear regression&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#bayes-lin-reg&quot;&gt;Bayesian Linear Regression&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#lin-models-clf&quot;&gt;Linear models for Classification&lt;/a&gt;
@@ -72,6 +72,7 @@
           &lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#bayes-log-reg&quot;&gt;Bayesian Logistic Regression&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#glm&quot;&gt;Generalized linear models&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
@@ -1036,6 +1037,8 @@ Now we consider the hessian matrix $\mathbf{H}$ of the error function, whose blo
 \begin{align}
 \mathbf{H}_{kj}&amp;amp;=\nabla_{\mathbf{w}_j}\nabla_{\mathbf{w}_k} E(\mathbf{W}) \\ &amp;amp;=\nabla_{\mathbf{w}_j}\sum_{n=1}^{N}\big[(y_n)_k-(\mathbf{t}_n)_k\big]\boldsymbol{\phi}_n \\ &amp;amp;=\sum_{n=1}^{N}(y_n)_k\big(1\{j=k\}-(y_n)_j\big)\boldsymbol{\phi}_n\boldsymbol{\phi}_n^\text{T}
 \end{align}&lt;/p&gt;
+
+&lt;h3 id=&quot;bayes-log-reg&quot;&gt;Bayesian Logistic Regression&lt;/h3&gt;
 
 &lt;h3 id=&quot;glm&quot;&gt;Generalized linear models&lt;/h3&gt;
 
@@ -5662,6 +5665,7 @@ for $t\lt h\leq T$. The recursion ends with $G_{h:h}\doteq Q_{h-1}(S_h,A_h)$ if 
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#geo-int&quot;&gt;Geometrical interpretation&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#cond-gauss-dist&quot;&gt;Conditional Gaussian distribution&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#marg-gauss-dist&quot;&gt;Marginal Gaussian distribution&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -5858,9 +5862,9 @@ which implies that each eigenvector, eigenvalue pair $(\mathbf{q_i},\lambda_i)$ 
 
 &lt;h2 id=&quot;geo-int&quot;&gt;Geometrical interpretation&lt;/h2&gt;
 &lt;p&gt;Consider the probability density function of the Gaussian \eqref{7}, by the result \eqref{14}, we have that the functional dependence of the Gaussian on $\mathbf{x}$ is through the quadratic form
-\begin{equation}
-\Delta^2=(\mathbf{x}-\boldsymbol{\mu})^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})=\sum_{i=1}^{D}\frac{y_i^2}{\lambda_i},
-\end{equation}
+\begin{align}
+\Delta^2&amp;amp;=(\mathbf{x}-\boldsymbol{\mu})^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})\tag{15}\label{15} \\ &amp;amp;=\sum_{i=1}^{D}\frac{y_i^2}{\lambda_i},
+\end{align}
 where we have defined
 \begin{equation}
 y_i=\mathbf{q}_i^\text{T}(\mathbf{x}-\boldsymbol{\mu})
@@ -5892,10 +5896,79 @@ p(\mathbf{y})=\mathbf{x}\vert\mathbf{J}\vert=\prod_{j=1}^{D}\frac{1}{(2\pi\lambd
 which is the product of $D$ independent univariate Gaussian distributions.&lt;/p&gt;
 
 &lt;h2 id=&quot;cond-gauss-dist&quot;&gt;Conditional Gaussian distribution&lt;/h2&gt;
-&lt;p&gt;Let $\mathbf{x}$ be a $D$-dimensional r.v vector such that $\mathbf{x}\sim\mathcal{N}(\boldsymbol{\mu},\boldsymbol{\Sigma})$, and that we partition $\mathbf{x}$ into two disjoint subsets $\mathbf{x}_a$ and $\mathbf{x}_b$ with $\mathbf{x}_a$ is an $M$-dimensional vector and $\mathbf{x}_b$ is a $(D-M)$-dimensional vector.
+&lt;p&gt;Let $\mathbf{x}$ be a $D$-dimensional random vector such that $\mathbf{x}\sim\mathcal{N}(\boldsymbol{\mu},\boldsymbol{\Sigma})$, and that we partition $\mathbf{x}$ into two disjoint subsets $\mathbf{x}_a$ and $\mathbf{x}_b$ with $\mathbf{x}_a$ is an $M$-dimensional vector and $\mathbf{x}_b$ is a $(D-M)$-dimensional vector.
 \begin{equation}
 \mathbf{x}=\left[\begin{matrix}\mathbf{x}_a \\ \mathbf{x}_b\end{matrix}\right]
-\end{equation}&lt;/p&gt;
+\end{equation}
+Along with them, we also define their corresponding means, as a partition of $\boldsymbol{\mu}$
+\begin{equation}
+\boldsymbol{\mu}=\left[\begin{matrix}\boldsymbol{\mu}_a \\ \boldsymbol{\mu}_b\end{matrix}\right]
+\end{equation}
+and their corresponding covariance matrices
+\begin{equation}
+\boldsymbol{\Sigma}=\left[\begin{matrix}\boldsymbol{\Sigma}_{aa}&amp;amp;\boldsymbol{\Sigma}_{ab} \\ \boldsymbol{\Sigma}_{b a}&amp;amp;\boldsymbol{\Sigma}_{bb}\end{matrix}\right],
+\end{equation}
+which implies that $\boldsymbol{\Sigma}_{ab}=\boldsymbol{\Sigma}_{b a}^\text{T}$.&lt;/p&gt;
+
+&lt;p&gt;Analogously, we also define the partitioned form of the precision matrix $\boldsymbol{\Sigma}^{-1}$
+\begin{equation}
+\boldsymbol{\Lambda}\doteq\boldsymbol{\Sigma}^{-1}=\left[\begin{matrix}\boldsymbol{\Lambda}_{aa}&amp;amp;\boldsymbol{\Lambda}_{ab} \\ \boldsymbol{\Lambda}_{ba}&amp;amp;\boldsymbol{\Lambda}_{bb}\end{matrix}\right],
+\end{equation}
+Thus, we also have that $\boldsymbol{\Lambda}_{ab}=\boldsymbol{\Lambda}_{ba}^\text{T}$ since $\boldsymbol{\Sigma}^{-1}$ or in other words, $\boldsymbol{\Lambda}$ is symmetric due to the symmetry of $\boldsymbol{\Sigma}$.
+With these partitions, we can rewrite the functional dependence of the Gaussian \eqref{7} on $\mathbf{x}$ as
+\begin{align}
+-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})&amp;amp;=-\frac{1}{2}(\mathbf{x}_a-\boldsymbol{\mu}_a)^\text{T}\boldsymbol{\Lambda}_{aa}(\mathbf{x}_a-\boldsymbol{\mu}_a)-\frac{1}{2}(\mathbf{x}_a-\boldsymbol{\mu}_a)^\text{T}\boldsymbol{\Lambda}_{ab}(\mathbf{x}_b-\boldsymbol{\mu}_b) \\ &amp;amp;\hspace{0.5cm}-\frac{1}{2}(\mathbf{x}_b-\boldsymbol{\mu}_b)^\text{T}\boldsymbol{\Lambda}_{ba}(\mathbf{x}_a-\boldsymbol{\mu}_a)-\frac{1}{2}(\mathbf{x}_b-\boldsymbol{\mu}_b)^\text{T}\boldsymbol{\Lambda}_{bb}(\mathbf{x}_b-\boldsymbol{\mu}_b)\tag{16}\label{16}
+\end{align}
+Consider the conditional probability $p(\mathbf{x}_a\vert\mathbf{x}_b)$, which is the distribution of $\mathbf{x}_a$ given $\mathbf{x}_b$. Viewing $\mathbf{x}_b$ as a constant, \eqref{16} will be the functional dependence of the conditional probability $p(\mathbf{x}_a\vert\mathbf{x}_b)$ on $\mathbf{x}_a$, which can be continued to derive as 
+\begin{align}
+&amp;amp;-\frac{1}{2}\mathbf{x}_a^\text{T}\boldsymbol{\Lambda}_{aa}\mathbf{x}_a+\frac{1}{2}\mathbf{x}_a^\text{T}\big(\boldsymbol{\Lambda}_{aa}\boldsymbol{\mu}_a+\boldsymbol{\Lambda}_{aa}^\text{T}\boldsymbol{\mu}_a-\boldsymbol{\Lambda}_{ab}\mathbf{x}_b+\boldsymbol{\Lambda}_{ab}\boldsymbol{\mu}_b-\boldsymbol{\Lambda}_{ba}^\text{T}\mathbf{x}_b+\boldsymbol{\Lambda}_{ba}\boldsymbol{\mu}_b\big)+c \\ &amp;amp;\hspace{3cm}=-\frac{1}{2}\mathbf{x}_a^\text{T}\boldsymbol{\Lambda}_{aa}\mathbf{x}_a+\mathbf{x}_a^\text{T}\big(\boldsymbol{\Lambda}_{aa}\boldsymbol{\mu}_a-\boldsymbol{\Lambda}_{ab}(\mathbf{x}_b-\boldsymbol{\mu}_b)\big)+c,\tag{17}\label{17}
+\end{align}
+where $c$ is a constant, and we have used the $\boldsymbol{\Lambda}_{aa}=\boldsymbol{\Lambda}_{aa}^\text{T}$ and $\boldsymbol{\Lambda}_{ab}=\boldsymbol{\Lambda}_{ba}^\text{T}$.&lt;/p&gt;
+
+&lt;p&gt;Moreover, we have that the variation part which depends on $\mathbf{x}$ for any Gaussian $\mathbf{X}\sim\mathcal{N}(\mathbf{x}\vert\boldsymbol{\mu},\boldsymbol{\Sigma})$ can be written as
+\begin{equation}
+-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})=-\frac{1}{2}\mathbf{x}^\text{T}\boldsymbol{\Sigma}^{-1}\mathbf{x}+\mathbf{x}^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}+c,
+\end{equation}
+where $c$ is a constant. With this observation, and by \eqref{17} we have that the conditional distribution $p(\mathbf{x}_a\vert\mathbf{x}_b)$ is a Gaussian, with the corresponding covariance matrix, denoted as $\boldsymbol{\Sigma}_{a\vert b}$, given by
+\begin{equation}
+\boldsymbol{\Sigma}_{a\vert b}=\boldsymbol{\Lambda}_{aa}^{-1},\tag{18}\label{18}
+\end{equation}
+and with the corresponding mean vector, denoted as $\boldsymbol{\mu}_{a\vert b}$, given by
+\begin{align}
+\boldsymbol{\mu}_{a\vert b}&amp;amp;=\boldsymbol{\Sigma}_{a\vert b}\big(\boldsymbol{\Lambda}_{aa}\boldsymbol{\mu}_a-\boldsymbol{\Lambda}_{ab}(\mathbf{x}_b-\boldsymbol{\mu}_b)\big) \\ &amp;amp;=\boldsymbol{\mu}_a-\boldsymbol{\Lambda}_{aa}^{-1}\boldsymbol{\Lambda}_{ab}(\mathbf{x}_b-\boldsymbol{\mu}_b)\tag{19}\label{19}
+\end{align}
+To express the mean $\boldsymbol{\mu}_{a\vert b}$ and the covariance matrix $\boldsymbol{\Sigma}_{a\vert b}$ of $p(\mathbf{x}_a\vert\mathbf{x}_b)$ in terms of partition of the covariance matrix $\boldsymbol{\Sigma}$ instead of the precision matrix $\boldsymbol{\Lambda}$’s, we will be using the identity for the inverse of a partitioned matrix
+\begin{align}
+\left[\begin{matrix}\mathbf{A}&amp;amp;\mathbf{B} \\ \mathbf{C}&amp;amp;\mathbf{D}\end{matrix}\right]^{-1}=\left[\begin{matrix}\mathbf{M}&amp;amp;-\mathbf{M}\mathbf{B}\mathbf{D}^{-1} \\ -\mathbf{D}^{-1}\mathbf{C}\mathbf{M}&amp;amp;\mathbf{D}^{-1}+\mathbf{D}^{-1}\mathbf{C}\mathbf{M}\mathbf{B}\mathbf{D}^{-1}\end{matrix}\right],\tag{20}\label{20}
+\end{align}
+where we have defined
+\begin{equation}
+\mathbf{M}\doteq(\mathbf{A}-\mathbf{B}\mathbf{D}^{-1}\mathbf{C})^{-1},
+\end{equation}
+whose inverse $\mathbf{M}^{-1}$ is called the &lt;strong&gt;Schur complement&lt;/strong&gt; of the matrix $\left[\begin{matrix}\mathbf{A}&amp;amp;\mathbf{B} \\ \mathbf{C}&amp;amp;\mathbf{D}\end{matrix}\right]^{-1}$. This identity can be proved by multiplying both sides of \eqref{20} with $\left[\begin{matrix}\mathbf{A}&amp;amp;\mathbf{B} \\ \mathbf{C}&amp;amp;\mathbf{D}\end{matrix}\right]$ to give
+\begin{align}
+\mathbf{I}&amp;amp;=\left[\begin{matrix}\mathbf{M}&amp;amp;-\mathbf{M}\mathbf{B}\mathbf{D}^{-1} \\ -\mathbf{D}^{-1}\mathbf{C}\mathbf{M}&amp;amp;\mathbf{D}^{-1}+\mathbf{D}^{-1}\mathbf{C}\mathbf{M}\mathbf{B}\mathbf{D}^{-1}\end{matrix}\right]\left[\begin{matrix}\mathbf{A}&amp;amp;\mathbf{B} \\ \mathbf{C}&amp;amp;\mathbf{D}\end{matrix}\right] \\ &amp;amp;=\left[\begin{matrix}\mathbf{M}(\mathbf{A}-\mathbf{B}\mathbf{D}^{-1}\mathbf{C})&amp;amp;\mathbf{M}\mathbf{B}-\mathbf{M}\mathbf{B} \\ -\mathbf{D}^{-1}\mathbf{C}\mathbf{M}\mathbf{A}+\mathbf{D}^{-1}\mathbf{C}+\mathbf{D}^{-1}\mathbf{C}\mathbf{M}\mathbf{B}\mathbf{D}^{-1}\mathbf{C}&amp;amp;-\mathbf{D}^{-1}\mathbf{C}\mathbf{M}\mathbf{B}+\mathbf{I}+\mathbf{D}^{-1}\mathbf{C}\mathbf{M}\mathbf{B}\end{matrix}\right] \\ &amp;amp;=\left[\begin{matrix}\mathbf{I}&amp;amp;\mathbf{0} \\ \mathbf{D}^{-1}\mathbf{C}\big(\mathbf{I}-\mathbf{M}(\mathbf{A}-\mathbf{B}\mathbf{D}^{-1}\mathbf{C})\big)&amp;amp;\mathbf{I}\end{matrix}\right] \\ &amp;amp;=\left[\begin{matrix}\mathbf{I}&amp;amp;\mathbf{0} \\ \mathbf{0}&amp;amp;\mathbf{I}\end{matrix}\right]=\mathbf{I},
+\end{align}
+which claims our argument.&lt;/p&gt;
+
+&lt;p&gt;Applying the identity \eqref{20} into the precision matrix $\boldsymbol{\Lambda}=\boldsymbol{\Sigma}^{-1}$ gives us
+\begin{equation}
+\left[\begin{matrix}\boldsymbol{\Lambda}_{aa}&amp;amp;\boldsymbol{\Lambda}_{ab} \\ \boldsymbol{\Lambda}_{ba}&amp;amp;\boldsymbol{\Lambda}_{bb}\end{matrix}\right]=\left[\begin{matrix}\boldsymbol{\Sigma}_{aa}&amp;amp;\boldsymbol{\Sigma}_{ab} \\ \boldsymbol{\Sigma}_{b a}&amp;amp;\boldsymbol{\Sigma}_{bb}\end{matrix}\right]^{-1}=\left[\begin{matrix}\mathbf{M}_\boldsymbol{\Sigma}&amp;amp;-\mathbf{M}_\boldsymbol{\Sigma}\boldsymbol{\Sigma}_{ab}\boldsymbol{\Sigma}_{bb}^{-1} \\ -\boldsymbol{\Sigma}_{bb}^{-1}\boldsymbol{\Sigma}_{ba}\mathbf{M}_\boldsymbol{\Sigma}&amp;amp;\boldsymbol{\Sigma}_{bb}^{-1}+\boldsymbol{\Sigma}_{bb}^{-1}\boldsymbol{\Sigma}_{ba}\mathbf{M}_\boldsymbol{\Sigma}\boldsymbol{\Sigma}_{ab}\boldsymbol{\Sigma}_{bb}^{-1}\end{matrix}\right],
+\end{equation}
+where the Schur complement of $\mathbf{\Sigma}^{-1}$ is given by
+\begin{equation}
+\mathbf{M}_\boldsymbol{\Sigma}=\big(\boldsymbol{\Sigma}_{aa}-\boldsymbol{\Sigma}_{ab}\boldsymbol{\Sigma}_{bb}^{-1}\boldsymbol{\Sigma}_{ba}\big)^{-1}
+\end{equation}
+Hence, we obtain
+\begin{align}
+\boldsymbol{\Lambda}_{aa}&amp;amp;=\mathbf{M}_\boldsymbol{\Sigma}=\big(\boldsymbol{\Sigma}_{aa}-\boldsymbol{\Sigma}_{ab}\boldsymbol{\Sigma}_{bb}^{-1}\boldsymbol{\Sigma}_{ba}\big)^{-1}, \\ \boldsymbol{\Lambda}_{ab}&amp;amp;=-\mathbf{M}_\boldsymbol{\Sigma}\boldsymbol{\Sigma}_{ab}\boldsymbol{\Sigma}_{bb}^{-1}=\big(\boldsymbol{\Sigma}_{aa}-\boldsymbol{\Sigma}_{ab}\boldsymbol{\Sigma}_{bb}^{-1}\boldsymbol{\Sigma}_{ba}\big)^{-1}\boldsymbol{\Sigma}_{ab}\boldsymbol{\Sigma}_{bb}^{-1}
+\end{align}
+Substitute these results into \eqref{18} and \eqref{19}, we have the mean and the covariance matrix of the Gaussian conditional distribution $p(\mathbf{x}_a\vert\mathbf{x}_b)$ can be rewritten as
+\begin{align}
+\boldsymbol{\mu}_{a\vert b}&amp;amp;=\boldsymbol{\mu}_a+\boldsymbol{\Sigma}_{ab}\boldsymbol{\Sigma}_{bb}^{-1}(\mathbf{x}_b-\boldsymbol{\mu}_b), \\ \boldsymbol{\Sigma}_{a\vert b}&amp;amp;=\boldsymbol{\Sigma}_{aa}-\boldsymbol{\Sigma}_{ab}\boldsymbol{\Sigma}_{bb}^{-1}\boldsymbol{\Sigma}_{ba}
+\end{align}&lt;/p&gt;
+
+&lt;h2 id=&quot;marg-gauss-dist&quot;&gt;Marginal Gaussian distribution&lt;/h2&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Joseph K. Blitzstein &amp;amp; Jessica Hwang. &lt;a href=&quot;https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573&quot;&gt;Introduction to Probability&lt;/a&gt;.&lt;/p&gt;

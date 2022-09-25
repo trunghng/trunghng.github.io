@@ -22,7 +22,7 @@ comments: true
 		- [The LMS algorithm](#lms)
 		- [Regularized least squares](#reg-least-squares)
 		- [Multiple outputs](#mult-outputs)
-	- [Bayesian linear regression](#bayes-lin-reg)
+	- [Bayesian Linear Regression](#bayes-lin-reg)
 - [Linear models for Classification](#lin-models-clf)
 	- [Discriminant functions](#disc-funcs)
 		- [Least squares](#least-squares-clf)
@@ -43,6 +43,7 @@ comments: true
 			- [Linear Regression](#nm-lin-reg)
 			- [Logistic Regression](#nm-log-reg)
 			- [Softmax Regression](#nm-softmax-reg)
+	- [Bayesian Logistic Regression](#bayes-log-reg)
 	- [Generalized linear models](#glm)
 - [References](#references)
 - [Footnotes](#footnotes)
@@ -1037,6 +1038,9 @@ Now we consider the hessian matrix $\mathbf{H}$ of the error function, whose blo
 \begin{align}
 \mathbf{H}\_{kj}&=\nabla_{\mathbf{w}\_j}\nabla_{\mathbf{w}\_k} E(\mathbf{W}) \\\\ &=\nabla_{\mathbf{w}\_j}\sum_{n=1}^{N}\big[(y_n)\_k-(\mathbf{t}\_n)\_k\big]\boldsymbol{\phi}\_n \\\\ &=\sum_{n=1}^{N}(y_n)\_k\big(1\\{j=k\\}-(y_n)\_j\big)\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}
 \end{align}
+
+### Bayesian Logistic Regression
+{: #bayes-log-reg}
 
 ### Generalized linear models
 {: #glm}

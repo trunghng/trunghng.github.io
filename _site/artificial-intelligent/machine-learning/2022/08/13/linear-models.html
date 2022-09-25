@@ -178,7 +178,7 @@
           <li><a href="#mult-outputs">Multiple outputs</a></li>
         </ul>
       </li>
-      <li><a href="#bayes-lin-reg">Bayesian linear regression</a></li>
+      <li><a href="#bayes-lin-reg">Bayesian Linear Regression</a></li>
     </ul>
   </li>
   <li><a href="#lin-models-clf">Linear models for Classification</a>
@@ -223,6 +223,7 @@
           </li>
         </ul>
       </li>
+      <li><a href="#bayes-log-reg">Bayesian Logistic Regression</a></li>
       <li><a href="#glm">Generalized linear models</a></li>
     </ul>
   </li>
@@ -1187,6 +1188,8 @@ Now we consider the hessian matrix $\mathbf{H}$ of the error function, whose blo
 \begin{align}
 \mathbf{H}_{kj}&amp;=\nabla_{\mathbf{w}_j}\nabla_{\mathbf{w}_k} E(\mathbf{W}) \\ &amp;=\nabla_{\mathbf{w}_j}\sum_{n=1}^{N}\big[(y_n)_k-(\mathbf{t}_n)_k\big]\boldsymbol{\phi}_n \\ &amp;=\sum_{n=1}^{N}(y_n)_k\big(1\{j=k\}-(y_n)_j\big)\boldsymbol{\phi}_n\boldsymbol{\phi}_n^\text{T}
 \end{align}</p>
+
+<h3 id="bayes-log-reg">Bayesian Logistic Regression</h3>
 
 <h3 id="glm">Generalized linear models</h3>
 
