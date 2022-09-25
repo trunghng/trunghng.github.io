@@ -173,6 +173,7 @@
   <li><a href="#geo-int">Geometrical interpretation</a></li>
   <li><a href="#cond-gauss-dist">Conditional Gaussian distribution</a></li>
   <li><a href="#marg-gauss-dist">Marginal Gaussian distribution</a></li>
+  <li><a href="#bayes-theorem-gauss">Bayes’ theorem for Gaussian variables</a></li>
   <li><a href="#references">References</a></li>
   <li><a href="#footnotes">Footnotes</a></li>
 </ul>
@@ -432,33 +433,33 @@ Consider the conditional probability $p(\mathbf{x}_a\vert\mathbf{x}_b)$, which i
 \end{align}
 where $c$ is a constant, and we have used the $\boldsymbol{\Lambda}_{aa}=\boldsymbol{\Lambda}_{aa}^\text{T}$ and $\boldsymbol{\Lambda}_{ab}=\boldsymbol{\Lambda}_{ba}^\text{T}$.</p>
 
-<p>Moreover, we have that the variation part which depends on $\mathbf{x}$ for any Gaussian $\mathbf{X}\sim\mathcal{N}(\mathbf{x}\vert\boldsymbol{\mu},\boldsymbol{\Sigma})$ can be written as
+<p>Moreover, we have that the variation part which depends on $\mathbf{x}$ for any Gaussian $\mathbf{X}\sim\mathcal{N}(\mathbf{x}\vert\boldsymbol{\mu},\boldsymbol{\Sigma})$ can be written as a quadratic function of $\mathbf{x}$
 \begin{equation}
--\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})=-\frac{1}{2}\mathbf{x}^\text{T}\boldsymbol{\Sigma}^{-1}\mathbf{x}+\mathbf{x}^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}+c,
+-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})=-\frac{1}{2}\mathbf{x}^\text{T}\boldsymbol{\Sigma}^{-1}\mathbf{x}+\mathbf{x}^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}+c,\tag{18}\label{18}
 \end{equation}
 where $c$ is a constant. With this observation, and by \eqref{17} we have that the conditional distribution $p(\mathbf{x}_a\vert\mathbf{x}_b)$ is a Gaussian, with the corresponding covariance matrix, denoted as $\boldsymbol{\Sigma}_{a\vert b}$, given by
 \begin{equation}
-\boldsymbol{\Sigma}_{a\vert b}=\boldsymbol{\Lambda}_{aa}^{-1},\tag{18}\label{18}
+\boldsymbol{\Sigma}_{a\vert b}=\boldsymbol{\Lambda}_{aa}^{-1},\tag{19}\label{19}
 \end{equation}
 and with the corresponding mean vector, denoted as $\boldsymbol{\mu}_{a\vert b}$, given by
 \begin{align}
-\boldsymbol{\mu}_{a\vert b}&amp;=\boldsymbol{\Sigma}_{a\vert b}\big(\boldsymbol{\Lambda}_{aa}\boldsymbol{\mu}_a-\boldsymbol{\Lambda}_{ab}(\mathbf{x}_b-\boldsymbol{\mu}_b)\big) \\ &amp;=\boldsymbol{\mu}_a-\boldsymbol{\Lambda}_{aa}^{-1}\boldsymbol{\Lambda}_{ab}(\mathbf{x}_b-\boldsymbol{\mu}_b)\tag{19}\label{19}
+\boldsymbol{\mu}_{a\vert b}&amp;=\boldsymbol{\Sigma}_{a\vert b}\big(\boldsymbol{\Lambda}_{aa}\boldsymbol{\mu}_a-\boldsymbol{\Lambda}_{ab}(\mathbf{x}_b-\boldsymbol{\mu}_b)\big) \\ &amp;=\boldsymbol{\mu}_a-\boldsymbol{\Lambda}_{aa}^{-1}\boldsymbol{\Lambda}_{ab}(\mathbf{x}_b-\boldsymbol{\mu}_b)\tag{20}\label{20}
 \end{align}
 To express the mean $\boldsymbol{\mu}_{a\vert b}$ and the covariance matrix $\boldsymbol{\Sigma}_{a\vert b}$ of $p(\mathbf{x}_a\vert\mathbf{x}_b)$ in terms of partition of the covariance matrix $\boldsymbol{\Sigma}$ instead of the precision matrix $\boldsymbol{\Lambda}$’s, we will be using the identity for the inverse of a partitioned matrix
 \begin{align}
-\left[\begin{matrix}\mathbf{A}&amp;\mathbf{B} \\ \mathbf{C}&amp;\mathbf{D}\end{matrix}\right]^{-1}=\left[\begin{matrix}\mathbf{M}&amp;-\mathbf{M}\mathbf{B}\mathbf{D}^{-1} \\ -\mathbf{D}^{-1}\mathbf{C}\mathbf{M}&amp;\mathbf{D}^{-1}+\mathbf{D}^{-1}\mathbf{C}\mathbf{M}\mathbf{B}\mathbf{D}^{-1}\end{matrix}\right],\tag{20}\label{20}
+\left[\begin{matrix}\mathbf{A}&amp;\mathbf{B} \\ \mathbf{C}&amp;\mathbf{D}\end{matrix}\right]^{-1}=\left[\begin{matrix}\mathbf{M}&amp;-\mathbf{M}\mathbf{B}\mathbf{D}^{-1} \\ -\mathbf{D}^{-1}\mathbf{C}\mathbf{M}&amp;\mathbf{D}^{-1}+\mathbf{D}^{-1}\mathbf{C}\mathbf{M}\mathbf{B}\mathbf{D}^{-1}\end{matrix}\right],\tag{21}\label{21}
 \end{align}
 where we have defined
 \begin{equation}
 \mathbf{M}\doteq(\mathbf{A}-\mathbf{B}\mathbf{D}^{-1}\mathbf{C})^{-1},
 \end{equation}
-whose inverse $\mathbf{M}^{-1}$ is called the <strong>Schur complement</strong> of the matrix $\left[\begin{matrix}\mathbf{A}&amp;\mathbf{B} \\ \mathbf{C}&amp;\mathbf{D}\end{matrix}\right]^{-1}$. This identity can be proved by multiplying both sides of \eqref{20} with $\left[\begin{matrix}\mathbf{A}&amp;\mathbf{B} \\ \mathbf{C}&amp;\mathbf{D}\end{matrix}\right]$ to give
+whose inverse $\mathbf{M}^{-1}$ is called the <strong>Schur complement</strong> of the matrix $\left[\begin{matrix}\mathbf{A}&amp;\mathbf{B} \\ \mathbf{C}&amp;\mathbf{D}\end{matrix}\right]^{-1}$. This identity can be proved by multiplying both sides of \eqref{21} with $\left[\begin{matrix}\mathbf{A}&amp;\mathbf{B} \\ \mathbf{C}&amp;\mathbf{D}\end{matrix}\right]$ to give
 \begin{align}
 \mathbf{I}&amp;=\left[\begin{matrix}\mathbf{M}&amp;-\mathbf{M}\mathbf{B}\mathbf{D}^{-1} \\ -\mathbf{D}^{-1}\mathbf{C}\mathbf{M}&amp;\mathbf{D}^{-1}+\mathbf{D}^{-1}\mathbf{C}\mathbf{M}\mathbf{B}\mathbf{D}^{-1}\end{matrix}\right]\left[\begin{matrix}\mathbf{A}&amp;\mathbf{B} \\ \mathbf{C}&amp;\mathbf{D}\end{matrix}\right] \\ &amp;=\left[\begin{matrix}\mathbf{M}(\mathbf{A}-\mathbf{B}\mathbf{D}^{-1}\mathbf{C})&amp;\mathbf{M}\mathbf{B}-\mathbf{M}\mathbf{B} \\ -\mathbf{D}^{-1}\mathbf{C}\mathbf{M}\mathbf{A}+\mathbf{D}^{-1}\mathbf{C}+\mathbf{D}^{-1}\mathbf{C}\mathbf{M}\mathbf{B}\mathbf{D}^{-1}\mathbf{C}&amp;-\mathbf{D}^{-1}\mathbf{C}\mathbf{M}\mathbf{B}+\mathbf{I}+\mathbf{D}^{-1}\mathbf{C}\mathbf{M}\mathbf{B}\end{matrix}\right] \\ &amp;=\left[\begin{matrix}\mathbf{I}&amp;\mathbf{0} \\ \mathbf{D}^{-1}\mathbf{C}\big(\mathbf{I}-\mathbf{M}(\mathbf{A}-\mathbf{B}\mathbf{D}^{-1}\mathbf{C})\big)&amp;\mathbf{I}\end{matrix}\right] \\ &amp;=\left[\begin{matrix}\mathbf{I}&amp;\mathbf{0} \\ \mathbf{0}&amp;\mathbf{I}\end{matrix}\right]=\mathbf{I},
 \end{align}
 which claims our argument.</p>
 
-<p>Applying the identity \eqref{20} into the precision matrix $\boldsymbol{\Lambda}=\boldsymbol{\Sigma}^{-1}$ gives us
+<p>Applying the identity \eqref{21} into the precision matrix $\boldsymbol{\Lambda}=\boldsymbol{\Sigma}^{-1}$ gives us
 \begin{equation}
 \left[\begin{matrix}\boldsymbol{\Lambda}_{aa}&amp;\boldsymbol{\Lambda}_{ab} \\ \boldsymbol{\Lambda}_{ba}&amp;\boldsymbol{\Lambda}_{bb}\end{matrix}\right]=\left[\begin{matrix}\boldsymbol{\Sigma}_{aa}&amp;\boldsymbol{\Sigma}_{ab} \\ \boldsymbol{\Sigma}_{b a}&amp;\boldsymbol{\Sigma}_{bb}\end{matrix}\right]^{-1}=\left[\begin{matrix}\mathbf{M}_\boldsymbol{\Sigma}&amp;-\mathbf{M}_\boldsymbol{\Sigma}\boldsymbol{\Sigma}_{ab}\boldsymbol{\Sigma}_{bb}^{-1} \\ -\boldsymbol{\Sigma}_{bb}^{-1}\boldsymbol{\Sigma}_{ba}\mathbf{M}_\boldsymbol{\Sigma}&amp;\boldsymbol{\Sigma}_{bb}^{-1}+\boldsymbol{\Sigma}_{bb}^{-1}\boldsymbol{\Sigma}_{ba}\mathbf{M}_\boldsymbol{\Sigma}\boldsymbol{\Sigma}_{ab}\boldsymbol{\Sigma}_{bb}^{-1}\end{matrix}\right],
 \end{equation}
@@ -470,12 +471,78 @@ Hence, we obtain
 \begin{align}
 \boldsymbol{\Lambda}_{aa}&amp;=\mathbf{M}_\boldsymbol{\Sigma}=\big(\boldsymbol{\Sigma}_{aa}-\boldsymbol{\Sigma}_{ab}\boldsymbol{\Sigma}_{bb}^{-1}\boldsymbol{\Sigma}_{ba}\big)^{-1}, \\ \boldsymbol{\Lambda}_{ab}&amp;=-\mathbf{M}_\boldsymbol{\Sigma}\boldsymbol{\Sigma}_{ab}\boldsymbol{\Sigma}_{bb}^{-1}=\big(\boldsymbol{\Sigma}_{aa}-\boldsymbol{\Sigma}_{ab}\boldsymbol{\Sigma}_{bb}^{-1}\boldsymbol{\Sigma}_{ba}\big)^{-1}\boldsymbol{\Sigma}_{ab}\boldsymbol{\Sigma}_{bb}^{-1}
 \end{align}
-Substitute these results into \eqref{18} and \eqref{19}, we have the mean and the covariance matrix of the Gaussian conditional distribution $p(\mathbf{x}_a\vert\mathbf{x}_b)$ can be rewritten as
+Substitute these results into \eqref{19} and \eqref{20}, we have the mean and the covariance matrix of the conditional Gaussian distribution $p(\mathbf{x}_a\vert\mathbf{x}_b)$ can be rewritten as
 \begin{align}
 \boldsymbol{\mu}_{a\vert b}&amp;=\boldsymbol{\mu}_a+\boldsymbol{\Sigma}_{ab}\boldsymbol{\Sigma}_{bb}^{-1}(\mathbf{x}_b-\boldsymbol{\mu}_b), \\ \boldsymbol{\Sigma}_{a\vert b}&amp;=\boldsymbol{\Sigma}_{aa}-\boldsymbol{\Sigma}_{ab}\boldsymbol{\Sigma}_{bb}^{-1}\boldsymbol{\Sigma}_{ba}
-\end{align}</p>
+\end{align}
+It is worth noticing that the mean $\boldsymbol{\mu}_{a\vert b}$ given above is a linear function of $\mathbf{x}_b$, while the covariance matrix $\boldsymbol{\Sigma}_{a\vert b}$ is independent of $\mathbf{x}_b$. This is an example of a <strong>linear-Gaussian model</strong>.</p>
 
 <h2 id="marg-gauss-dist">Marginal Gaussian distribution</h2>
+
+<h2 id="bayes-theorem-gauss">Bayes’ theorem for Gaussian variables</h2>
+<p>In this section, we will apply the Bayes’ theorem to find the marginal distribution of $p(\mathbf{y})$ and conditional distribution $p(\mathbf{x}\vert\mathbf{y})$ with supposing that we are given a Gaussian distribution $p(\mathbf{x})$ and a conditional Gaussian distribution $p(\mathbf{y}\vert\mathbf{x})$ in which $p(\mathbf{y}\vert\mathbf{x})$ has a mean that is a linear function of $\mathbf{x}$, and a covariance matrix which is independent of $\mathbf{x}$, as
+\begin{align}
+p(\mathbf{x})&amp;=\mathcal{N}(\mathbf{x}\vert\boldsymbol{\mu},\boldsymbol{\Lambda}^{-1}), \\ p(\mathbf{y}\vert\mathbf{x})&amp;=\mathcal{N}(\mathbf{y}\vert\mathbf{A}\mathbf{x}+\mathbf{b},\mathbf{L}^{-1}),
+\end{align}
+where $\mathbf{A},\mathbf{b}$ are two parameters controlling the means, and $\boldsymbol{\Lambda},\boldsymbol{L}$ are precision matrices.</p>
+
+<p>In order to find the marginal and conditional distribution, first we will be looking for the joint distribution $p(\mathbf{x},\mathbf{y})$ by considering the augmented vector
+\begin{equation}
+\mathbf{z}=\left[\begin{matrix}\mathbf{x} \\ \mathbf{y}\end{matrix}\right]
+\end{equation}
+Therefore, we have
+\begin{equation}
+p(\mathbf{z})=p(\mathbf{x},\mathbf{y})=p(\mathbf{x})p(\mathbf{y}\vert\mathbf{x})
+\end{equation}
+Taking the natural logarithm of both sides gives us
+\begin{align}
+\log p(\mathbf{z})&amp;=\log p(\mathbf{x})+\log p(\mathbf{y}\vert\mathbf{x}) \\ &amp;=\log\mathcal{N}(\mathbf{x}\vert\boldsymbol{\mu},\boldsymbol{\Lambda}^{-1})+\log\mathcal{N}(\mathbf{y}\vert\mathbf{A}\mathbf{x}+\mathbf{b},\mathbf{L}^{-1}) \\ &amp;=-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^\text{T}\boldsymbol{\Lambda}(\mathbf{x}-\boldsymbol{\mu})-\frac{1}{2}(\mathbf{y}-\mathbf{A}\mathbf{x}-\mathbf{b})^\text{T}\mathbf{L}(\mathbf{y}-\mathbf{A}\mathbf{x}-\mathbf{b})+c\tag{24}\label{24}
+\end{align}
+where $c$ is a constant in terms of $\mathbf{x}$ and $\mathbf{y}$, i.e., $c$ is independent of $\mathbf{x},\mathbf{y}$.</p>
+
+<p>It is easily to notice that \eqref{24} is a quadratic function of the components of $\mathbf{z}$, which implies that $p(\mathbf{z})$ is a Gaussian. By \eqref{18}, in order to find the covariance matrix of $\mathbf{z}$, we consider the quadratic terms in \eqref{24}, which are given by
+\begin{align}
+&amp;-\frac{1}{2}\mathbf{x}^\text{T}\boldsymbol{\Lambda}\mathbf{x}-\frac{1}{2}(\mathbf{y}-\mathbf{A}\mathbf{x})^\text{T}\mathbf{L}(\mathbf{y}-\mathbf{A}\mathbf{x}) \\ &amp;=-\frac{1}{2}\Big[\mathbf{x}^\text{T}\big(\boldsymbol{\Lambda}+\mathbf{A}^\text{T}\mathbf{L}\mathbf{A}\big)\mathbf{x}+\mathbf{y}^\text{T}\mathbf{L}\mathbf{y}-\mathbf{y}^\text{T}\mathbf{L}\mathbf{A}\mathbf{x}-\mathbf{x}^\text{T}\mathbf{A}^\text{T}\mathbf{L}\mathbf{y}\Big] \\ &amp;=-\frac{1}{2}\left[\begin{matrix}\mathbf{x} \\ \mathbf{y}\end{matrix}\right]^\text{T}\left[\begin{matrix}\boldsymbol{\Lambda}+\mathbf{A}^\text{T}\mathbf{L}\mathbf{A}&amp;-\mathbf{A}^\text{T}\mathbf{L} \\ -\mathbf{L}\mathbf{A}&amp;\mathbf{L}\end{matrix}\right]\left[\begin{matrix}\mathbf{x} \\ \mathbf{y}\end{matrix}\right] \\ &amp;=-\frac{1}{2}\mathbf{z}^\text{T}\mathbf{R}\mathbf{z},
+\end{align}
+which implies that the precision matrix of $\mathbf{z}$ is $\mathbf{R}$, defined as
+\begin{equation}
+\mathbf{R}=\left[\begin{matrix}\boldsymbol{\Lambda}+\mathbf{A}^\text{T}\mathbf{L}\mathbf{A}&amp;-\mathbf{A}^\text{T}\mathbf{L} \\ -\mathbf{L}\mathbf{A}&amp;\mathbf{L}\end{matrix}\right]
+\end{equation}
+Thus, using the identity \eqref{21}, we obtain the covariance matrix of the joint distribution
+\begin{equation}
+\boldsymbol{\Sigma}_\mathbf{z}=\mathbf{R}^{-1}=\left[\begin{matrix}\boldsymbol{\Lambda}^{-1}&amp;\boldsymbol{\Lambda}^{-1}\mathbf{A}^\text{T} \\ \mathbf{A}\boldsymbol{\Lambda}^{-1}&amp;\mathbf{L}^{-1}+\mathbf{A}\boldsymbol{\Lambda}^{-1}\mathbf{A}^\text{T}\end{matrix}\right]
+\end{equation}
+Analogously, by \eqref{18}, we can find the mean of the joint distribution by considering the linear terms of \eqref{24}, which are
+\begin{align}
+\frac{1}{2}\Big[\mathbf{x}^\text{T}\boldsymbol{\Lambda}\boldsymbol{\mu}+\boldsymbol{\mu}^\text{T}\boldsymbol{\Lambda}\mathbf{x}+(\mathbf{y}-\mathbf{A}\mathbf{x})^\text{T}\mathbf{L}\mathbf{b}+\mathbf{b}^\text{T}\mathbf{L}(\mathbf{y}-\mathbf{A}\mathbf{x}) \Big]&amp;=\mathbf{x}^\text{T}\boldsymbol{\Lambda}\boldsymbol{\mu}-\mathbf{x}^\text{T}\mathbf{A}^\text{T}\mathbf{L}\mathbf{b}+\mathbf{y}^\text{T}\mathbf{L}\mathbf{b} \\ &amp;=\left[\begin{matrix}\mathbf{x} \\ \mathbf{y}\end{matrix}\right]^\text{T}\left[\begin{matrix}\boldsymbol{\Lambda}\boldsymbol{\mu}-\mathbf{A}^\text{T}\mathbf{L}\mathbf{b} \\ \mathbf{L}\mathbf{b}\end{matrix}\right]
+\end{align}
+Thus, by \eqref{18}, we have that the mean of the joint distribution is then given by
+\begin{equation}
+\boldsymbol{\mu}_\mathbf{z}=\boldsymbol{\Sigma}_\mathbf{z}\left[\begin{matrix}\boldsymbol{\Lambda}\boldsymbol{\mu}-\mathbf{A}^\text{T}\mathbf{L}\mathbf{b} \\ \mathbf{L}\mathbf{b}\end{matrix}\right]=\left[\begin{matrix}\boldsymbol{\mu} \\ \mathbf{A}\boldsymbol{\mu}+\mathbf{b}\end{matrix}\right]
+\end{equation}
+Given the mean $\boldsymbol{\mu}_\mathbf{z}$ and the covariance matrix $\boldsymbol{\Sigma}_\mathbf{z}$ of the joint distribution of $\mathbf{x},\mathbf{y}$, by \eqref{22} and \eqref{23}, we then can obtain the mean of the covariance matrix of the marginal distribution $p(\mathbf{y})$, which are
+\begin{align}
+\boldsymbol{\mu}_\mathbf{y}&amp;=\mathbf{A}\boldsymbol{\mu}+\mathbf{b}, \\ \boldsymbol{\Sigma}_\mathbf{y}&amp;=\mathbf{L}^{-1}+\mathbf{A}\boldsymbol{\Lambda}^{-1}\mathbf{A}^\text{T},
+\end{align}
+and also, by \eqref{19} and \eqref{20}, we can easily get mean and covariance matrix of the conditional distribution $p(\mathbf{x}\vert\mathbf{y})$, which are given by
+\begin{align}
+\boldsymbol{\mu}_{\mathbf{x}\vert\mathbf{y}}&amp;=(\boldsymbol{\Lambda}+\mathbf{A}^\text{T}\mathbf{L}\mathbf{A})^{-1}\big(\mathbf{A}^\text{T}\mathbf{L}(\mathbf{y}-\mathbf{b})+\boldsymbol{\Lambda}\boldsymbol{\mu}\big) \\ \boldsymbol{\Sigma}_{\mathbf{x}\vert\mathbf{y}}&amp;=(\boldsymbol{\Lambda}+\mathbf{A}^\text{T}\mathbf{L}\mathbf{A})^{-1}
+\end{align}
+In Bayesian approach, we can consider $p(\mathbf{x})$ as a prior distribution over $\mathbf{x}$, and if $\mathbf{y}$ is observed, the conditional distribution $p(\mathbf{x}\vert\mathbf{y})$ will represents the corresponding posterior distribution over $\mathbf{x}$.</p>
+
+<p><strong>Remark</strong>.<br />
+Given a marginal Gaussian distribution for $\mathbf{x}$ and a conditional Gaussian distribution for $\mathbf{y}$ given $\mathbf{x}$ in the form
+\begin{align}
+p(\mathbf{x})&amp;=\mathcal{N}(\mathbf{x}\vert\boldsymbol{\mu},\boldsymbol{\Lambda}^{-1}), \\ p(\mathbf{y}\vert\mathbf{x})&amp;=\mathcal{N}(\mathbf{y}\vert\mathbf{A}\mathbf{x}+\mathbf{b},\mathbf{L}^{-1}),
+\end{align}
+the marginal distribution of $\mathbf{y}$ and the conditional distribution of $\mathbf{x}$ given $\mathbf{y}$ are then given by
+\begin{align}
+p(\mathbf{y})&amp;=\mathcal{N}(\mathbf{y}\vert\mathbf{A}\boldsymbol{\mu}+\mathbf{b},\mathbf{L}^{-1}+\mathbf{A}\boldsymbol{\Lambda}^{-1}\mathbf{A}^\text{T}), \\ p(\mathbf{x}\vert\mathbf{y})&amp;=\mathcal{N}(\mathbf{x}\vert\boldsymbol{\Sigma}(\mathbf{A}^\text{T}\mathbf{L}(\mathbf{y}-\mathbf{b})+\boldsymbol{\Lambda}\boldsymbol{\mu}),\boldsymbol{\Sigma})
+\end{align}
+where
+\begin{equation}
+\boldsymbol{\Sigma}=(\boldsymbol{\Lambda}+\mathbf{A}^\text{T}\mathbf{L}\mathbf{A})^{-1}
+\end{equation}</p>
 
 <h2 id="references">References</h2>
 <p>[1] Joseph K. Blitzstein &amp; Jessica Hwang. <a href="https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573">Introduction to Probability</a>.</p>
