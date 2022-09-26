@@ -25,6 +25,7 @@ comments: true
 	- [Bayesian Linear Regression](#bayes-lin-reg)
 		- [Parameter distribution](#param-dist)
 		- [Predictive distribution](#pred-dist)
+		- [Equivalent kernel](#equiv-kernel)
 - [Linear models for Classification](#lin-models-clf)
 	- [Discriminant functions](#disc-funcs)
 		- [Least squares](#least-squares-clf)
@@ -379,7 +380,7 @@ Therefore, by MAP, we have
 \begin{align}
 \mathbf{w}\_\text{MAP}&=\underset{\mathbf{w}}{\text{argmax}}\,\exp\Big[-\frac{1}{2}(\mathbf{w}-\mathbf{m}\_N)^\text{T}\mathbf{S}\_N^{-1}(\mathbf{w}-\mathbf{m}\_N)\Big] \\\\ &=\underset{\mathbf{w}}{\text{argmin}}\,(\mathbf{w}-\mathbf{m}\_N)^\text{T}\mathbf{S}\_N^{-1}(\mathbf{w}-\mathbf{m}\_N)
 \end{align}
-By this [result]({% post_url 2021-11-22-normal-dist %}#precision-eigenvalue), we have that the precision matrix $\mathbf{S}\_N^{-1}$ and the covariance matrix $\mathbf{S}\_N$ have the same set of eigenvalues, which are non-negative due to the fact that $\mathbf{S}\_N$ is positive semi-definite. This also means that $\mathbf{S}\_N$ is positive semi-definite, and thus
+By this [property]({% post_url 2021-11-22-normal-dist %}#precision-eigenvalue) of the covariance matrix, we have that the precision matrix $\mathbf{S}\_N^{-1}$ and the covariance matrix $\mathbf{S}\_N$ have the same set of eigenvalues, which are non-negative due to the fact that $\mathbf{S}\_N$ is positive semi-definite. This also means that $\mathbf{S}\_N$ is positive semi-definite, and thus
 \begin{equation}
 (\mathbf{w}-\mathbf{m}\_N)^\text{T}\mathbf{S}\_N^{-1}(\mathbf{w}-\mathbf{m}\_N)\geq0
 \end{equation}
@@ -400,7 +401,7 @@ p(\mathbf{w}\vert t_{N+1},\mathbf{x}\_{N+1},\mathbf{t})&\propto p(t_{N+1}\vert\m
 \end{align}
 where $c$ is a constant w.r.t $\mathbf{w}$, i.e., $c$ is independent of $\mathbf{w}$, which claims that the posterior distribution is also a Gaussian, given by
 \begin{equation}
-p(\mathbf{w}\vert t_{N+1},\mathbf{x}\_{N+1},\mathbf{t})=\mathcal{N}(\mathbf{w}\vert\mathbf{m}\_{N+1},\mathbf{S}\_{N+1})
+p(\mathbf{w}\vert t_{N+1},\mathbf{x}\_{N+1},\mathbf{t})=\mathcal{N}(\mathbf{w}\vert\mathbf{m}\_{N+1},\mathbf{S}\_{N+1})\tag{15}\label{15}
 \end{equation}
 where the precision matrix $\mathbf{S}\_{N+1}$ is defined as
 \begin{equation}
@@ -432,6 +433,56 @@ which for setting $\lambda=\alpha/\beta$ gives us exactly the solution \eqref{11
 
 #### Predictive distribution
 {: #pred-dist}
+The **predictive distribution** that gives us the information to make predictions $t$ for new values $\mathbf{x}$ is defined as
+\begin{equation}
+p(t\vert\mathbf{x},\mathbf{t},\alpha,\beta)=\int p(t\vert\mathbf{x},\mathbf{w},\beta)p(\mathbf{w}\vert\mathbf{x},\mathbf{t},\alpha,\beta)\,d\mathbf{w}\tag{16}\label{16}
+\end{equation}
+in which $\mathbf{t}$ is the vector of target values from the training set.
+
+The conditional distribution $p(t\vert\mathbf{x},\mathbf{w},\beta)$ of the target variable is given by \eqref{4}, and the posterior weight distribution $p(\mathbf{w}\vert\mathbf{x},\mathbf{t},\alpha,\beta)$ is given by \eqref{13}. Thus, as a [marginal Gaussian distribution]({% post_url 2021-11-22-normal-dist %}#marg-cond-gaussian), the distribution \eqref{16} can be rewritten as
+\begin{align}
+p(t\vert\mathbf{x},\mathbf{t},\mathbf{w},\beta)&=\int\mathcal{N}(t\vert\mathbf{w}^\text{T}\boldsymbol{\phi}(\mathbf{x}),\beta^{-1})\mathcal{N}(\mathbf{w}\vert\mathbf{m}\_N,\mathbf{S}\_N)\,d\mathbf{w} \\\\ &=\mathcal{N}(t\vert\mathbf{m}\_N^\text{T}\boldsymbol{\phi}(\mathbf{x}),\sigma_N^2(\mathbf{x})),
+\end{align}
+where the variance $\sigma_N^2(\mathbf{x})$ of the predictive distribution is defined as
+\begin{equation}
+\sigma_N^2(\mathbf{x})\doteq\beta^{-1}+\boldsymbol{\phi}(\mathbf{x})^\text{T}\mathbf{S}\_N\boldsymbol{\phi}(\mathbf{x})\tag{17}\label{17}
+\end{equation}
+The first term in \eqref{17} represents the noise on the data, while the second term reflects the uncertainty associated with the parameters $\mathbf{w}$.
+
+It is worth noting that as additional data points are observed, the posterior distribution becomes narrower. In particular, consider an additional data point $(\mathbf{x}\_{N+1},t_{N+1})$. Therefore, as given by the result \eqref{15}, its posterior distribution is
+\begin{equation}
+p(\mathbf{w}\vert\mathbf{m}\_{N+1},\mathbf{S}\_{N+1}),
+\end{equation}
+where
+\begin{align}
+\mathbf{m}\_{N+1}&=\mathbf{S}\_{N+1}(\mathbf{S}\_N^{-1}\mathbf{m}\_N+t_{N+1}\beta\boldsymbol{\phi}\_{N+1}), \\\\ \mathbf{S}\_{N+1}^{-1}&=\mathbf{S}\_{N}^{-1}+\beta\boldsymbol{\phi}\_{N+1}\boldsymbol{\phi}\_{N+1}^\text{T}
+\end{align}
+Therefore, the variance of the corresponding predictive distribution for the newly added data point is then given as
+\begin{equation}
+\sigma_{N+1}^2(\mathbf{x})=\frac{1}{\beta}+\boldsymbol{\phi}(\mathbf{x})^\text{T}\mathbf{S}\_{N+1}\boldsymbol{\phi}(\mathbf{x})=\frac{1}{\beta}+\boldsymbol{\phi}(\mathbf{x})^\text{T}\big(\mathbf{S}\_{N}^{-1}+\beta\boldsymbol{\phi}\_{N+1}\boldsymbol{\phi}\_{N+1}^\text{T}\big)^{-1}\boldsymbol{\phi}(\mathbf{x})\tag{18}\label{18}
+\end{equation}
+Using the matrix identity
+\begin{equation}
+(\mathbf{M}+\mathbf{v}\mathbf{v}^\text{T})^{-1}=\mathbf{M}^{-1}-\frac{(\mathbf{M}^{-1}\mathbf{v})(\mathbf{v}^\text{T}\mathbf{M}^{-1})}{1+\mathbf{v}^\text{T}\mathbf{M}^{-1}\mathbf{v}},
+\end{equation}
+in the equation \eqref{18} gives us
+\begin{align}
+\sigma_{N+1}^2(\mathbf{x})&=\frac{1}{\beta}+\boldsymbol{\phi}(\mathbf{x})^\text{T}\left(\mathbf{S}\_N-\frac{\beta\mathbf{S}\_N\boldsymbol{\phi}\_{N+1}\boldsymbol{\phi}\_{N+1}^\text{T}\mathbf{S}\_N}{1+\beta\boldsymbol{\phi}\_{N+1}^\text{T}\mathbf{S}\_N\boldsymbol{\phi}\_{N+1}}\right)\boldsymbol{\phi}(\mathbf{x}) \\\\ &=\sigma_N^2(\mathbf{x})-\beta\frac{\boldsymbol{\phi}(\mathbf{x})^\text{T}\mathbf{S}\_N\boldsymbol{\phi}\_{N+1}\boldsymbol{\phi}\_{N+1}^\text{T}\mathbf{S}\_N\boldsymbol{\phi}(\mathbf{x})}{1+\beta\boldsymbol{\phi}\_{N+1}^\text{T}\mathbf{S}\_N\boldsymbol{\phi}\_{N+1}}\leq\sigma_N^2(\mathbf{x}),\tag{19}\label{19}
+\end{align}
+since
+\begin{equation}
+\boldsymbol{\phi}(\mathbf{x})^\text{T}\mathbf{S}\_N\boldsymbol{\phi}\_{N+1}\boldsymbol{\phi}\_{N+1}^\text{T}\mathbf{S}\_N\boldsymbol{\phi}(\mathbf{x})=\left\Vert\boldsymbol{\phi}(\mathbf{x})^\text{T}\mathbf{S}\_N\boldsymbol{\phi}\_{N+1}\right\Vert_2^2\geq0,
+\end{equation}
+and since
+\begin{equation}
+1+\beta\boldsymbol{\phi}\_{N+1}^\text{T}\mathbf{S}\_N\boldsymbol{\phi}\_{N+1}>0
+\end{equation}
+due to $\mathbf{S}\_N$ is the covariance matrix of the posterior distribution $p(\mathbf{w}\vert\mathbf{x},\mathbf{t},\alpha,\beta)$, which implies that it is positive semi-definite.
+
+In other words, as $N\to\infty$, the second term in \eqref{17} goes to zero, and the variance of the predictive distribution solely depends on $\beta$.
+
+#### Equivalent kernel
+{: #equiv-kernel}
 
 ## Linear models for Classification
 {:# lin-models-clf}
@@ -1105,9 +1156,9 @@ Therefore, the gradient of the error function w.r.t $\mathbf{W}$ can be written 
 \begin{equation}
 \nabla_\mathbf{W}E(\mathbf{W})=\boldsymbol{\Phi}^\text{T}(\mathbf{Y}-\mathbf{T})
 \end{equation}
-Now we consider the hessian matrix $\mathbf{H}$ of the error function, whose block $\mathbf{H}\_{kj}$ is given by
+Now we consider the hessian matrix $\mathbf{H}$ of the error function, whose block $\mathbf{H}\_{k j}$ is given by
 \begin{align}
-\mathbf{H}\_{kj}&=\nabla_{\mathbf{w}\_j}\nabla_{\mathbf{w}\_k} E(\mathbf{W}) \\\\ &=\nabla_{\mathbf{w}\_j}\sum_{n=1}^{N}\big[(y_n)\_k-(\mathbf{t}\_n)\_k\big]\boldsymbol{\phi}\_n \\\\ &=\sum_{n=1}^{N}(y_n)\_k\big(1\\{j=k\\}-(y_n)\_j\big)\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}
+\mathbf{H}\_{k j}&=\nabla_{\mathbf{w}\_j}\nabla_{\mathbf{w}\_k} E(\mathbf{W}) \\\\ &=\nabla_{\mathbf{w}\_j}\sum_{n=1}^{N}\big[(y_n)\_k-(\mathbf{t}\_n)\_k\big]\boldsymbol{\phi}\_n \\\\ &=\sum_{n=1}^{N}(y_n)\_k\big(1\\{j=k\\}-(y_n)\_j\big)\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}
 \end{align}
 
 ### Bayesian Logistic Regression
