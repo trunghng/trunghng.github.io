@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-25T20:04:53+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-26T16:28:56+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory - II</title><link href="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html" rel="alternate" type="text/html" title="Measure theory - II" /><published>2022-07-03T13:00:00+07:00</published><updated>2022-07-03T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html">&lt;blockquote&gt;
   &lt;p&gt;Part II of the measure theory series. Materials are mostly taken from &lt;a href=&quot;/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some needed notations extracted from &lt;a href=&quot;/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -1864,7 +1864,7 @@ or
 \begin{equation}
 \boldsymbol{\Sigma}^{-1}\mathbf{q}_i=\frac{1}{\lambda_i}\mathbf{q}_i,
 \end{equation}
-which implies that each eigenvector, eigenvalue pair $(\mathbf{q_i},\lambda_i)$ of $\boldsymbol{\Sigma}$ corresponds to an eigenvector, eigenvalue pair $(\mathbf{q}_i,1/\lambda_i)$ of $\boldsymbol{\Sigma}^{-1}$. Therefore, $\boldsymbol{\Sigma}^{-1}$ can also be written by
+&lt;span id=&quot;precision-eigenvalue&quot;&gt;which implies that each eigenvector, eigenvalue pair $(\mathbf{q_i},\lambda_i)$ of $\boldsymbol{\Sigma}$ corresponds to an eigenvector, eigenvalue pair $(\mathbf{q}_i,1/\lambda_i)$ of $\boldsymbol{\Sigma}^{-1}$. Therefore, $\boldsymbol{\Sigma}^{-1}$ can also be written by&lt;/span&gt;
 \begin{equation}
 \boldsymbol{\Sigma}^{-1}=\sum_{i=1}^{D}\frac{1}{\lambda_i}\mathbf{q}_i\mathbf{q}_i^\text{T}\tag{14}\label{14}
 \end{equation}&lt;/p&gt;
@@ -2031,7 +2031,7 @@ and also, by \eqref{19} and \eqref{20}, we can easily get mean and covariance ma
 \end{align}
 In Bayesian approach, we can consider $p(\mathbf{x})$ as a prior distribution over $\mathbf{x}$, and if $\mathbf{y}$ is observed, the conditional distribution $p(\mathbf{x}\vert\mathbf{y})$ will represents the corresponding posterior distribution over $\mathbf{x}$.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Remark&lt;/strong&gt;.&lt;br /&gt;
+&lt;p&gt;&lt;span id=&quot;marg-cond-gaussian&quot;&gt;&lt;strong&gt;Remark&lt;/strong&gt;.&lt;br /&gt;
 Given a marginal Gaussian distribution for $\mathbf{x}$ and a conditional Gaussian distribution for $\mathbf{y}$ given $\mathbf{x}$ in the form
 \begin{align}
 p(\mathbf{x})&amp;amp;=\mathcal{N}(\mathbf{x}\vert\boldsymbol{\mu},\boldsymbol{\Lambda}^{-1}), \\ p(\mathbf{y}\vert\mathbf{x})&amp;amp;=\mathcal{N}(\mathbf{y}\vert\mathbf{A}\mathbf{x}+\mathbf{b},\mathbf{L}^{-1}),
@@ -2043,7 +2043,7 @@ p(\mathbf{y})&amp;amp;=\mathcal{N}(\mathbf{y}\vert\mathbf{A}\boldsymbol{\mu}+\ma
 where
 \begin{equation}
 \boldsymbol{\Sigma}=(\boldsymbol{\Lambda}+\mathbf{A}^\text{T}\mathbf{L}\mathbf{A})^{-1}
-\end{equation}&lt;/p&gt;
+\end{equation}&lt;/span&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Joseph K. Blitzstein &amp;amp; Jessica Hwang. &lt;a href=&quot;https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573&quot;&gt;Introduction to Probability&lt;/a&gt;.&lt;/p&gt;

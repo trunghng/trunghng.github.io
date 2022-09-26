@@ -216,7 +216,7 @@ or
 \begin{equation}
 \boldsymbol{\Sigma}^{-1}\mathbf{q}\_i=\frac{1}{\lambda_i}\mathbf{q}\_i,
 \end{equation}
-which implies that each eigenvector, eigenvalue pair $(\mathbf{q_i},\lambda_i)$ of $\boldsymbol{\Sigma}$ corresponds to an eigenvector, eigenvalue pair $(\mathbf{q}\_i,1/\lambda_i)$ of $\boldsymbol{\Sigma}^{-1}$. Therefore, $\boldsymbol{\Sigma}^{-1}$ can also be written by
+<span id='precision-eigenvalue'>which implies that each eigenvector, eigenvalue pair $(\mathbf{q_i},\lambda_i)$ of $\boldsymbol{\Sigma}$ corresponds to an eigenvector, eigenvalue pair $(\mathbf{q}\_i,1/\lambda_i)$ of $\boldsymbol{\Sigma}^{-1}$. Therefore, $\boldsymbol{\Sigma}^{-1}$ can also be written by</span>
 \begin{equation}
 \boldsymbol{\Sigma}^{-1}=\sum_{i=1}^{D}\frac{1}{\lambda_i}\mathbf{q}\_i\mathbf{q}\_i^\text{T}\tag{14}\label{14}
 \end{equation}
@@ -387,7 +387,7 @@ and also, by \eqref{19} and \eqref{20}, we can easily get mean and covariance ma
 \end{align}
 In Bayesian approach, we can consider $p(\mathbf{x})$ as a prior distribution over $\mathbf{x}$, and if $\mathbf{y}$ is observed, the conditional distribution $p(\mathbf{x}\vert\mathbf{y})$ will represents the corresponding posterior distribution over $\mathbf{x}$.
 
-**Remark**.  
+<span id='marg-cond-gaussian'>**Remark**.  
 Given a marginal Gaussian distribution for $\mathbf{x}$ and a conditional Gaussian distribution for $\mathbf{y}$ given $\mathbf{x}$ in the form
 \begin{align}
 p(\mathbf{x})&=\mathcal{N}(\mathbf{x}\vert\boldsymbol{\mu},\boldsymbol{\Lambda}^{-1}), \\\\ p(\mathbf{y}\vert\mathbf{x})&=\mathcal{N}(\mathbf{y}\vert\mathbf{A}\mathbf{x}+\mathbf{b},\mathbf{L}^{-1}),
@@ -399,7 +399,7 @@ p(\mathbf{y})&=\mathcal{N}(\mathbf{y}\vert\mathbf{A}\boldsymbol{\mu}+\mathbf{b},
 where
 \begin{equation}
 \boldsymbol{\Sigma}=(\boldsymbol{\Lambda}+\mathbf{A}^\text{T}\mathbf{L}\mathbf{A})^{-1}
-\end{equation}
+\end{equation}</span>
 
 ## References
 {: #references}

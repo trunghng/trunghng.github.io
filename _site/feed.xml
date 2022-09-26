@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-25T20:04:53+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-26T16:28:56+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Linear models</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/linear-models.html" rel="alternate" type="text/html" title="Linear models" /><published>2022-08-13T13:00:00+07:00</published><updated>2022-08-13T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/linear-models</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/linear-models.html">&lt;blockquote&gt;
   &lt;p&gt;Linear models for solving regression and classification problems. Materials were taken mostly from &lt;a href=&quot;/artificial-intelligent/machine-learning/2022/08/13/linear-models.html#bishops-book&quot;&gt;Bishop’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -27,7 +27,12 @@
           &lt;li&gt;&lt;a href=&quot;#mult-outputs&quot;&gt;Multiple outputs&lt;/a&gt;&lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#bayes-lin-reg&quot;&gt;Bayesian Linear Regression&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#bayes-lin-reg&quot;&gt;Bayesian Linear Regression&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#param-dist&quot;&gt;Parameter distribution&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#pred-dist&quot;&gt;Predictive distribution&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#lin-models-clf&quot;&gt;Linear models for Classification&lt;/a&gt;
@@ -332,7 +337,7 @@ E_D(\mathbf{w})+E_W(\mathbf{w})=\frac{1}{2}\sum_{i=1}^{N}\big(t_i-\mathbf{w}^\te
 \end{equation}
 Setting the gradient of this error to zero and solving for $\mathbf{w}$, we have the solution
 \begin{equation}
-\mathbf{w}= (\lambda\mathbf{I}+\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}\mathbf{t}
+\mathbf{w}= (\lambda\mathbf{I}+\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}^\text{T}\mathbf{t}\tag{11}\label{11}
 \end{equation}
 This particular choice of regularizer is called &lt;strong&gt;weight decay&lt;/strong&gt; because it encourages weight values to decay towards zero in sequential learning.&lt;/p&gt;
 
@@ -351,7 +356,7 @@ where $\mathbf{y}\in\mathbb{R}^K, \mathbf{W}\in\mathbb{R}^{M\times K}$ is the ma
 
 &lt;p&gt;With this generalization, \eqref{4} can be also be rewritten as
 \begin{equation}
-p(\mathbf{t}|\mathbf{x};\mathbf{W},\beta)=\sqrt{\frac{\beta}{2\pi\vert\mathbf{I}\vert}}\exp\left[-\frac{1}{2}\left(\mathbf{t}-\mathbf{W}^\text{T}\boldsymbol{\phi}\left(\mathbf{x}\right)\right)^\text{T}\left(\mathbf{t}-\mathbf{W}^\text{T}\boldsymbol{\phi}\left(\mathbf{x}\right)\right)\beta\mathbf{I}^{-1}\right],\tag{11}\label{11}
+p(\mathbf{t}|\mathbf{x};\mathbf{W},\beta)=\sqrt{\frac{\beta}{2\pi\vert\mathbf{I}\vert}}\exp\left[-\frac{1}{2}\left(\mathbf{t}-\mathbf{W}^\text{T}\boldsymbol{\phi}\left(\mathbf{x}\right)\right)^\text{T}\left(\mathbf{t}-\mathbf{W}^\text{T}\boldsymbol{\phi}\left(\mathbf{x}\right)\right)\beta\mathbf{I}^{-1}\right],\tag{12}\label{12}
 \end{equation}
 or in other words
 \begin{equation}
@@ -375,11 +380,78 @@ Taking the gradient of the log likelihood w.r.t $\mathbf{W}$, setting it to zero
 \end{equation}&lt;/p&gt;
 
 &lt;h3 id=&quot;bayes-lin-reg&quot;&gt;Bayesian linear regression&lt;/h3&gt;
+
+&lt;h4 id=&quot;param-dist&quot;&gt;Parameter distribution&lt;/h4&gt;
 &lt;p&gt;Consider the noise precision parameter $\beta$ as a constant. From the equation \eqref{5}, we see that the likelihood function $L(\mathbf{w})=p(\mathbf{t}\vert\mathbf{w})$ takes the form of an exponential of a quadratic form in $\mathbf{w}$. Thus, if we choose the prior $p(\mathbf{w})$ as a Gaussian, the corresponding posterior will also become a Gaussian due to being computed as a product of two exponentials of quadratic forms of $\mathbf{w}$. This makes the prior be a conjugate distribution for the likelihood function, and hence be given by
 \begin{equation}
 p(\mathbf{w})=\mathcal{N}(\mathbf{w}\vert\mathbf{m}_0,\mathbf{S}_0),
 \end{equation}
 where $\mathbf{m}_0$ is the mean vector and $\mathbf{S}_0$ is the covariance matrix.&lt;/p&gt;
+
+&lt;p&gt;By the &lt;a href=&quot;/mathematics/probability-statistics/2021/11/22/normal-dist.html#marg-cond-gaussian&quot;&gt;result&lt;/a&gt;, we have that the corresponding posterior distribution $p(\mathbf{w}\vert\mathbf{t})$, which is a conditional Gaussian distribution, is given by
+\begin{equation}
+p(\mathbf{w}\vert\mathbf{t})=\mathcal{N}(\mathbf{w}\vert\mathbf{m}_N,\mathbf{S}_N),\tag{13}\label{13}
+\end{equation}
+where the mean $\mathbf{m}_N$ and the precision matrix $\mathbf{S}_N^{-1}$ are defined as
+\begin{align}
+\mathbf{m}_N&amp;amp;=\mathbf{S}_N(\mathbf{S}_0^{-1}\mathbf{m}_0+\beta\boldsymbol{\Phi}^\text{T}\mathbf{t}), \\ \mathbf{S}_N^{-1}&amp;amp;=\mathbf{S}_0^{-1}+\beta\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}
+\end{align}
+Therefore, by MAP, we have
+\begin{align}
+\mathbf{w}_\text{MAP}&amp;amp;=\underset{\mathbf{w}}{\text{argmax}}\,\exp\Big[-\frac{1}{2}(\mathbf{w}-\mathbf{m}_N)^\text{T}\mathbf{S}_N^{-1}(\mathbf{w}-\mathbf{m}_N)\Big] \\ &amp;amp;=\underset{\mathbf{w}}{\text{argmin}}\,(\mathbf{w}-\mathbf{m}_N)^\text{T}\mathbf{S}_N^{-1}(\mathbf{w}-\mathbf{m}_N)
+\end{align}
+By this &lt;a href=&quot;/mathematics/probability-statistics/2021/11/22/normal-dist.html#precision-eigenvalue&quot;&gt;result&lt;/a&gt;, we have that the precision matrix $\mathbf{S}_N^{-1}$ and the covariance matrix $\mathbf{S}_N$ have the same set of eigenvalues, which are non-negative due to the fact that $\mathbf{S}_N$ is positive semi-definite. This also means that $\mathbf{S}_N$ is positive semi-definite, and thus
+\begin{equation}
+(\mathbf{w}-\mathbf{m}_N)^\text{T}\mathbf{S}_N^{-1}(\mathbf{w}-\mathbf{m}_N)\geq0
+\end{equation}
+Therefore, the maximum posterior weight vector is also the mean vector
+\begin{equation}
+\mathbf{w}_\text{MAP}=\mathbf{m}_N\tag{14}\label{14}
+\end{equation}
+Consider an infinite broad prior $\mathbf{S}_0=\alpha^{-1}\mathbf{I}$ with $\alpha\to 0$, in this case the mean $\mathbf{m}_N$ reduces to the maximum likelihood value $\mathbf{w}_\text{ML}$ given by \eqref{8}. And if $N=0$, then the posterior distribution reverts to the prior.&lt;/p&gt;
+
+&lt;p&gt;Furthermore, consider an additional data point $(\mathbf{x}_{N+1},t_{N+1})$, the posterior given in \eqref{13} can be regarded as the prior distribution for that data point. If the model is given as \eqref{4}, the likelihood function of the newly added data point is then given in form
+\begin{equation}
+p(t_{N+1}\vert\mathbf{x}_{N+1},\mathbf{w})=\left(\frac{\beta}{2\pi}\right)^{1/2}\exp\left(-\frac{(t_{N+1}-\mathbf{w}^\text{T}\boldsymbol{\phi}_{N+1})\beta}{2}\right),
+\end{equation}
+where $\boldsymbol{\phi}_{N+1}=\boldsymbol{\phi}(\mathbf{x}_{N+1})$.
+Therefore, the posterior distribution of the data point $(\mathbf{x}_{N+1},t_{N+1})$ can be computed as
+\begin{align}
+p(\mathbf{w}\vert t_{N+1},\mathbf{x}_{N+1},\mathbf{t})&amp;amp;\propto p(t_{N+1}\vert\mathbf{x}_{N+1},\mathbf{w})p(\mathbf{w}\vert\mathbf{t}) \\ &amp;amp;=\exp\Big[-\frac{1}{2}(\mathbf{w}-\mathbf{m}_N)^\text{T}\mathbf{S}_N^{-1}(\mathbf{w}-\mathbf{m}_N)-\frac{1}{2}(t_{N+1}-\mathbf{w}^\text{T}\boldsymbol{\phi}_{N+1})^2\beta\Big] \\ &amp;amp;=\exp\Big[-\frac{1}{2}\big(\mathbf{w}^\text{T}\mathbf{S}_N^{-1}\mathbf{w}+\beta\mathbf{w}^\text{T}\boldsymbol{\phi}_{N+1}\boldsymbol{\phi}_{N+1}^\text{T}\mathbf{w}\big)+\mathbf{w}^\text{T}\big(\mathbf{S}_N^{-1}\mathbf{m}_N+t_{N+1}\beta\boldsymbol{\phi}_{N+1}\big)+c\Big] \\ &amp;amp;=\exp\Big[-\frac{1}{2}\mathbf{w}^\text{T}\big(\mathbf{S}_N^{-1}+\beta\boldsymbol{\phi}_{N+1}\boldsymbol{\phi}_{N+1}^\text{T}\big)\mathbf{w}+\mathbf{w}^\text{T}\big(\mathbf{S}_N^{-1}\mathbf{m}_N+t_{N+1}\beta\boldsymbol{\phi}_{N+1}\big)+c\Big],
+\end{align}
+where $c$ is a constant w.r.t $\mathbf{w}$, i.e., $c$ is independent of $\mathbf{w}$, which claims that the posterior distribution is also a Gaussian, given by
+\begin{equation}
+p(\mathbf{w}\vert t_{N+1},\mathbf{x}_{N+1},\mathbf{t})=\mathcal{N}(\mathbf{w}\vert\mathbf{m}_{N+1},\mathbf{S}_{N+1})
+\end{equation}
+where the precision matrix $\mathbf{S}_{N+1}$ is defined as
+\begin{equation}
+\mathbf{S}_{N+1}^{-1}\doteq\mathbf{S}_N^{-1}+\beta\boldsymbol{\phi}_{N+1}\boldsymbol{\phi}_{N+1}^\text{T},
+\end{equation}
+and the mean $\mathbf{m}_{N+1}$ is given by
+\begin{equation}
+\mathbf{m}_{N+1}\doteq\mathbf{S}_{N+1}\big(\mathbf{S}_N^{-1}\mathbf{m}_N+t_{N+1}\beta\boldsymbol{\phi}_{N+1}\big)
+\end{equation}
+Consider the prior as a Gaussian, defined by
+\begin{equation}
+p(\mathbf{w}\vert\alpha)=\mathcal{N}(\mathbf{w}\vert\mathbf{0},\alpha^{-1}\mathbf{I}),
+\end{equation}
+Therefore, the corresponding posterior over $\mathbf{w}$, $p(\mathbf{w}\vert\mathbf{t})$, will be given as \eqref{13} with
+\begin{align}
+\mathbf{m}_N&amp;amp;=\beta\mathbf{S}_N\boldsymbol{\Phi}^\text{T}\mathbf{t} \\ \mathbf{S}_N^{-1}&amp;amp;=\alpha\mathbf{I}+\beta\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}
+\end{align}
+Taking the natural logarithm of the posterior distribution gives us the sum of the log likelihood and the log of the prior, as a function of $\mathbf{w}$, given by
+\begin{equation}
+\log p(\mathbf{w}\vert\mathbf{t})=-\frac{\beta}{2}\sum_{n=1}^{N}\big(t_n-\mathbf{w}^\text{T}\boldsymbol{\phi}(\mathbf{x}_n)\big)^2-\frac{\alpha}{2}\mathbf{w}^\text{T}\mathbf{w}+c
+\end{equation}
+Therefore, maximizing this posterior is equivalent to minimizing the sum of the sum-of-squares error function with addition of a quadratic regularization term, which is exactly the equation \eqref{10} with $\lambda=\alpha/\beta$.&lt;/p&gt;
+
+&lt;p&gt;In addition, by $\eqref{14}$, we have that
+\begin{equation}
+\mathbf{w}_\text{MAP}=\mathbf{m}_N=\beta\left(\alpha\mathbf{I}+\beta\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}^\text{T}\mathbf{t}=\left(\frac{\alpha}{\beta}\mathbf{I}+\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}^\text{T}\mathbf{t},
+\end{equation}
+which for setting $\lambda=\alpha/\beta$ gives us exactly the solution \eqref{11} for the regularized least squares \eqref{10}.&lt;/p&gt;
+
+&lt;h4 id=&quot;pred-dist&quot;&gt;Predictive distribution&lt;/h4&gt;
 
 &lt;h2 id=&quot;linear-models-for-classification&quot;&gt;Linear models for Classification&lt;/h2&gt;
 
@@ -418,7 +490,7 @@ y_k(\mathbf{x})=\mathbf{w}_k^\text{T}\mathbf{x}+w_{k,0}
 \end{equation}
 Then for each input $\mathbf{x}$, it will be assigned to class $\mathcal{C}_k$ if $y_k(\mathbf{x})&amp;gt;y_i(\mathbf{x}),\forall i\neq k$, or in other words $\mathbf{x}$ is assigned to a class $C_k$ that
 \begin{equation}
-k=\text{argmax}_{i=1,\ldots,K}y_i(\mathbf{x})
+k=\underset{i=1,\ldots,K}{\text{argmax}}\,y_i(\mathbf{x})
 \end{equation}
 The boundary between two class $\mathcal{C}_i$ and $\mathcal{C}_j$ is therefore given by
 \begin{equation}
@@ -5856,7 +5928,7 @@ or
 \begin{equation}
 \boldsymbol{\Sigma}^{-1}\mathbf{q}_i=\frac{1}{\lambda_i}\mathbf{q}_i,
 \end{equation}
-which implies that each eigenvector, eigenvalue pair $(\mathbf{q_i},\lambda_i)$ of $\boldsymbol{\Sigma}$ corresponds to an eigenvector, eigenvalue pair $(\mathbf{q}_i,1/\lambda_i)$ of $\boldsymbol{\Sigma}^{-1}$. Therefore, $\boldsymbol{\Sigma}^{-1}$ can also be written by
+&lt;span id=&quot;precision-eigenvalue&quot;&gt;which implies that each eigenvector, eigenvalue pair $(\mathbf{q_i},\lambda_i)$ of $\boldsymbol{\Sigma}$ corresponds to an eigenvector, eigenvalue pair $(\mathbf{q}_i,1/\lambda_i)$ of $\boldsymbol{\Sigma}^{-1}$. Therefore, $\boldsymbol{\Sigma}^{-1}$ can also be written by&lt;/span&gt;
 \begin{equation}
 \boldsymbol{\Sigma}^{-1}=\sum_{i=1}^{D}\frac{1}{\lambda_i}\mathbf{q}_i\mathbf{q}_i^\text{T}\tag{14}\label{14}
 \end{equation}&lt;/p&gt;
@@ -6023,7 +6095,7 @@ and also, by \eqref{19} and \eqref{20}, we can easily get mean and covariance ma
 \end{align}
 In Bayesian approach, we can consider $p(\mathbf{x})$ as a prior distribution over $\mathbf{x}$, and if $\mathbf{y}$ is observed, the conditional distribution $p(\mathbf{x}\vert\mathbf{y})$ will represents the corresponding posterior distribution over $\mathbf{x}$.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Remark&lt;/strong&gt;.&lt;br /&gt;
+&lt;p&gt;&lt;span id=&quot;marg-cond-gaussian&quot;&gt;&lt;strong&gt;Remark&lt;/strong&gt;.&lt;br /&gt;
 Given a marginal Gaussian distribution for $\mathbf{x}$ and a conditional Gaussian distribution for $\mathbf{y}$ given $\mathbf{x}$ in the form
 \begin{align}
 p(\mathbf{x})&amp;amp;=\mathcal{N}(\mathbf{x}\vert\boldsymbol{\mu},\boldsymbol{\Lambda}^{-1}), \\ p(\mathbf{y}\vert\mathbf{x})&amp;amp;=\mathcal{N}(\mathbf{y}\vert\mathbf{A}\mathbf{x}+\mathbf{b},\mathbf{L}^{-1}),
@@ -6035,7 +6107,7 @@ p(\mathbf{y})&amp;amp;=\mathcal{N}(\mathbf{y}\vert\mathbf{A}\boldsymbol{\mu}+\ma
 where
 \begin{equation}
 \boldsymbol{\Sigma}=(\boldsymbol{\Lambda}+\mathbf{A}^\text{T}\mathbf{L}\mathbf{A})^{-1}
-\end{equation}&lt;/p&gt;
+\end{equation}&lt;/span&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Joseph K. Blitzstein &amp;amp; Jessica Hwang. &lt;a href=&quot;https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573&quot;&gt;Introduction to Probability&lt;/a&gt;.&lt;/p&gt;

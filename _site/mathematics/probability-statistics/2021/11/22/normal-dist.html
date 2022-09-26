@@ -363,7 +363,7 @@ or
 \begin{equation}
 \boldsymbol{\Sigma}^{-1}\mathbf{q}_i=\frac{1}{\lambda_i}\mathbf{q}_i,
 \end{equation}
-which implies that each eigenvector, eigenvalue pair $(\mathbf{q_i},\lambda_i)$ of $\boldsymbol{\Sigma}$ corresponds to an eigenvector, eigenvalue pair $(\mathbf{q}_i,1/\lambda_i)$ of $\boldsymbol{\Sigma}^{-1}$. Therefore, $\boldsymbol{\Sigma}^{-1}$ can also be written by
+<span id="precision-eigenvalue">which implies that each eigenvector, eigenvalue pair $(\mathbf{q_i},\lambda_i)$ of $\boldsymbol{\Sigma}$ corresponds to an eigenvector, eigenvalue pair $(\mathbf{q}_i,1/\lambda_i)$ of $\boldsymbol{\Sigma}^{-1}$. Therefore, $\boldsymbol{\Sigma}^{-1}$ can also be written by</span>
 \begin{equation}
 \boldsymbol{\Sigma}^{-1}=\sum_{i=1}^{D}\frac{1}{\lambda_i}\mathbf{q}_i\mathbf{q}_i^\text{T}\tag{14}\label{14}
 \end{equation}</p>
@@ -530,7 +530,7 @@ and also, by \eqref{19} and \eqref{20}, we can easily get mean and covariance ma
 \end{align}
 In Bayesian approach, we can consider $p(\mathbf{x})$ as a prior distribution over $\mathbf{x}$, and if $\mathbf{y}$ is observed, the conditional distribution $p(\mathbf{x}\vert\mathbf{y})$ will represents the corresponding posterior distribution over $\mathbf{x}$.</p>
 
-<p><strong>Remark</strong>.<br />
+<p><span id="marg-cond-gaussian"><strong>Remark</strong>.<br />
 Given a marginal Gaussian distribution for $\mathbf{x}$ and a conditional Gaussian distribution for $\mathbf{y}$ given $\mathbf{x}$ in the form
 \begin{align}
 p(\mathbf{x})&amp;=\mathcal{N}(\mathbf{x}\vert\boldsymbol{\mu},\boldsymbol{\Lambda}^{-1}), \\ p(\mathbf{y}\vert\mathbf{x})&amp;=\mathcal{N}(\mathbf{y}\vert\mathbf{A}\mathbf{x}+\mathbf{b},\mathbf{L}^{-1}),
@@ -542,7 +542,7 @@ p(\mathbf{y})&amp;=\mathcal{N}(\mathbf{y}\vert\mathbf{A}\boldsymbol{\mu}+\mathbf
 where
 \begin{equation}
 \boldsymbol{\Sigma}=(\boldsymbol{\Lambda}+\mathbf{A}^\text{T}\mathbf{L}\mathbf{A})^{-1}
-\end{equation}</p>
+\end{equation}</span></p>
 
 <h2 id="references">References</h2>
 <p>[1] Joseph K. Blitzstein &amp; Jessica Hwang. <a href="https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573">Introduction to Probability</a>.</p>
