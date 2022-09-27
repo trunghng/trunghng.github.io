@@ -45,7 +45,7 @@ comments: true
 			- [Logistic Regression](#nm-log-reg)
 			- [Softmax Regression](#nm-softmax-reg)
 	- [Bayesian Logistic Regression](#bayes-log-reg)
-		- [Laplace approximation](#laplace-approx)
+		- [The Laplace approximation](#laplace-approx)
 		- [Predictive distribution](#pred-dist-clf)
 - [References](#references)
 - [Footnotes](#footnotes)
@@ -1086,7 +1086,7 @@ Consider applying the Newton's method to the sum-of-squares error function \eqre
 \end{align}
 and
 \begin{equation}
-\mathbf{H}=\nabla_\mathbf{w}^2 E(\mathbf{w})=\nabla_\mathbf{w}\big(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\mathbf{w}-\boldsymbol{\Phi}^\text{T}\mathbf{t}\big)=\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi},
+\mathbf{H}=\nabla_\mathbf{w}\nabla_\mathbf{w}E(\mathbf{w})=\nabla_\mathbf{w}\big(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\mathbf{w}-\boldsymbol{\Phi}^\text{T}\mathbf{t}\big)=\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi},
 \end{equation}
 where $\boldsymbol{\Phi}$, as defined before, is the $N\times M$ design matrix
 \begin{equation}
@@ -1106,7 +1106,7 @@ Consider using the Newton's method to the logistic regression model with the cro
 \end{equation}
 and
 \begin{align}
-\mathbf{H}=\nabla_{\mathbf{w}}^2 E(\mathbf{w})&=\nabla_\mathbf{w}\sum_{n=1}^{N}(y_n-t_n)\boldsymbol{\phi}\_n \\\\ &=\sum_{n=1}^{N}y_n(1-y_n)\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T} \\\\ &=\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi},
+\mathbf{H}=\nabla_\mathbf{w}\nabla_\mathbf{w}E(\mathbf{w})&=\nabla_\mathbf{w}\sum_{n=1}^{N}(y_n-t_n)\boldsymbol{\phi}\_n \\\\ &=\sum_{n=1}^{N}y_n(1-y_n)\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T} \\\\ &=\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi},
 \end{align}
 where $\mathbf{R}$ is the $N\times N$ diagonal matrix with diagonal elements
 \begin{equation}
@@ -1180,9 +1180,63 @@ which claims the positive semi-definiteness of $\mathbf{H}$. Therefore, the erro
 
 ### Bayesian Logistic Regression
 {: #bayes-log-reg}
+When using Bayesian approach for logistic regression model, unlike the case of linear regression \eqref{13}, the posterior distribution now is no longer Gaussian. This makes the evaluation of posterior be intractable when integrating over the parameter $\mathbf{w}$.
 
-#### Laplace approximation
+Therefore, it is necessary to use some approximation methods. 
+
+#### The Laplace approximation
 {: #laplace-approx}
+The goal of **Laplace approximation** is to fit a Gaussian distribution to a probability density defined over a set of continuous variables
+
+We begin by consider applying Laplace method to one-dimensional variables $z$ with the density function $p(z)$ is defined as
+\begin{equation}
+p(z)=\frac{1}{Z}f(z),
+\end{equation}
+where $Z=\int f(z)\,dz$ is the normalization coefficient, and is unknown.
+
+The idea behind Laplace method is to place a Gaussian $q(z)$ on a mode of the distribution $p(z)$. A mode $z_0$ of $p(z)$ is where the distribution reaches its global maximum, which also means the derivative of $p(z)$ at $z_0$ is zero
+\begin{equation}
+\left.\frac{d f(z)}{dz}\right\vert_{z=z_0}=0
+\end{equation}
+Therefore, the Taylor expansion of $\log f(z)$ about $z=z_0$ can be written by
+\begin{align}
+\log f(z)&\simeq\log f(z_0)+\log f(z)\left.\frac{d f(z)}{dz}\right\vert_{z=z_0}(z-z_0)+\frac{1}{2}\left.\frac{d^2\log f(z)}{d^2 z}\right\vert_{z=z_0}(z-z_0)^2 \\\\ &=\log f(z_0)-\frac{A}{2}(z-z_0)^2,\tag{43}\label{43}
+\end{align}
+where
+\begin{equation}
+A=-\left.\frac{d^2\log f(z)}{d^2 z}\right\vert_{z=z_0}
+\end{equation}
+Thus, taking the exponential gives us
+\begin{equation}
+f(z)\simeq f(z_0)\exp\left(-\frac{A}{2}(z-z_0)^2\right),
+\end{equation}
+which is in a form of an unnormalized Gaussian distribution. Hence, we can obtain a Gaussian approximation $q(z)$ of $p(z)$ by adding a normalization parameter to form a Normal distribution, as
+\begin{equation}
+q(z)=\left(\frac{A}{2\pi}\right)^{1/2}\exp\left(-\frac{A}{2}(z-z_0)^2\right)=\mathcal{N}(\mathbf{z}\vert z_0,A^{-1})
+\end{equation}
+We can extend the Laplace approximation into multi-dimensional variable $\mathbf{z}$, which is finding an Gaussian approximation of distribution
+\begin{equation}
+p(\mathbf{z})=\frac{1}{Z}f(\mathbf{z}),
+\end{equation}
+where $z$ is a vector of length $M\geq 2$.
+
+Analogy to the univariate case, the first step is to consider the Taylor expansion of $\log f(\mathbf{z})$ about its stationary point $\mathbf{z}\_0$, which means $\nabla_\mathbf{z}f(\mathbf{z})\vert_{\mathbf{z}=\mathbf{z}\_0}=0$. We have
+\begin{align}
+\log f(\mathbf{z})&\simeq f(\mathbf{z}\_0)+\log f(\mathbf{z})\nabla_\mathbf{z}f(\mathbf{z})\vert_{\mathbf{z}=\mathbf{z}\_0}+\frac{1}{2}\nabla_\mathbf{z}\nabla_\mathbf{z}\log f(\mathbf{z})\vert_{\mathbf{z}=\mathbf{z}\_0}\Vert\mathbf{z}-\mathbf{z}\_0\Vert_2^2 \\\\ &=\log f(\mathbf{z}\_0)-\frac{1}{2}(\mathbf{z}-\mathbf{z}\_0)^\text{T}\mathbf{A}(\mathbf{z}-\mathbf{z}\_0),
+\end{align}
+where
+\begin{equation}
+\mathbf{A}=-\nabla_\mathbf{z}\nabla_\mathbf{z}\log f(z)\vert_{\mathbf{z}=\mathbf{z}\_0}
+\end{equation}
+Taking the exponentials of both sides lets us obtain
+\begin{equation}
+f(\mathbf{z})\simeq f(\mathbf{z}\_0)\exp\left(-\frac{1}{2}(\mathbf{z}-\mathbf{z}\_0)^\text{T}\mathbf{A}(\mathbf{z}-\mathbf{z}\_0)\right),
+\end{equation}
+which is in form of an unnormalized multivariate Gaussian. Adding a normalization parameter gives us the Gaussian approximation $q(\mathbf{z})$ of $p(\mathbf{z})$
+\begin{equation}
+q(\mathbf{z})=\frac{\vert\mathbf{A}\vert^{1/2}}{(2\pi)^{M/2}}\exp\left(-\frac{1}{2}(\mathbf{z}-\mathbf{z}\_0)^\text{T}\mathbf{A}(\mathbf{z}-\mathbf{z}\_0)\right)=\mathcal{N}(\mathbf{z}\vert\mathbf{z}\_0,\mathbf{A}^{-1})
+\end{equation}
+
 
 #### Predictive distribution
 {: #pred-dist-clf}

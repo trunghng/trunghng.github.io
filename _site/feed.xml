@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-27T15:25:50+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-27T17:44:23+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Linear models</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/linear-models.html" rel="alternate" type="text/html" title="Linear models" /><published>2022-08-13T13:00:00+07:00</published><updated>2022-08-13T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/linear-models</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/linear-models.html">&lt;blockquote&gt;
   &lt;p&gt;Linear models for solving regression and classification problems. Majority of the materials are taken from &lt;a href=&quot;/artificial-intelligent/machine-learning/2022/08/13/linear-models.html#bishops-book&quot;&gt;Bishop’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -78,7 +78,7 @@
       &lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#bayes-log-reg&quot;&gt;Bayesian Logistic Regression&lt;/a&gt;
         &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#laplace-approx&quot;&gt;Laplace approximation&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#laplace-approx&quot;&gt;The Laplace approximation&lt;/a&gt;&lt;/li&gt;
           &lt;li&gt;&lt;a href=&quot;#pred-dist-clf&quot;&gt;Predictive distribution&lt;/a&gt;&lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
@@ -1092,7 +1092,7 @@ where $1\{k=j\}$ is the indicator function, which returns $1$ if $k=j$ and retur
 \end{align}
 and
 \begin{equation}
-\mathbf{H}=\nabla_\mathbf{w}^2 E(\mathbf{w})=\nabla_\mathbf{w}\big(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\mathbf{w}-\boldsymbol{\Phi}^\text{T}\mathbf{t}\big)=\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi},
+\mathbf{H}=\nabla_\mathbf{w}\nabla_\mathbf{w}E(\mathbf{w})=\nabla_\mathbf{w}\big(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\mathbf{w}-\boldsymbol{\Phi}^\text{T}\mathbf{t}\big)=\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi},
 \end{equation}
 where $\boldsymbol{\Phi}$, as defined before, is the $N\times M$ design matrix
 \begin{equation}
@@ -1111,7 +1111,7 @@ which is exactly the standard least-squares solution.&lt;/p&gt;
 \end{equation}
 and
 \begin{align}
-\mathbf{H}=\nabla_{\mathbf{w}}^2 E(\mathbf{w})&amp;amp;=\nabla_\mathbf{w}\sum_{n=1}^{N}(y_n-t_n)\boldsymbol{\phi}_n \\ &amp;amp;=\sum_{n=1}^{N}y_n(1-y_n)\boldsymbol{\phi}_n\boldsymbol{\phi}_n^\text{T} \\ &amp;amp;=\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi},
+\mathbf{H}=\nabla_\mathbf{w}\nabla_\mathbf{w}E(\mathbf{w})&amp;amp;=\nabla_\mathbf{w}\sum_{n=1}^{N}(y_n-t_n)\boldsymbol{\phi}_n \\ &amp;amp;=\sum_{n=1}^{N}y_n(1-y_n)\boldsymbol{\phi}_n\boldsymbol{\phi}_n^\text{T} \\ &amp;amp;=\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi},
 \end{align}
 where $\mathbf{R}$ is the $N\times N$ diagonal matrix with diagonal elements
 \begin{equation}
@@ -1183,8 +1183,61 @@ Let us apply &lt;strong&gt;Jensen’s inequality&lt;/strong&gt;&lt;sup id=&quot;
 which claims the positive semi-definiteness of $\mathbf{H}$. Therefore, the error function $E(\mathbf{w})$ is concave and thus has a unique minimum.&lt;/p&gt;
 
 &lt;h3 id=&quot;bayes-log-reg&quot;&gt;Bayesian Logistic Regression&lt;/h3&gt;
+&lt;p&gt;When using Bayesian approach for logistic regression model, unlike the case of linear regression \eqref{13}, the posterior distribution now is no longer Gaussian. This makes the evaluation of posterior be intractable when integrating over the parameter $\mathbf{w}$.&lt;/p&gt;
 
-&lt;h4 id=&quot;laplace-approx&quot;&gt;Laplace approximation&lt;/h4&gt;
+&lt;p&gt;Therefore, it is necessary to use some approximation methods.&lt;/p&gt;
+
+&lt;h4 id=&quot;laplace-approx&quot;&gt;The Laplace approximation&lt;/h4&gt;
+&lt;p&gt;The goal of &lt;strong&gt;Laplace approximation&lt;/strong&gt; is to fit a Gaussian distribution to a probability density defined over a set of continuous variables&lt;/p&gt;
+
+&lt;p&gt;We begin by consider applying Laplace method to one-dimensional variables $z$ with the density function $p(z)$ is defined as
+\begin{equation}
+p(z)=\frac{1}{Z}f(z),
+\end{equation}
+where $Z=\int f(z)\,dz$ is the normalization coefficient, and is unknown.&lt;/p&gt;
+
+&lt;p&gt;The idea behind Laplace method is to place a Gaussian $q(z)$ on a mode of the distribution $p(z)$. A mode $z_0$ of $p(z)$ is where the distribution reaches its global maximum, which also means the derivative of $p(z)$ at $z_0$ is zero
+\begin{equation}
+\left.\frac{d f(z)}{dz}\right\vert_{z=z_0}=0
+\end{equation}
+Therefore, the Taylor expansion of $\log f(z)$ about $z=z_0$ can be written by
+\begin{align}
+\log f(z)&amp;amp;\simeq\log f(z_0)+\log f(z)\left.\frac{d f(z)}{dz}\right\vert_{z=z_0}(z-z_0)+\frac{1}{2}\left.\frac{d^2\log f(z)}{d^2 z}\right\vert_{z=z_0}(z-z_0)^2 \\ &amp;amp;=\log f(z_0)-\frac{A}{2}(z-z_0)^2,\tag{43}\label{43}
+\end{align}
+where
+\begin{equation}
+A=-\left.\frac{d^2\log f(z)}{d^2 z}\right\vert_{z=z_0}
+\end{equation}
+Thus, taking the exponential gives us
+\begin{equation}
+f(z)\simeq f(z_0)\exp\left(-\frac{A}{2}(z-z_0)^2\right),
+\end{equation}
+which is in a form of an unnormalized Gaussian distribution. Hence, we can obtain a Gaussian approximation $q(z)$ of $p(z)$ by adding a normalization parameter to form a Normal distribution, as
+\begin{equation}
+q(z)=\left(\frac{A}{2\pi}\right)^{1/2}\exp\left(-\frac{A}{2}(z-z_0)^2\right)=\mathcal{N}(\mathbf{z}\vert z_0,A^{-1})
+\end{equation}
+We can extend the Laplace approximation into multi-dimensional variable $\mathbf{z}$, which is finding an Gaussian approximation of distribution
+\begin{equation}
+p(\mathbf{z})=\frac{1}{Z}f(\mathbf{z}),
+\end{equation}
+where $z$ is a vector of length $M\geq 2$.&lt;/p&gt;
+
+&lt;p&gt;Analogy to the univariate case, the first step is to consider the Taylor expansion of $\log f(\mathbf{z})$ about its stationary point $\mathbf{z}_0$, which means $\nabla_\mathbf{z}f(\mathbf{z})\vert_{\mathbf{z}=\mathbf{z}_0}=0$. We have
+\begin{align}
+\log f(\mathbf{z})&amp;amp;\simeq f(\mathbf{z}_0)+\log f(\mathbf{z})\nabla_\mathbf{z}f(\mathbf{z})\vert_{\mathbf{z}=\mathbf{z}_0}+\frac{1}{2}\nabla_\mathbf{z}\nabla_\mathbf{z}\log f(\mathbf{z})\vert_{\mathbf{z}=\mathbf{z}_0}\Vert\mathbf{z}-\mathbf{z}_0\Vert_2^2 \\ &amp;amp;=\log f(\mathbf{z}_0)-\frac{1}{2}(\mathbf{z}-\mathbf{z}_0)^\text{T}\mathbf{A}(\mathbf{z}-\mathbf{z}_0),
+\end{align}
+where
+\begin{equation}
+\mathbf{A}=-\nabla_\mathbf{z}\nabla_\mathbf{z}\log f(z)\vert_{\mathbf{z}=\mathbf{z}_0}
+\end{equation}
+Taking the exponentials of both sides lets us obtain
+\begin{equation}
+f(\mathbf{z})\simeq f(\mathbf{z}_0)\exp\left(-\frac{1}{2}(\mathbf{z}-\mathbf{z}_0)^\text{T}\mathbf{A}(\mathbf{z}-\mathbf{z}_0)\right),
+\end{equation}
+which is in form of an unnormalized multivariate Gaussian. Adding a normalization parameter gives us the Gaussian approximation $q(\mathbf{z})$ of $p(\mathbf{z})$
+\begin{equation}
+q(\mathbf{z})=\frac{\vert\mathbf{A}\vert^{1/2}}{(2\pi)^{M/2}}\exp\left(-\frac{1}{2}(\mathbf{z}-\mathbf{z}_0)^\text{T}\mathbf{A}(\mathbf{z}-\mathbf{z}_0)\right)=\mathcal{N}(\mathbf{z}\vert\mathbf{z}_0,\mathbf{A}^{-1})
+\end{equation}&lt;/p&gt;
 
 &lt;h4 id=&quot;pred-dist-clf&quot;&gt;Predictive distribution&lt;/h4&gt;
 
