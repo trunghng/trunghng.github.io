@@ -24,7 +24,7 @@ comments: true
 		- [Multiple outputs](#mult-outputs)
 	- [Bayesian Linear Regression](#bayes-lin-reg)
 		- [Parameter distribution](#param-dist)
-		- [Predictive distribution](#pred-dist-clf)
+		- [Predictive distribution](#pred-dist-reg)
 - [Linear models for Classification](#lin-models-reg)
 	- [Discriminant functions](#disc-funcs)
 		- [Least squares](#least-squares-clf)
@@ -46,6 +46,7 @@ comments: true
 			- [Softmax Regression](#nm-softmax-reg)
 	- [Bayesian Logistic Regression](#bayes-log-reg)
 		- [The Laplace approximation](#laplace-approx)
+		- [Approximation of the posterior](#approx-posterior)
 		- [Predictive distribution](#pred-dist-clf)
 - [References](#references)
 - [Footnotes](#footnotes)
@@ -1007,15 +1008,15 @@ where $y_n=p(\mathcal{C}\_1\vert\boldsymbol{\phi}\_n)$.
 
 Comprise $t_n$'s into $\mathbf{t}\doteq(t_1,\ldots,t_N)^\text{T}$, then we have that the likelihood function can be defined as
 \begin{equation}
-L(\mathbf{w})=p(\mathbf{t}\vert\mathbf{w})=\prod_{n=1}^{N}p(t_n\vert\mathbf{w})=\prod_{n=1}^{N}y_n^{t_n}(1-y_n)^{1-t_n}
+L(\mathbf{w})=p(\mathbf{t}\vert\mathbf{w})=\prod_{n=1}^{N}p(t_n\vert\mathbf{w})=\prod_{n=1}^{N}y_n^{t_n}(1-y_n)^{1-t_n}\tag{35}\label{35}
 \end{equation}
 Taking the negative logarithm of the likelihood gives us the **cross-entropy** error function, as
 \begin{align}
-E(\mathbf{w})=-\log L(\mathbf{w})&=-\log\prod_{n=1}^{N}p(t_n\vert\mathbf{w})=\prod_{n=1}^{N}y_n^{t_n}(1-y_n)^{1-t_n} \\\\ &=-\sum_{n=1}^{N}t_n\log y_n+(1-t_n)\log(1-y_n)\tag{35}\label{35}
+E(\mathbf{w})=-\log L(\mathbf{w})&=-\log\prod_{n=1}^{N}p(t_n\vert\mathbf{w})=\prod_{n=1}^{N}y_n^{t_n}(1-y_n)^{1-t_n} \\\\ &=-\sum_{n=1}^{N}t_n\log y_n+(1-t_n)\log(1-y_n)\tag{36}\label{36}
 \end{align}
 Differentiating the error function $E(\mathbf{w})$ w.r.t $\mathbf{w}$ we have that
 \begin{align}
-\nabla_\mathbf{w}E(\mathbf{w})&=\nabla_\mathbf{w}-\sum_{n=1}^{N}t_n\log y_n+(1-t_n)\log(1-y_n) \\\\ &=\sum_{n=1}^{N}\frac{(1-t_n)\nabla_\mathbf{w}y_n}{1-y_n}-\frac{t_n\nabla_\mathbf{w}y_n}{y_n} \\\\ &=\sum_{n=1}^{N}\frac{(1-t_n)y_n(1-y_n)\boldsymbol{\phi}\_n}{1-y_n}-\frac{t_n y_n(1-y_n)\boldsymbol{\phi}\_n}{y_n} \\\\ &=\sum_{n=1}^{N}(1-t_n)y_n\boldsymbol{\phi}\_n-t_n(1-y_n)\boldsymbol{\phi}\_n \\\\ &=\sum_{n=1}^{N}(y_n-t_n)\boldsymbol{\phi}\_n,\tag{36}\label{36}
+\nabla_\mathbf{w}E(\mathbf{w})&=\nabla_\mathbf{w}-\sum_{n=1}^{N}t_n\log y_n+(1-t_n)\log(1-y_n) \\\\ &=\sum_{n=1}^{N}\frac{(1-t_n)\nabla_\mathbf{w}y_n}{1-y_n}-\frac{t_n\nabla_\mathbf{w}y_n}{y_n} \\\\ &=\sum_{n=1}^{N}\frac{(1-t_n)y_n(1-y_n)\boldsymbol{\phi}\_n}{1-y_n}-\frac{t_n y_n(1-y_n)\boldsymbol{\phi}\_n}{y_n} \\\\ &=\sum_{n=1}^{N}(1-t_n)y_n\boldsymbol{\phi}\_n-t_n(1-y_n)\boldsymbol{\phi}\_n \\\\ &=\sum_{n=1}^{N}(y_n-t_n)\boldsymbol{\phi}\_n,\tag{37}\label{37}
 \end{align}
 where in the third step, we have used the identity of the derivative of the logistic sigmoid function
 \begin{equation}
@@ -1052,11 +1053,11 @@ L(\mathbf{w}\_1,\ldots,\mathbf{w}\_K)&=p(\mathbf{T}\vert\mathbf{w}\_1,\ldots,\ma
 \end{align}
 We also obtain the cross-entropy error function by taking the negative logarithm of the likelihood, as
 \begin{align}
-E(\mathbf{w}\_1,\ldots,\mathbf{w}\_K)&=-\log L(\mathbf{w}\_1,\ldots,\mathbf{w}\_K) \\\\ &=-\log\prod_{n=1}^{N}\prod_{k=1}^{K}(y_{n})\_k^{(\mathbf{t}\_n)\_k} \\\\ &=-\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k\log(y_{n})\_k\tag{37}\label{37}
+E(\mathbf{w}\_1,\ldots,\mathbf{w}\_K)&=-\log L(\mathbf{w}\_1,\ldots,\mathbf{w}\_K) \\\\ &=-\log\prod_{n=1}^{N}\prod_{k=1}^{K}(y_{n})\_k^{(\mathbf{t}\_n)\_k} \\\\ &=-\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k\log(y_{n})\_k\tag{38}\label{38}
 \end{align}
 As usual, taking the gradient of the error function $E(\mathbf{w}\_1,\ldots,\mathbf{w}\_K)$ w.r.t $\mathbf{w}\_k$ we have
 \begin{align}
-\nabla_{\mathbf{w}\_k}E(\mathbf{w}\_1,\ldots,\mathbf{w}\_K)&=\nabla_{\mathbf{w}\_k}-\sum_{n=1}^{N}\sum_{i=1}^{K}(\mathbf{t}\_n)\_i\log(y_{n})\_i \\\\ &=-\sum_{n=1}^{N}\sum_{i=1}^{K}(\mathbf{t}\_n)\_i\frac{(y_n)\_i(1\\{i=k\\}-(y_n)\_k)\boldsymbol{\phi}\_n}{(y_n)\_i} \\\\ &=\sum_{n=1}^{N}\Big[(y_n)\_k\sum_{i=1}^{K}(\mathbf{t}\_n)\_i-\sum_{i=1}^{K}(\mathbf{t}\_n)\_i 1\\{i=k\\}\Big]\boldsymbol{\phi}\_n \\\\ &=\sum_{n=1}^{N}\big[(y_n)\_k-(\mathbf{t}\_n)\_k\big]\boldsymbol{\phi}\_n\tag{38}\label{38}
+\nabla_{\mathbf{w}\_k}E(\mathbf{w}\_1,\ldots,\mathbf{w}\_K)&=\nabla_{\mathbf{w}\_k}-\sum_{n=1}^{N}\sum_{i=1}^{K}(\mathbf{t}\_n)\_i\log(y_{n})\_i \\\\ &=-\sum_{n=1}^{N}\sum_{i=1}^{K}(\mathbf{t}\_n)\_i\frac{(y_n)\_i(1\\{i=k\\}-(y_n)\_k)\boldsymbol{\phi}\_n}{(y_n)\_i} \\\\ &=\sum_{n=1}^{N}\Big[(y_n)\_k\sum_{i=1}^{K}(\mathbf{t}\_n)\_i-\sum_{i=1}^{K}(\mathbf{t}\_n)\_i 1\\{i=k\\}\Big]\boldsymbol{\phi}\_n \\\\ &=\sum_{n=1}^{N}\big[(y_n)\_k-(\mathbf{t}\_n)\_k\big]\boldsymbol{\phi}\_n\tag{39}\label{39}
 \end{align}
 where in the second step, we have used the identity
 \begin{align}
@@ -1075,7 +1076,7 @@ where $1\\{k=j\\}$ is the indicator function, which returns $1$ if $k=j$ and ret
 </figure>
 
 \begin{equation}
-\mathbf{w}^{(\text{new})}=\mathbf{w}^{(\text{old})}-\mathbf{H}^{-1}\nabla_\mathbf{w}E(\mathbf{w})
+\mathbf{w}^{(\text{new})}=\mathbf{w}^{(\text{old})}-\mathbf{H}^{-1}\nabla_\mathbf{w}E(\mathbf{w})\tag{40}\label{40}
 \end{equation}
 
 ##### Linear Regression
@@ -1094,19 +1095,19 @@ where $\boldsymbol{\Phi}$, as defined before, is the $N\times M$ design matrix
 \end{equation}
 Hence, we have that the Newton's update of the model is given by
 \begin{align}
-\mathbf{w}^{(\text{new})}&=\mathbf{w}^{(\text{old})}-(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi})^{-1}\big(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\mathbf{w}^{(\text{old})}-\boldsymbol{\Phi}^\text{T}\mathbf{t}\big) \\\\ &=(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}^\text{T}\mathbf{t},\tag{39}\label{39}
+\mathbf{w}^{(\text{new})}&=\mathbf{w}^{(\text{old})}-(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi})^{-1}\big(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\mathbf{w}^{(\text{old})}-\boldsymbol{\Phi}^\text{T}\mathbf{t}\big) \\\\ &=(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}^\text{T}\mathbf{t},\tag{41}\label{41}
 \end{align}
 which is exactly the standard least-squares solution.
 
 ##### Logistic Regression
 {: #nm-log-reg}
-Consider using the Newton's method to the logistic regression model with the cross-entropy error function \eqref{35}. By the result \eqref{36}, we have the gradient and Hessian of this error function are given as
+Consider using the Newton's method to the logistic regression model with the cross-entropy error function \eqref{36}. By the result \eqref{37}, we have the gradient and Hessian of this error function are given as
 \begin{equation}
-\nabla_\mathbf{w}E(\mathbf{w})=\sum_{n=1}^{N}(y_n-t_n)\boldsymbol{\phi}\_n=\boldsymbol{\Phi}(\mathbf{y}-\mathbf{t})
+\nabla_\mathbf{w}E(\mathbf{w})=\sum_{n=1}^{N}(y_n-t_n)\boldsymbol{\phi}\_n=\boldsymbol{\Phi}(\mathbf{y}-\mathbf{t})\tag{42}\label{42}
 \end{equation}
 and
 \begin{align}
-\mathbf{H}=\nabla_\mathbf{w}\nabla_\mathbf{w}E(\mathbf{w})&=\nabla_\mathbf{w}\sum_{n=1}^{N}(y_n-t_n)\boldsymbol{\phi}\_n \\\\ &=\sum_{n=1}^{N}y_n(1-y_n)\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T} \\\\ &=\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi},
+\mathbf{H}=\nabla_\mathbf{w}\nabla_\mathbf{w}E(\mathbf{w})&=\nabla_\mathbf{w}\sum_{n=1}^{N}(y_n-t_n)\boldsymbol{\phi}\_n \\\\ &=\sum_{n=1}^{N}y_n(1-y_n)\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\tag{43}\label{43} \\\\ &=\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi},
 \end{align}
 where $\mathbf{R}$ is the $N\times N$ diagonal matrix with diagonal elements
 \begin{equation}
@@ -1120,7 +1121,7 @@ since $\mathbf{R}$ is positive definite due to $y_n\in(0,1)$ letting all the dia
 
 Back to our main attention, the Newton's update of the model then takes the form
 \begin{align}
-\mathbf{w}^{(\text{new})}&=\mathbf{w}^{(\text{old})}-(\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}(\mathbf{y}-\mathbf{t}) \\\\ &=(\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi})^{-1}\Big[\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi}\mathbf{w}^{(\text{old})}-\boldsymbol{\Phi}^\text{T}(\mathbf{y}-\mathbf{t})\Big] \\\\ &=(\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}^\text{T}\mathbf{R}\mathbf{z},\tag{40}\label{40}
+\mathbf{w}^{(\text{new})}&=\mathbf{w}^{(\text{old})}-(\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}(\mathbf{y}-\mathbf{t}) \\\\ &=(\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi})^{-1}\Big[\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi}\mathbf{w}^{(\text{old})}-\boldsymbol{\Phi}^\text{T}(\mathbf{y}-\mathbf{t})\Big] \\\\ &=(\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}^\text{T}\mathbf{R}\mathbf{z},\tag{44}\label{44}
 \end{align}
 where $\mathbf{z}$ is an $N$-dimensional vector given by
 \begin{equation}
@@ -1130,13 +1131,13 @@ This algorithm is known as **iterative reweighted least squares**, or **IRLS**.
 
 ##### Softmax Regression
 {: #nm-softmax-reg}
-Consider applying the Newton's method to the cross-entropy error function \eqref{37} for the softmax regression model.
+Consider applying the Newton's method to the cross-entropy error function \eqref{38} for the softmax regression model.
 
 First, let $\mathbf{W}$ be the $M\times K$ matrix that comprises $\mathbf{w}\_1,\ldots,\mathbf{w}\_K$ together, as
 \begin{equation}
 \mathbf{W}=\left[\begin{matrix}\vert&&\vert \\\\ \mathbf{w}\_1&\ldots&\mathbf{w}\_K \\\\ \vert&&\vert\end{matrix}\right]
 \end{equation}
-By the result \eqref{38}, we have that the $k$-th column of the gradient of this error function is given by
+By the result \eqref{39}, we have that the $k$-th column of the gradient of this error function is given by
 \begin{equation}
 \nabla_{\mathbf{w}\_k}E(\mathbf{W})=\sum_{n=1}^{N}\big[(y_n)\_k-(\mathbf{t}\_n)\_k\big]\boldsymbol{\phi}\_n=\boldsymbol{\Phi}^\text{T}(\mathbf{Y}\_k-\mathbf{T}\_k),
 \end{equation}
@@ -1150,7 +1151,7 @@ and where $\mathbf{Y}\_k,\mathbf{T}\_k$ are the $k$th columns of the $N\times K$
 \end{equation}
 Therefore, the gradient of the error function w.r.t $\mathbf{W}$ can be written as
 \begin{equation}
-\nabla_\mathbf{W}E(\mathbf{W})=\boldsymbol{\Phi}^\text{T}(\mathbf{Y}-\mathbf{T})\tag{41}\label{41}
+\nabla_\mathbf{W}E(\mathbf{W})=\boldsymbol{\Phi}^\text{T}(\mathbf{Y}-\mathbf{T})\tag{45}\label{45}
 \end{equation}
 Now we consider the hessian matrix $\mathbf{H}$ of the error function, whose block $(k,j)$ is given by
 \begin{align}
@@ -1162,7 +1163,7 @@ Analogous to the binary case, the hessian $\mathbf{H}$ for the multi-class logis
 \end{equation}
 where each $\mathbf{u}\_k$ is a vector of length $M$, for $k=1,\ldots,K$. Therefore, we have
 \begin{align}
-\mathbf{u}^\text{T}\mathbf{H}\mathbf{u}&=\sum_{k=1}^{K}\sum_{j=1}^{K}\mathbf{u}\_k^\text{T}\mathbf{H}\_{k j}\mathbf{u}\_j \\\\ &=\sum_{k=1}^{K}\sum_{j=1}^{K}\mathbf{u}\_k^\text{T}\sum_{n=1}^{N}(y_n)\_k\big(1\\{j=k\\}-(y_n)\_j\big)\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\mathbf{u}\_j \\\\ &=\sum_{n=1}^{N}\left[\sum_{k=1}^{K}(y_n)\_k\mathbf{u}\_k^\text{T}\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\mathbf{u}\_k-\sum_{k=1}^{K}\sum_{j=1}^{K}(y_n)\_k(y_n)\_j\mathbf{u}\_k^\text{T}\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\mathbf{u}\_j\right] \\\\ &=\sum_{n=1}^{N}\left[\sum_{k=1}^{K}(y_n)\_k\mathbf{u}\_k^\text{T}\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\mathbf{u}\_k-\sum_{k=1}^{K}(y_n)\_k\mathbf{u}\_k^\text{T}\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\sum_{j=1}^{K}(y_n)\_j\mathbf{u}\_j\right]\tag{42}\label{42}
+\mathbf{u}^\text{T}\mathbf{H}\mathbf{u}&=\sum_{k=1}^{K}\sum_{j=1}^{K}\mathbf{u}\_k^\text{T}\mathbf{H}\_{k j}\mathbf{u}\_j \\\\ &=\sum_{k=1}^{K}\sum_{j=1}^{K}\mathbf{u}\_k^\text{T}\sum_{n=1}^{N}(y_n)\_k\big(1\\{j=k\\}-(y_n)\_j\big)\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\mathbf{u}\_j \\\\ &=\sum_{n=1}^{N}\left[\sum_{k=1}^{K}(y_n)\_k\mathbf{u}\_k^\text{T}\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\mathbf{u}\_k-\sum_{k=1}^{K}\sum_{j=1}^{K}(y_n)\_k(y_n)\_j\mathbf{u}\_k^\text{T}\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\mathbf{u}\_j\right] \\\\ &=\sum_{n=1}^{N}\left[\sum_{k=1}^{K}(y_n)\_k\mathbf{u}\_k^\text{T}\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\mathbf{u}\_k-\sum_{k=1}^{K}(y_n)\_k\mathbf{u}\_k^\text{T}\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\sum_{j=1}^{K}(y_n)\_j\mathbf{u}\_j\right]\tag{46}\label{46}
 \end{align}
 Consider $f:\mathbb{R}^M\to\mathbb{R}$, defined as
 \begin{equation}
@@ -1172,7 +1173,7 @@ Thus, it follows immediately from the definition of $f$ that $f$ is convex since
 \begin{equation}
 f(\mathbf{x})=\mathbf{x}^\text{T}\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\mathbf{x}=\Vert\mathbf{x}^\text{T}\boldsymbol{\phi}\_n\Vert_2^2\geq 0
 \end{equation}
-Let us apply **Jensen's inequality**[^2] for $f$ with observing that $\sum_{k=1}^{K}(y_n)\_k=\sum_{j=1}^{K}(y_n)\_j=1$, then \eqref{42} can be continued to derive as
+Let us apply **Jensen's inequality**[^2] for $f$ with observing that $\sum_{k=1}^{K}(y_n)\_k=\sum_{j=1}^{K}(y_n)\_j=1$, then \eqref{46} can be continued to derive as
 \begin{align}
 \mathbf{u}^\text{T}\mathbf{H}\mathbf{u}&=\sum_{n=1}^{N}\left[\sum_{k=1}^{K}(y_n)\_k\mathbf{u}\_k^\text{T}\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\mathbf{u}\_k-\sum_{k=1}^{K}(y_n)\_k\mathbf{u}\_k^\text{T}\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\sum_{j=1}^{K}(y_n)\_j\mathbf{u}\_j\right] \\\\ &=\sum_{n=1}^{N}\left[\sum_{k=1}^{K}(y_n)\_k f\left(\mathbf{u}\_k\right)-f\left(\sum_{k=1}^{K}(y_n)\_k\mathbf{u}\_k\right)\right] \\\\ &\geq\sum_{n=1}^{N}\left[f\left(\sum_{k=1}^{K}(y_n)\_k\mathbf{u}\_k\right)-f\left(\sum_{k=1}^{K}(y_n)\_k\mathbf{u}\_k\right)\right] \\\\ &=0,
 \end{align}
@@ -1200,7 +1201,7 @@ The idea behind Laplace method is to place a Gaussian $q(z)$ on a mode of the di
 \end{equation}
 Therefore, the Taylor expansion of $\log f(z)$ about $z=z_0$ can be written by
 \begin{align}
-\log f(z)&\simeq\log f(z_0)+\log f(z)\left.\frac{d f(z)}{dz}\right\vert_{z=z_0}(z-z_0)+\frac{1}{2}\left.\frac{d^2\log f(z)}{d^2 z}\right\vert_{z=z_0}(z-z_0)^2 \\\\ &=\log f(z_0)-\frac{A}{2}(z-z_0)^2,\tag{43}\label{43}
+\log f(z)&\simeq\log f(z_0)+\log f(z)\left.\frac{d f(z)}{dz}\right\vert_{z=z_0}(z-z_0)+\frac{1}{2}\left.\frac{d^2\log f(z)}{d^2 z}\right\vert_{z=z_0}(z-z_0)^2 \\\\ &=\log f(z_0)-\frac{A}{2}(z-z_0)^2,\tag{47}\label{47}
 \end{align}
 where
 \begin{equation}
@@ -1234,12 +1235,48 @@ f(\mathbf{z})\simeq f(\mathbf{z}\_0)\exp\left(-\frac{1}{2}(\mathbf{z}-\mathbf{z}
 \end{equation}
 which is in form of an unnormalized multivariate Gaussian. Adding a normalization parameter gives us the Gaussian approximation $q(\mathbf{z})$ of $p(\mathbf{z})$
 \begin{equation}
-q(\mathbf{z})=\frac{\vert\mathbf{A}\vert^{1/2}}{(2\pi)^{M/2}}\exp\left(-\frac{1}{2}(\mathbf{z}-\mathbf{z}\_0)^\text{T}\mathbf{A}(\mathbf{z}-\mathbf{z}\_0)\right)=\mathcal{N}(\mathbf{z}\vert\mathbf{z}\_0,\mathbf{A}^{-1})
+q(\mathbf{z})=\frac{\vert\mathbf{A}\vert^{1/2}}{(2\pi)^{M/2}}\exp\left(-\frac{1}{2}(\mathbf{z}-\mathbf{z}\_0)^\text{T}\mathbf{A}(\mathbf{z}-\mathbf{z}\_0)\right)=\mathcal{N}(\mathbf{z}\vert\mathbf{z}\_0,\mathbf{A}^{-1})\tag{48}\label{48}
 \end{equation}
 
+#### Approximation of the posterior
+{: #approx-posterior}
+Consider the prior to be a Gaussian, which is
+\begin{equation}
+p(\mathbf{w})=\mathcal{N}(\mathbf{w}\vert\mathbf{m}\_0,\mathbf{S}\_0),
+\end{equation}
+where $\mathbf{m}\_0$ and $\mathbf{S}\_0$ are known. Along with this is the likelihood function, which is defined by \eqref{35}, as
+\begin{equation}
+p(\mathbf{t}\vert\mathbf{w})=\prod_{n=1}^{N}y_n^{t_n}(1-y_n)^{1-t_n},
+\end{equation}
+where $\mathbf{t}=(t_1,\ldots,t_N)^\text{T}$, and $y_n=\sigma(\mathbf{w}^\text{T}\boldsymbol{\phi}\_n)$. Therefore, by Bayes' theorem, the posterior is given by
+\begin{equation}
+p(\mathbf{w}\vert\mathbf{t})\propto p(\mathbf{w})p(\mathbf{t}\vert\mathbf{w}),
+\end{equation}
+Taking the natural logarithm of both sides gives us
+\begin{align}
+\log p(\mathbf{w}\vert\mathbf{t})&=-\frac{1}{2}(\mathbf{w}-\mathbf{m}\_0)^\text{T}\mathbf{S}\_0^{-1}(\mathbf{w}-\mathbf{m}\_0)+\sum_{n=1}^{N}\big[t_n\log y_n+(1-t_n)\log(1-y_n)\big]+c,
+\end{align}
+where $c$ is independent of $\mathbf{w}$.
+
+By Laplace approximation, to find a Gaussian approximation of the posterior, the first step is looking for the point which maximizes the posterior, which is the $\mathbf{w}\_\text{MAP}$. This point also defines the mean of the approximation. The corresponding covariance matrix $\mathbf{S}\_N$ of the Gaussian is given by
+\begin{align}
+\mathbf{S}\_N&=-\nabla_\mathbf{w}\nabla_\mathbf{w}\log p(\mathbf{w}\vert\mathbf{t}) \\\\ &=\mathbf{S}\_0^{-1}+\sum_{n=1}^{N}y_n(1-y_n)\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T},\tag{49}\label{49}
+\end{align}
+where the second step is obtained by using the result  \eqref{43}. Therefore, the Gaussian approximation $q(\mathbf{w})$ for the posterior distribution is given by
+\begin{equation}
+q(\mathbf{w})=\mathcal{N}(\mathbf{w}\vert\mathbf{w}\_\text{MAP},\mathbf{S}\_N)\tag{50}\label{50}
+\end{equation}
 
 #### Predictive distribution
 {: #pred-dist-clf}
+With the Gaussian approximation \eqref{50}, the predict distribution for class $\mathcal{C}\_1$, given a new feature vector $\boldsymbol{\phi}(\mathbf{x})$, is then given by marginalizing w.r.t the posterior distribution $p(\mathbf{w}\vert\mathbf{t})$, as
+\begin{equation}
+p(\mathcal{C}\_1\vert\boldsymbol{\phi},\mathbf{t})=\int p(\mathcal{C}\_1\vert\boldsymbol{\phi}\mathbf{w})p(\mathbf{w}\vert\mathbf{t})\,d\mathbf{w}\simeq\int\sigma(\mathbf{w}^\text{T}\boldsymbol{\phi})q(\mathbf{w})\,d\mathbf{w}\tag{51}\label{51}
+\end{equation}
+And thus, the predictive distribution for class $\mathcal{C}\_2$ is given by
+\begin{equation}
+p(\mathcal{C}\_2\vert\boldsymbol{\phi},\mathbf{t})=1-p(\mathcal{C}\_1\vert\boldsymbol{\phi},\mathbf{t})\tag{52}\label{52}
+\end{equation}
 
 ## References
 {: #references}
