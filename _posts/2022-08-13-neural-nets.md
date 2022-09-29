@@ -15,6 +15,12 @@ eqn-number: true
 	- [Universal approximation property](#unv-approx)
 	- [Weight-space symmetries](#w-s-sym)
 - [Network training](#net-training)
+	- [Network outputs probabilistic interpretation](#output-prob-itp)
+		- [Univariate regression](#univ-output)
+		- [Multivariate regression](#mult-output)
+		- [Binary classification](#bi-clf)
+		- [Multi-class classification](#mult-clf)
+	- [Parameter optimization](#param-opt)
 - [Backpropagation](#backprop)
 - [Bayesian neural networks](#bayes-nn)
 	- [Posterior parameter distribution](#posterior-param-dist)
@@ -87,6 +93,12 @@ In concrete, the universal approximation theorem states that a feedforward netwo
 
 ## Network training
 {: #net-training}
+
+### Network outputs probabilistic interpretation
+{: #output-prob-itp}
+
+#### Univariate regression
+{: #univ-output}
 Consider the [regression problem]({% post_url 2022-08-13-linear-models %}#least-squares-reg) in which the target variable $t$ has Gaussian distribution with an $\mathbf{x}$ dependent mean
 \begin{equation}
 p(t\vert\mathbf{x},\mathbf{w})=\mathcal{N}(t\vert y(\mathbf{x},\mathbf{w}),\beta^{-1}),
@@ -101,11 +113,87 @@ The likelihood function therefore can be given by
 \begin{align}
 p(t\vert\mathbf{X},\mathbf{w},\beta)&=\prod_{n=1}^{N}p(t_n\vert\mathbf{x}\_n,\mathbf{w},\beta) \\\\ &=\prod_{n=1}^{N}\mathcal{N}(t_n\vert y(\mathbf{x}\_n,\mathbf{w}),\beta^{-1})
 \end{align}
-Taking negative natural logarithm of both sides gives us
+With a minor change as usual that taking negative natural logarithm of both sides gives us
 \begin{align}
 -\log p(\mathbf{t}\vert\mathbf{X},\mathbf{w},\beta)&=-\sum_{n=1}^{N}\log\mathcal{N}(t_n\vert y(\mathbf{x}\_n,\mathbf{w}),\beta^{-1}) \\\\ &=\frac{\beta}{2}\sum_{n=1}^{N}\big(y(\mathbf{x}\_n,\mathbf{w})-t_n\big)^2-\frac{N}{2}\log\beta+\frac{N}{2}\log 2\pi
 \end{align}
+Therefore, maximizing the likelihood function $p(\mathbf{t}\vert\mathbf{X},\mathbf{x},\beta)$ is equivalent to minimizing the sum-of-squares error function given as
+\begin{equation}
+E(\mathbf{w})=\frac{1}{2}\sum_{n=1}^{N}\big(y(\mathbf{x}\_n,\mathbf{w})-t_n\big)^2,
+\end{equation}
+This also means the value of $\mathbf{w}$ that minimizes $E(\mathbf{w})$ will be $\mathbf{w}\_\text{ML}$, which implies that the corresponding solution for $\beta$ will be given by
+\begin{equation}
+\frac{1}{\beta_\text{ML}}=\frac{1}{N}\sum_{n=1}^{N}\big(y(\mathbf{x}\_n,\mathbf{w}\_\text{ML})-t_n\big)^2
+\end{equation}
 
+#### Multivariate regression
+{: #mult-output}
+Similarly, we consider the multiple target variables case, in which the conditional distribution of the target therefore takes the form
+\begin{equation}
+p(\mathbf{t}\vert\mathbf{x},\mathbf{w},\beta)=\mathcal{N}(\mathbf{t}\vert\mathbf{y}(\mathbf{x},\mathbf{w}),\beta^{-1}\mathbf{I})
+\end{equation}
+Repeating the same procedure as the univariate case, maximizing likelihood function is also equivalent to minimizing the sum-of-squares error function given by
+\begin{equation}
+E(\mathbf{w})=\frac{1}{2}\sum_{n=1}^{N}\big\Vert\mathbf{y}(\mathbf{x}\_n,\mathbf{w})-\mathbf{t}\_n\big\Vert^2,
+\end{equation}
+which gives us the solution for the noise precision $\beta$ in the multivariate case as
+\begin{equation}
+\frac{1}{\beta_\text{ML}}=\frac{1}{NK}\sum_{n=1}^{N}\big\Vert\mathbf{y}(\mathbf{x}\_n,\mathbf{w}\_\text{ML})-\mathbf{t}\_n\big\Vert^2,
+\end{equation}
+where $K$ is the number of target variables.
+
+#### Binary classification
+{: #bi-clf}
+Consider the problem of binary classification which outputs $t=1$ to denote class $\mathcal{C}\_1$ and otherwise to denote class $\mathcal{C}\_2$.
+
+In particular, we consider a network having a single output whose activation function is a logistic sigmoid
+\begin{equation}
+y=\sigma(a)\doteq\frac{1}{1+\exp(-a)},
+\end{equation}
+which follows immediately that $0\leq y(\mathbf{x},\mathbf{w})\leq 1$.
+
+This suggests us interpreting $y(\mathbf{x},\mathbf{w})$ as the conditional probability for class $\mathcal{C}\_1$, $p(\mathcal{C}\_1\vert\mathbf{x})$, and hence the corresponding conditional probability for class $\mathcal{C}\_2$ will be $p(\mathcal{C}\_2\vert\mathbf{x})=1-y(\mathbf{x},\mathbf{w})$. Or in other words, the conditional distribution $p(t\vert\mathbf{x},\mathbf{w})$ of targets $t$ given inputs $\mathbf{x}$ is then a Bernoulli distribution of the form
+\begin{equation}
+p(t\vert\mathbf{x},\mathbf{w})=y(\mathbf{x},\mathbf{w})^t\big(1-y(\mathbf{x},\mathbf{w})\big)^{1-t}
+\end{equation}
+If we consider a training set of $N$ independent observations as in the two regression tasks above, the likelihood function of our classification task will be given as
+\begin{align}
+p(\mathbf{t}\vert\mathbf{X},\mathbf{w})&=\prod_{n=1}^{N}p(t_n\vert\mathbf{x}\_n,\mathbf{w}) \\\\ &=\prod_{n=1}^{N}y(\mathbf{x}\_n,\mathbf{w})^{t_n}\big(1-y(\mathbf{x}\_n,\mathbf{w})\big)^{1-t_n}
+\end{align}
+Taking the negative natural logarithm of the likelihood as above gives us the cross-entropy error function
+\begin{align}
+E(\mathbf{w})=-\log p(\mathbf{t}\vert\mathbf{X},\mathbf{w})&=-\log\prod_{n=1}^{N}y(\mathbf{x}\_n,\mathbf{w})^{t_n}\big(1-y(\mathbf{x}\_n,\mathbf{w})\big)^{1-t_n} \\\\ &=-\sum_{n=1}^{N}t_n\log y_n+(1-t_n)\log(1-y_n),
+\end{align}
+where $y_n=y(\mathbf{x}\_n,\mathbf{w})$.
+
+#### Multi-class classification
+{: #mult-clf}
+For the multi-class classification that assigns input variables to $K$ separated classes, we can use the network with $K$ outputs each of which has a logistic sigmoid activation function. Each output $t_k\in\\{0,1\\}$ for $k=1,\ldots,K$ indicates whether the input will be assigned to class $\mathcal{C}\_k$, which means the conditional distribution for class $C_k$ will take the form of a Bernoulli as
+\begin{equation}
+p(\mathcal{C}\_k\vert\mathbf{x},\mathbf{w})=y_k(\mathbf{x},\mathbf{w})^{t_k}\big(1-y_k(\mathbf{x},\mathbf{w})\big)^{1-t_k}
+\end{equation}
+If we assume that these distributions are i.i.d Bernoulli, or in other words the class labels are independent given the input vector, we have that the joint distribution of them, the conditional distribution of the target variables will be given as
+\begin{align}
+p(\mathbf{t}\vert\mathbf{x},\mathbf{w})&=\prod_{k=1}^{K}p(\mathcal{C}\_k\vert\mathbf{x},\mathbf{w}) \\\\ &=\prod_{k=1}^{K}y_k(\mathbf{x},\mathbf{w})^{t_k}\big(1-y_k(\mathbf{x},\mathbf{w})\big)^{1-t_k}
+\end{align}
+Let $\mathbf{T}$ denote the combination of all the targets $\mathbf{t}\_n$, i.e.,
+\begin{equation}
+\mathbf{T}=\left[\begin{matrix}-\hspace{0.15cm}\mathbf{t}\_1^\text{T}\hspace{0.15cm}- \\\\ \vdots \\\\ -\hspace{0.15cm}\mathbf{t}\_N^\text{T}\hspace{0.15cm}-\end{matrix}\right],
+\end{equation}
+the likelihood function therefore takes the form of
+\begin{align}
+p(\mathbf{T}\vert\mathbf{X},\mathbf{w})&=\prod_{n=1}^{N}p(\mathbf{t}\_n\vert\mathbf{x}\_n,\mathbf{w}) \\\\ &=\prod_{n=1}^{N}\prod_{k=1}^{K}y_k(\mathbf{x}\_n,\mathbf{w})^{t_k}\big(1-y_k(\mathbf{x}\_n,\mathbf{w})\big)^{1-t_k}\label{32}
+\end{align}
+Analogy to the binary case, taking the negative natural logarithm of the likelihood \eqref{32} gives us the corresponding cross-entropy error function for the multi-class case, given as
+\begin{align}
+E(\mathbf{w})=-\log p(\mathbf{T}\vert\mathbf{X},\mathbf{w})&=-\log\prod_{n=1}^{N}\prod_{k=1}^{K}y_k(\mathbf{x}\_n,\mathbf{w})^{t_k}\big(1-y_k(\mathbf{x}\_n,\mathbf{w})\big)^{1-t_k} \\\\ &=-\sum_{n=1}^{N}\sum_{k=1}^{K}t_n\log y_{nk}+(1-t_n)\log(1-y_{nk}),
+\end{align}
+where $y_{nk}$ is short for $y_k(\mathbf{x}\_n,\mathbf{w})$.
+
+
+
+### Parameter optimization
+{: #param-opt}
 
 ## Backpropagation
 {: #backprop}
