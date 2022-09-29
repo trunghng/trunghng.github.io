@@ -1,0 +1,31 @@
+I"u<blockquote>
+  <p>A note on Neural networks.
+<!-- excerpt-end --></p>
+</blockquote>
+
+<ul>
+  <li><a href="#ff-func">Feed-forward network functions</a></li>
+  <li><a href="#preferences">Preferences</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h2 id="ff-func">Feed-forward network functions</h2>
+<p>Recall that the <a href="/artificial-intelligent/machine-learning/2022/08/13/linear-models.html">linear models</a> used in regression and classification are based on linear combination of fixed nonlinear basis function $\phi_j(\mathbf{x})$ and take the form
+\begin{equation}
+y(\mathbf{x},\mathbf{w})=f\left(\sum_{j=1}^{M}w_j\phi_j(\mathbf{x})\right),\label{1}
+\end{equation}
+where in the case of regression, $f$ is the function $f(x)=x$, while in the classification case, $f$ takes the form of a nonlinear activation function (e.g., the <a href="/artificial-intelligent/machine-learning/2022/08/13/linear-models.html#logistic-sigmoid-func">sigmoid function</a>).</p>
+
+<p><strong>Neural networks</strong> extend this model \eqref{1} by letting each basis functions $\phi_j(\mathbf{x})$ be a nonlinear function of a linear combination of the inputs, where the coefficients in the combination are the adaptive parameters.</p>
+
+<p>More formally, neural networks is a series of layers, in which each layer represents a functional transformation. Let us consider the first layer by constructing $M$ linear combinations of the input variable $x_1,\ldots,x_D$ in the form
+\begin{equation}
+a_j=\sum_{i=1}^{D}w_{ji}^{(1)}x_i+w_{j0}^{(1)},
+\end{equation}
+where $j=1,\ldots,M$ and the superscript $(1)$ indicates that we are working with paramameters of the first layer.</p>
+
+<h2 id="preferences">Preferences</h2>
+<p>[1] Christopher M. Bishop. <a href="https://link.springer.com/book/9780387310732">Pattern Recognition and Machine Learning</a>. Springer New York, NY.</p>
+
+<h2 id="footnotes">Footnotes</h2>
+:ET

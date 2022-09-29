@@ -1,0 +1,21 @@
+I"³<blockquote>
+  <p>A note on Neural networks.
+<!-- excerpt-end --></p>
+</blockquote>
+
+<ul>
+  <li><a href="#ff-func">Feed-forward network functions</a></li>
+  <li><a href="#preferences">Preferences</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h2 id="ff-func">Feed-forward network functions</h2>
+<p>Recall that the <a href="/artificial-intelligent/machine-learning/2022/08/13/linear-models.html">linear models</a> used in regression and classification are based on linear combination of fixed non-linear basis function $\phi_j(\mathbf{x})$ and take the form
+\begin{equation}</p>
+
+<p>\end{equation}</p>
+
+<h2 id="preferences">Preferences</h2>
+
+<h2 id="footnotes">Footnotes</h2>
+:ET

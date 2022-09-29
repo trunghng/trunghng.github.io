@@ -1,0 +1,25 @@
+I"�<blockquote>
+  <p>A note on Neural networks.
+<!-- excerpt-end --></p>
+</blockquote>
+
+<ul>
+  <li><a href="#ff-func">Feed-forward network functions</a></li>
+  <li><a href="#preferences">Preferences</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h2 id="ff-func">Feed-forward network functions</h2>
+<p>Recall that the <a href="/artificial-intelligent/machine-learning/2022/08/13/linear-models.html">linear models</a> used in regression and classification are based on linear combination of fixed non-linear basis function $\phi_i(\mathbf{x})$ and take the form
+\begin{equation}
+y(\mathbf{x},\mathbf{w})=f\left(\sum_{i=1}^{M}w_i\phi_i(\mathbf{x})\right),
+\end{equation}
+where in the case of regression, $f$ is the function $f(x)=x$, while in the classification case, $f$ takes the form of a non-linear activation function (e.g., the <a href="/artificial-intelligent/machine-learning/2022/08/13/linear-models.html#logistic-sigmoid-func">sigmoid function</a>).</p>
+
+<p>We can extend this model by making the basis functions $\phi_i(\mathbf{x})$’s depend on parameters and then to follow these parameters to be adjusted, along with the parameters $w_i$’s during training.</p>
+
+<h2 id="preferences">Preferences</h2>
+<p>[1] Christopher M. Bishop. <a href="https://link.springer.com/book/9780387310732">Pattern Recognition and Machine Learning</a>. Springer New York, NY.</p>
+
+<h2 id="footnotes">Footnotes</h2>
+:ET

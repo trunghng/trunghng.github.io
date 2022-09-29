@@ -339,7 +339,7 @@ where $\mathbf{x}=(x_1,\ldots,x_D)^\text{T}$ is the input variables, while $w_i$
 \begin{equation}
 y(\mathbf{x},\mathbf{w})=w_0+w_1\phi_1(\mathbf{x})+\ldots+w_{M-1}\phi_{M-1}(\mathbf{x})=w_0+\sum_{i=1}^{M-1}w_i\phi_i(\mathbf{x}),\tag{2}\label{2}
 \end{equation}
-where $\phi_i(\mathbf{x})$’s are called the <strong>basis functions</strong>; $w_0$ is called a <strong>bias parameter</strong>. By letting $w_0$ be a coefficient corresponding to a dummy basis function $\phi_0(\mathbf{x})=1$, \eqref{2} can be written in a more convenient way
+where $\phi_i(\mathbf{x})$’s are called the <strong>basis functions</strong>; $w_0$ is called a <strong>bias parameter</strong>. By letting <span id="dummy-coeff">$w_0$</span> be a coefficient corresponding to a dummy basis function $\phi_0(\mathbf{x})=1$, \eqref{2} can be written in a more convenient way
 \begin{equation}
 y(\mathbf{x},\mathbf{w})=\sum_{i=0}^{M-1}w_i\phi_i(\mathbf{x})=\mathbf{w}^\text{T}\boldsymbol{\phi}(\mathbf{x}),\tag{3}\label{3}
 \end{equation}
@@ -901,7 +901,8 @@ J(\mathbf{W})=\text{Tr}\left(\mathbf{s}_\text{W}^{-1}\mathbf{s}_\text{B}\right)
 or
 \begin{equation}
 J(\mathbf{w})=\text{Tr}\big[(\mathbf{W}\mathbf{S}_\text{W}\mathbf{W}^\text{T})^{-1}(\mathbf{W}\mathbf{S}_\text{B}\mathbf{W}^\text{T})\big]
-\end{equation}</p>
+\end{equation}
+for which the linear basis model follow the same rule as the above</p>
 
 <h4 id="perceptron">The perceptron algorithm</h4>
 <p>Another example of linear discriminant model is the perceptron algorithm</p>
@@ -928,7 +929,7 @@ where
 \begin{equation}
 a=\log\frac{p(\mathbf{x}\vert\mathcal{C}_2)p(\mathcal{C}_2)}{p(\mathbf{x}\vert\mathcal{C}_1)p(\mathcal{C}_1)}
 \end{equation}
-and where $\sigma(\cdot)$ is the logistic sigmoid function, defined before as
+and where $\sigma(\cdot)$ is the <span id="logistic-sigmoid-func">logistic sigmoid function</span>, defined before as
 \begin{equation}
 \sigma(a)\doteq\frac{1}{1+\exp(-a)}
 \end{equation}
@@ -1430,7 +1431,8 @@ p(\mathcal{C}_1\vert\boldsymbol{\phi},\mathbf{t})=\int p(\mathcal{C}_1\vert\bold
 And thus, the predictive distribution for class $\mathcal{C}_2$ is given by
 \begin{equation}
 p(\mathcal{C}_2\vert\boldsymbol{\phi},\mathbf{t})=1-p(\mathcal{C}_1\vert\boldsymbol{\phi},\mathbf{t})\tag{52}\label{52}
-\end{equation}</p>
+\end{equation}
+We see the relationtship beteen the $\pointwesas$ and teh $$</p>
 
 <h2 id="references">References</h2>
 <p>[1] <span id="bishops-book">Christopher M. Bishop. <a href="https://link.springer.com/book/9780387310732">Pattern Recognition and Machine Learning</a>. Springer New York, NY.</span></p>
@@ -1496,8 +1498,8 @@ f\left(\sum_{i=1}^{n}p_ix_i\right)\geq\sum_{i=1}^{n}p_if(x_i),
  <!-- mathjax javascript -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
-  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
-  "HTML-CSS": {availableFonts: []}
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+    "HTML-CSS": {availableFonts: []}
   });
 </script>
 <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
