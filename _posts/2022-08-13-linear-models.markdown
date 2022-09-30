@@ -1019,7 +1019,7 @@ Differentiating the error function $E(\mathbf{w})$ w.r.t $\mathbf{w}$ we have th
 \begin{align}
 \nabla_\mathbf{w}E(\mathbf{w})&=\nabla_\mathbf{w}-\sum_{n=1}^{N}t_n\log y_n+(1-t_n)\log(1-y_n) \\\\ &=\sum_{n=1}^{N}\frac{(1-t_n)\nabla_\mathbf{w}y_n}{1-y_n}-\frac{t_n\nabla_\mathbf{w}y_n}{y_n} \\\\ &=\sum_{n=1}^{N}\frac{(1-t_n)y_n(1-y_n)\boldsymbol{\phi}\_n}{1-y_n}-\frac{t_n y_n(1-y_n)\boldsymbol{\phi}\_n}{y_n} \\\\ &=\sum_{n=1}^{N}(1-t_n)y_n\boldsymbol{\phi}\_n-t_n(1-y_n)\boldsymbol{\phi}\_n \\\\ &=\sum_{n=1}^{N}(y_n-t_n)\boldsymbol{\phi}\_n,\tag{37}\label{37}
 \end{align}
-where in the third step, we have used the identity of the derivative of the logistic sigmoid function
+where in the third step, we have used the identity of the <span id='sigmoid-derivative'>derivative of the logistic sigmoid function</span>
 \begin{equation}
 \frac{d\sigma}{d a}=\sigma(1-\sigma)
 \end{equation}
@@ -1278,7 +1278,6 @@ And thus, the predictive distribution for class $\mathcal{C}\_2$ is given by
 \begin{equation}
 p(\mathcal{C}\_2\vert\boldsymbol{\phi},\mathbf{t})=1-p(\mathcal{C}\_1\vert\boldsymbol{\phi},\mathbf{t})\tag{52}\label{52}
 \end{equation}
-We see the relationtship beteen the $\pointwesas$ and teh $$
 
 ## References
 {: #references}

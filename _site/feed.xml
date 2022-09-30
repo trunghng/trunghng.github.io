@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-29T21:12:40+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-30T15:27:33+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Neural networks</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/08/21/neural-nets.html" rel="alternate" type="text/html" title="Neural networks" /><published>2022-08-21T13:00:00+07:00</published><updated>2022-08-21T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/08/21/neural-nets</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/08/21/neural-nets.html">&lt;blockquote&gt;
   &lt;p&gt;A note on Neural networks.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -50,7 +50,7 @@ a_j=\sum_{i=1}^{D}w_{ji}^{(1)}x_i+w_{j0}^{(1)},\label{2}
 where&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;$j=1,\ldots,M$;&lt;/li&gt;
-  &lt;li&gt;the superscript $(1)$ indicates that we are working with parameters of the first layer;&lt;/li&gt;
+  &lt;li&gt;the superscript $^{(1)}$ indicates that we are working with parameters of the first layer;&lt;/li&gt;
   &lt;li&gt;$w_{ji}^{(1)}$’s are called the &lt;strong&gt;weights&lt;/strong&gt;;&lt;/li&gt;
   &lt;li&gt;$w_{j0}^{(1)}$’s are known as the &lt;strong&gt;biases&lt;/strong&gt;;&lt;/li&gt;
   &lt;li&gt;$a_j$’s are referred as &lt;strong&gt;activations&lt;/strong&gt;.&lt;/li&gt;
@@ -167,12 +167,23 @@ E(\mathbf{w})=-\log p(\mathbf{t}\vert\mathbf{X},\mathbf{w})&amp;amp;=-\log\prod_
 \end{align}
 where $y_n=y(\mathbf{x}_n,\mathbf{w})$.&lt;/p&gt;
 
+&lt;p&gt;Moreover, consider the partial derivative of the above error function w.r.t the activation $a_n$, we have
+\begin{align}
+\frac{\partial E(\mathbf{w})}{\partial a_n}&amp;amp;=\frac{\partial-\sum_{n=1}^{N}t_n\log y_n+(1-t_n)\log(1-y_n)}{\partial a_n} \\ &amp;amp;=-\frac{t_n}{y_n}\frac{\partial y_n}{\partial a_n}-\frac{1-t_n}{1-y_n}\frac{\partial(1-y_n)}{\partial a_n} \\ &amp;amp;=\frac{\partial y_n}{\partial a_n}\left(\frac{1-t_n}{1-y_n}-\frac{t_n}{y_n}\right) \\ &amp;amp;=y_n(1-y_n)\left(\frac{1-t_n}{1-y_n}-\frac{t_n}{y_n}\right) \\ &amp;amp;=y_n-t_n,\label{eq:bin-drv-error-a}
+\end{align}
+where in the forth step, we have use the identity of the &lt;a href=&quot;/artificial-intelligent/machine-learning/2022/08/13/linear-models.html#sigmoid-derivative&quot;&gt;derivative of sigmoid function&lt;/a&gt; that
+\begin{equation}
+\frac{d\sigma}{d a}=\sigma(1-\sigma)
+\end{equation}&lt;/p&gt;
+
 &lt;h4 id=&quot;mult-clf&quot;&gt;Multi-class classification&lt;/h4&gt;
-&lt;p&gt;For the multi-class classification that assigns input variables to $K$ separated classes, we can use the network with $K$ outputs each of which has a logistic sigmoid activation function. Each output $t_k\in\{0,1\}$ for $k=1,\ldots,K$ indicates whether the input will be assigned to class $\mathcal{C}_k$, which means the conditional distribution for class $C_k$ will take the form of a Bernoulli as
+&lt;p&gt;For the multi-class classification that assigns input variables to $K$ separated classes, we can use the network with $K$ outputs each of which has a logistic sigmoid activation function. Each output $t_k\in\{0,1\}$ for $k=1,\ldots,K$ indicates whether the input will be assigned to class $\mathcal{C}_k$&lt;/p&gt;
+
+&lt;p&gt;We first consider the case that the class labels are independent given the input vector, which means the conditional distributions for class $C_k$’s will be $K$ i.i.d Bernoulli distributions, in which the conditional probability for class $\mathcal{C}_k$ will take the form
 \begin{equation}
 p(\mathcal{C}_k\vert\mathbf{x},\mathbf{w})=y_k(\mathbf{x},\mathbf{w})^{t_k}\big(1-y_k(\mathbf{x},\mathbf{w})\big)^{1-t_k}
 \end{equation}
-If we assume that these distributions are i.i.d Bernoulli, or in other words the class labels are independent given the input vector, we have that the joint distribution of them, the conditional distribution of the target variables will be given as
+Therefore, the joint distribution of them, the conditional distribution of the target variables will be given as
 \begin{align}
 p(\mathbf{t}\vert\mathbf{x},\mathbf{w})&amp;amp;=\prod_{k=1}^{K}p(\mathcal{C}_k\vert\mathbf{x},\mathbf{w}) \\ &amp;amp;=\prod_{k=1}^{K}y_k(\mathbf{x},\mathbf{w})^{t_k}\big(1-y_k(\mathbf{x},\mathbf{w})\big)^{1-t_k}
 \end{align}
@@ -182,13 +193,37 @@ Let $\mathbf{T}$ denote the combination of all the targets $\mathbf{t}_n$, i.e.,
 \end{equation}
 the likelihood function therefore takes the form of
 \begin{align}
-p(\mathbf{T}\vert\mathbf{X},\mathbf{w})&amp;amp;=\prod_{n=1}^{N}p(\mathbf{t}_n\vert\mathbf{x}_n,\mathbf{w}) \\ &amp;amp;=\prod_{n=1}^{N}\prod_{k=1}^{K}y_k(\mathbf{x}_n,\mathbf{w})^{t_k}\big(1-y_k(\mathbf{x}_n,\mathbf{w})\big)^{1-t_k}\label{32}
+p(\mathbf{T}\vert\mathbf{X},\mathbf{w})&amp;amp;=\prod_{n=1}^{N}p(\mathbf{t}_n\vert\mathbf{x}_n,\mathbf{w}) \\ &amp;amp;=\prod_{n=1}^{N}\prod_{k=1}^{K}y_k(\mathbf{x}_n,\mathbf{w})^{t_k}\big(1-y_k(\mathbf{x}_n,\mathbf{w})\big)^{1-t_k}\label{eq:mult-clf-llh}
 \end{align}
-Analogy to the binary case, taking the negative natural logarithm of the likelihood \eqref{32} gives us the corresponding cross-entropy error function for the multi-class case, given as
+Analogy to the binary case, taking the negative natural logarithm of the likelihood \eqref{eq:mult-clf-llh} gives us the corresponding cross-entropy error function for the multi-class case, given as
 \begin{align}
-E(\mathbf{w})=-\log p(\mathbf{T}\vert\mathbf{X},\mathbf{w})&amp;amp;=-\log\prod_{n=1}^{N}\prod_{k=1}^{K}y_k(\mathbf{x}_n,\mathbf{w})^{t_k}\big(1-y_k(\mathbf{x}_n,\mathbf{w})\big)^{1-t_k} \\ &amp;amp;=-\sum_{n=1}^{N}\sum_{k=1}^{K}t_n\log y_{nk}+(1-t_n)\log(1-y_{nk}),
+E(\mathbf{w})=-\log p(\mathbf{T}\vert\mathbf{X},\mathbf{w})&amp;amp;=-\log\prod_{n=1}^{N}\prod_{k=1}^{K}y_k(\mathbf{x}_n,\mathbf{w})^{t_{nk}}\big(1-y_k(\mathbf{x}_n,\mathbf{w})\big)^{1-t_{nk}} \\ &amp;amp;=-\sum_{n=1}^{N}\sum_{k=1}^{K}t_{nk}\log y_{nk}+(1-t_{nk})\log(1-y_{nk}),\label{eq:mult-clf-error}
 \end{align}
 where $y_{nk}$ is short for $y_k(\mathbf{x}_n,\mathbf{w})$.&lt;/p&gt;
+
+&lt;p&gt;Similar to the binary case, consider the partial derivative of the error function \eqref{eq:mult-clf-error} w.r.t to the activation for a particular output unit $a_{nk}$ we have
+\begin{align}
+\frac{\partial E(\mathbf{w})}{\partial a_{nk}}&amp;amp;=\frac{\partial-\sum_{n=1}^{N}\sum_{k=1}^{K}t_{nk}\log y_{nk}+(1-t_{nk})\log(1-y_{nk})}{\partial a_{nk}} \\ &amp;amp;=-\frac{t_{nk}}{y_{nk}}\frac{\partial y_{nk}}{\partial a_{nk}}+\frac{1-t_{nk}}{1-y_{nk}}\frac{\partial y_{nk}}{\partial a_{nk}} \\ &amp;amp;=y_{nk}(1-y_{nk})\left(\frac{1-t_{nk}}{1-y_{nk}}-\frac{t_{nk}}{y_{nk}}\right) \\ &amp;amp;=y_{nk}-t_{nk}\label{eq:mult-drv-error-a}
+\end{align}
+which takes the same form as \eqref{eq:bin-drv-error-a}&lt;/p&gt;
+
+&lt;p&gt;On the other hands, if each input is assigned only to one of $K$ classes (mutually exclusive), the conditional distributions for class $C_k$ will be instead given as
+\begin{equation}
+p(\mathcal{C}_k\vert\mathbf{x})=p(t_k=1\vert\mathbf{x})=y_k(\mathbf{x},\mathbf{w}),
+\end{equation}
+and thus the conditional distribution of the targets is
+\begin{equation}
+p(\mathbf{t}\vert\mathbf{x},\mathbf{w})=\prod_{k=1}^{K}p(t_k=1\vert\mathbf{x})^{t_k}=\prod_{k=1}^{K}y_k(\mathbf{x},\mathbf{w})^{t_k}
+\end{equation}
+The likelihood is therefore given as
+\begin{equation}
+p(\mathbf{T}\vert\mathbf{X},\mathbf{w})=\prod_{n=1}^{N}p(\mathbf{t}_n\vert\mathbf{x}_n,\mathbf{w})=\prod_{n=1}^{N}\prod_{k=1}^{K}y_k(\mathbf{x}_n,\mathbf{w})^{t_{nk}},
+\end{equation}
+which gives us the following cross-entropy error function by taking the negative natural logarithm
+\begin{align}
+E(\mathbf{w})=-\log p(\mathbf{T}\vert\mathbf{X},\mathbf{w})&amp;amp;=-\log\prod_{n=1}^{N}\prod_{k=1}^{K}y_k(\mathbf{x},\mathbf{w})^{t_{nk}} \\ &amp;amp;=-\sum_{n=1}^{N}\sum_{k=1}^{K}t_{nk}\log y_k(\mathbf{x}_n,\mathbf{w})
+\end{align}
+Taking the derivative of this error function w.r.t to the activation for a particular output unit also lets us end up with the form as \eqref{eq:bin-drv-error-a} and \eqref{eq:mult-drv-error-a}.&lt;/p&gt;
 
 &lt;h3 id=&quot;param-opt&quot;&gt;Parameter optimization&lt;/h3&gt;
 
@@ -1232,7 +1267,7 @@ Differentiating the error function $E(\mathbf{w})$ w.r.t $\mathbf{w}$ we have th
 \begin{align}
 \nabla_\mathbf{w}E(\mathbf{w})&amp;amp;=\nabla_\mathbf{w}-\sum_{n=1}^{N}t_n\log y_n+(1-t_n)\log(1-y_n) \\ &amp;amp;=\sum_{n=1}^{N}\frac{(1-t_n)\nabla_\mathbf{w}y_n}{1-y_n}-\frac{t_n\nabla_\mathbf{w}y_n}{y_n} \\ &amp;amp;=\sum_{n=1}^{N}\frac{(1-t_n)y_n(1-y_n)\boldsymbol{\phi}_n}{1-y_n}-\frac{t_n y_n(1-y_n)\boldsymbol{\phi}_n}{y_n} \\ &amp;amp;=\sum_{n=1}^{N}(1-t_n)y_n\boldsymbol{\phi}_n-t_n(1-y_n)\boldsymbol{\phi}_n \\ &amp;amp;=\sum_{n=1}^{N}(y_n-t_n)\boldsymbol{\phi}_n,\tag{37}\label{37}
 \end{align}
-where in the third step, we have used the identity of the derivative of the logistic sigmoid function
+where in the third step, we have used the identity of the &lt;span id=&quot;sigmoid-derivative&quot;&gt;derivative of the logistic sigmoid function&lt;/span&gt;
 \begin{equation}
 \frac{d\sigma}{d a}=\sigma(1-\sigma)
 \end{equation}
@@ -1481,8 +1516,7 @@ p(\mathcal{C}_1\vert\boldsymbol{\phi},\mathbf{t})=\int p(\mathcal{C}_1\vert\bold
 And thus, the predictive distribution for class $\mathcal{C}_2$ is given by
 \begin{equation}
 p(\mathcal{C}_2\vert\boldsymbol{\phi},\mathbf{t})=1-p(\mathcal{C}_1\vert\boldsymbol{\phi},\mathbf{t})\tag{52}\label{52}
-\end{equation}
-We see the relationtship beteen the $\pointwesas$ and teh $$&lt;/p&gt;
+\end{equation}&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] &lt;span id=&quot;bishops-book&quot;&gt;Christopher M. Bishop. &lt;a href=&quot;https://link.springer.com/book/9780387310732&quot;&gt;Pattern Recognition and Machine Learning&lt;/a&gt;. Springer New York, NY.&lt;/span&gt;&lt;/p&gt;

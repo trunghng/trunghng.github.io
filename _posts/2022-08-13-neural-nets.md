@@ -43,7 +43,7 @@ a_j=\sum_{i=1}^{D}w_{ji}^{(1)}x_i+w_{j0}^{(1)},\label{2}
 \end{equation}
 where
 - $j=1,\ldots,M$;
-- the superscript $(1)$ indicates that we are working with parameters of the first layer;
+- the superscript $^{(1)}$ indicates that we are working with parameters of the first layer;
 - $w_{ji}^{(1)}$'s are called the **weights**;
 - $w_{j0}^{(1)}$'s are known as the **biases**;
 - $a_j$'s are referred as **activations**.
@@ -166,13 +166,24 @@ E(\mathbf{w})=-\log p(\mathbf{t}\vert\mathbf{X},\mathbf{w})&=-\log\prod_{n=1}^{N
 \end{align}
 where $y_n=y(\mathbf{x}\_n,\mathbf{w})$.
 
+Moreover, consider the partial derivative of the above error function w.r.t the activation $a_n$, we have
+\begin{align}
+\frac{\partial E(\mathbf{w})}{\partial a_n}&=\frac{\partial-\sum_{n=1}^{N}t_n\log y_n+(1-t_n)\log(1-y_n)}{\partial a_n} \\\\ &=-\frac{t_n}{y_n}\frac{\partial y_n}{\partial a_n}-\frac{1-t_n}{1-y_n}\frac{\partial(1-y_n)}{\partial a_n} \\\\ &=\frac{\partial y_n}{\partial a_n}\left(\frac{1-t_n}{1-y_n}-\frac{t_n}{y_n}\right) \\\\ &=y_n(1-y_n)\left(\frac{1-t_n}{1-y_n}-\frac{t_n}{y_n}\right) \\\\ &=y_n-t_n,\label{eq:bin-drv-error-a}
+\end{align}
+where in the forth step, we have use the identity of the [derivative of sigmoid function]({% post_url 2022-08-13-linear-models %}#sigmoid-derivative) that
+\begin{equation}
+\frac{d\sigma}{d a}=\sigma(1-\sigma)
+\end{equation}
+
 #### Multi-class classification
 {: #mult-clf}
-For the multi-class classification that assigns input variables to $K$ separated classes, we can use the network with $K$ outputs each of which has a logistic sigmoid activation function. Each output $t_k\in\\{0,1\\}$ for $k=1,\ldots,K$ indicates whether the input will be assigned to class $\mathcal{C}\_k$, which means the conditional distribution for class $C_k$ will take the form of a Bernoulli as
+For the multi-class classification that assigns input variables to $K$ separated classes, we can use the network with $K$ outputs each of which has a logistic sigmoid activation function. Each output $t_k\in\\{0,1\\}$ for $k=1,\ldots,K$ indicates whether the input will be assigned to class $\mathcal{C}\_k$
+
+We first consider the case that the class labels are independent given the input vector, which means the conditional distributions for class $C_k$'s will be $K$ i.i.d Bernoulli distributions, in which the conditional probability for class $\mathcal{C}\_k$ will take the form
 \begin{equation}
 p(\mathcal{C}\_k\vert\mathbf{x},\mathbf{w})=y_k(\mathbf{x},\mathbf{w})^{t_k}\big(1-y_k(\mathbf{x},\mathbf{w})\big)^{1-t_k}
 \end{equation}
-If we assume that these distributions are i.i.d Bernoulli, or in other words the class labels are independent given the input vector, we have that the joint distribution of them, the conditional distribution of the target variables will be given as
+Therefore, the joint distribution of them, the conditional distribution of the target variables will be given as
 \begin{align}
 p(\mathbf{t}\vert\mathbf{x},\mathbf{w})&=\prod_{k=1}^{K}p(\mathcal{C}\_k\vert\mathbf{x},\mathbf{w}) \\\\ &=\prod_{k=1}^{K}y_k(\mathbf{x},\mathbf{w})^{t_k}\big(1-y_k(\mathbf{x},\mathbf{w})\big)^{1-t_k}
 \end{align}
@@ -182,15 +193,37 @@ Let $\mathbf{T}$ denote the combination of all the targets $\mathbf{t}\_n$, i.e.
 \end{equation}
 the likelihood function therefore takes the form of
 \begin{align}
-p(\mathbf{T}\vert\mathbf{X},\mathbf{w})&=\prod_{n=1}^{N}p(\mathbf{t}\_n\vert\mathbf{x}\_n,\mathbf{w}) \\\\ &=\prod_{n=1}^{N}\prod_{k=1}^{K}y_k(\mathbf{x}\_n,\mathbf{w})^{t_k}\big(1-y_k(\mathbf{x}\_n,\mathbf{w})\big)^{1-t_k}\label{32}
+p(\mathbf{T}\vert\mathbf{X},\mathbf{w})&=\prod_{n=1}^{N}p(\mathbf{t}\_n\vert\mathbf{x}\_n,\mathbf{w}) \\\\ &=\prod_{n=1}^{N}\prod_{k=1}^{K}y_k(\mathbf{x}\_n,\mathbf{w})^{t_k}\big(1-y_k(\mathbf{x}\_n,\mathbf{w})\big)^{1-t_k}\label{eq:mult-clf-llh}
 \end{align}
-Analogy to the binary case, taking the negative natural logarithm of the likelihood \eqref{32} gives us the corresponding cross-entropy error function for the multi-class case, given as
+Analogy to the binary case, taking the negative natural logarithm of the likelihood \eqref{eq:mult-clf-llh} gives us the corresponding cross-entropy error function for the multi-class case, given as
 \begin{align}
-E(\mathbf{w})=-\log p(\mathbf{T}\vert\mathbf{X},\mathbf{w})&=-\log\prod_{n=1}^{N}\prod_{k=1}^{K}y_k(\mathbf{x}\_n,\mathbf{w})^{t_k}\big(1-y_k(\mathbf{x}\_n,\mathbf{w})\big)^{1-t_k} \\\\ &=-\sum_{n=1}^{N}\sum_{k=1}^{K}t_n\log y_{nk}+(1-t_n)\log(1-y_{nk}),
+E(\mathbf{w})=-\log p(\mathbf{T}\vert\mathbf{X},\mathbf{w})&=-\log\prod_{n=1}^{N}\prod_{k=1}^{K}y_k(\mathbf{x}\_n,\mathbf{w})^{t_{nk}}\big(1-y_k(\mathbf{x}\_n,\mathbf{w})\big)^{1-t_{nk}} \\\\ &=-\sum_{n=1}^{N}\sum_{k=1}^{K}t_{nk}\log y_{nk}+(1-t_{nk})\log(1-y_{nk}),\label{eq:mult-clf-error}
 \end{align}
 where $y_{nk}$ is short for $y_k(\mathbf{x}\_n,\mathbf{w})$.
 
+Similar to the binary case, consider the partial derivative of the error function \eqref{eq:mult-clf-error} w.r.t to the activation for a particular output unit $a_{nk}$ we have
+\begin{align}
+\frac{\partial E(\mathbf{w})}{\partial a_{nk}}&=\frac{\partial-\sum_{n=1}^{N}\sum_{k=1}^{K}t_{nk}\log y_{nk}+(1-t_{nk})\log(1-y_{nk})}{\partial a_{nk}} \\\\ &=-\frac{t_{nk}}{y_{nk}}\frac{\partial y_{nk}}{\partial a_{nk}}+\frac{1-t_{nk}}{1-y_{nk}}\frac{\partial y_{nk}}{\partial a_{nk}} \\\\ &=y_{nk}(1-y_{nk})\left(\frac{1-t_{nk}}{1-y_{nk}}-\frac{t_{nk}}{y_{nk}}\right) \\\\ &=y_{nk}-t_{nk}\label{eq:mult-drv-error-a}
+\end{align}
+which takes the same form as \eqref{eq:bin-drv-error-a}
 
+On the other hands, if each input is assigned only to one of $K$ classes (mutually exclusive), the conditional distributions for class $C_k$ will be instead given as
+\begin{equation}
+p(\mathcal{C}\_k\vert\mathbf{x})=p(t_k=1\vert\mathbf{x})=y_k(\mathbf{x},\mathbf{w}),
+\end{equation}
+and thus the conditional distribution of the targets is
+\begin{equation}
+p(\mathbf{t}\vert\mathbf{x},\mathbf{w})=\prod_{k=1}^{K}p(t_k=1\vert\mathbf{x})^{t_k}=\prod_{k=1}^{K}y_k(\mathbf{x},\mathbf{w})^{t_k}
+\end{equation}
+The likelihood is therefore given as
+\begin{equation}
+p(\mathbf{T}\vert\mathbf{X},\mathbf{w})=\prod_{n=1}^{N}p(\mathbf{t}\_n\vert\mathbf{x}\_n,\mathbf{w})=\prod_{n=1}^{N}\prod_{k=1}^{K}y_k(\mathbf{x}\_n,\mathbf{w})^{t_{nk}},
+\end{equation}
+which gives us the following cross-entropy error function by taking the negative natural logarithm
+\begin{align}
+E(\mathbf{w})=-\log p(\mathbf{T}\vert\mathbf{X},\mathbf{w})&=-\log\prod_{n=1}^{N}\prod_{k=1}^{K}y_k(\mathbf{x},\mathbf{w})^{t_{nk}} \\\\ &=-\sum_{n=1}^{N}\sum_{k=1}^{K}t_{nk}\log y_k(\mathbf{x}\_n,\mathbf{w})
+\end{align}
+Taking the derivative of this error function w.r.t to the activation for a particular output unit also lets us end up with the form as \eqref{eq:bin-drv-error-a} and \eqref{eq:mult-drv-error-a}.
 
 ### Parameter optimization
 {: #param-opt}
