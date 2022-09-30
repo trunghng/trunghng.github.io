@@ -1,0 +1,249 @@
+I"�G<blockquote>
+  <p>A note on Neural networks.
+<!-- excerpt-end --></p>
+</blockquote>
+
+<ul>
+  <li><a href="#ff-func">Feed-forward network functions</a>
+    <ul>
+      <li><a href="#unv-approx">Universal approximation property</a></li>
+      <li><a href="#w-s-sym">Weight-space symmetries</a></li>
+    </ul>
+  </li>
+  <li><a href="#net-training">Network training</a>
+    <ul>
+      <li><a href="#output-prob-itp">Network outputs probabilistic interpretation</a>
+        <ul>
+          <li><a href="#univ-output">Univariate regression</a></li>
+          <li><a href="#mult-output">Multivariate regression</a></li>
+          <li><a href="#bi-clf">Binary classification</a></li>
+          <li><a href="#mult-clf">Multi-class classification</a></li>
+        </ul>
+      </li>
+      <li><a href="#param-opt">Parameter optimization</a></li>
+    </ul>
+  </li>
+  <li><a href="#backprop">Backpropagation</a></li>
+  <li><a href="#bayes-nn">Bayesian neural networks</a>
+    <ul>
+      <li><a href="#posterior-param-dist">Posterior parameter distribution</a></li>
+    </ul>
+  </li>
+  <li><a href="#preferences">Preferences</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h2 id="ff-func">Feed-forward network functions</h2>
+<p>Recall that the <a href="/artificial-intelligent/machine-learning/2022/08/13/linear-models.html">linear models</a> used in regression and classification are based on linear combination of fixed nonlinear basis function $\phi_j(\mathbf{x})$ and take the form
+\begin{equation}
+y(\mathbf{x},\mathbf{w})=f\left(\sum_{j=1}^{M}w_j\phi_j(\mathbf{x})\right),\label{1}
+\end{equation}
+where in the case of regression, $f$ is the function $f(x)=x$, while in the classification case, $f$ takes the form of a nonlinear activation function (e.g., the <a href="/artificial-intelligent/machine-learning/2022/08/13/linear-models.html#logistic-sigmoid-func">sigmoid function</a>).</p>
+
+<p><strong>Neural networks</strong> extend this model \eqref{1} by letting each basis functions $\phi_j(\mathbf{x})$ be a nonlinear function of a linear combination of the inputs, where the coefficients in the combination are the adaptive parameters.</p>
+
+<p>More formally, neural networks is a series of layers, in which each layer represents a functional transformation. Let us consider the first layer by constructing $M$ linear combinations of the input variable $x_1,\ldots,x_D$ in the form
+\begin{equation}
+a_j=\sum_{i=1}^{D}w_{ji}^{(1)}x_i+w_{j0}^{(1)},\label{2}
+\end{equation}
+where</p>
+<ul>
+  <li>$j=1,\ldots,M$;</li>
+  <li>the superscript $^{(1)}$ indicates that we are working with parameters of the first layer;</li>
+  <li>$w_{ji}^{(1)}$’s are called the <strong>weights</strong>;</li>
+  <li>$w_{j0}^{(1)}$’s are known as the <strong>biases</strong>;</li>
+  <li>$a_j$’s are referred as <strong>activations</strong>.</li>
+</ul>
+
+<p>The activations $a_j$’s are then transformed using a differentiable, nonlinear <strong>activation function</strong> $h(\cdot)$, which correspond to $f(\cdot)$ in \eqref{1} to give
+\begin{equation}
+z_j=h(a_j),\label{3}
+\end{equation}
+where $z_j$ are called the <strong>hidden units</strong>. Repeating the same procedure as \eqref{2}, which was following \eqref{1}, $z_j$’s are taken as the inputs of the second layer to give $K$ outputs
+\begin{equation}
+a_k=\sum_{j=1}^{M}w_{kj}^{(2)}z_j+w_{k0}^{(2)},\label{4}
+\end{equation}
+where $k=1,\ldots,K$.</p>
+
+<p>This process will be repeated in $L$ times with $L$ is the number of layers. At the last layer, for instance, the second layer of our example network, the outputs, also called <strong>output unit activations</strong>, $a_k$’s are transformed using an appropriate activation function to give a set of network output $y_k$. For example, in multiple binary classification problems, we can choose the logistic sigmoid as our activation function that
+\begin{equation}
+y_k=\sigma(a_k)\label{5}
+\end{equation}
+Combining all these steps \eqref{2}, \eqref{3}, \eqref{4} and \eqref{5} together, our neural network with sigmoidal output unit activation functions can be defined as
+\begin{equation}
+y_k(\mathbf{x},\mathbf{w})=\sigma\left(\sum_{j=1}^{M}w_{kj}^{(2)}h\left(\sum_{i=1}^{D}w_{ji}^{(1)}x_i+w_{j0}^{(1)}\right)+w_{k0}^{(2)}\right),\label{6}
+\end{equation}
+where all of the weights and biases are comprises together into a parameter vector $\mathbf{w}$. As suggested in <a href="/artificial-intelligent/machine-learning/2022/08/13/linear-models.html#dummy-coeff">linear regression</a>, we can also let the bias $w_{j0}^{(1)}$ be coefficient of a dummy input variable $x_0=1$ that makes \eqref{2} can be written as
+\begin{equation}
+a_j=\sum_{i=0}^{D}w_{ji}^{(1)}x_i
+\end{equation}
+This results that our subsequent layers are also able to be written in a more convenient form, which lets the entire network \eqref{6} take the form
+\begin{equation}
+y_k(\mathbf{x},\mathbf{w})=\sigma\left(\sum_{j=0}^{M}w_{kj}^{(2)}h\left(\sum_{i=0}^{D}w_{ji}^{(1)}x_i\right)\right)
+\end{equation}
+Our network is also an example of a <strong>multilayer perception</strong>, or <strong>MLP</strong>, which is a combination of <a href="/artificial-intelligent/machine-learning/2022/08/13/linear-models.html#perceptron">perceptron models</a>. The key difference is that while the neural network uses continuous sigmoidal nonlinearities in the hidden units, which is differentiable w.r.t the parameters, the perceptron algorithm uses step-function nonlinearities, which is in contrast non-differentiable.</p>
+
+<p>The network network we have been considering so far is <strong>feed-forward neural network</strong>, whose outputs are deterministic functions of the inputs. Each (hidden or output) unit in such a network computes a function given by
+\begin{equation}
+z_k=h\left(\sum_{j}w_{kj}z_j\right),
+\end{equation}
+where the sum runs all over units sending connections to unit $k$ (bias included).</p>
+
+<h3 id="unv-approx">Universal approximation property</h3>
+<p>Feed-forward networks with <strong>hidden layers</strong> (i.e., the layers in which the training data does not show the desired output, e.g., the first layer of our network, the second layer on the other hands is called the <strong>output layer</strong>) provide <strong>universal approximation</strong> property.</p>
+
+<p>In concrete, the universal approximation theorem states that a feedforward network with a linear output layer and at least one hidden layer with any <strong>squashing</strong> activation function (e.g., the logistic sigmoid function) an approximate any continuous function on a compact subsets of $\mathbb{R}^n$.</p>
+
+<h3 id="w-s-sym">Weight-space symmetries</h3>
+
+<h2 id="net-training">Network training</h2>
+
+<h3 id="output-prob-itp">Network outputs probabilistic interpretation</h3>
+
+<h4 id="univ-output">Univariate regression</h4>
+<p>Consider the <a href="/artificial-intelligent/machine-learning/2022/08/13/linear-models.html#least-squares-reg">regression problem</a> in which the target variable $t$ has Gaussian distribution with an $\mathbf{x}$ dependent mean
+\begin{equation}
+p(t\vert\mathbf{x},\mathbf{w})=\mathcal{N}(t\vert y(\mathbf{x},\mathbf{w}),\beta^{-1}),
+\end{equation}
+For the conditional distribution above, it is sufficient to take the output unit activation function to be the function $h(x)=x$, because such a network can approximate any continuous function from $\mathbf{x}$ to $y$.</p>
+
+<p>Given the data set $(\mathbf{X},\mathbf{t})=\{\mathbf{x}_n,t_n\}$, where $\mathbf{x}_n$’s are i.i.d for $n=1,\ldots,N$, and where
+\begin{align}
+\mathbf{X}=\left[\begin{matrix}\vert&amp;&amp;\vert \\ \mathbf{x}_1&amp;\ldots&amp;\mathbf{x}_N \\ \vert&amp;&amp;\vert\end{matrix}\right],\hspace{1cm}\mathbf{t}=\left[\begin{matrix}t_1 \\ \vdots \\ t_N\end{matrix}\right]
+\end{align}
+The likelihood function therefore can be given by
+\begin{align}
+p(t\vert\mathbf{X},\mathbf{w},\beta)&amp;=\prod_{n=1}^{N}p(t_n\vert\mathbf{x}_n,\mathbf{w},\beta) \\ &amp;=\prod_{n=1}^{N}\mathcal{N}(t_n\vert y(\mathbf{x}_n,\mathbf{w}),\beta^{-1})
+\end{align}
+With a minor change as usual that taking negative natural logarithm of both sides gives us
+\begin{align}
+-\log p(\mathbf{t}\vert\mathbf{X},\mathbf{w},\beta)&amp;=-\sum_{n=1}^{N}\log\mathcal{N}(t_n\vert y(\mathbf{x}_n,\mathbf{w}),\beta^{-1}) \\ &amp;=\frac{\beta}{2}\sum_{n=1}^{N}\big(y(\mathbf{x}_n,\mathbf{w})-t_n\big)^2-\frac{N}{2}\log\beta+\frac{N}{2}\log 2\pi
+\end{align}
+Therefore, maximizing the likelihood function $p(\mathbf{t}\vert\mathbf{X},\mathbf{x},\beta)$ is equivalent to minimizing the sum-of-squares error function given as
+\begin{equation}
+E(\mathbf{w})=\frac{1}{2}\sum_{n=1}^{N}\big(y(\mathbf{x}_n,\mathbf{w})-t_n\big)^2,
+\end{equation}
+This also means the value of $\mathbf{w}$ that minimizes $E(\mathbf{w})$ will be $\mathbf{w}_\text{ML}$, which implies that the corresponding solution for $\beta$ will be given by
+\begin{equation}
+\frac{1}{\beta_\text{ML}}=\frac{1}{N}\sum_{n=1}^{N}\big(y(\mathbf{x}_n,\mathbf{w}_\text{ML})-t_n\big)^2
+\end{equation}</p>
+
+<h4 id="mult-output">Multivariate regression</h4>
+<p>Similarly, we consider the multiple target variables case, in which the conditional distribution of the target therefore takes the form
+\begin{equation}
+p(\mathbf{t}\vert\mathbf{x},\mathbf{w},\beta)=\mathcal{N}(\mathbf{t}\vert\mathbf{y}(\mathbf{x},\mathbf{w}),\beta^{-1}\mathbf{I})
+\end{equation}
+Repeating the same procedure as the univariate case, maximizing likelihood function is also equivalent to minimizing the sum-of-squares error function given by
+\begin{equation}
+E(\mathbf{w})=\frac{1}{2}\sum_{n=1}^{N}\big\Vert\mathbf{y}(\mathbf{x}_n,\mathbf{w})-\mathbf{t}_n\big\Vert^2,
+\end{equation}
+which gives us the solution for the noise precision $\beta$ in the multivariate case as
+\begin{equation}
+\frac{1}{\beta_\text{ML}}=\frac{1}{NK}\sum_{n=1}^{N}\big\Vert\mathbf{y}(\mathbf{x}_n,\mathbf{w}_\text{ML})-\mathbf{t}_n\big\Vert^2,
+\end{equation}
+where $K$ is the number of target variables.</p>
+
+<h4 id="bi-clf">Binary classification</h4>
+<p>Consider the problem of binary classification which outputs $t=1$ to denote class $\mathcal{C}_1$ and otherwise to denote class $\mathcal{C}_2$.</p>
+
+<p>In particular, we consider a network having a single output whose activation function is a logistic sigmoid
+\begin{equation}
+y=\sigma(a)\doteq\frac{1}{1+\exp(-a)},
+\end{equation}
+which follows immediately that $0\leq y(\mathbf{x},\mathbf{w})\leq 1$.</p>
+
+<p>This suggests us interpreting $y(\mathbf{x},\mathbf{w})$ as the conditional probability for class $\mathcal{C}_1$, $p(\mathcal{C}_1\vert\mathbf{x})$, and hence the corresponding conditional probability for class $\mathcal{C}_2$ will be $p(\mathcal{C}_2\vert\mathbf{x})=1-y(\mathbf{x},\mathbf{w})$. Or in other words, the conditional distribution $p(t\vert\mathbf{x},\mathbf{w})$ of targets $t$ given inputs $\mathbf{x}$ is then a Bernoulli distribution of the form
+\begin{equation}
+p(t\vert\mathbf{x},\mathbf{w})=y(\mathbf{x},\mathbf{w})^t\big(1-y(\mathbf{x},\mathbf{w})\big)^{1-t}
+\end{equation}
+If we consider a training set of $N$ independent observations as in the two regression tasks above, the likelihood function of our classification task will be given as
+\begin{align}
+p(\mathbf{t}\vert\mathbf{X},\mathbf{w})&amp;=\prod_{n=1}^{N}p(t_n\vert\mathbf{x}_n,\mathbf{w}) \\ &amp;=\prod_{n=1}^{N}y(\mathbf{x}_n,\mathbf{w})^{t_n}\big(1-y(\mathbf{x}_n,\mathbf{w})\big)^{1-t_n}
+\end{align}
+Taking the negative natural logarithm of the likelihood as above gives us the cross-entropy error function
+\begin{align}
+E(\mathbf{w})=-\log p(\mathbf{t}\vert\mathbf{X},\mathbf{w})&amp;=-\log\prod_{n=1}^{N}y(\mathbf{x}_n,\mathbf{w})^{t_n}\big(1-y(\mathbf{x}_n,\mathbf{w})\big)^{1-t_n} \\ &amp;=-\sum_{n=1}^{N}t_n\log y_n+(1-t_n)\log(1-y_n),
+\end{align}
+where $y_n=y(\mathbf{x}_n,\mathbf{w})$.</p>
+
+<p>Moreover, consider the partial derivative of this error function w.r.t the activation $a_n$, we have
+\begin{align}
+\frac{\partial E(\mathbf{w})}{\partial a_n}&amp;=\frac{\partial}{\partial a_n}-\sum_{n=1}^{N}t_n\log y_n+(1-t_n)\log(1-y_n) \\ &amp;=-\frac{t_n}{y_n}\frac{\partial y_n}{\partial a_n}-\frac{1-t_n}{1-y_n}\frac{\partial(1-y_n)}{\partial a_n} \\ &amp;=\frac{\partial y_n}{\partial a_n}\left(\frac{1-t_n}{1-y_n}-\frac{t_n}{y_n}\right) \\ &amp;=y_n(1-y_n)\left(\frac{1-t_n}{1-y_n}-\frac{t_n}{y_n}\right) \\ &amp;=y_n-t_n,\label{eq:bin-clf-drv-error-a}
+\end{align}
+where in the forth step, we have use the identity of the <a href="/artificial-intelligent/machine-learning/2022/08/13/linear-models.html#sigmoid-derivative">derivative of sigmoid function</a> that
+\begin{equation}
+\frac{d\sigma}{d a}=\sigma(1-\sigma)
+\end{equation}</p>
+
+<h4 id="mult-clf">Multi-class classification</h4>
+<p>For the multi-class classification that assigns input variables to $K$ separated classes, we can use the network with $K$ outputs each of which has a logistic sigmoid activation function. Each output $t_k\in\{0,1\}$ for $k=1,\ldots,K$ indicates whether the input will be assigned to class $\mathcal{C}_k$</p>
+
+<p>We first consider the case that the class labels are independent given the input vector, which means the conditional distributions for class $C_k$’s will be $K$ i.i.d Bernoulli distributions, in which the conditional probability for class $\mathcal{C}_k$ will take the form
+\begin{equation}
+p(\mathcal{C}_k\vert\mathbf{x},\mathbf{w})=y_k(\mathbf{x},\mathbf{w})^{t_k}\big(1-y_k(\mathbf{x},\mathbf{w})\big)^{1-t_k}
+\end{equation}
+Therefore, the joint distribution of them, the conditional distribution of the target variables will be given as
+\begin{align}
+p(\mathbf{t}\vert\mathbf{x},\mathbf{w})&amp;=\prod_{k=1}^{K}p(\mathcal{C}_k\vert\mathbf{x},\mathbf{w}) \\ &amp;=\prod_{k=1}^{K}y_k(\mathbf{x},\mathbf{w})^{t_k}\big(1-y_k(\mathbf{x},\mathbf{w})\big)^{1-t_k}
+\end{align}
+Let $\mathbf{T}$ denote the combination of all the targets $\mathbf{t}_n$, i.e.,
+\begin{equation}
+\mathbf{T}=\left[\begin{matrix}-\hspace{0.15cm}\mathbf{t}_1^\text{T}\hspace{0.15cm}- \\ \vdots \\ -\hspace{0.15cm}\mathbf{t}_N^\text{T}\hspace{0.15cm}-\end{matrix}\right],
+\end{equation}
+the likelihood function therefore takes the form of
+\begin{align}
+p(\mathbf{T}\vert\mathbf{X},\mathbf{w})&amp;=\prod_{n=1}^{N}p(\mathbf{t}_n\vert\mathbf{x}_n,\mathbf{w}) \\ &amp;=\prod_{n=1}^{N}\prod_{k=1}^{K}y_k(\mathbf{x}_n,\mathbf{w})^{t_k}\big(1-y_k(\mathbf{x}_n,\mathbf{w})\big)^{1-t_k}\label{eq:mult-clf-llh}
+\end{align}
+Analogy to the binary case, taking the negative natural logarithm of the likelihood \eqref{eq:mult-clf-llh} gives us the corresponding cross-entropy error function for the multi-class case, given as
+\begin{align}
+E(\mathbf{w})=-\log p(\mathbf{T}\vert\mathbf{X},\mathbf{w})&amp;=-\log\prod_{n=1}^{N}\prod_{k=1}^{K}y_k(\mathbf{x}_n,\mathbf{w})^{t_{nk}}\big(1-y_k(\mathbf{x}_n,\mathbf{w})\big)^{1-t_{nk}} \\ &amp;=-\sum_{n=1}^{N}\sum_{k=1}^{K}t_{nk}\log y_{nk}+(1-t_{nk})\log(1-y_{nk}),\label{eq:mult-clf-error}
+\end{align}
+where $y_{nk}$ is short for $y_k(\mathbf{x}_n,\mathbf{w})$.</p>
+
+<p>Similar to the binary case, consider the partial derivative of the error function \eqref{eq:mult-clf-error} w.r.t to the activation for a particular output unit $a_{nk}$ we have
+\begin{align}
+\frac{\partial E(\mathbf{w})}{\partial a_{nk}}&amp;=\frac{\partial}{\partial a_{nk}}-\sum_{n=1}^{N}\sum_{k=1}^{K}t_{nk}\log y_{nk}+(1-t_{nk})\log(1-y_{nk}) \\ &amp;=-\frac{t_{nk}}{y_{nk}}\frac{\partial y_{nk}}{\partial a_{nk}}+\frac{1-t_{nk}}{1-y_{nk}}\frac{\partial y_{nk}}{\partial a_{nk}} \\ &amp;=y_{nk}(1-y_{nk})\left(\frac{1-t_{nk}}{1-y_{nk}}-\frac{t_{nk}}{y_{nk}}\right) \\ &amp;=y_{nk}-t_{nk}\label{eq:mult-drv-error-a}
+\end{align}
+which takes the same form as \eqref{eq:bin-clf-drv-error-a}</p>
+
+<p>On the other hands, if each input is assigned only to one of $K$ classes (mutually exclusive), the conditional distributions for class $C_k$ will be instead given as
+\begin{equation}
+p(\mathcal{C}_k\vert\mathbf{x})=p(t_k=1\vert\mathbf{x})=y_k(\mathbf{x},\mathbf{w}),
+\end{equation}
+and thus the conditional distribution of the targets is
+\begin{equation}
+p(\mathbf{t}\vert\mathbf{x},\mathbf{w})=\prod_{k=1}^{K}p(t_k=1\vert\mathbf{x})^{t_k}=\prod_{k=1}^{K}y_k(\mathbf{x},\mathbf{w})^{t_k}
+\end{equation}
+The likelihood is therefore given as
+\begin{equation}
+p(\mathbf{T}\vert\mathbf{X},\mathbf{w})=\prod_{n=1}^{N}p(\mathbf{t}_n\vert\mathbf{x}_n,\mathbf{w})=\prod_{n=1}^{N}\prod_{k=1}^{K}y_k(\mathbf{x}_n,\mathbf{w})^{t_{nk}},
+\end{equation}
+which gives us the following cross-entropy error function by taking the negative natural logarithm
+\begin{align}
+E(\mathbf{w})=-\log p(\mathbf{T}\vert\mathbf{X},\mathbf{w})&amp;=-\log\prod_{n=1}^{N}\prod_{k=1}^{K}y_k(\mathbf{x},\mathbf{w})^{t_{nk}} \\ &amp;=-\sum_{n=1}^{N}\sum_{k=1}^{K}t_{nk}\log y_k(\mathbf{x}_n,\mathbf{w})\label{eq:mult-me-clf-error}
+\end{align}
+As discussed in <a href="/artificial-intelligent/machine-learning/2022/08/13/linear-models.html#softmax-reg">Softmax regression</a>, we see that the output unit activation function is given by the the softmax function
+\begin{equation}
+y_k(\mathbf{x},\mathbf{w})=\frac{\exp\big[a_k(\mathbf{x},\mathbf{w})\big]}{\sum_{j=1}^{K}\exp\big[a_j(\mathbf{x},\mathbf{w})\big]}
+\end{equation}
+Taking the derivative of the error function \eqref{eq:mult-me-clf-error}  w.r.t to the activation for a particular output unit, and let $y_{nk}$ to denote $y_k(\mathbf{x}_n,\mathbf{w})$ for short, we have
+\begin{align}
+\frac{\partial E(\mathbf{w})}{\partial a_k}&amp;=\frac{\partial}{\partial a_k}-\sum_{n=1}^{N}\sum_{k=1}^{K}t_{nk}\log y_{nk} \\ &amp;=-\sum_{n=1}^{N}\sum_{k=1}^{K}\frac{t_{nk}}{y_{nk}}\frac{\partial y_{nk}}{\partial a_k} \\ &amp;=-\sum_{n=1}^{N}\sum_{k=1}^{K}\frac{t_{nk}}{y_{nk}}\frac{\partial y_{nk}}{\partial a_k}
+\end{align}
+which also lets us end up with the form as \eqref{eq:bin-clf-drv-error-a} and \eqref{eq:mult-drv-error-a}.</p>
+
+<h3 id="param-opt">Parameter optimization</h3>
+
+<h2 id="backprop">Backpropagation</h2>
+
+<h2 id="bayes-nn">Bayesian neural networks</h2>
+
+<h3 id="posterior-param-dist">Posterior parameter distribution</h3>
+
+<h2 id="preferences">Preferences</h2>
+<p>[1] Christopher M. Bishop. <a href="https://link.springer.com/book/9780387310732">Pattern Recognition and Machine Learning</a>. Springer New York, NY.</p>
+
+<p>[2] Ian Goodfellow &amp; Yoshua Bengio &amp; Aaron Courville. <a href="https://www.deeplearningbook.org">Deep Learning</a>. MIT Press (2016).</p>
+
+<h2 id="footnotes">Footnotes</h2>
+:ET

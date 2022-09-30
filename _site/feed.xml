@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-30T15:27:33+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-30T17:07:32+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Neural networks</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/08/21/neural-nets.html" rel="alternate" type="text/html" title="Neural networks" /><published>2022-08-21T13:00:00+07:00</published><updated>2022-08-21T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/08/21/neural-nets</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/08/21/neural-nets.html">&lt;blockquote&gt;
   &lt;p&gt;A note on Neural networks.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -167,9 +167,9 @@ E(\mathbf{w})=-\log p(\mathbf{t}\vert\mathbf{X},\mathbf{w})&amp;amp;=-\log\prod_
 \end{align}
 where $y_n=y(\mathbf{x}_n,\mathbf{w})$.&lt;/p&gt;
 
-&lt;p&gt;Moreover, consider the partial derivative of the above error function w.r.t the activation $a_n$, we have
+&lt;p&gt;Moreover, consider the partial derivative of this error function w.r.t the activation $a_k$, we have
 \begin{align}
-\frac{\partial E(\mathbf{w})}{\partial a_n}&amp;amp;=\frac{\partial-\sum_{n=1}^{N}t_n\log y_n+(1-t_n)\log(1-y_n)}{\partial a_n} \\ &amp;amp;=-\frac{t_n}{y_n}\frac{\partial y_n}{\partial a_n}-\frac{1-t_n}{1-y_n}\frac{\partial(1-y_n)}{\partial a_n} \\ &amp;amp;=\frac{\partial y_n}{\partial a_n}\left(\frac{1-t_n}{1-y_n}-\frac{t_n}{y_n}\right) \\ &amp;amp;=y_n(1-y_n)\left(\frac{1-t_n}{1-y_n}-\frac{t_n}{y_n}\right) \\ &amp;amp;=y_n-t_n,\label{eq:bin-drv-error-a}
+\frac{\partial E(\mathbf{w})}{\partial a_k}&amp;amp;=\frac{\partial}{\partial a_k}-\sum_{n=1}^{N}t_n\log y_n+(1-t_n)\log(1-y_n) \\ &amp;amp;=-\frac{t_k}{y_k}\frac{\partial y_k}{\partial a_k}-\frac{1-t_k}{1-y_k}\frac{\partial(1-y_k)}{\partial a_k} \\ &amp;amp;=\frac{\partial y_k}{\partial a_k}\left(\frac{1-t_n}{1-y_k}-\frac{t_k}{y_k}\right) \\ &amp;amp;=y_k(1-y_k)\left(\frac{1-t_k}{1-y_k}-\frac{t_k}{y_k}\right) \\ &amp;amp;=y_k-t_k,\label{eq:bin-clf-drv-error-a}
 \end{align}
 where in the forth step, we have use the identity of the &lt;a href=&quot;/artificial-intelligent/machine-learning/2022/08/13/linear-models.html#sigmoid-derivative&quot;&gt;derivative of sigmoid function&lt;/a&gt; that
 \begin{equation}
@@ -201,11 +201,11 @@ E(\mathbf{w})=-\log p(\mathbf{T}\vert\mathbf{X},\mathbf{w})&amp;amp;=-\log\prod_
 \end{align}
 where $y_{nk}$ is short for $y_k(\mathbf{x}_n,\mathbf{w})$.&lt;/p&gt;
 
-&lt;p&gt;Similar to the binary case, consider the partial derivative of the error function \eqref{eq:mult-clf-error} w.r.t to the activation for a particular output unit $a_{nk}$ we have
+&lt;p&gt;Similar to the binary case, consider the partial derivative of the error function \eqref{eq:mult-clf-error} w.r.t to the activation for a particular output unit $a_j$ we have
 \begin{align}
-\frac{\partial E(\mathbf{w})}{\partial a_{nk}}&amp;amp;=\frac{\partial-\sum_{n=1}^{N}\sum_{k=1}^{K}t_{nk}\log y_{nk}+(1-t_{nk})\log(1-y_{nk})}{\partial a_{nk}} \\ &amp;amp;=-\frac{t_{nk}}{y_{nk}}\frac{\partial y_{nk}}{\partial a_{nk}}+\frac{1-t_{nk}}{1-y_{nk}}\frac{\partial y_{nk}}{\partial a_{nk}} \\ &amp;amp;=y_{nk}(1-y_{nk})\left(\frac{1-t_{nk}}{1-y_{nk}}-\frac{t_{nk}}{y_{nk}}\right) \\ &amp;amp;=y_{nk}-t_{nk}\label{eq:mult-drv-error-a}
+\frac{\partial E(\mathbf{w})}{\partial a_j}&amp;amp;=\frac{\partial}{\partial a_j}-\sum_{n=1}^{N}\sum_{k=1}^{K}t_{nk}\log y_{nk}+(1-t_{nk})\log(1-y_{nk}) \\ &amp;amp;=\sum_{n=1}^{N}\frac{\partial y_{nj}}{\partial a_j}\left(\frac{1-t_{nj}}{1-y_{nj}}-\frac{t_{nj}}{y_{nj}}\right) \\ &amp;amp;=\sum_{n=1}^{N}y_{nj}(1-y_{nj})\left(\frac{1-t_{nj}}{1-y_{nj}}-\frac{t_{nj}}{y_{nj}}\right) \\ &amp;amp;=\sum_{n=1}^{N}y_{nj}-t_{nj}\label{eq:mult-drv-error-a}
 \end{align}
-which takes the same form as \eqref{eq:bin-drv-error-a}&lt;/p&gt;
+which takes the same form as \eqref{eq:bin-clf-drv-error-a}&lt;/p&gt;
 
 &lt;p&gt;On the other hands, if each input is assigned only to one of $K$ classes (mutually exclusive), the conditional distributions for class $C_k$ will be instead given as
 \begin{equation}
@@ -221,9 +221,17 @@ p(\mathbf{T}\vert\mathbf{X},\mathbf{w})=\prod_{n=1}^{N}p(\mathbf{t}_n\vert\mathb
 \end{equation}
 which gives us the following cross-entropy error function by taking the negative natural logarithm
 \begin{align}
-E(\mathbf{w})=-\log p(\mathbf{T}\vert\mathbf{X},\mathbf{w})&amp;amp;=-\log\prod_{n=1}^{N}\prod_{k=1}^{K}y_k(\mathbf{x},\mathbf{w})^{t_{nk}} \\ &amp;amp;=-\sum_{n=1}^{N}\sum_{k=1}^{K}t_{nk}\log y_k(\mathbf{x}_n,\mathbf{w})
+E(\mathbf{w})=-\log p(\mathbf{T}\vert\mathbf{X},\mathbf{w})&amp;amp;=-\log\prod_{n=1}^{N}\prod_{k=1}^{K}y_k(\mathbf{x},\mathbf{w})^{t_{nk}} \\ &amp;amp;=-\sum_{n=1}^{N}\sum_{k=1}^{K}t_{nk}\log y_k(\mathbf{x}_n,\mathbf{w})\label{eq:mult-me-clf-error}
 \end{align}
-Taking the derivative of this error function w.r.t to the activation for a particular output unit also lets us end up with the form as \eqref{eq:bin-drv-error-a} and \eqref{eq:mult-drv-error-a}.&lt;/p&gt;
+As discussed in &lt;a href=&quot;/artificial-intelligent/machine-learning/2022/08/13/linear-models.html#softmax-reg&quot;&gt;Softmax regression&lt;/a&gt;, we see that the output unit activation function is given by the the softmax function
+\begin{equation}
+y_k(\mathbf{x},\mathbf{w})=\frac{\exp\big[a_k(\mathbf{x},\mathbf{w})\big]}{\sum_{j=1}^{K}\exp\big[a_j(\mathbf{x},\mathbf{w})\big]}
+\end{equation}
+Taking the derivative of the error function \eqref{eq:mult-me-clf-error}  w.r.t to the activation for a particular output unit $a_j$, and let $y_{nk}$ to denote $y_k(\mathbf{x}_n,\mathbf{w})$ for short, we have
+\begin{align}
+\frac{\partial E(\mathbf{w})}{\partial a_j}&amp;amp;=\frac{\partial}{\partial a_j}-\sum_{n=1}^{N}\sum_{k=1}^{K}t_{nk}\log y_{nk} \\ &amp;amp;=-\sum_{n=1}^{N}\sum_{k=1}^{K}\frac{t_{nk}}{y_{nk}}\frac{\partial y_{nk}}{\partial a_j} \\ &amp;amp;=-\sum_{n=1}^{N}\sum_{k=1}^{K}\frac{t_{nk}}{y_{nk}}\frac{\partial y_{nk}}{\partial a_j} \\ &amp;amp;=-\sum_{n=1}^{N}\sum_{k=1}^{K}\frac{t_{nk}}{y_{nk}}y_{nk}(1\{k=j\}-y_{nj})\label{54} \\ &amp;amp;=\sum_{n=1}^{N}\left[\sum_{k=1}^{K}t_{nk}y_{nj}-\sum_{k=1}^{K}t_{nk}1\{k=j\}\right] \\ &amp;amp;=\sum_{n=1}^{N}\left[\left(y_{nj}\sum_{k=1}^{K}t_{nk}\right)-t_{nj}\right] \\ &amp;amp;=\sum_{n=1}^{N}y_{nj}-t_{nj},
+\end{align}
+where we have used the identity of the &lt;a href=&quot;/artificial-intelligent/machine-learning/2022/08/13/linear-models.html#softmax-derivative&quot;&gt;derivative of the softmax function&lt;/a&gt; in the forth step to obtain \eqref{54}.&lt;/p&gt;
 
 &lt;h3 id=&quot;param-opt&quot;&gt;Parameter optimization&lt;/h3&gt;
 
@@ -1307,7 +1315,7 @@ As usual, taking the gradient of the error function $E(\mathbf{w}_1,\ldots,\math
 \begin{align}
 \nabla_{\mathbf{w}_k}E(\mathbf{w}_1,\ldots,\mathbf{w}_K)&amp;amp;=\nabla_{\mathbf{w}_k}-\sum_{n=1}^{N}\sum_{i=1}^{K}(\mathbf{t}_n)_i\log(y_{n})_i \\ &amp;amp;=-\sum_{n=1}^{N}\sum_{i=1}^{K}(\mathbf{t}_n)_i\frac{(y_n)_i(1\{i=k\}-(y_n)_k)\boldsymbol{\phi}_n}{(y_n)_i} \\ &amp;amp;=\sum_{n=1}^{N}\Big[(y_n)_k\sum_{i=1}^{K}(\mathbf{t}_n)_i-\sum_{i=1}^{K}(\mathbf{t}_n)_i 1\{i=k\}\Big]\boldsymbol{\phi}_n \\ &amp;amp;=\sum_{n=1}^{N}\big[(y_n)_k-(\mathbf{t}_n)_k\big]\boldsymbol{\phi}_n\tag{39}\label{39}
 \end{align}
-where in the second step, we have used the identity
+where in the second step, we have used the &lt;span id=&quot;softmax-derivative&quot;&gt;identity&lt;/span&gt;
 \begin{align}
 \frac{\partial y_k}{\partial a_j}&amp;amp;=\frac{\big(\partial\exp(a_k)/\partial\exp(a_j)\big)\sum_{i=1}^{K}\exp(a_i)-\exp(a_j)\exp(a_k)}{\big(\sum_{i=1}^{K}\exp(a_i)\big)^2} \\ &amp;amp;=\frac{\exp(a_k)1\{k=j\}}{\sum_{i=1}^{K}\exp(a_i)}-y_k y_j \\ &amp;amp;=y_k(1\{k=j\}-y_j)
 \end{align}

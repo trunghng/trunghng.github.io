@@ -315,9 +315,9 @@ E(\mathbf{w})=-\log p(\mathbf{t}\vert\mathbf{X},\mathbf{w})&amp;=-\log\prod_{n=1
 \end{align}
 where $y_n=y(\mathbf{x}_n,\mathbf{w})$.</p>
 
-<p>Moreover, consider the partial derivative of the above error function w.r.t the activation $a_n$, we have
+<p>Moreover, consider the partial derivative of this error function w.r.t the activation $a_k$, we have
 \begin{align}
-\frac{\partial E(\mathbf{w})}{\partial a_n}&amp;=\frac{\partial-\sum_{n=1}^{N}t_n\log y_n+(1-t_n)\log(1-y_n)}{\partial a_n} \\ &amp;=-\frac{t_n}{y_n}\frac{\partial y_n}{\partial a_n}-\frac{1-t_n}{1-y_n}\frac{\partial(1-y_n)}{\partial a_n} \\ &amp;=\frac{\partial y_n}{\partial a_n}\left(\frac{1-t_n}{1-y_n}-\frac{t_n}{y_n}\right) \\ &amp;=y_n(1-y_n)\left(\frac{1-t_n}{1-y_n}-\frac{t_n}{y_n}\right) \\ &amp;=y_n-t_n,\label{eq:bin-drv-error-a}
+\frac{\partial E(\mathbf{w})}{\partial a_k}&amp;=\frac{\partial}{\partial a_k}-\sum_{n=1}^{N}t_n\log y_n+(1-t_n)\log(1-y_n) \\ &amp;=-\frac{t_k}{y_k}\frac{\partial y_k}{\partial a_k}-\frac{1-t_k}{1-y_k}\frac{\partial(1-y_k)}{\partial a_k} \\ &amp;=\frac{\partial y_k}{\partial a_k}\left(\frac{1-t_n}{1-y_k}-\frac{t_k}{y_k}\right) \\ &amp;=y_k(1-y_k)\left(\frac{1-t_k}{1-y_k}-\frac{t_k}{y_k}\right) \\ &amp;=y_k-t_k,\label{eq:bin-clf-drv-error-a}
 \end{align}
 where in the forth step, we have use the identity of the <a href="/artificial-intelligent/machine-learning/2022/08/13/linear-models.html#sigmoid-derivative">derivative of sigmoid function</a> that
 \begin{equation}
@@ -349,11 +349,11 @@ E(\mathbf{w})=-\log p(\mathbf{T}\vert\mathbf{X},\mathbf{w})&amp;=-\log\prod_{n=1
 \end{align}
 where $y_{nk}$ is short for $y_k(\mathbf{x}_n,\mathbf{w})$.</p>
 
-<p>Similar to the binary case, consider the partial derivative of the error function \eqref{eq:mult-clf-error} w.r.t to the activation for a particular output unit $a_{nk}$ we have
+<p>Similar to the binary case, consider the partial derivative of the error function \eqref{eq:mult-clf-error} w.r.t to the activation for a particular output unit $a_j$ we have
 \begin{align}
-\frac{\partial E(\mathbf{w})}{\partial a_{nk}}&amp;=\frac{\partial-\sum_{n=1}^{N}\sum_{k=1}^{K}t_{nk}\log y_{nk}+(1-t_{nk})\log(1-y_{nk})}{\partial a_{nk}} \\ &amp;=-\frac{t_{nk}}{y_{nk}}\frac{\partial y_{nk}}{\partial a_{nk}}+\frac{1-t_{nk}}{1-y_{nk}}\frac{\partial y_{nk}}{\partial a_{nk}} \\ &amp;=y_{nk}(1-y_{nk})\left(\frac{1-t_{nk}}{1-y_{nk}}-\frac{t_{nk}}{y_{nk}}\right) \\ &amp;=y_{nk}-t_{nk}\label{eq:mult-drv-error-a}
+\frac{\partial E(\mathbf{w})}{\partial a_j}&amp;=\frac{\partial}{\partial a_j}-\sum_{n=1}^{N}\sum_{k=1}^{K}t_{nk}\log y_{nk}+(1-t_{nk})\log(1-y_{nk}) \\ &amp;=\sum_{n=1}^{N}\frac{\partial y_{nj}}{\partial a_j}\left(\frac{1-t_{nj}}{1-y_{nj}}-\frac{t_{nj}}{y_{nj}}\right) \\ &amp;=\sum_{n=1}^{N}y_{nj}(1-y_{nj})\left(\frac{1-t_{nj}}{1-y_{nj}}-\frac{t_{nj}}{y_{nj}}\right) \\ &amp;=\sum_{n=1}^{N}y_{nj}-t_{nj}\label{eq:mult-drv-error-a}
 \end{align}
-which takes the same form as \eqref{eq:bin-drv-error-a}</p>
+which takes the same form as \eqref{eq:bin-clf-drv-error-a}</p>
 
 <p>On the other hands, if each input is assigned only to one of $K$ classes (mutually exclusive), the conditional distributions for class $C_k$ will be instead given as
 \begin{equation}
@@ -369,9 +369,17 @@ p(\mathbf{T}\vert\mathbf{X},\mathbf{w})=\prod_{n=1}^{N}p(\mathbf{t}_n\vert\mathb
 \end{equation}
 which gives us the following cross-entropy error function by taking the negative natural logarithm
 \begin{align}
-E(\mathbf{w})=-\log p(\mathbf{T}\vert\mathbf{X},\mathbf{w})&amp;=-\log\prod_{n=1}^{N}\prod_{k=1}^{K}y_k(\mathbf{x},\mathbf{w})^{t_{nk}} \\ &amp;=-\sum_{n=1}^{N}\sum_{k=1}^{K}t_{nk}\log y_k(\mathbf{x}_n,\mathbf{w})
+E(\mathbf{w})=-\log p(\mathbf{T}\vert\mathbf{X},\mathbf{w})&amp;=-\log\prod_{n=1}^{N}\prod_{k=1}^{K}y_k(\mathbf{x},\mathbf{w})^{t_{nk}} \\ &amp;=-\sum_{n=1}^{N}\sum_{k=1}^{K}t_{nk}\log y_k(\mathbf{x}_n,\mathbf{w})\label{eq:mult-me-clf-error}
 \end{align}
-Taking the derivative of this error function w.r.t to the activation for a particular output unit also lets us end up with the form as \eqref{eq:bin-drv-error-a} and \eqref{eq:mult-drv-error-a}.</p>
+As discussed in <a href="/artificial-intelligent/machine-learning/2022/08/13/linear-models.html#softmax-reg">Softmax regression</a>, we see that the output unit activation function is given by the the softmax function
+\begin{equation}
+y_k(\mathbf{x},\mathbf{w})=\frac{\exp\big[a_k(\mathbf{x},\mathbf{w})\big]}{\sum_{j=1}^{K}\exp\big[a_j(\mathbf{x},\mathbf{w})\big]}
+\end{equation}
+Taking the derivative of the error function \eqref{eq:mult-me-clf-error}  w.r.t to the activation for a particular output unit $a_j$, and let $y_{nk}$ to denote $y_k(\mathbf{x}_n,\mathbf{w})$ for short, we have
+\begin{align}
+\frac{\partial E(\mathbf{w})}{\partial a_j}&amp;=\frac{\partial}{\partial a_j}-\sum_{n=1}^{N}\sum_{k=1}^{K}t_{nk}\log y_{nk} \\ &amp;=-\sum_{n=1}^{N}\sum_{k=1}^{K}\frac{t_{nk}}{y_{nk}}\frac{\partial y_{nk}}{\partial a_j} \\ &amp;=-\sum_{n=1}^{N}\sum_{k=1}^{K}\frac{t_{nk}}{y_{nk}}\frac{\partial y_{nk}}{\partial a_j} \\ &amp;=-\sum_{n=1}^{N}\sum_{k=1}^{K}\frac{t_{nk}}{y_{nk}}y_{nk}(1\{k=j\}-y_{nj})\label{54} \\ &amp;=\sum_{n=1}^{N}\left[\sum_{k=1}^{K}t_{nk}y_{nj}-\sum_{k=1}^{K}t_{nk}1\{k=j\}\right] \\ &amp;=\sum_{n=1}^{N}\left[\left(y_{nj}\sum_{k=1}^{K}t_{nk}\right)-t_{nj}\right] \\ &amp;=\sum_{n=1}^{N}y_{nj}-t_{nj},
+\end{align}
+where we have used the identity of the <a href="/artificial-intelligent/machine-learning/2022/08/13/linear-models.html#softmax-derivative">derivative of the softmax function</a> in the forth step to obtain \eqref{54}.</p>
 
 <h3 id="param-opt">Parameter optimization</h3>
 

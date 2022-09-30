@@ -1060,7 +1060,7 @@ As usual, taking the gradient of the error function $E(\mathbf{w}\_1,\ldots,\mat
 \begin{align}
 \nabla_{\mathbf{w}\_k}E(\mathbf{w}\_1,\ldots,\mathbf{w}\_K)&=\nabla_{\mathbf{w}\_k}-\sum_{n=1}^{N}\sum_{i=1}^{K}(\mathbf{t}\_n)\_i\log(y_{n})\_i \\\\ &=-\sum_{n=1}^{N}\sum_{i=1}^{K}(\mathbf{t}\_n)\_i\frac{(y_n)\_i(1\\{i=k\\}-(y_n)\_k)\boldsymbol{\phi}\_n}{(y_n)\_i} \\\\ &=\sum_{n=1}^{N}\Big[(y_n)\_k\sum_{i=1}^{K}(\mathbf{t}\_n)\_i-\sum_{i=1}^{K}(\mathbf{t}\_n)\_i 1\\{i=k\\}\Big]\boldsymbol{\phi}\_n \\\\ &=\sum_{n=1}^{N}\big[(y_n)\_k-(\mathbf{t}\_n)\_k\big]\boldsymbol{\phi}\_n\tag{39}\label{39}
 \end{align}
-where in the second step, we have used the identity
+where in the second step, we have used the <span id='softmax-derivative'>identity</span>
 \begin{align}
 \frac{\partial y_k}{\partial a_j}&=\frac{\big(\partial\exp(a_k)/\partial\exp(a_j)\big)\sum_{i=1}^{K}\exp(a_i)-\exp(a_j)\exp(a_k)}{\big(\sum_{i=1}^{K}\exp(a_i)\big)^2} \\\\ &=\frac{\exp(a_k)1\\{k=j\\}}{\sum_{i=1}^{K}\exp(a_i)}-y_k y_j \\\\ &=y_k(1\\{k=j\\}-y_j)
 \end{align}
