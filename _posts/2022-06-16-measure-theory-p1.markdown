@@ -1,11 +1,12 @@
 ---
 layout: post
-title:  "Measure theory - I"
+title:  "Measure theory - I: Elementary measure, Jordan measure & the Riemann integral"
 date:   2022-06-16 13:00:00 +0700
 categories: mathematics measure-theory
 tags: mathematics measure-theory jordan-measure riemann-integral darboux-integral random-stuffs
 description: Note on measure theory
 comments: true
+eqn-number: true
 ---
 > Part I of the measure theory series. Materials are mostly taken from [Tao's book]({% post_url 2022-06-16-measure-theory-p1 %}#taos-book), except for some needed notations extracted from [Stein's book]({% post_url 2022-06-16-measure-theory-p1 %}#steins-book).
 <!-- excerpt-end -->
@@ -201,7 +202,7 @@ Let $F\subset\mathbb{N}^2$ be any finite set. Then $F\subset\\{1,\ldots,N\\}\tim
 \begin{align}
 \sum_{(n,m)\in F}x_{n,m}&\leq\sum_{(n,m)\in\\{1,\ldots,N\\}\times\\{1,\ldots,N\\}}x_{n,m} \\\\ &=\sum_{n=1}^{N}\sum_{m=1}^{N}x_{n,m} \\\\ &\leq\sum_{n=1}^{\infty}\sum_{m=1}^{\infty}x_{n,m},
 \end{align}
-for any finite subset $F$ of $\mathbb{R}^2$. Then by \eqref{1}, we have
+for any finite subset $F$ of $\mathbb{R}^2$. Then by \eqref{eq:remark11.1}, we have
 \begin{equation}
 \sum_{(n,m)\in\mathbb{N}^2}x_{n,m}=\sup_{F\subset\mathbb{N}^2,F\text{ finite}}x_{n,m}\leq\sum_{n=1}^{\infty}\sum_{m=1}^{\infty}x_{n,m}
 \end{equation}
@@ -422,17 +423,17 @@ E_1&=B_1\cup\dots\cup B_{k_1}, \\\\ E_2&=B_1'\cup\dots\cup B_{k_2}',
 \end{align}
 where each $B_i$ is a $d_1$-dimensional box while each $B_i'$ is a $d_2$-dimensional box. And using **Lemma 5**, without loss of generality, we can assume that $B_i$ are disjoint boxes and $B_i'$ are also disjoint, which implies that
 \begin{align}
-m^{d_1}(E_1)&=m^{d_1}(B_1)+\dots+m^{d_1}(B_{k_1}),\tag{1}\label{1} \\\\ m^{d_2}(E_2)&=m^{d_2}(B_1')+\dots+m^{d_2}(B_{k_2}')\tag{2}\label{2}
+m^{d_1}(E_1)&=m^{d_1}(B_1)+\dots+m^{d_1}(B_{k_1}),\label{eq:remark11.1} \\\\ m^{d_2}(E_2)&=m^{d_2}(B_1')+\dots+m^{d_2}(B_{k_2}')\label{eq:remark11.2}
 \end{align}
 By set theory, we have that
 \begin{align}
-E_1\times E_2&=\Big(B_1\cup\dots\cup B_{k_1}\Big)\times\Big(B_1'\cup\dots\cup B_{k_2}'\Big) \\\\ &=\bigcup_{i=1}^{k_1}\bigcup_{j=1}^{k_2}\left(B_i\times B_j'\right),\tag{3}\label{3}
+E_1\times E_2&=\Big(B_1\cup\dots\cup B_{k_1}\Big)\times\Big(B_1'\cup\dots\cup B_{k_2}'\Big) \\\\ &=\bigcup_{i=1}^{k_1}\bigcup_{j=1}^{k_2}\left(B_i\times B_j'\right),\label{eq:remark11.3}
 \end{align}
 which is an elementary set.
 
-Since $B_1,\dots,B_{k_1}$ are disjoint and $B_1',\dots,B_{k_2}'$ are disjoint, the Cartesian products $B_i\times B_j'$ for $i=1,\dots,k_1$ and $j=1,\dots,k_2$ are also disjoint. From \eqref{3} and using the finite additivity property, we have that
+Since $B_1,\dots,B_{k_1}$ are disjoint and $B_1',\dots,B_{k_2}'$ are disjoint, the Cartesian products $B_i\times B_j'$ for $i=1,\dots,k_1$ and $j=1,\dots,k_2$ are also disjoint. From \eqref{eq:remark11.3} and using the finite additivity property, we have that
 \begin{align}
-m^{d_1+d_2}(E_1\times E_2)&=m^{d_1+d_2}\Bigg(\bigcup_{i=1}^{k_1}\bigcup_{j=1}^{k_2}\left(B_i\times B_j'\right)\Bigg) \\\\ &=\sum_{i=1}^{k_1}\sum_{j=1}^{k_2}m^{d_1+d_2}\left(B_i\times B_j'\right)\tag{4}\label{4}
+m^{d_1+d_2}(E_1\times E_2)&=m^{d_1+d_2}\Bigg(\bigcup_{i=1}^{k_1}\bigcup_{j=1}^{k_2}\left(B_i\times B_j'\right)\Bigg) \\\\ &=\sum_{i=1}^{k_1}\sum_{j=1}^{k_2}m^{d_1+d_2}\left(B_i\times B_j'\right)\label{eq:remark11.4}
 \end{align}
 On the one hand, using the definition of boxes, and without loss of generality we can express, for each $i=1,\dots,k_1$, that:
 \begin{equation}
@@ -440,25 +441,25 @@ B_i=(a_{i,1},b_{i,1})\times\dots\times(a_{i,d_1},b_{i,d_1}),
 \end{equation}
 where $a_{i,j},b_{i,j}\in\mathbb{R}$ for all $j=1,\dots,d_1$. Hence,
 \begin{equation}
-m^{d_1}(B_i)=\prod_{j=1}^{d_1}(b_{i,j}-a_{i,j}),\hspace{1cm}i=1,\dots,k_1\tag{5}\label{5}
+m^{d_1}(B_i)=\prod_{j=1}^{d_1}(b_{i,j}-a_{i,j}),\hspace{1cm}i=1,\dots,k_1\label{eq:remark11.5}
 \end{equation}
 Similarly, we also have that
 \begin{equation}
-m^{d_2}(B_i')=\prod_{j=1}^{d_2}(d_{i,j}-c_{i,j}),\hspace{1cm}i=1,\dots,k_2\tag{6}\label{6}
+m^{d_2}(B_i')=\prod_{j=1}^{d_2}(d_{i,j}-c_{i,j}),\hspace{1cm}i=1,\dots,k_2\label{eq:remark11.6}
 \end{equation}
 where $c_{i,j},d_{i,j}\in\mathbb{R}$ for all $j=1,\dots,d_2$.
 
 Moreover, on the other hand, we also have that the $(d_1+d_2)$-dimensional box $B_i\times B_j'$ can be expressed as
 \begin{equation}
-B_i\times B_j'=(e_1,f_1)\times\dots\times(e_{d_1+d_2},f_{d_1+d_2}),\tag{7}\label{7}
+B_i\times B_j'=(e_1,f_1)\times\dots\times(e_{d_1+d_2},f_{d_1+d_2}),\label{eq:remark11.7}
 \end{equation}
 where $e_k=a_{i,k};f_k=b_{i,k}$ for all $k=1,\dots,d_1$ and $e_k=c_{j,k-d_1};f_k=d_{j,k-d_1}$ for all $k=d_1+1,\dots,d_2$.
 
-From \eqref{5}, \eqref{6} and \eqref{7}, for any $i=1,\dots,k_1$ and for any $j=1,\dots,k_2$, we have
+From \eqref{eq:remark11.5}, \eqref{eq:remark11.6} and \eqref{eq:remark11.5}, for any $i=1,\dots,k_1$ and for any $j=1,\dots,k_2$, we have
 \begin{align}
 m^{d_1+d_2}(B_i\times B_j')&=\prod_{k=1}^{d_1+d_2}(f_k-e_k) \\\\ &=\Bigg(\prod_{k=1}^{d_1}(b_{i,k}-a_{i,k})\Bigg)\Bigg(\prod_{k=1}^{d_2}(d_{j,k}-c_{j,k})\Bigg) \\\\ &=m^{d_1}(B_i)\times m^{d_2}(B_j')
 \end{align}
-With this result, combined with \eqref{1} and \eqref{2}, equation \eqref{4} can be written as
+With this result, combined with \eqref{eq:remark11.1} and \eqref{eq:remark11.2}, equation \eqref{eq:remark11.4} can be written as
 \begin{align}
 m^{d_1+d_2}(E_1\times E_2)&=\sum_{i=1}^{k_1}\sum_{j=1}^{k_2}m^{d_1+d_2}\left(B_i\times B_j'\right) \\\\ &=\sum_{i=1}^{k_1}\sum_{j=1}^{k_2}m^{d_1}(B_i)\times m^{d_2}(B_j') \\\\ &=m^{d_1}(E_1)\times m^{d_2}(E_2),
 \end{align}
@@ -499,13 +500,13 @@ m(E)=\sup_{A\subset E;A\text{ elementary}}m(A)=\inf_{B\supset E;B\text{ elementa
 \end{equation}
 By the definition of supremum, there exists an elementary set $A\subset E$ such that for any $\varepsilon>0$ 
 \begin{equation}
-m(A)\geq m(E)-\frac{\varepsilon}{2}\tag{8}\label{8}
+m(A)\geq m(E)-\frac{\varepsilon}{2}\label{eq:jmc.1}
 \end{equation}
 In addition, by the definition of infimum, there also exists an elementary set $B\supset E$ such that for any $\varepsilon>0$
 \begin{equation}
-m(B)\leq m(E)+\frac{\varepsilon}{2}\tag{9}\label{9}
+m(B)\leq m(E)+\frac{\varepsilon}{2}\label{eq:jmc.2}
 \end{equation}
-From \eqref{8} and \eqref{9}, we have that for any $\varepsilon>0$
+From \eqref{eq:jmc.1} and \eqref{eq:jmc.2}, we have that for any $\varepsilon>0$
 \begin{equation}
 m(B\backslash A)=m(B)-m(A)\leq\varepsilon
 \end{equation}
@@ -529,7 +530,7 @@ m(B_j\backslash A_i)\leq\varepsilon
 \end{equation}
 or
 \begin{equation}
-m(B_j)\leq m(A_i)+\varepsilon\tag{10}\label{10}
+m(B_j)\leq m(A_i)+\varepsilon\label{eq:jmc.3}
 \end{equation}
 Let $A_\text{sup}$ and $B_\text{inf}$ be two sets in the two sequences above with
 \begin{align}
@@ -543,7 +544,7 @@ Using the monotonicity property of elementary measure, we have that
 \begin{equation}
 m(A_\text{sup})\leq m(B_\text{inf})
 \end{equation}
-Assume that $m(B_\text{inf})>m(A_\text{sup})$, and consider an $\varepsilon>0$ such that $\varepsilon< m(B_\text{inf})-m(A_\text{sup})$. We can continue to derive \eqref{10} as
+Assume that $m(B_\text{inf})>m(A_\text{sup})$, and consider an $\varepsilon>0$ such that $\varepsilon< m(B_\text{inf})-m(A_\text{sup})$. We can continue to derive \eqref{eq:jmc.3} as
 \begin{equation}
 m(B_j)\leq m(A_i)+\varepsilon< m(A_i)+m(B_\text{inf})-m(A_\text{sup})< m(B_\text{inf}),
 \end{equation}
@@ -606,16 +607,16 @@ Let $E,F\in\mathbb{R}^d$ be Jordan measurable sets. Then
 				\left(A_1\cup A_2\right)\subset\left(E\cup F\right)\subset\left(B_1\cup B_2\right)
 				\end{equation}
 				Moreover, for any $\varepsilon>0$, we have that
-				\begin{align}
+				\begin{align*}
 				m\big((B_1\cup B_2)\backslash(A_1\cup A_2)\big)&=m(B_1\cup B_2)-m(A_1\cup A_2) \\ &=m(B_1)+m(B_2\backslash B_1)-m(A_1\cup A_2) \\ &\leq m(B_1)+m(B_2\backslash A_1)-m(A_1\cup A_2) \\ &=m(B_1)-m(A_1)+m(B_2\backslash A_1)+m(A_1)-m(A_1\cup A_2) \\ &=m(B_1)-m(A_1)+m(B_2\cup A_1)-m(A_1\cup A_2) \\ &=m(B_1\backslash A_1)+m\big((B_2\cup A_1)\backslash(A_1\cup A_2)\big) \\ &=m(B_1\backslash A_1)+m(B_2\backslash A_2) \\ &\leq\varepsilon/2+\varepsilon/2 \\ &=\varepsilon,
-				\end{align}
+				\end{align*}
 				which implies that $E\cup F$ is Jordan measurable.
 			</li>
 			<li>
 				From the result above, and by monotonicity, finite additivity, finite subadditivity properties of elementary measure, for any $\varepsilon>0$, we also have that
-				\begin{align}
+				\begin{align*}
 				m\big((B_1\cap B_2)\backslash(A_1\cap A_2)\big)&=m(B_1\cap B_2)-m(A_1\cap A_2) \\ &=m\Big(\big(B_1\cup B_2\big)\backslash\big((B_1\backslash B_2)\cup(B_2\backslash B_1)\big)\Big) \\ &\hspace{1cm}-m\Big(\big(A_1\cup A_2\big)\backslash\big((A_1\backslash A_2)\cup(A_2\backslash A_1)\big)\Big) \\ &=m(B_1\cup B_2)-m(B_1\backslash B_2)-m(B_2\backslash B_1) \\ &\hspace{1cm}-m(A_1\cup A_2)+m(A_1\backslash A_2)+m(A_2\backslash A_1) \\ &=m(B_1\cup B_2)-m(A_1\cup A_2)+m(A_1\backslash A_2)-m(B_1\backslash B_2) \\ &\hspace{1cm}+m(A_2\backslash A_1)-m(B_2\backslash B_1) \\ &\leq m(B_1\cup B_2)-m(A_1\cup A_2)+m(B_1\backslash A_2)-m(B_1\backslash B_2) \\ &\hspace{1cm}+m(B_2\backslash A_1)-m(B_2\backslash B_1) \\ &\leq m(B_1\cup B_2)-m(A_1\cup A_2) \\ &\leq\varepsilon,
-				\end{align}
+				\end{align*}
 				which also implies that $E\cap F$ is Jordan measurable.
 			</li>
 			<li></li>
@@ -647,7 +648,7 @@ Let $E,F\in\mathbb{R}^d$ be Jordan measurable sets. Then
 		<b>Finite subadditivity</b>.<br>
 		Since given $E,F$ being Jordan measurable sets, $E\cup F$ is also Jordan measurable set. And by the finite subadditivity property of elementary measure, we have
 		\begin{align}
-		m(E)+m(F)&=\sup_{A_1\subset E,A_1\text{ elementary}}m(A_1)+\sup_{A_2\subset E,A_2\text{ elementary}}m(A_2) \\ &\geq\sup_{A_1\subset E,A_2\subset F;A_1,A_2\text{ elementary}}m(A_1\cup A_2)=m(E\cup F)=m(E\cup F)
+		m(E)+m(F)&=\sup_{A_1\subset E,A_1\text{ elementary}}m(A_1)+\sup_{A_2\subset E,A_2\text{ elementary}}m(A_2) \\ &\geq\sup_{A_1\subset E,A_2\subset F;A_1,A_2\text{ elementary}}m(A_1\cup A_2) \\ &=m(E\cup F)=m(E\cup F)
 		\end{align}
 	</li>
 	<li>
@@ -682,11 +683,11 @@ Let $B$ be a closed box in $\mathbb{R}^d$, and let $f:B\to\mathbb{R}$ be a conti
 **Proof**
 <ul id='number-list'>
 	<li>
-		For any closed box $C\in\mathbb{R}^d$, we have $\{(x,f(x)):x\in C\}\subset\mathbb{R}^{d+1}$ with $f:C\to\mathbb{R}$ is a compact metric space. And when $f$ continuous we also have $f$ is <span markdown="1">uniformly continuous[^1]</span>, which means for any $\varepsilon>0$, there exists $\delta$ such that
+		For any closed box $C\in\mathbb{R}^d$, we have $\{(x,f(x)):x\in C\}\subset\mathbb{R}^{d+1}$ with $f:C\to\mathbb{R}$ is a compact set. And when $f$ continuous in a compact set we also have $f$ is <span markdown="1">uniformly continuous[^1]</span>, which means for any $\varepsilon>0$, there exists $\delta$ such that for every $x,y\in C$
 		\begin{equation}
-		\vert f(x)-f(x)\vert<\varepsilon,
+		\vert f(x)-f(y)\vert<\varepsilon,
 		\end{equation}
-		with $\Vert y-x\Vert_d<\delta$. Therefore, we can divide $C$ into finitely many disjoint boxes $C_1,\ldots,C_n$ such that $\vert x_i-y_i\vert<\delta$ and for any $\varepsilon>0$
+		with $\vert x-y\vert<\delta$. Therefore, we can divide $C$ into finitely many almost disjoint boxes $C_1,\ldots,C_n$ such that $\vert x_i-y_i\vert<\delta$ for every $x_i,y_i\in C_i$ and for any $\varepsilon>0$
 		\begin{equation}
 		\vert f(x_i)-f(y_i)\vert<\varepsilon
 		\end{equation}
@@ -712,15 +713,20 @@ Let $B$ be a closed box in $\mathbb{R}^d$, and let $f:B\to\mathbb{R}$ be a conti
 		\end{equation}
 		we have that
 		\begin{equation}
-		m^{*,J}\left(\{(x,f(x)):x\in B\}\right)=m_{*,J}\left(\{(x,f(x)):x\in B\}\right)=0,
+		m^{*,J}\Big(\big\{(x,f(x)):x\in B\big\}\Big)=m_{*,J}\Big(\big\{(x,f(x)):x\in B\big\}\Big)=0,
 		\end{equation}
 		or in other words, the graph $\left(\{(x,f(x)):x\in B\}\right)$ is Jordan measurable on $\mathbb{R}^{d+1}$ with Jordan measure zero.
 	</li>
 	<li>
-		We have the Jordan inner measure of the set $\left\{(x,t):x\in B,0\leq t\leq f(x)\right\}$ can be written as
+		Let $E=\big\{(x,t):x\in B;0\leq t\leq f(x)\big\}$ and let $I$, $O$ be sets defined as for an arbitrary $\varepsilon>0$
 		\begin{align}
-		m_{*,J}\Big(\big\{(x,t):x\in B,0\leq t\leq f(x)\big\}\Big)&=\sup_{A\subset B,A\text{ closed box}}m\Big(\big\{(x,t):x\in A,0\leq t\leq f(x)\big\}\Big)
+		I&=\left\{(x,t):x\in B,0\leq t\leq f(x)-\frac{\varepsilon}{2}\right\}=B\times\left[0,f(x)-\frac{\varepsilon}{2}\right], \\ O&=\left\{(x,t):x\in B,0\leq t\leq f(x)+\frac{\varepsilon}{2}\right\}=B\times\left[0,f(x)+\frac{\varepsilon}{2}\right]
 		\end{align}
+		Therefore, it follows immediately that $I\subset E\subset O$ and moreover
+		\begin{align}
+		m^{d+1}(O\backslash I)&=m^{d+1}\left(B\times\left[0,f(x)+\frac{\varepsilon}{2}\right]\backslash B\times\left[0,f(x)-\frac{\varepsilon}{2}\right]\right) \\ &=m^d(B)\times m^1\left(\left[0,f(x)+\frac{\varepsilon}{2}\right]\backslash\left[0,f(x)-\frac{\varepsilon}{2}\right]\right) \\ &=m^d(B)\times\varepsilon
+		\end{align}
+		And since $\varepsilon>0$ arbitrarily, we can claim that $E$ is Jordan measurable.
 	</li>
 </ul>
 
@@ -729,16 +735,23 @@ Let $B$ be a closed box in $\mathbb{R}^d$, and let $f:B\to\mathbb{R}$ be a conti
 A **Jordan null set** is a Jordan measurable set of Jordan measure zero. We have that any subset of a Jordan null set is also a Jordan null set.
 
 **Proof**  
+Let $E\subset F$ where F is a Jordan null set. Also let $A\subset E$, it follows that $A\subset F$, and hence
+\begin{equation}
+m(A)\leq m_{\*,J}(F)=0
+\end{equation}
+Since $m(E)=0$, we can choose a set $B\supset F$ such that $m(B)\leq\varepsilon$ for $\varepsilon>0$ arbitrarily. Thus, $E\subset B$ and moreover
+\begin{equation}
+m(B\backslash A)\leq\varepsilon,
+\end{equation}
+which claims that $E$ is Jordan measurable with measurable of zero since $m(E)\leq m(F)=0$. Or in other words, $E$ is also a Jordan null set.
 
-
-**Remark**  
+**Remark 14**  
 For any Jordan measurable set $E\subset\mathbb{R}^d$, its Jordan measure can be written as
 \begin{equation}
 m(E)\doteq\lim_{N\to\infty}\frac{1}{N^d}\\#\left(E\cup\frac{1}{N}\mathbb{Z}^d\right)
 \end{equation}
 
 **Proof**  
-
 
 
 ### Uniqueness of Jordan measure
@@ -752,10 +765,46 @@ for all Jordan measurable sets $E$. In particular, if we impose the additional n
 **Proof**  
 Follow the same steps as the proof of the uniqueness of elementary measure, the argument above can easily be proved.
 
-**Example**  
+**Remark 15**  
 Let $d_1,d_2\geq 1$, and let $E_1\subset\mathbb{R}^{d_1},E_2\subset\mathbb{R}^{d_2}$ be Jordan measurable sets. Then $E_1\times E_2\subset\mathbb{R}^{d_1+d_2}$ is also Jordan measurable, and $m^{d_1+d_2}(E_1\times E_2)=m^{d_1}(E_1)\times m^{d_2}(E_2)$.
 
 **Solution**  
+Let $A_1\subset E_1$ such that $A_1$ is elemetary and
+\begin{equation}
+m^{d_1}(A_1)=\sup_{A\subset E_1,A\text{ elementary}}m(A)=m_{\*,J}(E_1)=m^{d_1}(E_1)
+\end{equation}
+Let $B_1\supset E_1$ such that $B_1$ is elementary and
+\begin{equation}
+m^{d_1}(B_1)=\inf_{B\supset E_1,B\text{ elementary}}m(B)=m^{\*,J}(E_1)=m^{d_1}(E_1),
+\end{equation}
+which implies that
+\begin{equation}
+m^{d_1}(A_1)=m^{d_1}(B_1)=m^{d_1}(E_1)
+\end{equation}
+Analogously, we define $A_2\subset E_2\subset B_2$ such that
+\begin{align}
+m^{d_2}(A_2)&=\sup_{A\subset E_2,A\text{ elementary}}m(A)=m_{\*,J}(E_2)=m^{d_2}(E_2) \\\\ m^{d_2}(B_2)&=\inf_{B\supset E_2,B\text{ elementary}}m(B)=m^{\*,J}(E_2)=m^{d_1}(E_2)
+\end{align}
+And thus, we also have
+\begin{equation}
+m^{d_2}(A_2)=m^{d_2}(B_2)=m^{d_2}(E_2)
+\end{equation}
+On the one hand, with these definitions, we have
+\begin{equation}
+m^{d_1+d_2}(A_1\times A_2)=\sup_{A\subset E_1\times E_2,A\text{ elementary}}=m_{\*,J}(E_1\times E_2)\label{eq:remark15.1}
+\end{equation}
+and
+\begin{equation}
+m^{d_1\times d_2}(B_1\times B_2)=\sup_{B\supset E_1\times E_2,A\text{ elementary}}=m^{\*,J}(E_1\times E_2)\label{eq:remark15.2}
+\end{equation}
+On the other hands, By **remark 11**, we have that $A_1\times A_2$ and $B_1\times B_2$ are aslo elementary sets and
+\begin{align}
+m^{d_1}(A_1)\times m^{d_2}(A_2)&=m^{d_1+d_2}(A_1\times A_2)\label{eq:remark15.3} \\\\ m^{d_1}(B_1)\times m^{d_2}(B_2)&=m^{d_1+d_2}(B_1\times B_2)\label{eq:remark15.4}
+\end{align}
+From \eqref{eq:remark15.1}, \eqref{eq:remark15.2}, \eqref{eq:remark15.3} and \eqref{eq:remark15.4}, we can claim that $E_1\times E_2$ is Jordan measurable and
+\begin{equation}
+m^{d_1}(E_1)\times m^{d_2}(E_2)=m^{d_1+d_2}(E_1\times E_2)
+\end{equation} 
 
 ### Carathéodory type property
 {: #caratheodory-type-property}
@@ -925,13 +974,13 @@ Thus, for any $\varepsilon>0$ we obtain
 \end{equation}
 which implies that for any $\varepsilon>0$
 \begin{equation}
-\left\vert\sum_{i=1}^{n}f(x_i^{(1)})\vert I_i\vert-\sum_{n=1}^{n}\inf_{x\in I_i}f(x)\vert I_i\vert\right\vert<\varepsilon\tag{11}\label{11}
+\left\vert\sum_{i=1}^{n}f(x_i^{(1)})\vert I_i\vert-\sum_{n=1}^{n}\inf_{x\in I_i}f(x)\vert I_i\vert\right\vert<\varepsilon\label{eq:erdi.1}
 \end{equation}
 Since $f$ is Riemann integrable on $[a,b]$, as $\sup_{i=1,\ldots,n}\to 0$, we have
 \begin{equation}
 \sum_{i=1}^{n}f(x_i^{(1)})\vert I_i\vert\to\int_{a}^{b}f(x)\,dx
 \end{equation}
-Combining with \eqref{11}, we have that as $\sup_{i=1,\ldots,n}\vert I_i\vert\to 0$
+Combining with \eqref{eq:erdi.1}, we have that as $\sup_{i=1,\ldots,n}\vert I_i\vert\to 0$
 \begin{equation}
 \sum_{n=1}^{n}\inf_{x\in I_i}f(x)\vert I_i\vert\to\int_{a}^{b}f(x)\,dx
 \end{equation}
@@ -941,7 +990,7 @@ Moreover, we also have that
 \end{equation}
 which is the lower Darboux integral of $f$ on $[a,b]$. Thus,
 \begin{equation}
-\int_{a}^{b}f(x)\,dx\leq\underline{\int_{a}^{b}}f(x)\,dx\tag{12}\label{12}
+\int_{a}^{b}f(x)\,dx\leq\underline{\int_{a}^{b}}f(x)\,dx\label{eq:erdi.2}
 \end{equation}
 Similarly, applying the same procedure as above, we also have that on each $I_i$ there exists an $x_i^{(2)}$ such that for any $\varepsilon>0$
 \begin{equation}
@@ -961,9 +1010,9 @@ as $\sup_{i=1,\ldots,n}\vert I_i\vert\to 0$. Additionally, we also have
 \end{equation}
 which is the upper Darboux integral of $f$ on $[a,b]$. And hence
 \begin{equation}
-\overline{\int_{a}^{b}}f(x)\,dx\leq\int_{a}^{b}f(x)\,dx\tag{13}\label{13}
+\overline{\int_{a}^{b}}f(x)\,dx\leq\int_{a}^{b}f(x)\,dx\label{eq:erdi.3}
 \end{equation}
-From \eqref{12} and \eqref{13}, we end up with
+From \eqref{eq:erdi.2} and \eqref{eq:erdi.3}, we end up with
 \begin{equation}
 \overline{\int_{a}^{b}}f(x)\,dx\leq\int_{a}^{b}f(x)\,dx\leq\underline{\int_{a}^{b}}f(x)\,dx,
 \end{equation}
@@ -978,11 +1027,11 @@ which claims that $f$ is Darboux integrable on $[a,b]$, with the Darboux integra
 \end{equation}
 By definition of the lower Darboux integral, there exists a piecewise constant function $g(x)$ bounded above by $f$ (i.e., $g\leq f$ piecewise), such that for any $\varepsilon>0$
 \begin{equation}
-\text{p.c.}\int_{a}^{b}g(x)\,dx>\underline{\int_{a}^{b}}f(x)\,dx-\varepsilon=\text{d.}\int_{a}^{b}f(x)\,dx-\varepsilon\tag{14}\label{14}
+\text{p.c.}\int_{a}^{b}g(x)\,dx>\underline{\int_{a}^{b}}f(x)\,dx-\varepsilon=\text{d.}\int_{a}^{b}f(x)\,dx-\varepsilon\label{eq:erdi.4}
 \end{equation}
 Likewise, by definition of the upper Darboux integral, there exists a piecewise constant function $h(x)$ bounded below by $f$ (i.e., $h\geq f$ piecewise), such that for any $\varepsilon>0$
 \begin{equation}
-\text{p.c.}\int_{a}^{b}h(x)\,dx<\overline{\int_{a}^{b}}f(x)\,dx+\varepsilon=\text{d.}\int_{a}^{b}f(x)\,dx+\varepsilon\tag{15}\label{15}
+\text{p.c.}\int_{a}^{b}h(x)\,dx<\overline{\int_{a}^{b}}f(x)\,dx+\varepsilon=\text{d.}\int_{a}^{b}f(x)\,dx+\varepsilon\label{eq:erdi.5}
 \end{equation}
 From the independence of choice of partition of piecewise constant functions $g$ and $h$, there exists a partition $I_1,\ldots,I_n$ such that
 \begin{align}
@@ -990,9 +1039,9 @@ g(x)&=c_i,\hspace{1cm}\forall x\in I_i, \\\\ h(x)&=d_i,\hspace{1cm}\forall x\in 
 \end{align}
 and
 \begin{align}
-\text{p.c.}\int_{a}^{b}g(x)\,dx&=\sum_{i=1}^{n}c_i\vert I_i\vert,\tag{16}\label{16} \\\\ \text{p.c.}\int_{a}^{b}h(x)\,dx&=\sum_{i=1}^{n}d_i\vert I_i\vert,\tag{17}\label{17}
+\text{p.c.}\int_{a}^{b}g(x)\,dx&=\sum_{i=1}^{n}c_i\vert I_i\vert,\label{eq:erdi.6} \\\\ \text{p.c.}\int_{a}^{b}h(x)\,dx&=\sum_{i=1}^{n}d_i\vert I_i\vert,\label{eq:erdi.7}
 \end{align}
-then it follows immediately that $c_i\leq d_i$. And since $g\leq f\leq h$ piecewise, on each interval $I_i$, we can find a $x_i^\*$ such that $c_i\leq f(x_i^\*)\leq d_i$. Additionally, combining with \eqref{14}, \eqref{15}, \eqref{16} and \eqref{17}, we have that for any $\varepsilon>0$
+then it follows immediately that $c_i\leq d_i$. And since $g\leq f\leq h$ piecewise, on each interval $I_i$, we can find a $x_i^\*$ such that $c_i\leq f(x_i^\*)\leq d_i$. Additionally, combining with \eqref{eq:erdi.4}, \eqref{eq:erdi.5}, \eqref{eq:erdi.6} and \eqref{eq:erdi.7}, we have that for any $\varepsilon>0$
 \begin{equation}
 \text{d.}\int_{a}^{b}f(x)\,dx-\varepsilon<\sum_{i=1}^{n}c_i\vert I_i\vert\leq\sum_{i=1}^{n}f(x_i^\*)\vert I_i\vert\leq\sum_{i=1}^{n}d_i\vert I_i\vert<\text{d.}\int_{a}^{b}f(x)\,dx+\varepsilon
 \end{equation}
@@ -1063,15 +1112,15 @@ Let $[a,b]$ be an interval, and let $f,g:[a,b]\to\mathbb{R}$ be Riemann integrab
 			<li>
 				Given $f$ Riemann integrable on $[a,b]$, then $f$ is also Darboux integrable on $[a,b]$, which means
 				\begin{align}
-				\sup_{f_1\leq f,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}f_1(x)\,dx&=\inf_{f_2\geq f,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}f_2(x)\,dx \\ &\hspace{1cm}=\int_{a}^{b}f(x)\,dx\tag{18}\label{18}
+				\sup_{f_1\leq f,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}f_1(x)\,dx&=\inf_{f_2\geq f,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}f_2(x)\,dx \\ &\hspace{1cm}=\int_{a}^{b}f(x)\,dx\label{eq:rip.1}
 				\end{align}
 				Similarly, $g$ Riemann integrable on $[a,b]$ implies that $g$ is also Darboux integrable, or in particular
 				\begin{align}
-				\sup_{g_1\leq g,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}g_1(x)\,dx&=\inf_{g_2\geq g,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}g_2(x)\,dx \\ &\hspace{1cm}=\int_{a}^{b}g(x)\,dx\tag{19}\label{19}
+				\sup_{g_1\leq g,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}g_1(x)\,dx&=\inf_{g_2\geq g,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}g_2(x)\,dx \\ &\hspace{1cm}=\int_{a}^{b}g(x)\,dx\label{eq:rip.2}
 				\end{align}
-				By the linearity property of piecewise constant functions, combined with \eqref{18} and \eqref{19}, we obtain
+				By the linearity property of piecewise constant functions, combined with \eqref{eq:rip.1} and \eqref{eq:rip.2}, we obtain
 				\begin{align}
-				&\sup_{f_1\leq f,g_1\leq g,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}f_1(x)+g_1(x)\,dx \\ &\hspace{1cm}=\inf_{f_2\geq f,g_2\geq g,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}f_2(x)+g_2(x)\,dx=\int_{a}^{b}f(x)+g(x)\,dx,
+				&\sup_{f_1\leq f,g_1\leq g,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}f_1(x)+g_1(x)\,dx \\ &\hspace{2cm}=\inf_{f_2\geq f,g_2\geq g,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}f_2(x)+g_2(x)\,dx \\ &\hspace{2cm}=\int_{a}^{b}f(x)+g(x)\,dx,
 				\end{align}
 				which claims the Riemann integrability of $f+g$ on $[a,b]$.
 			</li>
@@ -1079,7 +1128,7 @@ Let $[a,b]$ be an interval, and let $f,g:[a,b]\to\mathbb{R}$ be Riemann integrab
 	</li>
 	<li>
 		<b>Monotonicity</b>.<br>
-		Given $f$ and $g$, we obtain two consequential equations \eqref{18} and \eqref{19}. And since $f\leq g$ pointwise we have that
+		Given $f$ and $g$, we obtain two consequential equations \eqref{eq:rip.1} and \eqref{eq:rip.2}. And since $f\leq g$ pointwise we have that
 		\begin{equation}
 		\sup_{f_1\leq f,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}f_1(x)\,dx\leq\sup_{g_1\leq g,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}g_1(x)\,dx
 		\end{equation}
@@ -1092,7 +1141,7 @@ Let $[a,b]$ be an interval, and let $f,g:[a,b]\to\mathbb{R}$ be Riemann integrab
 		<b>Indicator</b>.<br>
 		Given $E\subset [a,b]$ is Jordan measurable, we have
 		\begin{equation}
-		\sup_{A\subset E,A\text{ elementary}}m(A)=\inf_{B\supset E,B\text{ elementary}}m(B)=m(E)\tag{20}\label{20}
+		\sup_{A\subset E,A\text{ elementary}}m(A)=\inf_{B\supset E,B\text{ elementary}}m(B)=m(E)\label{eq:rip.3}
 		\end{equation}
 		Recall that we have proved that for any elementary set $E'\subset[a,b]$, the indicator function $1_{E'}:[a,b]\to\mathbb{R}$ is also piecewise constant with
 		\begin{equation}
@@ -1100,13 +1149,13 @@ Let $[a,b]$ be an interval, and let $f,g:[a,b]\to\mathbb{R}$ be Riemann integrab
 		\end{equation}
 		Moreover for any $A\subset E$, we have $1_A(x)\leq 1_E(x)$; and for any $B\supset E$, we have $1_B(x)\geq 1_E(x)$. Therefore the lower Darboux integral of $1_E$ on $[a,b]$ can be defined as
 		\begin{equation}
-		\underline{\int_{a}^{b}}1_E(x)\,dx=\sup_{1_A\leq 1_E,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}1_A(x)\,dx=\sup_{A\subset E,A\text{ elementary}}m(A)\tag{21}\label{21}
+		\underline{\int_{a}^{b}}1_E(x)\,dx=\sup_{1_A\leq 1_E,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}1_A(x)\,dx=\sup_{A\subset E,A\text{ elementary}}m(A)\label{eq:rip.4}
 		\end{equation}
 		And the upper Darboux integral of $1_E$ on $[a,b]$ can also be defined as
 		\begin{equation}
-		\overline{\int_{a}^{b}}1_E(x)\,dx=\inf_{1_B\geq 1_E,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}1_B(x)\,dx=\inf_{B\supset E,B\text{ elementary}}m(B)\tag{22}\label{22}
+		\overline{\int_{a}^{b}}1_E(x)\,dx=\inf_{1_B\geq 1_E,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}1_B(x)\,dx=\inf_{B\supset E,B\text{ elementary}}m(B)\label{eq:rip.5}
 		\end{equation}
-		Combine \eqref{20}, \eqref{21} and \eqref{22}, we have
+		Combine \eqref{eq:rip.3}, \eqref{eq:rip.4} and \eqref{eq:rip.5}, we have
 		\begin{equation}
 		\underline{\int_{a}^{b}}1_E(x)\,dx=\overline{\int_{a}^{b}}1_E(x)\,dx=m(E),
 		\end{equation}

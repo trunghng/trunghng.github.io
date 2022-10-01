@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Measure theory - II"
+title:  "Measure theory - II: Lebesgue measure"
 date:   2022-07-03 13:00:00 +0700
 categories: mathematics measure-theory
 tags: mathematics measure-theory lebesgue-measure random-stuffs

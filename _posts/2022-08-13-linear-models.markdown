@@ -1224,7 +1224,7 @@ where $z$ is a vector of length $M\geq 2$.
 
 Analogy to the univariate case, the first step is to consider the Taylor expansion of $\log f(\mathbf{z})$ about its stationary point $\mathbf{z}\_0$, which means $\nabla_\mathbf{z}f(\mathbf{z})\vert_{\mathbf{z}=\mathbf{z}\_0}=0$. We have
 \begin{align}
-\log f(\mathbf{z})&\simeq f(\mathbf{z}\_0)+\log f(\mathbf{z})\nabla_\mathbf{z}f(\mathbf{z})\vert_{\mathbf{z}=\mathbf{z}\_0}+\frac{1}{2}\nabla_\mathbf{z}\nabla_\mathbf{z}\log f(\mathbf{z})\vert_{\mathbf{z}=\mathbf{z}\_0}\Vert\mathbf{z}-\mathbf{z}\_0\Vert_2^2 \\\\ &=\log f(\mathbf{z}\_0)-\frac{1}{2}(\mathbf{z}-\mathbf{z}\_0)^\text{T}\mathbf{A}(\mathbf{z}-\mathbf{z}\_0),
+\log f(\mathbf{z})&\simeq f(\mathbf{z}\_0)+\log f(\mathbf{z})\nabla_\mathbf{z}f(\mathbf{z})\vert_{\mathbf{z}=\mathbf{z}\_0}+\frac{1}{2}(\mathbf{z}-\mathbf{z}\_0)^\text{T}\nabla_\mathbf{z}\nabla_\mathbf{z}\log f(\mathbf{z})\vert_{\mathbf{z}=\mathbf{z}\_0}(\mathbf{z}-\mathbf{z}\_0) \\\\ &=\log f(\mathbf{z}\_0)-\frac{1}{2}(\mathbf{z}-\mathbf{z}\_0)^\text{T}\mathbf{A}(\mathbf{z}-\mathbf{z}\_0),
 \end{align}
 where
 \begin{equation}

@@ -166,9 +166,9 @@ E(\mathbf{w})=-\log p(\mathbf{t}\vert\mathbf{X},\mathbf{w})&=-\log\prod_{n=1}^{N
 \end{align}
 where $y_n=y(\mathbf{x}\_n,\mathbf{w})$.
 
-Moreover, consider the partial derivative of this error function w.r.t the activation $a_k$, we have
+Moreover, consider the partial derivative of this error function w.r.t the activation $a_i$, corresponding to a particular data point $i$, we have
 \begin{align}
-\frac{\partial E(\mathbf{w})}{\partial a_k}&=\frac{\partial}{\partial a_k}-\sum_{n=1}^{N}t_n\log y_n+(1-t_n)\log(1-y_n) \\\\ &=-\frac{t_k}{y_k}\frac{\partial y_k}{\partial a_k}-\frac{1-t_k}{1-y_k}\frac{\partial(1-y_k)}{\partial a_k} \\\\ &=\frac{\partial y_k}{\partial a_k}\left(\frac{1-t_n}{1-y_k}-\frac{t_k}{y_k}\right) \\\\ &=y_k(1-y_k)\left(\frac{1-t_k}{1-y_k}-\frac{t_k}{y_k}\right) \\\\ &=y_k-t_k,\label{eq:bin-clf-drv-error-a}
+\frac{\partial E(\mathbf{w})}{\partial a_i}&=\frac{\partial}{\partial a_i}-\sum_{n=1}^{N}t_n\log y_n+(1-t_n)\log(1-y_n) \\\\ &=-\frac{t_i}{y_i}\frac{\partial y_i}{\partial a_i}-\frac{1-t_i}{1-y_i}\frac{\partial(1-y_i)}{\partial a_i} \\\\ &=\frac{\partial y_i}{\partial a_i}\left(\frac{1-t_i}{1-y_i}-\frac{t_i}{y_i}\right) \\\\ &=y_i(1-y_i)\left(\frac{1-t_i}{1-y_i}-\frac{t_i}{y_i}\right) \\\\ &=y_i-t_i,\label{eq:bin-clf-drv-error-a}
 \end{align}
 where in the forth step, we have use the identity of the [derivative of sigmoid function]({% post_url 2022-08-13-linear-models %}#sigmoid-derivative) that
 \begin{equation}
@@ -201,9 +201,9 @@ E(\mathbf{w})=-\log p(\mathbf{T}\vert\mathbf{X},\mathbf{w})&=-\log\prod_{n=1}^{N
 \end{align}
 where $y_{nk}$ is short for $y_k(\mathbf{x}\_n,\mathbf{w})$.
 
-Similar to the binary case, consider the partial derivative of the error function \eqref{eq:mult-clf-error} w.r.t to the activation for a particular output unit $a_j$ we have
+Similar to the binary case, consider the partial derivative of the error function \eqref{eq:mult-clf-error} w.r.t to the activation for a particular output unit $a_{ij}$, corresponding to a particular data point $i$, we have
 \begin{align}
-\frac{\partial E(\mathbf{w})}{\partial a_j}&=\frac{\partial}{\partial a_j}-\sum_{n=1}^{N}\sum_{k=1}^{K}t_{nk}\log y_{nk}+(1-t_{nk})\log(1-y_{nk}) \\\\ &=\sum_{n=1}^{N}\frac{\partial y_{nj}}{\partial a_j}\left(\frac{1-t_{nj}}{1-y_{nj}}-\frac{t_{nj}}{y_{nj}}\right) \\\\ &=\sum_{n=1}^{N}y_{nj}(1-y_{nj})\left(\frac{1-t_{nj}}{1-y_{nj}}-\frac{t_{nj}}{y_{nj}}\right) \\\\ &=\sum_{n=1}^{N}y_{nj}-t_{nj}\label{eq:mult-drv-error-a}
+\frac{\partial E(\mathbf{w})}{\partial a_{ij}}&=\frac{\partial}{\partial a_{ij}}-\sum_{n=1}^{N}\sum_{k=1}^{K}t_{nk}\log y_{nk}+(1-t_{nk})\log(1-y_{nk}) \\\\ &=\left(\frac{1-t_{ij}}{1-y_{ij}}-\frac{t_{ij}}{y_{ij}}\right)\frac{\partial y_{ij}}{\partial a_{ij}} \\\\ &=\left(\frac{1-t_{ij}}{1-y_{ij}}-\frac{t_{ij}}{y_{ij}}\right)y_{ij}(1-y_{ij}) \\\\ &=y_{ij}-t_{ij}\label{eq:mult-drv-error-a}
 \end{align}
 which takes the same form as \eqref{eq:bin-clf-drv-error-a}
 
@@ -227,14 +227,44 @@ As discussed in [Softmax regression]({% post_url 2022-08-13-linear-models %}#sof
 \begin{equation}
 y_k(\mathbf{x},\mathbf{w})=\frac{\exp\big[a_k(\mathbf{x},\mathbf{w})\big]}{\sum_{j=1}^{K}\exp\big[a_j(\mathbf{x},\mathbf{w})\big]}
 \end{equation}
-Taking the derivative of the error function \eqref{eq:mult-me-clf-error}  w.r.t to the activation for a particular output unit $a_j$, and let $y_{nk}$ to denote $y_k(\mathbf{x}\_n,\mathbf{w})$ for short, we have
+Taking the derivative of the error function \eqref{eq:mult-me-clf-error}  w.r.t to the activation for a particular output unit $a_{ij}$, corresponding to a particular data point $i$, we have
 \begin{align}
-\frac{\partial E(\mathbf{w})}{\partial a_j}&=\frac{\partial}{\partial a_j}-\sum_{n=1}^{N}\sum_{k=1}^{K}t_{nk}\log y_{nk} \\\\ &=-\sum_{n=1}^{N}\sum_{k=1}^{K}\frac{t_{nk}}{y_{nk}}\frac{\partial y_{nk}}{\partial a_j} \\\\ &=-\sum_{n=1}^{N}\sum_{k=1}^{K}\frac{t_{nk}}{y_{nk}}\frac{\partial y_{nk}}{\partial a_j} \\\\ &=-\sum_{n=1}^{N}\sum_{k=1}^{K}\frac{t_{nk}}{y_{nk}}y_{nk}(1\\{k=j\\}-y_{nj})\label{54} \\\\ &=\sum_{n=1}^{N}\left[\sum_{k=1}^{K}t_{nk}y_{nj}-\sum_{k=1}^{K}t_{nk}1\\{k=j\\}\right] \\\\ &=\sum_{n=1}^{N}\left[\left(y_{nj}\sum_{k=1}^{K}t_{nk}\right)-t_{nj}\right] \\\\ &=\sum_{n=1}^{N}y_{nj}-t_{nj},
+\frac{\partial E(\mathbf{w})}{\partial a_{ij}}&=\frac{\partial}{\partial a_{ij}}-\sum_{n=1}^{N}\sum_{k=1}^{K}t_{nk}\log y_{nk} \\\\ &=-\sum_{k=1}^{K}\frac{t_{ik}}{y_{ik}}\frac{\partial y_{ik}}{\partial a_{ij}} \\\\ &=-\sum_{k=1}^{K}\frac{t_{ik}}{y_{ik}}y_{ik}(1\\{j=k\\}-y_{ij})\label{53} \\\\ &=y_{ij}\sum_{k=1}^{K}t_{ik}-\sum_{k=1}^{K}t_{ik}1\\{j=k\\} \\\\ &=y_{ij}-t_{ij}
 \end{align}
-where we have used the identity of the [derivative of the softmax function]({% post_url 2022-08-13-linear-models %}#softmax-derivative) in the forth step to obtain \eqref{54}.
+where we have used the identity of the [derivative of the softmax function]({% post_url 2022-08-13-linear-models %}#softmax-derivative) in the forth step to obtain \eqref{53}.
 
 ### Parameter optimization
 {: #param-opt}
+Consider a local quadratic approximation to the error function $E(\mathbf)$ by taking the Taylor expansion of $E(\mathbf{w})$ about $\mathbf{w}=\widehat{\mathbf{w}}$ in weight space, we have
+\begin{align}
+E(\mathbf{w})&\simeq E(\widehat{\mathbf{w}})+(\mathbf{w}-\widehat{\mathbf{w}})^\text{T}\left.\nabla E\right\vert_{\mathbf{w}=\widehat{\mathbf{w}}}+\frac{1}{2}(\mathbf{w}-\widehat{\mathbf{w}})^\text{T}\left.\nabla\nabla E\right\vert_{\mathbf{w}=\widehat{\mathbf{w}}}(\mathbf{w}-\widehat{\mathbf{w}}) \\\\ &=E(\widehat{\mathbf{w}})+(\mathbf{w}-\widehat{\mathbf{w}})^\text{T}\mathbf{b}+\frac{1}{2}(\mathbf{w}-\widehat{\mathbf{w}})^\text{T}\mathbf{H}(\mathbf{w}-\widehat{\mathbf{w}}),\label{eq:error-local-quad-approx}
+\end{align}
+where $\mathbf{b}$ is the gradient of $E$ evaluated at $\widehat{w}$
+\begin{equation}
+\mathbf{b}\doteq\left.\nabla E\right\vert_{\mathbf{w}=\widehat{\mathbf{w}}},
+\end{equation}
+and $\mathbf{H}$ is the Hessian matrix of $E$ evaluated at $\widehat{\mathbf{w}}$ whose elements have form of
+\begin{equation}
+\mathbf{H}\_{ij}\doteq\left.\frac{\partial E}{\partial w_i\partial w_j}\right\vert_{\mathbf{w}=\widehat{\mathbf{w}}}
+\end{equation}
+Moreover, we also have that
+\begin{equation}
+E(\mathbf{w})\simeq E(\widehat{\mathbf{w}})+(\mathbf{w}-\widehat{\mathbf{w}})^\text{T}\nabla E\label{eq:error-local-lin-approx}
+\end{equation}
+From \eqref{eq:error-local-quad-approx} and \eqref{eq:error-local-lin-approx}, we have the local approximation to the gradient of the error function
+\begin{align}
+\nabla E\simeq \mathbf{b}+\mathbf{H}(\mathbf{w}-\widehat{\mathbf{w}})
+\end{align}
+If we consider the local quadratic approximation about a point $\mathbf{w}=\mathbf{w}^\*$ that is a minimum of the error function, which implies that
+\begin{equation}
+\left.\nabla E\right\vert_{\mathbf{w}=\mathbf{w}^\*}=0,
+\end{equation}
+which lets the Taylor expansion at $\mathbf{w}^\*$ become
+\begin{equation}
+E(\mathbf{w})\simeq E(\mathbf{w}^\*)+\frac{1}{2}(\mathbf{w}-\mathbf{w}^\*)^\text{T}\mathbf{H}(\mathbf{w}-\mathbf{w}^\*)
+\end{equation}
+where $\mathbf{H}$ is the corresponding Hessian matrix of $E$ evaluated at $\mathbf{w}^\*$.
+
 
 
 ## Backpropagation
