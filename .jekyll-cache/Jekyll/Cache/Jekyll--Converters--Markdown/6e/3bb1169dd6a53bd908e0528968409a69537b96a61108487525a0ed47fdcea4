@@ -1,0 +1,98 @@
+I"³<blockquote>
+  <p>A note on the exponential family.</p>
+</blockquote>
+
+<!-- excerpt-end -->
+
+<ul>
+  <li><a href="#exp-fam">The exponential family</a></li>
+  <li><a href="#examples">Examples</a>
+    <ul>
+      <li><a href="#bern">Bernoulli distribution</a></li>
+      <li><a href="#bin">Binomial distribution</a></li>
+      <li><a href="#pois">Poisson distribution</a></li>
+      <li><a href="#gauss">Gaussian distribution</a></li>
+      <li><a href="#mult">Multinomial distribution</a></li>
+    </ul>
+  </li>
+  <li><a href="#max-llh">Maximum likelihood estimates</a></li>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h2 id="exp-fam">The exponential family</h2>
+<p>The <strong>exponential family</strong> of distributions is defined as family of distributions of form
+\begin{equation}
+p(x;\eta)=h(x)\exp\Big[\eta^\text{T}T(x)-A(\eta)\Big],\label{eq:ef.1}
+\end{equation}
+where</p>
+<ul>
+  <li>$\eta$ is known as the <strong>natural parameter</strong>, or <strong>canonical parameter</strong>,</li>
+  <li>$T(X)$ is referred to as a <strong>sufficient statistic</strong>,</li>
+  <li>$A(\eta)$ is called the <strong>cumulant function</strong>, which can be view as the logarithm of a normalization factor since integrating \eqref{eq:ef.1} w.r.t the measure $\nu$ gives us
+\begin{equation}
+A(\eta)=\log\int h(x)\exp\left(\eta^\text{T}T(x)\right)\nu(dx),\label{eq:ef.2}
+\end{equation}
+This also implies that $A(\eta)$ will be determined once we have specified $\nu,T(x)$ and $h(x)$.</li>
+</ul>
+
+<p>The set of parameters $\eta$ for which the integral in \eqref{eq:ef.2} is finite is known as the <strong>natural parameter space</strong>
+\begin{equation}
+N=\left\{\eta:\int h(x)\exp\left(\eta^\text{T}T(x)\right)\nu(dx)&lt;\infty\right\}
+\end{equation}
+which explains why $\eta$ is also referred as <strong>natural parameter</strong>.</p>
+
+<p>When $N$ is nonempty open set, the exponential families is called <strong>regular</strong>.</p>
+
+<h2 id="examples">Examples</h2>
+<p>A fixed choice of $T$, $\nu$ and $h$ defines a family (or set) of distributions that is parameterized by $\eta$. As we vary $\eta$, we then get different distributions within this family.</p>
+
+<h3 id="bern">Bernoulli distribution</h3>
+<p>The probability mass function (i.e., the density function w.r.t counting measure) of a Bernoulli random variable $X$, denoted as $X\sim\text{Bern}(\pi)$, is given by
+\begin{align}
+p(x;\pi)&amp;=\pi^x(1-\pi)^{1-x} \\ &amp;=\exp\big[x\log\pi+(1-x)\log(1-\pi)\big] \\ &amp;=\exp\left[\log\left(\frac{\pi}{1-\pi}\right)x+\log(1-\pi)\right],
+\end{align}
+which can be written in the form of an exponential family distribution \eqref{eq:ef.1} with
+\begin{align}
+\eta&amp;=\frac{\pi}{1-\pi} \\ T(x)&amp;=x \\ A(\eta)&amp;=-\log(1-\pi)=\log(1+e^{\eta}) \\ h(x)&amp;=1
+\end{align}
+Notice that the relationship between $\eta$ and $\pi$ is invertible since
+\begin{equation}
+\pi=\frac{1}{1+e^{-\eta}}
+\end{equation}</p>
+
+<h3 id="bin">Binomial distribution</h3>
+<p>The probability mass function of a Binomial random variable $X$, denoted as $X\sim\text{Bin}(n,\pi)$, is defined as
+\begin{align}
+p(x;n,\pi)&amp;=\left(\begin{matrix}n \\ x\end{matrix}\right)\pi^{x}(1-\pi)^{1-x} \\ &amp;=\left(\begin{matrix}n \\ x\end{matrix}\right)\exp\big[x\log\pi+(1-x)\log(1-\pi)\big] \\ &amp;=\left(\begin{matrix}n \\ x\end{matrix}\right)\exp\left[\log\left(\frac{\pi}{1-\pi}\right)x+\log(1-\pi)\right],
+\end{align}
+which is in form of an exponential family distribution \eqref{eq:ef.1} with
+\begin{align}
+\eta&amp;=\frac{\pi}{1-\pi} \\ T(x)&amp;=x \\ A(\eta)&amp;=-\log(1-\pi)=\log(1+e^{\eta}) \\ h(x)&amp;=\left(\begin{matrix}n \\ x\end{matrix}\right)
+\end{align}</p>
+
+<h3 id="pois">Poisson distribution</h3>
+<p>The probability mass function of a Poisson random variable $X$, denoted as $X\sim\text{Pois}(\lambda)$, is given as
+\begin{align}
+p(x;\lambda)&amp;=\frac{\lambda^x e^{-\lambda}}{x!} \\ &amp;=\frac{1}{x!}\exp\left(x\log\lambda-\lambda\right),
+\end{align}
+which is also able to be written as an exponential family distribution \eqref{eq:ef.1} with
+\begin{align}
+\eta&amp;=\log\lambda \\ T(x)&amp;=x \\ A(\eta)&amp;=\lambda=e^{\eta} \\ h(x)&amp;=\frac{1}{x!}
+\end{align}
+Analogy to Bernoulli distribution, we also have that
+\begin{equation}
+\lambda=e^{\eta}
+\end{equation}</p>
+
+<p>###</p>
+
+<h3 id="binomial-distribution">Binomial distribution</h3>
+
+<h2 id="references">References</h2>
+<p>[1] Christopher M. Bishop. <a href="https://link.springer.com/book/9780387310732">Pattern Recognition and Machine Learning</a>. Springer New York, NY.</p>
+
+<p>[2] M. Jordan. <a href="https://people.eecs.berkeley.edu/~jordan/courses/260-spring10/other-readings/chapter8.pdf">The Exponential Family: Basics</a>. 2009.</p>
+
+<h2 id="footnotes">Footnotes</h2>
+:ET

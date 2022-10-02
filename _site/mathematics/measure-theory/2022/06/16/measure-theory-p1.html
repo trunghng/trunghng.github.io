@@ -50,8 +50,8 @@
 <meta property="og:title" content="Measure theory - I: Elementary measure, Jordan measure &amp; the Riemann integral" />
 <meta name="author" content="Trung H. Nguyen" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Note on measure theory" />
-<meta property="og:description" content="Note on measure theory" />
+<meta name="description" content="Note on measure theory part 1" />
+<meta property="og:description" content="Note on measure theory part 1" />
 <link rel="canonical" href="http://localhost:4000/mathematics/measure-theory/2022/06/16/measure-theory-p1.html" />
 <meta property="og:url" content="http://localhost:4000/mathematics/measure-theory/2022/06/16/measure-theory-p1.html" />
 <meta property="og:site_name" content="Trung’s cabin" />
@@ -60,7 +60,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Measure theory - I: Elementary measure, Jordan measure &amp; the Riemann integral" />
 <script type="application/ld+json">
-{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","headline":"Measure theory - I: Elementary measure, Jordan measure &amp; the Riemann integral","dateModified":"2022-06-16T13:00:00+07:00","datePublished":"2022-06-16T13:00:00+07:00","description":"Note on measure theory","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/mathematics/measure-theory/2022/06/16/measure-theory-p1.html"},"url":"http://localhost:4000/mathematics/measure-theory/2022/06/16/measure-theory-p1.html","@context":"https://schema.org"}</script>
+{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","description":"Note on measure theory part 1","headline":"Measure theory - I: Elementary measure, Jordan measure &amp; the Riemann integral","dateModified":"2022-06-16T13:00:00+07:00","datePublished":"2022-06-16T13:00:00+07:00","url":"http://localhost:4000/mathematics/measure-theory/2022/06/16/measure-theory-p1.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/mathematics/measure-theory/2022/06/16/measure-theory-p1.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Trung&apos;s cabin" />
     
@@ -127,7 +127,7 @@
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <meta name="description" content="Note on measure theory">
+    <meta name="description" content="Note on measure theory part 1">
     <h1 class="post-title p-name" itemprop="name headline">Measure theory - I: Elementary measure, Jordan measure &amp; the Riemann integral</h1>
     <p><span>
       
@@ -142,12 +142,6 @@
       
         
         <a href="/tag/riemann-integral"><code class="highligher-rouge"><nobr>riemann-integral</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/darboux-integral"><code class="highligher-rouge"><nobr>darboux-integral</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/random-stuffs"><code class="highligher-rouge"><nobr>random-stuffs</nobr></code>&nbsp;</a>
       
     </span></p>
     <p class="post-meta"><time class="dt-published" datetime="2022-06-16T13:00:00+07:00" itemprop="datePublished">
@@ -869,19 +863,19 @@ Let $B$ be a closed box in $\mathbb{R}^d$, and let $f:B\to\mathbb{R}$ be a conti
 		\end{equation}
 		With this result, and by the monotonicity, finite additivity of elementary measure, we have the Jordan outer measure of the graph $\{(x,f(x)):x\in B\}\subset\mathbb{R}^{d+1}$ can be written as
 		\begin{align}
-		m^{*,J}\left(\{(x,f(x)):x\in B\}\right)&amp;=\inf_{C\supset B,C\text{ closed box}}m\left(\left\{(x,f(x)):x\in C\right\}\right) \\ &amp;\leq m^{d+1}\left(\bigcup_{i=1}^{n}C_i\times\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &amp;=\sum_{i=1}^{n}m^d(C_i)\times m^1\left(\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &amp;=2n\varepsilon m^d(C)&lt;2n\varepsilon\delta
+		m^{*,(J)}\left(\{(x,f(x)):x\in B\}\right)&amp;=\inf_{C\supset B,C\text{ closed box}}m\left(\left\{(x,f(x)):x\in C\right\}\right) \\ &amp;\leq m^{d+1}\left(\bigcup_{i=1}^{n}C_i\times\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &amp;=\sum_{i=1}^{n}m^d(C_i)\times m^1\left(\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &amp;=2n\varepsilon m^d(C)&lt;2n\varepsilon\delta
 		\end{align}
 		And since $\varepsilon&gt;0$ arbitrarily, we finally obtain
 		\begin{equation}
-		m^{*,J}\left(\{(x,f(x)):x\in B\}\right)=0
+		m^{*,(J)}\left(\{(x,f(x)):x\in B\}\right)=0
 		\end{equation}
 		Plus that, since
 		\begin{equation}
-		m^{*,J}\left(\{(x,f(x)):x\in B\}\right)\geq m_{*,J}\left(\{(x,f(x)):x\in B\}\right)\geq 0,
+		m^{*,(J)}\left(\{(x,f(x)):x\in B\}\right)\geq m_{*,(J)}\left(\{(x,f(x)):x\in B\}\right)\geq 0,
 		\end{equation}
 		we have that
 		\begin{equation}
-		m^{*,J}\Big(\big\{(x,f(x)):x\in B\big\}\Big)=m_{*,J}\Big(\big\{(x,f(x)):x\in B\big\}\Big)=0,
+		m^{*,(J)}\Big(\big\{(x,f(x)):x\in B\big\}\Big)=m_{*,(J)}\Big(\big\{(x,f(x)):x\in B\big\}\Big)=0,
 		\end{equation}
 		or in other words, the graph $\left(\{(x,f(x)):x\in B\}\right)$ is Jordan measurable on $\mathbb{R}^{d+1}$ with Jordan measure zero.
 	</li>
@@ -904,7 +898,7 @@ Let $B$ be a closed box in $\mathbb{R}^d$, and let $f:B\to\mathbb{R}$ be a conti
 <p><strong>Proof</strong><br />
 Let $E\subset F$ where F is a Jordan null set. Also let $A\subset E$, it follows that $A\subset F$, and hence
 \begin{equation}
-m(A)\leq m_{*,J}(F)=0
+m(A)\leq m_{*,(J)}(F)=0
 \end{equation}
 Since $m(E)=0$, we can choose a set $B\supset F$ such that $m(B)\leq\varepsilon$ for $\varepsilon&gt;0$ arbitrarily. Thus, $E\subset B$ and moreover
 \begin{equation}
@@ -936,11 +930,11 @@ Let $d_1,d_2\geq 1$, and let $E_1\subset\mathbb{R}^{d_1},E_2\subset\mathbb{R}^{d
 <p><strong>Solution</strong><br />
 Let $A_1\subset E_1$ such that $A_1$ is elemetary and
 \begin{equation}
-m^{d_1}(A_1)=\sup_{A\subset E_1,A\text{ elementary}}m(A)=m_{*,J}(E_1)=m^{d_1}(E_1)
+m^{d_1}(A_1)=\sup_{A\subset E_1,A\text{ elementary}}m(A)=m_{*,(J)}(E_1)=m^{d_1}(E_1)
 \end{equation}
 Let $B_1\supset E_1$ such that $B_1$ is elementary and
 \begin{equation}
-m^{d_1}(B_1)=\inf_{B\supset E_1,B\text{ elementary}}m(B)=m^{*,J}(E_1)=m^{d_1}(E_1),
+m^{d_1}(B_1)=\inf_{B\supset E_1,B\text{ elementary}}m(B)=m^{*,(J)}(E_1)=m^{d_1}(E_1),
 \end{equation}
 which implies that
 \begin{equation}
@@ -948,7 +942,7 @@ m^{d_1}(A_1)=m^{d_1}(B_1)=m^{d_1}(E_1)
 \end{equation}
 Analogously, we define $A_2\subset E_2\subset B_2$ such that
 \begin{align}
-m^{d_2}(A_2)&amp;=\sup_{A\subset E_2,A\text{ elementary}}m(A)=m_{*,J}(E_2)=m^{d_2}(E_2) \\ m^{d_2}(B_2)&amp;=\inf_{B\supset E_2,B\text{ elementary}}m(B)=m^{*,J}(E_2)=m^{d_1}(E_2)
+m^{d_2}(A_2)&amp;=\sup_{A\subset E_2,A\text{ elementary}}m(A)=m_{*,(J)}(E_2)=m^{d_2}(E_2) \\ m^{d_2}(B_2)&amp;=\inf_{B\supset E_2,B\text{ elementary}}m(B)=m^{*,(J)}(E_2)=m^{d_1}(E_2)
 \end{align}
 And thus, we also have
 \begin{equation}
@@ -956,11 +950,11 @@ m^{d_2}(A_2)=m^{d_2}(B_2)=m^{d_2}(E_2)
 \end{equation}
 On the one hand, with these definitions, we have
 \begin{equation}
-m^{d_1+d_2}(A_1\times A_2)=\sup_{A\subset E_1\times E_2,A\text{ elementary}}=m_{*,J}(E_1\times E_2)\label{eq:remark15.1}
+m^{d_1+d_2}(A_1\times A_2)=\sup_{A\subset E_1\times E_2,A\text{ elementary}}=m_{*,(J)}(E_1\times E_2)\label{eq:remark15.1}
 \end{equation}
 and
 \begin{equation}
-m^{d_1\times d_2}(B_1\times B_2)=\sup_{B\supset E_1\times E_2,A\text{ elementary}}=m^{*,J}(E_1\times E_2)\label{eq:remark15.2}
+m^{d_1\times d_2}(B_1\times B_2)=\sup_{B\supset E_1\times E_2,A\text{ elementary}}=m^{*,(J)}(E_1\times E_2)\label{eq:remark15.2}
 \end{equation}
 On the other hands, By <strong>remark 11</strong>, we have that $A_1\times A_2$ and $B_1\times B_2$ are aslo elementary sets and
 \begin{align}
@@ -976,8 +970,6 @@ m^{d_1}(E_1)\times m^{d_2}(E_2)=m^{d_1+d_2}(E_1\times E_2)
 \begin{equation}
 m^{*,(J)}(E)=m^{*,(J)}(E\cap F)+m^{*,(J)}(E\backslash F)
 \end{equation}</p>
-
-<p><strong>Proof</strong></p>
 
 <h2 id="connect-riemann-int">Connection with the Riemann integral</h2>
 
@@ -1331,6 +1323,8 @@ which implies that $f$ is Riemann integrable on $[a,b]$.</p>
 \int_{a}^{b}f(x)\,dx=m^2(E_+)-m^2(E_-),
 \end{equation}
 where $m^2$ denotes two-dimensional Jordan measure.</p>
+
+<p><strong>Proof</strong></p>
 
 <h2 id="references">References</h2>
 <p>[1] <span id="taos-book">Terence Tao. <a href="https://terrytao.wordpress.com/books/an-introduction-to-measure-theory/">An introduction to measure theory</a>. Graduate Studies in Mathematics, vol. 126.</span></p>

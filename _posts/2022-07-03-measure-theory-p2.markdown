@@ -3,7 +3,7 @@ layout: post
 title:  "Measure theory - II: Lebesgue measure"
 date:   2022-07-03 13:00:00 +0700
 categories: mathematics measure-theory
-tags: mathematics measure-theory lebesgue-measure random-stuffs
+tags: mathematics measure-theory lebesgue-measure
 description: Note on measure theory part 2
 comments: true
 ---
@@ -15,7 +15,6 @@ comments: true
 	- [Lebesgue measurability](#lebesgue-measurability)
 		- [Criteria for measurability](#criteria-measurability)
 	- [Non-measurable sets](#non-measurable-sets)
-- [Lebesgue integral](#lebesgue-int)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -456,10 +455,6 @@ We say that a sequence $E_n$ of sets in $\mathbb{R}^d$ **converges pointwise** t
 
 ### Non-measurable sets
 {: #non-measurable-sets}
-
-
-## Lebesgue integral
-{: #lebesgue-integral}
 
 
 ## References

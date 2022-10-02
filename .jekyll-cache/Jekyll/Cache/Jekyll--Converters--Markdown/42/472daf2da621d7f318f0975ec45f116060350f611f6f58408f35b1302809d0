@@ -1,0 +1,39 @@
+I"‡<blockquote>
+
+</blockquote>
+
+<!-- excerpt-end -->
+
+<ul>
+  <li><a href="#exp-fam">The exponential family</a></li>
+  <li><a href="#examples">Examples</a>
+    <ul>
+      <li><a href="#bern-dist">Bernoulli distribution</a></li>
+      <li><a href="#bino-dist">Binomial distribution</a></li>
+      <li><a href="#pois">Poisson distribution</a></li>
+      <li><a href="#gauss-dist">Gaussian distribution</a></li>
+      <li><a href="#mult-dist">Multinomial distribution</a></li>
+    </ul>
+  </li>
+  <li><a href="#max-llh">Maximum likelihood estimates</a></li>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h2 id="exp-fam">The exponential family</h2>
+<p>The <strong>exponential family</strong> of distributions is defined as family of distributions of form
+\begin{equation}
+p(x;\eta)=h(x)\exp\Big[\eta^\text{T}T(x)-A(\eta)\Big],
+\end{equation}
+where</p>
+<ul>
+  <li>parameter vector $\eta$ is called <strong>canonical paramter</strong>,given function $T$ and $h$.</li>
+</ul>
+
+<h2 id="references">References</h2>
+<p>[1] Christopher M. Bishop. <a href="https://link.springer.com/book/9780387310732">Pattern Recognition and Machine Learning</a>. Springer New York, NY.</p>
+
+<p>[2] M. Jordan. <a href="https://people.eecs.berkeley.edu/~jordan/courses/260-spring10/other-readings/chapter8.pdf">The Exponential Family: Basics</a>. 2009.</p>
+
+<h2 id="footnotes">Footnotes</h2>
+:ET

@@ -1,5 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-01T15:43:53+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
-</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory - II: Lebesgue measure</title><link href="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html" rel="alternate" type="text/html" title="Measure theory - II: Lebesgue measure" /><published>2022-07-03T13:00:00+07:00</published><updated>2022-07-03T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-02T21:21:13+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory - III: the Lebesgue integral</title><link href="http://localhost:4000/mathematics/measure-theory/2022/08/21/measure-theory-p3.html" rel="alternate" type="text/html" title="Measure theory - III: the Lebesgue integral" /><published>2022-08-21T13:00:00+07:00</published><updated>2022-08-21T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/08/21/measure-theory-p3</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/08/21/measure-theory-p3.html">&lt;blockquote&gt;
+  &lt;p&gt;Part III of the measure theory series. Materials are mostly taken from &lt;a href=&quot;/mathematics/measure-theory/2022/08/21/measure-theory-p3.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some needed notations extracted from &lt;a href=&quot;/mathematics/measure-theory/2022/08/21/measure-theory-p3.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
+&lt;!-- excerpt-end --&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;p&gt;[1] &lt;span id=&quot;taos-book&quot;&gt;Terence Tao. &lt;a href=&quot;https://terrytao.wordpress.com/books/an-introduction-to-measure-theory/&quot;&gt;An introduction to measure theory&lt;/a&gt;. Graduate Studies in Mathematics, vol. 126.&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;[2] &lt;span id=&quot;steins-book&quot;&gt;Elias M. Stein &amp;amp; Rami Shakarchi. &lt;a href=&quot;#http://www.cmat.edu.uy/~mordecki/courses/medida2013/book.pdf&quot;&gt;Real Analysis: Measure Theory, Integration, and Hilbert Spaces&lt;/a&gt;. &lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><category term="lebesgue-integral" /><summary type="html">Part III of the measure theory series. Materials are mostly taken from Tao’s book, except for some needed notations extracted from Stein’s book.</summary></entry><entry><title type="html">Measure theory - II: Lebesgue measure</title><link href="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html" rel="alternate" type="text/html" title="Measure theory - II: Lebesgue measure" /><published>2022-07-03T13:00:00+07:00</published><updated>2022-07-03T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html">&lt;blockquote&gt;
   &lt;p&gt;Part II of the measure theory series. Materials are mostly taken from &lt;a href=&quot;/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some needed notations extracted from &lt;a href=&quot;/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -16,7 +31,6 @@
       &lt;li&gt;&lt;a href=&quot;#non-measurable-sets&quot;&gt;Non-measurable sets&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#lebesgue-int&quot;&gt;Lebesgue integral&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -455,8 +469,6 @@ We say that a sequence $E_n$ of sets in $\mathbb{R}^d$ &lt;strong&gt;converges p
 
 &lt;h3 id=&quot;non-measurable-sets&quot;&gt;Non-measurable sets&lt;/h3&gt;
 
-&lt;h2 id=&quot;lebesgue-integral&quot;&gt;Lebesgue integral&lt;/h2&gt;
-
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] &lt;span id=&quot;taos-book&quot;&gt;Terence Tao. &lt;a href=&quot;https://terrytao.wordpress.com/books/an-introduction-to-measure-theory/&quot;&gt;An introduction to measure theory&lt;/a&gt;. Graduate Studies in Mathematics, vol. 126.&lt;/span&gt;&lt;/p&gt;
 
@@ -473,7 +485,7 @@ We say that a sequence $E_n$ of sets in $\mathbb{R}^d$ &lt;strong&gt;converges p
 \end{equation} &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><category term="lebesgue-measure" /><category term="random-stuffs" /><summary type="html">Part II of the measure theory series. Materials are mostly taken from Tao’s book, except for some needed notations extracted from Stein’s book.</summary></entry><entry><title type="html">Measure theory - I: Elementary measure, Jordan measure &amp;amp; the Riemann integral</title><link href="http://localhost:4000/mathematics/measure-theory/2022/06/16/measure-theory-p1.html" rel="alternate" type="text/html" title="Measure theory - I: Elementary measure, Jordan measure &amp;amp; the Riemann integral" /><published>2022-06-16T13:00:00+07:00</published><updated>2022-06-16T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/06/16/measure-theory-p1</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/06/16/measure-theory-p1.html">&lt;blockquote&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><category term="lebesgue-measure" /><summary type="html">Part II of the measure theory series. Materials are mostly taken from Tao’s book, except for some needed notations extracted from Stein’s book.</summary></entry><entry><title type="html">Measure theory - I: Elementary measure, Jordan measure &amp;amp; the Riemann integral</title><link href="http://localhost:4000/mathematics/measure-theory/2022/06/16/measure-theory-p1.html" rel="alternate" type="text/html" title="Measure theory - I: Elementary measure, Jordan measure &amp;amp; the Riemann integral" /><published>2022-06-16T13:00:00+07:00</published><updated>2022-06-16T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/06/16/measure-theory-p1</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/06/16/measure-theory-p1.html">&lt;blockquote&gt;
   &lt;p&gt;Part I of the measure theory series. Materials are mostly taken from &lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-theory-p1.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some needed notations extracted from &lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-theory-p1.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -1186,19 +1198,19 @@ Let $B$ be a closed box in $\mathbb{R}^d$, and let $f:B\to\mathbb{R}$ be a conti
 		\end{equation}
 		With this result, and by the monotonicity, finite additivity of elementary measure, we have the Jordan outer measure of the graph $\{(x,f(x)):x\in B\}\subset\mathbb{R}^{d+1}$ can be written as
 		\begin{align}
-		m^{*,J}\left(\{(x,f(x)):x\in B\}\right)&amp;amp;=\inf_{C\supset B,C\text{ closed box}}m\left(\left\{(x,f(x)):x\in C\right\}\right) \\ &amp;amp;\leq m^{d+1}\left(\bigcup_{i=1}^{n}C_i\times\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &amp;amp;=\sum_{i=1}^{n}m^d(C_i)\times m^1\left(\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &amp;amp;=2n\varepsilon m^d(C)&amp;lt;2n\varepsilon\delta
+		m^{*,(J)}\left(\{(x,f(x)):x\in B\}\right)&amp;amp;=\inf_{C\supset B,C\text{ closed box}}m\left(\left\{(x,f(x)):x\in C\right\}\right) \\ &amp;amp;\leq m^{d+1}\left(\bigcup_{i=1}^{n}C_i\times\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &amp;amp;=\sum_{i=1}^{n}m^d(C_i)\times m^1\left(\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &amp;amp;=2n\varepsilon m^d(C)&amp;lt;2n\varepsilon\delta
 		\end{align}
 		And since $\varepsilon&amp;gt;0$ arbitrarily, we finally obtain
 		\begin{equation}
-		m^{*,J}\left(\{(x,f(x)):x\in B\}\right)=0
+		m^{*,(J)}\left(\{(x,f(x)):x\in B\}\right)=0
 		\end{equation}
 		Plus that, since
 		\begin{equation}
-		m^{*,J}\left(\{(x,f(x)):x\in B\}\right)\geq m_{*,J}\left(\{(x,f(x)):x\in B\}\right)\geq 0,
+		m^{*,(J)}\left(\{(x,f(x)):x\in B\}\right)\geq m_{*,(J)}\left(\{(x,f(x)):x\in B\}\right)\geq 0,
 		\end{equation}
 		we have that
 		\begin{equation}
-		m^{*,J}\Big(\big\{(x,f(x)):x\in B\big\}\Big)=m_{*,J}\Big(\big\{(x,f(x)):x\in B\big\}\Big)=0,
+		m^{*,(J)}\Big(\big\{(x,f(x)):x\in B\big\}\Big)=m_{*,(J)}\Big(\big\{(x,f(x)):x\in B\big\}\Big)=0,
 		\end{equation}
 		or in other words, the graph $\left(\{(x,f(x)):x\in B\}\right)$ is Jordan measurable on $\mathbb{R}^{d+1}$ with Jordan measure zero.
 	&lt;/li&gt;
@@ -1221,7 +1233,7 @@ Let $B$ be a closed box in $\mathbb{R}^d$, and let $f:B\to\mathbb{R}$ be a conti
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
 Let $E\subset F$ where F is a Jordan null set. Also let $A\subset E$, it follows that $A\subset F$, and hence
 \begin{equation}
-m(A)\leq m_{*,J}(F)=0
+m(A)\leq m_{*,(J)}(F)=0
 \end{equation}
 Since $m(E)=0$, we can choose a set $B\supset F$ such that $m(B)\leq\varepsilon$ for $\varepsilon&amp;gt;0$ arbitrarily. Thus, $E\subset B$ and moreover
 \begin{equation}
@@ -1253,11 +1265,11 @@ Let $d_1,d_2\geq 1$, and let $E_1\subset\mathbb{R}^{d_1},E_2\subset\mathbb{R}^{d
 &lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;br /&gt;
 Let $A_1\subset E_1$ such that $A_1$ is elemetary and
 \begin{equation}
-m^{d_1}(A_1)=\sup_{A\subset E_1,A\text{ elementary}}m(A)=m_{*,J}(E_1)=m^{d_1}(E_1)
+m^{d_1}(A_1)=\sup_{A\subset E_1,A\text{ elementary}}m(A)=m_{*,(J)}(E_1)=m^{d_1}(E_1)
 \end{equation}
 Let $B_1\supset E_1$ such that $B_1$ is elementary and
 \begin{equation}
-m^{d_1}(B_1)=\inf_{B\supset E_1,B\text{ elementary}}m(B)=m^{*,J}(E_1)=m^{d_1}(E_1),
+m^{d_1}(B_1)=\inf_{B\supset E_1,B\text{ elementary}}m(B)=m^{*,(J)}(E_1)=m^{d_1}(E_1),
 \end{equation}
 which implies that
 \begin{equation}
@@ -1265,7 +1277,7 @@ m^{d_1}(A_1)=m^{d_1}(B_1)=m^{d_1}(E_1)
 \end{equation}
 Analogously, we define $A_2\subset E_2\subset B_2$ such that
 \begin{align}
-m^{d_2}(A_2)&amp;amp;=\sup_{A\subset E_2,A\text{ elementary}}m(A)=m_{*,J}(E_2)=m^{d_2}(E_2) \\ m^{d_2}(B_2)&amp;amp;=\inf_{B\supset E_2,B\text{ elementary}}m(B)=m^{*,J}(E_2)=m^{d_1}(E_2)
+m^{d_2}(A_2)&amp;amp;=\sup_{A\subset E_2,A\text{ elementary}}m(A)=m_{*,(J)}(E_2)=m^{d_2}(E_2) \\ m^{d_2}(B_2)&amp;amp;=\inf_{B\supset E_2,B\text{ elementary}}m(B)=m^{*,(J)}(E_2)=m^{d_1}(E_2)
 \end{align}
 And thus, we also have
 \begin{equation}
@@ -1273,11 +1285,11 @@ m^{d_2}(A_2)=m^{d_2}(B_2)=m^{d_2}(E_2)
 \end{equation}
 On the one hand, with these definitions, we have
 \begin{equation}
-m^{d_1+d_2}(A_1\times A_2)=\sup_{A\subset E_1\times E_2,A\text{ elementary}}=m_{*,J}(E_1\times E_2)\label{eq:remark15.1}
+m^{d_1+d_2}(A_1\times A_2)=\sup_{A\subset E_1\times E_2,A\text{ elementary}}=m_{*,(J)}(E_1\times E_2)\label{eq:remark15.1}
 \end{equation}
 and
 \begin{equation}
-m^{d_1\times d_2}(B_1\times B_2)=\sup_{B\supset E_1\times E_2,A\text{ elementary}}=m^{*,J}(E_1\times E_2)\label{eq:remark15.2}
+m^{d_1\times d_2}(B_1\times B_2)=\sup_{B\supset E_1\times E_2,A\text{ elementary}}=m^{*,(J)}(E_1\times E_2)\label{eq:remark15.2}
 \end{equation}
 On the other hands, By &lt;strong&gt;remark 11&lt;/strong&gt;, we have that $A_1\times A_2$ and $B_1\times B_2$ are aslo elementary sets and
 \begin{align}
@@ -1293,8 +1305,6 @@ m^{d_1}(E_1)\times m^{d_2}(E_2)=m^{d_1+d_2}(E_1\times E_2)
 \begin{equation}
 m^{*,(J)}(E)=m^{*,(J)}(E\cap F)+m^{*,(J)}(E\backslash F)
 \end{equation}&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;connect-riemann-int&quot;&gt;Connection with the Riemann integral&lt;/h2&gt;
 
@@ -1649,6 +1659,8 @@ which implies that $f$ is Riemann integrable on $[a,b]$.&lt;/p&gt;
 \end{equation}
 where $m^2$ denotes two-dimensional Jordan measure.&lt;/p&gt;
 
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] &lt;span id=&quot;taos-book&quot;&gt;Terence Tao. &lt;a href=&quot;https://terrytao.wordpress.com/books/an-introduction-to-measure-theory/&quot;&gt;An introduction to measure theory&lt;/a&gt;. Graduate Studies in Mathematics, vol. 126.&lt;/span&gt;&lt;/p&gt;
 
@@ -1665,8 +1677,8 @@ where $m^2$ denotes two-dimensional Jordan measure.&lt;/p&gt;
       &lt;p&gt;A function $f:[a,b]\to\mathbb{R}$ is &lt;strong&gt;piecewise continuous&lt;/strong&gt; if we can partition $[a,b]$ into finitely many intervals, such that $f$ is continuous on each interval. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><category term="jordan-measure" /><category term="riemann-integral" /><category term="darboux-integral" /><category term="random-stuffs" /><summary type="html">Part I of the measure theory series. Materials are mostly taken from Tao’s book, except for some needed notations extracted from Stein’s book.</summary></entry><entry><title type="html">The exponential family</title><link href="http://localhost:4000/mathematics/probability-statistics/2022/05/04/exponential-family.html" rel="alternate" type="text/html" title="The exponential family" /><published>2022-05-04T14:00:00+07:00</published><updated>2022-05-04T14:00:00+07:00</updated><id>http://localhost:4000/mathematics/probability-statistics/2022/05/04/exponential-family</id><content type="html" xml:base="http://localhost:4000/mathematics/probability-statistics/2022/05/04/exponential-family.html">&lt;blockquote&gt;
-
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><category term="jordan-measure" /><category term="riemann-integral" /><summary type="html">Part I of the measure theory series. Materials are mostly taken from Tao’s book, except for some needed notations extracted from Stein’s book.</summary></entry><entry><title type="html">The exponential family</title><link href="http://localhost:4000/mathematics/probability-statistics/2022/05/04/exponential-family.html" rel="alternate" type="text/html" title="The exponential family" /><published>2022-05-04T14:00:00+07:00</published><updated>2022-05-04T14:00:00+07:00</updated><id>http://localhost:4000/mathematics/probability-statistics/2022/05/04/exponential-family</id><content type="html" xml:base="http://localhost:4000/mathematics/probability-statistics/2022/05/04/exponential-family.html">&lt;blockquote&gt;
+  &lt;p&gt;A note on the exponential family.&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;!-- excerpt-end --&gt;
@@ -1675,11 +1687,12 @@ where $m^2$ denotes two-dimensional Jordan measure.&lt;/p&gt;
   &lt;li&gt;&lt;a href=&quot;#exp-fam&quot;&gt;The exponential family&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#examples&quot;&gt;Examples&lt;/a&gt;
     &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#bern-dist&quot;&gt;Bernoulli distribution&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#bino-dist&quot;&gt;Binomial distribution&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#bern&quot;&gt;Bernoulli distribution&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#bin&quot;&gt;Binomial distribution&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#mult&quot;&gt;Multinomial distribution&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#pois&quot;&gt;Poisson distribution&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#gauss-dist&quot;&gt;Gaussian distribution&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#mult-dist&quot;&gt;Multinomial distribution&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#gauss&quot;&gt;Gaussian distribution&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#mvn&quot;&gt;Multivariate Normal distribution&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#max-llh&quot;&gt;Maximum likelihood estimates&lt;/a&gt;&lt;/li&gt;
@@ -1688,17 +1701,109 @@ where $m^2$ denotes two-dimensional Jordan measure.&lt;/p&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;exp-fam&quot;&gt;The exponential family&lt;/h2&gt;
-&lt;p&gt;The &lt;strong&gt;exponential family&lt;/strong&gt; of distributions of $x$ given a measure $\eta$, is defined as family of distribution of form
+&lt;p&gt;The &lt;strong&gt;exponential family&lt;/strong&gt; of distributions is defined as family of distributions of form
 \begin{equation}
-p(x\vert\eta)=h(x)\exp\Big[\eta^\text{T}T(x)-A(\eta)\Big]
+p(x;\eta)=h(x)\exp\Big[\eta^\text{T}T(x)-A(\eta)\Big],\label{eq:ef.1}
+\end{equation}
+where&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;$\eta$ is known as the &lt;strong&gt;natural parameter&lt;/strong&gt;, or &lt;strong&gt;canonical parameter&lt;/strong&gt;,&lt;/li&gt;
+  &lt;li&gt;$T(X)$ is referred to as a &lt;strong&gt;sufficient statistic&lt;/strong&gt;,&lt;/li&gt;
+  &lt;li&gt;$A(\eta)$ is called the &lt;strong&gt;cumulant function&lt;/strong&gt;, which can be view as the logarithm of a normalization factor since integrating \eqref{eq:ef.1} w.r.t the measure $\nu$ gives us
+\begin{equation}
+A(\eta)=\log\int h(x)\exp\left(\eta^\text{T}T(x)\right)\nu(dx),\label{eq:ef.2}
+\end{equation}
+This also implies that $A(\eta)$ will be determined once we have specified $\nu,T(x)$ and $h(x)$.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The set of parameters $\eta$ for which the integral in \eqref{eq:ef.2} is finite is known as the &lt;strong&gt;natural parameter space&lt;/strong&gt;
+\begin{equation}
+N=\left\{\eta:\int h(x)\exp\left(\eta^\text{T}T(x)\right)\nu(dx)&amp;lt;\infty\right\}
+\end{equation}
+which explains why $\eta$ is also referred as &lt;strong&gt;natural parameter&lt;/strong&gt;. If $N$ is an unempty open set, the exponential families are said to be &lt;strong&gt;regular&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;An exponential family is known as &lt;strong&gt;minimal&lt;/strong&gt; if there are no linear constraints among the components of $\eta$ nor are there linear constraints among the components of $T(x)$.&lt;/p&gt;
+
+&lt;h2 id=&quot;examples&quot;&gt;Examples&lt;/h2&gt;
+&lt;p&gt;Each particular choice of $\nu$, $T$ and $h$ defines a family (or set) of distributions that is parameterized by $\eta$. As we vary $\eta$, we then get different distributions within this family.&lt;/p&gt;
+
+&lt;h3 id=&quot;bern&quot;&gt;Bernoulli distribution&lt;/h3&gt;
+&lt;p&gt;The probability mass function (i.e., the density function w.r.t counting measure) of a Bernoulli random variable $X$, denoted as $X\sim\text{Bern}(\pi)$, is given by
+\begin{align}
+p(x;\pi)&amp;amp;=\pi^x(1-\pi)^{1-x} \\ &amp;amp;=\exp\big[x\log\pi+(1-x)\log(1-\pi)\big] \\ &amp;amp;=\exp\left[\log\left(\frac{\pi}{1-\pi}\right)x+\log(1-\pi)\right],
+\end{align}
+which can be written in the form of an exponential family distribution \eqref{eq:ef.1} with
+\begin{align}
+\eta&amp;amp;=\frac{\pi}{1-\pi} \\ T(x)&amp;amp;=x \\ A(\eta)&amp;amp;=-\log(1-\pi)=\log(1+e^{\eta}) \\ h(x)&amp;amp;=1
+\end{align}
+Notice that the relationship between $\eta$ and $\pi$ is invertible since
+\begin{equation}
+\pi=\frac{1}{1+e^{-\eta}},
+\end{equation}
+which is the &lt;strong&gt;sigmoid function&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;bin&quot;&gt;Binomial distribution&lt;/h3&gt;
+&lt;p&gt;The probability mass function of a Binomial random variable $X$, denoted as $X\sim\text{Bin}(N,\pi)$, is defined as
+\begin{align}
+p(x;N,\pi)&amp;amp;=\left(\begin{matrix}N \\ x\end{matrix}\right)\pi^{x}(1-\pi)^{1-x} \\ &amp;amp;=\left(\begin{matrix}N \\ x\end{matrix}\right)\exp\big[x\log\pi+(1-x)\log(1-\pi)\big] \\ &amp;amp;=\left(\begin{matrix}N \\ x\end{matrix}\right)\exp\left[\log\left(\frac{\pi}{1-\pi}\right)x+\log(1-\pi)\right],
+\end{align}
+which is in form of an exponential family distribution \eqref{eq:ef.1} with
+\begin{align}
+\eta&amp;amp;=\frac{\pi}{1-\pi} \\ T(x)&amp;amp;=x \\ A(\eta)&amp;amp;=-\log(1-\pi)=\log(1+e^{\eta}) \\ h(x)&amp;amp;=\left(\begin{matrix}N \\ x\end{matrix}\right)
+\end{align}
+Similar to the Bernoulli case, we also have the invertible relationship between $\eta$ and $\pi$ as
+\begin{equation}
+\pi=\frac{1}{1+e^{-\eta}}
 \end{equation}&lt;/p&gt;
 
+&lt;h3 id=&quot;pois&quot;&gt;Poisson distribution&lt;/h3&gt;
+&lt;p&gt;The probability mass function of a Poisson random variable $X$, denoted as $X\sim\text{Pois}(\lambda)$, is given as
+\begin{align}
+p(x;\lambda)&amp;amp;=\frac{\lambda^x e^{-\lambda}}{x!} \\ &amp;amp;=\frac{1}{x!}\exp\left(x\log\lambda-\lambda\right),
+\end{align}
+which is also able to be written as an exponential family distribution \eqref{eq:ef.1} with
+\begin{align}
+\eta&amp;amp;=\log\lambda \\ T(x)&amp;amp;=x \\ A(\eta)&amp;amp;=\lambda=e^{\eta} \\ h(x)&amp;amp;=\frac{1}{x!}
+\end{align}
+Analogy to Bernoulli distribution, we also have that
+\begin{equation}
+\lambda=e^{\eta}
+\end{equation}&lt;/p&gt;
+
+&lt;h3 id=&quot;gauss&quot;&gt;Gaussian distribution&lt;/h3&gt;
+&lt;p&gt;The (univariate) Gaussian density of a random variable $X$, denoted as $X\sim\mathcal{N}(\mu,\sigma^2)$, is given by
+\begin{align}
+p(x;\mu,\sigma^2)&amp;amp;=\frac{1}{\sqrt{2\pi}\sigma}\exp\left[-\frac{(x-\mu)^2}{2\sigma^2}\right] \\ &amp;amp;=\frac{1}{\sqrt{2\pi}}\exp\left[\frac{\mu}{\sigma^2}x-\frac{1}{2\sigma^2}x^2-\frac{1}{2\sigma^2}\mu^2-\log\sigma\right],
+\end{align}
+which allows us to write it as an instance of the exponential family with
+\begin{align}
+\eta&amp;amp;=\left[\begin{matrix}\mu/\sigma^2 \\ -1/2\sigma^2\end{matrix}\right] \\ T(x)&amp;amp;=\left[\begin{matrix}x\\ x^2\end{matrix}\right] \\ A(\eta)&amp;amp;=\frac{\mu^2}{2\sigma^2}+\log\sigma=-\frac{\eta_1^2}{4\eta_2}-\frac{1}{2}\log(-2\eta_2) \\ h(x)&amp;amp;=\frac{1}{\sqrt{2\pi}}
+\end{align}&lt;/p&gt;
+
+&lt;h3 id=&quot;mult&quot;&gt;Multinomial distribution&lt;/h3&gt;
+&lt;p&gt;Let $\mathbf{X}=(X_1,\ldots,X_K)$ be the collection of $K$ random variable in which $X_k$ denotes the number of times the $k$-th event occurs in a set of $N$ independent trials. And let $\mathbf{\pi}=(\pi_1,\ldots,\pi_K)$ with $\sum_{k=1}^{K}\pi_k=1$ correspondingly represents the probability of occuring of each event within each trials.&lt;/p&gt;
+
+&lt;p&gt;Then $\mathbf{X}$ is said to have Multinomial distribution, denoted as $\mathbf{X}\sim\text{Mult}_K(N,\boldsymbol{\pi})$, if its probability mass function is given as with $\sum_{k=1}^{K}x_k=1$
+\begin{align}
+p(\mathbf{x};\boldsymbol{\pi},N,K)&amp;amp;=\frac{N!}{x_1!x_2!\ldots x_K!}\pi_1^{x_1}\pi_2^{x_2}\ldots\pi_n^{x_n} \\ &amp;amp;=\frac{N!}{x_1!x_2!\ldots x_K!}\exp\left(\sum_{k=1}^{K}x_k\log\pi_k\right)\label{eq:m.1}
+\end{align}
+It is noticable that the above equation is not mininal, since there exists a linear constraint between the components of $T(\mathbf{x})$, which is
+\begin{equation}
+\sum_{k=1}^{K}x_k=1
+\end{equation}
+In order to remove this contraint, we substitute $1-\sum_{k=1}^{K-1}x_k$ to $x_K$ , which lets \eqref{eq:m.1} be written by
+\begin{align}
+\hspace{-0.5cm}p(\mathbf{x};\boldsymbol{\pi},N,K)&amp;amp;=\frac{N!}{x_1!x_2!\ldots x_K!}\exp\left(\sum_{k=1}^{K}x_k\log\pi_k\right) \\ &amp;amp;=\frac{N!}{x_1!x_2!\ldots x_K!}\exp\left[\sum_{k=1}^{K-1}x_k\log\pi_k+\left(1-\sum_{k=1}^{K-1}x_k\right)\log\left(1-\sum_{k=1}^{K-1}\pi_k\right)\right] \\ &amp;amp;=\frac{N!}{x_1!x_2!\ldots x_K!}\exp\left[\sum_{k=1}^{K-1}\log\left(\frac{\pi_k}{1-\sum_{k=1}^{K-1}\pi_k}\right)x_k+\log\left(1-\sum_{k=1}^{K-1}\pi_k\right)\right]
+\end{align}&lt;/p&gt;
+
+&lt;h3 id=&quot;mvn&quot;&gt;Multivariate Normal distribution&lt;/h3&gt;
+
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;p&gt;[1] Christopher M. Bishop. &lt;a href=&quot;https://link.springer.com/book/9780387310732&quot;&gt;Pattern Recognition and Machine Learning&lt;/a&gt;. Springer New York, NY.&lt;/p&gt;
+&lt;p&gt;[1] M. Jordan. &lt;a href=&quot;https://people.eecs.berkeley.edu/~jordan/courses/260-spring10/other-readings/chapter8.pdf&quot;&gt;The Exponential Family: Basics&lt;/a&gt;. 2009.&lt;/p&gt;
 
-&lt;p&gt;[2] M. Jordan. &lt;a href=&quot;https://people.eecs.berkeley.edu/~jordan/courses/260-spring10/other-readings/chapter8.pdf&quot;&gt;The Exponential Family: Basics&lt;/a&gt;. 2009.&lt;/p&gt;
+&lt;p&gt;[2] Joseph K. Blitzstein &amp;amp; Jessica Hwang. &lt;a href=&quot;https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573&quot;&gt;Introduction to Probability&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="probability-statistics" /><category term="mathematics" /><category term="probability-statistics" /><category term="exponential-family" /><summary type="html"></summary></entry><entry><title type="html">Gaussian Distribution</title><link href="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html" rel="alternate" type="text/html" title="Gaussian Distribution" /><published>2021-11-22T14:46:00+07:00</published><updated>2021-11-22T14:46:00+07:00</updated><id>http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist</id><content type="html" xml:base="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html">&lt;blockquote&gt;
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="probability-statistics" /><category term="mathematics" /><category term="probability-statistics" /><category term="exponential-family" /><summary type="html">A note on the exponential family.</summary></entry><entry><title type="html">Gaussian Distribution</title><link href="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html" rel="alternate" type="text/html" title="Gaussian Distribution" /><published>2021-11-22T14:46:00+07:00</published><updated>2021-11-22T14:46:00+07:00</updated><id>http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist</id><content type="html" xml:base="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html">&lt;blockquote&gt;
   &lt;p&gt;A note on Gaussian distribution.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -4259,47 +4364,4 @@ for all states $i,j$. This equation is called &lt;em&gt;reversibility&lt;/em&gt;
       &lt;p&gt;Well, it only matters where you are, not where you’ve been. &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="probability-statistics" /><category term="mathematics" /><category term="probability-statistics" /><category term="random-stuffs" /><summary type="html">Since I have no idea how to begin with this post, why not just dive straight into details :P</summary></entry><entry><title type="html">My very first post</title><link href="http://localhost:4000/mathematics/linear-algebra/2021/06/05/fibonacci-generator.html" rel="alternate" type="text/html" title="My very first post" /><published>2021-06-05T17:00:00+07:00</published><updated>2021-06-05T17:00:00+07:00</updated><id>http://localhost:4000/mathematics/linear-algebra/2021/06/05/fibonacci-generator</id><content type="html" xml:base="http://localhost:4000/mathematics/linear-algebra/2021/06/05/fibonacci-generator.html">&lt;blockquote&gt;
-  &lt;p&gt;Enjoy my index-zero-ed post while staying tuned for next ones!&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;!-- excerpt-end --&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;math&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fibonacci&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-	&lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
-	generate i-th number of the Fibonacci sequence, python code obvs :p
-	&quot;&quot;&quot;&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;pow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Why did numbers \(\frac{1+\sqrt{5}}{2}\) and \(\frac{1-\sqrt{5}}{2}\) come out of nowhere?&lt;/p&gt;
-
-&lt;p&gt;In fact, these two numbers are eigenvalues of matrix \(A=\left(\begin{smallmatrix}1 &amp;amp; 1\\1 &amp;amp; 0\end{smallmatrix}\right)\), which is retrieved from
-\begin{equation}
-u_{k+1}=Au_k,
-\end{equation}
-where \(u_k=\left(\begin{smallmatrix}F_{k+1}\\F_k\end{smallmatrix}\right)\).
-And thus, \(u_k=A^k u_0\).&lt;/p&gt;
-
-&lt;p&gt;Then, the thing is, how can we compute \(A^k\) quickly? This is where diagonalizing plays its role. Diagonalizing produces a factorization:
-\begin{equation}
-A=S\Lambda S^{-1},
-\end{equation}
-where \(S=\left(\begin{smallmatrix}x_1 &amp;amp; \dots &amp;amp; x_n\end{smallmatrix}\right)\) is eigenvector matrix, \(\Lambda=\left(\begin{smallmatrix}\lambda_1&amp;amp;&amp;amp;\\&amp;amp;\ddots&amp;amp;\\&amp;amp;&amp;amp;\lambda_n\end{smallmatrix}\right)\) is a diagonal matrix established from eigenvalues of \(A\).&lt;/p&gt;
-
-&lt;p&gt;When taking the power of \(A\),
-\begin{equation}
-A^k u_0=(S\Lambda S^{-1})\dots(S\Lambda S^{-1})u_0=S\Lambda^k S^{-1} u_0,
-\end{equation}
-writing \(u_0\) as a combination \(c_1x_1+\dots+c_nx_n\) of the eigenvectors, we have that \(c=S^{-1}u_0\). Hence:
-\begin{equation}
-u_k=A^ku_0=c_1{\lambda_1}^kx_1+\dots+c_n{\lambda_n}^kx_n
-\end{equation}
-&lt;em&gt;Fact&lt;/em&gt;: The \(\frac{1+\sqrt{5}}{2}\approx 1.618\) is so-called “&lt;strong&gt;golden ratio&lt;/strong&gt;”. And &lt;em&gt;for some reason a rectangle with sides 1.618 and 1 looks especially graceful&lt;/em&gt;.&lt;/p&gt;
-
-&lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
-&lt;p&gt;[1] Gilbert Strang. &lt;a href=&quot;http://math.mit.edu/~gs/linearalgebra/&quot;&gt;Introduction to Linear Algebra&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;[2] MIT 18.06. &lt;a href=&quot;https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/&quot;&gt;Linear Algebra&lt;/a&gt;.&lt;/p&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="linear-algebra" /><category term="mathematics" /><category term="linear-algebra" /><category term="eigenvalue-eigenvector" /><category term="random-stuffs" /><summary type="html">Enjoy my index-zero-ed post while staying tuned for next ones!</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="probability-statistics" /><category term="mathematics" /><category term="probability-statistics" /><category term="random-stuffs" /><summary type="html">Since I have no idea how to begin with this post, why not just dive straight into details :P</summary></entry></feed>

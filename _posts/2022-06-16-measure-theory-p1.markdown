@@ -3,8 +3,8 @@ layout: post
 title:  "Measure theory - I: Elementary measure, Jordan measure & the Riemann integral"
 date:   2022-06-16 13:00:00 +0700
 categories: mathematics measure-theory
-tags: mathematics measure-theory jordan-measure riemann-integral darboux-integral random-stuffs
-description: Note on measure theory
+tags: mathematics measure-theory jordan-measure riemann-integral
+description: Note on measure theory part 1
 comments: true
 eqn-number: true
 ---
@@ -701,19 +701,19 @@ Let $B$ be a closed box in $\mathbb{R}^d$, and let $f:B\to\mathbb{R}$ be a conti
 		\end{equation}
 		With this result, and by the monotonicity, finite additivity of elementary measure, we have the Jordan outer measure of the graph $\{(x,f(x)):x\in B\}\subset\mathbb{R}^{d+1}$ can be written as
 		\begin{align}
-		m^{*,J}\left(\{(x,f(x)):x\in B\}\right)&=\inf_{C\supset B,C\text{ closed box}}m\left(\left\{(x,f(x)):x\in C\right\}\right) \\ &\leq m^{d+1}\left(\bigcup_{i=1}^{n}C_i\times\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &=\sum_{i=1}^{n}m^d(C_i)\times m^1\left(\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &=2n\varepsilon m^d(C)<2n\varepsilon\delta
+		m^{*,(J)}\left(\{(x,f(x)):x\in B\}\right)&=\inf_{C\supset B,C\text{ closed box}}m\left(\left\{(x,f(x)):x\in C\right\}\right) \\ &\leq m^{d+1}\left(\bigcup_{i=1}^{n}C_i\times\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &=\sum_{i=1}^{n}m^d(C_i)\times m^1\left(\left(f(x_i)-\varepsilon,f(x_i)+\varepsilon\right)\right) \\ &=2n\varepsilon m^d(C)<2n\varepsilon\delta
 		\end{align}
 		And since $\varepsilon>0$ arbitrarily, we finally obtain
 		\begin{equation}
-		m^{*,J}\left(\{(x,f(x)):x\in B\}\right)=0
+		m^{*,(J)}\left(\{(x,f(x)):x\in B\}\right)=0
 		\end{equation}
 		Plus that, since
 		\begin{equation}
-		m^{*,J}\left(\{(x,f(x)):x\in B\}\right)\geq m_{*,J}\left(\{(x,f(x)):x\in B\}\right)\geq 0,
+		m^{*,(J)}\left(\{(x,f(x)):x\in B\}\right)\geq m_{*,(J)}\left(\{(x,f(x)):x\in B\}\right)\geq 0,
 		\end{equation}
 		we have that
 		\begin{equation}
-		m^{*,J}\Big(\big\{(x,f(x)):x\in B\big\}\Big)=m_{*,J}\Big(\big\{(x,f(x)):x\in B\big\}\Big)=0,
+		m^{*,(J)}\Big(\big\{(x,f(x)):x\in B\big\}\Big)=m_{*,(J)}\Big(\big\{(x,f(x)):x\in B\big\}\Big)=0,
 		\end{equation}
 		or in other words, the graph $\left(\{(x,f(x)):x\in B\}\right)$ is Jordan measurable on $\mathbb{R}^{d+1}$ with Jordan measure zero.
 	</li>
@@ -737,7 +737,7 @@ A **Jordan null set** is a Jordan measurable set of Jordan measure zero. We have
 **Proof**  
 Let $E\subset F$ where F is a Jordan null set. Also let $A\subset E$, it follows that $A\subset F$, and hence
 \begin{equation}
-m(A)\leq m_{\*,J}(F)=0
+m(A)\leq m_{\*,(J)}(F)=0
 \end{equation}
 Since $m(E)=0$, we can choose a set $B\supset F$ such that $m(B)\leq\varepsilon$ for $\varepsilon>0$ arbitrarily. Thus, $E\subset B$ and moreover
 \begin{equation}
@@ -771,11 +771,11 @@ Let $d_1,d_2\geq 1$, and let $E_1\subset\mathbb{R}^{d_1},E_2\subset\mathbb{R}^{d
 **Solution**  
 Let $A_1\subset E_1$ such that $A_1$ is elemetary and
 \begin{equation}
-m^{d_1}(A_1)=\sup_{A\subset E_1,A\text{ elementary}}m(A)=m_{\*,J}(E_1)=m^{d_1}(E_1)
+m^{d_1}(A_1)=\sup_{A\subset E_1,A\text{ elementary}}m(A)=m_{\*,(J)}(E_1)=m^{d_1}(E_1)
 \end{equation}
 Let $B_1\supset E_1$ such that $B_1$ is elementary and
 \begin{equation}
-m^{d_1}(B_1)=\inf_{B\supset E_1,B\text{ elementary}}m(B)=m^{\*,J}(E_1)=m^{d_1}(E_1),
+m^{d_1}(B_1)=\inf_{B\supset E_1,B\text{ elementary}}m(B)=m^{\*,(J)}(E_1)=m^{d_1}(E_1),
 \end{equation}
 which implies that
 \begin{equation}
@@ -783,7 +783,7 @@ m^{d_1}(A_1)=m^{d_1}(B_1)=m^{d_1}(E_1)
 \end{equation}
 Analogously, we define $A_2\subset E_2\subset B_2$ such that
 \begin{align}
-m^{d_2}(A_2)&=\sup_{A\subset E_2,A\text{ elementary}}m(A)=m_{\*,J}(E_2)=m^{d_2}(E_2) \\\\ m^{d_2}(B_2)&=\inf_{B\supset E_2,B\text{ elementary}}m(B)=m^{\*,J}(E_2)=m^{d_1}(E_2)
+m^{d_2}(A_2)&=\sup_{A\subset E_2,A\text{ elementary}}m(A)=m_{\*,(J)}(E_2)=m^{d_2}(E_2) \\\\ m^{d_2}(B_2)&=\inf_{B\supset E_2,B\text{ elementary}}m(B)=m^{\*,(J)}(E_2)=m^{d_1}(E_2)
 \end{align}
 And thus, we also have
 \begin{equation}
@@ -791,11 +791,11 @@ m^{d_2}(A_2)=m^{d_2}(B_2)=m^{d_2}(E_2)
 \end{equation}
 On the one hand, with these definitions, we have
 \begin{equation}
-m^{d_1+d_2}(A_1\times A_2)=\sup_{A\subset E_1\times E_2,A\text{ elementary}}=m_{\*,J}(E_1\times E_2)\label{eq:remark15.1}
+m^{d_1+d_2}(A_1\times A_2)=\sup_{A\subset E_1\times E_2,A\text{ elementary}}=m_{\*,(J)}(E_1\times E_2)\label{eq:remark15.1}
 \end{equation}
 and
 \begin{equation}
-m^{d_1\times d_2}(B_1\times B_2)=\sup_{B\supset E_1\times E_2,A\text{ elementary}}=m^{\*,J}(E_1\times E_2)\label{eq:remark15.2}
+m^{d_1\times d_2}(B_1\times B_2)=\sup_{B\supset E_1\times E_2,A\text{ elementary}}=m^{\*,(J)}(E_1\times E_2)\label{eq:remark15.2}
 \end{equation}
 On the other hands, By **remark 11**, we have that $A_1\times A_2$ and $B_1\times B_2$ are aslo elementary sets and
 \begin{align}
@@ -812,9 +812,6 @@ Let $E\subset\mathbb{R}^d$ be a bounded set, and $F\subset\mathbb{R}^d$ be an el
 \begin{equation}
 m^{\*,(J)}(E)=m^{\*,(J)}(E\cap F)+m^{\*,(J)}(E\backslash F)
 \end{equation}
-
-**Proof**  
-
 
 ## Connection with the Riemann integral
 {: #connect-riemann-int}
@@ -1174,6 +1171,9 @@ Let $[a,b]$ be an interval, and let $f:[a,b]\to\mathbb{R}$ be a bounded function
 \int_{a}^{b}f(x)\,dx=m^2(E_+)-m^2(E_-),
 \end{equation}
 where $m^2$ denotes two-dimensional Jordan measure.
+
+**Proof**  
+
 
 ## References
 {: #references}

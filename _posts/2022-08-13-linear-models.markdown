@@ -6,6 +6,7 @@ categories: artificial-intelligent machine-learning
 tags: artificial-intelligent machine-learning linear-regression logistic-regression linear-discriminant-analysis
 description: A note on linear models
 comments: true
+eqn-number: true
 ---
 > Linear models for solving regression and classification problems. Majority of the materials are taken from [Bishop's book]({% post_url 2022-08-13-linear-models %}#bishops-book).
 <!-- excerpt-end -->
@@ -48,6 +49,7 @@ comments: true
 		- [The Laplace approximation](#laplace-approx)
 		- [Approximation of the posterior](#approx-posterior)
 		- [Predictive distribution](#pred-dist-clf)
+- [Generalized linear models](#glm)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -146,17 +148,17 @@ Regression refers to a problem of predicting the value of one or more continuous
 {: #lin-basis-func-models}
 The simplest linear model used for regression tasks is **linear regression**, which is defined as a linear combination of the input variables
 \begin{equation}
-y(\mathbf{x},\mathbf{w})=w_0+w_1x_1+\ldots+w_Dx_D,\tag{1}\label{1}
+y(\mathbf{x},\mathbf{w})=w_0+w_1x_1+\ldots+w_Dx_D,
 \end{equation}
 where $\mathbf{x}=(x_1,\ldots,x_D)^\text{T}$ is the input variables, while $w_i$'s are the parameters parameterizing the space of linear function mapping from the input space $\mathcal{X}$ of $\mathbf{x}$ to $\mathcal{Y}$.
 
 With the idea of spanning a space by its basis vectors, we can generalize it to establishing a function space by linear combinations of simpler basis functions. Or in other words, we can extend the class of models by instead using a linear combination of fixed nonlinear functions of the input variables $\mathbf{x}$, as
 \begin{equation}
-y(\mathbf{x},\mathbf{w})=w_0+w_1\phi_1(\mathbf{x})+\ldots+w_{M-1}\phi_{M-1}(\mathbf{x})=w_0+\sum_{i=1}^{M-1}w_i\phi_i(\mathbf{x}),\tag{2}\label{2}
+y(\mathbf{x},\mathbf{w})=w_0+w_1\phi_1(\mathbf{x})+\ldots+w_{M-1}\phi_{M-1}(\mathbf{x})=w_0+\sum_{i=1}^{M-1}w_i\phi_i(\mathbf{x}),\label{eq:lbfm.1}
 \end{equation}
-where $\phi_i(\mathbf{x})$'s are called the **basis functions**; $w_0$ is called a **bias parameter**. By letting <span id='dummy-coeff'>$w_0$</span> be a coefficient corresponding to a dummy basis function $\phi_0(\mathbf{x})=1$, \eqref{2} can be written in a more convenient way
+where $\phi_i(\mathbf{x})$'s are called the **basis functions**; $w_0$ is called a **bias parameter**. By letting <span id='dummy-coeff'>$w_0$</span> be a coefficient corresponding to a dummy basis function $\phi_0(\mathbf{x})=1$, \eqref{eq:lbfm.1} can be written in a more convenient way
 \begin{equation}
-y(\mathbf{x},\mathbf{w})=\sum_{i=0}^{M-1}w_i\phi_i(\mathbf{x})=\mathbf{w}^\text{T}\boldsymbol{\phi}(\mathbf{x}),\tag{3}\label{3}
+y(\mathbf{x},\mathbf{w})=\sum_{i=0}^{M-1}w_i\phi_i(\mathbf{x})=\mathbf{w}^\text{T}\boldsymbol{\phi}(\mathbf{x}),\label{eq:lbfm.2}
 \end{equation}
 where $\mathbf{w}=(w_0,\ldots,w_{M-1})^\text{T}$ and $\boldsymbol{\phi}=(\phi_0,\ldots,\phi_{M-1})^\text{T}$, with $\phi_0(\cdot)=1$.
 
@@ -213,25 +215,25 @@ p(\epsilon)=\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{\epsilon^2}{2\sigma^2}\r
 \end{equation}
 which implies that
 \begin{equation}
-p(t|\mathbf{x};\mathbf{w},\beta)=\sqrt{\frac{\beta}{2\pi}}\exp\left(-\frac{(t-y(\mathbf{x},\mathbf{w}))^2\beta}{2}\right),\tag{4}\label{4}
+p(t|\mathbf{x};\mathbf{w},\beta)=\sqrt{\frac{\beta}{2\pi}}\exp\left(-\frac{(t-y(\mathbf{x},\mathbf{w}))^2\beta}{2}\right),\label{eq:lsr.1}
 \end{equation}
 where $\beta=1/\sigma^2$ is the precision of $\epsilon$, or
 \begin{equation}
 t|\mathbf{x};\mathbf{w},\beta\sim\mathcal{N}(y(\mathbf{x},\mathbf{w}),\beta^{-1})
 \end{equation}
-Consider a data set of inputs $\mathbf{X}=\\{\mathbf{x}\_1,\ldots,\mathbf{x}\_N\\}$ with corresponding target values $\mathbf{t}=(t_1,\ldots,t_N)^\text{T}$ and assume that these data points are drawn independently from the distribution above, we obtain the batch version of \eqref{4}, called the **likelihood function**, given as
+Consider a data set of inputs $\mathbf{X}=\\{\mathbf{x}\_1,\ldots,\mathbf{x}\_N\\}$ with corresponding target values $\mathbf{t}=(t_1,\ldots,t_N)^\text{T}$ and assume that these data points are drawn independently from the distribution above, we obtain the batch version of \eqref{eq:lsr.1}, called the **likelihood function**, given as
 \begin{align}
-L(\mathbf{w},\beta)=p(\mathbf{t}|\mathbf{X};\mathbf{w},\beta)&=\prod_{i=1}^{N}p(t_i|\mathbf{x}\_i;\mathbf{w},\beta) \\\\ &=\prod_{i=1}^{N}\sqrt{\frac{\beta}{2\pi}}\exp\left(-\frac{(t_i-y(\mathbf{x}\_i,\mathbf{w}))^2\beta}{2}\right)\tag{5}\label{5}
+L(\mathbf{w},\beta)=p(\mathbf{t}|\mathbf{X};\mathbf{w},\beta)&=\prod_{i=1}^{N}p(t_i|\mathbf{x}\_i;\mathbf{w},\beta) \\\\ &=\prod_{i=1}^{N}\sqrt{\frac{\beta}{2\pi}}\exp\left(-\frac{(t_i-y(\mathbf{x}\_i,\mathbf{w}))^2\beta}{2}\right)\label{eq:lsr.2}
 \end{align}
 By maximum likelihood, we will be looking for values of $\mathbf{w}$ and $\beta$ that maximize the likelihood. We do this by considering maximizing a simpler likelihood, called **log likelihood**, denoted as $\ell(\mathbf{w},\beta)$, defined as
 \begin{align}
-\ell(\mathbf{w},\beta)=\log{L(\mathbf{w},\beta)}&=\log\prod_{i=1}^{N}\sqrt{\frac{\beta}{2\pi}}\exp\left(-\frac{(t_i-y(\mathbf{x}\_i,\mathbf{w}))^2\beta}{2}\right) \\\\ &=\sum_{i=1}^{N}\log\left[\sqrt{\frac{\beta}{2\pi}}\exp\left(-\frac{(t_i-y(\mathbf{x}\_i,\mathbf{w}))^2\beta}{2}\right)\right] \\\\ &=\frac{N}{2}\log\beta-\frac{N}{2}\log(2\pi)-\sum_{i=1}^{N}\frac{(t_i-y(\mathbf{x}\_i,\mathbf{w}))^2\beta}{2} \\\\ &=\frac{N}{2}\log\beta-\frac{N}{2}\log(2\pi)-\beta E_D(\mathbf{w})\tag{6}\label{6},
+\ell(\mathbf{w},\beta)=\log{L(\mathbf{w},\beta)}&=\log\prod_{i=1}^{N}\sqrt{\frac{\beta}{2\pi}}\exp\left(-\frac{(t_i-y(\mathbf{x}\_i,\mathbf{w}))^2\beta}{2}\right) \\\\ &=\sum_{i=1}^{N}\log\left[\sqrt{\frac{\beta}{2\pi}}\exp\left(-\frac{(t_i-y(\mathbf{x}\_i,\mathbf{w}))^2\beta}{2}\right)\right] \\\\ &=\frac{N}{2}\log\beta-\frac{N}{2}\log(2\pi)-\sum_{i=1}^{N}\frac{(t_i-y(\mathbf{x}\_i,\mathbf{w}))^2\beta}{2} \\\\ &=\frac{N}{2}\log\beta-\frac{N}{2}\log(2\pi)-\beta E_D(\mathbf{w})\label{eq:lsr.3},
 \end{align}
 where $E_D(\mathbf{w})$ is the sum-of-squares error function, defined as
 \begin{equation}
-E_D(\mathbf{w})\doteq\frac{1}{2}\sum_{i=1}^{N}\left(t_i-y(\mathbf{x}\_i,\mathbf{w})\right)^2\tag{7}\label{7}
+E_D(\mathbf{w})\doteq\frac{1}{2}\sum_{i=1}^{N}\left(t_i-y(\mathbf{x}\_i,\mathbf{w})\right)^2\label{eq:lsr.4}
 \end{equation}
-Consider the gradient of \eqref{6} w.r.t $\mathbf{w}$, we have
+Consider the gradient of \eqref{eq:lsr.3} w.r.t $\mathbf{w}$, we have
 \begin{align}
 \nabla_\mathbf{w}\ell(\mathbf{w},\beta)&=\nabla_\mathbf{w}\left[\frac{N}{2}\log\beta-\frac{N}{2}\log(2\pi)-\beta E_D(\mathbf{w})\right] \\\\ &\propto\nabla_\mathbf{w}\frac{1}{2}\sum_{i=1}^{N}\big(t_i-y(\mathbf{x}\_i,\mathbf{w})\big)^2 \\\\ &=\nabla_\mathbf{w}\frac{1}{2}\sum_{i=1}^{N}\left(t_i-\mathbf{w}^\text{T}\boldsymbol{\phi}\big(\mathbf{x}\_i\right)\big)^2 \\\\ &=\sum_{i=1}^{N}(t_i-\mathbf{w}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i))\boldsymbol{\phi}(\mathbf{x}\_i)^\text{T}
 \end{align}
@@ -241,9 +243,9 @@ By gradient descent, letting this gradient to zero gives us
 \end{equation}
 which implies that
 \begin{equation}
-\mathbf{w}\_\text{ML}=\left(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}^\text{T}\mathbf{t},\tag{8}\label{8}
+\mathbf{w}\_\text{ML}=\left(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}^\text{T}\mathbf{t},\label{eq:lsr.5}
 \end{equation}
-which is known as the **normal equations** for the least squares problem. In \eqref{8}, $\boldsymbol{\Phi}\in\mathbb{R}^{N\times M}$ is called the **design matrix**, whose elements are given by $\boldsymbol{\Phi}\_{ij}=\phi_j(\mathbf{x}\_i)$
+which is known as the **normal equations** for the least squares problem. In \eqref{eq:lsr.5}, $\boldsymbol{\Phi}\in\mathbb{R}^{N\times M}$ is called the **design matrix**, whose elements are given by $\boldsymbol{\Phi}\_{ij}=\phi_j(\mathbf{x}\_i)$
 \begin{equation}
 \boldsymbol{\Phi}=\left[\begin{matrix}-\hspace{0.1cm}\boldsymbol{\phi}(\mathbf{x}\_1)^\text{T}\hspace{0.1cm}- \\\\ \hspace{0.1cm}\vdots\hspace{0.1cm} \\\\ -\hspace{0.1cm}\boldsymbol{\phi}(\mathbf{x}\_N)^\text{T}\hspace{0.1cm}-\end{matrix}\right]=\left[\begin{matrix}\phi_0(\mathbf{x}\_1)&\ldots&\phi_{M-1}(\mathbf{x}\_1) \\\\ \vdots&\ddots&\vdots \\\\ \phi_0(\mathbf{x}\_N)&\ldots&\phi_{M-1}(\mathbf{x}\_N)\end{matrix}\right],
 \end{equation}
@@ -253,7 +255,7 @@ and the quantity
 \end{equation}
 is called the **Moore-Penrose pseudoinverse** of the matrix $\boldsymbol{\Phi}$.
 
-On the other hand, consider the gradient of \eqref{6} w.r.t $\beta$ and set it equal to zero, we obtain
+On the other hand, consider the gradient of \eqref{eq:lsr.3} w.r.t $\beta$ and set it equal to zero, we obtain
 \begin{equation}
 \beta=\frac{N}{\sum_{i=1}^{N}\big(t_i-\mathbf{w}\_\text{ML}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)^2}
 \end{equation}
@@ -283,7 +285,7 @@ We define $\mathbf{y}$ to be an $N$-dimensional vector whose the $i$-th element 
 \mathbf{y}=\big(y(\mathbf{x}\_1,\mathbf{w}),\ldots,y(\mathbf{x}\_N,\mathbf{w})\big)^\text{T}
 \end{equation}
 Since $\mathbf{y}$ is a linear combination of $\boldsymbol{\varphi}\_i$, then $\mathbf{y}\in\mathcal{S}$.
-Then the sum-of-squares error \eqref{7} is exactly (with a factor of $1/2$) the squared Euclidean distance between $\mathbf{y}$ and $\mathbf{t}$. Therefore, the least square solution to $\mathbf{w}$ is the one that makes $\mathbf{y}$ closest to $\mathbf{t}$.
+Then the sum-of-squares error \eqref{eq:lsr.4} is exactly (with a factor of $1/2$) the squared Euclidean distance between $\mathbf{y}$ and $\mathbf{t}$. Therefore, the least square solution to $\mathbf{w}$ is the one that makes $\mathbf{y}$ closest to $\mathbf{t}$.
 
 This solution corresponds to the orthogonal projection of $t$ onto the subspace $S$ spanned by $\boldsymbol{\varphi}\_i$, because we have that
 \begin{align}
@@ -292,7 +294,7 @@ This solution corresponds to the orthogonal projection of $t$ onto the subspace 
 
 #### The LMS algorithm
 {: #lms}
-The **least-means-squares**, or **LMS** algorithm for the sum-of-squares error \eqref{7}, which start with some initial vector $\mathbf{w}\_0$ of $\mathbf{w}$, and repeatedly perform the update
+The **least-means-squares**, or **LMS** algorithm for the sum-of-squares error \eqref{eq:lsr.4}, which start with some initial vector $\mathbf{w}\_0$ of $\mathbf{w}$, and repeatedly perform the update
 \begin{equation}
 \mathbf{w}\_{t+1}=\mathbf{w}\_t+\eta(t_n-\mathbf{w}\_t^\text{T}\boldsymbol{\phi}\_n)\boldsymbol{\phi}\_n,
 \end{equation}
@@ -300,21 +302,21 @@ where $\boldsymbol{\phi}\_n$ denotes $\boldsymbol{\phi}(\mathbf{x}\_n)$, and $\e
 
 #### Regularized least squares
 {: #reg-least-squares}
-To control over-fitting, in the error function \eqref{7}, we add an regularization term, which makes the total error function to be minimized take the form
+To control over-fitting, in the error function \eqref{eq:lsr.4}, we add an regularization term, which makes the total error function to be minimized take the form
 \begin{equation}
-E_D(\mathbf{w})+\lambda E_W(\mathbf{w}),\tag{9}\label{9}
+E_D(\mathbf{w})+\lambda E_W(\mathbf{w}),\label{eq:rls.1}
 \end{equation}
 where $\lambda$ is the regularization coefficient that controls the relative importance of the data-dependent error $E_D(\mathbf{w})$ and the regularization term $E_W(\mathbf{w})$. One simple possible form of regularizer is given as
 \begin{equation}
 E_W(\mathbf{w})=\frac{1}{2}\mathbf{w}^\text{T}\mathbf{w}
 \end{equation}
-The total error function \eqref{9} then can be written as
+The total error function \eqref{eq:rls.1} then can be written as
 \begin{equation}
-E_D(\mathbf{w})+E_W(\mathbf{w})=\frac{1}{2}\sum_{i=1}^{N}\big(t_i-\mathbf{w}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)^2+\frac{\lambda}{2}\mathbf{w}^\text{T}\mathbf{w}\tag{10}\label{10}
+E_D(\mathbf{w})+E_W(\mathbf{w})=\frac{1}{2}\sum_{i=1}^{N}\big(t_i-\mathbf{w}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)^2+\frac{\lambda}{2}\mathbf{w}^\text{T}\mathbf{w}\label{eq:rls.2}
 \end{equation}
 Setting the gradient of this error to zero and solving for $\mathbf{w}$, we have the solution
 \begin{equation}
-\mathbf{w}= (\lambda\mathbf{I}+\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}^\text{T}\mathbf{t}\tag{11}\label{11}
+\mathbf{w}= (\lambda\mathbf{I}+\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}^\text{T}\mathbf{t}\label{eq:rls.3}
 \end{equation}
 This particular choice of regularizer is called **weight decay** because it encourages weight values to decay towards zero in sequential learning.
 
@@ -322,7 +324,7 @@ Another choice of regularizer which is more general lets the regularized error h
 \begin{equation}
 E_D(\mathbf{w})+E_W(\mathbf{w})=\frac{1}{2}\sum_{i=1}^{N}\big(t_i-\mathbf{w}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)^2+\frac{\lambda}{2}\sum_{j=1}^{M}\vert w_j\vert^q,
 \end{equation}
-where $q=2$ corresponds to the regularizer \eqref{10}.
+where $q=2$ corresponds to the regularizer \eqref{eq:rls.2}.
 
 #### Multiple outputs
 {: #mult-outputs}
@@ -332,9 +334,9 @@ When the target of our model is instead in multiple-dimensional form, denoted as
 \end{equation}
 where $\mathbf{y}\in\mathbb{R}^K, \mathbf{W}\in\mathbb{R}^{M\times K}$ is the matrix of parameters, $\boldsymbol{\phi}\in\mathbb{R}^M$ with $\phi_i(\mathbf{x})$ as the $i$-th element, and with $\phi_0(\mathbf{x})=1$.
 
-With this generalization, \eqref{4} can be also be rewritten as
+With this generalization, \eqref{eq:lsr.1} can be also be rewritten as
 \begin{equation}
-p(\mathbf{t}|\mathbf{x};\mathbf{W},\beta)=\sqrt{\frac{\beta}{2\pi\vert\mathbf{I}\vert}}\exp\left[-\frac{1}{2}\left(\mathbf{t}-\mathbf{W}^\text{T}\boldsymbol{\phi}\left(\mathbf{x}\right)\right)^\text{T}\left(\mathbf{t}-\mathbf{W}^\text{T}\boldsymbol{\phi}\left(\mathbf{x}\right)\right)\beta\mathbf{I}^{-1}\right],\tag{12}\label{12}
+p(\mathbf{t}|\mathbf{x};\mathbf{W},\beta)=\sqrt{\frac{\beta}{2\pi\vert\mathbf{I}\vert}}\exp\left[-\frac{1}{2}\left(\mathbf{t}-\mathbf{W}^\text{T}\boldsymbol{\phi}\left(\mathbf{x}\right)\right)^\text{T}\left(\mathbf{t}-\mathbf{W}^\text{T}\boldsymbol{\phi}\left(\mathbf{x}\right)\right)\beta\mathbf{I}^{-1}\right],
 \end{equation}
 or in other words
 \begin{equation}
@@ -346,11 +348,11 @@ With a data set of inputs $\mathbf{X}=\\{\mathbf{x}\_1,\ldots,\mathbf{x}\_N\\}$,
 \end{equation}
 and likewise with the input matrix $\mathbf{X}$ vectorized from input vectors $\mathbf{x}\_1,\ldots,\mathbf{x}\_N$. With these definitions, the multi-dimensional likelihood can be defined as
 \begin{align}
-L(\mathbf{W},\beta)=p(\mathbf{T}|\mathbf{X};\mathbf{W},\beta)&=\prod_{i=1}^{N}p(\mathbf{t}\_i|\mathbf{x}\_i;\mathbf{W},\beta) \\\\ &=\prod_{i=1}^{N}\sqrt{\frac{\beta}{2\pi}}\exp\left[-\frac{\beta}{2}\big(\mathbf{t}\_i-\mathbf{W}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)^\text{T}\big(\mathbf{t}\_i-\mathbf{W}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)\right]
+L(\mathbf{W},\beta)&=p(\mathbf{T}|\mathbf{X};\mathbf{W},\beta) \\\\ &=\prod_{i=1}^{N}p(\mathbf{t}\_i|\mathbf{x}\_i;\mathbf{W},\beta) \\\\ &=\prod_{i=1}^{N}\sqrt{\frac{\beta}{2\pi}}\exp\left[-\frac{\beta}{2}\big(\mathbf{t}\_i-\mathbf{W}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)^\text{T}\big(\mathbf{t}\_i-\mathbf{W}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)\right]
 \end{align}
 And thus the log likelihood now becomes
 \begin{align}
-\ell(\mathbf{W},\beta)=\log L(\mathbf{W},\beta)&=\log\prod_{i=1}^{N}\sqrt{\frac{\beta}{2\pi}}\exp\left[-\frac{\beta}{2}\big(\mathbf{t}\_i-\mathbf{W}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)^\text{T}\big(\mathbf{t}\_i-\mathbf{W}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)\right] \\\\ &=\sum_{i=1}^{N}\log\sqrt{\frac{\beta}{2\pi}}\exp\left[-\frac{\beta}{2}\big(\mathbf{t}\_i-\mathbf{W}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)^\text{T}\big(\mathbf{t}\_i-\mathbf{W}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)\right] \\\\ &=\frac{N}{2}\log\frac{\beta}{2\pi}-\frac{\beta}{2}\sum_{i=1}^{N}\big(\mathbf{t}\_i-\mathbf{W}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)^\text{T}\big(\mathbf{t}\_i-\mathbf{W}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)
+\ell(\mathbf{W},\beta)&=\log L(\mathbf{W},\beta) \\\\ &=\log\prod_{i=1}^{N}\sqrt{\frac{\beta}{2\pi}}\exp\left[-\frac{\beta}{2}\big(\mathbf{t}\_i-\mathbf{W}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)^\text{T}\big(\mathbf{t}\_i-\mathbf{W}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)\right] \\\\ &=\sum_{i=1}^{N}\log\sqrt{\frac{\beta}{2\pi}}\exp\left[-\frac{\beta}{2}\big(\mathbf{t}\_i-\mathbf{W}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)^\text{T}\big(\mathbf{t}\_i-\mathbf{W}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)\right] \\\\ &=\frac{N}{2}\log\frac{\beta}{2\pi}-\frac{\beta}{2}\sum_{i=1}^{N}\big(\mathbf{t}\_i-\mathbf{W}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)^\text{T}\big(\mathbf{t}\_i-\mathbf{W}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_i)\big)
 \end{align}
 Taking the gradient of the log likelihood w.r.t $\mathbf{W}$, setting it to zero and solving for $\mathbf{W}$ gives us
 \begin{equation}
@@ -362,7 +364,7 @@ Taking the gradient of the log likelihood w.r.t $\mathbf{W}$, setting it to zero
 
 #### Parameter distribution
 {: #param-dist}
-Consider the noise precision parameter $\beta$ as a constant. From the equation \eqref{5}, we see that the likelihood function $L(\mathbf{w})=p(\mathbf{t}\vert\mathbf{w})$ takes the form of an exponential of a quadratic form in $\mathbf{w}$. Thus, if we choose the prior $p(\mathbf{w})$ as a Gaussian, the corresponding posterior will also become a Gaussian due to being computed as a product of two exponentials of quadratic forms of $\mathbf{w}$. This makes the prior be a conjugate distribution for the likelihood function, and hence be given by
+Consider the noise precision parameter $\beta$ as a constant. From the equation \eqref{eq:lsr.2}, we see that the likelihood function $L(\mathbf{w})=p(\mathbf{t}\vert\mathbf{w})$ takes the form of an exponential of a quadratic form in $\mathbf{w}$. Thus, if we choose the prior $p(\mathbf{w})$ as a Gaussian, the corresponding posterior will also become a Gaussian due to being computed as a product of two exponentials of quadratic forms of $\mathbf{w}$. This makes the prior be a conjugate distribution for the likelihood function, and hence be given by
 \begin{equation}
 p(\mathbf{w})=\mathcal{N}(\mathbf{w}\vert\mathbf{m}\_0,\mathbf{S}\_0),
 \end{equation}
@@ -370,7 +372,7 @@ where $\mathbf{m}\_0$ is the mean vector and $\mathbf{S}\_0$ is the covariance m
 
 By the [result]({% post_url 2021-11-22-normal-dist %}#marg-cond-gaussian), we have that the corresponding posterior distribution $p(\mathbf{w}\vert\mathbf{t})$, which is a conditional Gaussian distribution, is given by
 \begin{equation}
-p(\mathbf{w}\vert\mathbf{t})=\mathcal{N}(\mathbf{w}\vert\mathbf{m}\_N,\mathbf{S}\_N),\tag{13}\label{13}
+p(\mathbf{w}\vert\mathbf{t})=\mathcal{N}(\mathbf{w}\vert\mathbf{m}\_N,\mathbf{S}\_N),\label{eq:pd.1}
 \end{equation}
 where the mean $\mathbf{m}\_N$ and the precision matrix $\mathbf{S}\_N^{-1}$ are defined as
 \begin{align}
@@ -386,22 +388,22 @@ By this [property]({% post_url 2021-11-22-normal-dist %}#precision-eigenvalue) o
 \end{equation}
 Therefore, the maximum posterior weight vector is also the mean vector
 \begin{equation}
-\mathbf{w}\_\text{MAP}=\mathbf{m}\_N\tag{14}\label{14}
+\mathbf{w}\_\text{MAP}=\mathbf{m}\_N\label{eq:pd.2}
 \end{equation}
-Consider an infinite broad prior $\mathbf{S}\_0=\alpha^{-1}\mathbf{I}$ with $\alpha\to 0$, in this case the mean $\mathbf{m}\_N$ reduces to the maximum likelihood value $\mathbf{w}\_\text{ML}$ given by \eqref{8}. And if $N=0$, then the posterior distribution reverts to the prior.
+Consider an infinite broad prior $\mathbf{S}\_0=\alpha^{-1}\mathbf{I}$ with $\alpha\to 0$, in this case the mean $\mathbf{m}\_N$ reduces to the maximum likelihood value $\mathbf{w}\_\text{ML}$ given by \eqref{eq:lsr.5}. And if $N=0$, then the posterior distribution reverts to the prior.
 
-Furthermore, consider an additional data point $(\mathbf{x}\_{N+1},t_{N+1})$, the posterior given in \eqref{13} can be regarded as the prior distribution for that data point. If the model is given as \eqref{4}, the likelihood function of the newly added data point is then given in form
+Furthermore, consider an additional data point $(\mathbf{x}\_{N+1},t_{N+1})$, the posterior given in \eqref{eq:pd.1} can be regarded as the prior distribution for that data point. If the model is given as \eqref{eq:lsr.1}, the likelihood function of the newly added data point is then given in form
 \begin{equation}
 p(t_{N+1}\vert\mathbf{x}\_{N+1},\mathbf{w})=\left(\frac{\beta}{2\pi}\right)^{1/2}\exp\left(-\frac{(t_{N+1}-\mathbf{w}^\text{T}\boldsymbol{\phi}\_{N+1})\beta}{2}\right),
 \end{equation}
 where $\boldsymbol{\phi}\_{N+1}=\boldsymbol{\phi}(\mathbf{x}\_{N+1})$.
 Therefore, the posterior distribution of the data point $(\mathbf{x}\_{N+1},t_{N+1})$ can be computed as
 \begin{align}
-p(\mathbf{w}\vert t_{N+1},\mathbf{x}\_{N+1},\mathbf{t})&\propto p(t_{N+1}\vert\mathbf{x}\_{N+1},\mathbf{w})p(\mathbf{w}\vert\mathbf{t}) \\\\ &=\exp\Big[-\frac{1}{2}(\mathbf{w}-\mathbf{m}\_N)^\text{T}\mathbf{S}\_N^{-1}(\mathbf{w}-\mathbf{m}\_N)-\frac{1}{2}(t_{N+1}-\mathbf{w}^\text{T}\boldsymbol{\phi}\_{N+1})^2\beta\Big] \\\\ &=\exp\Big[-\frac{1}{2}\big(\mathbf{w}^\text{T}\mathbf{S}\_N^{-1}\mathbf{w}+\beta\mathbf{w}^\text{T}\boldsymbol{\phi}\_{N+1}\boldsymbol{\phi}\_{N+1}^\text{T}\mathbf{w}\big)+\mathbf{w}^\text{T}\big(\mathbf{S}\_N^{-1}\mathbf{m}\_N+t_{N+1}\beta\boldsymbol{\phi}\_{N+1}\big)+c\Big] \\\\ &=\exp\Big[-\frac{1}{2}\mathbf{w}^\text{T}\big(\mathbf{S}\_N^{-1}+\beta\boldsymbol{\phi}\_{N+1}\boldsymbol{\phi}\_{N+1}^\text{T}\big)\mathbf{w}+\mathbf{w}^\text{T}\big(\mathbf{S}\_N^{-1}\mathbf{m}\_N+t_{N+1}\beta\boldsymbol{\phi}\_{N+1}\big)+c\Big],
+&\hspace{0.7cm}p(\mathbf{w}\vert t_{N+1},\mathbf{x}\_{N+1},\mathbf{t}) \\\\ &\propto p(t_{N+1}\vert\mathbf{x}\_{N+1},\mathbf{w})p(\mathbf{w}\vert\mathbf{t}) \\\\ &=\exp\Big[-\frac{1}{2}(\mathbf{w}-\mathbf{m}\_N)^\text{T}\mathbf{S}\_N^{-1}(\mathbf{w}-\mathbf{m}\_N)-\frac{1}{2}(t_{N+1}-\mathbf{w}^\text{T}\boldsymbol{\phi}\_{N+1})^2\beta\Big] \\\\ &=\exp\Big[-\frac{1}{2}\big(\mathbf{w}^\text{T}\mathbf{S}\_N^{-1}\mathbf{w}+\beta\mathbf{w}^\text{T}\boldsymbol{\phi}\_{N+1}\boldsymbol{\phi}\_{N+1}^\text{T}\mathbf{w}\big)+\mathbf{w}^\text{T}\big(\mathbf{S}\_N^{-1}\mathbf{m}\_N+t_{N+1}\beta\boldsymbol{\phi}\_{N+1}\big)+c\Big] \\\\ &=\exp\Big[-\frac{1}{2}\mathbf{w}^\text{T}\big(\mathbf{S}\_N^{-1}+\beta\boldsymbol{\phi}\_{N+1}\boldsymbol{\phi}\_{N+1}^\text{T}\big)\mathbf{w}+\mathbf{w}^\text{T}\big(\mathbf{S}\_N^{-1}\mathbf{m}\_N+t_{N+1}\beta\boldsymbol{\phi}\_{N+1}\big)+c\Big],
 \end{align}
 where $c$ is a constant w.r.t $\mathbf{w}$, i.e., $c$ is independent of $\mathbf{w}$, which claims that the posterior distribution is also a Gaussian, given by
 \begin{equation}
-p(\mathbf{w}\vert t_{N+1},\mathbf{x}\_{N+1},\mathbf{t})=\mathcal{N}(\mathbf{w}\vert\mathbf{m}\_{N+1},\mathbf{S}\_{N+1})\tag{15}\label{15}
+p(\mathbf{w}\vert t_{N+1},\mathbf{x}\_{N+1},\mathbf{t})=\mathcal{N}(\mathbf{w}\vert\mathbf{m}\_{N+1},\mathbf{S}\_{N+1})\label{eq:pd.3}
 \end{equation}
 where the precision matrix $\mathbf{S}\_{N+1}$ is defined as
 \begin{equation}
@@ -415,7 +417,7 @@ Consider the prior as a Gaussian, defined by
 \begin{equation}
 p(\mathbf{w}\vert\alpha)=\mathcal{N}(\mathbf{w}\vert\mathbf{0},\alpha^{-1}\mathbf{I}),
 \end{equation}
-Therefore, the corresponding posterior over $\mathbf{w}$, $p(\mathbf{w}\vert\mathbf{t})$, will be given as \eqref{13} with
+Therefore, the corresponding posterior over $\mathbf{w}$, $p(\mathbf{w}\vert\mathbf{t})$, will be given as \eqref{eq:pd.1} with
 \begin{align}
 \mathbf{m}\_N&=\beta\mathbf{S}\_N\boldsymbol{\Phi}^\text{T}\mathbf{t} \\\\ \mathbf{S}\_N^{-1}&=\alpha\mathbf{I}+\beta\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}
 \end{align}
@@ -423,33 +425,33 @@ Taking the natural logarithm of the posterior distribution gives us the sum of t
 \begin{equation}
 \log p(\mathbf{w}\vert\mathbf{t})=-\frac{\beta}{2}\sum_{n=1}^{N}\big(t_n-\mathbf{w}^\text{T}\boldsymbol{\phi}(\mathbf{x}\_n)\big)^2-\frac{\alpha}{2}\mathbf{w}^\text{T}\mathbf{w}+c
 \end{equation}
-Therefore, maximizing this posterior is equivalent to minimizing the sum of the sum-of-squares error function with addition of a quadratic regularization term, which is exactly the equation \eqref{10} with $\lambda=\alpha/\beta$.
+Therefore, maximizing this posterior is equivalent to minimizing the sum of the sum-of-squares error function with addition of a quadratic regularization term, which is exactly the equation \eqref{eq:rls.2} with $\lambda=\alpha/\beta$.
 
-In addition, by $\eqref{14}$, we have that
+In addition, by $\eqref{eq:pd.2}$, we have that
 \begin{equation}
 \mathbf{w}\_\text{MAP}=\mathbf{m}\_N=\beta\left(\alpha\mathbf{I}+\beta\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}^\text{T}\mathbf{t}=\left(\frac{\alpha}{\beta}\mathbf{I}+\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\right)^{-1}\boldsymbol{\Phi}^\text{T}\mathbf{t},
 \end{equation}
-which for setting $\lambda=\alpha/\beta$ gives us exactly the solution \eqref{11} for the regularized least squares \eqref{10}.
+which for setting $\lambda=\alpha/\beta$ gives us exactly the solution \eqref{eq:rls.3} for the regularized least squares \eqref{eq:rls.2}.
 
 #### Predictive distribution
 {: #pred-dist-reg}
 The **predictive distribution** that gives us the information to make predictions $t$ for new values $\mathbf{x}$ is defined as
 \begin{equation}
-p(t\vert\mathbf{x},\mathbf{t},\alpha,\beta)=\int p(t\vert\mathbf{x},\mathbf{w},\beta)p(\mathbf{w}\vert\mathbf{x},\mathbf{t},\alpha,\beta)\,d\mathbf{w}\tag{16}\label{16}
+p(t\vert\mathbf{x},\mathbf{t},\alpha,\beta)=\int p(t\vert\mathbf{x},\mathbf{w},\beta)p(\mathbf{w}\vert\mathbf{x},\mathbf{t},\alpha,\beta)\,d\mathbf{w}\label{eq:pdr.1}
 \end{equation}
 in which $\mathbf{t}$ is the vector of target values from the training set.
 
-The conditional distribution $p(t\vert\mathbf{x},\mathbf{w},\beta)$ of the target variable is given by \eqref{4}, and the posterior weight distribution $p(\mathbf{w}\vert\mathbf{x},\mathbf{t},\alpha,\beta)$ is given by \eqref{13}. Thus, as a [marginal Gaussian distribution]({% post_url 2021-11-22-normal-dist %}#marg-cond-gaussian), the distribution \eqref{16} can be rewritten as
+The conditional distribution $p(t\vert\mathbf{x},\mathbf{w},\beta)$ of the target variable is given by \eqref{eq:lsr.1}, and the posterior weight distribution $p(\mathbf{w}\vert\mathbf{x},\mathbf{t},\alpha,\beta)$ is given by \eqref{eq:pd.1}. Thus, as a [marginal Gaussian distribution]({% post_url 2021-11-22-normal-dist %}#marg-cond-gaussian), the distribution \eqref{eq:pdr.1} can be rewritten as
 \begin{align}
 p(t\vert\mathbf{x},\mathbf{t},\mathbf{w},\beta)&=\int\mathcal{N}(t\vert\mathbf{w}^\text{T}\boldsymbol{\phi}(\mathbf{x}),\beta^{-1})\mathcal{N}(\mathbf{w}\vert\mathbf{m}\_N,\mathbf{S}\_N)\,d\mathbf{w} \\\\ &=\mathcal{N}(t\vert\mathbf{m}\_N^\text{T}\boldsymbol{\phi}(\mathbf{x}),\sigma_N^2(\mathbf{x})),
 \end{align}
 where the variance $\sigma_N^2(\mathbf{x})$ of the predictive distribution is defined as
 \begin{equation}
-\sigma_N^2(\mathbf{x})\doteq\beta^{-1}+\boldsymbol{\phi}(\mathbf{x})^\text{T}\mathbf{S}\_N\boldsymbol{\phi}(\mathbf{x})\tag{17}\label{17}
+\sigma_N^2(\mathbf{x})\doteq\beta^{-1}+\boldsymbol{\phi}(\mathbf{x})^\text{T}\mathbf{S}\_N\boldsymbol{\phi}(\mathbf{x})\label{eq:pdr.2}
 \end{equation}
-The first term in \eqref{17} represents the noise on the data, while the second term reflects the uncertainty associated with the parameters $\mathbf{w}$.
+The first term in \eqref{eq:pdr.2} represents the noise on the data, while the second term reflects the uncertainty associated with the parameters $\mathbf{w}$.
 
-It is worth noting that as additional data points are observed, the posterior distribution becomes narrower. In particular, consider an additional data point $(\mathbf{x}\_{N+1},t_{N+1})$. Therefore, as given by the result \eqref{15}, its posterior distribution is
+It is worth noting that as additional data points are observed, the posterior distribution becomes narrower. In particular, consider an additional data point $(\mathbf{x}\_{N+1},t_{N+1})$. Therefore, as given by the result \eqref{eq:pd.3}, its posterior distribution is
 \begin{equation}
 p(\mathbf{w}\vert\mathbf{m}\_{N+1},\mathbf{S}\_{N+1}),
 \end{equation}
@@ -459,15 +461,15 @@ where
 \end{align}
 Therefore, the variance of the corresponding predictive distribution for the newly added data point is then given as
 \begin{equation}
-\sigma_{N+1}^2(\mathbf{x})=\frac{1}{\beta}+\boldsymbol{\phi}(\mathbf{x})^\text{T}\mathbf{S}\_{N+1}\boldsymbol{\phi}(\mathbf{x})=\frac{1}{\beta}+\boldsymbol{\phi}(\mathbf{x})^\text{T}\big(\mathbf{S}\_{N}^{-1}+\beta\boldsymbol{\phi}\_{N+1}\boldsymbol{\phi}\_{N+1}^\text{T}\big)^{-1}\boldsymbol{\phi}(\mathbf{x})\tag{18}\label{18}
+\sigma_{N+1}^2(\mathbf{x})=\frac{1}{\beta}+\boldsymbol{\phi}(\mathbf{x})^\text{T}\mathbf{S}\_{N+1}\boldsymbol{\phi}(\mathbf{x})=\frac{1}{\beta}+\boldsymbol{\phi}(\mathbf{x})^\text{T}\big(\mathbf{S}\_{N}^{-1}+\beta\boldsymbol{\phi}\_{N+1}\boldsymbol{\phi}\_{N+1}^\text{T}\big)^{-1}\boldsymbol{\phi}(\mathbf{x})\label{eq:pdr.3}
 \end{equation}
 Using the matrix identity
 \begin{equation}
 (\mathbf{M}+\mathbf{v}\mathbf{v}^\text{T})^{-1}=\mathbf{M}^{-1}-\frac{(\mathbf{M}^{-1}\mathbf{v})(\mathbf{v}^\text{T}\mathbf{M}^{-1})}{1+\mathbf{v}^\text{T}\mathbf{M}^{-1}\mathbf{v}},
 \end{equation}
-in the equation \eqref{18} gives us
+in the equation \eqref{eq:pdr.3} gives us
 \begin{align}
-\sigma_{N+1}^2(\mathbf{x})&=\frac{1}{\beta}+\boldsymbol{\phi}(\mathbf{x})^\text{T}\left(\mathbf{S}\_N-\frac{\beta\mathbf{S}\_N\boldsymbol{\phi}\_{N+1}\boldsymbol{\phi}\_{N+1}^\text{T}\mathbf{S}\_N}{1+\beta\boldsymbol{\phi}\_{N+1}^\text{T}\mathbf{S}\_N\boldsymbol{\phi}\_{N+1}}\right)\boldsymbol{\phi}(\mathbf{x}) \\\\ &=\sigma_N^2(\mathbf{x})-\beta\frac{\boldsymbol{\phi}(\mathbf{x})^\text{T}\mathbf{S}\_N\boldsymbol{\phi}\_{N+1}\boldsymbol{\phi}\_{N+1}^\text{T}\mathbf{S}\_N\boldsymbol{\phi}(\mathbf{x})}{1+\beta\boldsymbol{\phi}\_{N+1}^\text{T}\mathbf{S}\_N\boldsymbol{\phi}\_{N+1}}\leq\sigma_N^2(\mathbf{x}),\tag{19}\label{19}
+\sigma_{N+1}^2(\mathbf{x})&=\frac{1}{\beta}+\boldsymbol{\phi}(\mathbf{x})^\text{T}\left(\mathbf{S}\_N-\frac{\beta\mathbf{S}\_N\boldsymbol{\phi}\_{N+1}\boldsymbol{\phi}\_{N+1}^\text{T}\mathbf{S}\_N}{1+\beta\boldsymbol{\phi}\_{N+1}^\text{T}\mathbf{S}\_N\boldsymbol{\phi}\_{N+1}}\right)\boldsymbol{\phi}(\mathbf{x}) \\\\ &=\sigma_N^2(\mathbf{x})-\beta\frac{\boldsymbol{\phi}(\mathbf{x})^\text{T}\mathbf{S}\_N\boldsymbol{\phi}\_{N+1}\boldsymbol{\phi}\_{N+1}^\text{T}\mathbf{S}\_N\boldsymbol{\phi}(\mathbf{x})}{1+\beta\boldsymbol{\phi}\_{N+1}^\text{T}\mathbf{S}\_N\boldsymbol{\phi}\_{N+1}}\leq\sigma_N^2(\mathbf{x}),
 \end{align}
 since
 \begin{equation}
@@ -479,7 +481,7 @@ and since
 \end{equation}
 due to $\mathbf{S}\_N$ is the covariance matrix of the posterior distribution $p(\mathbf{w}\vert\mathbf{x},\mathbf{t},\alpha,\beta)$, which implies that it is positive semi-definite.
 
-In other words, as $N\to\infty$, the second term in \eqref{17} goes to zero, and the variance of the predictive distribution solely depends on $\beta$.
+In other words, as $N\to\infty$, the second term in \eqref{eq:pdr.2} goes to zero, and the variance of the predictive distribution solely depends on $\beta$.
 
 ## Linear models for Classification
 {:# lin-models-clf}
@@ -541,9 +543,9 @@ Recall that in the regression task, we used least squares to find the models in 
 
 To begin, we have that for $k=1,\ldots,K$, each class $\mathcal{C}\_k$ is represented the model
 \begin{equation}
-y_k(\mathbf{x})=\mathbf{w}\_k^\text{T}\mathbf{x}+w_{k,0}\tag{20}\label{20}
+y_k(\mathbf{x})=\mathbf{w}\_k^\text{T}\mathbf{x}+w_{k,0}\label{eq:lsc.1}
 \end{equation}
-By giving the bias parameter $w_{k,0}$ a dummy input variable $x_0=0$, we can rewrite \eqref{20} in a more convenient form
+By giving the bias parameter $w_{k,0}$ a dummy input variable $x_0=0$, we can rewrite \eqref{eq:lsc.1} in a more convenient form
 \begin{equation}
 y_k(\mathbf{x})=\widetilde{\mathbf{w}}\_k^\text{T}\widetilde{\mathbf{x}},
 \end{equation}
@@ -553,7 +555,7 @@ where
 \end{equation}
 Thus, we can vectorize the $K$ linear models into
 \begin{equation}
-\mathbf{y}(\mathbf{x})=\widetilde{\mathbf{W}}^\text{T}\widetilde{\mathbf{x}},\tag{21}\label{21}
+\mathbf{y}(\mathbf{x})=\widetilde{\mathbf{W}}^\text{T}\widetilde{\mathbf{x}},\label{eq:lsc.2}
 \end{equation}
 where $\widetilde{\mathbf{W}}$ is the parameter matrix whose $k$-th column is the $(D+1)$-dimensional vector $\widetilde{\mathbf{w}}\_k$
 \begin{equation}
@@ -579,7 +581,7 @@ Setting this derivative equal to zero, we obtain the least squares solution for 
 \begin{equation}
 \widetilde{\mathbf{W}}=(\widetilde{\mathbf{X}}^\text{T}\widetilde{\mathbf{X}})^{-1}\widetilde{\mathbf{X}}^\text{T}\mathbf{T}=\widetilde{\mathbf{X}}^\dagger\mathbf{T}
 \end{equation}
-Therefore, the discriminant function \eqref{21} can be rewritten as
+Therefore, the discriminant function \eqref{eq:lsc.2} can be rewritten as
 \begin{equation}
 \mathbf{y}(\mathbf{x})=\widetilde{\mathbf{W}}^\text{T}\widetilde{\mathbf{x}}=\mathbf{T}^\text{T}\big(\widetilde{\mathbf{X}}^\dagger\big)^\text{T}\widetilde{\mathbf{x}}
 \end{equation}
@@ -588,7 +590,7 @@ Therefore, the discriminant function \eqref{21} can be rewritten as
 {: #fisher-lin-disc}
 One way to view a linear classification model is in terms of dimensional reduction. In particular, given an $D$-dimensional input $\mathbf{x}$, we project it down to one dimension using
 \begin{equation}
-y=\mathbf{w}^\text{T}\mathbf{x}\tag{22}\label{22}
+y=\mathbf{w}^\text{T}\mathbf{x}
 \end{equation}
 
 ##### Binary classification
@@ -629,7 +631,7 @@ The between-class variance is simply defined to be the squared of the difference
 \end{equation}
 Hence, the ratio of the between-class variance to the within-class variance, called the **Fisher criterion**, can be defined as
 \begin{align}
-J(\mathbf{w})&=\frac{(m_2-m_1)^2}{s_1^2+s_2^2} \\\\ &=\frac{\big\Vert\mathbf{w}^\text{T}(\mathbf{m}\_2-\mathbf{m}\_1)\big\Vert_2^2}{\sum_{n\in\mathcal{C}\_1}\big\Vert\mathbf{w}^\text{T}(\mathbf{x}\_n-\mathbf{m}\_1)\big\Vert_2^2+\sum_{n\in\mathcal{C}\_2}\big\Vert\mathbf{w}^\text{T}(\mathbf{x}\_n-\mathbf{m}\_2)\big\Vert_2^2} \\\\ &=\frac{\mathbf{w}^\text{T}\mathbf{S}\_\text{B}\mathbf{w}}{\mathbf{w}^\text{T}\mathbf{S}\_\text{W}\mathbf{w}},\tag{23}\label{23}
+J(\mathbf{w})&=\frac{(m_2-m_1)^2}{s_1^2+s_2^2} \\\\ &=\frac{\big\Vert\mathbf{w}^\text{T}(\mathbf{m}\_2-\mathbf{m}\_1)\big\Vert_2^2}{\sum_{n\in\mathcal{C}\_1}\big\Vert\mathbf{w}^\text{T}(\mathbf{x}\_n-\mathbf{m}\_1)\big\Vert_2^2+\sum_{n\in\mathcal{C}\_2}\big\Vert\mathbf{w}^\text{T}(\mathbf{x}\_n-\mathbf{m}\_2)\big\Vert_2^2} \\\\ &=\frac{\mathbf{w}^\text{T}\mathbf{S}\_\text{B}\mathbf{w}}{\mathbf{w}^\text{T}\mathbf{S}\_\text{W}\mathbf{w}},\label{eq:flbc.1}
 \end{align}
 where
 \begin{equation}
@@ -641,7 +643,7 @@ is called the **between-class covariance matrix** and
 \end{equation}
 is called the **total within-class covariance matrix**.
 
-As usual, taking the gradient of \eqref{23} w.r.t $\mathbf{w}$, we have
+As usual, taking the gradient of \eqref{eq:flbc.1} w.r.t $\mathbf{w}$, we have
 \begin{align}
 \nabla_\mathbf{w}J(\mathbf{w})&=\nabla_\mathbf{w}\frac{\mathbf{w}^\text{T}\mathbf{S}\_\text{B}\mathbf{w}}{\mathbf{w}^\text{T}\mathbf{S}\_\text{W}\mathbf{w}} \\\\ &=\frac{\mathbf{w}^\text{T}\mathbf{S}\_\text{W}\mathbf{w}(\mathbf{S}\_\text{B}+\mathbf{S}\_\text{B}^\text{T})\mathbf{w}-\mathbf{w}^\text{T}\mathbf{S}\_\text{B}\mathbf{w}(\mathbf{S}\_\text{W}+\mathbf{S}\_\text{W}^\text{T})\mathbf{w}}{\big\Vert\mathbf{w}^\text{T}\mathbf{S}\_\text{W}\mathbf{w}\big\Vert_2^2} \\\\ &=\frac{\mathbf{w}^\text{T}\mathbf{S}\_\text{W}\mathbf{w}\mathbf{S}\_\text{B}\mathbf{w}-\mathbf{w}^\text{T}\mathbf{S}\_\text{B}\mathbf{w}\mathbf{S}\_\text{W}\mathbf{w}}{\big\Vert\mathbf{w}^\text{T}\mathbf{S}\_\text{W}\mathbf{w}\big\Vert_2^2} \\\\ &\propto\mathbf{w}^\text{T}\mathbf{S}\_\text{W}\mathbf{w}\mathbf{S}\_\text{B}\mathbf{w}-\mathbf{w}^\text{T}\mathbf{S}\_\text{B}\mathbf{w}\mathbf{S}\_\text{W}\mathbf{w}
 \end{align}
@@ -655,7 +657,7 @@ Since $\mathbf{w}^\text{T}\mathbf{S}\_\text{W}\mathbf{w}$ and $\mathbf{w}^\text{
 \end{equation}
 Multiply both side by $\mathbf{S}\_\text{W}^{-1}$, we obtain
 \begin{align}
-\mathbf{w}&\propto\mathbf{S}\_\text{W}^{-1}\mathbf{S}\_\text{B}\mathbf{w} \\\\ &=\mathbf{S}\_\text{W}^{-1}(\mathbf{m}\_2-\mathbf{m}\_1)(\mathbf{m}\_2-\mathbf{m}\_1)^\text{T}\mathbf{w} \\\\ &\propto\mathbf{S}\_\text{W}^{-1}(\mathbf{m}\_2-\mathbf{m}\_1),\tag{24}\label{24}
+\mathbf{w}&\propto\mathbf{S}\_\text{W}^{-1}\mathbf{S}\_\text{B}\mathbf{w} \\\\ &=\mathbf{S}\_\text{W}^{-1}(\mathbf{m}\_2-\mathbf{m}\_1)(\mathbf{m}\_2-\mathbf{m}\_1)^\text{T}\mathbf{w} \\\\ &\propto\mathbf{S}\_\text{W}^{-1}(\mathbf{m}\_2-\mathbf{m}\_1),\label{eq:flbc.2}
 \end{align}
 since $(\mathbf{m}\_2-\mathbf{m}\_1)^\text{T}\mathbf{w}$ is a scalar.
 
@@ -663,7 +665,7 @@ If the within-class covariance matrix $\mathbf{S}\_\text{W}$ is isotropic[^1], w
 \begin{equation}
 \mathbf{w}\propto\mathbf{m}\_2-\mathbf{m}\_1
 \end{equation}
-The result \eqref{24} is called **Fisher's linear discriminant**.
+The result \eqref{eq:flbc.2} is called **Fisher's linear discriminant**.
 
 With this $\mathbf{w}$, we can project our data down into one dimension and from projected data, we construct a discriminant by selecting a threshold $y_0$ such that $\mathbf{x}$ belongs to class $\mathcal{C}\_1$ if $y(\mathbf{x})\gg y_0$ and otherwise it belongs to $\mathcal{C}\_1$.
 
@@ -675,7 +677,7 @@ y=\mathbf{w}\_k^\text{T}\mathbf{x},
 \end{equation}
 where $k=1,\ldots,D'$. Thus, as usual we can vectorize these feature values as
 \begin{equation}
-\mathbf{y}=\mathbf{W}^\text{T}\mathbf{x},\tag{25}\label{25}
+\mathbf{y}=\mathbf{W}^\text{T}\mathbf{x},\label{eq:flc.1}
 \end{equation}
 where
 \begin{equation}
@@ -689,7 +691,7 @@ where $N_k$ is the number of points in class $\mathcal{C}\_k$  for $k=1,\ldots,K
 
 The within-class variance covariance matrix $\mathbf{S}\_\text{W}$ now can be simply generalized as
 \begin{equation}
-\mathbf{S}\_\text{W}=\sum_{k=1}^{K}\mathbf{S}\_k,\tag{26}\label{26}
+\mathbf{S}\_\text{W}=\sum_{k=1}^{K}\mathbf{S}\_k,\label{eq:flc.2}
 \end{equation}
 where
 \begin{equation}
@@ -703,7 +705,7 @@ where
 \begin{equation}
 \mathbf{m}=\frac{1}{N}\sum_{n=1}^{N}\mathbf{x}\_n=\frac{1}{N}\sum_{k=1}^{K}N_k\mathbf{m}\_k
 \end{equation}
-is the mean of the whole data set, where $N=\sum_{k=1}^{K}N_k$ is the number of the data points. The total covariance matrix can be decomposed into the sum of the within-class covariance matrix $\mathbf{S}\_\text{W}$, as given in \eqref{26} with a matrix $\mathbf{S}\_\text{B}$, defined as a measure of the between-class covariance
+is the mean of the whole data set, where $N=\sum_{k=1}^{K}N_k$ is the number of the data points. The total covariance matrix can be decomposed into the sum of the within-class covariance matrix $\mathbf{S}\_\text{W}$, as given in \eqref{eq:flc.2} with a matrix $\mathbf{S}\_\text{B}$, defined as a measure of the between-class covariance
 \begin{equation}
 \mathbf{S}\_\text{T}=\mathbf{S}\_\text{W}+\mathbf{S}\_\text{B},
 \end{equation}
@@ -711,7 +713,7 @@ where
 \begin{equation}
 \mathbf{S}\_\text{B}=\sum_{k=1}^{K}N_k(\mathbf{m}\_k-\mathbf{m})(\mathbf{m}\_k-\mathbf{m})^\text{T}
 \end{equation}
-Using \eqref{25}, we project the whole data set into the $D'$-dimensional space of $\mathbf{y}$, the corresponding within-class covariance matrix of the transformed data are given as
+Using \eqref{eq:flc.1}, we project the whole data set into the $D'$-dimensional space of $\mathbf{y}$, the corresponding within-class covariance matrix of the transformed data are given as
 \begin{align}
 \mathbf{s}\_\text{W}&=\sum_{k=1}^{K}\sum_{n\in\mathcal{C}\_k}\left(\mathbf{W}^\text{T}\mathbf{x}\_n-\mathbf{W}^\text{T}\mathbf{m}\_k\right)\left(\mathbf{W}^\text{T}\mathbf{x}\_n-\mathbf{W}^\text{T}\mathbf{m}\_k\right)^\text{T} \\\\ &=\sum_{k=1}^{K}\sum_{n\in\mathcal{C}\_k}(\mathbf{y}\_n-\boldsymbol{\mu}\_k)(\mathbf{y}\_n-\boldsymbol{\mu}\_k)^\text{T} \\\\ &=\mathbf{W}\mathbf{S}\_\text{W}\mathbf{W}^\text{T}
 \end{align}
@@ -723,7 +725,7 @@ where
 \begin{align}
 \boldsymbol{\mu}\_k&=\mathbf{W}^\text{T}\mathbf{m}\_k=\mathbf{W}^\text{T}\frac{1}{N_k}\sum_{n\in\mathcal{C}\_k}\mathbf{x}\_n=\frac{1}{N_k}\sum_{n\in\mathcal{C}\_k}\mathbf{y}\_n, \\\\ \boldsymbol{\mu}&=\mathbf{W}^\text{T}\mathbf{m}=\mathbf{W}^\text{T}\frac{1}{N}\sum_{k=1}^{K}N_k\mathbf{m}\_k=\frac{1}{N}\sum_{k=1}^{K}N_k\boldsymbol{\mu}\_k
 \end{align}
-Analogy to the case of binary classification with Fisher's criterion \eqref{23}, we need a new measure that is large when the between-class covariance is large and when the within-class covariance is small. A simple choice of criterion is given as
+Analogy to the case of binary classification with Fisher's criterion \eqref{eq:flbc.1}, we need a new measure that is large when the between-class covariance is large and when the within-class covariance is small. A simple choice of criterion is given as
 \begin{equation}
 J(\mathbf{W})=\text{Tr}\left(\mathbf{s}\_\text{W}^{-1}\mathbf{s}\_\text{B}\right)
 \end{equation}
@@ -754,7 +756,7 @@ When using the generative approach to solve the problem of classification, we fi
 
 Consider the binary case, in which specifically the posterior probability for class $\mathcal{C}\_1$ can be computed as
 \begin{align}
-p(\mathcal{C}\_1\vert\mathbf{x})&=\frac{p(\mathbf{x}\vert\mathcal{C}\_1)p(\mathcal{C}\_1)}{p(\mathbf{x}\vert\mathcal{C}\_1)p(\mathcal{C}\_1)+p(\mathbf{x}\vert\mathcal{C}\_2)p(\mathcal{C}\_2)} \\\\ &=\frac{1}{1+\frac{p(\mathbf{x}\vert\mathcal{C}\_2)p(\mathcal{C}\_2)}{p(\mathbf{x}\vert\mathcal{C}\_1)p(\mathcal{C}\_1)}} \\\\ &=\frac{1}{1+\exp(-a)}=\sigma(a)\tag{27}\label{27}
+p(\mathcal{C}\_1\vert\mathbf{x})&=\frac{p(\mathbf{x}\vert\mathcal{C}\_1)p(\mathcal{C}\_1)}{p(\mathbf{x}\vert\mathcal{C}\_1)p(\mathcal{C}\_1)+p(\mathbf{x}\vert\mathcal{C}\_2)p(\mathcal{C}\_2)} \\\\ &=\frac{1}{1+\frac{p(\mathbf{x}\vert\mathcal{C}\_2)p(\mathcal{C}\_2)}{p(\mathbf{x}\vert\mathcal{C}\_1)p(\mathcal{C}\_1)}} \\\\ &=\frac{1}{1+\exp(-a)}=\sigma(a)\label{eq:pgm.1}
 \end{align}
 where
 \begin{equation}
@@ -766,7 +768,7 @@ and where $\sigma(\cdot)$ is the <span id='logistic-sigmoid-func'>logistic sigmo
 \end{equation}
 For the case of multi-class, $K>2$, the posterior probability for class $\mathcal{C}\_k$ can be generalized as
 \begin{align}
-p(\mathcal{C}\_k\vert\mathbf{x})&=\frac{p(\mathbf{x}\vert\mathcal{C}\_k)p(\mathcal{C}\_k)}{\sum_{i=1}^{K}p(\mathbf{x}\vert\mathcal{C}\_i)p(\mathcal{C}\_i)}=\dfrac{\exp\Big[\log\big(p(\mathbf{x}\vert\mathcal{C}\_k)p(\mathcal{C}\_k)\big)\Big]}{\sum_{i=1}^{K}\exp\Big[\log\big(p(\mathbf{x}\vert\mathcal{C}\_i)p(\mathcal{C}\_i)\big)\Big]} \\\\ &=\frac{\exp(a_k)}{\sum_{i=1}^{K}\exp(a_i)}=\sigma(\mathbf{a})\_k\tag{28}\label{28}
+p(\mathcal{C}\_k\vert\mathbf{x})&=\frac{p(\mathbf{x}\vert\mathcal{C}\_k)p(\mathcal{C}\_k)}{\sum_{i=1}^{K}p(\mathbf{x}\vert\mathcal{C}\_i)p(\mathcal{C}\_i)}=\dfrac{\exp\Big[\log\big(p(\mathbf{x}\vert\mathcal{C}\_k)p(\mathcal{C}\_k)\big)\Big]}{\sum_{i=1}^{K}\exp\Big[\log\big(p(\mathbf{x}\vert\mathcal{C}\_i)p(\mathcal{C}\_i)\big)\Big]} \\\\ &=\frac{\exp(a_k)}{\sum_{i=1}^{K}\exp(a_i)}=\sigma(\mathbf{a})\_k\label{eq:pgm.2}
 \end{align}
 where
 \begin{align}
@@ -788,21 +790,21 @@ Thus, the density for class $\mathcal{C}\_k$ is defined as
 \begin{equation}
 p(\mathbf{x}\vert\mathcal{C}\_k)=\frac{1}{(2\pi)^{D/2}\big\vert\boldsymbol{\Sigma}\big\vert^{1/2}}\exp\left[-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu}\_k)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu}\_k)\right]
 \end{equation}
-In the binary case, in which the densities above become Bivariate Normal, by \eqref{27} we have that
+In the binary case, in which the densities above become Bivariate Normal, by \eqref{eq:pgm.1} we have that
 \begin{align}
-p(\mathcal{C}\_1\vert\mathbf{x})&=\sigma\left(\log\frac{p(\mathbf{x}\vert\mathcal{C}\_2)p(\mathcal{C}\_2)}{p(\mathbf{x}\vert\mathcal{C}\_1)p(\mathcal{C}\_1)}\right) \\\\ &=\sigma\left(\log\frac{\exp\Big[-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu}\_2)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu}\_2)\Big]p(\mathcal{C}\_2)}{\exp\Big[-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu}\_1)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu}\_1)\Big]p(\mathcal{C}\_1)}\right) \\\\ &=\sigma\Bigg(-\frac{1}{2}\Big[-\mathbf{x}^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_2-\boldsymbol{\mu}\_2^\text{T}\boldsymbol{\Sigma}^{-1}\mathbf{x}+\boldsymbol{\mu}\_2^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_2+\mathbf{x}^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_1 \\\\ &\hspace{2cm}+\boldsymbol{\mu}\_1^\text{T}\boldsymbol{\Sigma}^{-1}\mathbf{x}-\boldsymbol{\mu}\_1^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_1\Big]-\log\frac{p(\mathcal{C}\_2)}{p(\mathcal{C}\_1)}\Bigg) \\\\ &=\sigma\left(\boldsymbol{\Sigma}^{-1}\left(\boldsymbol{\mu}\_1-\boldsymbol{\mu}\_2\right)^\text{T}\mathbf{x}-\frac{1}{2}\boldsymbol{\mu}\_1^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_1+\frac{1}{2}\boldsymbol{\mu}\_2^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_2+\log\frac{p(\mathcal{C}\_1)}{p(\mathcal{C}\_2)}\right)\tag{29}\label{29}
+p(\mathcal{C}\_1\vert\mathbf{x})&=\sigma\left(\log\frac{p(\mathbf{x}\vert\mathcal{C}\_2)p(\mathcal{C}\_2)}{p(\mathbf{x}\vert\mathcal{C}\_1)p(\mathcal{C}\_1)}\right) \\\\ &=\sigma\left(\log\frac{\exp\Big[-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu}\_2)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu}\_2)\Big]p(\mathcal{C}\_2)}{\exp\Big[-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu}\_1)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu}\_1)\Big]p(\mathcal{C}\_1)}\right) \\\\ &=\sigma\Bigg(-\frac{1}{2}\Big[-\mathbf{x}^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_2-\boldsymbol{\mu}\_2^\text{T}\boldsymbol{\Sigma}^{-1}\mathbf{x}+\boldsymbol{\mu}\_2^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_2+\mathbf{x}^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_1\nonumber \\\\ &\hspace{2cm}+\boldsymbol{\mu}\_1^\text{T}\boldsymbol{\Sigma}^{-1}\mathbf{x}-\boldsymbol{\mu}\_1^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_1\Big]-\log\frac{p(\mathcal{C}\_2)}{p(\mathcal{C}\_1)}\Bigg) \\\\ &=\sigma\left(\boldsymbol{\Sigma}^{-1}\left(\boldsymbol{\mu}\_1-\boldsymbol{\mu}\_2\right)^\text{T}\mathbf{x}-\frac{1}{2}\boldsymbol{\mu}\_1^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_1+\frac{1}{2}\boldsymbol{\mu}\_2^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_2+\log\frac{p(\mathcal{C}\_1)}{p(\mathcal{C}\_2)}\right)\label{eq:ggm.1}
 \end{align}
 Let
 \begin{align}
 \mathbf{w}&=\boldsymbol{\Sigma}^{-1}(\boldsymbol{\mu}\_1-\boldsymbol{\mu}\_2), \\\\ w_0&=-\frac{1}{2}\boldsymbol{\mu}\_1^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_1+\frac{1}{2}\boldsymbol{\mu}\_2^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_2+\log\frac{p(\mathcal{C}\_1)}{p(\mathcal{C}\_2)},
 \end{align}
-we have \eqref{29} can be rewritten in more convenient form as
+we have \eqref{eq:ggm.1} can be rewritten in more convenient form as
 \begin{equation}
 p(\mathcal{C}\_1\vert\mathbf{x})=\sigma\big(\mathbf{w}^\text{T}\mathbf{x}+w_0\big)
 \end{equation}
 From the derivation, we see that by making an assumption of having the same covariance matrix $\boldsymbol{\Sigma}$ across the densities helped us remove out the quadratic terms of $\mathbf{x}$, which leads us to ending up with a logistic sigmoid of a linear function of $\mathbf{x}$.
 
-For the multi-dimensional case, $K>2$, by \eqref{28}, we have that the density for class $\mathcal{C}\_k$ is
+For the multi-dimensional case, $K>2$, by \eqref{eq:pgm.2}, we have that the density for class $\mathcal{C}\_k$ is
 \begin{align}
 p(\mathcal{C}\_k\vert\mathbf{x})&=\frac{\exp\Big[-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu}\_k)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu}\_k)+\log p(\mathcal{C}\_k)\Big]}{\sum_{i=1}^{K}\exp\Big[-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu}\_i)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu}\_i)+\log p(\mathcal{C}\_i)\Big]} \\\\ &=\frac{\exp\Big[\mathbf{x}^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_k-\frac{1}{2}\boldsymbol{\mu}\_k^\text{T}\boldsymbol{\Sigma}\boldsymbol{\mu}\_k+\log p(\mathbf{w}\_k)\Big]}{\sum_{i=1}^{K}\exp\Big[\mathbf{x}^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_i-\frac{1}{2}\boldsymbol{\mu}\_i^\text{T}\boldsymbol{\Sigma}\boldsymbol{\mu}\_i+\log p(\mathbf{w}\_i)\Big]}
 \end{align}
@@ -840,11 +842,11 @@ L(\pi,\boldsymbol{\mu}\_1,\boldsymbol{\mu}\_2,\boldsymbol{\Sigma})&=p(\mathbf{t}
 \end{align}
 where $\mathbf{t}=(t_1,\ldots,t_N)^\text{T}$. As usual, we continue to consider the log likelihood $\ell(\cdot)$
 \begin{align}
-\ell(\pi,\boldsymbol{\mu}\_1,\boldsymbol{\mu}\_2,\boldsymbol{\Sigma})&=\log L(\pi,\boldsymbol{\mu}\_1,\boldsymbol{\mu}\_2,\boldsymbol{\Sigma}) \\\\ &=\sum_{n=1}^{N}t_n\log\Big[\pi\mathcal{N}(\mathbf{x}\_n\vert\boldsymbol{\mu}\_1,\boldsymbol{\Sigma})\Big]+(1-t_n)\log\Big[(1-\pi)\mathcal{N}(\mathbf{x}\_n\vert\boldsymbol{\mu}\_2,\boldsymbol{\Sigma})\Big]\tag{30}\label{30}
+&\hspace{0.7cm}\ell(\pi,\boldsymbol{\mu}\_1,\boldsymbol{\mu}\_2,\boldsymbol{\Sigma}) \\\\ &=\log L(\pi,\boldsymbol{\mu}\_1,\boldsymbol{\mu}\_2,\boldsymbol{\Sigma}) \\\\ &=\sum_{n=1}^{N}t_n\log\Big[\pi\mathcal{N}(\mathbf{x}\_n\vert\boldsymbol{\mu}\_1,\boldsymbol{\Sigma})\Big]+(1-t_n)\log\Big[(1-\pi)\mathcal{N}(\mathbf{x}\_n\vert\boldsymbol{\mu}\_2,\boldsymbol{\Sigma})\Big]\label{eq:gbc.1}
 \end{align}
 Taking the gradient of the log likelihood w.r.t $\pi$ we have
 \begin{align}
-\nabla_\pi\ell(\pi,\boldsymbol{\mu}\_1,\boldsymbol{\mu}\_2,\boldsymbol{\Sigma})&=\nabla_\pi\sum_{n=1}^{N}t_n\log\Big[\pi\mathcal{N}(\mathbf{x}\_n\vert\boldsymbol{\mu}\_1,\boldsymbol{\Sigma})\Big]+(1-t_n)\log\Big[(1-\pi)\mathcal{N}(\mathbf{x}\_n\vert\boldsymbol{\mu}\_2,\boldsymbol{\Sigma})\Big] \\\\ &=\nabla_\pi\sum_{n=1}^{N}t_n\log\pi+(1-t_n)\log(1-\pi) \\\\ &=\sum_{n=1}^{N}\left[\frac{t_n}{\pi}-\frac{1-t_n}{1-\pi}\right]
+&\hspace{0.7cm}\nabla_\pi\ell(\pi,\boldsymbol{\mu}\_1,\boldsymbol{\mu}\_2,\boldsymbol{\Sigma}) \\\\ &=\nabla_\pi\sum_{n=1}^{N}t_n\log\Big[\pi\mathcal{N}(\mathbf{x}\_n\vert\boldsymbol{\mu}\_1,\boldsymbol{\Sigma})\Big]+(1-t_n)\log\Big[(1-\pi)\mathcal{N}(\mathbf{x}\_n\vert\boldsymbol{\mu}\_2,\boldsymbol{\Sigma})\Big] \\\\ &=\nabla_\pi\sum_{n=1}^{N}t_n\log\pi+(1-t_n)\log(1-\pi) \\\\ &=\sum_{n=1}^{N}\left[\frac{t_n}{\pi}-\frac{1-t_n}{1-\pi}\right]
 \end{align}
 Setting the derivative to zero and solve for $\pi$ as usual, we have
 \begin{equation}
@@ -856,9 +858,9 @@ Thus, we obtain the solution
 \end{equation}
 where $N_1,N_2$ denote the total number of data points in class $\mathcal{C}\_1$ and $\mathcal{C}\_2$ respectively.
 
-On the other hand, taking the gradient of the log likelihood \eqref{30} w.r.t $\boldsymbol{\mu}\_1$, we have
+On the other hand, taking the gradient of the log likelihood \eqref{eq:gbc.1} w.r.t $\boldsymbol{\mu}\_1$, we have
 \begin{align}
-\nabla_{\boldsymbol{\mu}\_1}\ell(\pi,\boldsymbol{\mu}\_1,\boldsymbol{\mu}\_2,\boldsymbol{\Sigma})&=\nabla_{\boldsymbol{\mu}\_1}\sum_{n=1}^{N}t_n\log\Big[\pi\mathcal{N}(\mathbf{x}\_n\vert\boldsymbol{\mu}\_1,\boldsymbol{\Sigma})\Big]+(1-t_n)\log\Big[(1-\pi)\mathcal{N}(\mathbf{x}\_n\vert\boldsymbol{\mu}\_2,\boldsymbol{\Sigma})\Big] \\\\ &=\nabla_{\boldsymbol{\mu}\_1}\sum_{n=1}^{N}t_n\log\mathcal{N}(\mathbf{x}\_n\vert\boldsymbol{\mu}\_1,\boldsymbol{\Sigma}) \\\\ &=\nabla_{\boldsymbol{\mu}\_1}\sum_{n=1}^{N}t_n\left[-\frac{1}{2}(\mathbf{x}\_n-\boldsymbol{\mu}\_1)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}\_n-\boldsymbol{\mu}\_1)\right] \\\\ &\propto\nabla_{\boldsymbol{\mu}\_1}\sum_{n=1}^{N}t_n\big(-\boldsymbol{x}\_n^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_1-\boldsymbol{\mu}\_1^\text{T}\boldsymbol{\Sigma}^{-1}\mathbf{x}\_n+\boldsymbol{\mu}\_1^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_1\big) \\\\ &=\sum_{n=1}^{N}t_n\Big[\big(\boldsymbol{\Sigma}^{-1}+(\boldsymbol{\Sigma}^{-1})^\text{T}\big)\big(\boldsymbol{\mu}\_1-\mathbf{x}\_n\big)\Big] \\\\ &\propto\sum_{n=1}^{N}t_n(\boldsymbol{\mu}\_1-\mathbf{x}\_n)
+&\hspace{0.7cm}\nabla_{\boldsymbol{\mu}\_1}\ell(\pi,\boldsymbol{\mu}\_1,\boldsymbol{\mu}\_2,\boldsymbol{\Sigma}) \\\\ &=\nabla_{\boldsymbol{\mu}\_1}\sum_{n=1}^{N}t_n\log\Big[\pi\mathcal{N}(\mathbf{x}\_n\vert\boldsymbol{\mu}\_1,\boldsymbol{\Sigma})\Big]+(1-t_n)\log\Big[(1-\pi)\mathcal{N}(\mathbf{x}\_n\vert\boldsymbol{\mu}\_2,\boldsymbol{\Sigma})\Big] \\\\ &=\nabla_{\boldsymbol{\mu}\_1}\sum_{n=1}^{N}t_n\log\mathcal{N}(\mathbf{x}\_n\vert\boldsymbol{\mu}\_1,\boldsymbol{\Sigma}) \\\\ &=\nabla_{\boldsymbol{\mu}\_1}\sum_{n=1}^{N}t_n\left[-\frac{1}{2}(\mathbf{x}\_n-\boldsymbol{\mu}\_1)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}\_n-\boldsymbol{\mu}\_1)\right] \\\\ &\propto\nabla_{\boldsymbol{\mu}\_1}\sum_{n=1}^{N}t_n\big(-\boldsymbol{x}\_n^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_1-\boldsymbol{\mu}\_1^\text{T}\boldsymbol{\Sigma}^{-1}\mathbf{x}\_n+\boldsymbol{\mu}\_1^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_1\big) \\\\ &=\sum_{n=1}^{N}t_n\Big[\big(\boldsymbol{\Sigma}^{-1}+(\boldsymbol{\Sigma}^{-1})^\text{T}\big)\big(\boldsymbol{\mu}\_1-\mathbf{x}\_n\big)\Big] \\\\ &\propto\sum_{n=1}^{N}t_n(\boldsymbol{\mu}\_1-\mathbf{x}\_n)
 \end{align}
 Setting the above gradient to zero and solve for $\boldsymbol{\mu}\_1$, we obtain the solution
 \begin{equation}
@@ -870,9 +872,9 @@ Similarly, with the same procedure, we have that the maximum likelihood solution
 \begin{equation}
 \boldsymbol{\mu}\_2=\frac{1}{N_2}\sum_{n=1}^{N}(1-t_n)\mathbf{x}\_n
 \end{equation}
-Lastly, taking the gradient of the log likelihood \eqref{30} w.r.t $\boldsymbol{\Sigma}$, we have
+Lastly, taking the gradient of the log likelihood \eqref{eq:gbc.1} w.r.t $\boldsymbol{\Sigma}$, we have
 \begin{align}
-\nabla_\boldsymbol{\Sigma}\ell(\pi,\boldsymbol{\mu}\_1,\boldsymbol{\mu}\_2,\boldsymbol{\Sigma})&=\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}t_n\log\Big[\pi\mathcal{N}(\mathbf{x}\_n\vert\boldsymbol{\mu}\_1,\boldsymbol{\Sigma})\Big]+(1-t_n)\log\Big[(1-\pi)\mathcal{N}(\mathbf{x}\_n\vert\boldsymbol{\mu}\_2,\boldsymbol{\Sigma})\Big] \\\\ &=\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}t_n\log\mathcal{N}(\mathbf{x}\_n\vert\boldsymbol{\mu}\_1,\boldsymbol{\Sigma})+(1-t_n)\log\mathcal{N}(\mathbf{x}\_n\vert\boldsymbol{\mu}\_2,\boldsymbol{\Sigma}) \\\\ &=\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}t_n\log\big\vert\boldsymbol{\Sigma}\big\vert^{-1/2}+t_n\left[-\frac{1}{2}(\mathbf{x}\_n-\boldsymbol{\mu}\_1)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}\_n-\boldsymbol{\mu}\_1)\right] \\\\ &\hspace{2cm}+(1-t_n)\log\big\vert\boldsymbol{\Sigma}\big\vert^{-1/2}+t_n\left[-\frac{1}{2}(\mathbf{x}\_n-\boldsymbol{\mu}\_2)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}\_n-\boldsymbol{\mu}\_2)\right] \\\\ &\propto\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}\log\big\vert\boldsymbol{\Sigma}\big\vert+t_n(\mathbf{x}\_n-\boldsymbol{\mu}\_1)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}\_n-\boldsymbol{\mu}\_1) \\\\ &\hspace{2cm}+(1-t_n)(\mathbf{x}\_n-\boldsymbol{\mu}\_2)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}\_n-\boldsymbol{\mu}\_2) \\\\ &=N\nabla_\boldsymbol{\Sigma}\log\big\vert\boldsymbol{\Sigma}\big\vert-\boldsymbol{\Sigma}^{-1}\Big[\sum_{n=1}^{N}t_n(\mathbf{x}\_n-\boldsymbol{\mu}\_1)(\mathbf{x}\_n-\boldsymbol{\mu}\_1)^\text{T} \\\\ &\hspace{2cm}+(1-t_n)(\mathbf{x}\_n-\boldsymbol{\mu}\_2)(\mathbf{x}\_n-\boldsymbol{\mu}\_2)^\text{T}\Big]\boldsymbol{\Sigma}^{-1}\tag{31}\label{31}
+&\hspace{0.7cm}\nabla_\boldsymbol{\Sigma}\ell(\pi,\boldsymbol{\mu}\_1,\boldsymbol{\mu}\_2,\boldsymbol{\Sigma}) \\\\ &=\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}t_n\log\Big[\pi\mathcal{N}(\mathbf{x}\_n\vert\boldsymbol{\mu}\_1,\boldsymbol{\Sigma})\Big]+(1-t_n)\log\Big[(1-\pi)\mathcal{N}(\mathbf{x}\_n\vert\boldsymbol{\mu}\_2,\boldsymbol{\Sigma})\Big] \\\\ &=\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}t_n\log\mathcal{N}(\mathbf{x}\_n\vert\boldsymbol{\mu}\_1,\boldsymbol{\Sigma})+(1-t_n)\log\mathcal{N}(\mathbf{x}\_n\vert\boldsymbol{\mu}\_2,\boldsymbol{\Sigma}) \\\\ &=\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}t_n\log\big\vert\boldsymbol{\Sigma}\big\vert^{-1/2}+t_n\left[-\frac{1}{2}(\mathbf{x}\_n-\boldsymbol{\mu}\_1)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}\_n-\boldsymbol{\mu}\_1)\right]\nonumber \\\\ &\hspace{2cm}+(1-t_n)\log\big\vert\boldsymbol{\Sigma}\big\vert^{-1/2}+t_n\left[-\frac{1}{2}(\mathbf{x}\_n-\boldsymbol{\mu}\_2)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}\_n-\boldsymbol{\mu}\_2)\right] \\\\ &\propto\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}\log\big\vert\boldsymbol{\Sigma}\big\vert+t_n(\mathbf{x}\_n-\boldsymbol{\mu}\_1)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}\_n-\boldsymbol{\mu}\_1)\nonumber \\\\ &\hspace{2cm}+(1-t_n)(\mathbf{x}\_n-\boldsymbol{\mu}\_2)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}\_n-\boldsymbol{\mu}\_2) \\\\ &=N\nabla_\boldsymbol{\Sigma}\log\big\vert\boldsymbol{\Sigma}\big\vert-\boldsymbol{\Sigma}^{-1}\Big[\sum_{n=1}^{N}t_n(\mathbf{x}\_n-\boldsymbol{\mu}\_1)(\mathbf{x}\_n-\boldsymbol{\mu}\_1)^\text{T}\nonumber \\\\ &\hspace{2cm}+(1-t_n)(\mathbf{x}\_n-\boldsymbol{\mu}\_2)(\mathbf{x}\_n-\boldsymbol{\mu}\_2)^\text{T}\Big]\boldsymbol{\Sigma}^{-1}\label{eq:gbc.2}
 \end{align}
 The first term of the gradient can be computed as
 \begin{align}
@@ -880,13 +882,13 @@ The first term of the gradient can be computed as
 \end{align}
 since $\boldsymbol{\Sigma}$ is symmetric and so is its inverse. This implies that
 \begin{equation}
-\nabla_\boldsymbol{\Sigma}\log\big\vert\boldsymbol{\Sigma}\big\vert=\boldsymbol{\Sigma}^{-1}\tag{32}\label{32}
+\nabla_\boldsymbol{\Sigma}\log\big\vert\boldsymbol{\Sigma}\big\vert=\boldsymbol{\Sigma}^{-1}\label{eq:gbc.3}
 \end{equation}
 Let $\mathbf{S}$ be a matrix defined as
 \begin{equation}
 \mathbf{S}=\frac{1}{N}\sum_{n=1}^{N}t_n(\mathbf{x}\_n-\boldsymbol{\mu}\_1)(\mathbf{x}\_n-\boldsymbol{\mu}\_1)^\text{T}+(1-t_n)(\mathbf{x}\_n-\boldsymbol{\mu}\_2)(\mathbf{x}\_n-\boldsymbol{\mu}\_2)^\text{T}
 \end{equation}
-Therefore, the derivative \eqref{31} can be rewritten as
+Therefore, the derivative \eqref{eq:gbc.2} can be rewritten as
 \begin{equation}
 \nabla_\boldsymbol{\Sigma}\ell(\pi,\boldsymbol{\mu}\_1,\boldsymbol{\mu}\_2,\boldsymbol{\Sigma})=N\boldsymbol{\Sigma}^{-1}-N\boldsymbol{\Sigma}^{-1}\mathbf{S}\boldsymbol{\Sigma}^{-1}
 \end{equation}
@@ -930,7 +932,7 @@ L(\mathbf{w})&=p(\mathbf{T}\vert\mathbf{w}) \\\\ &=\prod_{n=1}^{N}p(\mathbf{t}\_
 \end{align}
 And thus, the log likelihood $\ell(\cdot)$ can be computed as
 \begin{align}
-\ell(\mathbf{w})&=\log L(\mathbf{w}) \\\\ &=\log\prod_{n=1}^{N}\prod_{k=1}^{K}\Big[\pi_k\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_k,\boldsymbol{\Sigma})\Big]^{(\mathbf{t}\_n)\_k} \\\\ &=\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k\Big[\log\pi_k+\log\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_k,\boldsymbol{\Sigma})\Big]\tag{33}\label{33}
+\ell(\mathbf{w})&=\log L(\mathbf{w}) \\\\ &=\log\prod_{n=1}^{N}\prod_{k=1}^{K}\Big[\pi_k\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_k,\boldsymbol{\Sigma})\Big]^{(\mathbf{t}\_n)\_k} \\\\ &=\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k\Big[\log\pi_k+\log\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_k,\boldsymbol{\Sigma})\Big]\label{eq:gc.1}
 \end{align}
 As usual, we continue by using maximum likelihood, which begins by taking gradient of the log likelihood w.r.t to the parameters. However, when maximizing the likelihood w.r.t $\pi_k$, we have to compute subject to a constraint that
 \begin{equation}
@@ -942,7 +944,7 @@ Therefore, using a Lagrange multiplier $\lambda$, we instead maximize the Lagran
 \end{equation}
 Differentiating $\mathcal{L}$ w.r.t $\pi_k$, we have
 \begin{align}
-\nabla_{\pi_k}\mathcal{L}(\pi_1,\ldots,\pi_K,\lambda)&=\nabla_{\pi_k}\sum_{n=1}^{N}\sum_{i=1}^{K}(\mathbf{t}\_n)\_i\Big[\log\pi_i+\log\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_i,\boldsymbol{\Sigma})\Big]+\nabla_{\pi_k}\lambda\left(\sum_{i=1}^{K}\pi_i-1\right) \\\\ &=\lambda+\sum_{n=1}^{N}(\mathbf{t}\_n)\_k\nabla_{\pi_k}\log\pi_k \\\\ &=\lambda+\frac{\sum_{n=1}^{N}(\mathbf{t}\_n)\_k}{\pi_k}
+&\hspace{0.7cm}\nabla_{\pi_k}\mathcal{L}(\pi_1,\ldots,\pi_K,\lambda) \\\\ &=\nabla_{\pi_k}\sum_{n=1}^{N}\sum_{i=1}^{K}(\mathbf{t}\_n)\_i\Big[\log\pi_i+\log\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_i,\boldsymbol{\Sigma})\Big]+\nabla_{\pi_k}\lambda\left(\sum_{i=1}^{K}\pi_i-1\right) \\\\ &=\lambda+\sum_{n=1}^{N}(\mathbf{t}\_n)\_k\nabla_{\pi_k}\log\pi_k \\\\ &=\lambda+\frac{\sum_{n=1}^{N}(\mathbf{t}\_n)\_k}{\pi_k}
 \end{align}
 Setting the derivative equal to zero and solve for $\pi_k$, we have
 \begin{equation}
@@ -960,7 +962,7 @@ Hence, the maximum likelihood solution for $\pi_k$ is
 \begin{equation}
 \pi_k=-\frac{N_k}{\lambda}=\frac{N_k}{N}
 \end{equation}
-We continue by taking the gradient of the log likelihood \eqref{33} w.r.t $\boldsymbol{\mu}\_k$, as
+We continue by taking the gradient of the log likelihood \eqref{eq:gc.1} w.r.t $\boldsymbol{\mu}\_k$, as
 \begin{align}
 \nabla_{\boldsymbol{\mu}\_k}\ell(\mathbf{w})&=\nabla_{\boldsymbol{\mu}\_k}\sum_{n=1}^{N}\sum_{i=1}^{K}(\mathbf{t}\_n)\_i\Big[\log\pi_i+\log\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_i,\boldsymbol{\Sigma})\Big] \\\\ &=\nabla_{\boldsymbol{\mu}\_k}\sum_{n=1}^{N}(\mathbf{t}\_n)\_k\log\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_k,\boldsymbol{\Sigma}) \\\\ &=\nabla_{\boldsymbol{\mu}\_k}\sum_{n=1}^{N}(\mathbf{t}\_n)\_k\Big[-\frac{1}{2}(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)^\text{T}\boldsymbol{\Sigma}^{-1}(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)\Big] \\\\ &=-\frac{1}{2}\sum_{n=1}^{N}(\mathbf{t}\_n)\_k\nabla_{\boldsymbol{\mu}\_k}\Big[\boldsymbol{\mu}\_k^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_k-2\boldsymbol{\mu}\_k^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\phi}\_n\Big] \\\\ &=\sum_{n=1}^{N}(\mathbf{t}\_n)\_k\Big[\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}\_k-\boldsymbol{\Sigma}^{-1}\boldsymbol{\phi}\_n\Big]
 \end{align}
@@ -970,15 +972,15 @@ Setting the above gradient equal to zero and solve for $\boldsymbol{\mu}\_k$ we 
 \end{equation}
 which is the mean of feature vectors assigned to class $\mathcal{C}\_k$.
 
-Finally, consider the gradient of \eqref{33} w.r.t $\boldsymbol{\Sigma}$, combined with the result \eqref{32} we have
+Finally, consider the gradient of \eqref{eq:gc.1} w.r.t $\boldsymbol{\Sigma}$, combined with the result \eqref{eq:gbc.3} we have
 \begin{align}
-\nabla_\boldsymbol{\Sigma}\ell(\mathbf{w})&=\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k\Big[\log\pi_k+\log\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_k\boldsymbol{\Sigma})\Big] \\\\ &=\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k\log\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_k\boldsymbol{\Sigma}) \\\\ &=\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k\log\big\vert\boldsymbol{\Sigma}\big\vert^{-1/2}+(\mathbf{t}\_n)\_k\Big[-\frac{1}{2}(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)^\text{T}\boldsymbol{\Sigma}^{-1}(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)\Big] \\\\ &=-\frac{N}{2}\boldsymbol{\Sigma}^{-1}+\frac{1}{2}\boldsymbol{\Sigma}^{-1}\Big[\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)^\text{T}\Big]\boldsymbol{\Sigma}^{-1} \\\\ &\propto N\boldsymbol{\Sigma}^{-1}-\boldsymbol{\Sigma}^{-1}\Big[\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)^\text{T}\Big]\boldsymbol{\Sigma}^{-1}\tag{34}\label{34}
+\nabla_\boldsymbol{\Sigma}\ell(\mathbf{w})&=\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k\Big[\log\pi_k+\log\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_k\boldsymbol{\Sigma})\Big] \\\\ &=\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k\log\mathcal{N}(\boldsymbol{\phi}\_n\vert\boldsymbol{\mu}\_k\boldsymbol{\Sigma}) \\\\ &=\nabla_\boldsymbol{\Sigma}\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k\log\big\vert\boldsymbol{\Sigma}\big\vert^{-1/2}+(\mathbf{t}\_n)\_k\Big[-\frac{1}{2}(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)^\text{T}\boldsymbol{\Sigma}^{-1}(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)\Big] \\\\ &=-\frac{N}{2}\boldsymbol{\Sigma}^{-1}+\frac{1}{2}\boldsymbol{\Sigma}^{-1}\Big[\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)^\text{T}\Big]\boldsymbol{\Sigma}^{-1} \\\\ &\propto N\boldsymbol{\Sigma}^{-1}-\boldsymbol{\Sigma}^{-1}\Big[\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)^\text{T}\Big]\boldsymbol{\Sigma}^{-1}\label{eq:gc.2}
 \end{align}
 Let $\mathbf{S}\_k$ be the covariance of the data associated with class $\mathcal{C}\_k$, defined as
 \begin{equation}
 \mathbf{S}\_k=\frac{1}{N_k}\sum_{n=1}^{N}(\mathbf{t}\_n)\_k(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)(\boldsymbol{\phi}\_n-\boldsymbol{\mu}\_k)^\text{T}
 \end{equation}
-Therefore, letting the derivative \eqref{34} equal to zero, we have
+Therefore, letting the derivative \eqref{eq:gc.2} equal to zero, we have
 \begin{equation}
 N\boldsymbol{\Sigma}^{-1}-\boldsymbol{\Sigma}^{-1}\Big[\sum_{k=1}^{K}N_k\mathbf{S}\_k\Big]\boldsymbol{\Sigma}^{-1}=0
 \end{equation}
@@ -1009,15 +1011,15 @@ where $y_n=p(\mathcal{C}\_1\vert\boldsymbol{\phi}\_n)$.
 
 Comprise $t_n$'s into $\mathbf{t}\doteq(t_1,\ldots,t_N)^\text{T}$, then we have that the likelihood function can be defined as
 \begin{equation}
-L(\mathbf{w})=p(\mathbf{t}\vert\mathbf{w})=\prod_{n=1}^{N}p(t_n\vert\mathbf{w})=\prod_{n=1}^{N}y_n^{t_n}(1-y_n)^{1-t_n}\tag{35}\label{35}
+L(\mathbf{w})=p(\mathbf{t}\vert\mathbf{w})=\prod_{n=1}^{N}p(t_n\vert\mathbf{w})=\prod_{n=1}^{N}y_n^{t_n}(1-y_n)^{1-t_n}\tag{35}\label{eq:lr.1}
 \end{equation}
 Taking the negative logarithm of the likelihood gives us the **cross-entropy** error function, as
 \begin{align}
-E(\mathbf{w})=-\log L(\mathbf{w})&=-\log\prod_{n=1}^{N}p(t_n\vert\mathbf{w})=\prod_{n=1}^{N}y_n^{t_n}(1-y_n)^{1-t_n} \\\\ &=-\sum_{n=1}^{N}t_n\log y_n+(1-t_n)\log(1-y_n)\tag{36}\label{36}
+E(\mathbf{w})=-\log L(\mathbf{w})&=-\log\prod_{n=1}^{N}p(t_n\vert\mathbf{w})=\prod_{n=1}^{N}y_n^{t_n}(1-y_n)^{1-t_n} \\\\ &=-\sum_{n=1}^{N}t_n\log y_n+(1-t_n)\log(1-y_n)\label{eq:lr.2}
 \end{align}
 Differentiating the error function $E(\mathbf{w})$ w.r.t $\mathbf{w}$ we have that
 \begin{align}
-\nabla_\mathbf{w}E(\mathbf{w})&=\nabla_\mathbf{w}-\sum_{n=1}^{N}t_n\log y_n+(1-t_n)\log(1-y_n) \\\\ &=\sum_{n=1}^{N}\frac{(1-t_n)\nabla_\mathbf{w}y_n}{1-y_n}-\frac{t_n\nabla_\mathbf{w}y_n}{y_n} \\\\ &=\sum_{n=1}^{N}\frac{(1-t_n)y_n(1-y_n)\boldsymbol{\phi}\_n}{1-y_n}-\frac{t_n y_n(1-y_n)\boldsymbol{\phi}\_n}{y_n} \\\\ &=\sum_{n=1}^{N}(1-t_n)y_n\boldsymbol{\phi}\_n-t_n(1-y_n)\boldsymbol{\phi}\_n \\\\ &=\sum_{n=1}^{N}(y_n-t_n)\boldsymbol{\phi}\_n,\tag{37}\label{37}
+\nabla_\mathbf{w}E(\mathbf{w})&=\nabla_\mathbf{w}-\sum_{n=1}^{N}t_n\log y_n+(1-t_n)\log(1-y_n) \\\\ &=\sum_{n=1}^{N}\frac{(1-t_n)\nabla_\mathbf{w}y_n}{1-y_n}-\frac{t_n\nabla_\mathbf{w}y_n}{y_n} \\\\ &=\sum_{n=1}^{N}\frac{(1-t_n)y_n(1-y_n)\boldsymbol{\phi}\_n}{1-y_n}-\frac{t_n y_n(1-y_n)\boldsymbol{\phi}\_n}{y_n} \\\\ &=\sum_{n=1}^{N}(1-t_n)y_n\boldsymbol{\phi}\_n-t_n(1-y_n)\boldsymbol{\phi}\_n \\\\ &=\sum_{n=1}^{N}(y_n-t_n)\boldsymbol{\phi}\_n,\label{eq:lr.3}
 \end{align}
 where in the third step, we have used the identity of the <span id='sigmoid-derivative'>derivative of the logistic sigmoid function</span>
 \begin{equation}
@@ -1054,11 +1056,11 @@ L(\mathbf{w}\_1,\ldots,\mathbf{w}\_K)&=p(\mathbf{T}\vert\mathbf{w}\_1,\ldots,\ma
 \end{align}
 We also obtain the cross-entropy error function by taking the negative logarithm of the likelihood, as
 \begin{align}
-E(\mathbf{w}\_1,\ldots,\mathbf{w}\_K)&=-\log L(\mathbf{w}\_1,\ldots,\mathbf{w}\_K) \\\\ &=-\log\prod_{n=1}^{N}\prod_{k=1}^{K}(y_{n})\_k^{(\mathbf{t}\_n)\_k} \\\\ &=-\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k\log(y_{n})\_k\tag{38}\label{38}
+E(\mathbf{w}\_1,\ldots,\mathbf{w}\_K)&=-\log L(\mathbf{w}\_1,\ldots,\mathbf{w}\_K) \\\\ &=-\log\prod_{n=1}^{N}\prod_{k=1}^{K}(y_{n})\_k^{(\mathbf{t}\_n)\_k} \\\\ &=-\sum_{n=1}^{N}\sum_{k=1}^{K}(\mathbf{t}\_n)\_k\log(y_{n})\_k\label{eq:sr.1}
 \end{align}
 As usual, taking the gradient of the error function $E(\mathbf{w}\_1,\ldots,\mathbf{w}\_K)$ w.r.t $\mathbf{w}\_k$ we have
 \begin{align}
-\nabla_{\mathbf{w}\_k}E(\mathbf{w}\_1,\ldots,\mathbf{w}\_K)&=\nabla_{\mathbf{w}\_k}-\sum_{n=1}^{N}\sum_{i=1}^{K}(\mathbf{t}\_n)\_i\log(y_{n})\_i \\\\ &=-\sum_{n=1}^{N}\sum_{i=1}^{K}(\mathbf{t}\_n)\_i\frac{(y_n)\_i(1\\{i=k\\}-(y_n)\_k)\boldsymbol{\phi}\_n}{(y_n)\_i} \\\\ &=\sum_{n=1}^{N}\Big[(y_n)\_k\sum_{i=1}^{K}(\mathbf{t}\_n)\_i-\sum_{i=1}^{K}(\mathbf{t}\_n)\_i 1\\{i=k\\}\Big]\boldsymbol{\phi}\_n \\\\ &=\sum_{n=1}^{N}\big[(y_n)\_k-(\mathbf{t}\_n)\_k\big]\boldsymbol{\phi}\_n\tag{39}\label{39}
+\nabla_{\mathbf{w}\_k}E(\mathbf{w}\_1,\ldots,\mathbf{w}\_K)&=\nabla_{\mathbf{w}\_k}-\sum_{n=1}^{N}\sum_{i=1}^{K}(\mathbf{t}\_n)\_i\log(y_{n})\_i \\\\ &=-\sum_{n=1}^{N}\sum_{i=1}^{K}(\mathbf{t}\_n)\_i\frac{(y_n)\_i(1\\{i=k\\}-(y_n)\_k)\boldsymbol{\phi}\_n}{(y_n)\_i} \\\\ &=\sum_{n=1}^{N}\Big[(y_n)\_k\sum_{i=1}^{K}(\mathbf{t}\_n)\_i-\sum_{i=1}^{K}(\mathbf{t}\_n)\_i 1\\{i=k\\}\Big]\boldsymbol{\phi}\_n \\\\ &=\sum_{n=1}^{N}\big[(y_n)\_k-(\mathbf{t}\_n)\_k\big]\boldsymbol{\phi}\_n\label{eq:sr.2}
 \end{align}
 where in the second step, we have used the <span id='softmax-derivative'>identity</span>
 \begin{align}
@@ -1077,12 +1079,12 @@ where $1\\{k=j\\}$ is the indicator function, which returns $1$ if $k=j$ and ret
 </figure>
 
 \begin{equation}
-\mathbf{w}^{(\text{new})}=\mathbf{w}^{(\text{old})}-\mathbf{H}^{-1}\nabla_\mathbf{w}E(\mathbf{w})\tag{40}\label{40}
+\mathbf{w}^{(\text{new})}=\mathbf{w}^{(\text{old})}-\mathbf{H}^{-1}\nabla_\mathbf{w}E(\mathbf{w})
 \end{equation}
 
 ##### Linear Regression
 {: #nm-lin-reg}
-Consider applying the Newton's method to the sum-of-squares error function \eqref{7} for the linear regression model \eqref{3}. The gradient and Hessian of this error function are
+Consider applying the Newton's method to the sum-of-squares error function \eqref{eq:lsr.4} for the linear regression model \eqref{eq:lbfm.2}. The gradient and Hessian of this error function are
 \begin{align}
 \nabla_\mathbf{w}E(\mathbf{w})&=\nabla_\mathbf{w}\sum_{n=1}^{N}\left(t_n-\mathbf{w}^\text{T}\boldsymbol{\phi}\_n)\right)^2 \\\\ &=\sum_{n=1}^{N}(\mathbf{w}^\text{T}\boldsymbol{\phi}\_n-t_n)\boldsymbol{\phi}\_n=\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\mathbf{w}-\boldsymbol{\Phi}^\text{T}\mathbf{t},
 \end{align}
@@ -1096,19 +1098,19 @@ where $\boldsymbol{\Phi}$, as defined before, is the $N\times M$ design matrix
 \end{equation}
 Hence, we have that the Newton's update of the model is given by
 \begin{align}
-\mathbf{w}^{(\text{new})}&=\mathbf{w}^{(\text{old})}-(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi})^{-1}\big(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\mathbf{w}^{(\text{old})}-\boldsymbol{\Phi}^\text{T}\mathbf{t}\big) \\\\ &=(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}^\text{T}\mathbf{t},\tag{41}\label{41}
+\mathbf{w}^{(\text{new})}&=\mathbf{w}^{(\text{old})}-(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi})^{-1}\big(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi}\mathbf{w}^{(\text{old})}-\boldsymbol{\Phi}^\text{T}\mathbf{t}\big) \\\\ &=(\boldsymbol{\Phi}^\text{T}\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}^\text{T}\mathbf{t},
 \end{align}
 which is exactly the standard least-squares solution.
 
 ##### Logistic Regression
 {: #nm-log-reg}
-Consider using the Newton's method to the logistic regression model with the cross-entropy error function \eqref{36}. By the result \eqref{37}, we have the gradient and Hessian of this error function are given as
+Consider using the Newton's method to the logistic regression model with the cross-entropy error function \eqref{eq:lr.2}. By the result \eqref{eq:lr.3}, we have the gradient and Hessian of this error function are given as
 \begin{equation}
-\nabla_\mathbf{w}E(\mathbf{w})=\sum_{n=1}^{N}(y_n-t_n)\boldsymbol{\phi}\_n=\boldsymbol{\Phi}(\mathbf{y}-\mathbf{t})\tag{42}\label{42}
+\nabla_\mathbf{w}E(\mathbf{w})=\sum_{n=1}^{N}(y_n-t_n)\boldsymbol{\phi}\_n=\boldsymbol{\Phi}(\mathbf{y}-\mathbf{t})
 \end{equation}
 and
 \begin{align}
-\mathbf{H}=\nabla_\mathbf{w}\nabla_\mathbf{w}E(\mathbf{w})&=\nabla_\mathbf{w}\sum_{n=1}^{N}(y_n-t_n)\boldsymbol{\phi}\_n \\\\ &=\sum_{n=1}^{N}y_n(1-y_n)\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\tag{43}\label{43} \\\\ &=\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi},
+\mathbf{H}=\nabla_\mathbf{w}\nabla_\mathbf{w}E(\mathbf{w})&=\nabla_\mathbf{w}\sum_{n=1}^{N}(y_n-t_n)\boldsymbol{\phi}\_n \\\\ &=\sum_{n=1}^{N}y_n(1-y_n)\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\label{eq:nlr.1} \\\\ &=\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi},
 \end{align}
 where $\mathbf{R}$ is the $N\times N$ diagonal matrix with diagonal elements
 \begin{equation}
@@ -1122,7 +1124,7 @@ since $\mathbf{R}$ is positive definite due to $y_n\in(0,1)$ letting all the dia
 
 Back to our main attention, the Newton's update of the model then takes the form
 \begin{align}
-\mathbf{w}^{(\text{new})}&=\mathbf{w}^{(\text{old})}-(\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}(\mathbf{y}-\mathbf{t}) \\\\ &=(\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi})^{-1}\Big[\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi}\mathbf{w}^{(\text{old})}-\boldsymbol{\Phi}^\text{T}(\mathbf{y}-\mathbf{t})\Big] \\\\ &=(\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}^\text{T}\mathbf{R}\mathbf{z},\tag{44}\label{44}
+\mathbf{w}^{(\text{new})}&=\mathbf{w}^{(\text{old})}-(\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}(\mathbf{y}-\mathbf{t}) \\\\ &=(\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi})^{-1}\Big[\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi}\mathbf{w}^{(\text{old})}-\boldsymbol{\Phi}^\text{T}(\mathbf{y}-\mathbf{t})\Big] \\\\ &=(\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}^\text{T}\mathbf{R}\mathbf{z},
 \end{align}
 where $\mathbf{z}$ is an $N$-dimensional vector given by
 \begin{equation}
@@ -1132,13 +1134,13 @@ This algorithm is known as **iterative reweighted least squares**, or **IRLS**.
 
 ##### Softmax Regression
 {: #nm-softmax-reg}
-Consider applying the Newton's method to the cross-entropy error function \eqref{38} for the softmax regression model.
+Consider applying the Newton's method to the cross-entropy error function \eqref{eq:sr.1} for the softmax regression model.
 
 First, let $\mathbf{W}$ be the $M\times K$ matrix that comprises $\mathbf{w}\_1,\ldots,\mathbf{w}\_K$ together, as
 \begin{equation}
 \mathbf{W}=\left[\begin{matrix}\vert&&\vert \\\\ \mathbf{w}\_1&\ldots&\mathbf{w}\_K \\\\ \vert&&\vert\end{matrix}\right]
 \end{equation}
-By the result \eqref{39}, we have that the $k$-th column of the gradient of this error function is given by
+By the result \eqref{eq:sr.2}, we have that the $k$-th column of the gradient of this error function is given by
 \begin{equation}
 \nabla_{\mathbf{w}\_k}E(\mathbf{W})=\sum_{n=1}^{N}\big[(y_n)\_k-(\mathbf{t}\_n)\_k\big]\boldsymbol{\phi}\_n=\boldsymbol{\Phi}^\text{T}(\mathbf{Y}\_k-\mathbf{T}\_k),
 \end{equation}
@@ -1152,7 +1154,7 @@ and where $\mathbf{Y}\_k,\mathbf{T}\_k$ are the $k$th columns of the $N\times K$
 \end{equation}
 Therefore, the gradient of the error function w.r.t $\mathbf{W}$ can be written as
 \begin{equation}
-\nabla_\mathbf{W}E(\mathbf{W})=\boldsymbol{\Phi}^\text{T}(\mathbf{Y}-\mathbf{T})\tag{45}\label{45}
+\nabla_\mathbf{W}E(\mathbf{W})=\boldsymbol{\Phi}^\text{T}(\mathbf{Y}-\mathbf{T})
 \end{equation}
 Now we consider the hessian matrix $\mathbf{H}$ of the error function, whose block $(k,j)$ is given by
 \begin{align}
@@ -1164,7 +1166,7 @@ Analogous to the binary case, the hessian $\mathbf{H}$ for the multi-class logis
 \end{equation}
 where each $\mathbf{u}\_k$ is a vector of length $M$, for $k=1,\ldots,K$. Therefore, we have
 \begin{align}
-\mathbf{u}^\text{T}\mathbf{H}\mathbf{u}&=\sum_{k=1}^{K}\sum_{j=1}^{K}\mathbf{u}\_k^\text{T}\mathbf{H}\_{k j}\mathbf{u}\_j \\\\ &=\sum_{k=1}^{K}\sum_{j=1}^{K}\mathbf{u}\_k^\text{T}\sum_{n=1}^{N}(y_n)\_k\big(1\\{j=k\\}-(y_n)\_j\big)\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\mathbf{u}\_j \\\\ &=\sum_{n=1}^{N}\left[\sum_{k=1}^{K}(y_n)\_k\mathbf{u}\_k^\text{T}\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\mathbf{u}\_k-\sum_{k=1}^{K}\sum_{j=1}^{K}(y_n)\_k(y_n)\_j\mathbf{u}\_k^\text{T}\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\mathbf{u}\_j\right] \\\\ &=\sum_{n=1}^{N}\left[\sum_{k=1}^{K}(y_n)\_k\mathbf{u}\_k^\text{T}\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\mathbf{u}\_k-\sum_{k=1}^{K}(y_n)\_k\mathbf{u}\_k^\text{T}\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\sum_{j=1}^{K}(y_n)\_j\mathbf{u}\_j\right]\tag{46}\label{46}
+\mathbf{u}^\text{T}\mathbf{H}\mathbf{u}&=\sum_{k=1}^{K}\sum_{j=1}^{K}\mathbf{u}\_k^\text{T}\mathbf{H}\_{k j}\mathbf{u}\_j \\\\ &=\sum_{k=1}^{K}\sum_{j=1}^{K}\mathbf{u}\_k^\text{T}\sum_{n=1}^{N}(y_n)\_k\big(1\\{j=k\\}-(y_n)\_j\big)\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\mathbf{u}\_j \\\\ &=\sum_{n=1}^{N}\left[\sum_{k=1}^{K}(y_n)\_k\mathbf{u}\_k^\text{T}\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\mathbf{u}\_k-\sum_{k=1}^{K}\sum_{j=1}^{K}(y_n)\_k(y_n)\_j\mathbf{u}\_k^\text{T}\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\mathbf{u}\_j\right] \\\\ &=\sum_{n=1}^{N}\left[\sum_{k=1}^{K}(y_n)\_k\mathbf{u}\_k^\text{T}\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\mathbf{u}\_k-\sum_{k=1}^{K}(y_n)\_k\mathbf{u}\_k^\text{T}\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\sum_{j=1}^{K}(y_n)\_j\mathbf{u}\_j\right]\label{eq:nsr.1}
 \end{align}
 Consider $f:\mathbb{R}^M\to\mathbb{R}$, defined as
 \begin{equation}
@@ -1174,7 +1176,7 @@ Thus, it follows immediately from the definition of $f$ that $f$ is convex since
 \begin{equation}
 f(\mathbf{x})=\mathbf{x}^\text{T}\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\mathbf{x}=\Vert\mathbf{x}^\text{T}\boldsymbol{\phi}\_n\Vert_2^2\geq 0
 \end{equation}
-Let us apply **Jensen's inequality**[^2] for $f$ with observing that $\sum_{k=1}^{K}(y_n)\_k=\sum_{j=1}^{K}(y_n)\_j=1$, then \eqref{46} can be continued to derive as
+Let us apply **Jensen's inequality**[^2] for $f$ with observing that $\sum_{k=1}^{K}(y_n)\_k=\sum_{j=1}^{K}(y_n)\_j=1$, then \eqref{eq:nsr.1} can be continued to derive as
 \begin{align}
 \mathbf{u}^\text{T}\mathbf{H}\mathbf{u}&=\sum_{n=1}^{N}\left[\sum_{k=1}^{K}(y_n)\_k\mathbf{u}\_k^\text{T}\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\mathbf{u}\_k-\sum_{k=1}^{K}(y_n)\_k\mathbf{u}\_k^\text{T}\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\sum_{j=1}^{K}(y_n)\_j\mathbf{u}\_j\right] \\\\ &=\sum_{n=1}^{N}\left[\sum_{k=1}^{K}(y_n)\_k f\left(\mathbf{u}\_k\right)-f\left(\sum_{k=1}^{K}(y_n)\_k\mathbf{u}\_k\right)\right] \\\\ &\geq\sum_{n=1}^{N}\left[f\left(\sum_{k=1}^{K}(y_n)\_k\mathbf{u}\_k\right)-f\left(\sum_{k=1}^{K}(y_n)\_k\mathbf{u}\_k\right)\right] \\\\ &=0,
 \end{align}
@@ -1182,7 +1184,7 @@ which claims the positive semi-definiteness of $\mathbf{H}$. Therefore, the erro
 
 ### Bayesian Logistic Regression
 {: #bayes-log-reg}
-When using Bayesian approach for logistic regression model, unlike the case of linear regression \eqref{13}, the posterior distribution now is no longer Gaussian. This makes the evaluation of posterior be intractable when integrating over the parameter $\mathbf{w}$.
+When using Bayesian approach for logistic regression model, unlike the case of linear regression \eqref{eq:pd.1}, the posterior distribution now is no longer Gaussian. This makes the evaluation of posterior be intractable when integrating over the parameter $\mathbf{w}$.
 
 Therefore, it is necessary to use some approximation methods. 
 
@@ -1202,7 +1204,7 @@ The idea behind Laplace method is to place a Gaussian $q(z)$ on a mode of the di
 \end{equation}
 Therefore, the Taylor expansion of $\log f(z)$ about $z=z_0$ can be written by
 \begin{align}
-\log f(z)&\simeq\log f(z_0)+\log f(z)\left.\frac{d f(z)}{dz}\right\vert_{z=z_0}(z-z_0)+\frac{1}{2}\left.\frac{d^2\log f(z)}{d^2 z}\right\vert_{z=z_0}(z-z_0)^2 \\\\ &=\log f(z_0)-\frac{A}{2}(z-z_0)^2,\tag{47}\label{47}
+\log f(z)&\simeq\log f(z_0)+\log f(z)\left.\frac{d f(z)}{dz}\right\vert_{z=z_0}(z-z_0)+\frac{1}{2}\left.\frac{d^2\log f(z)}{d^2 z}\right\vert_{z=z_0}(z-z_0)^2 \\\\ &=\log f(z_0)-\frac{A}{2}(z-z_0)^2,
 \end{align}
 where
 \begin{equation}
@@ -1236,7 +1238,7 @@ f(\mathbf{z})\simeq f(\mathbf{z}\_0)\exp\left(-\frac{1}{2}(\mathbf{z}-\mathbf{z}
 \end{equation}
 which is in form of an unnormalized multivariate Gaussian. Adding a normalization parameter gives us the Gaussian approximation $q(\mathbf{z})$ of $p(\mathbf{z})$
 \begin{equation}
-q(\mathbf{z})=\frac{\vert\mathbf{A}\vert^{1/2}}{(2\pi)^{M/2}}\exp\left(-\frac{1}{2}(\mathbf{z}-\mathbf{z}\_0)^\text{T}\mathbf{A}(\mathbf{z}-\mathbf{z}\_0)\right)=\mathcal{N}(\mathbf{z}\vert\mathbf{z}\_0,\mathbf{A}^{-1})\tag{48}\label{48}
+q(\mathbf{z})=\frac{\vert\mathbf{A}\vert^{1/2}}{(2\pi)^{M/2}}\exp\left(-\frac{1}{2}(\mathbf{z}-\mathbf{z}\_0)^\text{T}\mathbf{A}(\mathbf{z}-\mathbf{z}\_0)\right)=\mathcal{N}(\mathbf{z}\vert\mathbf{z}\_0,\mathbf{A}^{-1})
 \end{equation}
 
 #### Approximation of the posterior
@@ -1245,7 +1247,7 @@ Consider the prior to be a Gaussian, which is
 \begin{equation}
 p(\mathbf{w})=\mathcal{N}(\mathbf{w}\vert\mathbf{m}\_0,\mathbf{S}\_0),
 \end{equation}
-where $\mathbf{m}\_0$ and $\mathbf{S}\_0$ are known. Along with this is the likelihood function, which is defined by \eqref{35}, as
+where $\mathbf{m}\_0$ and $\mathbf{S}\_0$ are known. Along with this is the likelihood function, which is defined by \eqref{eq:lr.1}, as
 \begin{equation}
 p(\mathbf{t}\vert\mathbf{w})=\prod_{n=1}^{N}y_n^{t_n}(1-y_n)^{1-t_n},
 \end{equation}
@@ -1255,28 +1257,28 @@ p(\mathbf{w}\vert\mathbf{t})\propto p(\mathbf{w})p(\mathbf{t}\vert\mathbf{w}),
 \end{equation}
 Taking the natural logarithm of both sides gives us
 \begin{align}
-\log p(\mathbf{w}\vert\mathbf{t})&=-\frac{1}{2}(\mathbf{w}-\mathbf{m}\_0)^\text{T}\mathbf{S}\_0^{-1}(\mathbf{w}-\mathbf{m}\_0)+\sum_{n=1}^{N}\big[t_n\log y_n+(1-t_n)\log(1-y_n)\big]+c,
+\log p(\mathbf{w}\vert\mathbf{t})&=-\frac{1}{2}(\mathbf{w}-\mathbf{m}\_0)^\text{T}\mathbf{S}\_0^{-1}(\mathbf{w}-\mathbf{m}\_0)\nonumber \\\\ &\hspace{2cm}+\sum_{n=1}^{N}\big[t_n\log y_n+(1-t_n)\log(1-y_n)\big]+c,
 \end{align}
 where $c$ is independent of $\mathbf{w}$.
 
 By Laplace approximation, to find a Gaussian approximation of the posterior, the first step is looking for the point which maximizes the posterior, which is the $\mathbf{w}\_\text{MAP}$. This point also defines the mean of the approximation. The corresponding covariance matrix $\mathbf{S}\_N$ of the Gaussian is given by
 \begin{align}
-\mathbf{S}\_N&=-\nabla_\mathbf{w}\nabla_\mathbf{w}\log p(\mathbf{w}\vert\mathbf{t}) \\\\ &=\mathbf{S}\_0^{-1}+\sum_{n=1}^{N}y_n(1-y_n)\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T},\tag{49}\label{49}
+\mathbf{S}\_N&=-\nabla_\mathbf{w}\nabla_\mathbf{w}\log p(\mathbf{w}\vert\mathbf{t}) \\\\ &=\mathbf{S}\_0^{-1}+\sum_{n=1}^{N}y_n(1-y_n)\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T},
 \end{align}
-where the second step is obtained by using the result  \eqref{43}. Therefore, the Gaussian approximation $q(\mathbf{w})$ for the posterior distribution is given by
+where the second step is obtained by using the result \eqref{eq:nlr.1}. Therefore, the Gaussian approximation $q(\mathbf{w})$ for the posterior distribution is given by
 \begin{equation}
-q(\mathbf{w})=\mathcal{N}(\mathbf{w}\vert\mathbf{w}\_\text{MAP},\mathbf{S}\_N)\tag{50}\label{50}
+q(\mathbf{w})=\mathcal{N}(\mathbf{w}\vert\mathbf{w}\_\text{MAP},\mathbf{S}\_N)\label{eq:ap.1}
 \end{equation}
 
 #### Predictive distribution
 {: #pred-dist-clf}
-With the Gaussian approximation \eqref{50}, the predict distribution for class $\mathcal{C}\_1$, given a new feature vector $\boldsymbol{\phi}(\mathbf{x})$, is then given by marginalizing w.r.t the posterior distribution $p(\mathbf{w}\vert\mathbf{t})$, as
+With the Gaussian approximation \eqref{eq:ap.1}, the predict distribution for class $\mathcal{C}\_1$, given a new feature vector $\boldsymbol{\phi}(\mathbf{x})$, is then given by marginalizing w.r.t the posterior distribution $p(\mathbf{w}\vert\mathbf{t})$, as
 \begin{equation}
-p(\mathcal{C}\_1\vert\boldsymbol{\phi},\mathbf{t})=\int p(\mathcal{C}\_1\vert\boldsymbol{\phi}\mathbf{w})p(\mathbf{w}\vert\mathbf{t})\,d\mathbf{w}\simeq\int\sigma(\mathbf{w}^\text{T}\boldsymbol{\phi})q(\mathbf{w})\,d\mathbf{w}\tag{51}\label{51}
+p(\mathcal{C}\_1\vert\boldsymbol{\phi},\mathbf{t})=\int p(\mathcal{C}\_1\vert\boldsymbol{\phi}\mathbf{w})p(\mathbf{w}\vert\mathbf{t})\,d\mathbf{w}\simeq\int\sigma(\mathbf{w}^\text{T}\boldsymbol{\phi})q(\mathbf{w})\,d\mathbf{w}
 \end{equation}
 And thus, the predictive distribution for class $\mathcal{C}\_2$ is given by
 \begin{equation}
-p(\mathcal{C}\_2\vert\boldsymbol{\phi},\mathbf{t})=1-p(\mathcal{C}\_1\vert\boldsymbol{\phi},\mathbf{t})\tag{52}\label{52}
+p(\mathcal{C}\_2\vert\boldsymbol{\phi},\mathbf{t})=1-p(\mathcal{C}\_1\vert\boldsymbol{\phi},\mathbf{t})
 \end{equation}
 
 ## References
