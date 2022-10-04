@@ -20,6 +20,7 @@ eqn-number: true
 	- [Poisson distribution](#pois)
 	- [Gaussian distribution](#gauss)
 	- [Multivariate Normal distribution](#mvn)
+- [Convexity](#cvxt)
 - [Maximum likelihood estimates](#max-llh)
 - [References](#references)
 - [Footnotes](#footnotes)
@@ -122,13 +123,70 @@ It is noticable that the above equation is not mininal, since there exists a lin
 \end{equation}
 In order to remove this contraint, we substitute $1-\sum_{k=1}^{K-1}x_k$ to $x_K$ , which lets \eqref{eq:m.1} be written by
 \begin{align}
-\hspace{-0.5cm}p(\mathbf{x};\boldsymbol{\pi},N,K)&=\frac{N!}{x_1!x_2!\ldots x_K!}\exp\left(\sum_{k=1}^{K}x_k\log\pi_k\right) \\\\ &=\frac{N!}{x_1!x_2!\ldots x_K!}\exp\left[\sum_{k=1}^{K-1}x_k\log\pi_k+\left(1-\sum_{k=1}^{K-1}x_k\right)\log\left(1-\sum_{k=1}^{K-1}\pi_k\right)\right] \\\\ &=\frac{N!}{x_1!x_2!\ldots x_K!}\exp\left[\sum_{k=1}^{K-1}\log\left(\frac{\pi_k}{1-\sum_{k=1}^{K-1}\pi_k}\right)x_k+\log\left(1-\sum_{k=1}^{K-1}\pi_k\right)\right]
+\hspace{-0.5cm}p(\mathbf{x};\boldsymbol{\pi},N,K)&=\frac{N!}{x_1!x_2!\ldots x_K!}\exp\left(\sum_{k=1}^{K}x_k\log\pi_k\right) \\\\ &=\frac{N!}{x_1!x_2!\ldots x_K!}\exp\left[\sum_{k=1}^{K-1}x_k\log\pi_k+\left(1-\sum_{k=1}^{K-1}x_k\right)\log\left(1-\sum_{k=1}^{K-1}\pi_k\right)\right] \\\\ &=\frac{N!}{x_1!x_2!\ldots x_K!}\exp\left[\sum_{i=1}^{K-1}\log\left(\frac{\pi_i}{1-\sum_{k=1}^{K-1}\pi_k}\right)x_i+\log\left(1-\sum_{k=1}^{K-1}\pi_k\right)\right]\label{eq:m.2}
 \end{align}
-
+With this representation, and also for convenience, for $i=1,\ldots,K$ we continue by letting
+\begin{equation}
+\eta_i=\log\left(\frac{\pi_i}{1-\sum_{k=1}^{K-1}\pi_k}\right)=\log\left(\frac{\pi_i}{\pi_K}\right)\label{eq:m.3}
+\end{equation}
+Take the exponential of both sides and summing over $K$, we have
+\begin{equation}
+\sum_{i=1}^{K}e^{\eta_i}=\frac{\sum_{i=1}^{K}\pi_i}{\pi_K}=\frac{1}{\pi_K}\label{eq:m.4}
+\end{equation}
+From this result, we have that the multinomial distribution \eqref{eq:m.2} is therefore also a member of the exponential family with
+\begin{align}
+\eta&=\left[\begin{matrix}\log\left(\pi_1/\pi_K\right) \\\\ \vdots \\\\ \log\left(\pi_K/\pi_K\right)\end{matrix}\right] \\\\ T(\mathbf{x})&=\left[\begin{matrix}x_1,\ldots,x_K\end{matrix}\right]^\text{T} \\\\ A(\eta)&=-\log\left(1-\sum_{i=1}^{K-1}\pi_i\right)=-\log(\pi_K)=\log\left(\sum_{k=1}^{K}e^{\eta_k}\right) \\\\ h(\mathbf{x})&=\frac{N!}{x_1!x_2!\ldots x_K!}
+\end{align}
+Additionally, substituting the result \eqref{eq:m.4} into \eqref{eq:m.3} gives us for $i=1,\ldots,K$
+\begin{equation}
+\eta_i=\log\left(\pi_i\sum_{k=1}^{K}e^{\eta_k}\right),
+\end{equation}
+or we can express $\boldsymbol{\pi}$ in terms of $\eta$ by
+\begin{equation}
+\pi_i=\frac{e^{\eta_i}}{\sum_{k=1}^{K}e^{\eta_k}},
+\end{equation}
+which is the **softmax function**.
 
 ### Multivariate Normal distribution
 {: #mvn}
 
+## Convexity
+{: #cvxt}
+**Theorem**  
+The natural space $N$ is a convex set and the cummulant function $A(\eta)$ is a convex function. If the family is minimal, then $A(\eta)$ is strictly convex.
+
+**Proof**  
+Let $\eta_1,\eta_2\in N$, thus from \eqref{eq:ef.2}, we have that
+\begin{align}
+\exp\big(A(\eta_1)\big)&=A_1, \\\\ \exp\big(A(\eta_2)\big)&=A_2
+\end{align}
+where $A_1,A_2$ are finite. 
+
+To prove that $N$ is convex, we need to show that for any $\eta=\lambda\eta_1+(1-\lambda)\eta_2$ for $0\lt\lambda\lt 1$, we also have $\eta\in N$. From \eqref{eq:ef.2}, and by **Hölder's inequatlity**[^1], we have
+\begin{align}
+\exp\big(A(\eta)\big)&=\int h(x)\exp\big(\eta^\text{T}T(x)\big)\nu(dx) \\\\ &=\int h(x)\exp\Big[\big(\lambda\eta_1+(1-\lambda)\eta_2\big)^\text{T}T(x)\Big]\nu(dx) \\\\ &=\int \Big[h(x)\exp\big(\eta_1^\text{T}T(x)\big)\Big]^{\lambda}\Big[h(x)\exp\big(\eta_2^\text{T}T(x)\big)\Big]^{1-\lambda}\nu(dx) \\\\ &\leq\Bigg[\int h(x)\exp\big(\eta_1^\text{T}T(x)\big)\nu(dx)\Bigg]^\lambda\Bigg[\int h(x)\exp\big(\eta_2^\text{T}T(x)\big)\nu(dx)\Bigg]^{1-\lambda} \\\\ &=\Big[\exp\big(A(\eta_1)\big)\Big]^\lambda\Big[\exp\big(A(\eta_2)\big)\Big]^{1-\lambda} \\\\ &=A_1^\lambda A_2^{1-\lambda},\label{eq:c.1}
+\end{align}
+which proves that $A(\eta)$ is finite, or $\eta\in N$.
+
+Moreover, taking logarithm of both sides of \eqref{eq:c.1} gives us
+\begin{equation}
+\lambda A(\eta_1)+(1-\lambda)A(\eta_2)\geq A(\eta)=A\big(\lambda\eta_1+(1-\lambda)\eta_2\big),
+\end{equation}
+which also claims the convexity of $A(\eta)$.
+
+By Hölder's inequatlity, the equality in \eqref{eq:c.1} holds when
+\begin{equation}
+\Big[h(x)\exp\big(\eta_2^\text{T}T(x)\big)\Big]^{1-\lambda}=c\Big[h(x)\exp\big(\eta_1^\text{T}T(x)\big)\Big]^{\lambda(1/\lambda-1)}
+\end{equation}
+or
+\begin{equation}
+\exp\big(\eta_2^\text{T}T(x)\big)=c\exp\big(\eta_1^\text{T}T(x)\big),
+\end{equation}
+and therefore
+\begin{equation}
+(\eta_2-\eta_1)^\text{T}T(x)=\log c,
+\end{equation}
+which is not minimal since $\eta_1,\eta_2$ are taken arbitrarily.
 
 ## References
 {: #references}
@@ -136,5 +194,20 @@ In order to remove this contraint, we substitute $1-\sum_{k=1}^{K-1}x_k$ to $x_K
 
 [2] Joseph K. Blitzstein & Jessica Hwang. [Introduction to Probability](https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573).
 
+[3] Weisstein, Eric W. [Hölder's Inequalities](https://mathworld.wolfram.com/HoeldersInequalities.html) From MathWorld--A Wolfram Web Resource.
+
 ## Footnotes
 {: #footnotes}
+
+[^1]: Let $p,q>1$ such that
+	\begin{equation}
+	\frac{1}{p}+\frac{1}{q}=1
+	\end{equation}
+	The **Hölder's inequatlity** for integrals states that
+	\begin{equation}
+	\int_a^b\vert f(x)g(x)\vert\,dx\leq\left(\int_a^b\vert f(x)\vert\,dx\right)^{1/p}\left(\int_a^b\vert g(x)\vert\,dx\right)^{1/q}
+	\end{equation}
+	The equality holds with
+	\begin{equation}
+	\vert g(x)\vert=c\vert f(x)\vert^{p-1}
+	\end{equation}

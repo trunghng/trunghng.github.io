@@ -1,0 +1,184 @@
+I"2+<blockquote>
+  <p>A note on the exponential family.</p>
+</blockquote>
+
+<!-- excerpt-end -->
+
+<ul>
+  <li><a href="#exp-fam">The exponential family</a></li>
+  <li><a href="#examples">Examples</a>
+    <ul>
+      <li><a href="#bern">Bernoulli distribution</a></li>
+      <li><a href="#bin">Binomial distribution</a></li>
+      <li><a href="#mult">Multinomial distribution</a></li>
+      <li><a href="#pois">Poisson distribution</a></li>
+      <li><a href="#gauss">Gaussian distribution</a></li>
+      <li><a href="#mvn">Multivariate Normal distribution</a></li>
+    </ul>
+  </li>
+  <li><a href="#cvxt">Convexity</a></li>
+  <li><a href="#max-llh">Maximum likelihood estimates</a></li>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h2 id="exp-fam">The exponential family</h2>
+<p>The <strong>exponential family</strong> of distributions is defined as family of distributions of form
+\begin{equation}
+p(x;\eta)=h(x)\exp\Big[\eta^\text{T}T(x)-A(\eta)\Big],\label{eq:ef.1}
+\end{equation}
+where</p>
+<ul>
+  <li>$\eta$ is known as the <strong>natural parameter</strong>, or <strong>canonical parameter</strong>,</li>
+  <li>$T(X)$ is referred to as a <strong>sufficient statistic</strong>,</li>
+  <li>$A(\eta)$ is called the <strong>cumulant function</strong>, which can be view as the logarithm of a normalization factor since integrating \eqref{eq:ef.1} w.r.t the measure $\nu$ gives us
+\begin{equation}
+A(\eta)=\log\int h(x)\exp\left(\eta^\text{T}T(x)\right)\nu(dx),\label{eq:ef.2}
+\end{equation}
+This also implies that $A(\eta)$ will be determined once we have specified $\nu,T(x)$ and $h(x)$.</li>
+</ul>
+
+<p>The set of parameters $\eta$ for which the integral in \eqref{eq:ef.2} is finite is known as the <strong>natural parameter space</strong>
+\begin{equation}
+N=\left\{\eta:\int h(x)\exp\left(\eta^\text{T}T(x)\right)\nu(dx)&lt;\infty\right\}
+\end{equation}
+which explains why $\eta$ is also referred as <strong>natural parameter</strong>. If $N$ is an unempty open set, the exponential families are said to be <strong>regular</strong>.</p>
+
+<p>An exponential family is known as <strong>minimal</strong> if there are no linear constraints among the components of $\eta$ nor are there linear constraints among the components of $T(x)$.</p>
+
+<h2 id="examples">Examples</h2>
+<p>Each particular choice of $\nu$, $T$ and $h$ defines a family (or set) of distributions that is parameterized by $\eta$. As we vary $\eta$, we then get different distributions within this family.</p>
+
+<h3 id="bern">Bernoulli distribution</h3>
+<p>The probability mass function (i.e., the density function w.r.t counting measure) of a Bernoulli random variable $X$, denoted as $X\sim\text{Bern}(\pi)$, is given by
+\begin{align}
+p(x;\pi)&amp;=\pi^x(1-\pi)^{1-x} \\ &amp;=\exp\big[x\log\pi+(1-x)\log(1-\pi)\big] \\ &amp;=\exp\left[\log\left(\frac{\pi}{1-\pi}\right)x+\log(1-\pi)\right],
+\end{align}
+which can be written in the form of an exponential family distribution \eqref{eq:ef.1} with
+\begin{align}
+\eta&amp;=\frac{\pi}{1-\pi} \\ T(x)&amp;=x \\ A(\eta)&amp;=-\log(1-\pi)=\log(1+e^{\eta}) \\ h(x)&amp;=1
+\end{align}
+Notice that the relationship between $\eta$ and $\pi$ is invertible since
+\begin{equation}
+\pi=\frac{1}{1+e^{-\eta}},
+\end{equation}
+which is the <strong>sigmoid function</strong>.</p>
+
+<h3 id="bin">Binomial distribution</h3>
+<p>The probability mass function of a Binomial random variable $X$, denoted as $X\sim\text{Bin}(N,\pi)$, is defined as
+\begin{align}
+p(x;N,\pi)&amp;=\left(\begin{matrix}N \\ x\end{matrix}\right)\pi^{x}(1-\pi)^{1-x} \\ &amp;=\left(\begin{matrix}N \\ x\end{matrix}\right)\exp\big[x\log\pi+(1-x)\log(1-\pi)\big] \\ &amp;=\left(\begin{matrix}N \\ x\end{matrix}\right)\exp\left[\log\left(\frac{\pi}{1-\pi}\right)x+\log(1-\pi)\right],
+\end{align}
+which is in form of an exponential family distribution \eqref{eq:ef.1} with
+\begin{align}
+\eta&amp;=\frac{\pi}{1-\pi} \\ T(x)&amp;=x \\ A(\eta)&amp;=-\log(1-\pi)=\log(1+e^{\eta}) \\ h(x)&amp;=\left(\begin{matrix}N \\ x\end{matrix}\right)
+\end{align}
+Similar to the Bernoulli case, we also have the invertible relationship between $\eta$ and $\pi$ as
+\begin{equation}
+\pi=\frac{1}{1+e^{-\eta}}
+\end{equation}</p>
+
+<h3 id="pois">Poisson distribution</h3>
+<p>The probability mass function of a Poisson random variable $X$, denoted as $X\sim\text{Pois}(\lambda)$, is given as
+\begin{align}
+p(x;\lambda)&amp;=\frac{\lambda^x e^{-\lambda}}{x!} \\ &amp;=\frac{1}{x!}\exp\left(x\log\lambda-\lambda\right),
+\end{align}
+which is also able to be written as an exponential family distribution \eqref{eq:ef.1} with
+\begin{align}
+\eta&amp;=\log\lambda \\ T(x)&amp;=x \\ A(\eta)&amp;=\lambda=e^{\eta} \\ h(x)&amp;=\frac{1}{x!}
+\end{align}
+Analogy to Bernoulli distribution, we also have that
+\begin{equation}
+\lambda=e^{\eta}
+\end{equation}</p>
+
+<h3 id="gauss">Gaussian distribution</h3>
+<p>The (univariate) Gaussian density of a random variable $X$, denoted as $X\sim\mathcal{N}(\mu,\sigma^2)$, is given by
+\begin{align}
+p(x;\mu,\sigma^2)&amp;=\frac{1}{\sqrt{2\pi}\sigma}\exp\left[-\frac{(x-\mu)^2}{2\sigma^2}\right] \\ &amp;=\frac{1}{\sqrt{2\pi}}\exp\left[\frac{\mu}{\sigma^2}x-\frac{1}{2\sigma^2}x^2-\frac{1}{2\sigma^2}\mu^2-\log\sigma\right],
+\end{align}
+which allows us to write it as an instance of the exponential family with
+\begin{align}
+\eta&amp;=\left[\begin{matrix}\mu/\sigma^2 \\ -1/2\sigma^2\end{matrix}\right] \\ T(x)&amp;=\left[\begin{matrix}x\\ x^2\end{matrix}\right] \\ A(\eta)&amp;=\frac{\mu^2}{2\sigma^2}+\log\sigma=-\frac{\eta_1^2}{4\eta_2}-\frac{1}{2}\log(-2\eta_2) \\ h(x)&amp;=\frac{1}{\sqrt{2\pi}}
+\end{align}</p>
+
+<h3 id="mult">Multinomial distribution</h3>
+<p>Let $\mathbf{X}=(X_1,\ldots,X_K)$ be the collection of $K$ random variable in which $X_k$ denotes the number of times the $k$-th event occurs in a set of $N$ independent trials. And let $\mathbf{\pi}=(\pi_1,\ldots,\pi_K)$ with $\sum_{k=1}^{K}\pi_k=1$ correspondingly represents the probability of occuring of each event within each trials.</p>
+
+<p>Then $\mathbf{X}$ is said to have Multinomial distribution, denoted as $\mathbf{X}\sim\text{Mult}_K(N,\boldsymbol{\pi})$, if its probability mass function is given as with $\sum_{k=1}^{K}x_k=1$
+\begin{align}
+p(\mathbf{x};\boldsymbol{\pi},N,K)&amp;=\frac{N!}{x_1!x_2!\ldots x_K!}\pi_1^{x_1}\pi_2^{x_2}\ldots\pi_n^{x_n} \\ &amp;=\frac{N!}{x_1!x_2!\ldots x_K!}\exp\left(\sum_{k=1}^{K}x_k\log\pi_k\right)\label{eq:m.1}
+\end{align}
+It is noticable that the above equation is not mininal, since there exists a linear constraint between the components of $T(\mathbf{x})$, which is
+\begin{equation}
+\sum_{k=1}^{K}x_k=1
+\end{equation}
+In order to remove this contraint, we substitute $1-\sum_{k=1}^{K-1}x_k$ to $x_K$ , which lets \eqref{eq:m.1} be written by
+\begin{align}
+\hspace{-0.5cm}p(\mathbf{x};\boldsymbol{\pi},N,K)&amp;=\frac{N!}{x_1!x_2!\ldots x_K!}\exp\left(\sum_{k=1}^{K}x_k\log\pi_k\right) \\ &amp;=\frac{N!}{x_1!x_2!\ldots x_K!}\exp\left[\sum_{k=1}^{K-1}x_k\log\pi_k+\left(1-\sum_{k=1}^{K-1}x_k\right)\log\left(1-\sum_{k=1}^{K-1}\pi_k\right)\right] \\ &amp;=\frac{N!}{x_1!x_2!\ldots x_K!}\exp\left[\sum_{i=1}^{K-1}\log\left(\frac{\pi_i}{1-\sum_{k=1}^{K-1}\pi_k}\right)x_i+\log\left(1-\sum_{k=1}^{K-1}\pi_k\right)\right]\label{eq:m.2}
+\end{align}
+With this representation, and also for convenience, for $i=1,\ldots,K$ we continue by letting
+\begin{equation}
+\eta_i=\log\left(\frac{\pi_i}{1-\sum_{k=1}^{K-1}\pi_k}\right)=\log\left(\frac{\pi_i}{\pi_K}\right)\label{eq:m.3}
+\end{equation}
+Take the exponential of both sides and summing over $K$, we have
+\begin{equation}
+\sum_{i=1}^{K}e^{\eta_i}=\frac{\sum_{i=1}^{K}\pi_i}{\pi_K}=\frac{1}{\pi_K}\label{eq:m.4}
+\end{equation}
+From this result, we have that the multinomial distribution \eqref{eq:m.2} is therefore also a member of the exponential family with
+\begin{align}
+\eta&amp;=\left[\begin{matrix}\log\left(\pi_1/\pi_K\right) \\ \vdots \\ \log\left(\pi_K/\pi_K\right)\end{matrix}\right] \\ T(\mathbf{x})&amp;=\left[\begin{matrix}x_1,\ldots,x_K\end{matrix}\right]^\text{T} \\ A(\eta)&amp;=-\log\left(1-\sum_{i=1}^{K-1}\pi_i\right)=-\log(\pi_K)=\log\left(\sum_{k=1}^{K}e^{\eta_k}\right) \\ h(\mathbf{x})&amp;=\frac{N!}{x_1!x_2!\ldots x_K!}
+\end{align}
+Additionally, substituting the result \eqref{eq:m.4} into \eqref{eq:m.3} gives us for $i=1,\ldots,K$
+\begin{equation}
+\eta_i=\log\left(\pi_i\sum_{k=1}^{K}e^{\eta_k}\right),
+\end{equation}
+or we can express $\boldsymbol{\pi}$ in terms of $\eta$ by
+\begin{equation}
+\pi_i=\frac{e^{\eta_i}}{\sum_{k=1}^{K}e^{\eta_k}},
+\end{equation}
+which is the <strong>softmax function</strong>.</p>
+
+<h3 id="mvn">Multivariate Normal distribution</h3>
+
+<h2 id="cvxt">Convexity</h2>
+<p><strong>Theorem</strong><br />
+The natural space $N$ is a convex set and the cummulant function $A(\eta)$ is a convex function. If the family is minimal, then $A(\eta)$ is strictly convex.</p>
+
+<p><strong>Proof</strong><br />
+Let $\eta_1,\eta_2\in N$, thus from \eqref{eq:ef.2}, we have that
+\begin{equation}
+\exp\big(\big)
+\end{equation}</p>
+
+<p>To prove that $N$ is convex, we need to show that for any $\eta=\lambda\eta_1+(1-\lambda)\eta_2$ for $0\leq\lambda\leq 1$, we also have $\eta\in N$.</p>
+
+<p>From \eqref{eq:ef.2}, and by Hölder’s inequatlity<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>, we have
+\begin{align}
+\exp\big(A(\eta)\big)&amp;=\int h(x)\exp\big(\eta^\text{T}T(x)\big)\nu(dx) \\ &amp;=\int h(x)\exp\Big[\big(\lambda\eta_1+(1-\lambda)\eta_2\big)^\text{T}T(x)\Big]\nu(dx) \\ &amp;=\int \Big[h(x)\exp\big(\eta_1^\text{T}T(x)\big)\Big]^{\lambda}\Big[h(x)\exp\big(\eta_2^\text{T}T(x)\big)\Big]^{1-\lambda}\nu(dx) \\ &amp;\leq\Bigg[\int h(x)\exp\big(\eta_1^\text{T}T(x)\big)\nu(dx)\Bigg]^\lambda\Bigg[\int h(x)\exp\big(\eta_2^\text{T}T(x)\big)\nu(dx)\Bigg]^{1-\lambda} \\ &amp;=\Big\exp\big(A(\eta_1)\big)\Big]^\lambda\Big[\exp\big(A(\eta_2)\big)\Big]^{1-\lambda}
+\end{align}</p>
+
+<h2 id="references">References</h2>
+<p>[1] M. Jordan. <a href="https://people.eecs.berkeley.edu/~jordan/courses/260-spring10/other-readings/chapter8.pdf">The Exponential Family: Basics</a>. 2009.</p>
+
+<p>[2] Joseph K. Blitzstein &amp; Jessica Hwang. <a href="https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573">Introduction to Probability</a>.</p>
+
+<p>[3] Weisstein, Eric W. <a href="https://mathworld.wolfram.com/HoeldersInequalities.html">Hölder’s Inequalities</a> From MathWorld–A Wolfram Web Resource.</p>
+
+<h2 id="footnotes">Footnotes</h2>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>Let $p,q&gt;1$ such that
+\begin{equation}
+\frac{1}{p}+\frac{1}{q}=1
+\end{equation}
+The <strong>Hölder’s inequatlity</strong> for integrals states that
+\begin{equation}
+\int_a^b\vert f(x)g(x)\vert\,dx\leq\left(\int_a^b\vert f(x)\vert\,dx\right)^{1/p}\left(\int_a^b\vert g(x)\vert\,dx\right)^{1/q}
+\end{equation} <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+:ET

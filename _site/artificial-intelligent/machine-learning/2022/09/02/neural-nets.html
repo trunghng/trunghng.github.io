@@ -60,7 +60,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Neural networks" />
 <script type="application/ld+json">
-{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","description":"A note on neural networks","headline":"Neural networks","dateModified":"2022-09-02T13:00:00+07:00","datePublished":"2022-09-02T13:00:00+07:00","url":"http://localhost:4000/artificial-intelligent/machine-learning/2022/09/02/neural-nets.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/artificial-intelligent/machine-learning/2022/09/02/neural-nets.html"},"@context":"https://schema.org"}</script>
+{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","headline":"Neural networks","dateModified":"2022-09-02T13:00:00+07:00","datePublished":"2022-09-02T13:00:00+07:00","description":"A note on neural networks","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/artificial-intelligent/machine-learning/2022/09/02/neural-nets.html"},"url":"http://localhost:4000/artificial-intelligent/machine-learning/2022/09/02/neural-nets.html","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Trung&apos;s cabin" />
     
@@ -189,11 +189,11 @@
 </ul>
 
 <h2 id="ff-func">Feed-forward network functions</h2>
-<p>Recall that the <a href="/artificial-intelligent/machine-learning/2022/08/13/linear-models.html">linear models</a> used in regression and classification are based on linear combination of fixed nonlinear basis function $\phi_j(\mathbf{x})$ and take the form
+<p>Recall that the <a href="/artificial-intelligent/machine-learning/2022/08/13/glm.html">linear models</a> used in regression and classification are based on linear combination of fixed nonlinear basis function $\phi_j(\mathbf{x})$ and take the form
 \begin{equation}
 y(\mathbf{x},\mathbf{w})=f\left(\sum_{j=1}^{M}w_j\phi_j(\mathbf{x})\right),\label{1}
 \end{equation}
-where in the case of regression, $f$ is the function $f(x)=x$, while in the classification case, $f$ takes the form of a nonlinear activation function (e.g., the <a href="/artificial-intelligent/machine-learning/2022/08/13/linear-models.html#logistic-sigmoid-func">sigmoid function</a>).</p>
+where in the case of regression, $f$ is the function $f(x)=x$, while in the classification case, $f$ takes the form of a nonlinear activation function (e.g., the <a href="/artificial-intelligent/machine-learning/2022/08/13/glm.html#logistic-sigmoid-func">sigmoid function</a>).</p>
 
 <p><strong>Neural networks</strong> extend this model \eqref{1} by letting each basis functions $\phi_j(\mathbf{x})$ be a nonlinear function of a linear combination of the inputs, where the coefficients in the combination are the adaptive parameters.</p>
 
@@ -228,7 +228,7 @@ Combining all these steps \eqref{2}, \eqref{3}, \eqref{4} and \eqref{5} together
 \begin{equation}
 y_k(\mathbf{x},\mathbf{w})=\sigma\left(\sum_{j=1}^{M}w_{kj}^{(2)}h\left(\sum_{i=1}^{D}w_{ji}^{(1)}x_i+w_{j0}^{(1)}\right)+w_{k0}^{(2)}\right),\label{6}
 \end{equation}
-where all of the weights and biases are comprises together into a parameter vector $\mathbf{w}$. As suggested in <a href="/artificial-intelligent/machine-learning/2022/08/13/linear-models.html#dummy-coeff">linear regression</a>, we can also let the bias $w_{j0}^{(1)}$ be coefficient of a dummy input variable $x_0=1$ that makes \eqref{2} can be written as
+where all of the weights and biases are comprises together into a parameter vector $\mathbf{w}$. As suggested in <a href="/artificial-intelligent/machine-learning/2022/08/13/glm.html#dummy-coeff">linear regression</a>, we can also let the bias $w_{j0}^{(1)}$ be coefficient of a dummy input variable $x_0=1$ that makes \eqref{2} can be written as
 \begin{equation}
 a_j=\sum_{i=0}^{D}w_{ji}^{(1)}x_i
 \end{equation}
@@ -236,7 +236,7 @@ This results that our subsequent layers are also able to be written in a more co
 \begin{equation}
 y_k(\mathbf{x},\mathbf{w})=\sigma\left(\sum_{j=0}^{M}w_{kj}^{(2)}h\left(\sum_{i=0}^{D}w_{ji}^{(1)}x_i\right)\right)
 \end{equation}
-Our network is also an example of a <strong>multilayer perception</strong>, or <strong>MLP</strong>, which is a combination of <a href="/artificial-intelligent/machine-learning/2022/08/13/linear-models.html#perceptron">perceptron models</a>. The key difference is that while the neural network uses continuous sigmoidal nonlinearities in the hidden units, which is differentiable w.r.t the parameters, the perceptron algorithm uses step-function nonlinearities, which is in contrast non-differentiable.</p>
+Our network is also an example of a <strong>multilayer perception</strong>, or <strong>MLP</strong>, which is a combination of <a href="/artificial-intelligent/machine-learning/2022/08/13/glm.html#perceptron">perceptron models</a>. The key difference is that while the neural network uses continuous sigmoidal nonlinearities in the hidden units, which is differentiable w.r.t the parameters, the perceptron algorithm uses step-function nonlinearities, which is in contrast non-differentiable.</p>
 
 <p>The network network we have been considering so far is <strong>feed-forward neural network</strong>, whose outputs are deterministic functions of the inputs. Each (hidden or output) unit in such a network computes a function given by
 \begin{equation}
@@ -256,7 +256,7 @@ where the sum runs all over units sending connections to unit $k$ (bias included
 <h3 id="output-prob-itp">Network outputs probabilistic interpretation</h3>
 
 <h4 id="univ-output">Univariate regression</h4>
-<p>Consider the <a href="/artificial-intelligent/machine-learning/2022/08/13/linear-models.html#least-squares-reg">regression problem</a> in which the target variable $t$ has Gaussian distribution with an $\mathbf{x}$ dependent mean
+<p>Consider the <a href="/artificial-intelligent/machine-learning/2022/08/13/glm.html#least-squares-reg">regression problem</a> in which the target variable $t$ has Gaussian distribution with an $\mathbf{x}$ dependent mean
 \begin{equation}
 p(t\vert\mathbf{x},\mathbf{w})=\mathcal{N}(t\vert y(\mathbf{x},\mathbf{w}),\beta^{-1}),
 \end{equation}
@@ -325,7 +325,7 @@ where $y_n=y(\mathbf{x}_n,\mathbf{w})$.</p>
 \begin{align}
 \frac{\partial E(\mathbf{w})}{\partial a_i}&amp;=\frac{\partial}{\partial a_i}-\sum_{n=1}^{N}t_n\log y_n+(1-t_n)\log(1-y_n) \\ &amp;=-\frac{t_i}{y_i}\frac{\partial y_i}{\partial a_i}-\frac{1-t_i}{1-y_i}\frac{\partial(1-y_i)}{\partial a_i} \\ &amp;=\frac{\partial y_i}{\partial a_i}\left(\frac{1-t_i}{1-y_i}-\frac{t_i}{y_i}\right) \\ &amp;=y_i(1-y_i)\left(\frac{1-t_i}{1-y_i}-\frac{t_i}{y_i}\right) \\ &amp;=y_i-t_i,\label{eq:bin-clf-drv-error-a}
 \end{align}
-where in the forth step, we have use the identity of the <a href="/artificial-intelligent/machine-learning/2022/08/13/linear-models.html#sigmoid-derivative">derivative of sigmoid function</a> that
+where in the forth step, we have use the identity of the <a href="/artificial-intelligent/machine-learning/2022/08/13/glm.html#sigmoid-derivative">derivative of sigmoid function</a> that
 \begin{equation}
 \frac{d\sigma}{d a}=\sigma(1-\sigma)
 \end{equation}</p>
@@ -377,7 +377,7 @@ which gives us the following cross-entropy error function by taking the negative
 \begin{align}
 E(\mathbf{w})=-\log p(\mathbf{T}\vert\mathbf{X},\mathbf{w})&amp;=-\log\prod_{n=1}^{N}\prod_{k=1}^{K}y_k(\mathbf{x},\mathbf{w})^{t_{nk}} \\ &amp;=-\sum_{n=1}^{N}\sum_{k=1}^{K}t_{nk}\log y_k(\mathbf{x}_n,\mathbf{w})\label{eq:mult-me-clf-error}
 \end{align}
-As discussed in <a href="/artificial-intelligent/machine-learning/2022/08/13/linear-models.html#softmax-reg">Softmax regression</a>, we see that the output unit activation function is given by the softmax function
+As discussed in <a href="/artificial-intelligent/machine-learning/2022/08/13/glm.html#softmax-reg">Softmax regression</a>, we see that the output unit activation function is given by the softmax function
 \begin{equation}
 y_k(\mathbf{x},\mathbf{w})=\frac{\exp\big[a_k(\mathbf{x},\mathbf{w})\big]}{\sum_{j=1}^{K}\exp\big[a_j(\mathbf{x},\mathbf{w})\big]}
 \end{equation}
@@ -385,7 +385,7 @@ Taking the derivative of the error function \eqref{eq:mult-me-clf-error}  w.r.t 
 \begin{align}
 \frac{\partial E(\mathbf{w})}{\partial a_{ij}}&amp;=\frac{\partial}{\partial a_{ij}}-\sum_{n=1}^{N}\sum_{k=1}^{K}t_{nk}\log y_{nk} \\ &amp;=-\sum_{k=1}^{K}\frac{t_{ik}}{y_{ik}}\frac{\partial y_{ik}}{\partial a_{ij}} \\ &amp;=-\sum_{k=1}^{K}\frac{t_{ik}}{y_{ik}}y_{ik}(1\{j=k\}-y_{ij})\label{53} \\ &amp;=y_{ij}\sum_{k=1}^{K}t_{ik}-\sum_{k=1}^{K}t_{ik}1\{j=k\} \\ &amp;=y_{ij}-t_{ij}
 \end{align}
-where we have used the identity of the <a href="/artificial-intelligent/machine-learning/2022/08/13/linear-models.html#softmax-derivative">derivative of the softmax function</a> in the forth step to obtain \eqref{53}.</p>
+where we have used the identity of the <a href="/artificial-intelligent/machine-learning/2022/08/13/glm.html#softmax-derivative">derivative of the softmax function</a> in the forth step to obtain \eqref{53}.</p>
 
 <h3 id="param-opt">Parameter optimization</h3>
 <p>In training neural network to find a value of $\mathbf{w}$ to minimize the error function $E(\mathbf{w})$, we usually start with some initial value $\mathbf{w}_0$ and iteratively update the weight vector $\mathbf{w}$, in which the weight at time step $\tau+1$ is given as
@@ -410,10 +410,7 @@ where $\eta&gt;0$ is called the <strong>learning rate</strong> of the update.</l
 <h4 id="erf-drv">Error-function derivatives</h4>
 <p>We first consider the case of evaluating the first order derivative of the error function w.r.t to the weight parameter $\mathbf{w}$.</p>
 
-<p>Consider the derivative of the error function $E(\mathbf{w})$ w.r.t the parameter $w_{ij}^{l}$, we have that
-\begin{align}</p>
-
-<p>\end{align}</p>
+<p>Consider the</p>
 
 <h4 id="jacobian-mtx">Jacobian matrix</h4>
 

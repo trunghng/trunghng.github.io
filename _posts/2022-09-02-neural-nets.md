@@ -32,11 +32,11 @@ eqn-number: true
 
 ## Feed-forward network functions
 {: #ff-func}
-Recall that the [linear models]({% post_url 2022-08-13-linear-models %}) used in regression and classification are based on linear combination of fixed nonlinear basis function $\phi_j(\mathbf{x})$ and take the form
+Recall that the [linear models]({% post_url 2022-08-13-glm %}) used in regression and classification are based on linear combination of fixed nonlinear basis function $\phi_j(\mathbf{x})$ and take the form
 \begin{equation}
 y(\mathbf{x},\mathbf{w})=f\left(\sum_{j=1}^{M}w_j\phi_j(\mathbf{x})\right),\label{1}
 \end{equation}
-where in the case of regression, $f$ is the function $f(x)=x$, while in the classification case, $f$ takes the form of a nonlinear activation function (e.g., the [sigmoid function]({% post_url 2022-08-13-linear-models %}#logistic-sigmoid-func)).
+where in the case of regression, $f$ is the function $f(x)=x$, while in the classification case, $f$ takes the form of a nonlinear activation function (e.g., the [sigmoid function]({% post_url 2022-08-13-glm %}#logistic-sigmoid-func)).
 
 **Neural networks** extend this model \eqref{1} by letting each basis functions $\phi_j(\mathbf{x})$ be a nonlinear function of a linear combination of the inputs, where the coefficients in the combination are the adaptive parameters.
 
@@ -69,7 +69,7 @@ Combining all these steps \eqref{2}, \eqref{3}, \eqref{4} and \eqref{5} together
 \begin{equation}
 y_k(\mathbf{x},\mathbf{w})=\sigma\left(\sum_{j=1}^{M}w_{kj}^{(2)}h\left(\sum_{i=1}^{D}w_{ji}^{(1)}x_i+w_{j0}^{(1)}\right)+w_{k0}^{(2)}\right),\label{6}
 \end{equation}
-where all of the weights and biases are comprises together into a parameter vector $\mathbf{w}$. As suggested in [linear regression]({% post_url 2022-08-13-linear-models %}#dummy-coeff), we can also let the bias $w_{j0}^{(1)}$ be coefficient of a dummy input variable $x_0=1$ that makes \eqref{2} can be written as
+where all of the weights and biases are comprises together into a parameter vector $\mathbf{w}$. As suggested in [linear regression]({% post_url 2022-08-13-glm %}#dummy-coeff), we can also let the bias $w_{j0}^{(1)}$ be coefficient of a dummy input variable $x_0=1$ that makes \eqref{2} can be written as
 \begin{equation}
 a_j=\sum_{i=0}^{D}w_{ji}^{(1)}x_i
 \end{equation}
@@ -77,7 +77,7 @@ This results that our subsequent layers are also able to be written in a more co
 \begin{equation}
 y_k(\mathbf{x},\mathbf{w})=\sigma\left(\sum_{j=0}^{M}w_{kj}^{(2)}h\left(\sum_{i=0}^{D}w_{ji}^{(1)}x_i\right)\right)
 \end{equation}
-Our network is also an example of a **multilayer perception**, or **MLP**, which is a combination of [perceptron models]({% post_url 2022-08-13-linear-models %}#perceptron). The key difference is that while the neural network uses continuous sigmoidal nonlinearities in the hidden units, which is differentiable w.r.t the parameters, the perceptron algorithm uses step-function nonlinearities, which is in contrast non-differentiable.
+Our network is also an example of a **multilayer perception**, or **MLP**, which is a combination of [perceptron models]({% post_url 2022-08-13-glm %}#perceptron). The key difference is that while the neural network uses continuous sigmoidal nonlinearities in the hidden units, which is differentiable w.r.t the parameters, the perceptron algorithm uses step-function nonlinearities, which is in contrast non-differentiable.
 
 The network network we have been considering so far is **feed-forward neural network**, whose outputs are deterministic functions of the inputs. Each (hidden or output) unit in such a network computes a function given by
 \begin{equation}
@@ -102,7 +102,7 @@ In concrete, the universal approximation theorem states that a feedforward netwo
 
 #### Univariate regression
 {: #univ-output}
-Consider the [regression problem]({% post_url 2022-08-13-linear-models %}#least-squares-reg) in which the target variable $t$ has Gaussian distribution with an $\mathbf{x}$ dependent mean
+Consider the [regression problem]({% post_url 2022-08-13-glm %}#least-squares-reg) in which the target variable $t$ has Gaussian distribution with an $\mathbf{x}$ dependent mean
 \begin{equation}
 p(t\vert\mathbf{x},\mathbf{w})=\mathcal{N}(t\vert y(\mathbf{x},\mathbf{w}),\beta^{-1}),
 \end{equation}
@@ -173,7 +173,7 @@ Moreover, consider the partial derivative of this error function w.r.t the activ
 \begin{align}
 \frac{\partial E(\mathbf{w})}{\partial a_i}&=\frac{\partial}{\partial a_i}-\sum_{n=1}^{N}t_n\log y_n+(1-t_n)\log(1-y_n) \\\\ &=-\frac{t_i}{y_i}\frac{\partial y_i}{\partial a_i}-\frac{1-t_i}{1-y_i}\frac{\partial(1-y_i)}{\partial a_i} \\\\ &=\frac{\partial y_i}{\partial a_i}\left(\frac{1-t_i}{1-y_i}-\frac{t_i}{y_i}\right) \\\\ &=y_i(1-y_i)\left(\frac{1-t_i}{1-y_i}-\frac{t_i}{y_i}\right) \\\\ &=y_i-t_i,\label{eq:bin-clf-drv-error-a}
 \end{align}
-where in the forth step, we have use the identity of the [derivative of sigmoid function]({% post_url 2022-08-13-linear-models %}#sigmoid-derivative) that
+where in the forth step, we have use the identity of the [derivative of sigmoid function]({% post_url 2022-08-13-glm %}#sigmoid-derivative) that
 \begin{equation}
 \frac{d\sigma}{d a}=\sigma(1-\sigma)
 \end{equation}
@@ -226,7 +226,7 @@ which gives us the following cross-entropy error function by taking the negative
 \begin{align}
 E(\mathbf{w})=-\log p(\mathbf{T}\vert\mathbf{X},\mathbf{w})&=-\log\prod_{n=1}^{N}\prod_{k=1}^{K}y_k(\mathbf{x},\mathbf{w})^{t_{nk}} \\\\ &=-\sum_{n=1}^{N}\sum_{k=1}^{K}t_{nk}\log y_k(\mathbf{x}\_n,\mathbf{w})\label{eq:mult-me-clf-error}
 \end{align}
-As discussed in [Softmax regression]({% post_url 2022-08-13-linear-models %}#softmax-reg), we see that the output unit activation function is given by the softmax function
+As discussed in [Softmax regression]({% post_url 2022-08-13-glm %}#softmax-reg), we see that the output unit activation function is given by the softmax function
 \begin{equation}
 y_k(\mathbf{x},\mathbf{w})=\frac{\exp\big[a_k(\mathbf{x},\mathbf{w})\big]}{\sum_{j=1}^{K}\exp\big[a_j(\mathbf{x},\mathbf{w})\big]}
 \end{equation}
@@ -234,7 +234,7 @@ Taking the derivative of the error function \eqref{eq:mult-me-clf-error}  w.r.t 
 \begin{align}
 \frac{\partial E(\mathbf{w})}{\partial a_{ij}}&=\frac{\partial}{\partial a_{ij}}-\sum_{n=1}^{N}\sum_{k=1}^{K}t_{nk}\log y_{nk} \\\\ &=-\sum_{k=1}^{K}\frac{t_{ik}}{y_{ik}}\frac{\partial y_{ik}}{\partial a_{ij}} \\\\ &=-\sum_{k=1}^{K}\frac{t_{ik}}{y_{ik}}y_{ik}(1\\{j=k\\}-y_{ij})\label{53} \\\\ &=y_{ij}\sum_{k=1}^{K}t_{ik}-\sum_{k=1}^{K}t_{ik}1\\{j=k\\} \\\\ &=y_{ij}-t_{ij}
 \end{align}
-where we have used the identity of the [derivative of the softmax function]({% post_url 2022-08-13-linear-models %}#softmax-derivative) in the forth step to obtain \eqref{53}.
+where we have used the identity of the [derivative of the softmax function]({% post_url 2022-08-13-glm %}#softmax-derivative) in the forth step to obtain \eqref{53}.
 
 ### Parameter optimization
 {: #param-opt}
@@ -260,10 +260,7 @@ In this section, we will consider the use of **backpropagation** technique to ev
 {: #erf-drv}
 We first consider the case of evaluating the first order derivative of the error function w.r.t to the weight parameter $\mathbf{w}$.
 
-Consider the derivative of the error function $E(\mathbf{w})$ w.r.t the parameter $w_{ij}^{l}$, we have that
-\begin{align}
-
-\end{align}
+Consider the 
 
 #### Jacobian matrix
 {: #jacobian-mtx}
