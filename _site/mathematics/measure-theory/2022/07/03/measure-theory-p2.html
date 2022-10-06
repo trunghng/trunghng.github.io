@@ -155,17 +155,23 @@
 <ul>
   <li><a href="#lebesgue-measure">Lebesgue measure</a>
     <ul>
-      <li><a href="#lebesgue-outer-measure-properties">Properties of Lebesgue outer measure</a></li>
-      <li><a href="#fnt-add-spt-sets">Finite additivity for separated sets</a></li>
-      <li><a href="#outer-measure-elem-sets">Outer measure of elementary sets</a></li>
-      <li><a href="#fnt-add-alm-dsjnt-boxes">Finite additivity for almost disjoint boxes</a></li>
-      <li><a href="#outer-msr-cntbl-uni-alm-dsjnt-boxes">Outer measure of countable unions of almost disjoint boxes</a></li>
-      <li><a href="#open-sets-cntbl-uni-alm-dsjnt-boxes">Open sets as countable unions of almost disjoint boxes</a></li>
-      <li><a href="#outer-msr-open-sets">Outer measure of open sets</a></li>
-      <li><a href="#outer-msr-arb-sets">Outer measure of arbitrary sets</a></li>
+      <li><a href="#lebesgue-outer-measure-properties">Properties of Lebesgue outer measure</a>
+        <ul>
+          <li><a href="#fnt-add-spt-sets">Finite additivity for separated sets</a></li>
+          <li><a href="#outer-measure-elem-sets">Outer measure of elementary sets</a></li>
+          <li><a href="#fnt-add-alm-dsjnt-boxes">Finite additivity for almost disjoint boxes</a></li>
+          <li><a href="#outer-msr-cntbl-uni-alm-dsjnt-boxes">Outer measure of countable unions of almost disjoint boxes</a></li>
+          <li><a href="#open-sets-cntbl-uni-alm-dsjnt-boxes">Open sets as countable unions of almost disjoint boxes</a></li>
+          <li><a href="#outer-msr-open-sets">Outer measure of open sets</a></li>
+          <li><a href="#outer-msr-arb-sets">Outer measure of arbitrary sets</a></li>
+        </ul>
+      </li>
       <li><a href="#lebesgue-measurability">Lebesgue measurability</a>
         <ul>
+          <li><a href="#exist-lebesgue-msr-sets">Existence of Lebesgue measurable sets</a></li>
           <li><a href="#criteria-measurability">Criteria for measurability</a></li>
+          <li><a href="#msr-axiom">The measure axioms</a></li>
+          <li><a href="#mnt-cvg-theorem-msr-sets">Monotone convergence theorem for measurable sets</a></li>
         </ul>
       </li>
       <li><a href="#non-measurable-sets">Non-measurable sets</a></li>
@@ -255,7 +261,7 @@ Combining empty set with countable subadditivity axiom gives us the finite subad
 m^{*}\left(E_1\cup\ldots\cup E_k\right)\leq m^{*}(E_1)+\ldots+m^{*}(E_k),\hspace{1cm}\forall k\geq 0
 \end{equation}</p>
 
-<h3 id="fnt-add-spt-sets">Finite additivity for separated sets</h3>
+<h4 id="fnt-add-spt-sets">Finite additivity for separated sets</h4>
 <p><strong>Lemma 3</strong>  <br />
 <em>Let $E,F\subset\mathbb{R}^d$ be such that $\text{dist}(E,F)&gt;0$, where
 \begin{equation}
@@ -301,7 +307,7 @@ Let $E,F\subset\mathbb{R}^d$ be disjoint closed sets, with at least one of $E,F$
 
 <p><strong>Proof</strong></p>
 
-<h3 id="outer-measure-elem-sets">Outer measure of elementary sets</h3>
+<h4 id="outer-measure-elem-sets">Outer measure of elementary sets</h4>
 <p><strong>Lemma 4</strong>  <br />
 <em>Let $E$ be an elementary set. Then the Lebesgue outer measure of $E$ is equal to the elementary measure of $E$:</em>
 \begin{equation}
@@ -392,14 +398,14 @@ m^{*}(U)\lt 1\leq m^{*,(J)}(U)
 \end{equation}
 Combining with \eqref{eq:cor6.1}, we obtain that the bounded open set $U$ is not Jordan measurable.</p>
 
-<h3 id="fnt-add-alm-dsjnt-boxes">Finite additivity for almost disjoint boxes</h3>
+<h4 id="fnt-add-alm-dsjnt-boxes">Finite additivity for almost disjoint boxes</h4>
 <p>Two boxes are <strong>almost disjoint</strong> if their interiors are disjoint, e.g., $[0,1]$ and $[1,2]$ are almost disjoint. If a box has the same elementary as its interior, we see that the finite additivity property
 \begin{equation}
 m(B_1\cup\ldots\cup B_n)=\vert B_1\vert+\ldots+\vert B_n\vert\label{eq:faadb.1}
 \end{equation}
 also holds for almost disjoint boxes $B_1,\ldots,B_n$.</p>
 
-<h3 id="outer-msr-cntbl-uni-alm-dsjnt-boxes">Outer measure of countable unions of almost disjoint boxes</h3>
+<h4 id="outer-msr-cntbl-uni-alm-dsjnt-boxes">Outer measure of countable unions of almost disjoint boxes</h4>
 <p><strong>Lemma 8</strong><br />
 <em>Let $E=\bigcup_{n=1}^{\infty}B_n$ be a countable union of almost disjoint boxes $B_1,B_2,\ldots$. Then</em>
 \begin{equation}
@@ -460,7 +466,7 @@ Combining \eqref{eq:eg2.2} and \eqref{eq:eg2.3} together gives us
 m^{*}(E)=m_{*,(J)}(E)
 \end{equation}</p>
 
-<h3 id="open-sets-cntbl-uni-alm-dsjnt-boxes">Open sets as countable unions of almost disjoint boxes</h3>
+<h4 id="open-sets-cntbl-uni-alm-dsjnt-boxes">Open sets as countable unions of almost disjoint boxes</h4>
 <p><strong>Lemma 10</strong><br />
 <em>Let $E\subset\mathbb{R}^d$ be an open set. Then $E$ can be expressed as the countable union of almost disjoint boxes (and, in fact, as the countable union of almost disjoint closed cubes)</em>.</p>
 
@@ -485,11 +491,11 @@ E=\bigcup_{Q\in\mathcal{Q}^*}Q,
 \end{equation}
 which is union of almost disjoint cubes. As $\mathcal{Q}^*$ is at most countable, the claim follows.</p>
 
-<h3 id="outer-msr-open-sets">Outer measure of open sets</h3>
+<h4 id="outer-msr-open-sets">Outer measure of open sets</h4>
 <p><strong>Corollary 11</strong><br />
 The Lebesgue outer measure of any open set is equal to the Jordan inner measure of that set, or of the total volume of any partitioning of that set into almost disjoint boxes.</p>
 
-<h3 id="outer-msr-arb-sets">Outer measure of arbitrary sets</h3>
+<h4 id="outer-msr-arb-sets">Outer measure of arbitrary sets</h4>
 <p><strong>Lemma 12</strong>. (<strong>Outer regularity</strong>)<br />
 <em>Let $E\subset\mathbb{R}^d$ be an arbitrary set. Then we have</em>
 \begin{equation}
@@ -530,7 +536,9 @@ and thus
 And since $\varepsilon&gt;0$ was arbitrary, the claim follows.</p>
 
 <h3 id="lebesgue-measurability">Lebesgue measurability</h3>
-<p><strong>Lemma 13</strong>. (<strong>Existence of Lebesgue measurable sets</strong>)</p>
+
+<h4 id="exist-lebesgue-msr-sets">Existence of Lebesgue measurable sets</h4>
+<p><strong>Lemma 13</strong>.</p>
 <ul id="roman-list" style="font-style: italic;">
 	<li>Every open set is Lebesgue measurable.</li>
 	<li>Every closed set is Lebesgue measurable.</li>
@@ -544,9 +552,38 @@ And since $\varepsilon&gt;0$ was arbitrary, the claim follows.</p>
 <p><strong>Proof</strong></p>
 <ul id="roman-list">
 	<li>This follows from definition.</li>
+	<li>
+		We have that every closed set is a the countable union of closed and bounded set, so by (vi), if suffices to verify the claim when $E$ is bounded and closed.<br />
+		Let $U\supset E$ be an open set, we thus have that $U\backslash E$ is also open due to the compactness of $E$. By <b>lemma 10</b>, we can represent the open set $U\backslash E$ as a countable union of almost disjoint boxes as
+		\begin{equation}
+		U\backslash E=\bigcup_{n=1}^{\infty}B_n
+		\end{equation}
+		The problem remains to prove that for any $\varepsilon&gt;0$
+		\begin{equation}
+		\sum_{n=1}^{\infty}\vert B_n\vert&lt;\varepsilon
+		\end{equation}
+	</li>
+	<li>This follows from definition.</li>
+	<li>This follows from definition.</li>
+	<li>Required (vi)</li>
+	<li>
+		For each Lebesgue measurable set $E_n$, for any $\varepsilon&gt;0$ and for $U_n$ is an open set containing $E_n$ we have 
+		\begin{equation}
+		m^{*}(U_n\backslash E_n)\leq\frac{\varepsilon}{2^n}\label{eq:lemma13.1}
+		\end{equation}
+		Moreover, since $E_n\subset U_n$, then
+		\begin{equation}
+		\bigcup_{n=1}^{\infty}E_n\subset\bigcup_{n=1}^{\infty}U_n,
+		\end{equation}
+		which is also an open set. Therefore, from \eqref{eq:lemma13.1} and by countable subadditivity, we have
+		\begin{equation}
+		m^*\left(\left(\bigcup_{n=1}^{\infty}U_n\right)\backslash\left(\bigcup_{n=1}^{\infty}E_n\right)\right)\leq\sum_{n=1}^{\infty}m^*(U_n\backslash E_n)\leq\sum_{n=1}^{\infty}\frac{\varepsilon}{2^n}=\varepsilon,
+		\end{equation}
+		which proves that $\bigcup_{n=1}^{\infty}E_n$ is Lebesgue measurable.
+	</li>
 </ul>
 
-<p id="criteria-measurability"><strong>Remark 14</strong>. (<strong>Criteria for measurability</strong>)</p>
+<h4 id="criteria-measurability">Criteria for measurability</h4>
 <p>Let $E\subset\mathbb{R}^d$. The following are equivalent</p>
 <ul id="roman-list">
 	<li>$E$ is Lebesgue measurable.</li>
@@ -558,8 +595,37 @@ And since $\varepsilon&gt;0$ was arbitrary, the claim follows.</p>
 </ul>
 
 <p><strong>Proof</strong></p>
+<ul id="number-list">
+	<li>
+		(i) $\Rightarrow$ (ii)<br />
+		This follows from definition
+	</li>
+	<li>
+		(i) $\Rightarrow$ (iii)<br />
+	</li>
+	<li>(vi) $\Rightarrow$ (i)<br /></li>
+	Given (vi), for any $\varepsilon&gt;0$, we can find a Lebesgue measurable set $E_\varepsilon^{(n)}$ such that
+	\begin{equation}
+	m^*\left(E_\varepsilon^{(n)}\Delta E\right)\leq\frac{\varepsilon}{2^n}
+	\end{equation}
+	Therefore, by countable subadditivity property of Lebesgue outer measurability
+	\begin{equation}
+	m^*\left(\bigcup_{n=1}^{\infty}E_\varepsilon^{(n)}\Delta E\right)\leq\sum_{n=1}^{\infty}m^*\left(E_\varepsilon^{(n)}\Delta E\right)\leq\sum_{n=1}^{\infty}\frac{\varepsilon}{2^n}=\varepsilon
+	\end{equation}
+</ul>
 
-<p><strong>Lemma 15</strong>. (<strong>The measure axioms</strong>)</p>
+<p><strong>Example 3</strong><br />
+Every Jordan measurable set is Lebesgue measurable.</p>
+
+<p><strong>Proof</strong><br />
+Consider a bounded Jordan measurable set $E\subset\mathbb{R}^d$. By Jordan measurability, there exists elementary sets $A\subset E\subset B$ such that $B$ is an open set and for any $\varepsilon&gt;0$
+\begin{equation}
+\varepsilon\geq m(B\backslash A)\geq m(B\backslash E),
+\end{equation}
+which claims the Lebesgue measurability of $E$.</p>
+
+<h4 id="msr-axiom">The measure axioms</h4>
+<p><strong>Lemma 14</strong></p>
 <ul id="roman-list" style="font-style: italic;">
 	<li><b>Empty set</b>. $m(\emptyset)=0$.</li>
 	<li><b>Countable additivity</b>. If $E_1,E_2,\ldots\subset\mathbb{R}^d$ is a countable sequence of disjoint Lebesgue measurable sets, then</li>
@@ -636,7 +702,7 @@ And since $\varepsilon&gt;0$ was arbitrary, the claim follows.</p>
 	</li>
 </ul>
 
-<p><strong>Example</strong> (<strong>Monotone convergence theorem for measurable sets</strong>)</p>
+<h4 id="mnt-cvg-theorem-msr-sets">Monotone convergence theorem for measurable sets</h4>
 <ul id="roman-list">
 	<li>
 		<b>Upward monotone convergence</b>. Let $E_1\subset E_2\subset\ldots\subset\mathbb{R}^d$ be a countable non-decreasing sequence of Lebesgue measurable sets. Then

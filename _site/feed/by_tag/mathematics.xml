@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-06T17:16:37+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-06T20:37:20+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory - III: the Lebesgue integral</title><link href="http://localhost:4000/mathematics/measure-theory/2022/08/21/measure-theory-p3.html" rel="alternate" type="text/html" title="Measure theory - III: the Lebesgue integral" /><published>2022-08-21T13:00:00+07:00</published><updated>2022-08-21T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/08/21/measure-theory-p3</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/08/21/measure-theory-p3.html">&lt;blockquote&gt;
   &lt;p&gt;Part III of the measure theory series. Materials are mostly taken from &lt;a href=&quot;/mathematics/measure-theory/2022/08/21/measure-theory-p3.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some needed notations extracted from &lt;a href=&quot;/mathematics/measure-theory/2022/08/21/measure-theory-p3.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -22,17 +22,23 @@
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;#lebesgue-measure&quot;&gt;Lebesgue measure&lt;/a&gt;
     &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#lebesgue-outer-measure-properties&quot;&gt;Properties of Lebesgue outer measure&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#fnt-add-spt-sets&quot;&gt;Finite additivity for separated sets&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#outer-measure-elem-sets&quot;&gt;Outer measure of elementary sets&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#fnt-add-alm-dsjnt-boxes&quot;&gt;Finite additivity for almost disjoint boxes&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#outer-msr-cntbl-uni-alm-dsjnt-boxes&quot;&gt;Outer measure of countable unions of almost disjoint boxes&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#open-sets-cntbl-uni-alm-dsjnt-boxes&quot;&gt;Open sets as countable unions of almost disjoint boxes&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#outer-msr-open-sets&quot;&gt;Outer measure of open sets&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#outer-msr-arb-sets&quot;&gt;Outer measure of arbitrary sets&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#lebesgue-outer-measure-properties&quot;&gt;Properties of Lebesgue outer measure&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#fnt-add-spt-sets&quot;&gt;Finite additivity for separated sets&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#outer-measure-elem-sets&quot;&gt;Outer measure of elementary sets&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#fnt-add-alm-dsjnt-boxes&quot;&gt;Finite additivity for almost disjoint boxes&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#outer-msr-cntbl-uni-alm-dsjnt-boxes&quot;&gt;Outer measure of countable unions of almost disjoint boxes&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#open-sets-cntbl-uni-alm-dsjnt-boxes&quot;&gt;Open sets as countable unions of almost disjoint boxes&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#outer-msr-open-sets&quot;&gt;Outer measure of open sets&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#outer-msr-arb-sets&quot;&gt;Outer measure of arbitrary sets&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#lebesgue-measurability&quot;&gt;Lebesgue measurability&lt;/a&gt;
         &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#exist-lebesgue-msr-sets&quot;&gt;Existence of Lebesgue measurable sets&lt;/a&gt;&lt;/li&gt;
           &lt;li&gt;&lt;a href=&quot;#criteria-measurability&quot;&gt;Criteria for measurability&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#msr-axiom&quot;&gt;The measure axioms&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#mnt-cvg-theorem-msr-sets&quot;&gt;Monotone convergence theorem for measurable sets&lt;/a&gt;&lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#non-measurable-sets&quot;&gt;Non-measurable sets&lt;/a&gt;&lt;/li&gt;
@@ -122,7 +128,7 @@ Combining empty set with countable subadditivity axiom gives us the finite subad
 m^{*}\left(E_1\cup\ldots\cup E_k\right)\leq m^{*}(E_1)+\ldots+m^{*}(E_k),\hspace{1cm}\forall k\geq 0
 \end{equation}&lt;/p&gt;
 
-&lt;h3 id=&quot;fnt-add-spt-sets&quot;&gt;Finite additivity for separated sets&lt;/h3&gt;
+&lt;h4 id=&quot;fnt-add-spt-sets&quot;&gt;Finite additivity for separated sets&lt;/h4&gt;
 &lt;p&gt;&lt;strong&gt;Lemma 3&lt;/strong&gt;  &lt;br /&gt;
 &lt;em&gt;Let $E,F\subset\mathbb{R}^d$ be such that $\text{dist}(E,F)&amp;gt;0$, where
 \begin{equation}
@@ -168,7 +174,7 @@ Let $E,F\subset\mathbb{R}^d$ be disjoint closed sets, with at least one of $E,F$
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;outer-measure-elem-sets&quot;&gt;Outer measure of elementary sets&lt;/h3&gt;
+&lt;h4 id=&quot;outer-measure-elem-sets&quot;&gt;Outer measure of elementary sets&lt;/h4&gt;
 &lt;p&gt;&lt;strong&gt;Lemma 4&lt;/strong&gt;  &lt;br /&gt;
 &lt;em&gt;Let $E$ be an elementary set. Then the Lebesgue outer measure of $E$ is equal to the elementary measure of $E$:&lt;/em&gt;
 \begin{equation}
@@ -259,14 +265,14 @@ m^{*}(U)\lt 1\leq m^{*,(J)}(U)
 \end{equation}
 Combining with \eqref{eq:cor6.1}, we obtain that the bounded open set $U$ is not Jordan measurable.&lt;/p&gt;
 
-&lt;h3 id=&quot;fnt-add-alm-dsjnt-boxes&quot;&gt;Finite additivity for almost disjoint boxes&lt;/h3&gt;
+&lt;h4 id=&quot;fnt-add-alm-dsjnt-boxes&quot;&gt;Finite additivity for almost disjoint boxes&lt;/h4&gt;
 &lt;p&gt;Two boxes are &lt;strong&gt;almost disjoint&lt;/strong&gt; if their interiors are disjoint, e.g., $[0,1]$ and $[1,2]$ are almost disjoint. If a box has the same elementary as its interior, we see that the finite additivity property
 \begin{equation}
 m(B_1\cup\ldots\cup B_n)=\vert B_1\vert+\ldots+\vert B_n\vert\label{eq:faadb.1}
 \end{equation}
 also holds for almost disjoint boxes $B_1,\ldots,B_n$.&lt;/p&gt;
 
-&lt;h3 id=&quot;outer-msr-cntbl-uni-alm-dsjnt-boxes&quot;&gt;Outer measure of countable unions of almost disjoint boxes&lt;/h3&gt;
+&lt;h4 id=&quot;outer-msr-cntbl-uni-alm-dsjnt-boxes&quot;&gt;Outer measure of countable unions of almost disjoint boxes&lt;/h4&gt;
 &lt;p&gt;&lt;strong&gt;Lemma 8&lt;/strong&gt;&lt;br /&gt;
 &lt;em&gt;Let $E=\bigcup_{n=1}^{\infty}B_n$ be a countable union of almost disjoint boxes $B_1,B_2,\ldots$. Then&lt;/em&gt;
 \begin{equation}
@@ -327,7 +333,7 @@ Combining \eqref{eq:eg2.2} and \eqref{eq:eg2.3} together gives us
 m^{*}(E)=m_{*,(J)}(E)
 \end{equation}&lt;/p&gt;
 
-&lt;h3 id=&quot;open-sets-cntbl-uni-alm-dsjnt-boxes&quot;&gt;Open sets as countable unions of almost disjoint boxes&lt;/h3&gt;
+&lt;h4 id=&quot;open-sets-cntbl-uni-alm-dsjnt-boxes&quot;&gt;Open sets as countable unions of almost disjoint boxes&lt;/h4&gt;
 &lt;p&gt;&lt;strong&gt;Lemma 10&lt;/strong&gt;&lt;br /&gt;
 &lt;em&gt;Let $E\subset\mathbb{R}^d$ be an open set. Then $E$ can be expressed as the countable union of almost disjoint boxes (and, in fact, as the countable union of almost disjoint closed cubes)&lt;/em&gt;.&lt;/p&gt;
 
@@ -352,11 +358,11 @@ E=\bigcup_{Q\in\mathcal{Q}^*}Q,
 \end{equation}
 which is union of almost disjoint cubes. As $\mathcal{Q}^*$ is at most countable, the claim follows.&lt;/p&gt;
 
-&lt;h3 id=&quot;outer-msr-open-sets&quot;&gt;Outer measure of open sets&lt;/h3&gt;
+&lt;h4 id=&quot;outer-msr-open-sets&quot;&gt;Outer measure of open sets&lt;/h4&gt;
 &lt;p&gt;&lt;strong&gt;Corollary 11&lt;/strong&gt;&lt;br /&gt;
 The Lebesgue outer measure of any open set is equal to the Jordan inner measure of that set, or of the total volume of any partitioning of that set into almost disjoint boxes.&lt;/p&gt;
 
-&lt;h3 id=&quot;outer-msr-arb-sets&quot;&gt;Outer measure of arbitrary sets&lt;/h3&gt;
+&lt;h4 id=&quot;outer-msr-arb-sets&quot;&gt;Outer measure of arbitrary sets&lt;/h4&gt;
 &lt;p&gt;&lt;strong&gt;Lemma 12&lt;/strong&gt;. (&lt;strong&gt;Outer regularity&lt;/strong&gt;)&lt;br /&gt;
 &lt;em&gt;Let $E\subset\mathbb{R}^d$ be an arbitrary set. Then we have&lt;/em&gt;
 \begin{equation}
@@ -397,7 +403,9 @@ and thus
 And since $\varepsilon&amp;gt;0$ was arbitrary, the claim follows.&lt;/p&gt;
 
 &lt;h3 id=&quot;lebesgue-measurability&quot;&gt;Lebesgue measurability&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Lemma 13&lt;/strong&gt;. (&lt;strong&gt;Existence of Lebesgue measurable sets&lt;/strong&gt;)&lt;/p&gt;
+
+&lt;h4 id=&quot;exist-lebesgue-msr-sets&quot;&gt;Existence of Lebesgue measurable sets&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;Lemma 13&lt;/strong&gt;.&lt;/p&gt;
 &lt;ul id=&quot;roman-list&quot; style=&quot;font-style: italic;&quot;&gt;
 	&lt;li&gt;Every open set is Lebesgue measurable.&lt;/li&gt;
 	&lt;li&gt;Every closed set is Lebesgue measurable.&lt;/li&gt;
@@ -411,9 +419,38 @@ And since $\varepsilon&amp;gt;0$ was arbitrary, the claim follows.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 &lt;ul id=&quot;roman-list&quot;&gt;
 	&lt;li&gt;This follows from definition.&lt;/li&gt;
+	&lt;li&gt;
+		We have that every closed set is a the countable union of closed and bounded set, so by (vi), if suffices to verify the claim when $E$ is bounded and closed.&lt;br /&gt;
+		Let $U\supset E$ be an open set, we thus have that $U\backslash E$ is also open due to the compactness of $E$. By &lt;b&gt;lemma 10&lt;/b&gt;, we can represent the open set $U\backslash E$ as a countable union of almost disjoint boxes as
+		\begin{equation}
+		U\backslash E=\bigcup_{n=1}^{\infty}B_n
+		\end{equation}
+		The problem remains to prove that for any $\varepsilon&amp;gt;0$
+		\begin{equation}
+		\sum_{n=1}^{\infty}\vert B_n\vert&amp;lt;\varepsilon
+		\end{equation}
+	&lt;/li&gt;
+	&lt;li&gt;This follows from definition.&lt;/li&gt;
+	&lt;li&gt;This follows from definition.&lt;/li&gt;
+	&lt;li&gt;Required (vi)&lt;/li&gt;
+	&lt;li&gt;
+		For each Lebesgue measurable set $E_n$, for any $\varepsilon&amp;gt;0$ and for $U_n$ is an open set containing $E_n$ we have 
+		\begin{equation}
+		m^{*}(U_n\backslash E_n)\leq\frac{\varepsilon}{2^n}\label{eq:lemma13.1}
+		\end{equation}
+		Moreover, since $E_n\subset U_n$, then
+		\begin{equation}
+		\bigcup_{n=1}^{\infty}E_n\subset\bigcup_{n=1}^{\infty}U_n,
+		\end{equation}
+		which is also an open set. Therefore, from \eqref{eq:lemma13.1} and by countable subadditivity, we have
+		\begin{equation}
+		m^*\left(\left(\bigcup_{n=1}^{\infty}U_n\right)\backslash\left(\bigcup_{n=1}^{\infty}E_n\right)\right)\leq\sum_{n=1}^{\infty}m^*(U_n\backslash E_n)\leq\sum_{n=1}^{\infty}\frac{\varepsilon}{2^n}=\varepsilon,
+		\end{equation}
+		which proves that $\bigcup_{n=1}^{\infty}E_n$ is Lebesgue measurable.
+	&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p id=&quot;criteria-measurability&quot;&gt;&lt;strong&gt;Remark 14&lt;/strong&gt;. (&lt;strong&gt;Criteria for measurability&lt;/strong&gt;)&lt;/p&gt;
+&lt;h4 id=&quot;criteria-measurability&quot;&gt;Criteria for measurability&lt;/h4&gt;
 &lt;p&gt;Let $E\subset\mathbb{R}^d$. The following are equivalent&lt;/p&gt;
 &lt;ul id=&quot;roman-list&quot;&gt;
 	&lt;li&gt;$E$ is Lebesgue measurable.&lt;/li&gt;
@@ -425,8 +462,37 @@ And since $\varepsilon&amp;gt;0$ was arbitrary, the claim follows.&lt;/p&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+&lt;ul id=&quot;number-list&quot;&gt;
+	&lt;li&gt;
+		(i) $\Rightarrow$ (ii)&lt;br /&gt;
+		This follows from definition
+	&lt;/li&gt;
+	&lt;li&gt;
+		(i) $\Rightarrow$ (iii)&lt;br /&gt;
+	&lt;/li&gt;
+	&lt;li&gt;(vi) $\Rightarrow$ (i)&lt;br /&gt;&lt;/li&gt;
+	Given (vi), for any $\varepsilon&amp;gt;0$, we can find a Lebesgue measurable set $E_\varepsilon^{(n)}$ such that
+	\begin{equation}
+	m^*\left(E_\varepsilon^{(n)}\Delta E\right)\leq\frac{\varepsilon}{2^n}
+	\end{equation}
+	Therefore, by countable subadditivity property of Lebesgue outer measurability
+	\begin{equation}
+	m^*\left(\bigcup_{n=1}^{\infty}E_\varepsilon^{(n)}\Delta E\right)\leq\sum_{n=1}^{\infty}m^*\left(E_\varepsilon^{(n)}\Delta E\right)\leq\sum_{n=1}^{\infty}\frac{\varepsilon}{2^n}=\varepsilon
+	\end{equation}
+&lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;Lemma 15&lt;/strong&gt;. (&lt;strong&gt;The measure axioms&lt;/strong&gt;)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Example 3&lt;/strong&gt;&lt;br /&gt;
+Every Jordan measurable set is Lebesgue measurable.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
+Consider a bounded Jordan measurable set $E\subset\mathbb{R}^d$. By Jordan measurability, there exists elementary sets $A\subset E\subset B$ such that $B$ is an open set and for any $\varepsilon&amp;gt;0$
+\begin{equation}
+\varepsilon\geq m(B\backslash A)\geq m(B\backslash E),
+\end{equation}
+which claims the Lebesgue measurability of $E$.&lt;/p&gt;
+
+&lt;h4 id=&quot;msr-axiom&quot;&gt;The measure axioms&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;Lemma 14&lt;/strong&gt;&lt;/p&gt;
 &lt;ul id=&quot;roman-list&quot; style=&quot;font-style: italic;&quot;&gt;
 	&lt;li&gt;&lt;b&gt;Empty set&lt;/b&gt;. $m(\emptyset)=0$.&lt;/li&gt;
 	&lt;li&gt;&lt;b&gt;Countable additivity&lt;/b&gt;. If $E_1,E_2,\ldots\subset\mathbb{R}^d$ is a countable sequence of disjoint Lebesgue measurable sets, then&lt;/li&gt;
@@ -503,7 +569,7 @@ And since $\varepsilon&amp;gt;0$ was arbitrary, the claim follows.&lt;/p&gt;
 	&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt; (&lt;strong&gt;Monotone convergence theorem for measurable sets&lt;/strong&gt;)&lt;/p&gt;
+&lt;h4 id=&quot;mnt-cvg-theorem-msr-sets&quot;&gt;Monotone convergence theorem for measurable sets&lt;/h4&gt;
 &lt;ul id=&quot;roman-list&quot;&gt;
 	&lt;li&gt;
 		&lt;b&gt;Upward monotone convergence&lt;/b&gt;. Let $E_1\subset E_2\subset\ldots\subset\mathbb{R}^d$ be a countable non-decreasing sequence of Lebesgue measurable sets. Then
@@ -736,7 +802,7 @@ as the limit of the partial sums $\sum_{n=1}^{N}x_n$, which may be either finite
 \end{equation}
 From this equation, given any collection $(x_\alpha)_{\alpha\in A}$ of numbers $x_\alpha\in[0,+\infty]$ indexed by an arbitrary set $A$, we can define the sum $\sum_{\alpha\in A}x_\alpha$ as
 \begin{equation}
-\sum_{\alpha\in A}x_\alpha=\sup_{F\subset A,F\text{ finite}}\sum_{\alpha\in F}x_\alpha
+\sum_{\alpha\in A}x_\alpha=\sup_{F\subset A,F\text{ finite}}\sum_{\alpha\in F}x_\alpha\label{eq:others.1}
 \end{equation}
 Or moreover, given any bijection $\phi:B\to A$, we has the change of variables formula
 \begin{equation}
@@ -760,7 +826,7 @@ Let $F\subset\mathbb{N}^2$ be any finite set. Then $F\subset\{1,\ldots,N\}\times
 \begin{align}
 \sum_{(n,m)\in F}x_{n,m}&amp;amp;\leq\sum_{(n,m)\in\{1,\ldots,N\}\times\{1,\ldots,N\}}x_{n,m} \\ &amp;amp;=\sum_{n=1}^{N}\sum_{m=1}^{N}x_{n,m} \\ &amp;amp;\leq\sum_{n=1}^{\infty}\sum_{m=1}^{\infty}x_{n,m},
 \end{align}
-for any finite subset $F$ of $\mathbb{R}^2$. Then by \eqref{eq:remark11.1}, we have
+for any finite subset $F$ of $\mathbb{R}^2$. Then by \eqref{eq:others.1}, we have
 \begin{equation}
 \sum_{(n,m)\in\mathbb{N}^2}x_{n,m}=\sup_{F\subset\mathbb{N}^2,F\text{ finite}}x_{n,m}\leq\sum_{n=1}^{\infty}\sum_{m=1}^{\infty}x_{n,m}
 \end{equation}
@@ -1785,7 +1851,10 @@ where $m^2$ denotes two-dimensional Jordan measure.&lt;/p&gt;
 &lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
   &lt;ol&gt;
     &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;A function $f$ is said to be &lt;strong&gt;uniformly continuous&lt;/strong&gt; if there. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;A function $f$ is said to be &lt;strong&gt;uniformly continuous&lt;/strong&gt; if for any real $\varepsilon&amp;gt;0$, there exists a real number $\delta&amp;gt;0$ such that for any $x, y$ with $d_1(x, y)&amp;lt;\delta$, we also have
+\begin{equation*}
+d_2(f(x),f(y))&amp;lt;\varepsilon
+\end{equation*} &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:2&quot; role=&quot;doc-endnote&quot;&gt;
       &lt;p&gt;A function $f:[a,b]\to\mathbb{R}$ is &lt;strong&gt;piecewise continuous&lt;/strong&gt; if we can partition $[a,b]$ into finitely many intervals, such that $f$ is continuous on each interval. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;

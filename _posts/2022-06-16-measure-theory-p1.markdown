@@ -182,7 +182,7 @@ as the limit of the partial sums $\sum_{n=1}^{N}x_n$, which may be either finite
 \end{equation}
 From this equation, given any collection $(x_\alpha)\_{\alpha\in A}$ of numbers $x_\alpha\in[0,+\infty]$ indexed by an arbitrary set $A$, we can define the sum $\sum_{\alpha\in A}x_\alpha$ as
 \begin{equation}
-\sum_{\alpha\in A}x_\alpha=\sup_{F\subset A,F\text{ finite}}\sum_{\alpha\in F}x_\alpha
+\sum_{\alpha\in A}x_\alpha=\sup_{F\subset A,F\text{ finite}}\sum_{\alpha\in F}x_\alpha\label{eq:others.1}
 \end{equation}
 Or moreover, given any bijection $\phi:B\to A$, we has the change of variables formula
 \begin{equation}
@@ -206,7 +206,7 @@ Let $F\subset\mathbb{N}^2$ be any finite set. Then $F\subset\\{1,\ldots,N\\}\tim
 \begin{align}
 \sum_{(n,m)\in F}x_{n,m}&\leq\sum_{(n,m)\in\\{1,\ldots,N\\}\times\\{1,\ldots,N\\}}x_{n,m} \\\\ &=\sum_{n=1}^{N}\sum_{m=1}^{N}x_{n,m} \\\\ &\leq\sum_{n=1}^{\infty}\sum_{m=1}^{\infty}x_{n,m},
 \end{align}
-for any finite subset $F$ of $\mathbb{R}^2$. Then by \eqref{eq:remark11.1}, we have
+for any finite subset $F$ of $\mathbb{R}^2$. Then by \eqref{eq:others.1}, we have
 \begin{equation}
 \sum_{(n,m)\in\mathbb{N}^2}x_{n,m}=\sup_{F\subset\mathbb{N}^2,F\text{ finite}}x_{n,m}\leq\sum_{n=1}^{\infty}\sum_{m=1}^{\infty}x_{n,m}
 \end{equation}
@@ -786,7 +786,6 @@ in which case we have
 m(E)=\lim_{n\to\infty}2^{-dn}\mathcal{E}\_\*(E,2^{-n})=\lim_{n\to\infty}2^{-dn}\mathcal{E}^\*(E,2^{-n})
 \end{equation}
 
-
 ### Uniqueness of Jordan measure
 {: #uniqueness-jordan-measure} 
 Let $d\geq 1$ and let $m':\mathcal{J}(\mathbb{R}^d)\to\mathbb{R}^+$  be a map from the collection of Jordan measurable subsets of $\mathbb{R}^d$ to the nonnegative reals that obeys the non-negativity, finite additivity and translation invariance properties. Then there exists a constant $c\in\mathbb{R}^+$ such that
@@ -1242,5 +1241,9 @@ where $m^2$ denotes two-dimensional Jordan measure.
 ## Footnotes
 {: #footnotes}
 
-[^1]: A function $f$ is said to be **uniformly continuous** if there.
+[^1]: A function $f$ is said to be **uniformly continuous** if for any real $\varepsilon>0$, there exists a real number $\delta>0$ such that for any $x, y$ with $d_1(x, y)<\delta$, we also have
+	\begin{equation\*}
+	d_2(f(x),f(y))<\varepsilon
+	\end{equation\*}
+
 [^2]: A function $f:[a,b]\to\mathbb{R}$ is **piecewise continuous** if we can partition $[a,b]$ into finitely many intervals, such that $f$ is continuous on each interval.
