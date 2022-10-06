@@ -1,0 +1,507 @@
+I"�i<blockquote>
+  <p>Part II of the measure theory series. Materials are mostly taken from <a href="/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#taos-book">Tao’s book</a>, except for some needed notations extracted from <a href="/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#steins-book">Stein’s book</a>.
+<!-- excerpt-end --></p>
+</blockquote>
+
+<ul>
+  <li><a href="#lebesgue-measure">Lebesgue measure</a>
+    <ul>
+      <li><a href="#lebesgue-outer-measure-properties">Properties of Lebesgue outer measure</a></li>
+      <li><a href="#fnt-add-spt-sets">Finite additivity for separated sets</a></li>
+      <li><a href="#outer-measure-elem-sets">Outer measure of elementary sets</a></li>
+      <li><a href="#fnt-add-alm-dsjnt-boxes">Finite additivity for almost disjoint boxes</a></li>
+      <li><a href="#outer-msr-cntbl-uni-alm-dsjnt-boxes">Outer measure of countable unions of almost disjoint boxes</a></li>
+      <li><a href="#lebesgue-measurability">Lebesgue measurability</a>
+        <ul>
+          <li><a href="#criteria-measurability">Criteria for measurability</a></li>
+        </ul>
+      </li>
+      <li><a href="#non-measurable-sets">Non-measurable sets</a></li>
+    </ul>
+  </li>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h2 id="lebesgue-measure">Lebesgue measure</h2>
+<p>Recall that the Jordan outer measure of a set $E\subset\mathbb{R}^d$ has been defined as
+\begin{equation}
+m^{*,(J)}(E)\doteq\inf_{B\supset E;B\text{ elementary}}m(B)
+\end{equation}
+From the finite additivity and subadditivity of elementary measure, we can also write the Jordan outer measure as
+\begin{equation}
+m^{*,(J)}(E)\doteq\inf_{B_1\cup\dots\cup B_k\supset E;B_1,\dots,B_k\text{ boxes}}\vert B_1\vert+\dots+\vert B_k\vert,
+\end{equation}
+which means the Jordan outer measure is the infimal cost required to cover $E$ by a finite union of boxes. By replacing the finite union of boxes by a countable union of boxes, we obtain the <strong>Lebesgue outer measure</strong> $m^{*}(E)$ of $E$:
+\begin{equation}
+m^{*}(E)\doteq\inf_{\bigcup_{n=1}^{\infty}B_n\supset E;B_1,B_2,\dots\text{ boxes}}\sum_{n=1}^{\infty}\vert B_n\vert,
+\end{equation}
+which is be seen as the infimal cost required to cover $E$ by a countable union of boxes.</p>
+
+<p>A set $E\subset\mathbb{R}^d$ is said to be <strong>Lebesgue measurable</strong> if, for every $\varepsilon&gt;0$, there exists an open set $U\subset\mathbb{R}^d$ containing $E$ such that $m^{*}(U\backslash E)\leq\varepsilon$. If $E$ is Lebesgue measurable, we refer to
+\begin{equation}
+m(E)\doteq m^{*}(E)
+\end{equation}
+as the <strong>Lebesgue measure</strong> of $E$.</p>
+
+<h3 id="lebesgue-outer-measure-properties">Properties of Lebesgue outer measure</h3>
+<p><strong>Remark 1</strong>. (<strong>The outer measure axioms</strong>)</p>
+<ul id="roman-list">
+	<li><b>Empty set</b>. $m^*(\emptyset)=0$.</li>
+	<li><b>Monotonicity</b>. If $E\subset F\subset\mathbb{R}^d$, then $m^*(E)\leq m^*(F)$.</li>
+	<li><b>Countable subadditivity</b>. If $E_1,E_2,\ldots\subset\mathbb{R}^d$ is a countable sequence of sets, then $m^*\left(\bigcup_{n=1}^{\infty}E_n\right)\leq\sum_{n=1}^{\infty}m^*(E_n)$.</li>
+</ul>
+
+<p><strong>Proof</strong></p>
+<ul id="roman-list">
+	<li>This follows from the definition of Lebesgue outer measure.</li>
+	<li>
+		Since $E\subset F\subset\mathbb{R}^d$, then any set containing $F$ also includes $E$, but not every set having $E$ contains $F$. That means
+		\begin{equation}
+		\left\{\sum_{n=1}^{\infty}\vert B_n\vert:E\subset\bigcup_{n=1}^{\infty}B_n;B_n\text{ boxes}\right\}\supset\left\{\sum_{n=1}^{\infty}\vert B_n\vert:F\subset\bigcup_{n=1}^{\infty}B_n;B_n\text{ boxes}\right\}
+		\end{equation}
+		Thus,
+		\begin{equation}
+		\inf\left\{\sum_{n=1}^{\infty}\vert B_n\vert:E\subset\bigcup_{n=1}^{\infty}B_n;B_n\text{ boxes}\right\}\leq\inf\left\{\sum_{n=1}^{\infty}\vert B_n\vert:F\subset\bigcup_{n=1}^{\infty}B_n;B_n\text{ boxes}\right\}
+		\end{equation}
+		or
+		\begin{equation}
+		m^*(E)&lt; m^*(F)
+		\end{equation}
+	</li>
+	<li>
+		By the definition of Lebesgue outer measure, for any positive integer $i$, we have
+		\begin{equation}
+		m^*(E_i)=\inf_{\bigcup_{n=1}^{\infty}B_n\supset E_i;B_1,B_2,\ldots\text{ boxes}}\sum_{n=1}^{\infty}\vert B_n\vert
+		\end{equation}
+		Thus, by definition of infimum and by <span><a href="/mathematics/measure-theory/2022/06/16/measure-theory-p1.html#countable-choice-axiom">axiom of countable choice</a></span>, for each $E_i$ in the sequence $(E_n)_{n\in\mathbb{N}}$, there exists a family of boxes $B_{i,1},B_{i,2},\ldots$ in the doubly sequence $(B_{i,j})_{(i,j)\in\mathbb{N}^2}$ covering $E_i$ such that
+		\begin{equation}
+		\sum_{j=1}^{\infty}\vert B_{i,j}\vert\lt m^*(E_i)+\frac{\varepsilon}{i},
+		\end{equation}
+		for any $\varepsilon&gt;0$, and for $i=1,2,\ldots$. Plus, we also have
+		\begin{equation}
+		\bigcup_{n=1}^{\infty}E_n\subset\bigcup_{i=1}^{\infty}\bigcup_{j=1}^{\infty}B_{i,j}
+		\end{equation}
+		Moreover, by the <span><a href="/mathematics/measure-theory/2022/06/16/measure-theory-p1.html#tonelli-theorem">Tonelli’s theorem for series</a></span>, we have
+		\begin{equation}
+		\bigcup_{i=1}^{\infty}\bigcup_{j=1}^{\infty}B_{i,j}=\bigcup_{(i,j)\in\mathbb{N}^2}B_{i,j}
+		\end{equation}
+		Therefore once again, by definition of outer measure and definition of infimum, we obtain
+		\begin{align}
+		m^*\left(\bigcup_{n=1}^{\infty}E_n\right)&amp;=\inf_{\bigcup_{(i,j)\in\mathbb{N}^2}B_{i,j}}\sum_{i=1}^{\infty}\sum_{j=1}^{\infty}\vert B_{i,j}\vert\leq\sum_{i=1}^{\infty}\sum_{j=1}^{\infty}\vert B_{i,j}\vert \\\\ &amp;\lt\sum_{i=1}^{\infty}m^*(E_i)+\frac{\varepsilon}{2^i}=\sum_{i=1}^{\infty}m^*(E_i)+\varepsilon
+		\end{align}
+		And since $\varepsilon&gt;0$ was arbitrary, we can conclude that
+		\begin{equation}
+		m^*\left(\bigcup_{n=1}^{\infty}E_n\right)\leq\sum_{i=n}^{\infty}m^*(E_n)
+		\end{equation}
+	</li>
+</ul>
+
+<p><strong>Corollary 2</strong><br />
+Combining empty set with countable subadditivity axiom gives us the finite subadditivity property
+\begin{equation}
+m^{*}\left(E_1\cup\ldots\cup E_k\right)\leq m^{*}(E_1)+\ldots+m^{*}(E_k),\hspace{1cm}\forall k\geq 0
+\end{equation}</p>
+
+<h3 id="fnt-add-spt-sets">Finite additivity for separated sets</h3>
+<p><strong>Lemma 3</strong>  <br />
+<em>Let $E,F\subset\mathbb{R}^d$ be such that $\text{dist}(E,F)&gt;0$, where
+\begin{equation}
+\text{dist}(E,F)\doteq\inf\left\{\vert x-y\vert:x\in E,y\in F\right\}
+\end{equation}
+is the distance between $E$ and $F$. Then $m^*(E\cup F)=m^*(E)+m^*(F)$.</em></p>
+
+<p><strong>Proof</strong><br />
+From subadditivity property, we have $m^*(E\cup F)\leq m^*(E)+m^*(F)$. Then it suffices to prove the inverse, that
+\begin{equation}
+m^*(E\cup F)\geq m^*(E)+m^*(F)
+\end{equation}
+Let $\varepsilon&gt;0$. By definition of Lebesgue outer measure, we can cover $E\cup F$ by a countable family $B_1,B_2,\ldots$ of boxes such that
+\begin{equation}
+\sum_{n=1}^{\infty}\vert B_n\vert\leq m^*(E\cup F)+\varepsilon
+\end{equation}
+Suppose it was the case that each box intersected at most one of $E$ and $F$. Then we could divide this family into two subfamilies $B_1’,B_2’,\ldots$ and $B_1'',B_2'',B_3'',\ldots$, the first of which covered $E$, while the second of which covered $F$. From definition of Lebesgue outer measure, we have
+\begin{equation}
+m^*(E)\leq\sum_{n=1}^{\infty}\vert B_n’\vert
+\end{equation}
+and
+\begin{equation}
+m^*(F)\leq\sum_{n=1}^{\infty}\vert B_n''\vert
+\end{equation}
+Summing up these two equation, we obtain
+\begin{equation}
+m^*(E)+m^*(F)\leq\sum_{n=1}^{\infty}\vert B_n\vert
+\end{equation}
+and thus
+\begin{equation}
+m^*(E)+m^*(F)\leq m^*(E\cup F)+\varepsilon
+\end{equation}
+Since $\varepsilon$ was arbitrary, this gives $m^*(E)+m^*(F)\leq m^*(E\cup F)$ as required.</p>
+
+<p>Now we consider the case that some of the boxes $B_n$ intersect both $E$ and $F$.</p>
+
+<p>Since given any $r&gt;0$, we can always partition a box $B_n$ into a finite number of smaller boxes, each of which has diameter<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> at most $r$, with the total volume of these sub-boxes equal to the volume of the original box $B_n$. Therefore, given any $r&gt;0$, we may assume without loss of generality that the boxes $B_1,B_2,\ldots$ covering $E\cup F$ have diameter at most $r$. Or in particular, we may assume that all such boxes have diameter strictly less than $\text{dist}(E,f)$.</p>
+
+<p>Once we do this, then it is no longer possible for any box to intersect both $E$ and $F$, which allows the previous argument be applicable.</p>
+
+<p><strong>Example 1</strong><br />
+Let $E,F\subset\mathbb{R}^d$ be disjoint closed sets, with at least one of $E,F$ being compact. Then $\text{dist}(E,F)&gt;0$.</p>
+
+<p><strong>Proof</strong></p>
+
+<h3 id="outer-measure-elem-sets">Outer measure of elementary sets</h3>
+<p><strong>Lemma 4</strong>  <br />
+<em>Let $E$ be an elementary set. Then the Lebesgue outer measure of $E$ is equal to the elementary measure of $E$:</em>
+\begin{equation}
+m^*(E)=m(E)
+\end{equation}</p>
+
+<p><strong>Proof</strong><br />
+Since
+\begin{equation}
+m^*(E)\leq m^{*,(J)}(E)=m(E),
+\end{equation}
+then it suffices to show that
+\begin{equation}
+m(E)\leq m^*(E)
+\end{equation}
+We first consider the case that $E$ is closed. Since $E$ is elementary, $E$ is also bounded, which implies that $E$ is compact.</p>
+
+<p>Let $\varepsilon&gt;0$ be arbitrary, then we can find a countable family $B_1,B_2,\ldots$ of boxes that cover $E$
+\begin{equation}
+E\subset\bigcup_{n=1}^{\infty}B_n,
+\end{equation}
+such that
+\begin{equation}
+\sum_{n=1}^{\infty}\vert B_n\vert\leq m^*(E)+\varepsilon
+\end{equation}
+We have that for each box $B_n$, we can find an open box $B_n’$ containing $B_n$ such that
+\begin{equation}
+\vert B_n’\vert\leq\vert B_n\vert+\frac{\varepsilon}{2^n}
+\end{equation}
+The $B_n’$ still cover $E$ and we have
+\begin{equation}
+\sum_{n=1}^{\infty}\vert B_n’\vert\leq\sum_{n=1}^{\infty}\left(\vert B_n\vert+\frac{\varepsilon}{2^n}\right)=\left(\sum_{n=1}^{\infty}\vert B_n\vert\right)+\varepsilon\leq m^*(E)+2\varepsilon\label{eq:lemma5.1}
+\end{equation}
+As the $B_n’$ are open, apply the <span><a href="/mathematics/measure-theory/2022/06/16/measure-theory-p1.html#heine-borel-theorem"><strong>Heine-Borel theorem</strong></a>, we obtain
+\begin{equation}
+E\subset\bigcup_{n=1}^{N}B_n’,
+\end{equation}
+for some finite $N$. Thus, using the finite subadditivity property of elementary measure, combined with the result \eqref{eq:lemma5.1}, we obtain
+\begin{equation}
+m(E)\leq\sum_{n=1}^{N}m(B_n’)\leq m^*(E)+2\varepsilon
+\end{equation}
+And since $\varepsilon&gt;0$ was arbitrary, we can conclude that
+\begin{equation}
+m(E)\leq m^*(E)
+\end{equation}
+Now we turn to considering the case that $E$ is not closed. Then we can write $E$ as the finite union of disjoint boxes
+\begin{equation}
+E=Q_1\cup\ldots\cup Q_k,
+\end{equation}
+which need not be closed.</span></p>
+
+<p>Analogy to before, we have that for every $\varepsilon&gt;0$ and every $1\leq j\leq k$, we can find a closed sub-box $Q_j’$ of $Q_j$ such that
+\begin{equation}
+\vert Q_j’\vert\geq\vert Q_j\vert-\frac{\varepsilon}{k}
+\end{equation}
+Then $E$ now contains the finite union of $Q_1’\cup\ldots\cup Q_k’$ disjoint closed boxes, which is a closed elementary set. By the finite additivity property of elementary measure, the monotonicity property of Lebesgue measure, combined with the result we have proved in the first case, we have
+\begin{align}
+m^*(E)&amp;\geq m^*(Q_1’\cup\ldots\cup Q_k’) \\ &amp;=m(Q_1’\cup\ldots\cup Q_k’) \\ &amp;=m(Q_1’)+\ldots+m(Q_k’) \\ &amp;\geq m(Q_1)+\ldots+m(Q_k)-\varepsilon \\ &amp;= m(E)-\varepsilon,
+\end{align}
+for every $\varepsilon&gt;0$. And since $\varepsilon&gt;0$ was arbitrary, our claim has been proved.</p>
+
+<p><strong>Corollary 6</strong><br />
+From the lemma above and the monotonicity property, 
+for every $E\in\mathbb{R}^d$, we have
+\begin{equation}
+m_{*,(J)}(E)\leq m^{*}(E)\leq m^{*,(J)}(E)\label{eq:cor6.1}
+\end{equation}</p>
+
+<p><strong>Corollary 7</strong><br />
+Not every bounded open set or compact set (bounded closed) is Jordan measurable.</p>
+
+<p><strong>Proof</strong><br />
+Consider the countable set $\mathbf{Q}\cap[0,1]$, which we enumerate as $\{q_1,q_2,\ldots\}$. Let $\varepsilon&gt;0$ be a small number, and consider that
+\begin{equation}
+U\doteq\bigcup_{n=1}^{\infty}(q_n-\varepsilon/2^n,q_n+\varepsilon/2^n),
+\end{equation}
+which is a union of open sets and thus is open. On the other hand, by countable subadditivity property of Lebesgue outer measure, we have
+\begin{align}
+m^{*}(U)&amp;=m^{*}\left(\sum_{n=1}^{\infty}\left(q_n-\frac{\varepsilon}{2^n},q_n+\frac{\varepsilon}{2^n}\right)\right) \\ &amp;\leq\sum_{n=1}^{\infty}m^{*}\left(q_n-\frac{\varepsilon}{2^n},q_n+\frac{\varepsilon}{2^n}\right) \\ &amp;=\sum_{n=1}^{\infty}\frac{2\varepsilon}{2^n}=2\varepsilon
+\end{align}
+As $U$ dense in $[0,1]$ (i.e.,$\overline{U}$ contains $[0,1]$), we have
+\begin{equation}
+m^{*}(U)=m^{*,(J)}(\overline{U})\geq m^{*,(J)}([0,1])=1
+\end{equation}
+Then for $\varepsilon\lt 1$, we have that
+\begin{equation}
+m^{*}(U)\lt 1\leq m^{*,(J)}(U)
+\end{equation}
+Combining with \eqref{eq:cor6.1}, we obtain that the bounded open set $U$ is not Jordan measurable.</p>
+
+<h3 id="fnt-add-alm-dsjnt-boxes">Finite additivity for almost disjoint boxes</h3>
+<p>Two boxes are <strong>almost disjoint</strong> if their interiors are disjoint, e.g., $[0,1]$ and $[1,2]$ are almost disjoint. If a box has the same elementary as its interior, we see that the finite additivity property
+\begin{equation}
+m(B_1\cup\ldots\cup B_n)=\vert B_1\vert+\ldots+\vert B_n\vert\label{eq:faadb.1}
+\end{equation}
+also holds for almost disjoint boxes $B_1,\ldots,B_n$.</p>
+
+<h3 id="outer-msr-cntbl-uni-alm-dsjnt-boxes">Outer measure of countable unions of almost disjoint boxes</h3>
+<p><strong>Lemma 8</strong><br />
+<em>Let $E=\bigcup_{n=1}^{\infty}B_n$ be a countable union of almost disjoint boxes $B_1,B_2,\ldots$. Then</em>
+\begin{equation}
+m^*(E)=\sum_{n=1}^{\infty}\vert B_n\vert
+\end{equation}
+Thus, for example, $\mathbb{R}^d$ has an infinite outer measure.</p>
+
+<p><strong>Proof</strong><br />
+From countable subadditivity property of Lebesgue measure and <strong>Lemma 5</strong>, we have
+\begin{equation}
+m^*(E)\leq\sum_{n=1}^{\infty}m^*(B_n)=\sum_{n=1}^{\infty}\vert B_n\vert,
+\end{equation}
+so it suffices to show that
+\begin{equation}
+\sum_{n=1}^{\infty}\vert B_n\vert\leq m^*(E)
+\end{equation}
+Since for each integer $N$, $E$ contains the elementary set $B_1\cup\ldots\cup B_N$, then by monotonicity property and <strong>Lemma 5</strong>
+\begin{align}
+m^*(E)&amp;\geq m^*(B_1\cup\ldots\cup B_N)=m(B_1\cup\ldots\cup B_N)
+\end{align}
+And thus by \eqref{eq:faadb.1}, we have
+\begin{equation}
+\sum_{n=1}^{N}\vert B_n\vert\leq m^*(E)
+\end{equation}
+Letting $N\to\infty$ we obtain the claim.</p>
+
+<p><strong>Corollary 9</strong><br />
+If $E=\bigcup_{n=1}^{\infty}B_n=\bigcup_{n=1}^{\infty}B_n’$ can be decomposed in two different ways as the countable union of almost disjoint boxes, then
+\begin{equation}
+\sum_{n=1}^{\infty}\vert B_n\vert=\sum_{n=1}^{\infty}\vert B_n’\vert
+\end{equation}</p>
+
+<p><strong>Example 2</strong><br />
+If a set $E\subset\mathbb{R}^{d}$ is expressible as the countable union of almost disjoint boxes, then
+\begin{equation}
+m^{*}(E)=m_{*,(J)}(E)
+\end{equation}</p>
+
+<p><strong>Proof</strong></p>
+
+<p><strong>Lemma 10</strong><br />
+<em>Let $E\subset\mathbb{R}^d$ be an open set. Then $E$ can be expressed as the countable union of almost disjoint boxes (and, in fact, as the countable union of almost disjoint closed cubes)</em>.</p>
+
+<p><strong>Proof</strong><br />
+We begin by defining a <strong>closed dyadic cube</strong> to be a cube $Q$ of the form
+\begin{equation}
+Q=\left[\frac{i_1}{2^n},\frac{i_1+1}{2^n}\right]\times\ldots\times\left[\frac{i_d}{2^n},\frac{i_d+1}{2^n}\right],
+\end{equation}
+for some integers $n,i_1,\ldots,i_d;n\geq 0$.</p>
+
+<p>We have that such closed dyadic cubes of a fixed sidelength $2^{-n}$ are almost disjoint and cover all of $\mathbb{R}^d$. And also, each dyadic cube of sidelength $2^{-n}$ is contained in exactly one “parent” of sidelength $2^{-n+1}$ (which, conversely, has $2^d$ “children” of sidelength $2^{-n}$), giving the dyadic cubes a structure analogous to that of a binary tree.</p>
+
+<p>As a consequence of these facts, we also obtain the <strong>dyadic nesting property</strong>: given any two closed dyadic cubes (not necessarily same sidelength), then either they are almost disjoint, or one of them is contained in the other.</p>
+
+<p>If $E$ is open, and $x\in E$, then by definition there is an open ball centered at $x$ that is contained in $E$. Also, it is easily seen that there is also a closed dyadic cube containing $x$ that is contained in $E$. Hence, if we let $\mathcal{Q}$ be the collection of all the dyadic cubes $Q$ that are contained in $E$, we see that
+\begin{equation}
+E=\bigcup_{Q\in\mathcal{Q}}Q
+\end{equation}
+Let $\mathcal{Q}^*$ denote cubes in $\mathcal{Q}$ such that they are not contained in any other cube in $\mathcal{Q}$. From the nesting property, we see that every cube in $\mathcal{Q}$ is contained in exactly one maximal cube in $\mathcal{Q}^*$, and that any two such maximal cubes in $\mathcal{Q}^*$ are almost disjoint. Thus, we have that
+\begin{equation}
+E=\bigcup_{Q\in\mathcal{Q}^*}Q,
+\end{equation}
+which is union of almost disjoint cubes. As $\mathcal{Q}^*$ is at most countable, the claim follows.</p>
+
+<p><strong>Corollary 18</strong><br />
+The Lebesgue outer measure of any open set is equal to the Jordan inner measure of that set, or of the total volume of any partitioning of that set into almost disjoint boxes.</p>
+
+<p><strong>Lemma 19</strong>. (<strong>Outer regularity</strong>)<br />
+<em>Let $E\subset\mathbb{R}^d$ be an arbitrary set. Then we have</em>
+\begin{equation}
+m^*(E)=\inf_{E\subset U,U\text{ open}}m^*(U)
+\end{equation}</p>
+
+<p><strong>Proof</strong><br />
+From monotonicity property, we have
+\begin{equation}
+m^*(E)\leq\inf_{E\subset U,U\text{ open}}m^*(U)
+\end{equation}
+Then, it suffices to show that
+\begin{equation}
+m^*(E)\geq\inf_{E\subset U,U\text{ open}}m^*(U),
+\end{equation}
+which is obvious in the case that $m^*(E)$ is infinite. Thus, we now assume that $m^*(E)$ is finite.</p>
+
+<p>Let $\varepsilon&gt;0$. By the definition of Lebesgue outer measure, there exists a countable family $B_1,B_2,\ldots$ of boxes covering $E$ such that
+\begin{equation}
+\sum_{n=1}^{\infty}\vert B_n\vert\leq m^*(E)+\varepsilon
+\end{equation}
+We can enlarge each of these boxes $B_n$ to an open box $B_n’$ such that
+\begin{equation}
+\vert B_n’\vert\leq\vert B_n\vert+\frac{\varepsilon}{2^n},
+\end{equation}
+for any $\varepsilon&gt;0$. Then the set $\bigcup_{n=1}^{\infty}B_n’$, being a union of open sets, is itself open, and contains $E$, and
+\begin{equation}
+\sum_{n=1}^{\infty}\vert B_n’\vert\leq m^*(E)+\varepsilon+\sum_{n=1}^{\infty}\frac{\varepsilon}{2^n}=m^*(E)+2\varepsilon
+\end{equation}
+By countable subadditivity property, it implies that
+\begin{equation}
+m^*\left(\bigcup_{n=1}^{\infty}B_n’\right)\leq m^*(E)+2\varepsilon
+\end{equation}
+and thus
+\begin{equation}
+\inf_{E\subset U,U\text{ open}}m^*(U)\leq m^*(E)+2\varepsilon
+\end{equation}
+And since $\varepsilon&gt;0$ was arbitrary, the claim follows.</p>
+
+<h3 id="lebesgue-measurability">Lebesgue measurability</h3>
+
+<p><strong>Lemma 20</strong>. (<strong>Existence of Lebesgue measurable sets</strong>)</p>
+<ul id="roman-list" style="font-style: italic;">
+	<li>Every open set is Lebesgue measurable.</li>
+	<li>Every closed set is Lebesgue measurable.</li>
+	<li>Every set of Lebesgue outer measure zero is measurable. (Such sets are called <b>null sets</b>.)</li>
+	<li>The empty set $\emptyset$ is Lebesgue measurable.</li>
+	<li>If $E\subset\mathbb{R}^d$ is Lebesgue measurable, then so its complement $\mathbb{R}^d\backslash E$.</li>
+	<li>If $E_1,E_2,\ldots\subset\mathbb{R}^d$ are a sequence of Lebesgue measurable sets, then the union $\bigcup_{n=1}^{\infty}E_n$ is Lebesgue measurable.</li>
+	<li>If $E_1,E_2,\ldots\subset\mathbb{R}^d$ are a sequence of Lebesgue measurable sets, then the intersection $\bigcap_{n=1}^{\infty}E_n$ is Lebesgue measurable.</li>
+</ul>
+
+<p><strong>Proof</strong></p>
+<ul id="roman-list">
+	<li>This follows from definition.</li>
+</ul>
+
+<p id="criteria-measurability"><strong>Remark</strong>. (<strong>Criteria for measurability</strong>)</p>
+<p>Let $E\subset\mathbb{R}^d$. The following are equivalent</p>
+<ul id="roman-list">
+	<li>$E$ is Lebesgue measurable.</li>
+	<li><b>Outer approximation by open</b>. For every $\varepsilon&gt;0$, $E$ can be contained in an open set $U$ with $m^*(U\backslash E)\leq\varepsilon$.</li>
+	<li><b>Almost open</b>. For every $\varepsilon&gt;0$, we can find an open set $U$ such that $m^*(U\Delta E)\leq\varepsilon$. ($E$ differs from an open set by a set of outer measure at most $\varepsilon$.)</li>
+	<li><b>Inner approximation by closed</b>. For every $\varepsilon&gt;0$, we can find a closed set $F$ contained in $E$ with $m^*(E\backslash F)\leq\varepsilon$.</li>
+	<li><b>Almost closed</b>. For every $\varepsilon&gt;0$, we can find a closed set $F$ such that $m^*(F\Delta E)\leq\varepsilon$. ($E$ differs from a closed set by a set of outer measure at most $\varepsilon$.)</li>
+	<li><b>Almost measurable</b>. For every $\varepsilon&gt;0$, we can find a Lebesgue measurable set $E_\varepsilon$ such that $m^*(E_\varepsilon\Delta E)\leq\varepsilon$. ($E$ differs from a measurable set by a set of outer measure at most $\varepsilon$.)</li>
+</ul>
+
+<p><strong>Proof</strong></p>
+
+<p><strong>Lemma 21</strong>. (<strong>The measure axioms</strong>)</p>
+<ul id="roman-list" style="font-style: italic;">
+	<li><b>Empty set</b>. $m(\emptyset)=0$.</li>
+	<li><b>Countable additivity</b>. If $E_1,E_2,\ldots\subset\mathbb{R}^d$ is a countable sequence of disjoint Lebesgue measurable sets, then</li>
+	\begin{equation}
+	m\left(\bigcup_{n=1}^{\infty}E_n\right)=\sum_{n=1}^{\infty}m(E_n)
+	\end{equation}
+</ul>
+
+<p><strong>Proof</strong></p>
+<ul id="roman-list">
+	<li>
+		We have that empty set $\emptyset$ is Lebesgue measurable since for every $\varepsilon&gt;0$, there exists an open set $U\subset\mathbb{R}^d$ containing $\emptyset$ such that $m^*(U\backslash\emptyset)\leq\varepsilon$. Thus,
+		\begin{equation}
+		m(\emptyset)=m^*(\emptyset)=0
+		\end{equation}
+	</li>
+	<li>
+		We begin by considering the case that $E_n$ are all compact sets.
+		<br />
+		By repeated use of <b>Lemma 12</b> and <b>Example ?</b>, we have
+		\begin{equation}
+		m\left(\bigcup_{n=1}^{N}E_n\right)=\sum_{n=1}^{N}m(E_n)
+		\end{equation}
+		Thus, using monotonicity property, we have
+		\begin{equation}
+		m\left(\bigcup_{n=1}^{\infty}E_n\right)\geq\sum_{n=1}^{N}m(E_n)
+		\end{equation}
+		Let $N\to\infty$, we obtain
+		\begin{equation}
+		m\left(\bigcup_{n=1}^{\infty}E_n\right)\geq\sum_{n=1}^{\infty}m(E_n)
+		\end{equation}
+		On the other hand, by countable subadditivity, we also have
+		\begin{equation}
+		m\left(\bigcup_{n=1}^{\infty}E_n\right)\leq\sum_{n=1}^{N}m(E_n)
+		\end{equation}
+		Therefore, we can conclude that
+		\begin{equation}
+		m\left(\bigcup_{n=1}^{\infty}E_n\right)=\sum_{n=1}^{N}m(E_n)
+		\end{equation}
+		Next, we consider the case that $E_n$ are bounded but not necessarily compact.
+		<br />
+		Let $\varepsilon&gt;0$. By criteria for measurability, we know that each $E_n$ is the union of a compact set $K_n$ and a set of outer measure at most $\varepsilon/2^n$. Thus
+		\begin{equation}
+		m(E_n)\leq m(K_n)+\frac{\varepsilon}{2^n}
+		\end{equation}
+		And hence
+		\begin{equation}
+		\sum_{n=1}^{\infty}m(E_n)\leq\left(\sum_{n=1}^{\infty}m(K_n)\right)+\varepsilon
+		\end{equation}
+		From the first case, we know that
+		\begin{equation}
+		m\left(\bigcup_{n=1}^{\infty}K_n\right)=\sum_{n=1}^{\infty}m(K_n)
+		\end{equation}
+		while from monotonicity property of Lebesgue measure
+		\begin{equation}
+		m\left(\bigcup_{n=1}^{\infty}K_n\right)\leq m\left(\bigcup_{n=1}^{\infty}E_n\right)
+		\end{equation}
+		Putting these results together we obtain
+		\begin{equation}
+		\sum_{n=1}^{\infty}m(E_n)\leq m\left(\bigcup_{n=1}^{\infty}E_n\right)+\varepsilon,
+		\end{equation}
+		for every $\varepsilon&gt;0$. And since $\varepsilon$ was arbitrary, we have
+		\begin{equation}
+		\sum_{n=1}^{\infty}m(E_n)\leq m\left(\bigcup_{n=1}^{\infty}E_n\right)
+		\end{equation}
+		while from countable subadditivity property we have
+		\begin{equation}
+		\sum_{n=1}^{\infty}m(E_n)\geq m\left(\bigcup_{n=1}^{\infty}E_n\right)
+		\end{equation}
+		Therefore, the claim follows.
+		<br />
+		Finally, we consider the case that $E_n$ are not bounded or closed with the idea of decomposing each $E_n$ as a countable disjoint union of bounded Lebesgue measurable sets.
+		<br />
+	</li>
+</ul>
+
+<p><strong>Example</strong> (<strong>Monotone convergence theorem for measurable sets</strong>)</p>
+<ul id="roman-list">
+	<li>
+		<b>Upward monotone convergence</b>. Let $E_1\subset E_2\subset\ldots\subset\mathbb{R}^d$ be a countable non-decreasing sequence of Lebesgue measurable sets. Then
+		\begin{equation}
+		m\left(\bigcup_{n=1}^{\infty}E_n\right)=\lim_{n\to\infty}m(E_n)
+		\end{equation}
+	</li>
+	<li>
+		<b>Downward monotone convergence</b>. Let $\mathbb{R}^d\supset E_1\supset E_2\supset\ldots$ be a countable non-increasing sequence of Lebesgue measurable sets. If at least one of the $m(E_n)$ is finite, then
+		\begin{equation}
+		m\left(\bigcap_{n=1}^{\infty}E_n\right)=\lim_{n\to\infty}m(E_n)
+		\end{equation}
+	</li>
+</ul>
+
+<p><strong>Example</strong><br />
+We say that a sequence $E_n$ of sets in $\mathbb{R}^d$ <strong>converges pointwise</strong> to another set $E$ in $\mathbb{R}^d$ if the indicator function $1_{E_n}$ converges pointwise to $1_E$.</p>
+<ul id="roman-list">
+	<li>If the $E_n$ are all Lebesgue measurable, and converge pointwise to $E$, then $E_n$ is Lebesgue measurable also.</li>
+	<li><b>Dominated convergence theorem</b>. Suppose that the $E_n$ are all contained in another Lebesgue measurable set $F$ of finite measure. Then $m(E_n)$ converges to $m(E)$.</li>
+</ul>
+
+<h3 id="non-measurable-sets">Non-measurable sets</h3>
+
+<h2 id="references">References</h2>
+<p>[1] <span id="taos-book">Terence Tao. <a href="https://terrytao.wordpress.com/books/an-introduction-to-measure-theory/">An introduction to measure theory</a>. Graduate Studies in Mathematics, vol. 126.</span></p>
+
+<p>[2] <span id="steins-book">Elias M. Stein &amp; Rami Shakarchi. <a href="#http://www.cmat.edu.uy/~mordecki/courses/medida2013/book.pdf">Real Analysis: Measure Theory, Integration, and Hilbert Spaces</a>. </span></p>
+
+<h2 id="footnotes">Footnotes</h2>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>The <strong>diameter</strong> of a set $B$ is defined as
+\begin{equation}
+\text{dia}(B)\doteq\sup\{\vert x-y\vert:x,y\in B\}
+\end{equation} <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+:ET

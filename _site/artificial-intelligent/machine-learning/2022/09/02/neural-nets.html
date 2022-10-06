@@ -60,7 +60,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Neural networks" />
 <script type="application/ld+json">
-{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","headline":"Neural networks","dateModified":"2022-09-02T13:00:00+07:00","datePublished":"2022-09-02T13:00:00+07:00","description":"A note on neural networks","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/artificial-intelligent/machine-learning/2022/09/02/neural-nets.html"},"url":"http://localhost:4000/artificial-intelligent/machine-learning/2022/09/02/neural-nets.html","@context":"https://schema.org"}</script>
+{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","description":"A note on neural networks","headline":"Neural networks","dateModified":"2022-09-02T13:00:00+07:00","datePublished":"2022-09-02T13:00:00+07:00","url":"http://localhost:4000/artificial-intelligent/machine-learning/2022/09/02/neural-nets.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/artificial-intelligent/machine-learning/2022/09/02/neural-nets.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Trung&apos;s cabin" />
     
@@ -410,7 +410,24 @@ where $\eta&gt;0$ is called the <strong>learning rate</strong> of the update.</l
 <h4 id="erf-drv">Error-function derivatives</h4>
 <p>We first consider the case of evaluating the first order derivative of the error function w.r.t to the weight parameter $\mathbf{w}$.</p>
 
-<p>Consider the</p>
+<p>Consider a simple linear model where the outputs $y_k$’s are linear combinations of the input variable $x_i$’s
+\begin{equation}
+y_k=\sum_{i}w_{ki}x_i,
+\end{equation}
+together with the error function, in which the error function for the $n$ data point is defined as
+\begin{equation}
+E_n(\mathbf{w})=\frac{1}{2}\sum_{k}(y_{nk}-t_{nk})^2,
+\end{equation}
+where $y_{nk}=y_k(\mathbf{x}_n,\mathbf{w})$.</p>
+
+<p>The gradient of this error function w.r.t to a weight $w_{ji}$ then can be computed by
+\begin{equation}
+\frac{\partial E_n}{\partial w_{ji}}=(y_{nj}-t_{nj})x_{ni}
+\end{equation}
+In a general feed-forward network, each unit is a weighted sum of its inputs
+\begin{equation}
+a_j=\sum_{i}w_{ji}z_i
+\end{equation}</p>
 
 <h4 id="jacobian-mtx">Jacobian matrix</h4>
 

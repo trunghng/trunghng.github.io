@@ -1281,6 +1281,9 @@ And thus, the predictive distribution for class $\mathcal{C}\_2$ is given by
 p(\mathcal{C}\_2\vert\boldsymbol{\phi},\mathbf{t})=1-p(\mathcal{C}\_1\vert\boldsymbol{\phi},\mathbf{t})
 \end{equation}
 
+## Generalized linear models
+{: #glm}
+
 ## References
 {: #references}
 [1] <span id='bishops-book'>Christopher M. Bishop. [Pattern Recognition and Machine Learning](https://link.springer.com/book/9780387310732). Springer New York, NY.</span>

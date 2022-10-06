@@ -260,7 +260,24 @@ In this section, we will consider the use of **backpropagation** technique to ev
 {: #erf-drv}
 We first consider the case of evaluating the first order derivative of the error function w.r.t to the weight parameter $\mathbf{w}$.
 
-Consider the 
+Consider a simple linear model where the outputs $y_k$'s are linear combinations of the input variable $x_i$'s
+\begin{equation}
+y_k=\sum_{i}w_{ki}x_i,
+\end{equation}
+together with the error function, in which the error function for the $n$ data point is defined as
+\begin{equation}
+E_n(\mathbf{w})=\frac{1}{2}\sum_{k}(y_{nk}-t_{nk})^2,
+\end{equation}
+where $y_{nk}=y_k(\mathbf{x}\_n,\mathbf{w})$.
+
+The gradient of this error function w.r.t to a weight $w_{ji}$ then can be computed by
+\begin{equation}
+\frac{\partial E_n}{\partial w_{ji}}=(y_{nj}-t_{nj})x_{ni}
+\end{equation}
+In a general feed-forward network, each unit is a weighted sum of its inputs
+\begin{equation}
+a_j=\sum_{i}w_{ji}z_i
+\end{equation}
 
 #### Jacobian matrix
 {: #jacobian-mtx}

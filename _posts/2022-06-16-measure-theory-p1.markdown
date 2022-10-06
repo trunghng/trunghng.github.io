@@ -26,7 +26,9 @@ eqn-number: true
 	- [Characterisation of Jordan measurability](#jordan-measurability-characterisation)
 	- [Properties of Jordan measurability](#jordan-measurability-properties)
 	- [Jordan null sets](#jordan-null-sets)
+	- [Metric entropy formulation of Jordan measurability](#metric-formula-jordan-measurability)
 	- [Uniqueness of Jordan measure](#uniqueness-jordan-measure)
+	- [Topological of Jordan measurability](#topo-jordan-measurability)
 	- [Carathéodory type property](#caratheodory-type-property)
 - [Connection with the Riemann integral](#connect-riemann-int)
 	- [Riemann integrability](#riemann-integrability)
@@ -82,7 +84,7 @@ Any (not necessarily countable) union of open sets is open, while in general, th
 
 A set $E$ is **bounded** if it is contained in some ball of finite radius. A set is **compact** if it is bounded and is also closed. Compact sets enjoy the **Heine-Borel** covering property:
 
-**Theorem 1**. (**Heine-Borel theorem**)  
+<span id='heine-borel-theorem'>**Theorem 1**. (**Heine-Borel theorem**)</span>  
 *Assume $E$ is compact, $E\subset\bigcup_\alpha\mathcal{O}\_\alpha$, and each $\mathcal{O}\_\alpha$ is open. Then there are finitely many of the open sets $\mathcal{O}\_{\alpha_1},\mathcal{O}\_{\alpha_2},\dots,\mathcal{O}\_{\alpha_N}$, such that $E\subset\bigcup_{j=1}^{N}\mathcal{O}\_{\alpha_j}$.*
 
 In words, *any* covering of a compact set by a collection of open sets contains a *finite* subcovering.  
@@ -94,6 +96,8 @@ A point $x\in E$ is an **interior point** of $E$ if there exists $r>0$ such that
 The **closure** of $E$, denoted as $\bar{E}$, consists the union of $E$ and all its limit points. The **boundary** of $E$, denoted as $\partial E$, is the set of points which are in the closure of $E$ but not in the interior of $E$.
 
 A closed set $E$ is **perfect** if $E$ does not have any isolated point.
+
+The **boundary** of $E$, denoted by $\partial E$, is the set of points in the closure of $E$ not belonging to the interior of $E$.
 
 **Remark**:  
 - The closure of a set is a closed set.
@@ -185,7 +189,7 @@ Or moreover, given any bijection $\phi:B\to A$, we has the change of variables f
 \sum_{\alpha\in A}x_\alpha=\sum_{\beta\in B}x_{\phi(\beta)}
 \end{equation}
 
-**Theorem 6**. (**Tonelli's theorem for series**)  
+<span id='tonelli-theorem'>**Theorem 6**. (**Tonelli's theorem for series**)</span>  
 *Let $(x_{n,m})\_{n,m\in\mathbb{N}}$ be a doubly infinite sequence of extended nonnegative reals $x_{n,m}\in[0,+\infty]$. Then*
 \begin{equation}
 \sum_{(n,m)\in\mathbb{N}^2}x_{n,m}=\sum_{n=1}^{\infty}\sum_{m=1}^{\infty}x_{n,m}=\sum_{m=1}^{\infty}\sum_{n=1}^{\infty}x_{n,m}
@@ -223,7 +227,7 @@ which is true for all finite $M,N$. And it concludes our proof.
 **Axiom 7**. (**Axiom of choice**)  
 *Let $(E_\alpha)\_{\alpha\in A}$ be a family of non-empty set $E_\alpha$, indexed by an index set $A$. Then we can find a family $(x_\alpha)\_{\alpha\in A}$ of elements $x_\alpha$ of $E_\alpha$, indexed by the same set $A$.*
 
-**Corollary 8**. (**Axiom of countable choice**)  
+<span id='countable-choice-axiom'>**Corollary 8**. (**Axiom of countable choice**)</span>  
 *Let $E_1,E_2,\ldots$ be a sequence of non-empty sets. Then we can find a sequence $x_1,x_2,\ldots$ such that $x_n\in E_n,\forall n=1,2,\ldots$.*
 
 ## Elementary measure
@@ -730,6 +734,19 @@ Let $B$ be a closed box in $\mathbb{R}^d$, and let $f:B\to\mathbb{R}$ be a conti
 	</li>
 </ul>
 
+**Remark 14** 
+<ul>
+	<li>
+		All open and closed Euclidean balls, $B(x,r)\doteq\{y\in\mathbb{R}^d:\vert y-x\vert< r\}$ and $\overline{B(x,r)}\doteq\{y\in\mathbb{R}^d:\vert y-x\vert\leq r\}$, in $\mathbb{R}^d$ are Jordan measurable, with Jordan measure $c_dr^d$ for some constant $c_d$ depending only on $d$.
+	</li>
+	<li>
+		Establish the crude bounds
+		\begin{equation}
+		\left(\frac{2}{\sqrt{d}}\leq c_d\leq 2^d\right)
+		\end{equation} 
+	</li>
+</ul>
+
 ### Jordan null sets
 {: #jordan-null-sets}
 A **Jordan null set** is a Jordan measurable set of Jordan measure zero. We have that any subset of a Jordan null set is also a Jordan null set.
@@ -745,13 +762,29 @@ m(B\backslash A)\leq\varepsilon,
 \end{equation}
 which claims that $E$ is Jordan measurable with measurable of zero since $m(E)\leq m(F)=0$. Or in other words, $E$ is also a Jordan null set.
 
-**Remark 14**  
+**Remark 15**  
 For any Jordan measurable set $E\subset\mathbb{R}^d$, its Jordan measure can be written as
 \begin{equation}
 m(E)\doteq\lim_{N\to\infty}\frac{1}{N^d}\\#\left(E\cup\frac{1}{N}\mathbb{Z}^d\right)
 \end{equation}
 
 **Proof**  
+
+
+### Metric entropy formulation of Jordan measurability
+{: #metric-formula-jordan-measurability}
+A **dyadic cube** is defined to be a half-open box of the form
+\begin{equation}
+\left[\frac{i_1}{2^n},\frac{i_1+1}{2^n}\right)\times\ldots\times\left(\frac{i_d}{2^n},\frac{i_d+1}{2^n}\right],
+\end{equation}
+for some integers $n,i_1,\ldots,i_d$. Let $E\subset\mathbb{R}^d$ be a bounded set. For each integer $n$, let $\mathcal{E}\_\*(E,2^{-n})$ denote the number of dyadic cubes of sidelength $2^{-n}$ that are contained in $E$, and let $\mathcal{E}^\*(E,2^{-n})$ be the number of dyadic cubes of sidelength $2^{-n}$ that intersect $E$. Then $E$ is Jordan measurable iff
+\begin{equation}
+\lim_{n\to\infty}2^{-dn}(\mathcal{E}^\*(E,2^{-n}))-\mathcal{E}\_\*(E, 2^{-n})=0,
+\end{equation}
+in which case we have
+\begin{equation}
+m(E)=\lim_{n\to\infty}2^{-dn}\mathcal{E}\_\*(E,2^{-n})=\lim_{n\to\infty}2^{-dn}\mathcal{E}^\*(E,2^{-n})
+\end{equation}
 
 
 ### Uniqueness of Jordan measure
@@ -765,11 +798,11 @@ for all Jordan measurable sets $E$. In particular, if we impose the additional n
 **Proof**  
 Follow the same steps as the proof of the uniqueness of elementary measure, the argument above can easily be proved.
 
-**Remark 15**  
+**Remark 16**  
 Let $d_1,d_2\geq 1$, and let $E_1\subset\mathbb{R}^{d_1},E_2\subset\mathbb{R}^{d_2}$ be Jordan measurable sets. Then $E_1\times E_2\subset\mathbb{R}^{d_1+d_2}$ is also Jordan measurable, and $m^{d_1+d_2}(E_1\times E_2)=m^{d_1}(E_1)\times m^{d_2}(E_2)$.
 
-**Solution**  
-Let $A_1\subset E_1$ such that $A_1$ is elemetary and
+**Proof**  
+Let $A_1\subset E_1$ such that $A_1$ is elementary and
 \begin{equation}
 m^{d_1}(A_1)=\sup_{A\subset E_1,A\text{ elementary}}m(A)=m_{\*,(J)}(E_1)=m^{d_1}(E_1)
 \end{equation}
@@ -797,14 +830,39 @@ and
 \begin{equation}
 m^{d_1\times d_2}(B_1\times B_2)=\sup_{B\supset E_1\times E_2,A\text{ elementary}}=m^{\*,(J)}(E_1\times E_2)\label{eq:remark15.2}
 \end{equation}
-On the other hands, By **remark 11**, we have that $A_1\times A_2$ and $B_1\times B_2$ are aslo elementary sets and
+On the other hands, By **remark 11**, we have that $A_1\times A_2$ and $B_1\times B_2$ are also elementary sets and
 \begin{align}
 m^{d_1}(A_1)\times m^{d_2}(A_2)&=m^{d_1+d_2}(A_1\times A_2)\label{eq:remark15.3} \\\\ m^{d_1}(B_1)\times m^{d_2}(B_2)&=m^{d_1+d_2}(B_1\times B_2)\label{eq:remark15.4}
 \end{align}
 From \eqref{eq:remark15.1}, \eqref{eq:remark15.2}, \eqref{eq:remark15.3} and \eqref{eq:remark15.4}, we can claim that $E_1\times E_2$ is Jordan measurable and
 \begin{equation}
 m^{d_1}(E_1)\times m^{d_2}(E_2)=m^{d_1+d_2}(E_1\times E_2)
-\end{equation} 
+\end{equation}
+
+### Topological of Jordan measurability  
+{: #topo-jordan-measurability}
+Let $E\subset\mathbb{R}^d$ be a bounded set
+<ul id='number-list'>
+	<li>$E$ and the closure $\bar{E}$ of $E$ have the same Jordan outer measure.</li>
+	<li>$E$ and the interior $E^\circ$ of $E$ have the same Jordan inner measure.</li>
+	<li>$E$ is Jordan measurable iff the <b>topological boundary</b> $\partial E$ of $E$ has Jordan outer measure zero.</li>
+	<li>The <b>bullet-riddled square</b> $[0,1]^2\backslash\mathbf{Q}^2$, and set of bullets $[0,1]^2\cup Q^2$, both have Jordan inner measure zero and Jordan outer measure one. In particular, both sets are not Jordan measurable.</li>
+</ul>
+
+**Proof**
+<ul id='number-list'>
+	<li>
+		Since $E\subset\overline{E}$, it is easily seen that
+		\begin{equation}
+		m^{*,(J)}(E)\leq m^{*,(J)}(\overline{E})
+		\end{equation}
+		Thus, the problem remains to prove that
+		\begin{equation}
+		m^{*,(J)}(E)\geq m^{*,(J)(\overline{E})}
+		\end{equation}
+		Let $B_1,\ldots,B_N$ be $N$ disjoint boxes such that
+	</li>
+</ul>
 
 ### Carathéodory type property
 {: #caratheodory-type-property}
