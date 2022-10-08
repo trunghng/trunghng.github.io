@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-08T13:58:27+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-08T17:12:42+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">CMA Evolution Strategy</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es.html" rel="alternate" type="text/html" title="CMA Evolution Strategy" /><published>2022-09-14T13:00:00+07:00</published><updated>2022-09-14T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es.html">&lt;blockquote&gt;
   &lt;p&gt;A note on CMA - Evolution Strategy
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -1675,6 +1675,7 @@ f\left(\sum_{i=1}^{n}p_ix_i\right)\geq\sum_{i=1}^{n}p_if(x_i),
           &lt;li&gt;&lt;a href=&quot;#criteria-measurability&quot;&gt;Criteria for measurability&lt;/a&gt;&lt;/li&gt;
           &lt;li&gt;&lt;a href=&quot;#msr-axiom&quot;&gt;The measure axioms&lt;/a&gt;&lt;/li&gt;
           &lt;li&gt;&lt;a href=&quot;#mnt-cvg-theorem-msr-sets&quot;&gt;Monotone convergence theorem for measurable sets&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#dmnt-cvg-theorem-msr-sets&quot;&gt;Dominated convergence theorem for measurable sets&lt;/a&gt;&lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#non-measurable-sets&quot;&gt;Non-measurable sets&lt;/a&gt;&lt;/li&gt;
@@ -2113,7 +2114,7 @@ And since $\varepsilon&amp;gt;0$ was arbitrary, the claim follows.&lt;/p&gt;
 	&lt;li&gt;
 		Given $E_1,E_2,E_3,\ldots\subset\mathbb{R}^d$ are Lebesgue measurable, by (v), the complement of them,
 		\begin{equation}
-		E_1^c,E_2^c,E_3^c,\ldots,\subset\mathbb{R}^d,
+		E_1^c,E_2^c,E_3^c,\ldots\subset\mathbb{R}^d,
 		\end{equation}
 		are also Lebesgue measurable. By &lt;b&gt;De Morgan&apos;s laws&lt;/b&gt;, we have
 		\begin{equation}
@@ -2142,27 +2143,77 @@ And since $\varepsilon&amp;gt;0$ was arbitrary, the claim follows.&lt;/p&gt;
 	&lt;/li&gt;
 	&lt;li&gt;
 		(i) $\Rightarrow$ (iii)&lt;br /&gt;
+		Given $E$ is Lebesgue measurable, for any $\varepsilon&amp;gt;0$, we can find an open set $U$ containing $E$ such that
+		\begin{equation}
+		m^*(U\backslash E)\leq\varepsilon
+		\end{equation}
+		And since $E\subset U$, we have that
+		\begin{equation}
+		m^(E\backslash U)=m^*(\emptyset)=0,
+		\end{equation}
+		which implies that for any $\varepsilon&amp;gt;0$
+		\begin{equation}
+		m^*(U\Delta E)=m^*(U\backslash E)+m^*(E\backslash U)\leq\varepsilon
+		\end{equation}
 	&lt;/li&gt;
-	&lt;li&gt;(vi) $\Rightarrow$ (i)&lt;br /&gt;&lt;/li&gt;
-	Given (vi), for any $\varepsilon&amp;gt;0$, we can find a Lebesgue measurable set $E_\varepsilon^{(n)}$ such that
-	\begin{equation}
-	m^*\left(E_\varepsilon^{(n)}\Delta E\right)\leq\frac{\varepsilon}{2^n}
-	\end{equation}
-	Therefore, by countable subadditivity property of Lebesgue outer measurability
-	\begin{equation}
-	m^*\left(\bigcup_{n=1}^{\infty}E_\varepsilon^{(n)}\Delta E\right)\leq\sum_{n=1}^{\infty}m^*\left(E_\varepsilon^{(n)}\Delta E\right)\leq\sum_{n=1}^{\infty}\frac{\varepsilon}{2^n}=\varepsilon
-	\end{equation}
+	&lt;li&gt;
+		(i) $\Rightarrow$ (iv)&lt;br /&gt;
+		By the claim (v) in &lt;b&gt;lemma 13&lt;/b&gt;, given Lebesgue measurable set $E\subset\mathbb{R}^d$, we have that its complement $\mathbb{R}^d\backslash E$ is also Lebesgue measurable. Therefore, there exists an open set $U$ containing $\mathbb{R}^d\backslash E$ such that for any $\varepsilon&amp;gt;0$ we have
+		\begin{equation}
+		m^*\left(U\backslash(\mathbb{R}^d\backslash E)\right)\leq\varepsilon\label{eq:cm.1}
+		\end{equation}
+		Let $F$ denote the complement of $U$, $F=\mathbb{R}\backslash U$, thus $F$ is a closed set contained in $E$. Moreover, from \eqref{eq:cm.1} we also have for any $\varepsilon&amp;gt;0$
+		\begin{equation}
+		m^*(E\backslash F)=m^*\left(E\backslash(\mathbb{R}^d\backslash U)\right)=m^*\left(U\backslash(\mathbb{R}^d\backslash E)\right)\leq\varepsilon
+		\end{equation}
+	&lt;/li&gt;
+	&lt;li&gt;
+		(i) $\Rightarrow$ (v)&lt;br /&gt;
+		Given Lebesgue measurable set $E\subset\mathbb{R}^d$, using the claim (v) in &lt;b&gt;lemma 13&lt;/b&gt; gives us that its complement $\mathbb{R}^d\backslash E$ is also Lebesgue measurable.&lt;br /&gt;
+		From claim (iii), for any $\varepsilon&amp;gt;0$, we can find an open set $U$ such that
+		\begin{equation}
+		m^*\left(U\Delta(\mathbb{R}^d\backslash E)\right)\leq\varepsilon\label{eq:cm.2}
+		\end{equation}
+		Let $F$ denote the complement of $U$, $F=\mathbb{R}^d\backslash$. We then have that $F$ is a closed set. In addition, $U\Delta(\mathbb{R}^d\backslash E)$ can be rewritten by
+		\begin{align}
+		U\Delta(\mathbb{R}^d\backslash E)&amp;amp;=\left(U\backslash(\mathbb{R}^d\backslash E)\right)\cup\left((\mathbb{R}^d\backslash E)\backslash U\right) \\ &amp;amp;=\left(E\backslash(\mathbb{R}^d\backslash U)\right)\cup\left((\mathbb{R}^d\backslash U)\backslash E\right) \\ &amp;amp;=(\mathbb{R}^d\backslash U)\backslash E \\ &amp;amp;=F\Delta E,
+		\end{align}
+		which lets \eqref{eq:cm.2} can be written as, for any $\varepsilon&amp;gt;0$
+		\begin{equation}
+		m^*(F\Delta E)\leq\varepsilon
+		\end{equation}
+	&lt;/li&gt;
+	&lt;li&gt;
+		(i) $\Rightarrow$ (vi)&lt;br /&gt;
+		Given $E$ is Lebesgue measurable, by claim (v), for any $\varepsilon&amp;gt;0$ we can find a closed set $E_\varepsilon$ such that
+		\begin{equation}
+		m^*(E_\varepsilon\Delta E)\leq\varepsilon
+		\end{equation}
+		While by property (ii) of &lt;b&gt;lemma 13&lt;/b&gt;, we have that $E_\varepsilon$ is Lebesgue measurable, which proves our claim.
+	&lt;/li&gt;
+	&lt;li&gt;
+		(vi) $\Rightarrow$ (i)&lt;br /&gt;
+		Given (vi), for any $\varepsilon&amp;gt;0$, we can find a Lebesgue measurable set $E_\varepsilon^{(n)}$ such that
+		\begin{equation}
+		m^*\left(E_\varepsilon^{(n)}\Delta E\right)\leq\frac{\varepsilon}{2^n}
+		\end{equation}
+		Therefore, by countable subadditivity property of Lebesgue outer measurability
+		\begin{equation}
+		m^*\left(\bigcup_{n=1}^{\infty}E_\varepsilon^{(n)}\Delta E\right)\leq\sum_{n=1}^{\infty}m^*\left(E_\varepsilon^{(n)}\Delta E\right)\leq\sum_{n=1}^{\infty}\frac{\varepsilon}{2^n}=\varepsilon
+		\end{equation}
+	&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;Example 3&lt;/strong&gt;&lt;br /&gt;
-Every Jordan measurable set is Lebesgue measurable.&lt;/p&gt;
+Show that very Jordan measurable set is Lebesgue measurable.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
-Consider a bounded Jordan measurable set $E\subset\mathbb{R}^d$. By Jordan measurability, there exists elementary sets $A\subset E\subset B$ such that $B$ is an open set and for any $\varepsilon&amp;gt;0$
-\begin{equation}
-\varepsilon\geq m(B\backslash A)\geq m(B\backslash E),
-\end{equation}
-which claims the Lebesgue measurability of $E$.&lt;/p&gt;
+This follows directly from &lt;strong&gt;corollary 6&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Example 4&lt;/strong&gt; (Middle thirds Cantor set)&lt;br /&gt;
+Show that the &lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-theory-p1.html#cantor-set&quot;&gt;&lt;strong&gt;Cantor set&lt;/strong&gt;&lt;/a&gt; is compact, uncountable, and a null set.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;msr-axiom&quot;&gt;The measure axioms&lt;/h4&gt;
 &lt;p&gt;&lt;strong&gt;Lemma 14&lt;/strong&gt;&lt;/p&gt;
@@ -2256,10 +2307,43 @@ which claims the Lebesgue measurability of $E$.&lt;/p&gt;
 		m\left(\bigcap_{n=1}^{\infty}E_n\right)=\lim_{n\to\infty}m(E_n)
 		\end{equation}
 	&lt;/li&gt;
+	&lt;li&gt;
+		Give a counterexample to show that the hypothesis that at least one of the $m(E_n)$ is finite in the downward monotone convergence theorem cannot be dropped.
+	&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt;&lt;br /&gt;
-We say that a sequence $E_n$ of sets in $\mathbb{R}^d$ &lt;strong&gt;converges pointwise&lt;/strong&gt; to another set $E$ in $\mathbb{R}^d$ if the indicator function $1_{E_n}$ converges pointwise to $1_E$.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+&lt;ul id=&quot;roman-list&quot;&gt;
+	&lt;li&gt;
+		Since $E_1\subset E_2\subset\ldots\subset\mathbb{R}^d$ is a countable non-decreasing sequence of Lebesgue measurable sets, by countable additivity, we have
+		\begin{align}
+		m\left(\bigcup_{n=1}^{\infty}E_n\right)&amp;amp;=m\left(\bigcup_{n=1}^{\infty}E_n\backslash\bigcup_{n&apos;=1}^{n-1}E_{n&apos;}\right) \\ &amp;amp;=m\left(\bigcup_{n=1}^{\infty}E_n\backslash E_{n-1}\right) \\ &amp;amp;=\left(\sum_{n=2}^{\infty}m(E_n)-m(E_{n-1})\right)+m(E_1) \\ &amp;amp;=\lim_{n\to\infty}m(E_n)
+		\end{align}
+	&lt;/li&gt;
+	&lt;li&gt;
+		Since $\mathbb{R}^d\supset E_1\supset E_2\supset\ldots$ is a countable non-increasing sequence of Lebesgue measurable sets, the sequence of their complement $E_1^c\subset E_2^c\subset\ldots\subset\mathbb{R}^d$ is therefore a countable non-decreasing sequence of Lebesgue measurable sets. Using the claim (i) and by De Morgan&apos;s laws, we have
+		\begin{align}
+		m\left(\bigcap_{n=1}^{\infty}E_n\right)&amp;amp;=m\left(\mathbb{R}^d\backslash\bigcup_{n=1}^{\infty}E_n^c\right) \\ &amp;amp;=m(\mathbb{R}^d)-m\left(\bigcup_{n=1}^{\infty}E_n^c\right) \\ &amp;amp;=m(\mathbb{R}^d)-\lim_{n\to\infty}m(E_n^c) \\ &amp;amp;=m(\mathbb{R}^d)-m(\mathbb{R}^d)+\lim_{n\to\infty}m(E_n) \\ &amp;amp;=\lim_{n\to\infty}m(E_n)
+		\end{align}
+	&lt;/li&gt;
+	&lt;li&gt;
+		Consider sequence $\mathbb{R}^d\supset E_1\supset E_2\supset\ldots$ of non-increasing Lebesgue measurable sets where each $E_n$ is given by
+		\begin{equation}
+		E_n\doteq[n,+\infty)
+		\end{equation}
+		Therefore, by De Morgan&apos;s laws, the Lebesgue measure of their countable intersection is
+		\begin{align}
+		m\left(\bigcap_{n=1}^{\infty}E_n\right)&amp;amp;=m\left(\mathbb{R}^d\backslash\bigcup_{n=1}^{\infty}E_n^c\right) \\ &amp;amp;=m\left(\mathbb{R}^d\backslash\bigcup_{n=1}^{\infty}(-\infty,n)\right) \\ &amp;amp;=m(\mathbb{R}^d\backslash\mathbb{R}^d) \\ &amp;amp;=m(\emptyset)=0,
+		\end{align}
+		while for every $n$, we have
+		\begin{equation}
+		m(E_n)=m\left([n,+\infty)\right)=\infty
+		\end{equation}
+	&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;dmnt-cvg-theorem-msr-sets&quot;&gt;Dominated convergence theorem for measurable sets&lt;/h4&gt;
+&lt;p&gt;We say that a sequence $E_n$ of sets in $\mathbb{R}^d$ &lt;strong&gt;converges pointwise&lt;/strong&gt; to another set $E$ in $\mathbb{R}^d$ if the indicator function $1_{E_n}$ converges pointwise to $1_E$.&lt;/p&gt;
 &lt;ul id=&quot;roman-list&quot;&gt;
 	&lt;li&gt;If the $E_n$ are all Lebesgue measurable, and converge pointwise to $E$, then $E_n$ is Lebesgue measurable also.&lt;/li&gt;
 	&lt;li&gt;&lt;b&gt;Dominated convergence theorem&lt;/b&gt;. Suppose that the $E_n$ are all contained in another Lebesgue measurable set $F$ of finite measure. Then $m(E_n)$ converges to $m(E)$.&lt;/li&gt;

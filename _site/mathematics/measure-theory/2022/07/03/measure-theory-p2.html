@@ -172,6 +172,7 @@
           <li><a href="#criteria-measurability">Criteria for measurability</a></li>
           <li><a href="#msr-axiom">The measure axioms</a></li>
           <li><a href="#mnt-cvg-theorem-msr-sets">Monotone convergence theorem for measurable sets</a></li>
+          <li><a href="#dmnt-cvg-theorem-msr-sets">Dominated convergence theorem for measurable sets</a></li>
         </ul>
       </li>
       <li><a href="#non-measurable-sets">Non-measurable sets</a></li>
@@ -610,7 +611,7 @@ And since $\varepsilon&gt;0$ was arbitrary, the claim follows.</p>
 	<li>
 		Given $E_1,E_2,E_3,\ldots\subset\mathbb{R}^d$ are Lebesgue measurable, by (v), the complement of them,
 		\begin{equation}
-		E_1^c,E_2^c,E_3^c,\ldots,\subset\mathbb{R}^d,
+		E_1^c,E_2^c,E_3^c,\ldots\subset\mathbb{R}^d,
 		\end{equation}
 		are also Lebesgue measurable. By <b>De Morgan's laws</b>, we have
 		\begin{equation}
@@ -639,27 +640,77 @@ And since $\varepsilon&gt;0$ was arbitrary, the claim follows.</p>
 	</li>
 	<li>
 		(i) $\Rightarrow$ (iii)<br />
+		Given $E$ is Lebesgue measurable, for any $\varepsilon&gt;0$, we can find an open set $U$ containing $E$ such that
+		\begin{equation}
+		m^*(U\backslash E)\leq\varepsilon
+		\end{equation}
+		And since $E\subset U$, we have that
+		\begin{equation}
+		m^(E\backslash U)=m^*(\emptyset)=0,
+		\end{equation}
+		which implies that for any $\varepsilon&gt;0$
+		\begin{equation}
+		m^*(U\Delta E)=m^*(U\backslash E)+m^*(E\backslash U)\leq\varepsilon
+		\end{equation}
 	</li>
-	<li>(vi) $\Rightarrow$ (i)<br /></li>
-	Given (vi), for any $\varepsilon&gt;0$, we can find a Lebesgue measurable set $E_\varepsilon^{(n)}$ such that
-	\begin{equation}
-	m^*\left(E_\varepsilon^{(n)}\Delta E\right)\leq\frac{\varepsilon}{2^n}
-	\end{equation}
-	Therefore, by countable subadditivity property of Lebesgue outer measurability
-	\begin{equation}
-	m^*\left(\bigcup_{n=1}^{\infty}E_\varepsilon^{(n)}\Delta E\right)\leq\sum_{n=1}^{\infty}m^*\left(E_\varepsilon^{(n)}\Delta E\right)\leq\sum_{n=1}^{\infty}\frac{\varepsilon}{2^n}=\varepsilon
-	\end{equation}
+	<li>
+		(i) $\Rightarrow$ (iv)<br />
+		By the claim (v) in <b>lemma 13</b>, given Lebesgue measurable set $E\subset\mathbb{R}^d$, we have that its complement $\mathbb{R}^d\backslash E$ is also Lebesgue measurable. Therefore, there exists an open set $U$ containing $\mathbb{R}^d\backslash E$ such that for any $\varepsilon&gt;0$ we have
+		\begin{equation}
+		m^*\left(U\backslash(\mathbb{R}^d\backslash E)\right)\leq\varepsilon\label{eq:cm.1}
+		\end{equation}
+		Let $F$ denote the complement of $U$, $F=\mathbb{R}\backslash U$, thus $F$ is a closed set contained in $E$. Moreover, from \eqref{eq:cm.1} we also have for any $\varepsilon&gt;0$
+		\begin{equation}
+		m^*(E\backslash F)=m^*\left(E\backslash(\mathbb{R}^d\backslash U)\right)=m^*\left(U\backslash(\mathbb{R}^d\backslash E)\right)\leq\varepsilon
+		\end{equation}
+	</li>
+	<li>
+		(i) $\Rightarrow$ (v)<br />
+		Given Lebesgue measurable set $E\subset\mathbb{R}^d$, using the claim (v) in <b>lemma 13</b> gives us that its complement $\mathbb{R}^d\backslash E$ is also Lebesgue measurable.<br />
+		From claim (iii), for any $\varepsilon&gt;0$, we can find an open set $U$ such that
+		\begin{equation}
+		m^*\left(U\Delta(\mathbb{R}^d\backslash E)\right)\leq\varepsilon\label{eq:cm.2}
+		\end{equation}
+		Let $F$ denote the complement of $U$, $F=\mathbb{R}^d\backslash$. We then have that $F$ is a closed set. In addition, $U\Delta(\mathbb{R}^d\backslash E)$ can be rewritten by
+		\begin{align}
+		U\Delta(\mathbb{R}^d\backslash E)&amp;=\left(U\backslash(\mathbb{R}^d\backslash E)\right)\cup\left((\mathbb{R}^d\backslash E)\backslash U\right) \\ &amp;=\left(E\backslash(\mathbb{R}^d\backslash U)\right)\cup\left((\mathbb{R}^d\backslash U)\backslash E\right) \\ &amp;=(\mathbb{R}^d\backslash U)\backslash E \\ &amp;=F\Delta E,
+		\end{align}
+		which lets \eqref{eq:cm.2} can be written as, for any $\varepsilon&gt;0$
+		\begin{equation}
+		m^*(F\Delta E)\leq\varepsilon
+		\end{equation}
+	</li>
+	<li>
+		(i) $\Rightarrow$ (vi)<br />
+		Given $E$ is Lebesgue measurable, by claim (v), for any $\varepsilon&gt;0$ we can find a closed set $E_\varepsilon$ such that
+		\begin{equation}
+		m^*(E_\varepsilon\Delta E)\leq\varepsilon
+		\end{equation}
+		While by property (ii) of <b>lemma 13</b>, we have that $E_\varepsilon$ is Lebesgue measurable, which proves our claim.
+	</li>
+	<li>
+		(vi) $\Rightarrow$ (i)<br />
+		Given (vi), for any $\varepsilon&gt;0$, we can find a Lebesgue measurable set $E_\varepsilon^{(n)}$ such that
+		\begin{equation}
+		m^*\left(E_\varepsilon^{(n)}\Delta E\right)\leq\frac{\varepsilon}{2^n}
+		\end{equation}
+		Therefore, by countable subadditivity property of Lebesgue outer measurability
+		\begin{equation}
+		m^*\left(\bigcup_{n=1}^{\infty}E_\varepsilon^{(n)}\Delta E\right)\leq\sum_{n=1}^{\infty}m^*\left(E_\varepsilon^{(n)}\Delta E\right)\leq\sum_{n=1}^{\infty}\frac{\varepsilon}{2^n}=\varepsilon
+		\end{equation}
+	</li>
 </ul>
 
 <p><strong>Example 3</strong><br />
-Every Jordan measurable set is Lebesgue measurable.</p>
+Show that very Jordan measurable set is Lebesgue measurable.</p>
 
 <p><strong>Proof</strong><br />
-Consider a bounded Jordan measurable set $E\subset\mathbb{R}^d$. By Jordan measurability, there exists elementary sets $A\subset E\subset B$ such that $B$ is an open set and for any $\varepsilon&gt;0$
-\begin{equation}
-\varepsilon\geq m(B\backslash A)\geq m(B\backslash E),
-\end{equation}
-which claims the Lebesgue measurability of $E$.</p>
+This follows directly from <strong>corollary 6</strong>.</p>
+
+<p><strong>Example 4</strong> (Middle thirds Cantor set)<br />
+Show that the <a href="/mathematics/measure-theory/2022/06/16/measure-theory-p1.html#cantor-set"><strong>Cantor set</strong></a> is compact, uncountable, and a null set.</p>
+
+<p><strong>Proof</strong></p>
 
 <h4 id="msr-axiom">The measure axioms</h4>
 <p><strong>Lemma 14</strong></p>
@@ -753,10 +804,43 @@ which claims the Lebesgue measurability of $E$.</p>
 		m\left(\bigcap_{n=1}^{\infty}E_n\right)=\lim_{n\to\infty}m(E_n)
 		\end{equation}
 	</li>
+	<li>
+		Give a counterexample to show that the hypothesis that at least one of the $m(E_n)$ is finite in the downward monotone convergence theorem cannot be dropped.
+	</li>
 </ul>
 
-<p><strong>Example</strong><br />
-We say that a sequence $E_n$ of sets in $\mathbb{R}^d$ <strong>converges pointwise</strong> to another set $E$ in $\mathbb{R}^d$ if the indicator function $1_{E_n}$ converges pointwise to $1_E$.</p>
+<p><strong>Proof</strong></p>
+<ul id="roman-list">
+	<li>
+		Since $E_1\subset E_2\subset\ldots\subset\mathbb{R}^d$ is a countable non-decreasing sequence of Lebesgue measurable sets, by countable additivity, we have
+		\begin{align}
+		m\left(\bigcup_{n=1}^{\infty}E_n\right)&amp;=m\left(\bigcup_{n=1}^{\infty}E_n\backslash\bigcup_{n'=1}^{n-1}E_{n'}\right) \\ &amp;=m\left(\bigcup_{n=1}^{\infty}E_n\backslash E_{n-1}\right) \\ &amp;=\left(\sum_{n=2}^{\infty}m(E_n)-m(E_{n-1})\right)+m(E_1) \\ &amp;=\lim_{n\to\infty}m(E_n)
+		\end{align}
+	</li>
+	<li>
+		Since $\mathbb{R}^d\supset E_1\supset E_2\supset\ldots$ is a countable non-increasing sequence of Lebesgue measurable sets, the sequence of their complement $E_1^c\subset E_2^c\subset\ldots\subset\mathbb{R}^d$ is therefore a countable non-decreasing sequence of Lebesgue measurable sets. Using the claim (i) and by De Morgan's laws, we have
+		\begin{align}
+		m\left(\bigcap_{n=1}^{\infty}E_n\right)&amp;=m\left(\mathbb{R}^d\backslash\bigcup_{n=1}^{\infty}E_n^c\right) \\ &amp;=m(\mathbb{R}^d)-m\left(\bigcup_{n=1}^{\infty}E_n^c\right) \\ &amp;=m(\mathbb{R}^d)-\lim_{n\to\infty}m(E_n^c) \\ &amp;=m(\mathbb{R}^d)-m(\mathbb{R}^d)+\lim_{n\to\infty}m(E_n) \\ &amp;=\lim_{n\to\infty}m(E_n)
+		\end{align}
+	</li>
+	<li>
+		Consider sequence $\mathbb{R}^d\supset E_1\supset E_2\supset\ldots$ of non-increasing Lebesgue measurable sets where each $E_n$ is given by
+		\begin{equation}
+		E_n\doteq[n,+\infty)
+		\end{equation}
+		Therefore, by De Morgan's laws, the Lebesgue measure of their countable intersection is
+		\begin{align}
+		m\left(\bigcap_{n=1}^{\infty}E_n\right)&amp;=m\left(\mathbb{R}^d\backslash\bigcup_{n=1}^{\infty}E_n^c\right) \\ &amp;=m\left(\mathbb{R}^d\backslash\bigcup_{n=1}^{\infty}(-\infty,n)\right) \\ &amp;=m(\mathbb{R}^d\backslash\mathbb{R}^d) \\ &amp;=m(\emptyset)=0,
+		\end{align}
+		while for every $n$, we have
+		\begin{equation}
+		m(E_n)=m\left([n,+\infty)\right)=\infty
+		\end{equation}
+	</li>
+</ul>
+
+<h4 id="dmnt-cvg-theorem-msr-sets">Dominated convergence theorem for measurable sets</h4>
+<p>We say that a sequence $E_n$ of sets in $\mathbb{R}^d$ <strong>converges pointwise</strong> to another set $E$ in $\mathbb{R}^d$ if the indicator function $1_{E_n}$ converges pointwise to $1_E$.</p>
 <ul id="roman-list">
 	<li>If the $E_n$ are all Lebesgue measurable, and converge pointwise to $E$, then $E_n$ is Lebesgue measurable also.</li>
 	<li><b>Dominated convergence theorem</b>. Suppose that the $E_n$ are all contained in another Lebesgue measurable set $F$ of finite measure. Then $m(E_n)$ converges to $m(E)$.</li>
