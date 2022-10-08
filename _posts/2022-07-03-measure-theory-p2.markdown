@@ -424,27 +424,64 @@ And since $\varepsilon>0$ was arbitrary, the claim follows.
 	</li>
 	<li>This follows from definition.</li>
 	<li>This follows from definition.</li>
-	<li>Required (vi)</li>
+	<li>
+		Given $E$ is Lebesgue measurable, for each positive integer $n$, we can find an open set $U_n$ containing $E$ such that
+		\begin{equation}
+		m^*(U_n\backslash E)\leq\frac{1}{n}
+		\end{equation}
+		Let $F_n=U_n^c=\mathbb{R}^d\backslash U_n$. Thus, we have $F_n\subset\mathbb{R}^d\backslash E$ and
+		\begin{equation}
+		m^*\big((\mathbb{R}^d\backslash E)\backslash F_n\big)=m^*\big((\mathbb{R}^d\backslash E)\backslash(\mathbb{R}^d\backslash U_n)\big)=m^*(U_n\backslash E)\leq\frac{1}{n}\label{eq:lemma13.1}
+		\end{equation}
+		In addition, since $F_n\subset\mathbb{R}^d\backslash E$, the countable union of them, denoted as $F$, is also a subset of $\mathbb{R}^d\backslash E$
+		\begin{equation}
+		F=\bigcup_{n=1}^{\infty}F_n\subset\mathbb{R}^d\backslash E
+		\end{equation}
+		Moreover, from \eqref{eq:lemma13.2}, we have
+		\begin{equation}
+		m^*\left((\mathbb{R}^d\backslash E)\backslash\bigcup_{n=1}^{N}F_n\right)=m^*\left(\bigcap_{n=1}^{N}(\mathbb{R}^d\backslash E)\backslash F_n\right)\leq\frac{1}{N}
+		\end{equation}
+		Let $N$ approaches $\infty$, we have
+		\begin{equation}
+		m^*\left((\mathbb{R}^d\backslash E)\backslash F\right)=m^*\left((\mathbb{R}^d\backslash E)\backslash\bigcup_{n=1}^{\infty}F_n\right)\leq 0
+		\end{equation}
+		By non-negativity property, we then have
+		\begin{equation}
+		m^*\left((\mathbb{R}^d\backslash E)\backslash F\right)=0,
+		\end{equation}
+		Hence, $\mathbb{R}^d\backslash E$ is a union of $F$ with a set of Lebesgue outer measure of zero. The set $F$, in the other hand, is a countable union of closed set $F_n$'s (since each $U_n$ is an open set). Therefore, by (ii), (iii) and (vi), we have that $\mathbb{R}^d\backslash E$ is also Lebesgue measurable.
+	</li>
 	<li>
 		For each Lebesgue measurable set $E_n$, for any $\varepsilon>0$ and for $U_n$ is an open set containing $E_n$ we have 
 		\begin{equation}
-		m^{*}(U_n\backslash E_n)\leq\frac{\varepsilon}{2^n}\label{eq:lemma13.1}
+		m^{*}(U_n\backslash E_n)\leq\frac{\varepsilon}{2^n}\label{eq:lemma13.2}
 		\end{equation}
 		Moreover, since $E_n\subset U_n$, then
 		\begin{equation}
 		\bigcup_{n=1}^{\infty}E_n\subset\bigcup_{n=1}^{\infty}U_n,
 		\end{equation}
-		which is also an open set. Therefore, from \eqref{eq:lemma13.1} and by countable subadditivity, we have
+		which is also an open set. Therefore, from \eqref{eq:lemma13.2} and by countable subadditivity, we have
 		\begin{equation}
 		m^*\left(\left(\bigcup_{n=1}^{\infty}U_n\right)\backslash\left(\bigcup_{n=1}^{\infty}E_n\right)\right)\leq\sum_{n=1}^{\infty}m^*(U_n\backslash E_n)\leq\sum_{n=1}^{\infty}\frac{\varepsilon}{2^n}=\varepsilon,
 		\end{equation}
 		which proves that $\bigcup_{n=1}^{\infty}E_n$ is Lebesgue measurable.
 	</li>
+	<li>
+		Given $E_1,E_2,E_3,\ldots\subset\mathbb{R}^d$ are Lebesgue measurable, by (v), the complement of them,
+		\begin{equation}
+		E_1^c,E_2^c,E_3^c,\ldots,\subset\mathbb{R}^d,
+		\end{equation}
+		are also Lebesgue measurable. By <b>De Morgan's laws</b>, we have
+		\begin{equation}
+		\left(\bigcap_{n=1}^{\infty}E_n\right)^c=\bigcup_{n=1}^{\infty}E_n^c,
+		\end{equation}
+		which is Lebesgue measurable by (vi). Thus, $\left(\bigcap_{n=1}^{\infty}E_n\right)^c$ is also Lebesgue measurable. This means, using (v) once again, we obtain that $\bigcap_{n=1}^{\infty}E_n$ is Lebesgue measurable.
+	</li>
 </ul>
 
 #### Criteria for measurability
 {: #criteria-measurability}
-Let $E\subset\mathbb{R}^d$. The following are equivalent
+Let $E\subset\mathbb{R}^d$, then the following are equivalent
 <ul id='roman-list'>
 	<li>$E$ is Lebesgue measurable.</li>
 	<li><b>Outer approximation by open</b>. For every $\varepsilon>0$, $E$ can be contained in an open set $U$ with $m^*(U\backslash E)\leq\varepsilon$.</li>

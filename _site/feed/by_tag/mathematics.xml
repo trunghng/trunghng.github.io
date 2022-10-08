@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-06T20:37:20+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-08T13:58:27+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory - III: the Lebesgue integral</title><link href="http://localhost:4000/mathematics/measure-theory/2022/08/21/measure-theory-p3.html" rel="alternate" type="text/html" title="Measure theory - III: the Lebesgue integral" /><published>2022-08-21T13:00:00+07:00</published><updated>2022-08-21T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/08/21/measure-theory-p3</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/08/21/measure-theory-p3.html">&lt;blockquote&gt;
   &lt;p&gt;Part III of the measure theory series. Materials are mostly taken from &lt;a href=&quot;/mathematics/measure-theory/2022/08/21/measure-theory-p3.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some needed notations extracted from &lt;a href=&quot;/mathematics/measure-theory/2022/08/21/measure-theory-p3.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -432,26 +432,63 @@ And since $\varepsilon&amp;gt;0$ was arbitrary, the claim follows.&lt;/p&gt;
 	&lt;/li&gt;
 	&lt;li&gt;This follows from definition.&lt;/li&gt;
 	&lt;li&gt;This follows from definition.&lt;/li&gt;
-	&lt;li&gt;Required (vi)&lt;/li&gt;
+	&lt;li&gt;
+		Given $E$ is Lebesgue measurable, for each positive integer $n$, we can find an open set $U_n$ containing $E$ such that
+		\begin{equation}
+		m^*(U_n\backslash E)\leq\frac{1}{n}
+		\end{equation}
+		Let $F_n=U_n^c=\mathbb{R}^d\backslash U_n$. Thus, we have $F_n\subset\mathbb{R}^d\backslash E$ and
+		\begin{equation}
+		m^*\big((\mathbb{R}^d\backslash E)\backslash F_n\big)=m^*\big((\mathbb{R}^d\backslash E)\backslash(\mathbb{R}^d\backslash U_n)\big)=m^*(U_n\backslash E)\leq\frac{1}{n}\label{eq:lemma13.1}
+		\end{equation}
+		In addition, since $F_n\subset\mathbb{R}^d\backslash E$, the countable union of them, denoted as $F$, is also a subset of $\mathbb{R}^d\backslash E$
+		\begin{equation}
+		F=\bigcup_{n=1}^{\infty}F_n\subset\mathbb{R}^d\backslash E
+		\end{equation}
+		Moreover, from \eqref{eq:lemma13.2}, we have
+		\begin{equation}
+		m^*\left((\mathbb{R}^d\backslash E)\backslash\bigcup_{n=1}^{N}F_n\right)=m^*\left(\bigcap_{n=1}^{N}(\mathbb{R}^d\backslash E)\backslash F_n\right)\leq\frac{1}{N}
+		\end{equation}
+		Let $N$ approaches $\infty$, we have
+		\begin{equation}
+		m^*\left((\mathbb{R}^d\backslash E)\backslash F\right)=m^*\left((\mathbb{R}^d\backslash E)\backslash\bigcup_{n=1}^{\infty}F_n\right)\leq 0
+		\end{equation}
+		By non-negativity property, we then have
+		\begin{equation}
+		m^*\left((\mathbb{R}^d\backslash E)\backslash F\right)=0,
+		\end{equation}
+		Hence, $\mathbb{R}^d\backslash E$ is a union of $F$ with a set of Lebesgue outer measure of zero. The set $F$, in the other hand, is a countable union of closed set $F_n$&apos;s (since each $U_n$ is an open set). Therefore, by (ii), (iii) and (vi), we have that $\mathbb{R}^d\backslash E$ is also Lebesgue measurable.
+	&lt;/li&gt;
 	&lt;li&gt;
 		For each Lebesgue measurable set $E_n$, for any $\varepsilon&amp;gt;0$ and for $U_n$ is an open set containing $E_n$ we have 
 		\begin{equation}
-		m^{*}(U_n\backslash E_n)\leq\frac{\varepsilon}{2^n}\label{eq:lemma13.1}
+		m^{*}(U_n\backslash E_n)\leq\frac{\varepsilon}{2^n}\label{eq:lemma13.2}
 		\end{equation}
 		Moreover, since $E_n\subset U_n$, then
 		\begin{equation}
 		\bigcup_{n=1}^{\infty}E_n\subset\bigcup_{n=1}^{\infty}U_n,
 		\end{equation}
-		which is also an open set. Therefore, from \eqref{eq:lemma13.1} and by countable subadditivity, we have
+		which is also an open set. Therefore, from \eqref{eq:lemma13.2} and by countable subadditivity, we have
 		\begin{equation}
 		m^*\left(\left(\bigcup_{n=1}^{\infty}U_n\right)\backslash\left(\bigcup_{n=1}^{\infty}E_n\right)\right)\leq\sum_{n=1}^{\infty}m^*(U_n\backslash E_n)\leq\sum_{n=1}^{\infty}\frac{\varepsilon}{2^n}=\varepsilon,
 		\end{equation}
 		which proves that $\bigcup_{n=1}^{\infty}E_n$ is Lebesgue measurable.
 	&lt;/li&gt;
+	&lt;li&gt;
+		Given $E_1,E_2,E_3,\ldots\subset\mathbb{R}^d$ are Lebesgue measurable, by (v), the complement of them,
+		\begin{equation}
+		E_1^c,E_2^c,E_3^c,\ldots,\subset\mathbb{R}^d,
+		\end{equation}
+		are also Lebesgue measurable. By &lt;b&gt;De Morgan&apos;s laws&lt;/b&gt;, we have
+		\begin{equation}
+		\left(\bigcap_{n=1}^{\infty}E_n\right)^c=\bigcup_{n=1}^{\infty}E_n^c,
+		\end{equation}
+		which is Lebesgue measurable by (vi). Thus, $\left(\bigcap_{n=1}^{\infty}E_n\right)^c$ is also Lebesgue measurable. This means, using (v) once again, we obtain that $\bigcap_{n=1}^{\infty}E_n$ is Lebesgue measurable.
+	&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h4 id=&quot;criteria-measurability&quot;&gt;Criteria for measurability&lt;/h4&gt;
-&lt;p&gt;Let $E\subset\mathbb{R}^d$. The following are equivalent&lt;/p&gt;
+&lt;p&gt;Let $E\subset\mathbb{R}^d$, then the following are equivalent&lt;/p&gt;
 &lt;ul id=&quot;roman-list&quot;&gt;
 	&lt;li&gt;$E$ is Lebesgue measurable.&lt;/li&gt;
 	&lt;li&gt;&lt;b&gt;Outer approximation by open&lt;/b&gt;. For every $\varepsilon&amp;gt;0$, $E$ can be contained in an open set $U$ with $m^*(U\backslash E)\leq\varepsilon$.&lt;/li&gt;
