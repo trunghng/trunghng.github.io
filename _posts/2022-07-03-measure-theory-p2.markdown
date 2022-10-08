@@ -19,13 +19,21 @@ eqn-number: true
 		- [Outer measure of countable unions of almost disjoint boxes](#outer-msr-cntbl-uni-alm-dsjnt-boxes)
 		- [Open sets as countable unions of almost disjoint boxes](#open-sets-cntbl-uni-alm-dsjnt-boxes)
 		- [Outer measure of open sets](#outer-msr-open-sets)
-		- [Outer measure of arbitrary sets](#outer-msr-arb-sets)
+		- [Outer measure of arbitrary sets - Outer regularity](#outer-msr-arb-sets)
 	- [Lebesgue measurability](#lebesgue-measurability)
 		- [Existence of Lebesgue measurable sets](#exist-lebesgue-msr-sets)
-		- [Criteria for measurability](#criteria-measurability)
+		- [Criteria for measurability](#crt-msrb)
 		- [The measure axioms](#msr-axiom)
 		- [Monotone convergence theorem for measurable sets](#mnt-cvg-theorem-msr-sets)
 		- [Dominated convergence theorem for measurable sets](#dmnt-cvg-theorem-msr-sets)
+		- [Inner regularity](#inn-rglr)
+		- [Criteria for finite measure](#crt-fnt-msr)
+		- [Carathéodory criterion, one direction](#caratheodory-crt)
+		- [Inner measure](#inn-msr)
+		- [Translation invariance](#trans-inv)
+		- [Change of variables](#change-vars)
+		- [Uniqueness of Lebesgue measure](#uniq-lebesgue-msr)
+		- [Lebesgue measure as the completion of elementary measure](#lebesgue-msr-cmplt-ele-msr)
 	- [Non-measurable sets](#non-measurable-sets)
 - [References](#references)
 - [Footnotes](#footnotes)
@@ -352,9 +360,9 @@ which is union of almost disjoint cubes. As $\mathcal{Q}^\*$ is at most countabl
 **Corollary 11**  
 The Lebesgue outer measure of any open set is equal to the Jordan inner measure of that set, or of the total volume of any partitioning of that set into almost disjoint boxes.
 
-#### Outer measure of arbitrary sets
+#### Outer measure of arbitrary sets - Outer regularity
 {: #outer-msr-arb-sets}
-**Lemma 12**. (**Outer regularity**)  
+**Lemma 12**.  
 *Let $E\subset\mathbb{R}^d$ be an arbitrary set. Then we have*
 \begin{equation}
 m^\*(E)=\inf_{E\subset U,U\text{ open}}m^\*(U)
@@ -481,8 +489,8 @@ And since $\varepsilon>0$ was arbitrary, the claim follows.
 </ul>
 
 #### Criteria for measurability
-{: #criteria-measurability}
-Let $E\subset\mathbb{R}^d$, then the following are equivalent
+{: #crt-msrb}
+Let $E\subset\mathbb{R}^d$, then the following are equivalent:
 <ul id='roman-list'>
 	<li>$E$ is Lebesgue measurable.</li>
 	<li><b>Outer approximation by open</b>. For every $\varepsilon>0$, $E$ can be contained in an open set $U$ with $m^*(U\backslash E)\leq\varepsilon$.</li>
@@ -492,7 +500,7 @@ Let $E\subset\mathbb{R}^d$, then the following are equivalent
 	<li><b>Almost measurable</b>. For every $\varepsilon>0$, we can find a Lebesgue measurable set $E_\varepsilon$ such that $m^*(E_\varepsilon\Delta E)\leq\varepsilon$. ($E$ differs from a measurable set by a set of outer measure at most $\varepsilon$.)</li>
 </ul>
 
-**Proof**  
+**Proof**
 <ul id='number-list'>
 	<li>
 		(i) $\Rightarrow$ (ii)<br>
@@ -669,11 +677,11 @@ Show that the [**Cantor set**]({% post_url 2022-06-16-measure-theory-p1 %}#canto
 		\end{equation}
 	</li>
 	<li>
-		Give a counterexample to show that the hypothesis that at least one of the $m(E_n)$ is finite in the downward monotone convergence theorem cannot be dropped.
+		The hypothesis that at least one of the $m(E_n)$ is finite in the downward monotone convergence theorem cannot be dropped.
 	</li>
 </ul>
 
-**Proof**  
+**Proof**
 <ul id='roman-list'>
 	<li>
 		Since $E_1\subset E_2\subset\ldots\subset\mathbb{R}^d$ is a countable non-decreasing sequence of Lebesgue measurable sets, by countable additivity, we have
@@ -707,10 +715,192 @@ Show that the [**Cantor set**]({% post_url 2022-06-16-measure-theory-p1 %}#canto
 {: #dmnt-cvg-theorem-msr-sets} 
 We say that a sequence $E_n$ of sets in $\mathbb{R}^d$ **converges pointwise** to another set $E$ in $\mathbb{R}^d$ if the indicator function $1_{E_n}$ converges pointwise to $1_E$.
 <ul id='roman-list'>
-	<li>If the $E_n$ are all Lebesgue measurable, and converge pointwise to $E$, then $E_n$ is Lebesgue measurable also.</li>
-	<li><b>Dominated convergence theorem</b>. Suppose that the $E_n$ are all contained in another Lebesgue measurable set $F$ of finite measure. Then $m(E_n)$ converges to $m(E)$.</li>
+	<li>
+		If the $E_n$ are all Lebesgue measurable, and converge pointwise to $E$, then $E$ is Lebesgue measurable also.
+	</li>
+	<li>
+		<b>Dominated convergence theorem</b>. Suppose that the $E_n$ are all contained in another Lebesgue measurable set $F$ of finite measure. Then $m(E_n)$ converges to $m(E)$.
+	</li>
+	<li>
+		The dominated convergence theorem fails if the $E_n$'s are not contained in a set of finite measure, even if we assume that the $m(E_n)$ are all uniformly bounded.
+	</li>
 </ul>
 
+**Proof**
+<ul id='roman-list'>
+	<li>
+		We have
+	</li>
+</ul>
+
+#### Inner regularity
+{: #inn-rglr}
+Let $E\subset\mathbb{R}$ be Lebesgue measurable. Then
+\begin{equation}
+m(E)=\sup_{K\subset E,K\text{ compact}}m(K)
+\end{equation}
+
+**Proof**  
+
+
+#### Criteria for finite measure
+{: #crt-fnt-msr}
+Let $E\subset\mathbb{R}^d$, then the following are equivalent:
+<ul id='roman-list'>
+	<li>
+		$E$ is Lebesgue measurable with finite measure.
+	</li>
+	<li>
+		<b>Outer approximation by open</b>. For every $\varepsilon>0$, we can contain $E$ in an open set $U$ of finite measure with $m^*(U\backslash E)\leq\varepsilon$.
+	</li>
+	<li>
+		<b>Almost open bounded</b>. For every $\varepsilon>0$, there exists a bounded open set $U$ such that $m^*(E\Delta U)\leq\varepsilon$. (In other words, $E$ differs from a bounded set by a set of arbitrarily small Lebesgue outer measure.)
+	</li>
+	<li>
+		<b>Inner approximation by compact</b>. For every $\varepsilon>0$, we can find a compact set $F$ contained in $E$ with $m^*(E\backslash F)\leq\varepsilon$.
+	</li>
+	<li>
+		<b>Almost compact</b>. $E$ differs from a compact set by a set of arbitrarily small Lebesgue outer measure.
+	</li>
+	<li>
+		<b>Almost bounded measurable</b>. $E$ differs from a bounded Lebesgue measurable set by a set of arbitrarily small Lebesgue outer measure.
+	</li>
+	<li>
+		<b>Almost finite measure</b>. $E$ differs from a Lebesgue measurable set with finite measure by a set of arbitrarily small Lebesgue outer measure.
+	</li>
+	<li>
+		<b>Almost elementary</b>. $E$ differs from an elementary set by a set of arbitrarily small Lebesgue outer measure.
+	</li>
+	<li>
+		<b>Almost dyadically elementary</b>. For every $\varepsilon>0$, there exists an integer $n$ and a finite union $F$ of closed dyadic cubes of sidelength $2^{-n}$ such that $m^*(E\Delta F)\leq\varepsilon$.
+	</li>
+</ul>
+
+**Proof**  
+
+
+#### Carathéodory criterion, one direction
+{: #caratheodory-crt}
+Let $E\subset\mathbb{R}^d$, the following are then equivalent:
+<ul id='roman-list'>
+	<li>
+		$E$ is Lebesgue measurable.
+	</li>
+	<li>
+		For every elementary set $A$
+		\begin{equation}
+		m(A)=m^*(A\cap E)+m*(A\backslash E)
+		\end{equation}
+	</li>
+	<li>
+		For every box $B$, we have
+		\begin{equation}
+		\vert B\vert=m^*(B\cap E)+m^*(B\backslash E)
+		\end{equation}
+	</li>
+</ul>
+
+**Proof**
+<ul id='roman-list'>
+	<li>
+		(i) $\Rightarrow$ (ii)<br>
+	</li>
+	<li>
+		(i) $\Rightarrow$ (iii)<br>
+		Since every box $B$ is Lebesgue measurable, then given $E$ is also Lebesgue measurable, by <b>lemma 13</b>, their difference and intersection are also Lebesgue measurable, which means by additivity property we have
+		\begin{equation}
+		\vert B\vert=m(B)=m(B\cap E)+m(B\backslash E)=m^*(B\cap E)+m^*(B\backslash E)
+		\end{equation}
+	</li>
+	<li>
+		(ii) $\Rightarrow$ (i)<br>
+	</li>
+</ul>
+
+#### Inner measure
+{: #inn-msr}
+Let $E\subset\mathbb{R}^d$ be a bounded set. The **Lebesgue inner measure** $m_\*(E)$ of $E$ is defined by
+\begin{equation}
+m_\*(E)\doteq m(A)-m^\*(A\backslash E),
+\end{equation}
+for any elementary set $A$ containing $E$. Then
+<ul id='roman-list'>
+	<li>
+		If $A,A'$ are two elementary sets containing $E$, then
+		\begin{equation}
+		m(A)-m^*(A\backslash E)=m(A')-m^*(A'\backslash E)
+		\end{equation}
+	</li>
+	<li>
+		We have that $m_*(E)\leq m^*(E)$, and that equality holds iff $E$ is Lebesgue measurable.
+	</li>
+</ul>
+
+**Proof**  
+
+
+**Example 5**  
+Let $E\subset \mathbb{R}^d$, and define a $G_\delta$ *set* to be a countable intersection $\bigcap_{n=1}^{\infty}U_n$ of open sets, and define an $F_\delta$ *set* to be a countable union $\bigcup_{n=1}^{\infty}F_n$ of closed sets. The following are then equivalent:
+<ul id='roman-list'>
+	<li>
+		$E$ is Lebesgue measurable.
+	</li>
+	<li>
+		$E$ is a $G_\delta$ set with a null set removed.
+	</li>
+	<li>
+		$E$ is the union of an $F_\delta$ set and a null set.
+	</li>
+</ul>
+
+**Proof**  
+
+
+
+
+#### Translation invariance
+{: #trans-inv}
+Let $E\subset\mathbb{R}^d$ be Lebesgue measurable, then $E+x$ is also Lebesgue measurable for any $x\in\mathbb{R}^d$, and $m(E+x)=m(E)$.
+
+**Proof**  
+
+
+#### Change of variables
+{: #change-vars}
+Let $E\subset\mathbb{R}^d$ be Lebesgue measurable, and $T:\mathbb{R}^d\to\mathbb{R}^d$ be a linear transformation, then $T(E)$ is Lebesgue measurable, and $m(T(E))=\vert\text{det}(T)\vert m(E)$.
+
+**Note**  
+If $T:\mathbb{R}^d\to\mathbb{R}^{d'}$ is a linear map to a space $\mathbb{R}^{d'}$ of strictly smaller dimension than $\mathbb{R}^d$, then $T(E)$ need not be Lebesgue measurable.
+
+**Proof**  
+
+
+#### Uniqueness of Lebesgue measure
+{: #uniq-lebesgue-msr}
+Lebesgue measure $E\mapsto m(E)$ is the only map from Lebesgue measurable sets to $[0,+\infty]$ that obeys the following axioms:
+<ul id='roman-list'>
+	<li>
+		<b>Empty set</b>. $m(\emptyset)=0$.
+	</li>
+	<li>
+		<b>Countable additivity</b>. If $E_1,E_2,\ldots\subset\mathbb{R}^d$ is a countable sequence of disjoint Lebesgue measurable sets, then 
+		\begin{equation}
+		m\left(\bigcup_{n=1}^{\infty}E_n\right)=\sum_{n=1}^{\infty}m(E_n)
+		\end{equation}
+	</li>
+	<li>
+		<b>Translation invariance</b>. If $E$ is Lebesgue measurable and $x\in\mathbb{R}^d$, then $m(E+x)=m(E)$.
+	</li>
+	<li>
+		<b>Normalisation</b>. $m([0,1]^d)=1$.
+	</li>
+</ul>
+
+**Proof**  
+
+
+#### Lebesgue measure as the completion of elementary measure
+{: #lebesgue-msr-cmplt-ele-msr}
 
 ### Non-measurable sets
 {: #non-measurable-sets}

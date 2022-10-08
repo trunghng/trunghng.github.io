@@ -44,12 +44,12 @@ blockquote {
     counter-increment: section;
     content: "(" counter(section, lower-roman) ") ";
     position: absolute;
-    left: -1.7em;
+    left: -1.85em;
 }
 
 #number-list > li:before {
     counter-increment: section;
     content: "(" counter(section, decimal) ") ";
     position: absolute;
-    left: -1.7em;
+    left: -1.85em;
 }

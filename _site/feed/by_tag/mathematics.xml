@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-08T17:12:42+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-08T19:17:23+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory - III: the Lebesgue integral</title><link href="http://localhost:4000/mathematics/measure-theory/2022/08/21/measure-theory-p3.html" rel="alternate" type="text/html" title="Measure theory - III: the Lebesgue integral" /><published>2022-08-21T13:00:00+07:00</published><updated>2022-08-21T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/08/21/measure-theory-p3</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/08/21/measure-theory-p3.html">&lt;blockquote&gt;
   &lt;p&gt;Part III of the measure theory series. Materials are mostly taken from &lt;a href=&quot;/mathematics/measure-theory/2022/08/21/measure-theory-p3.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some needed notations extracted from &lt;a href=&quot;/mathematics/measure-theory/2022/08/21/measure-theory-p3.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -30,16 +30,24 @@
           &lt;li&gt;&lt;a href=&quot;#outer-msr-cntbl-uni-alm-dsjnt-boxes&quot;&gt;Outer measure of countable unions of almost disjoint boxes&lt;/a&gt;&lt;/li&gt;
           &lt;li&gt;&lt;a href=&quot;#open-sets-cntbl-uni-alm-dsjnt-boxes&quot;&gt;Open sets as countable unions of almost disjoint boxes&lt;/a&gt;&lt;/li&gt;
           &lt;li&gt;&lt;a href=&quot;#outer-msr-open-sets&quot;&gt;Outer measure of open sets&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#outer-msr-arb-sets&quot;&gt;Outer measure of arbitrary sets&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#outer-msr-arb-sets&quot;&gt;Outer measure of arbitrary sets - Outer regularity&lt;/a&gt;&lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#lebesgue-measurability&quot;&gt;Lebesgue measurability&lt;/a&gt;
         &lt;ul&gt;
           &lt;li&gt;&lt;a href=&quot;#exist-lebesgue-msr-sets&quot;&gt;Existence of Lebesgue measurable sets&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#criteria-measurability&quot;&gt;Criteria for measurability&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#crt-msrb&quot;&gt;Criteria for measurability&lt;/a&gt;&lt;/li&gt;
           &lt;li&gt;&lt;a href=&quot;#msr-axiom&quot;&gt;The measure axioms&lt;/a&gt;&lt;/li&gt;
           &lt;li&gt;&lt;a href=&quot;#mnt-cvg-theorem-msr-sets&quot;&gt;Monotone convergence theorem for measurable sets&lt;/a&gt;&lt;/li&gt;
           &lt;li&gt;&lt;a href=&quot;#dmnt-cvg-theorem-msr-sets&quot;&gt;Dominated convergence theorem for measurable sets&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#inn-rglr&quot;&gt;Inner regularity&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#crt-fnt-msr&quot;&gt;Criteria for finite measure&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#caratheodory-crt&quot;&gt;Carathéodory criterion, one direction&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#inn-msr&quot;&gt;Inner measure&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#trans-inv&quot;&gt;Translation invariance&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#change-vars&quot;&gt;Change of variables&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#uniq-lebesgue-msr&quot;&gt;Uniqueness of Lebesgue measure&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#lebesgue-msr-cmplt-ele-msr&quot;&gt;Lebesgue measure as the completion of elementary measure&lt;/a&gt;&lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#non-measurable-sets&quot;&gt;Non-measurable sets&lt;/a&gt;&lt;/li&gt;
@@ -363,8 +371,8 @@ which is union of almost disjoint cubes. As $\mathcal{Q}^*$ is at most countable
 &lt;p&gt;&lt;strong&gt;Corollary 11&lt;/strong&gt;&lt;br /&gt;
 The Lebesgue outer measure of any open set is equal to the Jordan inner measure of that set, or of the total volume of any partitioning of that set into almost disjoint boxes.&lt;/p&gt;
 
-&lt;h4 id=&quot;outer-msr-arb-sets&quot;&gt;Outer measure of arbitrary sets&lt;/h4&gt;
-&lt;p&gt;&lt;strong&gt;Lemma 12&lt;/strong&gt;. (&lt;strong&gt;Outer regularity&lt;/strong&gt;)&lt;br /&gt;
+&lt;h4 id=&quot;outer-msr-arb-sets&quot;&gt;Outer measure of arbitrary sets - Outer regularity&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;Lemma 12&lt;/strong&gt;.&lt;br /&gt;
 &lt;em&gt;Let $E\subset\mathbb{R}^d$ be an arbitrary set. Then we have&lt;/em&gt;
 \begin{equation}
 m^*(E)=\inf_{E\subset U,U\text{ open}}m^*(U)
@@ -488,8 +496,8 @@ And since $\varepsilon&amp;gt;0$ was arbitrary, the claim follows.&lt;/p&gt;
 	&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&quot;criteria-measurability&quot;&gt;Criteria for measurability&lt;/h4&gt;
-&lt;p&gt;Let $E\subset\mathbb{R}^d$, then the following are equivalent&lt;/p&gt;
+&lt;h4 id=&quot;crt-msrb&quot;&gt;Criteria for measurability&lt;/h4&gt;
+&lt;p&gt;Let $E\subset\mathbb{R}^d$, then the following are equivalent:&lt;/p&gt;
 &lt;ul id=&quot;roman-list&quot;&gt;
 	&lt;li&gt;$E$ is Lebesgue measurable.&lt;/li&gt;
 	&lt;li&gt;&lt;b&gt;Outer approximation by open&lt;/b&gt;. For every $\varepsilon&amp;gt;0$, $E$ can be contained in an open set $U$ with $m^*(U\backslash E)\leq\varepsilon$.&lt;/li&gt;
@@ -672,7 +680,7 @@ Show that the &lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-th
 		\end{equation}
 	&lt;/li&gt;
 	&lt;li&gt;
-		Give a counterexample to show that the hypothesis that at least one of the $m(E_n)$ is finite in the downward monotone convergence theorem cannot be dropped.
+		The hypothesis that at least one of the $m(E_n)$ is finite in the downward monotone convergence theorem cannot be dropped.
 	&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -709,9 +717,175 @@ Show that the &lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-th
 &lt;h4 id=&quot;dmnt-cvg-theorem-msr-sets&quot;&gt;Dominated convergence theorem for measurable sets&lt;/h4&gt;
 &lt;p&gt;We say that a sequence $E_n$ of sets in $\mathbb{R}^d$ &lt;strong&gt;converges pointwise&lt;/strong&gt; to another set $E$ in $\mathbb{R}^d$ if the indicator function $1_{E_n}$ converges pointwise to $1_E$.&lt;/p&gt;
 &lt;ul id=&quot;roman-list&quot;&gt;
-	&lt;li&gt;If the $E_n$ are all Lebesgue measurable, and converge pointwise to $E$, then $E_n$ is Lebesgue measurable also.&lt;/li&gt;
-	&lt;li&gt;&lt;b&gt;Dominated convergence theorem&lt;/b&gt;. Suppose that the $E_n$ are all contained in another Lebesgue measurable set $F$ of finite measure. Then $m(E_n)$ converges to $m(E)$.&lt;/li&gt;
+	&lt;li&gt;
+		If the $E_n$ are all Lebesgue measurable, and converge pointwise to $E$, then $E$ is Lebesgue measurable also.
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Dominated convergence theorem&lt;/b&gt;. Suppose that the $E_n$ are all contained in another Lebesgue measurable set $F$ of finite measure. Then $m(E_n)$ converges to $m(E)$.
+	&lt;/li&gt;
+	&lt;li&gt;
+		The dominated convergence theorem fails if the $E_n$&apos;s are not contained in a set of finite measure, even if we assume that the $m(E_n)$ are all uniformly bounded.
+	&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+&lt;ul id=&quot;roman-list&quot;&gt;
+	&lt;li&gt;
+		We have
+	&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;inn-rglr&quot;&gt;Inner regularity&lt;/h4&gt;
+&lt;p&gt;Let $E\subset\mathbb{R}$ be Lebesgue measurable. Then
+\begin{equation}
+m(E)=\sup_{K\subset E,K\text{ compact}}m(K)
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;crt-fnt-msr&quot;&gt;Criteria for finite measure&lt;/h4&gt;
+&lt;p&gt;Let $E\subset\mathbb{R}^d$, then the following are equivalent:&lt;/p&gt;
+&lt;ul id=&quot;roman-list&quot;&gt;
+	&lt;li&gt;
+		$E$ is Lebesgue measurable with finite measure.
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Outer approximation by open&lt;/b&gt;. For every $\varepsilon&amp;gt;0$, we can contain $E$ in an open set $U$ of finite measure with $m^*(U\backslash E)\leq\varepsilon$.
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Almost open bounded&lt;/b&gt;. For every $\varepsilon&amp;gt;0$, there exists a bounded open set $U$ such that $m^*(E\Delta U)\leq\varepsilon$. (In other words, $E$ differs from a bounded set by a set of arbitrarily small Lebesgue outer measure.)
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Inner approximation by compact&lt;/b&gt;. For every $\varepsilon&amp;gt;0$, we can find a compact set $F$ contained in $E$ with $m^*(E\backslash F)\leq\varepsilon$.
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Almost compact&lt;/b&gt;. $E$ differs from a compact set by a set of arbitrarily small Lebesgue outer measure.
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Almost bounded measurable&lt;/b&gt;. $E$ differs from a bounded Lebesgue measurable set by a set of arbitrarily small Lebesgue outer measure.
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Almost finite measure&lt;/b&gt;. $E$ differs from a Lebesgue measurable set with finite measure by a set of arbitrarily small Lebesgue outer measure.
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Almost elementary&lt;/b&gt;. $E$ differs from an elementary set by a set of arbitrarily small Lebesgue outer measure.
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Almost dyadically elementary&lt;/b&gt;. For every $\varepsilon&amp;gt;0$, there exists an integer $n$ and a finite union $F$ of closed dyadic cubes of sidelength $2^{-n}$ such that $m^*(E\Delta F)\leq\varepsilon$.
+	&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;caratheodory-crt&quot;&gt;Carathéodory criterion, one direction&lt;/h4&gt;
+&lt;p&gt;Let $E\subset\mathbb{R}^d$, the following are then equivalent:&lt;/p&gt;
+&lt;ul id=&quot;roman-list&quot;&gt;
+	&lt;li&gt;
+		$E$ is Lebesgue measurable.
+	&lt;/li&gt;
+	&lt;li&gt;
+		For every elementary set $A$
+		\begin{equation}
+		m(A)=m^*(A\cap E)+m*(A\backslash E)
+		\end{equation}
+	&lt;/li&gt;
+	&lt;li&gt;
+		For every box $B$, we have
+		\begin{equation}
+		\vert B\vert=m^*(B\cap E)+m^*(B\backslash E)
+		\end{equation}
+	&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+&lt;ul id=&quot;roman-list&quot;&gt;
+	&lt;li&gt;
+		(i) $\Rightarrow$ (ii)&lt;br /&gt;
+	&lt;/li&gt;
+	&lt;li&gt;
+		(i) $\Rightarrow$ (iii)&lt;br /&gt;
+		Since every box $B$ is Lebesgue measurable, then given $E$ is also Lebesgue measurable, by &lt;b&gt;lemma 13&lt;/b&gt;, their difference and intersection are also Lebesgue measurable, which means by additivity property we have
+		\begin{equation}
+		\vert B\vert=m(B)=m(B\cap E)+m(B\backslash E)=m^*(B\cap E)+m^*(B\backslash E)
+		\end{equation}
+	&lt;/li&gt;
+	&lt;li&gt;
+		(ii) $\Rightarrow$ (i)&lt;br /&gt;
+	&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;inn-msr&quot;&gt;Inner measure&lt;/h4&gt;
+&lt;p&gt;Let $E\subset\mathbb{R}^d$ be a bounded set. The &lt;strong&gt;Lebesgue inner measure&lt;/strong&gt; $m_*(E)$ of $E$ is defined by
+\begin{equation}
+m_*(E)\doteq m(A)-m^*(A\backslash E),
+\end{equation}
+for any elementary set $A$ containing $E$. Then&lt;/p&gt;
+&lt;ul id=&quot;roman-list&quot;&gt;
+	&lt;li&gt;
+		If $A,A&apos;$ are two elementary sets containing $E$, then
+		\begin{equation}
+		m(A)-m^*(A\backslash E)=m(A&apos;)-m^*(A&apos;\backslash E)
+		\end{equation}
+	&lt;/li&gt;
+	&lt;li&gt;
+		We have that $m_*(E)\leq m^*(E)$, and that equality holds iff $E$ is Lebesgue measurable.
+	&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Example 5&lt;/strong&gt;&lt;br /&gt;
+Let $E\subset \mathbb{R}^d$, and define a $G_\delta$ &lt;em&gt;set&lt;/em&gt; to be a countable intersection $\bigcap_{n=1}^{\infty}U_n$ of open sets, and define an $F_\delta$ &lt;em&gt;set&lt;/em&gt; to be a countable union $\bigcup_{n=1}^{\infty}F_n$ of closed sets. The following are then equivalent:&lt;/p&gt;
+&lt;ul id=&quot;roman-list&quot;&gt;
+	&lt;li&gt;
+		$E$ is Lebesgue measurable.
+	&lt;/li&gt;
+	&lt;li&gt;
+		$E$ is a $G_\delta$ set with a null set removed.
+	&lt;/li&gt;
+	&lt;li&gt;
+		$E$ is the union of an $F_\delta$ set and a null set.
+	&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;trans-inv&quot;&gt;Translation invariance&lt;/h4&gt;
+&lt;p&gt;Let $E\subset\mathbb{R}^d$ be Lebesgue measurable, then $E+x$ is also Lebesgue measurable for any $x\in\mathbb{R}^d$, and $m(E+x)=m(E)$.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;change-vars&quot;&gt;Change of variables&lt;/h4&gt;
+&lt;p&gt;Let $E\subset\mathbb{R}^d$ be Lebesgue measurable, and $T:\mathbb{R}^d\to\mathbb{R}^d$ be a linear transformation, then $T(E)$ is Lebesgue measurable, and $m(T(E))=\vert\text{det}(T)\vert m(E)$.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;&lt;br /&gt;
+If $T:\mathbb{R}^d\to\mathbb{R}^{d’}$ is a linear map to a space $\mathbb{R}^{d’}$ of strictly smaller dimension than $\mathbb{R}^d$, then $T(E)$ need not be Lebesgue measurable.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;uniq-lebesgue-msr&quot;&gt;Uniqueness of Lebesgue measure&lt;/h4&gt;
+&lt;p&gt;Lebesgue measure $E\mapsto m(E)$ is the only map from Lebesgue measurable sets to $[0,+\infty]$ that obeys the following axioms:&lt;/p&gt;
+&lt;ul id=&quot;roman-list&quot;&gt;
+	&lt;li&gt;
+		&lt;b&gt;Empty set&lt;/b&gt;. $m(\emptyset)=0$.
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Countable additivity&lt;/b&gt;. If $E_1,E_2,\ldots\subset\mathbb{R}^d$ is a countable sequence of disjoint Lebesgue measurable sets, then 
+		\begin{equation}
+		m\left(\bigcup_{n=1}^{\infty}E_n\right)=\sum_{n=1}^{\infty}m(E_n)
+		\end{equation}
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Translation invariance&lt;/b&gt;. If $E$ is Lebesgue measurable and $x\in\mathbb{R}^d$, then $m(E+x)=m(E)$.
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Normalisation&lt;/b&gt;. $m([0,1]^d)=1$.
+	&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;lebesgue-msr-cmplt-ele-msr&quot;&gt;Lebesgue measure as the completion of elementary measure&lt;/h4&gt;
 
 &lt;h3 id=&quot;non-measurable-sets&quot;&gt;Non-measurable sets&lt;/h3&gt;
 
