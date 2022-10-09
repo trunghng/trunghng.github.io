@@ -33,7 +33,6 @@ eqn-number: true
 		- [Translation invariance](#trans-inv)
 		- [Change of variables](#change-vars)
 		- [Uniqueness of Lebesgue measure](#uniq-lebesgue-msr)
-		- [Lebesgue measure as the completion of elementary measure](#lebesgue-msr-cmplt-ele-msr)
 	- [Non-measurable sets](#non-measurable-sets)
 - [References](#references)
 - [Footnotes](#footnotes)
@@ -257,7 +256,7 @@ Then for $\varepsilon\lt 1$, we have that
 \begin{equation}
 m^{\*}(U)\lt 1\leq m^{\*,(J)}(U)
 \end{equation}
-Combining with \eqref{eq:cor6.1}, we obtain that the bounded open set $U$ is not Jordan measurable. 
+Combining with \eqref{eq:cor6.1}, we obtain that the bounded open set $U$ is not Jordan measurable.
 
 #### Finite additivity for almost disjoint boxes
 {: #fnt-add-alm-dsjnt-boxes}
@@ -579,6 +578,8 @@ This follows directly from **corollary 6**.
 Show that the [**Cantor set**]({% post_url 2022-06-16-measure-theory-p1 %}#cantor-set) is compact, uncountable, and a null set.
 
 **Proof**  
+- Since $\mathcal{C}\subseteq[0,1]$ is closed and bounded, by the [Heine-Borel theorem]({% post_url 2022-06-16-measure-theory-p1 %}#heine-borel-theorem), $\mathcal{C}$ is then compact.
+- 
 
 
 
@@ -596,12 +597,14 @@ Show that the [**Cantor set**]({% post_url 2022-06-16-measure-theory-p1 %}#canto
 **Proof**
 <ul id='roman-list'>
 	<li>
+		<b>Empty set</b><br>
 		We have that empty set $\emptyset$ is Lebesgue measurable since for every $\varepsilon>0$, there exists an open set $U\subset\mathbb{R}^d$ containing $\emptyset$ such that $m^*(U\backslash\emptyset)\leq\varepsilon$. Thus,
 		\begin{equation}
 		m(\emptyset)=m^*(\emptyset)=0
 		\end{equation}
 	</li>
 	<li>
+		<b>Countable additivity</b><br>
 		We begin by considering the case that $E_n$ are all compact sets.
 		<br>
 		By repeated use of <b>Lemma 12</b> and <b>Example ?</b>, we have
@@ -661,6 +664,13 @@ Show that the [**Cantor set**]({% post_url 2022-06-16-measure-theory-p1 %}#canto
 	</li>
 </ul>
 
+**Remark 15**  
+The countable additivity also implies the **finite additivity** property of Lebesgue  measure
+\begin{equation}
+m\left(\bigcup_{n=1}^{N}E_n\right)=\sum_{n=1}^{N}m(E_n),
+\end{equation}
+where $E_1,\ldots,E_N$ are Lebesgue measurable.
+
 #### Monotone convergence theorem for measurable sets
 {: #mnt-cvg-theorem-msr-sets}  
 <ul id='roman-list'>
@@ -684,12 +694,14 @@ Show that the [**Cantor set**]({% post_url 2022-06-16-measure-theory-p1 %}#canto
 **Proof**
 <ul id='roman-list'>
 	<li>
+		<b>Upward monotone convergence</b><br>
 		Since $E_1\subset E_2\subset\ldots\subset\mathbb{R}^d$ is a countable non-decreasing sequence of Lebesgue measurable sets, by countable additivity, we have
 		\begin{align}
 		m\left(\bigcup_{n=1}^{\infty}E_n\right)&=m\left(\bigcup_{n=1}^{\infty}E_n\backslash\bigcup_{n'=1}^{n-1}E_{n'}\right) \\ &=m\left(\bigcup_{n=1}^{\infty}E_n\backslash E_{n-1}\right) \\ &=\left(\sum_{n=2}^{\infty}m(E_n)-m(E_{n-1})\right)+m(E_1) \\ &=\lim_{n\to\infty}m(E_n)
 		\end{align}
 	</li>
 	<li>
+		<b>Downward monotone convergence</b><br>
 		Since $\mathbb{R}^d\supset E_1\supset E_2\supset\ldots$ is a countable non-increasing sequence of Lebesgue measurable sets, the sequence of their complement $E_1^c\subset E_2^c\subset\ldots\subset\mathbb{R}^d$ is therefore a countable non-decreasing sequence of Lebesgue measurable sets. Using the claim (i) and by De Morgan's laws, we have
 		\begin{align}
 		m\left(\bigcap_{n=1}^{\infty}E_n\right)&=m\left(\mathbb{R}^d\backslash\bigcup_{n=1}^{\infty}E_n^c\right) \\ &=m(\mathbb{R}^d)-m\left(\bigcup_{n=1}^{\infty}E_n^c\right) \\ &=m(\mathbb{R}^d)-\lim_{n\to\infty}m(E_n^c) \\ &=m(\mathbb{R}^d)-m(\mathbb{R}^d)+\lim_{n\to\infty}m(E_n) \\ &=\lim_{n\to\infty}m(E_n)
@@ -733,15 +745,69 @@ We say that a sequence $E_n$ of sets in $\mathbb{R}^d$ **converges pointwise** t
 	</li>
 </ul>
 
+**Remark 16**  
+Let $E\subset\mathbb{R}^d$, then $E$ is contained in a Lebesgue measurable set of measure exactly equal to $m^\*(E)$.
+
+**Proof**  
+
+
 #### Inner regularity
 {: #inn-rglr}
-Let $E\subset\mathbb{R}$ be Lebesgue measurable. Then
+Let $E\subset\mathbb{R}^d$ be Lebesgue measurable. Then
 \begin{equation}
 m(E)=\sup_{K\subset E,K\text{ compact}}m(K)
 \end{equation}
 
 **Proof**  
-
+By monotonic we have that
+\begin{equation}
+m(E)\geq\sup_{K\subset E,K\text{ compact}}m(K),
+\end{equation}
+thus it suffices to show that
+\begin{equation}
+m(E)\leq\sup_{K\subset E,K\text{ compact}}m(K)
+\end{equation}
+Consider the case that $E$ is bounded. By the **criteria for Lebesgue measurability**, we have that for any $\varepsilon>0$, there exist a bounded and closed, and thus compact by the Heine-Borel theorem, set $K'$ contained in $E$ such that
+\begin{equation}
+m(E\backslash K')\leq\varepsilon
+\end{equation}
+Moreover, by claim (ii) of **lemma 13**, we have that $K'$ is Lebesgue measurable. Using finite additivity property of Lebesgue measure gives us
+\begin{equation}
+\varepsilon\geq m(E\backslash K')=m(E)-m(K'),
+\end{equation}
+which means
+\begin{equation}
+m(E)\leq m(K')\leq\sup_{K\subset E,K\text{ compact}}m(K)
+\end{equation}
+Now consider {the case that $E$ is an unbounded set. Let $(K_r)\_{r=1,2,\ldots}$ be the sequence sets in which each $K_r$ is defined as
+\begin{equation}
+K_r\doteq E\cap B_r(\mathbf{0}),\label{eq:ir.1}
+\end{equation}
+where $B_r(\mathbf{0})$ is a closed ball centered at $\mathbf{0}\in\mathbb{R}^d$ with radius $r$
+\begin{equation}
+B_r(\mathbf{0})=\\{\mathbf{x}:\vert\mathbf{x}\vert\leq r\\}
+\end{equation}
+which means $K_1\subset K_2\subset\ldots\subset E$ is an increasing sequence of compact set (since \eqref{eq:ir.1} also implies that $K_r\subset B_r(\mathbf{0})$, and hence bounded and closed, then using the Heine-Borel theorem to obtain the compactness of $K_r$). By the **monotone convergence theorem**, we have
+\begin{equation}
+m\left(\bigcup_{r=1}^{\infty}K_r\right)=\lim_{r\to\infty}m(K_r)
+\end{equation}
+On the other hand, the countable union of $K_r$ can be written as
+\begin{equation}
+\bigcup_{r=1}^{\infty}K_r=\bigcup_{r=1}^{\infty}E\cap B_r(\mathbf{0})=E\cap\bigcup_{r=1}^{\infty}B_r(\mathbf{0})=E\cap\mathbb{R}^d=E,
+\end{equation}
+which therefore gives us
+\begin{equation}
+m(E)=\lim_{r\to\infty}m(K_r)\label{eq:ir.2}
+\end{equation}
+Moreover, by monotonicity property $m(E)\geq m(K_r),\forall r$. Hence, \eqref{eq:ir.2} implies that for any $\varepsilon>0$, there exists $r'$ such that for all $r\geq r'$
+\begin{equation}
+\varepsilon>\vert m(E)-m(K_{r'})\vert=m(E)-m(K_{r'})
+\end{equation}
+This means that
+\begin{equation}
+m(A)\leq\sup_{K\subset E,K\text{ compact}}m(K)
+\end{equation}
+Our claim then follows.
 
 #### Criteria for finite measure
 {: #crt-fnt-msr}
@@ -776,7 +842,24 @@ Let $E\subset\mathbb{R}^d$, then the following are equivalent:
 	</li>
 </ul>
 
-**Proof**  
+**Proof**
+<ul id='roman-list'>
+	<li>
+		(i) $\Rightarrow$ (ii)<br>
+		Given $E$ is Lebesgue measurable with finite measure, by definition, for any $\varepsilon>0$, there exists an open set $U$ o such that
+		\begin{equation}
+		m^*(U\backslash E)\leq\varepsilon
+		\end{equation}
+		Then, by finite additivity property
+		\begin{equation}
+		m^*(U)\leq m^*(E)+\varepsilon,
+		\end{equation}
+		which implies that $m^*(U)$ finite due to finiteness of $m^*(E)$ and $\varepsilon$.
+	</li>
+	<li>
+		(i) $\Rightarrow$ (iii)<br>
+	</li>
+</ul>
 
 
 #### Carathéodory criterion, one direction
@@ -789,7 +872,7 @@ Let $E\subset\mathbb{R}^d$, the following are then equivalent:
 	<li>
 		For every elementary set $A$
 		\begin{equation}
-		m(A)=m^*(A\cap E)+m*(A\backslash E)
+		m(A)=m^*(A\cap E)+m^*(A\backslash E)
 		\end{equation}
 	</li>
 	<li>
@@ -875,6 +958,25 @@ If $T:\mathbb{R}^d\to\mathbb{R}^{d'}$ is a linear map to a space $\mathbb{R}^{d'
 **Proof**  
 
 
+**Remark 17**  
+Let $d,d'\geq 1$ be natural numbers
+<ul id='roman-list'>
+	<li>
+		If $E\subset\mathbb{R}^d$ and $F\subset\mathbb{R}^{d'}$, then
+		\begin{equation}
+		(m^{d+d'})^*(E\times F)\leq(m^d)^*(E)(m^{d'})^*(F)
+		\end{equation}
+	</li>
+	<li>
+		Let $E\subset\mathbb{R}^d,F\subset\mathbb{R}^{d'}$ be Lebesgue measurable sets. Then $E\times F\subset\mathbb{R}^{d+d'}$ is Lebesgue measurable, with \begin{equation}
+		m^{d+d'}(E\times F)=m^d(E).m^{d'}(F)
+		\end{equation}
+	</li>
+</ul>
+
+**Proof**  
+
+
 #### Uniqueness of Lebesgue measure
 {: #uniq-lebesgue-msr}
 Lebesgue measure $E\mapsto m(E)$ is the only map from Lebesgue measurable sets to $[0,+\infty]$ that obeys the following axioms:
@@ -899,9 +1001,6 @@ Lebesgue measure $E\mapsto m(E)$ is the only map from Lebesgue measurable sets t
 **Proof**  
 
 
-#### Lebesgue measure as the completion of elementary measure
-{: #lebesgue-msr-cmplt-ele-msr}
-
 ### Non-measurable sets
 {: #non-measurable-sets}
 
@@ -916,6 +1015,6 @@ Lebesgue measure $E\mapsto m(E)$ is the only map from Lebesgue measurable sets t
 {: #footnotes}
 
 [^1]: The **diameter** of a set $B$ is defined as
-	\begin{equation}
+	\begin{equation\*}
 	\text{dia}(B)\doteq\sup\\{\vert x-y\vert:x,y\in B\\}
-	\end{equation}
+	\end{equation\*}

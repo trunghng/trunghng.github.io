@@ -1,153 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-<link href="https://fonts.googleapis.com/css?family=Merriweather:400,900,900i" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<style type="text/css">
-  #button {
-    display: inline-block;
-    background-color: #A5CCF1;
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    border-radius: 4px;
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    transition: background-color .3s, 
-      opacity .5s, visibility .5s;
-    opacity: 0;
-    visibility: hidden;
-    z-index: 1000;
-  }
-  #button::after {
-    content: "\f077";
-    font-family: FontAwesome;
-    font-weight: normal;
-    font-style: normal;
-    font-size: 2em;
-    line-height: 50px;
-    color: #fff;
-  }
-  #button:hover {
-    cursor: pointer;
-    background-color: #333;
-    text-decoration: none;
-  }
-  #button:active {
-    background-color: #555;
-  }
-  #button.show {
-    opacity: 1;
-    visibility: visible;
-  }
-</style><head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Measure theory - II: Lebesgue measure | Trung’s cabin</title>
-<meta name="generator" content="Jekyll v4.2.1" />
-<meta property="og:title" content="Measure theory - II: Lebesgue measure" />
-<meta name="author" content="Trung H. Nguyen" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="Note on measure theory part 2" />
-<meta property="og:description" content="Note on measure theory part 2" />
-<link rel="canonical" href="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html" />
-<meta property="og:url" content="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html" />
-<meta property="og:site_name" content="Trung’s cabin" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2022-07-03T13:00:00+07:00" />
-<meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Measure theory - II: Lebesgue measure" />
-<script type="application/ld+json">
-{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","description":"Note on measure theory part 2","headline":"Measure theory - II: Lebesgue measure","dateModified":"2022-07-03T13:00:00+07:00","datePublished":"2022-07-03T13:00:00+07:00","url":"http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html"},"@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Trung&apos;s cabin" />
-    
-
-
-
-
-
-  
-
-<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
-<link rel="manifest" href="/assets/images/site.webmanifest">
-<link rel="mask-icon" href="/assets/images/safari-pinned-tab.svg" color="#5bbad5">
-<meta name="msapplication-TileColor" content="#da532c">
-<meta name="theme-color" content="#ffffff"></head>
-<body><header class="site-header">
-  <div class="snorlax"></div>
-
-  <div class="wrapper"><a class="site-title" rel="author" href="/">Trung&#39;s cabin</a><nav class="site-nav">
-        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
-        <label for="nav-trigger">
-          <span class="menu-icon">
-            <svg viewBox="0 0 18 15" width="18px" height="15px">
-              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
-            </svg>
-          </span>
-        </label>
-
-        <div class="trigger"><a class="page-link" href="/archive/">Archive</a><a class="page-link" href="/about/">About</a></div>
-      </nav></div>
-</header>
-<main class="page-content" aria-label="Content">
-      <a id="button"></a>
-      <div class="wrapper">
-        <style>
-@import "/assets/css/default.css"
-</style>
-<style>
-  .collapsible {
-    background-color: #A5CCF1;
-    color: white;
-    cursor: pointer;
-    padding: 5px;
-    /*width: 100%;*/
-    border: none;
-    text-align: center;
-    outline: none;
-    font-size: 15px;
-  }
-
-  .active, .collapsible:hover {
-    background-color: #82B9EE;
-  }
-
-  .codePanel {
-    padding: 0 18px;
-    display: none;
-    overflow: hidden;
-    background-color: #f1f1f1;
-  }
-</style>
-<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <header class="post-header">
-    <meta name="description" content="Note on measure theory part 2">
-    <h1 class="post-title p-name" itemprop="name headline">Measure theory - II: Lebesgue measure</h1>
-    <p><span>
-      
-        
-        <a href="/tag/mathematics"><code class="highligher-rouge"><nobr>mathematics</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/measure-theory"><code class="highligher-rouge"><nobr>measure-theory</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/lebesgue-measure"><code class="highligher-rouge"><nobr>lebesgue-measure</nobr></code>&nbsp;</a>
-      
-    </span></p>
-    <p class="post-meta"><time class="dt-published" datetime="2022-07-03T13:00:00+07:00" itemprop="datePublished">
-        Jul 3, 2022
-      </time></p>
-  </header>
-
-  <div class="post-content e-content" itemprop="articleBody">
-    <blockquote>
+I"��<blockquote>
   <p>Part II of the measure theory series. Materials are mostly taken from <a href="/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#taos-book">Tao’s book</a>, except for some needed notations extracted from <a href="/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#steins-book">Stein’s book</a>.
 <!-- excerpt-end --></p>
 </blockquote>
@@ -736,14 +587,12 @@ Show that the <a href="/mathematics/measure-theory/2022/06/16/measure-theory-p1.
 <p><strong>Proof</strong></p>
 <ul id="roman-list">
 	<li>
-		<b>Empty set</b><br />
 		We have that empty set $\emptyset$ is Lebesgue measurable since for every $\varepsilon&gt;0$, there exists an open set $U\subset\mathbb{R}^d$ containing $\emptyset$ such that $m^*(U\backslash\emptyset)\leq\varepsilon$. Thus,
 		\begin{equation}
 		m(\emptyset)=m^*(\emptyset)=0
 		\end{equation}
 	</li>
 	<li>
-		<b>Countable additivity</b><br />
 		We begin by considering the case that $E_n$ are all compact sets.
 		<br />
 		By repeated use of <b>Lemma 12</b> and <b>Example ?</b>, we have
@@ -803,13 +652,6 @@ Show that the <a href="/mathematics/measure-theory/2022/06/16/measure-theory-p1.
 	</li>
 </ul>
 
-<p><strong>Remark 15</strong><br />
-The countable additivity also implies the <strong>finite additivity</strong> property of Lebesgue  measure
-\begin{equation}
-m\left(\bigcup_{n=1}^{N}E_n\right)=\sum_{n=1}^{N}m(E_n),
-\end{equation}
-where $E_1,\ldots,E_N$ are Lebesgue measurable.</p>
-
 <h4 id="mnt-cvg-theorem-msr-sets">Monotone convergence theorem for measurable sets</h4>
 <ul id="roman-list">
 	<li>
@@ -832,14 +674,12 @@ where $E_1,\ldots,E_N$ are Lebesgue measurable.</p>
 <p><strong>Proof</strong></p>
 <ul id="roman-list">
 	<li>
-		<b>Upward monotone convergence</b><br />
 		Since $E_1\subset E_2\subset\ldots\subset\mathbb{R}^d$ is a countable non-decreasing sequence of Lebesgue measurable sets, by countable additivity, we have
 		\begin{align}
 		m\left(\bigcup_{n=1}^{\infty}E_n\right)&amp;=m\left(\bigcup_{n=1}^{\infty}E_n\backslash\bigcup_{n'=1}^{n-1}E_{n'}\right) \\ &amp;=m\left(\bigcup_{n=1}^{\infty}E_n\backslash E_{n-1}\right) \\ &amp;=\left(\sum_{n=2}^{\infty}m(E_n)-m(E_{n-1})\right)+m(E_1) \\ &amp;=\lim_{n\to\infty}m(E_n)
 		\end{align}
 	</li>
 	<li>
-		<b>Downward monotone convergence</b><br />
 		Since $\mathbb{R}^d\supset E_1\supset E_2\supset\ldots$ is a countable non-increasing sequence of Lebesgue measurable sets, the sequence of their complement $E_1^c\subset E_2^c\subset\ldots\subset\mathbb{R}^d$ is therefore a countable non-decreasing sequence of Lebesgue measurable sets. Using the claim (i) and by De Morgan's laws, we have
 		\begin{align}
 		m\left(\bigcap_{n=1}^{\infty}E_n\right)&amp;=m\left(\mathbb{R}^d\backslash\bigcup_{n=1}^{\infty}E_n^c\right) \\ &amp;=m(\mathbb{R}^d)-m\left(\bigcup_{n=1}^{\infty}E_n^c\right) \\ &amp;=m(\mathbb{R}^d)-\lim_{n\to\infty}m(E_n^c) \\ &amp;=m(\mathbb{R}^d)-m(\mathbb{R}^d)+\lim_{n\to\infty}m(E_n) \\ &amp;=\lim_{n\to\infty}m(E_n)
@@ -882,7 +722,7 @@ where $E_1,\ldots,E_N$ are Lebesgue measurable.</p>
 	</li>
 </ul>
 
-<p><strong>Remark 16</strong><br />
+<p><strong>Remark 15</strong><br />
 Let $E\subset\mathbb{R}^d$, then $E$ is contained in a Lebesgue measurable set of measure exactly equal to $m^*(E)$.</p>
 
 <p><strong>Proof</strong></p>
@@ -894,55 +734,9 @@ m(E)=\sup_{K\subset E,K\text{ compact}}m(K)
 \end{equation}</p>
 
 <p><strong>Proof</strong><br />
-By monotonic we have that
-\begin{equation}
-m(E)\geq\sup_{K\subset E,K\text{ compact}}m(K),
-\end{equation}
-thus it suffices to show that
-\begin{equation}
-m(E)\leq\sup_{K\subset E,K\text{ compact}}m(K)
-\end{equation}
-Consider the case that $E$ is bounded. By the <strong>criteria for Lebesgue measurability</strong>, we have that for any $\varepsilon&gt;0$, there exist a bounded and closed, and thus compact by the Heine-Borel theorem, set $K’$ contained in $E$ such that
-\begin{equation}
-m(E\backslash K’)\leq\varepsilon
-\end{equation}
-Moreover, by claim (ii) of <strong>lemma 13</strong>, we have that $K’$ is Lebesgue measurable. Using finite additivity property of Lebesgue measure gives us
-\begin{equation}
-\varepsilon\geq m(E\backslash K’)=m(E)-m(K’),
-\end{equation}
-which means
-\begin{equation}
-m(E)\leq m(K’)\leq\sup_{K\subset E,K\text{ compact}}m(K)
-\end{equation}
-Now consider {the case that $E$ is an unbounded set. Let $(K_r)_{r=1,2,\ldots}$ be the sequence sets in which each $K_r$ is defined as
-\begin{equation}
-K_r\doteq E\cap B_r(\mathbf{0}),\label{eq:ir.1}
-\end{equation}
-where $B_r(\mathbf{0})$ is a closed ball centered at $\mathbf{0}\in\mathbb{R}^d$ with radius $r$
-\begin{equation}
-B_r(\mathbf{0})=\{\mathbf{x}:\vert\mathbf{x}\vert\leq r\}
-\end{equation}
-which means $K_1\subset K_2\subset\ldots\subset E$ is an increasing sequence of compact set (since \eqref{eq:ir.1} also implies that $K_r\subset B_r(\mathbf{0})$, and hence bounded and closed, then using the Heine-Borel theorem to obtain the compactness of $K_r$). By the <strong>monotone convergence theorem</strong>, we have
-\begin{equation}
-m\left(\bigcup_{r=1}^{\infty}K_r\right)=\lim_{r\to\infty}m(K_r)
-\end{equation}
-On the other hand, the countable union of $K_r$ can be written as
-\begin{equation}
-\bigcup_{r=1}^{\infty}K_r=\bigcup_{r=1}^{\infty}E\cap B_r(\mathbf{0})=E\cap\bigcup_{r=1}^{\infty}B_r(\mathbf{0})=E\cap\mathbb{R}^d=E,
-\end{equation}
-which therefore gives us
-\begin{equation}
-m(E)=\lim_{r\to\infty}m(K_r)\label{eq:ir.2}
-\end{equation}
-Moreover, by monotonicity property $m(E)\geq m(K_r),\forall r$. Hence, \eqref{eq:ir.2} implies that for any $\varepsilon&gt;0$, there exists $r’$ such that for all $r\geq r’$
-\begin{equation}
-\varepsilon&gt;\vert m(E)-m(K_{r’})\vert=m(E)-m(K_{r’})
-\end{equation}
-This means that
-\begin{equation}
-m(A)\leq\sup_{K\subset E,K\text{ compact}}m(K)
-\end{equation}
-Our claim then follows.</p>
+\begin{equation}</p>
+
+<p>\end{equation}</p>
 
 <h4 id="crt-fnt-msr">Criteria for finite measure</h4>
 <p>Let $E\subset\mathbb{R}^d$, then the following are equivalent:</p>
@@ -980,15 +774,10 @@ Our claim then follows.</p>
 <ul id="roman-list">
 	<li>
 		(i) $\Rightarrow$ (ii)<br />
-		Given $E$ is Lebesgue measurable with finite measure, by definition, for any $\varepsilon&gt;0$, there exists an open set $U$ o such that
+		Given $E$ is Lebesgue measurable with finite measure, by definition, for any $\varepsilon&gt;0$, there exists an open set $U$ of finite measure such that
 		\begin{equation}
 		m^*(U\backslash E)\leq\varepsilon
 		\end{equation}
-		Then, by finite additivity property
-		\begin{equation}
-		m^*(U)\leq m^*(E)+\varepsilon,
-		\end{equation}
-		which implies that $m^*(U)$ finite due to finiteness of $m^*(E)$ and $\varepsilon$.
 	</li>
 	<li>
 		(i) $\Rightarrow$ (iii)<br />
@@ -1004,7 +793,7 @@ Our claim then follows.</p>
 	<li>
 		For every elementary set $A$
 		\begin{equation}
-		m(A)=m^*(A\cap E)+m^*(A\backslash E)
+		m(A)=m^*(A\cap E)+m*(A\backslash E)
 		\end{equation}
 	</li>
 	<li>
@@ -1081,24 +870,6 @@ If $T:\mathbb{R}^d\to\mathbb{R}^{d’}$ is a linear map to a space $\mathbb{R}^{
 
 <p><strong>Proof</strong></p>
 
-<p><strong>Remark 17</strong><br />
-Let $d,d’\geq 1$ be natural numbers</p>
-<ul id="roman-list">
-	<li>
-		If $E\subset\mathbb{R}^d$ and $F\subset\mathbb{R}^{d'}$, then
-		\begin{equation}
-		(m^{d+d'})^*(E\times F)\leq(m^d)^*(E)(m^{d'})^*(F)
-		\end{equation}
-	</li>
-	<li>
-		Let $E\subset\mathbb{R}^d,F\subset\mathbb{R}^{d'}$ be Lebesgue measurable sets. Then $E\times F\subset\mathbb{R}^{d+d'}$ is Lebesgue measurable, with \begin{equation}
-		m^{d+d'}(E\times F)=m^d(E).m^{d'}(F)
-		\end{equation}
-	</li>
-</ul>
-
-<p><strong>Proof</strong></p>
-
 <h4 id="uniq-lebesgue-msr">Uniqueness of Lebesgue measure</h4>
 <p>Lebesgue measure $E\mapsto m(E)$ is the only map from Lebesgue measurable sets to $[0,+\infty]$ that obeys the following axioms:</p>
 <ul id="roman-list">
@@ -1140,120 +911,4 @@ Let $d,d’\geq 1$ be natural numbers</p>
     </li>
   </ol>
 </div>
-
-  </div>
-<div id="disqus_thread"></div>
-<script>
-    /**
-    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
-    
-    var disqus_config = function () {
-    this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
-    this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-    };
-    
-    (function() { // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-    s.src = 'https://https-trunghng-github-io.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-
-<script id="dsq-count-scr" src="//https-trunghng-github-io.disqus.com/count.js" async></script>
-
-  <a class="u-url" href="/mathematics/measure-theory/2022/07/03/measure-theory-p2.html" hidden></a>
-</article>
- <!-- mathjax javascript -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
-    "HTML-CSS": {availableFonts: []}
-  });
-</script><script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
-      "HTML-CSS": {availableFonts: []},
-      TeX: {
-        equationNumbers: { autoNumber: "AMS" },
-      },
-    });
-  </script>
-
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-<script>
-  var coll = document.getElementsByClassName("collapsible");
-  var i;
-  for (i = 0; i < coll.length; i++) {
-    coll[i].addEventListener("click", function() {
-      this.classList.toggle("active");
-      var content = document.getElementById(this.id+"data");
-      var btn = document.getElementById(this.id)
-      if (content.style.display === "block") {
-        content.style.display = "none";
-        btn.innerText = "Click to show the code";
-      } else {
-        content.style.display = "block";
-        btn.innerText = "Click to hide the code"
-      }
-    });
-  }
-</script>
-
-      </div>
-
-    </main><footer class="site-footer h-card">
-  <data class="u-url" href="/"></data>
-
-  <div class="wrapper">
-
-    <div class="footer-col-wrapper">
-      <div class="footer-col">
-        <p class="feed-subscribe">
-          <a href="/feed.xml">
-            <svg class="svg-icon orange">
-              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
-            </svg><span>Subscribe</span>
-          </a>
-        </p>
-        <ul class="contact-list">
-          <li class="p-name">Trung H. Nguyen</li>
-          <li><a class="u-email" href="mailto:trung.skipper@gmail.com">trung.skipper@gmail.com</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <p>To document something I&#39;ve learned
-</p>
-      </div>
-    </div>
-
-    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/trunghng" title="trunghng"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
-</div>
-
-  </div>
-
-</footer>
-</body>
-
-</html>
-<script type="text/javascript">
-  var btn = $('#button');
-
-  $(window).scroll(function() {
-    if ($(window).scrollTop() > 300) {
-      btn.addClass('show');
-    } else {
-      btn.removeClass('show');
-    }
-  });
-
-  btn.on('click', function(e) {
-    e.preventDefault();
-    $('html, body').animate({scrollTop:0}, '300');
-  });
-</script>
+:ET
