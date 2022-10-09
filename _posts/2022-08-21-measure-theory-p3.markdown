@@ -18,7 +18,10 @@ eqn-number: true
 	- [Almost everywhere and support](#alm-evwhr-spt)
 	- [Basic properties of the simple unsigned integral](#bsc-prop-simp-unsgn-int)
 	- [Absolutely convergence simple integral](#abs-cvg-simp-int)
+	- [Basic properties of the complex-valued simple integral](#bsc-prop-cmplx-simp-int)
 - [Measurable functions](#msr-funcs)
+	- [Unsigned measurable functions](#unsgn-msr-funcs)
+	- [Equivalent notions of measurability](#equiv-ntn-msrb)
 - [Unsigned Lebesgue integrals](#unsgn-lebesgue-int)
 - [Absolute integrability](#abs-intb)
 - [Littlewood's three principles](#littlewoods-prncpl)
@@ -49,29 +52,222 @@ which means $\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx\in[0,+\infty]$.
 
 ### Well-definedness of simple integral
 {: #well-dfn-simp-int}
-Let $k,k'\geq 0$ be natural, $c_1,\ldots,c_k,c_1',\dots,c_k'\in[0,+\infty]$ and $E_1,\ldots,E_k,E_1',\ldots,E_k'\subset\mathbb{R}^d$ be Lebesgue measurable sets such that the identity
+**Lemma 1**  
+*Let $k,k'\geq 0$ be natural, $c_1,\ldots,c_k,c_1',\dots,c_k'\in[0,+\infty]$ and $E_1,\ldots,E_k,E_1',\ldots,E_k'\subset\mathbb{R}^d$ be Lebesgue measurable sets such that the identity
 \begin{equation}
 c_1 1\_{E_1}+\ldots+c_k 1\_{E_k}=c_1' 1\_{E_1'}+\ldots+c_k' 1\_{E_k'}
 \end{equation}
-hold identically on $\mathbb{R}^d$. Then we have
+hold identically on $\mathbb{R}^d$. Then we have*
 \begin{equation}
 c_1 m(E_1)+\ldots+c_k m(E_k)=c_1' m(E_1')+\ldots+c_k' m(E_k')
 \end{equation}
 
 **Proof**  
+The $k+k'$ sets $E_1,\ldots,E_k,E_1',\ldots,E_k'$ partition $\mathbb{R}^d$ into $2^{k+k'}$ disjoint sets, each of which is an intersection of some of the $E_1,\ldots,E_k,E_1',\ldots,E_k'$ and their complements.
 
 
 ### Almost everywhere and support
 {: #alm-evwhr-spt}
+A property $P(x)$ of a point $x\in\mathbb{R}^d$ is said to hold **(Lebesgue) almost everywhere** in $\mathbb{R}^d$ or for **(Lebesgue) almost every point** $x\in\mathbb{R}^d$, if the set of $x\in\mathbb{R}^d$ for which $P(x)$ fails has Lebesgue measure of zero (i.e. $P$ is true outside of a null set).
+
+Two functions $f,g:\mathbb{R}^d\to Z$ into an arbitrary range $Z$ are referred to **agree almost everywhere** if we have $f(x)=g(x)$ almost every $x\in\mathbb{R}^d$.
+
+The **support** of a function $f:\mathbb{R}^d\to\mathbb{C}$ or $f:\mathbb{R}^d\to[0,+\infty]$ is defined to be the set $\\{x\in\mathbb{R}^d:f(x)\neq 0\\}$ where $f$ is non-zero.
+
+**Remark 2**  
+- If $P(x)$ holds for almost every $x$, and $P(x)$ implies $Q(x)$, then $Q(x)$ holds for almost every $x$.
+- If $P_1(x),P_2(x),\ldots$ are an at most countable family of properties, each of which individually holds for almost every $x$, then they will simultaneously holds for almost every $x$, since the countable union of null sets is still a null set.
 
 ### Basic properties of the simple unsigned integral
 {: #bsc-prop-simp-unsgn-int}
+Let $f,g:\mathbb{R}^d\to[0,+\infty]$ be simple unsigned functions.
+<ul id='roman-list'>
+	<li>
+		<b>Unsigned linearity</b>. We have
+		\begin{equation}
+		\text{Simp}\int_{\mathbb{R}^d}f(x)+g(x)\,dx=\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx+\text{Simp}\int_{\mathbb{R}^d}g(x)\,dx
+		\end{equation}
+		and
+		\begin{equation}
+		\text{Simp}\int_{\mathbb{R}^d}cf(x)\,dx=c\,\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx,
+		\end{equation}
+		for all $c\in[0,+\infty]$.
+	</li>
+	<li>
+		<b>Finiteness</b>. We have $\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx<\infty$ iff $f$ is finite almost everywhere, and its support has finite measure.
+	</li>
+	<li>
+		<b>Vanishing</b>. We have $\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx=0$ iff $f$ is zero almost everywhere.
+	</li>
+	<li>
+		<b>Equivalence</b>. If $f$ and $g$ agree almost everywhere, then
+		\begin{equation}
+		\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx=\text{Simp}\int_{\mathbb{R}^d}g(x)\,dx
+		\end{equation}
+	</li>
+	<li>
+		<b>Monotonicity</b>. If $f(x)\leq g(x)$ for almost every $x\in\mathbb{R}^d$, then
+		\begin{equation}
+		\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx\leq\text{Simp}\int_{\mathbb{R}^d}g(x)\,dx
+		\end{equation}
+	</li>
+	<li>
+		<b>Compatibility with Lebesgue measure</b>. For any Lebesgue measurable $E$, we have
+		\begin{equation}
+		\text{Simp}\int_{\mathbb{R}^d}1_E(x)\,dx=m(E)
+		\end{equation}
+	</li>
+</ul>
+
+**Proof**  
+Since $f,g:\mathbb{R}^d\to[0,+\infty]$ are simple unsigned functions, we can assume that
+\begin{align}
+f&=c_1 1\_{E_1}+\ldots+c_k 1\_{E_k}, \\\\ g&=c_1 1\_{E_1}+\ldots+c_k' 1\_{E_k'},
+\end{align}
+where $c_1,\ldots,c_k,c_1',\ldots,c_k'\in[0,+\infty]$.
+<ul id='roman-list'>
+	<li>
+		<b>Unsigned linearity</b><br>
+		We have
+		\begin{align}
+		\hspace{-1cm}\text{Simp}\int_{\mathbb{R}^d}f(x)+g(x)\,dx&=c_1 m(E_1)+\ldots+c_k m(E_k)+c_1' m(E_1')+\ldots+c_k' m(E_k') \\ &=\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx+\text{Simp}\int_{\mathbb{R}^d}g(x)\,dx
+		\end{align}
+		For any $c\in[0,+\infty]$, we have
+		\begin{align}
+		\text{Simp}\int_{\mathbb{R}^d}cf(x)\,dx&=c\left(c_1 m(E_1)+\ldots+c_k m(E_k)\right) \\ &=c\,\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx
+		\end{align}
+	</li>
+	<li>
+		<b>Finiteness</b><br>
+	</li>
+	<li>
+		<b>Vanishing</b><br>
+	</li>
+	<li>
+		<b>Equivalence</b><br>
+	</li>
+	<li>
+		<b>Monotonicity</b><br>
+	</li>
+	<li>
+		<b>Compatibility with Lebesgue measure</b><br>
+	</li>
+</ul>
+
 
 ### Absolutely convergence simple integral
 {: #abs-cvg-simp-int}
+A complex valued simple function $f:\mathbb{R}^d\to\mathbb{C}$ is known as **absolutely integrable** if
+\begin{equation}
+\text{Simp}\int_{\mathbb{R}^d}\vert f(x)\vert\,dx<\infty
+\end{equation}
+If $f$ is absolutely integrable, the integral $\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx$ is defined for real signed $f$ by the formula
+\begin{equation}
+\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx\doteq\text{Simp}\int_{\mathbb{R}^d}f_+(x)\,dx+\text{Simp}\int_{\mathbb{R}^d}f_-(x)\,dx,
+\end{equation}
+where
+\begin{align}
+f_+(x)&\doteq\max\left(f(x),0\right), \\\\ f_-(x)&\doteq\max\left(-f(x),0\right),
+\end{align}
+and for complex-valued $f$ by the formula
+\begin{equation}
+\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx\doteq\text{Simp}\int_{\mathbb{R}^d}\text{Re}\,f(x)\,dx+i\,\text{Simp}\int_{\mathbb{R}^d}\text{Im}\,f(x)\,dx
+\end{equation}
+
+### Basic properties of the complex-valued simple integral
+{: #bsc-prop-cmplx-simp-int}
+Let $f,g:\mathbb{R}^d\to\mathbb{C}$ be absolutely integrable simple functions
+<ul id='roman-list'>
+	<li>
+		<b>*-linearity</b>. We have
+		\begin{equation}
+		\text{Simp}\int_{\mathbb{R}^d}f(x)+g(x)\,dx=\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx+\text{Simp}\int_{\mathbb{R}^d}g(x)\,dx
+		\end{equation}
+		and
+		\begin{equation}
+		\text{Simp}\int_{\mathbb{R}^d}cf(x)\,dx=c\,\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx,
+		\end{equation}
+		for all $c\in\mathbb{C}$. Also we have
+		\begin{equation}
+		\text{Simp}\int_{\mathbb{R}^d}\overline{f}(x)\,dx=\overline{\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx}
+		\end{equation}
+	</li>
+	<li>
+		<b>Equivalence</b>. If $f$ and $g$ agree almost everywhere, then
+		\begin{equation}
+		\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx=\text{Simp}\int_{\mathbb{R}^d}g(x)\,dx
+		\end{equation}
+	</li>
+	<li>
+		<b>Compatibility with Lebesgue measure</b>. For any Lebesgue measurable $E$, we have
+		\begin{equation}
+		\text{Simp}\int_{\mathbb{R}^d}1_E(x)\,dx=m(E)
+		\end{equation}
+	</li>
+</ul>
+
+**Proof**
+<ul id='roman-list'>
+	<li>
+		<b>*-linearity</b><br>
+	</li>
+	<li>
+		<b>Equivalence</b><br>
+	</li>
+	<li>
+		<b>Compatibility with Lebesgue measure</b><br>
+	</li>
+</ul>
 
 ## Measurable functions
 {: #msr-funcs}
+Just as how the piecewise constant integral can be extended to the Riemann integral, the unsigned simple integral can be extended to the unsigned Lebesgue integral, by expanding the class of unsigned simple functions to the broader class of **unsigned Lebesgue measurable functions**.
+
+### Unsigned measurable functions
+{: #unsgn-msr-funcs}
+An unsigned function $f:\mathbb{R}^d\to[0,+\infty]$ is **unsigned Lebesgue measurable**, or **measurable**, if it is the pointwise limit of unsigned simple functions, i.e. if there exists a sequence $f_1,f_2,\ldots:\mathbb{R}\to[0,+\infty]$ of unsigned simple functions such that $f_n(x)\to f(x)$ for every $x\in\mathbb{R}^d$.
+
+### Equivalent notions of measurability
+{: #equiv-ntn-msrb}
+**Lemma 3**  
+Let $f:\mathbb{R}\to[0,+\infty]$ be an unsigned function. The following are then equivalent:
+<ul id='roman-list'>
+	<li>
+		$f$ is unsigned Lebesgue measurable.
+	</li>
+	<li>
+		$f$ is the pointwise limit of unsigned simple functions $f_n$ (hence $\lim_{n\to\infty}f_n(x)$ exists and is equal to $f(x)$ for all $x\in\mathbb{R}^d$).
+	</li>
+	<li>
+		$f$ is the pointwise almost everywhere limit of unsigned simple function $f_n$ (thus $\lim_{n\to\infty}f_n(x)$ exists and is equal to $f(x)$ for almost every $x\in\mathbb{R}^d$).
+	</li>
+	<li>
+		$f(x)=\sup_n f_n(x)$, where $0\leq f_1\leq f_2\leq\ldots$ is an increasing sequence of unsigned simple functions, each of which are bounded with finite measure support.
+	</li>
+	<li>
+		For every $\lambda\in[0,+\infty]$, the set $\{x\in\mathbb{R}^d:f(x)>\lambda\}$ is Lebesgue measurable.
+	</li>
+	<li>
+		For every $\lambda\in[0,+\infty]$, the set $\{x\in\mathbb{R}^d:f(x)\geq\lambda\}$ is Lebesgue measurable.
+	</li>
+	<li>
+		For every $\lambda\in[0,+\infty]$, the set $\{x\in\mathbb{R}^d:f(x)<\lambda\}$ is Lebesgue measurable.
+	</li>
+	<li>
+		For every $\lambda\in[0,+\infty]$, the set $\{x\in\mathbb{R}^d:f(x)\leq\lambda\}$ is Lebesgue measurable.
+	</li>
+	<li>
+		For every interval $I\subset[0,+\infty)$, the set $f^{-1}(I)\doteq\{x\in\mathbb{R}^d:f(x)\in I\}$ is Lebesgue measurable.
+	</li>
+	<li>
+		For every (relatively) open set $U\subset[0,+\infty)$, the set $f^{-1}(U)\doteq\{x\in\mathbb{R}^d:f(x)\in U\}$ is Lebesgue measurable.
+	</li>
+	<li>
+		For every (relatively) closed set $K\subset[0,+\infty)$, the set $f^{-1}(K)\doteq\{x\in\mathbb{R}^d:f(x)\in K\}$ is Lebesgue measurable.
+	</li>
+</ul>
+
+**Proof**
 
 ## Unsigned Lebesgue integrals
 {: #unsgn-lebesgue-int}

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-09T16:27:14+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-09T18:33:28+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">CMA Evolution Strategy</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es.html" rel="alternate" type="text/html" title="CMA Evolution Strategy" /><published>2022-09-14T13:00:00+07:00</published><updated>2022-09-14T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es.html">&lt;blockquote&gt;
   &lt;p&gt;A note on CMA - Evolution Strategy
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -352,9 +352,15 @@ a_j=\sum_{i}w_{ji}z_i
       &lt;li&gt;&lt;a href=&quot;#alm-evwhr-spt&quot;&gt;Almost everywhere and support&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#bsc-prop-simp-unsgn-int&quot;&gt;Basic properties of the simple unsigned integral&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#abs-cvg-simp-int&quot;&gt;Absolutely convergence simple integral&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#bsc-prop-cmplx-simp-int&quot;&gt;Basic properties of the complex-valued simple integral&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#msr-funcs&quot;&gt;Measurable functions&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#msr-funcs&quot;&gt;Measurable functions&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#unsgn-msr-funcs&quot;&gt;Unsigned measurable functions&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#equiv-ntn-msrb&quot;&gt;Equivalent notions of measurability&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#unsgn-lebesgue-int&quot;&gt;Unsigned Lebesgue integrals&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#abs-intb&quot;&gt;Absolute integrability&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#littlewoods-prncpl&quot;&gt;Littlewood’s three principles&lt;/a&gt;&lt;/li&gt;
@@ -382,24 +388,215 @@ of indicator functions $1_{E_i}$ of Lebesgue measurable sets $E_i\subset\mathbb{
 which means $\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx\in[0,+\infty]$.&lt;/p&gt;
 
 &lt;h3 id=&quot;well-dfn-simp-int&quot;&gt;Well-definedness of simple integral&lt;/h3&gt;
-&lt;p&gt;Let $k,k’\geq 0$ be natural, $c_1,\ldots,c_k,c_1’,\dots,c_k’\in[0,+\infty]$ and $E_1,\ldots,E_k,E_1’,\ldots,E_k’\subset\mathbb{R}^d$ be Lebesgue measurable sets such that the identity
+&lt;p&gt;&lt;strong&gt;Lemma 1&lt;/strong&gt;&lt;br /&gt;
+&lt;em&gt;Let $k,k’\geq 0$ be natural, $c_1,\ldots,c_k,c_1’,\dots,c_k’\in[0,+\infty]$ and $E_1,\ldots,E_k,E_1’,\ldots,E_k’\subset\mathbb{R}^d$ be Lebesgue measurable sets such that the identity
 \begin{equation}
 c_1 1_{E_1}+\ldots+c_k 1_{E_k}=c_1’ 1_{E_1’}+\ldots+c_k’ 1_{E_k’}
 \end{equation}
-hold identically on $\mathbb{R}^d$. Then we have
+hold identically on $\mathbb{R}^d$. Then we have&lt;/em&gt;
 \begin{equation}
 c_1 m(E_1)+\ldots+c_k m(E_k)=c_1’ m(E_1’)+\ldots+c_k’ m(E_k’)
 \end{equation}&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
+The $k+k’$ sets $E_1,\ldots,E_k,E_1’,\ldots,E_k’$ partition $\mathbb{R}^d$ into $2^{k+k’}$ disjoint sets, each of which is an intersection of some of the $E_1,\ldots,E_k,E_1’,\ldots,E_k’$ and their complements.&lt;/p&gt;
 
 &lt;h3 id=&quot;alm-evwhr-spt&quot;&gt;Almost everywhere and support&lt;/h3&gt;
+&lt;p&gt;A property $P(x)$ of a point $x\in\mathbb{R}^d$ is said to hold &lt;strong&gt;(Lebesgue) almost everywhere&lt;/strong&gt; in $\mathbb{R}^d$ or for &lt;strong&gt;(Lebesgue) almost every point&lt;/strong&gt; $x\in\mathbb{R}^d$, if the set of $x\in\mathbb{R}^d$ for which $P(x)$ fails has Lebesgue measure of zero (i.e. $P$ is true outside of a null set).&lt;/p&gt;
+
+&lt;p&gt;Two functions $f,g:\mathbb{R}^d\to Z$ into an arbitrary range $Z$ are referred to &lt;strong&gt;agree almost everywhere&lt;/strong&gt; if we have $f(x)=g(x)$ almost every $x\in\mathbb{R}^d$.&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;support&lt;/strong&gt; of a function $f:\mathbb{R}^d\to\mathbb{C}$ or $f:\mathbb{R}^d\to[0,+\infty]$ is defined to be the set $\{x\in\mathbb{R}^d:f(x)\neq 0\}$ where $f$ is non-zero.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Remark 2&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;If $P(x)$ holds for almost every $x$, and $P(x)$ implies $Q(x)$, then $Q(x)$ holds for almost every $x$.&lt;/li&gt;
+  &lt;li&gt;If $P_1(x),P_2(x),\ldots$ are an at most countable family of properties, each of which individually holds for almost every $x$, then they will simultaneously holds for almost every $x$, since the countable union of null sets is still a null set.&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h3 id=&quot;bsc-prop-simp-unsgn-int&quot;&gt;Basic properties of the simple unsigned integral&lt;/h3&gt;
+&lt;p&gt;Let $f,g:\mathbb{R}^d\to[0,+\infty]$ be simple unsigned functions.&lt;/p&gt;
+&lt;ul id=&quot;roman-list&quot;&gt;
+	&lt;li&gt;
+		&lt;b&gt;Unsigned linearity&lt;/b&gt;. We have
+		\begin{equation}
+		\text{Simp}\int_{\mathbb{R}^d}f(x)+g(x)\,dx=\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx+\text{Simp}\int_{\mathbb{R}^d}g(x)\,dx
+		\end{equation}
+		and
+		\begin{equation}
+		\text{Simp}\int_{\mathbb{R}^d}cf(x)\,dx=c\,\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx,
+		\end{equation}
+		for all $c\in[0,+\infty]$.
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Finiteness&lt;/b&gt;. We have $\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx&amp;lt;\infty$ iff $f$ is finite almost everywhere, and its support has finite measure.
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Vanishing&lt;/b&gt;. We have $\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx=0$ iff $f$ is zero almost everywhere.
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Equivalence&lt;/b&gt;. If $f$ and $g$ agree almost everywhere, then
+		\begin{equation}
+		\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx=\text{Simp}\int_{\mathbb{R}^d}g(x)\,dx
+		\end{equation}
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Monotonicity&lt;/b&gt;. If $f(x)\leq g(x)$ for almost every $x\in\mathbb{R}^d$, then
+		\begin{equation}
+		\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx\leq\text{Simp}\int_{\mathbb{R}^d}g(x)\,dx
+		\end{equation}
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Compatibility with Lebesgue measure&lt;/b&gt;. For any Lebesgue measurable $E$, we have
+		\begin{equation}
+		\text{Simp}\int_{\mathbb{R}^d}1_E(x)\,dx=m(E)
+		\end{equation}
+	&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
+Since $f,g:\mathbb{R}^d\to[0,+\infty]$ are simple unsigned functions, we can assume that
+\begin{align}
+f&amp;amp;=c_1 1_{E_1}+\ldots+c_k 1_{E_k}, \\ g&amp;amp;=c_1 1_{E_1}+\ldots+c_k’ 1_{E_k’},
+\end{align}
+where $c_1,\ldots,c_k,c_1’,\ldots,c_k’\in[0,+\infty]$.&lt;/p&gt;
+&lt;ul id=&quot;roman-list&quot;&gt;
+	&lt;li&gt;
+		&lt;b&gt;Unsigned linearity&lt;/b&gt;&lt;br /&gt;
+		We have
+		\begin{align}
+		\hspace{-1cm}\text{Simp}\int_{\mathbb{R}^d}f(x)+g(x)\,dx&amp;amp;=c_1 m(E_1)+\ldots+c_k m(E_k)+c_1&apos; m(E_1&apos;)+\ldots+c_k&apos; m(E_k&apos;) \\ &amp;amp;=\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx+\text{Simp}\int_{\mathbb{R}^d}g(x)\,dx
+		\end{align}
+		For any $c\in[0,+\infty]$, we have
+		\begin{align}
+		\text{Simp}\int_{\mathbb{R}^d}cf(x)\,dx&amp;amp;=c\left(c_1 m(E_1)+\ldots+c_k m(E_k)\right) \\ &amp;amp;=c\,\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx
+		\end{align}
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Finiteness&lt;/b&gt;&lt;br /&gt;
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Vanishing&lt;/b&gt;&lt;br /&gt;
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Equivalence&lt;/b&gt;&lt;br /&gt;
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Monotonicity&lt;/b&gt;&lt;br /&gt;
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Compatibility with Lebesgue measure&lt;/b&gt;&lt;br /&gt;
+	&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h3 id=&quot;abs-cvg-simp-int&quot;&gt;Absolutely convergence simple integral&lt;/h3&gt;
+&lt;p&gt;A complex valued simple function $f:\mathbb{R}^d\to\mathbb{C}$ is known as &lt;strong&gt;absolutely integrable&lt;/strong&gt; if
+\begin{equation}
+\text{Simp}\int_{\mathbb{R}^d}\vert f(x)\vert\,dx&amp;lt;\infty
+\end{equation}
+If $f$ is absolutely integrable, the integral $\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx$ is defined for real signed $f$ by the formula
+\begin{equation}
+\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx\doteq\text{Simp}\int_{\mathbb{R}^d}f_+(x)\,dx+\text{Simp}\int_{\mathbb{R}^d}f_-(x)\,dx,
+\end{equation}
+where
+\begin{align}
+f_+(x)&amp;amp;\doteq\max\left(f(x),0\right), \\ f_-(x)&amp;amp;\doteq\max\left(-f(x),0\right),
+\end{align}
+and for complex-valued $f$ by the formula
+\begin{equation}
+\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx\doteq\text{Simp}\int_{\mathbb{R}^d}\text{Re}\,f(x)\,dx+i\,\text{Simp}\int_{\mathbb{R}^d}\text{Im}\,f(x)\,dx
+\end{equation}&lt;/p&gt;
+
+&lt;h3 id=&quot;bsc-prop-cmplx-simp-int&quot;&gt;Basic properties of the complex-valued simple integral&lt;/h3&gt;
+&lt;p&gt;Let $f,g:\mathbb{R}^d\to\mathbb{C}$ be absolutely integrable simple functions&lt;/p&gt;
+&lt;ul id=&quot;roman-list&quot;&gt;
+	&lt;li&gt;
+		&lt;b&gt;*-linearity&lt;/b&gt;. We have
+		\begin{equation}
+		\text{Simp}\int_{\mathbb{R}^d}f(x)+g(x)\,dx=\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx+\text{Simp}\int_{\mathbb{R}^d}g(x)\,dx
+		\end{equation}
+		and
+		\begin{equation}
+		\text{Simp}\int_{\mathbb{R}^d}cf(x)\,dx=c\,\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx,
+		\end{equation}
+		for all $c\in\mathbb{C}$. Also we have
+		\begin{equation}
+		\text{Simp}\int_{\mathbb{R}^d}\overline{f}(x)\,dx=\overline{\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx}
+		\end{equation}
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Equivalence&lt;/b&gt;. If $f$ and $g$ agree almost everywhere, then
+		\begin{equation}
+		\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx=\text{Simp}\int_{\mathbb{R}^d}g(x)\,dx
+		\end{equation}
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Compatibility with Lebesgue measure&lt;/b&gt;. For any Lebesgue measurable $E$, we have
+		\begin{equation}
+		\text{Simp}\int_{\mathbb{R}^d}1_E(x)\,dx=m(E)
+		\end{equation}
+	&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+&lt;ul id=&quot;roman-list&quot;&gt;
+	&lt;li&gt;
+		&lt;b&gt;*-linearity&lt;/b&gt;&lt;br /&gt;
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Equivalence&lt;/b&gt;&lt;br /&gt;
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Compatibility with Lebesgue measure&lt;/b&gt;&lt;br /&gt;
+	&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h2 id=&quot;msr-funcs&quot;&gt;Measurable functions&lt;/h2&gt;
+&lt;p&gt;Just as how the piecewise constant integral can be extended to the Riemann integral, the unsigned simple integral can be extended to the unsigned Lebesgue integral, by expanding the class of unsigned simple functions to the broader class of &lt;strong&gt;unsigned Lebesgue measurable functions&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;unsgn-msr-funcs&quot;&gt;Unsigned measurable functions&lt;/h3&gt;
+&lt;p&gt;An unsigned function $f:\mathbb{R}^d\to[0,+\infty]$ is &lt;strong&gt;unsigned Lebesgue measurable&lt;/strong&gt;, or &lt;strong&gt;measurable&lt;/strong&gt;, if it is the pointwise limit of unsigned simple functions, i.e. if there exists a sequence $f_1,f_2,\ldots:\mathbb{R}\to[0,+\infty]$ of unsigned simple functions such that $f_n(x)\to f(x)$ for every $x\in\mathbb{R}^d$.&lt;/p&gt;
+
+&lt;h3 id=&quot;equiv-ntn-msrb&quot;&gt;Equivalent notions of measurability&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Lemma 3&lt;/strong&gt;&lt;br /&gt;
+Let $f:\mathbb{R}\to[0,+\infty]$ be an unsigned function. The following are then equivalent:&lt;/p&gt;
+&lt;ul id=&quot;roman-list&quot;&gt;
+	&lt;li&gt;
+		$f$ is unsigned Lebesgue measurable.
+	&lt;/li&gt;
+	&lt;li&gt;
+		$f$ is the pointwise limit of unsigned simple functions $f_n$ (hence $\lim_{n\to\infty}f_n(x)$ exists and is equal to $f(x)$ for all $x\in\mathbb{R}^d$).
+	&lt;/li&gt;
+	&lt;li&gt;
+		$f$ is the pointwise almost everywhere limit of unsigned simple function $f_n$ (thus $\lim_{n\to\infty}f_n(x)$ exists and is equal to $f(x)$ for almost every $x\in\mathbb{R}^d$).
+	&lt;/li&gt;
+	&lt;li&gt;
+		$f(x)=\sup_n f_n(x)$, where $0\leq f_1\leq f_2\leq\ldots$ is an increasing sequence of unsigned simple functions, each of which are bounded with finite measure support.
+	&lt;/li&gt;
+	&lt;li&gt;
+		For every $\lambda\in[0,+\infty]$, the set $\{x\in\mathbb{R}^d:f(x)&amp;gt;\lambda\}$ is Lebesgue measurable.
+	&lt;/li&gt;
+	&lt;li&gt;
+		For every $\lambda\in[0,+\infty]$, the set $\{x\in\mathbb{R}^d:f(x)\geq\lambda\}$ is Lebesgue measurable.
+	&lt;/li&gt;
+	&lt;li&gt;
+		For every $\lambda\in[0,+\infty]$, the set $\{x\in\mathbb{R}^d:f(x)&amp;lt;\lambda\}$ is Lebesgue measurable.
+	&lt;/li&gt;
+	&lt;li&gt;
+		For every $\lambda\in[0,+\infty]$, the set $\{x\in\mathbb{R}^d:f(x)\leq\lambda\}$ is Lebesgue measurable.
+	&lt;/li&gt;
+	&lt;li&gt;
+		For every interval $I\subset[0,+\infty)$, the set $f^{-1}(I)\doteq\{x\in\mathbb{R}^d:f(x)\in I\}$ is Lebesgue measurable.
+	&lt;/li&gt;
+	&lt;li&gt;
+		For every (relatively) open set $U\subset[0,+\infty)$, the set $f^{-1}(U)\doteq\{x\in\mathbb{R}^d:f(x)\in U\}$ is Lebesgue measurable.
+	&lt;/li&gt;
+	&lt;li&gt;
+		For every (relatively) closed set $K\subset[0,+\infty)$, the set $f^{-1}(K)\doteq\{x\in\mathbb{R}^d:f(x)\in K\}$ is Lebesgue measurable.
+	&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;unsgn-lebesgue-int&quot;&gt;Unsigned Lebesgue integrals&lt;/h2&gt;
 
@@ -2604,7 +2801,7 @@ Our claim then follows.&lt;/p&gt;
 		\begin{equation}
 		m(A)=m(A\cap E)+m(A\backslash E)\leq m^*(A\cap E)+m^*(A\backslash E)\label{eq:cc.1}
 		\end{equation}
-		Given $A$ is elementary, by &lt;span&gt;&lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-theory-p1.html#measure-elementary-set&quot;&gt;&lt;b&gt;lemma 10&lt;/b&gt;&lt;/a&gt;&lt;/span&gt;, we can express $A$ is a finite union of disjoint boxes
+		Given $A$ is elementary, by &lt;span&gt;&lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-theory-p1.html#measure-elementary-set&quot;&gt;&lt;b&gt;lemma 10&lt;/b&gt;&lt;/a&gt;&lt;/span&gt;, we can express $A$ as a finite union of disjoint boxes
 		\begin{equation}
 		A=\bigcup_{n=1}^{N}B_n
 		\end{equation}
@@ -3624,6 +3821,7 @@ m^{*,(J)}(E)=m^{*,(J)}(E\cap F)+m^{*,(J)}(E\backslash F)
 \end{equation}&lt;/p&gt;
 
 &lt;h2 id=&quot;connect-riemann-int&quot;&gt;Connection with the Riemann integral&lt;/h2&gt;
+&lt;p&gt;We then consider the relationship between Jordan measure and the &lt;strong&gt;Rieman integral&lt;/strong&gt;, or the equivalent &lt;strong&gt;Darboux integral&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;h3 id=&quot;riemann-integrability&quot;&gt;Riemann integrability&lt;/h3&gt;
 &lt;p&gt;Let $[a,b]$ be an interval of positive length, and $f:[a,b]\to\mathbb{R}$ be a function. A &lt;strong&gt;tagged partition&lt;/strong&gt;

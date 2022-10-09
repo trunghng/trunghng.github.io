@@ -891,7 +891,7 @@ Let $E\subset\mathbb{R}^d$, the following are then equivalent:
 		\begin{equation}
 		m(A)=m(A\cap E)+m(A\backslash E)\leq m^*(A\cap E)+m^*(A\backslash E)\label{eq:cc.1}
 		\end{equation}
-		Given $A$ is elementary, by <span markdown=1>[<b>lemma 10</b>]({% post_url 2022-06-16-measure-theory-p1 %}#measure-elementary-set)</span>, we can express $A$ is a finite union of disjoint boxes
+		Given $A$ is elementary, by <span markdown=1>[<b>lemma 10</b>]({% post_url 2022-06-16-measure-theory-p1 %}#measure-elementary-set)</span>, we can express $A$ as a finite union of disjoint boxes
 		\begin{equation}
 		A=\bigcup_{n=1}^{N}B_n
 		\end{equation}

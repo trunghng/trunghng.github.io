@@ -872,6 +872,7 @@ m^{\*,(J)}(E)=m^{\*,(J)}(E\cap F)+m^{\*,(J)}(E\backslash F)
 
 ## Connection with the Riemann integral
 {: #connect-riemann-int}
+We then consider the relationship between Jordan measure and the **Rieman integral**, or the equivalent **Darboux integral**.
 
 ### Riemann integrability
 {: #riemann-integrability}
