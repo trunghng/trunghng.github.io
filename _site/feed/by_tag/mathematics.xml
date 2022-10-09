@@ -1,13 +1,72 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-09T15:37:51+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-09T16:27:14+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory - III: the Lebesgue integral</title><link href="http://localhost:4000/mathematics/measure-theory/2022/08/21/measure-theory-p3.html" rel="alternate" type="text/html" title="Measure theory - III: the Lebesgue integral" /><published>2022-08-21T13:00:00+07:00</published><updated>2022-08-21T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/08/21/measure-theory-p3</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/08/21/measure-theory-p3.html">&lt;blockquote&gt;
   &lt;p&gt;Part III of the measure theory series. Materials are mostly taken from &lt;a href=&quot;/mathematics/measure-theory/2022/08/21/measure-theory-p3.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some needed notations extracted from &lt;a href=&quot;/mathematics/measure-theory/2022/08/21/measure-theory-p3.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#int-simp-funcs&quot;&gt;Integration of simple functions&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#simp-func&quot;&gt;Simple function&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#int-unsgn-simp-func&quot;&gt;Integral of unsigned simple functions&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#well-dfn-simp-int&quot;&gt;Well-definedness of simple integral&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#alm-evwhr-spt&quot;&gt;Almost everywhere and support&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#bsc-prop-simp-unsgn-int&quot;&gt;Basic properties of the simple unsigned integral&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#abs-cvg-simp-int&quot;&gt;Absolutely convergence simple integral&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#msr-funcs&quot;&gt;Measurable functions&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#unsgn-lebesgue-int&quot;&gt;Unsigned Lebesgue integrals&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#abs-intb&quot;&gt;Absolute integrability&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#littlewoods-prncpl&quot;&gt;Littlewood’s three principles&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;h2 id=&quot;int-simp-funcs&quot;&gt;Integration of simple functions&lt;/h2&gt;
+&lt;p&gt;Analogy to how the &lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-theory-p1.html#riemann-integrability&quot;&gt;&lt;strong&gt;Riemann integral&lt;/strong&gt;&lt;/a&gt; was established by using the integral for &lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-theory-p1.html#pc-func&quot;&gt;&lt;strong&gt;piecewise constant functions&lt;/strong&gt;&lt;/a&gt;, the &lt;strong&gt;Lebesgue integral&lt;/strong&gt; is set up using the integral for &lt;strong&gt;simple functions&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;simp-func&quot;&gt;Simple function&lt;/h3&gt;
+&lt;p&gt;A (complex-valued) &lt;strong&gt;simple function&lt;/strong&gt; $f:\mathbb{R}^d\to\mathbb{C}$ is a finite linear combination
+\begin{equation}
+f=c_1 1_{E_1}+\ldots+c_k 1_{E_k},\label{eq:sf.1}
+\end{equation}
+of indicator functions $1_{E_i}$ of Lebesgue measurable sets $E_i\subset\mathbb{R}^d$ for $i=1,\ldots,k$, for natural number $k\geq 0$ and where $c_1,\ldots,c_k\in\mathbb{C}$ are complex numbers.&lt;/p&gt;
+
+&lt;p&gt;An &lt;strong&gt;unsigned simple function&lt;/strong&gt; $f:\mathbb{R}^d\to[0,+\infty]$ is given as \eqref{eq:sf.1} but with the $c_i$ taking values in $[0,+\infty]$ rather than $\mathbb{C}$.&lt;/p&gt;
+
+&lt;h3 id=&quot;int-unsgn-simp-func&quot;&gt;Integral of a unsigned simple function&lt;/h3&gt;
+&lt;p&gt;If $f=c_1 1_{E_1}+\ldots+c_k 1_{E_k}$ is an unsigned simple function, the integral $\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx$ is defined by the formula
+\begin{equation}
+\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx\doteq c_1 m(E_1)+\ldots+c_k m(E_k),
+\end{equation}
+which means $\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx\in[0,+\infty]$.&lt;/p&gt;
+
+&lt;h3 id=&quot;well-dfn-simp-int&quot;&gt;Well-definedness of simple integral&lt;/h3&gt;
+&lt;p&gt;Let $k,k’\geq 0$ be natural, $c_1,\ldots,c_k,c_1’,\dots,c_k’\in[0,+\infty]$ and $E_1,\ldots,E_k,E_1’,\ldots,E_k’\subset\mathbb{R}^d$ be Lebesgue measurable sets such that the identity
+\begin{equation}
+c_1 1_{E_1}+\ldots+c_k 1_{E_k}=c_1’ 1_{E_1’}+\ldots+c_k’ 1_{E_k’}
+\end{equation}
+hold identically on $\mathbb{R}^d$. Then we have
+\begin{equation}
+c_1 m(E_1)+\ldots+c_k m(E_k)=c_1’ m(E_1’)+\ldots+c_k’ m(E_k’)
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;alm-evwhr-spt&quot;&gt;Almost everywhere and support&lt;/h3&gt;
+
+&lt;h3 id=&quot;bsc-prop-simp-unsgn-int&quot;&gt;Basic properties of the simple unsigned integral&lt;/h3&gt;
+
+&lt;h3 id=&quot;abs-cvg-simp-int&quot;&gt;Absolutely convergence simple integral&lt;/h3&gt;
+
+&lt;h2 id=&quot;msr-funcs&quot;&gt;Measurable functions&lt;/h2&gt;
+
+&lt;h2 id=&quot;unsgn-lebesgue-int&quot;&gt;Unsigned Lebesgue integrals&lt;/h2&gt;
+
+&lt;h2 id=&quot;abs-intb&quot;&gt;Absolute integrability&lt;/h2&gt;
+
+&lt;h2 id=&quot;littlewoods-prncpl&quot;&gt;Littlewood’s three principles&lt;/h2&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] &lt;span id=&quot;taos-book&quot;&gt;Terence Tao. &lt;a href=&quot;https://terrytao.wordpress.com/books/an-introduction-to-measure-theory/&quot;&gt;An introduction to measure theory&lt;/a&gt;. Graduate Studies in Mathematics, vol. 126.&lt;/span&gt;&lt;/p&gt;
