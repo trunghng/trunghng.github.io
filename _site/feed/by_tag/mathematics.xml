@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-09T18:33:28+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-09T20:22:26+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory - III: the Lebesgue integral</title><link href="http://localhost:4000/mathematics/measure-theory/2022/08/21/measure-theory-p3.html" rel="alternate" type="text/html" title="Measure theory - III: the Lebesgue integral" /><published>2022-08-21T13:00:00+07:00</published><updated>2022-08-21T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/08/21/measure-theory-p3</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/08/21/measure-theory-p3.html">&lt;blockquote&gt;
   &lt;p&gt;Part III of the measure theory series. Materials are mostly taken from &lt;a href=&quot;/mathematics/measure-theory/2022/08/21/measure-theory-p3.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some needed notations extracted from &lt;a href=&quot;/mathematics/measure-theory/2022/08/21/measure-theory-p3.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -135,9 +135,65 @@ where $c_1,\ldots,c_k,c_1’,\ldots,c_k’\in[0,+\infty]$.&lt;/p&gt;
 	&lt;/li&gt;
 	&lt;li&gt;
 		&lt;b&gt;Finiteness&lt;/b&gt;&lt;br /&gt;
+		Given $\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx&amp;lt;\infty$, then for every $i=1,\ldots,k$ we have that
+		\begin{equation}
+		c_i m(E_i)&amp;lt;\infty\label{eq:bpsui.1}
+		\end{equation}
+		Suppose that $f$ is not finite almost everywhere, which means that there exists $1\leq i\leq k$ such that $E_i$ is a non-null set and $c_i=\infty$, or
+		\begin{equation}
+		c_i m(E_i)=\infty,
+		\end{equation}
+		which is in contrast with \eqref{eq:bpsui.1}.&lt;br /&gt;
+		Suppose that the support of $f$ has infinite measure, or in other word
+		\begin{equation}
+		c_i\neq 0,\hspace{1cm}i=1,\ldots,k\label{eq:bpsui.2}
+		\end{equation}
+		and
+		\begin{equation}
+		m\left(\bigcup_{n=1}^{k}E_n\right)=\infty,
+		\end{equation}
+		Since any $k$ subsets $E_1,\ldots,E_k$ of $\mathbb{R}^d$ partition $\mathbb{R}^d$ into $2^k$ disjoint sets, say $F_1,\ldots,F_{2^k}$. Hence, by finite additivity property of Lebesgue measure, we have
+		\begin{equation}
+		\sum_{n=1}^{2^k}m(F_n)=\infty,
+		\end{equation}
+		which implies that there exists $1\leq n\leq 2^k$ such that $m(F_n)=\infty$. And therefore, for a particular $1\leq i\leq k$ such that $F_n\subset E_i$, by monotonicity property of Lebesgue measure
+		\begin{equation}
+		m(E_i)\geq m(F_n)=\infty
+		\end{equation}
+		Thus, combining with \eqref{eq:bpsui.2} gives us
+		\begin{equation}
+		c_i m(E_1)=\infty,
+		\end{equation}
+		which again contradicts to \eqref{eq:bpsui.1}.&lt;br /&gt;
+		Given $f$ is finite almost everywhere and its support has finite measure, suppose that its integral is infinite, or
+		\begin{equation}
+		c_1 m(E_1)+\ldots+c_k m(E_k)=\infty,
+		\end{equation}
+		which implies that there exists $1\leq i\leq k$ such that either&lt;br /&gt;
+		(1) $c_i=\infty$ and $E_i$ is a non-null set, or&lt;br /&gt;
+		(2) $c_i\neq 0$ and $m(E)=\infty$.&lt;br /&gt;
+		If (1) happens, we then have that
+		\begin{equation}
+		f\geq c_i 1_{E_i}=\infty,
+		\end{equation}
+		which contradicts to our hypothesis.&lt;br /&gt;
+		If (2) happens, by monotonicity of Lebesgue measure, the support of $f$ then has infinite measure, which also contradicts to our hypothesis.
 	&lt;/li&gt;
 	&lt;li&gt;
 		&lt;b&gt;Vanishing&lt;/b&gt;&lt;br /&gt;
+		Given $\text{Simp}\int_{\mathbf{R^d}}f(x)\,dx=0$, we then have
+		\begin{equation}
+		c_1 m(E_1)+\ldots+c_k m(E_k)=0,
+		\end{equation}
+		which implies that for every $1\leq i\leq k$, we have that $c_i=0$ or $E_i$ is a null set.
+		Therefore, $f$ is zero almost everywhere because in this case $f$ takes the value of non-zero iff $x$ is in a particular null set $E_j$.&lt;br /&gt;
+		Given $f$ is zero almost everywhere, for every $i=1,\ldots,k$, we have that either&lt;br /&gt;
+		(1) $c_i=0$, or&lt;br /&gt;
+		(2) $c_i\neq 0$ and $x\notin E_i$ with $E_i$ is a null set.&lt;br /&gt;
+		Therefore, the integral of $f$
+		\begin{equation}
+		\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx=c_1 m(E_1)+\ldots+c_k m(E_k)=0
+		\end{equation}
 	&lt;/li&gt;
 	&lt;li&gt;
 		&lt;b&gt;Equivalence&lt;/b&gt;&lt;br /&gt;

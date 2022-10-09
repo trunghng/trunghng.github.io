@@ -139,9 +139,65 @@ where $c_1,\ldots,c_k,c_1',\ldots,c_k'\in[0,+\infty]$.
 	</li>
 	<li>
 		<b>Finiteness</b><br>
+		Given $\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx<\infty$, then for every $i=1,\ldots,k$ we have that
+		\begin{equation}
+		c_i m(E_i)<\infty\label{eq:bpsui.1}
+		\end{equation}
+		Suppose that $f$ is not finite almost everywhere, which means that there exists $1\leq i\leq k$ such that $E_i$ is a non-null set and $c_i=\infty$, or
+		\begin{equation}
+		c_i m(E_i)=\infty,
+		\end{equation}
+		which is in contrast with \eqref{eq:bpsui.1}.<br>
+		Suppose that the support of $f$ has infinite measure, or in other word
+		\begin{equation}
+		c_i\neq 0,\hspace{1cm}i=1,\ldots,k\label{eq:bpsui.2}
+		\end{equation}
+		and
+		\begin{equation}
+		m\left(\bigcup_{n=1}^{k}E_n\right)=\infty,
+		\end{equation}
+		Since any $k$ subsets $E_1,\ldots,E_k$ of $\mathbb{R}^d$ partition $\mathbb{R}^d$ into $2^k$ disjoint sets, say $F_1,\ldots,F_{2^k}$. Hence, by finite additivity property of Lebesgue measure, we have
+		\begin{equation}
+		\sum_{n=1}^{2^k}m(F_n)=\infty,
+		\end{equation}
+		which implies that there exists $1\leq n\leq 2^k$ such that $m(F_n)=\infty$. And therefore, for a particular $1\leq i\leq k$ such that $F_n\subset E_i$, by monotonicity property of Lebesgue measure
+		\begin{equation}
+		m(E_i)\geq m(F_n)=\infty
+		\end{equation}
+		Thus, combining with \eqref{eq:bpsui.2} gives us
+		\begin{equation}
+		c_i m(E_1)=\infty,
+		\end{equation}
+		which again contradicts to \eqref{eq:bpsui.1}.<br>
+		Given $f$ is finite almost everywhere and its support has finite measure, suppose that its integral is infinite, or
+		\begin{equation}
+		c_1 m(E_1)+\ldots+c_k m(E_k)=\infty,
+		\end{equation}
+		which implies that there exists $1\leq i\leq k$ such that either<br>
+		(1) $c_i=\infty$ and $E_i$ is a non-null set, or<br>
+		(2) $c_i\neq 0$ and $m(E)=\infty$.<br>
+		If (1) happens, we then have that
+		\begin{equation}
+		f\geq c_i 1_{E_i}=\infty,
+		\end{equation}
+		which contradicts to our hypothesis.<br>
+		If (2) happens, by monotonicity of Lebesgue measure, the support of $f$ then has infinite measure, which also contradicts to our hypothesis.
 	</li>
 	<li>
 		<b>Vanishing</b><br>
+		Given $\text{Simp}\int_{\mathbf{R^d}}f(x)\,dx=0$, we then have
+		\begin{equation}
+		c_1 m(E_1)+\ldots+c_k m(E_k)=0,
+		\end{equation}
+		which implies that for every $1\leq i\leq k$, we have that $c_i=0$ or $E_i$ is a null set.
+		Therefore, $f$ is zero almost everywhere because in this case $f$ takes the value of non-zero iff $x$ is in a particular null set $E_j$.<br>
+		Given $f$ is zero almost everywhere, for every $i=1,\ldots,k$, we have that either<br>
+		(1) $c_i=0$, or<br>
+		(2) $c_i\neq 0$ and $x\notin E_i$ with $E_i$ is a null set.<br>
+		Therefore, the integral of $f$
+		\begin{equation}
+		\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx=c_1 m(E_1)+\ldots+c_k m(E_k)=0
+		\end{equation}
 	</li>
 	<li>
 		<b>Equivalence</b><br>
