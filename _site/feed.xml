@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-09T14:26:12+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-09T15:37:51+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">CMA Evolution Strategy</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es.html" rel="alternate" type="text/html" title="CMA Evolution Strategy" /><published>2022-09-14T13:00:00+07:00</published><updated>2022-09-14T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es.html">&lt;blockquote&gt;
   &lt;p&gt;A note on CMA - Evolution Strategy
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -1786,7 +1786,7 @@ as the &lt;strong&gt;Lebesgue measure&lt;/strong&gt; of $E$.&lt;/p&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;Corollary 2&lt;/strong&gt;&lt;br /&gt;
-Combining empty set with countable subadditivity axiom gives us the finite subadditivity property
+Combining empty set with countable subadditivity axiom gives us the &lt;strong&gt;finite subadditivity&lt;/strong&gt; property
 \begin{equation}
 m^{*}\left(E_1\cup\ldots\cup E_k\right)\leq m^{*}(E_1)+\ldots+m^{*}(E_k),\hspace{1cm}\forall k\geq 0
 \end{equation}&lt;/p&gt;
@@ -2506,11 +2506,11 @@ Our claim then follows.&lt;/p&gt;
 		\begin{equation}
 		m^*(U\backslash E)\leq\varepsilon
 		\end{equation}
-		Then, by finite additivity property
+		Then, by finite subadditivity property of Lebesgue outer measure
 		\begin{equation}
 		m^*(U)\leq m^*(E)+\varepsilon,
 		\end{equation}
-		which implies that $m^*(U)$ finite due to finiteness of $m^*(E)$ and $\varepsilon$.
+		which implies that $m^*(U)$ finite due to finiteness of $m^*(E)$ and $\varepsilon$, and hence $U$ has finite measure since $m(U)\leq m^*(U)$.
 	&lt;/li&gt;
 	&lt;li&gt;
 		(i) $\Rightarrow$ (iii)&lt;br /&gt;
@@ -2538,13 +2538,29 @@ Our claim then follows.&lt;/p&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
-&lt;ul id=&quot;roman-list&quot;&gt;
+&lt;ul id=&quot;number-list&quot;&gt;
 	&lt;li&gt;
 		(i) $\Rightarrow$ (ii)&lt;br /&gt;
+		We begin with an observation that, by finite additivity property of Lebesgue measure
+		\begin{equation}
+		m(A)=m(A\cap E)+m(A\backslash E)\leq m^*(A\cap E)+m^*(A\backslash E)\label{eq:cc.1}
+		\end{equation}
+		Given $A$ is elementary, by &lt;span&gt;&lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-theory-p1.html#measure-elementary-set&quot;&gt;&lt;b&gt;lemma 10&lt;/b&gt;&lt;/a&gt;&lt;/span&gt;, we can express $A$ is a finite union of disjoint boxes
+		\begin{equation}
+		A=\bigcup_{n=1}^{N}B_n
+		\end{equation}
+		Continuing using finite subadditivity of Lebesgue outer measure and finite additivity of Lebesgue measure, \eqref{eq:cc.1} then can be continued to derive as
+		\begin{align}
+		m(A)&amp;amp;\leq m^*(A\cap E)+m^*(A\backslash E) \\ &amp;amp;=m^*\left(\left(\bigcup_{n=1}^{N}B_n\right)\cap E\right)+m^*\left(\left(\bigcup_{n=1}^{N}B_n\right)\backslash E\right) \\ &amp;amp;=m^*\left(\bigcup_{n=1}^{N}B_n\cap E\right)+m^*\left(\bigcup_{n=1}^{N}B_n\backslash E\right) \\ &amp;amp;\leq\sum_{n=1}^{N}m^*(B_n\cap E)+m^*(B_n\backslash E) \\ &amp;amp;=\sum_{n=1}^{N}m^*(B_n)=\sum_{n=1}^{N}m(B_n)=m\left(\bigcup_{n=1}^{N}B_n\right)=m(A),
+		\end{align}
+		which implies that
+		\begin{equation}
+		m(A)=m^*(A\cap E)+m^*(A\backslash E)
+		\end{equation}
 	&lt;/li&gt;
 	&lt;li&gt;
 		(i) $\Rightarrow$ (iii)&lt;br /&gt;
-		Since every box $B$ is Lebesgue measurable, then given $E$ is also Lebesgue measurable, by &lt;b&gt;lemma 13&lt;/b&gt;, their difference and intersection are also Lebesgue measurable, which means by additivity property we have
+		Since every box $B$ is Lebesgue measurable, then given $E$ is also Lebesgue measurable, by &lt;b&gt;lemma 13&lt;/b&gt;, their difference and intersection are also Lebesgue measurable, which means by additivity property of Lebesgue measure we have
 		\begin{equation}
 		\vert B\vert=m(B)=m(B\cap E)+m(B\backslash E)=m^*(B\cap E)+m^*(B\backslash E)
 		\end{equation}
@@ -2644,6 +2660,17 @@ Let $d,d’\geq 1$ be natural numbers&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;non-measurable-sets&quot;&gt;Non-measurable sets&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Remark 18&lt;/strong&gt;&lt;br /&gt;
+There exists a subset $E\subset[0,1]$ which is not Lebesgue measurable.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Remark 19&lt;/strong&gt; (Outer measure is not finitely additive)&lt;br /&gt;
+There exists disjoint bounded subsets $E,F\subset\mathbb{R}$ such that
+\begin{equation}
+m^*(E\cap F)\neq m^*(E)+m^*(F)
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Remark 20&lt;/strong&gt;&lt;br /&gt;
+Let $\pi:\mathbb{R}^2\to\mathbb{R}$ be the coordinate projection $\pi(x,y)\doteq x$. Then there exists a measurable $E\subset\mathbb{R}^2$ such that $\pi(E)$ is not measurable.&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] &lt;span id=&quot;taos-book&quot;&gt;Terence Tao. &lt;a href=&quot;https://terrytao.wordpress.com/books/an-introduction-to-measure-theory/&quot;&gt;An introduction to measure theory&lt;/a&gt;. Graduate Studies in Mathematics, vol. 126.&lt;/span&gt;&lt;/p&gt;

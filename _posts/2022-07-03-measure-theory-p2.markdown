@@ -114,7 +114,7 @@ as the **Lebesgue measure** of $E$.
 </ul>
 
 **Corollary 2**  
-Combining empty set with countable subadditivity axiom gives us the finite subadditivity property
+Combining empty set with countable subadditivity axiom gives us the **finite subadditivity** property
 \begin{equation}
 m^{\*}\left(E_1\cup\ldots\cup E_k\right)\leq m^{\*}(E_1)+\ldots+m^{\*}(E_k),\hspace{1cm}\forall k\geq 0
 \end{equation}
@@ -850,11 +850,11 @@ Let $E\subset\mathbb{R}^d$, then the following are equivalent:
 		\begin{equation}
 		m^*(U\backslash E)\leq\varepsilon
 		\end{equation}
-		Then, by finite additivity property
+		Then, by finite subadditivity property of Lebesgue outer measure
 		\begin{equation}
 		m^*(U)\leq m^*(E)+\varepsilon,
 		\end{equation}
-		which implies that $m^*(U)$ finite due to finiteness of $m^*(E)$ and $\varepsilon$.
+		which implies that $m^*(U)$ finite due to finiteness of $m^*(E)$ and $\varepsilon$, and hence $U$ has finite measure since $m(U)\leq m^*(U)$.
 	</li>
 	<li>
 		(i) $\Rightarrow$ (iii)<br>
@@ -884,13 +884,29 @@ Let $E\subset\mathbb{R}^d$, the following are then equivalent:
 </ul>
 
 **Proof**
-<ul id='roman-list'>
+<ul id='number-list'>
 	<li>
 		(i) $\Rightarrow$ (ii)<br>
+		We begin with an observation that, by finite additivity property of Lebesgue measure
+		\begin{equation}
+		m(A)=m(A\cap E)+m(A\backslash E)\leq m^*(A\cap E)+m^*(A\backslash E)\label{eq:cc.1}
+		\end{equation}
+		Given $A$ is elementary, by <span markdown=1>[<b>lemma 10</b>]({% post_url 2022-06-16-measure-theory-p1 %}#measure-elementary-set)</span>, we can express $A$ is a finite union of disjoint boxes
+		\begin{equation}
+		A=\bigcup_{n=1}^{N}B_n
+		\end{equation}
+		Continuing using finite subadditivity of Lebesgue outer measure and finite additivity of Lebesgue measure, \eqref{eq:cc.1} then can be continued to derive as
+		\begin{align}
+		m(A)&\leq m^*(A\cap E)+m^*(A\backslash E) \\ &=m^*\left(\left(\bigcup_{n=1}^{N}B_n\right)\cap E\right)+m^*\left(\left(\bigcup_{n=1}^{N}B_n\right)\backslash E\right) \\ &=m^*\left(\bigcup_{n=1}^{N}B_n\cap E\right)+m^*\left(\bigcup_{n=1}^{N}B_n\backslash E\right) \\ &\leq\sum_{n=1}^{N}m^*(B_n\cap E)+m^*(B_n\backslash E) \\ &=\sum_{n=1}^{N}m^*(B_n)=\sum_{n=1}^{N}m(B_n)=m\left(\bigcup_{n=1}^{N}B_n\right)=m(A),
+		\end{align}
+		which implies that
+		\begin{equation}
+		m(A)=m^*(A\cap E)+m^*(A\backslash E)
+		\end{equation}
 	</li>
 	<li>
 		(i) $\Rightarrow$ (iii)<br>
-		Since every box $B$ is Lebesgue measurable, then given $E$ is also Lebesgue measurable, by <b>lemma 13</b>, their difference and intersection are also Lebesgue measurable, which means by additivity property we have
+		Since every box $B$ is Lebesgue measurable, then given $E$ is also Lebesgue measurable, by <b>lemma 13</b>, their difference and intersection are also Lebesgue measurable, which means by additivity property of Lebesgue measure we have
 		\begin{equation}
 		\vert B\vert=m(B)=m(B\cap E)+m(B\backslash E)=m^*(B\cap E)+m^*(B\backslash E)
 		\end{equation}
@@ -1003,7 +1019,17 @@ Lebesgue measure $E\mapsto m(E)$ is the only map from Lebesgue measurable sets t
 
 ### Non-measurable sets
 {: #non-measurable-sets}
+**Remark 18**  
+There exists a subset $E\subset[0,1]$ which is not Lebesgue measurable.
 
+**Remark 19** (Outer measure is not finitely additive)  
+There exists disjoint bounded subsets $E,F\subset\mathbb{R}$ such that
+\begin{equation}
+m^\*(E\cap F)\neq m^\*(E)+m^\*(F)
+\end{equation}
+
+**Remark 20**  
+Let $\pi:\mathbb{R}^2\to\mathbb{R}$ be the coordinate projection $\pi(x,y)\doteq x$. Then there exists a measurable $E\subset\mathbb{R}^2$ such that $\pi(E)$ is not measurable.
 
 ## References
 {: #references}
