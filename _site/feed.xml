@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-09T20:22:26+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-10T14:21:51+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">CMA Evolution Strategy</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es.html" rel="alternate" type="text/html" title="CMA Evolution Strategy" /><published>2022-09-14T13:00:00+07:00</published><updated>2022-09-14T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es.html">&lt;blockquote&gt;
   &lt;p&gt;A note on CMA - Evolution Strategy
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -389,17 +389,45 @@ which means $\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx\in[0,+\infty]$.&lt;/p&gt;
 
 &lt;h3 id=&quot;well-dfn-simp-int&quot;&gt;Well-definedness of simple integral&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Lemma 1&lt;/strong&gt;&lt;br /&gt;
-&lt;em&gt;Let $k,k’\geq 0$ be natural, $c_1,\ldots,c_k,c_1’,\dots,c_k’\in[0,+\infty]$ and $E_1,\ldots,E_k,E_1’,\ldots,E_k’\subset\mathbb{R}^d$ be Lebesgue measurable sets such that the identity
+&lt;em&gt;Let $k,k’\geq 0$ be natural, $c_1,\ldots,c_k,c_1’,\dots,c_{k’}’\in[0,+\infty]$ and $E_1,\ldots,E_k,E_1’,\ldots,E_{k’}’\subset\mathbb{R}^d$ be Lebesgue measurable sets such that the identity
 \begin{equation}
-c_1 1_{E_1}+\ldots+c_k 1_{E_k}=c_1’ 1_{E_1’}+\ldots+c_k’ 1_{E_k’}
+c_1 1_{E_1}+\ldots+c_k 1_{E_k}=c_1’ 1_{E_1’}+\ldots+c_{k’}’ 1_{E_{k’}’}\label{eq:lemma1.1}
 \end{equation}
-hold identically on $\mathbb{R}^d$. Then we have&lt;/em&gt;
+holds identically on $\mathbb{R}^d$. Then we have&lt;/em&gt;
 \begin{equation}
-c_1 m(E_1)+\ldots+c_k m(E_k)=c_1’ m(E_1’)+\ldots+c_k’ m(E_k’)
+c_1 m(E_1)+\ldots+c_k m(E_k)=c_1’ m(E_1’)+\ldots+c_{k’}’ m(E_{k’}’)
 \end{equation}&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
-The $k+k’$ sets $E_1,\ldots,E_k,E_1’,\ldots,E_k’$ partition $\mathbb{R}^d$ into $2^{k+k’}$ disjoint sets, each of which is an intersection of some of the $E_1,\ldots,E_k,E_1’,\ldots,E_k’$ and their complements.&lt;/p&gt;
+The $k+k’$ sets $E_1,\ldots,E_k,E_1’,\ldots,E_{k’}’$ partition $\mathbb{R}^d$ into $2^{k+k’}$ disjoint sets, each of which is an intersection of some of the $E_1,\ldots,E_k,E_1’,\ldots,E_{k’}’$ and their complements&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;p&gt;Removing any sets that are empty, we end up with a partition of $R^d$ of $m$ non-empty disjoint sets $A_1,\ldots,A_m$ for some $0\leq m\leq 2^{k+k’}$. It easily seen that $A_1,\ldots,A_m$ are then Lebesgue measurable due to the Lebesgue measurability of $E_1,\ldots,E_k,E_1’,\ldots,E_{k’}’$.&lt;/p&gt;
+
+&lt;p&gt;With this set up, each of the $E_1,\ldots,E_k,E_1’,\ldots,E_{k’}’$ are unions of some of the $A_1,\ldots,A_m$. Or in other words, we have
+\begin{equation}
+E_1=\bigcup_{j\in J_i}A_j,
+\end{equation}
+and
+\begin{equation}
+E_{i’}’=\bigcup_{j’\in J_{i’}’}A_j’,
+\end{equation}
+for all $i=1,\ldots,k$ and $i’=1,\ldots,k’$, and some subsets $J_i,J_{i’}’\subset\{1,\ldots,m\}$. By finite additivity property of Lebesgue measure, we therefore have
+\begin{equation}
+m(E_i)=\sum_{j\in J_i}m(A_j)
+\end{equation}
+and
+\begin{equation}
+m(E_{i’}’)=\sum_{j\in J_{i’}’}m(A_j)
+\end{equation}
+Hence, the problem remains to show that
+\begin{equation}
+\sum_{i=1}^{k}c_i\sum_{j\in J_i}m(A_j)=\sum_{i’=1}^{k’}c_{i’}’\sum_{j\in J_{i’}’}m(A_j)\label{eq:lemma1.2}
+\end{equation}
+Fix $1\leq j\leq m$, we have that at each point $x$ in the non-empty set $A_j$, $1_{E_i}(x)$ is equal to $1_{J_i}(j)$, and similarly $1_{E_{i’}’}(x)$ is equal to $1_{J_{i’}’}(j)$. Then from \eqref{eq:lemma1.1} we have
+\begin{equation}
+\sum_{i=1}^{k}c_i 1_{J_i}(j)=\sum_{i’=1}^{k’}c_{i’}’1_{J_{i’}’}(j)
+\end{equation}
+Multiplying both sides by $m(A_j)$ and then summing over all $j=1,\ldots,m$, we obtain \eqref{eq:lemma1.2}&lt;/p&gt;
 
 &lt;h3 id=&quot;alm-evwhr-spt&quot;&gt;Almost everywhere and support&lt;/h3&gt;
 &lt;p&gt;A property $P(x)$ of a point $x\in\mathbb{R}^d$ is said to hold &lt;strong&gt;(Lebesgue) almost everywhere&lt;/strong&gt; in $\mathbb{R}^d$ or for &lt;strong&gt;(Lebesgue) almost every point&lt;/strong&gt; $x\in\mathbb{R}^d$, if the set of $x\in\mathbb{R}^d$ for which $P(x)$ fails has Lebesgue measure of zero (i.e. $P$ is true outside of a null set).&lt;/p&gt;
@@ -457,15 +485,15 @@ The $k+k’$ sets $E_1,\ldots,E_k,E_1’,\ldots,E_k’$ partition $\mathbb{R}^d$
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
 Since $f,g:\mathbb{R}^d\to[0,+\infty]$ are simple unsigned functions, we can assume that
 \begin{align}
-f&amp;amp;=c_1 1_{E_1}+\ldots+c_k 1_{E_k}, \\ g&amp;amp;=c_1 1_{E_1}+\ldots+c_k’ 1_{E_k’},
+f&amp;amp;=c_1 1_{E_1}+\ldots+c_k 1_{E_k}, \\ g&amp;amp;=c_1’ 1_{E_1’}+\ldots+c_{k’}’ 1_{E_{k’}’},
 \end{align}
-where $c_1,\ldots,c_k,c_1’,\ldots,c_k’\in[0,+\infty]$.&lt;/p&gt;
+where $c_1,\ldots,c_k,c_1’,\ldots,c_{k’}’\in[0,+\infty]$.&lt;/p&gt;
 &lt;ul id=&quot;roman-list&quot;&gt;
 	&lt;li&gt;
 		&lt;b&gt;Unsigned linearity&lt;/b&gt;&lt;br /&gt;
 		We have
 		\begin{align}
-		\hspace{-1cm}\text{Simp}\int_{\mathbb{R}^d}f(x)+g(x)\,dx&amp;amp;=c_1 m(E_1)+\ldots+c_k m(E_k)+c_1&apos; m(E_1&apos;)+\ldots+c_k&apos; m(E_k&apos;) \\ &amp;amp;=\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx+\text{Simp}\int_{\mathbb{R}^d}g(x)\,dx
+		\hspace{-1cm}\text{Simp}\int_{\mathbb{R}^d}f(x)+g(x)\,dx&amp;amp;=c_1 m(E_1)+\ldots+c_k m(E_k)+c_1&apos; m(E_1&apos;)+\ldots+c_{k&apos;}&apos; m(E_{k&apos;}&apos;) \\ &amp;amp;=\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx+\text{Simp}\int_{\mathbb{R}^d}g(x)\,dx
 		\end{align}
 		For any $c\in[0,+\infty]$, we have
 		\begin{align}
@@ -528,7 +556,8 @@ where $c_1,\ldots,c_k,c_1’,\ldots,c_k’\in[0,+\infty]$.&lt;/p&gt;
 		Therefore, $f$ is zero almost everywhere because in this case $f$ takes the value of non-zero iff $x$ is in a particular null set $E_j$.&lt;br /&gt;
 		Given $f$ is zero almost everywhere, for every $i=1,\ldots,k$, we have that either&lt;br /&gt;
 		(1) $c_i=0$, or&lt;br /&gt;
-		(2) $c_i\neq 0$ and $x\notin E_i$ with $E_i$ is a null set.&lt;br /&gt;
+		(2) $c_i\neq 0$ and $x\notin E_i$ with $E_i$ is a null set, or&lt;br /&gt;
+		(3) $c_i=0$ and and $x\notin E_i$ with $E_i$ is a null set.&lt;br /&gt;
 		Therefore, the integral of $f$
 		\begin{equation}
 		\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx=c_1 m(E_1)+\ldots+c_k m(E_k)=0
@@ -536,12 +565,39 @@ where $c_1,\ldots,c_k,c_1’,\ldots,c_k’\in[0,+\infty]$.&lt;/p&gt;
 	&lt;/li&gt;
 	&lt;li&gt;
 		&lt;b&gt;Equivalence&lt;/b&gt;&lt;br /&gt;
+		Given $f$ and $g$ agree almost everywhere, we have that at any point $x\in\mathbb{R}^d$ such that $f(x)=g(x)$, by &lt;b&gt;lemma 1&lt;/b&gt;, we obtain
+		\begin{equation}
+		\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx=\text{Simp}\int_{\mathbb{R}^d}g(x)\,dx
+		\end{equation}
+		For more convenient, let $K=\{E_i\cap E_{i&apos;}&apos;:1\leq i\leq k,1\leq i&apos;\leq k&apos;\}$. The set $K$ then has cardinality of $kk&apos;$. Thus, without loss of generality, we can denote $K$ as
+		\begin{equation}
+		K=\{K_1,\ldots,K_{kk&apos;}\}
+		\end{equation}
+		With this definition of $K$, the functions $f$ and $g$ can be rewritten by
+		\begin{equation}
+		f=a_1 1_{K_1}+\ldots+a_{kk&apos;}1_{K_{kk&apos;}}\label{eq:bpsui.3}
+		\end{equation}
+		and
+		\begin{equation}
+		g=b_1 1_{K_1}+\ldots+b_{kk&apos;}1_{K_{kk&apos;}}\label{eq:bpsui.4}
+		\end{equation}
+		On the other hand, the set in which $f(x)\neq g(x)$ is a null set. Thus by \eqref{eq:bpsui.3} and \eqref{eq:bpsui.4}, we have $x\in A$, where some $A\subset K$ is a null set, and for each $i$ such that $K_i\subset A$ (thus is also a null set, or $m(K_i)=0$), $a_i\neq b_i$, otherwise if $K_i\notin A$, $a_i=b_i$. Therefore, we obtain
+		\begin{equation}
+		\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx=\sum_{i,K_i\notin A}c_i m(K_i)
+		\end{equation}
+		and
+		\begin{equation}
+		\text{Simp}\int_{\mathbb{R}^d}g(x)\,dx=\sum_{i,K_i\notin A}c_i m(K_i)
+		\end{equation}
+		which proves our claim.
 	&lt;/li&gt;
 	&lt;li&gt;
 		&lt;b&gt;Monotonicity&lt;/b&gt;&lt;br /&gt;
+		Using the same procedure as the proof for equivalence, our claim can be proved.
 	&lt;/li&gt;
 	&lt;li&gt;
 		&lt;b&gt;Compatibility with Lebesgue measure&lt;/b&gt;&lt;br /&gt;
+		This follows directly from definition
 	&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -665,7 +721,15 @@ Let $f:\mathbb{R}\to[0,+\infty]$ be an unsigned function. The following are then
 
 &lt;p&gt;[2] &lt;span id=&quot;steins-book&quot;&gt;Elias M. Stein &amp;amp; Rami Shakarchi. &lt;a href=&quot;#http://www.cmat.edu.uy/~mordecki/courses/medida2013/book.pdf&quot;&gt;Real Analysis: Measure Theory, Integration, and Hilbert Spaces&lt;/a&gt;. &lt;/span&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><category term="lebesgue-integral" /><summary type="html">Part III of the measure theory series. Materials are mostly taken from Tao’s book, except for some needed notations extracted from Stein’s book.</summary></entry><entry><title type="html">Generalized Linear Models</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/glm.html" rel="alternate" type="text/html" title="Generalized Linear Models" /><published>2022-08-13T13:00:00+07:00</published><updated>2022-08-13T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/glm</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/glm.html">&lt;blockquote&gt;
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
+
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;It should be simpler to consider the case of $k=2$, in particular with two sets $E_1,E_2\subset\mathbb{R}^d$. These two sets partition $\mathbb{R}^d$ into four disjoint sets: $E_1\cap E_2,E_1\cap E_2^c,E_1^c\cap E_2,E_1^c\cap E_2^c$. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><category term="lebesgue-integral" /><summary type="html">Part III of the measure theory series. Materials are mostly taken from Tao’s book, except for some needed notations extracted from Stein’s book.</summary></entry><entry><title type="html">Generalized Linear Models</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/glm.html" rel="alternate" type="text/html" title="Generalized Linear Models" /><published>2022-08-13T13:00:00+07:00</published><updated>2022-08-13T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/glm</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/08/13/glm.html">&lt;blockquote&gt;
   &lt;p&gt;Linear models for solving both regression and classification problems are members of a broader family named Generalized Linear Models.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -1965,20 +2029,20 @@ p(\mathcal{C}_2\vert\boldsymbol{\phi},\mathbf{t})=1-p(\mathcal{C}_1\vert\boldsym
   &lt;ol&gt;
     &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
       &lt;p&gt;A covariance matrix $\mathbf{C}$ is &lt;strong&gt;isotropic&lt;/strong&gt; (or &lt;strong&gt;spherical&lt;/strong&gt;) if it is proportional to the identity matrix $\mathbf{I}$
-\begin{equation}
+\begin{equation*}
 \mathbf{C}=\lambda\mathbf{I},
-\end{equation}
+\end{equation*}
 where $\lambda\in\mathbb{R}$ is a constant. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:2&quot; role=&quot;doc-endnote&quot;&gt;
       &lt;p&gt;For positive numbers $p_1,\ldots,p_n$ such that $\sum_{i=1}^{n}p_i=1$ and $f$ is a continuous function, if $f$ is &lt;strong&gt;convex&lt;/strong&gt;, then
-\begin{equation}
+\begin{equation*}
 f\left(\sum_{i=1}^{n}p_ix_i\right)\leq\sum_{i=1}^{n}p_if(x_i),
-\end{equation}
+\end{equation*}
 and if $f$ is &lt;strong&gt;concave&lt;/strong&gt;, we instead have
-\begin{equation}
+\begin{equation*}
 f\left(\sum_{i=1}^{n}p_ix_i\right)\geq\sum_{i=1}^{n}p_if(x_i),
-\end{equation} &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+\end{equation*} &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="machine-learning" /><category term="artificial-intelligent" /><category term="machine-learning" /><category term="linear-regression" /><category term="logistic-regression" /><category term="linear-discriminant-analysis" /><summary type="html">Linear models for solving both regression and classification problems are members of a broader family named Generalized Linear Models.</summary></entry><entry><title type="html">Measure theory - II: Lebesgue measure</title><link href="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html" rel="alternate" type="text/html" title="Measure theory - II: Lebesgue measure" /><published>2022-07-03T13:00:00+07:00</published><updated>2022-07-03T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html">&lt;blockquote&gt;

@@ -1300,16 +1300,16 @@ p(\mathcal{C}\_2\vert\boldsymbol{\phi},\mathbf{t})=1-p(\mathcal{C}\_1\vert\bolds
 {: #footnotes}
 
 [^1]: A covariance matrix $\mathbf{C}$ is **isotropic** (or **spherical**) if it is proportional to the identity matrix $\mathbf{I}$
-	\begin{equation}
+	\begin{equation\*}
 	\mathbf{C}=\lambda\mathbf{I},
-	\end{equation}
+	\end{equation\*}
 	where $\lambda\in\mathbb{R}$ is a constant.
 
 [^2]: For positive numbers $p_1,\ldots,p_n$ such that $\sum_{i=1}^{n}p_i=1$ and $f$ is a continuous function, if $f$ is **convex**, then
-	\begin{equation}
+	\begin{equation\*}
 	f\left(\sum_{i=1}^{n}p_ix_i\right)\leq\sum_{i=1}^{n}p_if(x_i),
-	\end{equation}
+	\end{equation\*}
 	and if $f$ is **concave**, we instead have
-	\begin{equation}
+	\begin{equation\*}
 	f\left(\sum_{i=1}^{n}p_ix_i\right)\geq\sum_{i=1}^{n}p_if(x_i),
-	\end{equation}
+	\end{equation\*}

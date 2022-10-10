@@ -53,18 +53,45 @@ which means $\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx\in[0,+\infty]$.
 ### Well-definedness of simple integral
 {: #well-dfn-simp-int}
 **Lemma 1**  
-*Let $k,k'\geq 0$ be natural, $c_1,\ldots,c_k,c_1',\dots,c_k'\in[0,+\infty]$ and $E_1,\ldots,E_k,E_1',\ldots,E_k'\subset\mathbb{R}^d$ be Lebesgue measurable sets such that the identity
+*Let $k,k'\geq 0$ be natural, $c_1,\ldots,c_k,c_1',\dots,c_{k'}'\in[0,+\infty]$ and $E_1,\ldots,E_k,E_1',\ldots,E_{k'}'\subset\mathbb{R}^d$ be Lebesgue measurable sets such that the identity
 \begin{equation}
-c_1 1\_{E_1}+\ldots+c_k 1\_{E_k}=c_1' 1\_{E_1'}+\ldots+c_k' 1\_{E_k'}
+c_1 1\_{E_1}+\ldots+c_k 1\_{E_k}=c_1' 1\_{E_1'}+\ldots+c_{k'}' 1\_{E_{k'}'}\label{eq:lemma1.1}
 \end{equation}
-hold identically on $\mathbb{R}^d$. Then we have*
+holds identically on $\mathbb{R}^d$. Then we have*
 \begin{equation}
-c_1 m(E_1)+\ldots+c_k m(E_k)=c_1' m(E_1')+\ldots+c_k' m(E_k')
+c_1 m(E_1)+\ldots+c_k m(E_k)=c_1' m(E_1')+\ldots+c_{k'}' m(E_{k'}')
 \end{equation}
 
 **Proof**  
-The $k+k'$ sets $E_1,\ldots,E_k,E_1',\ldots,E_k'$ partition $\mathbb{R}^d$ into $2^{k+k'}$ disjoint sets, each of which is an intersection of some of the $E_1,\ldots,E_k,E_1',\ldots,E_k'$ and their complements.
+The $k+k'$ sets $E_1,\ldots,E_k,E_1',\ldots,E_{k'}'$ partition $\mathbb{R}^d$ into $2^{k+k'}$ disjoint sets, each of which is an intersection of some of the $E_1,\ldots,E_k,E_1',\ldots,E_{k'}'$ and their complements[^1].
 
+Removing any sets that are empty, we end up with a partition of $R^d$ of $m$ non-empty disjoint sets $A_1,\ldots,A_m$ for some $0\leq m\leq 2^{k+k'}$. It easily seen that $A_1,\ldots,A_m$ are then Lebesgue measurable due to the Lebesgue measurability of $E_1,\ldots,E_k,E_1',\ldots,E_{k'}'$.
+
+With this set up, each of the $E_1,\ldots,E_k,E_1',\ldots,E_{k'}'$ are unions of some of the $A_1,\ldots,A_m$. Or in other words, we have
+\begin{equation}
+E_1=\bigcup_{j\in J_i}A_j,
+\end{equation}
+and
+\begin{equation}
+E_{i'}'=\bigcup_{j'\in J_{i'}'}A_j',
+\end{equation}
+for all $i=1,\ldots,k$ and $i'=1,\ldots,k'$, and some subsets $J_i,J_{i'}'\subset\\{1,\ldots,m\\}$. By finite additivity property of Lebesgue measure, we therefore have
+\begin{equation}
+m(E_i)=\sum_{j\in J_i}m(A_j)
+\end{equation}
+and
+\begin{equation}
+m(E_{i'}')=\sum_{j\in J_{i'}'}m(A_j)
+\end{equation}
+Hence, the problem remains to show that
+\begin{equation}
+\sum_{i=1}^{k}c_i\sum_{j\in J_i}m(A_j)=\sum_{i'=1}^{k'}c_{i'}'\sum_{j\in J_{i'}'}m(A_j)\label{eq:lemma1.2}
+\end{equation}
+Fix $1\leq j\leq m$, we have that at each point $x$ in the non-empty set $A_j$, $1\_{E_i}(x)$ is equal to $1\_{J_i}(j)$, and similarly $1\_{E_{i'}'}(x)$ is equal to $1\_{J_{i'}'}(j)$. Then from \eqref{eq:lemma1.1} we have
+\begin{equation}
+\sum_{i=1}^{k}c_i 1\_{J_i}(j)=\sum_{i'=1}^{k'}c_{i'}'1\_{J_{i'}'}(j)
+\end{equation}
+Multiplying both sides by $m(A_j)$ and then summing over all $j=1,\ldots,m$, we obtain \eqref{eq:lemma1.2}
 
 ### Almost everywhere and support
 {: #alm-evwhr-spt}
@@ -122,15 +149,15 @@ Let $f,g:\mathbb{R}^d\to[0,+\infty]$ be simple unsigned functions.
 **Proof**  
 Since $f,g:\mathbb{R}^d\to[0,+\infty]$ are simple unsigned functions, we can assume that
 \begin{align}
-f&=c_1 1\_{E_1}+\ldots+c_k 1\_{E_k}, \\\\ g&=c_1 1\_{E_1}+\ldots+c_k' 1\_{E_k'},
+f&=c_1 1\_{E_1}+\ldots+c_k 1\_{E_k}, \\\\ g&=c_1' 1\_{E_1'}+\ldots+c_{k'}' 1\_{E_{k'}'},
 \end{align}
-where $c_1,\ldots,c_k,c_1',\ldots,c_k'\in[0,+\infty]$.
+where $c_1,\ldots,c_k,c_1',\ldots,c_{k'}'\in[0,+\infty]$.
 <ul id='roman-list'>
 	<li>
 		<b>Unsigned linearity</b><br>
 		We have
 		\begin{align}
-		\hspace{-1cm}\text{Simp}\int_{\mathbb{R}^d}f(x)+g(x)\,dx&=c_1 m(E_1)+\ldots+c_k m(E_k)+c_1' m(E_1')+\ldots+c_k' m(E_k') \\ &=\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx+\text{Simp}\int_{\mathbb{R}^d}g(x)\,dx
+		\hspace{-1cm}\text{Simp}\int_{\mathbb{R}^d}f(x)+g(x)\,dx&=c_1 m(E_1)+\ldots+c_k m(E_k)+c_1' m(E_1')+\ldots+c_{k'}' m(E_{k'}') \\ &=\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx+\text{Simp}\int_{\mathbb{R}^d}g(x)\,dx
 		\end{align}
 		For any $c\in[0,+\infty]$, we have
 		\begin{align}
@@ -193,7 +220,8 @@ where $c_1,\ldots,c_k,c_1',\ldots,c_k'\in[0,+\infty]$.
 		Therefore, $f$ is zero almost everywhere because in this case $f$ takes the value of non-zero iff $x$ is in a particular null set $E_j$.<br>
 		Given $f$ is zero almost everywhere, for every $i=1,\ldots,k$, we have that either<br>
 		(1) $c_i=0$, or<br>
-		(2) $c_i\neq 0$ and $x\notin E_i$ with $E_i$ is a null set.<br>
+		(2) $c_i\neq 0$ and $x\notin E_i$ with $E_i$ is a null set, or<br>
+		(3) $c_i=0$ and and $x\notin E_i$ with $E_i$ is a null set.<br>
 		Therefore, the integral of $f$
 		\begin{equation}
 		\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx=c_1 m(E_1)+\ldots+c_k m(E_k)=0
@@ -201,15 +229,41 @@ where $c_1,\ldots,c_k,c_1',\ldots,c_k'\in[0,+\infty]$.
 	</li>
 	<li>
 		<b>Equivalence</b><br>
+		Given $f$ and $g$ agree almost everywhere, we have that at any point $x\in\mathbb{R}^d$ such that $f(x)=g(x)$, by <b>lemma 1</b>, we obtain
+		\begin{equation}
+		\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx=\text{Simp}\int_{\mathbb{R}^d}g(x)\,dx
+		\end{equation}
+		For more convenient, let $K=\{E_i\cap E_{i'}':1\leq i\leq k,1\leq i'\leq k'\}$. The set $K$ then has cardinality of $kk'$. Thus, without loss of generality, we can denote $K$ as
+		\begin{equation}
+		K=\{K_1,\ldots,K_{kk'}\}
+		\end{equation}
+		With this definition of $K$, the functions $f$ and $g$ can be rewritten by
+		\begin{equation}
+		f=a_1 1_{K_1}+\ldots+a_{kk'}1_{K_{kk'}}\label{eq:bpsui.3}
+		\end{equation}
+		and
+		\begin{equation}
+		g=b_1 1_{K_1}+\ldots+b_{kk'}1_{K_{kk'}}\label{eq:bpsui.4}
+		\end{equation}
+		On the other hand, the set in which $f(x)\neq g(x)$ is a null set. Thus by \eqref{eq:bpsui.3} and \eqref{eq:bpsui.4}, we have $x\in A$, where some $A\subset K$ is a null set, and for each $i$ such that $K_i\subset A$ (thus is also a null set, or $m(K_i)=0$), $a_i\neq b_i$, otherwise if $K_i\notin A$, $a_i=b_i$. Therefore, we obtain
+		\begin{equation}
+		\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx=\sum_{i,K_i\notin A}c_i m(K_i)
+		\end{equation}
+		and
+		\begin{equation}
+		\text{Simp}\int_{\mathbb{R}^d}g(x)\,dx=\sum_{i,K_i\notin A}c_i m(K_i)
+		\end{equation}
+		which proves our claim.
 	</li>
 	<li>
 		<b>Monotonicity</b><br>
+		Using the same procedure as the proof for equivalence, our claim can be proved.
 	</li>
 	<li>
 		<b>Compatibility with Lebesgue measure</b><br>
+		This follows directly from definition
 	</li>
 </ul>
-
 
 ### Absolutely convergence simple integral
 {: #abs-cvg-simp-int}
@@ -342,3 +396,5 @@ Let $f:\mathbb{R}\to[0,+\infty]$ be an unsigned function. The following are then
 
 ## Footnotes
 {: #footnotes}
+
+[^1]: It should be simpler to consider the case of $k=2$, in particular with two sets $E_1,E_2\subset\mathbb{R}^d$. These two sets partition $\mathbb{R}^d$ into four disjoint sets: $E_1\cap E_2,E_1\cap E_2^c,E_1^c\cap E_2,E_1^c\cap E_2^c$.
