@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-10T14:21:51+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-10T14:38:35+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">CMA Evolution Strategy</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es.html" rel="alternate" type="text/html" title="CMA Evolution Strategy" /><published>2022-09-14T13:00:00+07:00</published><updated>2022-09-14T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es.html">&lt;blockquote&gt;
   &lt;p&gt;A note on CMA - Evolution Strategy
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -359,9 +359,15 @@ a_j=\sum_{i}w_{ji}z_i
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#unsgn-msr-funcs&quot;&gt;Unsigned measurable functions&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#equiv-ntn-msrb&quot;&gt;Equivalent notions of measurability&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#cmplx-msrb&quot;&gt;Complex measurability&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#equiv-ntn-cmplx-msrb&quot;&gt;Equivalent notions of complex measurability&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#unsgn-lebesgue-int&quot;&gt;Unsigned Lebesgue integrals&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#unsgn-lebesgue-int&quot;&gt;Unsigned Lebesgue integrals&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#lwr-unsgn-lebesgue-int&quot;&gt;Lower unsigned Lebesgue integral&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#abs-intb&quot;&gt;Absolute integrability&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#littlewoods-prncpl&quot;&gt;Littlewood’s three principles&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
@@ -710,7 +716,44 @@ Let $f:\mathbb{R}\to[0,+\infty]$ be an unsigned function. The following are then
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 
+&lt;h3 id=&quot;cmplx-msrb&quot;&gt;Complex measurability&lt;/h3&gt;
+&lt;p&gt;An almost everywhere defined complex-valued function $f:\mathbb{R}^d\to\mathbb{C}$ is &lt;strong&gt;Lebesgue measurable&lt;/strong&gt;, or &lt;strong&gt;measurable&lt;/strong&gt;, if it is the pointwise almost everywhere limit of complex-valued simple functions.&lt;/p&gt;
+
+&lt;h3 id=&quot;equiv-ntn-cmplx-msrb&quot;&gt;Equivalent notions of complex measurability&lt;/h3&gt;
+&lt;p&gt;Let $f:\mathbb{R}^d\to\mathbb{C}$ be an almost everywhere defined complex-valued function. The following are then equivalent:&lt;/p&gt;
+&lt;ul id=&quot;roman-list&quot;&gt;
+	&lt;li&gt;
+		$f$ is measurable.
+	&lt;/li&gt;
+	&lt;li&gt;
+		$f$ is the pointwise almost everywhere limit of complex-valued simple functions.
+	&lt;/li&gt;
+	&lt;li&gt;
+		The (magnitudes of the) positive and negative parts of $\text{Re}(f)$ and $\text{Im}(f)$ are unsigned measurable functions.
+	&lt;/li&gt;
+	&lt;li&gt;
+		$f^{-1}(U)$ is Lebesgue measurable for every open set $U\subset\mathbb{C}$.
+	&lt;/li&gt;
+	&lt;li&gt;
+		$f^{-1}(K)$ is Lebesgue measurable for every closed set $K\subset\mathbb{C}$.
+	&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+
 &lt;h2 id=&quot;unsgn-lebesgue-int&quot;&gt;Unsigned Lebesgue integrals&lt;/h2&gt;
+
+&lt;h3 id=&quot;lwr-unsgn-lebesgue-int&quot;&gt;Lower unsigned Lebesgue integral&lt;/h3&gt;
+&lt;p&gt;Let $f:\mathbb{R}^d\to[0,+\infty]$ be an unsigned functions (not necessarily measurable). We define the &lt;strong&gt;lower unsigned Lebesgue integral&lt;/strong&gt;, denoted as $\underline{\int_{\mathbb{R}^d}}f(x)\,dx$, to be the quantity
+\begin{equation}
+\underline{\int_\mathbb{R}^d}f(x)\,dx\doteq\sup_{0\leq g\leq f;g\text{ simple}}\text{Simp}\int_{\mathbb{R}^d}g(x)\,dx,
+\end{equation}
+where $g$ ranges over all unsigned simple functions $g:\mathbb{R}^d\to[0,+\infty]$ that are pointwise bounded by $f$.&lt;/p&gt;
+
+&lt;p&gt;We can also define the &lt;strong&gt;upper unsigned Lebesgue integral&lt;/strong&gt; as
+\begin{equation}
+\overline{\int_\mathbb{R}^d}f(x)\,dx\doteq\inf_{h\geq f;h\text{ simple}}\text{Simp}\int_{\mathbb{R}^d}h(x)\,dx
+\end{equation}&lt;/p&gt;
 
 &lt;h2 id=&quot;abs-intb&quot;&gt;Absolute integrability&lt;/h2&gt;
 

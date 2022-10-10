@@ -22,7 +22,10 @@ eqn-number: true
 - [Measurable functions](#msr-funcs)
 	- [Unsigned measurable functions](#unsgn-msr-funcs)
 	- [Equivalent notions of measurability](#equiv-ntn-msrb)
+	- [Complex measurability](#cmplx-msrb)
+	- [Equivalent notions of complex measurability](#equiv-ntn-cmplx-msrb)
 - [Unsigned Lebesgue integrals](#unsgn-lebesgue-int)
+	- [Lower unsigned Lebesgue integral](#lwr-unsgn-lebesgue-int)
 - [Absolute integrability](#abs-intb)
 - [Littlewood's three principles](#littlewoods-prncpl)
 - [References](#references)
@@ -379,8 +382,48 @@ Let $f:\mathbb{R}\to[0,+\infty]$ be an unsigned function. The following are then
 
 **Proof**
 
+### Complex measurability
+{: #cmplx-msrb}
+An almost everywhere defined complex-valued function $f:\mathbb{R}^d\to\mathbb{C}$ is **Lebesgue measurable**, or **measurable**, if it is the pointwise almost everywhere limit of complex-valued simple functions.
+
+### Equivalent notions of complex measurability
+{: #equiv-ntn-cmplx-msrb}
+Let $f:\mathbb{R}^d\to\mathbb{C}$ be an almost everywhere defined complex-valued function. The following are then equivalent:
+<ul id='roman-list'>
+	<li>
+		$f$ is measurable.
+	</li>
+	<li>
+		$f$ is the pointwise almost everywhere limit of complex-valued simple functions.
+	</li>
+	<li>
+		The (magnitudes of the) positive and negative parts of $\text{Re}(f)$ and $\text{Im}(f)$ are unsigned measurable functions.
+	</li>
+	<li>
+		$f^{-1}(U)$ is Lebesgue measurable for every open set $U\subset\mathbb{C}$.
+	</li>
+	<li>
+		$f^{-1}(K)$ is Lebesgue measurable for every closed set $K\subset\mathbb{C}$.
+	</li>
+</ul>
+
+**Proof**
+
 ## Unsigned Lebesgue integrals
 {: #unsgn-lebesgue-int}
+
+### Lower unsigned Lebesgue integral
+{: #lwr-unsgn-lebesgue-int}
+Let $f:\mathbb{R}^d\to[0,+\infty]$ be an unsigned functions (not necessarily measurable). We define the **lower unsigned Lebesgue integral**, denoted as $\underline{\int_{\mathbb{R}^d}}f(x)\,dx$, to be the quantity
+\begin{equation}
+\underline{\int_\mathbb{R}^d}f(x)\,dx\doteq\sup_{0\leq g\leq f;g\text{ simple}}\text{Simp}\int_{\mathbb{R}^d}g(x)\,dx,
+\end{equation}
+where $g$ ranges over all unsigned simple functions $g:\mathbb{R}^d\to[0,+\infty]$ that are pointwise bounded by $f$.
+
+We can also define the **upper unsigned Lebesgue integral** as
+\begin{equation}
+\overline{\int_\mathbb{R}^d}f(x)\,dx\doteq\inf_{h\geq f;h\text{ simple}}\text{Simp}\int_{\mathbb{R}^d}h(x)\,dx
+\end{equation}
 
 ## Absolute integrability
 {: #abs-intb}
