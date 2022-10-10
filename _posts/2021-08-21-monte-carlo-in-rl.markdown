@@ -316,7 +316,7 @@ Consider driving a race car around a turn like that shown in ***Figure 4***. You
 </figure><br/>
 
 **Solution code**  
-The source code can be found [here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-5/racetrack.py).  
+The source code can be found [here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-05/racetrack.py).  
 
 <button type="button" class="collapsible" id="codeP">Click to show the code</button>
 <div class="codePanel" id="codePdata" markdown="1">
@@ -548,7 +548,7 @@ $\rho_{0:1}=\frac{\pi(A_0|S_0)}{b(A_0|S_0)}$.
 The other 99 factors $\frac{\pi(A_1|S_1)}{b(A_1|S_1)}\dots\frac{\pi(A_{99}|S_{99})}{b(A_{99}|S_{99})}$ are irrelevant because after the first reward, the return has already been determined. These later factors are all independent of the return and of expected value $1$; they do not change the expected update, but they add enormously to its variance. They could even make the variance *infinite* in some cases.
 <figure>
 	<img src="/assets/images/2021-08-21/inf-var.png" alt="infinite variance" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 6</b>: Infinite variance when using OIS (Eg5.5 - RL: An Introduction book). The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-5/infinite-variance.py)</span></figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 6</b>: Infinite variance when using OIS (Eg5.5 - RL: An Introduction book). The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-05/infinite-variance.py)</span></figcaption>
 </figure><br/>
 
 One of the methods used to avoid this large extraneous variance is **discounting-aware IS**. The idea is to think of discounting as determining a probability of termination or, equivalently, a *degree* of partial termination.  

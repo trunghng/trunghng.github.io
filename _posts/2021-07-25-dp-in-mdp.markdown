@@ -120,7 +120,7 @@ An example of using policy iteration on the Jack's rental problem ([**RL book - 
 
 <figure>
     <img src="/assets/images/2021-07-25/jackscar.png" alt="Using policy iteration on Jack's car rental problem" style="display: block; margin-left: auto; margin-right: auto;"/>
-    <figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: Policy Iteration on Jack's car rental task. The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-4/jackscar.py)</span></figcaption>
+    <figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: Policy Iteration on Jack's car rental task. The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-04/jackscar.py)</span></figcaption>
 </figure><br/>
 
 
@@ -151,7 +151,7 @@ Let's say you are a gambler, who decides to bet on the outcomes of sequence of c
 And we also assume that the probability of the coin coming up heads, $p_h=0.4$.
 
 **Solution code**  
-The code can be found [here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-4/gambler.py).
+The code can be found [here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-04/gambler.py).
 
 <button type="button" class="collapsible" id="codeP">Click to show the code</button>
 <div class="codePanel" id="codePdata" markdown="1">

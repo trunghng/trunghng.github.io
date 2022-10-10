@@ -116,7 +116,7 @@ As usual, four action, $\text{up}, \text{down}, \text{right}$ and $\text{left}$ 
 The task is discounted, episodic with $\gamma=0.95$.
 <figure>
     <img src="/assets/images/2022-05-19/dyna-maze-dyna-q.png" alt="Dyna maze solved with Dyna-Q" style="display: block; margin-left: auto; margin-right: auto; width: 500px; height: 400px"/>
-    <figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: Using Dyna-Q with different setting of number of planning steps on the maze.<br>The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-8/maze.py).</span></figcaption>
+    <figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: Using Dyna-Q with different setting of number of planning steps on the maze.<br>The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-08/maze.py).</span></figcaption>
 </figure>
 
 ### Dyna-Q+
@@ -140,7 +140,7 @@ for a small (time weight) $\kappa$; where $r$ is the modeled reward for a transi
 The following plot shows the performance comparison between Dyna-Q and Dyna-Q+ on this blocking task, with changing in the environment happens after 1000 steps.
 <figure>
     <img src="/assets/images/2022-05-19/blocking-maze-dyna-q-qplus.png" alt="Dyna-Q, Dyna-Q+ on blocking maze" style="display: block; margin-left: auto; margin-right: auto; width: 500px; height: 400px"/>
-    <figcaption style="text-align: center;font-style: italic;"><b>Figure 6</b>: Average performance of Dyna-Q and Dyna-Q+ on blocking maze.<br>The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-8/maze.py).</span></figcaption>
+    <figcaption style="text-align: center;font-style: italic;"><b>Figure 6</b>: Average performance of Dyna-Q and Dyna-Q+ on blocking maze.<br>The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-08/maze.py).</span></figcaption>
 </figure>
 
 We also make a comparison between with and without giving an exploration bonus to the Dyna-Q agent on the shortcut maze below.
@@ -152,7 +152,7 @@ We also make a comparison between with and without giving an exploration bonus t
 Below is the result of using two agents solving the shortcut maze with environment modification appears after 3000 steps.
 <figure>
     <img src="/assets/images/2022-05-19/shortcut-maze-dyna-q-qplus.png" alt="Dyna-Q, Dyna-Q+ on blocking maze" style="display: block; margin-left: auto; margin-right: auto; width: 500px; height: 400px"/>
-    <figcaption style="text-align: center;font-style: italic;"><b>Figure 8</b>: Average performance of Dyna-Q and Dyna-Q+ on shortcut maze.<br>The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-8/maze.py).</span></figcaption>
+    <figcaption style="text-align: center;font-style: italic;"><b>Figure 8</b>: Average performance of Dyna-Q and Dyna-Q+ on shortcut maze.<br>The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-08/maze.py).</span></figcaption>
 </figure>
 It can be seen from the plot above that the difference between Dyna-Q+ and Dyna-Q narrowed slightly over the first part of the experiment (the one using the left maze as its environment).
 
@@ -170,7 +170,7 @@ Pseudocode of prioritized sweeping is shown below.
 
 <figure>
     <img src="/assets/images/2022-05-19/dyna-maze-prioritized-sweeping.png" alt="Prioritized sweeping on dyna maze" style="display: block; margin-left: auto; margin-right: auto; width: 500px; height: 400px"/>
-    <figcaption style="text-align: center;font-style: italic;"><b>Figure 9</b>: Using prioritized sweeping on mazes.<br>The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-8/maze.py).</span></figcaption>
+    <figcaption style="text-align: center;font-style: italic;"><b>Figure 9</b>: Using prioritized sweeping on mazes.<br>The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-08/maze.py).</span></figcaption>
 </figure>
 
 ## Trajectory Sampling
