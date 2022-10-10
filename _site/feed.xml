@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-10T19:38:17+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-10T21:02:57+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">CMA Evolution Strategy</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es.html" rel="alternate" type="text/html" title="CMA Evolution Strategy" /><published>2022-09-14T13:00:00+07:00</published><updated>2022-09-14T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es.html">&lt;blockquote&gt;
   &lt;p&gt;A note on CMA - Evolution Strategy
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -10,8 +10,10 @@
       &lt;ul&gt;
         &lt;li&gt;&lt;a href=&quot;#est-scratch&quot;&gt;Estimating from scratch&lt;/a&gt;&lt;/li&gt;
         &lt;li&gt;&lt;a href=&quot;#rank-lambda-mu-update&quot;&gt;Rank-$\gamma$-update&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#rank-one-update&quot;&gt;Rank-one-update&lt;/a&gt;&lt;/li&gt;
       &lt;/ul&gt;
     &lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;#ctrl-sigma&quot;&gt;Controlling the step-size&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
   &lt;/ul&gt;
@@ -59,30 +61,65 @@ where&lt;/p&gt;
   &lt;li&gt;$\mathbf{x}_{i:\lambda}^{(t+1)}$: $i$-th best sample out of $\mathbf{x}_1^{(t+1)},\ldots,\mathbf{x}_\lambda^{(t+1)}$ from \eqref{eq:be.1}, i.e. with $f$ is the objective function to be minimized, we have
 \begin{equation}
 f(\mathbf{x}_{1:\lambda}^{(t+1)})\geq f(\mathbf{x}_{2:\lambda}^{(t+1)})\geq\ldots\geq f(\mathbf{x}_{\lambda:\lambda}^{(t+1)})
-\end{equation}
-We can rewrite \eqref{eq:um.1} as an update rule for the mean $\boldsymbol{\mu}$
+\end{equation}&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We can rewrite \eqref{eq:um.1} as an update rule for the mean $\boldsymbol{\mu}$
 \begin{equation}
 \boldsymbol{\mu}^{(t+1)}=\boldsymbol{\mu}^{(t)}+\alpha_\boldsymbol{\mu}\sum_{i=1}^{\gamma}w_i\left(\mathbf{x}_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right),
 \end{equation}
-where $\alpha_\boldsymbol{\mu}\leq 1$ is the learning rate, which is usually set to $1$.&lt;/li&gt;
-&lt;/ul&gt;
+where $\alpha_\boldsymbol{\mu}\leq 1$ is the learning rate, which is usually set to $1$.&lt;/p&gt;
 
 &lt;h2 id=&quot;adp-cov&quot;&gt;Adapting the covariance matrix&lt;/h2&gt;
 
 &lt;h3 id=&quot;est-scratch&quot;&gt;Estimating from scratch&lt;/h3&gt;
 &lt;p&gt;Rather than using the empirical covariance matrix as an estimator for $\boldsymbol{\Sigma}^{(t)}$, in the CMA-ES, we consider the following estimation
 \begin{equation}
-\boldsymbol{\Sigma}_\lambda^{(t+1)}=\frac{1}{\lambda{\sigma^{(t)}}^2}\sum_{i=1}^{\lambda}\left(\mathbf{x}_i^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)\left(\mathbf{x}_i^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)^\text{T}\label{eq:ac.1}
+\boldsymbol{\Sigma}_\lambda^{(t+1)}=\frac{1}{\lambda{\sigma^{(t)}}^2}\sum_{i=1}^{\lambda}\left(\mathbf{x}_i^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)\left(\mathbf{x}_i^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)^\text{T}\label{eq:es.1}
 \end{equation}
-Notice that in the above estimation \eqref{eq:ac.1}, we have used all of the $\lambda$ samples. We thus can estimate a better covariance matrix by select some of the best individual out of $\lambda$ samples, which is analogous to how we update the mean $\boldsymbol{\mu}$.&lt;/p&gt;
+Notice that in the above estimation \eqref{eq:es.1}, we have used all of the $\lambda$ samples. We thus can estimate a better covariance matrix by select some of the best individual out of $\lambda$ samples, which is analogous to how we update the mean $\boldsymbol{\mu}$.&lt;/p&gt;
 
 &lt;p&gt;In particular, we instead consider the estimation
 \begin{equation}
-\boldsymbol{\Sigma}_{\gamma}^{(t+1)}=\frac{1}{{\sigma^{(t)}}^2}\sum_{i=1}^{\gamma}w_i\left(\mathbf{x}_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)\left(\mathbf{x}_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)^\text{T},\label{eq:ac.2}
+\boldsymbol{\Sigma}_{\gamma}^{(t+1)}=\frac{1}{{\sigma^{(t)}}^2}\sum_{i=1}^{\gamma}w_i\left(\mathbf{x}_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)\left(\mathbf{x}_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)^\text{T},\label{eq:es.2}
 \end{equation}
 where $\gamma\leq\lambda$ is the number of selected points; the weights $w_i$ and selected points $\mathbf{x}_{i:\lambda}^{(t+1)}$ are defined as given in the update for $\boldsymbol{\mu}$.&lt;/p&gt;
 
 &lt;h3 id=&quot;rank-lambda-mu-update&quot;&gt;Rank-$\gamma$-update&lt;/h3&gt;
+&lt;p&gt;In order to ensure that \eqref{eq:es.2} is a reliable estimator, the selected population must be large enough. However, to get a fast search, the population size $\lambda$ must be small, which lets the selected sample size consequently small also. Thus, we can not get a reliable estimator for a good covariance matrix from \eqref{eq:es.2}. However, we can use the history as a helping hand.&lt;/p&gt;
+
+&lt;p&gt;In particular, if we have experienced a sufficient number of generations, the mean of the $\boldsymbol{\Sigma}_\gamma$ from all previous generations
+\begin{equation}
+\boldsymbol{\Sigma}^{(t+1)}=\frac{1}{t+1}\sum_{i=0}^{t}\boldsymbol{\Sigma}_\gamma^{(i+1)}\label{eq:rlmu.1}
+\end{equation}
+would be a reliable estimator.&lt;/p&gt;
+
+&lt;p&gt;In addition, it is reasonable that the recent generations will have more affection to the current generation than the distant ones. Hence, rather than assigning estimated covariance matrices $\boldsymbol{\Sigma}_\gamma$ from preceding generations the same weight as in \eqref{eq:rlmu.1}, it would be a better choice to give the more recent generations the higher weight.&lt;/p&gt;
+
+&lt;p&gt;Specifically, starting with an initial $\boldsymbol{\Sigma}^{(0)}=\mathbf{I}$, we consider the update, called &lt;strong&gt;rank-$\gamma$-update&lt;/strong&gt;, for the covariance matrix at generation $t+1$ as
+\begin{align}
+\boldsymbol{\Sigma}^{(t+1)}&amp;amp;=(1-\alpha_\gamma)\boldsymbol{\Sigma}^{(t)}+\alpha_\gamma\boldsymbol{\Sigma}_\gamma^{(t+1)} \\ &amp;amp;=(1-\alpha_\gamma)\boldsymbol{\Sigma}^{(t)}+\alpha_\gamma\frac{1}{{\sigma^{(t)}}^2}\sum_{i=1}^{\gamma}w_i\left(\mathbf{x}_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)\left(\mathbf{x}_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)^\text{T} \\ &amp;amp;=(1-\alpha_\gamma)\boldsymbol{\Sigma}^{(t)}+\alpha_\gamma\sum_{i=1}^{\gamma}w_i\mathbf{y}_{i:\lambda}^{(t+1)}{\mathbf{y}_{i:\lambda}^{(t+1)}}^\text{T},\label{eq:rlmu.2}
+\end{align}
+where&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;$\alpha_\gamma\leq 1$: learning rate.&lt;/li&gt;
+  &lt;li&gt;$w_1,\ldots,w_\gamma$ and $\mathbf{x}_{1:\lambda}^{(t+1)},\ldots,\mathbf{x}_{\lambda:\lambda}^{(g+1)}$ are defined as usual.&lt;/li&gt;
+  &lt;li&gt;$\mathbf{y}_{i:\lambda}^{(t+1)}=(\mathbf{x}_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)})/\sigma^{(t)}$.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The update \eqref{eq:rlmu.2} can be generalized to $\lambda$ weights values which neither necessarily sum to $1$, nor be non-negative anymore, as
+\begin{align}
+\boldsymbol{\Sigma}^{(t+1)}&amp;amp;=\left(1-\alpha_\gamma\sum_{i=1}^{\lambda}w_i\right)\boldsymbol{\Sigma}^{(t)}+\alpha_\gamma\sum_{i=1}^{\lambda}w_i\mathbf{y}_{i:\lambda}^{(t+1)}{\mathbf{y}_{i:\lambda}^{(t+1)}}^\text{T} \\ &amp;amp;={\boldsymbol{\Sigma}^{(t)}}^{1/2}\left[\mathbf{I}+\alpha_\gamma\sum_{i=1}^{\lambda}w_i\left(\mathbf{z}_{i:\lambda}^{(t+1)}{\mathbf{z}_{i:\lambda}^{(t+1)}}^\text{T}-\mathbf{I}\right)\right]{\boldsymbol{\Sigma}^{(t)}}^{1/2},
+\end{align}
+where&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;$w_1\geq\ldots\geq w_\gamma&amp;gt;0\geq w_{\gamma+1}\geq\ldots\geq w_\lambda\in\mathbb{R}$, and usually $\sum_{i=1}^{\gamma}w_i=1$ and $\sum_{i=1}^{\lambda}w_i\approx 0$.&lt;/li&gt;
+  &lt;li&gt;$\mathbf{z}_{i:\lambda}^{(t+1)}={\boldsymbol{\Sigma}^{(t)}}^{1/2}\mathbf{y}_{i:\lambda}^{(t+1)}$ is the mutation vector.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;rank-one-update&quot;&gt;Rank-one update&lt;/h3&gt;
+
+&lt;h2 id=&quot;ctrl-sigma&quot;&gt;Controlling the step-size&lt;/h2&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Nikolaus Hansen. &lt;a href=&quot;#https://arxiv.org/abs/1604.00772&quot;&gt;The CMA Evolution Strategy: A Tutorial&lt;/a&gt;.&lt;/p&gt;

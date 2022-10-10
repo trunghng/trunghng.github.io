@@ -16,6 +16,8 @@ eqn-number: true
 - [Adapting the covariance matrix](#adp-cov)
 	- [Estimating from scratch](#est-scratch)
 	- [Rank-$\gamma$-update](#rank-lambda-mu-update)
+	- [Rank-one-update](#rank-one-update)
+- [Controlling the step-size](#ctrl-sigma)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -62,6 +64,7 @@ where
 \begin{equation}
 f(\mathbf{x}\_{1:\lambda}^{(t+1)})\geq f(\mathbf{x}\_{2:\lambda}^{(t+1)})\geq\ldots\geq f(\mathbf{x}\_{\lambda:\lambda}^{(t+1)})
 \end{equation}
+
 We can rewrite \eqref{eq:um.1} as an update rule for the mean $\boldsymbol{\mu}$
 \begin{equation}
 \boldsymbol{\mu}^{(t+1)}=\boldsymbol{\mu}^{(t)}+\alpha_\boldsymbol{\mu}\sum_{i=1}^{\gamma}w_i\left(\mathbf{x}\_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right),
@@ -75,20 +78,50 @@ where $\alpha_\boldsymbol{\mu}\leq 1$ is the learning rate, which is usually set
 {: #est-scratch}
 Rather than using the empirical covariance matrix as an estimator for $\boldsymbol{\Sigma}^{(t)}$, in the CMA-ES, we consider the following estimation
 \begin{equation}
-\boldsymbol{\Sigma}\_\lambda^{(t+1)}=\frac{1}{\lambda{\sigma^{(t)}}^2}\sum_{i=1}^{\lambda}\left(\mathbf{x}\_i^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)\left(\mathbf{x}\_i^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)^\text{T}\label{eq:ac.1}
+\boldsymbol{\Sigma}\_\lambda^{(t+1)}=\frac{1}{\lambda{\sigma^{(t)}}^2}\sum_{i=1}^{\lambda}\left(\mathbf{x}\_i^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)\left(\mathbf{x}\_i^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)^\text{T}\label{eq:es.1}
 \end{equation}
-Notice that in the above estimation \eqref{eq:ac.1}, we have used all of the $\lambda$ samples. We thus can estimate a better covariance matrix by select some of the best individual out of $\lambda$ samples, which is analogous to how we update the mean $\boldsymbol{\mu}$.
+Notice that in the above estimation \eqref{eq:es.1}, we have used all of the $\lambda$ samples. We thus can estimate a better covariance matrix by select some of the best individual out of $\lambda$ samples, which is analogous to how we update the mean $\boldsymbol{\mu}$.
 
 In particular, we instead consider the estimation
 \begin{equation}
-\boldsymbol{\Sigma}\_{\gamma}^{(t+1)}=\frac{1}{\{\sigma^{(t)}\}^2}\sum_{i=1}^{\gamma}w_i\left(\mathbf{x}\_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)\left(\mathbf{x}\_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)^\text{T},\label{eq:ac.2}
+\boldsymbol{\Sigma}\_{\gamma}^{(t+1)}=\frac{1}{\{\sigma^{(t)}\}^2}\sum_{i=1}^{\gamma}w_i\left(\mathbf{x}\_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)\left(\mathbf{x}\_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)^\text{T},\label{eq:es.2}
 \end{equation}
 where $\gamma\leq\lambda$ is the number of selected points; the weights $w_i$ and selected points $\mathbf{x}\_{i:\lambda}^{(t+1)}$ are defined as given in the update for $\boldsymbol{\mu}$.
 
 ### Rank-$\gamma$-update
 {: #rank-lambda-mu-update}
+In order to ensure that \eqref{eq:es.2} is a reliable estimator, the selected population must be large enough. However, to get a fast search, the population size $\lambda$ must be small, which lets the selected sample size consequently small also. Thus, we can not get a reliable estimator for a good covariance matrix from \eqref{eq:es.2}. However, we can use the history as a helping hand.
 
+In particular, if we have experienced a sufficient number of generations, the mean of the $\boldsymbol{\Sigma}\_\gamma$ from all previous generations
+\begin{equation}
+\boldsymbol{\Sigma}^{(t+1)}=\frac{1}{t+1}\sum_{i=0}^{t}\boldsymbol{\Sigma}\_\gamma^{(i+1)}\label{eq:rlmu.1}
+\end{equation}
+would be a reliable estimator.
 
+In addition, it is reasonable that the recent generations will have more affection to the current generation than the distant ones. Hence, rather than assigning estimated covariance matrices $\boldsymbol{\Sigma}\_\gamma$ from preceding generations the same weight as in \eqref{eq:rlmu.1}, it would be a better choice to give the more recent generations the higher weight.
+
+Specifically, starting with an initial $\boldsymbol{\Sigma}^{(0)}=\mathbf{I}$, we consider the update, called **rank-$\gamma$-update**, for the covariance matrix at generation $t+1$ as
+\begin{align}
+\boldsymbol{\Sigma}^{(t+1)}&=(1-\alpha_\gamma)\boldsymbol{\Sigma}^{(t)}+\alpha_\gamma\boldsymbol{\Sigma}\_\gamma^{(t+1)} \\\\ &=(1-\alpha_\gamma)\boldsymbol{\Sigma}^{(t)}+\alpha_\gamma\frac{1}{\{\sigma^{(t)}\}^2}\sum_{i=1}^{\gamma}w_i\left(\mathbf{x}\_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)\left(\mathbf{x}\_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)^\text{T} \\\\ &=(1-\alpha_\gamma)\boldsymbol{\Sigma}^{(t)}+\alpha_\gamma\sum_{i=1}^{\gamma}w_i\mathbf{y}\_{i:\lambda}^{(t+1)}{\mathbf{y}\_{i:\lambda}^{(t+1)}}^\text{T},\label{eq:rlmu.2}
+\end{align}
+where
+- $\alpha_\gamma\leq 1$: learning rate.
+- $w_1,\ldots,w_\gamma$ and $\mathbf{x}\_{1:\lambda}^{(t+1)},\ldots,\mathbf{x}\_{\lambda:\lambda}^{(g+1)}$ are defined as usual.
+- $\mathbf{y}\_{i:\lambda}^{(t+1)}=(\mathbf{x}\_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)})/\sigma^{(t)}$.
+
+The update \eqref{eq:rlmu.2} can be generalized to $\lambda$ weights values which neither necessarily sum to $1$, nor be non-negative anymore, as
+\begin{align}
+\boldsymbol{\Sigma}^{(t+1)}&=\left(1-\alpha_\gamma\sum_{i=1}^{\lambda}w_i\right)\boldsymbol{\Sigma}^{(t)}+\alpha_\gamma\sum_{i=1}^{\lambda}w_i\mathbf{y}\_{i:\lambda}^{(t+1)}{\mathbf{y}\_{i:\lambda}^{(t+1)}}^\text{T} \\\\ &={\boldsymbol{\Sigma}^{(t)}}^{1/2}\left[\mathbf{I}+\alpha_\gamma\sum_{i=1}^{\lambda}w_i\left(\mathbf{z}\_{i:\lambda}^{(t+1)}{\mathbf{z}\_{i:\lambda}^{(t+1)}}^\text{T}-\mathbf{I}\right)\right]{\boldsymbol{\Sigma}^{(t)}}^{1/2},
+\end{align}
+where
+- $w_1\geq\ldots\geq w_\gamma>0\geq w_{\gamma+1}\geq\ldots\geq w_\lambda\in\mathbb{R}$, and usually $\sum_{i=1}^{\gamma}w_i=1$ and $\sum_{i=1}^{\lambda}w_i\approx 0$.
+- $\mathbf{z}\_{i:\lambda}^{(t+1)}={\boldsymbol{\Sigma}^{(t)}}^{1/2}\mathbf{y}\_{i:\lambda}^{(t+1)}$ is the mutation vector.
+
+### Rank-one update
+{: #rank-one-update}
+
+## Controlling the step-size
+{: #ctrl-sigma}
 
 ## References
 {: #references}
