@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-11T13:33:53+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-11T18:26:10+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">CMA Evolution Strategy</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es.html" rel="alternate" type="text/html" title="CMA Evolution Strategy" /><published>2022-09-14T13:00:00+07:00</published><updated>2022-09-14T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es.html">&lt;blockquote&gt;
   &lt;p&gt;A note on CMA - Evolution Strategy
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -11,8 +11,9 @@
   &lt;li&gt;&lt;a href=&quot;#adp-cov&quot;&gt;Adapting the covariance matrix&lt;/a&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#est-scratch&quot;&gt;Estimating from scratch&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#rank-lambda-mu-update&quot;&gt;Rank-$\gamma$-update&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#rank-one-update&quot;&gt;Rank-one-update&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#rank-lambda-mu-update&quot;&gt;Rank-$\gamma$ update&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#rank-one-update&quot;&gt;Rank-one update&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#final-update&quot;&gt;Final update&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#ctrl-sigma&quot;&gt;Controlling the step-size&lt;/a&gt;&lt;/li&gt;
@@ -71,7 +72,17 @@ f(\mathbf{x}_{1:\lambda}^{(t+1)})\geq f(\mathbf{x}_{2:\lambda}^{(t+1)})\geq\ldot
 \end{equation}
 where $\alpha_\boldsymbol{\mu}\leq 1$ is the learning rate, which is usually set to $1$.&lt;/p&gt;
 
+&lt;p&gt;When choosing the weight values $w_i$ and population size $\gamma$ for recombination, we take into account the &lt;strong&gt;variance effective selection mass&lt;/strong&gt;, denoted as $\gamma_\text{eff}$, given by
+\begin{equation}
+\gamma_\text{eff}\doteq\left(\frac{\Vert\mathbf{w}\Vert_1}{\Vert\mathbf{w}\Vert_2}\right)=\frac{\Vert\mathbf{w}\Vert_1^2}{\Vert\mathbf{w}\Vert_2^2}=\frac{1}{\sum_{i=1}^{\gamma}w_i^2}
+\end{equation}
+where $\mathbf{w}$ is defined as the weight vector
+\begin{equation}
+\mathbf{w}=(w_1,\ldots,w_\gamma)^\text{T}
+\end{equation}&lt;/p&gt;
+
 &lt;h2 id=&quot;adp-cov&quot;&gt;Adapting the covariance matrix&lt;/h2&gt;
+&lt;p&gt;The covariance matrix can be estimated from scratch using the population of the current generation or can be estimated with covariance matrix from previous generations.&lt;/p&gt;
 
 &lt;h3 id=&quot;est-scratch&quot;&gt;Estimating from scratch&lt;/h3&gt;
 &lt;p&gt;Rather than using the empirical covariance matrix as an estimator for $\boldsymbol{\Sigma}^{(t)}$, in the CMA-ES, we consider the following estimation
@@ -86,7 +97,7 @@ Notice that in the above estimation \eqref{eq:es.1}, we have used all of the $\l
 \end{equation}
 where $\gamma\leq\lambda$ is the number of selected points; the weights $w_i$ and selected points $\mathbf{x}_{i:\lambda}^{(t+1)}$ are defined as given in the update for $\boldsymbol{\mu}$.&lt;/p&gt;
 
-&lt;h3 id=&quot;rank-lambda-mu-update&quot;&gt;Rank-$\gamma$-update&lt;/h3&gt;
+&lt;h3 id=&quot;rank-lambda-mu-update&quot;&gt;Rank-$\gamma$ update&lt;/h3&gt;
 &lt;p&gt;In order to ensure that \eqref{eq:es.2} is a reliable estimator, the selected population must be large enough. However, to get a fast search, the population size $\lambda$ must be small, which lets the selected sample size consequently small also. Thus, we can not get a reliable estimator for a good covariance matrix from \eqref{eq:es.2}. However, we can use the history as a helping hand.&lt;/p&gt;
 
 &lt;p&gt;In particular, if we have experienced a sufficient number of generations, the mean of the $\boldsymbol{\Sigma}_\gamma$ from all previous generations
@@ -97,7 +108,7 @@ would be a reliable estimator.&lt;/p&gt;
 
 &lt;p&gt;In addition, it is reasonable that the recent generations will have more affection to the current generation than the distant ones. Hence, rather than assigning estimated covariance matrices $\boldsymbol{\Sigma}_\gamma$ from preceding generations the same weight as in \eqref{eq:rlmu.1}, it would be a better choice to give the more recent generations the higher weight.&lt;/p&gt;
 
-&lt;p&gt;Specifically, starting with an initial $\boldsymbol{\Sigma}^{(0)}=\mathbf{I}$, we consider the update, called &lt;strong&gt;rank-$\gamma$-update&lt;/strong&gt;, for the covariance matrix at generation $t+1$ as
+&lt;p&gt;Specifically, starting with an initial $\boldsymbol{\Sigma}^{(0)}=\mathbf{I}$, we consider the update, called &lt;strong&gt;rank-$\gamma$ update&lt;/strong&gt;, for the covariance matrix at generation $t+1$ using &lt;strong&gt;exponential smoothing&lt;/strong&gt;&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; as
 \begin{align}
 \boldsymbol{\Sigma}^{(t+1)}&amp;amp;=(1-\alpha_\gamma)\boldsymbol{\Sigma}^{(t)}+\alpha_\gamma\boldsymbol{\Sigma}_\gamma^{(t+1)} \\ &amp;amp;=(1-\alpha_\gamma)\boldsymbol{\Sigma}^{(t)}+\alpha_\gamma\frac{1}{{\sigma^{(t)}}^2}\sum_{i=1}^{\gamma}w_i\left(\mathbf{x}_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)\left(\mathbf{x}_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)^\text{T} \\ &amp;amp;=(1-\alpha_\gamma)\boldsymbol{\Sigma}^{(t)}+\alpha_\gamma\sum_{i=1}^{\gamma}w_i\mathbf{y}_{i:\lambda}^{(t+1)}{\mathbf{y}_{i:\lambda}^{(t+1)}}^\text{T},\label{eq:rlmu.2}
 \end{align}
@@ -110,7 +121,7 @@ where&lt;/p&gt;
 
 &lt;p&gt;The update \eqref{eq:rlmu.2} can be generalized to $\lambda$ weights values which neither necessarily sum to $1$, nor be non-negative anymore, as
 \begin{align}
-\boldsymbol{\Sigma}^{(t+1)}&amp;amp;=\left(1-\alpha_\gamma\sum_{i=1}^{\lambda}w_i\right)\boldsymbol{\Sigma}^{(t)}+\alpha_\gamma\sum_{i=1}^{\lambda}w_i\mathbf{y}_{i:\lambda}^{(t+1)}{\mathbf{y}_{i:\lambda}^{(t+1)}}^\text{T} \\ &amp;amp;={\boldsymbol{\Sigma}^{(t)}}^{1/2}\left[\mathbf{I}+\alpha_\gamma\sum_{i=1}^{\lambda}w_i\left(\mathbf{z}_{i:\lambda}^{(t+1)}{\mathbf{z}_{i:\lambda}^{(t+1)}}^\text{T}-\mathbf{I}\right)\right]{\boldsymbol{\Sigma}^{(t)}}^{1/2},
+\boldsymbol{\Sigma}^{(t+1)}&amp;amp;=\left(1-\alpha_\gamma\sum_{i=1}^{\lambda}w_i\right)\boldsymbol{\Sigma}^{(t)}+\alpha_\gamma\sum_{i=1}^{\lambda}w_i\mathbf{y}_{i:\lambda}^{(t+1)}{\mathbf{y}_{i:\lambda}^{(t+1)}}^\text{T}\label{eq:rlmu.3} \\ &amp;amp;={\boldsymbol{\Sigma}^{(t)}}^{1/2}\left[\mathbf{I}+\alpha_\gamma\sum_{i=1}^{\lambda}w_i\left(\mathbf{z}_{i:\lambda}^{(t+1)}{\mathbf{z}_{i:\lambda}^{(t+1)}}^\text{T}-\mathbf{I}\right)\right]{\boldsymbol{\Sigma}^{(t)}}^{1/2},
 \end{align}
 where&lt;/p&gt;
 &lt;ul&gt;
@@ -119,13 +130,75 @@ where&lt;/p&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;rank-one-update&quot;&gt;Rank-one update&lt;/h3&gt;
+&lt;p&gt;We first consider a method that produces an $n$-dimensional normal distribution with zero mean. Specifically, let $\mathbf{y}_1,\ldots,\mathbf{y}_{t_0}\in\mathbb{R}^n$, for $t_0\geq n$ be vectors span $\mathbb{R}^n$. We thus have that
+\begin{align}
+\mathcal{N}(0,1)\mathbf{y}_1+\ldots+\mathcal{N}(0,1)\mathbf{y}_{t_0}&amp;amp;\sim\mathcal{N}(\mathbf{0},\mathbf{y}_1\mathbf{y}_1^\text{T})+\ldots+\mathcal{N}(\mathbf{0},\mathbf{y}_{t_0}\mathbf{y}_{t_0}^\text{T}) \\ &amp;amp;\sim\mathcal{N}\left(\mathbf{0},\sum_{i=1}^{t_0}\mathbf{y}_i\mathbf{y}_i^\text{T}\right)
+\end{align}
+The covariance matrix $\mathbf{y}_i\mathbf{y}_i^\text{T}$ has rank one, with only one eigenvalue $\Vert\mathbf{y}_i\Vert^2$ and a corresponding eigenvector within the form $\alpha\mathbf{y}_i$ for $\alpha\in\mathbb{R}$. Using the above equation, we can generate any MVN distribution.&lt;/p&gt;
+
+&lt;p&gt;Consider the update \eqref{eq:rlmu.3} with $\gamma=1$ and let $\mathbf{y}_{t+1}=\left(\mathbf{x}_{1:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)/\sigma^{(t)}$, the &lt;strong&gt;rank-one update&lt;/strong&gt; for the covariance matrix $\boldsymbol{\Sigma}^{(t+1)}$ is given by
+\begin{equation}
+\boldsymbol{\Sigma}^{t+1}=(1-\alpha_1)\boldsymbol{\Sigma}^{(t)}+\alpha_1\mathbf{y}_{t+1}\mathbf{y}_{t+1}^\text{T}
+\end{equation}
+The latter summand in the RHS has rank one and adds the maximum likelihood term for $\mathbf{y}_{t+1}$ into the covariance matrix $\boldsymbol{\Sigma}^{(t)}$, which makes the probability of generating $\mathbf{y}_{t+1}$ in the generation $t+1$ increase.&lt;/p&gt;
+
+&lt;p&gt;We continue by noticing that to update the covariance matrix $\boldsymbol{\Sigma}^{(t+1)}$, in \eqref{eq:rlmu.3}, we have used the selected steps
+\begin{equation}
+\mathbf{y}_{i:\lambda}^{(g+1)}=\frac{\mathbf{x}_{i:\lambda}^{(g+1)}-\boldsymbol{\mu}^{(g)}}{\sigma^{(g)}}
+\end{equation}
+However, since
+\begin{equation}
+\mathbf{y}_{i:\lambda}^{(g+1)}{\mathbf{y}_{i:\lambda}^{(g+1)}}^\text{T}=-\mathbf{y}_{i:\lambda}^{(g+1)}\left(-\mathbf{y}_{i:\lambda}^{(g+1)}\right)^\text{T},
+\end{equation}
+which means the sign information is lost when computing the covariance matrix. To track the sign information to the update rule of $\boldsymbol{\Sigma}^{(t+1)}$, we use &lt;strong&gt;evolution path&lt;/strong&gt;, which defined as a sequence of successive steps over number of generations.&lt;/p&gt;
+
+&lt;p&gt;In particular, analogy to \eqref{eq:rlmu.3}, we use exponential smoothing to establish the evolution path, $\mathbf{p}_c\in\mathbb{R}^n$, which starting with an initial value $\mathbf{p}_c^{(0)}=\mathbf{0}$ and being updated with
+\begin{align}
+\mathbf{p}_c^{(t+1)}&amp;amp;=(1-\alpha_c)\mathbf{p}_c^{(g)}+\alpha_c\sum_{i=1}^{\gamma}w_i\mathbf{y}_{i:\lambda}^{(t+1)} \\ &amp;amp;=(1-\alpha_c)\mathbf{p}_c^{(g)}+\alpha_c\sum_{i=1}^{\gamma}w_i\frac{\mathbf{x}_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}}{\sigma^{(t)}} \\ &amp;amp;=(1-\alpha_c)\mathbf{p}_c^{(g)}+\sqrt{\alpha_c(2-\alpha_c)\gamma_\text{eff}}\frac{\boldsymbol{\mu}^{(t+1)}-\boldsymbol{\mu}^{(t)}}{\sigma^{(t)}},
+\end{align}
+where&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;$\alpha_c\leq 1$ is the learning rate.&lt;/li&gt;
+  &lt;li&gt;$\sqrt{\alpha_c(2-\alpha_c)\gamma_\text{eff}}$ is a normalization factor for $\mathbf{p}_c^{(t+1)}$.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The rank-one update for the covariance matrix $\boldsymbol{\Sigma}^{(t)}$ via the evolution path $\mathbf{p}_c^{(t+1)}$ then given as
+\begin{equation}
+\boldsymbol{\Sigma}^{(t+1)}=(1-\alpha_1)\boldsymbol{\Sigma}^{(t)}+\alpha_1\mathbf{p}_c^{(t+1)}{\mathbf{p}_c^{(t+1)}}^\text{T},\label{eq:rou.1}
+\end{equation}
+An empirical validated choice for the learning rate $\alpha_1$ is $\alpha_1\approx 2/n^2$.&lt;/p&gt;
+
+&lt;h3 id=&quot;final-update&quot;&gt;Final update&lt;/h3&gt;
+&lt;p&gt;Combining rank-$\gamma$ update \eqref{eq:rlmu.3} and rank-one update \eqref{eq:rou.1} together, we obtain the final update for the covariance matrix $\boldsymbol{\Sigma}^{(t+1)}$ as
+\begin{equation}
+\boldsymbol{\Sigma}^{(t+1)}=\left(1-\alpha_1-\alpha_\gamma\sum_{i=1}^{\lambda}w_i\right)\boldsymbol{\Sigma}^{(t)}+\alpha_1\mathbf{p}_c^{(t+1)}{\mathbf{p}_c^{(t+1)}}^\text{T}+\alpha_\gamma\sum_{i=1}^{\lambda}w_i\mathbf{y}_{i:\lambda}^{(t+1)}{\mathbf{y}_{i:\lambda}^{(t+1)}}^\text{T},
+\end{equation}
+where&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;$\alpha_1\approx 2/n^2$.&lt;/li&gt;
+  &lt;li&gt;$\alpha_\gamma\approx\min(\gamma_\text{eff}/n^2,1-\alpha_1)$.&lt;/li&gt;
+  &lt;li&gt;$\mathbf{y}_{i:\lambda}^{(t+1)}=\left(\mathbf{x}_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)/\sigma^{(t)}$.&lt;/li&gt;
+  &lt;li&gt;$\sum_{i=1}^{\lambda}w_i\approx-\alpha_1/\alpha_\gamma$.&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h2 id=&quot;ctrl-sigma&quot;&gt;Controlling the step-size&lt;/h2&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Nikolaus Hansen. &lt;a href=&quot;#https://arxiv.org/abs/1604.00772&quot;&gt;The CMA Evolution Strategy: A Tutorial&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="machine-learning" /><category term="artificial-intelligent" /><category term="evolution-strategy" /><summary type="html">A note on CMA - Evolution Strategy</summary></entry><entry><title type="html">Neural networks</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/02/neural-nets.html" rel="alternate" type="text/html" title="Neural networks" /><published>2022-09-02T13:00:00+07:00</published><updated>2022-09-02T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/09/02/neural-nets</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/02/neural-nets.html">&lt;blockquote&gt;
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
+
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;The simplest form of &lt;strong&gt;exponential smoothing&lt;/strong&gt; is given by the formula
+\begin{align*}
+s_0&amp;amp;=x_0 \\ s_t&amp;amp;=\alpha x_t+(1-\alpha)s_{t-1},\hspace{1cm}t&amp;gt;0
+\end{align*}
+where $0&amp;lt;\alpha&amp;lt;1$ is referred as the &lt;strong&gt;smoothing factor&lt;/strong&gt;. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="machine-learning" /><category term="artificial-intelligent" /><category term="evolution-strategy" /><summary type="html">A note on CMA - Evolution Strategy</summary></entry><entry><title type="html">Neural networks</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/02/neural-nets.html" rel="alternate" type="text/html" title="Neural networks" /><published>2022-09-02T13:00:00+07:00</published><updated>2022-09-02T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/09/02/neural-nets</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/02/neural-nets.html">&lt;blockquote&gt;
   &lt;p&gt;A note on Neural networks.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;

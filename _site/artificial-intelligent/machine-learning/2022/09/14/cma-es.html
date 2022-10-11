@@ -156,8 +156,9 @@
   <li><a href="#adp-cov">Adapting the covariance matrix</a>
     <ul>
       <li><a href="#est-scratch">Estimating from scratch</a></li>
-      <li><a href="#rank-lambda-mu-update">Rank-$\gamma$-update</a></li>
-      <li><a href="#rank-one-update">Rank-one-update</a></li>
+      <li><a href="#rank-lambda-mu-update">Rank-$\gamma$ update</a></li>
+      <li><a href="#rank-one-update">Rank-one update</a></li>
+      <li><a href="#final-update">Final update</a></li>
     </ul>
   </li>
   <li><a href="#ctrl-sigma">Controlling the step-size</a></li>
@@ -216,7 +217,17 @@ f(\mathbf{x}_{1:\lambda}^{(t+1)})\geq f(\mathbf{x}_{2:\lambda}^{(t+1)})\geq\ldot
 \end{equation}
 where $\alpha_\boldsymbol{\mu}\leq 1$ is the learning rate, which is usually set to $1$.</p>
 
+<p>When choosing the weight values $w_i$ and population size $\gamma$ for recombination, we take into account the <strong>variance effective selection mass</strong>, denoted as $\gamma_\text{eff}$, given by
+\begin{equation}
+\gamma_\text{eff}\doteq\left(\frac{\Vert\mathbf{w}\Vert_1}{\Vert\mathbf{w}\Vert_2}\right)=\frac{\Vert\mathbf{w}\Vert_1^2}{\Vert\mathbf{w}\Vert_2^2}=\frac{1}{\sum_{i=1}^{\gamma}w_i^2}
+\end{equation}
+where $\mathbf{w}$ is defined as the weight vector
+\begin{equation}
+\mathbf{w}=(w_1,\ldots,w_\gamma)^\text{T}
+\end{equation}</p>
+
 <h2 id="adp-cov">Adapting the covariance matrix</h2>
+<p>The covariance matrix can be estimated from scratch using the population of the current generation or can be estimated with covariance matrix from previous generations.</p>
 
 <h3 id="est-scratch">Estimating from scratch</h3>
 <p>Rather than using the empirical covariance matrix as an estimator for $\boldsymbol{\Sigma}^{(t)}$, in the CMA-ES, we consider the following estimation
@@ -231,7 +242,7 @@ Notice that in the above estimation \eqref{eq:es.1}, we have used all of the $\l
 \end{equation}
 where $\gamma\leq\lambda$ is the number of selected points; the weights $w_i$ and selected points $\mathbf{x}_{i:\lambda}^{(t+1)}$ are defined as given in the update for $\boldsymbol{\mu}$.</p>
 
-<h3 id="rank-lambda-mu-update">Rank-$\gamma$-update</h3>
+<h3 id="rank-lambda-mu-update">Rank-$\gamma$ update</h3>
 <p>In order to ensure that \eqref{eq:es.2} is a reliable estimator, the selected population must be large enough. However, to get a fast search, the population size $\lambda$ must be small, which lets the selected sample size consequently small also. Thus, we can not get a reliable estimator for a good covariance matrix from \eqref{eq:es.2}. However, we can use the history as a helping hand.</p>
 
 <p>In particular, if we have experienced a sufficient number of generations, the mean of the $\boldsymbol{\Sigma}_\gamma$ from all previous generations
@@ -242,7 +253,7 @@ would be a reliable estimator.</p>
 
 <p>In addition, it is reasonable that the recent generations will have more affection to the current generation than the distant ones. Hence, rather than assigning estimated covariance matrices $\boldsymbol{\Sigma}_\gamma$ from preceding generations the same weight as in \eqref{eq:rlmu.1}, it would be a better choice to give the more recent generations the higher weight.</p>
 
-<p>Specifically, starting with an initial $\boldsymbol{\Sigma}^{(0)}=\mathbf{I}$, we consider the update, called <strong>rank-$\gamma$-update</strong>, for the covariance matrix at generation $t+1$ as
+<p>Specifically, starting with an initial $\boldsymbol{\Sigma}^{(0)}=\mathbf{I}$, we consider the update, called <strong>rank-$\gamma$ update</strong>, for the covariance matrix at generation $t+1$ using <strong>exponential smoothing</strong><sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> as
 \begin{align}
 \boldsymbol{\Sigma}^{(t+1)}&amp;=(1-\alpha_\gamma)\boldsymbol{\Sigma}^{(t)}+\alpha_\gamma\boldsymbol{\Sigma}_\gamma^{(t+1)} \\ &amp;=(1-\alpha_\gamma)\boldsymbol{\Sigma}^{(t)}+\alpha_\gamma\frac{1}{{\sigma^{(t)}}^2}\sum_{i=1}^{\gamma}w_i\left(\mathbf{x}_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)\left(\mathbf{x}_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)^\text{T} \\ &amp;=(1-\alpha_\gamma)\boldsymbol{\Sigma}^{(t)}+\alpha_\gamma\sum_{i=1}^{\gamma}w_i\mathbf{y}_{i:\lambda}^{(t+1)}{\mathbf{y}_{i:\lambda}^{(t+1)}}^\text{T},\label{eq:rlmu.2}
 \end{align}
@@ -255,7 +266,7 @@ where</p>
 
 <p>The update \eqref{eq:rlmu.2} can be generalized to $\lambda$ weights values which neither necessarily sum to $1$, nor be non-negative anymore, as
 \begin{align}
-\boldsymbol{\Sigma}^{(t+1)}&amp;=\left(1-\alpha_\gamma\sum_{i=1}^{\lambda}w_i\right)\boldsymbol{\Sigma}^{(t)}+\alpha_\gamma\sum_{i=1}^{\lambda}w_i\mathbf{y}_{i:\lambda}^{(t+1)}{\mathbf{y}_{i:\lambda}^{(t+1)}}^\text{T} \\ &amp;={\boldsymbol{\Sigma}^{(t)}}^{1/2}\left[\mathbf{I}+\alpha_\gamma\sum_{i=1}^{\lambda}w_i\left(\mathbf{z}_{i:\lambda}^{(t+1)}{\mathbf{z}_{i:\lambda}^{(t+1)}}^\text{T}-\mathbf{I}\right)\right]{\boldsymbol{\Sigma}^{(t)}}^{1/2},
+\boldsymbol{\Sigma}^{(t+1)}&amp;=\left(1-\alpha_\gamma\sum_{i=1}^{\lambda}w_i\right)\boldsymbol{\Sigma}^{(t)}+\alpha_\gamma\sum_{i=1}^{\lambda}w_i\mathbf{y}_{i:\lambda}^{(t+1)}{\mathbf{y}_{i:\lambda}^{(t+1)}}^\text{T}\label{eq:rlmu.3} \\ &amp;={\boldsymbol{\Sigma}^{(t)}}^{1/2}\left[\mathbf{I}+\alpha_\gamma\sum_{i=1}^{\lambda}w_i\left(\mathbf{z}_{i:\lambda}^{(t+1)}{\mathbf{z}_{i:\lambda}^{(t+1)}}^\text{T}-\mathbf{I}\right)\right]{\boldsymbol{\Sigma}^{(t)}}^{1/2},
 \end{align}
 where</p>
 <ul>
@@ -264,6 +275,56 @@ where</p>
 </ul>
 
 <h3 id="rank-one-update">Rank-one update</h3>
+<p>We first consider a method that produces an $n$-dimensional normal distribution with zero mean. Specifically, let $\mathbf{y}_1,\ldots,\mathbf{y}_{t_0}\in\mathbb{R}^n$, for $t_0\geq n$ be vectors span $\mathbb{R}^n$. We thus have that
+\begin{align}
+\mathcal{N}(0,1)\mathbf{y}_1+\ldots+\mathcal{N}(0,1)\mathbf{y}_{t_0}&amp;\sim\mathcal{N}(\mathbf{0},\mathbf{y}_1\mathbf{y}_1^\text{T})+\ldots+\mathcal{N}(\mathbf{0},\mathbf{y}_{t_0}\mathbf{y}_{t_0}^\text{T}) \\ &amp;\sim\mathcal{N}\left(\mathbf{0},\sum_{i=1}^{t_0}\mathbf{y}_i\mathbf{y}_i^\text{T}\right)
+\end{align}
+The covariance matrix $\mathbf{y}_i\mathbf{y}_i^\text{T}$ has rank one, with only one eigenvalue $\Vert\mathbf{y}_i\Vert^2$ and a corresponding eigenvector within the form $\alpha\mathbf{y}_i$ for $\alpha\in\mathbb{R}$. Using the above equation, we can generate any MVN distribution.</p>
+
+<p>Consider the update \eqref{eq:rlmu.3} with $\gamma=1$ and let $\mathbf{y}_{t+1}=\left(\mathbf{x}_{1:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)/\sigma^{(t)}$, the <strong>rank-one update</strong> for the covariance matrix $\boldsymbol{\Sigma}^{(t+1)}$ is given by
+\begin{equation}
+\boldsymbol{\Sigma}^{t+1}=(1-\alpha_1)\boldsymbol{\Sigma}^{(t)}+\alpha_1\mathbf{y}_{t+1}\mathbf{y}_{t+1}^\text{T}
+\end{equation}
+The latter summand in the RHS has rank one and adds the maximum likelihood term for $\mathbf{y}_{t+1}$ into the covariance matrix $\boldsymbol{\Sigma}^{(t)}$, which makes the probability of generating $\mathbf{y}_{t+1}$ in the generation $t+1$ increase.</p>
+
+<p>We continue by noticing that to update the covariance matrix $\boldsymbol{\Sigma}^{(t+1)}$, in \eqref{eq:rlmu.3}, we have used the selected steps
+\begin{equation}
+\mathbf{y}_{i:\lambda}^{(g+1)}=\frac{\mathbf{x}_{i:\lambda}^{(g+1)}-\boldsymbol{\mu}^{(g)}}{\sigma^{(g)}}
+\end{equation}
+However, since
+\begin{equation}
+\mathbf{y}_{i:\lambda}^{(g+1)}{\mathbf{y}_{i:\lambda}^{(g+1)}}^\text{T}=-\mathbf{y}_{i:\lambda}^{(g+1)}\left(-\mathbf{y}_{i:\lambda}^{(g+1)}\right)^\text{T},
+\end{equation}
+which means the sign information is lost when computing the covariance matrix. To track the sign information to the update rule of $\boldsymbol{\Sigma}^{(t+1)}$, we use <strong>evolution path</strong>, which defined as a sequence of successive steps over number of generations.</p>
+
+<p>In particular, analogy to \eqref{eq:rlmu.3}, we use exponential smoothing to establish the evolution path, $\mathbf{p}_c\in\mathbb{R}^n$, which starting with an initial value $\mathbf{p}_c^{(0)}=\mathbf{0}$ and being updated with
+\begin{align}
+\mathbf{p}_c^{(t+1)}&amp;=(1-\alpha_c)\mathbf{p}_c^{(g)}+\alpha_c\sum_{i=1}^{\gamma}w_i\mathbf{y}_{i:\lambda}^{(t+1)} \\ &amp;=(1-\alpha_c)\mathbf{p}_c^{(g)}+\alpha_c\sum_{i=1}^{\gamma}w_i\frac{\mathbf{x}_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}}{\sigma^{(t)}} \\ &amp;=(1-\alpha_c)\mathbf{p}_c^{(g)}+\sqrt{\alpha_c(2-\alpha_c)\gamma_\text{eff}}\frac{\boldsymbol{\mu}^{(t+1)}-\boldsymbol{\mu}^{(t)}}{\sigma^{(t)}},
+\end{align}
+where</p>
+<ul>
+  <li>$\alpha_c\leq 1$ is the learning rate.</li>
+  <li>$\sqrt{\alpha_c(2-\alpha_c)\gamma_\text{eff}}$ is a normalization factor for $\mathbf{p}_c^{(t+1)}$.</li>
+</ul>
+
+<p>The rank-one update for the covariance matrix $\boldsymbol{\Sigma}^{(t)}$ via the evolution path $\mathbf{p}_c^{(t+1)}$ then given as
+\begin{equation}
+\boldsymbol{\Sigma}^{(t+1)}=(1-\alpha_1)\boldsymbol{\Sigma}^{(t)}+\alpha_1\mathbf{p}_c^{(t+1)}{\mathbf{p}_c^{(t+1)}}^\text{T},\label{eq:rou.1}
+\end{equation}
+An empirical validated choice for the learning rate $\alpha_1$ is $\alpha_1\approx 2/n^2$.</p>
+
+<h3 id="final-update">Final update</h3>
+<p>Combining rank-$\gamma$ update \eqref{eq:rlmu.3} and rank-one update \eqref{eq:rou.1} together, we obtain the final update for the covariance matrix $\boldsymbol{\Sigma}^{(t+1)}$ as
+\begin{equation}
+\boldsymbol{\Sigma}^{(t+1)}=\left(1-\alpha_1-\alpha_\gamma\sum_{i=1}^{\lambda}w_i\right)\boldsymbol{\Sigma}^{(t)}+\alpha_1\mathbf{p}_c^{(t+1)}{\mathbf{p}_c^{(t+1)}}^\text{T}+\alpha_\gamma\sum_{i=1}^{\lambda}w_i\mathbf{y}_{i:\lambda}^{(t+1)}{\mathbf{y}_{i:\lambda}^{(t+1)}}^\text{T},
+\end{equation}
+where</p>
+<ul>
+  <li>$\alpha_1\approx 2/n^2$.</li>
+  <li>$\alpha_\gamma\approx\min(\gamma_\text{eff}/n^2,1-\alpha_1)$.</li>
+  <li>$\mathbf{y}_{i:\lambda}^{(t+1)}=\left(\mathbf{x}_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)/\sigma^{(t)}$.</li>
+  <li>$\sum_{i=1}^{\lambda}w_i\approx-\alpha_1/\alpha_\gamma$.</li>
+</ul>
 
 <h2 id="ctrl-sigma">Controlling the step-size</h2>
 
@@ -271,6 +332,18 @@ where</p>
 <p>[1] Nikolaus Hansen. <a href="#https://arxiv.org/abs/1604.00772">The CMA Evolution Strategy: A Tutorial</a>.</p>
 
 <h2 id="footnotes">Footnotes</h2>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>The simplest form of <strong>exponential smoothing</strong> is given by the formula
+\begin{align*}
+s_0&amp;=x_0 \\ s_t&amp;=\alpha x_t+(1-\alpha)s_{t-1},\hspace{1cm}t&gt;0
+\end{align*}
+where $0&lt;\alpha&lt;1$ is referred as the <strong>smoothing factor</strong>. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
 
   </div>
 <div id="disqus_thread"></div>
