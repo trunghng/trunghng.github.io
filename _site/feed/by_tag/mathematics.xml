@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-10T21:02:57+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-11T13:33:53+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory - III: the Lebesgue integral</title><link href="http://localhost:4000/mathematics/measure-theory/2022/08/21/measure-theory-p3.html" rel="alternate" type="text/html" title="Measure theory - III: the Lebesgue integral" /><published>2022-08-21T13:00:00+07:00</published><updated>2022-08-21T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/08/21/measure-theory-p3</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/08/21/measure-theory-p3.html">&lt;blockquote&gt;
   &lt;p&gt;Part III of the measure theory series. Materials are mostly taken from &lt;a href=&quot;/mathematics/measure-theory/2022/08/21/measure-theory-p3.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some needed notations extracted from &lt;a href=&quot;/mathematics/measure-theory/2022/08/21/measure-theory-p3.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -22,6 +22,7 @@
       &lt;li&gt;&lt;a href=&quot;#equiv-ntn-msrb&quot;&gt;Equivalent notions of measurability&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#cmplx-msrb&quot;&gt;Complex measurability&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#equiv-ntn-cmplx-msrb&quot;&gt;Equivalent notions of complex measurability&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#eg-msr-func&quot;&gt;Examples of measurable function&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#unsgn-lebesgue-int&quot;&gt;Unsigned Lebesgue integrals&lt;/a&gt;
@@ -317,10 +318,39 @@ and for complex-valued $f$ by the formula
 	&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
+We first consider the case of real-valued $f$ and $g$.&lt;/p&gt;
 &lt;ul id=&quot;roman-list&quot;&gt;
 	&lt;li&gt;
 		&lt;b&gt;*-linearity&lt;/b&gt;&lt;br /&gt;
+		Using the identity
+		\begin{equation}
+		f+g=(f+g)_{+}-(f+g)_{-}=(f_{+}-f_{-})+(g_{+}-g_{-})
+		\end{equation}
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Equivalence&lt;/b&gt;&lt;br /&gt;
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Compatibility with Lebesgue measure&lt;/b&gt;&lt;br /&gt;
+	&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For complex-valued $f$ and $g$ we have:&lt;/p&gt;
+&lt;ul id=&quot;roman-list&quot;&gt;
+	&lt;li&gt;
+		&lt;b&gt;*-linearity&lt;/b&gt;&lt;br /&gt;
+		By definition of complex-valued simple integral and by linearity of simple unsigned integral we have
+		\begin{align}
+		&amp;amp;\text{Simp}\int_{\mathbb{R}^d}f(x)+g(x)\,dx\nonumber \\ &amp;amp;=\text{Simp}\int_{\mathbb{R}^d}\text{Re}(f(x)+g(x))\,dx+i\,\text{Simp}\int_{\mathbb{R}^d}\text{Im}(f(x)+g(x))\,dx \\ &amp;amp;=\text{Simp}\int_{\mathbb{R}^d}\text{Re}f(x)\,dx+\text{Simp}\int_{\mathbb{R}^d}\text{Re}g(x)\,dx\nonumber \\ &amp;amp;\hspace{2cm}+i\,\text{Simp}\int_{\mathbb{R}^d}\text{Im}f(x)\,dx+i\,\text{Simp}\int_{\mathbb{R}^d}\text{Im}g(x)\,dx \\ &amp;amp;=\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx+\text{Simp}\int_{\mathbb{R}^d}g(x)\,dx
+		\end{align}
+		For the complex conjugate $\overline{f}$, we have its integral can be written as
+		\begin{align}
+		\text{Simp}\int_{\mathbb{R}^d}\overline{f}(x)\,dx&amp;amp;=\text{Simp}\int_{\mathbb{R}^d}\text{Re}f(x)\,dx-\text{Simp}\int_{\mathbb{R}^d}\text{Im}f(x)\,dx \\ &amp;amp;=\overline{\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx}
+		\end{align}
+		Also, for any $c\in\mathbb{C}$, using linearity of simple unsigned integrals once again gives us
+		\begin{align}
+		\text{Simp}\int_{\mathbb{R}^d}cf(x)\,dx&amp;amp;=\text{Simp}\int_{\mathbb{R}^d}c\,\text{Re}f(x)\,dx+i\,\text{Simp}\int_{\mathbb{R}^d}c\,\text{Im}f(x)\,dx \\ &amp;amp;=c\,\text{Simp}\int_{\mathbb{R}^d}\text{Re}f(x)\,dx+c i\,\text{Simp}\int_{\mathbb{R}^d}\text{Im}f(x)\,dx \\ &amp;amp;=c\,\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx
+		\end{align}
 	&lt;/li&gt;
 	&lt;li&gt;
 		&lt;b&gt;Equivalence&lt;/b&gt;&lt;br /&gt;
@@ -372,6 +402,33 @@ Let $f:\mathbb{R}\to[0,+\infty]$ be an unsigned function. The following are then
 	&lt;/li&gt;
 	&lt;li&gt;
 		For every (relatively) closed set $K\subset[0,+\infty)$, the set $f^{-1}(K)\doteq\{x\in\mathbb{R}^d:f(x)\in K\}$ is Lebesgue measurable.
+	&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;eg-msr-func&quot;&gt;Examples of measurable function&lt;/h3&gt;
+&lt;ul id=&quot;roman-list&quot;&gt;
+	&lt;li&gt;
+		Every continuous function $f:\mathbb{R}^d\to[0,+\infty]$ is measurable.
+	&lt;/li&gt;
+	&lt;li&gt;
+		Every unsigned simple function is measurable.
+	&lt;/li&gt;
+	&lt;li&gt;
+		The supremum, infimum, limit superior, or limit inferior of unsigned measurable functions is unsigned measurable.
+	&lt;/li&gt;
+	&lt;li&gt;
+		An unsigned function that is equal almost everywhere to an unsigned measurable function, is also measurable.
+	&lt;/li&gt;
+	&lt;li&gt;
+		If a sequence $f_n$ of unsigned measurable functions converges pointwise almost everywhere to an unsigned limit $f$, then $f$ is also measurable.
+	&lt;/li&gt;
+	&lt;li&gt;
+		If $f:\mathbb{R}^d\to[0,+\infty]$ is measurable and $\phi:[0,+\infty]\to[0,+\infty]$ is continuous, then $\phi\circ f:\mathbb{R}^d\to[0,+\infty]$ is measurable.
+	&lt;/li&gt;
+	&lt;li&gt;
+		If $f,g$ are unsigned measurable functions, then $f+g$ and $fg$ are measurable.
 	&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -994,14 +1051,14 @@ And since $\varepsilon&amp;gt;0$ was arbitrary, the claim follows.&lt;/p&gt;
 	&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;Example 3&lt;/strong&gt;&lt;br /&gt;
-Show that very Jordan measurable set is Lebesgue measurable.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Remark 14&lt;/strong&gt;  &lt;br /&gt;
+Every Jordan measurable set is Lebesgue measurable.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
 This follows directly from &lt;strong&gt;corollary 6&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Example 4&lt;/strong&gt; (Middle thirds Cantor set)&lt;br /&gt;
-Show that the &lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-theory-p1.html#cantor-set&quot;&gt;&lt;strong&gt;Cantor set&lt;/strong&gt;&lt;/a&gt; is compact, uncountable, and a null set.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Remark 15&lt;/strong&gt;  &lt;br /&gt;
+The &lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-theory-p1.html#cantor-set&quot;&gt;&lt;strong&gt;Cantor set&lt;/strong&gt;&lt;/a&gt; is compact, uncountable, and a null set.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -1010,7 +1067,7 @@ Show that the &lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-th
 &lt;/ul&gt;
 
 &lt;h4 id=&quot;msr-axiom&quot;&gt;The measure axioms&lt;/h4&gt;
-&lt;p&gt;&lt;strong&gt;Lemma 14&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Lemma 16&lt;/strong&gt;&lt;/p&gt;
 &lt;ul id=&quot;roman-list&quot; style=&quot;font-style: italic;&quot;&gt;
 	&lt;li&gt;&lt;b&gt;Empty set&lt;/b&gt;. $m(\emptyset)=0$.&lt;/li&gt;
 	&lt;li&gt;&lt;b&gt;Countable additivity&lt;/b&gt;. If $E_1,E_2,\ldots\subset\mathbb{R}^d$ is a countable sequence of disjoint Lebesgue measurable sets, then&lt;/li&gt;
@@ -1089,7 +1146,7 @@ Show that the &lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-th
 	&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;Remark 15&lt;/strong&gt;&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Remark 17&lt;/strong&gt;&lt;br /&gt;
 The countable additivity also implies the &lt;strong&gt;finite additivity&lt;/strong&gt; property of Lebesgue  measure
 \begin{equation}
 m\left(\bigcup_{n=1}^{N}E_n\right)=\sum_{n=1}^{N}m(E_n),
@@ -1168,7 +1225,7 @@ where $E_1,\ldots,E_N$ are Lebesgue measurable.&lt;/p&gt;
 	&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;Remark 16&lt;/strong&gt;&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Remark 18&lt;/strong&gt;&lt;br /&gt;
 Let $E\subset\mathbb{R}^d$, then $E$ is contained in a Lebesgue measurable set of measure exactly equal to $m^*(E)$.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
@@ -1354,7 +1411,7 @@ for any elementary set $A$ containing $E$. Then&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Example 5&lt;/strong&gt;&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Example 3&lt;/strong&gt;&lt;br /&gt;
 Let $E\subset \mathbb{R}^d$, and define a $G_\delta$ &lt;em&gt;set&lt;/em&gt; to be a countable intersection $\bigcap_{n=1}^{\infty}U_n$ of open sets, and define an $F_\delta$ &lt;em&gt;set&lt;/em&gt; to be a countable union $\bigcup_{n=1}^{\infty}F_n$ of closed sets. The following are then equivalent:&lt;/p&gt;
 &lt;ul id=&quot;roman-list&quot;&gt;
 	&lt;li&gt;
@@ -1383,7 +1440,7 @@ If $T:\mathbb{R}^d\to\mathbb{R}^{d’}$ is a linear map to a space $\mathbb{R}^{
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Remark 17&lt;/strong&gt;&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Remark 19&lt;/strong&gt;&lt;br /&gt;
 Let $d,d’\geq 1$ be natural numbers&lt;/p&gt;
 &lt;ul id=&quot;roman-list&quot;&gt;
 	&lt;li&gt;
@@ -1424,16 +1481,16 @@ Let $d,d’\geq 1$ be natural numbers&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;non-measurable-sets&quot;&gt;Non-measurable sets&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Remark 18&lt;/strong&gt;&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Remark 20&lt;/strong&gt;&lt;br /&gt;
 There exists a subset $E\subset[0,1]$ which is not Lebesgue measurable.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Remark 19&lt;/strong&gt; (Outer measure is not finitely additive)&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Remark 21&lt;/strong&gt; (Outer measure is not finitely additive)&lt;br /&gt;
 There exists disjoint bounded subsets $E,F\subset\mathbb{R}$ such that
 \begin{equation}
 m^*(E\cap F)\neq m^*(E)+m^*(F)
 \end{equation}&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Remark 20&lt;/strong&gt;&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Remark 22&lt;/strong&gt;&lt;br /&gt;
 Let $\pi:\mathbb{R}^2\to\mathbb{R}$ be the coordinate projection $\pi(x,y)\doteq x$. Then there exists a measurable $E\subset\mathbb{R}^2$ such that $\pi(E)$ is not measurable.&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;

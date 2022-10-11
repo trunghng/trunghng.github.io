@@ -10,6 +10,7 @@ eqn-number: true
 ---
 > A note on CMA - Evolution Strategy
 <!-- excerpt-end -->
+
 - [Preliminaries](#preliminaries)
 - [Basic equation](#bsc-eqn)
 - [Updating the mean](#upd-mean)

@@ -147,22 +147,23 @@
     <blockquote>
   <p>A note on CMA - Evolution Strategy
 <!-- excerpt-end --></p>
-  <ul>
-    <li><a href="#preliminaries">Preliminaries</a></li>
-    <li><a href="#bsc-eqn">Basic equation</a></li>
-    <li><a href="#upd-mean">Updating the mean</a></li>
-    <li><a href="#adp-cov">Adapting the covariance matrix</a>
-      <ul>
-        <li><a href="#est-scratch">Estimating from scratch</a></li>
-        <li><a href="#rank-lambda-mu-update">Rank-$\gamma$-update</a></li>
-        <li><a href="#rank-one-update">Rank-one-update</a></li>
-      </ul>
-    </li>
-    <li><a href="#ctrl-sigma">Controlling the step-size</a></li>
-    <li><a href="#references">References</a></li>
-    <li><a href="#footnotes">Footnotes</a></li>
-  </ul>
 </blockquote>
+
+<ul>
+  <li><a href="#preliminaries">Preliminaries</a></li>
+  <li><a href="#bsc-eqn">Basic equation</a></li>
+  <li><a href="#upd-mean">Updating the mean</a></li>
+  <li><a href="#adp-cov">Adapting the covariance matrix</a>
+    <ul>
+      <li><a href="#est-scratch">Estimating from scratch</a></li>
+      <li><a href="#rank-lambda-mu-update">Rank-$\gamma$-update</a></li>
+      <li><a href="#rank-one-update">Rank-one-update</a></li>
+    </ul>
+  </li>
+  <li><a href="#ctrl-sigma">Controlling the step-size</a></li>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
 
 <h2 id="preliminaries">Preliminaries</h2>
 <p>The <strong>condition number</strong> of a matrix $\mathbf{A}$ is defined by

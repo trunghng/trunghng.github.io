@@ -568,24 +568,23 @@ Let $E\subset\mathbb{R}^d$, then the following are equivalent:
 	</li>
 </ul>
 
-**Example 3**  
-Show that very Jordan measurable set is Lebesgue measurable.
+**Remark 14**    
+Every Jordan measurable set is Lebesgue measurable.
 
 **Proof**  
 This follows directly from **corollary 6**.
 
-**Example 4** (Middle thirds Cantor set)  
-Show that the [**Cantor set**]({% post_url 2022-06-16-measure-theory-p1 %}#cantor-set) is compact, uncountable, and a null set.
+**Remark 15**    
+The [**Cantor set**]({% post_url 2022-06-16-measure-theory-p1 %}#cantor-set) is compact, uncountable, and a null set.
 
 **Proof**  
 - Since $\mathcal{C}\subseteq[0,1]$ is closed and bounded, by the [Heine-Borel theorem]({% post_url 2022-06-16-measure-theory-p1 %}#heine-borel-theorem), $\mathcal{C}$ is then compact.
 - 
 
 
-
 #### The measure axioms
 {: #msr-axiom}
-**Lemma 14**  
+**Lemma 16**  
 <ul id='roman-list' style='font-style: italic;'>
 	<li><b>Empty set</b>. $m(\emptyset)=0$.</li>
 	<li><b>Countable additivity</b>. If $E_1,E_2,\ldots\subset\mathbb{R}^d$ is a countable sequence of disjoint Lebesgue measurable sets, then</li>
@@ -664,7 +663,7 @@ Show that the [**Cantor set**]({% post_url 2022-06-16-measure-theory-p1 %}#canto
 	</li>
 </ul>
 
-**Remark 15**  
+**Remark 17**  
 The countable additivity also implies the **finite additivity** property of Lebesgue  measure
 \begin{equation}
 m\left(\bigcup_{n=1}^{N}E_n\right)=\sum_{n=1}^{N}m(E_n),
@@ -745,7 +744,7 @@ We say that a sequence $E_n$ of sets in $\mathbb{R}^d$ **converges pointwise** t
 	</li>
 </ul>
 
-**Remark 16**  
+**Remark 18**  
 Let $E\subset\mathbb{R}^d$, then $E$ is contained in a Lebesgue measurable set of measure exactly equal to $m^\*(E)$.
 
 **Proof**  
@@ -938,7 +937,7 @@ for any elementary set $A$ containing $E$. Then
 **Proof**  
 
 
-**Example 5**  
+**Example 3**  
 Let $E\subset \mathbb{R}^d$, and define a $G_\delta$ *set* to be a countable intersection $\bigcap_{n=1}^{\infty}U_n$ of open sets, and define an $F_\delta$ *set* to be a countable union $\bigcup_{n=1}^{\infty}F_n$ of closed sets. The following are then equivalent:
 <ul id='roman-list'>
 	<li>
@@ -974,7 +973,7 @@ If $T:\mathbb{R}^d\to\mathbb{R}^{d'}$ is a linear map to a space $\mathbb{R}^{d'
 **Proof**  
 
 
-**Remark 17**  
+**Remark 19**  
 Let $d,d'\geq 1$ be natural numbers
 <ul id='roman-list'>
 	<li>
@@ -1019,16 +1018,16 @@ Lebesgue measure $E\mapsto m(E)$ is the only map from Lebesgue measurable sets t
 
 ### Non-measurable sets
 {: #non-measurable-sets}
-**Remark 18**  
+**Remark 20**  
 There exists a subset $E\subset[0,1]$ which is not Lebesgue measurable.
 
-**Remark 19** (Outer measure is not finitely additive)  
+**Remark 21** (Outer measure is not finitely additive)  
 There exists disjoint bounded subsets $E,F\subset\mathbb{R}$ such that
 \begin{equation}
 m^\*(E\cap F)\neq m^\*(E)+m^\*(F)
 \end{equation}
 
-**Remark 20**  
+**Remark 22**  
 Let $\pi:\mathbb{R}^2\to\mathbb{R}$ be the coordinate projection $\pi(x,y)\doteq x$. Then there exists a measurable $E\subset\mathbb{R}^2$ such that $\pi(E)$ is not measurable.
 
 ## References

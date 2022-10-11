@@ -24,6 +24,7 @@ eqn-number: true
 	- [Equivalent notions of measurability](#equiv-ntn-msrb)
 	- [Complex measurability](#cmplx-msrb)
 	- [Equivalent notions of complex measurability](#equiv-ntn-cmplx-msrb)
+	- [Examples of measurable function](#eg-msr-func)
 - [Unsigned Lebesgue integrals](#unsgn-lebesgue-int)
 	- [Lower unsigned Lebesgue integral](#lwr-unsgn-lebesgue-int)
 - [Absolute integrability](#abs-intb)
@@ -319,10 +320,39 @@ Let $f,g:\mathbb{R}^d\to\mathbb{C}$ be absolutely integrable simple functions
 	</li>
 </ul>
 
-**Proof**
+**Proof**  
+We first consider the case of real-valued $f$ and $g$.
 <ul id='roman-list'>
 	<li>
 		<b>*-linearity</b><br>
+		Using the identity
+		\begin{equation}
+		f+g=(f+g)_{+}-(f+g)_{-}=(f_{+}-f_{-})+(g_{+}-g_{-})
+		\end{equation}
+	</li>
+	<li>
+		<b>Equivalence</b><br>
+	</li>
+	<li>
+		<b>Compatibility with Lebesgue measure</b><br>
+	</li>
+</ul>
+For complex-valued $f$ and $g$ we have:
+<ul id='roman-list'>
+	<li>
+		<b>*-linearity</b><br>
+		By definition of complex-valued simple integral and by linearity of simple unsigned integral we have
+		\begin{align}
+		&\text{Simp}\int_{\mathbb{R}^d}f(x)+g(x)\,dx\nonumber \\ &=\text{Simp}\int_{\mathbb{R}^d}\text{Re}(f(x)+g(x))\,dx+i\,\text{Simp}\int_{\mathbb{R}^d}\text{Im}(f(x)+g(x))\,dx \\ &=\text{Simp}\int_{\mathbb{R}^d}\text{Re}f(x)\,dx+\text{Simp}\int_{\mathbb{R}^d}\text{Re}g(x)\,dx\nonumber \\ &\hspace{2cm}+i\,\text{Simp}\int_{\mathbb{R}^d}\text{Im}f(x)\,dx+i\,\text{Simp}\int_{\mathbb{R}^d}\text{Im}g(x)\,dx \\ &=\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx+\text{Simp}\int_{\mathbb{R}^d}g(x)\,dx
+		\end{align}
+		For the complex conjugate $\overline{f}$, we have its integral can be written as
+		\begin{align}
+		\text{Simp}\int_{\mathbb{R}^d}\overline{f}(x)\,dx&=\text{Simp}\int_{\mathbb{R}^d}\text{Re}f(x)\,dx-\text{Simp}\int_{\mathbb{R}^d}\text{Im}f(x)\,dx \\ &=\overline{\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx}
+		\end{align}
+		Also, for any $c\in\mathbb{C}$, using linearity of simple unsigned integrals once again gives us
+		\begin{align}
+		\text{Simp}\int_{\mathbb{R}^d}cf(x)\,dx&=\text{Simp}\int_{\mathbb{R}^d}c\,\text{Re}f(x)\,dx+i\,\text{Simp}\int_{\mathbb{R}^d}c\,\text{Im}f(x)\,dx \\ &=c\,\text{Simp}\int_{\mathbb{R}^d}\text{Re}f(x)\,dx+c i\,\text{Simp}\int_{\mathbb{R}^d}\text{Im}f(x)\,dx \\ &=c\,\text{Simp}\int_{\mathbb{R}^d}f(x)\,dx
+		\end{align}
 	</li>
 	<li>
 		<b>Equivalence</b><br>
@@ -381,6 +411,35 @@ Let $f:\mathbb{R}\to[0,+\infty]$ be an unsigned function. The following are then
 </ul>
 
 **Proof**
+
+### Examples of measurable function
+{: #eg-msr-func}
+<ul id='roman-list'>
+	<li>
+		Every continuous function $f:\mathbb{R}^d\to[0,+\infty]$ is measurable.
+	</li>
+	<li>
+		Every unsigned simple function is measurable.
+	</li>
+	<li>
+		The supremum, infimum, limit superior, or limit inferior of unsigned measurable functions is unsigned measurable.
+	</li>
+	<li>
+		An unsigned function that is equal almost everywhere to an unsigned measurable function, is also measurable.
+	</li>
+	<li>
+		If a sequence $f_n$ of unsigned measurable functions converges pointwise almost everywhere to an unsigned limit $f$, then $f$ is also measurable.
+	</li>
+	<li>
+		If $f:\mathbb{R}^d\to[0,+\infty]$ is measurable and $\phi:[0,+\infty]\to[0,+\infty]$ is continuous, then $\phi\circ f:\mathbb{R}^d\to[0,+\infty]$ is measurable.
+	</li>
+	<li>
+		If $f,g$ are unsigned measurable functions, then $f+g$ and $fg$ are measurable.
+	</li>
+</ul>
+
+**Proof**
+
 
 ### Complex measurability
 {: #cmplx-msrb}
