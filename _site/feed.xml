@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-12T18:59:43+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-12T19:51:00+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">CMA Evolution Strategy</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es.html" rel="alternate" type="text/html" title="CMA Evolution Strategy" /><published>2022-09-14T13:00:00+07:00</published><updated>2022-09-14T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es.html">&lt;blockquote&gt;
   &lt;p&gt;A note on CMA - Evolution Strategy
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -245,6 +245,17 @@ which allows us to obtain the representation \eqref{eq:cs.1} of ${\boldsymbol{\S
 		$\mathbf{Q}^{(t)}$ transforms the coordinate system back to the original space.
 	&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;it means that this transformation makes the expected length of $\mathbf{p}_\sigma^{(t+1)}$ independent of its direction.&lt;/p&gt;
+
+&lt;p&gt;We then update $\sigma^{(t)}$ by according to the ratio of its length with its expected length $\Vert\mathbf{p}_\sigma^{(t+1)}\Vert/\mathbb{E}\Vert\mathcal{N}(\mathbf{0},\mathbf{I})\Vert$, given by
+\begin{equation}
+\log\sigma^{(t+1)}=\log\sigma^{(t)}+\frac{\alpha_\sigma}{d_\sigma}\left(\frac{\Vert\mathbf{p}_\sigma^{(t+1)}\Vert}{\mathbb{E}\Vert\mathcal{N}(\mathbf{0},\mathbf{I})\Vert}-1\right),
+\end{equation}
+where $d_\sigma\approx 1$ is the &lt;strong&gt;damping parameter&lt;/strong&gt;, which controls the update size. Therefore, since $\sigma^{(t)}&amp;gt;0$, we have the update rule for $\sigma^{(t)}$ is given by
+\begin{equation}
+\sigma^{(t+1)}=\sigma^{(t)}\exp\left(\frac{\alpha_\sigma}{d_\sigma}\left(\frac{\Vert\mathbf{p}_\sigma^{(t+1)}\Vert}{\mathbb{E}\Vert\mathcal{N}(\mathbf{0},\mathbf{I})\Vert}-1\right)\right)
+\end{equation}&lt;/p&gt;
 
 &lt;h2 id=&quot;test-on-rast&quot;&gt;Testing on Rastrigin function&lt;/h2&gt;
 &lt;p&gt;Let us get our hands dirty by giving the CMA-ES algorithm a try on the &lt;a href=&quot;https://en.wikipedia.org/wiki/Rastrigin_function&quot;&gt;&lt;strong&gt;Rastrigin function&lt;/strong&gt;&lt;/a&gt;, which is given by

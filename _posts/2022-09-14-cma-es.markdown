@@ -243,6 +243,16 @@ The transformation ${\boldsymbol{\Sigma}^{(t)}}^{-1/2}=\mathbf{Q}^{(t)}{\boldsym
 	</li>
 </ul>
 
+it means that this transformation makes the expected length of $\mathbf{p}\_\sigma^{(t+1)}$ independent of its direction.
+
+We then update $\sigma^{(t)}$ by according to the ratio of its length with its expected length $\Vert\mathbf{p}\_\sigma^{(t+1)}\Vert/\mathbb{E}\Vert\mathcal{N}(\mathbf{0},\mathbf{I})\Vert$, given by
+\begin{equation}
+\log\sigma^{(t+1)}=\log\sigma^{(t)}+\frac{\alpha_\sigma}{d_\sigma}\left(\frac{\Vert\mathbf{p}\_\sigma^{(t+1)}\Vert}{\mathbb{E}\Vert\mathcal{N}(\mathbf{0},\mathbf{I})\Vert}-1\right),
+\end{equation}
+where $d_\sigma\approx 1$ is the **damping parameter**, which controls the update size. Therefore, since $\sigma^{(t)}>0$, we have the update rule for $\sigma^{(t)}$ is given by
+\begin{equation}
+\sigma^{(t+1)}=\sigma^{(t)}\exp\left(\frac{\alpha_\sigma}{d_\sigma}\left(\frac{\Vert\mathbf{p}\_\sigma^{(t+1)}\Vert}{\mathbb{E}\Vert\mathcal{N}(\mathbf{0},\mathbf{I})\Vert}-1\right)\right)
+\end{equation}
 
 ## Testing on Rastrigin function
 {: #test-on-rast}
