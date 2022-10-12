@@ -20,6 +20,7 @@ eqn-number: true
 	- [Rank-one update](#rank-one-update)
 	- [Final update](#final-update)
 - [Controlling the step-size](#ctrl-sigma)
+- [Testing on Rastrigin function](#test-on-rast)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -155,13 +156,25 @@ which means the sign information is lost when computing the covariance matrix. T
 
 In particular, analogy to \eqref{eq:rlmu.3}, we use exponential smoothing to establish the evolution path, $\mathbf{p}\_c\in\mathbb{R}^n$, which starting with an initial value $\mathbf{p}\_c^{(0)}=\mathbf{0}$ and being updated with
 \begin{align}
-\mathbf{p}\_c^{(t+1)}&=(1-\alpha_c)\mathbf{p}\_c^{(g)}+\alpha_c\sum_{i=1}^{\gamma}w_i\mathbf{y}\_{i:\lambda}^{(t+1)} \\\\ &=(1-\alpha_c)\mathbf{p}\_c^{(g)}+\alpha_c\sum_{i=1}^{\gamma}w_i\frac{\mathbf{x}\_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}}{\sigma^{(t)}} \\\\ &=(1-\alpha_c)\mathbf{p}\_c^{(g)}+\sqrt{\alpha_c(2-\alpha_c)\gamma_\text{eff}}\frac{\boldsymbol{\mu}^{(t+1)}-\boldsymbol{\mu}^{(t)}}{\sigma^{(t)}},
+\mathbf{p}\_c^{(t+1)}&=(1-\alpha_c)\mathbf{p}\_c^{(t)}+\sqrt{(1-(1-\alpha_c)^2)\mu_\text{eff}}\sum_{i=1}^{\gamma}w_i\mathbf{y}\_{i:\lambda}^{(t+1)} \\\\ &=(1-\alpha_c)\mathbf{p}\_c^{(t)}+\sqrt{\alpha_c(2-\alpha_c)\gamma_\text{eff}}\sum_{i=1}^{\gamma}\frac{w_i\left(\mathbf{x}\_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)}{\sigma^{(t)}} \\\\ &=(1-\alpha_c)\mathbf{p}\_c^{(t)}+\sqrt{\alpha_c(2-\alpha_c)\gamma_\text{eff}}\frac{1}{\sigma^{(t)}}\left[\left(\sum_{i=1}^{\gamma}w_i\mathbf{x}\_{i:\lambda}^{(t+1)}\right)-\boldsymbol{\mu}^{(t)}\sum_{i=1}^{\gamma}w_i\right] \\\\ &=(1-\alpha_c)\mathbf{p}\_c^{(t)}+\sqrt{\alpha_c(2-\alpha_c)\gamma_\text{eff}}\frac{\boldsymbol{\mu}^{(t+1)}-\boldsymbol{\mu}^{(t)}}{\sigma^{(t)}},
 \end{align}
 where
+- $\mathbf{p}\_c^{(t)}\in\mathbb{R}^n$ is the evolution path at generation $t$.
 - $\alpha_c\leq 1$ is the learning rate.
-- $\sqrt{\alpha_c(2-\alpha_c)\gamma_\text{eff}}$ is a normalization factor for $\mathbf{p}\_c^{(t+1)}$.
+- $\sqrt{\alpha_c(2-\alpha_c)\gamma_\text{eff}}$ is a normalization factor for $\mathbf{p}\_c^{(t+1)}$ such that
+\begin{equation}
+\mathbf{p}\_c^{(t+1)}\sim\mathcal{N}(\mathbf{0},\boldsymbol{\Sigma}),
+\end{equation}
+since by $\mathbf{y}\_{i:\lambda}^{(t+1)}=(\mathbf{x}\_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)})/\sigma^{(t)}$ we have that
+\begin{equation}
+\mathbf{p}\_c^{(t)}\sim\mathbf{y}\_{i:\lambda}^{(t+1)}\sim\mathcal{N}(\mathbf{0},\boldsymbol{\Sigma}),\hspace{1cm}\forall i=1,\ldots,\gamma
+\end{equation}
+which by $\gamma_\text{eff}=\left(\sum_{i=1}^{\gamma}w_i^2\right)^{-1}$ implies that
+\begin{equation}
+\sum_{i=1}^{\gamma}w_i\mathbf{y}\_{i:\lambda}^{(t+1)}\sim\frac{1}{\sqrt{\gamma_\text{eff}}}\mathcal{N}(\mathbf{0},\boldsymbol{\Sigma})
+\end{equation}
 
-The rank-one update for the covariance matrix $\boldsymbol{\Sigma}^{(t)}$ via the evolution path $\mathbf{p}\_c^{(t+1)}$ then given as
+The **rank-one update** for the covariance matrix $\boldsymbol{\Sigma}^{(t)}$ via the evolution path $\mathbf{p}\_c^{(t+1)}$ then given as
 \begin{equation}
 \boldsymbol{\Sigma}^{(t+1)}=(1-\alpha_1)\boldsymbol{\Sigma}^{(t)}+\alpha_1\mathbf{p}\_c^{(t+1)}{\mathbf{p}\_c^{(t+1)}}^\text{T},\label{eq:rou.1}
 \end{equation}
@@ -181,6 +194,62 @@ where
 
 ## Controlling the step-size
 {: #ctrl-sigma}
+To control the step-size $\sigma^{(t)}$, similar to how we cumulatively update the covariance matrix by rank-one covariance matrices, we also use an evolution path, which is defined as sum of successive steps $\boldsymbol{\mu}^{(t+1)}-\boldsymbol{\mu}^{(t)}$.
+
+However, in this step-size adaption, we utilize a conjugate evolution path $\mathbf{p}\_\sigma$, which begins with an initial value $\mathbf{p}\_\sigma^{(0)}=\mathbf{0}$ and is repeatedly updated by
+\begin{align}
+\mathbf{p}\_\sigma^{(t+1)}&=(1-\alpha_\sigma)\mathbf{p}\_\sigma^{(t)}+\sqrt{(1-(1-\alpha_\sigma)^2)\gamma_\text{eff}}{\boldsymbol{\Sigma}^{(t)}}^{-1/2}\sum_{i=1}^{\gamma}w_i\mathbf{y}\_{i:\lambda}^{(t+1)} \\\\ &=1-\alpha_\sigma)\mathbf{p}\_\sigma^{(t)}+\sqrt{\alpha_\sigma(2-\alpha_\sigma)\gamma_\text{eff}}{\boldsymbol{\Sigma}^{(t)}}^{-1/2}\sum_{i=1}^{\gamma}w_i\frac{\mathbf{x}\_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}}{\sigma^{(t)}} \\\\ &=1-\alpha_\sigma)\mathbf{p}\_\sigma^{(t)}+\sqrt{\alpha_\sigma(2-\alpha_\sigma)\gamma_\text{eff}}{\boldsymbol{\Sigma}^{(t)}}^{-1/2}\frac{1}{\sigma^{(t)}}\left[\left(\sum_{i=1}^{\gamma}w_i\mathbf{x}\_{i:\lambda}^{(t+1)}\right)-\boldsymbol{\mu}^{(t)}\sum_{i=1}^{\gamma}w_i\right] \\\\ &=1-\alpha_\sigma)\mathbf{p}\_\sigma^{(t)}+\sqrt{\alpha_\sigma(2-\alpha_\sigma)\gamma_\text{eff}}{\boldsymbol{\Sigma}^{(t)}}^{-1/2}\frac{\boldsymbol{\mu}^{(t+1)}-\boldsymbol{\mu}^{(t)}}{\sigma^{(t)}},
+\end{align}
+where
+- $\mathbf{p}\_\sigma^{(t)}\in\mathbb{R}^n$ is the conjugate evolution path at generation $t$.
+- $\alpha_\sigma<1$ is the learning rate.
+- $\sqrt{\alpha_c(2-\alpha_c)\gamma_\text{eff}}$ is a normalization factor for $\mathbf{p}\_\sigma^{(t+1)}$, which analogously to the covariance matrix adaption, lets
+\begin{equation}
+\mathbf{p}\_\sigma^{(t+1)}\sim\mathcal{N}(\mathbf{0},\mathbf{I})
+\end{equation}
+- The covariance matrix ${\boldsymbol{\Sigma}^{(t)}}^{-1/2}$ is defined as
+\begin{equation}
+{\boldsymbol{\Sigma}^{(t)}}^{-1/2}\doteq\mathbf{Q}^{(t)}{\boldsymbol{\Lambda}^{(t)}}^{-1/2}{\mathbf{Q}^{(t)}}^\text{T},\label{eq:cs.1}
+\end{equation}
+where
+\begin{equation}
+\hspace{-0.8cm}\boldsymbol{\Sigma}^{(t)}=\mathbf{Q}^{(t)}\boldsymbol{\Lambda}^{(t)}{\mathbf{Q}^{(t)}}^\text{T}=\left[\begin{matrix}\vert&&\vert \\\\ \mathbf{q}\_1^{(t)}&\ldots&\mathbf{q}\_n^{(t)} \\\\ \vert&&\vert\end{matrix}\right]\left[\begin{matrix}\lambda_1^{(t)}&& \\\\ &\ddots& \\\\ && \lambda_n^{(t)}\end{matrix}\right]\left[\begin{matrix}\vert&&\vert \\\\ \mathbf{q}\_1^{(t)}&\ldots&\mathbf{q}\_n^{(t)} \\\\ \vert&&\vert\end{matrix}\right]^\text{T}
+\end{equation}
+is an eigendecomposition of the positive definite covariance matrix $\boldsymbol{\Sigma}^{(t)}$, where $\mathbf{Q}^{(t)}\in\mathbb{R}^{n\times n}$ is the orthonormal matrix whose columns are unit eigenvectors $\mathbf{q}\_i^{(t)}$ of $\boldsymbol{\Sigma}^{(t)}$ and $\boldsymbol{\Lambda}^{(t)}\in\mathbb{R}^{n\times n}$ is the diagonal matrix whose diagonal entries are eigenvalues $\lambda_i^{(t)}$ of $\boldsymbol{\Sigma}^{(t)}$.  
+Moreover, for each eigenvalue, eigenvector pair $(\lambda_i^{(t)},\mathbf{q}\_i^{(t)})$ of $\boldsymbol{\Sigma}^{(t)}$ we have
+\begin{equation}
+\lambda_i^{(t)}{\boldsymbol{\Sigma}^{(t)}}^{-1}\mathbf{q}\_i^{(t)}={\boldsymbol{\Sigma}^{(t)}}^{-1}\boldsymbol{\Sigma}^{(t)}\mathbf{q}\_i^{(t)}=\mathbf{q}\_i^{(t)},
+\end{equation}
+or
+\begin{equation}
+{\boldsymbol{\Sigma}^{(t)}}^{-1}\mathbf{q}\_i^{(t)}=\frac{1}{\lambda_i^{(t)}}\mathbf{q}\_i^{(t)},
+\end{equation}
+or in other words, $(1/\lambda_i^{(t)},\mathbf{q}\_i^{(t)})$ is an eigenvalue, eigenvector pair of ${\boldsymbol{\Sigma}^{(t)}}^{-1}$. Therefore, the inverse of $\boldsymbol{\Sigma}^{(t)}$, which is also positive definite can be written by
+\begin{equation}
+{\boldsymbol{\Sigma}^{(t)}}^{-1}=\mathbf{Q}^{(t)}\left[\begin{matrix}1/\lambda_1^{(t)}&& \\\\ &\ddots& \\\\ && 1/\lambda_n^{(t)}\end{matrix}\right]{\mathbf{Q}^{(t)}}^\text{T}=\mathbf{Q}^{(t)}{\boldsymbol{\Lambda}^{(t)}}^{-1}{\mathbf{Q}^{(t)}}^\text{T},
+\end{equation}
+which allows us to obtain the representation \eqref{eq:cs.1} of ${\boldsymbol{\Sigma}^{(t)}}^{-1/2}$.
+
+The transformation ${\boldsymbol{\Sigma}^{(t)}}^{-1/2}=\mathbf{Q}^{(t)}{\boldsymbol{\Lambda}^{(t)}}^{-1/2}{\mathbf{Q}^{(t)}}^\text{T}$ re-scales length of the step $\boldsymbol{\mu}^{(t+1)}-\boldsymbol{\mu}^{(t)}$ without changing its direction. In more specific:
+<ul id='number-list'>
+	<li>
+		${\mathbf{Q}^{(t)}}^\text{T}$ transform the original space into the coordinate space with columns of $\mathbf{Q}^{(t)}$, which is also the eigenvectors of $\boldsymbol{\Sigma}^{(t)}$ or the principle axes of $\mathcal{N}(\mathbf{0},\boldsymbol{\Sigma}^{(t)})$, as its principle axes.
+	</li>
+	<li>
+		${\boldsymbol{\Lambda}^{(t)}}^{-1/2}$ re-scales the principle axes to have the same length.
+	</li>
+	<li>
+		$\mathbf{Q}^{(t)}$ transforms the coordinate system back to the original space.
+	</li>
+</ul>
+
+
+## Testing on Rastrigin function
+{: #test-on-rast}
+Let us get our hands dirty by giving the CMA-ES algorithm a try on the [**Rastrigin function**](https://en.wikipedia.org/wiki/Rastrigin_function), which is given by
+\begin{equation}
+f(\mathbf{x})=10 n+\sum_{i=1}^{n}x_i^2-10\cos\left(2\pi x_i\right)
+\end{equation}
 
 ## References
 {: #references}
