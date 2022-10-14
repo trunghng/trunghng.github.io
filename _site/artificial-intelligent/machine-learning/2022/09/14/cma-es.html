@@ -275,7 +275,7 @@ where</p>
   <li>$\mathbf{z}_{i:\lambda}^{(t+1)}={\boldsymbol{\Sigma}^{(t)}}^{1/2}\mathbf{y}_{i:\lambda}^{(t+1)}$ is the mutation vector.</li>
 </ul>
 
-<h3 id="rank-one-update">Rank-one update</h3>
+<h3 id="rank-one-update">Rank-one-update</h3>
 <p>We first consider a method that produces an $n$-dimensional normal distribution with zero mean. Specifically, let $\mathbf{y}_1,\ldots,\mathbf{y}_{t_0}\in\mathbb{R}^n$, for $t_0\geq n$ be vectors span $\mathbb{R}^n$. We thus have that
 \begin{align}
 \mathcal{N}(0,1)\mathbf{y}_1+\ldots+\mathcal{N}(0,1)\mathbf{y}_{t_0}&amp;\sim\mathcal{N}(\mathbf{0},\mathbf{y}_1\mathbf{y}_1^\text{T})+\ldots+\mathcal{N}(\mathbf{0},\mathbf{y}_{t_0}\mathbf{y}_{t_0}^\text{T}) \\ &amp;\sim\mathcal{N}\left(\mathbf{0},\sum_{i=1}^{t_0}\mathbf{y}_i\mathbf{y}_i^\text{T}\right)
@@ -362,7 +362,7 @@ where
 \begin{equation}
 \hspace{-0.8cm}\boldsymbol{\Sigma}^{(t)}=\mathbf{Q}^{(t)}\boldsymbol{\Lambda}^{(t)}{\mathbf{Q}^{(t)}}^\text{T}=\left[\begin{matrix}\vert&amp;&amp;\vert \\ \mathbf{q}_1^{(t)}&amp;\ldots&amp;\mathbf{q}_n^{(t)} \\ \vert&amp;&amp;\vert\end{matrix}\right]\left[\begin{matrix}\lambda_1^{(t)}&amp;&amp; \\ &amp;\ddots&amp; \\ &amp;&amp; \lambda_n^{(t)}\end{matrix}\right]\left[\begin{matrix}\vert&amp;&amp;\vert \\ \mathbf{q}_1^{(t)}&amp;\ldots&amp;\mathbf{q}_n^{(t)} \\ \vert&amp;&amp;\vert\end{matrix}\right]^\text{T}
 \end{equation}
-is an eigendecomposition of the positive definite covariance matrix $\boldsymbol{\Sigma}^{(t)}$, where $\mathbf{Q}^{(t)}\in\mathbb{R}^{n\times n}$ is the orthonormal matrix whose columns are unit eigenvectors $\mathbf{q}_i^{(t)}$ of $\boldsymbol{\Sigma}^{(t)}$ and $\boldsymbol{\Lambda}^{(t)}\in\mathbb{R}^{n\times n}$ is the diagonal matrix whose diagonal entries are eigenvalues $\lambda_i^{(t)}$ of $\boldsymbol{\Sigma}^{(t)}$.<br />
+is an eigendecomposition of the positive definite covariance matrix $\boldsymbol{\Sigma}^{(t)}$, where $\mathbf{Q}^{(t)}\in\mathbb{R}^{n\times n}$ is an orthonormal matrix whose columns are unit eigenvectors $\mathbf{q}_i^{(t)}$ of $\boldsymbol{\Sigma}^{(t)}$ and $\boldsymbol{\Lambda}^{(t)}\in\mathbb{R}^{n\times n}$ is a diagonal matrix whose diagonal entries are eigenvalues $\lambda_i^{(t)}$ of $\boldsymbol{\Sigma}^{(t)}$.<br />
 Moreover, for each eigenvalue, eigenvector pair $(\lambda_i^{(t)},\mathbf{q}_i^{(t)})$ of $\boldsymbol{\Sigma}^{(t)}$ we have
 \begin{equation}
 \lambda_i^{(t)}{\boldsymbol{\Sigma}^{(t)}}^{-1}\mathbf{q}_i^{(t)}={\boldsymbol{\Sigma}^{(t)}}^{-1}\boldsymbol{\Sigma}^{(t)}\mathbf{q}_i^{(t)}=\mathbf{q}_i^{(t)},
@@ -410,6 +410,8 @@ f(\mathbf{x})=10 n+\sum_{i=1}^{n}x_i^2-10\cos\left(2\pi x_i\right)
 
 <h2 id="references">References</h2>
 <p>[1] Nikolaus Hansen. <a href="#https://arxiv.org/abs/1604.00772">The CMA Evolution Strategy: A Tutorial</a>.</p>
+
+<p>[2] Ha, David. <a href="https://blog.otoro.net/2017/10/29/visual-evolution-strategies/">A Visual Guide to Evolution Strategies</a>. blog.otoro.net, 2017.</p>
 
 <h2 id="footnotes">Footnotes</h2>
 

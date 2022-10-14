@@ -1,0 +1,41 @@
+I"<blockquote>
+  <p>A note on Natural evolution strategies</p>
+</blockquote>
+
+<!-- excerpt-end -->
+<ul>
+  <li><a href="#search-grad">Search gradients</a></li>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h2 id="search-grad">Search gradients</h2>
+<p>Usually when working on <strong>Evolution Strategy</strong> methods, we select some candidate solutions, which gererate better fitness values than the other ones, to be parents of the next generation. This means, majority of solution samples have been wasted since they may contain some useful information.</p>
+
+<p>To ultilize the use all fitness samples, the <strong>NES</strong> uses <strong>search gradients</strong> in updating the parameters for the search distribution.</p>
+
+<p>Let $\mathbf{z}$ denote the solution sampled from the distribution $\pi(\mathbf{z},\theta)$ and let $f(\mathbf{z})$ be the fitness (or objective) function. The expected fitness value is then given by
+\begin{equation}
+J(\theta)=\mathbb{E}_\theta[f(\mathbf{z})]=\int f(\mathbf{z})\pi(\mathbf{z}\big\vert\theta)\,d\mathbf{z}
+\end{equation}
+Taking the gradient of the above function w.r.t $\theta$ using the <strong>log-likelihood trick</strong> as in <a href="/artificial-intelligent/reinforcement-learning/2022/05/04/policy-gradient.html#reinforce">REINFORCE</a> gives us
+\begin{align}
+\nabla_\theta J(\theta)&amp;=\nabla_\theta\int f(\mathbf{z})\pi(\mathbf{z}\big\vert\theta)\,d\mathbf{z} \\ &amp;=\int f(\mathbf{z})\nabla_\theta\pi(\mathbf{z}\big\vert\theta)\,d\mathbf{z} \\ &amp;=\int f(\mathbf{z})\nabla_\theta\pi(\mathbf{z}\big\vert\theta)\frac{\pi(\mathbf{z}\big\vert\theta)}{\pi(\mathbf{z}\big\vert\theta)}\,d\mathbf{z} \\ &amp;=\int\left[f(\mathbf{z})\nabla_\theta\log\pi(\mathbf{z}\big\vert\theta)\right]\pi(\mathbf{z}\big\vert\theta)\,d\mathbf{z} \\ &amp;=\mathbb{E}_\theta\left[f(\mathbf{z})\nabla_\theta\log\pi(\mathbf{z}\big\vert\theta)\right]
+\end{align}
+Using Monte Carlo method, given samples $\mathbf{z}_1,\ldots,\mathbf{z}_\lambda$ from the population of size $\lambda$, the search gradient is then can be approximated by
+\begin{equation}
+\nabla_\theta J(\theta)\approx\frac{1}{\lambda}\sum_{k=1}^{\lambda}f(\mathbf{z}_k)\nabla_\theta\log\pi(\mathbf{z}_k\big\vert\theta)
+\end{equation}
+Given this gradient w.r.t $\theta$, we then can use a gradient-based method to repeatedly update the parameter $\theta$ in order to give us a more desired search distribution. In particular, we can use such as SGD method
+\begin{equation}
+\theta\leftarrow\theta+\alpha\nabla_\theta J(\theta),
+\end{equation}
+where $\alpha$ is the learning rate.</p>
+
+<h2 id="references">References</h2>
+<p>[1] Daan Wierstra, et al. <a href="https://people.idsia.ch/~juergen/nes2008.pdf">Natural Evolution Strategies</a>. IEEE World Congress on Computational Intelligence, 2008.</p>
+
+<p>[2] Daan Wierstra, et al. <a href="https://www.jmlr.org/papers/volume15/wierstra14a/wierstra14a.pdf">Natural Evolution Strategies</a>. Journal of Machine Learning Research 15 (2014).</p>
+
+<h2 id="footnotes">Footnotes</h2>
+:ET

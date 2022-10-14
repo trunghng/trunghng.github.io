@@ -487,7 +487,7 @@ Let $\mu$ be the steady-state distribution of states under the behavior policy $
 \end{equation}
 where
 \begin{equation}
-\mathbf{w}={\arg\min}\_{\mathbf{w}\in\mathbb{R}^d}\left\Vert v-v_\mathbf{w}\right\Vert_\mu^2,
+\mathbf{w}=\underset{\mathbf{w}\in\mathbb{R}^d}{\text{argmin}}\left\Vert v-v_\mathbf{w}\right\Vert_\mu^2,
 \end{equation}
 In a linear case, in which $v_\mathbf{w}=\mathbf{X}\mathbf{w}$, the projection operator is linear and independent of $\mathbf{w}$:
 \begin{equation}
@@ -730,7 +730,7 @@ In the case of $\lambda=0$, called GQ(0), Greedy-GQ($\lambda$) is defined by:
 \end{equation}
 where the eligible trace $\mathbf{z}\_t$, TD error $\delta_t^a$ and $a_{t+1}^{\*}$ are defined as:
 \begin{align}
-\mathbf{z}\_t&\doteq\mathbf{z}\_t+\beta\delta_t^a\mathbf{x}\_t-\beta(\mathbf{z}\_t^\text{T}\mathbf{x}\_t)\mathbf{x}\_t, \\\\ \delta_t^a&\doteq R_{t+1}+\gamma_{t+1}\max_a\Big(\mathbf{w}\_t^\text{T}\mathbf{x}(S_{t+1},a)\Big)-\mathbf{w}\_t^\text{T}\mathbf{x}\_t, \\\\ a_{t+1}^{\*}&\doteq\arg\max\_a\Big(\mathbf{w}\_t^\text{T}\mathbf{x}(S_{t+1},a)\Big),
+\mathbf{z}\_t&\doteq\mathbf{z}\_t+\beta\delta_t^a\mathbf{x}\_t-\beta(\mathbf{z}\_t^\text{T}\mathbf{x}\_t)\mathbf{x}\_t, \\\\ \delta_t^a&\doteq R_{t+1}+\gamma_{t+1}\max_a\Big(\mathbf{w}\_t^\text{T}\mathbf{x}(S_{t+1},a)\Big)-\mathbf{w}\_t^\text{T}\mathbf{x}\_t, \\\\ a_{t+1}^{\*}&\doteq\underset{a}{\text{argmax}}\Big(\mathbf{w}\_t^\text{T}\mathbf{x}(S_{t+1},a)\Big),
 \end{align}
 where $\beta>0$ is a step-size parameter.
 

@@ -128,7 +128,7 @@ where in the forth step, we have defined $\mathbf{v}\doteq\mathbf{x}-\boldsymbol
 \end{align}
 which implies that $\mathbf{v}^\text{T}\boldsymbol{\Sigma}\_\text{A}\mathbf{v}=0$.
 
-Thus, when computing th{e density, the symmetric part of $\boldsymbol{\Sigma}^{-1}$ is the only one matters. Or in other words, without loss of generality, we can assume that $\boldsymbol{\Sigma}^{-1}$ is symmetric, which means that $\boldsymbol{\Sigma}$ is also symmetric.
+Thus, when computing the density, the symmetric part of $\boldsymbol{\Sigma}^{-1}$ is the only one matters. Or in other words, without loss of generality, we can assume that $\boldsymbol{\Sigma}^{-1}$ is symmetric, which means that $\boldsymbol{\Sigma}$ is also symmetric.
 
 With this assumption of symmetry, the covariance matrix $\boldsymbol{\Sigma}$ now has all the properties of a symmetric matrix, as following in the next two sections.
 
