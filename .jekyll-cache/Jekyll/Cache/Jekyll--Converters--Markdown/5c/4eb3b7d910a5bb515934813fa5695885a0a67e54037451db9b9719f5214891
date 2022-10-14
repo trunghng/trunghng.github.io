@@ -1,0 +1,93 @@
+I"p"<blockquote>
+  <p>A note on Natural evolution strategies</p>
+</blockquote>
+
+<!-- excerpt-end -->
+<ul>
+  <li><a href="#search-grad">Search gradients</a>
+    <ul>
+      <li><a href="search-grad-gauss">Search gradients for MVN</a></li>
+      <li><a href="ntr-grad">Natural gradient</a></li>
+    </ul>
+  </li>
+  <li><a href="#fn-shp">Fitness shaping</a></li>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h2 id="search-grad">Search gradients</h2>
+<p>Usually when working on <strong>Evolution Strategy</strong> methods, we select some candidate solutions, which generate better fitness values than the other ones, to be parents of the next generation. This means, majority of solution samples have been wasted since they may contain some useful information.</p>
+
+<p>To utilize the use all fitness samples, the <strong>NES</strong> uses <strong>search gradients</strong> in updating the parameters for the search distribution.</p>
+
+<p>Let $\mathbf{z}\in\mathbb{R}^n$ denote the solution sampled from the distribution $\pi(\mathbf{z},\theta)$ and let $f:\mathbb{R}^n\to\mathbb{R}$ be the fitness (or objective) function. The expected fitness value is then given by
+\begin{equation}
+J(\theta)=\mathbb{E}_\theta[f(\mathbf{z})]=\int f(\mathbf{z})\pi(\mathbf{z}\vert\theta)\,d\mathbf{z}\label{eq:sg.1}
+\end{equation}
+Taking the gradient of the above function w.r.t $\theta$ using the <strong>log-likelihood trick</strong> as in <a href="/artificial-intelligent/reinforcement-learning/2022/05/04/policy-gradient.html#reinforce">REINFORCE</a> gives us
+\begin{align}
+\nabla_\theta J(\theta)&amp;=\nabla_\theta\int f(\mathbf{z})\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\ &amp;=\int f(\mathbf{z})\nabla_\theta\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\ &amp;=\int f(\mathbf{z})\nabla_\theta\pi(\mathbf{z}\vert\theta)\frac{\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}\,d\mathbf{z} \\ &amp;=\int\left[f(\mathbf{z})\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\right]\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\ &amp;=\mathbb{E}_\theta\left[f(\mathbf{z})\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\right]
+\end{align}
+Using Monte Carlo method, given samples $\mathbf{z}_1,\ldots,\mathbf{z}_\lambda$ from the population of size $\lambda$, the search gradient is then can be approximated by
+\begin{equation}
+\nabla_\theta J(\theta)\approx\frac{1}{\lambda}\sum_{k=1}^{\lambda}f(\mathbf{z}_k)\nabla_\theta\log\pi(\mathbf{z}_k\vert\theta)
+\end{equation}
+Given this gradient w.r.t $\theta$, we then can use a gradient-based method to repeatedly update the parameter $\theta$ in order to give us a more desired search distribution. In particular, we can use such as SGD method
+\begin{equation}
+\theta\leftarrow\theta+\alpha\nabla_\theta J(\theta),\label{eq:sg.2}
+\end{equation}
+where $\alpha$ is the learning rate.</p>
+
+<h3 id="search-grad-gauss">Search gradients for MVN</h3>
+<p>Consider the case that our search distribution $\pi(\mathbf{z}\vert\theta)$ is in form of a Multivariate Normal  distribution, $\mathbf{z}\sim\mathcal{N}(\boldsymbol{\mu},\boldsymbol{\Sigma})$, where $\boldsymbol{\mu}\in\mathbb{R}^n$ and $\boldsymbol{\Sigma}\in\mathbb{R}^{n\times n}$.</p>
+
+<p>In this case $\theta=(\boldsymbol{\mu},\boldsymbol{\Sigma})$ denotes a tuple of parameters for the search distribution, which is given by
+\begin{equation}
+\pi(\mathbf{z}\vert\theta)=\frac{1}{(2\pi)^{n/1}\left\vert\boldsymbol{\Sigma}\right\vert^{1/2}}\exp\left[-\frac{1}{2}\left(\mathbf{z}-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}-\boldsymbol{\mu}\right)\right]
+\end{equation}
+Taking natural logarithm of both sides then gives us
+\begin{align}
+\log\pi(\mathbf{z}\vert\theta)&amp;=\log\left(\frac{1}{(2\pi)^{n/1}\left\vert\boldsymbol{\Sigma}\right\vert^{1/2}}\exp\left[-\frac{1}{2}\left(\mathbf{z}-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}-\boldsymbol{\mu}\right)\right]\right) \\ &amp;=-\frac{n}{2}\log(2\pi)-\frac{1}{2}\log\vert\boldsymbol{\Sigma}\vert-\frac{1}{2}\left(\mathbf{z}-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}-\boldsymbol{\mu}\right)
+\end{align}
+We continue by differentiating the above log-likelihood w.r.t $\boldsymbol{\mu}$ and $\boldsymbol{\Sigma}$. Starting with $\boldsymbol{\mu}$, the gradient is given by
+\begin{align}
+\nabla_\boldsymbol{\mu}\log\pi(\mathbf{z}\vert\theta)&amp;=\nabla_\boldsymbol{\mu}\left(-\frac{n}{2}\log(2\pi)-\frac{1}{2}\log\vert\boldsymbol{\Sigma}\vert-\frac{1}{2}\left(\mathbf{z}-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}-\boldsymbol{\mu}\right)\right) \\ &amp;=-\frac{1}{2}\nabla_\boldsymbol{\mu}\left(\mathbf{z}-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}-\boldsymbol{\mu}\right) \\ &amp;=\boldsymbol{\Sigma}^{-1}(\mathbf{z}-\boldsymbol{\mu})
+\end{align}
+And the gradient w.r.t $\boldsymbol{\Sigma}$ is computed as
+\begin{align}
+\nabla_\boldsymbol{\Sigma}\pi(\mathbf{z}\vert\theta)&amp;=\nabla_\boldsymbol{\Sigma}\left(-\frac{n}{2}\log(2\pi)-\frac{1}{2}\log\vert\boldsymbol{\Sigma}\vert-\frac{1}{2}\left(\mathbf{z}-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}-\boldsymbol{\mu}\right)\right) \\ &amp;=-\frac{1}{2}\nabla_\boldsymbol{\Sigma}\left(\mathbf{z}-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}-\boldsymbol{\mu}\right) \\ &amp;=\frac{1}{2}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}-\boldsymbol{\mu}\right)\left(\mathbf{z}-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}-\frac{1}{2}\boldsymbol{\Sigma}^{-1}
+\end{align}
+The SGD update \eqref{eq:sg.2} now is applied for each of $\boldsymbol{\mu}$ and $\boldsymbol{\Sigma}$ as
+\begin{align}
+\boldsymbol{\mu}&amp;\leftarrow\boldsymbol{\mu}+\alpha\nabla_\boldsymbol{\mu}J(\theta) \\ &amp;\leftarrow\boldsymbol{\mu}+\alpha\frac{1}{\lambda}\sum_{k=1}^{\lambda}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}_k-\boldsymbol{\mu}\right)f(\mathbf{z}_k)
+\end{align}
+and
+\begin{align}
+\boldsymbol{\Sigma}&amp;\leftarrow\boldsymbol{\Sigma}+\alpha\nabla_\boldsymbol{\Sigma}J(\theta) \\ &amp;\leftarrow\boldsymbol{\Sigma}+\alpha\frac{1}{\lambda}\sum_{k=1}^{\lambda}\left[\frac{1}{2}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}_k-\boldsymbol{\mu}\right)\left(\mathbf{z}_k-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}-\frac{1}{2}\boldsymbol{\Sigma}^{-1}\right]f(\mathbf{z}_k)
+\end{align}</p>
+
+<h3 id="ntr-grad">Natural gradient</h3>
+<p>The <strong>natural gradient</strong> searches for the direction based on the distance between distributions $\pi(\mathbf{z}\vert\theta)$ and $\pi(\mathbf{z}\vert\theta’)$. One natural measure of distance between probability distributions is the <strong>Kullback-Leibler divergence</strong>, or <strong>KL divergence</strong>.</p>
+
+<p>In other words, our work is to look for the direction of updating gradient, denoted as $\delta\theta$, such that
+\begin{align}
+\max_{\delta\theta}&amp;\,J(\theta+\delta\theta)\approx J(\theta)+\delta\theta^\text{T}\nabla_\theta J \\ \text{s.t.}&amp;\,D(\theta+\delta\theta\Vert\theta)=\varepsilon,
+\end{align}
+where $J(\theta)$ is given as in \eqref{eq:sg.1}; $\varepsilon$ is a small increment size; and where $D(\theta+\delta\theta\Vert\theta)$ is the KL divergence of $\pi(\mathbf{z}\vert\theta+\delta\theta)$ from $\pi(\mathbf{z}\vert\theta)$, defined as
+\begin{align}
+D(\theta+\delta\theta\Vert\theta)&amp;=\int\pi(\mathbf{z}\vert\theta+\delta\theta)\log\frac{\pi(\mathbf{z}\vert\theta+\delta\theta)}{\pi(\mathbf{z}\vert\theta)} \\ &amp;=\mathbb{E}_{\theta+\delta\theta}\big[\log\pi(\mathbf{z}\vert\theta+\delta)-\log\pi(\mathbf{z}\vert\theta)\big]\label{eq:ng.1}
+\end{align}
+As $\delta\theta\to 0$, or consider the Taylor expansion of \eqref{eq:ng.1} about $\delta\theta=0$, we have
+\begin{align}
+\hspace{-1cm}D(\theta+\delta\theta\Vert\theta)&amp;=\mathbb{E}_{\theta+\delta\theta}\big[\log\pi(\mathbf{z}\vert\theta+\delta)-\log\pi(\mathbf{z}\vert\theta)\big] \\ &amp;\approx\mathbb{E}_{\theta+\delta\theta}\left[\log\pi(\mathbf{z}\vert\theta)+\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}\delta\theta-\frac{1}{2}\delta\theta^\text{T}\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)^2}\delta\theta-\log\pi(\mathbf{z}\vert\theta)\right] \\ &amp;\mathbb{E}_{\theta+\delta\theta}
+\end{align}</p>
+
+<h2 id="fn-shp">Fitness shaping</h2>
+
+<h2 id="references">References</h2>
+<p>[1] Daan Wierstra, et al. <a href="https://people.idsia.ch/~juergen/nes2008.pdf">Natural Evolution Strategies</a>. IEEE World Congress on Computational Intelligence, 2008.</p>
+
+<p>[2] Daan Wierstra, et al. <a href="https://www.jmlr.org/papers/volume15/wierstra14a/wierstra14a.pdf">Natural Evolution Strategies</a>. Journal of Machine Learning Research 15 (2014).</p>
+
+<h2 id="footnotes">Footnotes</h2>
+:ET
