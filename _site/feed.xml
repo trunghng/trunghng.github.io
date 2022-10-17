@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-17T14:27:03+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-17T17:17:50+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Inverse Reinforcement Learning</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/10/17/irl.html" rel="alternate" type="text/html" title="Inverse Reinforcement Learning" /><published>2022-10-17T13:00:00+07:00</published><updated>2022-10-17T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/10/17/irl</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/10/17/irl.html">&lt;blockquote&gt;
   &lt;p&gt;A note on Inverse Reinforcement Learning&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -3316,19 +3316,19 @@ m(E)\leq m(K’)\leq\sup_{K\subset E,K\text{ compact}}m(K)
 \end{equation}
 Now consider {the case that $E$ is an unbounded set. Let $(K_r)_{r=1,2,\ldots}$ be the sequence sets in which each $K_r$ is defined as
 \begin{equation}
-K_r\doteq E\cap B_r(\mathbf{0}),\label{eq:ir.1}
+K_r\doteq E\cap B(\mathbf{0},r),\label{eq:ir.1}
 \end{equation}
-where $B_r(\mathbf{0})$ is a closed ball centered at $\mathbf{0}\in\mathbb{R}^d$ with radius $r$
+where $B(\mathbf{0},r)$ is a closed ball centered at $\mathbf{0}\in\mathbb{R}^d$ with radius $r$
 \begin{equation}
-B_r(\mathbf{0})=\{\mathbf{x}:\vert\mathbf{x}\vert\leq r\}
+B(\mathbf{0},r)=\{\mathbf{x}:\vert\mathbf{x}\vert\leq r\}
 \end{equation}
-which means $K_1\subset K_2\subset\ldots\subset E$ is an increasing sequence of compact set (since \eqref{eq:ir.1} also implies that $K_r\subset B_r(\mathbf{0})$, and hence bounded and closed, then using the Heine-Borel theorem to obtain the compactness of $K_r$). By the &lt;strong&gt;monotone convergence theorem&lt;/strong&gt;, we have
+which means $K_1\subset K_2\subset\ldots\subset E$ is an increasing sequence of compact set (since \eqref{eq:ir.1} also implies that $K_r\subset B(\mathbf{0},r)$, and hence bounded and closed, then using the Heine-Borel theorem to obtain the compactness of $K_r$). By the &lt;strong&gt;monotone convergence theorem&lt;/strong&gt;, we have
 \begin{equation}
 m\left(\bigcup_{r=1}^{\infty}K_r\right)=\lim_{r\to\infty}m(K_r)
 \end{equation}
 On the other hand, the countable union of $K_r$ can be written as
 \begin{equation}
-\bigcup_{r=1}^{\infty}K_r=\bigcup_{r=1}^{\infty}E\cap B_r(\mathbf{0})=E\cap\bigcup_{r=1}^{\infty}B_r(\mathbf{0})=E\cap\mathbb{R}^d=E,
+\bigcup_{r=1}^{\infty}K_r=\bigcup_{r=1}^{\infty}E\cap B(\mathbf{0},r)=E\cap\bigcup_{r=1}^{\infty}B(\mathbf{0},r)=E\cap\mathbb{R}^d=E,
 \end{equation}
 which therefore gives us
 \begin{equation}
@@ -3654,9 +3654,9 @@ The &lt;strong&gt;distance&lt;/strong&gt; between two sets $E$ and $F$ is define
 &lt;h3 id=&quot;open-closed-compact-sets&quot;&gt;Open, closed and compact sets&lt;/h3&gt;
 &lt;p&gt;The &lt;strong&gt;open ball&lt;/strong&gt; in $\mathbb{R}^d$ centered at $x$ and of radius $r$ is defined by
 \begin{equation}
-B_r(x)=\{y\in\mathbb{R}^d:\vert y-x\vert&amp;lt; r\}
+B(x,r)=\{y\in\mathbb{R}^d:\vert y-x\vert&amp;lt; r\}
 \end{equation}
-A subset $E\subset\mathbb{R}^d$ is &lt;strong&gt;open&lt;/strong&gt; if for every $x\in E$ there exists $r&amp;gt;0$ with $B_r(x)\subset E$. And a set is &lt;strong&gt;closed&lt;/strong&gt; if its complement is open.&lt;br /&gt;
+A subset $E\subset\mathbb{R}^d$ is &lt;strong&gt;open&lt;/strong&gt; if for every $x\in E$ there exists $r&amp;gt;0$ with $B(x,r)\subset E$. And a set is &lt;strong&gt;closed&lt;/strong&gt; if its complement is open.&lt;br /&gt;
 Any (not necessarily countable) union of open sets is open, while in general, the intersection of only finitely many open sets is open. A similar statement holds for the class of closed sets, if we interchange the roles of unions and intersections.&lt;/p&gt;
 
 &lt;p&gt;A set $E$ is &lt;strong&gt;bounded&lt;/strong&gt; if it is contained in some ball of finite radius. A set is &lt;strong&gt;compact&lt;/strong&gt; if it is bounded and is also closed. Compact sets enjoy the &lt;strong&gt;Heine-Borel&lt;/strong&gt; covering property:&lt;/p&gt;
@@ -3666,15 +3666,15 @@ Any (not necessarily countable) union of open sets is open, while in general, th
 
 &lt;p&gt;In words, &lt;em&gt;any&lt;/em&gt; covering of a compact set by a collection of open sets contains a &lt;em&gt;finite&lt;/em&gt; subcovering.&lt;/p&gt;
 
-&lt;p&gt;A point $x\in\mathbb{R}^d$ is a &lt;strong&gt;limit point&lt;/strong&gt; of the set $E$ if for every $r&amp;gt;0$, the ball $B_r(x)$ contains points of $E$. This means that there are points in $E$ which are arbitrarily close to $x$. An &lt;strong&gt;isolated point&lt;/strong&gt; of $E$ is a point $x\in E$ such that there exists an $r&amp;gt;0$ where $B_r(x)\cap E=\{x\}$.&lt;/p&gt;
+&lt;p&gt;A point $x\in\mathbb{R}^d$ is a &lt;strong&gt;limit point&lt;/strong&gt; of the set $E$ if for every $r&amp;gt;0$, the ball $B(x,r)$ contains points of $E$. This means that there are points in $E$ which are arbitrarily close to $x$. An &lt;strong&gt;isolated point&lt;/strong&gt; of $E$ is a point $x\in E$ such that there exists an $r&amp;gt;0$ where $B(x,r)\cap E=\{x\}$.&lt;/p&gt;
 
-&lt;p&gt;A point $x\in E$ is an &lt;strong&gt;interior point&lt;/strong&gt; of $E$ if there exists $r&amp;gt;0$ such that $B_r(x)\subset E$. The set of all interior points of $E$ is called the &lt;strong&gt;interior&lt;/strong&gt; of $E$.&lt;/p&gt;
+&lt;p&gt;A point $x\in E$ is an &lt;strong&gt;interior point&lt;/strong&gt; of $E$ if there exists $r&amp;gt;0$ such that $B(x,r)\subset E$. The set of all interior points of $E$ is called the &lt;strong&gt;interior&lt;/strong&gt; of $E$.&lt;/p&gt;
 
 &lt;p&gt;The &lt;strong&gt;closure&lt;/strong&gt; of $E$, denoted as $\bar{E}$, consists the union of $E$ and all its limit points. The &lt;strong&gt;boundary&lt;/strong&gt; of $E$, denoted as $\partial E$, is the set of points which are in the closure of $E$ but not in the interior of $E$.&lt;/p&gt;
 
 &lt;p&gt;A closed set $E$ is &lt;strong&gt;perfect&lt;/strong&gt; if $E$ does not have any isolated point.&lt;/p&gt;
 
-&lt;p&gt;The &lt;strong&gt;boundary&lt;/strong&gt; of $E$, denoted by $\partial E$, is the set of points in the closure of $E$ not belonging to the interior of $E$.&lt;/p&gt;
+&lt;p&gt;The &lt;strong&gt;boundary&lt;/strong&gt; of $E$, denoted by $\partial E$, is the set of points in $\bar{E}$ not belonging to the interior of $E$.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Remark&lt;/strong&gt;:&lt;/p&gt;
 &lt;ul&gt;

@@ -916,19 +916,19 @@ m(E)\leq m(K’)\leq\sup_{K\subset E,K\text{ compact}}m(K)
 \end{equation}
 Now consider {the case that $E$ is an unbounded set. Let $(K_r)_{r=1,2,\ldots}$ be the sequence sets in which each $K_r$ is defined as
 \begin{equation}
-K_r\doteq E\cap B_r(\mathbf{0}),\label{eq:ir.1}
+K_r\doteq E\cap B(\mathbf{0},r),\label{eq:ir.1}
 \end{equation}
-where $B_r(\mathbf{0})$ is a closed ball centered at $\mathbf{0}\in\mathbb{R}^d$ with radius $r$
+where $B(\mathbf{0},r)$ is a closed ball centered at $\mathbf{0}\in\mathbb{R}^d$ with radius $r$
 \begin{equation}
-B_r(\mathbf{0})=\{\mathbf{x}:\vert\mathbf{x}\vert\leq r\}
+B(\mathbf{0},r)=\{\mathbf{x}:\vert\mathbf{x}\vert\leq r\}
 \end{equation}
-which means $K_1\subset K_2\subset\ldots\subset E$ is an increasing sequence of compact set (since \eqref{eq:ir.1} also implies that $K_r\subset B_r(\mathbf{0})$, and hence bounded and closed, then using the Heine-Borel theorem to obtain the compactness of $K_r$). By the <strong>monotone convergence theorem</strong>, we have
+which means $K_1\subset K_2\subset\ldots\subset E$ is an increasing sequence of compact set (since \eqref{eq:ir.1} also implies that $K_r\subset B(\mathbf{0},r)$, and hence bounded and closed, then using the Heine-Borel theorem to obtain the compactness of $K_r$). By the <strong>monotone convergence theorem</strong>, we have
 \begin{equation}
 m\left(\bigcup_{r=1}^{\infty}K_r\right)=\lim_{r\to\infty}m(K_r)
 \end{equation}
 On the other hand, the countable union of $K_r$ can be written as
 \begin{equation}
-\bigcup_{r=1}^{\infty}K_r=\bigcup_{r=1}^{\infty}E\cap B_r(\mathbf{0})=E\cap\bigcup_{r=1}^{\infty}B_r(\mathbf{0})=E\cap\mathbb{R}^d=E,
+\bigcup_{r=1}^{\infty}K_r=\bigcup_{r=1}^{\infty}E\cap B(\mathbf{0},r)=E\cap\bigcup_{r=1}^{\infty}B(\mathbf{0},r)=E\cap\mathbb{R}^d=E,
 \end{equation}
 which therefore gives us
 \begin{equation}

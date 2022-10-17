@@ -77,9 +77,9 @@ The **distance** between two sets $E$ and $F$ is defined by
 {: #open-closed-compact-sets}
 The **open ball** in $\mathbb{R}^d$ centered at $x$ and of radius $r$ is defined by
 \begin{equation}
-B_r(x)=\\{y\in\mathbb{R}^d:\vert y-x\vert< r\\}
+B(x,r)=\\{y\in\mathbb{R}^d:\vert y-x\vert< r\\}
 \end{equation}
-A subset $E\subset\mathbb{R}^d$ is **open** if for every $x\in E$ there exists $r>0$ with $B_r(x)\subset E$. And a set is **closed** if its complement is open.  
+A subset $E\subset\mathbb{R}^d$ is **open** if for every $x\in E$ there exists $r>0$ with $B(x,r)\subset E$. And a set is **closed** if its complement is open.  
 Any (not necessarily countable) union of open sets is open, while in general, the intersection of only finitely many open sets is open. A similar statement holds for the class of closed sets, if we interchange the roles of unions and intersections.
 
 A set $E$ is **bounded** if it is contained in some ball of finite radius. A set is **compact** if it is bounded and is also closed. Compact sets enjoy the **Heine-Borel** covering property:
@@ -89,15 +89,15 @@ A set $E$ is **bounded** if it is contained in some ball of finite radius. A set
 
 In words, *any* covering of a compact set by a collection of open sets contains a *finite* subcovering.  
 
-A point $x\in\mathbb{R}^d$ is a **limit point** of the set $E$ if for every $r>0$, the ball $B_r(x)$ contains points of $E$. This means that there are points in $E$ which are arbitrarily close to $x$. An **isolated point** of $E$ is a point $x\in E$ such that there exists an $r>0$ where $B_r(x)\cap E=\\{x\\}$. 
+A point $x\in\mathbb{R}^d$ is a **limit point** of the set $E$ if for every $r>0$, the ball $B(x,r)$ contains points of $E$. This means that there are points in $E$ which are arbitrarily close to $x$. An **isolated point** of $E$ is a point $x\in E$ such that there exists an $r>0$ where $B(x,r)\cap E=\\{x\\}$. 
 
-A point $x\in E$ is an **interior point** of $E$ if there exists $r>0$ such that $B_r(x)\subset E$. The set of all interior points of $E$ is called the **interior** of $E$.
+A point $x\in E$ is an **interior point** of $E$ if there exists $r>0$ such that $B(x,r)\subset E$. The set of all interior points of $E$ is called the **interior** of $E$.
 
 The **closure** of $E$, denoted as $\bar{E}$, consists the union of $E$ and all its limit points. The **boundary** of $E$, denoted as $\partial E$, is the set of points which are in the closure of $E$ but not in the interior of $E$.
 
 A closed set $E$ is **perfect** if $E$ does not have any isolated point.
 
-The **boundary** of $E$, denoted by $\partial E$, is the set of points in the closure of $E$ not belonging to the interior of $E$.
+The **boundary** of $E$, denoted by $\partial E$, is the set of points in $\bar{E}$ not belonging to the interior of $E$.
 
 **Remark**:  
 - The closure of a set is a closed set.

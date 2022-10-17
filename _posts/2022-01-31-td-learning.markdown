@@ -6,6 +6,7 @@ categories: artificial-intelligent reinforcement-learning
 tags: artificial-intelligent reinforcement-learning td-learning importance-sampling q-learning learning my-rl
 description: Temporal-Difference Learning, Q-learning
 comments: true
+eqn-number: true
 ---
 > So far in this [series](/tag/my-rl), we have gone through the ideas of [**dynamic programming** (DP)]({% post_url 2021-07-25-dp-in-mdp %}) and [**Monte Carlo**]({% post_url 2021-08-21-monte-carlo-in-rl %}). What will happen if we combine these ideas together? **Temporal-difference (TD) learning** is our answer.
 
@@ -40,9 +41,10 @@ comments: true
 As usual, we approach this new method by considering the prediction problem.
 
 ### TD Prediction
+{: #td-prediction}
 Borrowing the idea of Monte Carlo, TD methods learn from episodes of experience to solve the [prediction problem]({% post_url 2021-08-21-monte-carlo-in-rl %}#fn:2). The simplest TD method is **TD(0)** (or **one-step TD**)[^1], which has the update form:
 \begin{equation}
-V(S_t)\leftarrow V(S_t)+\alpha\left[R_{t+1}+\gamma V(S_{t+1})-V(S_t)\right]\tag{1}\label{1},
+V(S_t)\leftarrow V(S_t)+\alpha\left[R_{t+1}+\gamma V(S_{t+1})-V(S_t)\right]\label{eq:tp.1},
 \end{equation}
 where $\alpha>0$ is step size of the update. Here is pseudocode of the TD(0) method
 <figure>
@@ -51,15 +53,15 @@ where $\alpha>0$ is step size of the update. Here is pseudocode of the TD(0) met
 </figure>
 Recall that in [Monte Carlo method]({% post_url 2021-08-21-monte-carlo-in-rl %}#mc-prediction), or even in its trivial form, **constant-$\alpha$ MC**, which has the update form:
 \begin{equation}
-V(S_t)\leftarrow V(S_t)+\alpha\left[G_t-V(S_t)\right]\tag{2}\label{2},
+V(S_t)\leftarrow V(S_t)+\alpha\left[G_t-V(S_t)\right]\label{eq:tp.2},
 \end{equation}
 we have to wait until the end of the episode, when the return $G_t$ is determined. However, with TD(0), we can do the update immediately in the next time step $t+1$.  
 
-As we can see in \eqref{1} and \eqref{2}, both TD and MC updates look ahead to a sample successor state (or state-action pair), use the value of the successor and the corresponding reward in order to update the value of the current state (or state-action pair). This kind of updates is called *sample update*, which differs from *expected update* used by DP methods in that they are based on a single sample successor rather than on a complete distribution of all possible successors.
+As we can see in \eqref{eq:tp.1} and \eqref{eq:tp.2}, both TD and MC updates look ahead to a sample successor state (or state-action pair), use the value of the successor and the corresponding reward in order to update the value of the current state (or state-action pair). This kind of updates is called *sample update*, which differs from *expected update* used by DP methods in that they are based on a single sample successor rather than on a complete distribution of all possible successors.
 
 Other than the sampling of Monte Carlo, TD methods also use the bootstrapping of DP. Because similar to [DP]({% post_url 2021-07-25-dp-in-mdp %}#policy-evaluation), TD(0) is also a bootstrapping method, since the target in its update is $R_{t+1}+\gamma V(S_{t+1})$.  
 
-The quantity inside bracket in \eqref{1} is called <span id='td_error'>**TD error**</span>, denoted as $\delta$:
+The quantity inside bracket in \eqref{eq:tp.1} is called <span id='td_error'>**TD error**</span>, denoted as $\delta$:
 \begin{equation}
 \delta_t\doteq R_{t+1}+\gamma V(S_{t+1})-V(S_t)
 \end{equation}
@@ -100,7 +102,7 @@ As mentioned in [MC methods]({% post_url 2021-08-21-monte-carlo-in-rl %}#mc-est-
 
 Similarly, we've got the TD update for the action-value function case:
 \begin{equation}
-Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha\left[R_{t+1}+\gamma Q(S_{t+1},A_{t+1})-Q(S_t,A_t)\right]\tag{3}\label{3}
+Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha\left[R_{t+1}+\gamma Q(S_{t+1},A_{t+1})-Q(S_t,A_t)\right]
 \end{equation}
 This update is done after every transition from a non-terminal state $S_t$ to its successor $S_{t+1}$
 \begin{equation}
@@ -123,7 +125,7 @@ However this time, instead, we use it with TD methods. Which is, we continually 
 We now turn our move to an off-policy method, which evaluates or improves a policy different from that used to generate the data.  
 The method we are talking about is called **Q-learning**, which was first introduced by [Watkins](#q-learning-watkins), in which the update on $Q$-value has the form:
 \begin{equation}
-Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha\left[R_{t+1}+\gamma\max_a Q(S_{t+1},a)-Q(S_t,A_t)\right]\tag{4}\label{4}
+Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha\left[R_{t+1}+\gamma\max_a Q(S_{t+1},a)-Q(S_t,A_t)\right]\label{eq:ql.1}
 \end{equation}
 In this case, the learned action-value function, $Q$, directly approximates optimal action-value function $q_*$, independent of the policy being followed. Down below is pseudocode of the Q-learning.
 <figure>
@@ -376,7 +378,7 @@ This is our result after completing running the code.
 
 #### Expected Sarsa
 {: #exp-sarsa}
-In the update \eqref{4} of Q-learning, rather than taking the maximum over next state-action pairs, we use the expected value to consider how likely each action is under the current policy. That means, we instead have the following update rule for $Q$-value:
+In the update \eqref{eq:ql.1} of Q-learning, rather than taking the maximum over next state-action pairs, we use the expected value to consider how likely each action is under the current policy. That means, we instead have the following update rule for $Q$-value:
 \begin{align}
 Q(S_t,A_t)&\leftarrow Q(S_t,A_t)+\alpha\Big[R_{t+1}+\gamma\mathbb{E}\_\pi\big[Q(S_{t+1},A_{t+1}\vert S_{t+1})\big]-Q(S_t,A_t)\Big] \\\\ &\leftarrow Q(S_t,A_t)+\alpha\Big[R_{t+1}+\gamma\sum_a\pi(a|S_{t+1})Q(S_{t+1}|a)-Q(S_t,A_t)\Big]
 \end{align}
@@ -391,7 +393,7 @@ Expected Sarsa performs better than Sarsa since it eliminates the variance due t
 {: #max-bias}
 Consider a set of $M$ random variables $X=\\{X_1,\dots,X_M\\}$. Say that we are interested in maximizing expected value of the r.v.s in $X$:
 \begin{equation}
-\max_{i=1,\dots,M}\mathbb{E}(X_i)\tag{5}\label{5}
+\max_{i=1,\dots,M}\mathbb{E}(X_i)\label{eq:mb.1}
 \end{equation}
 This value can be approximated by constructing approximations for $\mathbb{E}(X_i)$ for all $i$. Let
 \begin{equation}
@@ -401,9 +403,9 @@ denote a set of samples, where $S_i$ is the subset containing samples for the va
 \begin{equation}
 \mathbb{E}(X_i)=\mathbb{E}(\mu_i)\approx\mu_i(S)\doteq\frac{1}{\vert S_i\vert}\sum_{s\in S_i}s,
 \end{equation}
-where $\mu_i$ is an estimator for variable $X_i$. This approximation is unbiased since every sample $s\in S_i$ is an unbiased estimate for the value of $\mathbb{E}(X_i)$. Thus, \eqref{5} can be approximated by:
+where $\mu_i$ is an estimator for variable $X_i$. This approximation is unbiased since every sample $s\in S_i$ is an unbiased estimate for the value of $\mathbb{E}(X_i)$. Thus, \eqref{eq:mb.1} can be approximated by:
 \begin{equation}
-\max_{i=1,\dots,M}\mathbb{E}(X_i)=\max_{i=1,\dots,M}\mathbb{E}(\mu_i)\approx\max_{i=1,\dots,M}\mu_i(S)\tag{6}\label{6}
+\max_{i=1,\dots,M}\mathbb{E}(X_i)=\max_{i=1,\dots,M}\mathbb{E}(\mu_i)\approx\max_{i=1,\dots,M}\mu_i(S)
 \end{equation}
 Let $f_i$, $F_i$ denote the PDF and CDF of $X_i$ and $f_i^\mu, F_i^\mu$ denote the PDF and CDF of $\mu_i$ respectively. Hence we have that
 \begin{align}
@@ -417,7 +419,7 @@ The value $\max_i\mu_i(S)$ is an unbiased estimate of $\mathbb{E}(\max_i\mu_i)$,
 \begin{align}
 \mathbb{E}\left(\max_i\mu_i\right) &=\int_{-\infty}^{\infty}x f_{\max}^{\mu}(x)\,dx \\\\ &=\int_{-\infty}^{\infty}x\frac{d}{dx}\left(\prod_{i=1}^{M}F_i^\mu(x)\right)\,dx \\\\ &=\sum_{i=1}^M\int_{-\infty}^{\infty}f_i^\mu(x)\prod_{j\neq i}^{M}F_i^\mu(x)\,dx
 \end{align}
-However, as can be seen in \eqref{5}, the order of expectation and maximization is the other way around. This leads to the result that $\max_i\mu_i(S)$ is a biased estimate of $\max_i\mathbb{E}(X_i)$
+However, as can be seen in \eqref{eq:mb.1}, the order of expectation and maximization is the other way around. This leads to the result that $\max_i\mu_i(S)$ is a biased estimate of $\max_i\mathbb{E}(X_i)$
 
 ##### A Solution
 {: #sol}
@@ -453,7 +455,7 @@ G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n V_{t+n
 \end{equation}
 for all $n,t$ such that $n\geq 1$ and $0\leq t\<T-n$. If $t+n\geq T$, then all the missing terms are taken as zero, and the *n-step return* defined to be equal to the full return:
 \begin{equation}
-G_{t:t+n}=G_t\doteq R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+\dots+\gamma^{T-t-1}R_T,\tag{7}\label{7}
+G_{t:t+n}=G_t\doteq R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+\dots+\gamma^{T-t-1}R_T,\label{eq:nstp.1}
 \end{equation}
 which is the target of the Monte Carlo update.  
 
@@ -467,7 +469,7 @@ for $0\leq t\<T$, while the values for all other states remain unchanged: $V_{t+
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
 </figure>
 
-From \eqref{7} combined with this definition of *$n$-step TD* method, it is easily seen that by changing the value of $n$ from $1$ to $\infty$, we obtain a corresponding spectrum ranging from *one-step TD method* to *Monte Carlo method*.
+From \eqref{eq:nstp.1} combined with this definition of *$n$-step TD* method, it is easily seen that by changing the value of $n$ from $1$ to $\infty$, we obtain a corresponding spectrum ranging from *one-step TD method* to *Monte Carlo method*.
 <figure>
 	<img src="/assets/images/2022-01-31/n-step-td-diagram.png" alt="Backup diagram of n-step TD" style="display: block; margin-left: auto; margin-right: auto; width: 450px; height: 370px"/>
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: The backup diagram of $n$-step TD methods</figcaption>
@@ -715,7 +717,7 @@ G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1} R_{t+n}+\gamma^n Q_{t+
 \end{equation}
 for $n\geq 0,0\leq t\<T-n$, with $G_{t:t+n}\doteq G_t$ if $t+n\geq T$. The **$\boldsymbol{n}$-step Sarsa** is then can be defined as:
 \begin{equation}
-Q_{t+n}(S_t,A_t)\doteq Q_{t+n-1}(S_t,A_t)+\alpha\left[G_{t:t+n}-Q_{t+n-1}(S_t,A_t)\right],\hspace{1cm}0\leq t\<T,\tag{8}\label{8}
+Q_{t+n}(S_t,A_t)\doteq Q_{t+n-1}(S_t,A_t)+\alpha\left[G_{t:t+n}-Q_{t+n-1}(S_t,A_t)\right],\hspace{1cm}0\leq t\<T,\label{eq:nss.1}
 \end{equation}
 while the values of all other state-action pairs remain unchanged: $Q_{t+n}(s,a)=Q_{t+n-1}(s,a)$, for all $s,a$ such that $s\neq S_t$ or $a\neq A_t$.  
 
@@ -723,13 +725,13 @@ From this definition of $n$-step Sarsa, we can easily derive the multiple step v
 \begin{equation}
 Q_{t+n}(S_t,A_t)\doteq Q_{t+n-1}(S_t,A_t)+\alpha\left[G_{t:t+n}-Q_{t+n-1}(S_t,A_t)\right],\hspace{1cm}0\leq t\<T,
 \end{equation}
-which has the same rule as \eqref{8}, except that  the target of the update in this case is defined as:
+which has the same rule as \eqref{eq:nss.1}, except that  the target of the update in this case is defined as:
 \begin{equation}
-G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\bar{V}\_{t+n-1}(S_{t+n}),\hspace{1cm}t+n\<T,\tag{9}\label{9}
+G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\bar{V}\_{t+n-1}(S_{t+n}),\hspace{1cm}t+n\<T,\label{eq:nss.2}
 \end{equation}
 with $G_{t:t+n}=G_t$ for $t+n\geq T$, where $\bar{V}\_t(s)$ is the <span id='expected-approximate-value'>**expected approximate value**</span> of state $s$, using the estimated action value at time $t$, under the target policy $\pi$:
 \begin{equation}
-\bar{V}\_t(s)\doteq\sum_a\pi(a|s)Q_t(s,a),\hspace{1cm}\forall s\in\mathcal{S}\tag{10}\label{10}
+\bar{V}\_t(s)\doteq\sum_a\pi(a|s)Q_t(s,a),\hspace{1cm}\forall s\in\mathcal{S}\label{eq:nss.3}
 \end{equation}
 If $s$ is terminal, then its expected approximate value is defined to be zero.  
 
@@ -761,9 +763,9 @@ V_{t+n}(S_t)\doteq V_{t+n-1}(S_t)+\alpha\rho_{t:t+n-1}\left[G_{t:t+n}-V_{t+n-1}(
 \end{equation}
 Similarly, we have the **off-policy $\boldsymbol{n}$-step Sarsa** method.
 \begin{equation}
-Q_{t+n}(S_t,A_t)\doteq Q_{t+n-1}(S_t,A_t)+\alpha\rho_{t:t+n-1}\left[G_{t:t+n}-Q_{t+n-1}(S_t,A_t)\right],\hspace{0.5cm}0\leq t \<T\tag{11}\label{11}
+Q_{t+n}(S_t,A_t)\doteq Q_{t+n-1}(S_t,A_t)+\alpha\rho_{t:t+n-1}\left[G_{t:t+n}-Q_{t+n-1}(S_t,A_t)\right],\hspace{0.5cm}0\leq t \<T\label{eq:nsti.1}
 \end{equation}
-The **off-policy $\boldsymbol{n}$-step Expected Sarsa** uses the same update as \eqref{11} except that it uses $\rho_{t+1:t+n-1}$ as its importance sampling ratio instead of $\rho_{t+1:t+n}$ and also has \eqref{9} as its target.  
+The **off-policy $\boldsymbol{n}$-step Expected Sarsa** uses the same update as \eqref{eq:nsti.1} except that it uses $\rho_{t+1:t+n-1}$ as its importance sampling ratio instead of $\rho_{t+1:t+n}$ and also has \eqref{eq:nss.2} as its target.  
 
 Here is pseudocode of the off-policy $n$-step Sarsa.
 <figure>
@@ -783,13 +785,13 @@ where $G_{h:h}\doteq V_{h-1}(S_h)$.
 
 Since we are following a policy $b$ that is not the same as the target policy $\pi$, all of the resulting experience, including the first reward $R_{t+1}$ and the next state $S_{t+1}$ must be weighted by the importance sampling ratio for time $t$, $\rho_t=\frac{\pi(A_t\vert S_t)}{b(A_t\vert S_t)}$. And moreover, to avoid the high variance when the $n$-step return is zero (resulting when the action at time $t$ would never be select by $\pi$, which leads to $\rho_t=0$), we define the $n$-step return ending at horizon $h$ for the off-policy state-value prediction as:
 <span id='n-step-return-control-variate-state-value'>\begin{equation}
-G_{t:h}\doteq\rho_t\left(R_{t+1}+\gamma G_{t+1:h}\right)+(1-\rho_t)V_{h-1}(S_t),\hspace{1cm}1\lt h\lt T\tag{12}\label{12}
+G_{t:h}\doteq\rho_t\left(R_{t+1}+\gamma G_{t+1:h}\right)+(1-\rho_t)V_{h-1}(S_t),\hspace{1cm}1\lt h\lt T\label{eq:pdcv.1}
 \end{equation}</span>
-where $G_{h:h}\doteq V_{h-1}(S_h)$. The second term of \eqref{12}, $(1-\rho_t)V_{h-1}(S_t)$, is called **control variate**, which has the expected value of $0$, and then does not change the expected update. 
+where $G_{h:h}\doteq V_{h-1}(S_h)$. The second term of \eqref{eq:pdcv.1}, $(1-\rho_t)V_{h-1}(S_t)$, is called **control variate**, which has the expected value of $0$, and then does not change the expected update. 
 
 For state-action values, the off-policy definition of the $n$-step return ending at horizon $h$ can be defined as:
 <span id='n-step-return-control-variate-action-value'>\begin{align}
-G_{t:h}&\doteq R_{t+1}+\gamma\left(\rho_{t+1}G_{t+1:h}+\bar{V}\_{h-1}(S_{t+1})-\rho_{t+1}Q_{h-1}(S_{t+1},A_{t+1})\right) \\\\ &=R_{t+1}+\gamma\rho_{t+1}\big(G_{t+1:h}-Q_{h-1}(S_{t+1},A_{t+1})\big)+\gamma\bar{V}\_{h-1}(S_{t+1}),\hspace{1cm}t\lt h\leq T\tag{13}\label{13}
+G_{t:h}&\doteq R_{t+1}+\gamma\left(\rho_{t+1}G_{t+1:h}+\bar{V}\_{h-1}(S_{t+1})-\rho_{t+1}Q_{h-1}(S_{t+1},A_{t+1})\right) \\\\ &=R_{t+1}+\gamma\rho_{t+1}\big(G_{t+1:h}-Q_{h-1}(S_{t+1},A_{t+1})\big)+\gamma\bar{V}\_{h-1}(S_{t+1}),\hspace{1cm}t\lt h\leq T\label{eq:pdcv.2}
 \end{align}</span>
 If $h\lt T$, the recursion ends with $G_{h:h}\doteq Q_{h-1}(S_h,A_h)$, whereas, if $h\geq T$, the recursion ends with $G_{T-1:h}\doteq R_T$.
 
@@ -811,7 +813,7 @@ G_{t:t+2}&\doteq R_{t+1}+\gamma\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})Q_{t+1}(S_{t+1}
 \end{align}
 for $t\<T-2$. Hence, the target of the $n$-step tree-backup update recursively can be defined as:
 <span id='n-step-tree-backup-return'>\begin{equation}
-G_{t:t+n}\doteq R_{t+1}+\gamma\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})Q_{t+n-1}(S_{t+1},a)+\gamma\pi(A_{t+1}|S_{t+1})G_{t+1:t+n}\tag{14}\label{14}
+G_{t:t+n}\doteq R_{t+1}+\gamma\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})Q_{t+n-1}(S_{t+1},a)+\gamma\pi(A_{t+1}|S_{t+1})G_{t+1:t+n}\label{eq:nstb.1}
 \end{equation}</span>
 for $t\<T-1,n\geq 2$. The $n$-step tree-backup update can be illustrated through the following diagram
 <figure>
@@ -834,11 +836,11 @@ while the values of all other state-action pairs remain unchanged: $Q_{t+n}(s,a)
 In updating the action-value functions, if we choose always to sample, we would obtain Sarsa, whereas if we choose never to sample, we would get the tree-backup algorithm. Expected Sarsa would be the case where we choose to sample for all steps except for the last one. 
 An possible unifying method is choosing on a state-by-state basis whether to sample or not.
 
-We begin by rewriting the tree-backup $n$-step return \eqref{14} in terms of the horizon $h=t+n$ and the expected approximate value $\bar{V}$ \eqref{10}:
+We begin by rewriting the tree-backup $n$-step return \eqref{eq:nstb.1} in terms of the horizon $h=t+n$ and the expected approximate value $\bar{V}$ \eqref{eq:nss.3}:
 \begin{align}
-G_{t:h}&=R_{t+1}+\gamma\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})Q_{h-1}(S_{t+1},a)+\gamma\pi(A_{t+1}|S_{t+1})G_{t+1:h} \\\\ &=R_{t+1}+\gamma\bar{V}\_{h-1}(S_{t+1})-\gamma\pi(A_{t+1}|S_{t+1})Q_{h-1}(S_{t+1},A_{t+1})+\gamma\pi(A_{t+1}|S_{t+1})G_{t+1:h} \\\\ &=R_{t+1}+\gamma\pi(A_{t+1}|S_{t+1})\big(G_{t+1:h}-Q_{h-1}(S_{t+1},A_{t+1})\big)+\gamma\bar{V}\_{h-1}(S_{t+1}),
+\hspace{-0.6cm}G_{t:h}&=R_{t+1}+\gamma\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})Q_{h-1}(S_{t+1},a)+\gamma\pi(A_{t+1}|S_{t+1})G_{t+1:h} \\\\ &=R_{t+1}+\gamma\bar{V}\_{h-1}(S_{t+1})-\gamma\pi(A_{t+1}|S_{t+1})Q_{h-1}(S_{t+1},A_{t+1})+\gamma\pi(A_{t+1}|S_{t+1})G_{t+1:h} \\\\ &=R_{t+1}+\gamma\pi(A_{t+1}|S_{t+1})\big(G_{t+1:h}-Q_{h-1}(S_{t+1},A_{t+1})\big)+\gamma\bar{V}\_{h-1}(S_{t+1}),
 \end{align}
-which is exactly the same as the $n$-step return for Sarsa with control variates \eqref{13} except that the importance-sampling ratio $\rho_{t+1}$ has been replaced with the action probability $\pi(A_{t+1}|S_{t+1})$. 
+which is exactly the same as the $n$-step return for Sarsa with control variates \eqref{eq:pdcv.2} except that the importance-sampling ratio $\rho_{t+1}$ has been replaced with the action probability $\pi(A_{t+1}|S_{t+1})$. 
 
 Let $\sigma_t\in[0,1]$ denote the degree of sampling on step $t$, with $\sigma=1$ denoting full sampling and $\sigma=0$ denoting a pure expectation with no sampling. The r.v $\sigma_t$ might be set as a function of the state, action or state-action pair at time $t$.
 
@@ -851,7 +853,7 @@ With the definition of $\sigma_t$, we can define the $n$-step return ending at h
 \begin{align}
 G_{t:h}&\doteq R_{t+1}+\gamma\Big(\sigma_{t+1}\rho_{t+1}+(1-\rho_{t+1})\pi(A_{t+1}|S_{t+1})\Big)\Big(G_{t+1:h}-Q_{h-1}(S_{t+1},A_{t+1})\Big) \\\\ &\hspace{2cm}+\gamma\bar{V}\_{h-1}(S_{t+1}),
 \end{align}
-for $t\lt h\leq T$. The recursion ends with $G_{h:h}\doteq Q_{h-1}(S_h,A_h)$ if $h\lt T$, or with $G_{T-1:T}\doteq R_T$ if $h=T$. Then we use the off-policy $n$-step Sarsa update \eqref{11}, which produces the pseudocode below.
+for $t\lt h\leq T$. The recursion ends with $G_{h:h}\doteq Q_{h-1}(S_h,A_h)$ if $h\lt T$, or with $G_{T-1:T}\doteq R_T$ if $h=T$. Then we use the off-policy $n$-step Sarsa update \eqref{eq:nsti.1}, which produces the pseudocode below.
 
 <figure>
     <img src="/assets/images/2022-01-31/n-step-q-sigma.png" alt="n-step Q(sigma)" style="display: block; margin-left: auto; margin-right: auto;"/>

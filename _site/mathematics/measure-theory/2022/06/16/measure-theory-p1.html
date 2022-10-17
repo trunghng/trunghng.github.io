@@ -238,9 +238,9 @@ The <strong>distance</strong> between two sets $E$ and $F$ is defined by
 <h3 id="open-closed-compact-sets">Open, closed and compact sets</h3>
 <p>The <strong>open ball</strong> in $\mathbb{R}^d$ centered at $x$ and of radius $r$ is defined by
 \begin{equation}
-B_r(x)=\{y\in\mathbb{R}^d:\vert y-x\vert&lt; r\}
+B(x,r)=\{y\in\mathbb{R}^d:\vert y-x\vert&lt; r\}
 \end{equation}
-A subset $E\subset\mathbb{R}^d$ is <strong>open</strong> if for every $x\in E$ there exists $r&gt;0$ with $B_r(x)\subset E$. And a set is <strong>closed</strong> if its complement is open.<br />
+A subset $E\subset\mathbb{R}^d$ is <strong>open</strong> if for every $x\in E$ there exists $r&gt;0$ with $B(x,r)\subset E$. And a set is <strong>closed</strong> if its complement is open.<br />
 Any (not necessarily countable) union of open sets is open, while in general, the intersection of only finitely many open sets is open. A similar statement holds for the class of closed sets, if we interchange the roles of unions and intersections.</p>
 
 <p>A set $E$ is <strong>bounded</strong> if it is contained in some ball of finite radius. A set is <strong>compact</strong> if it is bounded and is also closed. Compact sets enjoy the <strong>Heine-Borel</strong> covering property:</p>
@@ -250,15 +250,15 @@ Any (not necessarily countable) union of open sets is open, while in general, th
 
 <p>In words, <em>any</em> covering of a compact set by a collection of open sets contains a <em>finite</em> subcovering.</p>
 
-<p>A point $x\in\mathbb{R}^d$ is a <strong>limit point</strong> of the set $E$ if for every $r&gt;0$, the ball $B_r(x)$ contains points of $E$. This means that there are points in $E$ which are arbitrarily close to $x$. An <strong>isolated point</strong> of $E$ is a point $x\in E$ such that there exists an $r&gt;0$ where $B_r(x)\cap E=\{x\}$.</p>
+<p>A point $x\in\mathbb{R}^d$ is a <strong>limit point</strong> of the set $E$ if for every $r&gt;0$, the ball $B(x,r)$ contains points of $E$. This means that there are points in $E$ which are arbitrarily close to $x$. An <strong>isolated point</strong> of $E$ is a point $x\in E$ such that there exists an $r&gt;0$ where $B(x,r)\cap E=\{x\}$.</p>
 
-<p>A point $x\in E$ is an <strong>interior point</strong> of $E$ if there exists $r&gt;0$ such that $B_r(x)\subset E$. The set of all interior points of $E$ is called the <strong>interior</strong> of $E$.</p>
+<p>A point $x\in E$ is an <strong>interior point</strong> of $E$ if there exists $r&gt;0$ such that $B(x,r)\subset E$. The set of all interior points of $E$ is called the <strong>interior</strong> of $E$.</p>
 
 <p>The <strong>closure</strong> of $E$, denoted as $\bar{E}$, consists the union of $E$ and all its limit points. The <strong>boundary</strong> of $E$, denoted as $\partial E$, is the set of points which are in the closure of $E$ but not in the interior of $E$.</p>
 
 <p>A closed set $E$ is <strong>perfect</strong> if $E$ does not have any isolated point.</p>
 
-<p>The <strong>boundary</strong> of $E$, denoted by $\partial E$, is the set of points in the closure of $E$ not belonging to the interior of $E$.</p>
+<p>The <strong>boundary</strong> of $E$, denoted by $\partial E$, is the set of points in $\bar{E}$ not belonging to the interior of $E$.</p>
 
 <p><strong>Remark</strong>:</p>
 <ul>
