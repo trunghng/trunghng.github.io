@@ -6,6 +6,7 @@ categories: artificial-intelligent reinforcement-learning
 tags: artificial-intelligent reinforcement-learning bellman-equation my-rl
 description: Markov Decision Processes (MDPs), Bellman equations
 comments: true
+eqn-number: true
 ---
 > You may have known or heard vaguely about a computer program called **AlphaGo** - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called **self-play** against its other instances, with **Reinforcement Learning**.  
 
@@ -55,13 +56,13 @@ P(S_{t+1}|S_t)=P(S_{t+1}|S_1,\dots,S_t)
 In the preceding section, we have said that the goal of agent is to maximize the cumulative reward in the long run. In general, we seek to maximize the **expected return**.  
 
 **Definition** (*Return*)  
-The **return** $G_t$ is the total discounted reward from t
+The **return** $G_t$ is the total discounted reward from $t$
 \begin{equation}
 G_t=R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+\dots=\sum_{k=0}^{\infty}\gamma^k R_{t+k+1},
 \end{equation}
-where $\gamma\in[0,1]$ is called *discount rate* (or *discount factor*).  
+where $\gamma\in[0,1]$ is called **discount rate** (or **discount factor**).  
 
-The *discount rate* $\gamma$ determines the present value of future rewards: a reward received
+The discount rate $\gamma$ determines the present value of future rewards: a reward received
 k time steps in the future is worth only $\gamma^{k-1}$ times what it would be worth if it were received immediately. And also, it provides mathematical convenience since as $k\rightarrow\infty$ then $\gamma^k\rightarrow 0$.
 
 ### Policy

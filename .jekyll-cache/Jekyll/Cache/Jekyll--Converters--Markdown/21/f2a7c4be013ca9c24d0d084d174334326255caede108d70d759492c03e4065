@@ -1,0 +1,14 @@
+I"ö<!-- excerpt-end -->
+
+<ul>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h2 id="references">References</h2>
+<p>[1] Pieter Abbeel &amp; Andrew Y. Ng. <a href="https://doi.org/10.1145/1015330.1015430">Apprenticeship Learning via Inverse Reinforcement Learning</a>. ICML 04: Proceedings of the twenty-first international conference on Machine learning. July 2004.</p>
+
+<p>[2] Nathan Ratliff, David Silver &amp; J. Andrew (Drew) Bagnell. <a href="https://www.ri.cmu.edu/publications/learning-to-search-functional-gradient-techniques-for-imitation-learning/">Learning to search: Functional gradient techniques for imitation learning</a>. Autonomous Robots. July 2009.</p>
+
+<h2 id="footnotes">Footnotes</h2>
+:ET

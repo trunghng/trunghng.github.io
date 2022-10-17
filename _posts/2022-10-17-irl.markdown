@@ -1,0 +1,70 @@
+---
+layout: post
+title:  "Inverse Reinforcement Learning"
+date:   2022-10-17 13:00:00 +0700
+categories: artificial-intelligent reinforcement-learning
+tags: artificial-intelligent reinforcement-learning inverse-reinforcement-learning
+description: Inverse Reinforcement Learning
+comments: true
+eqn-number: true
+---
+> A note on Inverse Reinforcement Learning
+
+<!-- excerpt-end -->
+
+- [Preliminaries](#preliminaries)
+	- [Markov decision processes](#mdp)
+	- [Inverse reinforcement learning](#irl)
+- [Max margin methods](#max-margin-methods)
+	- [Max-margin & Projection](#max-margin-proj)
+		- [Max-margin](#max-margin)
+		- [Projection](#proj)
+	- [Max margin planning](#max-margin-pln)
+	- [LEARCH](#learch)
+- [Max entropy methods](#max-ent)
+- [Bayesian methods](#bayes)
+	- [BIRL](#birl)
+- [References](#references)
+- [Footnotes](#footnotes)
+
+## Preliminaries
+{: #preliminaries}
+	
+### Markov decision processes
+{: #mdp}
+
+
+### Inverse reinforcement learning
+{: #irl}
+
+## Max margin methods
+{: #max-margin-methods}
+
+### Max margin planning
+{: #max-margin-pln}
+
+### Max-margin & Projection
+{: #max-margin-proj}
+
+#### Max-margin
+{: #max-margin}
+
+#### Projection
+{: #proj}
+
+#### LEARCH
+{: #learch}
+
+## Max entropy methods
+{: #max-ent}
+
+## References
+{: #references}
+[1] Pieter Abbeel & Andrew Y. Ng. [Apprenticeship Learning via Inverse Reinforcement Learning](https://doi.org/10.1145/1015330.1015430). ICML '04: Proceedings of the twenty-first international conference on Machine learning. July 2004.
+
+[2] Nathan D. Ratliff, J. Andrew Bagnell & Martin A. Zinkevich[Maximum margin planning](https://doi.org/10.1145/1143844.1143936). ICML '06: Proceedings of the 23rd international conference on Machine learning. June 2006
+
+[3] Nathan Ratliff, David Silver & J. Andrew (Drew) Bagnell. [Learning to search: Functional gradient techniques for imitation learning](https://www.ri.cmu.edu/publications/learning-to-search-functional-gradient-techniques-for-imitation-learning/). Autonomous Robots. July 2009.
+
+## Footnotes
+{: #footnotes}

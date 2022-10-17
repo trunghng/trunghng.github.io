@@ -6,6 +6,7 @@ categories: mathematics probability-statistics
 tags: mathematics probability-statistics normal-distribution
 description: Gaussian Distribution
 comments: true
+eqn-number: true
 ---
 > A note on Gaussian distribution.
 <!-- excerpt-end -->
@@ -31,7 +32,7 @@ $\newcommand{\Cov}{\mathrm{Cov}}$
 {: #gauss-dist}
 A random variable $X$ is said to be **Gaussian** or to have the **Normal distribution** with mean $\mu$ and variance $\sigma^2$ if its probability density function (PDF) is
 \begin{equation}
-f_X(x)=\dfrac{1}{\sqrt{2\pi}\sigma}\exp\left(-\dfrac{(x-\mu)^2}{2\sigma^2}\right)\tag{1}\label{1}
+f_X(x)=\dfrac{1}{\sqrt{2\pi}\sigma}\exp\left(-\dfrac{(x-\mu)^2}{2\sigma^2}\right)
 \end{equation}
 which we denote as $X\sim\mathcal{N}(\mu,\sigma)$.
 
@@ -39,15 +40,15 @@ which we denote as $X\sim\mathcal{N}(\mu,\sigma)$.
 {: #std-normal}
 When $X$ is normally distributed with mean $\mu=0$ and variance $\sigma^2=1$, we call its distribution **Standard Normal**.
 \begin{equation}
-X\sim\mathcal{N}(0,1)\tag{2}\label{2}
+X\sim\mathcal{N}(0,1)
 \end{equation}
 In this case, $X$ has special notations to denote its PDF and CDF, which are
 \begin{equation}
-\varphi(x)=\dfrac{1}{\sqrt{2\pi}}e^{-z^2/2},\tag{3}\label{3}
+\varphi(x)=\dfrac{1}{\sqrt{2\pi}}e^{-z^2/2},
 \end{equation}
 and
 \begin{equation}
-\Phi(x)=\int_{-\infty}^{x}\varphi(t)\,dt=\int_{-\infty}^{x}\dfrac{1}{\sqrt{2\pi}}e^{-t^2/2}\,dt\tag{4}\label{4}
+\Phi(x)=\int_{-\infty}^{x}\varphi(t)\,dt=\int_{-\infty}^{x}\dfrac{1}{\sqrt{2\pi}}e^{-t^2/2}\,dt
 \end{equation}
 Below are some illustrations of Normal distribution.
 <figure>
@@ -63,7 +64,7 @@ t_1X_1+\ldots+t_DX_D
 \end{equation}
 is normally distributed for any choice of constants $t_1,\dots,t_D$. Distribution of $\mathbf{X}$ then can be written in the following notation
 \begin{equation}
-\mathbf{X}\sim\mathcal{N}(\boldsymbol{\mu},\boldsymbol{\Sigma})\tag{5}\label{5}
+\mathbf{X}\sim\mathcal{N}(\boldsymbol{\mu},\boldsymbol{\Sigma})
 \end{equation}
 where
 \begin{equation}
@@ -71,13 +72,13 @@ where
 \end{equation}
 is the $D$-dimensional mean vector, and covariance matrix $\mathbf{\Sigma}\in\mathbb{R}^{D\times D}$ with
 \begin{equation}
-\boldsymbol{\Sigma}\_{ij}=\mathbb{E}\left(X_i-\mu_i\right)\left(X_j-\mu_j\right)=\Cov(X_i,X_j)\tag{6}\label{6}
+\boldsymbol{\Sigma}\_{ij}=\mathbb{E}\left(X_i-\mu_i\right)\left(X_j-\mu_j\right)=\Cov(X_i,X_j)\label{eq:mvn.1}
 \end{equation}
 We also have that $\boldsymbol{\Sigma}\geq 0$ (positive semi-definite matrix)[^1].
 
 Thus, the PDF of an MVN is defined as
 \begin{equation}
-f_\mathbf{X}(x_1,\ldots,x_D)=\dfrac{1}{(2\pi)^{D/2}\vert\mathbf{\Sigma}\vert^{1/2}}\exp\left[-\dfrac{1}{2}\left(\mathbf{x}-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})\right]\tag{7}\label{7}
+f_\mathbf{X}(x_1,\ldots,x_D)=\dfrac{1}{(2\pi)^{D/2}\vert\mathbf{\Sigma}\vert^{1/2}}\exp\left[-\dfrac{1}{2}\left(\mathbf{x}-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})\right]\label{eq:mvn.2}
 \end{equation}
 With this idea, *Standard Normal* distribution in multi-dimensional case can be defined as a Gaussian with mean $\boldsymbol{\mu}=0$ (here $0$ is an $D$-dimensional vector) and identity covariance matrix $\boldsymbol{\Sigma}=\mathbf{I}\_{D\times D}$.
 
@@ -96,7 +97,7 @@ An example of an BVN, $\mathcal{N}\left(\left[\begin{smallmatrix}0\\\\0\end{smal
 
 ### Symmetric
 {: #sym-cov}
-With the definition \eqref{6} of the covariance matrix $\boldsymbol{\Sigma}$, we can easily see that it is symmetric. However, notice that in the illustration of BVN, we gave the distribution a non-symmetric covariance matrix. The reason why we could do that is without loss of generality, we can assume that $\boldsymbol{\Sigma}$ is symmetric.
+With the definition \eqref{eq:mvn.1} of the covariance matrix $\boldsymbol{\Sigma}$, we can easily see that it is symmetric. However, notice that in the illustration of BVN, we gave the distribution a non-symmetric covariance matrix. The reason why we could do that is without loss of generality, we can assume that $\boldsymbol{\Sigma}$ is symmetric.
 
 To prove this property, first off consider a square matrix $\mathbf{S}$, we have it can be written by
 \begin{equation}
@@ -136,31 +137,31 @@ With this assumption of symmetry, the covariance matrix $\boldsymbol{\Sigma}$ no
 {: #re-cov}
 Consider an eigenvector, eigenvalue pair $(\mathbf{v},\lambda)$ of covariance matrix $\boldsymbol{\Sigma}$, we have
 \begin{equation}
-\boldsymbol{\Sigma}\mathbf{v}=\lambda\mathbf{v}\tag{8}\label{8}
+\boldsymbol{\Sigma}\mathbf{v}=\lambda\mathbf{v}\label{eq:rc.1}
 \end{equation}
 Since $\boldsymbol{\Sigma}\in\mathbb{R}^{D\times D}$, we have $\boldsymbol{\Sigma}=\overline{\boldsymbol{\Sigma}}$. Conjugate both sides of the equation above we have
 \begin{equation}
-\boldsymbol{\Sigma}\overline{\mathbf{v}}=\overline{\lambda}\overline{\mathbf{v}},\tag{9}\label{9}
+\boldsymbol{\Sigma}\overline{\mathbf{v}}=\overline{\lambda}\overline{\mathbf{v}},\label{eq:rc.2}
 \end{equation}
-Since $\boldsymbol{\Sigma}$ is symmetric, we have $\boldsymbol{\Sigma}=\boldsymbol{\Sigma}^\text{T}$. Taking the transpose of both sides of \eqref{9} gives us
+Since $\boldsymbol{\Sigma}$ is symmetric, we have $\boldsymbol{\Sigma}=\boldsymbol{\Sigma}^\text{T}$. Taking the transpose of both sides of \eqref{eq:rc.2} gives us
 \begin{equation}
-\overline{\mathbf{v}}^\text{T}\boldsymbol{\Sigma}=\overline{\lambda}\overline{\mathbf{v}}^\text{T}\tag{10}\label{10}
+\overline{\mathbf{v}}^\text{T}\boldsymbol{\Sigma}=\overline{\lambda}\overline{\mathbf{v}}^\text{T}\label{eq:rc.3}
 \end{equation}
-Continuing by taking dot product of both sides of \eqref{10} with $\mathbf{v}$ lets us obtain
+Continuing by taking dot product of both sides of \eqref{eq:rc.3} with $\mathbf{v}$ lets us obtain
 \begin{equation}
-\overline{\mathbf{v}}^\text{T}\boldsymbol{\Sigma}\mathbf{v}=\overline{\lambda}\overline{\mathbf{v}}^\text{T}\mathbf{v}\tag{11}\label{11}
+\overline{\mathbf{v}}^\text{T}\boldsymbol{\Sigma}\mathbf{v}=\overline{\lambda}\overline{\mathbf{v}}^\text{T}\mathbf{v}\label{eq:rc.4}
 \end{equation}
-On the other hand, take dot product of $\overline{\mathbf{v}}^\text{T}$ with both sides of \eqref{8}, we have
+On the other hand, take dot product of $\overline{\mathbf{v}}^\text{T}$ with both sides of \eqref{eq:rc.1}, we have
 \begin{equation}
 \overline{\mathbf{v}}^\text{T}\boldsymbol{\Sigma}\mathbf{v}=\lambda\overline{\mathbf{v}}^\text{T}\mathbf{v}
 \end{equation}
-which by \eqref{11} implies that
+which by \eqref{eq:rc.4} implies that
 \begin{equation}
 \overline{\lambda}\overline{\mathbf{v}}^\text{T}\mathbf{v}=\lambda\overline{\mathbf{v}}^\text{T}\mathbf{v},
 \end{equation}
 or
 \begin{equation}
-(\lambda-\overline{\lambda})\overline{\mathbf{v}}^\text{T}\mathbf{v}=0\tag{12}\label{12}
+(\lambda-\overline{\lambda})\overline{\mathbf{v}}^\text{T}\mathbf{v}=0\label{eq:rc.5}
 \end{equation}
 Moreover, we have that
 \begin{equation}
@@ -174,7 +175,7 @@ which implies that its complex conjugate $\overline{\mathbf{v}}$ can be written 
 \begin{equation}
 \overline{\mathbf{v}}=(a_1-i b_1,\ldots,a_D-i b_D)^\text{T}
 \end{equation}
-Therefore, by \eqref{12}, we can claim that
+Therefore, by \eqref{eq:rc.5}, we can claim that
 \begin{equation}
 \lambda=\overline{\lambda}
 \end{equation}
@@ -198,7 +199,7 @@ Hence, for any unit eigenvectors $\mathbf{q}\_i,\mathbf{q}\_j$ of $\boldsymbol{\
 \end{equation}
 This allows us to write $\boldsymbol{\Sigma}$ as
 \begin{equation}
-\boldsymbol{\Sigma}=\mathbf{Q}^\text{T}\boldsymbol{\Lambda}\mathbf{Q},\tag{13}\label{13}
+\boldsymbol{\Sigma}=\mathbf{Q}^\text{T}\boldsymbol{\Lambda}\mathbf{Q},
 \end{equation}
 where $\mathbf{Q}$ is the orthonormal matrix whose $i$-th row is $\mathbf{q}\_i^\text{T}$ and $\boldsymbol{\Lambda}$ is the diagonal matrix whose $\\{i,i\\}$ element is $\lambda_i$, as
 \begin{equation}
@@ -220,14 +221,14 @@ or
 \end{equation}
 <span id='precision-eigenvalue'>which implies that each eigenvector, eigenvalue pair $(\mathbf{q_i},\lambda_i)$ of $\boldsymbol{\Sigma}$ corresponds to an eigenvector, eigenvalue pair $(\mathbf{q}\_i,1/\lambda_i)$ of $\boldsymbol{\Sigma}^{-1}$. Therefore, $\boldsymbol{\Sigma}^{-1}$ can also be written by</span>
 \begin{equation}
-\boldsymbol{\Sigma}^{-1}=\sum_{i=1}^{D}\frac{1}{\lambda_i}\mathbf{q}\_i\mathbf{q}\_i^\text{T}\tag{14}\label{14}
+\boldsymbol{\Sigma}^{-1}=\sum_{i=1}^{D}\frac{1}{\lambda_i}\mathbf{q}\_i\mathbf{q}\_i^\text{T}\label{eq:pec.1}
 \end{equation}
 
 ## Geometrical interpretation
 {: #geo-int}
-Consider the probability density function of the Gaussian \eqref{7}, by the result \eqref{14}, we have that the functional dependence of the Gaussian on $\mathbf{x}$ is through the quadratic form
+Consider the probability density function of the Gaussian \eqref{eq:mvn.2}, by the result \eqref{eq:pec.1}, we have that the functional dependence of the Gaussian on $\mathbf{x}$ is through the quadratic form
 \begin{align}
-\Delta^2&=(\mathbf{x}-\boldsymbol{\mu})^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})\tag{15}\label{15} \\\\ &=\sum_{i=1}^{D}\frac{y_i^2}{\lambda_i},
+\Delta^2&=(\mathbf{x}-\boldsymbol{\mu})^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu}) \\\\ &=\sum_{i=1}^{D}\frac{y_i^2}{\lambda_i},
 \end{align}
 where we have defined
 \begin{equation}
@@ -249,7 +250,7 @@ Thus, $\vert\mathbf{J}\vert=\vert\mathbf{Q}^\text{T}\vert=1$ since
 \begin{equation}
 1=\vert\mathbf{I}\vert=\vert\mathbf{Q}^\text{T}\mathbf{Q}\vert=\vert\mathbf{Q}^\text{T}\vert\vert\mathbf{Q}\vert=\vert\mathbf{Q}^\text{T}\vert
 \end{equation}
-Additionally, by \eqref{14}, we also have
+Additionally, by \eqref{eq:pec.1}, we also have
 \begin{equation}
 \vert\boldsymbol{\Sigma}\vert^{1/2}=\left\vert\mathbf{Q}^\text{T}\boldsymbol{\Lambda}\mathbf{Q}\right\vert^{1/2}=\left(\vert\mathbf{Q}^\text{T}\vert\vert\boldsymbol{\Lambda}\vert\vert\mathbf{Q}\vert\right)^{1/2}=\prod_{i=1}^{D}\lambda_i^{1/2}
 \end{equation}
@@ -280,45 +281,45 @@ Analogously, we also define the partitioned form of the precision matrix $\bolds
 \boldsymbol{\Lambda}\doteq\boldsymbol{\Sigma}^{-1}=\left[\begin{matrix}\boldsymbol{\Lambda}\_{aa}&\boldsymbol{\Lambda}\_{ab} \\\\ \boldsymbol{\Lambda}\_{ba}&\boldsymbol{\Lambda}\_{bb}\end{matrix}\right],
 \end{equation}
 Thus, we also have that $\boldsymbol{\Lambda}\_{ab}=\boldsymbol{\Lambda}\_{ba}^\text{T}$ since $\boldsymbol{\Sigma}^{-1}$ or in other words, $\boldsymbol{\Lambda}$ is symmetric due to the symmetry of $\boldsymbol{\Sigma}$.
-With these partitions, we can rewrite the functional dependence of the Gaussian \eqref{7} on $\mathbf{x}$ as
+With these partitions, we can rewrite the functional dependence of the Gaussian \eqref{eq:mvn.2} on $\mathbf{x}$ as
 \begin{align}
--\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})&=-\frac{1}{2}(\mathbf{x}\_a-\boldsymbol{\mu}\_a)^\text{T}\boldsymbol{\Lambda}\_{aa}(\mathbf{x}\_a-\boldsymbol{\mu}\_a)-\frac{1}{2}(\mathbf{x}\_a-\boldsymbol{\mu}\_a)^\text{T}\boldsymbol{\Lambda}\_{ab}(\mathbf{x}\_b-\boldsymbol{\mu}\_b) \\\\ &\hspace{0.5cm}-\frac{1}{2}(\mathbf{x}\_b-\boldsymbol{\mu}\_b)^\text{T}\boldsymbol{\Lambda}\_{ba}(\mathbf{x}\_a-\boldsymbol{\mu}\_a)-\frac{1}{2}(\mathbf{x}\_b-\boldsymbol{\mu}\_b)^\text{T}\boldsymbol{\Lambda}\_{bb}(\mathbf{x}\_b-\boldsymbol{\mu}\_b)\tag{16}\label{16}
+\hspace{-1cm}-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})&=-\frac{1}{2}(\mathbf{x}\_a-\boldsymbol{\mu}\_a)^\text{T}\boldsymbol{\Lambda}\_{aa}(\mathbf{x}\_a-\boldsymbol{\mu}\_a)-\frac{1}{2}(\mathbf{x}\_a-\boldsymbol{\mu}\_a)^\text{T}\boldsymbol{\Lambda}\_{ab}(\mathbf{x}\_b-\boldsymbol{\mu}\_b) \\\\ &\hspace{0.5cm}-\frac{1}{2}(\mathbf{x}\_b-\boldsymbol{\mu}\_b)^\text{T}\boldsymbol{\Lambda}\_{ba}(\mathbf{x}\_a-\boldsymbol{\mu}\_a)-\frac{1}{2}(\mathbf{x}\_b-\boldsymbol{\mu}\_b)^\text{T}\boldsymbol{\Lambda}\_{bb}(\mathbf{x}\_b-\boldsymbol{\mu}\_b)\label{eq:cgd.1}
 \end{align}
-Consider the conditional probability $p(\mathbf{x}\_a\vert\mathbf{x}\_b)$, which is the distribution of $\mathbf{x}\_a$ given $\mathbf{x}\_b$. Viewing $\mathbf{x}\_b$ as a constant, \eqref{16} will be the functional dependence of the conditional probability $p(\mathbf{x}\_a\vert\mathbf{x}\_b)$ on $\mathbf{x}\_a$, which can be continued to derive as 
+Consider the conditional probability $p(\mathbf{x}\_a\vert\mathbf{x}\_b)$, which is the distribution of $\mathbf{x}\_a$ given $\mathbf{x}\_b$. Viewing $\mathbf{x}\_b$ as a constant, \eqref{eq:cgd.1} will be the functional dependence of the conditional probability $p(\mathbf{x}\_a\vert\mathbf{x}\_b)$ on $\mathbf{x}\_a$, which can be continued to derive as 
 \begin{align}
-&-\frac{1}{2}\mathbf{x}\_a^\text{T}\boldsymbol{\Lambda}\_{aa}\mathbf{x}\_a+\frac{1}{2}\mathbf{x}\_a^\text{T}\big(\boldsymbol{\Lambda}\_{aa}\boldsymbol{\mu}\_a+\boldsymbol{\Lambda}\_{aa}^\text{T}\boldsymbol{\mu}\_a-\boldsymbol{\Lambda}\_{ab}\mathbf{x}\_b+\boldsymbol{\Lambda}\_{ab}\boldsymbol{\mu}\_b-\boldsymbol{\Lambda}\_{ba}^\text{T}\mathbf{x}\_b+\boldsymbol{\Lambda}\_{ba}\boldsymbol{\mu}\_b\big)+c \\\\ &\hspace{3cm}=-\frac{1}{2}\mathbf{x}\_a^\text{T}\boldsymbol{\Lambda}\_{aa}\mathbf{x}\_a+\mathbf{x}\_a^\text{T}\big(\boldsymbol{\Lambda}\_{aa}\boldsymbol{\mu}\_a-\boldsymbol{\Lambda}\_{ab}(\mathbf{x}\_b-\boldsymbol{\mu}\_b)\big)+c,\tag{17}\label{17}
+&-\frac{1}{2}\mathbf{x}\_a^\text{T}\boldsymbol{\Lambda}\_{aa}\mathbf{x}\_a+\frac{1}{2}\mathbf{x}\_a^\text{T}\big(\boldsymbol{\Lambda}\_{aa}\boldsymbol{\mu}\_a+\boldsymbol{\Lambda}\_{aa}^\text{T}\boldsymbol{\mu}\_a-\boldsymbol{\Lambda}\_{ab}\mathbf{x}\_b+\boldsymbol{\Lambda}\_{ab}\boldsymbol{\mu}\_b-\boldsymbol{\Lambda}\_{ba}^\text{T}\mathbf{x}\_b+\boldsymbol{\Lambda}\_{ba}\boldsymbol{\mu}\_b\big)+c \\\\ &\hspace{3cm}=-\frac{1}{2}\mathbf{x}\_a^\text{T}\boldsymbol{\Lambda}\_{aa}\mathbf{x}\_a+\mathbf{x}\_a^\text{T}\big(\boldsymbol{\Lambda}\_{aa}\boldsymbol{\mu}\_a-\boldsymbol{\Lambda}\_{ab}(\mathbf{x}\_b-\boldsymbol{\mu}\_b)\big)+c,\label{eq:cgd.2}
 \end{align}
 where $c$ is a constant, and we have used the $\boldsymbol{\Lambda}\_{aa}=\boldsymbol{\Lambda}\_{aa}^\text{T}$ and $\boldsymbol{\Lambda}\_{ab}=\boldsymbol{\Lambda}\_{ba}^\text{T}$.
 
 Moreover, we have that the variation part which depends on $\mathbf{x}$ for any Gaussian $\mathbf{X}\sim\mathcal{N}(\mathbf{x}\vert\boldsymbol{\mu},\boldsymbol{\Sigma})$ can be written as a quadratic function of $\mathbf{x}$
 \begin{equation}
--\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})=-\frac{1}{2}\mathbf{x}^\text{T}\boldsymbol{\Sigma}^{-1}\mathbf{x}+\mathbf{x}^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}+c,\tag{18}\label{18}
+-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})=-\frac{1}{2}\mathbf{x}^\text{T}\boldsymbol{\Sigma}^{-1}\mathbf{x}+\mathbf{x}^\text{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}+c,\label{eq:cgd.3}
 \end{equation}
-where $c$ is a constant. With this observation, and by \eqref{17} we have that the conditional distribution $p(\mathbf{x}\_a\vert\mathbf{x}\_b)$ is a Gaussian, with the corresponding covariance matrix, denoted as $\boldsymbol{\Sigma}\_{a\vert b}$, given by
+where $c$ is a constant. With this observation, and by \eqref{eq:cgd.2} we have that the conditional distribution $p(\mathbf{x}\_a\vert\mathbf{x}\_b)$ is a Gaussian, with the corresponding covariance matrix, denoted as $\boldsymbol{\Sigma}\_{a\vert b}$, given by
 \begin{equation}
-\boldsymbol{\Sigma}\_{a\vert b}=\boldsymbol{\Lambda}\_{aa}^{-1},\tag{19}\label{19}
+\boldsymbol{\Sigma}\_{a\vert b}=\boldsymbol{\Lambda}\_{aa}^{-1},\label{eq:cgd.4}
 \end{equation}
 and with the corresponding mean vector, denoted as $\boldsymbol{\mu}\_{a\vert b}$, given by
 \begin{align}
-\boldsymbol{\mu}\_{a\vert b}&=\boldsymbol{\Sigma}\_{a\vert b}\big(\boldsymbol{\Lambda}\_{aa}\boldsymbol{\mu}\_a-\boldsymbol{\Lambda}\_{ab}(\mathbf{x}\_b-\boldsymbol{\mu}\_b)\big) \\\\ &=\boldsymbol{\mu}\_a-\boldsymbol{\Lambda}\_{aa}^{-1}\boldsymbol{\Lambda}\_{ab}(\mathbf{x}\_b-\boldsymbol{\mu}\_b)\tag{20}\label{20}
+\boldsymbol{\mu}\_{a\vert b}&=\boldsymbol{\Sigma}\_{a\vert b}\big(\boldsymbol{\Lambda}\_{aa}\boldsymbol{\mu}\_a-\boldsymbol{\Lambda}\_{ab}(\mathbf{x}\_b-\boldsymbol{\mu}\_b)\big) \\\\ &=\boldsymbol{\mu}\_a-\boldsymbol{\Lambda}\_{aa}^{-1}\boldsymbol{\Lambda}\_{ab}(\mathbf{x}\_b-\boldsymbol{\mu}\_b)\label{eq:cgd.5}
 \end{align}
 To express the mean $\boldsymbol{\mu}\_{a\vert b}$ and the covariance matrix $\boldsymbol{\Sigma}\_{a\vert b}$ of $p(\mathbf{x}\_a\vert\mathbf{x}\_b)$ in terms of partition of the covariance matrix $\boldsymbol{\Sigma}$ instead of the precision matrix $\boldsymbol{\Lambda}$'s, we will be using the identity for the inverse of a partitioned matrix
 \begin{align}
-\left[\begin{matrix}\mathbf{A}&\mathbf{B} \\\\ \mathbf{C}&\mathbf{D}\end{matrix}\right]^{-1}=\left[\begin{matrix}\mathbf{M}&-\mathbf{M}\mathbf{B}\mathbf{D}^{-1} \\\\ -\mathbf{D}^{-1}\mathbf{C}\mathbf{M}&\mathbf{D}^{-1}+\mathbf{D}^{-1}\mathbf{C}\mathbf{M}\mathbf{B}\mathbf{D}^{-1}\end{matrix}\right],\tag{21}\label{21}
+\left[\begin{matrix}\mathbf{A}&\mathbf{B} \\\\ \mathbf{C}&\mathbf{D}\end{matrix}\right]^{-1}=\left[\begin{matrix}\mathbf{M}&-\mathbf{M}\mathbf{B}\mathbf{D}^{-1} \\\\ -\mathbf{D}^{-1}\mathbf{C}\mathbf{M}&\mathbf{D}^{-1}+\mathbf{D}^{-1}\mathbf{C}\mathbf{M}\mathbf{B}\mathbf{D}^{-1}\end{matrix}\right],\label{eq:cgd.6}
 \end{align}
 where we have defined
 \begin{equation}
 \mathbf{M}\doteq(\mathbf{A}-\mathbf{B}\mathbf{D}^{-1}\mathbf{C})^{-1},
 \end{equation}
-whose inverse $\mathbf{M}^{-1}$ is called the **Schur complement** of the matrix $\left[\begin{matrix}\mathbf{A}&\mathbf{B} \\\\ \mathbf{C}&\mathbf{D}\end{matrix}\right]^{-1}$. This identity can be proved by multiplying both sides of \eqref{21} with $\left[\begin{matrix}\mathbf{A}&\mathbf{B} \\\\ \mathbf{C}&\mathbf{D}\end{matrix}\right]$ to give
+whose inverse $\mathbf{M}^{-1}$ is called the **Schur complement** of the matrix $\left[\begin{matrix}\mathbf{A}&\mathbf{B} \\\\ \mathbf{C}&\mathbf{D}\end{matrix}\right]^{-1}$. This identity can be proved by multiplying both sides of \eqref{eq:cgd.6} with $\left[\begin{matrix}\mathbf{A}&\mathbf{B} \\\\ \mathbf{C}&\mathbf{D}\end{matrix}\right]$ to give
 \begin{align}
 \mathbf{I}&=\left[\begin{matrix}\mathbf{M}&-\mathbf{M}\mathbf{B}\mathbf{D}^{-1} \\\\ -\mathbf{D}^{-1}\mathbf{C}\mathbf{M}&\mathbf{D}^{-1}+\mathbf{D}^{-1}\mathbf{C}\mathbf{M}\mathbf{B}\mathbf{D}^{-1}\end{matrix}\right]\left[\begin{matrix}\mathbf{A}&\mathbf{B} \\\\ \mathbf{C}&\mathbf{D}\end{matrix}\right] \\\\ &=\left[\begin{matrix}\mathbf{M}(\mathbf{A}-\mathbf{B}\mathbf{D}^{-1}\mathbf{C})&\mathbf{M}\mathbf{B}-\mathbf{M}\mathbf{B} \\\\ -\mathbf{D}^{-1}\mathbf{C}\mathbf{M}\mathbf{A}+\mathbf{D}^{-1}\mathbf{C}+\mathbf{D}^{-1}\mathbf{C}\mathbf{M}\mathbf{B}\mathbf{D}^{-1}\mathbf{C}&-\mathbf{D}^{-1}\mathbf{C}\mathbf{M}\mathbf{B}+\mathbf{I}+\mathbf{D}^{-1}\mathbf{C}\mathbf{M}\mathbf{B}\end{matrix}\right] \\\\ &=\left[\begin{matrix}\mathbf{I}&\mathbf{0} \\\\ \mathbf{D}^{-1}\mathbf{C}\big(\mathbf{I}-\mathbf{M}(\mathbf{A}-\mathbf{B}\mathbf{D}^{-1}\mathbf{C})\big)&\mathbf{I}\end{matrix}\right] \\\\ &=\left[\begin{matrix}\mathbf{I}&\mathbf{0} \\\\ \mathbf{0}&\mathbf{I}\end{matrix}\right]=\mathbf{I},
 \end{align}
 which claims our argument.
 
-Applying the identity \eqref{21} into the precision matrix $\boldsymbol{\Lambda}=\boldsymbol{\Sigma}^{-1}$ gives us
+Applying the identity \eqref{eq:cgd.6} into the precision matrix $\boldsymbol{\Lambda}=\boldsymbol{\Sigma}^{-1}$ gives us
 \begin{equation}
-\left[\begin{matrix}\boldsymbol{\Lambda}\_{aa}&\boldsymbol{\Lambda}\_{ab} \\\\ \boldsymbol{\Lambda}\_{ba}&\boldsymbol{\Lambda}\_{bb}\end{matrix}\right]=\left[\begin{matrix}\boldsymbol{\Sigma}\_{aa}&\boldsymbol{\Sigma}\_{ab} \\\\ \boldsymbol{\Sigma}\_{b a}&\boldsymbol{\Sigma}\_{bb}\end{matrix}\right]^{-1}=\left[\begin{matrix}\mathbf{M}\_\boldsymbol{\Sigma}&-\mathbf{M}\_\boldsymbol{\Sigma}\boldsymbol{\Sigma}\_{ab}\boldsymbol{\Sigma}\_{bb}^{-1} \\\\ -\boldsymbol{\Sigma}\_{bb}^{-1}\boldsymbol{\Sigma}\_{ba}\mathbf{M}\_\boldsymbol{\Sigma}&\boldsymbol{\Sigma}\_{bb}^{-1}+\boldsymbol{\Sigma}\_{bb}^{-1}\boldsymbol{\Sigma}\_{ba}\mathbf{M}\_\boldsymbol{\Sigma}\boldsymbol{\Sigma}\_{ab}\boldsymbol{\Sigma}\_{bb}^{-1}\end{matrix}\right],
+\hspace{-0.5cm}\left[\begin{matrix}\boldsymbol{\Lambda}\_{aa}&\boldsymbol{\Lambda}\_{ab} \\\\ \boldsymbol{\Lambda}\_{ba}&\boldsymbol{\Lambda}\_{bb}\end{matrix}\right]=\left[\begin{matrix}\boldsymbol{\Sigma}\_{aa}&\boldsymbol{\Sigma}\_{ab} \\\\ \boldsymbol{\Sigma}\_{b a}&\boldsymbol{\Sigma}\_{bb}\end{matrix}\right]^{-1}=\left[\begin{matrix}\mathbf{M}\_\boldsymbol{\Sigma}&-\mathbf{M}\_\boldsymbol{\Sigma}\boldsymbol{\Sigma}\_{ab}\boldsymbol{\Sigma}\_{bb}^{-1} \\\\ -\boldsymbol{\Sigma}\_{bb}^{-1}\boldsymbol{\Sigma}\_{ba}\mathbf{M}\_\boldsymbol{\Sigma}&\boldsymbol{\Sigma}\_{bb}^{-1}+\boldsymbol{\Sigma}\_{bb}^{-1}\boldsymbol{\Sigma}\_{ba}\mathbf{M}\_\boldsymbol{\Sigma}\boldsymbol{\Sigma}\_{ab}\boldsymbol{\Sigma}\_{bb}^{-1}\end{matrix}\right],
 \end{equation}
 where the Schur complement of $\mathbf{\Sigma}^{-1}$ is given by
 \begin{equation}
@@ -328,7 +329,7 @@ Hence, we obtain
 \begin{align}
 \boldsymbol{\Lambda}\_{aa}&=\mathbf{M}\_\boldsymbol{\Sigma}=\big(\boldsymbol{\Sigma}\_{aa}-\boldsymbol{\Sigma}\_{ab}\boldsymbol{\Sigma}\_{bb}^{-1}\boldsymbol{\Sigma}\_{ba}\big)^{-1}, \\\\ \boldsymbol{\Lambda}\_{ab}&=-\mathbf{M}\_\boldsymbol{\Sigma}\boldsymbol{\Sigma}\_{ab}\boldsymbol{\Sigma}\_{bb}^{-1}=\big(\boldsymbol{\Sigma}\_{aa}-\boldsymbol{\Sigma}\_{ab}\boldsymbol{\Sigma}\_{bb}^{-1}\boldsymbol{\Sigma}\_{ba}\big)^{-1}\boldsymbol{\Sigma}\_{ab}\boldsymbol{\Sigma}\_{bb}^{-1}
 \end{align}
-Substitute these results into \eqref{19} and \eqref{20}, we have the mean and the covariance matrix of the conditional Gaussian distribution $p(\mathbf{x}\_a\vert\mathbf{x}\_b)$ can be rewritten as
+Substitute these results into \eqref{eq:cgd.4} and \eqref{eq:cgd.5}, we have the mean and the covariance matrix of the conditional Gaussian distribution $p(\mathbf{x}\_a\vert\mathbf{x}\_b)$ can be rewritten as
 \begin{align}
 \boldsymbol{\mu}\_{a\vert b}&=\boldsymbol{\mu}\_a+\boldsymbol{\Sigma}\_{ab}\boldsymbol{\Sigma}\_{bb}^{-1}(\mathbf{x}\_b-\boldsymbol{\mu}\_b), \\\\ \boldsymbol{\Sigma}\_{a\vert b}&=\boldsymbol{\Sigma}\_{aa}-\boldsymbol{\Sigma}\_{ab}\boldsymbol{\Sigma}\_{bb}^{-1}\boldsymbol{\Sigma}\_{ba}
 \end{align}
@@ -355,11 +356,11 @@ p(\mathbf{z})=p(\mathbf{x},\mathbf{y})=p(\mathbf{x})p(\mathbf{y}\vert\mathbf{x})
 \end{equation}
 Taking the natural logarithm of both sides gives us
 \begin{align}
-\log p(\mathbf{z})&=\log p(\mathbf{x})+\log p(\mathbf{y}\vert\mathbf{x}) \\\\ &=\log\mathcal{N}(\mathbf{x}\vert\boldsymbol{\mu},\boldsymbol{\Lambda}^{-1})+\log\mathcal{N}(\mathbf{y}\vert\mathbf{A}\mathbf{x}+\mathbf{b},\mathbf{L}^{-1}) \\\\ &=-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^\text{T}\boldsymbol{\Lambda}(\mathbf{x}-\boldsymbol{\mu})-\frac{1}{2}(\mathbf{y}-\mathbf{A}\mathbf{x}-\mathbf{b})^\text{T}\mathbf{L}(\mathbf{y}-\mathbf{A}\mathbf{x}-\mathbf{b})+c\tag{24}\label{24}
+\log p(\mathbf{z})&=\log p(\mathbf{x})+\log p(\mathbf{y}\vert\mathbf{x}) \\\\ &=\log\mathcal{N}(\mathbf{x}\vert\boldsymbol{\mu},\boldsymbol{\Lambda}^{-1})+\log\mathcal{N}(\mathbf{y}\vert\mathbf{A}\mathbf{x}+\mathbf{b},\mathbf{L}^{-1}) \\\\ &=-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^\text{T}\boldsymbol{\Lambda}(\mathbf{x}-\boldsymbol{\mu})-\frac{1}{2}(\mathbf{y}-\mathbf{A}\mathbf{x}-\mathbf{b})^\text{T}\mathbf{L}(\mathbf{y}-\mathbf{A}\mathbf{x}-\mathbf{b})+c\label{eq:btg.1}
 \end{align}
 where $c$ is a constant in terms of $\mathbf{x}$ and $\mathbf{y}$, i.e., $c$ is independent of $\mathbf{x},\mathbf{y}$.
 
-It is easily to notice that \eqref{24} is a quadratic function of the components of $\mathbf{z}$, which implies that $p(\mathbf{z})$ is a Gaussian. By \eqref{18}, in order to find the covariance matrix of $\mathbf{z}$, we consider the quadratic terms in \eqref{24}, which are given by
+It is easily to notice that \eqref{eq:btg.1} is a quadratic function of the components of $\mathbf{z}$, which implies that $p(\mathbf{z})$ is a Gaussian. By \eqref{eq:cgd.3}, in order to find the covariance matrix of $\mathbf{z}$, we consider the quadratic terms in \eqref{eq:btg.1}, which are given by
 \begin{align}
 &-\frac{1}{2}\mathbf{x}^\text{T}\boldsymbol{\Lambda}\mathbf{x}-\frac{1}{2}(\mathbf{y}-\mathbf{A}\mathbf{x})^\text{T}\mathbf{L}(\mathbf{y}-\mathbf{A}\mathbf{x}) \\\\ &=-\frac{1}{2}\Big[\mathbf{x}^\text{T}\big(\boldsymbol{\Lambda}+\mathbf{A}^\text{T}\mathbf{L}\mathbf{A}\big)\mathbf{x}+\mathbf{y}^\text{T}\mathbf{L}\mathbf{y}-\mathbf{y}^\text{T}\mathbf{L}\mathbf{A}\mathbf{x}-\mathbf{x}^\text{T}\mathbf{A}^\text{T}\mathbf{L}\mathbf{y}\Big] \\\\ &=-\frac{1}{2}\left[\begin{matrix}\mathbf{x} \\\\ \mathbf{y}\end{matrix}\right]^\text{T}\left[\begin{matrix}\boldsymbol{\Lambda}+\mathbf{A}^\text{T}\mathbf{L}\mathbf{A}&-\mathbf{A}^\text{T}\mathbf{L} \\\\ -\mathbf{L}\mathbf{A}&\mathbf{L}\end{matrix}\right]\left[\begin{matrix}\mathbf{x} \\\\ \mathbf{y}\end{matrix}\right] \\\\ &=-\frac{1}{2}\mathbf{z}^\text{T}\mathbf{R}\mathbf{z},
 \end{align}
@@ -367,15 +368,15 @@ which implies that the precision matrix of $\mathbf{z}$ is $\mathbf{R}$, defined
 \begin{equation}
 \mathbf{R}=\left[\begin{matrix}\boldsymbol{\Lambda}+\mathbf{A}^\text{T}\mathbf{L}\mathbf{A}&-\mathbf{A}^\text{T}\mathbf{L} \\\\ -\mathbf{L}\mathbf{A}&\mathbf{L}\end{matrix}\right]
 \end{equation}
-Thus, using the identity \eqref{21}, we obtain the covariance matrix of the joint distribution
+Thus, using the identity \eqref{eq:cgd.6}, we obtain the covariance matrix of the joint distribution
 \begin{equation}
 \boldsymbol{\Sigma}\_\mathbf{z}=\mathbf{R}^{-1}=\left[\begin{matrix}\boldsymbol{\Lambda}^{-1}&\boldsymbol{\Lambda}^{-1}\mathbf{A}^\text{T} \\\\ \mathbf{A}\boldsymbol{\Lambda}^{-1}&\mathbf{L}^{-1}+\mathbf{A}\boldsymbol{\Lambda}^{-1}\mathbf{A}^\text{T}\end{matrix}\right]
 \end{equation}
-Analogously, by \eqref{18}, we can find the mean of the joint distribution by considering the linear terms of \eqref{24}, which are
+Analogously, by \eqref{eq:cgd.3}, we can find the mean of the joint distribution by considering the linear terms of \eqref{eq:btg.1}, which are
 \begin{align}
-\frac{1}{2}\Big[\mathbf{x}^\text{T}\boldsymbol{\Lambda}\boldsymbol{\mu}+\boldsymbol{\mu}^\text{T}\boldsymbol{\Lambda}\mathbf{x}+(\mathbf{y}-\mathbf{A}\mathbf{x})^\text{T}\mathbf{L}\mathbf{b}+\mathbf{b}^\text{T}\mathbf{L}(\mathbf{y}-\mathbf{A}\mathbf{x}) \Big]&=\mathbf{x}^\text{T}\boldsymbol{\Lambda}\boldsymbol{\mu}-\mathbf{x}^\text{T}\mathbf{A}^\text{T}\mathbf{L}\mathbf{b}+\mathbf{y}^\text{T}\mathbf{L}\mathbf{b} \\\\ &=\left[\begin{matrix}\mathbf{x} \\\\ \mathbf{y}\end{matrix}\right]^\text{T}\left[\begin{matrix}\boldsymbol{\Lambda}\boldsymbol{\mu}-\mathbf{A}^\text{T}\mathbf{L}\mathbf{b} \\\\ \mathbf{L}\mathbf{b}\end{matrix}\right]
+\hspace{-0.7cm}\frac{1}{2}\Big[\mathbf{x}^\text{T}\boldsymbol{\Lambda}\boldsymbol{\mu}+\boldsymbol{\mu}^\text{T}\boldsymbol{\Lambda}\mathbf{x}+(\mathbf{y}-\mathbf{A}\mathbf{x})^\text{T}\mathbf{L}\mathbf{b}+\mathbf{b}^\text{T}\mathbf{L}(\mathbf{y}-\mathbf{A}\mathbf{x}) \Big]&=\mathbf{x}^\text{T}\boldsymbol{\Lambda}\boldsymbol{\mu}-\mathbf{x}^\text{T}\mathbf{A}^\text{T}\mathbf{L}\mathbf{b}+\mathbf{y}^\text{T}\mathbf{L}\mathbf{b} \\\\ &=\left[\begin{matrix}\mathbf{x} \\\\ \mathbf{y}\end{matrix}\right]^\text{T}\left[\begin{matrix}\boldsymbol{\Lambda}\boldsymbol{\mu}-\mathbf{A}^\text{T}\mathbf{L}\mathbf{b} \\\\ \mathbf{L}\mathbf{b}\end{matrix}\right]
 \end{align}
-Thus, by \eqref{18}, we have that the mean of the joint distribution is then given by
+Thus, by \eqref{eq:cgd.3}, we have that the mean of the joint distribution is then given by
 \begin{equation}
 \boldsymbol{\mu}\_\mathbf{z}=\boldsymbol{\Sigma}\_\mathbf{z}\left[\begin{matrix}\boldsymbol{\Lambda}\boldsymbol{\mu}-\mathbf{A}^\text{T}\mathbf{L}\mathbf{b} \\\\ \mathbf{L}\mathbf{b}\end{matrix}\right]=\left[\begin{matrix}\boldsymbol{\mu} \\\\ \mathbf{A}\boldsymbol{\mu}+\mathbf{b}\end{matrix}\right]
 \end{equation}
@@ -383,7 +384,7 @@ Given the mean $\boldsymbol{\mu}\_\mathbf{z}$ and the covariance matrix $\boldsy
 \begin{align}
 \boldsymbol{\mu}\_\mathbf{y}&=\mathbf{A}\boldsymbol{\mu}+\mathbf{b}, \\\\ \boldsymbol{\Sigma}\_\mathbf{y}&=\mathbf{L}^{-1}+\mathbf{A}\boldsymbol{\Lambda}^{-1}\mathbf{A}^\text{T},
 \end{align}
-and also, by \eqref{19} and \eqref{20}, we can easily get mean and covariance matrix of the conditional distribution $p(\mathbf{x}\vert\mathbf{y})$, which are given by
+and also, by \eqref{eq:cgd.4} and \eqref{eq:cgd.5}, we can easily get mean and covariance matrix of the conditional distribution $p(\mathbf{x}\vert\mathbf{y})$, which are given by
 \begin{align}
 \boldsymbol{\mu}\_{\mathbf{x}\vert\mathbf{y}}&=(\boldsymbol{\Lambda}+\mathbf{A}^\text{T}\mathbf{L}\mathbf{A})^{-1}\big(\mathbf{A}^\text{T}\mathbf{L}(\mathbf{y}-\mathbf{b})+\boldsymbol{\Lambda}\boldsymbol{\mu}\big) \\\\ \boldsymbol{\Sigma}\_{\mathbf{x}\vert\mathbf{y}}&=(\boldsymbol{\Lambda}+\mathbf{A}^\text{T}\mathbf{L}\mathbf{A})^{-1}
 \end{align}

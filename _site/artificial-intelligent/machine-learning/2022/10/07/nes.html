@@ -157,6 +157,7 @@
     </ul>
   </li>
   <li><a href="#fn-shp">Fitness shaping</a></li>
+  <li><a href="#adp-sampl">Adaption Sampling</a></li>
   <li><a href="#references">References</a></li>
   <li><a href="#footnotes">Footnotes</a></li>
 </ul>
@@ -223,12 +224,23 @@ where $J(\theta)$ is given as in \eqref{eq:sg.1}; $\varepsilon$ is a small incre
 \begin{align}
 D(\theta+\delta\theta\Vert\theta)&amp;=\int\pi(\mathbf{z}\vert\theta+\delta\theta)\log\frac{\pi(\mathbf{z}\vert\theta+\delta\theta)}{\pi(\mathbf{z}\vert\theta)}\,d\mathbf{z} \\ &amp;=\mathbb{E}_{\theta+\delta\theta}\big[\log\pi(\mathbf{z}\vert\theta+\delta)-\log\pi(\mathbf{z}\vert\theta)\big]\label{eq:ng.1}
 \end{align}
-As $\delta\theta\to 0$, or consider the Taylor expansion of \eqref{eq:ng.1} about $\delta\theta=0$, we have
+As $\delta\theta\to 0$, or in other words, consider the Taylor expansion of \eqref{eq:ng.1} about $\delta\theta=0$, we have
 \begin{align}
-&amp;\hspace{-1cm}D(\theta+\delta\theta\Vert\theta)\nonumber \\ &amp;=\mathbb{E}_{\theta+\delta\theta}\big[\log\pi(\mathbf{z}\vert\theta+\delta)-\log\pi(\mathbf{z}\vert\theta)\big] \\ &amp;\approx\mathbb{E}_{\theta+\delta\theta}\left[\log\pi(\mathbf{z}\vert\theta)+\delta\theta^\text{T}\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}-\frac{1}{2}\delta\theta^\text{T}\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)\nabla_\theta\pi(\mathbf{z}\vert\theta)^\text{T}}{\pi(\mathbf{z}\vert\theta)^2}\delta\theta-\log\pi(\mathbf{z}\vert\theta)\right] \\ &amp;=\mathbb{E}_{\theta+\delta\theta}\left[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)-\frac{1}{2}\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\right] \\ &amp;=
+&amp;\hspace{-1cm}D(\theta+\delta\theta\Vert\theta)\nonumber \\ &amp;=\mathbb{E}_{\theta+\delta\theta}\big[\log\pi(\mathbf{z}\vert\theta+\delta\theta)-\log\pi(\mathbf{z}\vert\theta)\big] \\ &amp;\approx\mathbb{E}_{\theta+\delta\theta}\left[\log\pi(\mathbf{z}\vert\theta)+\delta\theta^\text{T}\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}-\frac{1}{2}\delta\theta^\text{T}\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)\nabla_\theta\pi(\mathbf{z}\vert\theta)^\text{T}}{\pi(\mathbf{z}\vert\theta)^2}\delta\theta-\log\pi(\mathbf{z}\vert\theta)\right] \\ &amp;=\mathbb{E}_{\theta+\delta\theta}\left[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)-\frac{1}{2}\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\right] \\ &amp;=\mathbb{E}_{\theta+\delta\theta}\Big[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\Big]-\mathbb{E}_{\theta+\delta\theta}\left[\frac{1}{2}\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\right] \\ &amp;=-\frac{1}{2}\int\pi(\mathbf{z}\vert\theta+\delta\theta)\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\,d\mathbf{z} \\ 
+\end{align}
+where in the fifth step, we have used that
+\begin{align}
+\mathbb{E}_{\theta+\delta\theta}\Big[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\Big]&amp;=\int\pi(\mathbf{z}\vert\theta+\delta\theta)\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\ &amp;=\int\pi(\mathbf{z}\vert\theta+\delta\theta)\frac{1}{\pi(\mathbf{z}\vert\theta+\delta\theta)}\nabla_\theta\pi(\mathbf{z}\vert\theta+\delta\theta)\,d\mathbf{z} \\ &amp;=\nabla_\theta\int\pi(\mathbf{z}\vert\theta+\delta\theta)\,d\mathbf{z} \\ &amp;=\nabla_\theta 1=0
+\end{align}</p>
+
+<p>where $\mathbf{F}$ is the <strong>Fisher information matrix</strong>, defined as
+\begin{align}
+\mathbf{F}&amp;=\int\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\,d\mathbf{z} \\ &amp;=\mathbb{E}\big[\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\big]
 \end{align}</p>
 
 <h2 id="fn-shp">Fitness shaping</h2>
+
+<h2 id="adp-sampl">Adaption Sampling</h2>
 
 <h2 id="references">References</h2>
 <p>[1] Daan Wierstra, et al. <a href="https://people.idsia.ch/~juergen/nes2008.pdf">Natural Evolution Strategies</a>. IEEE World Congress on Computational Intelligence, 2008.</p>

@@ -207,13 +207,13 @@ P(S_{t+1}|S_t)=P(S_{t+1}|S_1,\dots,S_t)
 <p>In the preceding section, we have said that the goal of agent is to maximize the cumulative reward in the long run. In general, we seek to maximize the <strong>expected return</strong>.</p>
 
 <p><strong>Definition</strong> (<em>Return</em>)<br />
-The <strong>return</strong> $G_t$ is the total discounted reward from t
+The <strong>return</strong> $G_t$ is the total discounted reward from $t$
 \begin{equation}
 G_t=R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+\dots=\sum_{k=0}^{\infty}\gamma^k R_{t+k+1},
 \end{equation}
-where $\gamma\in[0,1]$ is called <em>discount rate</em> (or <em>discount factor</em>).</p>
+where $\gamma\in[0,1]$ is called <strong>discount rate</strong> (or <strong>discount factor</strong>).</p>
 
-<p>The <em>discount rate</em> $\gamma$ determines the present value of future rewards: a reward received
+<p>The discount rate $\gamma$ determines the present value of future rewards: a reward received
 k time steps in the future is worth only $\gamma^{k-1}$ times what it would be worth if it were received immediately. And also, it provides mathematical convenience since as $k\rightarrow\infty$ then $\gamma^k\rightarrow 0$.</p>
 
 <h3 id="policy">Policy</h3>
@@ -348,7 +348,16 @@ q_*(s,a)&amp;=\mathbb{E}\left[R_{t+1}+\gamma\max_{a’}q_*(S_{t+1},a’)|S_t=s,A
     tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
     "HTML-CSS": {availableFonts: []}
   });
-</script>
+</script><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      "HTML-CSS": {availableFonts: []},
+      TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+      },
+    });
+  </script>
+
 <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
