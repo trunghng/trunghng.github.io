@@ -17,6 +17,19 @@ eqn-number: true
 		- [Affine sets](#aff-sets)
 		- [Affine dimension, relative interior](#aff-dim-rel-int)
 		- [Convex sets](#cvx-sets-def)
+		- [Cones](#cones)
+	- [Examples](#eg)
+		- [Hyperplanes, halfspaces](#hyperplane-halfspaces)
+		- [Balls, ellipsoids, norm cones](#balls-ellips-cones)
+			- [Balls](#balls)
+			- [Ellipsoids](#ellips)
+			- [Norm cones](#norm-cones)
+		- [Polyhedra](#polyhedra)
+		- [Positive semi-definite cones](#psd-cones)
+	- [Operations that preserve convexity](#operations)
+		- [Intersection](#intersect)
+		- [Affine functions](#aff-funcs)
+		- [Linear-fraction, perspective functions](#lin-frac-persp-funcs)
 - [Convex functions](#cvx-funcs)
 - [References](#references)
 - [Footnotes](#footnotes)
@@ -37,8 +50,10 @@ A point of the form $\theta_1 x_1+\ldots+\theta_k x_k$, where $\theta_1+\ldots+\
 
 Hence, if $C$ is an affine set, and $x_1,\ldots,x_k\in C$, and $\theta_1+\ldots+\theta_k=1$, then the point
 \begin{equation}
-\theta_1 x_1+\ldots+\theta_k x_k\in C
+\theta_1 x_1+\ldots+\theta_k x_k\in C,
 \end{equation}
+or in other words, an affine set contains every affine combination of its points.
+
 If $C$ is an affine set and $x_0\in C$, then the set
 \begin{equation}
 V=C-x_0\\{x-x_0:x\in C\\}
@@ -55,10 +70,154 @@ The affine hull is the *smallest* affine set containing $C$.
 {: #aff-dim-rel-int}
 The **affine dimension** of a set $C$ is defined as the dimension of $\text{aff}\,C$.
 
-If the affine dimension of $C\subset\mathbb{R}^n$ is less than $n$, then the set lies in $\text{aff}\,C\neq\mathbb{R}^n$
+If the affine dimension of $C\subset\mathbb{R}^n$ is less than $n$, then the set lies in $\text{aff}\,C\neq\mathbb{R}^n$. The **relative interior** of the set $C$, denoted as $\text{relint}\,C$, is defined as its interior relative to $\text{aff}\,C$:
+\begin{equation}
+\text{relint}\,C=\\{x\in C:B(x,r)\cap\text{aff}\,C\in C\text{ for some }r>0\\},
+\end{equation}
+where $B(x,r)$ is the ball centered at $x$ with radius $r$ in the norm $\Vert\cdot\Vert$ (here $\Vert\cdot\Vert$ could be any norm; all norms define the same relative interior).
+
+The **relative boundary** of $C$ is defined as $\overline{C}\backslash\text{relint}\,C$, where $\overline{C}$ is the closure of $C$.
 
 #### Convex sets
 {: #cvx-sets-def}
+A set $C$ is **convex** if the line segment between any points in $C$ also lies in $C$, i.e. for any $x_1,x_2\in C$ and for any $0\leq\theta\leq 1$, we have
+\begin{equation}
+\theta x_1+(1-\theta)x_2\in C
+\end{equation}
+It is then easily seen that every affine sets is also convex.
+
+Analogy to affine sets, we also refer a point of the form $\theta_1 x_1+\ldots+\theta_k x_k$, where $\theta_1+\ldots+\theta_k=1$ and $\theta_i\geq 0,\forall i=1,\ldots,k$, a **convex combination** of the points $x_1,\ldots,x_k$. And a set is convex iff it contains every convex combination of its points.
+
+The **convex hull** of $C$, denoted by $\text{conv}\,C$, is defined as the set of all convex combinations of points in $C$:
+\begin{equation}
+\text{conv}\,C=\\{\theta_1 x_1+\ldots+\theta_k x_k:x_1,\ldots,x_k\in C;\theta_1+\ldots+\theta_k=1;\theta_1,\ldots,\theta_k\geq 0\\}
+\end{equation}
+Thus, $\text{conv}\,C$ is convex and is the smallest convex set containing $C$.
+
+We can generalize the definition of convex combination into: let $x_1,x_2\ldots\in C$ where $C\subset\mathbb{R}^n$ and let $\\{\theta_n\\}\_{n=1,2,\ldots}$ be a countable sequence such that
+\begin{equation}
+\sum_{i=1}^{\infty}\theta_i=1;\hspace{2cm}\theta_i\geq 0,\hspace{0.5cm}\forall i=1,2,\ldots
+\end{equation}
+Then the series
+\begin{equation}
+\sum_{i=1}^{\infty}\theta_i x_i\in C,
+\end{equation}
+if it converges.
+
+More generally, suppose $p:\mathbb{R}^n\to\mathbb{R}$ satisfies $p(x)\geq 0$ forall $x\in C$ and $\int_C p(x)\,dx=1$, where $C\subset\mathbb{R}^n$ is a convex set. Then the integral
+\begin{equation}
+\int_C p(x)x\,dx\in C
+\end{equation}
+if it exists.
+
+In the most general form, suppose $C\subset\mathbb{R}^n$ is convex and $x$ is a random vector with $x\in C$ with probability one. Then we also have that
+\begin{equation}
+\mathbb{E}x\in C
+\end{equation}
+
+#### Cones
+{: #cones}
+A set $C$ is called a **cone**, or **nonnegative homogeneous**, if for every $x\in C$ and for any $\theta\geq 0$, we also have $\theta x\in C$.
+
+A **convex cone** $C$ is both convex and a cone, i.e. for any $x_1,x_2\in C$ and for any $\theta_1,\theta_2\geq 0$, we have
+\begin{equation}
+\theta_1 x_1+\theta_2 x_2\in C
+\end{equation}
+since by definition of a cone, we can add a normalization factor $\alpha$ into the point above
+\begin{equation}
+\alpha\theta_1 x_1+\alpha\theta_2 x_2
+\end{equation}
+such that $\alpha\theta_1+\alpha\theta_2=1$ (in this particular case, $\alpha=1/(\theta_1+\theta_2)$).
+
+A point of the form $\theta_1 x_1+\ldots+\theta_k x_k$ with $\theta_1,\ldots,\theta_k\geq 0$ is called a **conic combination**. It is easily seen that a set $C$ is a convex cone iff it contains all conic combinations of its points.
+Like convex and affine combinations, we can generalize the definition of conic combination into infinite series and integrals.
+
+We define the **conic hull** of a set $C$ as the set of all conic combinations of elements in $C$
+\begin{equation}
+\\{\theta_1 x_1+\ldots+\theta_k x_k:x_i\in C;\theta_i\geq 0,\forall i=1,\ldots,k\\}
+\end{equation}
+Also, the conic hull of $C$ is the smallest convex cone containing $C$.
+
+### Examples
+{: #eg}
+
+### Hyperplanes, halfspaces
+{: #hyperplane-halfspaces}
+A **hyperplane** $P$ is a set of form
+\begin{equation}
+P=\\{x\in\mathbb{R}^n:a^\text{T}x=b\\},
+\end{equation}
+where $a\in\mathbb{R}^n$, $a\neq 0$ and $b\in\mathbb{R}$. We have that $P$ is convex.
+
+To prove this, for $x_1,x_2\in P$, and for any $0\leq\theta\leq 1$, we have
+\begin{equation}
+a^\text{T}\big(\theta x_1+(1-\theta)x_2\big)=\theta a^\text{T}x_1+(1-\theta)a^\text{T}x_2=\theta b+(1-\theta)b=b
+\end{equation} 
+
+A hyperplane separates $\mathbb{R}^n$ into two **halfspaces**. A (closed) halfspace is a set of of the form
+\begin{equation}
+\\{x\in\mathbb{R}^n:a^\text{T}x\leq b\\},
+\end{equation}
+where $a\in\mathbb{R}^n$, $a\neq 0$ and $b\in\mathbb{R}$. It is also easily seen that halfspaces are also convex.
+
+#### Balls, ellipsoids, norm cones
+{: #balls-ellips-cones}
+
+##### Balls
+{: #balls}
+A (closed) **ball** in $\mathbb{R}^n$ centered at $x_c$ and with radius $r$ and with $\Vert\cdot\Vert$ is any norm in $\mathbb{R}^n$
+\begin{equation}
+B(x_c,r)=\\{x\in\mathbb{R}^n:\Vert x-x_c\Vert\leq r\\}
+\end{equation}
+is a convex set.
+
+To see this, for any $x_1,x_2\in B(x_c,r)$ and for any $0\leq\theta\leq 1$, by triangle inequality of norm, we have
+\begin{align}
+\Vert\theta x_1+(1-\theta)x_2-x_c\Vert&=\Vert\theta(x_1-x_c)+(1-\theta)(x_2-x_c)\Vert \\\\ &\leq\theta\Vert x_1-x_c\Vert+(1-\theta)\Vert x_2-x_c\Vert \\\\ &\leq\theta r+(1-\theta)r \\\\ &=r
+\end{align}
+
+##### Ellipsoids
+{: #ellips}
+An **ellipsoid** $\mathcal{E}$ in $\mathbb{R}^n$ centered at $x_c\in\mathbb{R}^n$ is defined as
+\begin{equation}
+\mathcal{E}=\\{x:(x-x_c)^\text{T}P^{-1}(x-x_c)\leq 1\\},
+\end{equation}
+where $P\in\mathbb{R}^{n\times n}$ is symmetric and positive definite. The matrix $P$ determines how far $\mathcal{E}$ extends in every direction from $x_c$; the lengths of the semi-axes of $\mathcal{E}$ are $\sqrt{\lambda_i}$, where $\lambda_i$ for $i=1,\ldots,n$ are the eigenvalues of $P$. A ball of radius $r$ is an ellipsoid with
+\begin{equation}
+P=r^2 I
+\end{equation}
+We then have $\mathcal{E}$ is convex.
+
+##### Norm cones
+{: #norm-cones}
+A **norm cone** $C$ associated with the norm $\Vert\cdot\Vert$ is defined as
+\begin{equation}
+C=\\{(x,t):\Vert x\Vert\leq t\\}\subset\mathbb{R}^{n+1}
+\end{equation}
+is also convex
+
+### Polyhedra
+{: #polyhedra}
+A **polyhedron** $\mathcal{P}$ is defined as
+\begin{equation}
+\mathcal{P}=\\{x:a_i^\text{T}\leq b_i,i=1,\ldots,m;c_j^\text{T}=d_j,j=1,\ldots,p\\}
+\end{equation}
+Then $\mathcal{P}$ can be seen as the intersection of a finite number of halfspaces and hyperplanes. Another representation of $\mathcal{P}$ is
+\begin{equation}
+\mathcal{P}=\\{x:Ax\preceq b,Cx=d\\},
+\end{equation}
+where
+\begin{equation}
+A=\left[\begin{matrix}a_1^\text{T} \\\\ \vdots \\\\ a_m^\text{T}\end{matrix}\right],\hspace{2cm}C=\left[\begin{matrix}c_1^\text{T} \\\\ \vdots \\\\ c_p^\text{T}\end{matrix}\right]
+\end{equation}
+And thus, we also have that $\mathcal{P}$ is convex.
+
+
+#### Intersection of convex sets
+{: #cap-cvx-sets}
+
+#### Positive semi-definite matrices
+{: #psd-mtx}
 
 ## Convex functions
 {: #cvx-funcs}
