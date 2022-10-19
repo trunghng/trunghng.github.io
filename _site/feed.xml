@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-17T20:35:11+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-19T20:26:00+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Inverse Reinforcement Learning</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/10/17/irl.html" rel="alternate" type="text/html" title="Inverse Reinforcement Learning" /><published>2022-10-17T13:00:00+07:00</published><updated>2022-10-17T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/10/17/irl</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/10/17/irl.html">&lt;blockquote&gt;
   &lt;p&gt;A note on Inverse Reinforcement Learning&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -37,27 +37,80 @@
 &lt;h2 id=&quot;preliminaries&quot;&gt;Preliminaries&lt;/h2&gt;
 
 &lt;h3 id=&quot;mdp&quot;&gt;Markov decision processes&lt;/h3&gt;
+&lt;p&gt;We begin by recalling the definition of &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html#mdp&quot;&gt;&lt;strong&gt;Markov decision processes (MDP)&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;A &lt;strong&gt;Markov decision process&lt;/strong&gt;, or &lt;strong&gt;MDP&lt;/strong&gt; is defined to be a tuple $(\mathcal{S},\mathcal{A},T,R,\gamma)$, where&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;$\mathcal{S}$ is a set of states, represents the &lt;strong&gt;state space&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;$\mathcal{A}$ is a set of actions, known as the &lt;strong&gt;action space&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;$T:\mathcal{S}\times\mathcal{A}\times\mathcal{S}\to[0,1]$ is the &lt;strong&gt;state transition probabilities&lt;/strong&gt;, i.e., $T(s’\vert s,a)$ denotes the probability of transitioning to state $s’$ when taking action $a$ from state $s$.&lt;/li&gt;
+  &lt;li&gt;$R:\mathcal{S}\times\mathcal{A}\to\mathbb{R}$ denotes the &lt;strong&gt;reward function&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;$\gamma\in[0,1]$ is referred as &lt;strong&gt;discount factor&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A &lt;strong&gt;policy&lt;/strong&gt;, denoted $\pi$, is a mapping from states to probabilities of selecting each possible action, which can be either deterministic $\pi:\mathcal{S}\times\mathcal{A}\to\{0,1\}$ (or $\pi:\mathcal{S}\to\mathcal{A}$) or stochastic $\pi:\mathcal{S}\times\mathcal{A}\to[0,1]$.&lt;/p&gt;
+
+&lt;p&gt;Under a particular policy $\pi$, the &lt;strong&gt;state value function&lt;/strong&gt;, denoted as $v_\pi$, of a state $s\in\mathcal{S}$ measures how good it is for the agent to be in $s$. Specifically, $v_\pi(s)$ is defined as the expected sum of discounted rewards when starting in $s$ and following $\pi$.&lt;/p&gt;
+
+&lt;p&gt;For an initial state $s_0$, its value can be computed as
+\begin{equation}
+v_\pi(s_0)=\mathbb{E}_\pi\left[\sum_{t=0}^{\infty}\gamma^t R(S_t,\pi(S_t))\big\vert S_0=s_0\right]\label{eq:mdp.1}
+\end{equation}
+Analogously, the &lt;strong&gt;state-action value function&lt;/strong&gt;, denoted by $q_\pi$, of a state-action pair $(s\in\mathcal{S},a\in\mathcal{A})$ specifies how good it is to take action $a$ from state $s$. Similar to $v_\pi$, $q_\pi$ is defined as the expected sum of discounted rewards when starting from $s$, taking action $a$ and thereby following policy $\pi$.&lt;/p&gt;
 
 &lt;h3 id=&quot;irl&quot;&gt;Inverse reinforcement learning&lt;/h3&gt;
+&lt;p&gt;The tuple $(\mathcal{S},\mathcal{A},T,\gamma)$ represents an $MDP$ without a predefined reward function $R$, or MDP\R for short. Suppose that we are given either a set of demonstrated trajectories, denoted as $\mathcal{D}$, or an &lt;strong&gt;expert&lt;/strong&gt; (policy) $\pi_E$, which is good at our task. Without an explicit reward function, with &lt;strong&gt;inverse reinforcement learning&lt;/strong&gt;, or &lt;strong&gt;IRL&lt;/strong&gt; methods, we instead try to find a reward function $\tilde{R}_E$ that is good at explaining $\pi_E$ or $\mathcal{D}$.&lt;/p&gt;
+
+&lt;p&gt;For each state-action pair $(s\in\mathcal{S},a\in\mathcal{A})$, we assume there is a corresponding feature vector $\boldsymbol{\phi}(s,a)\in\mathbb{R}^k$ where
+\begin{equation}
+\boldsymbol{\phi}(s,a)=\big(\phi_1(s,a),\ldots,\phi_k(s,a)\big)^\text{T},
+\end{equation}
+where $\phi_i:\mathcal{S}\times\mathcal{A}\to\mathbb{R}$ are feature functions such that the reward function can be expressed as a linear weighted sum of these features. In particular, for $w_i\in\mathbb{R}$ we can represent the reward function $R$ as
+\begin{align}
+R(s,a)&amp;amp;=w_1\phi_1(s,a)+\ldots+w_k\phi_k(s,a) \\ &amp;amp;=\mathbf{w}^\text{T}\boldsymbol{\phi}(s,a)
+\end{align}
+Thus, we can rewrite \eqref{eq:mdp.1} as
+\begin{align}
+v_\pi(s_0)&amp;amp;=\mathbb{E}_\pi\left[\sum_{t=0}^{\infty}\gamma^t R\big(S_t,\pi(S_t)\big)\big\vert S_0=s_0\right] \\ &amp;amp;=\mathbb{E}_\pi\left[\sum_{t=0}^{\infty}\gamma^t\mathbf{w}^\text{T}\boldsymbol{\phi}\big(S_t,\pi(S_t)\big)\right] \\ &amp;amp;=\mathbf{w}^\text{T}\mathbb{E}_\pi\left[\sum_{t=0}^{\infty}\gamma^t\boldsymbol{\phi}\big(S_t,\pi(S_t)\big)\right]
+\end{align}
+The &lt;strong&gt;feature expectation&lt;/strong&gt; or also called the expected discounted accumulated feature value, denoted as $\boldsymbol{\mu}(\pi)$, of a policy $\pi$ is defined as
+\begin{equation}
+\boldsymbol{\mu}(\pi)=\mathbb{E}_\pi\left[\sum_{t=0}^{\infty}\gamma^t\boldsymbol{\phi}\big(S_t,\pi(A_t)\big)\right]
+\end{equation}
+Hence, we have that
+\begin{equation}
+v_\pi(s_0)=\mathbf{w}^\text{T}\boldsymbol{\mu}(\pi)
+\end{equation}&lt;/p&gt;
 
 &lt;h2 id=&quot;max-margin-methods&quot;&gt;Max margin methods&lt;/h2&gt;
-
-&lt;h3 id=&quot;max-margin-pln&quot;&gt;Max margin planning&lt;/h3&gt;
+&lt;p&gt;The idea of &lt;strong&gt;max margin methods&lt;/strong&gt; is to learn a reward function $\tilde{R}_E$ that explains the demonstrated policy $\pi_E$ better than alternative policies by a margin.&lt;/p&gt;
 
 &lt;h3 id=&quot;max-margin-proj&quot;&gt;Max-margin &amp;amp; Projection&lt;/h3&gt;
+&lt;p&gt;In these algorithms setting, we are given the expert’s feature expectation $\boldsymbol{\mu}_E$ and our work is to find a policy $\tilde{\pi}$ such that
+\begin{equation}
+\left\Vert\boldsymbol{\tilde{\pi}}-\boldsymbol{\mu}_E\right\Vert_2\leq\varepsilon,
+\end{equation}
+where $\varepsilon&amp;gt;0$.&lt;/p&gt;
+
+&lt;p&gt;For such $\tilde{\pi}$, we have
+\begin{equation}
+\left\vert\mathbb{E}_{\pi_E}\left[\sum_{t=0}^{\infty}\right]\right\vert
+\end{equation}&lt;/p&gt;
 
 &lt;h4 id=&quot;max-margin&quot;&gt;Max-margin&lt;/h4&gt;
 
 &lt;h4 id=&quot;proj&quot;&gt;Projection&lt;/h4&gt;
 
-&lt;h4 id=&quot;learch&quot;&gt;LEARCH&lt;/h4&gt;
+&lt;h3 id=&quot;max-margin-pln&quot;&gt;Max margin planning&lt;/h3&gt;
+
+&lt;h3 id=&quot;learch&quot;&gt;LEARCH&lt;/h3&gt;
 
 &lt;h2 id=&quot;max-ent&quot;&gt;Max entropy methods&lt;/h2&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Pieter Abbeel &amp;amp; Andrew Y. Ng. &lt;a href=&quot;https://doi.org/10.1145/1015330.1015430&quot;&gt;Apprenticeship Learning via Inverse Reinforcement Learning&lt;/a&gt;. ICML ‘04: Proceedings of the twenty-first international conference on Machine learning. July 2004.&lt;/p&gt;
 
-&lt;p&gt;[2] Nathan D. Ratliff, J. Andrew Bagnell &amp;amp; Martin A. Zinkevich&lt;a href=&quot;https://doi.org/10.1145/1143844.1143936&quot;&gt;Maximum margin planning&lt;/a&gt;. ICML ‘06: Proceedings of the 23rd international conference on Machine learning. June 2006&lt;/p&gt;
+&lt;p&gt;[2] Nathan D. Ratliff, J. Andrew Bagnell &amp;amp; Martin A. Zinkevich. &lt;a href=&quot;https://doi.org/10.1145/1143844.1143936&quot;&gt;Maximum margin planning&lt;/a&gt;. ICML ‘06: Proceedings of the 23rd international conference on Machine learning. June 2006&lt;/p&gt;
 
 &lt;p&gt;[3] Nathan Ratliff, David Silver &amp;amp; J. Andrew (Drew) Bagnell. &lt;a href=&quot;https://www.ri.cmu.edu/publications/learning-to-search-functional-gradient-techniques-for-imitation-learning/&quot;&gt;Learning to search: Functional gradient techniques for imitation learning&lt;/a&gt;. Autonomous Robots. July 2009.&lt;/p&gt;
 

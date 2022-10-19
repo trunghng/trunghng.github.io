@@ -25,11 +25,15 @@ eqn-number: true
 			- [Ellipsoids](#ellips)
 			- [Norm cones](#norm-cones)
 		- [Polyhedra](#polyhedra)
-		- [Positive semi-definite cones](#psd-cones)
+			- [Nonnegative orthant](#non-neg-orthant)
+			- [Simplex](#simplex)
+		- [Positive semi-definite cone](#psd-cone)
 	- [Operations that preserve convexity](#operations)
 		- [Intersection](#intersect)
 		- [Affine functions](#aff-funcs)
-		- [Linear-fraction, perspective functions](#lin-frac-persp-funcs)
+		- [Linear-fractional, perspective functions](#lin-frac-persp-funcs)
+			- [Perspective functions](#persp-funcs)
+			- [Linear-fractional functions](#lin-frac-funcs)
 - [Convex functions](#cvx-funcs)
 - [References](#references)
 - [Footnotes](#footnotes)
@@ -141,7 +145,7 @@ Also, the conic hull of $C$ is the smallest convex cone containing $C$.
 ### Examples
 {: #eg}
 
-### Hyperplanes, halfspaces
+#### Hyperplanes, halfspaces
 {: #hyperplane-halfspaces}
 A **hyperplane** $P$ is a set of form
 \begin{equation}
@@ -188,6 +192,23 @@ P=r^2 I
 \end{equation}
 We then have $\mathcal{E}$ is convex.
 
+To prove this claim, as usual, for $x_1,x_2\in\mathcal{E}$ and for $0\leq\theta\leq 1$, we have
+\begin{align}
+&\hspace{0.7cm}\big(\theta x_1+(1-\theta)x_2-x_c\big)^\text{T}P^{-1}\big(\theta x_1+(1-\theta)x_2-x_c\big) \\\\ &=\big(\theta x_1-\theta x_c+(1-\theta)x_2-(1-\theta)x_c\big)^\text{T}P^{-1}\big(\theta x_1-\theta x_c+(1-\theta)x_2-(1-\theta)x_c\big) \\\\ &=(a+b)^\text{T}P^{-1}(a+b) \\\\ &=a^\text{T}P^{-1}a+b^\text{T}P^{-1}b+2a^\text{T}P^{-1}b \\\\ &\leq\theta^2+(1-\theta)^2+2\theta(1-\theta) \\\\ &=1
+\end{align}
+where in the second step, we have let
+\begin{equation}
+a=\theta x_1-\theta x_c,\hspace{2cm}b=(1-\theta)x_2-(1-\theta)x_c,
+\end{equation}
+which implies that
+\begin{equation}
+a^\text{T}P^{-1}a\leq 1,\hspace{2cm}b^\text{T}P^{-1}b\leq 1
+\end{equation}
+and thus
+\begin{equation}
+a^\text{T}P^{-1/2}\leq 1,\hspace{2cm}b^\text{T}P^{-1/2}\leq 1
+\end{equation}
+
 ##### Norm cones
 {: #norm-cones}
 A **norm cone** $C$ associated with the norm $\Vert\cdot\Vert$ is defined as
@@ -196,7 +217,7 @@ C=\\{(x,t):\Vert x\Vert\leq t\\}\subset\mathbb{R}^{n+1}
 \end{equation}
 is also convex
 
-### Polyhedra
+#### Polyhedra
 {: #polyhedra}
 A **polyhedron** $\mathcal{P}$ is defined as
 \begin{equation}
@@ -210,14 +231,164 @@ where
 \begin{equation}
 A=\left[\begin{matrix}a_1^\text{T} \\\\ \vdots \\\\ a_m^\text{T}\end{matrix}\right],\hspace{2cm}C=\left[\begin{matrix}c_1^\text{T} \\\\ \vdots \\\\ c_p^\text{T}\end{matrix}\right]
 \end{equation}
-And thus, we also have that $\mathcal{P}$ is convex.
+And thus, we also have that $\mathcal{P}$ is convex, which can be proved easily since $Ax$ and $Cx$ are both linear functions.
 
+##### Nonnegative orthant
+{: #non-neg-orthant}
+The **nonnegative orthant** in $\mathbb{R}^n$, denoted $\mathbb{R}\_+^{n}$, is the set of points with nonnegative components, i.e.
+\begin{equation}
+\mathbb{R}\_+^n=\\{x\in\mathbb{R}^n:x\succeq 0\\}
+\end{equation}
+We have that $\mathbb{R}\_+^n$ is both a polyhedron and a cone, or a **polyhedral cone**, and hence is also convex.
 
-#### Intersection of convex sets
-{: #cap-cvx-sets}
+##### Simplex
+{: #simplex}
+Suppose the $v_0,\ldots,v_k\in\mathbb{R}^n$ are **affinely independent**, i.e. $v_1-v_0,\ldots,v_k-v_0$ are linearly independent. The **simplex** determined by them is given as
+\begin{equation}
+C=\text{conv}\\{v_0,\ldots,v_k\\}=\\{\theta_0 v_0+\ldots+\theta_k v_k:\theta\succeq 0,\mathbf{1}^\text{T}\theta=1\\}
+\end{equation}
+As an instance of polyhedra, $C$ is thus convex.
 
-#### Positive semi-definite matrices
-{: #psd-mtx}
+#### Positive semi-definite cone
+{: #psd-cone}
+Let $\mathbb{S}^n$ denote the set of symmetric $n\times n$ matrices
+\begin{equation}
+\mathbb{S}^n=\\{X\in\mathbb{R}^{n\times n}:X=X^\text{T}\\},
+\end{equation}
+and let $\mathbb{S}\_+^n$ represent the set of symmetric positive semi-definite matrices
+\begin{equation}
+\mathbb{S}\_+^n=\\{X\in\mathbb{S}^n:X\succeq 0\\},
+\end{equation}
+and finally, let us assign the set of symmetric positive definite matrices to $\mathbb{S}\_{\+\+}^n$
+\begin{equation}
+\mathbb{S}\_{\+\+}^n=\\{X\in\mathbb{S}^n:X\succ 0\\}
+\end{equation}
+We have that $\mathbb{S}\_+^n$ is a convex cone, since for any matrices $A_1,A_2\in\mathbb{S}\_+^n$, for any $\theta_1,\theta_2\geq 0$ and for any $x\in\mathbb{R}^n$, we have
+\begin{equation}
+x^\text{T}(\theta_1 A_1+\theta_2 A_2)x=\theta_1 x^\text{T}A_1 x+\theta_2 x^\text{T}A_2 x\geq 0
+\end{equation}
+
+### Operations that preserve convexity
+{: #operations}
+
+#### Intersection
+{: #intersect}
+Let $S_1,S_2$ be convex sets and let $x_1,x_2$ are two points containing in both sets, thus $x_1,x_2\in S_1\cap S_2$.
+
+Since $x_1,x_2\in S_1$ which is convex, for $0\leq\theta\leq 1$, we have the point
+\begin{equation}
+\theta x_1+(1-\theta)x_2\in S_1
+\end{equation}
+Analogously, we also have
+\begin{equation}
+\theta x_1+(1-\theta)x_2\in S_2,
+\end{equation}
+which implies that
+\begin{equation}
+\theta x_1+(1-\theta)x_2\in S_1\cap S_2
+\end{equation}
+Or in other words, $S_1\cap S_2$ is also convex.
+
+By induction, we can extend this property to: if $S_\alpha$ is convex for every $\alpha\in\mathcal{A}$, then their intersection
+\begin{equation}
+\bigcap_{\alpha\in\mathcal{A}}S_\alpha
+\end{equation}
+is also convex.
+
+#### Affine functions
+{: #aff-funcs}
+A function $f:\mathbb{R}^n\to\mathbb{R}^m$ is **affine** if it is a sum of linear function and a constant, i.e. it can be written as
+\begin{equation}
+f(x)=Ax+b,
+\end{equation}
+where $A\in\mathbb{R}^{m\times n}$ and $b\in\mathbb{R}^m$.
+
+Let $S\subset\mathbb{R}^n$ be a convex set and let $f:\mathbb{R}^n\to\mathbb{R}^m$ be an affine function. Then the image of $S$ under $f$
+\begin{equation}
+f(S)=\\{f(x):x\in S\\}
+\end{equation}
+is convex.
+
+Analogously, the inverse image of $S$ under an affine function $g:\mathbb{R}^k\to\mathbb{R}^n$
+\begin{equation}
+g^{-1}(S)=\\{x:g(x)\in S\\}
+\end{equation}
+is convex.
+
+The **projection** of a convex set $S\subset\mathbb{R}^m\times\mathbb{R}^n$ onto some of its coordinates
+\begin{equation}
+T=\\{x_1\in\mathbb{R}^m:(x_1,x_2)\in S,\text{ for some }x_2\in\mathbb{R}^n\\}
+\end{equation}
+is convex.
+
+If $S_1,S_2$ are convex then so is their sum
+\begin{equation}
+S_1+S_2=\\{x_1+x_2:x_1\in S_1,x_2\in S_2\\}
+\end{equation}
+This is due to its reverse image under the linear function $f(x_1,x_2)=x_1+x_2$, which is the **Cartesian product**
+\begin{equation}
+S_1\times S_2=\\{(x_1,x_2):x_1\in S_1,x_2\in S_2\\}
+\end{equation}
+is convex.
+
+#### Linear-fractional, perspective functions
+{: #lin-frac-persp-funcs}
+
+##### Perspective functions
+{: #persp-funcs}
+The **perspective function** $P:\mathbb{R}^{n+1}\to\mathbb{R}^n$, with domain $\text{dom}\,P=\mathbb{R}^n\times\mathbb{R}\_{\+\+}$ is defined as
+\begin{equation}
+P(z,t)=\frac{z}{t}
+\end{equation}
+Suppose that $x=(\tilde{x},x_{n+1}),y=(\tilde{y},y_{n+1})\in\mathbb{R}^{n+1}$ with $x_{n+1},y_{n+1}\gt 0$. Then for $0\leq\theta\leq 1$, we have
+\begin{equation}
+P(\theta x+(1-\theta)y)=\frac{\theta\tilde{x}+(1-\theta)\tilde{y}}{\theta x_{1+1}+(1-\theta)y_{n+1}}=\mu P(x)+(1-\mu)P(y),
+\end{equation}
+where
+\begin{equation}
+\mu=\frac{\theta x_{n+1}}{\theta x_{n+1}+(1-\theta)y_{n+1}}\in[0,1],
+\end{equation}
+which implies that
+\begin{equation}
+P([x,y])=[P(x),P(y)]\label{eq:pf.1}
+\end{equation}
+Let $C$ be convex with $C\subset\text{dom}\,P$, and let $x,y\in C$. By \eqref{eq:pf.1}, we have that the line segment $[P(x),P(y)]$ is the image of the line segment $[x,y]$ under $P$, $P([x,y])$, and so lies in $P(C)$, which also claims the convexity of $P(C)$.
+
+The inverse image of a convex set under the perspective function is also convex: if $C\subset\mathbb{R}^n$ is convex, then
+\begin{equation}
+P^{-1}(C)=\\{(x,t)\in\mathbb{R}^{n+1}:x/t\in C,t>0\\}
+\end{equation}
+is convex.
+
+To prove this, for any $(x_1,t_1),(x_2,t_2)\in P^{-1}(C)$ and for any $0\leq t\leq 1$, by the result \eqref{eq:pf.1}, we have
+\begin{equation}
+P^{-1}\big(\theta(x_1,t_1)+(1-\theta)(x_2,t_2)\big)=\frac{\theta x_1+(1-\theta x_2)}{\theta t_1+(1-\theta)t_2}=\mu\frac{x_1}{t_1}+(1-\mu)\frac{x_2}{t_2},
+\end{equation}
+where
+\begin{equation}
+\mu=\frac{\theta t_1}{\theta t_1+(1-\theta)t_2}\in[0,1]
+\end{equation}
+
+##### Linear-fractional functions
+{: #lin-frac-funcs}
+We define the **linear-fractional function** to be the composite function of a perspective function with an affine function. Specifically, let $g:\mathbb{R}^n\to\mathbb{R}^{m+1}$ be affine
+\begin{equation}
+g(x)=\left[\begin{matrix}A \\\\ c^\text{T}\end{matrix}\right]x+\left[\begin{matrix}b \\\\ d\end{matrix}\right],
+\end{equation}
+where $A\in\mathbb{R}^{m\times n},b\in\mathbb{R}^m,c\in\mathbb{R}^n$ and $d\in\mathbb{R}$. The function $f:\mathbb{R}^n\to\mathbb{R}^m$ given by
+\begin{equation}
+f(x)=(P\circ g)(x)=\frac{Ax+b}{c^\text{T}x+d},
+\end{equation}
+for $\text{dom}\,f\\{x:c^\text{T}x+d>0\\}$, is called a **linear-fractional function**.
+
+It is convenient to represent a linear-fractional function as a matrix
+\begin{equation}
+Q=\left[\begin{matrix}A&b \\\\ c^\text{T}&d\end{matrix}\right]\in\mathbb{R}^{(m+1)\times(n+1)},
+\end{equation}
+which lets
+\begin{equation}
+Q\left[\begin{matrix}x \\\\ 1\end{matrix}\right]=\left[\begin{matrix}A&b \\\\ c^\text{T}&d\end{matrix}\right]\left[\begin{matrix}x \\\\ 1\end{matrix}\right]=\left[\begin{matrix}Ax+b \\\\ c^\text{T}x+d\end{matrix}\right]
+\end{equation}
 
 ## Convex functions
 {: #cvx-funcs}
