@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-21T15:12:27+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-21T18:44:08+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Inverse Reinforcement Learning</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/10/17/irl.html" rel="alternate" type="text/html" title="Inverse Reinforcement Learning" /><published>2022-10-17T13:00:00+07:00</published><updated>2022-10-17T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/10/17/irl</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/10/17/irl.html">&lt;blockquote&gt;
   &lt;p&gt;A note on Inverse Reinforcement Learning&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -75,32 +75,22 @@ and where $\mathbf{f}(s,a)$ is called the &lt;strong&gt;feature vector&lt;/stron
 \begin{equation}
 \mathbf{f}(s,a)=\big(f_1(s,a),\ldots,f_k(s,a)\big)^\text{T}
 \end{equation}
-By \eqref{eq:mdp.1}, the value of a policy $\pi^{r_\boldsymbol{\psi}}$ corresponding to the reward function $r_\boldsymbol{\psi}$ thus can be written as
+By \eqref{eq:mdp.1}, the value of a policy $\pi_{r_\boldsymbol{\psi}}$ corresponding to the reward function $r_\boldsymbol{\psi}$ thus can be written as
 \begin{align}
-\mathbb{E}\big[v_{\pi^{r_\boldsymbol{\psi}}}(S_0)\big]&amp;amp;=\mathbb{E}_{\pi^{r_\boldsymbol{\psi}}}\left[\sum_{t=0}^{\infty}\gamma^t r(S_t,A_t)\Big\vert S_0\right] \\ &amp;amp;=\mathbb{E}_{\pi^{r_\boldsymbol{\psi}}}\left[\sum_{t=0}^{\infty}\gamma^t\boldsymbol{\psi}^\text{T}\mathbf{f}(S_t,A_t)\Big\vert S_0\right] \\ &amp;amp;=\boldsymbol{\psi}^\text{T}\mathbb{E}_{\pi^{r_\boldsymbol{\psi}}}\left[\sum_{t=0}^{\infty}\gamma^t\mathbf{f}(S_t,A_t)\Big\vert S_0\right]
+\mathbb{E}\big[v_{\pi_{r_\boldsymbol{\psi}}}(S_0)\big]&amp;amp;=\mathbb{E}_{\pi_{r_\boldsymbol{\psi}}}\left[\sum_{t=0}^{\infty}\gamma^t r(S_t,A_t)\Big\vert S_0\right] \\ &amp;amp;=\mathbb{E}_{\pi_{r_\boldsymbol{\psi}}}\left[\sum_{t=0}^{\infty}\gamma^t\boldsymbol{\psi}^\text{T}\mathbf{f}(S_t,A_t)\Big\vert S_0\right] \\ &amp;amp;=\boldsymbol{\psi}^\text{T}\mathbb{E}_{\pi_{r_\boldsymbol{\psi}}}\left[\sum_{t=0}^{\infty}\gamma^t\mathbf{f}(S_t,A_t)\Big\vert S_0\right]
 \end{align}
-The &lt;strong&gt;feature expectation&lt;/strong&gt; or also called the expected discounted accumulated feature value, denoted as $\boldsymbol{\mu}(\pi)$, of the policy $\pi^{r_\boldsymbol{\psi}}$ is defined as
+The &lt;strong&gt;feature expectation&lt;/strong&gt; or also called the expected discounted accumulated feature value, denoted as $\boldsymbol{\mu}(\pi)$, of the policy $\pi_{r_\boldsymbol{\psi}}$ is defined as
 \begin{equation}
-\boldsymbol{\mu}(\pi^{r_\boldsymbol{\psi}})=\mathbb{E}_{\pi^{r_\boldsymbol{\psi}}}\left[\sum_{t=0}^{\infty}\gamma^t\mathbf{f}(S_t,A_t)\Big\vert S_0\right]
+\boldsymbol{\mu}(\pi_{r_\boldsymbol{\psi}})=\mathbb{E}_{\pi_{r_\boldsymbol{\psi}}}\left[\sum_{t=0}^{\infty}\gamma^t\mathbf{f}(S_t,A_t)\Big\vert S_0\right]
 \end{equation}
 Hence, we have that
 \begin{equation}
-\boldsymbol{\mu}(\pi^{r_\boldsymbol{\psi}})=\boldsymbol{\psi}^\text{T}\boldsymbol{\mu}(\pi^{r_\boldsymbol{\psi}})
+\boldsymbol{\mu}(\pi_{r_\boldsymbol{\psi}})=\boldsymbol{\psi}^\text{T}\boldsymbol{\mu}(\pi_{r_\boldsymbol{\psi}})
 \end{equation}&lt;/p&gt;
 
 &lt;h2 id=&quot;max-margin-methods&quot;&gt;Max margin methods&lt;/h2&gt;
 
 &lt;h3 id=&quot;max-margin-proj&quot;&gt;Max-margin &amp;amp; Projection&lt;/h3&gt;
-&lt;p&gt;In these algorithms setting, we are given the expert’s feature expectation $\boldsymbol{\mu}_E$ and our work is to find a policy $\tilde{\pi}$ such that
-\begin{equation}
-\left\Vert\boldsymbol{\tilde{\pi}}-\boldsymbol{\mu}_E\right\Vert_2\leq\varepsilon,
-\end{equation}
-where $\varepsilon&amp;gt;0$.&lt;/p&gt;
-
-&lt;p&gt;For such $\tilde{\pi}$, we have
-\begin{equation}
-\left\vert\mathbb{E}_{\pi_E}\left[\sum_{t=0}^{\infty}\right]\right\vert
-\end{equation}&lt;/p&gt;
 
 &lt;h4 id=&quot;max-margin&quot;&gt;Max-margin&lt;/h4&gt;
 
@@ -193,25 +183,39 @@ and
 
 &lt;p&gt;In other words, our work is to look for the direction of updating gradient, denoted as $\delta\theta$, such that
 \begin{align}
-\max_{\delta\theta}&amp;amp;\,J(\theta+\delta\theta)\approx J(\theta)+\delta\theta^\text{T}\nabla_\theta J \\ \text{s.t.}&amp;amp;\,D(\theta+\delta\theta\Vert\theta)=\varepsilon,
+\max_{\delta\theta}&amp;amp;\,J(\theta+\delta\theta)\approx J(\theta)+\delta\theta^\text{T}\nabla_\theta J \\ \text{s.t.}&amp;amp;\,D(\theta\Vert\theta+\delta\theta)=\varepsilon,
 \end{align}
 where $J(\theta)$ is given as in \eqref{eq:sg.1}; $\varepsilon$ is a small increment size; and where $D(\theta+\delta\theta\Vert\theta)$ is the KL divergence of $\pi(\mathbf{z}\vert\theta+\delta\theta)$ from $\pi(\mathbf{z}\vert\theta)$, defined as
 \begin{align}
-D(\theta+\delta\theta\Vert\theta)&amp;amp;=\int\pi(\mathbf{z}\vert\theta+\delta\theta)\log\frac{\pi(\mathbf{z}\vert\theta+\delta\theta)}{\pi(\mathbf{z}\vert\theta)}\,d\mathbf{z} \\ &amp;amp;=\mathbb{E}_{\theta+\delta\theta}\big[\log\pi(\mathbf{z}\vert\theta+\delta)-\log\pi(\mathbf{z}\vert\theta)\big]\label{eq:ng.1}
+D(\theta\Vert\theta+\delta\theta)&amp;amp;=\int\pi(\mathbf{z}\vert\theta)\log\frac{\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta+\delta\theta)}\,d\mathbf{z} \\ &amp;amp;=\mathbb{E}_{\theta}\big[\log\pi(\mathbf{z}\vert\theta)-\log\pi(\mathbf{z}\vert\theta+\delta)\big]\label{eq:ng.1}
 \end{align}
 As $\delta\theta\to 0$, or in other words, consider the Taylor expansion of \eqref{eq:ng.1} about $\delta\theta=0$, we have
 \begin{align}
-&amp;amp;\hspace{-1cm}D(\theta+\delta\theta\Vert\theta)\nonumber \\ &amp;amp;=\mathbb{E}_{\theta+\delta\theta}\big[\log\pi(\mathbf{z}\vert\theta+\delta\theta)-\log\pi(\mathbf{z}\vert\theta)\big] \\ &amp;amp;\approx\mathbb{E}_{\theta+\delta\theta}\left[\log\pi(\mathbf{z}\vert\theta)+\delta\theta^\text{T}\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}-\frac{1}{2}\delta\theta^\text{T}\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)\nabla_\theta\pi(\mathbf{z}\vert\theta)^\text{T}}{\pi(\mathbf{z}\vert\theta)^2}\delta\theta-\log\pi(\mathbf{z}\vert\theta)\right] \\ &amp;amp;=\mathbb{E}_{\theta+\delta\theta}\left[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)-\frac{1}{2}\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\right] \\ &amp;amp;=\mathbb{E}_{\theta+\delta\theta}\Big[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\Big]-\mathbb{E}_{\theta+\delta\theta}\left[\frac{1}{2}\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\right] \\ &amp;amp;=-\frac{1}{2}\int\pi(\mathbf{z}\vert\theta+\delta\theta)\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\,d\mathbf{z} \\ 
+&amp;amp;\hspace{-1cm}D(\theta+\delta\theta\Vert\theta)\nonumber \\ &amp;amp;\hspace{-0.8cm}=\mathbb{E}_{\theta}\big[\log\pi(\mathbf{z}\vert\theta)-\log\pi(\mathbf{z}\vert\theta+\delta\theta)\big] \\ &amp;amp;\hspace{-0.8cm}\approx\mathbb{E}_\theta\left[\log\pi(\mathbf{z}\vert\theta)-\left(\log\pi(\mathbf{z}\vert\theta)+\delta\theta^\text{T}\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}+\frac{1}{2}\delta\theta^\text{T}\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}\left(\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}\right)^\text{T}\delta\theta\right)\right] \\ &amp;amp;\hspace{-0.8cm}=-\mathbb{E}_\theta\left[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)+\frac{1}{2}\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\right] \\ &amp;amp;\hspace{-0.8cm}=-\mathbb{E}_\theta\Big[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\Big]-\mathbb{E}_\theta\left[\frac{1}{2}\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\right] \\ &amp;amp;\hspace{-0.8cm}=-\frac{1}{2}\int\pi(\mathbf{z}\vert\theta)\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\,d\mathbf{z} \\ &amp;amp;\hspace{-0.8cm}=-\frac{1}{2}\delta\theta^\text{T}\mathbf{F}\delta\theta\label{eq:ng.2}
 \end{align}
 where in the fifth step, we have used that
 \begin{align}
-\mathbb{E}_{\theta+\delta\theta}\Big[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\Big]&amp;amp;=\int\pi(\mathbf{z}\vert\theta+\delta\theta)\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\ &amp;amp;=\int\pi(\mathbf{z}\vert\theta+\delta\theta)\frac{1}{\pi(\mathbf{z}\vert\theta+\delta\theta)}\nabla_\theta\pi(\mathbf{z}\vert\theta+\delta\theta)\,d\mathbf{z} \\ &amp;amp;=\nabla_\theta\int\pi(\mathbf{z}\vert\theta+\delta\theta)\,d\mathbf{z} \\ &amp;amp;=\nabla_\theta 1=0
+\mathbb{E}_\theta\Big[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\Big]&amp;amp;=\delta\theta^\text{T}\int\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\ &amp;amp;=\delta\theta^\text{T}\int\pi(\mathbf{z}\vert\theta)\frac{1}{\pi(\mathbf{z}\vert\theta)}\nabla_\theta\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\ &amp;amp;=\delta\theta^\text{T}\nabla_\theta\int\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\ &amp;amp;=\delta\theta^\text{T}\nabla_\theta 1=0
 \end{align}&lt;/p&gt;
 
-&lt;p&gt;where $\mathbf{F}$ is the &lt;strong&gt;Fisher information matrix&lt;/strong&gt;, defined as
+&lt;p&gt;The matrix $\mathbf{F}$ in \eqref{eq:ng.2} is known as the &lt;strong&gt;Fisher information matrix&lt;/strong&gt; of the given parametric family of search distributions, defined as
 \begin{align}
-\mathbf{F}&amp;amp;=\int\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\,d\mathbf{z} \\ &amp;amp;=\mathbb{E}\big[\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\big]
-\end{align}&lt;/p&gt;
+\mathbf{F}&amp;amp;=\int\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\,d\mathbf{z} \\ &amp;amp;=\mathbb{E}_\theta\big[\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\big]
+\end{align}
+Hence, we have the Lagrangian of our constrained optimization problem is
+\begin{align}
+\mathcal{L}(\theta,\delta\theta,\lambda)&amp;amp;=J(\theta)+\delta\theta^\text{T}\nabla_\theta J(\theta)+\lambda\big(D(\theta+\delta\theta\Vert\theta)-\varepsilon\big) \\ &amp;amp;=J(\theta)+\delta\theta^\text{T}\nabla_\theta J(\theta)-\lambda\left(\frac{1}{2}\delta\theta^\text{T}\mathbf{F}\delta\theta+\varepsilon\right),
+\end{align}
+where $\lambda&amp;gt;0$ is the Lagrange multiplier.&lt;/p&gt;
+
+&lt;p&gt;It is easily seen that $\mathbf{F}$ is symmetric, thus taking the gradient of the Lagrangian w.r.t $\delta\theta$ and setting it to zero gives us the solution for $\delta\theta$ that maximimize $\mathcal{L}$, which is
+\begin{equation}
+\delta\theta=\frac{1}{\lambda}\mathbf{F}^{-1}\nabla_\theta J(\theta),
+\end{equation}
+which is the direction of the natural gradient $\tilde{\nabla}_\theta J(\theta)$. Therefore we obtain
+\begin{equation}
+\tilde{\nabla}_\theta J(\theta)=\mathbf{F}^{-1}\nabla_\theta J(\theta)
+\end{equation}&lt;/p&gt;
 
 &lt;h2 id=&quot;fn-shp&quot;&gt;Fitness shaping&lt;/h2&gt;
 

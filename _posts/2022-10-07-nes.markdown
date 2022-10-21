@@ -78,25 +78,39 @@ The **natural gradient** searches for the direction based on the distance betwee
 
 In other words, our work is to look for the direction of updating gradient, denoted as $\delta\theta$, such that
 \begin{align}
-\max_{\delta\theta}&\,J(\theta+\delta\theta)\approx J(\theta)+\delta\theta^\text{T}\nabla_\theta J \\\\ \text{s.t.}&\,D(\theta+\delta\theta\Vert\theta)=\varepsilon,
+\max_{\delta\theta}&\,J(\theta+\delta\theta)\approx J(\theta)+\delta\theta^\text{T}\nabla_\theta J \\\\ \text{s.t.}&\,D(\theta\Vert\theta+\delta\theta)=\varepsilon,
 \end{align}
 where $J(\theta)$ is given as in \eqref{eq:sg.1}; $\varepsilon$ is a small increment size; and where $D(\theta+\delta\theta\Vert\theta)$ is the KL divergence of $\pi(\mathbf{z}\vert\theta+\delta\theta)$ from $\pi(\mathbf{z}\vert\theta)$, defined as
 \begin{align}
-D(\theta+\delta\theta\Vert\theta)&=\int\pi(\mathbf{z}\vert\theta+\delta\theta)\log\frac{\pi(\mathbf{z}\vert\theta+\delta\theta)}{\pi(\mathbf{z}\vert\theta)}\,d\mathbf{z} \\\\ &=\mathbb{E}\_{\theta+\delta\theta}\big[\log\pi(\mathbf{z}\vert\theta+\delta)-\log\pi(\mathbf{z}\vert\theta)\big]\label{eq:ng.1}
+D(\theta\Vert\theta+\delta\theta)&=\int\pi(\mathbf{z}\vert\theta)\log\frac{\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta+\delta\theta)}\,d\mathbf{z} \\\\ &=\mathbb{E}\_{\theta}\big[\log\pi(\mathbf{z}\vert\theta)-\log\pi(\mathbf{z}\vert\theta+\delta)\big]\label{eq:ng.1}
 \end{align}
 As $\delta\theta\to 0$, or in other words, consider the Taylor expansion of \eqref{eq:ng.1} about $\delta\theta=0$, we have
 \begin{align}
-&\hspace{-1cm}D(\theta+\delta\theta\Vert\theta)\nonumber \\\\ &=\mathbb{E}\_{\theta+\delta\theta}\big[\log\pi(\mathbf{z}\vert\theta+\delta\theta)-\log\pi(\mathbf{z}\vert\theta)\big] \\\\ &\approx\mathbb{E}\_{\theta+\delta\theta}\left[\log\pi(\mathbf{z}\vert\theta)+\delta\theta^\text{T}\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}-\frac{1}{2}\delta\theta^\text{T}\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)\nabla_\theta\pi(\mathbf{z}\vert\theta)^\text{T}}{\pi(\mathbf{z}\vert\theta)^2}\delta\theta-\log\pi(\mathbf{z}\vert\theta)\right] \\\\ &=\mathbb{E}\_{\theta+\delta\theta}\left[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)-\frac{1}{2}\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\right] \\\\ &=\mathbb{E}\_{\theta+\delta\theta}\Big[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\Big]-\mathbb{E}\_{\theta+\delta\theta}\left[\frac{1}{2}\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\right] \\\\ &=-\frac{1}{2}\int\pi(\mathbf{z}\vert\theta+\delta\theta)\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\,d\mathbf{z} \\\\ 
+&\hspace{-1cm}D(\theta+\delta\theta\Vert\theta)\nonumber \\\\ &\hspace{-0.8cm}=\mathbb{E}\_{\theta}\big[\log\pi(\mathbf{z}\vert\theta)-\log\pi(\mathbf{z}\vert\theta+\delta\theta)\big] \\\\ &\hspace{-0.8cm}\approx\mathbb{E}\_\theta\left[\log\pi(\mathbf{z}\vert\theta)-\left(\log\pi(\mathbf{z}\vert\theta)+\delta\theta^\text{T}\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}+\frac{1}{2}\delta\theta^\text{T}\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}\left(\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}\right)^\text{T}\delta\theta\right)\right] \\\\ &\hspace{-0.8cm}=-\mathbb{E}\_\theta\left[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)+\frac{1}{2}\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\right] \\\\ &\hspace{-0.8cm}=-\mathbb{E}\_\theta\Big[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\Big]-\mathbb{E}\_\theta\left[\frac{1}{2}\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\right] \\\\ &\hspace{-0.8cm}=-\frac{1}{2}\int\pi(\mathbf{z}\vert\theta)\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\,d\mathbf{z} \\\\ &\hspace{-0.8cm}=-\frac{1}{2}\delta\theta^\text{T}\mathbf{F}\delta\theta\label{eq:ng.2}
 \end{align}
 where in the fifth step, we have used that
 \begin{align}
-\mathbb{E}\_{\theta+\delta\theta}\Big[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\Big]&=\int\pi(\mathbf{z}\vert\theta+\delta\theta)\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\\\ &=\int\pi(\mathbf{z}\vert\theta+\delta\theta)\frac{1}{\pi(\mathbf{z}\vert\theta+\delta\theta)}\nabla_\theta\pi(\mathbf{z}\vert\theta+\delta\theta)\,d\mathbf{z} \\\\ &=\nabla_\theta\int\pi(\mathbf{z}\vert\theta+\delta\theta)\,d\mathbf{z} \\\\ &=\nabla_\theta 1=0
+\mathbb{E}\_\theta\Big[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\Big]&=\delta\theta^\text{T}\int\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\\\ &=\delta\theta^\text{T}\int\pi(\mathbf{z}\vert\theta)\frac{1}{\pi(\mathbf{z}\vert\theta)}\nabla_\theta\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\\\ &=\delta\theta^\text{T}\nabla_\theta\int\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\\\ &=\delta\theta^\text{T}\nabla_\theta 1=0
 \end{align}
 
-where $\mathbf{F}$ is the **Fisher information matrix**, defined as
+The matrix $\mathbf{F}$ in \eqref{eq:ng.2} is known as the **Fisher information matrix** of the given parametric family of search distributions, defined as
 \begin{align}
-\mathbf{F}&=\int\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\,d\mathbf{z} \\\\ &=\mathbb{E}\big[\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\big]
+\mathbf{F}&=\int\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\,d\mathbf{z} \\\\ &=\mathbb{E}\_\theta\big[\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\big]
 \end{align}
+Hence, we have the Lagrangian of our constrained optimization problem is
+\begin{align}
+\mathcal{L}(\theta,\delta\theta,\lambda)&=J(\theta)+\delta\theta^\text{T}\nabla_\theta J(\theta)+\lambda\big(D(\theta+\delta\theta\Vert\theta)-\varepsilon\big) \\\\ &=J(\theta)+\delta\theta^\text{T}\nabla_\theta J(\theta)-\lambda\left(\frac{1}{2}\delta\theta^\text{T}\mathbf{F}\delta\theta+\varepsilon\right),
+\end{align}
+where $\lambda>0$ is the Lagrange multiplier.
+
+It is easily seen that $\mathbf{F}$ is symmetric, thus taking the gradient of the Lagrangian w.r.t $\delta\theta$ and setting it to zero gives us the solution for $\delta\theta$ that maximimize $\mathcal{L}$, which is
+\begin{equation}
+\delta\theta=\frac{1}{\lambda}\mathbf{F}^{-1}\nabla_\theta J(\theta),
+\end{equation}
+which is the direction of the natural gradient $\tilde{\nabla}\_\theta J(\theta)$. Therefore we obtain
+\begin{equation}
+\tilde{\nabla}\_\theta J(\theta)=\mathbf{F}^{-1}\nabla_\theta J(\theta)
+\end{equation}
 
 ## Fitness shaping
 {: #fn-shp}

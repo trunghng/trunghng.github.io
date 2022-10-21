@@ -70,17 +70,17 @@ and where $\mathbf{f}(s,a)$ is called the **feature vector** of the state-action
 \begin{equation}
 \mathbf{f}(s,a)=\big(f_1(s,a),\ldots,f_k(s,a)\big)^\text{T}
 \end{equation}
-By \eqref{eq:mdp.1}, the value of a policy $\pi^{r_\boldsymbol{\psi}}$ corresponding to the reward function $r_\boldsymbol{\psi}$ thus can be written as
+By \eqref{eq:mdp.1}, the value of a policy $\pi_{r_\boldsymbol{\psi}}$ corresponding to the reward function $r_\boldsymbol{\psi}$ thus can be written as
 \begin{align}
-\mathbb{E}\big[v_{\pi^{r_\boldsymbol{\psi}}}(S_0)\big]&=\mathbb{E}\_{\pi^{r_\boldsymbol{\psi}}}\left[\sum_{t=0}^{\infty}\gamma^t r(S_t,A_t)\Big\vert S_0\right] \\\\ &=\mathbb{E}\_{\pi^{r_\boldsymbol{\psi}}}\left[\sum_{t=0}^{\infty}\gamma^t\boldsymbol{\psi}^\text{T}\mathbf{f}(S_t,A_t)\Big\vert S_0\right] \\\\ &=\boldsymbol{\psi}^\text{T}\mathbb{E}\_{\pi^{r_\boldsymbol{\psi}}}\left[\sum_{t=0}^{\infty}\gamma^t\mathbf{f}(S_t,A_t)\Big\vert S_0\right]
+\mathbb{E}\big[v_{\pi_{r_\boldsymbol{\psi}}}(S_0)\big]&=\mathbb{E}\_{\pi_{r_\boldsymbol{\psi}}}\left[\sum_{t=0}^{\infty}\gamma^t r(S_t,A_t)\Big\vert S_0\right] \\\\ &=\mathbb{E}\_{\pi_{r_\boldsymbol{\psi}}}\left[\sum_{t=0}^{\infty}\gamma^t\boldsymbol{\psi}^\text{T}\mathbf{f}(S_t,A_t)\Big\vert S_0\right] \\\\ &=\boldsymbol{\psi}^\text{T}\mathbb{E}\_{\pi_{r_\boldsymbol{\psi}}}\left[\sum_{t=0}^{\infty}\gamma^t\mathbf{f}(S_t,A_t)\Big\vert S_0\right]
 \end{align}
-The **feature expectation** or also called the expected discounted accumulated feature value, denoted as $\boldsymbol{\mu}(\pi)$, of the policy $\pi^{r_\boldsymbol{\psi}}$ is defined as
+The **feature expectation** or also called the expected discounted accumulated feature value, denoted as $\boldsymbol{\mu}(\pi)$, of the policy $\pi_{r_\boldsymbol{\psi}}$ is defined as
 \begin{equation}
-\boldsymbol{\mu}(\pi^{r_\boldsymbol{\psi}})=\mathbb{E}\_{\pi^{r_\boldsymbol{\psi}}}\left[\sum_{t=0}^{\infty}\gamma^t\mathbf{f}(S_t,A_t)\Big\vert S_0\right]
+\boldsymbol{\mu}(\pi_{r_\boldsymbol{\psi}})=\mathbb{E}\_{\pi_{r_\boldsymbol{\psi}}}\left[\sum_{t=0}^{\infty}\gamma^t\mathbf{f}(S_t,A_t)\Big\vert S_0\right]
 \end{equation}
 Hence, we have that
 \begin{equation}
-\boldsymbol{\mu}(\pi^{r_\boldsymbol{\psi}})=\boldsymbol{\psi}^\text{T}\boldsymbol{\mu}(\pi^{r_\boldsymbol{\psi}})
+\boldsymbol{\mu}(\pi_{r_\boldsymbol{\psi}})=\boldsymbol{\psi}^\text{T}\boldsymbol{\mu}(\pi_{r_\boldsymbol{\psi}})
 \end{equation}
 
 ## Max margin methods
@@ -88,16 +88,7 @@ Hence, we have that
 
 ### Max-margin & Projection
 {: #max-margin-proj}
-In these algorithms setting, we are given the expert's feature expectation $\boldsymbol{\mu}\_E$ and our work is to find a policy $\tilde{\pi}$ such that
-\begin{equation}
-\left\Vert\boldsymbol{\tilde{\pi}}-\boldsymbol{\mu}\_E\right\Vert_2\leq\varepsilon,
-\end{equation}
-where $\varepsilon>0$.
 
-For such $\tilde{\pi}$, we have
-\begin{equation}
-\left\vert\mathbb{E}\_{\pi_E}\left[\sum_{t=0}^{\infty}\right]\right\vert
-\end{equation}
 
 #### Max-margin
 {: #max-margin}
