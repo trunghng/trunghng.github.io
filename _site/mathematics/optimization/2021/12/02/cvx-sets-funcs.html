@@ -60,7 +60,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Convex sets, convex functions" />
 <script type="application/ld+json">
-{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","headline":"Convex sets, convex functions","dateModified":"2021-12-02T13:03:00+07:00","datePublished":"2021-12-02T13:03:00+07:00","description":"convex sets, convex functions","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/mathematics/optimization/2021/12/02/cvx-sets-funcs.html"},"url":"http://localhost:4000/mathematics/optimization/2021/12/02/cvx-sets-funcs.html","@context":"https://schema.org"}</script>
+{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","description":"convex sets, convex functions","headline":"Convex sets, convex functions","dateModified":"2021-12-02T13:03:00+07:00","datePublished":"2021-12-02T13:03:00+07:00","url":"http://localhost:4000/mathematics/optimization/2021/12/02/cvx-sets-funcs.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/mathematics/optimization/2021/12/02/cvx-sets-funcs.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Trung&apos;s cabin" />
     
@@ -161,7 +161,7 @@
           <li><a href="#cones">Cones</a></li>
         </ul>
       </li>
-      <li><a href="#eg">Examples</a>
+      <li><a href="#cvx-sets-eg">Examples</a>
         <ul>
           <li><a href="#hyperplane-halfspaces">Hyperplanes, halfspaces</a></li>
           <li><a href="#balls-ellips-cones">Balls, ellipsoids, norm cones</a>
@@ -180,7 +180,7 @@
           <li><a href="#psd-cone">Positive semi-definite cone</a></li>
         </ul>
       </li>
-      <li><a href="#operations">Operations that preserve convexity</a>
+      <li><a href="#operations-sets">Operations that preserve convexity</a>
         <ul>
           <li><a href="#intersect">Intersection</a></li>
           <li><a href="#aff-funcs">Affine functions</a></li>
@@ -194,7 +194,26 @@
       </li>
     </ul>
   </li>
-  <li><a href="#cvx-funcs">Convex functions</a></li>
+  <li><a href="#cvx-funcs">Convex functions</a>
+    <ul>
+      <li><a href="#props">Properties</a>
+        <ul>
+          <li><a href="#1st-order-conds">First-order conditions</a></li>
+          <li><a href="#2nd-order-conds">Second-order conditions</a></li>
+        </ul>
+      </li>
+      <li><a href="#cvx-funcs-eg">Examples</a></li>
+      <li><a href="#sub-lvl-sets">Sub-level sets</a></li>
+      <li><a href="#inequalities">Inequalities</a>
+        <ul>
+          <li><a href="#jensens-inequality">Jensen’s inequality</a></li>
+        </ul>
+      </li>
+      <li><a href="#operations-funcs">Operations that preserve convexity</a></li>
+      <li><a href="#conjugate-func">The conjugate function</a></li>
+      <li><a href="#quasi-cvx-funcs">Quasiconvex functions</a></li>
+    </ul>
+  </li>
   <li><a href="#references">References</a></li>
   <li><a href="#footnotes">Footnotes</a></li>
 </ul>
@@ -297,7 +316,7 @@ Like convex and affine combinations, we can generalize the definition of conic c
 \end{equation}
 Also, the conic hull of $C$ is the smallest convex cone containing $C$.</p>
 
-<h3 id="eg">Examples</h3>
+<h3 id="cvx-sets-eg">Examples</h3>
 
 <h4 id="hyperplane-halfspaces">Hyperplanes, halfspaces</h4>
 <p>A <strong>hyperplane</strong> $P$ is a set of form
@@ -411,9 +430,10 @@ and finally, let us assign the set of symmetric positive definite matrices to $\
 We have that $\mathbb{S}_+^n$ is a convex cone, since for any matrices $A_1,A_2\in\mathbb{S}_+^n$, for any $\theta_1,\theta_2\geq 0$ and for any $x\in\mathbb{R}^n$, we have
 \begin{equation}
 x^\text{T}(\theta_1 A_1+\theta_2 A_2)x=\theta_1 x^\text{T}A_1 x+\theta_2 x^\text{T}A_2 x\geq 0
-\end{equation}</p>
+\end{equation}
+The same argument can be applied to prove that $\mathbb{S}_{++}^n$ or even the set of symmetric negative definite matrices and the set of symmetric negative semi-definite matrices are convex.</p>
 
-<h3 id="operations">Operations that preserve convexity</h3>
+<h3 id="operations-sets">Operations that preserve convexity</h3>
 
 <h4 id="intersect">Intersection</h4>
 <p>Let $S_1,S_2$ be convex sets and let $x_1,x_2$ are two points containing in both sets, thus $x_1,x_2\in S_1\cap S_2$.</p>
@@ -530,6 +550,26 @@ Q\left[\begin{matrix}x \\ 1\end{matrix}\right]=\left[\begin{matrix}A&amp;b \\ c^
 \end{equation}</p>
 
 <h2 id="cvx-funcs">Convex functions</h2>
+
+<h3 id="props">Properties</h3>
+
+<h4 id="first-order-conditions">First-order conditions</h4>
+
+<h4 id="second-order-conditions">Second-order conditions</h4>
+
+<h3 id="cvx-funcs-eg">Examples</h3>
+
+<h3 id="sub-lvl-sets">Sub-level sets</h3>
+
+<h3 id="inequalities">Inequalities</h3>
+
+<h4 id="jensens-inequality">Jensen’s inequality</h4>
+
+<h3 id="operations-funcs">Operations that preserve convexity</h3>
+
+<h3 id="conjugate-func">The conjugate function</h3>
+
+<h3 id="quasi-cvx-funcs">Quasiconvex functions</h3>
 
 <h2 id="references">References</h2>
 <p>[1] Stephen Boyd &amp; Lieven Vandenberghe. <a href="http://www.stanford.edu/∼boyd/cvxbook/">Convex Optimization</a>. Cambridge UP, 2004.</p>

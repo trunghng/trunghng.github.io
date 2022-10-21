@@ -60,7 +60,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Inverse Reinforcement Learning" />
 <script type="application/ld+json">
-{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","headline":"Inverse Reinforcement Learning","dateModified":"2022-10-17T13:00:00+07:00","datePublished":"2022-10-17T13:00:00+07:00","description":"Inverse Reinforcement Learning","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/10/17/irl.html"},"url":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/10/17/irl.html","@context":"https://schema.org"}</script>
+{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","description":"Inverse Reinforcement Learning","headline":"Inverse Reinforcement Learning","dateModified":"2022-10-17T13:00:00+07:00","datePublished":"2022-10-17T13:00:00+07:00","url":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/10/17/irl.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/10/17/irl.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Trung&apos;s cabin" />
     
@@ -187,51 +187,56 @@
 <h3 id="mdp">Markov decision processes</h3>
 <p>We begin by recalling the definition of <a href="/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html#mdp"><strong>Markov decision processes (MDP)</strong></a>.</p>
 
-<p>A <strong>Markov decision process</strong>, or <strong>MDP</strong> is defined to be a tuple $(\mathcal{S},\mathcal{A},T,R,\gamma)$, where</p>
+<p>A <strong>Markov decision process</strong>, or <strong>MDP</strong> is defined to be a tuple $(\mathcal{S},\mathcal{A},T,r,\gamma)$, where</p>
 <ul>
   <li>$\mathcal{S}$ is a set of states, represents the <strong>state space</strong>.</li>
   <li>$\mathcal{A}$ is a set of actions, known as the <strong>action space</strong>.</li>
-  <li>$T:\mathcal{S}\times\mathcal{A}\times\mathcal{S}\to[0,1]$ is the <strong>state transition probabilities</strong>, i.e., $T(s’\vert s,a)$ denotes the probability of transitioning to state $s’$ when taking action $a$ from state $s$.</li>
-  <li>$R:\mathcal{S}\times\mathcal{A}\to\mathbb{R}$ denotes the <strong>reward function</strong>.</li>
+  <li>$T:\mathcal{S}\times\mathcal{A}\times\mathcal{S}\to[0,1]$ is the <strong>state transition probabilities</strong>, i.e., $T(s’,s,a)=p(s’\vert s,a)$ denotes the probability of transitioning to state $s’$ when taking action $a$ from state $s$.</li>
+  <li>$r:\mathcal{S}\times\mathcal{A}\to\mathbb{R}$ denotes the <strong>reward function</strong>.</li>
   <li>$\gamma\in[0,1]$ is referred as <strong>discount factor</strong>.</li>
 </ul>
 
 <p>A <strong>policy</strong>, denoted $\pi$, is a mapping from states to probabilities of selecting each possible action, which can be either deterministic $\pi:\mathcal{S}\times\mathcal{A}\to\{0,1\}$ (or $\pi:\mathcal{S}\to\mathcal{A}$) or stochastic $\pi:\mathcal{S}\times\mathcal{A}\to[0,1]$.</p>
 
-<p>Under a particular policy $\pi$, the <strong>state value function</strong>, denoted as $v_\pi$, of a state $s\in\mathcal{S}$ measures how good it is for the agent to be in $s$. Specifically, $v_\pi(s)$ is defined as the expected sum of discounted rewards when starting in $s$ and following $\pi$.</p>
-
-<p>For an initial state $s_0$, its value can be computed as
+<p>For a policy $\pi$, the <strong>state value function</strong>, denoted as $v_\pi$, of a state $s\in\mathcal{S}$ measures how good it is for the agent to be in $s$. Specifically, $v_\pi(s)$ is defined as the expected sum of discounted rewards when starting in $s$ and following $\pi$. Specifically, for all $s\in\mathcal{S}$
 \begin{equation}
-v_\pi(s_0)=\mathbb{E}_\pi\left[\sum_{t=0}^{\infty}\gamma^t R(S_t,\pi(S_t))\big\vert S_0=s_0\right]\label{eq:mdp.1}
+v_\pi(s)=\mathbb{E}_\pi\left[\sum_{k=0}^{\infty}\gamma^k r(S_t,A_t)\Big\vert S_t=s\right]
+\end{equation}
+The expectation of value of start state $S_0$ presents the value of the policy it is following. In particular, the value of a policy $\pi$ can be given by
+\begin{equation}
+\mathbb{E}\big[v_\pi(S_0)\big]=\mathbb{E}_\pi\left[\sum_{t=0}^{\infty}\gamma^t r(S_t,A_t)\Big\vert S_0\right]\label{eq:mdp.1}
 \end{equation}
 Analogously, the <strong>state-action value function</strong>, denoted by $q_\pi$, of a state-action pair $(s\in\mathcal{S},a\in\mathcal{A})$ specifies how good it is to take action $a$ from state $s$. Similar to $v_\pi$, $q_\pi$ is defined as the expected sum of discounted rewards when starting from $s$, taking action $a$ and thereby following policy $\pi$.</p>
 
 <h3 id="irl">Inverse reinforcement learning</h3>
-<p>The tuple $(\mathcal{S},\mathcal{A},T,\gamma)$ represents an $MDP$ without a predefined reward function $R$, or MDP\R for short. Suppose that we are given either a set of demonstrated trajectories, denoted as $\mathcal{D}$, or an <strong>expert</strong> (policy) $\pi_E$, which is good at our task. Without an explicit reward function, with <strong>inverse reinforcement learning</strong>, or <strong>IRL</strong> methods, we instead try to find a reward function $\tilde{R}_E$ that is good at explaining $\pi_E$ or $\mathcal{D}$.</p>
+<p>In <strong>reverse reinforcment learning</strong>, we are instead working on an interface of tuple $(\mathcal{S},\mathcal{A},T,\gamma)$, which represents an $MDP$ without a predefined reward function $r$, or MDP\R for short. Rather than an explicit reward function given, we are provided samples $\{\tau_i\}$ sampled from an optimal policy $\pi^*(\tau)$.</p>
 
-<p>For each state-action pair $(s\in\mathcal{S},a\in\mathcal{A})$, we assume there is a corresponding feature vector $\boldsymbol{\phi}(s,a)\in\mathbb{R}^k$ where
+<p>In this problem, our goal is to learn a reward function $r_\boldsymbol{\psi}:\mathcal{S}\times\mathcal{A}\to\mathbb{R}$ parameterized by the weight vector $\boldsymbol{\psi}$, and then use it to learn the optimal policy $\pi^*$. Specifically, for a linear reward function, we have
 \begin{equation}
-\boldsymbol{\phi}(s,a)=\big(\phi_1(s,a),\ldots,\phi_k(s,a)\big)^\text{T},
+r_\boldsymbol{\psi}(s,a)=\sum_{i}\psi_i f_i(s,a)=\boldsymbol{\psi}^\text{T}\mathbf{f}(s,a),
 \end{equation}
-where $\phi_i:\mathcal{S}\times\mathcal{A}\to\mathbb{R}$ are feature functions such that the reward function can be expressed as a linear weighted sum of these features. In particular, for $w_i\in\mathbb{R}$ we can represent the reward function $R$ as
-\begin{align}
-R(s,a)&amp;=w_1\phi_1(s,a)+\ldots+w_k\phi_k(s,a) \\ &amp;=\mathbf{w}^\text{T}\boldsymbol{\phi}(s,a)
-\end{align}
-Thus, we can rewrite \eqref{eq:mdp.1} as
-\begin{align}
-v_\pi(s_0)&amp;=\mathbb{E}_\pi\left[\sum_{t=0}^{\infty}\gamma^t R\big(S_t,\pi(S_t)\big)\big\vert S_0=s_0\right] \\ &amp;=\mathbb{E}_\pi\left[\sum_{t=0}^{\infty}\gamma^t\mathbf{w}^\text{T}\boldsymbol{\phi}\big(S_t,\pi(S_t)\big)\right] \\ &amp;=\mathbf{w}^\text{T}\mathbb{E}_\pi\left[\sum_{t=0}^{\infty}\gamma^t\boldsymbol{\phi}\big(S_t,\pi(S_t)\big)\right]
-\end{align}
-The <strong>feature expectation</strong> or also called the expected discounted accumulated feature value, denoted as $\boldsymbol{\mu}(\pi)$, of a policy $\pi$ is defined as
+where the weight vector is defined as 
 \begin{equation}
-\boldsymbol{\mu}(\pi)=\mathbb{E}_\pi\left[\sum_{t=0}^{\infty}\gamma^t\boldsymbol{\phi}\big(S_t,\pi(A_t)\big)\right]
+\boldsymbol{\psi}=(\psi_1,\ldots,\psi_k)^\text{T},
+\end{equation}
+and where $\mathbf{f}(s,a)$ is called the <strong>feature vector</strong> of the state-action pair $(s,a)$, defined by
+\begin{equation}
+\mathbf{f}(s,a)=\big(f_1(s,a),\ldots,f_k(s,a)\big)^\text{T}
+\end{equation}
+By \eqref{eq:mdp.1}, the value of a policy $\pi^{r_\boldsymbol{\psi}}$ corresponding to the reward function $r_\boldsymbol{\psi}$ thus can be written as
+\begin{align}
+\mathbb{E}\big[v_{\pi^{r_\boldsymbol{\psi}}}(S_0)\big]&amp;=\mathbb{E}_{\pi^{r_\boldsymbol{\psi}}}\left[\sum_{t=0}^{\infty}\gamma^t r(S_t,A_t)\Big\vert S_0\right] \\ &amp;=\mathbb{E}_{\pi^{r_\boldsymbol{\psi}}}\left[\sum_{t=0}^{\infty}\gamma^t\boldsymbol{\psi}^\text{T}\mathbf{f}(S_t,A_t)\Big\vert S_0\right] \\ &amp;=\boldsymbol{\psi}^\text{T}\mathbb{E}_{\pi^{r_\boldsymbol{\psi}}}\left[\sum_{t=0}^{\infty}\gamma^t\mathbf{f}(S_t,A_t)\Big\vert S_0\right]
+\end{align}
+The <strong>feature expectation</strong> or also called the expected discounted accumulated feature value, denoted as $\boldsymbol{\mu}(\pi)$, of the policy $\pi^{r_\boldsymbol{\psi}}$ is defined as
+\begin{equation}
+\boldsymbol{\mu}(\pi^{r_\boldsymbol{\psi}})=\mathbb{E}_{\pi^{r_\boldsymbol{\psi}}}\left[\sum_{t=0}^{\infty}\gamma^t\mathbf{f}(S_t,A_t)\Big\vert S_0\right]
 \end{equation}
 Hence, we have that
 \begin{equation}
-v_\pi(s_0)=\mathbf{w}^\text{T}\boldsymbol{\mu}(\pi)
+\boldsymbol{\mu}(\pi^{r_\boldsymbol{\psi}})=\boldsymbol{\psi}^\text{T}\boldsymbol{\mu}(\pi^{r_\boldsymbol{\psi}})
 \end{equation}</p>
 
 <h2 id="max-margin-methods">Max margin methods</h2>
-<p>The idea of <strong>max margin methods</strong> is to learn a reward function $\tilde{R}_E$ that explains the demonstrated policy $\pi_E$ better than alternative policies by a margin.</p>
 
 <h3 id="max-margin-proj">Max-margin &amp; Projection</h3>
 <p>In these algorithms setting, we are given the expert’s feature expectation $\boldsymbol{\mu}_E$ and our work is to find a policy $\tilde{\pi}$ such that

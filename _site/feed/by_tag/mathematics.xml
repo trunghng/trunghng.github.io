@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-19T20:26:00+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-21T15:12:27+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory - III: the Lebesgue integral</title><link href="http://localhost:4000/mathematics/measure-theory/2022/08/21/measure-theory-p3.html" rel="alternate" type="text/html" title="Measure theory - III: the Lebesgue integral" /><published>2022-08-21T13:00:00+07:00</published><updated>2022-08-21T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/08/21/measure-theory-p3</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/08/21/measure-theory-p3.html">&lt;blockquote&gt;
   &lt;p&gt;Part III of the measure theory series. Materials are mostly taken from &lt;a href=&quot;/mathematics/measure-theory/2022/08/21/measure-theory-p3.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some needed notations extracted from &lt;a href=&quot;/mathematics/measure-theory/2022/08/21/measure-theory-p3.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -3076,7 +3076,7 @@ The equality holds with
           &lt;li&gt;&lt;a href=&quot;#cones&quot;&gt;Cones&lt;/a&gt;&lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#eg&quot;&gt;Examples&lt;/a&gt;
+      &lt;li&gt;&lt;a href=&quot;#cvx-sets-eg&quot;&gt;Examples&lt;/a&gt;
         &lt;ul&gt;
           &lt;li&gt;&lt;a href=&quot;#hyperplane-halfspaces&quot;&gt;Hyperplanes, halfspaces&lt;/a&gt;&lt;/li&gt;
           &lt;li&gt;&lt;a href=&quot;#balls-ellips-cones&quot;&gt;Balls, ellipsoids, norm cones&lt;/a&gt;
@@ -3095,7 +3095,7 @@ The equality holds with
           &lt;li&gt;&lt;a href=&quot;#psd-cone&quot;&gt;Positive semi-definite cone&lt;/a&gt;&lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#operations&quot;&gt;Operations that preserve convexity&lt;/a&gt;
+      &lt;li&gt;&lt;a href=&quot;#operations-sets&quot;&gt;Operations that preserve convexity&lt;/a&gt;
         &lt;ul&gt;
           &lt;li&gt;&lt;a href=&quot;#intersect&quot;&gt;Intersection&lt;/a&gt;&lt;/li&gt;
           &lt;li&gt;&lt;a href=&quot;#aff-funcs&quot;&gt;Affine functions&lt;/a&gt;&lt;/li&gt;
@@ -3109,7 +3109,26 @@ The equality holds with
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#cvx-funcs&quot;&gt;Convex functions&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#cvx-funcs&quot;&gt;Convex functions&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#props&quot;&gt;Properties&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#1st-order-conds&quot;&gt;First-order conditions&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#2nd-order-conds&quot;&gt;Second-order conditions&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#cvx-funcs-eg&quot;&gt;Examples&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#sub-lvl-sets&quot;&gt;Sub-level sets&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#inequalities&quot;&gt;Inequalities&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#jensens-inequality&quot;&gt;Jensen’s inequality&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#operations-funcs&quot;&gt;Operations that preserve convexity&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#conjugate-func&quot;&gt;The conjugate function&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#quasi-cvx-funcs&quot;&gt;Quasiconvex functions&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -3212,7 +3231,7 @@ Like convex and affine combinations, we can generalize the definition of conic c
 \end{equation}
 Also, the conic hull of $C$ is the smallest convex cone containing $C$.&lt;/p&gt;
 
-&lt;h3 id=&quot;eg&quot;&gt;Examples&lt;/h3&gt;
+&lt;h3 id=&quot;cvx-sets-eg&quot;&gt;Examples&lt;/h3&gt;
 
 &lt;h4 id=&quot;hyperplane-halfspaces&quot;&gt;Hyperplanes, halfspaces&lt;/h4&gt;
 &lt;p&gt;A &lt;strong&gt;hyperplane&lt;/strong&gt; $P$ is a set of form
@@ -3326,9 +3345,10 @@ and finally, let us assign the set of symmetric positive definite matrices to $\
 We have that $\mathbb{S}_+^n$ is a convex cone, since for any matrices $A_1,A_2\in\mathbb{S}_+^n$, for any $\theta_1,\theta_2\geq 0$ and for any $x\in\mathbb{R}^n$, we have
 \begin{equation}
 x^\text{T}(\theta_1 A_1+\theta_2 A_2)x=\theta_1 x^\text{T}A_1 x+\theta_2 x^\text{T}A_2 x\geq 0
-\end{equation}&lt;/p&gt;
+\end{equation}
+The same argument can be applied to prove that $\mathbb{S}_{++}^n$ or even the set of symmetric negative definite matrices and the set of symmetric negative semi-definite matrices are convex.&lt;/p&gt;
 
-&lt;h3 id=&quot;operations&quot;&gt;Operations that preserve convexity&lt;/h3&gt;
+&lt;h3 id=&quot;operations-sets&quot;&gt;Operations that preserve convexity&lt;/h3&gt;
 
 &lt;h4 id=&quot;intersect&quot;&gt;Intersection&lt;/h4&gt;
 &lt;p&gt;Let $S_1,S_2$ be convex sets and let $x_1,x_2$ are two points containing in both sets, thus $x_1,x_2\in S_1\cap S_2$.&lt;/p&gt;
@@ -3445,6 +3465,26 @@ Q\left[\begin{matrix}x \\ 1\end{matrix}\right]=\left[\begin{matrix}A&amp;amp;b \
 \end{equation}&lt;/p&gt;
 
 &lt;h2 id=&quot;cvx-funcs&quot;&gt;Convex functions&lt;/h2&gt;
+
+&lt;h3 id=&quot;props&quot;&gt;Properties&lt;/h3&gt;
+
+&lt;h4 id=&quot;first-order-conditions&quot;&gt;First-order conditions&lt;/h4&gt;
+
+&lt;h4 id=&quot;second-order-conditions&quot;&gt;Second-order conditions&lt;/h4&gt;
+
+&lt;h3 id=&quot;cvx-funcs-eg&quot;&gt;Examples&lt;/h3&gt;
+
+&lt;h3 id=&quot;sub-lvl-sets&quot;&gt;Sub-level sets&lt;/h3&gt;
+
+&lt;h3 id=&quot;inequalities&quot;&gt;Inequalities&lt;/h3&gt;
+
+&lt;h4 id=&quot;jensens-inequality&quot;&gt;Jensen’s inequality&lt;/h4&gt;
+
+&lt;h3 id=&quot;operations-funcs&quot;&gt;Operations that preserve convexity&lt;/h3&gt;
+
+&lt;h3 id=&quot;conjugate-func&quot;&gt;The conjugate function&lt;/h3&gt;
+
+&lt;h3 id=&quot;quasi-cvx-funcs&quot;&gt;Quasiconvex functions&lt;/h3&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Stephen Boyd &amp;amp; Lieven Vandenberghe. &lt;a href=&quot;http://www.stanford.edu/∼boyd/cvxbook/&quot;&gt;Convex Optimization&lt;/a&gt;. Cambridge UP, 2004.&lt;/p&gt;

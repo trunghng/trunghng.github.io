@@ -18,7 +18,7 @@ eqn-number: true
 		- [Affine dimension, relative interior](#aff-dim-rel-int)
 		- [Convex sets](#cvx-sets-def)
 		- [Cones](#cones)
-	- [Examples](#eg)
+	- [Examples](#cvx-sets-eg)
 		- [Hyperplanes, halfspaces](#hyperplane-halfspaces)
 		- [Balls, ellipsoids, norm cones](#balls-ellips-cones)
 			- [Balls](#balls)
@@ -28,13 +28,23 @@ eqn-number: true
 			- [Nonnegative orthant](#non-neg-orthant)
 			- [Simplex](#simplex)
 		- [Positive semi-definite cone](#psd-cone)
-	- [Operations that preserve convexity](#operations)
+	- [Operations that preserve convexity](#operations-sets)
 		- [Intersection](#intersect)
 		- [Affine functions](#aff-funcs)
 		- [Linear-fractional, perspective functions](#lin-frac-persp-funcs)
 			- [Perspective functions](#persp-funcs)
 			- [Linear-fractional functions](#lin-frac-funcs)
 - [Convex functions](#cvx-funcs)
+	- [Properties](#props)
+		- [First-order conditions](#1st-order-conds)
+		- [Second-order conditions](#2nd-order-conds)
+	- [Examples](#cvx-funcs-eg)
+	- [Sub-level sets](#sub-lvl-sets)
+	- [Inequalities](#inequalities)
+		- [Jensen's inequality](#jensens-inequality)
+	- [Operations that preserve convexity](#operations-funcs)
+	- [The conjugate function](#conjugate-func)
+	- [Quasiconvex functions](#quasi-cvx-funcs)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -143,7 +153,7 @@ We define the **conic hull** of a set $C$ as the set of all conic combinations o
 Also, the conic hull of $C$ is the smallest convex cone containing $C$.
 
 ### Examples
-{: #eg}
+{: #cvx-sets-eg}
 
 #### Hyperplanes, halfspaces
 {: #hyperplane-halfspaces}
@@ -267,9 +277,10 @@ We have that $\mathbb{S}\_+^n$ is a convex cone, since for any matrices $A_1,A_2
 \begin{equation}
 x^\text{T}(\theta_1 A_1+\theta_2 A_2)x=\theta_1 x^\text{T}A_1 x+\theta_2 x^\text{T}A_2 x\geq 0
 \end{equation}
+The same argument can be applied to prove that $\mathbb{S}\_{\+\+}^n$ or even the set of symmetric negative definite matrices and the set of symmetric negative semi-definite matrices are convex.
 
 ### Operations that preserve convexity
-{: #operations}
+{: #operations-sets}
 
 #### Intersection
 {: #intersect}
@@ -392,6 +403,36 @@ Q\left[\begin{matrix}x \\\\ 1\end{matrix}\right]=\left[\begin{matrix}A&b \\\\ c^
 
 ## Convex functions
 {: #cvx-funcs}
+
+### Properties
+{: #props}
+
+#### First-order conditions
+{: #1st-order-conds}
+
+#### Second-order conditions
+{: #2nd-order-conds}
+
+### Examples
+{: #cvx-funcs-eg}
+
+### Sub-level sets
+{: #sub-lvl-sets}
+
+### Inequalities
+{: #inequalities}
+
+#### Jensen's inequality
+{: #jensens-inequality}
+
+### Operations that preserve convexity
+{: #operations-funcs}
+
+### The conjugate function
+{: #conjugate-func}
+
+### Quasiconvex functions
+{: #quasi-cvx-funcs}
 
 ## References
 {: #references}
