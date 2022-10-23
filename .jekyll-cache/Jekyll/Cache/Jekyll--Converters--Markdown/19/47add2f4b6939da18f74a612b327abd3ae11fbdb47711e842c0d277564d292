@@ -1,5 +1,5 @@
-I"î><blockquote>
-  <p>A note on Natural evolution strategies</p>
+I"?<blockquote>
+  <p><strong>Natural evolution strategies</strong>, or <strong>NES</strong>, are referred to a family of evolution strategies that throughout its generations update a search distribution repeatedly using an estimated gradient of its distribution parameters.</p>
 </blockquote>
 
 <!-- excerpt-end -->
@@ -14,12 +14,6 @@
     <ul>
       <li><a href="#fn-shp">Fitness shaping</a></li>
       <li><a href="#adp-sampl">Adaption sampling</a></li>
-    </ul>
-  </li>
-  <li><a href="#pfm-tchnq">Applied to MVN</a>
-    <ul>
-      <li>[]</li>
-      <li><a href="#xNES">Exponential natural evolution strategies</a></li>
     </ul>
   </li>
   <li><a href="#references">References</a></li>

@@ -8,7 +8,7 @@ description: Natural Evolution Strategy
 comments: true
 eqn-number: true
 ---
-> A note on Natural evolution strategies
+> **Natural evolution strategies**, or **NES**, are referred to a family of evolution strategies that throughout its generations update a search distribution repeatedly using an estimated gradient of its distribution parameters. 
 
 <!-- excerpt-end -->
 - [Search gradients](#search-grad)

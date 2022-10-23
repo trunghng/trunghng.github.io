@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-22T14:08:16+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-23T09:22:30+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Inverse Reinforcement Learning</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/10/17/irl.html" rel="alternate" type="text/html" title="Inverse Reinforcement Learning" /><published>2022-10-17T13:00:00+07:00</published><updated>2022-10-17T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/10/17/irl</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/10/17/irl.html">&lt;blockquote&gt;
   &lt;p&gt;A note on Inverse Reinforcement Learning&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -110,7 +110,7 @@ Hence, we have that
 &lt;p&gt;[3] Nathan Ratliff, David Silver &amp;amp; J. Andrew (Drew) Bagnell. &lt;a href=&quot;https://www.ri.cmu.edu/publications/learning-to-search-functional-gradient-techniques-for-imitation-learning/&quot;&gt;Learning to search: Functional gradient techniques for imitation learning&lt;/a&gt;. Autonomous Robots. July 2009.&lt;/p&gt;
 
 &lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="inverse-reinforcement-learning" /><summary type="html">A note on Inverse Reinforcement Learning</summary></entry><entry><title type="html">Natural Evolution Strategies</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/10/07/nes.html" rel="alternate" type="text/html" title="Natural Evolution Strategies" /><published>2022-10-07T13:00:00+07:00</published><updated>2022-10-07T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/10/07/nes</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/10/07/nes.html">&lt;blockquote&gt;
-  &lt;p&gt;A note on Natural evolution strategies&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Natural evolution strategies&lt;/strong&gt;, or &lt;strong&gt;NES&lt;/strong&gt;, are referred to a family of evolution strategies that throughout its generations update a search distribution repeatedly using an estimated gradient of its distribution parameters.&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;!-- excerpt-end --&gt;
@@ -272,7 +272,7 @@ u_k=\frac{\max\left(0,\log\left(\frac{\lambda}{2}+1\right)-\log k\right)}{\sum_{
 
 &lt;p&gt;[3] Ha, David. &lt;a href=&quot;https://blog.otoro.net/2017/10/29/visual-evolution-strategies/&quot;&gt;A Visual Guide to Evolution Strategies&lt;/a&gt;. blog.otoro.net, 2017.&lt;/p&gt;
 
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="machine-learning" /><category term="artificial-intelligent" /><category term="evolution-strategy" /><summary type="html">A note on Natural evolution strategies</summary></entry><entry><title type="html">CMA Evolution Strategy</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es.html" rel="alternate" type="text/html" title="CMA Evolution Strategy" /><published>2022-09-14T13:00:00+07:00</published><updated>2022-09-14T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es.html">&lt;blockquote&gt;
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="machine-learning" /><category term="artificial-intelligent" /><category term="evolution-strategy" /><summary type="html">Natural evolution strategies, or NES, are referred to a family of evolution strategies that throughout its generations update a search distribution repeatedly using an estimated gradient of its distribution parameters.</summary></entry><entry><title type="html">CMA Evolution Strategy</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es.html" rel="alternate" type="text/html" title="CMA Evolution Strategy" /><published>2022-09-14T13:00:00+07:00</published><updated>2022-09-14T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es.html">&lt;blockquote&gt;
   &lt;p&gt;A note on CMA - Evolution Strategy
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -519,7 +519,7 @@ which allows us to obtain the representation \eqref{eq:cs.1} of ${\boldsymbol{\S
 	&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;it means that this transformation makes the expected length of $\mathbf{p}_\sigma^{(t+1)}$ independent of its direction.&lt;/p&gt;
+&lt;p&gt;It means that this transformation makes the expected length of $\mathbf{p}_\sigma^{(t+1)}$ independent of its direction.&lt;/p&gt;
 
 &lt;p&gt;We then update $\sigma^{(t)}$ by according to the ratio of its length with its expected length $\Vert\mathbf{p}_\sigma^{(t+1)}\Vert/\mathbb{E}\Vert\mathcal{N}(\mathbf{0},\mathbf{I})\Vert$, given by
 \begin{equation}
@@ -531,15 +531,24 @@ where $d_\sigma\approx 1$ is the &lt;strong&gt;damping parameter&lt;/strong&gt;,
 \end{equation}&lt;/p&gt;
 
 &lt;h2 id=&quot;test-on-rast&quot;&gt;Testing on Rastrigin function&lt;/h2&gt;
-&lt;p&gt;Let us get our hands dirty by giving the CMA-ES algorithm a try on the &lt;a href=&quot;https://en.wikipedia.org/wiki/Rastrigin_function&quot;&gt;&lt;strong&gt;Rastrigin function&lt;/strong&gt;&lt;/a&gt;, which is given by
+&lt;p&gt;Let us give the CMA-ES algorithm a try on the &lt;a href=&quot;https://en.wikipedia.org/wiki/Rastrigin_function&quot;&gt;&lt;strong&gt;Rastrigin function&lt;/strong&gt;&lt;/a&gt;, $f:\mathbb{R}^n\to\mathbb{R}$, which is given by
 \begin{equation}
 f(\mathbf{x})=10 n+\sum_{i=1}^{n}x_i^2-10\cos\left(2\pi x_i\right)
-\end{equation}&lt;/p&gt;
+\end{equation}
+We will be using the experimental settings given in this &lt;a href=&quot;#cmaes-exp&quot;&gt;paper&lt;/a&gt; of the CMA-ES’s original author. The result obtained is illustrated in the following figure.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-09-14/dim-popsize-exp.png&quot; alt=&quot;cma-es on rastrigin&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 1&lt;/b&gt;: Success rate to reach $f_\text{stop}=10^{-10}$  versus population size for Rastrigin function.&lt;br /&gt; The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/evolution-strategies/blob/main/dim-popsize-exp.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;p&gt;[1] Nikolaus Hansen. &lt;a href=&quot;#https://arxiv.org/abs/1604.00772&quot;&gt;The CMA Evolution Strategy: A Tutorial&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;[1] Nikolaus Hansen. &lt;a href=&quot;https://arxiv.org/abs/1604.00772&quot;&gt;The CMA Evolution Strategy: A Tutorial&lt;/a&gt;. 	arXiv:1604.00772, 2016.&lt;/p&gt;
 
-&lt;p&gt;[2] Ha, David. &lt;a href=&quot;https://blog.otoro.net/2017/10/29/visual-evolution-strategies/&quot;&gt;A Visual Guide to Evolution Strategies&lt;/a&gt;. blog.otoro.net, 2017.&lt;/p&gt;
+&lt;p&gt;[2] Nikolaus Hansen, Youhei Akimoto &amp;amp; Petr Baudis. &lt;a href=&quot;https://github.com/CMA-ES/pycma&quot;&gt;CMA-ES/pycma on Github&lt;/a&gt;. Zenodo, &lt;a href=&quot;https://doi.org/10.5281/zenodo.2559634&quot;&gt;DOI:10.5281/zenodo.2559634&lt;/a&gt;, February 2019.&lt;/p&gt;
+
+&lt;p&gt;&lt;span id=&quot;cmaes-exp&quot;&gt;[3] Nikolaus Hansen, Stefan Kern. &lt;a href=&quot;https://doi.org/10.1007/978-3-540-30217-9_29&quot;&gt;Evaluating the CMA Evolution Strategy on Multimodal Test Functions&lt;/a&gt;. Parallel Problem Solving from Nature - PPSN VIII. PPSN 2004.&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;[4] Ha, David. &lt;a href=&quot;https://blog.otoro.net/2017/10/29/visual-evolution-strategies/&quot;&gt;A Visual Guide to Evolution Strategies&lt;/a&gt;. blog.otoro.net, 2017.&lt;/p&gt;
 
 &lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
 
