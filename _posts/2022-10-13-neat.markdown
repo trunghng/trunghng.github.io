@@ -1,0 +1,23 @@
+---
+layout: post
+title:  "Evolving neural network topology"
+date:   2022-10-13 13:00:00 +0700
+categories: artificial-intelligent machine-learning
+tags: artificial-intelligent neural-evolution
+description: Evolving neural networks through augmenting topologies
+comments: true
+eqn-number: true
+---
+> A note on NEAT.
+
+<!-- excerpt-end -->
+
+- [References](#references)
+- [Footnotes](#footnotes)
+
+## References
+{: #references}
+[1] Kenneth O. Stanley & Risto Miikkulainen. [Evolving Neural Networks Through Augmenting Topologies](https://nn.cs.utexas.edu/downloads/papers/stanley.ec02.pdf). Evolutionary Computation 10, no.2 (2002): 99-127.
+
+## Footnotes
+{: footnotes}

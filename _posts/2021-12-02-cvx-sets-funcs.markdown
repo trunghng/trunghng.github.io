@@ -36,8 +36,8 @@ eqn-number: true
 			- [Linear-fractional functions](#lin-frac-funcs)
 - [Convex functions](#cvx-funcs)
 	- [Properties](#props)
-		- [First-order conditions](#1st-order-conds)
-		- [Second-order conditions](#2nd-order-conds)
+		- [First-order conditions](#st-order-conds)
+		- [Second-order conditions](#nd-order-conds)
 	- [Examples](#cvx-funcs-eg)
 	- [Sub-level sets](#sub-lvl-sets)
 	- [Inequalities](#inequalities)
@@ -403,15 +403,112 @@ Q\left[\begin{matrix}x \\\\ 1\end{matrix}\right]=\left[\begin{matrix}A&b \\\\ c^
 
 ## Convex functions
 {: #cvx-funcs}
+A function $f:\mathbb{R}^n\to\mathbb{R}$ is called **convex** if $\text{dom}\,f$ is a convex set and if for all $x,y\in\text{dom}\,f$ and for any $0\leq\theta\leq 1$, we have
+\begin{equation}
+f\big(\theta x+(1-\theta)y\big)\leq\theta f(x)+(1-\theta)f(y)\label{eq:cf.1}
+\end{equation}
+Intuitively, we can think of the above inequality as the line segment between $(x,f(x))$ and $(y,f(y))$ lies above the graph of $f$.
+
+We call $f$ a **strictly convex** function if strict inequality hold in \eqref{eq:cf.1} for every $x\neq y$ and $0\lt\theta\lt 1$. And $f$ is referred as **concave** if $-f$ is convex, or is known as **strictly concave** if $-f$ is strictly convex.
+
+A function is convex iff it is convex when restricted to any line that intersects its domain. In other words, $f$ is convex iff for all $x\in\text{dom}\,f$ and for all $v$, the function
+\begin{equation}
+g(t)=f(x+tv)
+\end{equation}
+is convex on its domain, $\text{dom}\,g=\\{t:x+tv\in\text{dom}\,f\\}$.
 
 ### Properties
 {: #props}
 
 #### First-order conditions
-{: #1st-order-conds}
+{: #st-order-conds}
+
+Let $f$ be differentible, i.e. $\nabla f$ exists at each point in $\text{dom}\,f$, which is open. Then $f$ is convex iff $\text{dom}\,f$ is convex and
+\begin{equation}
+f(y)\geq f(x)+\nabla f(x)^\text{T}(y-x)
+\end{equation}
+holds for all $x,y\in\text{dom}\,f$.
+
+Similarly, we can also have that $f$ is strictly convex iff $\text{dom}\,f$ is convex and for $x,y\in\text{dom}\,f$ such that $x\neq y$, we have
+\begin{equation}
+f(y)>f(x)+\nabla f(x)^\text{T}(y-x)
+\end{equation}
+And hence, $f$ is concave iff $\text{dom}\,f$ is convex and for all $x,y\in\text{dom}\,f$, we have
+\begin{equation}
+f(y)\leq f(x)+\nabla f(x)^\text{T}(y-x)
+\end{equation}
+
+**Proof**  
+We first consider the case that $n=1$, i.e. $f:\mathbb{R}\to\mathbb{R}$ is convex iff for all $x,y\in$, we have
+\begin{equation}
+f(y)\geq f(x)+f'(x)(y-x)\label{eq:soc.1}
+\end{equation}
+Suppose that $f$ is convex, thus $\text{dom}\,f$ is convex.
+
+Let $x,y$ be two points in $\text{dom}\,f$. We therefore have that for any $0\lt\theta\leq 1$, $(1-\theta)x+\theta y\in\text{dom}\,f$ and
+\begin{equation}
+f\big((1-\theta)x+\theta y\big)\leq(1-\theta)f(x)+\theta f(y),
+\end{equation}
+which give us
+\begin{equation}
+f(y)\geq f(x)+\frac{f\big(x+\theta(y-x)\big)-f(x)}{\theta}
+\end{equation}
+Let $t\to 0$, we obtain
+\begin{equation}
+f(y)\geq f(x)+f'(x)(y-x)
+\end{equation}
+Given $f$ such that \eqref{eq:soc.1} satisfies for all $x,y$ in $\text{dom}\,f$ and $\text{dom}\,f$ is convex.
+
+Choose any $x\neq y$ and let $z=\theta x+(1-\theta)y$, for some $0\leq\theta\leq 1$, we then have $z\in\text{dom}\,f$, which implies that
+\begin{equation}
+f(x)\geq f(z)+f'(z)(x-z)
+\end{equation}
+and
+\begin{equation}
+f(y)\geq f(z)+f'(z)(y-z)
+\end{equation}
+Since $0\leq\theta\leq 1$, these two results above give us
+\begin{equation}
+\theta f(x)+(1-\theta)f(y)\geq f(z)=\theta x+(1-\theta)y,
+\end{equation}
+which proves our claim.
+
+For the general case of $f:\mathbb{R}^n\to\mathbb{R}$. Let $x,y\in\mathbb{R}^n$ and consider $f$ restricted to the line passing through $x,y$, i.e. the function
+\begin{equation}
+g(t)=f(ty+(1-t)x),
+\end{equation}
+whose derivative is given as
+\begin{equation}
+g'(t)=\nabla f(ty+(1-t)x)^\text{T}(y-x)
+\end{equation}
+First suppose that $f$ is convex, and thus so is $g$. Using the above argument for the case of $n=1$, we have that
+\begin{equation}
+g(1)\geq g(0)+g'(0)
+\end{equation}
+or
+\begin{equation}
+f(y)\geq f(x)+\nabla f(x)^\text{T}(y-x)\label{eq:soc.2}
+\end{equation}
+We continue with assuming that \eqref{eq:soc.2} holds for any $x,y\in\text{dom}\,f$ and $\text{dom}\,f$ is convex.
+
+The convexity of $\text{dom}\,f$ implies that for any $x,y\in\text{dom}\,f$ and for any $0\leq t_1,t_2\leq 1$, we have
+\begin{equation}
+t_1 y+(1-t_1)x,t_2 y+(1-t_2)x\in\text{dom}\,f
+\end{equation}
+By \eqref{eq:soc.2} we have
+\begin{equation}
+f(t_1 y+(1-t_1)x)\geq f(t_2 y+(1-t_2)x)+\nabla f(t_2 y+(1-t_2)x)^\text{T}(y-x)(t_1-t_2)
+\end{equation}
+or
+\begin{equation}
+g(t_1)\geq g(t_2)+g'(t_2)(t_1-t_2),
+\end{equation}
+which implies that $g$ is convex, and hence so is $f$.
+
+
 
 #### Second-order conditions
-{: #2nd-order-conds}
+{: #nd-order-conds}
 
 ### Examples
 {: #cvx-funcs-eg}

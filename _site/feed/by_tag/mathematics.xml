@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-24T13:43:19+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-24T20:56:12+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory - III: the Lebesgue integral</title><link href="http://localhost:4000/mathematics/measure-theory/2022/08/21/measure-theory-p3.html" rel="alternate" type="text/html" title="Measure theory - III: the Lebesgue integral" /><published>2022-08-21T13:00:00+07:00</published><updated>2022-08-21T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/08/21/measure-theory-p3</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/08/21/measure-theory-p3.html">&lt;blockquote&gt;
   &lt;p&gt;Part III of the measure theory series. Materials are mostly taken from &lt;a href=&quot;/mathematics/measure-theory/2022/08/21/measure-theory-p3.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some needed notations extracted from &lt;a href=&quot;/mathematics/measure-theory/2022/08/21/measure-theory-p3.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -3113,8 +3113,8 @@ The equality holds with
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#props&quot;&gt;Properties&lt;/a&gt;
         &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#1st-order-conds&quot;&gt;First-order conditions&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#2nd-order-conds&quot;&gt;Second-order conditions&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#st-order-conds&quot;&gt;First-order conditions&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#nd-order-conds&quot;&gt;Second-order conditions&lt;/a&gt;&lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#cvx-funcs-eg&quot;&gt;Examples&lt;/a&gt;&lt;/li&gt;
@@ -3465,12 +3465,107 @@ Q\left[\begin{matrix}x \\ 1\end{matrix}\right]=\left[\begin{matrix}A&amp;amp;b \
 \end{equation}&lt;/p&gt;
 
 &lt;h2 id=&quot;cvx-funcs&quot;&gt;Convex functions&lt;/h2&gt;
+&lt;p&gt;A function $f:\mathbb{R}^n\to\mathbb{R}$ is called &lt;strong&gt;convex&lt;/strong&gt; if $\text{dom}\,f$ is a convex set and if for all $x,y\in\text{dom}\,f$ and for any $0\leq\theta\leq 1$, we have
+\begin{equation}
+f\big(\theta x+(1-\theta)y\big)\leq\theta f(x)+(1-\theta)f(y)\label{eq:cf.1}
+\end{equation}
+Intuitively, we can think of the above inequality as the line segment between $(x,f(x))$ and $(y,f(y))$ lies above the graph of $f$.&lt;/p&gt;
+
+&lt;p&gt;We call $f$ a &lt;strong&gt;strictly convex&lt;/strong&gt; function if strict inequality hold in \eqref{eq:cf.1} for every $x\neq y$ and $0\lt\theta\lt 1$. And $f$ is referred as &lt;strong&gt;concave&lt;/strong&gt; if $-f$ is convex, or is known as &lt;strong&gt;strictly concave&lt;/strong&gt; if $-f$ is strictly convex.&lt;/p&gt;
+
+&lt;p&gt;A function is convex iff it is convex when restricted to any line that intersects its domain. In other words, $f$ is convex iff for all $x\in\text{dom}\,f$ and for all $v$, the function
+\begin{equation}
+g(t)=f(x+tv)
+\end{equation}
+is convex on its domain, $\text{dom}\,g=\{t:x+tv\in\text{dom}\,f\}$.&lt;/p&gt;
 
 &lt;h3 id=&quot;props&quot;&gt;Properties&lt;/h3&gt;
 
-&lt;h4 id=&quot;first-order-conditions&quot;&gt;First-order conditions&lt;/h4&gt;
+&lt;h4 id=&quot;st-order-conds&quot;&gt;First-order conditions&lt;/h4&gt;
 
-&lt;h4 id=&quot;second-order-conditions&quot;&gt;Second-order conditions&lt;/h4&gt;
+&lt;p&gt;Let $f$ be differentible, i.e. $\nabla f$ exists at each point in $\text{dom}\,f$, which is open. Then $f$ is convex iff $\text{dom}\,f$ is convex and
+\begin{equation}
+f(y)\geq f(x)+\nabla f(x)^\text{T}(y-x)
+\end{equation}
+holds for all $x,y\in\text{dom}\,f$.&lt;/p&gt;
+
+&lt;p&gt;Similarly, we can also have that $f$ is strictly convex iff $\text{dom}\,f$ is convex and for $x,y\in\text{dom}\,f$ such that $x\neq y$, we have
+\begin{equation}
+f(y)&amp;gt;f(x)+\nabla f(x)^\text{T}(y-x)
+\end{equation}
+And hence, $f$ is concave iff $\text{dom}\,f$ is convex and for all $x,y\in\text{dom}\,f$, we have
+\begin{equation}
+f(y)\leq f(x)+\nabla f(x)^\text{T}(y-x)
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
+We first consider the case that $n=1$, i.e. $f:\mathbb{R}\to\mathbb{R}$ is convex iff for all $x,y\in$, we have
+\begin{equation}
+f(y)\geq f(x)+f’(x)(y-x)\label{eq:soc.1}
+\end{equation}
+Suppose that $f$ is convex, thus $\text{dom}\,f$ is convex.&lt;/p&gt;
+
+&lt;p&gt;Let $x,y$ be two points in $\text{dom}\,f$. We therefore have that for any $0\lt\theta\leq 1$, $(1-\theta)x+\theta y\in\text{dom}\,f$ and
+\begin{equation}
+f\big((1-\theta)x+\theta y\big)\leq(1-\theta)f(x)+\theta f(y),
+\end{equation}
+which give us
+\begin{equation}
+f(y)\geq f(x)+\frac{f\big(x+\theta(y-x)\big)-f(x)}{\theta}
+\end{equation}
+Let $t\to 0$, we obtain
+\begin{equation}
+f(y)\geq f(x)+f’(x)(y-x)
+\end{equation}
+Given $f$ such that \eqref{eq:soc.1} satisfies for all $x,y$ in $\text{dom}\,f$ and $\text{dom}\,f$ is convex.&lt;/p&gt;
+
+&lt;p&gt;Choose any $x\neq y$ and let $z=\theta x+(1-\theta)y$, for some $0\leq\theta\leq 1$, we then have $z\in\text{dom}\,f$, which implies that
+\begin{equation}
+f(x)\geq f(z)+f’(z)(x-z)
+\end{equation}
+and
+\begin{equation}
+f(y)\geq f(z)+f’(z)(y-z)
+\end{equation}
+Since $0\leq\theta\leq 1$, these two results above give us
+\begin{equation}
+\theta f(x)+(1-\theta)f(y)\geq f(z)=\theta x+(1-\theta)y,
+\end{equation}
+which proves our claim.&lt;/p&gt;
+
+&lt;p&gt;For the general case of $f:\mathbb{R}^n\to\mathbb{R}$. Let $x,y\in\mathbb{R}^n$ and consider $f$ restricted to the line passing through $x,y$, i.e. the function
+\begin{equation}
+g(t)=f(ty+(1-t)x),
+\end{equation}
+whose derivative is given as
+\begin{equation}
+g’(t)=\nabla f(ty+(1-t)x)^\text{T}(y-x)
+\end{equation}
+First suppose that $f$ is convex, and thus so is $g$. Using the above argument for the case of $n=1$, we have that
+\begin{equation}
+g(1)\geq g(0)+g’(0)
+\end{equation}
+or
+\begin{equation}
+f(y)\geq f(x)+\nabla f(x)^\text{T}(y-x)\label{eq:soc.2}
+\end{equation}
+We continue with assuming that \eqref{eq:soc.2} holds for any $x,y\in\text{dom}\,f$ and $\text{dom}\,f$ is convex.&lt;/p&gt;
+
+&lt;p&gt;The convexity of $\text{dom}\,f$ implies that for any $x,y\in\text{dom}\,f$ and for any $0\leq t_1,t_2\leq 1$, we have
+\begin{equation}
+t_1 y+(1-t_1)x,t_2 y+(1-t_2)x\in\text{dom}\,f
+\end{equation}
+By \eqref{eq:soc.2} we have
+\begin{equation}
+f(t_1 y+(1-t_1)x)\geq f(t_2 y+(1-t_2)x)+\nabla f(t_2 y+(1-t_2)x)^\text{T}(y-x)(t_1-t_2)
+\end{equation}
+or
+\begin{equation}
+g(t_1)\geq g(t_2)+g’(t_2)(t_1-t_2),
+\end{equation}
+which implies that $g$ is convex, and hence so is $f$.&lt;/p&gt;
+
+&lt;h4 id=&quot;nd-order-conds&quot;&gt;Second-order conditions&lt;/h4&gt;
 
 &lt;h3 id=&quot;cvx-funcs-eg&quot;&gt;Examples&lt;/h3&gt;
 

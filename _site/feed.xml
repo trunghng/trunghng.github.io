@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-24T13:43:19+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-24T20:56:12+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Inverse Reinforcement Learning</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/10/17/irl.html" rel="alternate" type="text/html" title="Inverse Reinforcement Learning" /><published>2022-10-17T13:00:00+07:00</published><updated>2022-10-17T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/10/17/irl</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/10/17/irl.html">&lt;blockquote&gt;
   &lt;p&gt;A note on Inverse Reinforcement Learning&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -109,7 +109,21 @@ Hence, we have that
 
 &lt;p&gt;[3] Nathan Ratliff, David Silver &amp;amp; J. Andrew (Drew) Bagnell. &lt;a href=&quot;https://www.ri.cmu.edu/publications/learning-to-search-functional-gradient-techniques-for-imitation-learning/&quot;&gt;Learning to search: Functional gradient techniques for imitation learning&lt;/a&gt;. Autonomous Robots. July 2009.&lt;/p&gt;
 
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="inverse-reinforcement-learning" /><summary type="html">A note on Inverse Reinforcement Learning</summary></entry><entry><title type="html">Natural Evolution Strategies</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/10/07/nes.html" rel="alternate" type="text/html" title="Natural Evolution Strategies" /><published>2022-10-07T13:00:00+07:00</published><updated>2022-10-07T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/10/07/nes</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/10/07/nes.html">&lt;blockquote&gt;
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="inverse-reinforcement-learning" /><summary type="html">A note on Inverse Reinforcement Learning</summary></entry><entry><title type="html">Evolving neural network topology</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/10/13/neat.html" rel="alternate" type="text/html" title="Evolving neural network topology" /><published>2022-10-13T13:00:00+07:00</published><updated>2022-10-13T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/10/13/neat</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/10/13/neat.html">&lt;blockquote&gt;
+  &lt;p&gt;A note on NEAT.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;!-- excerpt-end --&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;p&gt;[1] Kenneth O. Stanley &amp;amp; Risto Miikkulainen. &lt;a href=&quot;https://nn.cs.utexas.edu/downloads/papers/stanley.ec02.pdf&quot;&gt;Evolving Neural Networks Through Augmenting Topologies&lt;/a&gt;. Evolutionary Computation 10, no.2 (2002): 99-127.&lt;/p&gt;
+
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="machine-learning" /><category term="artificial-intelligent" /><category term="neural-evolution" /><summary type="html">A note on NEAT.</summary></entry><entry><title type="html">Natural Evolution Strategies</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/10/07/nes.html" rel="alternate" type="text/html" title="Natural Evolution Strategies" /><published>2022-10-07T13:00:00+07:00</published><updated>2022-10-07T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/10/07/nes</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/10/07/nes.html">&lt;blockquote&gt;
   &lt;p&gt;&lt;strong&gt;Natural evolution strategies&lt;/strong&gt;, or &lt;strong&gt;NES&lt;/strong&gt;, are referred to a family of evolution strategies that throughout its generations update a search distribution repeatedly using an estimated gradient of its distribution parameters.&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -272,7 +286,7 @@ u_k=\frac{\max\left(0,\log\left(\frac{\lambda}{2}+1\right)-\log k\right)}{\sum_{
 
 &lt;p&gt;[3] Ha, David. &lt;a href=&quot;https://blog.otoro.net/2017/10/29/visual-evolution-strategies/&quot;&gt;A Visual Guide to Evolution Strategies&lt;/a&gt;. blog.otoro.net, 2017.&lt;/p&gt;
 
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="machine-learning" /><category term="artificial-intelligent" /><category term="evolution-strategy" /><summary type="html">Natural evolution strategies, or NES, are referred to a family of evolution strategies that throughout its generations update a search distribution repeatedly using an estimated gradient of its distribution parameters.</summary></entry><entry><title type="html">CMA Evolution Strategy</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es.html" rel="alternate" type="text/html" title="CMA Evolution Strategy" /><published>2022-09-14T13:00:00+07:00</published><updated>2022-09-14T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es.html">&lt;blockquote&gt;
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="machine-learning" /><category term="artificial-intelligent" /><category term="evolution-strategy" /><category term="neural-evolution" /><summary type="html">Natural evolution strategies, or NES, are referred to a family of evolution strategies that throughout its generations update a search distribution repeatedly using an estimated gradient of its distribution parameters.</summary></entry><entry><title type="html">CMA Evolution Strategy</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es.html" rel="alternate" type="text/html" title="CMA Evolution Strategy" /><published>2022-09-14T13:00:00+07:00</published><updated>2022-09-14T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/14/cma-es.html">&lt;blockquote&gt;
   &lt;p&gt;A note on CMA - Evolution Strategy
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -564,7 +578,7 @@ s_0&amp;amp;=x_0 \\ s_t&amp;amp;=\alpha x_t+(1-\alpha)s_{t-1},\hspace{1cm}t&amp;
 where $0&amp;lt;\alpha&amp;lt;1$ is referred as the &lt;strong&gt;smoothing factor&lt;/strong&gt;. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="machine-learning" /><category term="artificial-intelligent" /><category term="evolution-strategy" /><summary type="html">A note on CMA - Evolution Strategy</summary></entry><entry><title type="html">Neural networks</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/02/neural-nets.html" rel="alternate" type="text/html" title="Neural networks" /><published>2022-09-02T13:00:00+07:00</published><updated>2022-09-02T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/09/02/neural-nets</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/02/neural-nets.html">&lt;blockquote&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="machine-learning" /><category term="artificial-intelligent" /><category term="evolution-strategy" /><category term="neural-evolution" /><summary type="html">A note on CMA - Evolution Strategy</summary></entry><entry><title type="html">Neural networks</title><link href="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/02/neural-nets.html" rel="alternate" type="text/html" title="Neural networks" /><published>2022-09-02T13:00:00+07:00</published><updated>2022-09-02T13:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/machine-learning/2022/09/02/neural-nets</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/machine-learning/2022/09/02/neural-nets.html">&lt;blockquote&gt;
   &lt;p&gt;A note on Neural networks.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -5142,208 +5156,4 @@ of the 30th International Conference on Machine Learning (ICML 2013).&lt;/p&gt;
 
 &lt;p&gt;[3] Shangtong Zhang. &lt;a href=&quot;https://github.com/ShangtongZhang/reinforcement-learning-an-introduction&quot;&gt;Reinforcement Learning: An Introduction implementation&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="planning" /><category term="learning" /><category term="dyna" /><category term="q-learning" /><category term="mcts" /><category term="my-rl" /><summary type="html">Recall that when using dynamic programming (DP) method in solving reinforcement learning problems, we required the availability of a model of the environment. Whereas with Monte Carlo methods and temporal-difference learning, the models are unnecessary. Such methods with requirement of a model like the case of DP is called model-based, while methods without using a model is called model-free. Model-based methods primarily rely on planning; and model-free methods, on the other hand, primarily rely on learning.</summary></entry><entry><title type="html">Policy Gradient Methods</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/05/04/policy-gradient.html" rel="alternate" type="text/html" title="Policy Gradient Methods" /><published>2022-05-04T14:00:00+07:00</published><updated>2022-05-04T14:00:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/05/04/policy-gradient</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2022/05/04/policy-gradient.html">&lt;blockquote&gt;
-  &lt;p&gt;So far in the series, we have been choosing the actions based on the estimated action value function. On the other hand, we can instead learn a &lt;strong&gt;parameterized policy&lt;/strong&gt;, $\boldsymbol{\theta}$, that can select actions without consulting a value function by updating $\boldsymbol{\theta}$ on each step in the direction of an estimate of the gradient of some performance measure w.r.t $\boldsymbol{\theta}$. Such methods are called &lt;strong&gt;policy gradient methods&lt;/strong&gt;.
-&lt;!-- excerpt-end --&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#policy-grad-ep&quot;&gt;Policy Gradient for Episodic Problems&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#policy-grad-theorem-ep&quot;&gt;The Policy Gradient Theorem&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#reinforce&quot;&gt;REINFORCE&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#reinforce-baseline&quot;&gt;REINFORCE with Baseline&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#actor-critic-methods&quot;&gt;Actor-Critic Methods&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#policy-grad-cont&quot;&gt;Policy Gradient for Continuing Problems&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#policy-grad-theorem-cont&quot;&gt;The Policy Gradient Theorem&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#policy-prm-cont-actions&quot;&gt;Policy Parameterization for Continuous Actions&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;policy-grad-ep&quot;&gt;Policy Gradient for Episodic Problems&lt;/h2&gt;
-&lt;p&gt;We begin by considering episodic case, for which we define the performance measure $J(\boldsymbol{\theta})$ as the value of the start state of the episode. By assuming without loss of generality that every episode starts in some particular state $s_0$, we have:
-\begin{equation}
-J(\boldsymbol{\theta})\doteq v_{\pi_\boldsymbol{\theta}}(s_0),
-\end{equation}
-where $v_{\pi_\boldsymbol{\theta}}$ is the true value function for $\pi_\boldsymbol{\theta}$, the policy determined by $\boldsymbol{\theta}$.&lt;/p&gt;
-
-&lt;h3 id=&quot;policy-grad-theorem-ep&quot;&gt;The Policy Gradient Theorem&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Theorem 1&lt;/strong&gt;&lt;br /&gt;
-The policy gradient theorem for the episodic case establishes that
-\begin{equation}
-\nabla_\boldsymbol{\theta}J(\boldsymbol{\theta})\propto\sum_s\mu(s)\sum_a q_\pi(s,a)\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta}),\tag{1}\label{1}
-\end{equation}
-where $\pi$ represents the policy corresponding to parameter vector $\boldsymbol{\theta}$.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
-We have that the gradient of the state-value function w.r.t $\boldsymbol{\theta}$ can be written in terms of the action-value function, for any $s\in\mathcal{S}$, as:
-\begin{align}
-\nabla_\boldsymbol{\theta}v_\pi(s)&amp;amp;=\nabla_\boldsymbol{\theta}\Big[\sum_a\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)\Big],\hspace{1cm}\forall s\in\mathcal{S} \\ &amp;amp;=\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)+\pi(a|s,\boldsymbol{\theta})\nabla_\boldsymbol{\theta}q_\pi(s,a)\Big] \\ &amp;amp;=\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(s|a)q_\pi(a,s)+\pi(a|s,\boldsymbol{\theta})\nabla_\boldsymbol{\theta}\sum_{s’,r}p(s’,r|s,a)\big(r+v_\pi(s’)\big)\Big] \\ &amp;amp;=\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)+\pi(a|s,\boldsymbol{\theta})\sum_{s’}p(s’|s,a)\nabla_\boldsymbol{\theta}v_\pi(s’)\Big] \\ &amp;amp;=\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)+\pi(a|s,\boldsymbol{\theta})\sum_{s’}p(s’|s,a)\sum_{a’}\big(\nabla_\boldsymbol{\theta}\pi(s’|a’,\boldsymbol{\theta})q_\pi(s’,a’) \\ &amp;amp;\hspace{2cm}+\pi(a’|s’,\boldsymbol{\theta})\sum_{s&apos;&apos;}p(s&apos;&apos;\vert s’,a’)\nabla_\boldsymbol{\theta}v_\pi(s&apos;&apos;)\big)\Big] \\ &amp;amp;=\sum_{x\in\mathcal{S}}\sum_{k=0}^{\infty}P(s\to x,k,\pi)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a),
-\end{align}
-After repeated unrolling as in the fifth step, where $P(s\to x,k,\pi)$ is the probability of transitioning from state $s$ to state $x$ in $k$ steps under policy $\pi$. It is then immediate that:
-\begin{align}
-\nabla_\boldsymbol{\theta}J(\boldsymbol{\theta})&amp;amp;=\nabla_\boldsymbol{\theta}v_\pi(s_0) \\ &amp;amp;=\sum_s\Big(\sum_{k=0}^{\infty}P(s_0\to s,k,\pi)\Big)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a) \\ &amp;amp;=\sum_s\eta(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a) \\ &amp;amp;=\sum_{s’}\eta(s’)\sum_s\frac{\eta(s)}{\sum_{s’}\eta(s’)}\sum_a\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a) \\ &amp;amp;=\sum_{s’}\eta(s’)\sum_s\mu(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a) \\ &amp;amp;\propto\sum_s\mu(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a),
-\end{align}
-where $\eta(s)$ denotes the number of time steps spent, on average, in state $s$ in a single episode:
-\begin{equation}
-\eta(s)=h(s)+\sum_{\bar{s}}\eta(\bar{s})\sum_a\pi(a|s,\boldsymbol{\theta})p(s|\bar{s},a),\hspace{1cm}\forall s\in\mathcal{S}
-\end{equation}
-where $h(s)$ denotes the probability that an episode begins in each state $s$; $\bar{s}$ denotes a preceding state of $s$. This leads to the result that we have used in the fifth step:
-\begin{equation}
-\mu(s)=\frac{\eta(s)}{\sum_{s’}\eta(s’)},\hspace{1cm}\forall s\in\mathcal{S}
-\end{equation}&lt;/p&gt;
-
-&lt;h3 id=&quot;reinforce&quot;&gt;REINFORCE&lt;/h3&gt;
-&lt;p&gt;Notice that in &lt;strong&gt;Theorem 1&lt;/strong&gt;, the right-hand side is a sum over states weighted by how often the states occur (distributed by $\mu(s)$) under the target policy $\pi$. Therefore, we can rewrite \eqref{1} as:
-\begin{align}
-\nabla_\boldsymbol{\theta}J(\boldsymbol{\theta})&amp;amp;\propto\sum_s\mu(s)\sum_a q_\pi(s,a)\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta}) \\ &amp;amp;=\mathbb{E}_\pi\left[\sum_a q_\pi(S_t,a)\nabla_\boldsymbol{\theta}\pi(a|S_t,\boldsymbol{\theta})\right]\tag{2}\label{2}
-\end{align}
-Using SGD on maximizing $J(\boldsymbol{\theta})$ gives us the update rule:
-\begin{equation}
-\boldsymbol{\theta}_{t+1}\doteq\boldsymbol{\theta}_t+\alpha\sum_a\hat{q}(S_t,a,\mathbf{w})\nabla_\boldsymbol{\theta}\pi(a|S_t,\boldsymbol{\theta}),
-\end{equation}
-where $\hat{q}$ is some learned approximation to $q_\pi$ with $\mathbf{w}$ denoting the weight vector of its as usual. This algorithm is called &lt;strong&gt;all-actions&lt;/strong&gt; method because its update involves all of the actions.&lt;/p&gt;
-
-&lt;p&gt;Continue our derivation in \eqref{2}, we have:
-\begin{align}
-\nabla_\boldsymbol{\theta}J(\boldsymbol{\theta})&amp;amp;=\mathbb{E}_\pi\left[\sum_a q_\pi(S_t,a)\nabla_\boldsymbol{\theta}\pi(a|S_t,\boldsymbol{\theta})\right] \\ &amp;amp;=\mathbb{E}_\pi\left[\sum_a\pi(a|S_t,\boldsymbol{\theta})q_\pi(S_t,a)\frac{\nabla_\boldsymbol{\theta}\pi(a|S_t,\boldsymbol{\theta})}{\pi(a|S_t,\boldsymbol{\theta})}\right] \\ &amp;amp;=\mathbb{E}_\pi\left[q_\pi(S_t,A_t)\frac{\nabla_\boldsymbol{\theta}\pi(A_t|S_t,\boldsymbol{\theta})}{\pi(A_t|S_t,\boldsymbol{\theta}}\right] \\ &amp;amp;=\mathbb{E}_\pi\left[G_t\frac{\nabla_\boldsymbol{\theta}\pi(A_t|S_t,\boldsymbol{\theta})}{\pi(A_t|S_t,\boldsymbol{\theta}}\right],
-\end{align}
-where $G_t$ is the return as usual; in the third step, we have replaced $a$ by the sample $A_t\sim\pi$; and in the fourth step, we have used the identity
-\begin{equation}
-\mathbb{E}_\pi\left[G_t|S_t,A_t\right]=q_\pi(S_t,A_t)
-\end{equation}
-With this gradient, we have the SGD update for time step $t$, called the &lt;strong&gt;REINFORCE&lt;/strong&gt; update, is then:
-\begin{equation}
-\boldsymbol{\theta}_{t+1}\doteq\boldsymbol{\theta}_t+\alpha G_t\frac{\nabla_\boldsymbol{\theta}\pi(A_t|S_t,\boldsymbol{\theta})}{\pi(A_t|S_t,\boldsymbol{\theta})}\tag{3}\label{3}
-\end{equation}
-Pseudocode of the algorithm is given below.&lt;/p&gt;
-&lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-05-04/reinforce.png&quot; alt=&quot;REINFORCE&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;The vector
-\begin{equation}
-\frac{\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})}{\pi(a|s,\boldsymbol{\theta})}=\nabla_\boldsymbol{\theta}\ln\pi(a|s,\boldsymbol{\theta})
-\end{equation}
-in \eqref{3} is called the &lt;strong&gt;eligibility vector&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;Consider using &lt;strong&gt;soft-max in action preferences&lt;/strong&gt; with linear action preferences, which means that:
-\begin{equation}
-\pi(a|s,\boldsymbol{\theta})\doteq\dfrac{\exp\Big[h(s,a,\boldsymbol{\theta})\Big]}{\sum_b\exp\Big[h(s,b,\boldsymbol{\theta})\Big]},
-\end{equation}
-where the preferences $h(s,a,\boldsymbol{\theta})$ is defined as:
-\begin{equation}
-h(s,a,\boldsymbol{\theta})=\boldsymbol{\theta}^\text{T}\mathbf{x}(s,a)
-\end{equation}
-Using the chain rule we can rewrite the eligibility vector as:
-\begin{align}
-\nabla_\boldsymbol{\theta}\ln\pi(a|s,\boldsymbol{\theta})&amp;amp;=\nabla_\boldsymbol{\theta}\ln{\frac{\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,a)\Big]}{\sum_b\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,b)\Big]}} \\ &amp;amp;=\nabla_\boldsymbol{\theta}\Big(\boldsymbol{\theta}^\text{T}\mathbf{x}(s,a)\Big)-\nabla_\boldsymbol{\theta}\ln\sum_b\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,b)\Big] \\ &amp;amp;=\mathbf{x}(s,a)-\dfrac{\sum_b\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,b)\Big]\mathbf{x}(s,b)}{\sum_{b’}\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,b’)\Big]} \\ &amp;amp;=\mathbf{x}(s,a)-\sum_b\pi(b|s,\boldsymbol{\theta})\mathbf{x}(s,b)
-\end{align}&lt;/p&gt;
-
-&lt;h3 id=&quot;reinforce-baseline&quot;&gt;REINFORCE with Baseline&lt;/h3&gt;
-&lt;p&gt;The policy gradient theorem \eqref{1} can be generalized to include a comparison of the action value to an arbitrary &lt;em&gt;baseline&lt;/em&gt; $b(s)$:
-\begin{equation}
-\nabla_\boldsymbol{\theta}J(\boldsymbol{\theta})\propto\sum_s\mu(s)\sum_a\Big(q_\pi(s,a)-b(s)\Big)\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})\tag{4}\label{4}
-\end{equation}
-The baseline can be any function, even a r.v, as long as it is independent with $a$. The equation is valid because:
-\begin{align}
-\sum_a b(s)\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})&amp;amp;=b(s)\nabla_\boldsymbol{\theta}\sum_a\pi(a|s,\boldsymbol{\theta}) \\ &amp;amp;=b(s)\nabla_\boldsymbol{\theta}1=0
-\end{align}
-Using the derivation steps analogous to REINFORCE, we end up with another version of REINFORCE that includes a general baseline:
-\begin{equation}
-\boldsymbol{\theta}_{t+1}\doteq\boldsymbol{\theta}_t+\alpha\Big(G_t-b(s)\Big)\frac{\nabla_\boldsymbol{\theta}\pi(A_t|S_t,\boldsymbol{\theta})}{\pi(A_t|S_t,\boldsymbol{\theta})}\tag{5}\label{5}
-\end{equation}
-One natural baseline choice is the estimate of the state value, $\hat{v}(S_t,\mathbf{w})$, with $\mathbf{w}\in\mathbb{R}^d$ is the weight vector of its. Using this baseline, we have pseudocode of the generalization with baseline of REINFORCE algorithm \eqref{5} given below.&lt;/p&gt;
-&lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-05-04/reinforce-baseline.png&quot; alt=&quot;REINFORCE with Baseline&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;h3 id=&quot;actor-critic-methods&quot;&gt;Actor-Critic Methods&lt;/h3&gt;
-&lt;p&gt;In Reinforcement Learning, methods that learn both policy and value function at the same time are called &lt;strong&gt;actor-critic methods&lt;/strong&gt;, in which &lt;strong&gt;actor&lt;/strong&gt; refers to the learned policy and &lt;strong&gt;critic&lt;/strong&gt; is a reference to the learned value function. Although the REINFORCE with Baseline method in the previous section learns both policy and value function, but it is not an actor-critic method. Because its state-value function is used as a baseline, not as a critic, which is used for bootstrapping.&lt;/p&gt;
-
-&lt;p&gt;We begin by considering one-step actor-critic methods. One-step actor-critic methods replace the full return, $G_t$, of REINFORCE \eqref{5} with the one-step return, $G_{t:t+1}$:
-\begin{align}
-\boldsymbol{\theta}_{t+1}&amp;amp;\doteq\boldsymbol{\theta}_t+\alpha\Big(G_{t:t+1}-\hat{v}(S_t,\mathbf{w})\Big)\frac{\nabla_\boldsymbol{\theta}\pi(A_t|S_t,\boldsymbol{\theta})}{\pi(A_t|S_t,\boldsymbol{\theta})}\tag{6}\label{6} \\ &amp;amp;=\boldsymbol{\theta}_t+\alpha\Big(R_{t+1}+\hat{v}(S_{t+1},\mathbf{w})-\hat{v}(S_t,\mathbf{w})\Big)\frac{\nabla_\boldsymbol{\theta}\pi(A_t|S_t,\boldsymbol{\theta})}{\pi(A_t|S_t,\boldsymbol{\theta})} \\ &amp;amp;=\boldsymbol{\theta}_t+\alpha\delta_t\frac{\nabla_\boldsymbol{\theta}\pi(A_t|S_t,\boldsymbol{\theta})}{\pi(A_t|S_t,\boldsymbol{\theta})}
-\end{align}
-The natural state-value function learning method to pair with this is semi-gradient TD(0), which produces the pseudocode given below.&lt;/p&gt;
-&lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-05-04/one-step-actor-critic.png&quot; alt=&quot;One-step Actor-Critic&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;To generalize the one-step methods to the forward view of $n$-step methods and then to $\lambda$-return, in \eqref{6}, we simply replace the one-step return, $G_{t+1}$, by the $n$-step return, $G_{t:t+n}$, and the $\lambda$-return, $G_t^\lambda$, respectively.&lt;/p&gt;
-
-&lt;p&gt;In order to obtain the backward view of the $\lambda$-return algorithm, we use separately eligible traces for the actor and critic, as in the pseudocode given below.&lt;/p&gt;
-&lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-05-04/actor-critic-eligible-traces.png&quot; alt=&quot;Actor-Critic with Eligible Traces&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;h2 id=&quot;policy-grad-cont&quot;&gt;Policy Gradient with Continuing Problems&lt;/h2&gt;
-&lt;p&gt;In the continuing tasks, we define the performance measure in terms of &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/02/11/func-approx.html#avg-reward&quot;&gt;average-reward&lt;/a&gt;, as:
-\begin{align}
-J(\boldsymbol{\theta})\doteq r(\pi)&amp;amp;\doteq\lim_{h\to\infty}\frac{1}{h}\sum_{t=1}^{h}\mathbb{E}\Big[R_t\big|S_0,A_{0:1}\sim\pi\Big] \\ &amp;amp;=\lim_{t\to\infty}\mathbb{E}\Big[R_t|S_0,A_{0:1}\sim\pi\Big] \\ &amp;amp;=\sum_s\mu(s)\sum_a\pi(a|s)\sum_{s’,r}p(s’,r|s,a)r,\tag{7}\label{7}
-\end{align}
-where $\mu$ is the steady-state distribution under $\pi$, $\mu(s)\doteq\lim_{t\to\infty}P(S_t=s|A_{0:t}\sim\pi)$ which is assumed to exist and to be independent of $S_0$; and we also have that:
-\begin{equation}
-\sum_s\mu(s)\sum_a\pi(a|s,\boldsymbol{\theta})p(s’|s,a)=\mu(s’),\hspace{1cm}\forall s’\in\mathcal{S}
-\end{equation}
-Recall that in continuing tasks with average-reward setting, we use the &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2022/02/11/func-approx.html#differential-return&quot;&gt;differential return&lt;/a&gt;, which is defined in terms of differences between rewards and the average reward:
-\begin{equation}
-G_t\doteq R_{t+1}-r(\pi)+R_{t+2}-r(\pi)+R_{t+3}-r(\pi)+\dots\tag{8}\label{8}
-\end{equation}
-And thus, we also use the differential version of value functions, which are defined as usual except that they use the differential return \eqref{8}:
-\begin{align}
-v_\pi(s)&amp;amp;\doteq\mathbb{E}_\pi\left[G_t|S_t=s\right] \\ q_\pi(s,a)&amp;amp;\doteq\mathbb{E}_\pi\left[G_t|S_t=s,A_t=s\right]
-\end{align}&lt;/p&gt;
-
-&lt;h3 id=&quot;policy-grad-theorem-cont&quot;&gt;The Policy Gradient Theorem&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Theorem 2&lt;/strong&gt;&lt;br /&gt;
-The policy gradient theorem for continuing case with average-reward states that
-\begin{equation}
-\nabla_\boldsymbol{\theta}J(\boldsymbol{\theta})=\sum_s\mu(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s)q_\pi(s,a)
-\end{equation}&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
-We have that the gradient of the state-value function w.r.t $\boldsymbol{\theta}$ can be written, for any $s\in\mathcal{S}$, as:
-\begin{align}
-\nabla_\boldsymbol{\theta}v_\pi(s)&amp;amp;=\boldsymbol{\theta}\Big[\sum_a\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)\Big],\hspace{1cm}\forall s\in\mathcal{S} \\ &amp;amp;=\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)+\pi(a|s,\boldsymbol{\theta})\nabla_\boldsymbol{\theta}q_\pi(s,a)\Big] \\ &amp;amp;=\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)+\pi(a|s,\boldsymbol{\theta})\nabla_\boldsymbol{\theta}\sum_{s’,r}p(s’,r|s,a)\big(r-r(\boldsymbol{\theta})+v_\pi(s’)\big)\Big] \\ &amp;amp;=\sum_a\Bigg[\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)+\pi(a|s,\boldsymbol{\theta})\Big[-\nabla_\boldsymbol{\theta}r(\boldsymbol{\theta})+\sum_{s’}p(s’|s,a)\nabla_\boldsymbol{\theta}v_\pi(s’)\Big]\Bigg]
-\end{align}
-Thus, the gradient of the performance measure w.r.t $\boldsymbol{\theta}$ is:
-\begin{align}
-\nabla_\boldsymbol{\theta}J(\boldsymbol{\theta})&amp;amp;=\nabla_\boldsymbol{\theta}r(\boldsymbol{\theta}) \\ &amp;amp;=\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)+\pi(a|s,\boldsymbol{\theta})\sum_{s’}p(s’|s,a)\nabla_\boldsymbol{\theta}v_\pi(s’)\Big]-\nabla_\boldsymbol{\theta}v_\pi(s) \\ &amp;amp;=\sum_s\mu(s)\Bigg(\sum_a\Big[\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a) \\ &amp;amp;\hspace{2cm}+\pi(a|s,\boldsymbol{\theta})\sum_{s’}p(s’|s,a)\nabla_\boldsymbol{\theta}v_\pi(s’)\Big]-\nabla_\boldsymbol{\theta}v_\pi(s)\Bigg) \\ &amp;amp;=\sum_s\mu(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a) \\ &amp;amp;\hspace{2cm}+\sum_s\mu(s)\sum_a\pi(a|s,\boldsymbol{\theta})\sum_{s’}p(s’|s,a)\nabla_\boldsymbol{\theta}v_\pi(s’)-\sum_s\mu(s)\nabla_\boldsymbol{\theta}v_\pi(s) \\ &amp;amp;=\sum_s\mu(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a) \\ &amp;amp;\hspace{2cm}+\sum_{s’}\sum_s\mu(s)\sum_a\pi(a|s,\boldsymbol{\theta})p(s’|s,a)\nabla_\boldsymbol{\theta}v_\pi(s’)-\sum_s\mu(s)\nabla_\boldsymbol{\theta}v_\pi(s) \\ &amp;amp;=\sum_s\mu(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)+\sum_{s’}\mu(s’)\nabla_\boldsymbol{\theta}v_\pi(s’)-\sum_s\mu(s)\nabla_\boldsymbol{\theta}v_\pi(s) \\ &amp;amp;=\sum_s\mu(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})q_\pi(s,a)
-\end{align}&lt;/p&gt;
-
-&lt;h2 id=&quot;policy-prm-cont-actions&quot;&gt;Policy Parameterization for Continuous Actions&lt;/h2&gt;
-&lt;p&gt;For tasks having continuous action space with an infinite number of actions, instead of computing learned probabilities for each action, we can learn statistics of the probability distribution.&lt;/p&gt;
-
-&lt;p&gt;In particular, to produce a policy parameterization, the policy can be defined as the &lt;a href=&quot;/mathematics/probability-statistics/2021/11/22/normal-dist.html&quot;&gt;Normal distribution&lt;/a&gt; over a real-valued scalar action, with mean and standard deviation given by parametric function approximators that depend on the state, as given:
-\begin{equation}
-\pi(a|s,\boldsymbol{\theta})\doteq\frac{1}{\sigma(s,\boldsymbol{\theta})\sqrt{2\pi}}\exp\left(-\frac{(a-\mu(s,\boldsymbol{\theta}))^2}{2\sigma(s,\boldsymbol{\theta})^2}\right),
-\end{equation}
-where $\mu:\mathcal{S}\times\mathbb{R}^{d’}\to\mathbb{R}$ and $\sigma:\mathcal{S}\times\mathbb{R}^{d’}\to\mathbb{R}^+$ are two parameterized function approximators.&lt;/p&gt;
-
-&lt;p&gt;We continue by dividing the policy’s parameter vector, $\boldsymbol{\theta}=[\boldsymbol{\theta}_\mu, \boldsymbol{\theta}_\sigma]^\text{T}$, into two parts: one part, $\boldsymbol{\theta}_\mu$, is used for the approximation of the mean and the other, $\boldsymbol{\theta}_\sigma$, is used for the approximation of the standard deviation.&lt;/p&gt;
-
-&lt;p&gt;The mean, $\mu$, can be approximated as a linear function, while the standard deviation, $\sigma$, must always be positive, which should be approximated as the exponential of a linear function, as:
-\begin{align}
-\mu(s,\boldsymbol{\theta})&amp;amp;\doteq\boldsymbol{\theta}_\mu^\text{T}\mathbf{x}_\mu(s) \\ \sigma(s,\boldsymbol{\theta})&amp;amp;\doteq\exp\Big(\boldsymbol{\theta}_\sigma^\text{T}\mathbf{x}_\sigma(s)\Big),
-\end{align}
-where $\mathbf{x}_\mu(s)$ and $\mathbf{x}_\sigma(s)$ are state feature vectors corresponding to each approximator.&lt;/p&gt;
-
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;p&gt;[1] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;[2] Deepmind x UCL. &lt;a href=&quot;https://www.deepmind.com/learning-resources/reinforcement-learning-lecture-series-2021&quot;&gt;Reinforcement Learning Lecture Series 2021&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;[3] Richard S. Sutton &amp;amp; David McAllester &amp;amp; Satinder Singh &amp;amp; Yishay Mansour. &lt;a href=&quot;https://papers.nips.cc/paper/1999/hash/464d828b85b0bed98e80ade0a5c43b0f-Abstract.html&quot;&gt;Policy Gradient Methods for Reinforcement Learning with Function Approximation&lt;/a&gt;. NIPS 1999.&lt;/p&gt;
-
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="policy-gradient" /><category term="actor-critic" /><category term="function-approximation" /><category term="my-rl" /><summary type="html">So far in the series, we have been choosing the actions based on the estimated action value function. On the other hand, we can instead learn a parameterized policy, $\boldsymbol{\theta}$, that can select actions without consulting a value function by updating $\boldsymbol{\theta}$ on each step in the direction of an estimate of the gradient of some performance measure w.r.t $\boldsymbol{\theta}$. Such methods are called policy gradient methods.</summary></entry></feed>
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="planning" /><category term="learning" /><category term="dyna" /><category term="q-learning" /><category term="mcts" /><category term="my-rl" /><summary type="html">Recall that when using dynamic programming (DP) method in solving reinforcement learning problems, we required the availability of a model of the environment. Whereas with Monte Carlo methods and temporal-difference learning, the models are unnecessary. Such methods with requirement of a model like the case of DP is called model-based, while methods without using a model is called model-free. Model-based methods primarily rely on planning; and model-free methods, on the other hand, primarily rely on learning.</summary></entry></feed>

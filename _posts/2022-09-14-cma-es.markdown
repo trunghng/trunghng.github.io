@@ -3,7 +3,7 @@ layout: post
 title:  "CMA Evolution Strategy"
 date:   2022-09-14 13:00:00 +0700
 categories: artificial-intelligent machine-learning
-tags: artificial-intelligent evolution-strategy
+tags: artificial-intelligent evolution-strategy neural-evolution
 description: A note CMA-ES
 comments: true
 eqn-number: true
