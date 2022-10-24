@@ -1,4 +1,4 @@
-I"�[<blockquote>
+I"<\<blockquote>
   <p>A note on CMA - Evolution Strategy
 <!-- excerpt-end --></p>
 </blockquote>
@@ -261,7 +261,9 @@ where $d_\sigma\approx 1$ is the <strong>damping parameter</strong>, which contr
 \begin{equation}
 f(\mathbf{x})=10 n+\sum_{i=1}^{n}x_i^2-10\cos\left(2\pi x_i\right)
 \end{equation}
-We will be using the experimental settings given in this <a href="#cmaes-exp">paper</a> of the CMA-ES’s original author. The result obtained is illustrated in the following figure.</p>
+The global minimum of $f(\mathbf{x})$ is $0$ at $\mathbf{x}=\mathbf{0}$. We will be using the experimental settings given in this <a href="#cmaes-exp">paper</a> proposed by CMA-ES’s original author. Each time we end up with a result less than $f_\text{stop}=10^{-10}$, we call it a success run.</p>
+
+<p>The result obtained is illustrated in the following figure.</p>
 <figure>
 	<img src="/assets/images/2022-09-14/dim-popsize-exp.png" alt="cma-es on rastrigin" style="display: block; margin-left: auto; margin-right: auto;" />
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Success rate to reach $f_\text{stop}=10^{-10}$  versus population size for Rastrigin function.<br /> The code can be found <span><a href="https://github.com/trunghng/evolution-strategies/blob/main/dim-popsize-exp.py">here</a></span></figcaption>

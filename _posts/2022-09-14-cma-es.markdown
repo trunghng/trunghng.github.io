@@ -260,7 +260,9 @@ Let us give the CMA-ES algorithm a try on the [**Rastrigin function**](https://e
 \begin{equation}
 f(\mathbf{x})=10 n+\sum_{i=1}^{n}x_i^2-10\cos\left(2\pi x_i\right)
 \end{equation}
-We will be using the experimental settings given in this [paper](#cmaes-exp) of the CMA-ES's original author. The result obtained is illustrated in the following figure.
+The global minimum of $f(\mathbf{x})$ is $0$ at $\mathbf{x}=\mathbf{0}$. We will be using the experimental settings given in this [paper](#cmaes-exp) proposed by CMA-ES's original author. Each time we end up with a result less than $f_\text{stop}=10^{-10}$, we count it a success run.
+
+The result obtained is illustrated in the following figure.
 <figure>
 	<img src="/assets/images/2022-09-14/dim-popsize-exp.png" alt="cma-es on rastrigin" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Success rate to reach $f_\text{stop}=10^{-10}$  versus population size for Rastrigin function.<br> The code can be found <span markdown="1">[here](https://github.com/trunghng/evolution-strategies/blob/main/dim-popsize-exp.py)</span></figcaption>
