@@ -6,10 +6,12 @@ categories: artificial-intelligent reinforcement-learning
 tags: artificial-intelligent reinforcement-learning policy-gradient actor-critic function-approximation my-rl
 description: Policy Gradient Methods
 comments: true
+eqn-number: true
 ---
 > So far in the series, we have been choosing the actions based on the estimated action value function. On the other hand, we can instead learn a **parameterized policy**, $\boldsymbol{\theta}$, that can select actions without consulting a value function by updating $\boldsymbol{\theta}$ on each step in the direction of an estimate of the gradient of some performance measure w.r.t $\boldsymbol{\theta}$. Such methods are called **policy gradient methods**.
 <!-- excerpt-end -->
 
+- [Policy approximation](#policy-approx)
 - [Policy Gradient for Episodic Problems](#policy-grad-ep)
 	- [The Policy Gradient Theorem](#policy-grad-theorem-ep)
 	- [REINFORCE](#reinforce)
@@ -21,20 +23,44 @@ comments: true
 - [References](#references)
 - [Footnotes](#footnotes)
 
+## Policy approximation
+{: #policy-approx}
+In **policy gradient** methods, the policy $\pi$ can be parameterized in any way, as long as $\pi(a\vert s,\boldsymbol{\theta})$ is differentiable w.r.t $\boldsymbol{\theta}$.
+
+For discrete action space $\mathcal{A}$, a common choice of parameterization is to use **parameterized numerical preferences** $h(s,a,\boldsymbol{\theta})\in\mathbb{R}$ for each state-action pair. Then, the actions with the highest preferences in each state are given the highest probabilities of being selected, for instance, according to an exponential softmax distribution
+\begin{equation}
+\pi(a\vert s,\boldsymbol{\theta})\doteq\frac{e^{h(s,a,\boldsymbol{\theta})}}{\sum_b e^{h(s,b,\boldsymbol{\theta})}}
+\end{equation}
+We refer this policy approximation as **softmax in action preferences**.
+
+The action preferences $h$ can be linear:
+\begin{equation}
+h(s,a,\boldsymbol{\theta})=\boldsymbol{\theta}^\text{T}\mathbf{x}(s,a),
+\end{equation}
+where $\mathbf{x}(s,a)\in\mathbb{R}^{d'}$ is the feature vector corresponding to state-action pair $(s,a)$. Or $h$ could also be calculated by a neural network. 
+
 ## Policy Gradient for Episodic Problems
 {: #policy-grad-ep}
 We begin by considering episodic case, for which we define the performance measure $J(\boldsymbol{\theta})$ as the value of the start state of the episode. By assuming without loss of generality that every episode starts in some particular state $s_0$, we have:
 \begin{equation}
-J(\boldsymbol{\theta})\doteq v_{\pi_\boldsymbol{\theta}}(s_0),
+J(\boldsymbol{\theta})\doteq v_{\pi_\boldsymbol{\theta}}(s_0),\label{eq:pge.1}
 \end{equation}
-where $v_{\pi_\boldsymbol{\theta}}$ is the true value function for $\pi_\boldsymbol{\theta}$, the policy determined by $\boldsymbol{\theta}$.
+where $v_{\pi_\boldsymbol{\theta}}$ is the true value function for $\pi_\boldsymbol{\theta}$, the policy parameterized by $\boldsymbol{\theta}$.
+
+In policy gradient methods, our goal is to learn a policy $\pi_{\boldsymbol{\theta}^\*}$ with a parameter vector $\boldsymbol{\theta}^\*$ that maximizes the performance measure $J(\boldsymbol{\theta})$. Using gradient ascent, we iteratively update $\boldsymbol{\theta}$ by
+\begin{equation}
+\boldsymbol{\theta}\_{t+1}=\boldsymbol{\theta}+\alpha\nabla J(\boldsymbol{\theta}\_t),
+\end{equation}
+where $\alpha>0$ is the learning rate. By \eqref{eq:pge.1}, it is noticeable that $\nabla J(\theta)$ depends on the state distribution, which generates the start state $s_0$, which is unfortunately unknown.
+
+However, the following theorem claims that we can express the gradient $\nabla J(\boldsymbol{\theta})$ in a form not involving the state distribution. 
 
 ### The Policy Gradient Theorem
 {: #policy-grad-theorem-ep}
 **Theorem 1**  
-The policy gradient theorem for the episodic case establishes that
+The **policy gradient theorem** for the episodic case establishes that
 \begin{equation}
-\nabla_\boldsymbol{\theta}J(\boldsymbol{\theta})\propto\sum_s\mu(s)\sum_a q_\pi(s,a)\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta}),\tag{1}\label{1}
+\nabla_\boldsymbol{\theta}J(\boldsymbol{\theta})\propto\sum_s\mu(s)\sum_a q_\pi(s,a)\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta}),\label{eq:pgte.1}
 \end{equation}
 where $\pi$ represents the policy corresponding to parameter vector $\boldsymbol{\theta}$.
 
@@ -58,9 +84,9 @@ where $h(s)$ denotes the probability that an episode begins in each state $s$; $
 
 ### REINFORCE
 {: #reinforce}
-Notice that in **Theorem 1**, the right-hand side is a sum over states weighted by how often the states occur (distributed by $\mu(s)$) under the target policy $\pi$. Therefore, we can rewrite \eqref{1} as:
+Notice that in **Theorem 1**, the right-hand side is a sum over states weighted by how often the states occur (distributed by $\mu(s)$) under the target policy $\pi$. Therefore, we can rewrite \eqref{eq:pgte.1} as:
 \begin{align}
-\nabla_\boldsymbol{\theta}J(\boldsymbol{\theta})&\propto\sum_s\mu(s)\sum_a q_\pi(s,a)\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta}) \\\\ &=\mathbb{E}\_\pi\left[\sum_a q_\pi(S_t,a)\nabla_\boldsymbol{\theta}\pi(a|S_t,\boldsymbol{\theta})\right]\tag{2}\label{2}
+\nabla_\boldsymbol{\theta}J(\boldsymbol{\theta})&\propto\sum_s\mu(s)\sum_a q_\pi(s,a)\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta}) \\\\ &=\mathbb{E}\_\pi\left[\sum_a q_\pi(S_t,a)\nabla_\boldsymbol{\theta}\pi(a|S_t,\boldsymbol{\theta})\right]\label{eq:reinforce.1}
 \end{align}
 Using SGD on maximizing $J(\boldsymbol{\theta})$ gives us the update rule:
 \begin{equation}
@@ -68,7 +94,7 @@ Using SGD on maximizing $J(\boldsymbol{\theta})$ gives us the update rule:
 \end{equation}
 where $\hat{q}$ is some learned approximation to $q_\pi$ with $\mathbf{w}$ denoting the weight vector of its as usual. This algorithm is called **all-actions** method because its update involves all of the actions. 
 
-Continue our derivation in \eqref{2}, we have:
+Continue our derivation in \eqref{eq:reinforce.1}, we have:
 \begin{align}
 \nabla_\boldsymbol{\theta}J(\boldsymbol{\theta})&=\mathbb{E}\_\pi\left[\sum_a q_\pi(S_t,a)\nabla_\boldsymbol{\theta}\pi(a|S_t,\boldsymbol{\theta})\right] \\\\ &=\mathbb{E}\_\pi\left[\sum_a\pi(a|S_t,\boldsymbol{\theta})q_\pi(S_t,a)\frac{\nabla_\boldsymbol{\theta}\pi(a|S_t,\boldsymbol{\theta})}{\pi(a|S_t,\boldsymbol{\theta})}\right] \\\\ &=\mathbb{E}\_\pi\left[q_\pi(S_t,A_t)\frac{\nabla_\boldsymbol{\theta}\pi(A_t|S_t,\boldsymbol{\theta})}{\pi(A_t|S_t,\boldsymbol{\theta}}\right] \\\\ &=\mathbb{E}\_\pi\left[G_t\frac{\nabla_\boldsymbol{\theta}\pi(A_t|S_t,\boldsymbol{\theta})}{\pi(A_t|S_t,\boldsymbol{\theta}}\right],
 \end{align}
@@ -78,7 +104,7 @@ where $G_t$ is the return as usual; in the third step, we have replaced $a$ by t
 \end{equation}
 With this gradient, we have the SGD update for time step $t$, called the **REINFORCE** update, is then:
 \begin{equation}
-\boldsymbol{\theta}\_{t+1}\doteq\boldsymbol{\theta}\_t+\alpha G_t\frac{\nabla_\boldsymbol{\theta}\pi(A_t|S_t,\boldsymbol{\theta})}{\pi(A_t|S_t,\boldsymbol{\theta})}\tag{3}\label{3}
+\boldsymbol{\theta}\_{t+1}\doteq\boldsymbol{\theta}\_t+\alpha G_t\frac{\nabla_\boldsymbol{\theta}\pi(A_t|S_t,\boldsymbol{\theta})}{\pi(A_t|S_t,\boldsymbol{\theta})}\label{eq:reinforce.2}
 \end{equation}
 Pseudocode of the algorithm is given below.
 <figure>
@@ -90,7 +116,7 @@ The vector
 \begin{equation}
 \frac{\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})}{\pi(a|s,\boldsymbol{\theta})}=\nabla_\boldsymbol{\theta}\ln\pi(a|s,\boldsymbol{\theta})
 \end{equation}
-in \eqref{3} is called the **eligibility vector**.
+in \eqref{eq:reinforce.2} is called the **eligibility vector**.
 
 Consider using **soft-max in action preferences** with linear action preferences, which means that:
 \begin{equation}
@@ -107,9 +133,9 @@ Using the chain rule we can rewrite the eligibility vector as:
 
 ### REINFORCE with Baseline
 {: #reinforce-baseline}
-The policy gradient theorem \eqref{1} can be generalized to include a comparison of the action value to an arbitrary *baseline* $b(s)$:
+The policy gradient theorem \eqref{eq:pgte.1} can be generalized to include a comparison of the action value to an arbitrary *baseline* $b(s)$:
 \begin{equation}
-\nabla_\boldsymbol{\theta}J(\boldsymbol{\theta})\propto\sum_s\mu(s)\sum_a\Big(q_\pi(s,a)-b(s)\Big)\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})\tag{4}\label{4}
+\nabla_\boldsymbol{\theta}J(\boldsymbol{\theta})\propto\sum_s\mu(s)\sum_a\Big(q_\pi(s,a)-b(s)\Big)\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})
 \end{equation}
 The baseline can be any function, even a r.v, as long as it is independent with $a$. The equation is valid because:
 \begin{align}
@@ -117,9 +143,9 @@ The baseline can be any function, even a r.v, as long as it is independent with 
 \end{align}
 Using the derivation steps analogous to REINFORCE, we end up with another version of REINFORCE that includes a general baseline:
 \begin{equation}
-\boldsymbol{\theta}\_{t+1}\doteq\boldsymbol{\theta}\_t+\alpha\Big(G_t-b(s)\Big)\frac{\nabla_\boldsymbol{\theta}\pi(A_t|S_t,\boldsymbol{\theta})}{\pi(A_t|S_t,\boldsymbol{\theta})}\tag{5}\label{5}
+\boldsymbol{\theta}\_{t+1}\doteq\boldsymbol{\theta}\_t+\alpha\Big(G_t-b(s)\Big)\frac{\nabla_\boldsymbol{\theta}\pi(A_t|S_t,\boldsymbol{\theta})}{\pi(A_t|S_t,\boldsymbol{\theta})}\label{eq:rb.1}
 \end{equation}
-One natural baseline choice is the estimate of the state value, $\hat{v}(S_t,\mathbf{w})$, with $\mathbf{w}\in\mathbb{R}^d$ is the weight vector of its. Using this baseline, we have pseudocode of the generalization with baseline of REINFORCE algorithm \eqref{5} given below.
+One natural baseline choice is the estimate of the state value, $\hat{v}(S_t,\mathbf{w})$, with $\mathbf{w}\in\mathbb{R}^d$ is the weight vector of its. Using this baseline, we have pseudocode of the generalization with baseline of REINFORCE algorithm \eqref{eq:rb.1} given below.
 <figure>
 	<img src="/assets/images/2022-05-04/reinforce-baseline.png" alt="REINFORCE with Baseline" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
@@ -129,9 +155,9 @@ One natural baseline choice is the estimate of the state value, $\hat{v}(S_t,\ma
 {: #actor-critic-methods}
 In Reinforcement Learning, methods that learn both policy and value function at the same time are called **actor-critic methods**, in which **actor** refers to the learned policy and **critic** is a reference to the learned value function. Although the REINFORCE with Baseline method in the previous section learns both policy and value function, but it is not an actor-critic method. Because its state-value function is used as a baseline, not as a critic, which is used for bootstrapping.
 
-We begin by considering one-step actor-critic methods. One-step actor-critic methods replace the full return, $G_t$, of REINFORCE \eqref{5} with the one-step return, $G_{t:t+1}$:
+We begin by considering one-step actor-critic methods. One-step actor-critic methods replace the full return, $G_t$, of REINFORCE \eqref{eq:rb.1} with the one-step return, $G_{t:t+1}$:
 \begin{align}
-\boldsymbol{\theta}\_{t+1}&\doteq\boldsymbol{\theta}\_t+\alpha\Big(G_{t:t+1}-\hat{v}(S_t,\mathbf{w})\Big)\frac{\nabla_\boldsymbol{\theta}\pi(A_t|S_t,\boldsymbol{\theta})}{\pi(A_t|S_t,\boldsymbol{\theta})}\tag{6}\label{6} \\\\ &=\boldsymbol{\theta}\_t+\alpha\Big(R_{t+1}+\hat{v}(S_{t+1},\mathbf{w})-\hat{v}(S_t,\mathbf{w})\Big)\frac{\nabla_\boldsymbol{\theta}\pi(A_t|S_t,\boldsymbol{\theta})}{\pi(A_t|S_t,\boldsymbol{\theta})} \\\\ &=\boldsymbol{\theta}\_t+\alpha\delta_t\frac{\nabla_\boldsymbol{\theta}\pi(A_t|S_t,\boldsymbol{\theta})}{\pi(A_t|S_t,\boldsymbol{\theta})}
+\boldsymbol{\theta}\_{t+1}&\doteq\boldsymbol{\theta}\_t+\alpha\Big(G_{t:t+1}-\hat{v}(S_t,\mathbf{w})\Big)\frac{\nabla_\boldsymbol{\theta}\pi(A_t|S_t,\boldsymbol{\theta})}{\pi(A_t|S_t,\boldsymbol{\theta})}\label{eq:acm.1} \\\\ &=\boldsymbol{\theta}\_t+\alpha\Big(R_{t+1}+\hat{v}(S_{t+1},\mathbf{w})-\hat{v}(S_t,\mathbf{w})\Big)\frac{\nabla_\boldsymbol{\theta}\pi(A_t|S_t,\boldsymbol{\theta})}{\pi(A_t|S_t,\boldsymbol{\theta})} \\\\ &=\boldsymbol{\theta}\_t+\alpha\delta_t\frac{\nabla_\boldsymbol{\theta}\pi(A_t|S_t,\boldsymbol{\theta})}{\pi(A_t|S_t,\boldsymbol{\theta})}
 \end{align}
 The natural state-value function learning method to pair with this is semi-gradient TD(0), which produces the pseudocode given below.
 <figure>
@@ -139,7 +165,7 @@ The natural state-value function learning method to pair with this is semi-gradi
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
 </figure>
 
-To generalize the one-step methods to the forward view of $n$-step methods and then to $\lambda$-return, in \eqref{6}, we simply replace the one-step return, $G_{t+1}$, by the $n$-step return, $G_{t:t+n}$, and the $\lambda$-return, $G_t^\lambda$, respectively.
+To generalize the one-step methods to the forward view of $n$-step methods and then to $\lambda$-return, in \eqref{eq:acm.1}, we simply replace the one-step return, $G_{t+1}$, by the $n$-step return, $G_{t:t+n}$, and the $\lambda$-return, $G_t^\lambda$, respectively.
 
 In order to obtain the backward view of the $\lambda$-return algorithm, we use separately eligible traces for the actor and critic, as in the pseudocode given below.
 <figure>
@@ -151,7 +177,7 @@ In order to obtain the backward view of the $\lambda$-return algorithm, we use s
 {: #policy-grad-cont}
 In the continuing tasks, we define the performance measure in terms of [average-reward]({% post_url 2022-02-11-func-approx %}#avg-reward), as:
 \begin{align}
-J(\boldsymbol{\theta})\doteq r(\pi)&\doteq\lim_{h\to\infty}\frac{1}{h}\sum_{t=1}^{h}\mathbb{E}\Big[R_t\big|S_0,A_{0:1}\sim\pi\Big] \\\\ &=\lim_{t\to\infty}\mathbb{E}\Big[R_t|S_0,A_{0:1}\sim\pi\Big] \\\\ &=\sum_s\mu(s)\sum_a\pi(a|s)\sum_{s',r}p(s',r|s,a)r,\tag{7}\label{7}
+J(\boldsymbol{\theta})\doteq r(\pi)&\doteq\lim_{h\to\infty}\frac{1}{h}\sum_{t=1}^{h}\mathbb{E}\Big[R_t\big|S_0,A_{0:1}\sim\pi\Big] \\\\ &=\lim_{t\to\infty}\mathbb{E}\Big[R_t|S_0,A_{0:1}\sim\pi\Big] \\\\ &=\sum_s\mu(s)\sum_a\pi(a|s)\sum_{s',r}p(s',r|s,a)r,
 \end{align}
 where $\mu$ is the steady-state distribution under $\pi$, $\mu(s)\doteq\lim_{t\to\infty}P(S_t=s|A_{0:t}\sim\pi)$ which is assumed to exist and to be independent of $S_0$; and we also have that:
 \begin{equation}
@@ -159,9 +185,9 @@ where $\mu$ is the steady-state distribution under $\pi$, $\mu(s)\doteq\lim_{t\t
 \end{equation}
 Recall that in continuing tasks with average-reward setting, we use the [differential return]({% post_url 2022-02-11-func-approx %}#differential-return), which is defined in terms of differences between rewards and the average reward:
 \begin{equation}
-G_t\doteq R_{t+1}-r(\pi)+R_{t+2}-r(\pi)+R_{t+3}-r(\pi)+\dots\tag{8}\label{8}
+G_t\doteq R_{t+1}-r(\pi)+R_{t+2}-r(\pi)+R_{t+3}-r(\pi)+\dots\label{eq:pgc.1}
 \end{equation}
-And thus, we also use the differential version of value functions, which are defined as usual except that they use the differential return \eqref{8}:
+And thus, we also use the differential version of value functions, which are defined as usual except that they use the differential return \eqref{eq:pgc.1}:
 \begin{align}
 v_\pi(s)&\doteq\mathbb{E}\_\pi\left[G_t|S_t=s\right] \\\\ q_\pi(s,a)&\doteq\mathbb{E}\_\pi\left[G_t|S_t=s,A_t=s\right]
 \end{align}
