@@ -2,7 +2,6 @@
 layout: post
 title:  "Measure theory - III: the Lebesgue integral"
 date:   2022-08-21 13:00:00 +0700
-categories: mathematics measure-theory
 tags: mathematics measure-theory lebesgue-integral
 description: Note on measure theory part 3
 comments: true

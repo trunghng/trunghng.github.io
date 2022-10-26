@@ -2,8 +2,7 @@
 layout: post
 title:  "Policy Gradient Methods"
 date:   2022-05-04 14:00:00 +0700
-categories: artificial-intelligent reinforcement-learning
-tags: artificial-intelligent reinforcement-learning policy-gradient actor-critic function-approximation my-rl
+tags: reinforcement-learning policy-gradient actor-critic function-approximation my-rl
 description: Policy Gradient Methods
 comments: true
 eqn-number: true
@@ -96,7 +95,7 @@ where $\hat{q}$ is some learned approximation to $q_\pi$ with $\mathbf{w}$ denot
 
 Continue our derivation in \eqref{eq:reinforce.1}, we have:
 \begin{align}
-\nabla_\boldsymbol{\theta}J(\boldsymbol{\theta})&=\mathbb{E}\_\pi\left[\sum_a q_\pi(S_t,a)\nabla_\boldsymbol{\theta}\pi(a|S_t,\boldsymbol{\theta})\right] \\\\ &=\mathbb{E}\_\pi\left[\sum_a\pi(a|S_t,\boldsymbol{\theta})q_\pi(S_t,a)\frac{\nabla_\boldsymbol{\theta}\pi(a|S_t,\boldsymbol{\theta})}{\pi(a|S_t,\boldsymbol{\theta})}\right] \\\\ &=\mathbb{E}\_\pi\left[q_\pi(S_t,A_t)\frac{\nabla_\boldsymbol{\theta}\pi(A_t|S_t,\boldsymbol{\theta})}{\pi(A_t|S_t,\boldsymbol{\theta}}\right] \\\\ &=\mathbb{E}\_\pi\left[G_t\frac{\nabla_\boldsymbol{\theta}\pi(A_t|S_t,\boldsymbol{\theta})}{\pi(A_t|S_t,\boldsymbol{\theta}}\right],
+\nabla_\boldsymbol{\theta}J(\boldsymbol{\theta})&=\mathbb{E}\_\pi\left[\sum_a q_\pi(S_t,a)\nabla_\boldsymbol{\theta}\pi(a|S_t,\boldsymbol{\theta})\right] \\\\ &=\mathbb{E}\_\pi\left[\sum_a\pi(a|S_t,\boldsymbol{\theta})q_\pi(S_t,a)\frac{\nabla_\boldsymbol{\theta}\pi(a|S_t,\boldsymbol{\theta})}{\pi(a|S_t,\boldsymbol{\theta})}\right] \\\\ &=\mathbb{E}\_\pi\left[q_\pi(S_t,A_t)\frac{\nabla_\boldsymbol{\theta}\pi(A_t|S_t,\boldsymbol{\theta})}{\pi(A_t|S_t,\boldsymbol{\theta}}\right] \\\\ &=\mathbb{E}\_\pi\left[G_t\frac{\nabla_\boldsymbol{\theta}\pi(A_t|S_t,\boldsymbol{\theta})}{\pi(A_t|S_t,\boldsymbol{\theta})}\right],
 \end{align}
 where $G_t$ is the return as usual; in the third step, we have replaced $a$ by the sample $A_t\sim\pi$; and in the fourth step, we have used the identity
 \begin{equation}
@@ -114,7 +113,7 @@ Pseudocode of the algorithm is given below.
 
 The vector
 \begin{equation}
-\frac{\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})}{\pi(a|s,\boldsymbol{\theta})}=\nabla_\boldsymbol{\theta}\ln\pi(a|s,\boldsymbol{\theta})
+\frac{\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})}{\pi(a|s,\boldsymbol{\theta})}=\nabla_\boldsymbol{\theta}\log\pi(a|s,\boldsymbol{\theta})
 \end{equation}
 in \eqref{eq:reinforce.2} is called the **eligibility vector**.
 
@@ -128,12 +127,18 @@ h(s,a,\boldsymbol{\theta})=\boldsymbol{\theta}^\text{T}\mathbf{x}(s,a)
 \end{equation}
 Using the chain rule we can rewrite the eligibility vector as:
 \begin{align}
-\nabla_\boldsymbol{\theta}\ln\pi(a|s,\boldsymbol{\theta})&=\nabla_\boldsymbol{\theta}\ln{\frac{\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,a)\Big]}{\sum_b\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,b)\Big]}} \\\\ &=\nabla_\boldsymbol{\theta}\Big(\boldsymbol{\theta}^\text{T}\mathbf{x}(s,a)\Big)-\nabla_\boldsymbol{\theta}\ln\sum_b\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,b)\Big] \\\\ &=\mathbf{x}(s,a)-\dfrac{\sum_b\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,b)\Big]\mathbf{x}(s,b)}{\sum_{b'}\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,b')\Big]} \\\\ &=\mathbf{x}(s,a)-\sum_b\pi(b|s,\boldsymbol{\theta})\mathbf{x}(s,b)
+\nabla_\boldsymbol{\theta}\log\pi(a|s,\boldsymbol{\theta})&=\nabla_\boldsymbol{\theta}\log{\frac{\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,a)\Big]}{\sum_b\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,b)\Big]}} \\\\ &=\nabla_\boldsymbol{\theta}\Big(\boldsymbol{\theta}^\text{T}\mathbf{x}(s,a)\Big)-\nabla_\boldsymbol{\theta}\log\sum_b\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,b)\Big] \\\\ &=\mathbf{x}(s,a)-\dfrac{\sum_b\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,b)\Big]\mathbf{x}(s,b)}{\sum_{b'}\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,b')\Big]} \\\\ &=\mathbf{x}(s,a)-\sum_b\pi(b|s,\boldsymbol{\theta})\mathbf{x}(s,b)
 \end{align}
+
+A result when using REINFORCE to solve the short-corrdor problem ([Sutton's book](#suttons-book), example 13.1) is shown below.
+<figure>
+	<img src="/assets/images/2022-05-04/short-corridor-reinforce.png" alt="REINFORCE on short-corridor" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: REINFORCE on short-corridor problem. The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-13/short_corridor.py)</span></figcaption>
+</figure>
 
 ### REINFORCE with Baseline
 {: #reinforce-baseline}
-The policy gradient theorem \eqref{eq:pgte.1} can be generalized to include a comparison of the action value to an arbitrary *baseline* $b(s)$:
+The policy gradient theorem \eqref{eq:pgte.1} can be generalized to include a comparison of the action value to an arbitrary **baseline** $b(s)$:
 \begin{equation}
 \nabla_\boldsymbol{\theta}J(\boldsymbol{\theta})\propto\sum_s\mu(s)\sum_a\Big(q_\pi(s,a)-b(s)\Big)\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta})
 \end{equation}
@@ -149,6 +154,12 @@ One natural baseline choice is the estimate of the state value, $\hat{v}(S_t,\ma
 <figure>
 	<img src="/assets/images/2022-05-04/reinforce-baseline.png" alt="REINFORCE with Baseline" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+
+Adding a baseline to REINFORCE lets the agent learn much faster, as illustrated in the following figure.
+<figure>
+	<img src="/assets/images/2022-05-04/short-corridor-reinforce-baseline.png" alt="REINFORCE, REINFORCE with baseline on short-corridor" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: REINFORCE versus REINFORCE with baseline on short-corridor problem. The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-13/short_corridor.py)</span></figcaption>
 </figure>
 
 ### Actor-Critic Methods
@@ -230,7 +241,7 @@ where $\mathbf{x}\_\mu(s)$ and $\mathbf{x}\_\sigma(s)$ are state feature vectors
 
 ## References
 {: #references}
-[1] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition).  
+[1] <span id='suttons-book'>Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition). </span> 
 
 [2] Deepmind x UCL. [Reinforcement Learning Lecture Series 2021](https://www.deepmind.com/learning-resources/reinforcement-learning-lecture-series-2021). 
 

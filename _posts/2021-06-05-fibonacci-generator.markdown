@@ -2,7 +2,6 @@
 layout: post
 title:  "My very first post"
 date:   2021-06-05 17:00:00 +0700
-categories: mathematics linear-algebra
 tags: mathematics linear-algebra eigenvalue-eigenvector random-stuffs
 description: Eigenvalues, eigenvectors in Fibonacci sequence
 comments: true

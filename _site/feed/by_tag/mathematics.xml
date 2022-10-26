@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-25T14:39:55+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
-</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory - III: the Lebesgue integral</title><link href="http://localhost:4000/mathematics/measure-theory/2022/08/21/measure-theory-p3.html" rel="alternate" type="text/html" title="Measure theory - III: the Lebesgue integral" /><published>2022-08-21T13:00:00+07:00</published><updated>2022-08-21T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/08/21/measure-theory-p3</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/08/21/measure-theory-p3.html">&lt;blockquote&gt;
-  &lt;p&gt;Part III of the measure theory series. Materials are mostly taken from &lt;a href=&quot;/mathematics/measure-theory/2022/08/21/measure-theory-p3.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some needed notations extracted from &lt;a href=&quot;/mathematics/measure-theory/2022/08/21/measure-theory-p3.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-26T20:29:11+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory - III: the Lebesgue integral</title><link href="http://localhost:4000/2022/08/21/measure-theory-p3.html" rel="alternate" type="text/html" title="Measure theory - III: the Lebesgue integral" /><published>2022-08-21T13:00:00+07:00</published><updated>2022-08-21T13:00:00+07:00</updated><id>http://localhost:4000/2022/08/21/measure-theory-p3</id><content type="html" xml:base="http://localhost:4000/2022/08/21/measure-theory-p3.html">&lt;blockquote&gt;
+  &lt;p&gt;Part III of the measure theory series. Materials are mostly taken from &lt;a href=&quot;/2022/08/21/measure-theory-p3.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some needed notations extracted from &lt;a href=&quot;/2022/08/21/measure-theory-p3.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -37,7 +37,7 @@
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;int-simp-funcs&quot;&gt;Integration of simple functions&lt;/h2&gt;
-&lt;p&gt;Analogy to how the &lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-theory-p1.html#riemann-integrability&quot;&gt;&lt;strong&gt;Riemann integral&lt;/strong&gt;&lt;/a&gt; was established by using the integral for &lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-theory-p1.html#pc-func&quot;&gt;&lt;strong&gt;piecewise constant functions&lt;/strong&gt;&lt;/a&gt;, the &lt;strong&gt;Lebesgue integral&lt;/strong&gt; is set up using the integral for &lt;strong&gt;simple functions&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Analogy to how the &lt;a href=&quot;/2022/06/16/measure-theory-p1.html#riemann-integrability&quot;&gt;&lt;strong&gt;Riemann integral&lt;/strong&gt;&lt;/a&gt; was established by using the integral for &lt;a href=&quot;/2022/06/16/measure-theory-p1.html#pc-func&quot;&gt;&lt;strong&gt;piecewise constant functions&lt;/strong&gt;&lt;/a&gt;, the &lt;strong&gt;Lebesgue integral&lt;/strong&gt; is set up using the integral for &lt;strong&gt;simple functions&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;h3 id=&quot;simp-func&quot;&gt;Simple function&lt;/h3&gt;
 &lt;p&gt;A (complex-valued) &lt;strong&gt;simple function&lt;/strong&gt; $f:\mathbb{R}^d\to\mathbb{C}$ is a finite linear combination
@@ -490,8 +490,8 @@ where $g$ ranges over all unsigned simple functions $g:\mathbb{R}^d\to[0,+\infty
       &lt;p&gt;It should be simpler to consider the case of $k=2$, in particular with two sets $E_1,E_2\subset\mathbb{R}^d$. These two sets partition $\mathbb{R}^d$ into four disjoint sets: $E_1\cap E_2,E_1\cap E_2^c,E_1^c\cap E_2,E_1^c\cap E_2^c$. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><category term="lebesgue-integral" /><summary type="html">Part III of the measure theory series. Materials are mostly taken from Tao’s book, except for some needed notations extracted from Stein’s book.</summary></entry><entry><title type="html">Measure theory - II: Lebesgue measure</title><link href="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html" rel="alternate" type="text/html" title="Measure theory - II: Lebesgue measure" /><published>2022-07-03T13:00:00+07:00</published><updated>2022-07-03T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/07/03/measure-theory-p2.html">&lt;blockquote&gt;
-  &lt;p&gt;Part II of the measure theory series. Materials are mostly taken from &lt;a href=&quot;/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some needed notations extracted from &lt;a href=&quot;/mathematics/measure-theory/2022/07/03/measure-theory-p2.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="lebesgue-integral" /><summary type="html">Part III of the measure theory series. Materials are mostly taken from Tao’s book, except for some needed notations extracted from Stein’s book.</summary></entry><entry><title type="html">Measure theory - II: Lebesgue measure</title><link href="http://localhost:4000/2022/07/03/measure-theory-p2.html" rel="alternate" type="text/html" title="Measure theory - II: Lebesgue measure" /><published>2022-07-03T13:00:00+07:00</published><updated>2022-07-03T13:00:00+07:00</updated><id>http://localhost:4000/2022/07/03/measure-theory-p2</id><content type="html" xml:base="http://localhost:4000/2022/07/03/measure-theory-p2.html">&lt;blockquote&gt;
+  &lt;p&gt;Part II of the measure theory series. Materials are mostly taken from &lt;a href=&quot;/2022/07/03/measure-theory-p2.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some needed notations extracted from &lt;a href=&quot;/2022/07/03/measure-theory-p2.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -583,7 +583,7 @@ as the &lt;strong&gt;Lebesgue measure&lt;/strong&gt; of $E$.&lt;/p&gt;
 		\begin{equation}
 		m^*(E_i)=\inf_{\bigcup_{n=1}^{\infty}B_n\supset E_i;B_1,B_2,\ldots\text{ boxes}}\sum_{n=1}^{\infty}\vert B_n\vert
 		\end{equation}
-		Thus, by definition of infimum and by &lt;span&gt;&lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-theory-p1.html#countable-choice-axiom&quot;&gt;axiom of countable choice&lt;/a&gt;&lt;/span&gt;, for each $E_i$ in the sequence $(E_n)_{n\in\mathbb{N}}$, there exists a family of boxes $B_{i,1},B_{i,2},\ldots$ in the doubly sequence $(B_{i,j})_{(i,j)\in\mathbb{N}^2}$ covering $E_i$ such that
+		Thus, by definition of infimum and by &lt;span&gt;&lt;a href=&quot;/2022/06/16/measure-theory-p1.html#countable-choice-axiom&quot;&gt;axiom of countable choice&lt;/a&gt;&lt;/span&gt;, for each $E_i$ in the sequence $(E_n)_{n\in\mathbb{N}}$, there exists a family of boxes $B_{i,1},B_{i,2},\ldots$ in the doubly sequence $(B_{i,j})_{(i,j)\in\mathbb{N}^2}$ covering $E_i$ such that
 		\begin{equation}
 		\sum_{j=1}^{\infty}\vert B_{i,j}\vert\lt m^*(E_i)+\frac{\varepsilon}{i},
 		\end{equation}
@@ -591,7 +591,7 @@ as the &lt;strong&gt;Lebesgue measure&lt;/strong&gt; of $E$.&lt;/p&gt;
 		\begin{equation}
 		\bigcup_{n=1}^{\infty}E_n\subset\bigcup_{i=1}^{\infty}\bigcup_{j=1}^{\infty}B_{i,j}
 		\end{equation}
-		Moreover, by the &lt;span&gt;&lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-theory-p1.html#tonelli-theorem&quot;&gt;Tonelli’s theorem for series&lt;/a&gt;&lt;/span&gt;, we have
+		Moreover, by the &lt;span&gt;&lt;a href=&quot;/2022/06/16/measure-theory-p1.html#tonelli-theorem&quot;&gt;Tonelli’s theorem for series&lt;/a&gt;&lt;/span&gt;, we have
 		\begin{equation}
 		\bigcup_{i=1}^{\infty}\bigcup_{j=1}^{\infty}B_{i,j}=\bigcup_{(i,j)\in\mathbb{N}^2}B_{i,j}
 		\end{equation}
@@ -692,7 +692,7 @@ The $B_n’$ still cover $E$ and we have
 \begin{equation}
 \sum_{n=1}^{\infty}\vert B_n’\vert\leq\sum_{n=1}^{\infty}\left(\vert B_n\vert+\frac{\varepsilon}{2^n}\right)=\left(\sum_{n=1}^{\infty}\vert B_n\vert\right)+\varepsilon\leq m^*(E)+2\varepsilon\label{eq:lemma5.1}
 \end{equation}
-As the $B_n’$ are open, apply the &lt;span&gt;&lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-theory-p1.html#heine-borel-theorem&quot;&gt;&lt;strong&gt;Heine-Borel theorem&lt;/strong&gt;&lt;/a&gt;, we obtain
+As the $B_n’$ are open, apply the &lt;span&gt;&lt;a href=&quot;/2022/06/16/measure-theory-p1.html#heine-borel-theorem&quot;&gt;&lt;strong&gt;Heine-Borel theorem&lt;/strong&gt;&lt;/a&gt;, we obtain
 \begin{equation}
 E\subset\bigcup_{n=1}^{N}B_n’,
 \end{equation}
@@ -1058,11 +1058,11 @@ Every Jordan measurable set is Lebesgue measurable.&lt;/p&gt;
 This follows directly from &lt;strong&gt;corollary 6&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Remark 15&lt;/strong&gt;  &lt;br /&gt;
-The &lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-theory-p1.html#cantor-set&quot;&gt;&lt;strong&gt;Cantor set&lt;/strong&gt;&lt;/a&gt; is compact, uncountable, and a null set.&lt;/p&gt;
+The &lt;a href=&quot;/2022/06/16/measure-theory-p1.html#cantor-set&quot;&gt;&lt;strong&gt;Cantor set&lt;/strong&gt;&lt;/a&gt; is compact, uncountable, and a null set.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;Since $\mathcal{C}\subseteq[0,1]$ is closed and bounded, by the &lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-theory-p1.html#heine-borel-theorem&quot;&gt;Heine-Borel theorem&lt;/a&gt;, $\mathcal{C}$ is then compact.&lt;/li&gt;
+  &lt;li&gt;Since $\mathcal{C}\subseteq[0,1]$ is closed and bounded, by the &lt;a href=&quot;/2022/06/16/measure-theory-p1.html#heine-borel-theorem&quot;&gt;Heine-Borel theorem&lt;/a&gt;, $\mathcal{C}$ is then compact.&lt;/li&gt;
   &lt;li&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -1366,7 +1366,7 @@ Our claim then follows.&lt;/p&gt;
 		\begin{equation}
 		m(A)=m(A\cap E)+m(A\backslash E)\leq m^*(A\cap E)+m^*(A\backslash E)\label{eq:cc.1}
 		\end{equation}
-		Given $A$ is elementary, by &lt;span&gt;&lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-theory-p1.html#measure-elementary-set&quot;&gt;&lt;b&gt;lemma 10&lt;/b&gt;&lt;/a&gt;&lt;/span&gt;, we can express $A$ as a finite union of disjoint boxes
+		Given $A$ is elementary, by &lt;span&gt;&lt;a href=&quot;/2022/06/16/measure-theory-p1.html#measure-elementary-set&quot;&gt;&lt;b&gt;lemma 10&lt;/b&gt;&lt;/a&gt;&lt;/span&gt;, we can express $A$ as a finite union of disjoint boxes
 		\begin{equation}
 		A=\bigcup_{n=1}^{N}B_n
 		\end{equation}
@@ -1509,8 +1509,8 @@ Let $\pi:\mathbb{R}^2\to\mathbb{R}$ be the coordinate projection $\pi(x,y)\doteq
 \end{equation*} &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><category term="lebesgue-measure" /><summary type="html">Part II of the measure theory series. Materials are mostly taken from Tao’s book, except for some needed notations extracted from Stein’s book.</summary></entry><entry><title type="html">Measure theory - I: Elementary measure, Jordan measure &amp;amp; the Riemann integral</title><link href="http://localhost:4000/mathematics/measure-theory/2022/06/16/measure-theory-p1.html" rel="alternate" type="text/html" title="Measure theory - I: Elementary measure, Jordan measure &amp;amp; the Riemann integral" /><published>2022-06-16T13:00:00+07:00</published><updated>2022-06-16T13:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2022/06/16/measure-theory-p1</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2022/06/16/measure-theory-p1.html">&lt;blockquote&gt;
-  &lt;p&gt;Part I of the measure theory series. Materials are mostly taken from &lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-theory-p1.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some needed notations extracted from &lt;a href=&quot;/mathematics/measure-theory/2022/06/16/measure-theory-p1.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="lebesgue-measure" /><summary type="html">Part II of the measure theory series. Materials are mostly taken from Tao’s book, except for some needed notations extracted from Stein’s book.</summary></entry><entry><title type="html">Measure theory - I: Elementary measure, Jordan measure &amp;amp; the Riemann integral</title><link href="http://localhost:4000/2022/06/16/measure-theory-p1.html" rel="alternate" type="text/html" title="Measure theory - I: Elementary measure, Jordan measure &amp;amp; the Riemann integral" /><published>2022-06-16T13:00:00+07:00</published><updated>2022-06-16T13:00:00+07:00</updated><id>http://localhost:4000/2022/06/16/measure-theory-p1</id><content type="html" xml:base="http://localhost:4000/2022/06/16/measure-theory-p1.html">&lt;blockquote&gt;
+  &lt;p&gt;Part I of the measure theory series. Materials are mostly taken from &lt;a href=&quot;/2022/06/16/measure-theory-p1.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some needed notations extracted from &lt;a href=&quot;/2022/06/16/measure-theory-p1.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -2760,7 +2760,7 @@ d_2(f(x),f(y))&amp;lt;\varepsilon
       &lt;p&gt;A function $f:[a,b]\to\mathbb{R}$ is &lt;strong&gt;piecewise continuous&lt;/strong&gt; if we can partition $[a,b]$ into finitely many intervals, such that $f$ is continuous on each interval. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><category term="jordan-measure" /><category term="riemann-integral" /><summary type="html">Part I of the measure theory series. Materials are mostly taken from Tao’s book, except for some needed notations extracted from Stein’s book.</summary></entry><entry><title type="html">The exponential family</title><link href="http://localhost:4000/mathematics/probability-statistics/2022/05/04/exponential-family.html" rel="alternate" type="text/html" title="The exponential family" /><published>2022-05-04T14:00:00+07:00</published><updated>2022-05-04T14:00:00+07:00</updated><id>http://localhost:4000/mathematics/probability-statistics/2022/05/04/exponential-family</id><content type="html" xml:base="http://localhost:4000/mathematics/probability-statistics/2022/05/04/exponential-family.html">&lt;blockquote&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="jordan-measure" /><category term="riemann-integral" /><summary type="html">Part I of the measure theory series. Materials are mostly taken from Tao’s book, except for some needed notations extracted from Stein’s book.</summary></entry><entry><title type="html">The exponential family</title><link href="http://localhost:4000/2022/05/04/exponential-family.html" rel="alternate" type="text/html" title="The exponential family" /><published>2022-05-04T14:00:00+07:00</published><updated>2022-05-04T14:00:00+07:00</updated><id>http://localhost:4000/2022/05/04/exponential-family</id><content type="html" xml:base="http://localhost:4000/2022/05/04/exponential-family.html">&lt;blockquote&gt;
   &lt;p&gt;A note on the exponential family.&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -3059,7 +3059,7 @@ The equality holds with
 \end{equation*} &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="probability-statistics" /><category term="mathematics" /><category term="probability-statistics" /><category term="exponential-family" /><summary type="html">A note on the exponential family.</summary></entry><entry><title type="html">Convex sets, convex functions</title><link href="http://localhost:4000/mathematics/optimization/2021/12/02/cvx-sets-funcs.html" rel="alternate" type="text/html" title="Convex sets, convex functions" /><published>2021-12-02T13:03:00+07:00</published><updated>2021-12-02T13:03:00+07:00</updated><id>http://localhost:4000/mathematics/optimization/2021/12/02/cvx-sets-funcs</id><content type="html" xml:base="http://localhost:4000/mathematics/optimization/2021/12/02/cvx-sets-funcs.html">&lt;blockquote&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="probability-statistics" /><category term="exponential-family" /><summary type="html">A note on the exponential family.</summary></entry><entry><title type="html">Convex sets, convex functions</title><link href="http://localhost:4000/2021/12/02/cvx-sets-funcs.html" rel="alternate" type="text/html" title="Convex sets, convex functions" /><published>2021-12-02T13:03:00+07:00</published><updated>2021-12-02T13:03:00+07:00</updated><id>http://localhost:4000/2021/12/02/cvx-sets-funcs</id><content type="html" xml:base="http://localhost:4000/2021/12/02/cvx-sets-funcs.html">&lt;blockquote&gt;
   &lt;p&gt;A note on convex sets, convex functions&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -3117,7 +3117,12 @@ The equality holds with
           &lt;li&gt;&lt;a href=&quot;#nd-order-conds&quot;&gt;Second-order conditions&lt;/a&gt;&lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#cvx-funcs-eg&quot;&gt;Examples&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#cvx-funcs-eg&quot;&gt;Examples&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#func-on-r&quot;&gt;Functions on $\mathbb{R}$&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#func-on-rn&quot;&gt;Functions on $\mathbb{R}^n$&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#sub-lvl-sets&quot;&gt;Sub-level sets&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#inequalities&quot;&gt;Inequalities&lt;/a&gt;
         &lt;ul&gt;
@@ -3479,6 +3484,8 @@ g(t)=f(x+tv)
 \end{equation}
 is convex on its domain, $\text{dom}\,g=\{t:x+tv\in\text{dom}\,f\}$.&lt;/p&gt;
 
+&lt;p&gt;All linear and affine functions are either convex or concave.&lt;/p&gt;
+
 &lt;h3 id=&quot;props&quot;&gt;Properties&lt;/h3&gt;
 
 &lt;h4 id=&quot;st-order-conds&quot;&gt;First-order conditions&lt;/h4&gt;
@@ -3566,8 +3573,49 @@ g(t_1)\geq g(t_2)+g’(t_2)(t_1-t_2),
 which implies that $g$ is convex, and hence so is $f$.&lt;/p&gt;
 
 &lt;h4 id=&quot;nd-order-conds&quot;&gt;Second-order conditions&lt;/h4&gt;
+&lt;p&gt;Consider a function $f$ such that $f$ is twice differentiable. Then $f$ is convex iff $\text{dom}\,f$ is convex and its Hessian is positive semidefinite, i.e. for all $x\in\text{dom}\,f$ we have
+\begin{equation}
+\nabla^2 f(x)\succeq 0
+\end{equation}
+Analogously, we have that $f$ is concave iff $\text{dom}\,f$ is convex and for all $x\in\text{dom}\,f$, $\nabla^2 f(x)\preceq 0$.&lt;/p&gt;
+
+&lt;p&gt;On the other hands, $f$ is stricly convex (or concave) if $\text{dom}\,f$ is convex and $\nabla^2 f(x)\succ 0$ (or $\nabla^2 f(x)\prec 0$) for all $x\in\text{dom}\,f$. The reverse order is not true.&lt;/p&gt;
 
 &lt;h3 id=&quot;cvx-funcs-eg&quot;&gt;Examples&lt;/h3&gt;
+
+&lt;h4 id=&quot;func-on-r&quot;&gt;Functions on $\mathbb{R}$&lt;/h4&gt;
+&lt;ul id=&quot;number-list&quot;&gt;
+	&lt;li&gt;
+		&lt;b&gt;Exponential&lt;/b&gt;. $\,e^{ax}$ is convex on $\mathbb{R}$, for any $a\in\mathbb{R}$. Since
+		\begin{equation}
+		(e^{ax})&apos;&apos;=a^2 e^{ax}\geq 0,
+		\end{equation}
+		for $a\in\mathbb{R}$.
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Powers&lt;/b&gt;. $\,x^a$ is convex on $\mathbb{R}_{++}$ when $a\geq 1$ or $a\leq 0$, and concave for $0\leq a\leq 1$.&lt;br /&gt;
+		For $x\in\mathbb{R}_{++}$ and for $a\geq 1$ or $a\leq 0$, we have
+		\begin{equation}
+		(x^a)&apos;&apos;=a(a-1)x^{a-2}\geq 0
+		\end{equation}
+		On the other hands, for $x\in\mathbb{R}_{++}$ and for $0\leq a\leq 1$, we have
+		\begin{equation}
+		(x^a)&apos;&apos;=a(a-1)x^{a-2}\leq 0
+		\end{equation}
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Logarithm&lt;/b&gt;. $\,\log x$ is concave on $\mathbb{R}_{++}$.&lt;br /&gt;
+		For $x\in\mathbb{R}_{++}$ we have
+		\begin{equation}
+		(\log x)&apos;&apos;=\frac{-1}{x^2}\lt 0
+		\end{equation}
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Powers of absolute value&lt;/b&gt;. $\,\vert x\vert^p$ is convex on $\mathbb{R}$ for $p\geq 1$.
+	&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;func-on-rn&quot;&gt;Functions on $\mathbb{R}^n$&lt;/h4&gt;
 
 &lt;h3 id=&quot;sub-lvl-sets&quot;&gt;Sub-level sets&lt;/h3&gt;
 
@@ -3584,7 +3632,7 @@ which implies that $g$ is convex, and hence so is $f$.&lt;/p&gt;
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Stephen Boyd &amp;amp; Lieven Vandenberghe. &lt;a href=&quot;http://www.stanford.edu/∼boyd/cvxbook/&quot;&gt;Convex Optimization&lt;/a&gt;. Cambridge UP, 2004.&lt;/p&gt;
 
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="optimization" /><category term="mathematics" /><category term="convex-optimization" /><summary type="html">A note on convex sets, convex functions</summary></entry><entry><title type="html">Gaussian Distribution</title><link href="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html" rel="alternate" type="text/html" title="Gaussian Distribution" /><published>2021-11-22T14:46:00+07:00</published><updated>2021-11-22T14:46:00+07:00</updated><id>http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist</id><content type="html" xml:base="http://localhost:4000/mathematics/probability-statistics/2021/11/22/normal-dist.html">&lt;blockquote&gt;
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="convex-optimization" /><summary type="html">A note on convex sets, convex functions</summary></entry><entry><title type="html">Gaussian Distribution</title><link href="http://localhost:4000/2021/11/22/normal-dist.html" rel="alternate" type="text/html" title="Gaussian Distribution" /><published>2021-11-22T14:46:00+07:00</published><updated>2021-11-22T14:46:00+07:00</updated><id>http://localhost:4000/2021/11/22/normal-dist</id><content type="html" xml:base="http://localhost:4000/2021/11/22/normal-dist.html">&lt;blockquote&gt;
   &lt;p&gt;A note on Gaussian distribution.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -4005,8 +4053,8 @@ Let $\mathbf{z}\in\mathbb{R}^D$, we have
 And since $\Var(\mathbf{z}^\text{T}\mathbf{X})\geq0$, we also have that $\mathbf{z}^\text{T}\mathbf{\Sigma}\mathbf{z}\geq0$, which proves that $\boldsymbol{\Sigma}$ is a positive semi-definite matrix. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="probability-statistics" /><category term="mathematics" /><category term="probability-statistics" /><category term="normal-distribution" /><summary type="html">A note on Gaussian distribution.</summary></entry><entry><title type="html">Power Series</title><link href="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>http://localhost:4000/mathematics/calculus/2021/09/21/power-series</id><content type="html" xml:base="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html">&lt;blockquote&gt;
-  &lt;p&gt;Recall that in the previous post, &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html&quot;&gt;Infinite Series of Constants&lt;/a&gt;, we mentioned a type of series called &lt;strong&gt;power series&lt;/strong&gt; a lot. In the content of this post, we will be diving deeper into details of that series.&lt;/p&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="probability-statistics" /><category term="normal-distribution" /><summary type="html">A note on Gaussian distribution.</summary></entry><entry><title type="html">Power Series</title><link href="http://localhost:4000/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>http://localhost:4000/2021/09/21/power-series</id><content type="html" xml:base="http://localhost:4000/2021/09/21/power-series.html">&lt;blockquote&gt;
+  &lt;p&gt;Recall that in the previous post, &lt;a href=&quot;/2021/09/06/infinite-series-of-constants.html&quot;&gt;Infinite Series of Constants&lt;/a&gt;, we mentioned a type of series called &lt;strong&gt;power series&lt;/strong&gt; a lot. In the content of this post, we will be diving deeper into details of that series.&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;!-- excerpt-end --&gt;
@@ -4057,13 +4105,13 @@ And since $\Var(\mathbf{z}^\text{T}\mathbf{X})\geq0$, we also have that $\mathbf
 where the coefficient $a_n$ are constants and $x$ is a variable.&lt;/p&gt;
 
 &lt;h2 id=&quot;int-conv&quot;&gt;The Interval of Convergence&lt;/h2&gt;
-&lt;p&gt;Similar to what we have done in the post of &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html&quot;&gt;infinite series of constants&lt;/a&gt;, we begin studying properties of power series by considering their convergence behavior.&lt;/p&gt;
+&lt;p&gt;Similar to what we have done in the post of &lt;a href=&quot;/2021/09/06/infinite-series-of-constants.html&quot;&gt;infinite series of constants&lt;/a&gt;, we begin studying properties of power series by considering their convergence behavior.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Lemma 1&lt;/strong&gt;&lt;br /&gt;
-&lt;em&gt;If a power series $\sum a_nx^n$ converges at $x_1$, with $x_1\neq 0$, then it converges &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#abs-conv&quot;&gt;absolutely&lt;/a&gt; at all $x$ with $\vert x\vert&amp;lt;\vert x_1\vert$; and if it diverges at $x_1$, then it diverges at all $x$ with $\vert x\vert&amp;gt;\vert x_1\vert$.&lt;/em&gt;&lt;/p&gt;
+&lt;em&gt;If a power series $\sum a_nx^n$ converges at $x_1$, with $x_1\neq 0$, then it converges &lt;a href=&quot;/2021/09/06/infinite-series-of-constants.html#abs-conv&quot;&gt;absolutely&lt;/a&gt; at all $x$ with $\vert x\vert&amp;lt;\vert x_1\vert$; and if it diverges at $x_1$, then it diverges at all $x$ with $\vert x\vert&amp;gt;\vert x_1\vert$.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
-By the &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#nth-term-test&quot;&gt;$n$-th term test&lt;/a&gt;, we have that if $\sum a_nx^n$ converges, then $a_nx^n\to 0$. In particular, if $n$ is sufficiently large, then $\vert a_n{x_1}^n\vert&amp;lt;1$, and therefore
+By the &lt;a href=&quot;/2021/09/06/infinite-series-of-constants.html#nth-term-test&quot;&gt;$n$-th term test&lt;/a&gt;, we have that if $\sum a_nx^n$ converges, then $a_nx^n\to 0$. In particular, if $n$ is sufficiently large, then $\vert a_n{x_1}^n\vert&amp;lt;1$, and therefore
 \begin{equation}
 \vert a_nx^n\vert=\vert a_n{x_1}^n\vert\left\vert\dfrac{x}{x_1}\right\vert^n&amp;lt;r^n,\tag{1}\label{1}
 \end{equation}
@@ -4071,9 +4119,9 @@ where $r=\vert\frac{x}{x_1}\vert$. Suppose that $\vert x\vert&amp;lt;\vert x_1\v
 \begin{equation}
 r=\left\vert\dfrac{x}{x_1}\right\vert&amp;lt;1,
 \end{equation}
-which leads to the result that geometric series $\sum r^n$ converges (with the sum $\frac{1}{1-r}$). And hence, from \eqref{1} and by the &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#comparison-test&quot;&gt;comparison test&lt;/a&gt;, the series $\sum\vert a_nx^n\vert$ also converges.&lt;/p&gt;
+which leads to the result that geometric series $\sum r^n$ converges (with the sum $\frac{1}{1-r}$). And hence, from \eqref{1} and by the &lt;a href=&quot;/2021/09/06/infinite-series-of-constants.html#comparison-test&quot;&gt;comparison test&lt;/a&gt;, the series $\sum\vert a_nx^n\vert$ also converges.&lt;/p&gt;
 
-&lt;p&gt;Moreover, if $\sum a_n{x_1}^n$ diverges, then $\sum\vert a_n{x_1}^n\vert$ also diverges. By the &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#comparison-test&quot;&gt;comparison test&lt;/a&gt;, for any $x$ such that $\vert x\vert&amp;gt;\vert x_1\vert$, we also have that $\sum\vert a_nx^n\vert$ diverges. This leads to the divergence of $\sum a_nx^n$, because if the series $\sum a_nx^n$ converges, so does $\sum\vert a_nx^n\vert$, which contradicts to our result.&lt;/p&gt;
+&lt;p&gt;Moreover, if $\sum a_n{x_1}^n$ diverges, then $\sum\vert a_n{x_1}^n\vert$ also diverges. By the &lt;a href=&quot;/2021/09/06/infinite-series-of-constants.html#comparison-test&quot;&gt;comparison test&lt;/a&gt;, for any $x$ such that $\vert x\vert&amp;gt;\vert x_1\vert$, we also have that $\sum\vert a_nx^n\vert$ diverges. This leads to the divergence of $\sum a_nx^n$, because if the series $\sum a_nx^n$ converges, so does $\sum\vert a_nx^n\vert$, which contradicts to our result.&lt;/p&gt;
 
 &lt;p&gt;These are some main facts about the convergence behavior of an arbitrary power series and some properties of its:&lt;/p&gt;
 &lt;ul&gt;
@@ -4103,7 +4151,7 @@ In order to find the interval of convergence of a series, we begin by identifyin
 \begin{equation}
 \lim_{n\to\infty}\dfrac{\vert a_{n+1}x^{n+1}\vert}{a_nx^n}=\lim_{n\to\infty}\left\vert\dfrac{a_{n+1}}{a_n}\right\vert.\vert x\vert=\dfrac{\vert x\vert}{\lim_{n\to\infty}\left\vert\frac{a_n}{a_{n+1}}\right\vert}=L
 \end{equation}
-By the &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#ratio-test&quot;&gt;ratio test&lt;/a&gt;, we have $\sum a_nx^n$ converges absolutely if $L&amp;lt;1$ and diverges in case of $L&amp;gt;1$. Or in other words, the series converges absolutely if
+By the &lt;a href=&quot;/2021/09/06/infinite-series-of-constants.html#ratio-test&quot;&gt;ratio test&lt;/a&gt;, we have $\sum a_nx^n$ converges absolutely if $L&amp;lt;1$ and diverges in case of $L&amp;gt;1$. Or in other words, the series converges absolutely if
 \begin{equation}
 \vert x\vert&amp;lt;\lim_{n\to\infty}\left\vert\dfrac{a_n}{a_{n+1}}\right\vert,
 \end{equation}
@@ -4172,14 +4220,14 @@ This implies that
 \begin{equation}
 \vert na_nx^{n-1}\vert\leq\vert a_n\left(\vert x\vert+\epsilon\right)^n\vert
 \end{equation}
-By the &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#comparison-test&quot;&gt;comparison test&lt;/a&gt;, we have that the series $\sum\vert na_nx^{n-1}\vert$ converges, and so does $\sum na_nx^{n-1}$.&lt;/p&gt;
+By the &lt;a href=&quot;/2021/09/06/infinite-series-of-constants.html#comparison-test&quot;&gt;comparison test&lt;/a&gt;, we have that the series $\sum\vert na_nx^{n-1}\vert$ converges, and so does $\sum na_nx^{n-1}$.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Since $\sum\vert a_nx^n\vert$ converges and
 \begin{equation}
 \left\vert\dfrac{a_nx^n}{n+1}\right\vert\leq\vert a_nx^n\vert,
 \end{equation}
-the &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#comparison-test&quot;&gt;comparison test&lt;/a&gt; implies that $\sum\left\vert\frac{a_nx^n}{n+1}\right\vert$ converges, and therefore
+the &lt;a href=&quot;/2021/09/06/infinite-series-of-constants.html#comparison-test&quot;&gt;comparison test&lt;/a&gt; implies that $\sum\left\vert\frac{a_nx^n}{n+1}\right\vert$ converges, and therefore
 \begin{equation}
 x\sum\frac{a_nx^n}{n+1}=\sum\frac{1}{n+1}a_nx^{n+1}
 \end{equation}
@@ -4343,7 +4391,7 @@ Briefly, we have multiplied \eqref{12} and \eqref{13} to obtain
 \begin{equation}
 f(x)g(x)=\sum_{n=0}^{\infty}\left(\sum_{k=0}^{n}a_kb_{n-k}\right)x^n\tag{14}\label{14}
 \end{equation}
-By the &lt;strong&gt;Theorem 10&lt;/strong&gt; from &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#abs-vs-cond&quot;&gt;Absolute vs Conditionally Convergence&lt;/a&gt;, we have that this product of the series \eqref{12} and \eqref{13} actually converges on the interval $(-R,R)$ to the product of the functions $f(x)$ and $g(x)$, as indicated by \eqref{14}.&lt;/p&gt;
+By the &lt;strong&gt;Theorem 10&lt;/strong&gt; from &lt;a href=&quot;/2021/09/06/infinite-series-of-constants.html#abs-vs-cond&quot;&gt;Absolute vs Conditionally Convergence&lt;/a&gt;, we have that this product of the series \eqref{12} and \eqref{13} actually converges on the interval $(-R,R)$ to the product of the functions $f(x)$ and $g(x)$, as indicated by \eqref{14}.&lt;/p&gt;
 
 &lt;h3 id=&quot;div&quot;&gt;Division&lt;/h3&gt;
 &lt;p&gt;With the two series \eqref{12} and \eqref{13}, we have
@@ -4441,7 +4489,7 @@ This is true for each $x$ individually, and is an equivalent way of expressing t
 \begin{align}
 \vert R_n(x)\vert&amp;amp;=\left\vert a_{n+1}x^{n+1}+a_{n+2}x^{n+2}+\ldots\right\vert \\ &amp;amp;\leq\left\vert a_{n+1}x^{n+1}\right\vert+\left\vert a_{n+2}x^{n+2}\right\vert+\ldots \\ &amp;amp;\leq\left\vert a_{n+1}{x_1}^{n+1}\right\vert+\left\vert a_{n+2}{x_1}^{n+2}\right\vert+\ldots
 \end{align}
-Because of the &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#abs-conv&quot;&gt;absolute convergence&lt;/a&gt; of $\sum a_n{x_1}^n$, the last sum can be made $&amp;lt;\epsilon$ by taking $n$ large enough, $n\geq n_0$. Therefore, we have that \eqref{17} holds for all $x$ inside the closed interval $\vert x\vert\leq\vert x_1\vert$ inside the interval of convergence $(-R,R)$.&lt;/p&gt;
+Because of the &lt;a href=&quot;/2021/09/06/infinite-series-of-constants.html#abs-conv&quot;&gt;absolute convergence&lt;/a&gt; of $\sum a_n{x_1}^n$, the last sum can be made $&amp;lt;\epsilon$ by taking $n$ large enough, $n\geq n_0$. Therefore, we have that \eqref{17} holds for all $x$ inside the closed interval $\vert x\vert\leq\vert x_1\vert$ inside the interval of convergence $(-R,R)$.&lt;/p&gt;
 
 &lt;p&gt;Or in other words, $R_n(x)$ can be made small &lt;em&gt;independently of $x$ in the given closed interval&lt;/em&gt; $\vert x\vert\leq\vert x_1\vert$, which is equivalent to saying that the series $\sum a_nx^n$ is &lt;strong&gt;uniformly convergent&lt;/strong&gt; in this interval&lt;sup id=&quot;fnref:4&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:4&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
 
@@ -4574,7 +4622,7 @@ f’(c)=\frac{f(b)-f(a)}{b-a}
       &lt;p&gt;We will talk more about uniform convergence in the post of sequences. &lt;a href=&quot;#fnref:4&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="calculus" /><category term="mathematics" /><category term="calculus" /><category term="series" /><category term="power-series" /><category term="taylor-series" /><category term="random-stuffs" /><summary type="html">Recall that in the previous post, Infinite Series of Constants, we mentioned a type of series called power series a lot. In the content of this post, we will be diving deeper into details of that series.</summary></entry><entry><title type="html">Infinite Series of Constants</title><link href="http://localhost:4000/mathematics/calculus/2021/09/06/infinite-series-of-constants.html" rel="alternate" type="text/html" title="Infinite Series of Constants" /><published>2021-09-06T11:20:00+07:00</published><updated>2021-09-06T11:20:00+07:00</updated><id>http://localhost:4000/mathematics/calculus/2021/09/06/infinite-series-of-constants</id><content type="html" xml:base="http://localhost:4000/mathematics/calculus/2021/09/06/infinite-series-of-constants.html">&lt;blockquote&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="calculus" /><category term="series" /><category term="power-series" /><category term="taylor-series" /><category term="random-stuffs" /><summary type="html">Recall that in the previous post, Infinite Series of Constants, we mentioned a type of series called power series a lot. In the content of this post, we will be diving deeper into details of that series.</summary></entry><entry><title type="html">Infinite Series of Constants</title><link href="http://localhost:4000/2021/09/06/infinite-series-of-constants.html" rel="alternate" type="text/html" title="Infinite Series of Constants" /><published>2021-09-06T11:20:00+07:00</published><updated>2021-09-06T11:20:00+07:00</updated><id>http://localhost:4000/2021/09/06/infinite-series-of-constants</id><content type="html" xml:base="http://localhost:4000/2021/09/06/infinite-series-of-constants.html">&lt;blockquote&gt;
   &lt;p&gt;A note on infinite series of constants.&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -5432,7 +5480,7 @@ which lets us conclude that the series \eqref{30} converges.&lt;/p&gt;
 &lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
   &lt;ol&gt;
     &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;We will be going through power series in more detailed in another &lt;a href=&quot;/mathematics/calculus/2021/09/21/power-series.html&quot;&gt;post&lt;/a&gt;. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;We will be going through power series in more detailed in another &lt;a href=&quot;/2021/09/21/power-series.html&quot;&gt;post&lt;/a&gt;. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:2&quot; role=&quot;doc-endnote&quot;&gt;
       &lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt; (&lt;em&gt;Stolz–Cesaro&lt;/em&gt;)&lt;br /&gt;
@@ -5446,8 +5494,8 @@ implies
 \end{equation}&lt;/em&gt; &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="calculus" /><category term="mathematics" /><category term="calculus" /><category term="series" /><category term="random-stuffs" /><summary type="html">A note on infinite series of constants.</summary></entry><entry><title type="html">Optimal Policy Existence</title><link href="http://localhost:4000/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html" rel="alternate" type="text/html" title="Optimal Policy Existence" /><published>2021-07-10T13:03:00+07:00</published><updated>2021-07-10T13:03:00+07:00</updated><id>http://localhost:4000/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence</id><content type="html" xml:base="http://localhost:4000/artificial-intelligent/reinforcement-learning/2021/07/10/optimal-policy-existence.html">&lt;blockquote&gt;
-  &lt;p&gt;In the previous post about &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html&quot;&gt;&lt;strong&gt;Markov Decision Processes, Bellman equations&lt;/strong&gt;&lt;/a&gt;, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here to prove it.&lt;/p&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="calculus" /><category term="series" /><category term="random-stuffs" /><summary type="html">A note on infinite series of constants.</summary></entry><entry><title type="html">Optimal Policy Existence</title><link href="http://localhost:4000/2021/07/10/optimal-policy-existence.html" rel="alternate" type="text/html" title="Optimal Policy Existence" /><published>2021-07-10T13:03:00+07:00</published><updated>2021-07-10T13:03:00+07:00</updated><id>http://localhost:4000/2021/07/10/optimal-policy-existence</id><content type="html" xml:base="http://localhost:4000/2021/07/10/optimal-policy-existence.html">&lt;blockquote&gt;
+  &lt;p&gt;In the previous post about &lt;a href=&quot;/2021/06/27/mdp-bellman-eqn.html&quot;&gt;&lt;strong&gt;Markov Decision Processes, Bellman equations&lt;/strong&gt;&lt;/a&gt;, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here to prove it.&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;!-- excerpt-end --&gt;
@@ -5551,7 +5599,7 @@ Let $\mathcal{V}$ be a Banach space and $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ 
 &lt;/ol&gt;
 
 &lt;h3 id=&quot;bellman-operator&quot;&gt;Bellman Operator&lt;/h3&gt;
-&lt;p&gt;Previously, we defined &lt;a href=&quot;/artificial-intelligent/reinforcement-learning/2021/06/27/mdp-bellman-eqn.html#bellman-equations&quot;&gt;Bellman equation&lt;/a&gt; for state-value function $v_\pi(s)$ as:
+&lt;p&gt;Previously, we defined &lt;a href=&quot;/2021/06/27/mdp-bellman-eqn.html#bellman-equations&quot;&gt;Bellman equation&lt;/a&gt; for state-value function $v_\pi(s)$ as:
 \begin{align}
 v_\pi(s)&amp;amp;=\sum_{a\in\mathcal{A}}\pi(a|s)\sum_{s’\in\mathcal{S},r}p(s’,r|s,a)\left[r+\gamma v_\pi(s’)\right] \\\text{or}\quad v_\pi(s)&amp;amp;=\sum_{a\in\mathcal{A}}\pi(a|s)\left(\mathcal{R}^a_s+\gamma\sum_{s’\in\mathcal{S}}\mathcal{P}^a_{ss’}v_\pi(s’)\right)\tag{1}\label{1}
 \end{align}
@@ -5659,7 +5707,7 @@ Since $\mathcal{T}^*$ is a contraction, the right-hand side converges to $v$, th
       &lt;p&gt;A &lt;em&gt;normed vector space&lt;/em&gt; is a vector space over the real or complex number, on which a norm is defined. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:3&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;We are gonna talk further about &lt;em&gt;sequences&lt;/em&gt; in another &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#convergent-sequences&quot;&gt;post&lt;/a&gt;. &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;We are gonna talk further about &lt;em&gt;sequences&lt;/em&gt; in another &lt;a href=&quot;/2021/09/06/infinite-series-of-constants.html#convergent-sequences&quot;&gt;post&lt;/a&gt;. &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:4&quot; role=&quot;doc-endnote&quot;&gt;
       &lt;p&gt;&lt;strong&gt;&lt;em&gt;Proof&lt;/em&gt;&lt;/strong&gt;&lt;br /&gt;
@@ -5696,7 +5744,7 @@ And finally,
       &lt;p&gt;Also, there’s gonna be a post about &lt;em&gt;rate of convergence&lt;/em&gt;. &lt;a href=&quot;#fnref:5&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="artificial-intelligent" /><category term="reinforcement-learning" /><category term="mathematics" /><category term="bellman-equation" /><category term="my-rl" /><summary type="html">In the previous post about Markov Decision Processes, Bellman equations, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here to prove it.</summary></entry><entry><title type="html">Measures</title><link href="http://localhost:4000/mathematics/measure-theory/2021/07/03/measure.html" rel="alternate" type="text/html" title="Measures" /><published>2021-07-03T07:00:00+07:00</published><updated>2021-07-03T07:00:00+07:00</updated><id>http://localhost:4000/mathematics/measure-theory/2021/07/03/measure</id><content type="html" xml:base="http://localhost:4000/mathematics/measure-theory/2021/07/03/measure.html">&lt;blockquote&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="reinforcement-learning" /><category term="mathematics" /><category term="bellman-equation" /><category term="my-rl" /><summary type="html">In the previous post about Markov Decision Processes, Bellman equations, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here to prove it.</summary></entry><entry><title type="html">Measures</title><link href="http://localhost:4000/2021/07/03/measure.html" rel="alternate" type="text/html" title="Measures" /><published>2021-07-03T07:00:00+07:00</published><updated>2021-07-03T07:00:00+07:00</updated><id>http://localhost:4000/2021/07/03/measure</id><content type="html" xml:base="http://localhost:4000/2021/07/03/measure.html">&lt;blockquote&gt;
   &lt;p&gt;When talking about &lt;em&gt;measure&lt;/em&gt;, you might associate it with the idea of &lt;em&gt;length&lt;/em&gt;, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with &lt;em&gt;area&lt;/em&gt;, or even three dimensions with &lt;em&gt;volume&lt;/em&gt;.&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -6012,4 +6060,4 @@ We say that $f$ is the &lt;em&gt;density&lt;/em&gt; of the measure $v$ w.r.t $\m
       &lt;p&gt;&lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="mathematics" /><category term="measure-theory" /><category term="random-stuffs" /><summary type="html">When talking about measure, you might associate it with the idea of length, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with area, or even three dimensions with volume.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="random-stuffs" /><summary type="html">When talking about measure, you might associate it with the idea of length, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with area, or even three dimensions with volume.</summary></entry></feed>

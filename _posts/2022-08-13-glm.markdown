@@ -2,8 +2,7 @@
 layout: post
 title:  "Generalized Linear Models"
 date:   2022-08-13 13:00:00 +0700
-categories: artificial-intelligent machine-learning
-tags: artificial-intelligent machine-learning linear-regression logistic-regression linear-discriminant-analysis
+tags: machine-learning linear-regression logistic-regression linear-discriminant-analysis
 description: A note on linear models
 comments: true
 eqn-number: true

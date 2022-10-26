@@ -2,8 +2,7 @@
 layout: post
 title:  "Neural networks"
 date:   2022-09-02 13:00:00 +0700
-categories: artificial-intelligent machine-learning
-tags: artificial-intelligent machine-learning neural-network
+tags: machine-learning neural-network
 description: A note on neural networks
 comments: true
 eqn-number: true

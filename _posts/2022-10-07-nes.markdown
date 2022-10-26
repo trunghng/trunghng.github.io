@@ -2,8 +2,7 @@
 layout: post
 title:  "Natural Evolution Strategies"
 date:   2022-10-07 13:00:00 +0700
-categories: artificial-intelligent machine-learning
-tags: artificial-intelligent evolution-strategy neural-evolution
+tags: machine-learning evolution-strategy neural-evolution
 description: Natural Evolution Strategy
 comments: true
 eqn-number: true
@@ -17,6 +16,7 @@ eqn-number: true
 - [Robustness techniques](#rbn-tchnq)
 	- [Fitness shaping](#fn-shp)
 	- [Adaption sampling](#adp-sampl)
+- [Natural gradient for MVN](#ntr-grad-mvn)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -159,6 +159,10 @@ u_k=\frac{\max\left(0,\log\left(\frac{\lambda}{2}+1\right)-\log k\right)}{\sum_{
 Beside fitness shaping, NES also applies another heuristic, called **adaption sampling**,to make the performance more robustly. This technique lets the algorithm determine the appropriate hyperparameters (in this case, NES chooses the learning rate $\eta$ be the one to adapt) more quickly.
 
 In particular, for a successive parameter $\theta'$ of $\theta$, the corresponding learning rate $\eta$ used in its update \eqref{eq:ng.4} will be determined by comparing samples $\mathbf{z}'$ sampled from $\pi_\theta'$ with samples $\mathbf{z}$ sampled from $\pi_\theta$ according to a **Mann-Whitney U-test**.
+
+### Natural gradient for MVN
+{: #ntr-grad-mvn}
+When our search distribution is in form of a Mulivariate Normal, the Fisher information matrix $\mathbf{F}$
 
 ## References
 {: #references}

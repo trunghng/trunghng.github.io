@@ -2,7 +2,6 @@
 layout: post
 title:  "Power Series"
 date:   2021-09-21 15:40:00 +0700
-categories: mathematics calculus
 tags: mathematics calculus series power-series taylor-series random-stuffs
 description: A note on Power Series
 comments: true

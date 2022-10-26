@@ -2,8 +2,7 @@
 layout: post
 title:  "Eligible Traces"
 date:   2022-03-13 14:11:00 +0700
-categories: artificial-intelligent reinforcement-learning
-tags: artificial-intelligent reinforcement-learning td-learning eligible-traces function-approximation importance-sampling my-rl
+tags: reinforcement-learning td-learning eligible-traces function-approximation importance-sampling my-rl
 description: Eligible Traces
 comments: true
 eqn-number: true
@@ -74,7 +73,7 @@ With the definition of $\lambda$-return, we can define the **offline $\lambda$-r
 A result when applying offline $\lambda$-return on the random walk problem is shown below.
 <figure>
 	<img src="/assets/images/2022-03-13/offline-lambda-return.png" alt="Offline lambda-return on random walk" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: Using offline $\lambda$-return on 19-state random walk. The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-12/random_walk.py)</span></figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: Using offline $\lambda$-return on 19-state random walk. The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-12/random_walk.py)</span></figcaption>
 </figure>
 
 ## TD($\lambda$)
@@ -113,7 +112,7 @@ Linear TD($\lambda$) has been proved to converge in the on-policy case if the st
 The figure below illustrates the result for using TD($\lambda$) on the usual random walk task.
 <figure>
 	<img src="/assets/images/2022-03-13/td-lambda.png" alt="TD(lambda) on random walk" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: Using TD($\lambda$) on 19-state random walk. The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-12/random_walk.py)</span></figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: Using TD($\lambda$) on 19-state random walk. The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-12/random_walk.py)</span></figcaption>
 </figure><br/>
 
 ## Truncated TD Methods
@@ -241,7 +240,7 @@ Pseudocode of the algorithm is given below.
 As other methods above, below is an illustration of using true online TD($\lambda$) on the random walk problem.
 <figure>
 	<img src="/assets/images/2022-03-13/true-online-td-lambda.png" alt="True online TD(lambda) on random walk" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 5</b>: Using True online TD($\lambda$) on 19-state random walk. The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-12/random_walk.py)</span></figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 5</b>: Using True online TD($\lambda$) on 19-state random walk. The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-12/random_walk.py)</span></figcaption>
 </figure>
 
 The eligible trace \eqref{eq:totl.6} is called **dutch trace** to distinguish it from the trace \eqref{eq:tl.1} of TD($\lambda$), which is called **accumulating trace**. 

@@ -2,7 +2,6 @@
 layout: post
 title:  "The exponential family"
 date:   2022-05-04 14:00:00 +0700
-categories: mathematics probability-statistics
 tags: mathematics probability-statistics exponential-family
 description: Note on exponential family
 comments: true

@@ -2,7 +2,6 @@
 layout: post
 title:  "Convex sets, convex functions"
 date:   2021-12-02 13:03:00 +0700
-categories: mathematics optimization
 tags: mathematics convex-optimization
 description: convex sets, convex functions
 comments: true
@@ -39,6 +38,8 @@ eqn-number: true
 		- [First-order conditions](#st-order-conds)
 		- [Second-order conditions](#nd-order-conds)
 	- [Examples](#cvx-funcs-eg)
+		- [Functions on $\mathbb{R}$](#func-on-r)
+		- [Functions on $\mathbb{R}^n$](#func-on-rn)
 	- [Sub-level sets](#sub-lvl-sets)
 	- [Inequalities](#inequalities)
 		- [Jensen's inequality](#jensens-inequality)
@@ -417,6 +418,8 @@ g(t)=f(x+tv)
 \end{equation}
 is convex on its domain, $\text{dom}\,g=\\{t:x+tv\in\text{dom}\,f\\}$.
 
+All linear and affine functions are either convex or concave.
+
 ### Properties
 {: #props}
 
@@ -505,13 +508,54 @@ g(t_1)\geq g(t_2)+g'(t_2)(t_1-t_2),
 \end{equation}
 which implies that $g$ is convex, and hence so is $f$.
 
-
-
 #### Second-order conditions
 {: #nd-order-conds}
+Consider a function $f$ such that $f$ is twice differentiable. Then $f$ is convex iff $\text{dom}\,f$ is convex and its Hessian is positive semidefinite, i.e. for all $x\in\text{dom}\,f$ we have
+\begin{equation}
+\nabla^2 f(x)\succeq 0
+\end{equation}
+Analogously, we have that $f$ is concave iff $\text{dom}\,f$ is convex and for all $x\in\text{dom}\,f$, $\nabla^2 f(x)\preceq 0$.
+
+On the other hands, $f$ is stricly convex (or concave) if $\text{dom}\,f$ is convex and $\nabla^2 f(x)\succ 0$ (or $\nabla^2 f(x)\prec 0$) for all $x\in\text{dom}\,f$. The reverse order is not true.
 
 ### Examples
 {: #cvx-funcs-eg}
+
+#### Functions on $\mathbb{R}$
+{: #func-on-r}
+<ul id='number-list'>
+	<li>
+		<b>Exponential</b>. $\,e^{ax}$ is convex on $\mathbb{R}$, for any $a\in\mathbb{R}$. Since
+		\begin{equation}
+		(e^{ax})''=a^2 e^{ax}\geq 0,
+		\end{equation}
+		for $a\in\mathbb{R}$.
+	</li>
+	<li>
+		<b>Powers</b>. $\,x^a$ is convex on $\mathbb{R}_{++}$ when $a\geq 1$ or $a\leq 0$, and concave for $0\leq a\leq 1$.<br>
+		For $x\in\mathbb{R}_{++}$ and for $a\geq 1$ or $a\leq 0$, we have
+		\begin{equation}
+		(x^a)''=a(a-1)x^{a-2}\geq 0
+		\end{equation}
+		On the other hands, for $x\in\mathbb{R}_{++}$ and for $0\leq a\leq 1$, we have
+		\begin{equation}
+		(x^a)''=a(a-1)x^{a-2}\leq 0
+		\end{equation}
+	</li>
+	<li>
+		<b>Logarithm</b>. $\,\log x$ is concave on $\mathbb{R}_{++}$.<br>
+		For $x\in\mathbb{R}_{++}$ we have
+		\begin{equation}
+		(\log x)''=\frac{-1}{x^2}\lt 0
+		\end{equation}
+	</li>
+	<li>
+		<b>Powers of absolute value</b>. $\,\vert x\vert^p$ is convex on $\mathbb{R}$ for $p\geq 1$.
+	</li>
+</ul>
+
+#### Functions on $\mathbb{R}^n$
+{: #func-on-rn}
 
 ### Sub-level sets
 {: #sub-lvl-sets}

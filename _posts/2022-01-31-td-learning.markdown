@@ -2,8 +2,7 @@
 layout: post
 title:  "Temporal-Difference Learning"
 date:   2022-01-31 16:55:00 +0700
-categories: artificial-intelligent reinforcement-learning
-tags: artificial-intelligent reinforcement-learning td-learning importance-sampling q-learning learning my-rl
+tags: reinforcement-learning td-learning importance-sampling q-learning my-rl
 description: Temporal-Difference Learning, Q-learning
 comments: true
 eqn-number: true
@@ -91,7 +90,7 @@ where $\alpha_n(a)$ denote the step-size parameter used to process the reward re
 Under batch training, TD(0) converges to the optimal maximum likelihood estimate. The convergence and optimality proofs can be found in this [paper](#td-convergence).
 <figure>
 	<img src="/assets/images/2022-01-31/random_walk_batch_updating.png" alt="TD(0) vs constant-alpha MC" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Performance of TD(0) and constant-$\alpha$ MC under batch training on the random walk task. The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-06/random-walk.py)</span></figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Performance of TD(0) and constant-$\alpha$ MC under batch training on the random walk task. The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-06/random-walk.py)</span></figcaption>
 </figure>
 
 ### TD Control
@@ -143,7 +142,7 @@ In this case, the learned action-value function, $Q$, directly approximates opti
 Say that we have an agent in a gridworld, which is an undiscounted, episodic task described by the above image. Start and goal states are denoted as "S" and "G" respectively. Agent can take up, down, left or right action. All the actions lead to a reward of $-1$, except for cliff region, into which stepping gives a reward of $-100$. We will be solving this problem with Q-learning and Sarsa with $\varepsilon$-greedy action selection, for $\varepsilon=0.1$.
 
 **Solution code**  
-The source code can be found [here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-06/cliff_walking.py).  
+The source code can be found [here](https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-06/cliff_walking.py).  
 
 <button type="button" class="collapsible" id="codeP1">Click to show the code</button>
 <div class="codePanel" id="codeP1data" markdown="1">
@@ -487,7 +486,7 @@ Suppose we have a random process as following
 Specifically, the reward is zero everywhere except the transitions into terminal states: the transition from State 2 to State 1 (with reward of $-1$) and the transition from State 20 to State 21 (with reward of $1$). The discount factor, $\gamma$, is $1$. The initial value estimates are $0$ for all states. We will implement $n$-step TD method for $n\in\\{1,2,4,\dots,512\\}$ and step size $\alpha\in\\{0,0.2,0.4,\dots,1\\}$. The walk starts at State 10. 
 
 **Solution code**  
-The source code can be found [here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-07/random_walk.py).  
+The source code can be found [here](https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-07/random_walk.py).  
 
 <button type="button" class="collapsible" id="codeP2">Click to show the code</button>
 <div class="codePanel" id="codeP2data" markdown="1">

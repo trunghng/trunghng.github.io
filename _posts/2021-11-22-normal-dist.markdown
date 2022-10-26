@@ -2,7 +2,6 @@
 layout: post
 title:  "Gaussian Distribution"
 date:   2021-11-22 14:46:00 +0700
-categories: mathematics probability-statistics
 tags: mathematics probability-statistics normal-distribution
 description: Gaussian Distribution
 comments: true

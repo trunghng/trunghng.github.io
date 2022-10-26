@@ -2,8 +2,7 @@
 layout: post
 title:  "Function Approximation"
 date:   2022-02-11 15:26:00 +0700
-categories: artificial-intelligent reinforcement-learning
-tags: artificial-intelligent reinforcement-learning function-approximation td-learning importance-sampling my-rl
+tags: reinforcement-learning function-approximation td-learning importance-sampling my-rl
 description: Function approximation
 comments: true
 eqn-number: true
@@ -153,13 +152,13 @@ Such methods are called **semi-gradient** since they include only a part of the 
 {: #lin-func-approx}
 One of the most crucial special cases of function approximation is that in which the approximate function, $\hat{v}(\cdot,\mathbf{w})$, is a linear function of the weight vector, $\mathbf{w}$. 
 
-Corresponding to every state $s$, there is a real-valued vector $\mathbf{x}(s)\doteq\left(x_1(s),x_2(s),\dots,x_d(s)\right)^T$, with the same number of components with $\mathbf{w}$.
+Corresponding to every state $s$, there is a real-valued vector $\mathbf{x}(s)\doteq\left(x_1(s),x_2(s),\dots,x_d(s)\right)$, with the same number of components with $\mathbf{w}$.
 
 #### Linear Methods
 {: #lin-methods}
 Linear methods approximate value function by the inner product between $\mathbf{w}$ and $\mathbf{x}(s)$:
 \begin{equation}
-\hat{v}(s,\mathbf{w})\doteq\mathbf{w}^T\mathbf{x}(s)=\sum_{i=1}^{d}w_ix_i(s)\label{eq:lm.1}
+\hat{v}(s,\mathbf{w})\doteq\mathbf{w}^\text{T}\mathbf{x}(s)=\sum_{i=1}^{d}w_ix_i(s)\label{eq:lm.1}
 \end{equation}
 The vector $\mathbf{x}(s)$ is called a *feature vector* representing state $s$, i.e., $x_i:\mathcal{S}\to\mathbb{R}$.  
 
@@ -177,13 +176,13 @@ Thus, with linear approximation, the SGD update can be rewrite as
 In the linear case, there is only one optimum, and thus any method that is guaranteed to converge to or near a local optimum is automatically guaranteed to converge to or near the global optimum.
 - The gradient MC algorithm in the previous section converges to the global optimum of the $\overline{\text{VE}}$ under linear function approximation if $\alpha$ is reduced over time according to the [usual conditions]({% post_url 2022-01-31-td-learning %}#stochastic-approx-condition). In particular, it converges to the fixed point, called $\mathbf{w}\_{\text{MC}}$, with:
 \begin{align}
-\nabla_{\mathbf{w}\_{\text{MC}}}\mathbb{E}\left[\big(G_t-v_{\mathbf{w}\_{\text{MC}}}(S_t)\big)^2\right]&=0 \\\\ \mathbb{E}\Big[\big(G_t-v_{\mathbf{w}\_{\text{MC}}}(S_t)\big)\mathbf{x}\_t\Big]&=0 \\\\ \mathbb{E}\Big[(G_t-\mathbf{x}\_t^T\mathbf{w}\_{\text{MC}})\mathbf{x}\_t\Big]&=0 \\\\ \mathbb{E}\left[G_t\mathbf{x}\_t-\mathbf{x}\_t\mathbf{x}\_t^T\mathbf{w}\_{\text{MC}}\right]&=0 \\\\ \mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^T\right]\mathbf{w}\_\text{MC}&=\mathbb{E}\left[G_t\mathbf{x}\_t\right] \\\\ \mathbf{w}\_\text{MC}&=\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^T\right]^{-1}\mathbb{E}\left[G_t\mathbf{x}\_t\right]
+\nabla_{\mathbf{w}\_{\text{MC}}}\mathbb{E}\left[\big(G_t-v_{\mathbf{w}\_{\text{MC}}}(S_t)\big)^2\right]&=0 \\\\ \mathbb{E}\Big[\big(G_t-v_{\mathbf{w}\_{\text{MC}}}(S_t)\big)\mathbf{x}\_t\Big]&=0 \\\\ \mathbb{E}\Big[(G_t-\mathbf{x}\_t^\text{T}\mathbf{w}\_{\text{MC}})\mathbf{x}\_t\Big]&=0 \\\\ \mathbb{E}\left[G_t\mathbf{x}\_t-\mathbf{x}\_t\mathbf{x}\_t^\text{T}\mathbf{w}\_{\text{MC}}\right]&=0 \\\\ \mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\text{T}\right]\mathbf{w}\_\text{MC}&=\mathbb{E}\left[G_t\mathbf{x}\_t\right] \\\\ \mathbf{w}\_\text{MC}&=\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\text{T}\right]^{-1}\mathbb{E}\left[G_t\mathbf{x}\_t\right]
 \end{align}
 
 - The semi-gradient TD algorithm also converges under linear approximation. 
 	- Recall that, at each time $t$, the semi-gradient TD update is
 	\begin{align}
-	\mathbf{w}\_{t+1}&\doteq\mathbf{w}\_t+\alpha\left(R_{t+1}+\gamma\mathbf{w}\_t^T\mathbf{x}\_{t+1}-\mathbf{w}\_t^T\mathbf{x}\_t\right)\mathbf{x}\_t \\\\ &=\mathbf{w}\_t+\alpha\left(R_{t+1}\mathbf{x}\_t-\mathbf{x}\_t(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1})^T\mathbf{w}\_t\right),
+	\mathbf{w}\_{t+1}&\doteq\mathbf{w}\_t+\alpha\left(R_{t+1}+\gamma\mathbf{w}\_t^\text{T}\mathbf{x}\_{t+1}-\mathbf{w}\_t^\text{T}\mathbf{x}\_t\right)\mathbf{x}\_t \\\\ &=\mathbf{w}\_t+\alpha\left(R_{t+1}\mathbf{x}\_t-\mathbf{x}\_t(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1})^\text{T}\mathbf{w}\_t\right),
 	\end{align}
 	where $\mathbf{x}\_t=\mathbf{x}(S_t)$. Once the system has reached steady state, for any given $\mathbf{w}\_t$, the expected next weight vector can be written as
 	\begin{equation}
@@ -191,7 +190,7 @@ In the linear case, there is only one optimum, and thus any method that is guara
 	\end{equation}
 	where
 	\begin{align}
-	\mathbf{b}&\doteq\mathbb{E}\left[R_{t+1}\mathbf{x}\_t\right]\in\mathbb{R}^d, \\\\ \mathbf{A}&\doteq\mathbb{E}\left[\mathbf{x}\_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)^T\right]\in\mathbb{R}^d\times\mathbb{R}^d\label{eq:lm.3}
+	\mathbf{b}&\doteq\mathbb{E}\left[R_{t+1}\mathbf{x}\_t\right]\in\mathbb{R}^d, \\\\ \mathbf{A}&\doteq\mathbb{E}\left[\mathbf{x}\_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)^\text{T}\right]\in\mathbb{R}^d\times\mathbb{R}^d\label{eq:lm.3}
 	\end{align}
 	From \eqref{eq:lm.2}, it is easily seen that if the system converges, it must converges to the weight vector $\mathbf{w}\_{\text{TD}}$ at which
 	\begin{align}
@@ -206,7 +205,7 @@ In the linear case, there is only one optimum, and thus any method that is guara
 		The idea of the proof is prove that the matrix $\mathbf{A}$ in \eqref{eq:lm.3} is a positive definite matrix[^1], since $\mathbf{w}\_t$ will be reduced toward zero whenever $\mathbf{A}$ is positive definite.  
 		For linear TD(0), in the continuing case with $\gamma<1$, the matrix $\mathbf{A}$ can be written as
 		\begin{align}
-		\mathbf{A}&=\sum_s\mu(s)\sum_a\pi(a\vert s)\sum_{r,s'}p(r,s'\vert s,a)\mathbf{x}(s)\big(\mathbf{x}(s)-\gamma\mathbf{x}(s')\big)^T \\\\ &=\sum_s\mu(s)\sum_{s'}p(s'\vert s)\mathbf{x}(s)\big(\mathbf{x}(s)-\gamma\mathbf{x}(s')\big)^T \\\\ &=\sum_s\mu(s)\mathbf{x}(s)\Big(\mathbf{x}(s)-\gamma\sum_{s'}p(s'\vert s)\mathbf{x}(s')\Big)^T \\\\ &=\mathbf{X}^T\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})\mathbf{X},\label{eq:lm.4}
+		\mathbf{A}&=\sum_s\mu(s)\sum_a\pi(a\vert s)\sum_{r,s'}p(r,s'\vert s,a)\mathbf{x}(s)\big(\mathbf{x}(s)-\gamma\mathbf{x}(s')\big)^\text{T} \\\\ &=\sum_s\mu(s)\sum_{s'}p(s'\vert s)\mathbf{x}(s)\big(\mathbf{x}(s)-\gamma\mathbf{x}(s')\big)^\text{T} \\\\ &=\sum_s\mu(s)\mathbf{x}(s)\Big(\mathbf{x}(s)-\gamma\sum_{s'}p(s'\vert s)\mathbf{x}(s')\Big)^\text{T} \\\\ &=\mathbf{X}^\text{T}\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})\mathbf{X},\label{eq:lm.4}
 		\end{align}
 		where  
 		- $\mu(s)$ is the stationary distribution under $\pi$;  
@@ -218,14 +217,14 @@ In the linear case, there is only one optimum, and thus any method that is guara
 		Hence, it is clear that the positive definiteness of $A$ depends on the matrix $\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})$ in \eqref{eq:lm.4}. 
 
 		To continue proving the positive definiteness of $\mathbf{A}$, we use two lemmas:
-		- **Lemma 1**: *A square matrix $\mathbf{A}$ is positive definite if the symmetric matrix $\mathbf{S}=\mathbf{A}+\mathbf{A}^T$ is positive definite*.
+		- **Lemma 1**: *A square matrix $\mathbf{A}$ is positive definite if the symmetric matrix $\mathbf{S}=\mathbf{A}+\mathbf{A}^\text{T}$ is positive definite*.
 		- **Lemma 2**: *If $\mathbf{A}$ is a real, symmetric, and strictly diagonally dominant matrix with positive diagonal entries, then $\mathbf{A}$ is positive definite*. 
 
 		With these lemmas, plus since $\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})$ has positive diagonal entries and negative off-diagonal entries, so all we have to show is that each row sum plus the corresponding column sum is positive. The row sums are all positive because $\mathbf{P}$ is a stochastic matrix and $\gamma<1$. Thus the problem remains to show that the column sums are nonnegative.
 
-		Let $\mathbf{1}$ denote the column vector with all components equal to $1$ and $\boldsymbol{\mu}(s)$ denote the vectorized version of $\mu(s)$: i.e., $\boldsymbol{\mu}\in\mathbb{R}^{\vert\mathcal{S}\vert}$. Thus, $\boldsymbol{\mu}=\mathbf{P}^T\boldsymbol{\mu}$ since $\mu(s)$ is the stationary distribution. We have:
+		Let $\mathbf{1}$ denote the column vector with all components equal to $1$ and $\boldsymbol{\mu}(s)$ denote the vectorized version of $\mu(s)$: i.e., $\boldsymbol{\mu}\in\mathbb{R}^{\vert\mathcal{S}\vert}$. Thus, $\boldsymbol{\mu}=\mathbf{P}^\text{T}\boldsymbol{\mu}$ since $\mu(s)$ is the stationary distribution. We have:
 		\begin{align}
-		\mathbf{1}^T\mathbf{D}\left(\mathbf{I}-\gamma\mathbf{P}\right)&=\boldsymbol{\mu}^T\left(\mathbf{I}-\gamma\mathbf{P}\right) \\\\ &=\boldsymbol{\mu}^T-\gamma\boldsymbol{\mu}^T\mathbf{P} \\\\ &=\boldsymbol{\mu}^T-\gamma\boldsymbol{\mu}^T \\\\ &=\left(1-\gamma\right)\boldsymbol{\mu}^T,
+		\mathbf{1}^\text{T}\mathbf{D}\left(\mathbf{I}-\gamma\mathbf{P}\right)&=\boldsymbol{\mu}^\text{T}\left(\mathbf{I}-\gamma\mathbf{P}\right) \\\\ &=\boldsymbol{\mu}^\text{T}-\gamma\boldsymbol{\mu}^\text{T}\mathbf{P} \\\\ &=\boldsymbol{\mu}^\text{T}-\gamma\boldsymbol{\mu}^\text{T} \\\\ &=\left(1-\gamma\right)\boldsymbol{\mu}^\text{T},
 		\end{align}
 		which implies that the column sums of $\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})$ are positive.
 
@@ -313,21 +312,21 @@ The $n$-order Fourier expansion of the multivariate function $F$ with period $\t
 \begin{equation}
 \overline{F}(\mathbf{x})=\sum_\mathbf{c}\left[a_\mathbf{c}\cos\left(\frac{2\pi}{\tau}\mathbf{c}\cdot\mathbf{x}\right)+b_\mathbf{c}\sin\left(\frac{2\pi}{\tau}\mathbf{c}\cdot\mathbf{x}\right)\right],
 \end{equation}
-where $\mathbf{c}=(c_1,\dots,c_d)^T,c_i\in\left[0,\dots,n\right],1\leq i\leq d$. 
+where $\mathbf{c}=(c_1,\dots,c_d)^\text{T},c_i\in\left[0,\dots,n\right],1\leq i\leq d$. 
 
 This results in $2(n+1)^d$ basis functions for an $n$-th order full Fourier approximation to a value function in $d$ dimensions, which can be reduced to $(n+1)^d$ if we drop either the $sin$ or $cos$ terms for each variable as described above. Thus, we can define the $n$-th order Fourier basis in the multi-dimensional case as: 
 
-Suppose each state $s$ corresponds to a vector of $d$ numbers, $\mathbf{s}=(s_1,\dots,s_d)^T$, with each $s_i\in[0,1]$. The $i$-th feature in the order-$n$ Fourier cosine basis can then be written as:
+Suppose each state $s$ corresponds to a vector of $d$ numbers, $\mathbf{s}=(s_1,\dots,s_d)^\text{T}$, with each $s_i\in[0,1]$. The $i$-th feature in the order-$n$ Fourier cosine basis can then be written as:
 \begin{equation}
-x_i(s)=\cos\left(\pi\mathbf{s}^T\mathbf{c}^i\right),
+x_i(s)=\cos\left(\pi\mathbf{s}^\text{T}\mathbf{c}^i\right),
 \end{equation}
-where $\mathbf{c}=(c_1^i,\dots,c_d^i)^T$, with $c_j^i\in\\{0,\dots,n\\}$ for $j=1,\dots,d$ and $i=0,\dots,(n+1)^d$. 
+where $\mathbf{c}=(c_1^i,\dots,c_d^i)^\text{T}$, with $c_j^i\in\\{0,\dots,n\\}$ for $j=1,\dots,d$ and $i=0,\dots,(n+1)^d$. 
 
-This defines a feature for each of the $(n+1)^d$ possible integer vector $\mathbf{c}^i$. The inner product $\mathbf{s}^T\mathbf{c}^i$ has the effect of assigning an integer in $\\{0,\dots,n\\}$ to each dimension of $\mathbf{s}$. As in the one-dimensional case, this integer determines the feature's frequency along that dimension. The feature thus can be shifted and scaled to suit the bounded state space of a particular application.
+This defines a feature for each of the $(n+1)^d$ possible integer vector $\mathbf{c}^i$. The inner product $\mathbf{s}^\text{T}\mathbf{c}^i$ has the effect of assigning an integer in $\\{0,\dots,n\\}$ to each dimension of $\mathbf{s}$. As in the one-dimensional case, this integer determines the feature's frequency along that dimension. The feature thus can be shifted and scaled to suit the bounded state space of a particular application.
 
 <figure>
 	<img src="/assets/images/2022-02-11/gradient_mc_bases.png" alt="Fourier basis vs polynomial basis" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: Fourier basis vs Polynomial basis on the 1000-state random walk<br><span>(<span markdown="1">[RL book](#rl-book)</span> - Example 9.2).</span><br>The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-09/random_walk.py)</span></figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: Fourier basis vs Polynomial basis on the 1000-state random walk<br><span>(<span markdown="1">[RL book](#rl-book)</span> - Example 9.2).</span><br>The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-09/random_walk.py)</span></figcaption>
 </figure><br/>
 
 ##### Coarse Coding
@@ -335,7 +334,7 @@ This defines a feature for each of the $(n+1)^d$ possible integer vector $\mathb
 
 <figure>
 	<img src="/assets/images/2022-02-11/square_wave_function.png" alt="Square wave function approximated using Coarse Coding" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: Using linear function approximation based on coarse coding to learn a one-dimensional square-wave function <br><span>(<span markdown="1">[RL book](#rl-book)</span> - Example 9.3).</span><br> The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-09/square_wave.py)</span></figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: Using linear function approximation based on coarse coding to learn a one-dimensional square-wave function <br><span>(<span markdown="1">[RL book](#rl-book)</span> - Example 9.3).</span><br> The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-09/square_wave.py)</span></figcaption>
 </figure><br/>
 
 ##### Tile Coding
@@ -343,7 +342,7 @@ This defines a feature for each of the $(n+1)^d$ possible integer vector $\mathb
 
 <figure>
 	<img src="/assets/images/2022-02-11/gradient_mc_tile_coding.png" alt="Gradient MC with tile coding" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: Gradient Monte Carlo with single tiling and with multiple tilings on the 1000-state random walk<br><span>(<span markdown="1">[RL book](#rl-book)</span> - Example 9.2).</span><br>The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-09/random_walk.py)</span></figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: Gradient Monte Carlo with single tiling and with multiple tilings on the 1000-state random walk<br><span>(<span markdown="1">[RL book](#rl-book)</span> - Example 9.2).</span><br>The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-09/random_walk.py)</span></figcaption>
 </figure><br/>
 
 ##### Radial Basis Functions
@@ -362,13 +361,13 @@ The figures below shows a one-dimensional example with a Euclidean distance metr
 
 ### Least-Squares TD
 {: #lstd}
-Recall when using TD(0) with linear function approximation, $v_\mathbf{w}(s)=\mathbf{w}^T\mathbf{x}(s)$, we need to find a point $\mathbf{w}$ such that
+Recall when using TD(0) with linear function approximation, $v_\mathbf{w}(s)=\mathbf{w}^\text{T}\mathbf{x}(s)$, we need to find a point $\mathbf{w}$ such that
 \begin{equation}
 \mathbb{E}\Big[\big(R_{t+1}+\gamma v_\mathbf{w}(S_{t+1})-v_{\mathbf{w}}(S_t)\big)\mathbf{x}\_t\Big]=\mathbf{0}\label{eq:lstd.1}
 \end{equation}
 or
 \begin{equation}
-\mathbb{E}\Big[R_{t+1}\mathbf{x}\_t-\mathbf{x}\_t(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1})^T\mathbf{w}\_t\Big]=\mathbf{0}
+\mathbb{E}\Big[R_{t+1}\mathbf{x}\_t-\mathbf{x}\_t(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1})^\text{T}\mathbf{w}\_t\Big]=\mathbf{0}
 \end{equation}
 We found out that the solution is:
 \begin{equation}
@@ -376,7 +375,7 @@ We found out that the solution is:
 \end{equation}
 where
 \begin{align}
-\mathbf{A}&\doteq\mathbb{E}\left[\mathbf{x}\_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)^T\right], \\\\ \mathbf{b}&\doteq\mathbb{E}\left[R_{t+1}\mathbf{x}\_t\right]
+\mathbf{A}&\doteq\mathbb{E}\left[\mathbf{x}\_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)^\text{T}\right], \\\\ \mathbf{b}&\doteq\mathbb{E}\left[R_{t+1}\mathbf{x}\_t\right]
 \end{align}
 Instead of computing these expectations over all possible states and all possible transitions that could happen, we now only care about the things that did happen. In particular, we now consider the empirical loss of \eqref{eq:lstd.1}, as:
 \begin{equation}
@@ -384,11 +383,11 @@ Instead of computing these expectations over all possible states and all possibl
 \end{equation}
 By the law of large numbers[^3], when $t\to\infty$, \eqref{eq:lstd.2} converges to its expectation, which is \eqref{eq:lstd.1}. Hence, we now just have to compute the estimate of $\mathbf{w}\_{\text{TD}}$, called $\mathbf{w}\_{\text{LSTD}}$ (as LSTD stands for **Least-Squares TD**), which is defined as:
 \begin{equation}
-\mathbf{w}\_{\text{LSTD}}\doteq\left(\sum_{k=0}^{t-1}\mathbf{x}\_i\left(\mathbf{x}\_k-\gamma\mathbf{x}\_{k+1}\right)^T\right)^{-1}\left(\sum_{k=1}^{t-1}R_{k+1}\mathbf{x}\_k\right)\label{eq:lstd.3}
+\mathbf{w}\_{\text{LSTD}}\doteq\left(\sum_{k=0}^{t-1}\mathbf{x}\_i\left(\mathbf{x}\_k-\gamma\mathbf{x}\_{k+1}\right)^\text{T}\right)^{-1}\left(\sum_{k=1}^{t-1}R_{k+1}\mathbf{x}\_k\right)\label{eq:lstd.3}
 \end{equation}
 In other words, our work is to compute estimates $\widehat{\mathbf{A}}\_t$ and $\widehat{\mathbf{b}}\_t$ of $\mathbf{A}$ and $\mathbf{b}$:
 \begin{align}
-\widehat{\mathbf{A}}\_t&\doteq\sum_{k=0}^{t-1}\mathbf{x}\_k\left(\mathbf{x}\_k-\gamma\mathbf{x}\_{k+1}\right)^T+\varepsilon\mathbf{I};\label{eq:lstd.4} \\\\ \widehat{\mathbf{b}}\_t&\doteq\sum_{k=0}^{t-1}R_{k+1}\mathbf{x}\_k,\label{eq:lstd.5}
+\widehat{\mathbf{A}}\_t&\doteq\sum_{k=0}^{t-1}\mathbf{x}\_k\left(\mathbf{x}\_k-\gamma\mathbf{x}\_{k+1}\right)^\text{T}+\varepsilon\mathbf{I};\label{eq:lstd.4} \\\\ \widehat{\mathbf{b}}\_t&\doteq\sum_{k=0}^{t-1}R_{k+1}\mathbf{x}\_k,\label{eq:lstd.5}
 \end{align}
 where $\mathbf{I}$ is the identity matrix, and $\varepsilon\mathbf{I}$, for some small $\varepsilon>0$, ensures that $\widehat{\mathbf{A}}\_t$ is always invertible. Thus, \eqref{eq:lstd.3} can be rewritten as:
 \begin{equation}
@@ -398,7 +397,7 @@ The two approximations in \eqref{eq:lstd.4} and \eqref{eq:lstd.5} could be imple
 
 This leads to a problem that our next step, which is the computation of the inverse $\widehat{\mathbf{A}}\_t^{-1}$ of $\widehat{\mathbf{A}}\_t$, is going to be $O(d^3)$. Fortunately, with the so-called **Sherman-Morrison formula**, an inverse of our special form matrix - a sum of outer products - can also be updated incrementally with only $O(d^2)$ computations, as
 \begin{align}
-\widehat{\mathbf{A}}\_t^{-1}&=\left(\widehat{\mathbf{A}}\_t+\mathbf{x}\_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)^T\right)^{-1} \\\\ &=\widehat{\mathbf{A}}\_{t-1}^{-1}-\frac{\widehat{\mathbf{A}}\_{t-1}^{-1}\mathbf{x}\_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)^T\widehat{\mathbf{A}}\_{t-1}^{-1}}{1+\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)^T\widehat{\mathbf{A}}\_{t-1}^{-1}\mathbf{x}\_t},
+\widehat{\mathbf{A}}\_t^{-1}&=\left(\widehat{\mathbf{A}}\_t+\mathbf{x}\_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)^\text{T}\right)^{-1} \\\\ &=\widehat{\mathbf{A}}\_{t-1}^{-1}-\frac{\widehat{\mathbf{A}}\_{t-1}^{-1}\mathbf{x}\_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)^\text{T}\widehat{\mathbf{A}}\_{t-1}^{-1}}{1+\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)^\text{T}\widehat{\mathbf{A}}\_{t-1}^{-1}\mathbf{x}\_t},
 \end{align}
 for $t>0$, with $\mathbf{\widehat{A}}\_0\doteq\varepsilon\mathbf{I}$.  
 
@@ -437,7 +436,7 @@ To form the control method, we need to couple the action-value
 The following figure illustrates the cost-to-go function $\max_a\hat{q}(s,a,\mathbf{w})$ learned during one run of the semi-gradient Sarsa on Mountain Car task.
 <figure>
 	<img src="/assets/images/2022-02-11/mountain-car-ep-semi-grad-sarsa.png" alt="Semi-gradient Sarsa on Mountain Car task" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 6</b>: Cost-to-go learned during one run of Semi-gradient Sarsa on Mountain Car problem<br><span>(<span markdown="1">[RL book](#rl-book)</span> - Example 10.1).</span><br>The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-10/mountain_car.py)</span></figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 6</b>: Cost-to-go learned during one run of Semi-gradient Sarsa on Mountain Car problem<br><span>(<span markdown="1">[RL book](#rl-book)</span> - Example 10.1).</span><br>The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-10/mountain_car.py)</span></figcaption>
 </figure><br/>
 
 ### Episodic Semi-gradient $\boldsymbol{n}$-step Sarsa
@@ -459,7 +458,7 @@ for $0\leq t\lt T$. The pseudocode is given below.
 The figure below shows how the $n$-step ($8$-step in particular) tends to learn faster than the one-step algorithm.
 <figure>
 	<img src="/assets/images/2022-02-11/mountain-car-ep-semi-grad-n-step-sarsa.png" alt="one-step vs 8-step Semi-gradient Sarsa on Mountain Car task" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 7</b>: Performance of one-step vs 8-step Semi-gradient Sarsa on Mountain Car task<br><span>(<span markdown="1">[RL book](#rl-book)</span>).</span><br>The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-10/mountain_car.py)</span></figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 7</b>: Performance of one-step vs 8-step Semi-gradient Sarsa on Mountain Car task<br><span>(<span markdown="1">[RL book](#rl-book)</span>).</span><br>The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-10/mountain_car.py)</span></figcaption>
 </figure><br/>
 
 ### Average Reward
@@ -613,51 +612,51 @@ In this section, we will be considering SGD methods for minimizing the $\overlin
 
 Rewrite the objective $\overline{\text{PBE}}$ in matrix terms, we have:
 \begin{align}
-\overline{\text{PBE}}(\mathbf{w})&=\left\Vert\Pi\bar{\delta}\_\mathbf{w}\right\Vert_{\mu}^{2} \\\\ &=\left(\Pi\bar{\delta}\_\mathbf{w}\right)^T\mathbf{D}\Pi\bar{\delta}\_\mathbf{w} \\\\ &=\bar{\delta}\_\mathbf{w}^T\Pi^T\mathbf{D}\Pi\bar{\delta}\_\mathbf{w} \\\\ &=\bar{\delta}\_\mathbf{w}^T\mathbf{D}\mathbf{X}\left(\mathbf{X}^T\mathbf{D}\mathbf{X}\right)^{-1}\mathbf{X}^T\mathbf{D}\bar{\delta}\_\mathbf{w} \\\\ &=\left(\mathbf{X}^T\mathbf{D}\bar{\delta}\_\mathbf{w}\right)^T\left(\mathbf{X}^T\mathbf{D}\mathbf{X}\right)^{-1}\left(\mathbf{X}^T\mathbf{D}\bar{\delta}\_\mathbf{w}\right),
+\overline{\text{PBE}}(\mathbf{w})&=\left\Vert\Pi\bar{\delta}\_\mathbf{w}\right\Vert_{\mu}^{2} \\\\ &=\left(\Pi\bar{\delta}\_\mathbf{w}\right)^\text{T}\mathbf{D}\Pi\bar{\delta}\_\mathbf{w} \\\\ &=\bar{\delta}\_\mathbf{w}^\text{T}\Pi^\text{T}\mathbf{D}\Pi\bar{\delta}\_\mathbf{w} \\\\ &=\bar{\delta}\_\mathbf{w}^\text{T}\mathbf{D}\mathbf{X}\left(\mathbf{X}^\text{T}\mathbf{D}\mathbf{X}\right)^{-1}\mathbf{X}^\text{T}\mathbf{D}\bar{\delta}\_\mathbf{w} \\\\ &=\left(\mathbf{X}^\text{T}\mathbf{D}\bar{\delta}\_\mathbf{w}\right)^\text{T}\left(\mathbf{X}^\text{T}\mathbf{D}\mathbf{X}\right)^{-1}\left(\mathbf{X}^\text{T}\mathbf{D}\bar{\delta}\_\mathbf{w}\right),
 \end{align}
 where in the fourth step, we use the property of projection operation[^4] and the identity
 \begin{equation}
-\Pi^T\mathbf{D}\Pi=\mathbf{D}\mathbf{X}\left(\mathbf{X}^T\mathbf{D}\mathbf{X}\right)^{-1}\mathbf{X}^T\mathbf{D}
+\Pi^\text{T}\mathbf{D}\Pi=\mathbf{D}\mathbf{X}\left(\mathbf{X}^\text{T}\mathbf{D}\mathbf{X}\right)^{-1}\mathbf{X}^\text{T}\mathbf{D}
 \end{equation}
 Thus, the gradient w.r.t weight vector $\mathbf{w}$ is
 \begin{equation}
-\nabla\_\mathbf{w}\overline{\text{PBE}}(\mathbf{w})=2\nabla_\mathbf{w}\left[\mathbf{X}^T\mathbf{D}\bar{\delta}\_\mathbf{w}\right]^T\left(\mathbf{X}^T\mathbf{D}\mathbf{X}\right)^{-1}\left(\mathbf{X}^T\mathbf{D}\bar{\delta}\_\mathbf{w}\right)\label{eq:gt.1}
+\nabla\_\mathbf{w}\overline{\text{PBE}}(\mathbf{w})=2\nabla_\mathbf{w}\left[\mathbf{X}^\text{T}\mathbf{D}\bar{\delta}\_\mathbf{w}\right]^\text{T}\left(\mathbf{X}^\text{T}\mathbf{D}\mathbf{X}\right)^{-1}\left(\mathbf{X}^\text{T}\mathbf{D}\bar{\delta}\_\mathbf{w}\right)\label{eq:gt.1}
 \end{equation}
 
 To turn this into an SGD method, we have to sample something on every time step that has this gradient as its expected value. Let $\mu$ be the distribution of states visited under the behavior policy. The last factor of \eqref{eq:gt.1} can be written as:
 \begin{equation}
-\mathbf{X}^T\mathbf{D}\bar{\delta}\_\mathbf{w}=\sum_s\mu(s)\mathbf{x}(s)\bar{\delta}\_\mathbf{w}=\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right],
+\mathbf{X}^\text{T}\mathbf{D}\bar{\delta}\_\mathbf{w}=\sum_s\mu(s)\mathbf{x}(s)\bar{\delta}\_\mathbf{w}=\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right],
 \end{equation}
 which is the expectation of the semi-gradient TD(0) update \eqref{eq:opsg.1}. The first factor of \eqref{eq:gt.1}, which is the transpose of the gradient of this update, then can also be written as:
 \begin{align}
-\nabla_\mathbf{w}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right]^T&=\mathbb{E}\left[\rho_t\nabla_\mathbf{w}\delta_t^T\mathbf{x}\_t^T\right] \\\\ &=\mathbb{E}\left[\rho_t\nabla_\mathbf{w}\left(R_{t+1}+\gamma\mathbf{w}^T\mathbf{x}\_{t+1}-\mathbf{w}^T\mathbf{x}\_t\right)^T\mathbf{x}\_t^T\right] \\\\ &=\mathbb{E}\left[\rho_t\left(\gamma\mathbf{x}\_{t+1}-\mathbf{x}\_t\right)\mathbf{x}\_t^T\right]
+\nabla_\mathbf{w}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right]^\text{T}&=\mathbb{E}\left[\rho_t\nabla_\mathbf{w}\delta_t^\text{T}\mathbf{x}\_t^\text{T}\right] \\\\ &=\mathbb{E}\left[\rho_t\nabla_\mathbf{w}\left(R_{t+1}+\gamma\mathbf{w}^\text{T}\mathbf{x}\_{t+1}-\mathbf{w}^\text{T}\mathbf{x}\_t\right)^\text{T}\mathbf{x}\_t^\text{T}\right] \\\\ &=\mathbb{E}\left[\rho_t\left(\gamma\mathbf{x}\_{t+1}-\mathbf{x}\_t\right)\mathbf{x}\_t^\text{T}\right]
 \end{align}
 And the middle factor, without the inverse operation, can also be written as:
 \begin{equation}
-\mathbf{X}^T\mathbf{D}\mathbf{X}=\sum_a\mu(s)\mathbf{x}\_s\mathbf{x}\_s^T=\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^T\right]
+\mathbf{X}^\text{T}\mathbf{D}\mathbf{X}=\sum_a\mu(s)\mathbf{x}\_s\mathbf{x}\_s^\text{T}=\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\text{T}\right]
 \end{equation}
 Substituting these expectations back to \eqref{eq:gt.1}, we obtain:
 \begin{equation}
-\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w})=2\mathbb{E}\left[\rho_t\left(\gamma\mathbf{x}\_{t+1}-\mathbf{x}\_t\right)\mathbf{x}\_t^T\right]\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^T\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right]\label{eq:gt.2}
+\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w})=2\mathbb{E}\left[\rho_t\left(\gamma\mathbf{x}\_{t+1}-\mathbf{x}\_t\right)\mathbf{x}\_t^\text{T}\right]\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\text{T}\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right]\label{eq:gt.2}
 \end{equation}
 
 Here, we use the **Gradient-TD** to estimate and store the product of the second two factors in \eqref{eq:gt.2}, denoted as $\mathbf{v}$:
 \begin{equation}
-\mathbf{v}\approx\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^T\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right],\label{eq:gt.3}
+\mathbf{v}\approx\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\text{T}\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right],\label{eq:gt.3}
 \end{equation}
-which is the solution of the linear least-squares problem that tries to approximate $\rho_t\delta_t$ from the features. The SGD for incrementally finding the vector $\mathbf{v}$ that minimizes the expected squared error $\left(\mathbf{v}^T\mathbf{x}\_t\right)^2$ is known as the **Least Mean Square (LMS)** rule (here augmented with an IS ratio):
+which is the solution of the linear least-squares problem that tries to approximate $\rho_t\delta_t$ from the features. The SGD for incrementally finding the vector $\mathbf{v}$ that minimizes the expected squared error $\left(\mathbf{v}^\text{T}\mathbf{x}\_t\right)^2$ is known as the **Least Mean Square (LMS)** rule (here augmented with an IS ratio):
 \begin{equation}
-\mathbf{v}\_{t+1}\doteq\mathbf{v}\_t+\beta\rho_t\left(\delta_t-\mathbf{v}^T\mathbf{x}\_t\right)\mathbf{x}\_t,
+\mathbf{v}\_{t+1}\doteq\mathbf{v}\_t+\beta\rho_t\left(\delta_t-\mathbf{v}^\text{T}\mathbf{x}\_t\right)\mathbf{x}\_t,
 \end{equation}
 where $\beta>0$ is a step-size parameter. 
 
 With a given stored estimate $\mathbf{v}\_t$ approximating \eqref{eq:gt.3}, we can apply SGD update to the parameter vector $\mathbf{w}\_t$:
 \begin{align}
-\mathbf{w}\_{t+1}&=\mathbf{w}\_t-\frac{1}{2}\alpha\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w}\_t) \\\\ &=\mathbf{w}\_t-\frac{1}{2}\alpha 2\mathbb{E}\left[\rho_t\left(\gamma\mathbf{x}\_{t+1}-\mathbf{x}\_t\right)\mathbf{x}\_t^T\right]\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^T\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right] \\\\ &=\mathbf{w}\_t+\alpha\mathbb{E}\left[\rho_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)\mathbf{x}\_t^T\right]\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^T\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right]\label{eq:gt.4} \\\\ &\approx\mathbf{w}\_t+\alpha\mathbb{E}\left[\rho_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)\mathbf{x}\_t^T\right]\mathbf{v}\_t \\\\ &\approx\mathbf{w}\_t+\alpha\rho_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)\mathbf{x}\_t\mathbf{v}\_t
+\mathbf{w}\_{t+1}&=\mathbf{w}\_t-\frac{1}{2}\alpha\nabla_\mathbf{w}\overline{\text{PBE}}(\mathbf{w}\_t) \\\\ &=\mathbf{w}\_t-\frac{1}{2}\alpha 2\mathbb{E}\left[\rho_t\left(\gamma\mathbf{x}\_{t+1}-\mathbf{x}\_t\right)\mathbf{x}\_t^\text{T}\right]\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\text{T}\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right] \\\\ &=\mathbf{w}\_t+\alpha\mathbb{E}\left[\rho_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)\mathbf{x}\_t^\text{T}\right]\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\text{T}\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right]\label{eq:gt.4} \\\\ &\approx\mathbf{w}\_t+\alpha\mathbb{E}\left[\rho_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)\mathbf{x}\_t^\text{T}\right]\mathbf{v}\_t \\\\ &\approx\mathbf{w}\_t+\alpha\rho_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)\mathbf{x}\_t\mathbf{v}\_t
 \end{align}
 This algorithm is called **GTD2**. From \eqref{eq:gt.4}, we can also continue to derive as:
 <span id='tdc'>\begin{align}
-\mathbf{w}\_{t+1}&=\mathbf{w}\_t+\alpha\mathbb{E}\left[\rho_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)\mathbf{x}\_t^T\right]\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^T\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right] \\\\ &=\mathbf{w}\_t+\alpha\left(\mathbb{E}\left[\rho_t\mathbf{x}\_t\mathbf{x}\_t^T\right]-\gamma\mathbb{E}\left[\rho_t\mathbf{x}\_{t+1}\mathbf{x}\_t^T\right]\right)\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^T\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right] \\\\ &=\mathbf{w}\_t+\alpha\left(\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^T\right]-\gamma\mathbb{E}\left[\rho_t\mathbf{x}\_{t+1}\mathbf{x}\_t^T\right]\right)\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^T\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right] \\\\ &=\mathbf{w}\_t+\alpha\left(\mathbb{E}\left[\mathbf{x}\_t\rho_t\delta_t\right]-\gamma\mathbb{E}\left[\rho_t\mathbf{x}\_{t+1}\mathbf{x}\_t^T\right]\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^T\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right]\right) \\\\ &\approx\mathbf{w}\_t+\alpha\left(\mathbb{E}\left[\mathbf{x}\_t\rho_t\delta_t\right]-\gamma\mathbb{E}\left[\rho_t\mathbf{x}\_{t+1}\mathbf{x}\_t^T\right]\right)\mathbf{v}\_t \\\\ &\approx\mathbf{w}\_t+\alpha\rho_t\left(\delta_t\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\mathbf{x}\_t^T\mathbf{v}\_t\right)
+\mathbf{w}\_{t+1}&=\mathbf{w}\_t+\alpha\mathbb{E}\left[\rho_t\left(\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\right)\mathbf{x}\_t^\text{T}\right]\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\text{T}\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right] \\\\ &=\mathbf{w}\_t+\alpha\left(\mathbb{E}\left[\rho_t\mathbf{x}\_t\mathbf{x}\_t^\text{T}\right]-\gamma\mathbb{E}\left[\rho_t\mathbf{x}\_{t+1}\mathbf{x}\_t^\text{T}\right]\right)\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\text{T}\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right] \\\\ &=\mathbf{w}\_t+\alpha\left(\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\text{T}\right]-\gamma\mathbb{E}\left[\rho_t\mathbf{x}\_{t+1}\mathbf{x}\_t^\text{T}\right]\right)\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\text{T}\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right] \\\\ &=\mathbf{w}\_t+\alpha\left(\mathbb{E}\left[\mathbf{x}\_t\rho_t\delta_t\right]-\gamma\mathbb{E}\left[\rho_t\mathbf{x}\_{t+1}\mathbf{x}\_t^\text{T}\right]\mathbb{E}\left[\mathbf{x}\_t\mathbf{x}\_t^\text{T}\right]^{-1}\mathbb{E}\left[\rho_t\delta_t\mathbf{x}\_t\right]\right) \\\\ &\approx\mathbf{w}\_t+\alpha\left(\mathbb{E}\left[\mathbf{x}\_t\rho_t\delta_t\right]-\gamma\mathbb{E}\left[\rho_t\mathbf{x}\_{t+1}\mathbf{x}\_t^\text{T}\right]\right)\mathbf{v}\_t \\\\ &\approx\mathbf{w}\_t+\alpha\rho_t\left(\delta_t\mathbf{x}\_t-\gamma\mathbf{x}\_{t+1}\mathbf{x}\_t^\text{T}\mathbf{v}\_t\right)
 \end{align}</span>
 This algorithm is known as **TD(0) with gradient correction (TDC)**, or as **GTD(0)**.
 
@@ -683,7 +682,7 @@ This algorithm is known as **TD(0) with gradient correction (TDC)**, or as **GTD
 
 [^1]: A $n\times n$ matrix $A$ is called *positive definite* if and only if for any non-zero vector $\mathbf{x}\in\mathbb{R}^n$, we always have
 	\begin{equation\*}
-	\mathbf{x}^T\mathbf{A}\mathbf{x}>0
+	\mathbf{x}^\text{T}\mathbf{A}\mathbf{x}>0
 	\end{equation\*}
 
 [^2]: A function $f$ is periodic with period $\tau$ if
@@ -701,7 +700,7 @@ This algorithm is known as **TD(0) with gradient correction (TDC)**, or as **GTD
 
 [^4]: For a linear function approximator, the projection is linear, which implies that it can be represented as an $\vert\mathcal{S}\vert\times\vert\mathcal{S}\vert$ matrix:
 	\begin{equation\*}
-	\Pi\doteq\mathbf{X}\left(\mathbf{X}^T\mathbf{D}\mathbf{X}\right)^{-1}\mathbf{X}^T\mathbf{D},
+	\Pi\doteq\mathbf{X}\left(\mathbf{X}^\text{T}\mathbf{D}\mathbf{X}\right)^{-1}\mathbf{X}^\text{T}\mathbf{D},
 	\end{equation\*}
 
-	where $\mathbf{D}$ denotes the $\vert\mathcal{S}\vert\times\vert\mathcal{S}\vert$ diagonal matrix with the $\mu(s)$ on the diagonal, and $\mathbf{X}$ denotes the $\vert\mathcal{S}\vert\times d$ matrix whose rows are the feature vectors $\mathbf{x}(s)^T$, one for each state $s$.
+	where $\mathbf{D}$ denotes the $\vert\mathcal{S}\vert\times\vert\mathcal{S}\vert$ diagonal matrix with the $\mu(s)$ on the diagonal, and $\mathbf{X}$ denotes the $\vert\mathcal{S}\vert\times d$ matrix whose rows are the feature vectors $\mathbf{x}(s)^\text{T}$, one for each state $s$.

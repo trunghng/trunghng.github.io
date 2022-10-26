@@ -2,8 +2,7 @@
 layout: post
 title:  "Evolving neural network topology"
 date:   2022-10-13 13:00:00 +0700
-categories: artificial-intelligent machine-learning
-tags: artificial-intelligent neural-evolution
+tags: machine-learning neural-evolution
 description: Evolving neural networks through augmenting topologies
 comments: true
 eqn-number: true

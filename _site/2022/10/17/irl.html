@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:400,900,900i" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<style type="text/css">
+  #button {
+    display: inline-block;
+    background-color: #A5CCF1;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border-radius: 4px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    transition: background-color .3s, 
+      opacity .5s, visibility .5s;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+  }
+  #button::after {
+    content: "\f077";
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 2em;
+    line-height: 50px;
+    color: #fff;
+  }
+  #button:hover {
+    cursor: pointer;
+    background-color: #333;
+    text-decoration: none;
+  }
+  #button:active {
+    background-color: #555;
+  }
+  #button.show {
+    opacity: 1;
+    visibility: visible;
+  }
+</style><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Inverse Reinforcement Learning | Trung’s cabin</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Inverse Reinforcement Learning" />
+<meta name="author" content="Trung H. Nguyen" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Inverse Reinforcement Learning" />
+<meta property="og:description" content="Inverse Reinforcement Learning" />
+<link rel="canonical" href="http://localhost:4000/2022/10/17/irl.html" />
+<meta property="og:url" content="http://localhost:4000/2022/10/17/irl.html" />
+<meta property="og:site_name" content="Trung’s cabin" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-10-17T13:00:00+07:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Inverse Reinforcement Learning" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","description":"Inverse Reinforcement Learning","headline":"Inverse Reinforcement Learning","dateModified":"2022-10-17T13:00:00+07:00","datePublished":"2022-10-17T13:00:00+07:00","url":"http://localhost:4000/2022/10/17/irl.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2022/10/17/irl.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Trung&apos;s cabin" />
+    
+
+
+
+
+
+  
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+<link rel="manifest" href="/assets/images/site.webmanifest">
+<link rel="mask-icon" href="/assets/images/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff"></head>
+<body><header class="site-header">
+  <div class="snorlax"></div>
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Trung&#39;s cabin</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/archive/">Archive</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <a id="button"></a>
+      <div class="wrapper">
+        <style>
+@import "/assets/css/default.css"
+</style>
+<style>
+  .collapsible {
+    background-color: #A5CCF1;
+    color: white;
+    cursor: pointer;
+    padding: 5px;
+    /*width: 100%;*/
+    border: none;
+    text-align: center;
+    outline: none;
+    font-size: 15px;
+  }
+
+  .active, .collapsible:hover {
+    background-color: #82B9EE;
+  }
+
+  .codePanel {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+  }
+</style>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <meta name="description" content="Inverse Reinforcement Learning">
+    <h1 class="post-title p-name" itemprop="name headline">Inverse Reinforcement Learning</h1>
+    <p><span>
+      
+        
+        <a href="/tag/reinforcement-learning"><code class="highligher-rouge"><nobr>reinforcement-learning</nobr></code>&nbsp;</a>
+      
+        
+        <a href="/tag/inverse-reinforcement-learning"><code class="highligher-rouge"><nobr>inverse-reinforcement-learning</nobr></code>&nbsp;</a>
+      
+    </span></p>
+    <p class="post-meta"><time class="dt-published" datetime="2022-10-17T13:00:00+07:00" itemprop="datePublished">
+        Oct 17, 2022
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <blockquote>
+  <p>A note on Inverse Reinforcement Learning</p>
+</blockquote>
+
+<!-- excerpt-end -->
+
+<ul>
+  <li><a href="#preliminaries">Preliminaries</a>
+    <ul>
+      <li><a href="#mdp">Markov decision processes</a></li>
+      <li><a href="#irl">Inverse reinforcement learning</a></li>
+    </ul>
+  </li>
+  <li><a href="#max-margin-methods">Max margin methods</a>
+    <ul>
+      <li><a href="#max-margin-proj">Max-margin &amp; Projection</a>
+        <ul>
+          <li><a href="#max-margin">Max-margin</a></li>
+          <li><a href="#proj">Projection</a></li>
+        </ul>
+      </li>
+      <li><a href="#max-margin-pln">Max margin planning</a></li>
+      <li><a href="#learch">LEARCH</a></li>
+    </ul>
+  </li>
+  <li><a href="#max-ent">Max entropy methods</a></li>
+  <li><a href="#bayes">Bayesian methods</a>
+    <ul>
+      <li><a href="#birl">BIRL</a></li>
+    </ul>
+  </li>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h2 id="preliminaries">Preliminaries</h2>
+
+<h3 id="mdp">Markov decision processes</h3>
+<p>We begin by recalling the definition of <a href="/2021/06/27/mdp-bellman-eqn.html#mdp"><strong>Markov decision processes (MDP)</strong></a>.</p>
+
+<p>A <strong>Markov decision process</strong>, or <strong>MDP</strong> is defined to be a tuple $(\mathcal{S},\mathcal{A},T,r,\gamma)$, where</p>
+<ul>
+  <li>$\mathcal{S}$ is a set of states, represents the <strong>state space</strong>.</li>
+  <li>$\mathcal{A}$ is a set of actions, known as the <strong>action space</strong>.</li>
+  <li>$T:\mathcal{S}\times\mathcal{A}\times\mathcal{S}\to[0,1]$ is the <strong>state transition probabilities</strong>, i.e., $T(s’,s,a)=p(s’\vert s,a)$ denotes the probability of transitioning to state $s’$ when taking action $a$ from state $s$.</li>
+  <li>$r:\mathcal{S}\times\mathcal{A}\to\mathbb{R}$ denotes the <strong>reward function</strong>.</li>
+  <li>$\gamma\in[0,1]$ is referred as <strong>discount factor</strong>.</li>
+</ul>
+
+<p>A <strong>policy</strong>, denoted $\pi$, is a mapping from states to probabilities of selecting each possible action, which can be either deterministic $\pi:\mathcal{S}\times\mathcal{A}\to\{0,1\}$ (or $\pi:\mathcal{S}\to\mathcal{A}$) or stochastic $\pi:\mathcal{S}\times\mathcal{A}\to[0,1]$.</p>
+
+<p>For a policy $\pi$, the <strong>state value function</strong>, denoted as $v_\pi$, of a state $s\in\mathcal{S}$ measures how good it is for the agent to be in $s$. Specifically, $v_\pi(s)$ is defined as the expected sum of discounted rewards when starting in $s$ and following $\pi$. Specifically, for all $s\in\mathcal{S}$
+\begin{equation}
+v_\pi(s)=\mathbb{E}_\pi\left[\sum_{k=0}^{\infty}\gamma^k r(S_t,A_t)\Big\vert S_t=s\right]
+\end{equation}
+The expectation of value of start state $S_0$ presents the value of the policy it is following. In particular, the value of a policy $\pi$ can be given by
+\begin{equation}
+\mathbb{E}\big[v_\pi(S_0)\big]=\mathbb{E}_\pi\left[\sum_{t=0}^{\infty}\gamma^t r(S_t,A_t)\Big\vert S_0\right]\label{eq:mdp.1}
+\end{equation}
+Analogously, the <strong>state-action value function</strong>, denoted by $q_\pi$, of a state-action pair $(s\in\mathcal{S},a\in\mathcal{A})$ specifies how good it is to take action $a$ from state $s$. Similar to $v_\pi$, $q_\pi$ is defined as the expected sum of discounted rewards when starting from $s$, taking action $a$ and thereby following policy $\pi$.</p>
+
+<h3 id="irl">Inverse reinforcement learning</h3>
+<p>In <strong>reverse reinforcment learning</strong>, we are instead working on an interface of tuple $(\mathcal{S},\mathcal{A},T,\gamma)$, which represents an $MDP$ without a predefined reward function $r$, or MDP\R for short. Rather than an explicit reward function given, we are provided samples $\{\tau_i\}$ sampled from an optimal policy $\pi^*(\tau)$.</p>
+
+<p>In this problem, our goal is to learn a reward function $r_\boldsymbol{\psi}:\mathcal{S}\times\mathcal{A}\to\mathbb{R}$ parameterized by the weight vector $\boldsymbol{\psi}$, and then use it to learn the optimal policy $\pi^*$. Specifically, for a linear reward function, we have
+\begin{equation}
+r_\boldsymbol{\psi}(s,a)=\sum_{i}\psi_i f_i(s,a)=\boldsymbol{\psi}^\text{T}\mathbf{f}(s,a),
+\end{equation}
+where the weight vector is defined as 
+\begin{equation}
+\boldsymbol{\psi}=(\psi_1,\ldots,\psi_k)^\text{T},
+\end{equation}
+and where $\mathbf{f}(s,a)$ is called the <strong>feature vector</strong> of the state-action pair $(s,a)$, defined by
+\begin{equation}
+\mathbf{f}(s,a)=\big(f_1(s,a),\ldots,f_k(s,a)\big)^\text{T}
+\end{equation}
+By \eqref{eq:mdp.1}, the value of a policy $\pi_{r_\boldsymbol{\psi}}$ corresponding to the reward function $r_\boldsymbol{\psi}$ thus can be written as
+\begin{align}
+\mathbb{E}\big[v_{\pi_{r_\boldsymbol{\psi}}}(S_0)\big]&amp;=\mathbb{E}_{\pi_{r_\boldsymbol{\psi}}}\left[\sum_{t=0}^{\infty}\gamma^t r(S_t,A_t)\Big\vert S_0\right] \\ &amp;=\mathbb{E}_{\pi_{r_\boldsymbol{\psi}}}\left[\sum_{t=0}^{\infty}\gamma^t\boldsymbol{\psi}^\text{T}\mathbf{f}(S_t,A_t)\Big\vert S_0\right] \\ &amp;=\boldsymbol{\psi}^\text{T}\mathbb{E}_{\pi_{r_\boldsymbol{\psi}}}\left[\sum_{t=0}^{\infty}\gamma^t\mathbf{f}(S_t,A_t)\Big\vert S_0\right]
+\end{align}
+The <strong>feature expectation</strong> or also called the expected discounted accumulated feature value, denoted as $\boldsymbol{\mu}(\pi)$, of the policy $\pi_{r_\boldsymbol{\psi}}$ is defined as
+\begin{equation}
+\boldsymbol{\mu}(\pi_{r_\boldsymbol{\psi}})=\mathbb{E}_{\pi_{r_\boldsymbol{\psi}}}\left[\sum_{t=0}^{\infty}\gamma^t\mathbf{f}(S_t,A_t)\Big\vert S_0\right]
+\end{equation}
+Hence, we have that
+\begin{equation}
+\boldsymbol{\mu}(\pi_{r_\boldsymbol{\psi}})=\boldsymbol{\psi}^\text{T}\boldsymbol{\mu}(\pi_{r_\boldsymbol{\psi}})
+\end{equation}</p>
+
+<h2 id="max-margin-methods">Max margin methods</h2>
+
+<h3 id="max-margin-proj">Max-margin &amp; Projection</h3>
+
+<h4 id="max-margin">Max-margin</h4>
+
+<h4 id="proj">Projection</h4>
+
+<h3 id="max-margin-pln">Max margin planning</h3>
+
+<h3 id="learch">LEARCH</h3>
+
+<h2 id="max-ent">Max entropy methods</h2>
+
+<h2 id="references">References</h2>
+<p>[1] Pieter Abbeel &amp; Andrew Y. Ng. <a href="https://doi.org/10.1145/1015330.1015430">Apprenticeship Learning via Inverse Reinforcement Learning</a>. ICML ‘04: Proceedings of the twenty-first international conference on Machine learning. July 2004.</p>
+
+<p>[2] Nathan D. Ratliff, J. Andrew Bagnell &amp; Martin A. Zinkevich. <a href="https://doi.org/10.1145/1143844.1143936">Maximum margin planning</a>. ICML ‘06: Proceedings of the 23rd international conference on Machine learning. June 2006</p>
+
+<p>[3] Nathan Ratliff, David Silver &amp; J. Andrew (Drew) Bagnell. <a href="https://www.ri.cmu.edu/publications/learning-to-search-functional-gradient-techniques-for-imitation-learning/">Learning to search: Functional gradient techniques for imitation learning</a>. Autonomous Robots. July 2009.</p>
+
+<h2 id="footnotes">Footnotes</h2>
+
+  </div>
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    
+    var disqus_config = function () {
+    this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://https-trunghng-github-io.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+<script id="dsq-count-scr" src="//https-trunghng-github-io.disqus.com/count.js" async></script>
+
+  <a class="u-url" href="/2022/10/17/irl.html" hidden></a>
+</article>
+ <!-- mathjax javascript -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+    "HTML-CSS": {availableFonts: []}
+  });
+</script><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      "HTML-CSS": {availableFonts: []},
+      TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+      },
+    });
+  </script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<script>
+  var coll = document.getElementsByClassName("collapsible");
+  var i;
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      var content = document.getElementById(this.id+"data");
+      var btn = document.getElementById(this.id)
+      if (content.style.display === "block") {
+        content.style.display = "none";
+        btn.innerText = "Click to show the code";
+      } else {
+        content.style.display = "block";
+        btn.innerText = "Click to hide the code"
+      }
+    });
+  }
+</script>
+
+      </div>
+
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+        <ul class="contact-list">
+          <li class="p-name">Trung H. Nguyen</li>
+          <li><a class="u-email" href="mailto:trung.skipper@gmail.com">trung.skipper@gmail.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p>To document something I&#39;ve learned
+</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/trunghng" title="trunghng"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
+<script type="text/javascript">
+  var btn = $('#button');
+
+  $(window).scroll(function() {
+    if ($(window).scrollTop() > 300) {
+      btn.addClass('show');
+    } else {
+      btn.removeClass('show');
+    }
+  });
+
+  btn.on('click', function(e) {
+    e.preventDefault();
+    $('html, body').animate({scrollTop:0}, '300');
+  });
+</script>

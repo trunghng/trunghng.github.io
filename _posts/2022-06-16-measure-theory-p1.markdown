@@ -2,7 +2,6 @@
 layout: post
 title:  "Measure theory - I: Elementary measure, Jordan measure & the Riemann integral"
 date:   2022-06-16 13:00:00 +0700
-categories: mathematics measure-theory
 tags: mathematics measure-theory jordan-measure riemann-integral
 description: Note on measure theory part 1
 comments: true

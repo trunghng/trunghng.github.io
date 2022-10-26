@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/series.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-25T14:39:55+07:00</updated><id>http://localhost:4000/feed/by_tag/series.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
-</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Power Series</title><link href="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>http://localhost:4000/mathematics/calculus/2021/09/21/power-series</id><content type="html" xml:base="http://localhost:4000/mathematics/calculus/2021/09/21/power-series.html">&lt;blockquote&gt;
-  &lt;p&gt;Recall that in the previous post, &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html&quot;&gt;Infinite Series of Constants&lt;/a&gt;, we mentioned a type of series called &lt;strong&gt;power series&lt;/strong&gt; a lot. In the content of this post, we will be diving deeper into details of that series.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/series.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-26T20:29:11+07:00</updated><id>http://localhost:4000/feed/by_tag/series.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Power Series</title><link href="http://localhost:4000/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>http://localhost:4000/2021/09/21/power-series</id><content type="html" xml:base="http://localhost:4000/2021/09/21/power-series.html">&lt;blockquote&gt;
+  &lt;p&gt;Recall that in the previous post, &lt;a href=&quot;/2021/09/06/infinite-series-of-constants.html&quot;&gt;Infinite Series of Constants&lt;/a&gt;, we mentioned a type of series called &lt;strong&gt;power series&lt;/strong&gt; a lot. In the content of this post, we will be diving deeper into details of that series.&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;!-- excerpt-end --&gt;
@@ -51,13 +51,13 @@
 where the coefficient $a_n$ are constants and $x$ is a variable.&lt;/p&gt;
 
 &lt;h2 id=&quot;int-conv&quot;&gt;The Interval of Convergence&lt;/h2&gt;
-&lt;p&gt;Similar to what we have done in the post of &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html&quot;&gt;infinite series of constants&lt;/a&gt;, we begin studying properties of power series by considering their convergence behavior.&lt;/p&gt;
+&lt;p&gt;Similar to what we have done in the post of &lt;a href=&quot;/2021/09/06/infinite-series-of-constants.html&quot;&gt;infinite series of constants&lt;/a&gt;, we begin studying properties of power series by considering their convergence behavior.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Lemma 1&lt;/strong&gt;&lt;br /&gt;
-&lt;em&gt;If a power series $\sum a_nx^n$ converges at $x_1$, with $x_1\neq 0$, then it converges &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#abs-conv&quot;&gt;absolutely&lt;/a&gt; at all $x$ with $\vert x\vert&amp;lt;\vert x_1\vert$; and if it diverges at $x_1$, then it diverges at all $x$ with $\vert x\vert&amp;gt;\vert x_1\vert$.&lt;/em&gt;&lt;/p&gt;
+&lt;em&gt;If a power series $\sum a_nx^n$ converges at $x_1$, with $x_1\neq 0$, then it converges &lt;a href=&quot;/2021/09/06/infinite-series-of-constants.html#abs-conv&quot;&gt;absolutely&lt;/a&gt; at all $x$ with $\vert x\vert&amp;lt;\vert x_1\vert$; and if it diverges at $x_1$, then it diverges at all $x$ with $\vert x\vert&amp;gt;\vert x_1\vert$.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;br /&gt;
-By the &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#nth-term-test&quot;&gt;$n$-th term test&lt;/a&gt;, we have that if $\sum a_nx^n$ converges, then $a_nx^n\to 0$. In particular, if $n$ is sufficiently large, then $\vert a_n{x_1}^n\vert&amp;lt;1$, and therefore
+By the &lt;a href=&quot;/2021/09/06/infinite-series-of-constants.html#nth-term-test&quot;&gt;$n$-th term test&lt;/a&gt;, we have that if $\sum a_nx^n$ converges, then $a_nx^n\to 0$. In particular, if $n$ is sufficiently large, then $\vert a_n{x_1}^n\vert&amp;lt;1$, and therefore
 \begin{equation}
 \vert a_nx^n\vert=\vert a_n{x_1}^n\vert\left\vert\dfrac{x}{x_1}\right\vert^n&amp;lt;r^n,\tag{1}\label{1}
 \end{equation}
@@ -65,9 +65,9 @@ where $r=\vert\frac{x}{x_1}\vert$. Suppose that $\vert x\vert&amp;lt;\vert x_1\v
 \begin{equation}
 r=\left\vert\dfrac{x}{x_1}\right\vert&amp;lt;1,
 \end{equation}
-which leads to the result that geometric series $\sum r^n$ converges (with the sum $\frac{1}{1-r}$). And hence, from \eqref{1} and by the &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#comparison-test&quot;&gt;comparison test&lt;/a&gt;, the series $\sum\vert a_nx^n\vert$ also converges.&lt;/p&gt;
+which leads to the result that geometric series $\sum r^n$ converges (with the sum $\frac{1}{1-r}$). And hence, from \eqref{1} and by the &lt;a href=&quot;/2021/09/06/infinite-series-of-constants.html#comparison-test&quot;&gt;comparison test&lt;/a&gt;, the series $\sum\vert a_nx^n\vert$ also converges.&lt;/p&gt;
 
-&lt;p&gt;Moreover, if $\sum a_n{x_1}^n$ diverges, then $\sum\vert a_n{x_1}^n\vert$ also diverges. By the &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#comparison-test&quot;&gt;comparison test&lt;/a&gt;, for any $x$ such that $\vert x\vert&amp;gt;\vert x_1\vert$, we also have that $\sum\vert a_nx^n\vert$ diverges. This leads to the divergence of $\sum a_nx^n$, because if the series $\sum a_nx^n$ converges, so does $\sum\vert a_nx^n\vert$, which contradicts to our result.&lt;/p&gt;
+&lt;p&gt;Moreover, if $\sum a_n{x_1}^n$ diverges, then $\sum\vert a_n{x_1}^n\vert$ also diverges. By the &lt;a href=&quot;/2021/09/06/infinite-series-of-constants.html#comparison-test&quot;&gt;comparison test&lt;/a&gt;, for any $x$ such that $\vert x\vert&amp;gt;\vert x_1\vert$, we also have that $\sum\vert a_nx^n\vert$ diverges. This leads to the divergence of $\sum a_nx^n$, because if the series $\sum a_nx^n$ converges, so does $\sum\vert a_nx^n\vert$, which contradicts to our result.&lt;/p&gt;
 
 &lt;p&gt;These are some main facts about the convergence behavior of an arbitrary power series and some properties of its:&lt;/p&gt;
 &lt;ul&gt;
@@ -97,7 +97,7 @@ In order to find the interval of convergence of a series, we begin by identifyin
 \begin{equation}
 \lim_{n\to\infty}\dfrac{\vert a_{n+1}x^{n+1}\vert}{a_nx^n}=\lim_{n\to\infty}\left\vert\dfrac{a_{n+1}}{a_n}\right\vert.\vert x\vert=\dfrac{\vert x\vert}{\lim_{n\to\infty}\left\vert\frac{a_n}{a_{n+1}}\right\vert}=L
 \end{equation}
-By the &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#ratio-test&quot;&gt;ratio test&lt;/a&gt;, we have $\sum a_nx^n$ converges absolutely if $L&amp;lt;1$ and diverges in case of $L&amp;gt;1$. Or in other words, the series converges absolutely if
+By the &lt;a href=&quot;/2021/09/06/infinite-series-of-constants.html#ratio-test&quot;&gt;ratio test&lt;/a&gt;, we have $\sum a_nx^n$ converges absolutely if $L&amp;lt;1$ and diverges in case of $L&amp;gt;1$. Or in other words, the series converges absolutely if
 \begin{equation}
 \vert x\vert&amp;lt;\lim_{n\to\infty}\left\vert\dfrac{a_n}{a_{n+1}}\right\vert,
 \end{equation}
@@ -166,14 +166,14 @@ This implies that
 \begin{equation}
 \vert na_nx^{n-1}\vert\leq\vert a_n\left(\vert x\vert+\epsilon\right)^n\vert
 \end{equation}
-By the &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#comparison-test&quot;&gt;comparison test&lt;/a&gt;, we have that the series $\sum\vert na_nx^{n-1}\vert$ converges, and so does $\sum na_nx^{n-1}$.&lt;/p&gt;
+By the &lt;a href=&quot;/2021/09/06/infinite-series-of-constants.html#comparison-test&quot;&gt;comparison test&lt;/a&gt;, we have that the series $\sum\vert na_nx^{n-1}\vert$ converges, and so does $\sum na_nx^{n-1}$.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Since $\sum\vert a_nx^n\vert$ converges and
 \begin{equation}
 \left\vert\dfrac{a_nx^n}{n+1}\right\vert\leq\vert a_nx^n\vert,
 \end{equation}
-the &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#comparison-test&quot;&gt;comparison test&lt;/a&gt; implies that $\sum\left\vert\frac{a_nx^n}{n+1}\right\vert$ converges, and therefore
+the &lt;a href=&quot;/2021/09/06/infinite-series-of-constants.html#comparison-test&quot;&gt;comparison test&lt;/a&gt; implies that $\sum\left\vert\frac{a_nx^n}{n+1}\right\vert$ converges, and therefore
 \begin{equation}
 x\sum\frac{a_nx^n}{n+1}=\sum\frac{1}{n+1}a_nx^{n+1}
 \end{equation}
@@ -337,7 +337,7 @@ Briefly, we have multiplied \eqref{12} and \eqref{13} to obtain
 \begin{equation}
 f(x)g(x)=\sum_{n=0}^{\infty}\left(\sum_{k=0}^{n}a_kb_{n-k}\right)x^n\tag{14}\label{14}
 \end{equation}
-By the &lt;strong&gt;Theorem 10&lt;/strong&gt; from &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#abs-vs-cond&quot;&gt;Absolute vs Conditionally Convergence&lt;/a&gt;, we have that this product of the series \eqref{12} and \eqref{13} actually converges on the interval $(-R,R)$ to the product of the functions $f(x)$ and $g(x)$, as indicated by \eqref{14}.&lt;/p&gt;
+By the &lt;strong&gt;Theorem 10&lt;/strong&gt; from &lt;a href=&quot;/2021/09/06/infinite-series-of-constants.html#abs-vs-cond&quot;&gt;Absolute vs Conditionally Convergence&lt;/a&gt;, we have that this product of the series \eqref{12} and \eqref{13} actually converges on the interval $(-R,R)$ to the product of the functions $f(x)$ and $g(x)$, as indicated by \eqref{14}.&lt;/p&gt;
 
 &lt;h3 id=&quot;div&quot;&gt;Division&lt;/h3&gt;
 &lt;p&gt;With the two series \eqref{12} and \eqref{13}, we have
@@ -435,7 +435,7 @@ This is true for each $x$ individually, and is an equivalent way of expressing t
 \begin{align}
 \vert R_n(x)\vert&amp;amp;=\left\vert a_{n+1}x^{n+1}+a_{n+2}x^{n+2}+\ldots\right\vert \\ &amp;amp;\leq\left\vert a_{n+1}x^{n+1}\right\vert+\left\vert a_{n+2}x^{n+2}\right\vert+\ldots \\ &amp;amp;\leq\left\vert a_{n+1}{x_1}^{n+1}\right\vert+\left\vert a_{n+2}{x_1}^{n+2}\right\vert+\ldots
 \end{align}
-Because of the &lt;a href=&quot;/mathematics/calculus/2021/09/06/infinite-series-of-constants.html#abs-conv&quot;&gt;absolute convergence&lt;/a&gt; of $\sum a_n{x_1}^n$, the last sum can be made $&amp;lt;\epsilon$ by taking $n$ large enough, $n\geq n_0$. Therefore, we have that \eqref{17} holds for all $x$ inside the closed interval $\vert x\vert\leq\vert x_1\vert$ inside the interval of convergence $(-R,R)$.&lt;/p&gt;
+Because of the &lt;a href=&quot;/2021/09/06/infinite-series-of-constants.html#abs-conv&quot;&gt;absolute convergence&lt;/a&gt; of $\sum a_n{x_1}^n$, the last sum can be made $&amp;lt;\epsilon$ by taking $n$ large enough, $n\geq n_0$. Therefore, we have that \eqref{17} holds for all $x$ inside the closed interval $\vert x\vert\leq\vert x_1\vert$ inside the interval of convergence $(-R,R)$.&lt;/p&gt;
 
 &lt;p&gt;Or in other words, $R_n(x)$ can be made small &lt;em&gt;independently of $x$ in the given closed interval&lt;/em&gt; $\vert x\vert\leq\vert x_1\vert$, which is equivalent to saying that the series $\sum a_nx^n$ is &lt;strong&gt;uniformly convergent&lt;/strong&gt; in this interval&lt;sup id=&quot;fnref:4&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:4&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
 
@@ -568,7 +568,7 @@ f’(c)=\frac{f(b)-f(a)}{b-a}
       &lt;p&gt;We will talk more about uniform convergence in the post of sequences. &lt;a href=&quot;#fnref:4&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="calculus" /><category term="mathematics" /><category term="calculus" /><category term="series" /><category term="power-series" /><category term="taylor-series" /><category term="random-stuffs" /><summary type="html">Recall that in the previous post, Infinite Series of Constants, we mentioned a type of series called power series a lot. In the content of this post, we will be diving deeper into details of that series.</summary></entry><entry><title type="html">Infinite Series of Constants</title><link href="http://localhost:4000/mathematics/calculus/2021/09/06/infinite-series-of-constants.html" rel="alternate" type="text/html" title="Infinite Series of Constants" /><published>2021-09-06T11:20:00+07:00</published><updated>2021-09-06T11:20:00+07:00</updated><id>http://localhost:4000/mathematics/calculus/2021/09/06/infinite-series-of-constants</id><content type="html" xml:base="http://localhost:4000/mathematics/calculus/2021/09/06/infinite-series-of-constants.html">&lt;blockquote&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="calculus" /><category term="series" /><category term="power-series" /><category term="taylor-series" /><category term="random-stuffs" /><summary type="html">Recall that in the previous post, Infinite Series of Constants, we mentioned a type of series called power series a lot. In the content of this post, we will be diving deeper into details of that series.</summary></entry><entry><title type="html">Infinite Series of Constants</title><link href="http://localhost:4000/2021/09/06/infinite-series-of-constants.html" rel="alternate" type="text/html" title="Infinite Series of Constants" /><published>2021-09-06T11:20:00+07:00</published><updated>2021-09-06T11:20:00+07:00</updated><id>http://localhost:4000/2021/09/06/infinite-series-of-constants</id><content type="html" xml:base="http://localhost:4000/2021/09/06/infinite-series-of-constants.html">&lt;blockquote&gt;
   &lt;p&gt;A note on infinite series of constants.&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -1426,7 +1426,7 @@ which lets us conclude that the series \eqref{30} converges.&lt;/p&gt;
 &lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
   &lt;ol&gt;
     &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;We will be going through power series in more detailed in another &lt;a href=&quot;/mathematics/calculus/2021/09/21/power-series.html&quot;&gt;post&lt;/a&gt;. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;We will be going through power series in more detailed in another &lt;a href=&quot;/2021/09/21/power-series.html&quot;&gt;post&lt;/a&gt;. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:2&quot; role=&quot;doc-endnote&quot;&gt;
       &lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt; (&lt;em&gt;Stolz–Cesaro&lt;/em&gt;)&lt;br /&gt;
@@ -1440,4 +1440,4 @@ implies
 \end{equation}&lt;/em&gt; &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="calculus" /><category term="mathematics" /><category term="calculus" /><category term="series" /><category term="random-stuffs" /><summary type="html">A note on infinite series of constants.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="calculus" /><category term="series" /><category term="random-stuffs" /><summary type="html">A note on infinite series of constants.</summary></entry></feed>

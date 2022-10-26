@@ -2,7 +2,6 @@
 layout: post
 title:  "Markov Chain"
 date:   2021-06-19 22:27:00 +0700
-categories: mathematics probability-statistics
 tags: mathematics probability-statistics random-stuffs
 description: A non-formal Markov chain definition
 comments: true
