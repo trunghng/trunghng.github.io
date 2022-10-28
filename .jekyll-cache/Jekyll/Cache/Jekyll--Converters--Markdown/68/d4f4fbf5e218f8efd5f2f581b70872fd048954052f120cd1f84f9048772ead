@@ -1,0 +1,243 @@
+I"�U<blockquote>
+  <p><strong>Natural evolution strategies</strong>, or <strong>NES</strong>, are referred to a family of evolution strategies that throughout its generations update a search distribution repeatedly using an estimated gradient of its distribution parameters.</p>
+</blockquote>
+
+<!-- excerpt-end -->
+<ul>
+  <li><a href="#search-grad">Search gradients</a>
+    <ul>
+      <li><a href="search-grad-gauss">Search gradients for MVN</a></li>
+      <li><a href="ntr-grad">Natural gradient</a></li>
+    </ul>
+  </li>
+  <li><a href="#rbn-tchnq">Robustness techniques</a>
+    <ul>
+      <li><a href="#fn-shp">Fitness shaping</a></li>
+      <li><a href="#adp-sampl">Adaption sampling</a></li>
+    </ul>
+  </li>
+  <li><a href="rot-sym-dist">Rotationally symmetric distributions</a>
+    <ul>
+      <li><a href="#ntr-coords">Natural coordinates</a></li>
+    </ul>
+  </li>
+  <li><a href="#test-on-rast">Testing on Rastrigin function</a></li>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h2 id="search-grad">Search gradients</h2>
+<p>Usually when working on <strong>Evolution Strategy</strong> methods, we select some candidate solutions, which generate better fitness values than the other ones, to be parents of the next generation. This means, majority of solution samples have been wasted since they may contain some useful information.</p>
+
+<p>To utilize the use all fitness samples, the <strong>NES</strong> uses <strong>search gradients</strong> in updating the parameters for the search distribution.</p>
+
+<p>Let $\mathbf{z}\in\mathbb{R}^n$ denote the solution sampled from the distribution $\pi(\mathbf{z},\theta)$ and let $f:\mathbb{R}^n\to\mathbb{R}$ be the fitness (or objective) function. The expected fitness value is then given by
+\begin{equation}
+J(\theta)=\mathbb{E}_\theta[f(\mathbf{z})]=\int f(\mathbf{z})\pi(\mathbf{z}\vert\theta)\,d\mathbf{z}\label{eq:sg.1}
+\end{equation}
+Taking the gradient of the above function w.r.t $\theta$ using the <strong>log-likelihood trick</strong> as in <a href="/2022/05/04/policy-gradient.html#reinforce">REINFORCE</a> gives us
+\begin{align}
+\nabla_\theta J(\theta)&amp;=\nabla_\theta\int f(\mathbf{z})\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\ &amp;=\int f(\mathbf{z})\nabla_\theta\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\ &amp;=\int f(\mathbf{z})\nabla_\theta\pi(\mathbf{z}\vert\theta)\frac{\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}\,d\mathbf{z} \\ &amp;=\int\left[f(\mathbf{z})\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\right]\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\ &amp;=\mathbb{E}_\theta\left[f(\mathbf{z})\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\right]
+\end{align}
+Using Monte Carlo method, given samples $\mathbf{z}_1,\ldots,\mathbf{z}_\lambda$ from the population of size $\lambda$, the search gradient is then can be approximated by
+\begin{equation}
+\nabla_\theta J(\theta)\approx\frac{1}{\lambda}\sum_{k=1}^{\lambda}f(\mathbf{z}_k)\nabla_\theta\log\pi(\mathbf{z}_k\vert\theta)\label{eq:sg.2}
+\end{equation}
+Given this gradient w.r.t $\theta$, we then can use a gradient-based method to repeatedly update the parameter $\theta$ in order to give us a more desired search distribution. In particular, we can use such as SGD method
+\begin{equation}
+\theta\leftarrow\theta+\alpha\nabla_\theta J(\theta),\label{eq:sg.3}
+\end{equation}
+where $\alpha$ is the learning rate.</p>
+
+<h3 id="search-grad-gauss">Search gradients for MVN</h3>
+<p>Consider the case that our search distribution $\pi(\mathbf{z}\vert\theta)$ is in form of a Multivariate Normal  distribution, $\mathbf{z}\sim\mathcal{N}(\boldsymbol{\mu},\boldsymbol{\Sigma})$, where $\boldsymbol{\mu}\in\mathbb{R}^n$ and $\boldsymbol{\Sigma}\in\mathbb{R}^{n\times n}$.</p>
+
+<p>In this case $\theta=(\boldsymbol{\mu},\boldsymbol{\Sigma})$ denotes a tuple of parameters for the search distribution, which is given by
+\begin{equation}
+\pi(\mathbf{z}\vert\theta)=\frac{1}{(2\pi)^{n/1}\left\vert\boldsymbol{\Sigma}\right\vert^{1/2}}\exp\left[-\frac{1}{2}\left(\mathbf{z}-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}-\boldsymbol{\mu}\right)\right]
+\end{equation}
+Taking natural logarithm of both sides then gives us
+\begin{align}
+\log\pi(\mathbf{z}\vert\theta)&amp;=\log\left(\frac{1}{(2\pi)^{n/1}\left\vert\boldsymbol{\Sigma}\right\vert^{1/2}}\exp\left[-\frac{1}{2}\left(\mathbf{z}-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}-\boldsymbol{\mu}\right)\right]\right) \\ &amp;=-\frac{n}{2}\log(2\pi)-\frac{1}{2}\log\vert\boldsymbol{\Sigma}\vert-\frac{1}{2}\left(\mathbf{z}-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}-\boldsymbol{\mu}\right)
+\end{align}
+We continue by differentiating the above log-likelihood w.r.t $\boldsymbol{\mu}$ and $\boldsymbol{\Sigma}$. Starting with $\boldsymbol{\mu}$, the gradient is given by
+\begin{align}
+\nabla_\boldsymbol{\mu}\log\pi(\mathbf{z}\vert\theta)&amp;=\nabla_\boldsymbol{\mu}\left(-\frac{n}{2}\log(2\pi)-\frac{1}{2}\log\vert\boldsymbol{\Sigma}\vert-\frac{1}{2}\left(\mathbf{z}-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}-\boldsymbol{\mu}\right)\right) \\ &amp;=-\frac{1}{2}\nabla_\boldsymbol{\mu}\left(\mathbf{z}-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}-\boldsymbol{\mu}\right) \\ &amp;=\boldsymbol{\Sigma}^{-1}(\mathbf{z}-\boldsymbol{\mu})
+\end{align}
+And the gradient w.r.t $\boldsymbol{\Sigma}$ is computed as
+\begin{align}
+\nabla_\boldsymbol{\Sigma}\pi(\mathbf{z}\vert\theta)&amp;=\nabla_\boldsymbol{\Sigma}\left(-\frac{n}{2}\log(2\pi)-\frac{1}{2}\log\vert\boldsymbol{\Sigma}\vert-\frac{1}{2}\left(\mathbf{z}-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}-\boldsymbol{\mu}\right)\right) \\ &amp;=-\frac{1}{2}\nabla_\boldsymbol{\Sigma}\left(\mathbf{z}-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}-\boldsymbol{\mu}\right) \\ &amp;=\frac{1}{2}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}-\boldsymbol{\mu}\right)\left(\mathbf{z}-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}-\frac{1}{2}\boldsymbol{\Sigma}^{-1}
+\end{align}
+The SGD update \eqref{eq:sg.3} now is applied for each of $\boldsymbol{\mu}$ and $\boldsymbol{\Sigma}$ as
+\begin{align}
+\boldsymbol{\mu}&amp;\leftarrow\boldsymbol{\mu}+\alpha\nabla_\boldsymbol{\mu}J(\theta) \\ &amp;\leftarrow\boldsymbol{\mu}+\alpha\frac{1}{\lambda}\sum_{k=1}^{\lambda}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}_k-\boldsymbol{\mu}\right)f(\mathbf{z}_k)
+\end{align}
+and
+\begin{align}
+\boldsymbol{\Sigma}&amp;\leftarrow\boldsymbol{\Sigma}+\alpha\nabla_\boldsymbol{\Sigma}J(\theta) \\ &amp;\leftarrow\boldsymbol{\Sigma}+\alpha\frac{1}{\lambda}\sum_{k=1}^{\lambda}\left[\frac{1}{2}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}_k-\boldsymbol{\mu}\right)\left(\mathbf{z}_k-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}-\frac{1}{2}\boldsymbol{\Sigma}^{-1}\right]f(\mathbf{z}_k)
+\end{align}</p>
+
+<h3 id="ntr-grad">Natural gradient</h3>
+<p>The <strong>natural gradient</strong> searches for the direction based on the distance between distributions $\pi(\mathbf{z}\vert\theta)$ and $\pi(\mathbf{z}\vert\theta’)$. One natural measure of distance between probability distributions is the <strong>Kullback-Leibler divergence</strong>, or <strong>KL divergence</strong>.</p>
+
+<p>In other words, our work is to look for the direction of updating gradient, denoted as $\delta\theta$, such that
+\begin{align}
+\max_{\delta\theta}&amp;\,J(\theta+\delta\theta)\approx J(\theta)+\delta\theta^\text{T}\nabla_\theta J \\ \text{s.t.}&amp;\,D(\theta\Vert\theta+\delta\theta)=\varepsilon,
+\end{align}
+where $J(\theta)$ is given as in \eqref{eq:sg.1}; $\varepsilon$ is a small increment size; and where $D(\theta+\delta\theta\Vert\theta)$ is the KL divergence of $\pi(\mathbf{z}\vert\theta+\delta\theta)$ from $\pi(\mathbf{z}\vert\theta)$, defined as
+\begin{align}
+D(\theta\Vert\theta+\delta\theta)&amp;=\int\pi(\mathbf{z}\vert\theta)\log\frac{\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta+\delta\theta)}\,d\mathbf{z} \\ &amp;=\mathbb{E}_{\theta}\big[\log\pi(\mathbf{z}\vert\theta)-\log\pi(\mathbf{z}\vert\theta+\delta)\big]\label{eq:ng.1}
+\end{align}
+As $\delta\theta\to 0$, or in other words, consider the Taylor expansion of \eqref{eq:ng.1} about $\delta\theta=0$, we have
+\begin{align}
+&amp;\hspace{-1cm}D(\theta+\delta\theta\Vert\theta)\nonumber \\ &amp;\hspace{-0.8cm}=\mathbb{E}_{\theta}\big[\log\pi(\mathbf{z}\vert\theta)-\log\pi(\mathbf{z}\vert\theta+\delta\theta)\big] \\ &amp;\hspace{-0.8cm}\approx\mathbb{E}_\theta\left[\log\pi(\mathbf{z}\vert\theta)-\left(\log\pi(\mathbf{z}\vert\theta)+\delta\theta^\text{T}\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}+\frac{1}{2}\delta\theta^\text{T}\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}\left(\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}\right)^\text{T}\delta\theta\right)\right] \\ &amp;\hspace{-0.8cm}=-\mathbb{E}_\theta\left[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)+\frac{1}{2}\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\right] \\ &amp;\hspace{-0.8cm}=-\mathbb{E}_\theta\Big[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\Big]-\mathbb{E}_\theta\left[\frac{1}{2}\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\right] \\ &amp;\hspace{-0.8cm}=-\frac{1}{2}\int\pi(\mathbf{z}\vert\theta)\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\,d\mathbf{z} \\ &amp;\hspace{-0.8cm}=-\frac{1}{2}\delta\theta^\text{T}\mathbf{F}\delta\theta\label{eq:ng.2}
+\end{align}
+where in the fifth step, we have used that
+\begin{align}
+\mathbb{E}_\theta\Big[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\Big]&amp;=\delta\theta^\text{T}\int\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\ &amp;=\delta\theta^\text{T}\int\pi(\mathbf{z}\vert\theta)\frac{1}{\pi(\mathbf{z}\vert\theta)}\nabla_\theta\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\ &amp;=\delta\theta^\text{T}\nabla_\theta\int\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\ &amp;=\delta\theta^\text{T}\nabla_\theta 1=0
+\end{align}</p>
+
+<p>The matrix $\mathbf{F}$ in \eqref{eq:ng.2} is known as the <strong>Fisher information matrix</strong> of the given parametric family of search distributions, defined as
+\begin{align}
+\mathbf{F}&amp;=\int\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\,d\mathbf{z} \\ &amp;=\mathbb{E}_\theta\big[\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\big]
+\end{align}
+Hence, we have the Lagrangian of our constrained optimization problem is
+\begin{align}
+\mathcal{L}(\theta,\delta\theta,\lambda)&amp;=J(\theta)+\delta\theta^\text{T}\nabla_\theta J(\theta)+\lambda\big(D(\theta+\delta\theta\Vert\theta)-\varepsilon\big) \\ &amp;=J(\theta)+\delta\theta^\text{T}\nabla_\theta J(\theta)-\lambda\left(\frac{1}{2}\delta\theta^\text{T}\mathbf{F}\delta\theta+\varepsilon\right),
+\end{align}
+where $\lambda&gt;0$ is the Lagrange multiplier.</p>
+
+<p>It is easily seen that $\mathbf{F}$ is symmetric, thus taking the gradient of the Lagrangian w.r.t $\delta\theta$ and setting it to zero gives us
+\begin{equation}
+\lambda\mathbf{F}\delta\theta=\nabla_\theta J(\theta)
+\end{equation}
+If the Fisher information matrix $\mathbf{F}$ is invertible, the solution for $\delta\theta$ that maximizes $\mathcal{L}$ then can be computed as
+\begin{equation}
+\delta\theta=\frac{1}{\lambda}\mathbf{F}^{-1}\nabla_\theta J(\theta),\label{eq:ng.3}
+\end{equation}
+which defines the direction of the natural gradient $\tilde{\nabla}_\theta J(\theta)$. Since $\lambda&gt;0$ we therefore obtain
+\begin{equation}
+\tilde{\nabla}_\theta J(\theta)=\mathbf{F}^{-1}\nabla_\theta J(\theta)
+\end{equation}
+Continue with the value of $\delta\theta$ given in \eqref{eq:ng.3}, the dual function of our optimization is given as
+\begin{align}
+g(\lambda)&amp;=J(\theta)+\frac{1}{\lambda}\nabla_\theta J(\theta)^\text{T}\mathbf{F}^{-1}\nabla_\theta  J(\theta)-\frac{1}{2}\frac{\lambda}{\lambda^2}\nabla_\theta J(\theta)^\text{T}\mathbf{F}^{-1}\mathbf{F}\mathbf{F}^{-1}\nabla_\theta J(\theta)-\lambda\varepsilon \\ &amp;=J(\theta)+\frac{1}{2}\lambda^{-1}\nabla_\theta J(\theta)^\text{T}\mathbf{F}^{-1}\nabla_\theta J(\theta)-\lambda\varepsilon
+\end{align}
+Taking the gradient of $g$ w.r.t $\lambda$ and setting it to zero and since $\varepsilon&lt;0$ small gives us the solution for $\lambda$, which is
+\begin{equation}
+\lambda=\sqrt{\frac{\nabla_\theta J(\theta)^\text{T}\mathbf{F}^{-1}\nabla_\theta J(\theta)}{\varepsilon}},
+\end{equation}
+Hence, the SGD update for the parameter $\theta$ using natural gradient is
+\begin{equation}
+\theta\leftarrow\theta+\eta\tilde{\nabla}_\theta J(\theta)=\theta+\eta\mathbf{F}^{-1}\nabla_\theta J(\theta),\label{eq:ng.4}
+\end{equation}
+where $\eta$ is the learning rate, given as
+\begin{equation}
+\eta=\lambda^{-1}=\sqrt{\frac{\varepsilon}{\nabla_\theta J(\theta)^\text{T}\mathbf{F}^{-1}\nabla_\theta J(\theta)}}
+\end{equation}
+This learning rate can also be replaced by a more desirable one without changing the direction of our update.</p>
+
+<h2 id="rbn-tchnq">Robustness techniques</h2>
+
+<h3 id="fn-shp">Fitness shaping</h3>
+<p>NES uses the so-called <strong>fitness shaping</strong> technique, which helps to avoid early convergence due to the possible affection of outliers fitness value in \eqref{eq:sg.2}, e.g. there may exist an outlier whose fitness value, says $f(\mathbf{z}_i)$, is much greater than other solutions’ ones, $\{f(\mathbf{z}_k)\}_{k\neq i}$.</p>
+
+<p>Rather than using fitness values $f(\mathbf{z}_k)$ in approximating the gradient in \eqref{eq:sg.2}, fitness shaping instead applies a rank-based transformation of $f(\mathbf{z}_k)$.</p>
+
+<p>In particular, let $\mathbf{z}_{k:\lambda}$ denote the $k$-th best sample out of the population of size $\lambda$, $\mathbf{z}_1,\ldots,\mathbf{z}_\lambda$, i.e. $f(\mathbf{z}_{1:\lambda})\geq\ldots\geq f(\mathbf{z}_{\lambda:\lambda})$, the gradient estimate \eqref{eq:sg.2} now is rewritten as
+\begin{equation}
+\nabla_\theta J(\theta)=\sum_{k=1}^{\lambda}u_k\nabla_\theta\log\pi(\mathbf{z}_{k:\lambda}\vert\theta),
+\end{equation}
+where $u_1\geq\ldots\geq u_\lambda$ are referred as <strong>utility values</strong>, which are preserved-order transformations of $f(\mathbf{z}_{1:\lambda}),\ldots,f(\mathbf{z}_{\lambda:\lambda})$.</p>
+
+<p>The choice for utility function $u$ is a free parameter of the algorithm. In the original paper, the author proposed
+\begin{equation}
+u_k=\frac{\max\left(0,\log\left(\frac{\lambda}{2}+1\right)-\log k\right)}{\sum_{j=1}^{\lambda}\max\left(0,\log\left(\frac{\lambda}{2}+1\right)-\log j\right)}-\frac{1}{\lambda}
+\end{equation}</p>
+
+<h3 id="adp-sampl">Adaption sampling</h3>
+<p>Beside fitness shaping, NES also applies another heuristic, called <strong>adaption sampling</strong>, to make the performance more robustly. This technique lets the algorithm determine the appropriate hyperparameters (in this case, NES chooses the learning rate $\eta$ be the one to adapt) more quickly.</p>
+
+<p>In particular, for a successive parameter $\theta’$ of $\theta$, the corresponding learning rate $\eta$ used in its update \eqref{eq:ng.4} will be determined by comparing samples $\mathbf{z}’$ sampled from $\pi_\theta’$ with samples $\mathbf{z}$ sampled from $\pi_\theta$ according to a <strong>Mann-Whitney U-test</strong>.</p>
+
+<h2 id="rot-sym-dist">Rotationally symmetric distributions</h2>
+<p>The <strong>rotationally-symmetric distributions</strong> refers to distribution $p(\mathbf{x})$ such that
+\begin{equation}
+p(\mathbf{x})=p(\mathbf{U}\mathbf{x}),\label{eq:rsd.1}
+\end{equation}
+for all $\mathbf{x}\in\mathbb{R}^n$ and for all orthogonal matrices $\mathbf{U}\in\mathbb{R}^{n\times n}$.</p>
+
+<p>Let $Q_\boldsymbol{\tau}(\mathbf{z})$ be a family of rotationally-symmetric distributions in $\mathbb{R}^n$ parameterized by $\boldsymbol{\tau}$. The property  \eqref{eq:rsd.1} allows us to represent $Q_\boldsymbol{\tau}(\mathbf{z})$ as
+\begin{equation}
+Q_\boldsymbol{\tau}(\mathbf{z})=q_\boldsymbol{\tau}(\Vert\mathbf{z}\Vert^2),
+\end{equation}
+for some family of functions $q_\boldsymbol{\tau}:\mathbb{R}_+\to\mathbb{R}_+$.</p>
+
+<p>Consider the classes of search distributions in a form of
+\begin{align}
+\pi(\mathbf{z}\vert\boldsymbol{\mu},\boldsymbol{\Sigma},\boldsymbol{\tau})&amp;=\frac{1}{\vert\mathbf{A}\vert}q_\boldsymbol{\tau}\left(\left\Vert(\mathbf{A}^{-1})^\text{T}(\mathbf{z}-\boldsymbol{\mu})\right\Vert^2\right) \\ &amp;=\frac{1}{\left\vert\mathbf{A}^\text{T}\mathbf{A}\right\vert^{1/2}}q_\boldsymbol{\tau}\left((\mathbf{z}-\boldsymbol{\mu})^\text{T}(\mathbf{A}^\text{T}\mathbf{A})^{-1}(\mathbf{z}-\boldsymbol{\mu})\right),\label{eq:rsd.2}
+\end{align}
+with additional transformation parameters $\boldsymbol{\mu}\in\mathbb{R}^n$ and invertible matrices $\mathbf{A}\in\mathbb{R}^{n\times n}$.</p>
+
+<p>It can be seen that Gaussian and its multivariate form, MVN, can be written in form of $\eqref{eq:rsd.2}$, and thus are members of these classes of distributions.</p>
+
+<h3 id="exp-param">Exponential parameterization</h3>
+<p>By \eqref{eq:ng.4}, the natural gradient update for a multivariate Gaussian search distribution, denoted $\mathcal{N}(\boldsymbol{\mu},\boldsymbol{\Sigma})$, is
+\begin{align}
+\boldsymbol{\mu}&amp;\leftarrow\boldsymbol{\mu}+\eta\mathbf{F}^{-1}\nabla_\boldsymbol{\mu} J(\boldsymbol{\mu},\boldsymbol{\Sigma}), \\ \boldsymbol{\Sigma}&amp;\leftarrow\boldsymbol{\Sigma}+\eta\mathbf{F}^{-1}\nabla_\boldsymbol{\Sigma} J(\boldsymbol{\mu},\boldsymbol{\Sigma})
+\end{align}
+Thus, in updating the covariance matrix $\boldsymbol{\Sigma}$ as above, we have to ensure that $\boldsymbol{\Sigma}+\eta\mathbf{F}^{-1}\nabla_\boldsymbol{\Sigma} J(\boldsymbol{\mu},\boldsymbol{\Sigma})$ is symmetric positive definite.</p>
+
+<p>To accomplish this, we may represent the covariance matrix using the <strong>exponential parameterization</strong> for symmetric matrices. In particular, let
+\begin{equation}
+\mathcal{S}_n\doteq\{\mathbf{M}\in\mathbb{R}^{n\times n}:\mathbf{M}=\mathbf{M}^\text{T}\}
+\end{equation}
+denote the set of symmetric matrices of $\mathbb{R}^{n\times n}$ and let
+\begin{equation}
+\mathcal{P}_n\doteq\{\mathbf{M}\in\mathcal{S}_n:\mathbf{M}\succ 0\}
+\end{equation}
+represent the cone of symmetric positive definite matrices of $\mathbb{R}^{n\times n}$.</p>
+
+<p>Using Taylor expansion for the exponential function, we then have the exponential map $\exp:\mathcal{S}_n\to\mathcal{P}_n$ can be written as
+\begin{equation}
+\exp(\mathbf{M})=\sum_{i=0}^{\infty}\frac{\mathbf{M}^i}{i!},\label{eq:ep.1}
+\end{equation}
+which is <strong>diffeomorphism</strong>, i.e. the map is bijective, plus the map and its inverse map, $\log:\mathcal{P}_n\to\mathcal{S}_n$, both are differentiable.</p>
+
+<p>Therefore, we can represent the covariance matrix $\boldsymbol{\Sigma}\in\mathcal{P}_n$ as
+\begin{equation}
+\boldsymbol{\Sigma}=\exp(\mathbf{M}),\hspace{2cm}\mathbf{M}\in\mathcal{S}_n
+\end{equation}
+This representation lets the gradient update always end up as a valid covariance matrix. However, the computation for the Fisher information matrix $\mathbf{F}$ is consequently more complicated due to require partial derivatives of matrix exponential \eqref{eq:ep.1}.</p>
+
+<h3 id="ntr-coords">Natural coordinates</h3>
+<p>It is noticeable from \eqref{eq:rsd.2} that the dependency of the distribution on $\mathbf{A}$ is only in terms of $\mathbf{A}^\text{T}\mathbf{A}$, which is a symmetric positive semi-definite matrix since for all non-zero vector $\mathbf{x}\in\mathbb{R}^n$ we have
+\begin{equation}
+\mathbf{x}^\text{T}\mathbf{A}^\text{T}\mathbf{A}\mathbf{x}=\Vert\mathbf{A}\mathbf{x}\Vert^2\geq 0
+\end{equation}
+In the case of MVN, this matrix corresponds to the covariance matrix.</p>
+
+<p>Therefore, rather than using exponential mapping in updating the positive definite matrices $\mathbf{A}^\text{T}\mathbf{A}$, we repeatedly linear transform the coordinate system in each iteration to a coordinate system in which the calculation for $\mathbf{F}$ is trivial.</p>
+
+<p>Specifically, let the current search distribution be given by $(\boldsymbol{\mu},\mathbf{A})$, we use exponential local coordinates
+\begin{equation}
+(\boldsymbol{\delta},\mathbf{M})\mapsto(\boldsymbol{\mu}_\text{new},\mathbf{A}_\text{new})=\left(\boldsymbol{\mu}+\mathbf{A}^\text{T}\boldsymbol{\delta},\mathbf{A}\exp\left(\frac{1}{2}\mathbf{M}\right)\right)
+\end{equation}
+This coordinate system is local in the sense that the coordinates $(\boldsymbol{\delta},\mathbf{M})=(0,0)$ is mapped to $(\boldsymbol{\mu},\mathbf{A})$.</p>
+
+<p>For the case that $\tau\in\mathbb{R}^{n’}$, $\boldsymbol{\delta}\in\mathbb{R}^n$ and $\mathbf{M}\in\mathbb{R}^{n(n+1)/2}$, the Fisher information matrix $\mathbf{F}$ in this coordinate system is an $m\times m$ matrix, for $m=n+n(n+1)/2+n’=n(n+3)/2+n’$, and is given as
+\begin{equation}
+\mathbf}
+\end{equation}</p>
+
+<h2 id="test-on-rast">Testing on Rastrigin function</h2>
+
+<h2 id="references">References</h2>
+<p>[1] Daan Wierstra, et al. <a href="https://people.idsia.ch/~juergen/nes2008.pdf">Natural Evolution Strategies</a>. IEEE World Congress on Computational Intelligence, 2008.</p>
+
+<p>[2] Daan Wierstra, et al. <a href="https://www.jmlr.org/papers/volume15/wierstra14a/wierstra14a.pdf">Natural Evolution Strategies</a>. Journal of Machine Learning Research 15 (2014).</p>
+
+<p>[3] Ha, David. <a href="https://blog.otoro.net/2017/10/29/visual-evolution-strategies/">A Visual Guide to Evolution Strategies</a>. blog.otoro.net, 2017.</p>
+
+<h2 id="footnotes">Footnotes</h2>
+:ET

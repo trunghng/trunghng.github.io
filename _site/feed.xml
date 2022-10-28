@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-26T20:29:11+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-28T19:26:42+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Inverse Reinforcement Learning</title><link href="http://localhost:4000/2022/10/17/irl.html" rel="alternate" type="text/html" title="Inverse Reinforcement Learning" /><published>2022-10-17T13:00:00+07:00</published><updated>2022-10-17T13:00:00+07:00</updated><id>http://localhost:4000/2022/10/17/irl</id><content type="html" xml:base="http://localhost:4000/2022/10/17/irl.html">&lt;blockquote&gt;
   &lt;p&gt;A note on Inverse Reinforcement Learning&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -141,7 +141,12 @@ Hence, we have that
       &lt;li&gt;&lt;a href=&quot;#adp-sampl&quot;&gt;Adaption sampling&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#ntr-grad-mvn&quot;&gt;Natural gradient for MVN&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;rot-sym-dist&quot;&gt;Rotationally symmetric distributions&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#exp-coords&quot;&gt;Exponential local coordinates&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#test-on-rast&quot;&gt;Testing on Rastrigin function&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -276,12 +281,117 @@ u_k=\frac{\max\left(0,\log\left(\frac{\lambda}{2}+1\right)-\log k\right)}{\sum_{
 \end{equation}&lt;/p&gt;
 
 &lt;h3 id=&quot;adp-sampl&quot;&gt;Adaption sampling&lt;/h3&gt;
-&lt;p&gt;Beside fitness shaping, NES also applies another heuristic, called &lt;strong&gt;adaption sampling&lt;/strong&gt;,to make the performance more robustly. This technique lets the algorithm determine the appropriate hyperparameters (in this case, NES chooses the learning rate $\eta$ be the one to adapt) more quickly.&lt;/p&gt;
+&lt;p&gt;Beside fitness shaping, NES also applies another heuristic, called &lt;strong&gt;adaption sampling&lt;/strong&gt;, to make the performance more robustly. This technique lets the algorithm determine the appropriate hyperparameters (in this case, NES chooses the learning rate $\eta$ be the one to adapt) more quickly.&lt;/p&gt;
 
 &lt;p&gt;In particular, for a successive parameter $\theta’$ of $\theta$, the corresponding learning rate $\eta$ used in its update \eqref{eq:ng.4} will be determined by comparing samples $\mathbf{z}’$ sampled from $\pi_\theta’$ with samples $\mathbf{z}$ sampled from $\pi_\theta$ according to a &lt;strong&gt;Mann-Whitney U-test&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;h3 id=&quot;ntr-grad-mvn&quot;&gt;Natural gradient for MVN&lt;/h3&gt;
-&lt;p&gt;When our search distribution is in form of a Mulivariate Normal, the Fisher information matrix $\mathbf{F}$&lt;/p&gt;
+&lt;h2 id=&quot;rot-sym-dist&quot;&gt;Rotationally symmetric distributions&lt;/h2&gt;
+&lt;p&gt;The &lt;strong&gt;rotationally-symmetric distributions&lt;/strong&gt; refers to distribution $p(\mathbf{x})$ such that
+\begin{equation}
+p(\mathbf{x})=p(\mathbf{U}\mathbf{x}),\label{eq:rsd.1}
+\end{equation}
+for all $\mathbf{x}\in\mathbb{R}^n$ and for all orthogonal matrices $\mathbf{U}\in\mathbb{R}^{n\times n}$.&lt;/p&gt;
+
+&lt;p&gt;Let $Q_\boldsymbol{\tau}(\mathbf{z})$ be a family of rotationally-symmetric distributions in $\mathbb{R}^n$ parameterized by $\boldsymbol{\tau}$. The property  \eqref{eq:rsd.1} allows us to represent $Q_\boldsymbol{\tau}(\mathbf{z})$ as
+\begin{equation}
+Q_\boldsymbol{\tau}(\mathbf{z})=q_\boldsymbol{\tau}(\Vert\mathbf{z}\Vert^2),
+\end{equation}
+for some family of functions $q_\boldsymbol{\tau}:\mathbb{R}_+\to\mathbb{R}_+$.&lt;/p&gt;
+
+&lt;p&gt;Consider the classes of search distributions in a form of
+\begin{align}
+\pi(\mathbf{z}\vert\boldsymbol{\mu},\boldsymbol{\Sigma},\boldsymbol{\tau})&amp;amp;=\frac{1}{\vert\mathbf{A}\vert}q_\boldsymbol{\tau}\left(\left\Vert(\mathbf{A}^{-1})^\text{T}(\mathbf{z}-\boldsymbol{\mu})\right\Vert^2\right) \\ &amp;amp;=\frac{1}{\left\vert\mathbf{A}^\text{T}\mathbf{A}\right\vert^{1/2}}q_\boldsymbol{\tau}\left((\mathbf{z}-\boldsymbol{\mu})^\text{T}(\mathbf{A}^\text{T}\mathbf{A})^{-1}(\mathbf{z}-\boldsymbol{\mu})\right),\label{eq:rsd.2}
+\end{align}
+with additional transformation parameters $\boldsymbol{\mu}\in\mathbb{R}^n$ and invertible matrices $\mathbf{A}\in\mathbb{R}^{n\times n}$.&lt;/p&gt;
+
+&lt;p&gt;It can be seen that Gaussian and its multivariate form, MVN, can be written in form of $\eqref{eq:rsd.2}$, and thus are members of these classes of distributions.&lt;/p&gt;
+
+&lt;h3 id=&quot;exp-param&quot;&gt;Exponential parameterization&lt;/h3&gt;
+&lt;p&gt;By \eqref{eq:ng.4}, the natural gradient update for a multivariate Gaussian search distribution, denoted $\mathcal{N}(\boldsymbol{\mu},\boldsymbol{\Sigma})$, is
+\begin{align}
+\boldsymbol{\mu}&amp;amp;\leftarrow\boldsymbol{\mu}+\eta\mathbf{F}^{-1}\nabla_\boldsymbol{\mu} J(\boldsymbol{\mu},\boldsymbol{\Sigma}), \\ \boldsymbol{\Sigma}&amp;amp;\leftarrow\boldsymbol{\Sigma}+\eta\mathbf{F}^{-1}\nabla_\boldsymbol{\Sigma} J(\boldsymbol{\mu},\boldsymbol{\Sigma})
+\end{align}
+Thus, in updating the covariance matrix $\boldsymbol{\Sigma}$ as above, we have to ensure that $\boldsymbol{\Sigma}+\eta\mathbf{F}^{-1}\nabla_\boldsymbol{\Sigma} J(\boldsymbol{\mu},\boldsymbol{\Sigma})$ is symmetric positive definite.&lt;/p&gt;
+
+&lt;p&gt;To accomplish this, we may represent the covariance matrix using the &lt;strong&gt;exponential parameterization&lt;/strong&gt; for symmetric matrices. In particular, let
+\begin{equation}
+\mathcal{S}_n\doteq\{\mathbf{M}\in\mathbb{R}^{n\times n}:\mathbf{M}=\mathbf{M}^\text{T}\}
+\end{equation}
+denote the set of symmetric matrices of $\mathbb{R}^{n\times n}$ and let
+\begin{equation}
+\mathcal{P}_n\doteq\{\mathbf{M}\in\mathcal{S}_n:\mathbf{M}\succ 0\}
+\end{equation}
+represent the cone of symmetric positive definite matrices of $\mathbb{R}^{n\times n}$.&lt;/p&gt;
+
+&lt;p&gt;Using Taylor expansion for the exponential function, we then have the exponential map $\exp:\mathcal{S}_n\to\mathcal{P}_n$ can be written as
+\begin{equation}
+\exp(\mathbf{M})=\sum_{i=0}^{\infty}\frac{\mathbf{M}^i}{i!},\label{eq:ep.1}
+\end{equation}
+which is &lt;strong&gt;diffeomorphism&lt;/strong&gt;, i.e. the map is bijective, plus the map and its inverse map, $\log:\mathcal{P}_n\to\mathcal{S}_n$, both are differentiable.&lt;/p&gt;
+
+&lt;p&gt;Therefore, we can represent the covariance matrix $\boldsymbol{\Sigma}\in\mathcal{P}_n$ as
+\begin{equation}
+\boldsymbol{\Sigma}=\exp(\mathbf{M}),\hspace{2cm}\mathbf{M}\in\mathcal{S}_n
+\end{equation}
+This representation lets the gradient update always end up as a valid covariance matrix. However, the computation for the Fisher information matrix $\mathbf{F}$ is consequently more complicated due to require partial derivatives of matrix exponential \eqref{eq:ep.1}.&lt;/p&gt;
+
+&lt;h3 id=&quot;exp-coords&quot;&gt;Exponential local coordinates&lt;/h3&gt;
+&lt;p&gt;It is noticeable from \eqref{eq:rsd.2} that the dependency of the distribution on $\mathbf{A}$ is only in terms of $\mathbf{A}^\text{T}\mathbf{A}$, which is a symmetric positive semi-definite matrix since for all non-zero vector $\mathbf{x}\in\mathbb{R}^n$ we have
+\begin{equation}
+\mathbf{x}^\text{T}\mathbf{A}^\text{T}\mathbf{A}\mathbf{x}=\Vert\mathbf{A}\mathbf{x}\Vert^2\geq 0
+\end{equation}
+In the case of MVN, this matrix corresponds to the covariance matrix.&lt;/p&gt;
+
+&lt;p&gt;Therefore, rather than using exponential mapping in updating the positive definite matrices $\mathbf{A}^\text{T}\mathbf{A}$, we repeatedly linear transform the coordinate system in each iteration to a coordinate system in which the calculation for $\mathbf{F}$ is trivial.&lt;/p&gt;
+
+&lt;p&gt;Specifically, let the current search distribution be given by $(\boldsymbol{\mu},\mathbf{A})$, we use &lt;strong&gt;exponential local coordinates&lt;/strong&gt;
+\begin{equation}
+(\boldsymbol{\delta},\mathbf{M})\mapsto(\boldsymbol{\mu}_\text{new},\mathbf{A}_\text{new})=\left(\boldsymbol{\mu}+\mathbf{A}^\text{T}\boldsymbol{\delta},\mathbf{A}\exp\left(\frac{1}{2}\mathbf{M}\right)\right)
+\end{equation}
+This coordinate system is local in the sense that the coordinates $(\boldsymbol{\delta},\mathbf{M})=(\mathbf{0},\mathbf{0})$ is mapped to $(\boldsymbol{\mu},\mathbf{A})$.&lt;/p&gt;
+
+&lt;p&gt;For the case that $\tau\in\mathbb{R}^{n’}$, $\boldsymbol{\delta}\in\mathbb{R}^n$ and $\mathbf{M}\in\mathbb{R}^{n(n+1)/2}$, the Fisher information matrix $\mathbf{F}$ in this coordinate system is an $m\times m$ matrix, where
+\begin{equation}
+m=n+\frac{n(n+1)}{2}+n’=\frac{n(n+3)}{2}+n’,
+\end{equation}
+and is given as
+\begin{equation}
+\mathbf{F}=\left[\begin{matrix}\mathbf{I}&amp;amp;\mathbf{V} \\ \mathbf{V}^\text{T}&amp;amp;\mathbf{C}\end{matrix}\right],
+\end{equation}
+where
+\begin{equation}
+\mathbf{V}=\frac{\partial^2\log\pi(\mathbf{z})}{\partial(\boldsymbol{\delta},\mathbf{M})\partial\boldsymbol{\tau}}\in\mathbb{R}^{(m-n’)\times n’},\hspace{1cm}\mathbf{C}=\frac{\partial^2\log\pi(\mathbf{z})}{\partial\boldsymbol{\tau}^2}\in\mathbb{R}^{n’\times n’}
+\end{equation}
+Using the &lt;strong&gt;Woodbury identity&lt;/strong&gt; for $\mathbf{F}$ gives us its inverse
+\begin{equation}
+\mathbf{F}^{-1}=\left[\begin{matrix}\mathbf{I}&amp;amp;\mathbf{V} \\ \mathbf{V}^\text{T}&amp;amp;\mathbf{C}\end{matrix}\right]^{-1}=\left[\begin{matrix}\mathbf{I}+\mathbf{H}\mathbf{V}\mathbf{V}^\text{T}&amp;amp;-\mathbf{H}\mathbf{v} \\ -\mathbf{H}\mathbf{V}^\text{T}&amp;amp;\mathbf{H}\end{matrix}\right],
+\end{equation}
+where $\mathbf{H}=(\mathbf{C}-\mathbf{V}^\text{T}\mathbf{V})^{-1}$, and thus $\mathbf{H}$ is symmetric.&lt;/p&gt;
+
+&lt;p&gt;On the other hands, the gradient w.r.t each parameter of $\log\pi(\mathbf{z})$ are given as
+\begin{equation}
+\left.\nabla_{\boldsymbol{\delta},\mathbf{M},\boldsymbol{\tau}}\log\pi(\mathbf{z}\vert\boldsymbol{\mu},\mathbf{A},\boldsymbol{\tau},\boldsymbol{\delta},\mathbf{M})\right\vert_{\,\boldsymbol{\delta}=\mathbf{0},\mathbf{M}=\mathbf{0}}=\mathbf{g}=\left[\begin{matrix}\mathbf{g}_\boldsymbol{\delta} \\ \mathbf{g}_\mathbf{M} \\ \mathbf{g}_\boldsymbol{\tau}\end{matrix}\right],
+\end{equation}
+where
+\begin{align}
+\mathbf{g}_\boldsymbol{\delta}&amp;amp;=-2\frac{q_\boldsymbol{\tau}’(\Vert\mathbf{s}\Vert^2)}{q_\boldsymbol{\tau}(\Vert\mathbf{s}\Vert^2)}\mathbf{s}, \\ \mathbf{g}_\mathbf{M}&amp;amp;=-\frac{1}{2}\mathbf{I}-\frac{q_\boldsymbol{\tau}’(\Vert\mathbf{s}\Vert^2)}{q_\boldsymbol{\tau}(\Vert\mathbf{s}\Vert^2)}\mathbf{s}\mathbf{s}^\text{T}, \\ \mathbf{g}_\boldsymbol{\tau}&amp;amp;=\frac{1}{q_\boldsymbol{\tau}(\Vert\mathbf{s}\Vert^2)}\nabla_\boldsymbol{\tau}q_\boldsymbol{\tau}(\Vert\mathbf{s}\Vert^2),
+\end{align}
+where
+\begin{equation}
+q_\boldsymbol{\tau}’=\frac{\partial}{\partial(r^2)}q_\boldsymbol{\tau}
+\end{equation}
+denotes the derivative of $q_\boldsymbol{\tau}$ w.r.t $r^2$, while $\nabla_\boldsymbol{\tau}q_\boldsymbol{\tau}$ represents the gradient w.r.t $\boldsymbol{\tau}$.&lt;/p&gt;
+
+&lt;p&gt;The natural gradient is then can be computed as
+\begin{equation}
+\tilde{\nabla}J=\mathbf{F}^{-1}\mathbf{g}=\mathbf{F}^{-1}\left[\begin{matrix}\mathbf{g}_\boldsymbol{\delta} \\ \mathbf{g}_\mathbf{M} \\ \mathbf{g}_\boldsymbol{\tau}\end{matrix}\right]=\left[\begin{matrix}\left(\mathbf{g}_\boldsymbol{\delta},\mathbf{g}_\mathbf{M}\right)-\mathbf{H}\mathbf{V}\left(\mathbf{V}^\text{T}\left(\mathbf{g}_\boldsymbol{\delta},\mathbf{g}_\mathbf{M}\right)-\mathbf{g}_\boldsymbol{\tau}\right) \\ \mathbf{H}\left(\mathbf{V}^\text{T}\left(\mathbf{g}_\boldsymbol{\delta},\mathbf{g}_\mathbf{M}\right)-\mathbf{g}_\boldsymbol{\tau}\right)\end{matrix}\right],
+\end{equation}
+where
+\begin{equation}
+\left(\mathbf{g}_\boldsymbol{\delta},\mathbf{g}_\mathbf{M}\right)=\left[\begin{matrix}\mathbf{g}_\boldsymbol{\delta} \\ \mathbf{g}_\mathbf{M}\end{matrix}\right]
+\end{equation}&lt;/p&gt;
+
+&lt;h2 id=&quot;test-on-rast&quot;&gt;Testing on Rastrigin function&lt;/h2&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Daan Wierstra, et al. &lt;a href=&quot;https://people.idsia.ch/~juergen/nes2008.pdf&quot;&gt;Natural Evolution Strategies&lt;/a&gt;. IEEE World Congress on Computational Intelligence, 2008.&lt;/p&gt;
