@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-28T19:26:42+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-28T20:43:13+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Inverse Reinforcement Learning</title><link href="http://localhost:4000/2022/10/17/irl.html" rel="alternate" type="text/html" title="Inverse Reinforcement Learning" /><published>2022-10-17T13:00:00+07:00</published><updated>2022-10-17T13:00:00+07:00</updated><id>http://localhost:4000/2022/10/17/irl</id><content type="html" xml:base="http://localhost:4000/2022/10/17/irl.html">&lt;blockquote&gt;
   &lt;p&gt;A note on Inverse Reinforcement Learning&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -141,9 +141,11 @@ Hence, we have that
       &lt;li&gt;&lt;a href=&quot;#adp-sampl&quot;&gt;Adaption sampling&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;rot-sym-dist&quot;&gt;Rotationally symmetric distributions&lt;/a&gt;
+  &lt;li&gt;&lt;a href=&quot;rot-sym-dist&quot;&gt;Rotationally-symmetric distributions&lt;/a&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#exp-coords&quot;&gt;Exponential local coordinates&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#samp-rot-sym-dist&quot;&gt;Sampling from rotationally symmetric distributions&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#xnes&quot;&gt;Exponential natural evolution strategies (xNES)&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#test-on-rast&quot;&gt;Testing on Rastrigin function&lt;/a&gt;&lt;/li&gt;
@@ -271,7 +273,7 @@ This learning rate can also be replaced by a more desirable one without changing
 
 &lt;p&gt;In particular, let $\mathbf{z}_{k:\lambda}$ denote the $k$-th best sample out of the population of size $\lambda$, $\mathbf{z}_1,\ldots,\mathbf{z}_\lambda$, i.e. $f(\mathbf{z}_{1:\lambda})\geq\ldots\geq f(\mathbf{z}_{\lambda:\lambda})$, the gradient estimate \eqref{eq:sg.2} now is rewritten as
 \begin{equation}
-\nabla_\theta J(\theta)=\sum_{k=1}^{\lambda}u_k\nabla_\theta\log\pi(\mathbf{z}_{k:\lambda}\vert\theta),
+\nabla_\theta J(\theta)=\sum_{k=1}^{\lambda}u_k\nabla_\theta\log\pi(\mathbf{z}_{k:\lambda}\vert\theta),\label{eq:fs.1}
 \end{equation}
 where $u_1\geq\ldots\geq u_\lambda$ are referred as &lt;strong&gt;utility values&lt;/strong&gt;, which are preserved-order transformations of $f(\mathbf{z}_{1:\lambda}),\ldots,f(\mathbf{z}_{\lambda:\lambda})$.&lt;/p&gt;
 
@@ -285,8 +287,8 @@ u_k=\frac{\max\left(0,\log\left(\frac{\lambda}{2}+1\right)-\log k\right)}{\sum_{
 
 &lt;p&gt;In particular, for a successive parameter $\theta’$ of $\theta$, the corresponding learning rate $\eta$ used in its update \eqref{eq:ng.4} will be determined by comparing samples $\mathbf{z}’$ sampled from $\pi_\theta’$ with samples $\mathbf{z}$ sampled from $\pi_\theta$ according to a &lt;strong&gt;Mann-Whitney U-test&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;h2 id=&quot;rot-sym-dist&quot;&gt;Rotationally symmetric distributions&lt;/h2&gt;
-&lt;p&gt;The &lt;strong&gt;rotationally-symmetric distributions&lt;/strong&gt; refers to distribution $p(\mathbf{x})$ such that
+&lt;h2 id=&quot;rot-sym-dist&quot;&gt;Rotationally-symmetric distributions&lt;/h2&gt;
+&lt;p&gt;The &lt;strong&gt;rotationally-symmetric distributions&lt;/strong&gt;, or &lt;strong&gt;radial distributions&lt;/strong&gt; refer to class of distributions $p(\mathbf{x})$ such that
 \begin{equation}
 p(\mathbf{x})=p(\mathbf{U}\mathbf{x}),\label{eq:rsd.1}
 \end{equation}
@@ -356,7 +358,7 @@ m=n+\frac{n(n+1)}{2}+n’=\frac{n(n+3)}{2}+n’,
 \end{equation}
 and is given as
 \begin{equation}
-\mathbf{F}=\left[\begin{matrix}\mathbf{I}&amp;amp;\mathbf{V} \\ \mathbf{V}^\text{T}&amp;amp;\mathbf{C}\end{matrix}\right],
+\mathbf{F}=\left[\begin{matrix}\mathbf{I}&amp;amp;\mathbf{V} \\ \mathbf{V}^\text{T}&amp;amp;\mathbf{C}\end{matrix}\right],\label{eq:ec.1}
 \end{equation}
 where
 \begin{equation}
@@ -374,7 +376,7 @@ where $\mathbf{H}=(\mathbf{C}-\mathbf{V}^\text{T}\mathbf{V})^{-1}$, and thus $\m
 \end{equation}
 where
 \begin{align}
-\mathbf{g}_\boldsymbol{\delta}&amp;amp;=-2\frac{q_\boldsymbol{\tau}’(\Vert\mathbf{s}\Vert^2)}{q_\boldsymbol{\tau}(\Vert\mathbf{s}\Vert^2)}\mathbf{s}, \\ \mathbf{g}_\mathbf{M}&amp;amp;=-\frac{1}{2}\mathbf{I}-\frac{q_\boldsymbol{\tau}’(\Vert\mathbf{s}\Vert^2)}{q_\boldsymbol{\tau}(\Vert\mathbf{s}\Vert^2)}\mathbf{s}\mathbf{s}^\text{T}, \\ \mathbf{g}_\boldsymbol{\tau}&amp;amp;=\frac{1}{q_\boldsymbol{\tau}(\Vert\mathbf{s}\Vert^2)}\nabla_\boldsymbol{\tau}q_\boldsymbol{\tau}(\Vert\mathbf{s}\Vert^2),
+\mathbf{g}_\boldsymbol{\delta}&amp;amp;=-2\frac{q_\boldsymbol{\tau}’(\Vert\mathbf{s}\Vert^2)}{q_\boldsymbol{\tau}(\Vert\mathbf{s}\Vert^2)}\mathbf{s},\label{eq:ec.2} \\ \mathbf{g}_\mathbf{M}&amp;amp;=-\frac{1}{2}\mathbf{I}-\frac{q_\boldsymbol{\tau}’(\Vert\mathbf{s}\Vert^2)}{q_\boldsymbol{\tau}(\Vert\mathbf{s}\Vert^2)}\mathbf{s}\mathbf{s}^\text{T},\label{eq:ec.3} \\ \mathbf{g}_\boldsymbol{\tau}&amp;amp;=\frac{1}{q_\boldsymbol{\tau}(\Vert\mathbf{s}\Vert^2)}\nabla_\boldsymbol{\tau}q_\boldsymbol{\tau}(\Vert\mathbf{s}\Vert^2),
 \end{align}
 where
 \begin{equation}
@@ -382,7 +384,7 @@ q_\boldsymbol{\tau}’=\frac{\partial}{\partial(r^2)}q_\boldsymbol{\tau}
 \end{equation}
 denotes the derivative of $q_\boldsymbol{\tau}$ w.r.t $r^2$, while $\nabla_\boldsymbol{\tau}q_\boldsymbol{\tau}$ represents the gradient w.r.t $\boldsymbol{\tau}$.&lt;/p&gt;
 
-&lt;p&gt;The natural gradient is then can be computed as
+&lt;p&gt;The natural gradient for a sample $\mathbf{s}$ is then can be computed as
 \begin{equation}
 \tilde{\nabla}J=\mathbf{F}^{-1}\mathbf{g}=\mathbf{F}^{-1}\left[\begin{matrix}\mathbf{g}_\boldsymbol{\delta} \\ \mathbf{g}_\mathbf{M} \\ \mathbf{g}_\boldsymbol{\tau}\end{matrix}\right]=\left[\begin{matrix}\left(\mathbf{g}_\boldsymbol{\delta},\mathbf{g}_\mathbf{M}\right)-\mathbf{H}\mathbf{V}\left(\mathbf{V}^\text{T}\left(\mathbf{g}_\boldsymbol{\delta},\mathbf{g}_\mathbf{M}\right)-\mathbf{g}_\boldsymbol{\tau}\right) \\ \mathbf{H}\left(\mathbf{V}^\text{T}\left(\mathbf{g}_\boldsymbol{\delta},\mathbf{g}_\mathbf{M}\right)-\mathbf{g}_\boldsymbol{\tau}\right)\end{matrix}\right],
 \end{equation}
@@ -390,6 +392,52 @@ where
 \begin{equation}
 \left(\mathbf{g}_\boldsymbol{\delta},\mathbf{g}_\mathbf{M}\right)=\left[\begin{matrix}\mathbf{g}_\boldsymbol{\delta} \\ \mathbf{g}_\mathbf{M}\end{matrix}\right]
 \end{equation}&lt;/p&gt;
+
+&lt;h3 id=&quot;samp-rot-sym-dist&quot;&gt;Sampling from rotationally symmetric distributions&lt;/h3&gt;
+&lt;p&gt;To sample from this class of distributions, we first draw a sample $\mathbf{s}$ according to the standard density
+\begin{equation}
+\mathbf{s}\sim\pi(\mathbf{s}\vert\boldsymbol{\mu}=\mathbf{0},\mathbf{A}=\mathbf{I},\boldsymbol{\tau}),
+\end{equation}
+We continue to transform this sample into
+\begin{equation}
+\mathbf{z}=\boldsymbol{\mu}+\mathbf{A}^\text{T}\mathbf{s}\sim\pi(\mathbf{z}\vert\boldsymbol{\mu},\mathbf{A},\boldsymbol{\tau})
+\end{equation}
+In general, sampling $\mathbf{s}$ can be decomposed into sampling $r^2$ according to
+\begin{equation}
+r^2\sim\tilde{q}_\boldsymbol{\tau}(r^2)=\int_{\Vert\mathbf{z}\Vert^2=r^2}Q_\boldsymbol{\tau}\,d\mathbf{z}=\frac{2\pi^{n/2}}{\Gamma(n/2)}(r^2)^{(d-1)/2}q_\boldsymbol{\tau}(r^2)
+\end{equation}
+and a unit vector $\mathbf{u}\in\mathbb{R}^n$.&lt;/p&gt;
+
+&lt;h3 id=&quot;xnes&quot;&gt;Exponential natural evolution strategies (xNES)&lt;/h3&gt;
+&lt;p&gt;Recall that the Multivariate Gaussian can be expressed in form of a radial distribution \eqref{eq:ep.1}.&lt;/p&gt;
+
+&lt;p&gt;In this case, we have that
+\begin{equation}
+q_\boldsymbol{\tau}(r^2)=\frac{1}{(2\pi)^{n/2}}\exp\left(-\frac{1}{2}r^2\right),\label{eq:xnes.1}
+\end{equation}
+which does not depend on $\boldsymbol{\tau}$. This lets the Fisher information matrix in \eqref{eq:ec.1} be simplified to the most trivial form, which is the identity matrix $\mathbf{I}$.&lt;/p&gt;
+
+&lt;p&gt;Differentiating \eqref{eq:xnes.1} w.r.t $r^2$ then gives us
+\begin{equation}
+q_\boldsymbol{\tau}’(r^2)=\frac{\partial}{\partial(r^2)}\frac{1}{(2\pi)^{n/2}}\exp\left(-\frac{1}{2}r^2\right)=-\frac{1}{2}\frac{1}{(2\pi)^{n/2}}\exp\left(-\frac{1}{2}r^2\right)=-\frac{1}{2}q_\boldsymbol{\tau}(r^2),
+\end{equation}
+which by \eqref{eq:ec.2} and \eqref{eq:ec.3} implies that
+\begin{equation}
+\mathbf{g}_\boldsymbol{\delta}=-2\frac{q_\boldsymbol{\tau}’(\Vert\mathbf{s}\Vert^2)}{q_\boldsymbol{\tau}(\Vert\mathbf{s}\Vert^2)}\mathbf{s}=\mathbf{s}
+\end{equation}
+and
+\begin{equation}
+\mathbf{g}_\mathbf{M}=-\frac{1}{2}\mathbf{I}-\frac{q_\boldsymbol{\tau}’(\Vert\mathbf{s}\Vert^2)}{q_\boldsymbol{\tau}(\Vert\mathbf{s}\Vert^2)}\mathbf{s}\mathbf{s}^\text{T}=\frac{1}{2}(\mathbf{s}\mathbf{s}^\text{T}-\mathbf{I})
+\end{equation}
+Hence, the natural gradient is then given as
+\begin{align}
+\nabla_\boldsymbol{\delta}J&amp;amp;=\sum_{k=1}^{\lambda}f(\mathbf{z}_k)\mathbf{s}_k \\ \nabla_\mathbf{M}J&amp;amp;=\sum_{k=1}^{\lambda}f(\mathbf{z}_k)(\mathbf{s}_k\mathbf{s}_k^\text{T}-\mathbf{I}),
+\end{align}
+which can be improved with fitness shaping using the update formula \eqref{eq:fs.1} as
+\begin{align}
+\nabla_\boldsymbol{\delta}J&amp;amp;=\sum_{k=1}^{\lambda}u_k\mathbf{s}_{k:\lambda}, \\ \nabla_\mathbf{M}J&amp;amp;=\sum_{k=1}^{\lambda}u_k(\mathbf{s}_{k:\lambda}\mathbf{s}_{k:\lambda}^\text{T}-\mathbf{I}),
+\end{align}
+where $\mathbf{s}_{k:\lambda}$ denotes the $k$-th best sample in local coordinates.&lt;/p&gt;
 
 &lt;h2 id=&quot;test-on-rast&quot;&gt;Testing on Rastrigin function&lt;/h2&gt;
 

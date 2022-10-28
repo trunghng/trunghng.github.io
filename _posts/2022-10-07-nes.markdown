@@ -16,8 +16,10 @@ eqn-number: true
 - [Robustness techniques](#rbn-tchnq)
 	- [Fitness shaping](#fn-shp)
 	- [Adaption sampling](#adp-sampl)
-- [Rotationally symmetric distributions](rot-sym-dist)
-	 - [Exponential local coordinates](#exp-coords)
+- [Rotationally-symmetric distributions](rot-sym-dist)
+	- [Exponential local coordinates](#exp-coords)
+	- [Sampling from rotationally symmetric distributions](#samp-rot-sym-dist)
+	- [Exponential natural evolution strategies (xNES)](#xnes)
 - [Testing on Rastrigin function](#test-on-rast)
 - [References](#references)
 - [Footnotes](#footnotes)
@@ -147,7 +149,7 @@ Rather than using fitness values $f(\mathbf{z}\_k)$ in approximating the gradien
 
 In particular, let $\mathbf{z}\_{k:\lambda}$ denote the $k$-th best sample out of the population of size $\lambda$, $\mathbf{z}\_1,\ldots,\mathbf{z}\_\lambda$, i.e. $f(\mathbf{z}\_{1:\lambda})\geq\ldots\geq f(\mathbf{z}\_{\lambda:\lambda})$, the gradient estimate \eqref{eq:sg.2} now is rewritten as
 \begin{equation}
-\nabla_\theta J(\theta)=\sum_{k=1}^{\lambda}u_k\nabla_\theta\log\pi(\mathbf{z}\_{k:\lambda}\vert\theta),
+\nabla_\theta J(\theta)=\sum_{k=1}^{\lambda}u_k\nabla_\theta\log\pi(\mathbf{z}\_{k:\lambda}\vert\theta),\label{eq:fs.1}
 \end{equation}
 where $u_1\geq\ldots\geq u_\lambda$ are referred as **utility values**, which are preserved-order transformations of $f(\mathbf{z}\_{1:\lambda}),\ldots,f(\mathbf{z}\_{\lambda:\lambda})$.
 
@@ -162,9 +164,9 @@ Beside fitness shaping, NES also applies another heuristic, called **adaption sa
 
 In particular, for a successive parameter $\theta'$ of $\theta$, the corresponding learning rate $\eta$ used in its update \eqref{eq:ng.4} will be determined by comparing samples $\mathbf{z}'$ sampled from $\pi_\theta'$ with samples $\mathbf{z}$ sampled from $\pi_\theta$ according to a **Mann-Whitney U-test**.
 
-## Rotationally symmetric distributions
+## Rotationally-symmetric distributions
 {: #rot-sym-dist}
-The **rotationally-symmetric distributions** refers to distribution $p(\mathbf{x})$ such that
+The **rotationally-symmetric distributions**, or **radial distributions** refer to class of distributions $p(\mathbf{x})$ such that
 \begin{equation}
 p(\mathbf{x})=p(\mathbf{U}\mathbf{x}),\label{eq:rsd.1}
 \end{equation}
@@ -236,7 +238,7 @@ m=n+\frac{n(n+1)}{2}+n'=\frac{n(n+3)}{2}+n',
 \end{equation}
 and is given as
 \begin{equation}
-\mathbf{F}=\left[\begin{matrix}\mathbf{I}&\mathbf{V} \\\\ \mathbf{V}^\text{T}&\mathbf{C}\end{matrix}\right],
+\mathbf{F}=\left[\begin{matrix}\mathbf{I}&\mathbf{V} \\\\ \mathbf{V}^\text{T}&\mathbf{C}\end{matrix}\right],\label{eq:ec.1}
 \end{equation}
 where
 \begin{equation}
@@ -254,7 +256,7 @@ On the other hands, the gradient w.r.t each parameter of $\log\pi(\mathbf{z})$ a
 \end{equation}
 where
 \begin{align}
-\mathbf{g}\_\boldsymbol{\delta}&=-2\frac{q_\boldsymbol{\tau}'(\Vert\mathbf{s}\Vert^2)}{q_\boldsymbol{\tau}(\Vert\mathbf{s}\Vert^2)}\mathbf{s}, \\\\ \mathbf{g}\_\mathbf{M}&=-\frac{1}{2}\mathbf{I}-\frac{q_\boldsymbol{\tau}'(\Vert\mathbf{s}\Vert^2)}{q_\boldsymbol{\tau}(\Vert\mathbf{s}\Vert^2)}\mathbf{s}\mathbf{s}^\text{T}, \\\\ \mathbf{g}\_\boldsymbol{\tau}&=\frac{1}{q_\boldsymbol{\tau}(\Vert\mathbf{s}\Vert^2)}\nabla_\boldsymbol{\tau}q_\boldsymbol{\tau}(\Vert\mathbf{s}\Vert^2),
+\mathbf{g}\_\boldsymbol{\delta}&=-2\frac{q_\boldsymbol{\tau}'(\Vert\mathbf{s}\Vert^2)}{q_\boldsymbol{\tau}(\Vert\mathbf{s}\Vert^2)}\mathbf{s},\label{eq:ec.2} \\\\ \mathbf{g}\_\mathbf{M}&=-\frac{1}{2}\mathbf{I}-\frac{q_\boldsymbol{\tau}'(\Vert\mathbf{s}\Vert^2)}{q_\boldsymbol{\tau}(\Vert\mathbf{s}\Vert^2)}\mathbf{s}\mathbf{s}^\text{T},\label{eq:ec.3} \\\\ \mathbf{g}\_\boldsymbol{\tau}&=\frac{1}{q_\boldsymbol{\tau}(\Vert\mathbf{s}\Vert^2)}\nabla_\boldsymbol{\tau}q_\boldsymbol{\tau}(\Vert\mathbf{s}\Vert^2),
 \end{align}
 where
 \begin{equation}
@@ -262,7 +264,7 @@ q_\boldsymbol{\tau}'=\frac{\partial}{\partial(r^2)}q_\boldsymbol{\tau}
 \end{equation}
 denotes the derivative of $q_\boldsymbol{\tau}$ w.r.t $r^2$, while $\nabla_\boldsymbol{\tau}q_\boldsymbol{\tau}$ represents the gradient w.r.t $\boldsymbol{\tau}$.
 
-The natural gradient is then can be computed as
+The natural gradient for a sample $\mathbf{s}$ is then can be computed as
 \begin{equation}
 \tilde{\nabla}J=\mathbf{F}^{-1}\mathbf{g}=\mathbf{F}^{-1}\left[\begin{matrix}\mathbf{g}\_\boldsymbol{\delta} \\\\ \mathbf{g}\_\mathbf{M} \\\\ \mathbf{g}\_\boldsymbol{\tau}\end{matrix}\right]=\left[\begin{matrix}\left(\mathbf{g}\_\boldsymbol{\delta},\mathbf{g}\_\mathbf{M}\right)-\mathbf{H}\mathbf{V}\left(\mathbf{V}^\text{T}\left(\mathbf{g}\_\boldsymbol{\delta},\mathbf{g}\_\mathbf{M}\right)-\mathbf{g}\_\boldsymbol{\tau}\right) \\\\ \mathbf{H}\left(\mathbf{V}^\text{T}\left(\mathbf{g}\_\boldsymbol{\delta},\mathbf{g}\_\mathbf{M}\right)-\mathbf{g}\_\boldsymbol{\tau}\right)\end{matrix}\right],
 \end{equation}
@@ -270,6 +272,54 @@ where
 \begin{equation}
 \left(\mathbf{g}\_\boldsymbol{\delta},\mathbf{g}\_\mathbf{M}\right)=\left[\begin{matrix}\mathbf{g}\_\boldsymbol{\delta} \\\\ \mathbf{g}\_\mathbf{M}\end{matrix}\right]
 \end{equation}
+
+### Sampling from rotationally symmetric distributions
+{: #samp-rot-sym-dist}
+To sample from this class of distributions, we first draw a sample $\mathbf{s}$ according to the standard density
+\begin{equation}
+\mathbf{s}\sim\pi(\mathbf{s}\vert\boldsymbol{\mu}=\mathbf{0},\mathbf{A}=\mathbf{I},\boldsymbol{\tau}),
+\end{equation}
+We continue to transform this sample into
+\begin{equation}
+\mathbf{z}=\boldsymbol{\mu}+\mathbf{A}^\text{T}\mathbf{s}\sim\pi(\mathbf{z}\vert\boldsymbol{\mu},\mathbf{A},\boldsymbol{\tau})
+\end{equation}
+In general, sampling $\mathbf{s}$ can be decomposed into sampling $r^2$ according to
+\begin{equation}
+r^2\sim\tilde{q}\_\boldsymbol{\tau}(r^2)=\int_{\Vert\mathbf{z}\Vert^2=r^2}Q_\boldsymbol{\tau}\,d\mathbf{z}=\frac{2\pi^{n/2}}{\Gamma(n/2)}(r^2)^{(d-1)/2}q_\boldsymbol{\tau}(r^2)
+\end{equation}
+and a unit vector $\mathbf{u}\in\mathbb{R}^n$.
+
+### Exponential natural evolution strategies (xNES)
+{: #xnes}
+Recall that the Multivariate Gaussian can be expressed in form of a radial distribution \eqref{eq:ep.1}.
+
+In this case, we have that
+\begin{equation}
+q_\boldsymbol{\tau}(r^2)=\frac{1}{(2\pi)^{n/2}}\exp\left(-\frac{1}{2}r^2\right),\label{eq:xnes.1}
+\end{equation}
+which does not depend on $\boldsymbol{\tau}$. This lets the Fisher information matrix in \eqref{eq:ec.1} be simplified to the most trivial form, which is the identity matrix $\mathbf{I}$.
+
+Differentiating \eqref{eq:xnes.1} w.r.t $r^2$ then gives us
+\begin{equation}
+q_\boldsymbol{\tau}'(r^2)=\frac{\partial}{\partial(r^2)}\frac{1}{(2\pi)^{n/2}}\exp\left(-\frac{1}{2}r^2\right)=-\frac{1}{2}\frac{1}{(2\pi)^{n/2}}\exp\left(-\frac{1}{2}r^2\right)=-\frac{1}{2}q_\boldsymbol{\tau}(r^2),
+\end{equation}
+which by \eqref{eq:ec.2} and \eqref{eq:ec.3} implies that
+\begin{equation}
+\mathbf{g}\_\boldsymbol{\delta}=-2\frac{q_\boldsymbol{\tau}'(\Vert\mathbf{s}\Vert^2)}{q_\boldsymbol{\tau}(\Vert\mathbf{s}\Vert^2)}\mathbf{s}=\mathbf{s}
+\end{equation}
+and
+\begin{equation}
+\mathbf{g}\_\mathbf{M}=-\frac{1}{2}\mathbf{I}-\frac{q_\boldsymbol{\tau}'(\Vert\mathbf{s}\Vert^2)}{q_\boldsymbol{\tau}(\Vert\mathbf{s}\Vert^2)}\mathbf{s}\mathbf{s}^\text{T}=\frac{1}{2}(\mathbf{s}\mathbf{s}^\text{T}-\mathbf{I})
+\end{equation}
+Hence, the natural gradient is then given as
+\begin{align}
+\nabla_\boldsymbol{\delta}J&=\sum_{k=1}^{\lambda}f(\mathbf{z}\_k)\mathbf{s}\_k \\\\ \nabla_\mathbf{M}J&=\sum_{k=1}^{\lambda}f(\mathbf{z}\_k)(\mathbf{s}\_k\mathbf{s}\_k^\text{T}-\mathbf{I}),
+\end{align}
+which can be improved with fitness shaping using the update formula \eqref{eq:fs.1} as
+\begin{align}
+\nabla_\boldsymbol{\delta}J&=\sum_{k=1}^{\lambda}u_k\mathbf{s}\_{k:\lambda}, \\\\ \nabla_\mathbf{M}J&=\sum_{k=1}^{\lambda}u_k(\mathbf{s}\_{k:\lambda}\mathbf{s}\_{k:\lambda}^\text{T}-\mathbf{I}),
+\end{align}
+where $\mathbf{s}\_{k:\lambda}$ denotes the $k$-th best sample in local coordinates.
 
 ## Testing on Rastrigin function
 {:#test-on-rast}
