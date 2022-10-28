@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-28T20:43:13+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-28T20:50:02+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Inverse Reinforcement Learning</title><link href="http://localhost:4000/2022/10/17/irl.html" rel="alternate" type="text/html" title="Inverse Reinforcement Learning" /><published>2022-10-17T13:00:00+07:00</published><updated>2022-10-17T13:00:00+07:00</updated><id>http://localhost:4000/2022/10/17/irl</id><content type="html" xml:base="http://localhost:4000/2022/10/17/irl.html">&lt;blockquote&gt;
   &lt;p&gt;A note on Inverse Reinforcement Learning&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -442,11 +442,13 @@ where $\mathbf{s}_{k:\lambda}$ denotes the $k$-th best sample in local coordinat
 &lt;h2 id=&quot;test-on-rast&quot;&gt;Testing on Rastrigin function&lt;/h2&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;p&gt;[1] Daan Wierstra, et al. &lt;a href=&quot;https://people.idsia.ch/~juergen/nes2008.pdf&quot;&gt;Natural Evolution Strategies&lt;/a&gt;. IEEE World Congress on Computational Intelligence, 2008.&lt;/p&gt;
+&lt;p&gt;[1] Daan Wierstra, Tom Schaul, Jan Peters, Jürgen Schmidhuber. &lt;a href=&quot;https://people.idsia.ch/~juergen/nes2008.pdf&quot;&gt;Natural Evolution Strategies&lt;/a&gt;. IEEE World Congress on Computational Intelligence, 2008.&lt;/p&gt;
 
-&lt;p&gt;[2] Daan Wierstra, et al. &lt;a href=&quot;https://www.jmlr.org/papers/volume15/wierstra14a/wierstra14a.pdf&quot;&gt;Natural Evolution Strategies&lt;/a&gt;. Journal of Machine Learning Research 15 (2014).&lt;/p&gt;
+&lt;p&gt;[2] Daan Wierstra, Tom Schaul, Tobias Glasmachers, Yi Sun, Jürgen Schmidhuber. &lt;a href=&quot;https://arxiv.org/abs/1106.4487&quot;&gt;Natural Evolution Strategies&lt;/a&gt;. arXiv:1106.4487, 2011.&lt;/p&gt;
 
-&lt;p&gt;[3] Ha, David. &lt;a href=&quot;https://blog.otoro.net/2017/10/29/visual-evolution-strategies/&quot;&gt;A Visual Guide to Evolution Strategies&lt;/a&gt;. blog.otoro.net, 2017.&lt;/p&gt;
+&lt;p&gt;[3] Daan Wierstra, Tom Schaul, Tobias Glasmachers, Yi Sun, Jan Peters, Jürgen Schmidhuber. &lt;a href=&quot;https://www.jmlr.org/papers/volume15/wierstra14a/wierstra14a.pdf&quot;&gt;Natural Evolution Strategies&lt;/a&gt;. Journal of Machine Learning Research 15 (2014).&lt;/p&gt;
+
+&lt;p&gt;[4] Ha, David. &lt;a href=&quot;https://blog.otoro.net/2017/10/29/visual-evolution-strategies/&quot;&gt;A Visual Guide to Evolution Strategies&lt;/a&gt;. blog.otoro.net, 2017.&lt;/p&gt;
 
 &lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="machine-learning" /><category term="evolution-strategy" /><category term="neural-evolution" /><summary type="html">Natural evolution strategies, or NES, are referred to a family of evolution strategies that throughout its generations update a search distribution repeatedly using an estimated gradient of its distribution parameters.</summary></entry><entry><title type="html">CMA Evolution Strategy</title><link href="http://localhost:4000/2022/09/14/cma-es.html" rel="alternate" type="text/html" title="CMA Evolution Strategy" /><published>2022-09-14T13:00:00+07:00</published><updated>2022-09-14T13:00:00+07:00</updated><id>http://localhost:4000/2022/09/14/cma-es</id><content type="html" xml:base="http://localhost:4000/2022/09/14/cma-es.html">&lt;blockquote&gt;
   &lt;p&gt;A note on CMA - Evolution Strategy
