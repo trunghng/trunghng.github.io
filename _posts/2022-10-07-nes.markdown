@@ -333,6 +333,13 @@ Analogy to [CMA-ES]({% post_url 2022-09-14-cma-es %}#test-on-rast), let us test 
 \begin{equation}
 f(\mathbf{x})=10 n+\sum_{i=1}^{n}x_i^2-10\cos\left(2\pi x_i\right)
 \end{equation}
+$f(\mathbf{x})$ reaches its global minimum $0$ at $\mathbf{x}=\mathbf{0}$. The experimental setup we are going to use are provided in [Wierstra et al. 2014](#nes-paper). Similar to our test with CMA-ES, each function evaluation is counted as success when it reaches $f_\text{stop}=10^{-10}$.
+
+The result after running our experiment is illustrated in the figure below.
+<figure>
+	<img src="/assets/images/2022-10-07/nes-dim-popsize-exp.png" alt="NES on rastrigin" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Success rate to reach $f_\text{stop}=10^{-10}$ versus population size for Rastrigin function.<br> The code can be found <span markdown="1">[here](https://github.com/trunghng/evolution-strategies/blob/main/dim-popsize-exp.py)</span></figcaption>
+</figure>
 
 ## References
 {: #references}
@@ -340,7 +347,7 @@ f(\mathbf{x})=10 n+\sum_{i=1}^{n}x_i^2-10\cos\left(2\pi x_i\right)
 
 [2] Daan Wierstra, Tom Schaul, Tobias Glasmachers, Yi Sun, Jürgen Schmidhuber. [Natural Evolution Strategies](https://arxiv.org/abs/1106.4487). arXiv:1106.4487, 2011.
 
-[3] Daan Wierstra, Tom Schaul, Tobias Glasmachers, Yi Sun, Jan Peters, Jürgen Schmidhuber. [Natural Evolution Strategies](https://www.jmlr.org/papers/volume15/wierstra14a/wierstra14a.pdf). Journal of Machine Learning Research 15 (2014).
+<span id='nes-paper'>[3] Daan Wierstra, Tom Schaul, Tobias Glasmachers, Yi Sun, Jan Peters, Jürgen Schmidhuber. [Natural Evolution Strategies](https://www.jmlr.org/papers/volume15/wierstra14a/wierstra14a.pdf). Journal of Machine Learning Research 15 (2014).</span>
 
 [4] Ha, David. [A Visual Guide to Evolution Strategies](https://blog.otoro.net/2017/10/29/visual-evolution-strategies/). blog.otoro.net, 2017.
 

@@ -527,7 +527,7 @@ On the other hands, $f$ is stricly convex (or concave) if $\text{dom}\,f$ is con
 	<li>
 		<b>Exponential</b>. $\,e^{ax}$ is convex on $\mathbb{R}$, for any $a\in\mathbb{R}$. Since
 		\begin{equation}
-		(e^{ax})''=a^2 e^{ax}\geq 0,
+		(e^{ax})''=(a e^{ax})'=a^2 e^{ax}\geq 0,
 		\end{equation}
 		for $a\in\mathbb{R}$.
 	</li>
@@ -535,7 +535,7 @@ On the other hands, $f$ is stricly convex (or concave) if $\text{dom}\,f$ is con
 		<b>Powers</b>. $\,x^a$ is convex on $\mathbb{R}_{++}$ when $a\geq 1$ or $a\leq 0$, and concave for $0\leq a\leq 1$.<br>
 		For $x\in\mathbb{R}_{++}$ and for $a\geq 1$ or $a\leq 0$, we have
 		\begin{equation}
-		(x^a)''=a(a-1)x^{a-2}\geq 0
+		(x^a)''=(a x^{a-1})'=a(a-1)x^{a-2}\geq 0
 		\end{equation}
 		On the other hands, for $x\in\mathbb{R}_{++}$ and for $0\leq a\leq 1$, we have
 		\begin{equation}
@@ -543,19 +543,63 @@ On the other hands, $f$ is stricly convex (or concave) if $\text{dom}\,f$ is con
 		\end{equation}
 	</li>
 	<li>
+		<b>Powers of absolute value</b>. $\,\vert x\vert^p$ is convex on $\mathbb{R}$ for $p\geq 1$.<br>
+		For any $0\leq\theta\leq 1$, by triangle inequality we have
+		\begin{align}
+		f(\theta x+(1-\theta)y)&=\vert\theta x+(1-\theta)y\vert^p \\ &\leq\left(\theta\vert x\vert+(1-\theta)\vert y\vert\right)^p
+		\end{align}
+	</li>
+	<li>
 		<b>Logarithm</b>. $\,\log x$ is concave on $\mathbb{R}_{++}$.<br>
 		For $x\in\mathbb{R}_{++}$ we have
 		\begin{equation}
-		(\log x)''=\frac{-1}{x^2}\lt 0
+		(\log x)''=\left(\frac{1}{x}\right)'=\frac{-1}{x^2}\lt 0
 		\end{equation}
 	</li>
 	<li>
-		<b>Powers of absolute value</b>. $\,\vert x\vert^p$ is convex on $\mathbb{R}$ for $p\geq 1$.
+		<b>Negative entropy</b>. $\,x\log x$ (either on $\mathbb{R}_{++}$ or on $\mathbb{R}_+$ and defined as $0$ for $x=0$) is convex.<br>
+		We have for all $x\in\mathbb{R}_{++}$
+		\begin{equation}
+		(x\log x)''=(1+\log x)'=\frac{1}{x}>0
+		\end{equation}
 	</li>
 </ul>
 
 #### Functions on $\mathbb{R}^n$
 {: #func-on-rn}
+<ul id='number-list'>
+	<li>
+		<b>Norms</b>. Every norm on $\mathbb{R}^n$ is convex.<br>
+		For $f:\mathbb{R}^n\to\mathbb{R}$ is a norm and for any $0\leq\theta\leq 1$, by triangle inequality, we have:
+		\begin{equation}
+		f\big(\theta x+(1-\theta)y\big)\leq f(\theta x)+f\big((1-\theta)y\big)=\theta f(\theta)+(1-\theta)f(y)
+		\end{equation}
+	</li>
+	<li>
+		<b>Max function</b>. $\,f(x)=\max{x_1,\ldots,x_n}=\max_{i=1,\ldots,n}x_i$ is convex on $\mathbb{R}^n$.<br>
+		For any $0\leq\theta\leq 1$, we have
+		\begin{align}
+		f(\theta x+(1-\theta)y)&=\max_i(\theta x+(1-\theta)y) \\ &\leq\theta\max_i x_i+(1-\theta)\max_i y_i \\ &=\theta f(x)+(1-\theta)f(y)
+		\end{align}
+	</li>
+	<li>
+		<b>Quadratic-over-linear function</b>. The function $f(x,y)=x^2/y$ with
+		\begin{equation}
+		\text{dom}\,f=\{(x,y)\in\mathbb{R}^2:y>0\}
+		\end{equation}
+		is convex, since we have its Hessian:
+		\begin{equation}
+		\nabla^2 f(x,y)=\nabla^2\frac{x^2}{y}=\left[\begin{matrix}2/y&-2x/y^2 \\ -2x/y^2&2x^2/y^3\end{matrix}\right]=\frac{2}{y^3}\left[\begin{matrix}y \\ -x\end{matrix}\right]\left[\begin{matrix}y \\ -x\end{matrix}\right]^\text{T}\succeq 0
+		\end{equation}
+	</li>
+	<li>
+		<b>Log-sum-exp</b>. $\,f(x)=\log(e^{x_1}+\ldots+e^{x_n})$ is convex on $\mathbb{R}^n$.<br>
+		We have the Hessian of $f(x)$ is
+		\begin{equation}
+		\nabla^2 f(x)=\nabla^2\log(e^{x_1}+\ldots+e^{x_n})
+		\end{equation}
+	</li>
+</ul>
 
 ### Sub-level sets
 {: #sub-lvl-sets}

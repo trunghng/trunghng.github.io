@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-29T13:24:21+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-29T21:07:42+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory - III: the Lebesgue integral</title><link href="http://localhost:4000/2022/08/21/measure-theory-p3.html" rel="alternate" type="text/html" title="Measure theory - III: the Lebesgue integral" /><published>2022-08-21T13:00:00+07:00</published><updated>2022-08-21T13:00:00+07:00</updated><id>http://localhost:4000/2022/08/21/measure-theory-p3</id><content type="html" xml:base="http://localhost:4000/2022/08/21/measure-theory-p3.html">&lt;blockquote&gt;
   &lt;p&gt;Part III of the measure theory series. Materials are mostly taken from &lt;a href=&quot;/2022/08/21/measure-theory-p3.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some needed notations extracted from &lt;a href=&quot;/2022/08/21/measure-theory-p3.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -3588,7 +3588,7 @@ Analogously, we have that $f$ is concave iff $\text{dom}\,f$ is convex and for a
 	&lt;li&gt;
 		&lt;b&gt;Exponential&lt;/b&gt;. $\,e^{ax}$ is convex on $\mathbb{R}$, for any $a\in\mathbb{R}$. Since
 		\begin{equation}
-		(e^{ax})&apos;&apos;=a^2 e^{ax}\geq 0,
+		(e^{ax})&apos;&apos;=(a e^{ax})&apos;=a^2 e^{ax}\geq 0,
 		\end{equation}
 		for $a\in\mathbb{R}$.
 	&lt;/li&gt;
@@ -3596,7 +3596,7 @@ Analogously, we have that $f$ is concave iff $\text{dom}\,f$ is convex and for a
 		&lt;b&gt;Powers&lt;/b&gt;. $\,x^a$ is convex on $\mathbb{R}_{++}$ when $a\geq 1$ or $a\leq 0$, and concave for $0\leq a\leq 1$.&lt;br /&gt;
 		For $x\in\mathbb{R}_{++}$ and for $a\geq 1$ or $a\leq 0$, we have
 		\begin{equation}
-		(x^a)&apos;&apos;=a(a-1)x^{a-2}\geq 0
+		(x^a)&apos;&apos;=(a x^{a-1})&apos;=a(a-1)x^{a-2}\geq 0
 		\end{equation}
 		On the other hands, for $x\in\mathbb{R}_{++}$ and for $0\leq a\leq 1$, we have
 		\begin{equation}
@@ -3604,18 +3604,62 @@ Analogously, we have that $f$ is concave iff $\text{dom}\,f$ is convex and for a
 		\end{equation}
 	&lt;/li&gt;
 	&lt;li&gt;
+		&lt;b&gt;Powers of absolute value&lt;/b&gt;. $\,\vert x\vert^p$ is convex on $\mathbb{R}$ for $p\geq 1$.&lt;br /&gt;
+		For any $0\leq\theta\leq 1$, by triangle inequality we have
+		\begin{align}
+		f(\theta x+(1-\theta)y)&amp;amp;=\vert\theta x+(1-\theta)y\vert^p \\ &amp;amp;\leq\left(\theta\vert x\vert+(1-\theta)\vert y\vert\right)^p
+		\end{align}
+	&lt;/li&gt;
+	&lt;li&gt;
 		&lt;b&gt;Logarithm&lt;/b&gt;. $\,\log x$ is concave on $\mathbb{R}_{++}$.&lt;br /&gt;
 		For $x\in\mathbb{R}_{++}$ we have
 		\begin{equation}
-		(\log x)&apos;&apos;=\frac{-1}{x^2}\lt 0
+		(\log x)&apos;&apos;=\left(\frac{1}{x}\right)&apos;=\frac{-1}{x^2}\lt 0
 		\end{equation}
 	&lt;/li&gt;
 	&lt;li&gt;
-		&lt;b&gt;Powers of absolute value&lt;/b&gt;. $\,\vert x\vert^p$ is convex on $\mathbb{R}$ for $p\geq 1$.
+		&lt;b&gt;Negative entropy&lt;/b&gt;. $\,x\log x$ (either on $\mathbb{R}_{++}$ or on $\mathbb{R}_+$ and defined as $0$ for $x=0$) is convex.&lt;br /&gt;
+		We have for all $x\in\mathbb{R}_{++}$
+		\begin{equation}
+		(x\log x)&apos;&apos;=(1+\log x)&apos;=\frac{1}{x}&amp;gt;0
+		\end{equation}
 	&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h4 id=&quot;func-on-rn&quot;&gt;Functions on $\mathbb{R}^n$&lt;/h4&gt;
+&lt;ul id=&quot;number-list&quot;&gt;
+	&lt;li&gt;
+		&lt;b&gt;Norms&lt;/b&gt;. Every norm on $\mathbb{R}^n$ is convex.&lt;br /&gt;
+		For $f:\mathbb{R}^n\to\mathbb{R}$ is a norm and for any $0\leq\theta\leq 1$, by triangle inequality, we have:
+		\begin{equation}
+		f\big(\theta x+(1-\theta)y\big)\leq f(\theta x)+f\big((1-\theta)y\big)=\theta f(\theta)+(1-\theta)f(y)
+		\end{equation}
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Max function&lt;/b&gt;. $\,f(x)=\max{x_1,\ldots,x_n}=\max_{i=1,\ldots,n}x_i$ is convex on $\mathbb{R}^n$.&lt;br /&gt;
+		For any $0\leq\theta\leq 1$, we have
+		\begin{align}
+		f(\theta x+(1-\theta)y)&amp;amp;=\max_i(\theta x+(1-\theta)y) \\ &amp;amp;\leq\theta\max_i x_i+(1-\theta)\max_i y_i \\ &amp;amp;=\theta f(x)+(1-\theta)f(y)
+		\end{align}
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Quadratic-over-linear function&lt;/b&gt;. The function $f(x,y)=x^2/y$ with
+		\begin{equation}
+		\text{dom}\,f=\{(x,y)\in\mathbb{R}^2:y&amp;gt;0\}
+		\end{equation}
+		is convex, since we have its Hessian:
+		\begin{equation}
+		\nabla^2 f(x,y)=\nabla^2\frac{x^2}{y}=\left[\begin{matrix}2/y&amp;amp;-2x/y^2 \\ -2x/y^2&amp;amp;2x^2/y^3\end{matrix}\right]=\frac{2}{y^3}\left[\begin{matrix}y \\ -x\end{matrix}\right]\left[\begin{matrix}y \\ -x\end{matrix}\right]^\text{T}\succeq 0
+		\end{equation}
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Log-sum-exp&lt;/b&gt;. $\,f(x)=\log(e^{x_1}+\ldots+e^{x_n})$ is convex on $\mathbb{R}^n$.&lt;br /&gt;
+		We have the Hessian of $f(x)$ is
+		\begin{equation}
+		\nabla^2 f(x)=\nabla^2\log(e^{x_1}+\ldots+e^{x_n})
+		\end{equation}
+	&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h3 id=&quot;sub-lvl-sets&quot;&gt;Sub-level sets&lt;/h3&gt;
 
