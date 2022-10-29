@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-28T20:50:02+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-29T13:24:21+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Inverse Reinforcement Learning</title><link href="http://localhost:4000/2022/10/17/irl.html" rel="alternate" type="text/html" title="Inverse Reinforcement Learning" /><published>2022-10-17T13:00:00+07:00</published><updated>2022-10-17T13:00:00+07:00</updated><id>http://localhost:4000/2022/10/17/irl</id><content type="html" xml:base="http://localhost:4000/2022/10/17/irl.html">&lt;blockquote&gt;
   &lt;p&gt;A note on Inverse Reinforcement Learning&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -124,7 +124,7 @@ Hence, we have that
 &lt;p&gt;[1] Kenneth O. Stanley &amp;amp; Risto Miikkulainen. &lt;a href=&quot;https://nn.cs.utexas.edu/downloads/papers/stanley.ec02.pdf&quot;&gt;Evolving Neural Networks Through Augmenting Topologies&lt;/a&gt;. Evolutionary Computation 10, no.2 (2002): 99-127.&lt;/p&gt;
 
 &lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="machine-learning" /><category term="neural-evolution" /><summary type="html">A note on NEAT.</summary></entry><entry><title type="html">Natural Evolution Strategies</title><link href="http://localhost:4000/2022/10/07/nes.html" rel="alternate" type="text/html" title="Natural Evolution Strategies" /><published>2022-10-07T13:00:00+07:00</published><updated>2022-10-07T13:00:00+07:00</updated><id>http://localhost:4000/2022/10/07/nes</id><content type="html" xml:base="http://localhost:4000/2022/10/07/nes.html">&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Natural evolution strategies&lt;/strong&gt;, or &lt;strong&gt;NES&lt;/strong&gt;, are referred to a family of evolution strategies that throughout its generations update a search distribution repeatedly using an estimated gradient of its distribution parameters.&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Natural Evolution Strategies&lt;/strong&gt;, or &lt;strong&gt;NES&lt;/strong&gt;, are referred to a family of evolution strategies that throughout its generations update a search distribution repeatedly using an estimated gradient of its distribution parameters.&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;!-- excerpt-end --&gt;
@@ -145,7 +145,7 @@ Hence, we have that
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#exp-coords&quot;&gt;Exponential local coordinates&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#samp-rot-sym-dist&quot;&gt;Sampling from rotationally symmetric distributions&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#xnes&quot;&gt;Exponential natural evolution strategies (xNES)&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#xnes&quot;&gt;Exponential Natural Evolution Strategies&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#test-on-rast&quot;&gt;Testing on Rastrigin function&lt;/a&gt;&lt;/li&gt;
@@ -262,7 +262,11 @@ where $\eta$ is the learning rate, given as
 \begin{equation}
 \eta=\lambda^{-1}=\sqrt{\frac{\varepsilon}{\nabla_\theta J(\theta)^\text{T}\mathbf{F}^{-1}\nabla_\theta J(\theta)}}
 \end{equation}
-This learning rate can also be replaced by a more desirable one without changing the direction of our update.&lt;/p&gt;
+This learning rate can also be replaced by a more desirable one without changing the direction of our update. With this update rule for natural gradient, we obtain the general formulation of NES, as described in the following pseudocode.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-10-07/nes.png&quot; alt=&quot;NES&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
 
 &lt;h2 id=&quot;rbn-tchnq&quot;&gt;Robustness techniques&lt;/h2&gt;
 
@@ -408,10 +412,8 @@ r^2\sim\tilde{q}_\boldsymbol{\tau}(r^2)=\int_{\Vert\mathbf{z}\Vert^2=r^2}Q_\bold
 \end{equation}
 and a unit vector $\mathbf{u}\in\mathbb{R}^n$.&lt;/p&gt;
 
-&lt;h3 id=&quot;xnes&quot;&gt;Exponential natural evolution strategies (xNES)&lt;/h3&gt;
-&lt;p&gt;Recall that the Multivariate Gaussian can be expressed in form of a radial distribution \eqref{eq:ep.1}.&lt;/p&gt;
-
-&lt;p&gt;In this case, we have that
+&lt;h3 id=&quot;xnes&quot;&gt;Exponential Natural Evolution Strategies&lt;/h3&gt;
+&lt;p&gt;Recall that the Multivariate Gaussian can be expressed in form of a radial distribution \eqref{eq:ep.1}. In this case, we have that
 \begin{equation}
 q_\boldsymbol{\tau}(r^2)=\frac{1}{(2\pi)^{n/2}}\exp\left(-\frac{1}{2}r^2\right),\label{eq:xnes.1}
 \end{equation}
@@ -437,9 +439,17 @@ which can be improved with fitness shaping using the update formula \eqref{eq:fs
 \begin{align}
 \nabla_\boldsymbol{\delta}J&amp;amp;=\sum_{k=1}^{\lambda}u_k\mathbf{s}_{k:\lambda}, \\ \nabla_\mathbf{M}J&amp;amp;=\sum_{k=1}^{\lambda}u_k(\mathbf{s}_{k:\lambda}\mathbf{s}_{k:\lambda}^\text{T}-\mathbf{I}),
 \end{align}
-where $\mathbf{s}_{k:\lambda}$ denotes the $k$-th best sample in local coordinates.&lt;/p&gt;
+where $\mathbf{s}_{k:\lambda}$ denotes the $k$-th best sample in local coordinates. The resulting algorithm is thus known as &lt;strong&gt;Exponential Natural Evolution Strategies&lt;/strong&gt;, or &lt;strong&gt;xNES&lt;/strong&gt;, with the corresponding pseudocode shown below.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-10-07/xnes.png&quot; alt=&quot;xNES&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
 
 &lt;h2 id=&quot;test-on-rast&quot;&gt;Testing on Rastrigin function&lt;/h2&gt;
+&lt;p&gt;Analogy to &lt;a href=&quot;/2022/09/14/cma-es.html#test-on-rast&quot;&gt;CMA-ES&lt;/a&gt;, let us test NES on the Rastrigin function, which is, recall that, given by the formula
+\begin{equation}
+f(\mathbf{x})=10 n+\sum_{i=1}^{n}x_i^2-10\cos\left(2\pi x_i\right)
+\end{equation}&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] Daan Wierstra, Tom Schaul, Jan Peters, Jürgen Schmidhuber. &lt;a href=&quot;https://people.idsia.ch/~juergen/nes2008.pdf&quot;&gt;Natural Evolution Strategies&lt;/a&gt;. IEEE World Congress on Computational Intelligence, 2008.&lt;/p&gt;
@@ -450,7 +460,7 @@ where $\mathbf{s}_{k:\lambda}$ denotes the $k$-th best sample in local coordinat
 
 &lt;p&gt;[4] Ha, David. &lt;a href=&quot;https://blog.otoro.net/2017/10/29/visual-evolution-strategies/&quot;&gt;A Visual Guide to Evolution Strategies&lt;/a&gt;. blog.otoro.net, 2017.&lt;/p&gt;
 
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="machine-learning" /><category term="evolution-strategy" /><category term="neural-evolution" /><summary type="html">Natural evolution strategies, or NES, are referred to a family of evolution strategies that throughout its generations update a search distribution repeatedly using an estimated gradient of its distribution parameters.</summary></entry><entry><title type="html">CMA Evolution Strategy</title><link href="http://localhost:4000/2022/09/14/cma-es.html" rel="alternate" type="text/html" title="CMA Evolution Strategy" /><published>2022-09-14T13:00:00+07:00</published><updated>2022-09-14T13:00:00+07:00</updated><id>http://localhost:4000/2022/09/14/cma-es</id><content type="html" xml:base="http://localhost:4000/2022/09/14/cma-es.html">&lt;blockquote&gt;
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="machine-learning" /><category term="evolution-strategy" /><category term="neural-evolution" /><summary type="html">Natural Evolution Strategies, or NES, are referred to a family of evolution strategies that throughout its generations update a search distribution repeatedly using an estimated gradient of its distribution parameters.</summary></entry><entry><title type="html">CMA Evolution Strategy</title><link href="http://localhost:4000/2022/09/14/cma-es.html" rel="alternate" type="text/html" title="CMA Evolution Strategy" /><published>2022-09-14T13:00:00+07:00</published><updated>2022-09-14T13:00:00+07:00</updated><id>http://localhost:4000/2022/09/14/cma-es</id><content type="html" xml:base="http://localhost:4000/2022/09/14/cma-es.html">&lt;blockquote&gt;
   &lt;p&gt;A note on CMA - Evolution Strategy
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;

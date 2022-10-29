@@ -7,7 +7,7 @@ description: Natural Evolution Strategy
 comments: true
 eqn-number: true
 ---
-> **Natural evolution strategies**, or **NES**, are referred to a family of evolution strategies that throughout its generations update a search distribution repeatedly using an estimated gradient of its distribution parameters. 
+> **Natural Evolution Strategies**, or **NES**, are referred to a family of evolution strategies that throughout its generations update a search distribution repeatedly using an estimated gradient of its distribution parameters. 
 
 <!-- excerpt-end -->
 - [Search gradients](#search-grad)
@@ -19,7 +19,7 @@ eqn-number: true
 - [Rotationally-symmetric distributions](rot-sym-dist)
 	- [Exponential local coordinates](#exp-coords)
 	- [Sampling from rotationally symmetric distributions](#samp-rot-sym-dist)
-	- [Exponential natural evolution strategies (xNES)](#xnes)
+	- [Exponential Natural Evolution Strategies](#xnes)
 - [Testing on Rastrigin function](#test-on-rast)
 - [References](#references)
 - [Footnotes](#footnotes)
@@ -136,7 +136,11 @@ where $\eta$ is the learning rate, given as
 \begin{equation}
 \eta=\lambda^{-1}=\sqrt{\frac{\varepsilon}{\nabla_\theta J(\theta)^\text{T}\mathbf{F}^{-1}\nabla_\theta J(\theta)}}
 \end{equation}
-This learning rate can also be replaced by a more desirable one without changing the direction of our update.
+This learning rate can also be replaced by a more desirable one without changing the direction of our update. With this update rule for natural gradient, we obtain the general formulation of NES, as described in the following pseudocode.
+<figure>
+	<img src="/assets/images/2022-10-07/nes.png" alt="NES" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
 
 ## Robustness techniques
 {: #rbn-tchnq}
@@ -289,11 +293,9 @@ r^2\sim\tilde{q}\_\boldsymbol{\tau}(r^2)=\int_{\Vert\mathbf{z}\Vert^2=r^2}Q_\bol
 \end{equation}
 and a unit vector $\mathbf{u}\in\mathbb{R}^n$.
 
-### Exponential natural evolution strategies (xNES)
+### Exponential Natural Evolution Strategies
 {: #xnes}
-Recall that the Multivariate Gaussian can be expressed in form of a radial distribution \eqref{eq:ep.1}.
-
-In this case, we have that
+Recall that the Multivariate Gaussian can be expressed in form of a radial distribution \eqref{eq:ep.1}. In this case, we have that
 \begin{equation}
 q_\boldsymbol{\tau}(r^2)=\frac{1}{(2\pi)^{n/2}}\exp\left(-\frac{1}{2}r^2\right),\label{eq:xnes.1}
 \end{equation}
@@ -319,10 +321,18 @@ which can be improved with fitness shaping using the update formula \eqref{eq:fs
 \begin{align}
 \nabla_\boldsymbol{\delta}J&=\sum_{k=1}^{\lambda}u_k\mathbf{s}\_{k:\lambda}, \\\\ \nabla_\mathbf{M}J&=\sum_{k=1}^{\lambda}u_k(\mathbf{s}\_{k:\lambda}\mathbf{s}\_{k:\lambda}^\text{T}-\mathbf{I}),
 \end{align}
-where $\mathbf{s}\_{k:\lambda}$ denotes the $k$-th best sample in local coordinates.
+where $\mathbf{s}\_{k:\lambda}$ denotes the $k$-th best sample in local coordinates. The resulting algorithm is thus known as **Exponential Natural Evolution Strategies**, or **xNES**, with the corresponding pseudocode shown below.
+<figure>
+	<img src="/assets/images/2022-10-07/xnes.png" alt="xNES" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
 
 ## Testing on Rastrigin function
 {:#test-on-rast}
+Analogy to [CMA-ES]({% post_url 2022-09-14-cma-es %}#test-on-rast), let us test NES on the Rastrigin function, which is, recall that, given by the formula
+\begin{equation}
+f(\mathbf{x})=10 n+\sum_{i=1}^{n}x_i^2-10\cos\left(2\pi x_i\right)
+\end{equation}
 
 ## References
 {: #references}
