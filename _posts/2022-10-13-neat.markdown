@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "Evolving neural network topology"
-date:   2022-10-13 13:00:00 +0700
-tags: machine-learning neural-evolution
+date:   2022-10-28 13:00:00 +0700
+tags: machine-learning neuroevolution
 description: Evolving neural networks through augmenting topologies
 comments: true
 eqn-number: true

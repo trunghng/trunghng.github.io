@@ -1,0 +1,652 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/neuroevolution.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-31T14:08:25+07:00</updated><id>http://localhost:4000/feed/by_tag/neuroevolution.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Evolving neural network topology</title><link href="http://localhost:4000/2022/10/28/neat.html" rel="alternate" type="text/html" title="Evolving neural network topology" /><published>2022-10-28T13:00:00+07:00</published><updated>2022-10-28T13:00:00+07:00</updated><id>http://localhost:4000/2022/10/28/neat</id><content type="html" xml:base="http://localhost:4000/2022/10/28/neat.html">&lt;blockquote&gt;
+  &lt;p&gt;A note on NEAT.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;!-- excerpt-end --&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;p&gt;[1] Kenneth O. Stanley &amp;amp; Risto Miikkulainen. &lt;a href=&quot;https://nn.cs.utexas.edu/downloads/papers/stanley.ec02.pdf&quot;&gt;Evolving Neural Networks Through Augmenting Topologies&lt;/a&gt;. Evolutionary Computation 10, no.2 (2002): 99-127.&lt;/p&gt;
+
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="machine-learning" /><category term="neuroevolution" /><summary type="html">A note on NEAT.</summary></entry><entry><title type="html">Natural Evolution Strategies</title><link href="http://localhost:4000/2022/10/07/nes.html" rel="alternate" type="text/html" title="Natural Evolution Strategies" /><published>2022-10-07T13:00:00+07:00</published><updated>2022-10-07T13:00:00+07:00</updated><id>http://localhost:4000/2022/10/07/nes</id><content type="html" xml:base="http://localhost:4000/2022/10/07/nes.html">&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Natural Evolution Strategies&lt;/strong&gt;, or &lt;strong&gt;NES&lt;/strong&gt;, are referred to a family of evolution strategies that throughout its generations update a search distribution repeatedly using an estimated gradient of its distribution parameters.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;!-- excerpt-end --&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#search-grad&quot;&gt;Search gradients&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;search-grad-gauss&quot;&gt;Search gradients for MVN&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;ntr-grad&quot;&gt;Natural gradient&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#rbn-tchnq&quot;&gt;Robustness techniques&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#fn-shp&quot;&gt;Fitness shaping&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#adp-sampl&quot;&gt;Adaption sampling&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;rot-sym-dist&quot;&gt;Rotationally-symmetric distributions&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#exp-coords&quot;&gt;Exponential local coordinates&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#samp-rot-sym-dist&quot;&gt;Sampling from rotationally symmetric distributions&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#xnes&quot;&gt;Exponential Natural Evolution Strategies&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#test-on-rast&quot;&gt;Testing on Rastrigin function&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;search-grad&quot;&gt;Search gradients&lt;/h2&gt;
+&lt;p&gt;Usually when working on &lt;strong&gt;Evolution Strategy&lt;/strong&gt; methods, we select some candidate solutions, which generate better fitness values than the other ones, to be parents of the next generation. This means, majority of solution samples have been wasted since they may contain some useful information.&lt;/p&gt;
+
+&lt;p&gt;To utilize the use all fitness samples, the &lt;strong&gt;NES&lt;/strong&gt; uses &lt;strong&gt;search gradients&lt;/strong&gt; in updating the parameters for the search distribution.&lt;/p&gt;
+
+&lt;p&gt;Let $\mathbf{z}\in\mathbb{R}^n$ denote the solution sampled from the distribution $\pi(\mathbf{z},\theta)$ and let $f:\mathbb{R}^n\to\mathbb{R}$ be the fitness (or objective) function. The expected fitness value is then given by
+\begin{equation}
+J(\theta)=\mathbb{E}_\theta[f(\mathbf{z})]=\int f(\mathbf{z})\pi(\mathbf{z}\vert\theta)\,d\mathbf{z}\label{eq:sg.1}
+\end{equation}
+Taking the gradient of the above function w.r.t $\theta$ using the &lt;strong&gt;log-likelihood trick&lt;/strong&gt; as in &lt;a href=&quot;/2022/05/04/policy-gradient.html#reinforce&quot;&gt;REINFORCE&lt;/a&gt; gives us
+\begin{align}
+\nabla_\theta J(\theta)&amp;amp;=\nabla_\theta\int f(\mathbf{z})\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\ &amp;amp;=\int f(\mathbf{z})\nabla_\theta\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\ &amp;amp;=\int f(\mathbf{z})\nabla_\theta\pi(\mathbf{z}\vert\theta)\frac{\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}\,d\mathbf{z} \\ &amp;amp;=\int\left[f(\mathbf{z})\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\right]\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\ &amp;amp;=\mathbb{E}_\theta\left[f(\mathbf{z})\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\right]
+\end{align}
+Using Monte Carlo method, given samples $\mathbf{z}_1,\ldots,\mathbf{z}_\lambda$ from the population of size $\lambda$, the search gradient is then can be approximated by
+\begin{equation}
+\nabla_\theta J(\theta)\approx\frac{1}{\lambda}\sum_{k=1}^{\lambda}f(\mathbf{z}_k)\nabla_\theta\log\pi(\mathbf{z}_k\vert\theta)\label{eq:sg.2}
+\end{equation}
+Given this gradient w.r.t $\theta$, we then can use a gradient-based method to repeatedly update the parameter $\theta$ in order to give us a more desired search distribution. In particular, we can use such as SGD method
+\begin{equation}
+\theta\leftarrow\theta+\alpha\nabla_\theta J(\theta),\label{eq:sg.3}
+\end{equation}
+where $\alpha$ is the learning rate.&lt;/p&gt;
+
+&lt;h3 id=&quot;search-grad-gauss&quot;&gt;Search gradients for MVN&lt;/h3&gt;
+&lt;p&gt;Consider the case that our search distribution $\pi(\mathbf{z}\vert\theta)$ is in form of a Multivariate Normal  distribution, $\mathbf{z}\sim\mathcal{N}(\boldsymbol{\mu},\boldsymbol{\Sigma})$, where $\boldsymbol{\mu}\in\mathbb{R}^n$ and $\boldsymbol{\Sigma}\in\mathbb{R}^{n\times n}$.&lt;/p&gt;
+
+&lt;p&gt;In this case $\theta=(\boldsymbol{\mu},\boldsymbol{\Sigma})$ denotes a tuple of parameters for the search distribution, which is given by
+\begin{equation}
+\pi(\mathbf{z}\vert\theta)=\frac{1}{(2\pi)^{n/1}\left\vert\boldsymbol{\Sigma}\right\vert^{1/2}}\exp\left[-\frac{1}{2}\left(\mathbf{z}-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}-\boldsymbol{\mu}\right)\right]
+\end{equation}
+Taking natural logarithm of both sides then gives us
+\begin{align}
+\log\pi(\mathbf{z}\vert\theta)&amp;amp;=\log\left(\frac{1}{(2\pi)^{n/1}\left\vert\boldsymbol{\Sigma}\right\vert^{1/2}}\exp\left[-\frac{1}{2}\left(\mathbf{z}-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}-\boldsymbol{\mu}\right)\right]\right) \\ &amp;amp;=-\frac{n}{2}\log(2\pi)-\frac{1}{2}\log\vert\boldsymbol{\Sigma}\vert-\frac{1}{2}\left(\mathbf{z}-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}-\boldsymbol{\mu}\right)
+\end{align}
+We continue by differentiating the above log-likelihood w.r.t $\boldsymbol{\mu}$ and $\boldsymbol{\Sigma}$. Starting with $\boldsymbol{\mu}$, the gradient is given by
+\begin{align}
+\nabla_\boldsymbol{\mu}\log\pi(\mathbf{z}\vert\theta)&amp;amp;=\nabla_\boldsymbol{\mu}\left(-\frac{n}{2}\log(2\pi)-\frac{1}{2}\log\vert\boldsymbol{\Sigma}\vert-\frac{1}{2}\left(\mathbf{z}-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}-\boldsymbol{\mu}\right)\right) \\ &amp;amp;=-\frac{1}{2}\nabla_\boldsymbol{\mu}\left(\mathbf{z}-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}-\boldsymbol{\mu}\right) \\ &amp;amp;=\boldsymbol{\Sigma}^{-1}(\mathbf{z}-\boldsymbol{\mu})
+\end{align}
+And the gradient w.r.t $\boldsymbol{\Sigma}$ is computed as
+\begin{align}
+\nabla_\boldsymbol{\Sigma}\pi(\mathbf{z}\vert\theta)&amp;amp;=\nabla_\boldsymbol{\Sigma}\left(-\frac{n}{2}\log(2\pi)-\frac{1}{2}\log\vert\boldsymbol{\Sigma}\vert-\frac{1}{2}\left(\mathbf{z}-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}-\boldsymbol{\mu}\right)\right) \\ &amp;amp;=-\frac{1}{2}\nabla_\boldsymbol{\Sigma}\left(\mathbf{z}-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}-\boldsymbol{\mu}\right) \\ &amp;amp;=\frac{1}{2}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}-\boldsymbol{\mu}\right)\left(\mathbf{z}-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}-\frac{1}{2}\boldsymbol{\Sigma}^{-1}
+\end{align}
+The SGD update \eqref{eq:sg.3} now is applied for each of $\boldsymbol{\mu}$ and $\boldsymbol{\Sigma}$ as
+\begin{align}
+\boldsymbol{\mu}&amp;amp;\leftarrow\boldsymbol{\mu}+\alpha\nabla_\boldsymbol{\mu}J(\theta) \\ &amp;amp;\leftarrow\boldsymbol{\mu}+\alpha\frac{1}{\lambda}\sum_{k=1}^{\lambda}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}_k-\boldsymbol{\mu}\right)f(\mathbf{z}_k)
+\end{align}
+and
+\begin{align}
+\boldsymbol{\Sigma}&amp;amp;\leftarrow\boldsymbol{\Sigma}+\alpha\nabla_\boldsymbol{\Sigma}J(\theta) \\ &amp;amp;\leftarrow\boldsymbol{\Sigma}+\alpha\frac{1}{\lambda}\sum_{k=1}^{\lambda}\left[\frac{1}{2}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}_k-\boldsymbol{\mu}\right)\left(\mathbf{z}_k-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}-\frac{1}{2}\boldsymbol{\Sigma}^{-1}\right]f(\mathbf{z}_k)
+\end{align}&lt;/p&gt;
+
+&lt;h3 id=&quot;ntr-grad&quot;&gt;Natural gradient&lt;/h3&gt;
+&lt;p&gt;The &lt;strong&gt;natural gradient&lt;/strong&gt; searches for the direction based on the distance between distributions $\pi(\mathbf{z}\vert\theta)$ and $\pi(\mathbf{z}\vert\theta’)$. One natural measure of distance between probability distributions is the &lt;strong&gt;Kullback-Leibler divergence&lt;/strong&gt;, or &lt;strong&gt;KL divergence&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;In other words, our work is to look for the direction of updating gradient, denoted as $\delta\theta$, such that
+\begin{align}
+\max_{\delta\theta}&amp;amp;\,J(\theta+\delta\theta)\approx J(\theta)+\delta\theta^\text{T}\nabla_\theta J \\ \text{s.t.}&amp;amp;\,D(\theta\Vert\theta+\delta\theta)=\varepsilon,
+\end{align}
+where $J(\theta)$ is given as in \eqref{eq:sg.1}; $\varepsilon$ is a small increment size; and where $D(\theta+\delta\theta\Vert\theta)$ is the KL divergence of $\pi(\mathbf{z}\vert\theta+\delta\theta)$ from $\pi(\mathbf{z}\vert\theta)$, defined as
+\begin{align}
+D(\theta\Vert\theta+\delta\theta)&amp;amp;=\int\pi(\mathbf{z}\vert\theta)\log\frac{\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta+\delta\theta)}\,d\mathbf{z} \\ &amp;amp;=\mathbb{E}_{\theta}\big[\log\pi(\mathbf{z}\vert\theta)-\log\pi(\mathbf{z}\vert\theta+\delta)\big]\label{eq:ng.1}
+\end{align}
+As $\delta\theta\to 0$, or in other words, consider the Taylor expansion of \eqref{eq:ng.1} about $\delta\theta=0$, we have
+\begin{align}
+&amp;amp;\hspace{-1cm}D(\theta+\delta\theta\Vert\theta)\nonumber \\ &amp;amp;\hspace{-0.8cm}=\mathbb{E}_{\theta}\big[\log\pi(\mathbf{z}\vert\theta)-\log\pi(\mathbf{z}\vert\theta+\delta\theta)\big] \\ &amp;amp;\hspace{-0.8cm}\approx\mathbb{E}_\theta\left[\log\pi(\mathbf{z}\vert\theta)-\left(\log\pi(\mathbf{z}\vert\theta)+\delta\theta^\text{T}\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}+\frac{1}{2}\delta\theta^\text{T}\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}\left(\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}\right)^\text{T}\delta\theta\right)\right] \\ &amp;amp;\hspace{-0.8cm}=-\mathbb{E}_\theta\left[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)+\frac{1}{2}\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\right] \\ &amp;amp;\hspace{-0.8cm}=-\mathbb{E}_\theta\Big[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\Big]-\mathbb{E}_\theta\left[\frac{1}{2}\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\right] \\ &amp;amp;\hspace{-0.8cm}=-\frac{1}{2}\int\pi(\mathbf{z}\vert\theta)\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\,d\mathbf{z} \\ &amp;amp;\hspace{-0.8cm}=-\frac{1}{2}\delta\theta^\text{T}\mathbf{F}\delta\theta\label{eq:ng.2}
+\end{align}
+where in the fifth step, we have used that
+\begin{align}
+\mathbb{E}_\theta\Big[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\Big]&amp;amp;=\delta\theta^\text{T}\int\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\ &amp;amp;=\delta\theta^\text{T}\int\pi(\mathbf{z}\vert\theta)\frac{1}{\pi(\mathbf{z}\vert\theta)}\nabla_\theta\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\ &amp;amp;=\delta\theta^\text{T}\nabla_\theta\int\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\ &amp;amp;=\delta\theta^\text{T}\nabla_\theta 1=0
+\end{align}&lt;/p&gt;
+
+&lt;p&gt;The matrix $\mathbf{F}$ in \eqref{eq:ng.2} is known as the &lt;strong&gt;Fisher information matrix&lt;/strong&gt; of the given parametric family of search distributions, defined as
+\begin{align}
+\mathbf{F}&amp;amp;=\int\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\,d\mathbf{z} \\ &amp;amp;=\mathbb{E}_\theta\big[\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\big]
+\end{align}
+Hence, we have the Lagrangian of our constrained optimization problem is
+\begin{align}
+\mathcal{L}(\theta,\delta\theta,\lambda)&amp;amp;=J(\theta)+\delta\theta^\text{T}\nabla_\theta J(\theta)+\lambda\big(D(\theta+\delta\theta\Vert\theta)-\varepsilon\big) \\ &amp;amp;=J(\theta)+\delta\theta^\text{T}\nabla_\theta J(\theta)-\lambda\left(\frac{1}{2}\delta\theta^\text{T}\mathbf{F}\delta\theta+\varepsilon\right),
+\end{align}
+where $\lambda&amp;gt;0$ is the Lagrange multiplier.&lt;/p&gt;
+
+&lt;p&gt;It is easily seen that $\mathbf{F}$ is symmetric, thus taking the gradient of the Lagrangian w.r.t $\delta\theta$ and setting it to zero gives us
+\begin{equation}
+\lambda\mathbf{F}\delta\theta=\nabla_\theta J(\theta)
+\end{equation}
+If the Fisher information matrix $\mathbf{F}$ is invertible, the solution for $\delta\theta$ that maximizes $\mathcal{L}$ then can be computed as
+\begin{equation}
+\delta\theta=\frac{1}{\lambda}\mathbf{F}^{-1}\nabla_\theta J(\theta),\label{eq:ng.3}
+\end{equation}
+which defines the direction of the natural gradient $\tilde{\nabla}_\theta J(\theta)$. Since $\lambda&amp;gt;0$ we therefore obtain
+\begin{equation}
+\tilde{\nabla}_\theta J(\theta)=\mathbf{F}^{-1}\nabla_\theta J(\theta)
+\end{equation}
+Continue with the value of $\delta\theta$ given in \eqref{eq:ng.3}, the dual function of our optimization is given as
+\begin{align}
+g(\lambda)&amp;amp;=J(\theta)+\frac{1}{\lambda}\nabla_\theta J(\theta)^\text{T}\mathbf{F}^{-1}\nabla_\theta  J(\theta)-\frac{1}{2}\frac{\lambda}{\lambda^2}\nabla_\theta J(\theta)^\text{T}\mathbf{F}^{-1}\mathbf{F}\mathbf{F}^{-1}\nabla_\theta J(\theta)-\lambda\varepsilon \\ &amp;amp;=J(\theta)+\frac{1}{2}\lambda^{-1}\nabla_\theta J(\theta)^\text{T}\mathbf{F}^{-1}\nabla_\theta J(\theta)-\lambda\varepsilon
+\end{align}
+Taking the gradient of $g$ w.r.t $\lambda$ and setting it to zero and since $\varepsilon&amp;lt;0$ small gives us the solution for $\lambda$, which is
+\begin{equation}
+\lambda=\sqrt{\frac{\nabla_\theta J(\theta)^\text{T}\mathbf{F}^{-1}\nabla_\theta J(\theta)}{\varepsilon}},
+\end{equation}
+Hence, the SGD update for the parameter $\theta$ using natural gradient is
+\begin{equation}
+\theta\leftarrow\theta+\eta\tilde{\nabla}_\theta J(\theta)=\theta+\eta\mathbf{F}^{-1}\nabla_\theta J(\theta),\label{eq:ng.4}
+\end{equation}
+where $\eta$ is the learning rate, given as
+\begin{equation}
+\eta=\lambda^{-1}=\sqrt{\frac{\varepsilon}{\nabla_\theta J(\theta)^\text{T}\mathbf{F}^{-1}\nabla_\theta J(\theta)}}
+\end{equation}
+This learning rate can also be replaced by a more desirable one without changing the direction of our update. With this update rule for natural gradient, we obtain the general formulation of NES, as described in the following pseudocode.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-10-07/nes.png&quot; alt=&quot;NES&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h2 id=&quot;rbn-tchnq&quot;&gt;Robustness techniques&lt;/h2&gt;
+
+&lt;h3 id=&quot;fn-shp&quot;&gt;Fitness shaping&lt;/h3&gt;
+&lt;p&gt;NES uses the so-called &lt;strong&gt;fitness shaping&lt;/strong&gt; technique, which helps to avoid early convergence due to the possible affection of outliers fitness value in \eqref{eq:sg.2}, e.g. there may exist an outlier whose fitness value, says $f(\mathbf{z}_i)$, is much greater than other solutions’ ones, $\{f(\mathbf{z}_k)\}_{k\neq i}$.&lt;/p&gt;
+
+&lt;p&gt;Rather than using fitness values $f(\mathbf{z}_k)$ in approximating the gradient in \eqref{eq:sg.2}, fitness shaping instead applies a rank-based transformation of $f(\mathbf{z}_k)$.&lt;/p&gt;
+
+&lt;p&gt;In particular, let $\mathbf{z}_{k:\lambda}$ denote the $k$-th best sample out of the population of size $\lambda$, $\mathbf{z}_1,\ldots,\mathbf{z}_\lambda$, i.e. $f(\mathbf{z}_{1:\lambda})\geq\ldots\geq f(\mathbf{z}_{\lambda:\lambda})$, the gradient estimate \eqref{eq:sg.2} now is rewritten as
+\begin{equation}
+\nabla_\theta J(\theta)=\sum_{k=1}^{\lambda}u_k\nabla_\theta\log\pi(\mathbf{z}_{k:\lambda}\vert\theta),\label{eq:fs.1}
+\end{equation}
+where $u_1\geq\ldots\geq u_\lambda$ are referred as &lt;strong&gt;utility values&lt;/strong&gt;, which are preserved-order transformations of $f(\mathbf{z}_{1:\lambda}),\ldots,f(\mathbf{z}_{\lambda:\lambda})$.&lt;/p&gt;
+
+&lt;p&gt;The choice for utility function $u$ is a free parameter of the algorithm. In the original paper, the author proposed
+\begin{equation}
+u_k=\frac{\max\left(0,\log\left(\frac{\lambda}{2}+1\right)-\log k\right)}{\sum_{j=1}^{\lambda}\max\left(0,\log\left(\frac{\lambda}{2}+1\right)-\log j\right)}-\frac{1}{\lambda}
+\end{equation}&lt;/p&gt;
+
+&lt;h3 id=&quot;adp-sampl&quot;&gt;Adaption sampling&lt;/h3&gt;
+&lt;p&gt;Beside fitness shaping, NES also applies another heuristic, called &lt;strong&gt;adaption sampling&lt;/strong&gt;, to make the performance more robustly. This technique lets the algorithm determine the appropriate hyperparameters (in this case, NES chooses the learning rate $\eta$ be the one to adapt) more quickly.&lt;/p&gt;
+
+&lt;p&gt;In particular, for a successive parameter $\theta’$ of $\theta$, the corresponding learning rate $\eta$ used in its update \eqref{eq:ng.4} will be determined by comparing samples $\mathbf{z}’$ sampled from $\pi_\theta’$ with samples $\mathbf{z}$ sampled from $\pi_\theta$ according to a &lt;strong&gt;Mann-Whitney U-test&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;rot-sym-dist&quot;&gt;Rotationally-symmetric distributions&lt;/h2&gt;
+&lt;p&gt;The &lt;strong&gt;rotationally-symmetric distributions&lt;/strong&gt;, or &lt;strong&gt;radial distributions&lt;/strong&gt; refer to class of distributions $p(\mathbf{x})$ such that
+\begin{equation}
+p(\mathbf{x})=p(\mathbf{U}\mathbf{x}),\label{eq:rsd.1}
+\end{equation}
+for all $\mathbf{x}\in\mathbb{R}^n$ and for all orthogonal matrices $\mathbf{U}\in\mathbb{R}^{n\times n}$.&lt;/p&gt;
+
+&lt;p&gt;Let $Q_\boldsymbol{\tau}(\mathbf{z})$ be a family of rotationally-symmetric distributions in $\mathbb{R}^n$ parameterized by $\boldsymbol{\tau}$. The property  \eqref{eq:rsd.1} allows us to represent $Q_\boldsymbol{\tau}(\mathbf{z})$ as
+\begin{equation}
+Q_\boldsymbol{\tau}(\mathbf{z})=q_\boldsymbol{\tau}(\Vert\mathbf{z}\Vert^2),
+\end{equation}
+for some family of functions $q_\boldsymbol{\tau}:\mathbb{R}_+\to\mathbb{R}_+$.&lt;/p&gt;
+
+&lt;p&gt;Consider the classes of search distributions in a form of
+\begin{align}
+\pi(\mathbf{z}\vert\boldsymbol{\mu},\boldsymbol{\Sigma},\boldsymbol{\tau})&amp;amp;=\frac{1}{\vert\mathbf{A}\vert}q_\boldsymbol{\tau}\left(\left\Vert(\mathbf{A}^{-1})^\text{T}(\mathbf{z}-\boldsymbol{\mu})\right\Vert^2\right) \\ &amp;amp;=\frac{1}{\left\vert\mathbf{A}^\text{T}\mathbf{A}\right\vert^{1/2}}q_\boldsymbol{\tau}\left((\mathbf{z}-\boldsymbol{\mu})^\text{T}(\mathbf{A}^\text{T}\mathbf{A})^{-1}(\mathbf{z}-\boldsymbol{\mu})\right),\label{eq:rsd.2}
+\end{align}
+with additional transformation parameters $\boldsymbol{\mu}\in\mathbb{R}^n$ and invertible matrices $\mathbf{A}\in\mathbb{R}^{n\times n}$.&lt;/p&gt;
+
+&lt;p&gt;It can be seen that Gaussian and its multivariate form, MVN, can be written in form of $\eqref{eq:rsd.2}$, and thus are members of these classes of distributions.&lt;/p&gt;
+
+&lt;h3 id=&quot;exp-param&quot;&gt;Exponential parameterization&lt;/h3&gt;
+&lt;p&gt;By \eqref{eq:ng.4}, the natural gradient update for a multivariate Gaussian search distribution, denoted $\mathcal{N}(\boldsymbol{\mu},\boldsymbol{\Sigma})$, is
+\begin{align}
+\boldsymbol{\mu}&amp;amp;\leftarrow\boldsymbol{\mu}+\eta\mathbf{F}^{-1}\nabla_\boldsymbol{\mu} J(\boldsymbol{\mu},\boldsymbol{\Sigma}), \\ \boldsymbol{\Sigma}&amp;amp;\leftarrow\boldsymbol{\Sigma}+\eta\mathbf{F}^{-1}\nabla_\boldsymbol{\Sigma} J(\boldsymbol{\mu},\boldsymbol{\Sigma})
+\end{align}
+Thus, in updating the covariance matrix $\boldsymbol{\Sigma}$ as above, we have to ensure that $\boldsymbol{\Sigma}+\eta\mathbf{F}^{-1}\nabla_\boldsymbol{\Sigma} J(\boldsymbol{\mu},\boldsymbol{\Sigma})$ is symmetric positive definite.&lt;/p&gt;
+
+&lt;p&gt;To accomplish this, we may represent the covariance matrix using the &lt;strong&gt;exponential parameterization&lt;/strong&gt; for symmetric matrices. In particular, let
+\begin{equation}
+\mathcal{S}_n\doteq\{\mathbf{M}\in\mathbb{R}^{n\times n}:\mathbf{M}=\mathbf{M}^\text{T}\}
+\end{equation}
+denote the set of symmetric matrices of $\mathbb{R}^{n\times n}$ and let
+\begin{equation}
+\mathcal{P}_n\doteq\{\mathbf{M}\in\mathcal{S}_n:\mathbf{M}\succ 0\}
+\end{equation}
+represent the cone of symmetric positive definite matrices of $\mathbb{R}^{n\times n}$.&lt;/p&gt;
+
+&lt;p&gt;Using Taylor expansion for the exponential function, we then have the exponential map $\exp:\mathcal{S}_n\to\mathcal{P}_n$ can be written as
+\begin{equation}
+\exp(\mathbf{M})=\sum_{i=0}^{\infty}\frac{\mathbf{M}^i}{i!},\label{eq:ep.1}
+\end{equation}
+which is &lt;strong&gt;diffeomorphism&lt;/strong&gt;, i.e. the map is bijective, plus the map and its inverse map, $\log:\mathcal{P}_n\to\mathcal{S}_n$, both are differentiable.&lt;/p&gt;
+
+&lt;p&gt;Therefore, we can represent the covariance matrix $\boldsymbol{\Sigma}\in\mathcal{P}_n$ as
+\begin{equation}
+\boldsymbol{\Sigma}=\exp(\mathbf{M}),\hspace{2cm}\mathbf{M}\in\mathcal{S}_n
+\end{equation}
+This representation lets the gradient update always end up as a valid covariance matrix. However, the computation for the Fisher information matrix $\mathbf{F}$ is consequently more complicated due to require partial derivatives of matrix exponential \eqref{eq:ep.1}.&lt;/p&gt;
+
+&lt;h3 id=&quot;exp-coords&quot;&gt;Exponential local coordinates&lt;/h3&gt;
+&lt;p&gt;It is noticeable from \eqref{eq:rsd.2} that the dependency of the distribution on $\mathbf{A}$ is only in terms of $\mathbf{A}^\text{T}\mathbf{A}$, which is a symmetric positive semi-definite matrix since for all non-zero vector $\mathbf{x}\in\mathbb{R}^n$ we have
+\begin{equation}
+\mathbf{x}^\text{T}\mathbf{A}^\text{T}\mathbf{A}\mathbf{x}=\Vert\mathbf{A}\mathbf{x}\Vert^2\geq 0
+\end{equation}
+In the case of MVN, this matrix corresponds to the covariance matrix.&lt;/p&gt;
+
+&lt;p&gt;Therefore, rather than using exponential mapping in updating the positive definite matrices $\mathbf{A}^\text{T}\mathbf{A}$, we repeatedly linear transform the coordinate system in each iteration to a coordinate system in which the calculation for $\mathbf{F}$ is trivial.&lt;/p&gt;
+
+&lt;p&gt;Specifically, let the current search distribution be given by $(\boldsymbol{\mu},\mathbf{A})$, we use &lt;strong&gt;exponential local coordinates&lt;/strong&gt;
+\begin{equation}
+(\boldsymbol{\delta},\mathbf{M})\mapsto(\boldsymbol{\mu}_\text{new},\mathbf{A}_\text{new})=\left(\boldsymbol{\mu}+\mathbf{A}^\text{T}\boldsymbol{\delta},\mathbf{A}\exp\left(\frac{1}{2}\mathbf{M}\right)\right)
+\end{equation}
+This coordinate system is local in the sense that the coordinates $(\boldsymbol{\delta},\mathbf{M})=(\mathbf{0},\mathbf{0})$ is mapped to $(\boldsymbol{\mu},\mathbf{A})$.&lt;/p&gt;
+
+&lt;p&gt;For the case that $\tau\in\mathbb{R}^{n’}$, $\boldsymbol{\delta}\in\mathbb{R}^n$ and $\mathbf{M}\in\mathbb{R}^{n(n+1)/2}$, the Fisher information matrix $\mathbf{F}$ in this coordinate system is an $m\times m$ matrix, where
+\begin{equation}
+m=n+\frac{n(n+1)}{2}+n’=\frac{n(n+3)}{2}+n’,
+\end{equation}
+and is given as
+\begin{equation}
+\mathbf{F}=\left[\begin{matrix}\mathbf{I}&amp;amp;\mathbf{V} \\ \mathbf{V}^\text{T}&amp;amp;\mathbf{C}\end{matrix}\right],\label{eq:ec.1}
+\end{equation}
+where
+\begin{equation}
+\mathbf{V}=\frac{\partial^2\log\pi(\mathbf{z})}{\partial(\boldsymbol{\delta},\mathbf{M})\partial\boldsymbol{\tau}}\in\mathbb{R}^{(m-n’)\times n’},\hspace{1cm}\mathbf{C}=\frac{\partial^2\log\pi(\mathbf{z})}{\partial\boldsymbol{\tau}^2}\in\mathbb{R}^{n’\times n’}
+\end{equation}
+Using the &lt;strong&gt;Woodbury identity&lt;/strong&gt; for $\mathbf{F}$ gives us its inverse
+\begin{equation}
+\mathbf{F}^{-1}=\left[\begin{matrix}\mathbf{I}&amp;amp;\mathbf{V} \\ \mathbf{V}^\text{T}&amp;amp;\mathbf{C}\end{matrix}\right]^{-1}=\left[\begin{matrix}\mathbf{I}+\mathbf{H}\mathbf{V}\mathbf{V}^\text{T}&amp;amp;-\mathbf{H}\mathbf{v} \\ -\mathbf{H}\mathbf{V}^\text{T}&amp;amp;\mathbf{H}\end{matrix}\right],
+\end{equation}
+where $\mathbf{H}=(\mathbf{C}-\mathbf{V}^\text{T}\mathbf{V})^{-1}$, and thus $\mathbf{H}$ is symmetric.&lt;/p&gt;
+
+&lt;p&gt;On the other hands, the gradient w.r.t each parameter of $\log\pi(\mathbf{z})$ are given as
+\begin{equation}
+\left.\nabla_{\boldsymbol{\delta},\mathbf{M},\boldsymbol{\tau}}\log\pi(\mathbf{z}\vert\boldsymbol{\mu},\mathbf{A},\boldsymbol{\tau},\boldsymbol{\delta},\mathbf{M})\right\vert_{\,\boldsymbol{\delta}=\mathbf{0},\mathbf{M}=\mathbf{0}}=\mathbf{g}=\left[\begin{matrix}\mathbf{g}_\boldsymbol{\delta} \\ \mathbf{g}_\mathbf{M} \\ \mathbf{g}_\boldsymbol{\tau}\end{matrix}\right],
+\end{equation}
+where
+\begin{align}
+\mathbf{g}_\boldsymbol{\delta}&amp;amp;=-2\frac{q_\boldsymbol{\tau}’(\Vert\mathbf{s}\Vert^2)}{q_\boldsymbol{\tau}(\Vert\mathbf{s}\Vert^2)}\mathbf{s},\label{eq:ec.2} \\ \mathbf{g}_\mathbf{M}&amp;amp;=-\frac{1}{2}\mathbf{I}-\frac{q_\boldsymbol{\tau}’(\Vert\mathbf{s}\Vert^2)}{q_\boldsymbol{\tau}(\Vert\mathbf{s}\Vert^2)}\mathbf{s}\mathbf{s}^\text{T},\label{eq:ec.3} \\ \mathbf{g}_\boldsymbol{\tau}&amp;amp;=\frac{1}{q_\boldsymbol{\tau}(\Vert\mathbf{s}\Vert^2)}\nabla_\boldsymbol{\tau}q_\boldsymbol{\tau}(\Vert\mathbf{s}\Vert^2),
+\end{align}
+where
+\begin{equation}
+q_\boldsymbol{\tau}’=\frac{\partial}{\partial(r^2)}q_\boldsymbol{\tau}
+\end{equation}
+denotes the derivative of $q_\boldsymbol{\tau}$ w.r.t $r^2$, while $\nabla_\boldsymbol{\tau}q_\boldsymbol{\tau}$ represents the gradient w.r.t $\boldsymbol{\tau}$.&lt;/p&gt;
+
+&lt;p&gt;The natural gradient for a sample $\mathbf{s}$ is then can be computed as
+\begin{equation}
+\tilde{\nabla}J=\mathbf{F}^{-1}\mathbf{g}=\mathbf{F}^{-1}\left[\begin{matrix}\mathbf{g}_\boldsymbol{\delta} \\ \mathbf{g}_\mathbf{M} \\ \mathbf{g}_\boldsymbol{\tau}\end{matrix}\right]=\left[\begin{matrix}\left(\mathbf{g}_\boldsymbol{\delta},\mathbf{g}_\mathbf{M}\right)-\mathbf{H}\mathbf{V}\left(\mathbf{V}^\text{T}\left(\mathbf{g}_\boldsymbol{\delta},\mathbf{g}_\mathbf{M}\right)-\mathbf{g}_\boldsymbol{\tau}\right) \\ \mathbf{H}\left(\mathbf{V}^\text{T}\left(\mathbf{g}_\boldsymbol{\delta},\mathbf{g}_\mathbf{M}\right)-\mathbf{g}_\boldsymbol{\tau}\right)\end{matrix}\right],
+\end{equation}
+where
+\begin{equation}
+\left(\mathbf{g}_\boldsymbol{\delta},\mathbf{g}_\mathbf{M}\right)=\left[\begin{matrix}\mathbf{g}_\boldsymbol{\delta} \\ \mathbf{g}_\mathbf{M}\end{matrix}\right]
+\end{equation}&lt;/p&gt;
+
+&lt;h3 id=&quot;samp-rot-sym-dist&quot;&gt;Sampling from rotationally symmetric distributions&lt;/h3&gt;
+&lt;p&gt;To sample from this class of distributions, we first draw a sample $\mathbf{s}$ according to the standard density
+\begin{equation}
+\mathbf{s}\sim\pi(\mathbf{s}\vert\boldsymbol{\mu}=\mathbf{0},\mathbf{A}=\mathbf{I},\boldsymbol{\tau}),
+\end{equation}
+We continue to transform this sample into
+\begin{equation}
+\mathbf{z}=\boldsymbol{\mu}+\mathbf{A}^\text{T}\mathbf{s}\sim\pi(\mathbf{z}\vert\boldsymbol{\mu},\mathbf{A},\boldsymbol{\tau})
+\end{equation}
+In general, sampling $\mathbf{s}$ can be decomposed into sampling $r^2$ according to
+\begin{equation}
+r^2\sim\tilde{q}_\boldsymbol{\tau}(r^2)=\int_{\Vert\mathbf{z}\Vert^2=r^2}Q_\boldsymbol{\tau}\,d\mathbf{z}=\frac{2\pi^{n/2}}{\Gamma(n/2)}(r^2)^{(d-1)/2}q_\boldsymbol{\tau}(r^2)
+\end{equation}
+and a unit vector $\mathbf{u}\in\mathbb{R}^n$.&lt;/p&gt;
+
+&lt;h3 id=&quot;xnes&quot;&gt;Exponential Natural Evolution Strategies&lt;/h3&gt;
+&lt;p&gt;Recall that the Multivariate Gaussian can be expressed in form of a radial distribution \eqref{eq:ep.1}. In this case, we have that
+\begin{equation}
+q_\boldsymbol{\tau}(r^2)=\frac{1}{(2\pi)^{n/2}}\exp\left(-\frac{1}{2}r^2\right),\label{eq:xnes.1}
+\end{equation}
+which does not depend on $\boldsymbol{\tau}$. This lets the Fisher information matrix in \eqref{eq:ec.1} be simplified to the most trivial form, which is the identity matrix $\mathbf{I}$.&lt;/p&gt;
+
+&lt;p&gt;Differentiating \eqref{eq:xnes.1} w.r.t $r^2$ then gives us
+\begin{equation}
+q_\boldsymbol{\tau}’(r^2)=\frac{\partial}{\partial(r^2)}\frac{1}{(2\pi)^{n/2}}\exp\left(-\frac{1}{2}r^2\right)=-\frac{1}{2}\frac{1}{(2\pi)^{n/2}}\exp\left(-\frac{1}{2}r^2\right)=-\frac{1}{2}q_\boldsymbol{\tau}(r^2),
+\end{equation}
+which by \eqref{eq:ec.2} and \eqref{eq:ec.3} implies that
+\begin{equation}
+\mathbf{g}_\boldsymbol{\delta}=-2\frac{q_\boldsymbol{\tau}’(\Vert\mathbf{s}\Vert^2)}{q_\boldsymbol{\tau}(\Vert\mathbf{s}\Vert^2)}\mathbf{s}=\mathbf{s}
+\end{equation}
+and
+\begin{equation}
+\mathbf{g}_\mathbf{M}=-\frac{1}{2}\mathbf{I}-\frac{q_\boldsymbol{\tau}’(\Vert\mathbf{s}\Vert^2)}{q_\boldsymbol{\tau}(\Vert\mathbf{s}\Vert^2)}\mathbf{s}\mathbf{s}^\text{T}=\frac{1}{2}(\mathbf{s}\mathbf{s}^\text{T}-\mathbf{I})
+\end{equation}
+Hence, the natural gradient is then given as
+\begin{align}
+\nabla_\boldsymbol{\delta}J&amp;amp;=\sum_{k=1}^{\lambda}f(\mathbf{z}_k)\mathbf{s}_k \\ \nabla_\mathbf{M}J&amp;amp;=\sum_{k=1}^{\lambda}f(\mathbf{z}_k)(\mathbf{s}_k\mathbf{s}_k^\text{T}-\mathbf{I}),
+\end{align}
+which can be improved with fitness shaping using the update formula \eqref{eq:fs.1} as
+\begin{align}
+\nabla_\boldsymbol{\delta}J&amp;amp;=\sum_{k=1}^{\lambda}u_k\mathbf{s}_{k:\lambda}, \\ \nabla_\mathbf{M}J&amp;amp;=\sum_{k=1}^{\lambda}u_k(\mathbf{s}_{k:\lambda}\mathbf{s}_{k:\lambda}^\text{T}-\mathbf{I}),
+\end{align}
+where $\mathbf{s}_{k:\lambda}$ denotes the $k$-th best sample in local coordinates. The resulting algorithm is thus known as &lt;strong&gt;Exponential Natural Evolution Strategies&lt;/strong&gt;, or &lt;strong&gt;xNES&lt;/strong&gt;, with the corresponding pseudocode shown below.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-10-07/xnes.png&quot; alt=&quot;xNES&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h2 id=&quot;test-on-rast&quot;&gt;Testing on Rastrigin function&lt;/h2&gt;
+&lt;p&gt;Analogy to &lt;a href=&quot;/2022/09/14/cma-es.html#test-on-rast&quot;&gt;CMA-ES&lt;/a&gt;, let us test NES on the Rastrigin function, which is, recall that, given by the formula
+\begin{equation}
+f(\mathbf{x})=10 n+\sum_{i=1}^{n}x_i^2-10\cos\left(2\pi x_i\right)
+\end{equation}
+$f(\mathbf{x})$ reaches its global minimum $0$ at $\mathbf{x}=\mathbf{0}$. The experimental setup we are going to use are provided in &lt;a href=&quot;#nes-paper&quot;&gt;Wierstra et al. 2014&lt;/a&gt;. Similar to our test with CMA-ES, each function evaluation is counted as success when it reaches $f_\text{stop}=10^{-10}$.&lt;/p&gt;
+
+&lt;p&gt;The result after running our experiment is illustrated in the figure below.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-10-07/nes-rastrigin.png&quot; alt=&quot;NES on rastrigin&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 1&lt;/b&gt;: Success rate to reach $f_\text{stop}=10^{-10}$ versus population size for Rastrigin function.&lt;br /&gt; The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/evolution-strategies/blob/main/testing_ground.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;p&gt;[1] Daan Wierstra, Tom Schaul, Jan Peters, Jürgen Schmidhuber. &lt;a href=&quot;https://people.idsia.ch/~juergen/nes2008.pdf&quot;&gt;Natural Evolution Strategies&lt;/a&gt;. IEEE World Congress on Computational Intelligence, 2008.&lt;/p&gt;
+
+&lt;p&gt;[2] Daan Wierstra, Tom Schaul, Tobias Glasmachers, Yi Sun, Jürgen Schmidhuber. &lt;a href=&quot;https://arxiv.org/abs/1106.4487&quot;&gt;Natural Evolution Strategies&lt;/a&gt;. arXiv:1106.4487, 2011.&lt;/p&gt;
+
+&lt;p&gt;&lt;span id=&quot;nes-paper&quot;&gt;[3] Daan Wierstra, Tom Schaul, Tobias Glasmachers, Yi Sun, Jan Peters, Jürgen Schmidhuber. &lt;a href=&quot;https://www.jmlr.org/papers/volume15/wierstra14a/wierstra14a.pdf&quot;&gt;Natural Evolution Strategies&lt;/a&gt;. Journal of Machine Learning Research 15 (2014).&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;[4] Ha, David. &lt;a href=&quot;https://blog.otoro.net/2017/10/29/visual-evolution-strategies/&quot;&gt;A Visual Guide to Evolution Strategies&lt;/a&gt;. blog.otoro.net, 2017.&lt;/p&gt;
+
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="machine-learning" /><category term="evolution-strategy" /><category term="neuroevolution" /><summary type="html">Natural Evolution Strategies, or NES, are referred to a family of evolution strategies that throughout its generations update a search distribution repeatedly using an estimated gradient of its distribution parameters.</summary></entry><entry><title type="html">CMA Evolution Strategy</title><link href="http://localhost:4000/2022/09/14/cma-es.html" rel="alternate" type="text/html" title="CMA Evolution Strategy" /><published>2022-09-14T13:00:00+07:00</published><updated>2022-09-14T13:00:00+07:00</updated><id>http://localhost:4000/2022/09/14/cma-es</id><content type="html" xml:base="http://localhost:4000/2022/09/14/cma-es.html">&lt;blockquote&gt;
+  &lt;p&gt;A note on CMA - Evolution Strategy
+&lt;!-- excerpt-end --&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#preliminaries&quot;&gt;Preliminaries&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#bsc-eqn&quot;&gt;Basic equation&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#upd-mean&quot;&gt;Updating the mean&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#adp-cov&quot;&gt;Adapting the covariance matrix&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#est-scratch&quot;&gt;Estimating from scratch&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#rank-lambda-mu-update&quot;&gt;Rank-$\gamma$ update&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#rank-one-update&quot;&gt;Rank-one update&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#final-update&quot;&gt;Final update&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#ctrl-sigma&quot;&gt;Controlling the step-size&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#test-on-rast&quot;&gt;Testing on Rastrigin function&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;preliminaries&quot;&gt;Preliminaries&lt;/h2&gt;
+&lt;p&gt;The &lt;strong&gt;condition number&lt;/strong&gt; of a matrix $\mathbf{A}$ is defined by
+\begin{equation}
+\kappa(\mathbf{A})\doteq\Vert\mathbf{A}\Vert\Vert\mathbf{A}^{-1}\Vert,
+\end{equation}
+where $\Vert\mathbf{A}\Vert=\sup_{\Vert\mathbf{x}\Vert=1}\Vert\mathbf{Ax}\Vert$.&lt;/p&gt;
+
+&lt;p&gt;For $\mathbf{A}$ that is non-singular, $\kappa(\mathbf{A})=\infty$.&lt;/p&gt;
+
+&lt;p&gt;For $\mathbf{A}$ which is positive definite, we thus have $\Vert\mathbf{A}\Vert=\lambda_\text{max}$ where $\lambda_\text{max}$ denotes the largest eigenvalue of $\mathbf{A}$, correspondingly $\lambda_\text{min}$ denotes the smallest eigenvalue of $\mathbf{A}$. The condition number of $\mathbf{A}$ therefore can be written as
+\begin{equation}
+\kappa(\mathbf{A})=\frac{\lambda_\text{max}}{\lambda_\text{min}}\geq 1,
+\end{equation}
+since corresponding to each eigenvalue $\lambda$ of $\mathbf{A}$, the inverse matrix $\mathbf{A}^{-1}$ takes $1/\lambda$ as its eigenvalue.&lt;/p&gt;
+
+&lt;h2 id=&quot;bsc-eqn&quot;&gt;Basic equation&lt;/h2&gt;
+&lt;p&gt;In the CMA-ES, a population of new search points is generated by sampling an MVN, in which at generation $t+1$, for $t=0,1,2,\ldots$
+\begin{equation}
+\mathbf{x}_k^{(t+1)}\sim\boldsymbol{\mu}^{(t)}+\sigma^{(t)}\mathcal{N}(\mathbf{0},\boldsymbol{\Sigma}^{(t)})\sim\mathcal{N}\left(\boldsymbol{\mu}^{(t)},{\sigma^{(t)}}^2\boldsymbol{\Sigma}^{(t)}\right),\hspace{1cm}k=1,\ldots,\lambda\label{eq:be.1}
+\end{equation}
+where&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;$\mathbf{x}_k^{(t+1)}\in\mathbb{R}^n$: the $k$-th sample at generation $t+1$.&lt;/li&gt;
+  &lt;li&gt;$\boldsymbol{\mu}^{(t)}\in\mathbb{R}^n$: mean of the search distribution at generation $t$.&lt;/li&gt;
+  &lt;li&gt;$\sigma^{(t)}\in\mathbb{R}$: step-size at generation $t$.&lt;/li&gt;
+  &lt;li&gt;$\boldsymbol{\Sigma}^{(t)}$: covariance matrix at generation $t$.&lt;/li&gt;
+  &lt;li&gt;${\sigma^{(t)}}^2\boldsymbol{\Sigma}^{(t)}$: covariance matrix of the search distribution at generation $t$.&lt;/li&gt;
+  &lt;li&gt;$\lambda\geq 2$: sample size.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;update-mean&quot;&gt;Updating the mean&lt;/h2&gt;
+&lt;p&gt;The mean $\boldsymbol{\mu}^{(t+1)}$ of the search distribution is defined as the weighted average of $\gamma$ selected points from the sample $\mathbf{x}_1^{(t+1)},\ldots,\mathbf{x}_\lambda^{(t+1)}$:
+\begin{equation}
+\boldsymbol{\mu}^{(t+1)}=\sum_{i=1}^{\gamma}w_i\mathbf{x}_{i:\lambda}^{(t+1)},\label{eq:um.1}
+\end{equation}
+where&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;$\sum_{i=1}^{\gamma}w_i=1$ with $w_1\geq w_2\geq\ldots\geq w_{\gamma}&amp;gt;0$.&lt;/li&gt;
+  &lt;li&gt;$\gamma\leq\lambda$: number of selected points.&lt;/li&gt;
+  &lt;li&gt;$\mathbf{x}_{i:\lambda}^{(t+1)}$: $i$-th best sample out of $\mathbf{x}_1^{(t+1)},\ldots,\mathbf{x}_\lambda^{(t+1)}$ from \eqref{eq:be.1}, i.e. with $f$ is the objective function to be minimized, we have
+\begin{equation}
+f(\mathbf{x}_{1:\lambda}^{(t+1)})\geq f(\mathbf{x}_{2:\lambda}^{(t+1)})\geq\ldots\geq f(\mathbf{x}_{\lambda:\lambda}^{(t+1)})
+\end{equation}&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We can rewrite \eqref{eq:um.1} as an update rule for the mean $\boldsymbol{\mu}$
+\begin{equation}
+\boldsymbol{\mu}^{(t+1)}=\boldsymbol{\mu}^{(t)}+\alpha_\boldsymbol{\mu}\sum_{i=1}^{\gamma}w_i\left(\mathbf{x}_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right),
+\end{equation}
+where $\alpha_\boldsymbol{\mu}\leq 1$ is the learning rate, which is usually set to $1$.&lt;/p&gt;
+
+&lt;p&gt;When choosing the weight values $w_i$ and population size $\gamma$ for recombination, we take into account the &lt;strong&gt;variance effective selection mass&lt;/strong&gt;, denoted as $\gamma_\text{eff}$, given by
+\begin{equation}
+\gamma_\text{eff}\doteq\left(\frac{\Vert\mathbf{w}\Vert_1}{\Vert\mathbf{w}\Vert_2}\right)=\frac{\Vert\mathbf{w}\Vert_1^2}{\Vert\mathbf{w}\Vert_2^2}=\frac{1}{\sum_{i=1}^{\gamma}w_i^2}
+\end{equation}
+where $\mathbf{w}$ is defined as the weight vector
+\begin{equation}
+\mathbf{w}=(w_1,\ldots,w_\gamma)^\text{T}
+\end{equation}&lt;/p&gt;
+
+&lt;h2 id=&quot;adp-cov&quot;&gt;Adapting the covariance matrix&lt;/h2&gt;
+&lt;p&gt;The covariance matrix can be estimated from scratch using the population of the current generation or can be estimated with covariance matrix from previous generations.&lt;/p&gt;
+
+&lt;h3 id=&quot;est-scratch&quot;&gt;Estimating from scratch&lt;/h3&gt;
+&lt;p&gt;Rather than using the empirical covariance matrix as an estimator for $\boldsymbol{\Sigma}^{(t)}$, in the CMA-ES, we consider the following estimation
+\begin{equation}
+\boldsymbol{\Sigma}_\lambda^{(t+1)}=\frac{1}{\lambda{\sigma^{(t)}}^2}\sum_{i=1}^{\lambda}\left(\mathbf{x}_i^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)\left(\mathbf{x}_i^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)^\text{T}\label{eq:es.1}
+\end{equation}
+Notice that in the above estimation \eqref{eq:es.1}, we have used all of the $\lambda$ samples. We thus can estimate a better covariance matrix by select some of the best individual out of $\lambda$ samples, which is analogous to how we update the mean $\boldsymbol{\mu}$.&lt;/p&gt;
+
+&lt;p&gt;In particular, we instead consider the estimation
+\begin{equation}
+\boldsymbol{\Sigma}_{\gamma}^{(t+1)}=\frac{1}{{\sigma^{(t)}}^2}\sum_{i=1}^{\gamma}w_i\left(\mathbf{x}_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)\left(\mathbf{x}_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)^\text{T},\label{eq:es.2}
+\end{equation}
+where $\gamma\leq\lambda$ is the number of selected points; the weights $w_i$ and selected points $\mathbf{x}_{i:\lambda}^{(t+1)}$ are defined as given in the update for $\boldsymbol{\mu}$.&lt;/p&gt;
+
+&lt;h3 id=&quot;rank-lambda-mu-update&quot;&gt;Rank-$\gamma$ update&lt;/h3&gt;
+&lt;p&gt;In order to ensure that \eqref{eq:es.2} is a reliable estimator, the selected population must be large enough. However, to get a fast search, the population size $\lambda$ must be small, which lets the selected sample size consequently small also. Thus, we can not get a reliable estimator for a good covariance matrix from \eqref{eq:es.2}. However, we can use the history as a helping hand.&lt;/p&gt;
+
+&lt;p&gt;In particular, if we have experienced a sufficient number of generations, the mean of the $\boldsymbol{\Sigma}_\gamma$ from all previous generations
+\begin{equation}
+\boldsymbol{\Sigma}^{(t+1)}=\frac{1}{t+1}\sum_{i=0}^{t}\boldsymbol{\Sigma}_\gamma^{(i+1)}\label{eq:rlmu.1}
+\end{equation}
+would be a reliable estimator.&lt;/p&gt;
+
+&lt;p&gt;In addition, it is reasonable that the recent generations will have more affection to the current generation than the distant ones. Hence, rather than assigning estimated covariance matrices $\boldsymbol{\Sigma}_\gamma$ from preceding generations the same weight as in \eqref{eq:rlmu.1}, it would be a better choice to give the more recent generations the higher weight.&lt;/p&gt;
+
+&lt;p&gt;Specifically, starting with an initial $\boldsymbol{\Sigma}^{(0)}=\mathbf{I}$, we consider the update, called &lt;strong&gt;rank-$\gamma$ update&lt;/strong&gt;, for the covariance matrix at generation $t+1$ using &lt;strong&gt;exponential smoothing&lt;/strong&gt;&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; as
+\begin{align}
+\boldsymbol{\Sigma}^{(t+1)}&amp;amp;=(1-\alpha_\gamma)\boldsymbol{\Sigma}^{(t)}+\alpha_\gamma\boldsymbol{\Sigma}_\gamma^{(t+1)} \\ &amp;amp;=(1-\alpha_\gamma)\boldsymbol{\Sigma}^{(t)}+\alpha_\gamma\frac{1}{{\sigma^{(t)}}^2}\sum_{i=1}^{\gamma}w_i\left(\mathbf{x}_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)\left(\mathbf{x}_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)^\text{T} \\ &amp;amp;=(1-\alpha_\gamma)\boldsymbol{\Sigma}^{(t)}+\alpha_\gamma\sum_{i=1}^{\gamma}w_i\mathbf{y}_{i:\lambda}^{(t+1)}{\mathbf{y}_{i:\lambda}^{(t+1)}}^\text{T},\label{eq:rlmu.2}
+\end{align}
+where&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;$\alpha_\gamma\leq 1$: learning rate.&lt;/li&gt;
+  &lt;li&gt;$w_1,\ldots,w_\gamma$ and $\mathbf{x}_{1:\lambda}^{(t+1)},\ldots,\mathbf{x}_{\lambda:\lambda}^{(g+1)}$ are defined as usual.&lt;/li&gt;
+  &lt;li&gt;$\mathbf{y}_{i:\lambda}^{(t+1)}=(\mathbf{x}_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)})/\sigma^{(t)}$.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The update \eqref{eq:rlmu.2} can be generalized to $\lambda$ weights values which neither necessarily sum to $1$, nor be non-negative anymore, as
+\begin{align}
+\boldsymbol{\Sigma}^{(t+1)}&amp;amp;=\left(1-\alpha_\gamma\sum_{i=1}^{\lambda}w_i\right)\boldsymbol{\Sigma}^{(t)}+\alpha_\gamma\sum_{i=1}^{\lambda}w_i\mathbf{y}_{i:\lambda}^{(t+1)}{\mathbf{y}_{i:\lambda}^{(t+1)}}^\text{T}\label{eq:rlmu.3} \\ &amp;amp;={\boldsymbol{\Sigma}^{(t)}}^{1/2}\left[\mathbf{I}+\alpha_\gamma\sum_{i=1}^{\lambda}w_i\left(\mathbf{z}_{i:\lambda}^{(t+1)}{\mathbf{z}_{i:\lambda}^{(t+1)}}^\text{T}-\mathbf{I}\right)\right]{\boldsymbol{\Sigma}^{(t)}}^{1/2},
+\end{align}
+where&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;$w_1\geq\ldots\geq w_\gamma&amp;gt;0\geq w_{\gamma+1}\geq\ldots\geq w_\lambda\in\mathbb{R}$, and usually $\sum_{i=1}^{\gamma}w_i=1$ and $\sum_{i=1}^{\lambda}w_i\approx 0$.&lt;/li&gt;
+  &lt;li&gt;$\mathbf{z}_{i:\lambda}^{(t+1)}={\boldsymbol{\Sigma}^{(t)}}^{1/2}\mathbf{y}_{i:\lambda}^{(t+1)}$ is the mutation vector.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;rank-one-update&quot;&gt;Rank-one-update&lt;/h3&gt;
+&lt;p&gt;We first consider a method that produces an $n$-dimensional normal distribution with zero mean. Specifically, let $\mathbf{y}_1,\ldots,\mathbf{y}_{t_0}\in\mathbb{R}^n$, for $t_0\geq n$ be vectors span $\mathbb{R}^n$. We thus have that
+\begin{align}
+\mathcal{N}(0,1)\mathbf{y}_1+\ldots+\mathcal{N}(0,1)\mathbf{y}_{t_0}&amp;amp;\sim\mathcal{N}(\mathbf{0},\mathbf{y}_1\mathbf{y}_1^\text{T})+\ldots+\mathcal{N}(\mathbf{0},\mathbf{y}_{t_0}\mathbf{y}_{t_0}^\text{T}) \\ &amp;amp;\sim\mathcal{N}\left(\mathbf{0},\sum_{i=1}^{t_0}\mathbf{y}_i\mathbf{y}_i^\text{T}\right)
+\end{align}
+The covariance matrix $\mathbf{y}_i\mathbf{y}_i^\text{T}$ has rank one, with only one eigenvalue $\Vert\mathbf{y}_i\Vert^2$ and a corresponding eigenvector within the form $\alpha\mathbf{y}_i$ for $\alpha\in\mathbb{R}$. Using the above equation, we can generate any MVN distribution.&lt;/p&gt;
+
+&lt;p&gt;Consider the update \eqref{eq:rlmu.3} with $\gamma=1$ and let $\mathbf{y}_{t+1}=\left(\mathbf{x}_{1:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)/\sigma^{(t)}$, the &lt;strong&gt;rank-one update&lt;/strong&gt; for the covariance matrix $\boldsymbol{\Sigma}^{(t+1)}$ is given by
+\begin{equation}
+\boldsymbol{\Sigma}^{t+1}=(1-\alpha_1)\boldsymbol{\Sigma}^{(t)}+\alpha_1\mathbf{y}_{t+1}\mathbf{y}_{t+1}^\text{T}
+\end{equation}
+The latter summand in the RHS has rank one and adds the maximum likelihood term for $\mathbf{y}_{t+1}$ into the covariance matrix $\boldsymbol{\Sigma}^{(t)}$, which makes the probability of generating $\mathbf{y}_{t+1}$ in the generation $t+1$ increase.&lt;/p&gt;
+
+&lt;p&gt;We continue by noticing that to update the covariance matrix $\boldsymbol{\Sigma}^{(t+1)}$, in \eqref{eq:rlmu.3}, we have used the selected steps
+\begin{equation}
+\mathbf{y}_{i:\lambda}^{(g+1)}=\frac{\mathbf{x}_{i:\lambda}^{(g+1)}-\boldsymbol{\mu}^{(g)}}{\sigma^{(g)}}
+\end{equation}
+However, since
+\begin{equation}
+\mathbf{y}_{i:\lambda}^{(g+1)}{\mathbf{y}_{i:\lambda}^{(g+1)}}^\text{T}=-\mathbf{y}_{i:\lambda}^{(g+1)}\left(-\mathbf{y}_{i:\lambda}^{(g+1)}\right)^\text{T},
+\end{equation}
+which means the sign information is lost when computing the covariance matrix. To track the sign information to the update rule of $\boldsymbol{\Sigma}^{(t+1)}$, we use &lt;strong&gt;evolution path&lt;/strong&gt;, which defined as a sequence of successive steps over number of generations.&lt;/p&gt;
+
+&lt;p&gt;In particular, analogy to \eqref{eq:rlmu.3}, we use exponential smoothing to establish the evolution path, $\mathbf{p}_c\in\mathbb{R}^n$, which starting with an initial value $\mathbf{p}_c^{(0)}=\mathbf{0}$ and being updated with
+\begin{align}
+\mathbf{p}_c^{(t+1)}&amp;amp;=(1-\alpha_c)\mathbf{p}_c^{(t)}+\sqrt{(1-(1-\alpha_c)^2)\mu_\text{eff}}\sum_{i=1}^{\gamma}w_i\mathbf{y}_{i:\lambda}^{(t+1)} \\ &amp;amp;=(1-\alpha_c)\mathbf{p}_c^{(t)}+\sqrt{\alpha_c(2-\alpha_c)\gamma_\text{eff}}\sum_{i=1}^{\gamma}\frac{w_i\left(\mathbf{x}_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)}{\sigma^{(t)}} \\ &amp;amp;=(1-\alpha_c)\mathbf{p}_c^{(t)}+\sqrt{\alpha_c(2-\alpha_c)\gamma_\text{eff}}\frac{1}{\sigma^{(t)}}\left[\left(\sum_{i=1}^{\gamma}w_i\mathbf{x}_{i:\lambda}^{(t+1)}\right)-\boldsymbol{\mu}^{(t)}\sum_{i=1}^{\gamma}w_i\right] \\ &amp;amp;=(1-\alpha_c)\mathbf{p}_c^{(t)}+\sqrt{\alpha_c(2-\alpha_c)\gamma_\text{eff}}\frac{\boldsymbol{\mu}^{(t+1)}-\boldsymbol{\mu}^{(t)}}{\sigma^{(t)}},
+\end{align}
+where&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;$\mathbf{p}_c^{(t)}\in\mathbb{R}^n$ is the evolution path at generation $t$.&lt;/li&gt;
+  &lt;li&gt;$\alpha_c\leq 1$ is the learning rate.&lt;/li&gt;
+  &lt;li&gt;$\sqrt{\alpha_c(2-\alpha_c)\gamma_\text{eff}}$ is a normalization factor for $\mathbf{p}_c^{(t+1)}$ such that
+\begin{equation}
+\mathbf{p}_c^{(t+1)}\sim\mathcal{N}(\mathbf{0},\boldsymbol{\Sigma}),
+\end{equation}
+since by $\mathbf{y}_{i:\lambda}^{(t+1)}=(\mathbf{x}_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)})/\sigma^{(t)}$ we have that
+\begin{equation}
+\mathbf{p}_c^{(t)}\sim\mathbf{y}_{i:\lambda}^{(t+1)}\sim\mathcal{N}(\mathbf{0},\boldsymbol{\Sigma}),\hspace{1cm}\forall i=1,\ldots,\gamma
+\end{equation}
+which by $\gamma_\text{eff}=\left(\sum_{i=1}^{\gamma}w_i^2\right)^{-1}$ implies that
+\begin{equation}
+\sum_{i=1}^{\gamma}w_i\mathbf{y}_{i:\lambda}^{(t+1)}\sim\frac{1}{\sqrt{\gamma_\text{eff}}}\mathcal{N}(\mathbf{0},\boldsymbol{\Sigma})
+\end{equation}&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The &lt;strong&gt;rank-one update&lt;/strong&gt; for the covariance matrix $\boldsymbol{\Sigma}^{(t)}$ via the evolution path $\mathbf{p}_c^{(t+1)}$ then given as
+\begin{equation}
+\boldsymbol{\Sigma}^{(t+1)}=(1-\alpha_1)\boldsymbol{\Sigma}^{(t)}+\alpha_1\mathbf{p}_c^{(t+1)}{\mathbf{p}_c^{(t+1)}}^\text{T},\label{eq:rou.1}
+\end{equation}
+An empirical validated choice for the learning rate $\alpha_1$ is $\alpha_1\approx 2/n^2$.&lt;/p&gt;
+
+&lt;h3 id=&quot;final-update&quot;&gt;Final update&lt;/h3&gt;
+&lt;p&gt;Combining rank-$\gamma$ update \eqref{eq:rlmu.3} and rank-one update \eqref{eq:rou.1} together, we obtain the final update for the covariance matrix $\boldsymbol{\Sigma}^{(t+1)}$ as
+\begin{equation}
+\boldsymbol{\Sigma}^{(t+1)}=\left(1-\alpha_1-\alpha_\gamma\sum_{i=1}^{\lambda}w_i\right)\boldsymbol{\Sigma}^{(t)}+\alpha_1\mathbf{p}_c^{(t+1)}{\mathbf{p}_c^{(t+1)}}^\text{T}+\alpha_\gamma\sum_{i=1}^{\lambda}w_i\mathbf{y}_{i:\lambda}^{(t+1)}{\mathbf{y}_{i:\lambda}^{(t+1)}}^\text{T},
+\end{equation}
+where&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;$\alpha_1\approx 2/n^2$.&lt;/li&gt;
+  &lt;li&gt;$\alpha_\gamma\approx\min(\gamma_\text{eff}/n^2,1-\alpha_1)$.&lt;/li&gt;
+  &lt;li&gt;$\mathbf{y}_{i:\lambda}^{(t+1)}=\left(\mathbf{x}_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}\right)/\sigma^{(t)}$.&lt;/li&gt;
+  &lt;li&gt;$\sum_{i=1}^{\lambda}w_i\approx-\alpha_1/\alpha_\gamma$.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;ctrl-sigma&quot;&gt;Controlling the step-size&lt;/h2&gt;
+&lt;p&gt;To control the step-size $\sigma^{(t)}$, similar to how we cumulatively update the covariance matrix by rank-one covariance matrices, we also use an evolution path, which is defined as sum of successive steps $\boldsymbol{\mu}^{(t+1)}-\boldsymbol{\mu}^{(t)}$.&lt;/p&gt;
+
+&lt;p&gt;However, in this step-size adaption, we utilize a conjugate evolution path $\mathbf{p}_\sigma$, which begins with an initial value $\mathbf{p}_\sigma^{(0)}=\mathbf{0}$ and is repeatedly updated by
+\begin{align}
+\mathbf{p}_\sigma^{(t+1)}&amp;amp;=(1-\alpha_\sigma)\mathbf{p}_\sigma^{(t)}+\sqrt{(1-(1-\alpha_\sigma)^2)\gamma_\text{eff}}{\boldsymbol{\Sigma}^{(t)}}^{-1/2}\sum_{i=1}^{\gamma}w_i\mathbf{y}_{i:\lambda}^{(t+1)} \\ &amp;amp;=1-\alpha_\sigma)\mathbf{p}_\sigma^{(t)}+\sqrt{\alpha_\sigma(2-\alpha_\sigma)\gamma_\text{eff}}{\boldsymbol{\Sigma}^{(t)}}^{-1/2}\sum_{i=1}^{\gamma}w_i\frac{\mathbf{x}_{i:\lambda}^{(t+1)}-\boldsymbol{\mu}^{(t)}}{\sigma^{(t)}} \\ &amp;amp;=1-\alpha_\sigma)\mathbf{p}_\sigma^{(t)}+\sqrt{\alpha_\sigma(2-\alpha_\sigma)\gamma_\text{eff}}{\boldsymbol{\Sigma}^{(t)}}^{-1/2}\frac{1}{\sigma^{(t)}}\left[\left(\sum_{i=1}^{\gamma}w_i\mathbf{x}_{i:\lambda}^{(t+1)}\right)-\boldsymbol{\mu}^{(t)}\sum_{i=1}^{\gamma}w_i\right] \\ &amp;amp;=1-\alpha_\sigma)\mathbf{p}_\sigma^{(t)}+\sqrt{\alpha_\sigma(2-\alpha_\sigma)\gamma_\text{eff}}{\boldsymbol{\Sigma}^{(t)}}^{-1/2}\frac{\boldsymbol{\mu}^{(t+1)}-\boldsymbol{\mu}^{(t)}}{\sigma^{(t)}},
+\end{align}
+where&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;$\mathbf{p}_\sigma^{(t)}\in\mathbb{R}^n$ is the conjugate evolution path at generation $t$.&lt;/li&gt;
+  &lt;li&gt;$\alpha_\sigma&amp;lt;1$ is the learning rate.&lt;/li&gt;
+  &lt;li&gt;$\sqrt{\alpha_c(2-\alpha_c)\gamma_\text{eff}}$ is a normalization factor for $\mathbf{p}_\sigma^{(t+1)}$, which analogously to the covariance matrix adaption, lets
+\begin{equation}
+\mathbf{p}_\sigma^{(t+1)}\sim\mathcal{N}(\mathbf{0},\mathbf{I})
+\end{equation}&lt;/li&gt;
+  &lt;li&gt;The covariance matrix ${\boldsymbol{\Sigma}^{(t)}}^{-1/2}$ is defined as
+\begin{equation}
+{\boldsymbol{\Sigma}^{(t)}}^{-1/2}\doteq\mathbf{Q}^{(t)}{\boldsymbol{\Lambda}^{(t)}}^{-1/2}{\mathbf{Q}^{(t)}}^\text{T},\label{eq:cs.1}
+\end{equation}
+where
+\begin{equation}
+\hspace{-0.8cm}\boldsymbol{\Sigma}^{(t)}=\mathbf{Q}^{(t)}\boldsymbol{\Lambda}^{(t)}{\mathbf{Q}^{(t)}}^\text{T}=\left[\begin{matrix}\vert&amp;amp;&amp;amp;\vert \\ \mathbf{q}_1^{(t)}&amp;amp;\ldots&amp;amp;\mathbf{q}_n^{(t)} \\ \vert&amp;amp;&amp;amp;\vert\end{matrix}\right]\left[\begin{matrix}\lambda_1^{(t)}&amp;amp;&amp;amp; \\ &amp;amp;\ddots&amp;amp; \\ &amp;amp;&amp;amp; \lambda_n^{(t)}\end{matrix}\right]\left[\begin{matrix}\vert&amp;amp;&amp;amp;\vert \\ \mathbf{q}_1^{(t)}&amp;amp;\ldots&amp;amp;\mathbf{q}_n^{(t)} \\ \vert&amp;amp;&amp;amp;\vert\end{matrix}\right]^\text{T}
+\end{equation}
+is an eigendecomposition of the positive definite covariance matrix $\boldsymbol{\Sigma}^{(t)}$, where $\mathbf{Q}^{(t)}\in\mathbb{R}^{n\times n}$ is an orthonormal matrix whose columns are unit eigenvectors $\mathbf{q}_i^{(t)}$ of $\boldsymbol{\Sigma}^{(t)}$ and $\boldsymbol{\Lambda}^{(t)}\in\mathbb{R}^{n\times n}$ is a diagonal matrix whose diagonal entries are eigenvalues $\lambda_i^{(t)}$ of $\boldsymbol{\Sigma}^{(t)}$.&lt;br /&gt;
+Moreover, for each eigenvalue, eigenvector pair $(\lambda_i^{(t)},\mathbf{q}_i^{(t)})$ of $\boldsymbol{\Sigma}^{(t)}$ we have
+\begin{equation}
+\lambda_i^{(t)}{\boldsymbol{\Sigma}^{(t)}}^{-1}\mathbf{q}_i^{(t)}={\boldsymbol{\Sigma}^{(t)}}^{-1}\boldsymbol{\Sigma}^{(t)}\mathbf{q}_i^{(t)}=\mathbf{q}_i^{(t)},
+\end{equation}
+or
+\begin{equation}
+{\boldsymbol{\Sigma}^{(t)}}^{-1}\mathbf{q}_i^{(t)}=\frac{1}{\lambda_i^{(t)}}\mathbf{q}_i^{(t)},
+\end{equation}
+or in other words, $(1/\lambda_i^{(t)},\mathbf{q}_i^{(t)})$ is an eigenvalue, eigenvector pair of ${\boldsymbol{\Sigma}^{(t)}}^{-1}$. Therefore, the inverse of $\boldsymbol{\Sigma}^{(t)}$, which is also positive definite can be written by
+\begin{equation}
+{\boldsymbol{\Sigma}^{(t)}}^{-1}=\mathbf{Q}^{(t)}\left[\begin{matrix}1/\lambda_1^{(t)}&amp;amp;&amp;amp; \\ &amp;amp;\ddots&amp;amp; \\ &amp;amp;&amp;amp; 1/\lambda_n^{(t)}\end{matrix}\right]{\mathbf{Q}^{(t)}}^\text{T}=\mathbf{Q}^{(t)}{\boldsymbol{\Lambda}^{(t)}}^{-1}{\mathbf{Q}^{(t)}}^\text{T},
+\end{equation}
+which allows us to obtain the representation \eqref{eq:cs.1} of ${\boldsymbol{\Sigma}^{(t)}}^{-1/2}$.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The transformation ${\boldsymbol{\Sigma}^{(t)}}^{-1/2}=\mathbf{Q}^{(t)}{\boldsymbol{\Lambda}^{(t)}}^{-1/2}{\mathbf{Q}^{(t)}}^\text{T}$ re-scales length of the step $\boldsymbol{\mu}^{(t+1)}-\boldsymbol{\mu}^{(t)}$ without changing its direction. In more specific:&lt;/p&gt;
+&lt;ul id=&quot;number-list&quot;&gt;
+	&lt;li&gt;
+		${\mathbf{Q}^{(t)}}^\text{T}$ transform the original space into the coordinate space with columns of $\mathbf{Q}^{(t)}$, which is also the eigenvectors of $\boldsymbol{\Sigma}^{(t)}$ or the principle axes of $\mathcal{N}(\mathbf{0},\boldsymbol{\Sigma}^{(t)})$, as its principle axes.
+	&lt;/li&gt;
+	&lt;li&gt;
+		${\boldsymbol{\Lambda}^{(t)}}^{-1/2}$ re-scales the principle axes to have the same length.
+	&lt;/li&gt;
+	&lt;li&gt;
+		$\mathbf{Q}^{(t)}$ transforms the coordinate system back to the original space.
+	&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;It means that this transformation makes the expected length of $\mathbf{p}_\sigma^{(t+1)}$ independent of its direction.&lt;/p&gt;
+
+&lt;p&gt;We then update $\sigma^{(t)}$ by according to the ratio of its length with its expected length $\Vert\mathbf{p}_\sigma^{(t+1)}\Vert/\mathbb{E}\Vert\mathcal{N}(\mathbf{0},\mathbf{I})\Vert$, given by
+\begin{equation}
+\log\sigma^{(t+1)}=\log\sigma^{(t)}+\frac{\alpha_\sigma}{d_\sigma}\left(\frac{\Vert\mathbf{p}_\sigma^{(t+1)}\Vert}{\mathbb{E}\Vert\mathcal{N}(\mathbf{0},\mathbf{I})\Vert}-1\right),
+\end{equation}
+where $d_\sigma\approx 1$ is the &lt;strong&gt;damping parameter&lt;/strong&gt;, which controls the update size. Therefore, since $\sigma^{(t)}&amp;gt;0$, we have the update rule for $\sigma^{(t)}$ is given by
+\begin{equation}
+\sigma^{(t+1)}=\sigma^{(t)}\exp\left(\frac{\alpha_\sigma}{d_\sigma}\left(\frac{\Vert\mathbf{p}_\sigma^{(t+1)}\Vert}{\mathbb{E}\Vert\mathcal{N}(\mathbf{0},\mathbf{I})\Vert}-1\right)\right)
+\end{equation}&lt;/p&gt;
+
+&lt;h2 id=&quot;test-on-rast&quot;&gt;Testing on Rastrigin function&lt;/h2&gt;
+&lt;p&gt;Let us give the CMA-ES algorithm a try on the &lt;a href=&quot;https://en.wikipedia.org/wiki/Rastrigin_function&quot;&gt;&lt;strong&gt;Rastrigin function&lt;/strong&gt;&lt;/a&gt;, $f:\mathbb{R}^n\to\mathbb{R}$, which is given by
+\begin{equation}
+f(\mathbf{x})=10 n+\sum_{i=1}^{n}x_i^2-10\cos\left(2\pi x_i\right)
+\end{equation}
+The global minimum of $f(\mathbf{x})$ is $0$ at $\mathbf{x}=\mathbf{0}$. We will be using the experimental settings given in this &lt;a href=&quot;#cmaes-exp&quot;&gt;paper&lt;/a&gt; proposed by CMA-ES’s original author. Each time we end up with a result less than $f_\text{stop}=10^{-10}$, we count it a success run.&lt;/p&gt;
+
+&lt;p&gt;The result obtained is illustrated in the following figure.&lt;/p&gt;
+&lt;figure&gt;
+	&lt;img src=&quot;/assets/images/2022-09-14/cmaes-rastrigin.png&quot; alt=&quot;CMA-ES on rastrigin&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 1&lt;/b&gt;: Success rate to reach $f_\text{stop}=10^{-10}$ versus population size for Rastrigin function.&lt;br /&gt; The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/evolution-strategies/blob/main/testing_ground.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;p&gt;[1] Nikolaus Hansen. &lt;a href=&quot;https://arxiv.org/abs/1604.00772&quot;&gt;The CMA Evolution Strategy: A Tutorial&lt;/a&gt;. 	arXiv:1604.00772, 2016.&lt;/p&gt;
+
+&lt;p&gt;[2] Nikolaus Hansen, Youhei Akimoto &amp;amp; Petr Baudis. &lt;a href=&quot;https://github.com/CMA-ES/pycma&quot;&gt;CMA-ES/pycma on Github&lt;/a&gt;. Zenodo, &lt;a href=&quot;https://doi.org/10.5281/zenodo.2559634&quot;&gt;DOI:10.5281/zenodo.2559634&lt;/a&gt;, February 2019.&lt;/p&gt;
+
+&lt;p&gt;&lt;span id=&quot;cmaes-exp&quot;&gt;[3] Nikolaus Hansen, Stefan Kern. &lt;a href=&quot;https://doi.org/10.1007/978-3-540-30217-9_29&quot;&gt;Evaluating the CMA Evolution Strategy on Multimodal Test Functions&lt;/a&gt;. Parallel Problem Solving from Nature - PPSN VIII. PPSN 2004.&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;[4] Ha, David. &lt;a href=&quot;https://blog.otoro.net/2017/10/29/visual-evolution-strategies/&quot;&gt;A Visual Guide to Evolution Strategies&lt;/a&gt;. blog.otoro.net, 2017.&lt;/p&gt;
+
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
+
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;The simplest form of &lt;strong&gt;exponential smoothing&lt;/strong&gt; is given by the formula
+\begin{align*}
+s_0&amp;amp;=x_0 \\ s_t&amp;amp;=\alpha x_t+(1-\alpha)s_{t-1},\hspace{1cm}t&amp;gt;0
+\end{align*}
+where $0&amp;lt;\alpha&amp;lt;1$ is referred as the &lt;strong&gt;smoothing factor&lt;/strong&gt;. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="machine-learning" /><category term="evolution-strategy" /><category term="neuroevolution" /><summary type="html">A note on CMA - Evolution Strategy</summary></entry></feed>

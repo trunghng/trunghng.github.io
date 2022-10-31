@@ -1,5 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-29T21:07:42+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
-</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Inverse Reinforcement Learning</title><link href="http://localhost:4000/2022/10/17/irl.html" rel="alternate" type="text/html" title="Inverse Reinforcement Learning" /><published>2022-10-17T13:00:00+07:00</published><updated>2022-10-17T13:00:00+07:00</updated><id>http://localhost:4000/2022/10/17/irl</id><content type="html" xml:base="http://localhost:4000/2022/10/17/irl.html">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-31T14:08:25+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Evolving neural network topology</title><link href="http://localhost:4000/2022/10/28/neat.html" rel="alternate" type="text/html" title="Evolving neural network topology" /><published>2022-10-28T13:00:00+07:00</published><updated>2022-10-28T13:00:00+07:00</updated><id>http://localhost:4000/2022/10/28/neat</id><content type="html" xml:base="http://localhost:4000/2022/10/28/neat.html">&lt;blockquote&gt;
+  &lt;p&gt;A note on NEAT.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;!-- excerpt-end --&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;p&gt;[1] Kenneth O. Stanley &amp;amp; Risto Miikkulainen. &lt;a href=&quot;https://nn.cs.utexas.edu/downloads/papers/stanley.ec02.pdf&quot;&gt;Evolving Neural Networks Through Augmenting Topologies&lt;/a&gt;. Evolutionary Computation 10, no.2 (2002): 99-127.&lt;/p&gt;
+
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="machine-learning" /><category term="neuroevolution" /><summary type="html">A note on NEAT.</summary></entry><entry><title type="html">Inverse Reinforcement Learning</title><link href="http://localhost:4000/2022/10/17/irl.html" rel="alternate" type="text/html" title="Inverse Reinforcement Learning" /><published>2022-10-17T13:00:00+07:00</published><updated>2022-10-17T13:00:00+07:00</updated><id>http://localhost:4000/2022/10/17/irl</id><content type="html" xml:base="http://localhost:4000/2022/10/17/irl.html">&lt;blockquote&gt;
   &lt;p&gt;A note on Inverse Reinforcement Learning&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -109,21 +123,7 @@ Hence, we have that
 
 &lt;p&gt;[3] Nathan Ratliff, David Silver &amp;amp; J. Andrew (Drew) Bagnell. &lt;a href=&quot;https://www.ri.cmu.edu/publications/learning-to-search-functional-gradient-techniques-for-imitation-learning/&quot;&gt;Learning to search: Functional gradient techniques for imitation learning&lt;/a&gt;. Autonomous Robots. July 2009.&lt;/p&gt;
 
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="reinforcement-learning" /><category term="inverse-reinforcement-learning" /><summary type="html">A note on Inverse Reinforcement Learning</summary></entry><entry><title type="html">Evolving neural network topology</title><link href="http://localhost:4000/2022/10/13/neat.html" rel="alternate" type="text/html" title="Evolving neural network topology" /><published>2022-10-13T13:00:00+07:00</published><updated>2022-10-13T13:00:00+07:00</updated><id>http://localhost:4000/2022/10/13/neat</id><content type="html" xml:base="http://localhost:4000/2022/10/13/neat.html">&lt;blockquote&gt;
-  &lt;p&gt;A note on NEAT.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;!-- excerpt-end --&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;p&gt;[1] Kenneth O. Stanley &amp;amp; Risto Miikkulainen. &lt;a href=&quot;https://nn.cs.utexas.edu/downloads/papers/stanley.ec02.pdf&quot;&gt;Evolving Neural Networks Through Augmenting Topologies&lt;/a&gt;. Evolutionary Computation 10, no.2 (2002): 99-127.&lt;/p&gt;
-
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="machine-learning" /><category term="neural-evolution" /><summary type="html">A note on NEAT.</summary></entry><entry><title type="html">Natural Evolution Strategies</title><link href="http://localhost:4000/2022/10/07/nes.html" rel="alternate" type="text/html" title="Natural Evolution Strategies" /><published>2022-10-07T13:00:00+07:00</published><updated>2022-10-07T13:00:00+07:00</updated><id>http://localhost:4000/2022/10/07/nes</id><content type="html" xml:base="http://localhost:4000/2022/10/07/nes.html">&lt;blockquote&gt;
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="reinforcement-learning" /><category term="inverse-reinforcement-learning" /><summary type="html">A note on Inverse Reinforcement Learning</summary></entry><entry><title type="html">Natural Evolution Strategies</title><link href="http://localhost:4000/2022/10/07/nes.html" rel="alternate" type="text/html" title="Natural Evolution Strategies" /><published>2022-10-07T13:00:00+07:00</published><updated>2022-10-07T13:00:00+07:00</updated><id>http://localhost:4000/2022/10/07/nes</id><content type="html" xml:base="http://localhost:4000/2022/10/07/nes.html">&lt;blockquote&gt;
   &lt;p&gt;&lt;strong&gt;Natural Evolution Strategies&lt;/strong&gt;, or &lt;strong&gt;NES&lt;/strong&gt;, are referred to a family of evolution strategies that throughout its generations update a search distribution repeatedly using an estimated gradient of its distribution parameters.&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -454,8 +454,8 @@ $f(\mathbf{x})$ reaches its global minimum $0$ at $\mathbf{x}=\mathbf{0}$. The e
 
 &lt;p&gt;The result after running our experiment is illustrated in the figure below.&lt;/p&gt;
 &lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-10-07/nes-dim-popsize-exp.png&quot; alt=&quot;NES on rastrigin&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 1&lt;/b&gt;: Success rate to reach $f_\text{stop}=10^{-10}$ versus population size for Rastrigin function.&lt;br /&gt; The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/evolution-strategies/blob/main/dim-popsize-exp.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
+	&lt;img src=&quot;/assets/images/2022-10-07/nes-rastrigin.png&quot; alt=&quot;NES on rastrigin&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 1&lt;/b&gt;: Success rate to reach $f_\text{stop}=10^{-10}$ versus population size for Rastrigin function.&lt;br /&gt; The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/evolution-strategies/blob/main/testing_ground.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
@@ -467,7 +467,7 @@ $f(\mathbf{x})$ reaches its global minimum $0$ at $\mathbf{x}=\mathbf{0}$. The e
 
 &lt;p&gt;[4] Ha, David. &lt;a href=&quot;https://blog.otoro.net/2017/10/29/visual-evolution-strategies/&quot;&gt;A Visual Guide to Evolution Strategies&lt;/a&gt;. blog.otoro.net, 2017.&lt;/p&gt;
 
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="machine-learning" /><category term="evolution-strategy" /><category term="neural-evolution" /><summary type="html">Natural Evolution Strategies, or NES, are referred to a family of evolution strategies that throughout its generations update a search distribution repeatedly using an estimated gradient of its distribution parameters.</summary></entry><entry><title type="html">CMA Evolution Strategy</title><link href="http://localhost:4000/2022/09/14/cma-es.html" rel="alternate" type="text/html" title="CMA Evolution Strategy" /><published>2022-09-14T13:00:00+07:00</published><updated>2022-09-14T13:00:00+07:00</updated><id>http://localhost:4000/2022/09/14/cma-es</id><content type="html" xml:base="http://localhost:4000/2022/09/14/cma-es.html">&lt;blockquote&gt;
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="machine-learning" /><category term="evolution-strategy" /><category term="neuroevolution" /><summary type="html">Natural Evolution Strategies, or NES, are referred to a family of evolution strategies that throughout its generations update a search distribution repeatedly using an estimated gradient of its distribution parameters.</summary></entry><entry><title type="html">CMA Evolution Strategy</title><link href="http://localhost:4000/2022/09/14/cma-es.html" rel="alternate" type="text/html" title="CMA Evolution Strategy" /><published>2022-09-14T13:00:00+07:00</published><updated>2022-09-14T13:00:00+07:00</updated><id>http://localhost:4000/2022/09/14/cma-es</id><content type="html" xml:base="http://localhost:4000/2022/09/14/cma-es.html">&lt;blockquote&gt;
   &lt;p&gt;A note on CMA - Evolution Strategy
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -734,8 +734,8 @@ The global minimum of $f(\mathbf{x})$ is $0$ at $\mathbf{x}=\mathbf{0}$. We will
 
 &lt;p&gt;The result obtained is illustrated in the following figure.&lt;/p&gt;
 &lt;figure&gt;
-	&lt;img src=&quot;/assets/images/2022-09-14/dim-popsize-exp.png&quot; alt=&quot;CMA-ES on rastrigin&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
-	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 1&lt;/b&gt;: Success rate to reach $f_\text{stop}=10^{-10}$ versus population size for Rastrigin function.&lt;br /&gt; The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/evolution-strategies/blob/main/dim-popsize-exp.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
+	&lt;img src=&quot;/assets/images/2022-09-14/cmaes-rastrigin.png&quot; alt=&quot;CMA-ES on rastrigin&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
+	&lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 1&lt;/b&gt;: Success rate to reach $f_\text{stop}=10^{-10}$ versus population size for Rastrigin function.&lt;br /&gt; The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/evolution-strategies/blob/main/testing_ground.py&quot;&gt;here&lt;/a&gt;&lt;/span&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
@@ -759,7 +759,7 @@ s_0&amp;amp;=x_0 \\ s_t&amp;amp;=\alpha x_t+(1-\alpha)s_{t-1},\hspace{1cm}t&amp;
 where $0&amp;lt;\alpha&amp;lt;1$ is referred as the &lt;strong&gt;smoothing factor&lt;/strong&gt;. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="machine-learning" /><category term="evolution-strategy" /><category term="neural-evolution" /><summary type="html">A note on CMA - Evolution Strategy</summary></entry><entry><title type="html">Neural networks</title><link href="http://localhost:4000/2022/09/02/neural-nets.html" rel="alternate" type="text/html" title="Neural networks" /><published>2022-09-02T13:00:00+07:00</published><updated>2022-09-02T13:00:00+07:00</updated><id>http://localhost:4000/2022/09/02/neural-nets</id><content type="html" xml:base="http://localhost:4000/2022/09/02/neural-nets.html">&lt;blockquote&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="machine-learning" /><category term="evolution-strategy" /><category term="neuroevolution" /><summary type="html">A note on CMA - Evolution Strategy</summary></entry><entry><title type="html">Neural networks</title><link href="http://localhost:4000/2022/09/02/neural-nets.html" rel="alternate" type="text/html" title="Neural networks" /><published>2022-09-02T13:00:00+07:00</published><updated>2022-09-02T13:00:00+07:00</updated><id>http://localhost:4000/2022/09/02/neural-nets</id><content type="html" xml:base="http://localhost:4000/2022/09/02/neural-nets.html">&lt;blockquote&gt;
   &lt;p&gt;A note on Neural networks.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
