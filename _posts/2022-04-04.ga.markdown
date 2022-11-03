@@ -1,0 +1,34 @@
+---
+layout: post
+title:  "Genetic algorithms"
+date:   2022-04-04 13:00:00 +0700
+tags: genetic-algorithms
+description: Genetic algorithms
+comments: true
+eqn-number: true
+---
+> A note on Genetic algorithms. 
+
+<!-- excerpt-end -->
+- [References](#references)
+- [Footnotes](#footnotes)
+
+- Init: create a population of n elements, each generated randomly
+- Loop
+	- Selection
+	- Reproduction: repeat n times
+		- pick 2 parents
+		- crossover
+		- mutation
+		- add new child to a new population
+	- Replace old pop by the new one
+
+
+Key params: popsize, mutation_rate, fitness_function
+
+
+## References
+{: references}
+
+## Footnotes
+{: #footnotes}

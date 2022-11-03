@@ -1,4 +1,4 @@
-I"w<blockquote>
+I"w<blockquote>
   <p><strong>Natural Evolution Strategies</strong>, or <strong>NES</strong>, are referred to a family of evolution strategies that throughout its generations update a search distribution repeatedly using an estimated gradient of its distribution parameters.</p>
 </blockquote>
 
@@ -251,7 +251,7 @@ where $\mathbf{H}=(\mathbf{C}-\mathbf{V}^\text{T}\mathbf{V})^{-1}$, and thus $\m
 
 <p>On the other hands, the gradient w.r.t each parameter of $\log\pi(\mathbf{z})$ are given as
 \begin{equation}
-\left.\nabla_{\boldsymbol{\delta},\mathbf{M},\boldsymbol{\tau}}\log\pi(\mathbf{z}\vert\boldsymbol{\mu},\mathbf{A},\boldsymbol{\tau},\boldsymbol{\delta},\mathbf{M})\right\vert_{\,\boldsymbol{\delta}=\mathbf{0},\mathbf{M}=\mathbf{0}}=\mathbf{g}=\left[\begin{matrix}\mathbf{g}_\boldsymbol{\delta} \\ \mathbf{g}_\mathbf{M} \\ \mathbf{g}_\boldsymbol{\tau}\end{matrix}\right],
+\nabla_{\boldsymbol{\delta},\mathbf{M},\boldsymbol{\tau}}\log\pi(\mathbf{z}\vert\boldsymbol{\mu},\mathbf{A},\boldsymbol{\tau},\boldsymbol{\delta},\mathbf{M})\big\vert_{\,\boldsymbol{\delta}=\mathbf{0},\mathbf{M}=\mathbf{0}}=\mathbf{g}=\left[\begin{matrix}\mathbf{g}_\boldsymbol{\delta} \\ \mathbf{g}_\mathbf{M} \\ \mathbf{g}_\boldsymbol{\tau}\end{matrix}\right],
 \end{equation}
 where
 \begin{align}
@@ -329,8 +329,8 @@ $f(\mathbf{x})$ reaches its global minimum $0$ at $\mathbf{x}=\mathbf{0}$. The e
 
 <p>The result after running our experiment is illustrated in the figure below.</p>
 <figure>
-	<img src="/assets/images/2022-10-07/nes-dim-popsize-exp.png" alt="NES on rastrigin" style="display: block; margin-left: auto; margin-right: auto;" />
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Success rate to reach $f_\text{stop}=10^{-10}$ versus population size for Rastrigin function.<br /> The code can be found <span><a href="https://github.com/trunghng/evolution-strategies/blob/main/testing-ground.py">here</a></span></figcaption>
+	<img src="/assets/images/2022-10-07/nes-rastrigin.png" alt="NES on rastrigin" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Success rate to reach $f_\text{stop}=10^{-10}$ versus population size for Rastrigin function.<br /> The code can be found <span><a href="https://github.com/trunghng/evolution-strategies/blob/main/testing_ground.py">here</a></span></figcaption>
 </figure>
 
 <h2 id="references">References</h2>

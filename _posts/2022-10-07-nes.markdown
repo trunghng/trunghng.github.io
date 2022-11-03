@@ -256,7 +256,7 @@ where $\mathbf{H}=(\mathbf{C}-\mathbf{V}^\text{T}\mathbf{V})^{-1}$, and thus $\m
 
 On the other hands, the gradient w.r.t each parameter of $\log\pi(\mathbf{z})$ are given as
 \begin{equation}
-\left.\nabla_{\boldsymbol{\delta},\mathbf{M},\boldsymbol{\tau}}\log\pi(\mathbf{z}\vert\boldsymbol{\mu},\mathbf{A},\boldsymbol{\tau},\boldsymbol{\delta},\mathbf{M})\right\vert_{\,\boldsymbol{\delta}=\mathbf{0},\mathbf{M}=\mathbf{0}}=\mathbf{g}=\left[\begin{matrix}\mathbf{g}\_\boldsymbol{\delta} \\\\ \mathbf{g}\_\mathbf{M} \\\\ \mathbf{g}\_\boldsymbol{\tau}\end{matrix}\right],
+\nabla_{\boldsymbol{\delta},\mathbf{M},\boldsymbol{\tau}}\log\pi(\mathbf{z}\vert\boldsymbol{\mu},\mathbf{A},\boldsymbol{\tau},\boldsymbol{\delta},\mathbf{M})\big\vert_{\,\boldsymbol{\delta}=\mathbf{0},\mathbf{M}=\mathbf{0}}=\mathbf{g}=\left[\begin{matrix}\mathbf{g}\_\boldsymbol{\delta} \\\\ \mathbf{g}\_\mathbf{M} \\\\ \mathbf{g}\_\boldsymbol{\tau}\end{matrix}\right],
 \end{equation}
 where
 \begin{align}
