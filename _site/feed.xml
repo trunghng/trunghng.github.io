@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-11-09T18:05:31+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-11-09T18:06:46+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Evolving neural network topology</title><link href="http://localhost:4000/2022/10/28/neat.html" rel="alternate" type="text/html" title="Evolving neural network topology" /><published>2022-10-28T13:00:00+07:00</published><updated>2022-10-28T13:00:00+07:00</updated><id>http://localhost:4000/2022/10/28/neat</id><content type="html" xml:base="http://localhost:4000/2022/10/28/neat.html">&lt;blockquote&gt;
   &lt;p&gt;A note on NEAT.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -5205,7 +5205,7 @@ It is noticeable that the above update rule requires the transition model $P(s�
 		\end{equation}
 	&lt;/li&gt;
 	&lt;li&gt;
-		Using the new estimate to update Q-values iteratively
+		Append the new estimate into a running average to iteratively update Q-values:
 		\begin{align}
 		Q_{k+1}(s,a)&amp;amp;=(1-\alpha)Q_k(s,a)+\alpha Q_\text{target} \\ &amp;amp;=(1-\alpha)Q_k(s,a)+\alpha\left[R(s,a,s&apos;)+\gamma\max_{a&apos;}Q_k(s&apos;,a&apos;)\right]
 		\end{align}

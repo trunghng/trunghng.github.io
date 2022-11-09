@@ -82,7 +82,7 @@ It is noticeable that the above update rule requires the transition model $P(s'\
 		\end{equation}
 	</li>
 	<li>
-		Using the new estimate to update Q-values iteratively
+		Append the new estimate into a running average to iteratively update Q-values:
 		\begin{align}
 		Q_{k+1}(s,a)&=(1-\alpha)Q_k(s,a)+\alpha Q_\text{target} \\ &=(1-\alpha)Q_k(s,a)+\alpha\left[R(s,a,s')+\gamma\max_{a'}Q_k(s',a')\right]
 		\end{align}
