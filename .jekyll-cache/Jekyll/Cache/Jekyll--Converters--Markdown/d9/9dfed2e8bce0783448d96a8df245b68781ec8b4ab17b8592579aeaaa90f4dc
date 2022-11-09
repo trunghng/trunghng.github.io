@@ -1,0 +1,39 @@
+I"�<!-- excerpt-end -->
+<ul>
+  <li><a href="#q-value-iter">Q-value iteration</a></li>
+  <li><a href="#nn-q-learning">Neural networks with Q-learning</a></li>
+  <li><a href="#references">References</a></li>
+  <li><a href="#footnotes">Footnotes</a></li>
+</ul>
+
+<h2 id="q-value-iter">Q-value iteration</h2>
+<p>Recall that in the post <a href="/2021/06/27/mdp-bellman-eqn.html">Markov Decision Processes, Bellman equations</a>, we have defined the <strong>action-value fuction</strong>, or <strong>Q-values</strong> for a policy $\pi$ as
+\begin{equation}
+Q_\pi(s,a)\sum_{s’}P(s’\vert s,a)\left(R(s,a,s’)+\gamma\sum_{a’}\pi(a’\vert s’)Q_\pi(s’,a’)\right)
+\end{equation}
+which measures how good a it is when taking action $a$ at state $s$.</p>
+
+<p>From that, we have continued to define the <strong>optimal Bellman equation</strong> for the <strong>optimal Q-values</strong>, denoted $Q^*$:
+\begin{equation}
+Q^*
+\end{equation}
+which can be rewritten in a more intuitive form
+\begin{equation}
+Q^*(s,a)=\sum_{s’}P(s’\vert s,a)\left(R(s,a,s’)+\gamma\max_{a’}Q^*(s)\right),
+\end{equation}
+where</p>
+
+<h2 id="nn-q-learning">Neural networks with Q-learning</h2>
+<p>Recall that</p>
+
+<h2 id="references">References</h2>
+<p>[1] Vlad Mnih, et al. <a href="https://www.cs.toronto.edu/~vmnih/docs/dqn.pdf">Playing Atari with Deep Reinforcement Learning</a>, 2013.</p>
+
+<p>[2] Vlad Mnih, et al. <a href="https://www.deepmind.com/publications/human-level-control-through-deep-reinforcement-learning">Human Level Control Through Deep Reinforcement Learning</a>. Nature, 2015.</p>
+
+<p>[3] Hado van Hasselt. <a href="https://proceedings.neurips.cc/paper/2010/file/091d584fced301b442654dd8c23b3fc9-Paper.pdf">Double Q-learning</a>. NIPS 2010.</p>
+
+<p>[4] Hado van Hasselt, Arthur Guez, David Silver. <a href="https://arxiv.org/abs/1509.06461">Deep Reinforcement Learning with Double Q-learning</a>. AAAI16, 2016.</p>
+
+<h2 id="footnotes">Footnotes</h2>
+:ET
