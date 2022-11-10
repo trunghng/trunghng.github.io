@@ -1,0 +1,5 @@
+I"2<blockquote>
+  <p>All of the tabular methods we have been considering so far might scale well within a small state space. However, when dealing with Reinforcement Learning problem in continuous state space, an exact solution is nearly impossible to find. Instead, we can approximate it.</p>
+</blockquote>
+
+:ET

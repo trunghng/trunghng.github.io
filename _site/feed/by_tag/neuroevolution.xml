@@ -1,19 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/neuroevolution.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-11-09T18:06:46+07:00</updated><id>http://localhost:4000/feed/by_tag/neuroevolution.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
-</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Evolving neural network topology</title><link href="http://localhost:4000/2022/10/28/neat.html" rel="alternate" type="text/html" title="Evolving neural network topology" /><published>2022-10-28T13:00:00+07:00</published><updated>2022-10-28T13:00:00+07:00</updated><id>http://localhost:4000/2022/10/28/neat</id><content type="html" xml:base="http://localhost:4000/2022/10/28/neat.html">&lt;blockquote&gt;
-  &lt;p&gt;A note on NEAT.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;!-- excerpt-end --&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;p&gt;[1] Kenneth O. Stanley &amp;amp; Risto Miikkulainen. &lt;a href=&quot;https://nn.cs.utexas.edu/downloads/papers/stanley.ec02.pdf&quot;&gt;Evolving Neural Networks Through Augmenting Topologies&lt;/a&gt;. Evolutionary Computation 10, no.2 (2002): 99-127.&lt;/p&gt;
-
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="machine-learning" /><category term="neuroevolution" /><summary type="html">A note on NEAT.</summary></entry><entry><title type="html">Natural Evolution Strategies</title><link href="http://localhost:4000/2022/10/07/nes.html" rel="alternate" type="text/html" title="Natural Evolution Strategies" /><published>2022-10-07T13:00:00+07:00</published><updated>2022-10-07T13:00:00+07:00</updated><id>http://localhost:4000/2022/10/07/nes</id><content type="html" xml:base="http://localhost:4000/2022/10/07/nes.html">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/neuroevolution.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-11-11T05:22:05+07:00</updated><id>http://localhost:4000/feed/by_tag/neuroevolution.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+</subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Natural Evolution Strategies</title><link href="http://localhost:4000/2022/10/07/nes.html" rel="alternate" type="text/html" title="Natural Evolution Strategies" /><published>2022-10-07T13:00:00+07:00</published><updated>2022-10-07T13:00:00+07:00</updated><id>http://localhost:4000/2022/10/07/nes</id><content type="html" xml:base="http://localhost:4000/2022/10/07/nes.html">&lt;blockquote&gt;
   &lt;p&gt;&lt;strong&gt;Natural Evolution Strategies&lt;/strong&gt;, or &lt;strong&gt;NES&lt;/strong&gt;, are referred to a family of evolution strategies that throughout its generations update a search distribution repeatedly using an estimated gradient of its distribution parameters.&lt;/p&gt;
 &lt;/blockquote&gt;
 

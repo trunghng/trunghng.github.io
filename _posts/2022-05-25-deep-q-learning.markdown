@@ -73,7 +73,12 @@ Q_{k+1}(s,a)=\mathbb{E}\_{s'\sim P(s'\vert s,a)}\left[R(s,a,s')+\gamma\max_{a'}Q
 \end{equation}
 It is noticeable that the above update rule requires the transition model $P(s'\vert s,a)$. And since sample mean is an unbiased estimator of the population mean, or in other words, the expectation in \eqref{eq:ql.1} can be approximated by sampling, as
 <ul id='number-list'>
-	<li>At a state, taking (sampling) action $a$, we get the next state $s'\sim P(s'\vert s,a)$.</li>
+	<li>
+		At a state, taking (sampling) action $a$ (e.g. due to an $\varepsilon$-greedy policy), we get the next state:
+		\begin{equation}
+		s'\sim P(s'\vert s,a)
+		\end{equation}
+	</li>
 	<li>Consider the old estimate $Q_k(s,a)$.</li>
 	<li>
 		Consider the new sample estimate (target):
@@ -89,15 +94,35 @@ It is noticeable that the above update rule requires the transition model $P(s'\
 	</li>
 </ul>
 
-This update rule is in form of a stochastic process, and thus, can be [proved](#q-learning-td-convergence) to be converged under the [stochastic approximation conditions]({% post_url 2022-01-31-td-learning %}#stochastic-approx-condition) for $\alpha$.
+This update rule is in form of a **stochastic process**, and thus, can be [proved](#q-learning-td-convergence) to be converged to the optimal $Q^\*$, under the [stochastic approximation conditions]({% post_url 2022-01-31-td-learning %}#stochastic-approx-condition) for the learning rate $\alpha$.
 \begin{equation}
 \sum_{t=1}^{\infty}\alpha_t(s,a)=\infty\hspace{1cm}\text{and}\hspace{1cm}\sum_{t=1}^{\infty}\alpha_t^2(s,a)<\infty,
 \end{equation}
 for all $(s,a)\in\mathcal{S}\times\mathcal{A}$.
 
+The method is so called **Q-learning**, with pseudocode given below.
+
 ## Neural networks with Q-learning
 {: #nn-q-learning}
-Recall that 
+As a tabular method, Q-learning might work with a discrete space. However, for continuous environments, the exact solution might never be found in a given short time. To overcome this, we have been instead trying to find an [approximated solution]({% post_url 2022-02-11-func-approx %}).  
+
+In particular, we have tried to find an approximated action-value function $Q_\boldsymbol{\theta}(s,a)$, parameterized by a vector $\boldsymbol{\theta}$, of the action-value function $Q(s,a)$, as
+\begin{equation}
+Q_\boldsymbol{\theta}(s,a)
+\end{equation}
+Recall that, we have applied [linear methods]({% post_url 2022-02-11-func-approx %}#lin-func-approx) as our function approximators:
+\begin{equation}
+Q_\boldsymbol{\theta}(s,a)=\boldsymbol{\theta}^\text{T}\mathbf{f}(s,a),
+\end{equation}
+where $\mathbf{f}(s,a)$ represents the **feature vector**, (or **basis functions**) of the state-action pair $(s,a)$.
+
+Applying this linear function approximation to the Q-learning method gives us the **semi-gradient Q-learning**
+\begin{equation}
+
+\end{equation}
+
+On the other hands, since a neural network with a particular settings for hidden layers and activation functions can approximate [any]({% post_url 2022-09-02-neural-nets %}#unv-approx) continuous functions on a compact subsets of $\mathbb{R}^n$, then how about using it with the Q-learning algorithm?
+
 
 ## References
 <span id='q-learning-td-convergence'>[1] Tommi Jaakkola, Michael I. Jordan, Satinder P. Singh. [On the Convergence of Stochastic Iterative Dynamic Programming Algorithms](https://people.eecs.berkeley.edu/~jordan/papers/AIM-1441.ps). A.I. Memo No. 1441, 1993.</span>
@@ -114,6 +139,6 @@ Recall that
 
 [7] Hado van Hasselt, Arthur Guez, David Silver. [Deep Reinforcement Learning with Double Q-learning](https://arxiv.org/abs/1509.06461). AAAI16, 2016.
 
-[8] Pieter Abbeel. [Foundations of Deep RL Series](https://www.youtube.com/playlist?list=PLwRJQ4m4UJjNymuBM9RdmB3Z9N5-0IlY0), 2021.
+[8] Pieter Abbeel. [Foundations of Deep RL Series](https://youtube.com/playlist?list=PLwRJQ4m4UJjNymuBM9RdmB3Z9N5-0IlY0), 2021.
 
 ## Footnotes

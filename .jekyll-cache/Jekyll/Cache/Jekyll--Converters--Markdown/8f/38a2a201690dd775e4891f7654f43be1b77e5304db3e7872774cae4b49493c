@@ -1,0 +1,4 @@
+I"x<blockquote>
+  <p>Beside <a href="/2022/02/11/func-approx.html#n-step-td">$n$-step TD</a> methods, there is another mechanism called <strong>eligible traces</strong> that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.</p>
+</blockquote>
+:ET

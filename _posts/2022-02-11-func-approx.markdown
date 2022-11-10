@@ -7,7 +7,7 @@ description: Function approximation
 comments: true
 eqn-number: true
 ---
-> Reinforcement Learning in continuous state space requires function approximation.
+> All of the tabular methods we have been considering so far might scale well within a small state space. However, when dealing with Reinforcement Learning problems in continuous state space, an exact solution is nearly impossible to find. But instead, an approximated answer could be found.
 
 <!-- excerpt-end -->
 - [On-policy Methods](#on-policy-methods)

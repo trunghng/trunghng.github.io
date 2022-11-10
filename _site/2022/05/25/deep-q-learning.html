@@ -218,7 +218,12 @@ Q_{k+1}(s,a)=\mathbb{E}_{s’\sim P(s’\vert s,a)}\left[R(s,a,s’)+\gamma\max_
 \end{equation}
 It is noticeable that the above update rule requires the transition model $P(s’\vert s,a)$. And since sample mean is an unbiased estimator of the population mean, or in other words, the expectation in \eqref{eq:ql.1} can be approximated by sampling, as</p>
 <ul id="number-list">
-	<li>At a state, taking (sampling) action $a$, we get the next state $s'\sim P(s'\vert s,a)$.</li>
+	<li>
+		At a state, taking (sampling) action $a$ (e.g. due to an $\varepsilon$-greedy policy), we get the next state:
+		\begin{equation}
+		s'\sim P(s'\vert s,a)
+		\end{equation}
+	</li>
 	<li>Consider the old estimate $Q_k(s,a)$.</li>
 	<li>
 		Consider the new sample estimate (target):
@@ -234,14 +239,33 @@ It is noticeable that the above update rule requires the transition model $P(s�
 	</li>
 </ul>
 
-<p>This update rule is in form of a stochastic process, and thus, can be <a href="#q-learning-td-convergence">proved</a> to be converged under the <a href="/2022/01/31/td-learning.html#stochastic-approx-condition">stochastic approximation conditions</a> for $\alpha$.
+<p>This update rule is in form of a <strong>stochastic process</strong>, and thus, can be <a href="#q-learning-td-convergence">proved</a> to be converged to the optimal $Q^*$, under the <a href="/2022/01/31/td-learning.html#stochastic-approx-condition">stochastic approximation conditions</a> for the learning rate $\alpha$.
 \begin{equation}
 \sum_{t=1}^{\infty}\alpha_t(s,a)=\infty\hspace{1cm}\text{and}\hspace{1cm}\sum_{t=1}^{\infty}\alpha_t^2(s,a)&lt;\infty,
 \end{equation}
 for all $(s,a)\in\mathcal{S}\times\mathcal{A}$.</p>
 
+<p>The method is so called <strong>Q-learning</strong>, with pseudocode given below.</p>
+
 <h2 id="nn-q-learning">Neural networks with Q-learning</h2>
-<p>Recall that</p>
+<p>As a tabular method, Q-learning might work with a discrete space. However, for continuous environments, the exact solution might never be found in a given short time. To overcome this, we have been instead trying to find an <a href="/2022/02/11/func-approx.html">approximated solution</a>.</p>
+
+<p>In particular, we have tried to find an approximated action-value function $Q_\boldsymbol{\theta}(s,a)$, parameterized by a vector $\boldsymbol{\theta}$, of the action-value function $Q(s,a)$, as
+\begin{equation}
+Q_\boldsymbol{\theta}(s,a)
+\end{equation}
+Recall that, we have applied <a href="/2022/02/11/func-approx.html#lin-func-approx">linear methods</a> as our function approximators:
+\begin{equation}
+Q_\boldsymbol{\theta}(s,a)=\boldsymbol{\theta}^\text{T}\mathbf{f}(s,a),
+\end{equation}
+where $\mathbf{f}(s,a)$ represents the <strong>feature vector</strong>, (or <strong>basis functions</strong>) of the state-action pair $(s,a)$.</p>
+
+<p>Applying this linear function approximation to the Q-learning method gives us the <strong>semi-gradient Q-learning</strong>
+\begin{equation}</p>
+
+<p>\end{equation}</p>
+
+<p>On the other hands, since a neural network with a particular settings for hidden layers and activation functions can approximate <a href="/2022/09/02/neural-nets.html#unv-approx">any</a> continuous functions on a compact subsets of $\mathbb{R}^n$, then how about using it with the Q-learning algorithm?</p>
 
 <h2 id="references">References</h2>
 <p><span id="q-learning-td-convergence">[1] Tommi Jaakkola, Michael I. Jordan, Satinder P. Singh. <a href="https://people.eecs.berkeley.edu/~jordan/papers/AIM-1441.ps">On the Convergence of Stochastic Iterative Dynamic Programming Algorithms</a>. A.I. Memo No. 1441, 1993.</span></p>
@@ -258,7 +282,7 @@ for all $(s,a)\in\mathcal{S}\times\mathcal{A}$.</p>
 
 <p>[7] Hado van Hasselt, Arthur Guez, David Silver. <a href="https://arxiv.org/abs/1509.06461">Deep Reinforcement Learning with Double Q-learning</a>. AAAI16, 2016.</p>
 
-<p>[8] Pieter Abbeel. <a href="https://www.youtube.com/playlist?list=PLwRJQ4m4UJjNymuBM9RdmB3Z9N5-0IlY0">Foundations of Deep RL Series</a>, 2021.</p>
+<p>[8] Pieter Abbeel. <a href="https://youtube.com/playlist?list=PLwRJQ4m4UJjNymuBM9RdmB3Z9N5-0IlY0">Foundations of Deep RL Series</a>, 2021.</p>
 
 <h2 id="footnotes">Footnotes</h2>
 

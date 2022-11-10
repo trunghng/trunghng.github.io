@@ -335,6 +335,8 @@ blockquote { font-size: 16px; background-color: #f0f0f0; padding: 10px; font-sty
 
 .post-content { text-align: justify; }
 
+.home blockquote { text-align: justify; }
+
 #roman-list, #number-list { counter-reset: section; }
 
 #roman-list, #number-list > li { list-style: none; position: relative; }

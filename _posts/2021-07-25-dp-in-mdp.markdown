@@ -1,12 +1,12 @@
 ---
 layout: post
-title:  "Dynamic Programming Algorithms for Solving Markov Decision Processes"
+title:  "Solving MDPs with Dynamic Programming"
 date:   2021-07-25 15:30:00 +0700
 tags: reinforcement-learning dynamic-programming my-rl
 description: Dynamic programming algorithms for solving Markov Decision Processes (MDPs)
 comments: true
 ---
-> In two previous posts, [**Markov Decision Process (MDP) and Bellman equations**]({% post_url 2021-06-27-mdp-bellman-eqn %}) and [**Optimal Policy Existence**]({% post_url 2021-07-10-optimal-policy-existence %}), we have known how MDPs, Bellman equations are defined and how they work. In this post, we are going to talk about how these MDPs are solved with **Dynamic Programming**.  
+> In two previous posts, [**MDPs and Bellman equations**]({% post_url 2021-06-27-mdp-bellman-eqn %}) and [**Optimal Policy Existence**]({% post_url 2021-07-10-optimal-policy-existence %}), we have known how MDPs, Bellman equations were defined and how they worked. In this post, we are going to find the solution for the MDP framework with **Dynamic Programming**.  
 
 <!-- excerpt-end -->
 - [What is Dynamic Programming?](#what-is-dp)
@@ -32,10 +32,10 @@ comments: true
 ## Dynamic Programming applied in Markov Decision Processes
 {: #dp-in-mdps}
 - DP is a very general method for solving problems having two properties:
-    - *Optimal substructure*
+    - **Optimal substructure**
     	- Principle of optimality applies.
     	- Optimal solution can be decomposed into sub-problems.
-    - *Overlapping sub-problems*
+    - **Overlapping sub-problems**
     	- Sub-problems recur many times.
     	- Solutions can be cached and reused.
 - MDPs satisfy both properties since:

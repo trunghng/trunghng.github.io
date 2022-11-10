@@ -7,7 +7,7 @@ description: Eligible Traces
 comments: true
 eqn-number: true
 ---
-> Beside [$n$-step TD]({% post_url 2022-02-11-func-approx %}#n-step-td) methods, there is another mechanism called **Eligible traces** that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.
+> Beside [$n$-step TD]({% post_url 2022-02-11-func-approx %}#n-step-td) methods, there is another mechanism called **eligible traces** that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.
 <!-- excerpt-end -->
 
 - [The λ-return](#lambda-return)

@@ -7,7 +7,7 @@ description: Gaussian Distribution
 comments: true
 eqn-number: true
 ---
-> A note on Gaussian distribution.
+> The **Gaussian (Normal) distribution** is a continuous distribution with a bell-shaped PDF used widely in statistics due to the **Central Limit theorem**. The theorem states that under very weak assumptions, the sum of a large number of i.i.d. random variables has an approximately Normal distribution, regardless of the distribution of the individual r.v.s. This means we can start with independent r.v.s from almost any distribution, discrete or continuous, but once we add up a bunch of them, the distribution of the resulting random variable looks like a Gaussian distribution.
 <!-- excerpt-end -->
 
 - [Gaussian (Normal) distribution](#gauss-dist)

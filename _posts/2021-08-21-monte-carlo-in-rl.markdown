@@ -6,7 +6,7 @@ tags: reinforcement-learning monte-carlo importance-sampling my-rl
 description: Monte Carlo methods for solving Reinforcement Learning problems
 comments: true
 ---
-> Recall that in the previous post, [**Dynamic Programming Algorithms for Solving Markov Decision Processes**]({% post_url 2021-07-25-dp-in-mdp %}), we made an assumption about the complete knowledge of the environment. With **Monte Carlo** methods, we only require *experience* - sample sequences of states, actions, and rewards from simulated or real interaction with an environment.
+> Recall that when using [**Dynamic Programming**]({% post_url 2021-07-25-dp-in-mdp %}) algorithms to solve RL problems, we made an assumption about the complete knowledge of the environment. With **Monte Carlo** methods, we only require **experience** - sample sequences of states, actions, and rewards from simulated or real interaction with an environment.
 
 <!-- excerpt-end -->
 - [Monte Carlo Methods](#mc-methods)

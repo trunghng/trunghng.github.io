@@ -1,0 +1,5 @@
+I"Ð<blockquote>
+  <p>Recall that in the previous post, <a href="/2021/07/25/dp-in-mdp.html"><strong>Dynamic Programming Algorithms for Solving Markov Decision Processes</strong></a>, we made an assumption about the complete knowledge of the environment. With <strong>Monte Carlo</strong> methods, we only require <strong>experience</strong> - sample sequences of states, actions, and rewards from simulated or real interaction with an environment.</p>
+</blockquote>
+
+:ET
