@@ -6,17 +6,30 @@ tags: mathematics measure-theory random-stuffs
 description: A brief look into Measure theory
 comments: true
 ---
-> When talking about *measure*, you might associate it with the idea of *length*, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with *area*, or even three dimensions with *volume*.  
+> When talking about **measure**, you might associate it with the idea of **length**, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with **area**, or even three dimensions with **volume**.  
 
 <!-- excerpt-end -->
-Despite of having different number of dimensions, all *length*, *area*, *volume* share the same properties:  
-
-1. *Non-negative*: In principle, length, area, and volume can be any positive value. But negative length has no meaning. Same thing happens with negative area and negative volume.
-2. *Additivity*: To get from Hanoi to Singapore by air, you have to transit at Ho Chi Minh city (HCMC). If we cut that path into two non-overlapping pieces, say Hanoi - HCMC, and HCMC - Singapore, then the total length of the two pieces must be equal to the length of original path. If we divide a rectangular into non-overlapping pieces, the area of pieces combined must be the same as the original one. The same is true for volume as well.
-3. *Empty Set*: An empty cup of water has volume zero.
-4. *Other Null Sets*: The length of a point is 0. The area of a line, or a curve is 0. The volume of a plane or a surface is 0.
-5. *Translation Invariance*: Length, area and volume are unchanged (*invariant*) under shifts (*translation*) in space.
-6. *Hyper-rectangles*: An interval of form $[a, b]\subset\mathbb{R}^3$ has length $b-a$. The area of a rectangle $[a_1,b_1]\times[a_2,b_2]$ is $(b_1-a_1)(b_2-a_2)$. And the volume of a rectangular $[a_1,b_1]\times[a_2,b_2]\times[a_3,b_3]$ is $(b_1-a_1)(b_2-a_2)(b_3-a_3)$.  
+Despite of having different number of dimensions, all **length**, **area**,  and **volume** share the same properties:
+<ul id='roman-list'>
+	<li>
+		<b>Non-negative</b>: in principle, length, area, and volume can take any positive value. But negative length has no meaning. Same thing happens with negative area and negative volume.
+	</li>
+	<li>
+		<b>Additivity</b>: to get from Hanoi to Singapore by air, you have to transit at Ho Chi Minh city (HCMC). If we cut that path into two non-overlapping pieces, say Hanoi - HCMC, and HCMC - Singapore, then the total length of the two pieces must be equal to the length of original path. If we divide a rectangular into non-overlapping pieces, the area of pieces combined must be the same as the original one. The same is true for volume as well.
+	</li>
+	<li>
+		<b>Empty set</b>: an empty cup of water has volume zero.
+	</li>
+	<li>
+		<b>Other null sets</b>: the length of a point is $0$. The area of a line, or a curve is $0$. The volume of a plane or a surface is also $0$.
+	</li>
+	<li>
+		<b>Translation invariance</b>: length, area and volume are unchanged (<b>invariant</b>) under shifts (<b>translation</b>) in space.
+	</li>
+	<li>
+		<b>Hyper-rectangles</b>: an interval of form $[a, b]\subset\mathbb{R}^3$ has length $b-a$. The area of a rectangle $[a_1,b_1]\times[a_2,b_2]$ is $(b_1-a_1)(b_2-a_2)$. And the volume of a rectangular $[a_1,b_1]\times[a_2,b_2]\times[a_3,b_3]$ is $(b_1-a_1)(b_2-a_2)(b_3-a_3)$. 
+	</li>
+</ul>
 
 <figure>
 	<img src="/assets/images/2021-07-03/lego.jpg" alt="Lego" style="display: block; margin-left: auto; margin-right: auto; width: 700px;"/>
@@ -242,12 +255,12 @@ We say that $f$ is the *density* of the measure $v$ w.r.t $\mu$.
 ## Other types of Measures
 {: #other-types}
 Suppose that $\mu$ is a measure on $\mathcal{X}$
-1. If $\mu(\mathcal{X})=\infty$, we say that $\mu$ is an *infinite measure*.
-2. If $\mu(\mathcal{X}<\infty)$, we say that $\mu$ is a *finite measure*.
-3. If $\mu(\mathcal{X}<1)$, we say that $\mu$ is a *probability measure*.
-4. If there exists a countable set $\mathcal{S}$ such that $\mu(\mathcal{X}-\mathcal{S})=0$, we say that $\mu$ is a *discrete measure*. Equivalently, $\mu$ has a density w.r.t *counting measure* on $\mathcal{S}$.
-5. If $\mu$ has a density w.r.t Lebesgue measure, we say that $\mu$ is a *continuous measure*.
-6. If $\mu$ is neither *continuous* nor *discrete*, we say that $\mu$ is a *mixed measure*.
+1. If $\mu(\mathcal{X})=\infty$, we say that $\mu$ is an **infinite measure**.
+2. If $\mu(\mathcal{X}<\infty)$, we say that $\mu$ is a **finite measure**.
+3. If $\mu(\mathcal{X}<1)$, we say that $\mu$ is a **probability measure**.
+4. If there exists a countable set $\mathcal{S}$ such that $\mu(\mathcal{X}-\mathcal{S})=0$, we say that $\mu$ is a **discrete measure**. Equivalently, $\mu$ has a density w.r.t **counting measure** on $\mathcal{S}$.
+5. If $\mu$ has a density w.r.t Lebesgue measure, we say that $\mu$ is a **continuous measure**.
+6. If $\mu$ is neither **continuous** nor **discrete**, we say that $\mu$ is a **mixed measure**.
 
 ## References
 [1] Literally, this post is mainly written from a source that I've lost the reference :(. Hope that I can update this line soon.  

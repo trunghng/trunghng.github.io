@@ -1,178 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-<link href="https://fonts.googleapis.com/css?family=Merriweather:400,900,900i" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<style type="text/css">
-  #button {
-    display: inline-block;
-    background-color: #A5CCF1;
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    border-radius: 4px;
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    transition: background-color .3s, 
-      opacity .5s, visibility .5s;
-    opacity: 0;
-    visibility: hidden;
-    z-index: 1000;
-  }
-  #button::after {
-    content: "\f077";
-    font-family: FontAwesome;
-    font-weight: normal;
-    font-style: normal;
-    font-size: 2em;
-    line-height: 50px;
-    color: #fff;
-  }
-  #button:hover {
-    cursor: pointer;
-    background-color: #333;
-    text-decoration: none;
-  }
-  #button:active {
-    background-color: #555;
-  }
-  #button.show {
-    opacity: 1;
-    visibility: visible;
-  }
-</style><head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Measures | Trung’s cabin</title>
-<meta name="generator" content="Jekyll v4.2.1" />
-<meta property="og:title" content="Measures" />
-<meta name="author" content="Trung H. Nguyen" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="A brief look into Measure theory" />
-<meta property="og:description" content="A brief look into Measure theory" />
-<link rel="canonical" href="http://localhost:4000/2021/07/03/measure.html" />
-<meta property="og:url" content="http://localhost:4000/2021/07/03/measure.html" />
-<meta property="og:site_name" content="Trung’s cabin" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2021-07-03T07:00:00+07:00" />
-<meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Measures" />
-<script type="application/ld+json">
-{"author":{"@type":"Person","name":"Trung H. Nguyen"},"@type":"BlogPosting","description":"A brief look into Measure theory","headline":"Measures","dateModified":"2021-07-03T07:00:00+07:00","datePublished":"2021-07-03T07:00:00+07:00","url":"http://localhost:4000/2021/07/03/measure.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2021/07/03/measure.html"},"@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Trung&apos;s cabin" />
-    
-
-
-
-
-
-  
-
-<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
-<link rel="manifest" href="/assets/images/site.webmanifest">
-<link rel="mask-icon" href="/assets/images/safari-pinned-tab.svg" color="#5bbad5">
-<meta name="msapplication-TileColor" content="#da532c">
-<meta name="theme-color" content="#ffffff"></head>
-<body><header class="site-header">
-  <div class="snorlax"></div>
-
-  <div class="wrapper"><a class="site-title" rel="author" href="/">Trung&#39;s cabin</a><nav class="site-nav">
-        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
-        <label for="nav-trigger">
-          <span class="menu-icon">
-            <svg viewBox="0 0 18 15" width="18px" height="15px">
-              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
-            </svg>
-          </span>
-        </label>
-
-        <div class="trigger"><a class="page-link" href="/archive/">Archive</a><a class="page-link" href="/about/">About</a></div>
-      </nav></div>
-</header>
-<main class="page-content" aria-label="Content">
-      <a id="button"></a>
-      <div class="wrapper">
-        <style>
-@import "/assets/css/default.css"
-</style>
-<style>
-  .collapsible {
-    background-color: #A5CCF1;
-    color: white;
-    cursor: pointer;
-    padding: 5px;
-    /*width: 100%;*/
-    border: none;
-    text-align: center;
-    outline: none;
-    font-size: 15px;
-  }
-
-  .active, .collapsible:hover {
-    background-color: #82B9EE;
-  }
-
-  .codePanel {
-    padding: 0 18px;
-    display: none;
-    overflow: hidden;
-    background-color: #f1f1f1;
-  }
-</style>
-<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <header class="post-header">
-    <meta name="description" content="A brief look into Measure theory">
-    <h1 class="post-title p-name" itemprop="name headline">Measures</h1>
-    <p><span>
-      
-        
-        <a href="/tag/mathematics"><code class="highligher-rouge"><nobr>mathematics</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/measure-theory"><code class="highligher-rouge"><nobr>measure-theory</nobr></code>&nbsp;</a>
-      
-        
-        <a href="/tag/random-stuffs"><code class="highligher-rouge"><nobr>random-stuffs</nobr></code>&nbsp;</a>
-      
-    </span></p>
-    <p class="post-meta"><time class="dt-published" datetime="2021-07-03T07:00:00+07:00" itemprop="datePublished">
-        Jul 3, 2021
-      </time></p>
-  </header>
-
-  <div class="post-content e-content" itemprop="articleBody">
-    <blockquote>
+I"M<blockquote>
   <p>When talking about <strong>measure</strong>, you might associate it with the idea of <strong>length</strong>, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with <strong>area</strong>, or even three dimensions with <strong>volume</strong>.</p>
 </blockquote>
 
 <!-- excerpt-end -->
-<p>Despite of having different number of dimensions, all <strong>length</strong>, <strong>area</strong>,  and <strong>volume</strong> share the same properties:</p>
-<ul id="roman-list">
-	<li>
-		<b>Non-negative</b>: in principle, length, area, and volume can take any positive value. But negative length has no meaning. Same thing happens with negative area and negative volume.
-	</li>
-	<li>
-		<b>Additivity</b>: to get from Hanoi to Singapore by air, you have to transit at Ho Chi Minh city (HCMC). If we cut that path into two non-overlapping pieces, say Hanoi - HCMC, and HCMC - Singapore, then the total length of the two pieces must be equal to the length of original path. If we divide a rectangular into non-overlapping pieces, the area of pieces combined must be the same as the original one. The same is true for volume as well.
-	</li>
-	<li>
-		<b>Empty set</b>: an empty cup of water has volume zero.
-	</li>
-	<li>
-		<b>Other null sets</b>: the length of a point is $0$. The area of a line, or a curve is $0$. The volume of a plane or a surface is also $0$.
-	</li>
-	<li>
-		<b>Translation invariance</b>: length, area and volume are unchanged (<b>invariant</b>) under shifts (<b>translation</b>) in space.
-	</li>
-	<li>
-		<b>Hyper-rectangles</b>: an interval of form $[a, b]\subset\mathbb{R}^3$ has length $b-a$. The area of a rectangle $[a_1,b_1]\times[a_2,b_2]$ is $(b_1-a_1)(b_2-a_2)$. And the volume of a rectangular $[a_1,b_1]\times[a_2,b_2]\times[a_3,b_3]$ is $(b_1-a_1)(b_2-a_2)(b_3-a_3)$. 
-	</li>
-</ul>
+<p>Despite of having different number of dimensions, all <em>length</em>, <em>area</em>, <em>volume</em> share the same properties:</p>
+
+<ol>
+  <li><em>Non-negative</em>: In principle, length, area, and volume can be any positive value. But negative length has no meaning. Same thing happens with negative area and negative volume.</li>
+  <li><em>Additivity</em>: To get from Hanoi to Singapore by air, you have to transit at Ho Chi Minh city (HCMC). If we cut that path into two non-overlapping pieces, say Hanoi - HCMC, and HCMC - Singapore, then the total length of the two pieces must be equal to the length of original path. If we divide a rectangular into non-overlapping pieces, the area of pieces combined must be the same as the original one. The same is true for volume as well.</li>
+  <li><em>Empty Set</em>: An empty cup of water has volume zero.</li>
+  <li><em>Other Null Sets</em>: The length of a point is 0. The area of a line, or a curve is 0. The volume of a plane or a surface is 0.</li>
+  <li><em>Translation Invariance</em>: Length, area and volume are unchanged (<em>invariant</em>) under shifts (<em>translation</em>) in space.</li>
+  <li><em>Hyper-rectangles</em>: An interval of form $[a, b]\subset\mathbb{R}^3$ has length $b-a$. The area of a rectangle $[a_1,b_1]\times[a_2,b_2]$ is $(b_1-a_1)(b_2-a_2)$. And the volume of a rectangular $[a_1,b_1]\times[a_2,b_2]\times[a_3,b_3]$ is $(b_1-a_1)(b_2-a_2)(b_3-a_3)$.</li>
+</ol>
 
 <figure>
 	<img src="/assets/images/2021-07-03/lego.jpg" alt="Lego" style="display: block; margin-left: auto; margin-right: auto; width: 700px;" />
@@ -442,12 +282,12 @@ We say that $f$ is the <em>density</em> of the measure $v$ w.r.t $\mu$.</li>
 <h2 id="other-types">Other types of Measures</h2>
 <p>Suppose that $\mu$ is a measure on $\mathcal{X}$</p>
 <ol>
-  <li>If $\mu(\mathcal{X})=\infty$, we say that $\mu$ is an <strong>infinite measure</strong>.</li>
-  <li>If $\mu(\mathcal{X}&lt;\infty)$, we say that $\mu$ is a <strong>finite measure</strong>.</li>
-  <li>If $\mu(\mathcal{X}&lt;1)$, we say that $\mu$ is a <strong>probability measure</strong>.</li>
-  <li>If there exists a countable set $\mathcal{S}$ such that $\mu(\mathcal{X}-\mathcal{S})=0$, we say that $\mu$ is a <strong>discrete measure</strong>. Equivalently, $\mu$ has a density w.r.t <strong>counting measure</strong> on $\mathcal{S}$.</li>
-  <li>If $\mu$ has a density w.r.t Lebesgue measure, we say that $\mu$ is a <strong>continuous measure</strong>.</li>
-  <li>If $\mu$ is neither <strong>continuous</strong> nor <strong>discrete</strong>, we say that $\mu$ is a <strong>mixed measure</strong>.</li>
+  <li>If $\mu(\mathcal{X})=\infty$, we say that $\mu$ is an <em>infinite measure</em>.</li>
+  <li>If $\mu(\mathcal{X}&lt;\infty)$, we say that $\mu$ is a <em>finite measure</em>.</li>
+  <li>If $\mu(\mathcal{X}&lt;1)$, we say that $\mu$ is a <em>probability measure</em>.</li>
+  <li>If there exists a countable set $\mathcal{S}$ such that $\mu(\mathcal{X}-\mathcal{S})=0$, we say that $\mu$ is a <em>discrete measure</em>. Equivalently, $\mu$ has a density w.r.t <em>counting measure</em> on $\mathcal{S}$.</li>
+  <li>If $\mu$ has a density w.r.t Lebesgue measure, we say that $\mu$ is a <em>continuous measure</em>.</li>
+  <li>If $\mu$ is neither <em>continuous</em> nor <em>discrete</em>, we say that $\mu$ is a <em>mixed measure</em>.</li>
 </ol>
 
 <h2 id="references">References</h2>
@@ -475,111 +315,4 @@ We say that $f$ is the <em>density</em> of the measure $v$ w.r.t $\mu$.</li>
     </li>
   </ol>
 </div>
-
-  </div>
-<div id="disqus_thread"></div>
-<script>
-    /**
-    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
-    
-    var disqus_config = function () {
-    this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
-    this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-    };
-    
-    (function() { // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-    s.src = 'https://https-trunghng-github-io.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-
-<script id="dsq-count-scr" src="//https-trunghng-github-io.disqus.com/count.js" async></script>
-
-  <a class="u-url" href="/2021/07/03/measure.html" hidden></a>
-</article>
- <!-- mathjax javascript -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
-    "HTML-CSS": {availableFonts: []}
-  });
-</script>
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-<script>
-  var coll = document.getElementsByClassName("collapsible");
-  var i;
-  for (i = 0; i < coll.length; i++) {
-    coll[i].addEventListener("click", function() {
-      this.classList.toggle("active");
-      var content = document.getElementById(this.id+"data");
-      var btn = document.getElementById(this.id)
-      if (content.style.display === "block") {
-        content.style.display = "none";
-        btn.innerText = "Click to show the code";
-      } else {
-        content.style.display = "block";
-        btn.innerText = "Click to hide the code"
-      }
-    });
-  }
-</script>
-
-      </div>
-
-    </main><footer class="site-footer h-card">
-  <data class="u-url" href="/"></data>
-
-  <div class="wrapper">
-
-    <div class="footer-col-wrapper">
-      <div class="footer-col">
-        <p class="feed-subscribe">
-          <a href="/feed.xml">
-            <svg class="svg-icon orange">
-              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
-            </svg><span>Subscribe</span>
-          </a>
-        </p>
-        <ul class="contact-list">
-          <li class="p-name">Trung H. Nguyen</li>
-          <li><a class="u-email" href="mailto:trung.skipper@gmail.com">trung.skipper@gmail.com</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <p>To document something I&#39;ve learned
-</p>
-      </div>
-    </div>
-
-    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/trunghng" title="trunghng"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
-</div>
-
-  </div>
-
-</footer>
-</body>
-
-</html>
-<script type="text/javascript">
-  var btn = $('#button');
-
-  $(window).scroll(function() {
-    if ($(window).scrollTop() > 300) {
-      btn.addClass('show');
-    } else {
-      btn.removeClass('show');
-    }
-  });
-
-  btn.on('click', function(e) {
-    e.preventDefault();
-    $('html, body').animate({scrollTop:0}, '300');
-  });
-</script>
+:ET

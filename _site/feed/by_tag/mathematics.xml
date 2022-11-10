@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-11-11T05:22:05+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-11-11T05:35:08+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory - III: the Lebesgue integral</title><link href="http://localhost:4000/2022/08/21/measure-theory-p3.html" rel="alternate" type="text/html" title="Measure theory - III: the Lebesgue integral" /><published>2022-08-21T13:00:00+07:00</published><updated>2022-08-21T13:00:00+07:00</updated><id>http://localhost:4000/2022/08/21/measure-theory-p3</id><content type="html" xml:base="http://localhost:4000/2022/08/21/measure-theory-p3.html">&lt;blockquote&gt;
   &lt;p&gt;Part III of the measure theory series. Materials are mostly taken from &lt;a href=&quot;/2022/08/21/measure-theory-p3.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some needed notations extracted from &lt;a href=&quot;/2022/08/21/measure-theory-p3.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
 &lt;!-- excerpt-end --&gt;&lt;/p&gt;
@@ -5789,20 +5789,31 @@ And finally,
     &lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="reinforcement-learning" /><category term="mathematics" /><category term="bellman-equation" /><category term="my-rl" /><summary type="html">In the previous post about Markov Decision Processes, Bellman equations, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here to prove it.</summary></entry><entry><title type="html">Measures</title><link href="http://localhost:4000/2021/07/03/measure.html" rel="alternate" type="text/html" title="Measures" /><published>2021-07-03T07:00:00+07:00</published><updated>2021-07-03T07:00:00+07:00</updated><id>http://localhost:4000/2021/07/03/measure</id><content type="html" xml:base="http://localhost:4000/2021/07/03/measure.html">&lt;blockquote&gt;
-  &lt;p&gt;When talking about &lt;em&gt;measure&lt;/em&gt;, you might associate it with the idea of &lt;em&gt;length&lt;/em&gt;, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with &lt;em&gt;area&lt;/em&gt;, or even three dimensions with &lt;em&gt;volume&lt;/em&gt;.&lt;/p&gt;
+  &lt;p&gt;When talking about &lt;strong&gt;measure&lt;/strong&gt;, you might associate it with the idea of &lt;strong&gt;length&lt;/strong&gt;, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with &lt;strong&gt;area&lt;/strong&gt;, or even three dimensions with &lt;strong&gt;volume&lt;/strong&gt;.&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;!-- excerpt-end --&gt;
-&lt;p&gt;Despite of having different number of dimensions, all &lt;em&gt;length&lt;/em&gt;, &lt;em&gt;area&lt;/em&gt;, &lt;em&gt;volume&lt;/em&gt; share the same properties:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;em&gt;Non-negative&lt;/em&gt;: In principle, length, area, and volume can be any positive value. But negative length has no meaning. Same thing happens with negative area and negative volume.&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Additivity&lt;/em&gt;: To get from Hanoi to Singapore by air, you have to transit at Ho Chi Minh city (HCMC). If we cut that path into two non-overlapping pieces, say Hanoi - HCMC, and HCMC - Singapore, then the total length of the two pieces must be equal to the length of original path. If we divide a rectangular into non-overlapping pieces, the area of pieces combined must be the same as the original one. The same is true for volume as well.&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Empty Set&lt;/em&gt;: An empty cup of water has volume zero.&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Other Null Sets&lt;/em&gt;: The length of a point is 0. The area of a line, or a curve is 0. The volume of a plane or a surface is 0.&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Translation Invariance&lt;/em&gt;: Length, area and volume are unchanged (&lt;em&gt;invariant&lt;/em&gt;) under shifts (&lt;em&gt;translation&lt;/em&gt;) in space.&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Hyper-rectangles&lt;/em&gt;: An interval of form $[a, b]\subset\mathbb{R}^3$ has length $b-a$. The area of a rectangle $[a_1,b_1]\times[a_2,b_2]$ is $(b_1-a_1)(b_2-a_2)$. And the volume of a rectangular $[a_1,b_1]\times[a_2,b_2]\times[a_3,b_3]$ is $(b_1-a_1)(b_2-a_2)(b_3-a_3)$.&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;Despite of having different number of dimensions, all &lt;strong&gt;length&lt;/strong&gt;, &lt;strong&gt;area&lt;/strong&gt;,  and &lt;strong&gt;volume&lt;/strong&gt; share the same properties:&lt;/p&gt;
+&lt;ul id=&quot;roman-list&quot;&gt;
+	&lt;li&gt;
+		&lt;b&gt;Non-negative&lt;/b&gt;: in principle, length, area, and volume can take any positive value. But negative length has no meaning. Same thing happens with negative area and negative volume.
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Additivity&lt;/b&gt;: to get from Hanoi to Singapore by air, you have to transit at Ho Chi Minh city (HCMC). If we cut that path into two non-overlapping pieces, say Hanoi - HCMC, and HCMC - Singapore, then the total length of the two pieces must be equal to the length of original path. If we divide a rectangular into non-overlapping pieces, the area of pieces combined must be the same as the original one. The same is true for volume as well.
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Empty set&lt;/b&gt;: an empty cup of water has volume zero.
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Other null sets&lt;/b&gt;: the length of a point is $0$. The area of a line, or a curve is $0$. The volume of a plane or a surface is also $0$.
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Translation invariance&lt;/b&gt;: length, area and volume are unchanged (&lt;b&gt;invariant&lt;/b&gt;) under shifts (&lt;b&gt;translation&lt;/b&gt;) in space.
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Hyper-rectangles&lt;/b&gt;: an interval of form $[a, b]\subset\mathbb{R}^3$ has length $b-a$. The area of a rectangle $[a_1,b_1]\times[a_2,b_2]$ is $(b_1-a_1)(b_2-a_2)$. And the volume of a rectangular $[a_1,b_1]\times[a_2,b_2]\times[a_3,b_3]$ is $(b_1-a_1)(b_2-a_2)(b_3-a_3)$. 
+	&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;figure&gt;
 	&lt;img src=&quot;/assets/images/2021-07-03/lego.jpg&quot; alt=&quot;Lego&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 700px;&quot; /&gt;
@@ -6072,12 +6083,12 @@ We say that $f$ is the &lt;em&gt;density&lt;/em&gt; of the measure $v$ w.r.t $\m
 &lt;h2 id=&quot;other-types&quot;&gt;Other types of Measures&lt;/h2&gt;
 &lt;p&gt;Suppose that $\mu$ is a measure on $\mathcal{X}$&lt;/p&gt;
 &lt;ol&gt;
-  &lt;li&gt;If $\mu(\mathcal{X})=\infty$, we say that $\mu$ is an &lt;em&gt;infinite measure&lt;/em&gt;.&lt;/li&gt;
-  &lt;li&gt;If $\mu(\mathcal{X}&amp;lt;\infty)$, we say that $\mu$ is a &lt;em&gt;finite measure&lt;/em&gt;.&lt;/li&gt;
-  &lt;li&gt;If $\mu(\mathcal{X}&amp;lt;1)$, we say that $\mu$ is a &lt;em&gt;probability measure&lt;/em&gt;.&lt;/li&gt;
-  &lt;li&gt;If there exists a countable set $\mathcal{S}$ such that $\mu(\mathcal{X}-\mathcal{S})=0$, we say that $\mu$ is a &lt;em&gt;discrete measure&lt;/em&gt;. Equivalently, $\mu$ has a density w.r.t &lt;em&gt;counting measure&lt;/em&gt; on $\mathcal{S}$.&lt;/li&gt;
-  &lt;li&gt;If $\mu$ has a density w.r.t Lebesgue measure, we say that $\mu$ is a &lt;em&gt;continuous measure&lt;/em&gt;.&lt;/li&gt;
-  &lt;li&gt;If $\mu$ is neither &lt;em&gt;continuous&lt;/em&gt; nor &lt;em&gt;discrete&lt;/em&gt;, we say that $\mu$ is a &lt;em&gt;mixed measure&lt;/em&gt;.&lt;/li&gt;
+  &lt;li&gt;If $\mu(\mathcal{X})=\infty$, we say that $\mu$ is an &lt;strong&gt;infinite measure&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;If $\mu(\mathcal{X}&amp;lt;\infty)$, we say that $\mu$ is a &lt;strong&gt;finite measure&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;If $\mu(\mathcal{X}&amp;lt;1)$, we say that $\mu$ is a &lt;strong&gt;probability measure&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;If there exists a countable set $\mathcal{S}$ such that $\mu(\mathcal{X}-\mathcal{S})=0$, we say that $\mu$ is a &lt;strong&gt;discrete measure&lt;/strong&gt;. Equivalently, $\mu$ has a density w.r.t &lt;strong&gt;counting measure&lt;/strong&gt; on $\mathcal{S}$.&lt;/li&gt;
+  &lt;li&gt;If $\mu$ has a density w.r.t Lebesgue measure, we say that $\mu$ is a &lt;strong&gt;continuous measure&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;If $\mu$ is neither &lt;strong&gt;continuous&lt;/strong&gt; nor &lt;strong&gt;discrete&lt;/strong&gt;, we say that $\mu$ is a &lt;strong&gt;mixed measure&lt;/strong&gt;.&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
