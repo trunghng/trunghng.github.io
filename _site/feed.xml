@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-11-11T05:35:08+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-11-11T21:01:16+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Natural Evolution Strategies</title><link href="http://localhost:4000/2022/10/07/nes.html" rel="alternate" type="text/html" title="Natural Evolution Strategies" /><published>2022-10-07T13:00:00+07:00</published><updated>2022-10-07T13:00:00+07:00</updated><id>http://localhost:4000/2022/10/07/nes</id><content type="html" xml:base="http://localhost:4000/2022/10/07/nes.html">&lt;blockquote&gt;
   &lt;p&gt;&lt;strong&gt;Natural Evolution Strategies&lt;/strong&gt;, or &lt;strong&gt;NES&lt;/strong&gt;, are referred to a family of evolution strategies that throughout its generations update a search distribution repeatedly using an estimated gradient of its distribution parameters.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -5007,11 +5007,21 @@ d_2(f(x),f(y))&amp;lt;\varepsilon
       &lt;p&gt;A function $f:[a,b]\to\mathbb{R}$ is &lt;strong&gt;piecewise continuous&lt;/strong&gt; if we can partition $[a,b]$ into finitely many intervals, such that $f$ is continuous on each interval. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="jordan-measure" /><category term="riemann-integral" /><summary type="html">Part I of the measure theory series. Materials are mostly taken from Tao’s book, except for some needed notations extracted from Stein’s book.</summary></entry><entry><title type="html">Deep Q-learning</title><link href="http://localhost:4000/2022/05/25/deep-q-learning.html" rel="alternate" type="text/html" title="Deep Q-learning" /><published>2022-05-25T15:26:00+07:00</published><updated>2022-05-25T15:26:00+07:00</updated><id>http://localhost:4000/2022/05/25/deep-q-learning</id><content type="html" xml:base="http://localhost:4000/2022/05/25/deep-q-learning.html">&lt;!-- excerpt-end --&gt;
+&lt;/div&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="jordan-measure" /><category term="riemann-integral" /><summary type="html">Part I of the measure theory series. Materials are mostly taken from Tao’s book, except for some needed notations extracted from Stein’s book.</summary></entry><entry><title type="html">Deep Q-learning</title><link href="http://localhost:4000/2022/05/25/deep-q-learning.html" rel="alternate" type="text/html" title="Deep Q-learning" /><published>2022-05-25T15:26:00+07:00</published><updated>2022-05-25T15:26:00+07:00</updated><id>http://localhost:4000/2022/05/25/deep-q-learning</id><content type="html" xml:base="http://localhost:4000/2022/05/25/deep-q-learning.html">&lt;blockquote&gt;
+
+&lt;/blockquote&gt;
+
+&lt;!-- excerpt-end --&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;#q-value-iter&quot;&gt;Q-value iteration&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#q-learning&quot;&gt;Q-learning&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#nn-q-learning&quot;&gt;Neural networks with Q-learning&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#nn-q-learning&quot;&gt;Neural networks with Q-learning&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#exp-replay&quot;&gt;Experience replay&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#target-net&quot;&gt;Target network&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#rmsprop&quot;&gt;RMSProp&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -5031,7 +5041,7 @@ which characterizes the optimal value of state $s$ in terms of the optimal value
 \begin{equation}
 V_{k+1}(s)=\max_{a}\sum_{s’}P(s’\vert s,a)\big[R(s,a,s’)+\gamma V_k(s’)\big]\hspace{1cm}\forall s\in\mathcal{S}
 \end{equation}
-For an arbitrary initial $V_0(s)$, the iteration, or the sequence $\{V_k\}$, will eventually converges to the optimal value function $V^*(s)$. This can be shown by applying the &lt;a href=&quot;/2021/07/10/optimal-policy-existence.html&quot;&gt;&lt;strong&gt;Banach’s fixed point theorem&lt;/strong&gt;&lt;/a&gt;, the one we have also used to prove the existence of the optimal policy, to prove that the iteration from $V_k(s)$ to $V_{k+1}(s)$ is a contraction mapping.&lt;/p&gt;
+For an arbitrary initial $V_0(s)$, the iteration, or the sequence $\{V_k\}$, will eventually converge to the optimal value function $V^*(s)$. This can be shown by applying the &lt;a href=&quot;/2021/07/10/optimal-policy-existence.html&quot;&gt;&lt;strong&gt;Banach’s fixed point theorem&lt;/strong&gt;&lt;/a&gt;, the one we have also used to prove the existence of the optimal policy, to prove that the iteration from $V_k(s)$ to $V_{k+1}(s)$ is a contraction mapping.&lt;/p&gt;
 
 &lt;p&gt;Details for value iteration method can be seen in the following pseudocode.&lt;/p&gt;
 &lt;figure&gt;
@@ -5059,7 +5069,7 @@ Hence, analogy to the state-value function, we can also apply Dynamic programmin
 \begin{equation}
 Q_{k+1}(s,a)=\sum_{s’}P(s’\vert s,a)\left[R(s,a,s’)+\gamma\max_{a’}Q_k(s’,a’)\right]\label{eq:qvi.4}
 \end{equation}
-This iteration, given an initial value $Q_0(s,a)$, eventually will also converges to the optimal Q-values $Q^*(s,a)$ due to the relationship between $V$ and $Q$ as defined above. Pseudocode for Q-value iteration is given below.&lt;/p&gt;
+This iteration, given an initial value $Q_0(s,a)$, eventually will also converge to the optimal Q-values $Q^*(s,a)$ due to the relationship between $V$ and $Q$ as defined above. Pseudocode for Q-value iteration is given below.&lt;/p&gt;
 &lt;figure&gt;
 	&lt;img src=&quot;/assets/images/2022-05-25/q-value-iteration.png&quot; alt=&quot;value iteration pseudocode&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; /&gt;
 	&lt;figcaption&gt;&lt;/figcaption&gt;
@@ -5095,7 +5105,7 @@ It is noticeable that the above update rule requires the transition model $P(s�
 
 &lt;p&gt;This update rule is in form of a &lt;strong&gt;stochastic process&lt;/strong&gt;, and thus, can be &lt;a href=&quot;#q-learning-td-convergence&quot;&gt;proved&lt;/a&gt; to be converged to the optimal $Q^*$, under the &lt;a href=&quot;/2022/01/31/td-learning.html#stochastic-approx-condition&quot;&gt;stochastic approximation conditions&lt;/a&gt; for the learning rate $\alpha$.
 \begin{equation}
-\sum_{t=1}^{\infty}\alpha_t(s,a)=\infty\hspace{1cm}\text{and}\hspace{1cm}\sum_{t=1}^{\infty}\alpha_t^2(s,a)&amp;lt;\infty,
+\sum_{t=1}^{\infty}\alpha_t(s,a)=\infty\hspace{1cm}\text{and}\hspace{1cm}\sum_{t=1}^{\infty}\alpha_t^2(s,a)&amp;lt;\infty,\label{eq:ql.2}
 \end{equation}
 for all $(s,a)\in\mathcal{S}\times\mathcal{A}$.&lt;/p&gt;
 
@@ -5108,18 +5118,52 @@ for all $(s,a)\in\mathcal{S}\times\mathcal{A}$.&lt;/p&gt;
 \begin{equation}
 Q_\boldsymbol{\theta}(s,a)
 \end{equation}
-Recall that, we have applied &lt;a href=&quot;/2022/02/11/func-approx.html#lin-func-approx&quot;&gt;linear methods&lt;/a&gt; as our function approximators:
+Then, we could have applied stochastic gradient descent (SGD) to repeatedly update $\boldsymbol{\theta}$ so as to minimize the loss function
+\begin{equation}
+L(\boldsymbol{\theta})=\mathbb{E}_{s,a\sim\mu(\cdot)}\Big[\big(Q(s,a)-Q_\boldsymbol{\theta}(s,a)\big)^2\Big]
+\end{equation}
+The resulting SGD update had the form
+\begin{align}
+\boldsymbol{\theta}_{k+1}&amp;amp;=\boldsymbol{\theta}_k-\frac{1}{2}\alpha\nabla_\boldsymbol{\theta}\big[Q(s_k,a_k)-Q_\boldsymbol{\theta}(s_k,a_k)\big]^2 \\ &amp;amp;=\boldsymbol{\theta}_k+\alpha\big[Q(s_k,a_k)-Q_\boldsymbol{\theta}(s_k,a_k)\big]\nabla_\boldsymbol{\theta}Q_\boldsymbol{\theta}(s_k,a_k)\label{eq:nql.1}
+\end{align}
+However, we could not perform the exact update \eqref{eq:nql.1} since the true value $Q(s_k,a_k)$ was unknown. Fortunately, we could instead approximate it by, says $U_k$, which let us rewrite the SGD update as
+\begin{equation}
+\boldsymbol{\theta}_{k+1}=\boldsymbol{\theta}_k+\alpha\big[U_k-Q_\boldsymbol{\theta}(s_k,a_k)\big]\nabla_\boldsymbol{\theta}Q_\boldsymbol{\theta}(s_k,a_k)\label{eq:nql.2}
+\end{equation}
+If $U_k$ is an unbiased estimate for $Q(s_k,a_k)$, i.e. $\mathbb{E}\big[U_k\vert s_k,a_k\big]=Q(s_k,a_k)$, for each $k$, then $\boldsymbol{\theta}$ was guaranteed to converge to the local minimum under the stochastic approximation condition for decreasing the learning rate $\alpha$ as given in \eqref{eq:ql.2}.&lt;/p&gt;
+
+&lt;p&gt;Recall that, we have applied &lt;a href=&quot;/2022/02/11/func-approx.html#lin-func-approx&quot;&gt;linear methods&lt;/a&gt; as our function approximators:
 \begin{equation}
 Q_\boldsymbol{\theta}(s,a)=\boldsymbol{\theta}^\text{T}\mathbf{f}(s,a),
 \end{equation}
 where $\mathbf{f}(s,a)$ represents the &lt;strong&gt;feature vector&lt;/strong&gt;, (or &lt;strong&gt;basis functions&lt;/strong&gt;) of the state-action pair $(s,a)$.&lt;/p&gt;
 
-&lt;p&gt;Applying this linear function approximation to the Q-learning method gives us the &lt;strong&gt;semi-gradient Q-learning&lt;/strong&gt;
-\begin{equation}&lt;/p&gt;
+&lt;p&gt;Linear function approximation allowed us to rewrite \eqref{eq:nql.2} in a simplified form
+\begin{equation}
+\boldsymbol{\theta}_{k+1}=\boldsymbol{\theta}_k+\alpha\big[U_k-Q_\boldsymbol{\theta}(s_k,a_k)\big]\mathbf{f}(s_k,a_k)\label{eq:nql.3}
+\end{equation}
+On the other hands, we know that a neural network with a particular settings for hidden layers and activation functions can approximate &lt;a href=&quot;/2022/09/02/neural-nets.html#unv-approx&quot;&gt;any&lt;/a&gt; continuous functions on a compact subsets of $\mathbb{R}^n$, so how about using it with the Q-learning algorithm?&lt;/p&gt;
 
-&lt;p&gt;\end{equation}&lt;/p&gt;
+&lt;p&gt;Specifically, we will be using neural network with weight $\boldsymbol{\theta}$ as a function approximator for Q-learning update. The network is referred as &lt;strong&gt;Q-network&lt;/strong&gt;. The Q-network can be trained by minimizing a sequence of loss function $L_i(\boldsymbol{\theta}_i)$ that changes at each iteration $i$:
+\begin{equation}
+L_i(\boldsymbol{\theta}_i)=\mathbb{E}_{s,a\sim\rho(\cdot)}\Big[\big(y_i-Q_{\boldsymbol{\theta}_i}(s,a)\big)^2\Big],
+\end{equation}
+where
+\begin{equation}
+y_i=\mathbb{E}_{s’\sim\mathcal{E}}\left[R(s,a,s’)+\gamma\max_{a’}Q_{\boldsymbol{\theta}_{i-1}}(s’,a’)\vert s,a\right]
+\end{equation}
+is the target in iteration $i$, as the target $U_k$ for iteration $k$ in \eqref{eq:nql.3}; and where $\rho(s,a)$ is referred as the behavior policy.&lt;/p&gt;
 
-&lt;p&gt;On the other hands, since a neural network with a particular settings for hidden layers and activation functions can approximate &lt;a href=&quot;/2022/09/02/neural-nets.html#unv-approx&quot;&gt;any&lt;/a&gt; continuous functions on a compact subsets of $\mathbb{R}^n$, then how about using it with the Q-learning algorithm?&lt;/p&gt;
+&lt;h3 id=&quot;exp-replay&quot;&gt;Experience replay&lt;/h3&gt;
+&lt;p&gt;Along with Q-network, the authors of deep-Q learning also introduce a mechanism called &lt;strong&gt;experience replay&lt;/strong&gt;, which utilizes data efficiency and at the same time reduces the variance of the updates.&lt;/p&gt;
+
+&lt;p&gt;In particular, at each time step $t$, the &lt;strong&gt;experience&lt;/strong&gt;, $e_t$, defined as
+\begin{equation}
+e_t=(s_t,a_t,r_t,s_{t+1})
+\end{equation}
+is added into a set $\mathcal{D}$ of size $N$, which is&lt;/p&gt;
+
+&lt;h3 id=&quot;target-net&quot;&gt;Target network&lt;/h3&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;&lt;span id=&quot;q-learning-td-convergence&quot;&gt;[1] Tommi Jaakkola, Michael I. Jordan, Satinder P. Singh. &lt;a href=&quot;https://people.eecs.berkeley.edu/~jordan/papers/AIM-1441.ps&quot;&gt;On the Convergence of Stochastic Iterative Dynamic Programming Algorithms&lt;/a&gt;. A.I. Memo No. 1441, 1993.&lt;/span&gt;&lt;/p&gt;

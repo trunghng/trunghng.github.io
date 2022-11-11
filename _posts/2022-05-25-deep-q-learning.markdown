@@ -7,11 +7,15 @@ description: Deep Q-learning and variants
 comments: true
 eqn-number: true
 ---
+> 
 
 <!-- excerpt-end -->
 - [Q-value iteration](#q-value-iter)
 - [Q-learning](#q-learning)
 - [Neural networks with Q-learning](#nn-q-learning)
+	- [Experience replay](#exp-replay)
+	- [Target network](#target-net)
+	- [RMSProp](#rmsprop)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -31,7 +35,7 @@ Then, with [**Dynamic programming**]({% post_url 2021-07-25-dp-in-mdp %}), we ca
 \begin{equation}
 V_{k+1}(s)=\max_{a}\sum_{s'}P(s'\vert s,a)\big[R(s,a,s')+\gamma V_k(s')\big]\hspace{1cm}\forall s\in\mathcal{S}
 \end{equation}
-For an arbitrary initial $V_0(s)$, the iteration, or the sequence $\\{V_k\\}$, will eventually converges to the optimal value function $V^\*(s)$. This can be shown by applying the [**Banach's fixed point theorem**]({% post_url 2021-07-10-optimal-policy-existence %}), the one we have also used to prove the existence of the optimal policy, to prove that the iteration from $V_k(s)$ to $V_{k+1}(s)$ is a contraction mapping.
+For an arbitrary initial $V_0(s)$, the iteration, or the sequence $\\{V_k\\}$, will eventually converge to the optimal value function $V^\*(s)$. This can be shown by applying the [**Banach's fixed point theorem**]({% post_url 2021-07-10-optimal-policy-existence %}), the one we have also used to prove the existence of the optimal policy, to prove that the iteration from $V_k(s)$ to $V_{k+1}(s)$ is a contraction mapping.
 
 Details for value iteration method can be seen in the following pseudocode.
 <figure>
@@ -59,7 +63,7 @@ Hence, analogy to the state-value function, we can also apply Dynamic programmin
 \begin{equation}
 Q_{k+1}(s,a)=\sum_{s'}P(s'\vert s,a)\left[R(s,a,s')+\gamma\max_{a'}Q_k(s',a')\right]\label{eq:qvi.4}
 \end{equation}
-This iteration, given an initial value $Q_0(s,a)$, eventually will also converges to the optimal Q-values $Q^\*(s,a)$ due to the relationship between $V$ and $Q$ as defined above. Pseudocode for Q-value iteration is given below.
+This iteration, given an initial value $Q_0(s,a)$, eventually will also converge to the optimal Q-values $Q^\*(s,a)$ due to the relationship between $V$ and $Q$ as defined above. Pseudocode for Q-value iteration is given below.
 <figure>
 	<img src="/assets/images/2022-05-25/q-value-iteration.png" alt="value iteration pseudocode" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption></figcaption>
@@ -96,7 +100,7 @@ It is noticeable that the above update rule requires the transition model $P(s'\
 
 This update rule is in form of a **stochastic process**, and thus, can be [proved](#q-learning-td-convergence) to be converged to the optimal $Q^\*$, under the [stochastic approximation conditions]({% post_url 2022-01-31-td-learning %}#stochastic-approx-condition) for the learning rate $\alpha$.
 \begin{equation}
-\sum_{t=1}^{\infty}\alpha_t(s,a)=\infty\hspace{1cm}\text{and}\hspace{1cm}\sum_{t=1}^{\infty}\alpha_t^2(s,a)<\infty,
+\sum_{t=1}^{\infty}\alpha_t(s,a)=\infty\hspace{1cm}\text{and}\hspace{1cm}\sum_{t=1}^{\infty}\alpha_t^2(s,a)<\infty,\label{eq:ql.2}
 \end{equation}
 for all $(s,a)\in\mathcal{S}\times\mathcal{A}$.
 
@@ -110,18 +114,55 @@ In particular, we have tried to find an approximated action-value function $Q_\b
 \begin{equation}
 Q_\boldsymbol{\theta}(s,a)
 \end{equation}
+Then, we could have applied stochastic gradient descent (SGD) to repeatedly update $\boldsymbol{\theta}$ so as to minimize the loss function
+\begin{equation}
+L(\boldsymbol{\theta})=\mathbb{E}\_{s,a\sim\mu(\cdot)}\Big[\big(Q(s,a)-Q_\boldsymbol{\theta}(s,a)\big)^2\Big]
+\end{equation}
+The resulting SGD update had the form
+\begin{align}
+\boldsymbol{\theta}\_{k+1}&=\boldsymbol{\theta}\_k-\frac{1}{2}\alpha\nabla_\boldsymbol{\theta}\big[Q(s_k,a_k)-Q_\boldsymbol{\theta}(s_k,a_k)\big]^2 \\\\ &=\boldsymbol{\theta}\_k+\alpha\big[Q(s_k,a_k)-Q_\boldsymbol{\theta}(s_k,a_k)\big]\nabla_\boldsymbol{\theta}Q_\boldsymbol{\theta}(s_k,a_k)\label{eq:nql.1}
+\end{align}
+However, we could not perform the exact update \eqref{eq:nql.1} since the true value $Q(s_k,a_k)$ was unknown. Fortunately, we could instead approximate it by, says $U_k$, which let us rewrite the SGD update as
+\begin{equation}
+\boldsymbol{\theta}\_{k+1}=\boldsymbol{\theta}\_k+\alpha\big[U_k-Q_\boldsymbol{\theta}(s_k,a_k)\big]\nabla_\boldsymbol{\theta}Q_\boldsymbol{\theta}(s_k,a_k)\label{eq:nql.2}
+\end{equation}
+If $U_k$ is an unbiased estimate for $Q(s_k,a_k)$, i.e. $\mathbb{E}\big[U_k\vert s_k,a_k\big]=Q(s_k,a_k)$, for each $k$, then $\boldsymbol{\theta}$ was guaranteed to converge to the local minimum under the stochastic approximation condition for decreasing the learning rate $\alpha$ as given in \eqref{eq:ql.2}.
+
 Recall that, we have applied [linear methods]({% post_url 2022-02-11-func-approx %}#lin-func-approx) as our function approximators:
 \begin{equation}
 Q_\boldsymbol{\theta}(s,a)=\boldsymbol{\theta}^\text{T}\mathbf{f}(s,a),
 \end{equation}
 where $\mathbf{f}(s,a)$ represents the **feature vector**, (or **basis functions**) of the state-action pair $(s,a)$.
 
-Applying this linear function approximation to the Q-learning method gives us the **semi-gradient Q-learning**
+Linear function approximation allowed us to rewrite \eqref{eq:nql.2} in a simplified form
 \begin{equation}
-
+\boldsymbol{\theta}\_{k+1}=\boldsymbol{\theta}\_k+\alpha\big[U_k-Q_\boldsymbol{\theta}(s_k,a_k)\big]\mathbf{f}(s_k,a_k)\label{eq:nql.3}
 \end{equation}
+On the other hands, we know that a neural network with a particular settings for hidden layers and activation functions can approximate [any]({% post_url 2022-09-02-neural-nets %}#unv-approx) continuous functions on a compact subsets of $\mathbb{R}^n$, so how about using it with the Q-learning algorithm?
 
-On the other hands, since a neural network with a particular settings for hidden layers and activation functions can approximate [any]({% post_url 2022-09-02-neural-nets %}#unv-approx) continuous functions on a compact subsets of $\mathbb{R}^n$, then how about using it with the Q-learning algorithm?
+Specifically, we will be using neural network with weight $\boldsymbol{\theta}$ as a function approximator for Q-learning update. The network is referred as **Q-network**. The Q-network can be trained by minimizing a sequence of loss function $L_i(\boldsymbol{\theta}\_i)$ that changes at each iteration $i$:
+\begin{equation}
+L_i(\boldsymbol{\theta}\_i)=\mathbb{E}\_{s,a\sim\rho(\cdot)}\Big[\big(y_i-Q_{\boldsymbol{\theta}\_i}(s,a)\big)^2\Big],
+\end{equation}
+where
+\begin{equation}
+y_i=\mathbb{E}\_{s'\sim\mathcal{E}}\left[R(s,a,s')+\gamma\max_{a'}Q_{\boldsymbol{\theta}\_{i-1}}(s',a')\vert s,a\right]
+\end{equation}
+is the target in iteration $i$, as the target $U_k$ for iteration $k$ in \eqref{eq:nql.3}; and where $\rho(s,a)$ is referred as the behavior policy.
+
+### Experience replay
+{: #exp-replay}
+Along with Q-network, the authors of deep-Q learning also introduce a mechanism called **experience replay**, which utilizes data efficiency and at the same time reduces the variance of the updates.
+
+In particular, at each time step $t$, the **experience**, $e_t$, defined as
+\begin{equation}
+e_t=(s_t,a_t,r_t,s_{t+1})
+\end{equation}
+is added into a set $\mathcal{D}$ of size $N$, which is 
+
+
+### Target network
+{: #target-net}
 
 
 ## References
