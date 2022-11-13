@@ -405,11 +405,11 @@ where
 
 ## References
 {: #references}
-[1] Joseph K. Blitzstein & Jessica Hwang. [Introduction to Probability](https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573).
+[1] Joseph K. Blitzstein & Jessica Hwang. [Introduction to Probability](https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573).  
 
-[2] Christopher M. Bishop. [Pattern Recognition and Machine Learning](https://link.springer.com/book/9780387310732). Springer New York, NY. 
+[2] Christopher M. Bishop. [Pattern Recognition and Machine Learning](https://link.springer.com/book/9780387310732). Springer New York, NY, 2006. 
 
-[3] Gilbert Strang. [Introduction to Linear Algebra](http://math.mit.edu/~gs/linearalgebra/).
+[3] Gilbert Strang. [Introduction to Linear Algebra, 5th edition](http://math.mit.edu/~gs/linearalgebra/), 2016.
 
 ## Footnotes
 {: #footnotes}

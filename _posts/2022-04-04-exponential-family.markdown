@@ -289,7 +289,7 @@ which is in the same form as \eqref{eq:cp.1} and therefore claims the conjugacy.
 {: #references}
 [1] M. Jordan. [The Exponential Family: Basics](https://people.eecs.berkeley.edu/~jordan/courses/260-spring10/other-readings/chapter8.pdf). 2009.
 
-[2] Joseph K. Blitzstein & Jessica Hwang. [Introduction to Probability](https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573).
+[2] Joseph K. Blitzstein & Jessica Hwang. [Introduction to Probability](https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573).  
 
 [3] Weisstein, Eric W. [Hölder's Inequalities](https://mathworld.wolfram.com/HoeldersInequalities.html) From MathWorld--A Wolfram Web Resource.
 

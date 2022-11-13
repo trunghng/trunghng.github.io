@@ -160,6 +160,6 @@ q_\*(s,a)&=\mathbb{E}\left[R_{t+1}+\gamma\max_{a'}q_\*(S_{t+1},a')|S_t=s,A_t=a\r
 
 [2] David Silver. [UCL course on RL](https://www.davidsilver.uk/teaching/).  
 
-[3] [A (Long) Peek into Reinforcement Learning](https://lilianweng.github.io/lil-log/2018/02/19/a-long-peek-into-reinforcement-learning.html).  
+[3] Lilian Weng [A (Long) Peek into Reinforcement Learning](https://lilianweng.github.io/lil-log/2018/02/19/a-long-peek-into-reinforcement-learning.html). Lil'Log, 2018.    
 
-[4] [AlphaGo](https://deepmind.com/research/case-studies/alphago-the-story-so-far).
+[4] [AlphaGo](https://deepmind.com/research/case-studies/alphago-the-story-so-far). Deepmind.

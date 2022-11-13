@@ -292,9 +292,9 @@ a_j=\sum_{i}w_{ji}z_i
 
 ## Preferences
 {: #preferences}
-[1] Christopher M. Bishop. [Pattern Recognition and Machine Learning](https://link.springer.com/book/9780387310732). Springer New York, NY.
+[1] Christopher M. Bishop. [Pattern Recognition and Machine Learning](https://link.springer.com/book/9780387310732). Springer New York, NY, 2006.
 
-[2] Ian Goodfellow & Yoshua Bengio & Aaron Courville. [Deep Learning](https://www.deeplearningbook.org). MIT Press (2016).
+[2] Ian Goodfellow & Yoshua Bengio & Aaron Courville. [Deep Learning](https://www.deeplearningbook.org). MIT Press, 2016.
 
 ## Footnotes
 {: #footnotes}

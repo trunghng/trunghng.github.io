@@ -18,6 +18,9 @@ eqn-number: true
 		- [Experience replay](#exp-replay)
 		- [Target network](#target-net)
 		- [RMSProp](#rmsprop)
+- [Some improved variants](#imp-vars)
+	- [Double deep Q-learning](#double-dqn)
+	- [C-DQN](#c-dqn)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -188,15 +191,24 @@ is added into a set $\mathcal{D}$ of size $N$, which is
 #### RMSProp
 {: #rmsprop}
 
+## Some improved variants
+{: #imp-vars}
+
+### Double deep Q-learning
+{: #double-dqn}
+
+### C-DQN
+{: #c-dqn}
+
 
 ## References
 <span id='q-learning-td-convergence'>[1] Tommi Jaakkola, Michael I. Jordan, Satinder P. Singh. [On the Convergence of Stochastic Iterative Dynamic Programming Algorithms](https://people.eecs.berkeley.edu/~jordan/papers/AIM-1441.ps). A.I. Memo No. 1441, 1993.</span>
 
 [2] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition).
 
-[3] Vlad Mnih, et al. [Playing Atari with Deep Reinforcement Learning](https://www.cs.toronto.edu/~vmnih/docs/dqn.pdf), 2013.
+[3] Pieter Abbeel. [Foundations of Deep RL Series](https://youtube.com/playlist?list=PLwRJQ4m4UJjNymuBM9RdmB3Z9N5-0IlY0), YouTube, 2021.
 
-[4] John N Tsitsiklis and Benjamin Van Roy. [An analysis of temporal-difference learning with function approximation](). Automatic Control, IEEE Transactions on, 42(5):674–690, 1997.
+[4] Vlad Mnih, et al. [Playing Atari with Deep Reinforcement Learning](https://www.cs.toronto.edu/~vmnih/docs/dqn.pdf), 2013.
 
 [5] Vlad Mnih, et al. [Human Level Control Through Deep Reinforcement Learning](https://www.deepmind.com/publications/human-level-control-through-deep-reinforcement-learning). Nature, 2015.
 
@@ -204,7 +216,7 @@ is added into a set $\mathcal{D}$ of size $N$, which is
 
 [7] Hado van Hasselt, Arthur Guez, David Silver. [Deep Reinforcement Learning with Double Q-learning](https://arxiv.org/abs/1509.06461). AAAI16, 2016.
 
-[8] Pieter Abbeel. [Foundations of Deep RL Series](https://youtube.com/playlist?list=PLwRJQ4m4UJjNymuBM9RdmB3Z9N5-0IlY0), 2021.
+[8] Zhikang T. Wang, Masahito Ueda. [Convergent and Efficient Deep Q Network Algorithm](https://arxiv.org/abs/2106.15419). arXiv:2106.15419, 2022.
 
 ## Footnotes
 [^1]: In **Monte Carlo control**, the update target $U_t$ is chosen as the **full return** $G_t$, i.e.

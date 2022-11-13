@@ -347,7 +347,7 @@ The result after running our experiment is illustrated in the figure below.
 
 [2] Daan Wierstra, Tom Schaul, Tobias Glasmachers, Yi Sun, Jürgen Schmidhuber. [Natural Evolution Strategies](https://arxiv.org/abs/1106.4487). arXiv:1106.4487, 2011.
 
-<span id='nes-paper'>[3] Daan Wierstra, Tom Schaul, Tobias Glasmachers, Yi Sun, Jan Peters, Jürgen Schmidhuber. [Natural Evolution Strategies](https://www.jmlr.org/papers/volume15/wierstra14a/wierstra14a.pdf). Journal of Machine Learning Research 15 (2014).</span>
+<span id='nes-paper'>[3] Daan Wierstra, Tom Schaul, Tobias Glasmachers, Yi Sun, Jan Peters, Jürgen Schmidhuber. [Natural Evolution Strategies](https://www.jmlr.org/papers/volume15/wierstra14a/wierstra14a.pdf). Journal of Machine Learning Research 15, 2014.</span>
 
 [4] Ha, David. [A Visual Guide to Evolution Strategies](https://blog.otoro.net/2017/10/29/visual-evolution-strategies/). blog.otoro.net, 2017.
 

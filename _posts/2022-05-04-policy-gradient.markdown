@@ -243,7 +243,7 @@ where $\mathbf{x}\_\mu(s)$ and $\mathbf{x}\_\sigma(s)$ are state feature vectors
 {: #references}
 [1] <span id='suttons-book'>Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition). </span> 
 
-[2] Deepmind x UCL. [Reinforcement Learning Lecture Series 2021](https://www.deepmind.com/learning-resources/reinforcement-learning-lecture-series-2021). 
+[2] Deepmind x UCL. [Reinforcement Learning Lecture Series 2021](https://www.deepmind.com/learning-resources/reinforcement-learning-lecture-series-2021). Deepmind, 2021.  
 
 [3] Richard S. Sutton & David McAllester & Satinder Singh & Yishay Mansour. [Policy Gradient Methods for Reinforcement Learning with Function Approximation](https://papers.nips.cc/paper/1999/hash/464d828b85b0bed98e80ade0a5c43b0f-Abstract.html). NIPS 1999.
 

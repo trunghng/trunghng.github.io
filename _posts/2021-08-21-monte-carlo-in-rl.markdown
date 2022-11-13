@@ -611,13 +611,13 @@ V(s)\doteq\dfrac{\sum_{t\in\mathcal{T}(s)}\tilde{G}\_t}{\vert\mathcal{T}(s)\vert
 
 [4] Csaba Szepesvári. [Algorithms for Reinforcement Learning](https://www.amazon.com/Algorithms-Reinforcement-Synthesis-Artificial-Intelligence/dp/1608454924).  
 
-[5] Singh, S.P., Sutton, R.S. [Reinforcement learning with replacing eligibility traces](https://doi.org/10.1007/BF00114726). Mach Learn 22, 123–158 (1996)  
+[5] Singh, S.P., Sutton, R.S. [Reinforcement learning with replacing eligibility traces](https://doi.org/10.1007/BF00114726). Mach Learn 22, 123–158, 1996.    
 
 [6] John N. Tsitsiklis. [On the Convergence of Optimistic Policy Iteration](https://www.mit.edu/~jnt/Papers/J089-02-jnt-optimistic.pdf). Journal of Machine Learning Research 3 (2002) 59–72.  
 
-[7] Yuanlong Chen. [On the convergence of optimistic policy iteration for stochastic shortest path problem](https://arxiv.org/abs/1808.08763) (2018).  
+[7] Yuanlong Chen. [On the convergence of optimistic policy iteration for stochastic shortest path problem](https://arxiv.org/abs/1808.08763), 	arXiv:1808.08763, 2018.  
 
-[8] Jun Liu. [On the Convergence of Reinforcement Learning with Monte Carlo Exploring Starts](https://arxiv.org/abs/2007.10916) (2020).  
+[8] Jun Liu. [On the Convergence of Reinforcement Learning with Monte Carlo Exploring Starts](https://arxiv.org/abs/2007.10916). arXiv:2007.10916, 2020.  
 
 [9] Daphne Koller & Nir Friedman. [Probabilistic Graphical Models: Principles and Techniques](https://mitpress.mit.edu/books/probabilistic-graphical-models).  
 

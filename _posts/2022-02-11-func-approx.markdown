@@ -669,13 +669,13 @@ This algorithm is known as **TD(0) with gradient correction (TDC)**, or as **GTD
 
 [2] Deepmind x UCL. [Reinforcement Learning Lecture Series 2021](https://www.deepmind.com/learning-resources/reinforcement-learning-lecture-series-2021). 
 
-[3] Sutton, R. S. (1988). [Learning to predict by the methods of temporal differences](doi:10.1007/bf00115009). Machine Learning, 3(1), 9–44. 
+[3] Richard S. Sutton. [Learning to predict by the methods of temporal differences](doi:10.1007/bf00115009). Machine Learning, 3, 9–44, 1988. 
 
 [4] Konidaris, G. & Osentoski, S. & Thomas, P.. [Value Function Approximation in Reinforcement Learning Using the Fourier Basis](https://dl.acm.org/doi/10.5555/2900423.2900483). AAAI Conference on Artificial Intelligence, North America, aug. 2011. 
 
 [5] Joseph K. Blitzstein & Jessica Hwang. [Introduction to Probability](https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573).  
 
-[6] Shangtong Zhang. [Reinforcement Learning: An Introduction implementation](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction). 
+[6] Shangtong Zhang. [Reinforcement Learning: An Introduction implementation](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction). Github.
 
 ## Footnotes
 {: #footnotes}

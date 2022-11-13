@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-11-13T19:25:51+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-11-13T20:15:33+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Natural Evolution Strategies</title><link href="http://localhost:4000/2022/10/07/nes.html" rel="alternate" type="text/html" title="Natural Evolution Strategies" /><published>2022-10-07T13:00:00+07:00</published><updated>2022-10-07T13:00:00+07:00</updated><id>http://localhost:4000/2022/10/07/nes</id><content type="html" xml:base="http://localhost:4000/2022/10/07/nes.html">&lt;blockquote&gt;
   &lt;p&gt;&lt;strong&gt;Natural Evolution Strategies&lt;/strong&gt;, or &lt;strong&gt;NES&lt;/strong&gt;, are referred to a family of evolution strategies that throughout its generations update a search distribution repeatedly using an estimated gradient of its distribution parameters.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -339,7 +339,7 @@ $f(\mathbf{x})$ reaches its global minimum $0$ at $\mathbf{x}=\mathbf{0}$. The e
 
 &lt;p&gt;[2] Daan Wierstra, Tom Schaul, Tobias Glasmachers, Yi Sun, Jürgen Schmidhuber. &lt;a href=&quot;https://arxiv.org/abs/1106.4487&quot;&gt;Natural Evolution Strategies&lt;/a&gt;. arXiv:1106.4487, 2011.&lt;/p&gt;
 
-&lt;p&gt;&lt;span id=&quot;nes-paper&quot;&gt;[3] Daan Wierstra, Tom Schaul, Tobias Glasmachers, Yi Sun, Jan Peters, Jürgen Schmidhuber. &lt;a href=&quot;https://www.jmlr.org/papers/volume15/wierstra14a/wierstra14a.pdf&quot;&gt;Natural Evolution Strategies&lt;/a&gt;. Journal of Machine Learning Research 15 (2014).&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span id=&quot;nes-paper&quot;&gt;[3] Daan Wierstra, Tom Schaul, Tobias Glasmachers, Yi Sun, Jan Peters, Jürgen Schmidhuber. &lt;a href=&quot;https://www.jmlr.org/papers/volume15/wierstra14a/wierstra14a.pdf&quot;&gt;Natural Evolution Strategies&lt;/a&gt;. Journal of Machine Learning Research 15, 2014.&lt;/span&gt;&lt;/p&gt;
 
 &lt;p&gt;[4] Ha, David. &lt;a href=&quot;https://blog.otoro.net/2017/10/29/visual-evolution-strategies/&quot;&gt;A Visual Guide to Evolution Strategies&lt;/a&gt;. blog.otoro.net, 2017.&lt;/p&gt;
 
@@ -926,9 +926,9 @@ a_j=\sum_{i}w_{ji}z_i
 &lt;h3 id=&quot;posterior-param-dist&quot;&gt;Posterior parameter distribution&lt;/h3&gt;
 
 &lt;h2 id=&quot;preferences&quot;&gt;Preferences&lt;/h2&gt;
-&lt;p&gt;[1] Christopher M. Bishop. &lt;a href=&quot;https://link.springer.com/book/9780387310732&quot;&gt;Pattern Recognition and Machine Learning&lt;/a&gt;. Springer New York, NY.&lt;/p&gt;
+&lt;p&gt;[1] Christopher M. Bishop. &lt;a href=&quot;https://link.springer.com/book/9780387310732&quot;&gt;Pattern Recognition and Machine Learning&lt;/a&gt;. Springer New York, NY, 2006.&lt;/p&gt;
 
-&lt;p&gt;[2] Ian Goodfellow &amp;amp; Yoshua Bengio &amp;amp; Aaron Courville. &lt;a href=&quot;https://www.deeplearningbook.org&quot;&gt;Deep Learning&lt;/a&gt;. MIT Press (2016).&lt;/p&gt;
+&lt;p&gt;[2] Ian Goodfellow &amp;amp; Yoshua Bengio &amp;amp; Aaron Courville. &lt;a href=&quot;https://www.deeplearningbook.org&quot;&gt;Deep Learning&lt;/a&gt;. MIT Press, 2016.&lt;/p&gt;
 
 &lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="machine-learning" /><category term="neural-network" /><summary type="html">A note on Neural networks.</summary></entry><entry><title type="html">Measure theory - III: the Lebesgue integral</title><link href="http://localhost:4000/2022/08/21/measure-theory-p3.html" rel="alternate" type="text/html" title="Measure theory - III: the Lebesgue integral" /><published>2022-08-21T13:00:00+07:00</published><updated>2022-08-21T13:00:00+07:00</updated><id>http://localhost:4000/2022/08/21/measure-theory-p3</id><content type="html" xml:base="http://localhost:4000/2022/08/21/measure-theory-p3.html">&lt;blockquote&gt;
   &lt;p&gt;Part III of the measure theory series. Materials are mostly taken from &lt;a href=&quot;/2022/08/21/measure-theory-p3.html#taos-book&quot;&gt;Tao’s book&lt;/a&gt;, except for some needed notations extracted from &lt;a href=&quot;/2022/08/21/measure-theory-p3.html#steins-book&quot;&gt;Stein’s book&lt;/a&gt;.
@@ -2705,9 +2705,9 @@ p(\mathcal{C}_2\vert\boldsymbol{\phi},\mathbf{t})=1-p(\mathcal{C}_1\vert\boldsym
 &lt;h2 id=&quot;glm&quot;&gt;Generalized linear models&lt;/h2&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;p&gt;[1] &lt;span id=&quot;bishops-book&quot;&gt;Christopher M. Bishop. &lt;a href=&quot;https://link.springer.com/book/9780387310732&quot;&gt;Pattern Recognition and Machine Learning&lt;/a&gt;. Springer New York, NY.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;[1] &lt;span id=&quot;bishops-book&quot;&gt;Christopher M. Bishop. &lt;a href=&quot;https://link.springer.com/book/9780387310732&quot;&gt;Pattern Recognition and Machine Learning&lt;/a&gt;. Springer New York, NY, 2006.&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;[2] Gilbert Strang. &lt;a href=&quot;http://math.mit.edu/~gs/linearalgebra/&quot;&gt;Introduction to Linear Algebra&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;[2] Gilbert Strang. &lt;a href=&quot;http://math.mit.edu/~gs/linearalgebra/&quot;&gt;Introduction to Linear Algebra, 5th edition&lt;/a&gt;, 2016.&lt;/p&gt;
 
 &lt;p&gt;[3] MIT 18.06. &lt;a href=&quot;https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/&quot;&gt;Linear Algebra&lt;/a&gt;.&lt;/p&gt;
 
@@ -4989,9 +4989,9 @@ where $m^2$ denotes two-dimensional Jordan measure.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Proof&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;p&gt;[1] &lt;span id=&quot;taos-book&quot;&gt;Terence Tao. &lt;a href=&quot;https://terrytao.wordpress.com/books/an-introduction-to-measure-theory/&quot;&gt;An introduction to measure theory&lt;/a&gt;. Graduate Studies in Mathematics, vol. 126.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;[1] &lt;span id=&quot;taos-book&quot;&gt;Terence Tao. &lt;a href=&quot;https://terrytao.wordpress.com/books/an-introduction-to-measure-theory/&quot;&gt;An introduction to measure theory&lt;/a&gt;. Graduate Studies in Mathematics, vol. 126, 2011.&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;[2] &lt;span id=&quot;steins-book&quot;&gt;Elias M. Stein &amp;amp; Rami Shakarchi. &lt;a href=&quot;#http://www.cmat.edu.uy/~mordecki/courses/medida2013/book.pdf&quot;&gt;Real Analysis: Measure Theory, Integration, and Hilbert Spaces&lt;/a&gt;. &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;[2] &lt;span id=&quot;steins-book&quot;&gt;Elias M. Stein &amp;amp; Rami Shakarchi. &lt;a href=&quot;http://www.cmat.edu.uy/~mordecki/courses/medida2013/book.pdf&quot;&gt;Real Analysis: Measure Theory, Integration, and Hilbert Spaces&lt;/a&gt;. 2007&lt;/span&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
 
@@ -5025,6 +5025,12 @@ d_2(f(x),f(y))&amp;lt;\varepsilon
           &lt;li&gt;&lt;a href=&quot;#rmsprop&quot;&gt;RMSProp&lt;/a&gt;&lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#imp-vars&quot;&gt;Some improved variants&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#double-dqn&quot;&gt;Double deep Q-learning&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#c-dqn&quot;&gt;C-DQN&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#references&quot;&gt;References&lt;/a&gt;&lt;/li&gt;
@@ -5189,14 +5195,20 @@ is added into a set $\mathcal{D}$ of size $N$, which is&lt;/p&gt;
 
 &lt;h4 id=&quot;rmsprop&quot;&gt;RMSProp&lt;/h4&gt;
 
+&lt;h2 id=&quot;imp-vars&quot;&gt;Some improved variants&lt;/h2&gt;
+
+&lt;h3 id=&quot;double-dqn&quot;&gt;Double deep Q-learning&lt;/h3&gt;
+
+&lt;h3 id=&quot;c-dqn&quot;&gt;C-DQN&lt;/h3&gt;
+
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;&lt;span id=&quot;q-learning-td-convergence&quot;&gt;[1] Tommi Jaakkola, Michael I. Jordan, Satinder P. Singh. &lt;a href=&quot;https://people.eecs.berkeley.edu/~jordan/papers/AIM-1441.ps&quot;&gt;On the Convergence of Stochastic Iterative Dynamic Programming Algorithms&lt;/a&gt;. A.I. Memo No. 1441, 1993.&lt;/span&gt;&lt;/p&gt;
 
 &lt;p&gt;[2] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;[3] Vlad Mnih, et al. &lt;a href=&quot;https://www.cs.toronto.edu/~vmnih/docs/dqn.pdf&quot;&gt;Playing Atari with Deep Reinforcement Learning&lt;/a&gt;, 2013.&lt;/p&gt;
+&lt;p&gt;[3] Pieter Abbeel. &lt;a href=&quot;https://youtube.com/playlist?list=PLwRJQ4m4UJjNymuBM9RdmB3Z9N5-0IlY0&quot;&gt;Foundations of Deep RL Series&lt;/a&gt;, YouTube, 2021.&lt;/p&gt;
 
-&lt;p&gt;[4] John N Tsitsiklis and Benjamin Van Roy. &lt;a href=&quot;&quot;&gt;An analysis of temporal-difference learning with function approximation&lt;/a&gt;. Automatic Control, IEEE Transactions on, 42(5):674–690, 1997.&lt;/p&gt;
+&lt;p&gt;[4] Vlad Mnih, et al. &lt;a href=&quot;https://www.cs.toronto.edu/~vmnih/docs/dqn.pdf&quot;&gt;Playing Atari with Deep Reinforcement Learning&lt;/a&gt;, 2013.&lt;/p&gt;
 
 &lt;p&gt;[5] Vlad Mnih, et al. &lt;a href=&quot;https://www.deepmind.com/publications/human-level-control-through-deep-reinforcement-learning&quot;&gt;Human Level Control Through Deep Reinforcement Learning&lt;/a&gt;. Nature, 2015.&lt;/p&gt;
 
@@ -5204,7 +5216,7 @@ is added into a set $\mathcal{D}$ of size $N$, which is&lt;/p&gt;
 
 &lt;p&gt;[7] Hado van Hasselt, Arthur Guez, David Silver. &lt;a href=&quot;https://arxiv.org/abs/1509.06461&quot;&gt;Deep Reinforcement Learning with Double Q-learning&lt;/a&gt;. AAAI16, 2016.&lt;/p&gt;
 
-&lt;p&gt;[8] Pieter Abbeel. &lt;a href=&quot;https://youtube.com/playlist?list=PLwRJQ4m4UJjNymuBM9RdmB3Z9N5-0IlY0&quot;&gt;Foundations of Deep RL Series&lt;/a&gt;, 2021.&lt;/p&gt;
+&lt;p&gt;[8] Zhikang T. Wang, Masahito Ueda. &lt;a href=&quot;https://arxiv.org/abs/2106.15419&quot;&gt;Convergent and Efficient Deep Q Network Algorithm&lt;/a&gt;. arXiv:2106.15419, 2022.&lt;/p&gt;
 
 &lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
 
@@ -5435,9 +5447,9 @@ for a small (time weight) $\kappa$; where $r$ is the modeled reward for a transi
 &lt;p&gt;[2] Richard S. Sutton. &lt;a href=&quot;https://doi.org/10.1016/B978-1-55860-141-3.50030-4&quot;&gt;Integrated Architectures for Learning, Planning, and Reacting Based on Approximating Dynamic Programming&lt;/a&gt;. Proceedings of the Seventh International Conference, Austin, Texas, June 21–23, 1990.&lt;/p&gt;
 
 &lt;p&gt;[3] Harm van Seijen &amp;amp; Richard S. Sutton. &lt;a href=&quot;https://proceedings.mlr.press/v28/vanseijen13.pdf&quot;&gt;Efficient planning in MDPs by small backups&lt;/a&gt;. Proceedings
-of the 30th International Conference on Machine Learning (ICML 2013).&lt;/p&gt;
+of the 30th International Conference on Machine Learning (ICML 2013), 2013.&lt;/p&gt;
 
-&lt;p&gt;[3] Shangtong Zhang. &lt;a href=&quot;https://github.com/ShangtongZhang/reinforcement-learning-an-introduction&quot;&gt;Reinforcement Learning: An Introduction implementation&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;[4] Shangtong Zhang. &lt;a href=&quot;https://github.com/ShangtongZhang/reinforcement-learning-an-introduction&quot;&gt;Reinforcement Learning: An Introduction implementation&lt;/a&gt;. Github&lt;/p&gt;
 
 &lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;</content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="reinforcement-learning" /><category term="dyna" /><category term="q-learning" /><category term="mcts" /><category term="my-rl" /><summary type="html">Recall that when using dynamic programming (DP) method in solving reinforcement learning problems, we required the availability of a model of the environment. Whereas with Monte Carlo methods and temporal-difference learning, the models are unnecessary. Such methods with requirement of a model like the case of DP is called model-based, while methods without using a model is called model-free. Model-based methods primarily rely on planning; and model-free methods, on the other hand, primarily rely on learning.</summary></entry><entry><title type="html">Policy Gradient Methods</title><link href="http://localhost:4000/2022/05/04/policy-gradient.html" rel="alternate" type="text/html" title="Policy Gradient Methods" /><published>2022-05-04T14:00:00+07:00</published><updated>2022-05-04T14:00:00+07:00</updated><id>http://localhost:4000/2022/05/04/policy-gradient</id><content type="html" xml:base="http://localhost:4000/2022/05/04/policy-gradient.html">&lt;blockquote&gt;
   &lt;p&gt;So far in the series, we have been choosing the actions based on the estimated action value function. On the other hand, we can instead learn a &lt;strong&gt;parameterized policy&lt;/strong&gt;, $\boldsymbol{\theta}$, that can select actions without consulting a value function by updating $\boldsymbol{\theta}$ on each step in the direction of an estimate of the gradient of some performance measure w.r.t $\boldsymbol{\theta}$. Such methods are called &lt;strong&gt;policy gradient methods&lt;/strong&gt;.
@@ -5675,7 +5687,7 @@ where $\mathbf{x}_\mu(s)$ and $\mathbf{x}_\sigma(s)$ are state feature vectors c
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;[1] &lt;span id=&quot;suttons-book&quot;&gt;Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;. &lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;[2] Deepmind x UCL. &lt;a href=&quot;https://www.deepmind.com/learning-resources/reinforcement-learning-lecture-series-2021&quot;&gt;Reinforcement Learning Lecture Series 2021&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;[2] Deepmind x UCL. &lt;a href=&quot;https://www.deepmind.com/learning-resources/reinforcement-learning-lecture-series-2021&quot;&gt;Reinforcement Learning Lecture Series 2021&lt;/a&gt;. Deepmind, 2021.&lt;/p&gt;
 
 &lt;p&gt;[3] Richard S. Sutton &amp;amp; David McAllester &amp;amp; Satinder Singh &amp;amp; Yishay Mansour. &lt;a href=&quot;https://papers.nips.cc/paper/1999/hash/464d828b85b0bed98e80ade0a5c43b0f-Abstract.html&quot;&gt;Policy Gradient Methods for Reinforcement Learning with Function Approximation&lt;/a&gt;. NIPS 1999.&lt;/p&gt;
 

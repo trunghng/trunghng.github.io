@@ -267,9 +267,9 @@ The evaluation and improvement processes in GPI can be viewed as both competing 
 
 [4] A. Lazaric. [Markov Decision Processes and Dynamic Programming](http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf).  
 
-[5] [Dynamic Programming](https://en.wikipedia.org/wiki/Dynamic_programming).  
+[5] Wikipedia. [Dynamic Programming](https://en.wikipedia.org/wiki/Dynamic_programming).  
 
-[6] [Shangtong Zhang's repo](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction).  
+[6] Shangtong Zhang. [Reinforcement Learning: An Introduction implementation](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction). Github. 
 
 [7] [Policy Improvement theorem](https://stats.stackexchange.com/a/258783).
 

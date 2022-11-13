@@ -182,12 +182,12 @@ Pseudocode of prioritized sweeping is shown below.
 {: #preferences}
 [1] <span id='rl-book'>Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition)</span>.  
 
-[2] Richard S. Sutton. [Integrated Architectures for Learning, Planning, and Reacting Based on Approximating Dynamic Programming](https://doi.org/10.1016/B978-1-55860-141-3.50030-4). Proceedings of the Seventh International Conference, Austin, Texas, June 21–23, 1990. 
+[2] Richard S. Sutton. [Integrated Architectures for Learning, Planning, and Reacting Based on Approximating Dynamic Programming](https://doi.org/10.1016/B978-1-55860-141-3.50030-4). Proceedings of the Seventh International Conference, Austin, Texas, June 21–23, 1990.  
 
 [3] Harm van Seijen & Richard S. Sutton. [Efficient planning in MDPs by small backups](https://proceedings.mlr.press/v28/vanseijen13.pdf). Proceedings
-of the 30th International Conference on Machine Learning (ICML 2013).
+of the 30th International Conference on Machine Learning (ICML 2013), 2013.
 
-[3] Shangtong Zhang. [Reinforcement Learning: An Introduction implementation](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction).
+[4] Shangtong Zhang. [Reinforcement Learning: An Introduction implementation](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction). Github
 
 ## Footnotes
 {: #footnotes}
