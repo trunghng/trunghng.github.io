@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-11-13T20:15:33+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-11-13T20:56:28+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Natural Evolution Strategies</title><link href="http://localhost:4000/2022/10/07/nes.html" rel="alternate" type="text/html" title="Natural Evolution Strategies" /><published>2022-10-07T13:00:00+07:00</published><updated>2022-10-07T13:00:00+07:00</updated><id>http://localhost:4000/2022/10/07/nes</id><content type="html" xml:base="http://localhost:4000/2022/10/07/nes.html">&lt;blockquote&gt;
   &lt;p&gt;&lt;strong&gt;Natural Evolution Strategies&lt;/strong&gt;, or &lt;strong&gt;NES&lt;/strong&gt;, are referred to a family of evolution strategies that throughout its generations update a search distribution repeatedly using an estimated gradient of its distribution parameters.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -5018,7 +5018,7 @@ d_2(f(x),f(y))&amp;lt;\varepsilon
   &lt;li&gt;&lt;a href=&quot;#nn-q-learning&quot;&gt;Neural networks with Q-learning&lt;/a&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#lin-func-approx&quot;&gt;Linear function approximation&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#dqn&quot;&gt;Deep Q-network&lt;/a&gt;
+      &lt;li&gt;&lt;a href=&quot;#dqn&quot;&gt;Deep Q-learning&lt;/a&gt;
         &lt;ul&gt;
           &lt;li&gt;&lt;a href=&quot;#exp-replay&quot;&gt;Experience replay&lt;/a&gt;&lt;/li&gt;
           &lt;li&gt;&lt;a href=&quot;#target-net&quot;&gt;Target network&lt;/a&gt;&lt;/li&gt;
@@ -5169,29 +5169,45 @@ which depends on the current value $\boldsymbol{\theta}_t$, and thus will be bia
 
 &lt;p&gt;Such methods are known as &lt;strong&gt;semi-gradient&lt;/strong&gt; since they take into account the effect of changing the weight vector $\boldsymbol{\theta}_t$ on the estimate, but ignore its effect on the target.&lt;/p&gt;
 
-&lt;h3 id=&quot;dqn&quot;&gt;Deep Q-network&lt;/h3&gt;
+&lt;h3 id=&quot;dqn&quot;&gt;Deep Q-learning&lt;/h3&gt;
 &lt;p&gt;On the other hands, we have already known that a &lt;strong&gt;neural network&lt;/strong&gt; with particular settings for hidden layers and activation functions can approximate &lt;a href=&quot;/2022/09/02/neural-nets.html#unv-approx&quot;&gt;any&lt;/a&gt; continuous functions on a compact subsets of $\mathbb{R}^n$, so how about using it with the Q-learning algorithm?&lt;/p&gt;
 
-&lt;p&gt;Specifically, we will be using neural network with weight $\boldsymbol{\theta}$ as a function approximator for Q-learning update. The network is referred as &lt;strong&gt;Q-network&lt;/strong&gt;. The Q-network can be trained by minimizing a sequence of loss function $L_t(\boldsymbol{\theta}_t)$ that changes at each iteration $t$:
+&lt;p&gt;Specifically, we will be using neural network with weight $\boldsymbol{\theta}$ as a function approximator for Q-learning update. The network is referred as &lt;strong&gt;Q-network&lt;/strong&gt;, as the whole algorithm is so-called &lt;strong&gt;Deep Q-learning&lt;/strong&gt;, or &lt;strong&gt;DQN&lt;/strong&gt; in short for &lt;strong&gt;Deep Q-network&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;The Q-network can be trained by minimizing a sequence of loss function $L_t(\boldsymbol{\theta}_t)$ that changes at each iteration $t$:
 \begin{equation}
-L_t(\boldsymbol{\theta}_t)=\mathbb{E}_{s,a\sim\rho(\cdot)}\Big[\big(y_t-Q_{\boldsymbol{\theta}_t}(s,a)\big)^2\Big],
+L_t(\boldsymbol{\theta}_t)=\mathbb{E}_{s,a\sim\rho(\cdot)}\Big[\big(y_t-Q_{\boldsymbol{\theta}_t}(s,a)\big)^2\Big],\label{eq:dqn.1}
 \end{equation}
 where
 \begin{equation}
 y_t=\mathbb{E}_{s’\sim\mathcal{E}}\left[R(s,a,s’)+\gamma\max_{a’}Q_{\boldsymbol{\theta}_{t-1}}(s’,a’)\vert s,a\right]
 \end{equation}
-is the target in iteration $t$, as the target $U_t$ in \eqref{eq:nql.3}; and where $\rho(s,a)$ is referred as the behavior policy.&lt;/p&gt;
+is the target in iteration $t$, as the target $U_t$ in \eqref{eq:nql.3}; and where $\rho(s,a)$ is referred as the behavior policy.&lt;br /&gt;
+The TD target $y_t$ can approximated as
+\begin{equation}
+y_t=R(s_t,a_t,s_{t+1})+\max_{a’}Q_{\boldsymbol{\theta}_t}(s_{t+1},a’)
+\end{equation}
+To stabilize learning, DQN applies the following mechanisms.&lt;/p&gt;
 
 &lt;h4 id=&quot;exp-replay&quot;&gt;Experience replay&lt;/h4&gt;
-&lt;p&gt;Along with Q-network, the authors of deep-Q learning also introduce a mechanism called &lt;strong&gt;experience replay&lt;/strong&gt;, which utilizes data efficiency and at the same time reduces the variance of the updates.&lt;/p&gt;
+&lt;p&gt;Along with Q-network, the authors of deep-Q learning also introduce a technique called &lt;strong&gt;experience replay&lt;/strong&gt;, which utilizes data efficiency and at the same time reduces the variance of the updates.&lt;/p&gt;
 
 &lt;p&gt;In particular, at each time step $t$, the &lt;strong&gt;experience&lt;/strong&gt;, $e_t$, defined as
 \begin{equation}
 e_t=(s_t,a_t,r_t,s_{t+1})
 \end{equation}
-is added into a set $\mathcal{D}$ of size $N$, which is&lt;/p&gt;
+is added into a set $\mathcal{D}$ of size $N$, which is sampled uniformly at the training time to apply Q-learning updates. This method provides some advantages:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Each experience $e_t$ can be used in many weight updates.&lt;/li&gt;
+  &lt;li&gt;Uniformly sampling from $\mathcal{D}$ cancels out the correlations between consecutive experience, i.e. $e_t, e_{t+1}$.&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h4 id=&quot;target-net&quot;&gt;Target network&lt;/h4&gt;
+&lt;p&gt;DQN introduces a &lt;strong&gt;target network&lt;/strong&gt; $\hat{Q}$ parameterized by $\boldsymbol{\theta}^-$to generate the TD target $y_t$ in \eqref{eq:dqn.1} as
+\begin{equation}
+y_t=R(s_t,a_t,s_{t+1})+\max_{a’}\hat{Q}_{\boldsymbol{\theta}^-}(s_{t+1},a’)
+\end{equation}
+The target network $\hat{Q}$ is cloned from $Q$ every $C$ Q-learning update steps, i.e. $\boldsymbol{\theta}^-\leftarrow\boldsymbol{\theta}$.&lt;/p&gt;
 
 &lt;h4 id=&quot;rmsprop&quot;&gt;RMSProp&lt;/h4&gt;
 
@@ -5204,7 +5220,7 @@ is added into a set $\mathcal{D}$ of size $N$, which is&lt;/p&gt;
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;p&gt;&lt;span id=&quot;q-learning-td-convergence&quot;&gt;[1] Tommi Jaakkola, Michael I. Jordan, Satinder P. Singh. &lt;a href=&quot;https://people.eecs.berkeley.edu/~jordan/papers/AIM-1441.ps&quot;&gt;On the Convergence of Stochastic Iterative Dynamic Programming Algorithms&lt;/a&gt;. A.I. Memo No. 1441, 1993.&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;[2] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;[2] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;. MIT press, 2018.&lt;/p&gt;
 
 &lt;p&gt;[3] Pieter Abbeel. &lt;a href=&quot;https://youtube.com/playlist?list=PLwRJQ4m4UJjNymuBM9RdmB3Z9N5-0IlY0&quot;&gt;Foundations of Deep RL Series&lt;/a&gt;, YouTube, 2021.&lt;/p&gt;
 
@@ -5442,7 +5458,7 @@ for a small (time weight) $\kappa$; where $r$ is the modeled reward for a transi
 &lt;h2 id=&quot;heuristic-search&quot;&gt;Heuristic Search&lt;/h2&gt;
 
 &lt;h2 id=&quot;preferences&quot;&gt;Preferences&lt;/h2&gt;
-&lt;p&gt;[1] &lt;span id=&quot;rl-book&quot;&gt;Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;[1] &lt;span id=&quot;rl-book&quot;&gt;Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;. MIT press, 2018.&lt;/span&gt;&lt;/p&gt;
 
 &lt;p&gt;[2] Richard S. Sutton. &lt;a href=&quot;https://doi.org/10.1016/B978-1-55860-141-3.50030-4&quot;&gt;Integrated Architectures for Learning, Planning, and Reacting Based on Approximating Dynamic Programming&lt;/a&gt;. Proceedings of the Seventh International Conference, Austin, Texas, June 21–23, 1990.&lt;/p&gt;
 
@@ -5685,7 +5701,7 @@ where $\mu:\mathcal{S}\times\mathbb{R}^{d’}\to\mathbb{R}$ and $\sigma:\mathcal
 where $\mathbf{x}_\mu(s)$ and $\mathbf{x}_\sigma(s)$ are state feature vectors corresponding to each approximator.&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;p&gt;[1] &lt;span id=&quot;suttons-book&quot;&gt;Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;. &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;[1] &lt;span id=&quot;suttons-book&quot;&gt;Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;. MIT press, 2018.&lt;/span&gt;&lt;/p&gt;
 
 &lt;p&gt;[2] Deepmind x UCL. &lt;a href=&quot;https://www.deepmind.com/learning-resources/reinforcement-learning-lecture-series-2021&quot;&gt;Reinforcement Learning Lecture Series 2021&lt;/a&gt;. Deepmind, 2021.&lt;/p&gt;
 

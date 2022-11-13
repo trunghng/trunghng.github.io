@@ -603,7 +603,7 @@ V(s)\doteq\dfrac{\sum_{t\in\mathcal{T}(s)}\tilde{G}\_t}{\vert\mathcal{T}(s)\vert
 \end{equation}
 
 ## References
-[1] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition).  
+[1] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition). MIT press, 2018.  
 
 [2] Adrian Barbu & Song-Chun Zhu. [Monte Carlo Methods](https://link.springer.com/book/10.1007/978-981-13-2971-5).  
 

@@ -860,7 +860,7 @@ for $t\lt h\leq T$. The recursion ends with $G_{h:h}\doteq Q_{h-1}(S_h,A_h)$ if 
 </figure>
 
 ## References
-[1] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition).  
+[1] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition). MIT press, 2018.  
 
 [2] <span id='td-convergence'>Richard S. Sutton. [Learning to predict by the methods of temporal differences](https://doi.org/10.1007/BF00115009). Mach Learn 3, 9–44, 1988.</span>  
 

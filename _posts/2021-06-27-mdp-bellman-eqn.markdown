@@ -156,7 +156,7 @@ q_\*(s,a)&=\mathbb{E}\left[R_{t+1}+\gamma\max_{a'}q_\*(S_{t+1},a')|S_t=s,A_t=a\r
 </figure>
 
 ## References
-[1] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition).    
+[1] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition). MIT press, 2018.  
 
 [2] David Silver. [UCL course on RL](https://www.davidsilver.uk/teaching/).  
 

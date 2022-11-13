@@ -198,7 +198,7 @@ Pick a policy $\pi$ such that $\mathcal{T}^\pi v=\mathcal{T}^\*v$, then $v$ is a
 
 [3] [What is the Bellman operator in reinforcement learning?](https://ai.stackexchange.com/a/11133). AI.StackExchange. 
 
-[4] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition).  
+[4] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition). MIT press, 2018.  
 
 [5] [Normed vector space](https://en.wikipedia.org/wiki/Normed_vector_space). Wikipedia.
 

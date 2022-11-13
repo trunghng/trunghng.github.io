@@ -866,7 +866,7 @@ Instead of having domain of $[0,\infty)$, if we further assume that $i(s)>0,\,\f
 
 ## References
 {: #references}
-[1] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition).  
+[1] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition). MIT press, 2018.  
 
 [2] Doina Precup & Richard S. Sutton & Satinder Singh. [Eligibility Traces for Off-Policy Policy Evaluation](https://scholarworks.umass.edu/cs_faculty_pubs/80). ICML '00 Proceedings of the Seventeenth International Conference on Machine Learning. 80, 2000.  
 

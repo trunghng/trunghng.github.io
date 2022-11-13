@@ -259,7 +259,7 @@ The evaluation and improvement processes in GPI can be viewed as both competing 
 </figure>
 
 ## References
-[1] <span id='rl-book'>Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition).</span>  
+[1] <span id='rl-book'>Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition). MIT press, 2018.</span>  
 
 [2] David Silver. [UCL course on RL](https://www.davidsilver.uk/teaching/).  
 

@@ -14,7 +14,7 @@ eqn-number: true
 - [Q-learning](#q-learning)
 - [Neural networks with Q-learning](#nn-q-learning)
 	- [Linear function approximation](#lin-func-approx)
-	- [Deep Q-network](#dqn)
+	- [Deep Q-learning](#dqn)
 		- [Experience replay](#exp-replay)
 		- [Target network](#target-net)
 		- [RMSProp](#rmsprop)
@@ -160,33 +160,46 @@ which depends on the current value $\boldsymbol{\theta}_t$, and thus will be bia
 
 Such methods are known as **semi-gradient** since they take into account the effect of changing the weight vector $\boldsymbol{\theta}\_t$ on the estimate, but ignore its effect on the target.
 
-### Deep Q-network 
+### Deep Q-learning
 {: #dqn}
 On the other hands, we have already known that a **neural network** with particular settings for hidden layers and activation functions can approximate [any]({% post_url 2022-09-02-neural-nets %}#unv-approx) continuous functions on a compact subsets of $\mathbb{R}^n$, so how about using it with the Q-learning algorithm?
 
-Specifically, we will be using neural network with weight $\boldsymbol{\theta}$ as a function approximator for Q-learning update. The network is referred as **Q-network**. The Q-network can be trained by minimizing a sequence of loss function $L_t(\boldsymbol{\theta}\_t)$ that changes at each iteration $t$:
+Specifically, we will be using neural network with weight $\boldsymbol{\theta}$ as a function approximator for Q-learning update. The network is referred as **Q-network**, as the whole algorithm is so-called **Deep Q-learning**, or **DQN** in short for **Deep Q-network**.  
+
+The Q-network can be trained by minimizing a sequence of loss function $L_t(\boldsymbol{\theta}\_t)$ that changes at each iteration $t$:
 \begin{equation}
-L_t(\boldsymbol{\theta}\_t)=\mathbb{E}\_{s,a\sim\rho(\cdot)}\Big[\big(y_t-Q_{\boldsymbol{\theta}\_t}(s,a)\big)^2\Big],
+L_t(\boldsymbol{\theta}\_t)=\mathbb{E}\_{s,a\sim\rho(\cdot)}\Big[\big(y_t-Q_{\boldsymbol{\theta}\_t}(s,a)\big)^2\Big],\label{eq:dqn.1}
 \end{equation}
 where
 \begin{equation}
 y_t=\mathbb{E}\_{s'\sim\mathcal{E}}\left[R(s,a,s')+\gamma\max_{a'}Q_{\boldsymbol{\theta}\_{t-1}}(s',a')\vert s,a\right]
 \end{equation}
-is the target in iteration $t$, as the target $U_t$ in \eqref{eq:nql.3}; and where $\rho(s,a)$ is referred as the behavior policy.
+is the target in iteration $t$, as the target $U_t$ in \eqref{eq:nql.3}; and where $\rho(s,a)$ is referred as the behavior policy.  
+The TD target $y_t$ can approximated as
+\begin{equation}
+y_t=R(s_t,a_t,s_{t+1})+\max_{a'}Q_{\boldsymbol{\theta}\_t}(s_{t+1},a')
+\end{equation}
+To stabilize learning, DQN applies the following mechanisms.
 
 #### Experience replay
 {: #exp-replay}
-Along with Q-network, the authors of deep-Q learning also introduce a mechanism called **experience replay**, which utilizes data efficiency and at the same time reduces the variance of the updates.
+Along with Q-network, the authors of deep-Q learning also introduce a technique called **experience replay**, which utilizes data efficiency and at the same time reduces the variance of the updates.
 
 In particular, at each time step $t$, the **experience**, $e_t$, defined as
 \begin{equation}
 e_t=(s_t,a_t,r_t,s_{t+1})
 \end{equation}
-is added into a set $\mathcal{D}$ of size $N$, which is 
-
+is added into a set $\mathcal{D}$ of size $N$, which is sampled uniformly at the training time to apply Q-learning updates. This method provides some advantages:
+- Each experience $e_t$ can be used in many weight updates. 
+- Uniformly sampling from $\mathcal{D}$ cancels out the correlations between consecutive experience, i.e. $e_t, e_{t+1}$.
 
 #### Target network
 {: #target-net}
+DQN introduces a **target network** $\hat{Q}$ parameterized by $\boldsymbol{\theta}^-$to generate the TD target $y_t$ in \eqref{eq:dqn.1} as
+\begin{equation}
+y_t=R(s_t,a_t,s_{t+1})+\max_{a'}\hat{Q}\_{\boldsymbol{\theta}^-}(s_{t+1},a')
+\end{equation}
+The target network $\hat{Q}$ is cloned from $Q$ every $C$ Q-learning update steps, i.e. $\boldsymbol{\theta}^-\leftarrow\boldsymbol{\theta}$.
 
 #### RMSProp
 {: #rmsprop}
@@ -204,7 +217,7 @@ is added into a set $\mathcal{D}$ of size $N$, which is
 ## References
 <span id='q-learning-td-convergence'>[1] Tommi Jaakkola, Michael I. Jordan, Satinder P. Singh. [On the Convergence of Stochastic Iterative Dynamic Programming Algorithms](https://people.eecs.berkeley.edu/~jordan/papers/AIM-1441.ps). A.I. Memo No. 1441, 1993.</span>
 
-[2] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition).
+[2] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition). MIT press, 2018.
 
 [3] Pieter Abbeel. [Foundations of Deep RL Series](https://youtube.com/playlist?list=PLwRJQ4m4UJjNymuBM9RdmB3Z9N5-0IlY0), YouTube, 2021.
 

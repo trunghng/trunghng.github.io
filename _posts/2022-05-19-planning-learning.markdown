@@ -180,7 +180,7 @@ Pseudocode of prioritized sweeping is shown below.
 
 ## Preferences
 {: #preferences}
-[1] <span id='rl-book'>Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition)</span>.  
+[1] <span id='rl-book'>Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition). MIT press, 2018.</span>  
 
 [2] Richard S. Sutton. [Integrated Architectures for Learning, Planning, and Reacting Based on Approximating Dynamic Programming](https://doi.org/10.1016/B978-1-55860-141-3.50030-4). Proceedings of the Seventh International Conference, Austin, Texas, June 21–23, 1990.  
 
