@@ -13,9 +13,11 @@ eqn-number: true
 - [Q-value iteration](#q-value-iter)
 - [Q-learning](#q-learning)
 - [Neural networks with Q-learning](#nn-q-learning)
-	- [Experience replay](#exp-replay)
-	- [Target network](#target-net)
-	- [RMSProp](#rmsprop)
+	- [Linear function approximation](#lin-func-approx)
+	- [Deep Q-network](#dqn)
+		- [Experience replay](#exp-replay)
+		- [Target network](#target-net)
+		- [RMSProp](#rmsprop)
 - [References](#references)
 - [Footnotes](#footnotes)
 
@@ -33,9 +35,9 @@ which characterizes the optimal value of state $s$ in terms of the optimal value
 
 Then, with [**Dynamic programming**]({% post_url 2021-07-25-dp-in-mdp %}), we can solve \eqref{eq:qvi.1} by an iterative method, called [**value iteration**]({% post_url 2021-07-25-dp-in-mdp %}#value-iteration), given as
 \begin{equation}
-V_{k+1}(s)=\max_{a}\sum_{s'}P(s'\vert s,a)\big[R(s,a,s')+\gamma V_k(s')\big]\hspace{1cm}\forall s\in\mathcal{S}
+V_{t+1}(s)=\max_{a}\sum_{s'}P(s'\vert s,a)\big[R(s,a,s')+\gamma V_t(s')\big]\hspace{1cm}\forall s\in\mathcal{S}
 \end{equation}
-For an arbitrary initial $V_0(s)$, the iteration, or the sequence $\\{V_k\\}$, will eventually converge to the optimal value function $V^\*(s)$. This can be shown by applying the [**Banach's fixed point theorem**]({% post_url 2021-07-10-optimal-policy-existence %}), the one we have also used to prove the existence of the optimal policy, to prove that the iteration from $V_k(s)$ to $V_{k+1}(s)$ is a contraction mapping.
+For an arbitrary initial $V_0(s)$, the iteration, or the sequence $\\{V_t\\}$, will eventually converge to the optimal value function $V^\*(s)$. This can be shown by applying the [**Banach's fixed point theorem**]({% post_url 2021-07-10-optimal-policy-existence %}), the one we have also used to prove the existence of the optimal policy, to prove that the iteration from $V_t(s)$ to $V_{t+1}(s)$ is a contraction mapping.
 
 Details for value iteration method can be seen in the following pseudocode.
 <figure>
@@ -61,7 +63,7 @@ V^\*(s)=\max_a Q^\*(s,a)
 \end{equation}
 Hence, analogy to the state-value function, we can also apply Dynamic programming to develop an iterative method in order to solve \eqref{eq:qvi.2}, called **Q-value iteration**. The method is given by the update rule
 \begin{equation}
-Q_{k+1}(s,a)=\sum_{s'}P(s'\vert s,a)\left[R(s,a,s')+\gamma\max_{a'}Q_k(s',a')\right]\label{eq:qvi.4}
+Q_{t+1}(s,a)=\sum_{s'}P(s'\vert s,a)\left[R(s,a,s')+\gamma\max_{a'}Q_t(s',a')\right]\label{eq:qvi.4}
 \end{equation}
 This iteration, given an initial value $Q_0(s,a)$, eventually will also converge to the optimal Q-values $Q^\*(s,a)$ due to the relationship between $V$ and $Q$ as defined above. Pseudocode for Q-value iteration is given below.
 <figure>
@@ -73,7 +75,7 @@ This iteration, given an initial value $Q_0(s,a)$, eventually will also converge
 {: #q-learning}
 The update formula \eqref{eq:qvi.4} can be rewritten as an expected update
 \begin{equation}
-Q_{k+1}(s,a)=\mathbb{E}\_{s'\sim P(s'\vert s,a)}\left[R(s,a,s')+\gamma\max_{a'}Q_k(s',a')\right]\label{eq:ql.1}
+Q_{t+1}(s,a)=\mathbb{E}\_{s'\sim P(s'\vert s,a)}\left[R(s,a,s')+\gamma\max_{a'}Q_t(s',a')\right]\label{eq:ql.1}
 \end{equation}
 It is noticeable that the above update rule requires the transition model $P(s'\vert s,a)$. And since sample mean is an unbiased estimator of the population mean, or in other words, the expectation in \eqref{eq:ql.1} can be approximated by sampling, as
 <ul id='number-list'>
@@ -83,22 +85,22 @@ It is noticeable that the above update rule requires the transition model $P(s'\
 		s'\sim P(s'\vert s,a)
 		\end{equation}
 	</li>
-	<li>Consider the old estimate $Q_k(s,a)$.</li>
+	<li>Consider the old estimate $Q_t(s,a)$.</li>
 	<li>
 		Consider the new sample estimate (target):
 		\begin{equation}
-		Q_\text{target}=R(s,a,s')+\gamma\max_{a'}Q_k(s',a')
+		Q_\text{target}=R(s,a,s')+\gamma\max_{a'}Q_t(s',a')
 		\end{equation}
 	</li>
 	<li>
 		Append the new estimate into a running average to iteratively update Q-values:
 		\begin{align}
-		Q_{k+1}(s,a)&=(1-\alpha)Q_k(s,a)+\alpha Q_\text{target} \\ &=(1-\alpha)Q_k(s,a)+\alpha\left[R(s,a,s')+\gamma\max_{a'}Q_k(s',a')\right]
+		Q_{t+1}(s,a)&=(1-\alpha)Q_t(s,a)+\alpha Q_\text{target} \\ &=(1-\alpha)Q_t(s,a)+\alpha\left[R(s,a,s')+\gamma\max_{a'}Q_t(s',a')\right]
 		\end{align}
 	</li>
 </ul>
 
-This update rule is in form of a **stochastic process**, and thus, can be [proved](#q-learning-td-convergence) to be converged to the optimal $Q^\*$, under the [stochastic approximation conditions]({% post_url 2022-01-31-td-learning %}#stochastic-approx-condition) for the learning rate $\alpha$.
+This update rule is in form of a **stochastic process**, and thus, is [guaranteed to converge](#q-learning-td-convergence) to the optimal $Q^\*$, under the [stochastic approximation conditions]({% post_url 2022-01-31-td-learning %}#stochastic-approx-condition) for the learning rate $\alpha$.
 \begin{equation}
 \sum_{t=1}^{\infty}\alpha_t(s,a)=\infty\hspace{1cm}\text{and}\hspace{1cm}\sum_{t=1}^{\infty}\alpha_t^2(s,a)<\infty,\label{eq:ql.2}
 \end{equation}
@@ -108,9 +110,9 @@ The method is so called **Q-learning**, with pseudocode given below.
 
 ## Neural networks with Q-learning
 {: #nn-q-learning}
-As a tabular method, Q-learning might work with a discrete space. However, for continuous environments, the exact solution might never be found in a given short time. To overcome this, we have been instead trying to find an [approximated solution]({% post_url 2022-02-11-func-approx %}).  
+As a tabular method, Q-learning will work with a small and finite state-action pair space. However, for continuous environments, the exact solution might never be found. To overcome this, we have been instead trying to find an [approximated solution]({% post_url 2022-02-11-func-approx %}).  
 
-In particular, we have tried to find an approximated action-value function $Q_\boldsymbol{\theta}(s,a)$, parameterized by a vector $\boldsymbol{\theta}$, of the action-value function $Q(s,a)$, as
+In particular, we have tried to find an approximated action-value function $Q_\boldsymbol{\theta}(s,a)$, parameterized by a learnable vector $\boldsymbol{\theta}$, of the action-value function $Q(s,a)$, as
 \begin{equation}
 Q_\boldsymbol{\theta}(s,a)
 \end{equation}
@@ -120,37 +122,56 @@ L(\boldsymbol{\theta})=\mathbb{E}\_{s,a\sim\mu(\cdot)}\Big[\big(Q(s,a)-Q_\boldsy
 \end{equation}
 The resulting SGD update had the form
 \begin{align}
-\boldsymbol{\theta}\_{k+1}&=\boldsymbol{\theta}\_k-\frac{1}{2}\alpha\nabla_\boldsymbol{\theta}\big[Q(s_k,a_k)-Q_\boldsymbol{\theta}(s_k,a_k)\big]^2 \\\\ &=\boldsymbol{\theta}\_k+\alpha\big[Q(s_k,a_k)-Q_\boldsymbol{\theta}(s_k,a_k)\big]\nabla_\boldsymbol{\theta}Q_\boldsymbol{\theta}(s_k,a_k)\label{eq:nql.1}
+\boldsymbol{\theta}\_{t+1}&=\boldsymbol{\theta}\_t-\frac{1}{2}\alpha\nabla_\boldsymbol{\theta}\big[Q(s_t,a_t)-Q_\boldsymbol{\theta}(s_t,a_t)\big]^2 \\\\ &=\boldsymbol{\theta}\_t+\alpha\big[Q(s_t,a_t)-Q_\boldsymbol{\theta}(s_t,a_t)\big]\nabla_\boldsymbol{\theta}Q_\boldsymbol{\theta}(s_t,a_t)\label{eq:nql.1}
 \end{align}
-However, we could not perform the exact update \eqref{eq:nql.1} since the true value $Q(s_k,a_k)$ was unknown. Fortunately, we could instead approximate it by, says $U_k$, which let us rewrite the SGD update as
+However, we could not perform the exact update \eqref{eq:nql.1} since the true value $Q(s_t,a_t)$ was unknown. Fortunately, we could instead replace it by $U_t$, which can be any approximation of $Q(s_t,a_t)$[^1]:
 \begin{equation}
-\boldsymbol{\theta}\_{k+1}=\boldsymbol{\theta}\_k+\alpha\big[U_k-Q_\boldsymbol{\theta}(s_k,a_k)\big]\nabla_\boldsymbol{\theta}Q_\boldsymbol{\theta}(s_k,a_k)\label{eq:nql.2}
+\boldsymbol{\theta}\_{t+1}=\boldsymbol{\theta}\_t+\alpha\big[U_t-Q_{\boldsymbol{\theta}\_t}(s_t,a_t)\big]\nabla_\boldsymbol{\theta}Q_\boldsymbol{\theta}(s_t,a_t)\label{eq:nql.2}
 \end{equation}
-If $U_k$ is an unbiased estimate for $Q(s_k,a_k)$, i.e. $\mathbb{E}\big[U_k\vert s_k,a_k\big]=Q(s_k,a_k)$, for each $k$, then $\boldsymbol{\theta}$ was guaranteed to converge to the local minimum under the stochastic approximation condition for decreasing the learning rate $\alpha$ as given in \eqref{eq:ql.2}.
 
+### Linear function approximation
+{: #lin-func-approx}
 Recall that, we have applied [linear methods]({% post_url 2022-02-11-func-approx %}#lin-func-approx) as our function approximators:
 \begin{equation}
 Q_\boldsymbol{\theta}(s,a)=\boldsymbol{\theta}^\text{T}\mathbf{f}(s,a),
 \end{equation}
 where $\mathbf{f}(s,a)$ represents the **feature vector**, (or **basis functions**) of the state-action pair $(s,a)$.
-
 Linear function approximation allowed us to rewrite \eqref{eq:nql.2} in a simplified form
 \begin{equation}
-\boldsymbol{\theta}\_{k+1}=\boldsymbol{\theta}\_k+\alpha\big[U_k-Q_\boldsymbol{\theta}(s_k,a_k)\big]\mathbf{f}(s_k,a_k)\label{eq:nql.3}
+\boldsymbol{\theta}\_{t+1}=\boldsymbol{\theta}\_t+\alpha\big[U_t-Q_\boldsymbol{\theta}(s_t,a_t)\big]\mathbf{f}(s_t,a_t)\label{eq:nql.3}
 \end{equation}
-On the other hands, we know that a neural network with a particular settings for hidden layers and activation functions can approximate [any]({% post_url 2022-09-02-neural-nets %}#unv-approx) continuous functions on a compact subsets of $\mathbb{R}^n$, so how about using it with the Q-learning algorithm?
-
-Specifically, we will be using neural network with weight $\boldsymbol{\theta}$ as a function approximator for Q-learning update. The network is referred as **Q-network**. The Q-network can be trained by minimizing a sequence of loss function $L_i(\boldsymbol{\theta}\_i)$ that changes at each iteration $i$:
+The corresponding SGD method for Q-learning and Q-learning with linear function approximation are respectively given in form of
 \begin{equation}
-L_i(\boldsymbol{\theta}\_i)=\mathbb{E}\_{s,a\sim\rho(\cdot)}\Big[\big(y_i-Q_{\boldsymbol{\theta}\_i}(s,a)\big)^2\Big],
+\boldsymbol{\theta}\_{t+1}=\boldsymbol{\theta}\_t+\alpha\left[R(s_t,a_t,s_{t+1})+\gamma\max_{a'}Q_{\boldsymbol{\theta}\_t}(s_{t+1},a')-Q_{\boldsymbol{\theta}\_t}(s_t,a_t)\right]\nabla_\boldsymbol{\theta}Q_\boldsymbol{\theta}(s_t,a_t)\label{eq:nql.4}
+\end{equation}
+and
+\begin{equation}
+\boldsymbol{\theta}\_{t+1}=\boldsymbol{\theta}\_t+\alpha\left[R(s_t,a_t,s_{t+1})+\gamma\max_{a'}Q_{\boldsymbol{\theta}\_t}(s_{t+1},a')-Q_{\boldsymbol{\theta}\_t}(s_t,a_t)\right]\mathbf{f}(s_t,a_t)\label{eq:nql.5}
+\end{equation}
+However, in updating $\boldsymbol{\theta}\_
+{t+1}$, these methods both use the **bootstrapping target**:
+\begin{equation}
+R(s_t,a_t,s_{t+1})+\gamma\max_{a'}Q_{\boldsymbol{\theta}\_t}(s_{t+1},a'), 
+\end{equation}
+which depends on the current value $\boldsymbol{\theta}_t$, and thus will be biased. As a consequence, \eqref{eq:nql.4} does not guarantee to converge[^2].  
+
+Such methods are known as **semi-gradient** since they take into account the effect of changing the weight vector $\boldsymbol{\theta}\_t$ on the estimate, but ignore its effect on the target.
+
+### Deep Q-network 
+{: #dqn}
+On the other hands, we have already known that a **neural network** with particular settings for hidden layers and activation functions can approximate [any]({% post_url 2022-09-02-neural-nets %}#unv-approx) continuous functions on a compact subsets of $\mathbb{R}^n$, so how about using it with the Q-learning algorithm?
+
+Specifically, we will be using neural network with weight $\boldsymbol{\theta}$ as a function approximator for Q-learning update. The network is referred as **Q-network**. The Q-network can be trained by minimizing a sequence of loss function $L_t(\boldsymbol{\theta}\_t)$ that changes at each iteration $t$:
+\begin{equation}
+L_t(\boldsymbol{\theta}\_t)=\mathbb{E}\_{s,a\sim\rho(\cdot)}\Big[\big(y_t-Q_{\boldsymbol{\theta}\_t}(s,a)\big)^2\Big],
 \end{equation}
 where
 \begin{equation}
-y_i=\mathbb{E}\_{s'\sim\mathcal{E}}\left[R(s,a,s')+\gamma\max_{a'}Q_{\boldsymbol{\theta}\_{i-1}}(s',a')\vert s,a\right]
+y_t=\mathbb{E}\_{s'\sim\mathcal{E}}\left[R(s,a,s')+\gamma\max_{a'}Q_{\boldsymbol{\theta}\_{t-1}}(s',a')\vert s,a\right]
 \end{equation}
-is the target in iteration $i$, as the target $U_k$ for iteration $k$ in \eqref{eq:nql.3}; and where $\rho(s,a)$ is referred as the behavior policy.
+is the target in iteration $t$, as the target $U_t$ in \eqref{eq:nql.3}; and where $\rho(s,a)$ is referred as the behavior policy.
 
-### Experience replay
+#### Experience replay
 {: #exp-replay}
 Along with Q-network, the authors of deep-Q learning also introduce a mechanism called **experience replay**, which utilizes data efficiency and at the same time reduces the variance of the updates.
 
@@ -161,8 +182,11 @@ e_t=(s_t,a_t,r_t,s_{t+1})
 is added into a set $\mathcal{D}$ of size $N$, which is 
 
 
-### Target network
+#### Target network
 {: #target-net}
+
+#### RMSProp
+{: #rmsprop}
 
 
 ## References
@@ -183,3 +207,22 @@ is added into a set $\mathcal{D}$ of size $N$, which is
 [8] Pieter Abbeel. [Foundations of Deep RL Series](https://youtube.com/playlist?list=PLwRJQ4m4UJjNymuBM9RdmB3Z9N5-0IlY0), 2021.
 
 ## Footnotes
+[^1]: In **Monte Carlo control**, the update target $U_t$ is chosen as the **full return** $G_t$, i.e.
+	\begin{equation\*}
+	\boldsymbol{\theta}\_{t+1}=\boldsymbol{\theta}\_t+\alpha\big[G_t-Q_{\boldsymbol{\theta}\_t}(s_t,a_t)\big]\nabla_\boldsymbol{\theta}Q_\boldsymbol{\theta}(s_t,a_t),
+	\end{equation\*}
+	and in (episodic on-policy) TD control methods, we use the **TD target** as the choice for $U_t$, i.e. for one-step TD methods such as **one-step Sarsa**, the update rule for $\boldsymbol{\theta}$ is given as
+	\begin{align\*}
+	\boldsymbol{\theta}\_{t+1}&=\boldsymbol{\theta}\_t+\alpha\big[G_{t:t+1}-Q_{\boldsymbol{\theta}\_t}(s_t,a_t)\big]\nabla_\boldsymbol{\theta}Q_\boldsymbol{\theta}(s_t,a_t) \\\\ &=\boldsymbol{\theta}\_t+\alpha\big[R(s_t,a_t,s_{t+1})+\gamma Q_{\boldsymbol{\theta}\_t}(s_{t+1},a_{t+1})-Q_{\boldsymbol{\theta}\_t}(s_t,a_t)\big]\nabla_\boldsymbol{\theta}Q_\boldsymbol{\theta}(s_t,a_t),
+	\end{align\*}
+	and for $n$-step TD method, for instance, **$n$-step Sarsa**, we instead have
+	\begin{equation\*}
+	\boldsymbol{\theta}\_{t+1}=\boldsymbol{\theta}\_t+\alpha\big[G_{t:t+n}-Q_{\boldsymbol{\theta}\_t}(s_t,a_t)\big]\nabla_\boldsymbol{\theta}Q_\boldsymbol{\theta}(s_t,a_t),
+	\end{equation\*}
+	where
+	\begin{equation\*}
+	G_{t:t+n}=R_{t+1}+\gamma R_{t+2}+\ldots+\gamma^{n-1}R_{t+n}+\gamma^n Q_{\boldsymbol{\theta}\_{t+n-1}}(s_{t+n},a_{t+n}),\hspace{1cm}t+n\<T
+	\end{equation\*}
+	with $G_{t:t+n}\doteq G_t$ if $t+n\geq T$ and where $R_{t+1}\doteq R(s_t,a_t,s_{t+1})$.
+
+[^2]: The semi-gradient TD methods with linear function approximation, e.g. \eqref{eq:nql.5}, are guaranteed to converge to the **TD fixed point** due to the [result]({% post_url 2022-02-11-func-approx %}#td-fixed-pt-proof) we have mentioned.
