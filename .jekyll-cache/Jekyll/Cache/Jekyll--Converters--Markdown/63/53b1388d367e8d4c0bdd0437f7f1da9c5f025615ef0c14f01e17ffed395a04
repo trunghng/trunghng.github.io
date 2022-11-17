@@ -1,4 +1,4 @@
-I"Ã@<blockquote>
+I"æ@<blockquote>
   <p>Recall that when using <a href="/2021/07/25/dp-in-mdp.html">dynamic programming (DP) method</a> in solving reinforcement learning problems, we required the availability of a model of the environment. Whereas with <a href="/2021/08/21/monte-carlo-in-rl.html">Monte Carlo methods</a> and <a href="/2022/01/31/td-learning.html">temporal-difference learning</a>, the models are unnecessary. Such methods with requirement of a model like the case of DP is called <strong>model-based</strong>, while methods without using a model is called <strong>model-free</strong>. Model-based methods primarily rely on <strong>planning</strong>; and model-free methods, on the other hand, primarily rely on <strong>learning</strong>.
 <!-- excerpt-end --></p>
 </blockquote>
@@ -176,7 +176,7 @@ for a small (time weight) $\kappa$; where $r$ is the modeled reward for a transi
 
 <p>The reason for that is both agents were spending much more time steps than the case of blocking maze, which let the gap created by the faster convergence of Dyna-Q+ with Dyna-Q be narrowed down by exploration task, which Dyna-Q+ had to do but not Dyna-Q. This result will be more noticeable if they were stick to this first environment more time steps.</p>
 
-<h2 id="prioritized-sweeping">Prioritized Sweeping</h2>
+<h2 id="prioritized-sweeping">Small Prioritized Sweeping</h2>
 <p>Recall that in the Dyna methods presented above, the search control process selected a state-action pair randomly from all previously experienced pairs. It means that we can improve the planning if the search control instead focused on some particular state-action pairs.</p>
 
 <p>Pseudocode of prioritized sweeping is shown below.</p>
@@ -190,12 +190,14 @@ for a small (time weight) $\kappa$; where $r$ is the modeled reward for a transi
     <figcaption style="text-align: center;font-style: italic;"><b>Figure 9</b>: Using prioritized sweeping on mazes.<br />The code can be found <span><a href="https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-08/maze.py">here</a>.</span></figcaption>
 </figure>
 
+<p>###</p>
+
 <h2 id="trajectory-sampling">Trajectory Sampling</h2>
 
 <h2 id="heuristic-search">Heuristic Search</h2>
 
 <h2 id="preferences">Preferences</h2>
-<p>[1] <span id="rl-book">Richard S. Sutton &amp; Andrew G. Barto. <a href="https://mitpress.mit.edu/books/reinforcement-learning-second-edition">Reinforcement Learning: An Introduction</a></span>.</p>
+<p>[1] <span id="rl-book">Richard S. Sutton &amp; Andrew G. Barto. <a href="https://mitpress.mit.edu/books/reinforcement-learning-second-edition">Reinforcement Learning: An Introduction</a>. MIT press, 2018.</span></p>
 
 <p>[2] Richard S. Sutton. <a href="https://doi.org/10.1016/B978-1-55860-141-3.50030-4">Integrated Architectures for Learning, Planning, and Reacting Based on Approximating Dynamic Programming</a>. Proceedings of the Seventh International Conference, Austin, Texas, June 21â€“23, 1990.</p>
 

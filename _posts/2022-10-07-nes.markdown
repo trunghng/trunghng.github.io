@@ -11,12 +11,13 @@ eqn-number: true
 
 <!-- excerpt-end -->
 - [Search gradients](#search-grad)
-	- [Search gradients for MVN](search-grad-gauss)
-	- [Natural gradient](ntr-grad)
+	- [Search gradients for MVN](#search-grad-gauss)
+	- [Natural gradient](#ntr-grad)
 - [Robustness techniques](#rbn-tchnq)
 	- [Fitness shaping](#fn-shp)
 	- [Adaption sampling](#adp-sampl)
-- [Rotationally-symmetric distributions](rot-sym-dist)
+- [Rotationally-symmetric distributions](#rot-sym-dist)
+	- [Exponential parameterization](#exp-param)
 	- [Exponential local coordinates](#exp-coords)
 	- [Sampling from rotationally symmetric distributions](#samp-rot-sym-dist)
 	- [Exponential Natural Evolution Strategies](#xnes)

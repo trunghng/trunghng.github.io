@@ -17,7 +17,6 @@ eqn-number: true
 	- [Deep Q-learning](#dqn)
 		- [Experience replay](#exp-replay)
 		- [Target network](#target-net)
-		- [RMSProp](#rmsprop)
 - [Some improved variants](#imp-vars)
 	- [Double deep Q-learning](#double-dqn)
 	- [C-DQN](#c-dqn)
@@ -92,7 +91,7 @@ It is noticeable that the above update rule requires the transition model $P(s'\
 	<li>
 		Consider the new sample estimate (target):
 		\begin{equation}
-		Q_\text{target}=R(s,a,s')+\gamma\max_{a'}Q_t(s',a')
+		Q_\text{target}=R(s,a,s')+\gamma\max_{a'}Q_t(s',a')\label{eq:ql.2}
 		\end{equation}
 	</li>
 	<li>
@@ -105,7 +104,7 @@ It is noticeable that the above update rule requires the transition model $P(s'\
 
 This update rule is in form of a **stochastic process**, and thus, is [guaranteed to converge](#q-learning-td-convergence) to the optimal $Q^\*$, under the [stochastic approximation conditions]({% post_url 2022-01-31-td-learning %}#stochastic-approx-condition) for the learning rate $\alpha$.
 \begin{equation}
-\sum_{t=1}^{\infty}\alpha_t(s,a)=\infty\hspace{1cm}\text{and}\hspace{1cm}\sum_{t=1}^{\infty}\alpha_t^2(s,a)<\infty,\label{eq:ql.2}
+\sum_{t=1}^{\infty}\alpha_t(s,a)=\infty\hspace{1cm}\text{and}\hspace{1cm}\sum_{t=1}^{\infty}\alpha_t^2(s,a)<\infty,\label{eq:ql.3}
 \end{equation}
 for all $(s,a)\in\mathcal{S}\times\mathcal{A}$.
 
@@ -127,9 +126,9 @@ The resulting SGD update had the form
 \begin{align}
 \boldsymbol{\theta}\_{t+1}&=\boldsymbol{\theta}\_t-\frac{1}{2}\alpha\nabla_\boldsymbol{\theta}\big[Q(s_t,a_t)-Q_\boldsymbol{\theta}(s_t,a_t)\big]^2 \\\\ &=\boldsymbol{\theta}\_t+\alpha\big[Q(s_t,a_t)-Q_\boldsymbol{\theta}(s_t,a_t)\big]\nabla_\boldsymbol{\theta}Q_\boldsymbol{\theta}(s_t,a_t)\label{eq:nql.1}
 \end{align}
-However, we could not perform the exact update \eqref{eq:nql.1} since the true value $Q(s_t,a_t)$ was unknown. Fortunately, we could instead replace it by $U_t$, which can be any approximation of $Q(s_t,a_t)$[^1]:
+However, we could not perform the exact update \eqref{eq:nql.1} since the true value $Q(s_t,a_t)$ was unknown. Fortunately, we could instead replace it by $y_t$, which can be any approximation of $Q(s_t,a_t)$[^1]:
 \begin{equation}
-\boldsymbol{\theta}\_{t+1}=\boldsymbol{\theta}\_t+\alpha\big[U_t-Q_{\boldsymbol{\theta}\_t}(s_t,a_t)\big]\nabla_\boldsymbol{\theta}Q_\boldsymbol{\theta}(s_t,a_t)\label{eq:nql.2}
+\boldsymbol{\theta}\_{t+1}=\boldsymbol{\theta}\_t+\alpha\big[y_t-Q_{\boldsymbol{\theta}\_t}(s_t,a_t)\big]\nabla_\boldsymbol{\theta}Q_\boldsymbol{\theta}(s_t,a_t)\label{eq:nql.2}
 \end{equation}
 
 ### Linear function approximation
@@ -141,7 +140,7 @@ Q_\boldsymbol{\theta}(s,a)=\boldsymbol{\theta}^\text{T}\mathbf{f}(s,a),
 where $\mathbf{f}(s,a)$ represents the **feature vector**, (or **basis functions**) of the state-action pair $(s,a)$.
 Linear function approximation allowed us to rewrite \eqref{eq:nql.2} in a simplified form
 \begin{equation}
-\boldsymbol{\theta}\_{t+1}=\boldsymbol{\theta}\_t+\alpha\big[U_t-Q_\boldsymbol{\theta}(s_t,a_t)\big]\mathbf{f}(s_t,a_t)\label{eq:nql.3}
+\boldsymbol{\theta}\_{t+1}=\boldsymbol{\theta}\_t+\alpha\big[y_t-Q_{\boldsymbol{\theta}\_t}(s_t,a_t)\big]\mathbf{f}(s_t,a_t)\label{eq:nql.3}
 \end{equation}
 The corresponding SGD method for Q-learning and Q-learning with linear function approximation are respectively given in form of
 \begin{equation}
@@ -149,7 +148,11 @@ The corresponding SGD method for Q-learning and Q-learning with linear function 
 \end{equation}
 and
 \begin{equation}
-\boldsymbol{\theta}\_{t+1}=\boldsymbol{\theta}\_t+\alpha\left[R(s_t,a_t,s_{t+1})+\gamma\max_{a'}Q_{\boldsymbol{\theta}\_t}(s_{t+1},a')-Q_{\boldsymbol{\theta}\_t}(s_t,a_t)\right]\mathbf{f}(s_t,a_t)\label{eq:nql.5}
+\boldsymbol{\theta}\_{t+1}=\boldsymbol{\theta}\_t+\alpha\left[R(s_t,a_t,s_{t+1})+\gamma\max_{a'}Q_{\boldsymbol{\theta}\_t}(s_{t+1},a')-Q_{\boldsymbol{\theta}\_t}(s_t,a_t)\right]\mathbf{f}(s_t,a_t),\label{eq:nql.5}
+\end{equation}
+which both replace the $Q_\text{target}$ in \eqref{eq:ql.2} by the one parameterized by $\boldsymbol{\theta}$
+\begin{equation}
+y_t=R(s_t,a_t,s_{t+1})+\gamma\max_{a'}Q_{\boldsymbol{\theta}\_t}(s_{t+1},a')
 \end{equation}
 However, in updating $\boldsymbol{\theta}\_
 {t+1}$, these methods both use the **bootstrapping target**:
@@ -164,7 +167,7 @@ Such methods are known as **semi-gradient** since they take into account the eff
 {: #dqn}
 On the other hands, we have already known that a **neural network** with particular settings for hidden layers and activation functions can approximate [any]({% post_url 2022-09-02-neural-nets %}#unv-approx) continuous functions on a compact subsets of $\mathbb{R}^n$, so how about using it with the Q-learning algorithm?
 
-Specifically, we will be using neural network with weight $\boldsymbol{\theta}$ as a function approximator for Q-learning update. The network is referred as **Q-network**, as the whole algorithm is so-called **Deep Q-learning**, or **DQN** in short for **Deep Q-network**.  
+Specifically, we will be using neural network with weight $\boldsymbol{\theta}$ as a function approximator for Q-learning update. The network is referred as **Q-network**, as the whole algorithm is so-called **Deep Q-learning**, and the agent is known as **DQN** in short for **Deep Q-network**.  
 
 The Q-network can be trained by minimizing a sequence of loss function $L_t(\boldsymbol{\theta}\_t)$ that changes at each iteration $t$:
 \begin{equation}
@@ -174,7 +177,8 @@ where
 \begin{equation}
 y_t=\mathbb{E}\_{s'\sim\mathcal{E}}\left[R(s,a,s')+\gamma\max_{a'}Q_{\boldsymbol{\theta}\_{t-1}}(s',a')\vert s,a\right]
 \end{equation}
-is the target in iteration $t$, as the target $U_t$ in \eqref{eq:nql.3}; and where $\rho(s,a)$ is referred as the behavior policy.  
+is the target in iteration $t$, which follows as in \eqref{eq:nql.3}; and where $\rho(s,a)$ is referred as the behavior policy.  
+
 The TD target $y_t$ can approximated as
 \begin{equation}
 y_t=R(s_t,a_t,s_{t+1})+\max_{a'}Q_{\boldsymbol{\theta}\_t}(s_{t+1},a')
@@ -197,25 +201,34 @@ is added into a set $\mathcal{D}$ of size $N$, which is sampled uniformly at the
 {: #target-net}
 DQN introduces a **target network** $\hat{Q}$ parameterized by $\boldsymbol{\theta}^-$to generate the TD target $y_t$ in \eqref{eq:dqn.1} as
 \begin{equation}
-y_t=R(s_t,a_t,s_{t+1})+\max_{a'}\hat{Q}\_{\boldsymbol{\theta}^-}(s_{t+1},a')
+y_t=R(s_t,a_t,s_{t+1})+\gamma\max_{a'}\hat{Q}\_{\boldsymbol{\theta}\_t^-}(s_{t+1},a')\label{eq:tn.1}
 \end{equation}
 The target network $\hat{Q}$ is cloned from $Q$ every $C$ Q-learning update steps, i.e. $\boldsymbol{\theta}^-\leftarrow\boldsymbol{\theta}$.
 
-#### RMSProp
-{: #rmsprop}
-
-## Some improved variants
+## Improved variants
 {: #imp-vars}
 
 ### Double deep Q-learning
 {: #double-dqn}
+As stated [before]({% post_url 2022-01-31-td-learning %}#max-bias) that the Q-learning method could lead to over optimistic value estimates. Moreover, Q-learning with function approximation, such as DQN, has also been [proved](#double-dqn-paper) to induce maximization bias. These results are due to that in Q-learning and DQN, the $\max$ operator uses the same values to both select and evaluate an action.  
+
+To reduce the overoptimism effect due to overestimation in DQN, we use a double estimator version of deep Q-learning, called **Double Deep-Q learning**, as we have used double Q-learning to mitigate the maximization bias in Q-learning.
+
+The **double DQN** agent is similar to DQN, except that it replaces the target \eqref{eq:tn.1}, which can be rewritten as:
+\begin{equation}
+y_t=R(s_t,a_t,s_{t+1})+\gamma\hat{Q}\_{\boldsymbol{\theta}\_t^-}\left(s_{t+1},\underset{a}{\text{argmax}}\,\hat{Q}\_{\boldsymbol{\theta}\_t^-}(s_{t+1},a)\right),
+\end{equation}
+with
+\begin{equation}
+y_t=R(s_t,a_t,s_{t+1})+\gamma\hat{Q}\_{\boldsymbol{\theta}\_t^-}\left(s_{t+1},\underset{a}{\text{argmax}}\,Q_{\boldsymbol{\theta}\_t}(s_{t+1},a)\right)
+\end{equation}
 
 ### C-DQN
 {: #c-dqn}
 
 
 ## References
-<span id='q-learning-td-convergence'>[1] Tommi Jaakkola, Michael I. Jordan, Satinder P. Singh. [On the Convergence of Stochastic Iterative Dynamic Programming Algorithms](https://people.eecs.berkeley.edu/~jordan/papers/AIM-1441.ps). A.I. Memo No. 1441, 1993.</span>
+[1] <span id='q-learning-td-convergence'>Tommi Jaakkola, Michael I. Jordan, Satinder P. Singh. [On the Convergence of Stochastic Iterative Dynamic Programming Algorithms](https://people.eecs.berkeley.edu/~jordan/papers/AIM-1441.ps). A.I. Memo No. 1441, 1993.</span>
 
 [2] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition). MIT press, 2018.
 
@@ -225,18 +238,16 @@ The target network $\hat{Q}$ is cloned from $Q$ every $C$ Q-learning update step
 
 [5] Vlad Mnih, et al. [Human Level Control Through Deep Reinforcement Learning](https://www.deepmind.com/publications/human-level-control-through-deep-reinforcement-learning). Nature, 2015.
 
-[6] Hado van Hasselt. [Double Q-learning](https://proceedings.neurips.cc/paper/2010/file/091d584fced301b442654dd8c23b3fc9-Paper.pdf). NIPS 2010.
+[6] <span id='double-dqn-paper'>Hado van Hasselt, Arthur Guez, David Silver. [Deep Reinforcement Learning with Double Q-learning](https://arxiv.org/abs/1509.06461). AAAI16, 2016.</span>
 
-[7] Hado van Hasselt, Arthur Guez, David Silver. [Deep Reinforcement Learning with Double Q-learning](https://arxiv.org/abs/1509.06461). AAAI16, 2016.
-
-[8] Zhikang T. Wang, Masahito Ueda. [Convergent and Efficient Deep Q Network Algorithm](https://arxiv.org/abs/2106.15419). arXiv:2106.15419, 2022.
+[7] Zhikang T. Wang, Masahito Ueda. [Convergent and Efficient Deep Q Network Algorithm](https://arxiv.org/abs/2106.15419). arXiv:2106.15419, 2022.
 
 ## Footnotes
-[^1]: In **Monte Carlo control**, the update target $U_t$ is chosen as the **full return** $G_t$, i.e.
+[^1]: In **Monte Carlo control**, the update target $y_t$ is chosen as the **full return** $G_t$, i.e.
 	\begin{equation\*}
 	\boldsymbol{\theta}\_{t+1}=\boldsymbol{\theta}\_t+\alpha\big[G_t-Q_{\boldsymbol{\theta}\_t}(s_t,a_t)\big]\nabla_\boldsymbol{\theta}Q_\boldsymbol{\theta}(s_t,a_t),
 	\end{equation\*}
-	and in (episodic on-policy) TD control methods, we use the **TD target** as the choice for $U_t$, i.e. for one-step TD methods such as **one-step Sarsa**, the update rule for $\boldsymbol{\theta}$ is given as
+	and in (episodic on-policy) TD control methods, we use the **TD target** as the choice for $y_t$, i.e. for one-step TD methods such as **one-step Sarsa**, the update rule for $\boldsymbol{\theta}$ is given as
 	\begin{align\*}
 	\boldsymbol{\theta}\_{t+1}&=\boldsymbol{\theta}\_t+\alpha\big[G_{t:t+1}-Q_{\boldsymbol{\theta}\_t}(s_t,a_t)\big]\nabla_\boldsymbol{\theta}Q_\boldsymbol{\theta}(s_t,a_t) \\\\ &=\boldsymbol{\theta}\_t+\alpha\big[R(s_t,a_t,s_{t+1})+\gamma Q_{\boldsymbol{\theta}\_t}(s_{t+1},a_{t+1})-Q_{\boldsymbol{\theta}\_t}(s_t,a_t)\big]\nabla_\boldsymbol{\theta}Q_\boldsymbol{\theta}(s_t,a_t),
 	\end{align\*}

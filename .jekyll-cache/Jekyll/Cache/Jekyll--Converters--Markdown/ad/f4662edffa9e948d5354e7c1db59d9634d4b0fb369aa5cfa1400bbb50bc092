@@ -1,4 +1,4 @@
-I"w<blockquote>
+I"Tw<blockquote>
   <p><strong>Natural Evolution Strategies</strong>, or <strong>NES</strong>, are referred to a family of evolution strategies that throughout its generations update a search distribution repeatedly using an estimated gradient of its distribution parameters.</p>
 </blockquote>
 
@@ -6,8 +6,8 @@
 <ul>
   <li><a href="#search-grad">Search gradients</a>
     <ul>
-      <li><a href="search-grad-gauss">Search gradients for MVN</a></li>
-      <li><a href="ntr-grad">Natural gradient</a></li>
+      <li><a href="#search-grad-gauss">Search gradients for MVN</a></li>
+      <li><a href="#ntr-grad">Natural gradient</a></li>
     </ul>
   </li>
   <li><a href="#rbn-tchnq">Robustness techniques</a>
@@ -16,8 +16,9 @@
       <li><a href="#adp-sampl">Adaption sampling</a></li>
     </ul>
   </li>
-  <li><a href="rot-sym-dist">Rotationally-symmetric distributions</a>
+  <li><a href="#rot-sym-dist">Rotationally-symmetric distributions</a>
     <ul>
+      <li><a href="#exp-param">Exponential parameterization</a></li>
       <li><a href="#exp-coords">Exponential local coordinates</a></li>
       <li><a href="#samp-rot-sym-dist">Sampling from rotationally symmetric distributions</a></li>
       <li><a href="#xnes">Exponential Natural Evolution Strategies</a></li>
@@ -338,7 +339,7 @@ $f(\mathbf{x})$ reaches its global minimum $0$ at $\mathbf{x}=\mathbf{0}$. The e
 
 <p>[2] Daan Wierstra, Tom Schaul, Tobias Glasmachers, Yi Sun, Jürgen Schmidhuber. <a href="https://arxiv.org/abs/1106.4487">Natural Evolution Strategies</a>. arXiv:1106.4487, 2011.</p>
 
-<p><span id="nes-paper">[3] Daan Wierstra, Tom Schaul, Tobias Glasmachers, Yi Sun, Jan Peters, Jürgen Schmidhuber. <a href="https://www.jmlr.org/papers/volume15/wierstra14a/wierstra14a.pdf">Natural Evolution Strategies</a>. Journal of Machine Learning Research 15 (2014).</span></p>
+<p><span id="nes-paper">[3] Daan Wierstra, Tom Schaul, Tobias Glasmachers, Yi Sun, Jan Peters, Jürgen Schmidhuber. <a href="https://www.jmlr.org/papers/volume15/wierstra14a/wierstra14a.pdf">Natural Evolution Strategies</a>. Journal of Machine Learning Research 15, 2014.</span></p>
 
 <p>[4] Ha, David. <a href="https://blog.otoro.net/2017/10/29/visual-evolution-strategies/">A Visual Guide to Evolution Strategies</a>. blog.otoro.net, 2017.</p>
 

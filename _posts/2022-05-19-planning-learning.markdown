@@ -157,7 +157,7 @@ It can be seen from the plot above that the difference between Dyna-Q+ and Dyna-
 
 The reason for that is both agents were spending much more time steps than the case of blocking maze, which let the gap created by the faster convergence of Dyna-Q+ with Dyna-Q be narrowed down by exploration task, which Dyna-Q+ had to do but not Dyna-Q. This result will be more noticeable if they were stick to this first environment more time steps.
 
-## Prioritized Sweeping
+## Small Prioritized Sweeping
 {: #prioritized-sweeping}
 Recall that in the Dyna methods presented above, the search control process selected a state-action pair randomly from all previously experienced pairs. It means that we can improve the planning if the search control instead focused on some particular state-action pairs.
 
@@ -171,6 +171,8 @@ Pseudocode of prioritized sweeping is shown below.
     <img src="/assets/images/2022-05-19/dyna-maze-prioritized-sweeping.png" alt="Prioritized sweeping on dyna maze" style="display: block; margin-left: auto; margin-right: auto; width: 500px; height: 400px"/>
     <figcaption style="text-align: center;font-style: italic;"><b>Figure 9</b>: Using prioritized sweeping on mazes.<br>The code can be found <span markdown="1">[here](https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-08/maze.py).</span></figcaption>
 </figure>
+
+### 
 
 ## Trajectory Sampling
 {: #trajectory-sampling}

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-11-13T20:56:28+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-11-17T12:26:20+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Natural Evolution Strategies</title><link href="http://localhost:4000/2022/10/07/nes.html" rel="alternate" type="text/html" title="Natural Evolution Strategies" /><published>2022-10-07T13:00:00+07:00</published><updated>2022-10-07T13:00:00+07:00</updated><id>http://localhost:4000/2022/10/07/nes</id><content type="html" xml:base="http://localhost:4000/2022/10/07/nes.html">&lt;blockquote&gt;
   &lt;p&gt;&lt;strong&gt;Natural Evolution Strategies&lt;/strong&gt;, or &lt;strong&gt;NES&lt;/strong&gt;, are referred to a family of evolution strategies that throughout its generations update a search distribution repeatedly using an estimated gradient of its distribution parameters.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -7,8 +7,8 @@
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;#search-grad&quot;&gt;Search gradients&lt;/a&gt;
     &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;search-grad-gauss&quot;&gt;Search gradients for MVN&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;ntr-grad&quot;&gt;Natural gradient&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#search-grad-gauss&quot;&gt;Search gradients for MVN&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#ntr-grad&quot;&gt;Natural gradient&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#rbn-tchnq&quot;&gt;Robustness techniques&lt;/a&gt;
@@ -17,8 +17,9 @@
       &lt;li&gt;&lt;a href=&quot;#adp-sampl&quot;&gt;Adaption sampling&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;rot-sym-dist&quot;&gt;Rotationally-symmetric distributions&lt;/a&gt;
+  &lt;li&gt;&lt;a href=&quot;#rot-sym-dist&quot;&gt;Rotationally-symmetric distributions&lt;/a&gt;
     &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#exp-param&quot;&gt;Exponential parameterization&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#exp-coords&quot;&gt;Exponential local coordinates&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#samp-rot-sym-dist&quot;&gt;Sampling from rotationally symmetric distributions&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#xnes&quot;&gt;Exponential Natural Evolution Strategies&lt;/a&gt;&lt;/li&gt;
@@ -5022,7 +5023,6 @@ d_2(f(x),f(y))&amp;lt;\varepsilon
         &lt;ul&gt;
           &lt;li&gt;&lt;a href=&quot;#exp-replay&quot;&gt;Experience replay&lt;/a&gt;&lt;/li&gt;
           &lt;li&gt;&lt;a href=&quot;#target-net&quot;&gt;Target network&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#rmsprop&quot;&gt;RMSProp&lt;/a&gt;&lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
@@ -5103,7 +5103,7 @@ It is noticeable that the above update rule requires the transition model $P(s�
 	&lt;li&gt;
 		Consider the new sample estimate (target):
 		\begin{equation}
-		Q_\text{target}=R(s,a,s&apos;)+\gamma\max_{a&apos;}Q_t(s&apos;,a&apos;)
+		Q_\text{target}=R(s,a,s&apos;)+\gamma\max_{a&apos;}Q_t(s&apos;,a&apos;)\label{eq:ql.2}
 		\end{equation}
 	&lt;/li&gt;
 	&lt;li&gt;
@@ -5116,7 +5116,7 @@ It is noticeable that the above update rule requires the transition model $P(s�
 
 &lt;p&gt;This update rule is in form of a &lt;strong&gt;stochastic process&lt;/strong&gt;, and thus, is &lt;a href=&quot;#q-learning-td-convergence&quot;&gt;guaranteed to converge&lt;/a&gt; to the optimal $Q^*$, under the &lt;a href=&quot;/2022/01/31/td-learning.html#stochastic-approx-condition&quot;&gt;stochastic approximation conditions&lt;/a&gt; for the learning rate $\alpha$.
 \begin{equation}
-\sum_{t=1}^{\infty}\alpha_t(s,a)=\infty\hspace{1cm}\text{and}\hspace{1cm}\sum_{t=1}^{\infty}\alpha_t^2(s,a)&amp;lt;\infty,\label{eq:ql.2}
+\sum_{t=1}^{\infty}\alpha_t(s,a)=\infty\hspace{1cm}\text{and}\hspace{1cm}\sum_{t=1}^{\infty}\alpha_t^2(s,a)&amp;lt;\infty,\label{eq:ql.3}
 \end{equation}
 for all $(s,a)\in\mathcal{S}\times\mathcal{A}$.&lt;/p&gt;
 
@@ -5137,9 +5137,9 @@ The resulting SGD update had the form
 \begin{align}
 \boldsymbol{\theta}_{t+1}&amp;amp;=\boldsymbol{\theta}_t-\frac{1}{2}\alpha\nabla_\boldsymbol{\theta}\big[Q(s_t,a_t)-Q_\boldsymbol{\theta}(s_t,a_t)\big]^2 \\ &amp;amp;=\boldsymbol{\theta}_t+\alpha\big[Q(s_t,a_t)-Q_\boldsymbol{\theta}(s_t,a_t)\big]\nabla_\boldsymbol{\theta}Q_\boldsymbol{\theta}(s_t,a_t)\label{eq:nql.1}
 \end{align}
-However, we could not perform the exact update \eqref{eq:nql.1} since the true value $Q(s_t,a_t)$ was unknown. Fortunately, we could instead replace it by $U_t$, which can be any approximation of $Q(s_t,a_t)$&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;:
+However, we could not perform the exact update \eqref{eq:nql.1} since the true value $Q(s_t,a_t)$ was unknown. Fortunately, we could instead replace it by $y_t$, which can be any approximation of $Q(s_t,a_t)$&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;:
 \begin{equation}
-\boldsymbol{\theta}_{t+1}=\boldsymbol{\theta}_t+\alpha\big[U_t-Q_{\boldsymbol{\theta}_t}(s_t,a_t)\big]\nabla_\boldsymbol{\theta}Q_\boldsymbol{\theta}(s_t,a_t)\label{eq:nql.2}
+\boldsymbol{\theta}_{t+1}=\boldsymbol{\theta}_t+\alpha\big[y_t-Q_{\boldsymbol{\theta}_t}(s_t,a_t)\big]\nabla_\boldsymbol{\theta}Q_\boldsymbol{\theta}(s_t,a_t)\label{eq:nql.2}
 \end{equation}&lt;/p&gt;
 
 &lt;h3 id=&quot;lin-func-approx&quot;&gt;Linear function approximation&lt;/h3&gt;
@@ -5150,7 +5150,7 @@ Q_\boldsymbol{\theta}(s,a)=\boldsymbol{\theta}^\text{T}\mathbf{f}(s,a),
 where $\mathbf{f}(s,a)$ represents the &lt;strong&gt;feature vector&lt;/strong&gt;, (or &lt;strong&gt;basis functions&lt;/strong&gt;) of the state-action pair $(s,a)$.
 Linear function approximation allowed us to rewrite \eqref{eq:nql.2} in a simplified form
 \begin{equation}
-\boldsymbol{\theta}_{t+1}=\boldsymbol{\theta}_t+\alpha\big[U_t-Q_\boldsymbol{\theta}(s_t,a_t)\big]\mathbf{f}(s_t,a_t)\label{eq:nql.3}
+\boldsymbol{\theta}_{t+1}=\boldsymbol{\theta}_t+\alpha\big[y_t-Q_{\boldsymbol{\theta}_t}(s_t,a_t)\big]\mathbf{f}(s_t,a_t)\label{eq:nql.3}
 \end{equation}
 The corresponding SGD method for Q-learning and Q-learning with linear function approximation are respectively given in form of
 \begin{equation}
@@ -5158,7 +5158,11 @@ The corresponding SGD method for Q-learning and Q-learning with linear function 
 \end{equation}
 and
 \begin{equation}
-\boldsymbol{\theta}_{t+1}=\boldsymbol{\theta}_t+\alpha\left[R(s_t,a_t,s_{t+1})+\gamma\max_{a’}Q_{\boldsymbol{\theta}_t}(s_{t+1},a’)-Q_{\boldsymbol{\theta}_t}(s_t,a_t)\right]\mathbf{f}(s_t,a_t)\label{eq:nql.5}
+\boldsymbol{\theta}_{t+1}=\boldsymbol{\theta}_t+\alpha\left[R(s_t,a_t,s_{t+1})+\gamma\max_{a’}Q_{\boldsymbol{\theta}_t}(s_{t+1},a’)-Q_{\boldsymbol{\theta}_t}(s_t,a_t)\right]\mathbf{f}(s_t,a_t),\label{eq:nql.5}
+\end{equation}
+which both replace the $Q_\text{target}$ in \eqref{eq:ql.2} by the one parameterized by $\boldsymbol{\theta}$
+\begin{equation}
+y_t=R(s_t,a_t,s_{t+1})+\gamma\max_{a’}Q_{\boldsymbol{\theta}_t}(s_{t+1},a’)
 \end{equation}
 However, in updating $\boldsymbol{\theta}_
 {t+1}$, these methods both use the &lt;strong&gt;bootstrapping target&lt;/strong&gt;:
@@ -5172,7 +5176,7 @@ which depends on the current value $\boldsymbol{\theta}_t$, and thus will be bia
 &lt;h3 id=&quot;dqn&quot;&gt;Deep Q-learning&lt;/h3&gt;
 &lt;p&gt;On the other hands, we have already known that a &lt;strong&gt;neural network&lt;/strong&gt; with particular settings for hidden layers and activation functions can approximate &lt;a href=&quot;/2022/09/02/neural-nets.html#unv-approx&quot;&gt;any&lt;/a&gt; continuous functions on a compact subsets of $\mathbb{R}^n$, so how about using it with the Q-learning algorithm?&lt;/p&gt;
 
-&lt;p&gt;Specifically, we will be using neural network with weight $\boldsymbol{\theta}$ as a function approximator for Q-learning update. The network is referred as &lt;strong&gt;Q-network&lt;/strong&gt;, as the whole algorithm is so-called &lt;strong&gt;Deep Q-learning&lt;/strong&gt;, or &lt;strong&gt;DQN&lt;/strong&gt; in short for &lt;strong&gt;Deep Q-network&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Specifically, we will be using neural network with weight $\boldsymbol{\theta}$ as a function approximator for Q-learning update. The network is referred as &lt;strong&gt;Q-network&lt;/strong&gt;, as the whole algorithm is so-called &lt;strong&gt;Deep Q-learning&lt;/strong&gt;, and the agent is known as &lt;strong&gt;DQN&lt;/strong&gt; in short for &lt;strong&gt;Deep Q-network&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;The Q-network can be trained by minimizing a sequence of loss function $L_t(\boldsymbol{\theta}_t)$ that changes at each iteration $t$:
 \begin{equation}
@@ -5182,8 +5186,9 @@ where
 \begin{equation}
 y_t=\mathbb{E}_{s’\sim\mathcal{E}}\left[R(s,a,s’)+\gamma\max_{a’}Q_{\boldsymbol{\theta}_{t-1}}(s’,a’)\vert s,a\right]
 \end{equation}
-is the target in iteration $t$, as the target $U_t$ in \eqref{eq:nql.3}; and where $\rho(s,a)$ is referred as the behavior policy.&lt;br /&gt;
-The TD target $y_t$ can approximated as
+is the target in iteration $t$, which follows as in \eqref{eq:nql.3}; and where $\rho(s,a)$ is referred as the behavior policy.&lt;/p&gt;
+
+&lt;p&gt;The TD target $y_t$ can approximated as
 \begin{equation}
 y_t=R(s_t,a_t,s_{t+1})+\max_{a’}Q_{\boldsymbol{\theta}_t}(s_{t+1},a’)
 \end{equation}
@@ -5205,20 +5210,30 @@ is added into a set $\mathcal{D}$ of size $N$, which is sampled uniformly at the
 &lt;h4 id=&quot;target-net&quot;&gt;Target network&lt;/h4&gt;
 &lt;p&gt;DQN introduces a &lt;strong&gt;target network&lt;/strong&gt; $\hat{Q}$ parameterized by $\boldsymbol{\theta}^-$to generate the TD target $y_t$ in \eqref{eq:dqn.1} as
 \begin{equation}
-y_t=R(s_t,a_t,s_{t+1})+\max_{a’}\hat{Q}_{\boldsymbol{\theta}^-}(s_{t+1},a’)
+y_t=R(s_t,a_t,s_{t+1})+\gamma\max_{a’}\hat{Q}_{\boldsymbol{\theta}_t^-}(s_{t+1},a’)\label{eq:tn.1}
 \end{equation}
 The target network $\hat{Q}$ is cloned from $Q$ every $C$ Q-learning update steps, i.e. $\boldsymbol{\theta}^-\leftarrow\boldsymbol{\theta}$.&lt;/p&gt;
 
-&lt;h4 id=&quot;rmsprop&quot;&gt;RMSProp&lt;/h4&gt;
-
-&lt;h2 id=&quot;imp-vars&quot;&gt;Some improved variants&lt;/h2&gt;
+&lt;h2 id=&quot;imp-vars&quot;&gt;Improved variants&lt;/h2&gt;
 
 &lt;h3 id=&quot;double-dqn&quot;&gt;Double deep Q-learning&lt;/h3&gt;
+&lt;p&gt;As stated &lt;a href=&quot;/2022/01/31/td-learning.html#max-bias&quot;&gt;before&lt;/a&gt; that the Q-learning method could lead to over optimistic value estimates. Moreover, Q-learning with function approximation, such as DQN, has also been &lt;a href=&quot;#double-dqn-paper&quot;&gt;proved&lt;/a&gt; to induce maximization bias. These results are due to that in Q-learning and DQN, the $\max$ operator uses the same values to both select and evaluate an action.&lt;/p&gt;
+
+&lt;p&gt;To reduce the overoptimism effect due to overestimation in DQN, we use a double estimator version of deep Q-learning, called &lt;strong&gt;Double Deep-Q learning&lt;/strong&gt;, as we have used double Q-learning to mitigate the maximization bias in Q-learning.&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;double DQN&lt;/strong&gt; agent is similar to DQN, except that it replaces the target \eqref{eq:tn.1}, which can be rewritten as:
+\begin{equation}
+y_t=R(s_t,a_t,s_{t+1})+\gamma\hat{Q}_{\boldsymbol{\theta}_t^-}\left(s_{t+1},\underset{a}{\text{argmax}}\,\hat{Q}_{\boldsymbol{\theta}_t^-}(s_{t+1},a)\right),
+\end{equation}
+with
+\begin{equation}
+y_t=R(s_t,a_t,s_{t+1})+\gamma\hat{Q}_{\boldsymbol{\theta}_t^-}\left(s_{t+1},\underset{a}{\text{argmax}}\,Q_{\boldsymbol{\theta}_t}(s_{t+1},a)\right)
+\end{equation}&lt;/p&gt;
 
 &lt;h3 id=&quot;c-dqn&quot;&gt;C-DQN&lt;/h3&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;p&gt;&lt;span id=&quot;q-learning-td-convergence&quot;&gt;[1] Tommi Jaakkola, Michael I. Jordan, Satinder P. Singh. &lt;a href=&quot;https://people.eecs.berkeley.edu/~jordan/papers/AIM-1441.ps&quot;&gt;On the Convergence of Stochastic Iterative Dynamic Programming Algorithms&lt;/a&gt;. A.I. Memo No. 1441, 1993.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;[1] &lt;span id=&quot;q-learning-td-convergence&quot;&gt;Tommi Jaakkola, Michael I. Jordan, Satinder P. Singh. &lt;a href=&quot;https://people.eecs.berkeley.edu/~jordan/papers/AIM-1441.ps&quot;&gt;On the Convergence of Stochastic Iterative Dynamic Programming Algorithms&lt;/a&gt;. A.I. Memo No. 1441, 1993.&lt;/span&gt;&lt;/p&gt;
 
 &lt;p&gt;[2] Richard S. Sutton &amp;amp; Andrew G. Barto. &lt;a href=&quot;https://mitpress.mit.edu/books/reinforcement-learning-second-edition&quot;&gt;Reinforcement Learning: An Introduction&lt;/a&gt;. MIT press, 2018.&lt;/p&gt;
 
@@ -5228,22 +5243,20 @@ The target network $\hat{Q}$ is cloned from $Q$ every $C$ Q-learning update step
 
 &lt;p&gt;[5] Vlad Mnih, et al. &lt;a href=&quot;https://www.deepmind.com/publications/human-level-control-through-deep-reinforcement-learning&quot;&gt;Human Level Control Through Deep Reinforcement Learning&lt;/a&gt;. Nature, 2015.&lt;/p&gt;
 
-&lt;p&gt;[6] Hado van Hasselt. &lt;a href=&quot;https://proceedings.neurips.cc/paper/2010/file/091d584fced301b442654dd8c23b3fc9-Paper.pdf&quot;&gt;Double Q-learning&lt;/a&gt;. NIPS 2010.&lt;/p&gt;
+&lt;p&gt;[6] &lt;span id=&quot;double-dqn-paper&quot;&gt;Hado van Hasselt, Arthur Guez, David Silver. &lt;a href=&quot;https://arxiv.org/abs/1509.06461&quot;&gt;Deep Reinforcement Learning with Double Q-learning&lt;/a&gt;. AAAI16, 2016.&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;[7] Hado van Hasselt, Arthur Guez, David Silver. &lt;a href=&quot;https://arxiv.org/abs/1509.06461&quot;&gt;Deep Reinforcement Learning with Double Q-learning&lt;/a&gt;. AAAI16, 2016.&lt;/p&gt;
-
-&lt;p&gt;[8] Zhikang T. Wang, Masahito Ueda. &lt;a href=&quot;https://arxiv.org/abs/2106.15419&quot;&gt;Convergent and Efficient Deep Q Network Algorithm&lt;/a&gt;. arXiv:2106.15419, 2022.&lt;/p&gt;
+&lt;p&gt;[7] Zhikang T. Wang, Masahito Ueda. &lt;a href=&quot;https://arxiv.org/abs/2106.15419&quot;&gt;Convergent and Efficient Deep Q Network Algorithm&lt;/a&gt;. arXiv:2106.15419, 2022.&lt;/p&gt;
 
 &lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
 
 &lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
   &lt;ol&gt;
     &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;In &lt;strong&gt;Monte Carlo control&lt;/strong&gt;, the update target $U_t$ is chosen as the &lt;strong&gt;full return&lt;/strong&gt; $G_t$, i.e.
+      &lt;p&gt;In &lt;strong&gt;Monte Carlo control&lt;/strong&gt;, the update target $y_t$ is chosen as the &lt;strong&gt;full return&lt;/strong&gt; $G_t$, i.e.
 \begin{equation*}
 \boldsymbol{\theta}_{t+1}=\boldsymbol{\theta}_t+\alpha\big[G_t-Q_{\boldsymbol{\theta}_t}(s_t,a_t)\big]\nabla_\boldsymbol{\theta}Q_\boldsymbol{\theta}(s_t,a_t),
 \end{equation*}
-and in (episodic on-policy) TD control methods, we use the &lt;strong&gt;TD target&lt;/strong&gt; as the choice for $U_t$, i.e. for one-step TD methods such as &lt;strong&gt;one-step Sarsa&lt;/strong&gt;, the update rule for $\boldsymbol{\theta}$ is given as
+and in (episodic on-policy) TD control methods, we use the &lt;strong&gt;TD target&lt;/strong&gt; as the choice for $y_t$, i.e. for one-step TD methods such as &lt;strong&gt;one-step Sarsa&lt;/strong&gt;, the update rule for $\boldsymbol{\theta}$ is given as
 \begin{align*}
 \boldsymbol{\theta}_{t+1}&amp;amp;=\boldsymbol{\theta}_t+\alpha\big[G_{t:t+1}-Q_{\boldsymbol{\theta}_t}(s_t,a_t)\big]\nabla_\boldsymbol{\theta}Q_\boldsymbol{\theta}(s_t,a_t) \\ &amp;amp;=\boldsymbol{\theta}_t+\alpha\big[R(s_t,a_t,s_{t+1})+\gamma Q_{\boldsymbol{\theta}_t}(s_{t+1},a_{t+1})-Q_{\boldsymbol{\theta}_t}(s_t,a_t)\big]\nabla_\boldsymbol{\theta}Q_\boldsymbol{\theta}(s_t,a_t),
 \end{align*}
@@ -5439,7 +5452,7 @@ for a small (time weight) $\kappa$; where $r$ is the modeled reward for a transi
 
 &lt;p&gt;The reason for that is both agents were spending much more time steps than the case of blocking maze, which let the gap created by the faster convergence of Dyna-Q+ with Dyna-Q be narrowed down by exploration task, which Dyna-Q+ had to do but not Dyna-Q. This result will be more noticeable if they were stick to this first environment more time steps.&lt;/p&gt;
 
-&lt;h2 id=&quot;prioritized-sweeping&quot;&gt;Prioritized Sweeping&lt;/h2&gt;
+&lt;h2 id=&quot;prioritized-sweeping&quot;&gt;Small Prioritized Sweeping&lt;/h2&gt;
 &lt;p&gt;Recall that in the Dyna methods presented above, the search control process selected a state-action pair randomly from all previously experienced pairs. It means that we can improve the planning if the search control instead focused on some particular state-action pairs.&lt;/p&gt;
 
 &lt;p&gt;Pseudocode of prioritized sweeping is shown below.&lt;/p&gt;
@@ -5452,6 +5465,8 @@ for a small (time weight) $\kappa$; where $r$ is the modeled reward for a transi
     &lt;img src=&quot;/assets/images/2022-05-19/dyna-maze-prioritized-sweeping.png&quot; alt=&quot;Prioritized sweeping on dyna maze&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 500px; height: 400px&quot; /&gt;
     &lt;figcaption style=&quot;text-align: center;font-style: italic;&quot;&gt;&lt;b&gt;Figure 9&lt;/b&gt;: Using prioritized sweeping on mazes.&lt;br /&gt;The code can be found &lt;span&gt;&lt;a href=&quot;https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-08/maze.py&quot;&gt;here&lt;/a&gt;.&lt;/span&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
+
+&lt;p&gt;###&lt;/p&gt;
 
 &lt;h2 id=&quot;trajectory-sampling&quot;&gt;Trajectory Sampling&lt;/h2&gt;
 
