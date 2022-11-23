@@ -133,11 +133,19 @@ With this definition of Lagrange multiplier, we continue to define the **Lagrang
 \begin{equation}
 \mathcal{L}(\mathbf{x},\lambda)=f(\mathbf{x})+\lambda g(\mathbf{x})
 \end{equation}
-Then letting the partial derivative of Lagrangian w.r.t $\lambda$ give us the constraint
+Then letting the partial derivative of Lagrangian w.r.t $\lambda$ be zero gives us the constraint
 \begin{equation}
 0=\frac{\partial \mathcal{L}(\mathbf{x},\lambda)}{\partial\lambda}=g(\mathbf{x})
 \end{equation}
-With Lagrangian, in order to find the maximum of $f(\mathbf{x})$ that satisfies $g(\mathbf{x})=0$, we set the partial derivatives of the Lagrangian $\mathcal{L}$ w.r.t $x_i$ (which are components of $\mathbf{x}$) and $\lambda$ and solve for $x_i$'s, $\lambda$.
+With Lagrangian, in order to find the maximum of $f(\mathbf{x})$ that satisfies $g(\mathbf{x})=0$, we will instead be trying to solve
+\begin{equation}
+\max_\mathbf{x}\min_\lambda\mathcal{L}(\mathbf{x},\lambda),
+\end{equation}
+This can be solved by letting derivatives of the Lagrangian $\mathcal{L}$ w.r.t $x_i$ (i.e. components of $\mathbf{x}$) and $\lambda$ be zero
+\begin{equation}
+\frac{\partial\mathcal{L}}{\partial x_i}=0,\hspace{1cm}\frac{\partial\mathcal{L}}{\partial\lambda}=0
+\end{equation}
+and solve for $x_i$ and $\lambda$.
 
 ## Linear models for Regression
 {: #lin-models-reg}

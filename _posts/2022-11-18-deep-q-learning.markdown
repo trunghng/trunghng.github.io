@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Deep Q-learning"
-date:   2022-05-25 15:26:00 +0700
+date:   2022-11-18 15:26:00 +0700
 tags: reinforcement-learning deep-learning function-approximation q-learning my-rl
 description: Deep Q-learning and variants
 comments: true
@@ -19,6 +19,9 @@ eqn-number: true
 		- [Target network](#target-net)
 - [Some improved variants](#imp-vars)
 	- [Double deep Q-learning](#double-dqn)
+	- [Prioritized replay](#prior-rep)
+	- [Dueling network](#duel-net)
+	- [Rainbow](#rainbow)
 	- [C-DQN](#c-dqn)
 - [References](#references)
 - [Footnotes](#footnotes)
@@ -43,7 +46,7 @@ For an arbitrary initial $V_0(s)$, the iteration, or the sequence $\\{V_t\\}$, w
 
 Details for value iteration method can be seen in the following pseudocode.
 <figure>
-	<img src="/assets/images/2022-05-25/value-iteration.png" alt="value iteration pseudocode" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<img src="/assets/images/2022-11-18/value-iteration.png" alt="value iteration pseudocode" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption></figcaption>
 </figure>
 
@@ -69,7 +72,7 @@ Q_{t+1}(s,a)=\sum_{s'}P(s'\vert s,a)\left[R(s,a,s')+\gamma\max_{a'}Q_t(s',a')\ri
 \end{equation}
 This iteration, given an initial value $Q_0(s,a)$, eventually will also converge to the optimal Q-values $Q^\*(s,a)$ due to the relationship between $V$ and $Q$ as defined above. Pseudocode for Q-value iteration is given below.
 <figure>
-	<img src="/assets/images/2022-05-25/q-value-iteration.png" alt="value iteration pseudocode" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<img src="/assets/images/2022-11-18/q-value-iteration.png" alt="value iteration pseudocode" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption></figcaption>
 </figure>
 
@@ -195,7 +198,7 @@ e_t=(s_t,a_t,r_t,s_{t+1})
 \end{equation}
 is added into a set $\mathcal{D}$ of size $N$, which is sampled uniformly at the training time to apply Q-learning updates. This method provides some advantages:
 - Each experience $e_t$ can be used in many weight updates. 
-- Uniformly sampling from $\mathcal{D}$ cancels out the correlations between consecutive experience, i.e. $e_t, e_{t+1}$.
+- Uniformly sampling from $\mathcal{D}$ cancels out the correlations between consecutive experiences, i.e. $e_t, e_{t+1}$.
 
 #### Target network
 {: #target-net}
@@ -223,6 +226,15 @@ with
 y_t=R(s_t,a_t,s_{t+1})+\gamma\hat{Q}\_{\boldsymbol{\theta}\_t^-}\left(s_{t+1},\underset{a}{\text{argmax}}\,Q_{\boldsymbol{\theta}\_t}(s_{t+1},a)\right)
 \end{equation}
 
+### Prioritized replay
+{: #prior-rep}
+
+### Dueling network
+{: #duel-net}
+
+### Rainbow
+{: #rainbow}
+
 ### C-DQN
 {: #c-dqn}
 
@@ -240,7 +252,13 @@ y_t=R(s_t,a_t,s_{t+1})+\gamma\hat{Q}\_{\boldsymbol{\theta}\_t^-}\left(s_{t+1},\u
 
 [6] <span id='double-dqn-paper'>Hado van Hasselt, Arthur Guez, David Silver. [Deep Reinforcement Learning with Double Q-learning](https://arxiv.org/abs/1509.06461). AAAI16, 2016.</span>
 
-[7] Zhikang T. Wang, Masahito Ueda. [Convergent and Efficient Deep Q Network Algorithm](https://arxiv.org/abs/2106.15419). arXiv:2106.15419, 2022.
+[7] Ziyu Wang, Tom Schaul, Matteo Hessel, Hado van Hasselt, Marc Lanctot, Nando de Freitas. [Dueling Network Architectures for Deep Reinforcement Learning](https://arxiv.org/abs/1511.06581). arXiv:1511.06581, 2015.  
+
+[8] Tom Schaul, John Quan, Ioannis Antonoglou, David Silver. [Prioritized Experience Replay](https://arxiv.org/abs/1511.05952). arXiv:1511.05952, 2016.  
+
+[9] Taisuke Kobayashi, Wendyam Eric Lionel Ilboudo. [t-Soft Update of Target Network for Deep Reinforcement Learning](https://arxiv.org/abs/2008.10861). arXiv:2008.10861, 2020.  
+
+[10] Zhikang T. Wang, Masahito Ueda. [Convergent and Efficient Deep Q Network Algorithm](https://arxiv.org/abs/2106.15419). arXiv:2106.15419, 2022.
 
 ## Footnotes
 [^1]: In **Monte Carlo control**, the update target $y_t$ is chosen as the **full return** $G_t$, i.e.
