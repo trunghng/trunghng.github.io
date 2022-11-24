@@ -2,12 +2,12 @@
 layout: post
 title:  "Deep Q-learning"
 date:   2022-11-18 15:26:00 +0700
-tags: reinforcement-learning deep-learning function-approximation q-learning my-rl
+tags: deep-reinforcement-learning function-approximation q-learning my-rl
 description: Deep Q-learning and variants
 comments: true
 eqn-number: true
 ---
-> 
+> DQN.
 
 <!-- excerpt-end -->
 - [Q-value iteration](#q-value-iter)

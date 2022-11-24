@@ -1,0 +1,185 @@
+---
+layout: post
+title:  "Trust Region Policy Optimization"
+date:   2022-11-23 15:26:00 +0700
+tags: deep-reinforcement-learning policy-gradient my-rl
+description: Trust Region Policy Optimization
+comments: true
+eqn-number: true
+---
+> TRPO.
+
+<!-- excerpt-end -->
+- [Preliminaries](#preliminaries)
+	- [Coupling & total variation distance](#coupling-tvd)
+	- [Markov Decision Processes](#mdp)
+	- [Likelihood Ratio Policy Gradient](#likelihood-ratio-pg)
+- [Policy Improvement](#policy-imp)
+- [References](#references)
+- [Footnotes](#footnotes)
+
+## Preliminaries
+{: #preliminaries}
+We begin by recalling the familiar definition of MDPs, also combined with mentioning about likelihood ratio policy gradient, coupling and total variation distance.
+
+### Coupling & total variation distance
+{: #coupling-tvd}
+Consider two probability measures$ \mu$ and $\nu$ on a probability space $\Omega$. One refers a **coupling** of $\mu$ and $\nu$ as a pair of random variables $(X,Y)$ such that the marginal distribution of $X$ and $Y$ are respectively $\mu$ and $\nu$.
+
+Specifically, if $p$ is a joint distribution of $X,Y$ on $\Omega$, then it implies that
+\begin{align}
+\sum_{y\in\Omega}p(x,y)&=\sum_{y\in\Omega}P(X=x,Y=y)=P(X=x)=\mu(x) \\\\ \sum_{x\in\Omega}p(x,y)&=\sum_{x\in\Omega}P(X=x,Y=y)=P(Y=y)=\nu(y)
+\end{align}
+For probability distributions $\mu$ and $\nu$ on $\Omega$ as above, the **total variation distance** between $\mu$ and $\nu$, denoted $\big\Vert\mu-\nu\big\Vert_\text{TV}$, is defined by
+\begin{equation}
+\big\Vert\mu-\nu\big\Vert_\text{TV}\doteq\max_{A\\subset\Omega}\big\vert\mu(A)-\nu(A)\big\vert
+\end{equation}
+**Proposition 1**  
+Let $\mu$ and $\nu$ be probability distributions on $\Omega$, we then have
+\begin{equation}
+\big\Vert\mu-\nu\big\Vert_\text{TV}=\frac{1}{2}\sum_{x\in\Omega}\big\vert\mu(x)-\nu(x)\big\vert
+\end{equation}
+**Proof**  
+Let $B=\\{x:\mu(x)\geq\nu(x)\\}$ and let $A\subset\Omega$. We have
+\begin{align}
+\mu(A)-\nu(A)&=\mu(A\cap B)+\mu(A\cap B^c)-\nu(A\cap B)-\nu(A\cap B^c) \\\\ &\leq\mu(A\cap B)-\nu(A\cap B) \\\\ &\leq\mu(B)-\nu(B)
+\end{align}
+Analogously, we also have
+\begin{equation}
+\nu(A)-\mu(A)\leq\nu(B^c)-\mu(B^c)
+\end{equation}
+Hence, combining these results gives us
+\begin{equation}
+\big\Vert\mu-\nu\big\Vert_\text{TV}=\frac{1}{2}\left(\mu(B)-\nu(B)+\nu(B^c)-\mu(B^c)\right)=\frac{1}{2}\sum_{x\in\Omega}\big\vert\mu(x)-\nu(x)\big\vert
+\end{equation}
+This proof also implies that
+\begin{equation}
+\big\Vert\mu-\nu\big\Vert_\text{TV}=\sum_{x\in\Omega;\,\mu(x)\geq\nu(x)}\mu(x)-\nu(x)
+\end{equation}
+**Proposition 2**  
+Let $\mu$ and $\nu$ be two probability measures defined in a probability space $\Omega$, we then have that
+\begin{equation}
+\big\Vert\mu-\nu\big\Vert_\text{TV}=\inf_{(X,Y)\text{ coupling of }\mu,\nu}P(X\neq Y)
+\end{equation}
+**Proof**  
+For any $A\subset\Omega$ and for any coupling $(X,Y)$ of $\mu$ and $\nu$ we have
+\begin{align}
+\mu(A)-\nu(A)&=P(X\in A)-P(Y\in A) \\\\ &=P(X\in A,Y\notin A)+P(X\in A,Y\in A)-P(Y\in A) \\\\ &\leq P(X\in A,Y\notin A) \\\\ &\leq P(X\neq Y),
+\end{align}
+which implies that
+\begin{equation}
+\big\Vert\mu-\nu\big\Vert_\text{TV}=\max_{A'\subset\Omega}\big\vert\mu(A')-\nu(A')\big\vert\leq P(X\neq Y)\leq\inf_{(X,Y)\text{ coupling of }\mu,\nu}P(X\neq Y)
+\end{equation}
+Thus, it suffices to construct a coupling $(X,Y)$ of $\mu$ and $\nu$ such that
+\begin{equation}
+\big\Vert\mu-\nu\big\Vert_\text{TV}=P(X\neq Y)
+\end{equation}
+
+### Markov Decision Processes
+{: #mdp}
+An infinite-horizon discounted **Markov Decision Process** (**MDP**) is defined as the tuple $(\mathcal{S},\mathcal{A},P,r,\rho_0,\gamma)$, where
+- $\mathcal{S}$ is a finite set of states, or **state space**.
+- $\mathcal{A}$ is a finite set of actions, or **action space**.
+- $P:\mathcal{S}\times\mathcal{A}\times\mathcal{S}\to\mathbb{R}$ is the **transition probability distribution**, i.e. $P(s,a,s')=P(s'\vert s,a)$ denotes the probability of transitioning to state $s'$ when taking action $a$ from state $s$.
+- $r:\mathcal{S}\times\mathcal{A}\to\mathbb{R}$ is the **reward function**.
+- $\rho_0:\mathcal{S}\to\mathbb{R}$ is the distribution of the initial state $s_0$.
+- $\gamma\in(0,1)$ is the **discount factor**.
+
+A **policy**, denoted $\pi$, is a mapping from states to probabilities of selecting each possible action, which can be either deterministic $\pi:\mathcal{S}\times\mathcal{A}\to\\{0,1\\}$ (or $\pi:\mathcal{S}\to\mathcal{A}$) or stochastic $\pi:\mathcal{S}\times\mathcal{A}\to[0,1]$. Here, we consider the stochastic policy only.
+
+We continue by letting $\eta(\pi)$ denoted the expected cumulative discounted reward when starting at initial state $s_0$ and following $\pi$ thereafter
+\begin{equation}
+\eta(\pi)=\mathbb{E}\_{s_0,a_0,\ldots}\left[\sum_{t=0}^{\infty}\gamma^t r(s_t,a_t)\right],
+\end{equation}
+where
+\begin{equation}
+s_0\sim\rho_0(s_0),\hspace{1cm}a_t\sim\pi(a_t\vert s_t),\hspace{1cm}s_{t+1}\sim P(s_{t+1}\vert s_t,a_t)
+\end{equation}
+For a policy $\pi$, the **state value function**, denoted as $V_\pi$, of a state $s\in\mathcal{S}$ measures how good it is for the agent to be in $s$, and the **action value function**, referred as $Q_\pi$, of a state-action pair $(s,a)\in\mathcal{S}\times\mathcal{A}$ specifies how good it is to take action $a$ at state $s$. Specifically, these values are defined by the expected return, as
+\begin{align}
+V_\pi(s_t)&=\mathbb{E}\_{a_t,s_{t+1},\ldots}\left[\sum_{k=0}^{\infty}\gamma^k r(s_{t+k},a_{t+k})\right], \\\\ Q_\pi(s_t,a_t)&=\mathbb{E}\_{s_{t+1},a_{t+1},\ldots}\left[\sum_{k=0}^{\infty}\gamma^k r(s_{t+k},a_{t+k})\right],
+\end{align}
+where
+\begin{equation}
+a_t\sim\pi(a_t\vert s_t),\hspace{1cm}s_{t+1}\sim P(s_{t+1}\vert s_t,a_t)\hspace{1cm}t\geq 0
+\end{equation}
+Along with these value functions, we will also define the **advantage function** for $\pi$, denoted $A_\pi$, given as
+\begin{equation}
+A_\pi(s_t,a_t)=Q_\pi(s_t,a_t)-V_\pi(s_t)
+\end{equation}
+
+### Likelihood Ratio Policy Gradient
+{: #likelihood-ratio-pg}
+Let $H$ denote the **horizon** of an MDP[^1]. Consider **likelihood ratio policy gradient** problem, in which the policy $\pi_\theta$ is parameterized by a vector $\theta\in\mathbb{R}^n$. The expected return of $\pi_\theta$ is then given by
+\begin{equation}
+\eta(\pi_\theta)=\mathbb{E}\_{P(\tau;\theta)}\left[\left.\sum_{t=0}^{H}\gamma^t r(s_t,a_t)\right\vert\pi_\theta\right]=\sum_{\tau}P(\tau;\theta)R(\tau),
+\end{equation}
+where
+- $P(\tau;\theta)$ is the probability distribution induced by the policy $\pi_\theta$, i.e. $s_t$
+- $\tau=(s_0,a_0,s_1,a_1,\ldots,s_H,a_H)$ are trajectories generated by rolls out, i.e. $\tau\sim P(\tau;\theta)$.
+- $R(\tau)$ is the discounted cumulative rewards along the trajectory $\tau$, given as
+\begin{equation}
+R(\tau)=\sum_{t=0}^{H}\gamma^t r(s_t,a_t)
+\end{equation}
+
+The likelihood ratio policy gradient performs a SGA (stochastic gradient ascent) over the policy parameter space $\Theta$ to find a local optimum of $\eta(\pi_\theta)$ by taking into account the policy gradient
+\begin{align}
+\nabla_\theta\eta(\pi_\theta)&=\nabla_\theta\sum_{\tau}P(\tau;\theta)R(\tau) \\\\ &=\sum_\tau\nabla_\theta P(\tau;\theta)R(\tau) \\\\ &=\sum_\tau\nabla_\theta\frac{P(\tau;\theta)}{P(\tau;\theta)}\nabla_\theta P(\tau;\theta)R(\tau) \\\\ &=\sum_{\tau}P(\tau;\theta)\nabla_\theta\log P(\tau;\theta)R(\tau) \\\\ &=\mathbb{E}\_{P(\tau;\theta)}\Big[\nabla_\theta P(\tau;\theta)R(\tau)\Big]\label{eq:lrp.1}
+\end{align}
+This gradient can be approximated with empirical estimate from $m$ trajectories $\tau^{(1)},\ldots,\tau^{(m)}$ under policy $\pi_\theta$
+\begin{align}
+\nabla_\theta\eta(\pi_\theta)&=\mathbb{E}\_{P(\tau;\theta)}\Big[\nabla_\theta P(\tau;\theta)R(\tau)\Big] \\\\ &\approx\frac{1}{m}\sum_{i=1}^{m}\nabla_\theta\log P(\tau^{(i)};\theta)R(\tau^{(i)})=\hat{g},
+\end{align}
+which is an unbiased estimate of the policy gradient.
+
+Additionally, since
+\begin{align}
+\nabla_\theta\log P(\tau^{(i)};\theta)&=\nabla_\theta\log\prod_{t=0}^{H}P(s_{t+1}^{(i)}\vert s_t^{(i)},a_t^{(i)})\pi_\theta(a_t^{(i)}\vert s_t^{(i)}) \\\\ &=\nabla_\theta\sum_{t=0}^{H}\log P(s_{t+1}^{(i)}\vert s_t^{(i)},a_t^{(i)})+\nabla_\theta\sum_{t=0}^{H}\log\pi_\theta(a_t^{(i)}\vert s_t^{(i)}) \\\\ &=\sum_{t=0}^{H}\nabla_\theta\log\pi_\theta(a_t^{(i)}\vert s_t^{(i)}),
+\end{align}
+we can rewrite the policy gradient estimate in a form which no longer require the dynamics model
+\begin{equation}
+\hat{g}=\frac{1}{m}\sum_{i=1}^{m}\nabla_\theta\log P(\tau^{(i)};\theta)R(\tau^{(i)})=\frac{1}{m}\sum_{i=1}^{m}\sum_{t=0}^{H}\nabla_\theta\log\pi_\theta(a_t^{(i)}\vert s_t^{(i)})R(\tau^{(i)})
+\end{equation}
+Moreover, as
+\begin{equation}
+\mathbb{E}\_{P(\tau\vert\theta)}\Big[\nabla_\theta\log P(\tau;\theta)\Big]=\nabla_\theta\sum_\tau P(\tau;\theta)=\nabla_\theta 1=\mathbf{0},
+\end{equation}
+a constant baseline in terms of $\theta$ (i.e. independent of $\theta$) $b$ can be inserted into \eqref{eq:lrp.1} to reduce the variance (where $b$ is a vector which can be optimized to minimize the variance). In particular
+\begin{align}
+\nabla_\theta\eta(\pi_\theta)&=\mathbb{E}\_{P(\tau;\theta)}\Big[\nabla_\theta\log P(\tau;\theta)(R(\tau)-b)\Big] \\\\ &\approx\frac{1}{m}\nabla_\theta\log P(\tau^{(i)};\theta)\left(R(\tau^{(i)})-b\right) \\\\ &=\frac{1}{m}\sum_{i=1}^{m}\sum_{t=0}^{H}\nabla_\theta\log\pi_\theta(a_t^{(i)}\vert s_t^{(i)})\left(R(\tau^{(i)})-b\right)=\hat{g}
+\end{align}
+By separating $R(\tau^{(i)})$ into sum of discounted rewards from the past and sum of discounted future rewards, we can continue to decompose the estimator $\hat{g}$ as
+\begin{align}
+\hat{g}&=\sum_{i=1}^{m}\sum_{t=0}^{H}\nabla_\theta\log\pi_\theta(a_t^{(i)}\vert s_t^{(i)})\left(R(\tau^{(i)}-b)\right) \\\\ &=\sum_{i=1}^{m}\sum_{t=0}^{H}\nabla_\theta\log\pi_\theta(a_t^{(i)}\vert s_t^{(i)})\Bigg[\sum_{k=0}^{t}r(s_k^{(i)},a_k^{(i)})+\left(\sum_{k=t+1}^{H}r(s_k^{(i)},a_k^{(i)})-b\right)\Bigg] \\\\
+\end{align}
+
+
+These following are some possible choices of baseline $b$
+<ul>
+	<li></li>
+</ul>
+
+## Policy improvement
+{: #policy-imp}
+
+## References
+{: #references}
+[1] John Schulman, Sergey Levine, Philipp Moritz, Michael I. Jordan, Pieter Abbeel. [Trust Region Policy Optimization](https://dl.acm.org/doi/10.5555/3045118.3045319). ICML'15, pp 1889–1897, 2015.  
+
+[2] David A. Levin, Yuval Peres, Elizabeth L. Wilmer. [Markov chains and mixing times](https://pages.uoregon.edu/dlevin/MARKOV/markovmixing.pdf). American Mathematical Society, 2009.
+
+[3] Jie Tang, Pieter Abbeel. [On a Connection between Importance Sampling and the Likelihood Ratio Policy Gradient]()
+
+[4] Sham Kakade,  John Langford. [Approximately optimal approximate reinforcement learning](https://dl.acm.org/doi/10.5555/645531.656005). ICML'2, pp. 267–274, 2002.  
+
+## Footnotes
+{: #footnotes}
+
+[^1]: Any infinite-horizon discounted MDP, as defined in the preceding subsection, can be $\epsilon$-approximated by a finite horizon MDP, using a horizon
+	\begin{equation}
+	H_\epsilon=\left\lceil\log_\gamma\left(\frac{\epsilon(1-\gamma)}{R_\text{max}}\right)\right\rceil,
+	\end{equation}
+	where
+	\begin{equation}
+	R_\text{max}=\max_s\big\vert R(s)\big\vert
+	\end{equation}
