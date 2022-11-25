@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-11-25T19:27:25+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-11-25T21:14:02+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Trust Region Policy Optimization</title><link href="http://localhost:4000/2022/11/23/trpo.html" rel="alternate" type="text/html" title="Trust Region Policy Optimization" /><published>2022-11-23T15:26:00+07:00</published><updated>2022-11-23T15:26:00+07:00</updated><id>http://localhost:4000/2022/11/23/trpo</id><content type="html" xml:base="http://localhost:4000/2022/11/23/trpo.html"><![CDATA[<blockquote>
   <p>TRPO.</p>
 </blockquote>
@@ -13,6 +13,7 @@
     </ul>
   </li>
   <li><a href="#policy-imp">Policy Improvement</a></li>
+  <li><a href="#param-policy-opt">Parameterized Policy Optimization by Trust Region</a></li>
   <li><a href="#references">References</a></li>
   <li><a href="#footnotes">Footnotes</a></li>
 </ul>
@@ -55,7 +56,7 @@ A_\pi(s_t,a_t)=Q_\pi(s_t,a_t)-V_\pi(s_t)
 \end{equation}</p>
 
 <h3 id="coupling-tvd">Coupling &amp; Total variation distance</h3>
-<p>Consider two probability measures$ \mu$ and $\nu$ on a probability space $\Omega$. One refers a <strong>coupling</strong> of $\mu$ and $\nu$ as a pair of random variables $(X,Y)$ such that the marginal distribution of $X$ and $Y$ are respectively $\mu$ and $\nu$.</p>
+<p>Consider two probability measures $\mu$ and $\nu$ on a probability space $(\Omega,\mathcal{F},P)$. One refers a <strong>coupling</strong> of $\mu$ and $\nu$ as a pair of random variables $(X,Y)$ such that the marginal distribution of $X$ and $Y$ are respectively $\mu$ and $\nu$.</p>
 
 <p>Specifically, if $p$ is a joint distribution of $X,Y$ on $\Omega$, then it implies that
 \begin{align}
@@ -63,7 +64,7 @@ A_\pi(s_t,a_t)=Q_\pi(s_t,a_t)-V_\pi(s_t)
 \end{align}
 For probability distributions $\mu$ and $\nu$ on $\Omega$ as above, the <strong>total variation distance</strong> between $\mu$ and $\nu$, denoted $\big\Vert\mu-\nu\big\Vert_\text{TV}$, is defined by
 \begin{equation}
-\big\Vert\mu-\nu\big\Vert_\text{TV}\doteq\max_{A\subset\Omega}\big\vert\mu(A)-\nu(A)\big\vert
+\big\Vert\mu-\nu\big\Vert_\text{TV}\doteq\sup_{A\subset\Omega}\big\vert\mu(A)-\nu(A)\big\vert
 \end{equation}
 <strong>Proposition 1</strong><br />
 Let $\mu$ and $\nu$ be probability distributions on $\Omega$, we then have
@@ -99,7 +100,7 @@ For any $A\subset\Omega$ and for any coupling $(X,Y)$ of $\mu$ and $\nu$ we have
 \end{align}
 which implies that
 \begin{equation}
-\big\Vert\mu-\nu\big\Vert_\text{TV}=\max_{A’\subset\Omega}\big\vert\mu(A’)-\nu(A’)\big\vert\leq P(X\neq Y)\leq\inf_{(X,Y)\text{ coupling of }\mu,\nu}P(X\neq Y)
+\big\Vert\mu-\nu\big\Vert_\text{TV}=\sup_{A’\subset\Omega}\big\vert\mu(A’)-\nu(A’)\big\vert\leq P(X\neq Y)\leq\inf_{(X,Y)\text{ coupling of }\mu,\nu}P(X\neq Y)
 \end{equation}
 Thus, it suffices to construct a coupling $(X,Y)$ of $\mu$ and $\nu$ such that
 \begin{equation}
@@ -255,6 +256,55 @@ which suggests that a sufficiently small step $\pi_{\theta_0}\to\tilde{\pi}$ tha
 		\end{equation}
 	</li>
 </ul>
+
+<p><strong>Theorem 5</strong><br />
+Let $\alpha=\big\Vert\pi-\tilde{\pi}\big\Vert_\text{TV}^\text{max}$. The following holds
+\begin{equation}
+\eta(\tilde{\pi})\geq L_\pi(\tilde{\pi})-\frac{4\epsilon\gamma}{(1-\gamma)^2}\alpha^2,
+\end{equation}
+where
+\begin{equation}
+\epsilon=\max_{s,a}\big\vert A_\pi(s,a)\big\vert
+\end{equation}
+<strong>Proof</strong></p>
+
+<p>On the other hand, by <strong>Pinsker’s inequality</strong>, which bounds the total variation distance in terms of the <strong>Kullback-Leibler divergence</strong>, denoted $D_\text{KL}$, we have that
+\begin{equation}
+\big\Vert\pi-\tilde{\pi}\big\Vert_\text{TV}^2\leq\frac{1}{2}D_\text{KL}(\pi\Vert\tilde{\pi})\leq D_\text{KL}(\pi\Vert\tilde{\pi}),\label{eq:pi.3}
+\end{equation}
+since $D_\text{KL}(\cdot\Vert\cdot)\geq 0$. Thus, let
+\begin{equation}
+D_\text{KL}^\text{max}(\pi,\tilde{\pi})\doteq\max_s D_\text{KL}\big(\pi(\cdot\vert s)\Vert\tilde{\pi}(\cdot\vert s)\big),
+\end{equation}
+with the result \eqref{eq:pi.3} and by <strong>Theorem 5</strong>, we have
+\begin{equation}
+\eta(\tilde{\pi})\geq L_\pi(\tilde{\pi})-CD_\text{KL}^\text{max}(\pi,\tilde{\pi}),\label{eq:pi.4}
+\end{equation}
+where
+\begin{equation}
+C=\frac{4\epsilon\gamma}{(1-\gamma)^2}
+\end{equation}
+The policy improvement bound \eqref{eq:pi.4} allows us to specify a policy iteration, as given in the following pseudocode</p>
+<figure>
+	<img src="/assets/images/2022-11-23/policy-iteration-nondec-exp-return.png" alt="Non-decreasing expected return policy iteration" style="display: block; margin-left: auto; margin-right: auto;" />
+	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+</figure>
+<p>It is worth noticing that \eqref{eq:pi.4} allows the policy iteration above to guarantee to generating a sequence of non-decreasing expected returns $\eta(\pi_0)\leq\eta(\pi_1)\leq\eta(\pi_2)\leq\ldots$.</p>
+
+<p>To see this, let
+\begin{equation}
+M_i(\pi)\doteq L_{\pi_i}(\pi)-CD_\text{KL}^\text{max}(\pi_i,\pi),
+\end{equation}
+by \eqref{eq:pi.4}, we then have
+\begin{equation}
+\eta(\pi_{i+1})\geq M_i(\pi_{i+1}),
+\end{equation}
+which implies that
+\begin{equation}
+\eta(\pi_{i+1})-\eta(\pi_i)=\eta(\pi_{i+1})-M_i(\pi_i)\geq M_i(\pi_{i+1})-M_i(\pi_i)
+\end{equation}</p>
+
+<h2 id="param-policy-opt">Parameterized Policy Optimization by Trust Region</h2>
 
 <h2 id="references">References</h2>
 <p>[1] John Schulman, Sergey Levine, Philipp Moritz, Michael I. Jordan, Pieter Abbeel. <a href="https://dl.acm.org/doi/10.5555/3045118.3045319">Trust Region Policy Optimization</a>. ICML’15, pp 1889–1897, 2015.</p>
