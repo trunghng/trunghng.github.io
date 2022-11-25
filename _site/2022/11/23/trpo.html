@@ -252,42 +252,7 @@ which implies that
 Thus, it suffices to construct a coupling $(X,Y)$ of $\mu$ and $\nu$ such that
 \begin{equation}
 \big\Vert\mu-\nu\big\Vert_\text{TV}=P(X\neq Y)
-\end{equation}
-As each policy $\pi:\mathcal{S}\times\mathcal{A}\to[0,1]$ can be observed as a distribution function on the space of state-action pair $\mathcal{S}\times\mathcal{A}$. Thus, those results and definitions mentioned above for probability measures $\mu$ and $\nu$ defined on $\Omega$ can also apply to policies $\pi$ and $\tilde{\pi}$ specified on $\mathcal{S}\times\mathcal{A}$.</p>
-
-<p>We continue by considering a more constrained coupling called <strong>$\alpha$-coupled policy pair</strong>.</p>
-
-<p>A policy pair $(\pi,\tilde{\pi})$ is referred as $\alpha$-coupled if it defines a joint distribution $(a,\tilde{a})\vert s$ such that
-\begin{equation}
-P(a\neq\tilde{a}\vert s)\leq\alpha,\hspace{1cm}\forall s
-\end{equation}
-$\pi$ and $\tilde{\pi}$ will respectively denote the marginal distributions of $a$ and $\tilde{a}$.</p>
-
-<p><strong>Lemma 3</strong><br />
-Let $(\pi,\tilde{\pi})$ be $\alpha$-coupled policy pair, for all $s$, we have
-\begin{equation}
-\big\vert\bar{A}(s)\big\vert\leq 2\alpha\max_{s,\tilde{a}}\big\vert A_\pi(s,\tilde{a})\big\vert,
-\end{equation}
-where $\bar{A}(s)$ is the expected advantage of $\tilde{\pi}$ over $\pi$ at state $s$, given as
-\begin{equation}
-\bar{A}(s)=\mathbb{E}_{\tilde{a}\sim\tilde{\pi}}\big[A_\pi(s,\tilde{a})\big]
-\end{equation}
-<strong>Proof</strong><br />
-By definition of the advantage function, it is easily noticed that $\mathbb{E}_{a\sim\pi}\big[A_\pi(s,a)\big]=0$, which lets us obtain
-\begin{align}
-\bar{A}(s)&amp;=\mathbb{E}_{\tilde{a}\sim\tilde{\pi}}\big[A_\pi(s,\tilde{a})\big] \\ &amp;=\mathbb{E}_{a\sim\pi,\tilde{a}\sim\tilde{\pi}}\big[A_\pi(s,\tilde{a})-A_\pi(s,a)\big] \\ &amp;=P(a\neq\tilde{a}\vert s)\mathbb{E}_{a\sim\pi,\tilde{a}\sim\tilde{\pi}\vert a\neq\tilde{a}}\big[A_\pi(s,\tilde{a})-A_\pi(s,a)\big],
-\end{align}
-which by definition of $\alpha$-coupling implies that
-\begin{equation}
-\big\vert\bar{A}(s)\big\vert\leq\alpha\cdot 2\max_{s,\tilde{a}}\big\vert A_\pi(s,\tilde{a})\big\vert
 \end{equation}</p>
-
-<p><strong>Lemma 4</strong><br />
-Let $(\pi,\tilde{\pi})$ be $\alpha$-coupled policy pair, we have
-\begin{equation}
-\left\vert\mathbb{E}_{s_t\sim\tilde{\pi}}\big[\bar{A}(s_t)\big]-\mathbb{E}_{s_t\sim\pi}\big[\bar{A}(s_t)\big]\right\vert\leq 2\alpha\max_s\bar{A}(s)\leq 4\alpha(1-(1-\alpha)^t)\max_s\big\vert A_\pi(s,a)\big\vert
-\end{equation}
-<strong>Proof</strong></p>
 
 <h3 id="likelihood-ratio-pg">Likelihood Ratio Policy Gradient</h3>
 <p>Let $H$ denote the <strong>horizon</strong> of an MDP<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>. Consider <strong>likelihood ratio policy gradient</strong> problem, in which the policy $\pi_\theta$ is parameterized by a vector $\theta\in\mathbb{R}^n$. The expected return of $\pi_\theta$ is then given by
@@ -332,7 +297,7 @@ a constant baseline in terms of $\theta$ (i.e. independent of $\theta$) $b$ can 
 \end{align}
 By separating $R(\tau^{(i)})$ into sum of discounted rewards from the past, which does not depend on the current action $a_t^{(i)}$ (and thus can be removed to reduce the variance), and sum of discounted future rewards, we can continue to decompose the estimator $\hat{g}$ as
 \begin{align}
-\hat{g}&amp;=\sum_{i=1}^{m}\sum_{t=0}^{H-1}\nabla_\theta\log\pi_\theta(a_t^{(i)}\vert s_t^{(i)})\left(R(\tau^{(i)}-b)\right) \\ &amp;=\sum_{i=1}^{m}\sum_{t=0}^{H-1}\nabla_\theta\log\pi_\theta(a_t^{(i)}\vert s_t^{(i)})\Bigg[\sum_{k=0}^{t}r(s_k^{(i)},a_k^{(i)})+\left(\sum_{k=t+1}^{H-1}r(s_k^{(i)},a_k^{(i)})\right)-b\Bigg] \\ &amp;=\sum_{i=1}^{m}\sum_{t=0}^{H-1}\nabla_\theta\log\pi_\theta(a_t^{(i)}\vert s_t^{(i)})\left(\sum_{k=t+1}^{H-1}r(s_k^{(i)},a_k^{(i)})-b\right)
+\hat{g}&amp;=\sum_{i=1}^{m}\sum_{t=0}^{H-1}\nabla_\theta\log\pi_\theta(a_t^{(i)}\vert s_t^{(i)})\left(R(\tau^{(i)}-b)\right) \\ &amp;=\sum_{i=1}^{m}\sum_{t=0}^{H-1}\nabla_\theta\log\pi_\theta(a_t^{(i)}\vert s_t^{(i)})\Bigg[\sum_{k=0}^{t-1}r(s_k^{(i)},a_k^{(i)})+\left(\sum_{k=t}^{H-1}r(s_k^{(i)},a_k^{(i)})\right)-b\Bigg] \\ &amp;=\sum_{i=1}^{m}\sum_{t=0}^{H-1}\nabla_\theta\log\pi_\theta(a_t^{(i)}\vert s_t^{(i)})\left(\sum_{k=t}^{H-1}r(s_k^{(i)},a_k^{(i)})-b\right)
 \end{align}
 These following are some possible choices of baseline $b$.</p>
 <ul id="number-list">
@@ -345,7 +310,7 @@ These following are some possible choices of baseline $b$.</p>
 	<li>
 		<b>Optimal baseline</b>.
 		\begin{equation}
-		b=\frac{\sum_{i=1}^{m}\left(\nabla_\theta\log P(\tau^{(i)};\theta)\right)^2 R(\tau^{(i)})}{\sum_{i=1}^{m}\nabla_\theta\log P(\tau^{(i)};\theta)}
+		b=\frac{\sum_{i=1}^{m}\left(\nabla_\theta\log P(\tau^{(i)};\theta)\right)^2 R(\tau^{(i)})}{\sum_{i=1}^{m}\left(\nabla_\theta\log P(\tau^{(i)};\theta)\right)^2}
 		\end{equation}
 	</li>
 	<li>
@@ -363,26 +328,88 @@ These following are some possible choices of baseline $b$.</p>
 </ul>
 
 <h2 id="policy-imp">Policy improvement</h2>
-<p>We begin by proving an identity that expresses the difference between expected returns $\eta(\tilde{\pi})$ and $\eta(\pi)$ of two policies $\tilde{\pi}$ and $\pi$ in terms of the advantage function $A_\pi$.</p>
+<p>We begin by proving an identity that expresses the expected return $\eta(\tilde{\pi})$ of a policy $\tilde{\pi}$ in terms of the advantage over another policy $\pi$, accumulated over time steps.</p>
 
-<p><strong>Lemma 5</strong><br />
+<p><strong>Lemma 3</strong><br />
 Given two policies $\pi,\tilde{\pi}$, we have
 \begin{equation}
-\eta(\tilde{\pi})=\eta(\pi)+\mathbb{E}_{\tau\sim\tilde{\pi}}\left[\sum_{t=0}^{\infty}\gamma^t A_\pi(s_t,a_t)\right]
+\eta(\tilde{\pi})=\eta(\pi)+\mathbb{E}_{\tilde{\pi}}\left[\sum_{t=0}^{\infty}\gamma^t A_\pi(s_t,a_t)\right]\label{eq:pi.1}
 \end{equation}
 <strong>Proof</strong><br />
 By definition of advantage function $A_\pi$ of policy $\pi$, we have
 \begin{align}
-\mathbb{E}_{\tau\sim\tilde{\pi}}\left[\sum_{t=0}^{\infty}\gamma^t A_\pi(s_t,a_t)\right]&amp;=\mathbb{E}_{\tau\sim\tilde{\pi}}\left[\sum_{t=0}^{\infty}\gamma^t\left(Q_\pi(s_t,a_t)-V_\pi(s_t)\right)\right] \\  &amp;=\mathbb{E}_{\tau\sim\tilde{\pi}}\left[\sum_{t=0}^{\infty}\gamma^t\left(r(s_t,a_t)+\gamma V_\pi(s_{t+1})-V_\pi(s_t)\right)\right] \\ &amp;=\mathbb{E}_{\tau\sim\tilde{\pi}}\left[-V_\pi(s_0)+\sum_{t=0}^{\infty}\gamma^t r(s_t,a_t)\right] \\ &amp;=-\mathbb{E}_{s_0}\big[V_\pi(s_0)\big]+\mathbb{E}_{\tau\sim\tilde{\pi}}\left[\sum_{t=0}^{\infty}\gamma^t r(s_t,a_t)\right] \\ &amp;=-\eta(\pi)+\eta(\tilde{\pi}),
+\mathbb{E}_{\tilde{\pi}}\left[\sum_{t=0}^{\infty}\gamma^t A_\pi(s_t,a_t)\right]&amp;=\mathbb{E}_{\tilde{\pi}}\left[\sum_{t=0}^{\infty}\gamma^t\left(Q_\pi(s_t,a_t)-V_\pi(s_t)\right)\right] \\  &amp;=\mathbb{E}_{\tilde{\pi}}\left[\sum_{t=0}^{\infty}\gamma^t\big(r(s_t,a_t)+\gamma V_\pi(s_{t+1})-V_\pi(s_t)\big)\right] \\ &amp;=\mathbb{E}_{\tilde{\pi}}\left[-V_\pi(s_0)+\sum_{t=0}^{\infty}\gamma^t r(s_t,a_t)\right] \\ &amp;=-\mathbb{E}_{s_0}\big[V_\pi(s_0)\big]+\mathbb{E}_{\tilde{\pi}}\left[\sum_{t=0}^{\infty}\gamma^t r(s_t,a_t)\right] \\ &amp;=-\eta(\pi)+\eta(\tilde{\pi}),
 \end{align}
 where in the third step, since $\gamma\in(0,1)$ as $t\to\infty$, we have that $\gamma^t V_\pi(s_{t+1})\to 0$.</p>
+
+<p>Let $\rho_\pi$ be the unnormalized discounted visitation frequencies for state $s$:
+\begin{equation}
+\rho_\pi(s)\doteq P(s_0=s)+\gamma P(s_1=s)+\gamma^2 P(s_2=s)+\ldots
+\end{equation}
+where $s_0\sim\rho_0$ and the actions are chosen according to $\pi$. This allows us to rewrite \eqref{eq:pi.1} as
+\begin{align}
+\eta(\tilde{\pi})&amp;=\eta(\pi)+\sum_{t=0}^{\infty}\sum_{s}P(s_t=s\vert\tilde{\pi})\sum_{a}\tilde{\pi}(a\vert s)\gamma^t A_\pi(s,a) \\ &amp;=\eta(\pi)+\sum_{s}\sum_{t=0}^{\infty}\gamma^t P(s_t=s\vert\tilde{\pi})\sum_{a}\tilde{\pi}(a\vert s)A_\pi(s,a) \\ &amp;=\eta(\pi)+\sum_{s}\rho_\tilde{\pi}(s)\sum_{a}\tilde{\pi}(a\vert s)A_\pi(s,a)\label{eq:pi.2}
+\end{align}
+This result implies that any policy update $\pi\to\tilde{\pi}$ that has a nonnegative expected advantage at every state $s$, i.e. $\sum_{a}\tilde{\pi}(a\vert s)A_\pi(s,a)\geq 0$, is guaranteed to make an improvement on $\eta$ (or unchanged in case the expected advantage take the value of zero for every $s$). By letting $\tilde{\pi}$ be the deterministic policy that
+\begin{equation}
+\tilde{\pi}(s)=\underset{a}{\text{argmax}}\,A_\pi(s,a),
+\end{equation}
+we obtain the <a href="/2021/07/25/dp-in-mdp.html#policy-improvement"><strong>policy improvement</strong></a> result used in <a href="/2021/07/25/dp-in-mdp.html#policy-iteration"><strong>policy iteration</strong></a>.</p>
+
+<p>However, there are cases when \eqref{eq:pi.2} is difficult to be optimized, especially when the expected advantage is negative, i.e. $\sum_a\tilde{\pi}(a\vert s)A_\pi(s,a)$, due to estimation and approximation error in the approximate setting. We instead consider a local approximation to $\eta$:
+\begin{equation}
+L_\pi(\tilde{\pi})=\eta(\pi)+\sum_s\rho_\pi(s)\sum_a\tilde{\pi}(a\vert s)A_\pi(s,a)
+\end{equation}</p>
+
+<p>If $\pi$ is a policy parameterized by $\theta$, in which $\pi_\theta(a\vert s)$ s differentiable w.r.t $\theta$, we then have for any parameter value $\theta_0$
+\begin{align}
+L_{\pi_{\theta_0}}(\pi_{\theta_0})&amp;=\eta(\pi_{\theta_0}) \\ \nabla_\theta L_{\pi_{\theta_0}}(\pi_\theta)\big\vert_{\theta=\theta_0}&amp;=\nabla_\theta\eta(\pi_\theta)\big\vert_{\theta=\theta_0},
+\end{align}
+which suggests that a sufficiently small step $\pi_{\theta_0}\to\tilde{\pi}$ that leads to an improvement on $L_{\pi_{\theta_\text{old}}}$ will also make an improvement on $\eta$.</p>
+
+<p>To measure the improvement on updating $\pi_\text{old}\to\pi_\text{new}$, we choose the total variance distance metric, as defined above with an observation that each policy $\pi:\mathcal{S}\times\mathcal{A}\to[0,1]$ can be viewed as a distribution function defined on $\mathcal{S}\times\mathcal{A}$. Thus, those results and definitions mentioned above for probability measures $\mu$ and $\nu$ defined on $\Omega$ can also be applied to policies $\pi$ and $\tilde{\pi}$ specified on $\mathcal{S}\times\mathcal{A}$.</p>
+
+<p>In addition, we need to define some notations:</p>
+<ul id="number-list">
+	<li>
+		Let
+		\begin{equation}
+		\big\Vert\pi-\tilde{\pi}\big\Vert_{\text{TV}}^{\text{max}}\doteq\max_s\big\Vert\pi(\cdot\vert s)-\tilde{\pi}(\cdot\vert s)\big\Vert_\text{TV}
+		\end{equation}
+	</li>
+	<li>
+		A policy pair $(\pi,\tilde{\pi})$ is referred as <b>$\alpha$-coupled</b> if it defines a joint distribution $(a,\tilde{a})\vert s$ such that
+		\begin{equation}
+		P(a\neq\tilde{a}\vert s)\leq\alpha,\hspace{1cm}\forall s
+		\end{equation}
+		$\pi$ and $\tilde{\pi}$ will respectively denote the marginal distributions of $a$ and $\tilde{a}$.<br /><br />
+		<b>Proposition 4</b><br />
+		Let $(\pi,\tilde{\pi})$ be $\alpha$-coupled policy pair, for all $s$, we have
+		\begin{equation}
+		\big\vert\bar{A}(s)\big\vert\leq 2\alpha\max_{s,\tilde{a}}\big\vert A_\pi(s,\tilde{a})\big\vert,
+		\end{equation}
+		where $\bar{A}(s)$ is the expected advantage of $\tilde{\pi}$ over $\pi$ at state $s$, given as
+		\begin{equation}
+		\bar{A}(s)=\mathbb{E}_{\tilde{a}\sim\tilde{\pi}}\big[A_\pi(s,\tilde{a})\big]
+		\end{equation}
+		<b>Proof</b><br />
+		By definition of the advantage function, it is easily noticed that $\mathbb{E}_{a\sim\pi}\big[A_\pi(s,a)\big]=0$, which lets us obtain
+		\begin{align}
+		\bar{A}(s)&amp;=\mathbb{E}_{\tilde{a}\sim\tilde{\pi}}\big[A_\pi(s,\tilde{a})\big] \\\\ &amp;=\mathbb{E}_{a\sim\pi,\tilde{a}\sim\tilde{\pi}}\big[A_\pi(s,\tilde{a})-A_\pi(s,a)\big] \\\\ &amp;=P(a\neq\tilde{a}\vert s)\mathbb{E}_{a\sim\pi,\tilde{a}\sim\tilde{\pi}\vert a\neq\tilde{a}}\big[A_\pi(s,\tilde{a})-A_\pi(s,a)\big],
+		\end{align}
+		which by definition of $\alpha$-coupling implies that
+		\begin{equation}
+		\big\vert\bar{A}(s)\big\vert\leq\alpha\cdot 2\max_{s,\tilde{a}}\big\vert A_\pi(s,\tilde{a})\big\vert
+		\end{equation}
+	</li>
+</ul>
 
 <h2 id="references">References</h2>
 <p>[1] John Schulman, Sergey Levine, Philipp Moritz, Michael I. Jordan, Pieter Abbeel. <a href="https://dl.acm.org/doi/10.5555/3045118.3045319">Trust Region Policy Optimization</a>. ICML’15, pp 1889–1897, 2015.</p>
 
 <p>[2] David A. Levin, Yuval Peres, Elizabeth L. Wilmer. <a href="https://pages.uoregon.edu/dlevin/MARKOV/markovmixing.pdf">Markov chains and mixing times</a>. American Mathematical Society, 2009.</p>
 
-<p>[3] Jie Tang, Pieter Abbeel. <a href="">On a Connection between Importance Sampling and the Likelihood Ratio Policy Gradient</a></p>
+<p>[3] Jie Tang, Pieter Abbeel. <a href="https://proceedings.neurips.cc/paper/2010/hash/35cf8659cfcb13224cbd47863a34fc58-Abstract.html">On a Connection between Importance Sampling and the Likelihood Ratio Policy Gradient</a>. NIPS 2010.</p>
 
 <p>[4] Sham Kakade,  John Langford. <a href="https://dl.acm.org/doi/10.5555/645531.656005">Approximately optimal approximate reinforcement learning</a>. ICML’2, pp. 267–274, 2002.</p>
 

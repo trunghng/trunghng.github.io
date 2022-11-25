@@ -34,11 +34,11 @@ eqn-number: true
 
 ## The $\lambda$-return
 {: #lambda-return}
-Recall that in [TD-Learning]({% post_url 2022-01-31-td-learning %}#n-step-td-prediction) post, we have defined the $n$-step return as
+Recall that in [TD-Learning]({% post_url 2022-01-31-td-learning %}#n-step-td-prediction) note, we have defined the $n$-step return as
 \begin{equation}
 G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}V_{t+n-1}(S_{t+n})
 \end{equation}
-for all $n,t$ such that $n\geq 1$ and $0\leq t\lt T-n$. After the post of [Function Approximation]({% post_url 2022-02-11-func-approx %}), for any parameterized function approximator, we can generalize that equation into:
+for all $n,t$ such that $n\geq 1$ and $0\leq t\lt T-n$. After the note of [Function Approximation]({% post_url 2022-02-11-func-approx %}), for any parameterized function approximator, we can generalize that equation into:
 \begin{equation}
 G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+
 \dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{v}(S_{t+n},\mathbf{w}\_{t+n-1}),\hspace{1cm}0\leq t\leq T-n
@@ -435,7 +435,7 @@ Using this eligible trace with the parameter update rule \eqref{eq:tl.2} of TD($
 
 ## Tree-Backup($\lambda$)
 {: #tree-backup-lambda}
-Recall that in the post of [TD-Learning]({% post_url 2022-01-31-td-learning %}), we have mentioned that there is an off-policy method without importance sampling called **tree-backup**. Can we extend the idea of tree-backup to an eligible trace version? Yes, we can.
+Recall that in the note of [TD-Learning]({% post_url 2022-01-31-td-learning %}), we have mentioned that there is an off-policy method without importance sampling called **tree-backup**. Can we extend the idea of tree-backup to an eligible trace version? Yes, we can.
 
 As usual, we begin with establishing the $\lambda$-return by generalizing the $\lambda$-return of Expected Sarsa \eqref{eq:lg.2} with the [$n$-step Tree-backup return]({% post_url 2022-01-31-td-learning %}#n-step-tree-backup-return):
 \begin{align}

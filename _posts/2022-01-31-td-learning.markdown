@@ -774,7 +774,7 @@ Here is pseudocode of the off-policy $n$-step Sarsa.
 
 #### Per-decision Methods with Control Variates
 {: #per-decision-control-variates}
-Recall that in the post of [Monte Carlo Methods]({% post_url 2021-08-21-monte-carlo-in-rl %}), to reduce the variance even in the absence of discounting (i.e., $\gamma=1$), we used a method called [**Per-decision Importance Sampling**]({% post_url 2021-08-21-monte-carlo-in-rl %}#per-decision-is). So how about we use it with multi-step off-policy TD methods?
+Recall that in the note of [Monte Carlo Methods]({% post_url 2021-08-21-monte-carlo-in-rl %}), to reduce the variance even in the absence of discounting (i.e., $\gamma=1$), we used a method called [**Per-decision Importance Sampling**]({% post_url 2021-08-21-monte-carlo-in-rl %}#per-decision-is). So how about we use it with multi-step off-policy TD methods?
 
 We begin rewriting the $n$-step return ending at horizon $h$ as:
 \begin{equation}

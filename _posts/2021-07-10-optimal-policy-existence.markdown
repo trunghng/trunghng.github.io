@@ -97,7 +97,7 @@ Let $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ be some mapping. The vector $v\in\ma
 **Theorem** (*Banach's fixed-point*)[^4]      
 Let $\mathcal{V}$ be a Banach space and $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ be a $\gamma$-contraction mapping. Then
 1. $\mathcal{T}$ admits a *unique fixed point* $v$.
-2. For any $v_0\in\mathcal{V}$, if $v_{n+1}=\mathcal{T}v_n$, then $v_n\to_{\Vert\cdot\Vert}v$ with a *geometric convergence rate*[^5]:
+2. For any $v_0\in\mathcal{V}$, if $v_{n+1}=\mathcal{T}v_n$, then $v_n\to_{\Vert\cdot\Vert}v$ with a *geometric convergence rate*:
 \begin{equation}
 \Vert v_n-v\Vert\leq\gamma^n\Vert v_0-v\Vert
 \end{equation}
@@ -205,7 +205,7 @@ Pick a policy $\pi$ such that $\mathcal{T}^\pi v=\mathcal{T}^\*v$, then $v$ is a
 ## Footnotes
 [^1]: A function is called *uniformly bounded* exactly when $\Vert f\Vert_\infty<+\infty$.
 [^2]: A *normed vector space* is a vector space over the real or complex number, on which a norm is defined.
-[^3]: We are gonna talk further about *sequences* in another [post]({% post_url 2021-09-06-infinite-series-of-constants %}#convergent-sequences).
+[^3]: The details of *sequences* are mentioned in another [note]({% post_url 2021-09-06-infinite-series-of-constants %}#convergent-sequences).
 [^4]: ***Proof***  
 	Pick any $v_0\in\mathcal{V}$ and define $v_n$ as in the statement of the theorem. a. We first demonstrate that $(v_n)$ converges to some vector. b. Then we will show that this vector is a fixed point to $\mathcal{T}$. c. Finally, we show that $\mathcal{T}$ has a single fixed point. Assume that $\mathcal{T}$ is a $\gamma$-contraction.  
 	a. To show that $(v_n)$ converges, it suffices  to show that $(v_n)$ is a Cauchy sequence. We have:
@@ -235,5 +235,3 @@ Pick a policy $\pi$ such that $\mathcal{T}^\pi v=\mathcal{T}^\*v$, then $v$ is a
 	\begin{align}
 	\Vert v_n-v\Vert&=\Vert\mathcal{T}v\_{n-1}-\mathcal{T}v\Vert \\\\ &\leq\gamma\Vert v\_{n-1}-v\Vert \\\\ &\quad\vdots \\\\ &\leq\gamma^n\Vert v_0-v\Vert
 	\end{align}
-
-[^5]: Also, there's gonna be a post about *rate of convergence*.

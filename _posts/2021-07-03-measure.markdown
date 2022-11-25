@@ -263,7 +263,7 @@ Suppose that $\mu$ is a measure on $\mathcal{X}$
 6. If $\mu$ is neither **continuous** nor **discrete**, we say that $\mu$ is a **mixed measure**.
 
 ## References
-[1] Literally, this post is mainly written from a source that I've lost the reference :(. Hope that I can update this line soon.  
+[1] Literally, this note is mainly written from a source that I've lost the reference :(. Hope that I can update this line soon.  
 
 [2] [Lebesgue Measure](https://mathworld.wolfram.com/LebesgueMeasure.html).  
 

@@ -28,7 +28,7 @@ eqn-number: true
 
 ## Q-value iteration
 {: #q-value-iter}
-Recall that in the post [**Markov Decision Processes, Bellman equations**]({% post_url 2021-06-27-mdp-bellman-eqn %}), we have defined the **state-value function** for a policy $\pi$ to measure how good the state $s$ is, given as
+Recall that in the note [**Markov Decision Processes, Bellman equations**]({% post_url 2021-06-27-mdp-bellman-eqn %}), we have defined the **state-value function** for a policy $\pi$ to measure how good the state $s$ is, given as
 \begin{equation}
 V_\pi(s)=\sum_{a}\pi(a\vert s)\sum_{s'}P(s'\vert s,a)\big[R(s,a,s')+\gamma V_\pi(s')\big]
 \end{equation}

@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/calculus.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-11-25T15:59:48+07:00</updated><id>http://localhost:4000/feed/by_tag/calculus.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/calculus.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-11-25T19:27:25+07:00</updated><id>http://localhost:4000/feed/by_tag/calculus.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Power Series</title><link href="http://localhost:4000/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>http://localhost:4000/2021/09/21/power-series</id><content type="html" xml:base="http://localhost:4000/2021/09/21/power-series.html"><![CDATA[<blockquote>
-  <p>Recall that in the previous post, <a href="/2021/09/06/infinite-series-of-constants.html">Infinite Series of Constants</a>, we mentioned a type of series called <strong>power series</strong> a lot. In the content of this post, we will be diving deeper into details of that series.</p>
+  <p>Recall that in the previous post, <a href="/2021/09/06/infinite-series-of-constants.html">Infinite Series of Constants</a>, we mentioned a type of series called <strong>power series</strong> a lot. In the content of this note, we will be diving deeper into details of its.</p>
 </blockquote>
 
 <!-- excerpt-end -->
@@ -51,7 +51,7 @@
 where the coefficient $a_n$ are constants and $x$ is a variable.</p>
 
 <h2 id="int-conv">The Interval of Convergence</h2>
-<p>Similar to what we have done in the post of <a href="/2021/09/06/infinite-series-of-constants.html">infinite series of constants</a>, we begin studying properties of power series by considering their convergence behavior.</p>
+<p>Similar to what we have done in the note of <a href="/2021/09/06/infinite-series-of-constants.html">infinite series of constants</a>, we begin studying properties of power series by considering their convergence behavior.</p>
 
 <p><strong>Lemma 1</strong><br />
 <em>If a power series $\sum a_nx^n$ converges at $x_1$, with $x_1\neq 0$, then it converges <a href="/2021/09/06/infinite-series-of-constants.html#abs-conv">absolutely</a> at all $x$ with $\vert x\vert&lt;\vert x_1\vert$; and if it diverges at $x_1$, then it diverges at all $x$ with $\vert x\vert&gt;\vert x_1\vert$.</em></p>
@@ -437,7 +437,7 @@ This is true for each $x$ individually, and is an equivalent way of expressing t
 \end{align}
 Because of the <a href="/2021/09/06/infinite-series-of-constants.html#abs-conv">absolute convergence</a> of $\sum a_n{x_1}^n$, the last sum can be made $&lt;\epsilon$ by taking $n$ large enough, $n\geq n_0$. Therefore, we have that \eqref{17} holds for all $x$ inside the closed interval $\vert x\vert\leq\vert x_1\vert$ inside the interval of convergence $(-R,R)$.</p>
 
-<p>Or in other words, $R_n(x)$ can be made small <em>independently of $x$ in the given closed interval</em> $\vert x\vert\leq\vert x_1\vert$, which is equivalent to saying that the series $\sum a_nx^n$ is <strong>uniformly convergent</strong> in this interval<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">4</a></sup>.</p>
+<p>Or in other words, $R_n(x)$ can be made small <em>independently of $x$ in the given closed interval</em> $\vert x\vert\leq\vert x_1\vert$, which is equivalent to saying that the series $\sum a_nx^n$ is <strong>uniformly convergent</strong> in this interval.</p>
 
 <h3 id="cont-sum">Continuity of the Sum</h3>
 <p>In order to prove that $f(x)$ is continuous on $(-R,R)$, it suffices to prove that $f(x)$ is continuous at each point $x_0$ in the interval of convergence.</p>
@@ -563,9 +563,6 @@ for some constant $c$, and so $f(x)=ce^x$. <a href="#fnref:2" class="reversefoo
 \begin{equation}
 f’(c)=\frac{f(b)-f(a)}{b-a}
 \end{equation} <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
-    </li>
-    <li id="fn:4" role="doc-endnote">
-      <p>We will talk more about uniform convergence in the post of sequences. <a href="#fnref:4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>]]></content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="calculus" /><category term="series" /><category term="power-series" /><category term="taylor-series" /><category term="random-stuffs" /><summary type="html"><![CDATA[A note on Power Series]]></summary></entry><entry><title type="html">Infinite Series of Constants</title><link href="http://localhost:4000/2021/09/06/infinite-series-of-constants.html" rel="alternate" type="text/html" title="Infinite Series of Constants" /><published>2021-09-06T11:20:00+07:00</published><updated>2021-09-06T11:20:00+07:00</updated><id>http://localhost:4000/2021/09/06/infinite-series-of-constants</id><content type="html" xml:base="http://localhost:4000/2021/09/06/infinite-series-of-constants.html"><![CDATA[<blockquote>
@@ -1368,7 +1365,7 @@ obtained from \eqref{26} by inserting parentheses. By the <a href="#comparison-t
 <p>Hence, we can conclude that \eqref{25} is absolutely convergent, with sum $st$.<br />
 <br /></p>
 
-<p>We have already gone through convergence tests applied only to series of positive (or nonnegative) terms. Let’s end this lengthy post with the alternating series test. ^^!</p>
+<p>We have already gone through convergence tests applied only to series of positive (or nonnegative) terms. Let’s end this lengthy note with the alternating series test. ^^!</p>
 
 <h2 id="dirichlets-test">Dirichlet’s test</h2>
 
@@ -1426,7 +1423,7 @@ which lets us conclude that the series \eqref{30} converges.</p>
 <div class="footnotes" role="doc-endnotes">
   <ol>
     <li id="fn:1" role="doc-endnote">
-      <p>We will be going through power series in more detailed in another <a href="/2021/09/21/power-series.html">post</a>. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Power series in more detailed are mentioned in another <a href="/2021/09/21/power-series.html">note</a>. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:2" role="doc-endnote">
       <p><strong>Theorem</strong> (<em>Stolz–Cesaro</em>)<br />

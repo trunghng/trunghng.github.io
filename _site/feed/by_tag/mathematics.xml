@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-11-25T15:59:48+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.1">Jekyll</generator><link href="http://localhost:4000/feed/by_tag/mathematics.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-11-25T19:27:25+07:00</updated><id>http://localhost:4000/feed/by_tag/mathematics.xml</id><title type="html">Trung’s cabin</title><subtitle>To document something I&apos;ve learned
 </subtitle><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><entry><title type="html">Measure theory - III: the Lebesgue integral</title><link href="http://localhost:4000/2022/08/21/measure-theory-p3.html" rel="alternate" type="text/html" title="Measure theory - III: the Lebesgue integral" /><published>2022-08-21T13:00:00+07:00</published><updated>2022-08-21T13:00:00+07:00</updated><id>http://localhost:4000/2022/08/21/measure-theory-p3</id><content type="html" xml:base="http://localhost:4000/2022/08/21/measure-theory-p3.html"><![CDATA[<blockquote>
-  <p>Part III of the measure theory series. Materials are mostly taken from <a href="/2022/08/21/measure-theory-p3.html#taos-book">Tao’s book</a>, except for some needed notations extracted from <a href="/2022/08/21/measure-theory-p3.html#steins-book">Stein’s book</a>.
+  <p>Note III of the measure theory series. Materials are mostly taken from <a href="/2022/08/21/measure-theory-p3.html#taos-book">Tao’s book</a>, except for some needed notations extracted from <a href="/2022/08/21/measure-theory-p3.html#steins-book">Stein’s book</a>.
 <!-- excerpt-end --></p>
 </blockquote>
 
@@ -491,7 +491,7 @@ where $g$ ranges over all unsigned simple functions $g:\mathbb{R}^d\to[0,+\infty
     </li>
   </ol>
 </div>]]></content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="lebesgue-integral" /><summary type="html"><![CDATA[Note on measure theory part 3]]></summary></entry><entry><title type="html">Measure theory - II: Lebesgue measure</title><link href="http://localhost:4000/2022/07/03/measure-theory-p2.html" rel="alternate" type="text/html" title="Measure theory - II: Lebesgue measure" /><published>2022-07-03T13:00:00+07:00</published><updated>2022-07-03T13:00:00+07:00</updated><id>http://localhost:4000/2022/07/03/measure-theory-p2</id><content type="html" xml:base="http://localhost:4000/2022/07/03/measure-theory-p2.html"><![CDATA[<blockquote>
-  <p>Part II of the measure theory series. Materials are mostly taken from <a href="/2022/07/03/measure-theory-p2.html#taos-book">Tao’s book</a>, except for some needed notations extracted from <a href="/2022/07/03/measure-theory-p2.html#steins-book">Stein’s book</a>.
+  <p>Note II of the measure theory series. Materials are mostly taken from <a href="/2022/07/03/measure-theory-p2.html#taos-book">Tao’s book</a>, except for some needed notations extracted from <a href="/2022/07/03/measure-theory-p2.html#steins-book">Stein’s book</a>.
 <!-- excerpt-end --></p>
 </blockquote>
 
@@ -1510,7 +1510,7 @@ Let $\pi:\mathbb{R}^2\to\mathbb{R}$ be the coordinate projection $\pi(x,y)\doteq
     </li>
   </ol>
 </div>]]></content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="measure-theory" /><category term="lebesgue-measure" /><summary type="html"><![CDATA[Note on measure theory part 2]]></summary></entry><entry><title type="html">Measure theory - I: Elementary measure, Jordan measure &amp;amp; the Riemann integral</title><link href="http://localhost:4000/2022/06/16/measure-theory-p1.html" rel="alternate" type="text/html" title="Measure theory - I: Elementary measure, Jordan measure &amp;amp; the Riemann integral" /><published>2022-06-16T13:00:00+07:00</published><updated>2022-06-16T13:00:00+07:00</updated><id>http://localhost:4000/2022/06/16/measure-theory-p1</id><content type="html" xml:base="http://localhost:4000/2022/06/16/measure-theory-p1.html"><![CDATA[<blockquote>
-  <p>Part I of the measure theory series. Materials are mostly taken from <a href="/2022/06/16/measure-theory-p1.html#taos-book">Tao’s book</a>, except for some needed notations extracted from <a href="/2022/06/16/measure-theory-p1.html#steins-book">Stein’s book</a>.
+  <p>Note I of the measure theory series. Materials are mostly taken from <a href="/2022/06/16/measure-theory-p1.html#taos-book">Tao’s book</a>, except for some needed notations extracted from <a href="/2022/06/16/measure-theory-p1.html#steins-book">Stein’s book</a>.
 <!-- excerpt-end --></p>
 </blockquote>
 
@@ -4098,7 +4098,7 @@ And since $\Var(\mathbf{z}^\text{T}\mathbf{X})\geq0$, we also have that $\mathbf
     </li>
   </ol>
 </div>]]></content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="probability-statistics" /><category term="normal-distribution" /><summary type="html"><![CDATA[Gaussian Distribution]]></summary></entry><entry><title type="html">Power Series</title><link href="http://localhost:4000/2021/09/21/power-series.html" rel="alternate" type="text/html" title="Power Series" /><published>2021-09-21T15:40:00+07:00</published><updated>2021-09-21T15:40:00+07:00</updated><id>http://localhost:4000/2021/09/21/power-series</id><content type="html" xml:base="http://localhost:4000/2021/09/21/power-series.html"><![CDATA[<blockquote>
-  <p>Recall that in the previous post, <a href="/2021/09/06/infinite-series-of-constants.html">Infinite Series of Constants</a>, we mentioned a type of series called <strong>power series</strong> a lot. In the content of this post, we will be diving deeper into details of that series.</p>
+  <p>Recall that in the previous post, <a href="/2021/09/06/infinite-series-of-constants.html">Infinite Series of Constants</a>, we mentioned a type of series called <strong>power series</strong> a lot. In the content of this note, we will be diving deeper into details of its.</p>
 </blockquote>
 
 <!-- excerpt-end -->
@@ -4149,7 +4149,7 @@ And since $\Var(\mathbf{z}^\text{T}\mathbf{X})\geq0$, we also have that $\mathbf
 where the coefficient $a_n$ are constants and $x$ is a variable.</p>
 
 <h2 id="int-conv">The Interval of Convergence</h2>
-<p>Similar to what we have done in the post of <a href="/2021/09/06/infinite-series-of-constants.html">infinite series of constants</a>, we begin studying properties of power series by considering their convergence behavior.</p>
+<p>Similar to what we have done in the note of <a href="/2021/09/06/infinite-series-of-constants.html">infinite series of constants</a>, we begin studying properties of power series by considering their convergence behavior.</p>
 
 <p><strong>Lemma 1</strong><br />
 <em>If a power series $\sum a_nx^n$ converges at $x_1$, with $x_1\neq 0$, then it converges <a href="/2021/09/06/infinite-series-of-constants.html#abs-conv">absolutely</a> at all $x$ with $\vert x\vert&lt;\vert x_1\vert$; and if it diverges at $x_1$, then it diverges at all $x$ with $\vert x\vert&gt;\vert x_1\vert$.</em></p>
@@ -4535,7 +4535,7 @@ This is true for each $x$ individually, and is an equivalent way of expressing t
 \end{align}
 Because of the <a href="/2021/09/06/infinite-series-of-constants.html#abs-conv">absolute convergence</a> of $\sum a_n{x_1}^n$, the last sum can be made $&lt;\epsilon$ by taking $n$ large enough, $n\geq n_0$. Therefore, we have that \eqref{17} holds for all $x$ inside the closed interval $\vert x\vert\leq\vert x_1\vert$ inside the interval of convergence $(-R,R)$.</p>
 
-<p>Or in other words, $R_n(x)$ can be made small <em>independently of $x$ in the given closed interval</em> $\vert x\vert\leq\vert x_1\vert$, which is equivalent to saying that the series $\sum a_nx^n$ is <strong>uniformly convergent</strong> in this interval<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">4</a></sup>.</p>
+<p>Or in other words, $R_n(x)$ can be made small <em>independently of $x$ in the given closed interval</em> $\vert x\vert\leq\vert x_1\vert$, which is equivalent to saying that the series $\sum a_nx^n$ is <strong>uniformly convergent</strong> in this interval.</p>
 
 <h3 id="cont-sum">Continuity of the Sum</h3>
 <p>In order to prove that $f(x)$ is continuous on $(-R,R)$, it suffices to prove that $f(x)$ is continuous at each point $x_0$ in the interval of convergence.</p>
@@ -4661,9 +4661,6 @@ for some constant $c$, and so $f(x)=ce^x$. <a href="#fnref:2" class="reversefoo
 \begin{equation}
 f’(c)=\frac{f(b)-f(a)}{b-a}
 \end{equation} <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
-    </li>
-    <li id="fn:4" role="doc-endnote">
-      <p>We will talk more about uniform convergence in the post of sequences. <a href="#fnref:4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>]]></content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="mathematics" /><category term="calculus" /><category term="series" /><category term="power-series" /><category term="taylor-series" /><category term="random-stuffs" /><summary type="html"><![CDATA[A note on Power Series]]></summary></entry><entry><title type="html">Infinite Series of Constants</title><link href="http://localhost:4000/2021/09/06/infinite-series-of-constants.html" rel="alternate" type="text/html" title="Infinite Series of Constants" /><published>2021-09-06T11:20:00+07:00</published><updated>2021-09-06T11:20:00+07:00</updated><id>http://localhost:4000/2021/09/06/infinite-series-of-constants</id><content type="html" xml:base="http://localhost:4000/2021/09/06/infinite-series-of-constants.html"><![CDATA[<blockquote>
@@ -5466,7 +5463,7 @@ obtained from \eqref{26} by inserting parentheses. By the <a href="#comparison-t
 <p>Hence, we can conclude that \eqref{25} is absolutely convergent, with sum $st$.<br />
 <br /></p>
 
-<p>We have already gone through convergence tests applied only to series of positive (or nonnegative) terms. Let’s end this lengthy post with the alternating series test. ^^!</p>
+<p>We have already gone through convergence tests applied only to series of positive (or nonnegative) terms. Let’s end this lengthy note with the alternating series test. ^^!</p>
 
 <h2 id="dirichlets-test">Dirichlet’s test</h2>
 
@@ -5524,7 +5521,7 @@ which lets us conclude that the series \eqref{30} converges.</p>
 <div class="footnotes" role="doc-endnotes">
   <ol>
     <li id="fn:1" role="doc-endnote">
-      <p>We will be going through power series in more detailed in another <a href="/2021/09/21/power-series.html">post</a>. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Power series in more detailed are mentioned in another <a href="/2021/09/21/power-series.html">note</a>. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:2" role="doc-endnote">
       <p><strong>Theorem</strong> (<em>Stolz–Cesaro</em>)<br />
@@ -5636,7 +5633,7 @@ Let $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ be some mapping. The vector $v\in\ma
 Let $\mathcal{V}$ be a Banach space and $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ be a $\gamma$-contraction mapping. Then</p>
 <ol>
   <li>$\mathcal{T}$ admits a <em>unique fixed point</em> $v$.</li>
-  <li>For any $v_0\in\mathcal{V}$, if $v_{n+1}=\mathcal{T}v_n$, then $v_n\to_{\Vert\cdot\Vert}v$ with a <em>geometric convergence rate</em><sup id="fnref:5" role="doc-noteref"><a href="#fn:5" class="footnote" rel="footnote">5</a></sup>:
+  <li>For any $v_0\in\mathcal{V}$, if $v_{n+1}=\mathcal{T}v_n$, then $v_n\to_{\Vert\cdot\Vert}v$ with a <em>geometric convergence rate</em>:
 \begin{equation}
 \Vert v_n-v\Vert\leq\gamma^n\Vert v_0-v\Vert
 \end{equation}</li>
@@ -5741,7 +5738,6 @@ Since $\mathcal{T}^*$ is a contraction, the right-hand side converges to $v$, th
 <p>[5] <a href="https://en.wikipedia.org/wiki/Normed_vector_space">Normed vector space</a>. Wikipedia.</p>
 
 <h2 id="footnotes">Footnotes</h2>
-
 <div class="footnotes" role="doc-endnotes">
   <ol>
     <li id="fn:1" role="doc-endnote">
@@ -5751,7 +5747,7 @@ Since $\mathcal{T}^*$ is a contraction, the right-hand side converges to $v$, th
       <p>A <em>normed vector space</em> is a vector space over the real or complex number, on which a norm is defined. <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:3" role="doc-endnote">
-      <p>We are gonna talk further about <em>sequences</em> in another <a href="/2021/09/06/infinite-series-of-constants.html#convergent-sequences">post</a>. <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>The details of <em>sequences</em> are mentioned in another <a href="/2021/09/06/infinite-series-of-constants.html#convergent-sequences">note</a>. <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:4" role="doc-endnote">
       <p><strong><em>Proof</em></strong><br />
@@ -5783,9 +5779,6 @@ And finally,
 \begin{align}
 \Vert v_n-v\Vert&amp;=\Vert\mathcal{T}v_{n-1}-\mathcal{T}v\Vert \\ &amp;\leq\gamma\Vert v_{n-1}-v\Vert \\ &amp;\quad\vdots \\ &amp;\leq\gamma^n\Vert v_0-v\Vert
 \end{align} <a href="#fnref:4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
-    </li>
-    <li id="fn:5" role="doc-endnote">
-      <p>Also, there’s gonna be a post about <em>rate of convergence</em>. <a href="#fnref:5" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>]]></content><author><name>Trung H. Nguyen</name><email>trung.skipper@gmail.com</email></author><category term="reinforcement-learning" /><category term="mathematics" /><category term="bellman-equation" /><category term="my-rl" /><summary type="html"><![CDATA[Proof of the existence of optimal policy in finite Markov Decision Processes (MDPs)]]></summary></entry><entry><title type="html">Measures</title><link href="http://localhost:4000/2021/07/03/measure.html" rel="alternate" type="text/html" title="Measures" /><published>2021-07-03T07:00:00+07:00</published><updated>2021-07-03T07:00:00+07:00</updated><id>http://localhost:4000/2021/07/03/measure</id><content type="html" xml:base="http://localhost:4000/2021/07/03/measure.html"><![CDATA[<blockquote>
@@ -6092,7 +6085,7 @@ We say that $f$ is the <em>density</em> of the measure $v$ w.r.t $\mu$.</li>
 </ol>
 
 <h2 id="references">References</h2>
-<p>[1] Literally, this post is mainly written from a source that I’ve lost the reference :(. Hope that I can update this line soon.</p>
+<p>[1] Literally, this note is mainly written from a source that I’ve lost the reference :(. Hope that I can update this line soon.</p>
 
 <p>[2] <a href="https://mathworld.wolfram.com/LebesgueMeasure.html">Lebesgue Measure</a>.</p>
 

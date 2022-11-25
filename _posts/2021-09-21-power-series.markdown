@@ -6,7 +6,7 @@ tags: mathematics calculus series power-series taylor-series random-stuffs
 description: A note on Power Series
 comments: true
 ---
-> Recall that in the previous post, [Infinite Series of Constants]({% post_url 2021-09-06-infinite-series-of-constants %}), we mentioned a type of series called **power series** a lot. In the content of this post, we will be diving deeper into details of that series.
+> Recall that in the previous post, [Infinite Series of Constants]({% post_url 2021-09-06-infinite-series-of-constants %}), we mentioned a type of series called **power series** a lot. In the content of this note, we will be diving deeper into details of its.
 
 <!-- excerpt-end -->
 - [Power Series](#power-series)
@@ -40,7 +40,7 @@ where the coefficient $a_n$ are constants and $x$ is a variable.
 
 ## The Interval of Convergence
 {: #int-conv}
-Similar to what we have done in the post of [infinite series of constants]({% post_url 2021-09-06-infinite-series-of-constants %}), we begin studying properties of power series by considering their convergence behavior.  
+Similar to what we have done in the note of [infinite series of constants]({% post_url 2021-09-06-infinite-series-of-constants %}), we begin studying properties of power series by considering their convergence behavior.  
 
 **Lemma 1**  
 *If a power series $\sum a_nx^n$ converges at $x_1$, with $x_1\neq 0$, then it converges [absolutely]({% post_url 2021-09-06-infinite-series-of-constants %}#abs-conv) at all $x$ with $\vert x\vert<\vert x_1\vert$; and if it diverges at $x_1$, then it diverges at all $x$ with $\vert x\vert>\vert x_1\vert$.*  
@@ -427,7 +427,7 @@ Moreover, for every $x$ in the given a closed interval $\vert x\vert\leq\vert x_
 \end{align}
 Because of the [absolute convergence]({% post_url 2021-09-06-infinite-series-of-constants %}#abs-conv) of $\sum a_n{x_1}^n$, the last sum can be made $<\epsilon$ by taking $n$ large enough, $n\geq n_0$. Therefore, we have that \eqref{17} holds for all $x$ inside the closed interval $\vert x\vert\leq\vert x_1\vert$ inside the interval of convergence $(-R,R)$.  
 
-Or in other words, $R_n(x)$ can be made small *independently of $x$ in the given closed interval* $\vert x\vert\leq\vert x_1\vert$, which is equivalent to saying that the series $\sum a_nx^n$ is **uniformly convergent** in this interval[^4].
+Or in other words, $R_n(x)$ can be made small *independently of $x$ in the given closed interval* $\vert x\vert\leq\vert x_1\vert$, which is equivalent to saying that the series $\sum a_nx^n$ is **uniformly convergent** in this interval.
 
 ### Continuity of the Sum
 {: #cont-sum}
@@ -550,6 +550,4 @@ f'(x)=g(x)=\sum na_nx^{n-1}
 	*If a function $f(x)$ is continuous on the closed interval $[a,b]$ and differentiable in the open interval $(a,b)$, then there exists at least one number $c$ between $a$ and $b$ with the property that*
 	\begin{equation}
 	f'(c)=\frac{f(b)-f(a)}{b-a}
-	\end{equation}  
-
-[^4]: We will talk more about uniform convergence in the post of sequences.
+	\end{equation}

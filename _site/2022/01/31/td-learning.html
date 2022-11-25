@@ -923,7 +923,7 @@ The <strong>off-policy $\boldsymbol{n}$-step Expected Sarsa</strong> uses the sa
 </figure>
 
 <h4 id="per-decision-control-variates">Per-decision Methods with Control Variates</h4>
-<p>Recall that in the post of <a href="/2021/08/21/monte-carlo-in-rl.html">Monte Carlo Methods</a>, to reduce the variance even in the absence of discounting (i.e., $\gamma=1$), we used a method called <a href="/2021/08/21/monte-carlo-in-rl.html#per-decision-is"><strong>Per-decision Importance Sampling</strong></a>. So how about we use it with multi-step off-policy TD methods?</p>
+<p>Recall that in the note of <a href="/2021/08/21/monte-carlo-in-rl.html">Monte Carlo Methods</a>, to reduce the variance even in the absence of discounting (i.e., $\gamma=1$), we used a method called <a href="/2021/08/21/monte-carlo-in-rl.html#per-decision-is"><strong>Per-decision Importance Sampling</strong></a>. So how about we use it with multi-step off-policy TD methods?</p>
 
 <p>We begin rewriting the $n$-step return ending at horizon $h$ as:
 \begin{equation}

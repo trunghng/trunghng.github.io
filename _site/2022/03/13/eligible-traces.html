@@ -201,11 +201,11 @@
 </ul>
 
 <h2 id="lambda-return">The $\lambda$-return</h2>
-<p>Recall that in <a href="/2022/01/31/td-learning.html#n-step-td-prediction">TD-Learning</a> post, we have defined the $n$-step return as
+<p>Recall that in <a href="/2022/01/31/td-learning.html#n-step-td-prediction">TD-Learning</a> note, we have defined the $n$-step return as
 \begin{equation}
 G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}V_{t+n-1}(S_{t+n})
 \end{equation}
-for all $n,t$ such that $n\geq 1$ and $0\leq t\lt T-n$. After the post of <a href="/2022/02/11/func-approx.html">Function Approximation</a>, for any parameterized function approximator, we can generalize that equation into:
+for all $n,t$ such that $n\geq 1$ and $0\leq t\lt T-n$. After the note of <a href="/2022/02/11/func-approx.html">Function Approximation</a>, for any parameterized function approximator, we can generalize that equation into:
 \begin{equation}
 G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+
 \dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{v}(S_{t+n},\mathbf{w}_{t+n-1}),\hspace{1cm}0\leq t\leq T-n
@@ -598,7 +598,7 @@ Using this eligible trace with the parameter update rule \eqref{eq:tl.2} of TD($
 </ul>
 
 <h2 id="tree-backup-lambda">Tree-Backup($\lambda$)</h2>
-<p>Recall that in the post of <a href="/2022/01/31/td-learning.html">TD-Learning</a>, we have mentioned that there is an off-policy method without importance sampling called <strong>tree-backup</strong>. Can we extend the idea of tree-backup to an eligible trace version? Yes, we can.</p>
+<p>Recall that in the note of <a href="/2022/01/31/td-learning.html">TD-Learning</a>, we have mentioned that there is an off-policy method without importance sampling called <strong>tree-backup</strong>. Can we extend the idea of tree-backup to an eligible trace version? Yes, we can.</p>
 
 <p>As usual, we begin with establishing the $\lambda$-return by generalizing the $\lambda$-return of Expected Sarsa \eqref{eq:lg.2} with the <a href="/2022/01/31/td-learning.html#n-step-tree-backup-return">$n$-step Tree-backup return</a>:
 \begin{align}

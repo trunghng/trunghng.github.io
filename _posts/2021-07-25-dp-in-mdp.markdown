@@ -6,7 +6,7 @@ tags: reinforcement-learning dynamic-programming my-rl
 description: Dynamic programming algorithms for solving Markov Decision Processes (MDPs)
 comments: true
 ---
-> In two previous posts, [**MDPs and Bellman equations**]({% post_url 2021-06-27-mdp-bellman-eqn %}) and [**Optimal Policy Existence**]({% post_url 2021-07-10-optimal-policy-existence %}), we have known how MDPs, Bellman equations were defined and how they worked. In this post, we are going to find the solution for the MDP framework with **Dynamic Programming**.  
+> In two previous notes, [**MDPs and Bellman equations**]({% post_url 2021-06-27-mdp-bellman-eqn %}) and [**Optimal Policy Existence**]({% post_url 2021-07-10-optimal-policy-existence %}), we have known how MDPs, Bellman equations were defined and how they worked. In this note, we are going to find the solution for the MDP framework with **Dynamic Programming**.  
 
 <!-- excerpt-end -->
 - [What is Dynamic Programming?](#what-is-dp)
@@ -53,7 +53,7 @@ Consider a sequence of approximate value functions $v_0,v_1,\dots$, each mapping
 \begin{align}
 v_{k+1}(s)&\doteq\mathbb{E}\_\pi\left[R_{t+1}+\gamma v_k(S_{k+1})\vert S_t=s\right] \\\\ &=\sum_a\pi(a|s)\sum_{s',r}p(s',r|s,a)\left[r+\gamma v_k(s')\right]
 \end{align}
-for all $s\in\mathcal{S}$. Thanks to [Banach's fixed points theorem]({% post_url 2021-07-10-optimal-policy-existence %}#banach-fixed-pts) and as we talked in that post, we have that the sequence $\\{v_k\\}\to v_\pi$ as $k\to\infty$. This algorithm is called **iterative policy evaluation**.  
+for all $s\in\mathcal{S}$. Thanks to [Banach's fixed points theorem]({% post_url 2021-07-10-optimal-policy-existence %}#banach-fixed-pts) and as we have mentioned in that note, we have that the sequence $\\{v_k\\}\to v_\pi$ as $k\to\infty$. This algorithm is called **iterative policy evaluation**.  
 We have the backup diagram for this update.
 <figure>
 	<img src="/assets/images/2021-07-25/backup-iterative-policy-evaluation.png" alt="Backup diagram for iterative policy evalution update" style="display: block; margin-left: auto; margin-right: auto; width: 360px; height: 200px"/>
@@ -94,7 +94,7 @@ v_\pi(s)&\leq q_\pi(s,\pi'(s)) \\\\ &=\mathbb{E}\left[R_{t+1}+\gamma v_\pi(S_{t+
 
 Consider the new *greedy policy*, $\pi'$, which takes the action that looks best in the short term - after one step of lookahead - according to $v_\pi$, given by
 \begin{align}
-\pi'(s)&\doteq\arg\max_a q_\pi(s,a) \\\\ &=\arg\max_a\mathbb{E}\left[R_{t+1}+\gamma v_\pi(S_{t+1})|S_t=s,A_t=a\right]\tag{4}\label{4} \\\\ &=\arg\max_a\sum_{s',r}p(s',r|s,a)\left[r+\gamma v_\pi(s')\right]
+\pi'(s)&\doteq\underset{a}{\text{argmax}}\,q_\pi(s,a) \\\\ &=\underset{a}{\text{argmax}}\,\mathbb{E}\left[R_{t+1}+\gamma v_\pi(S_{t+1})|S_t=s,A_t=a\right]\tag{4}\label{4} \\\\ &=\underset{a}{\text{argmax}}\,\sum_{s',r}p(s',r|s,a)\left[r+\gamma v_\pi(s')\right]
 \end{align}
 By the above theorem, we have that the greedy policy is as good as, or better than, the original policy.  
 Suppose the new greedy policy, $\pi'$, is as good as, but not better than, $\pi$. Or in other words, $v_\pi=v_{\pi'}$. And from \eqref{4}, we have for all $s\in\mathcal{S}$,

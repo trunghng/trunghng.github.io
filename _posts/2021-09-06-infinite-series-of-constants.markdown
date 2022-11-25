@@ -731,7 +731,7 @@ obtained from \eqref{26} by inserting parentheses. By the [comparison test](#com
 Hence, we can conclude that \eqref{25} is absolutely convergent, with sum $st$.  
 <br/>
 
-We have already gone through convergence tests applied only to series of positive (or nonnegative) terms. Let's end this lengthy post with the alternating series test. ^^!
+We have already gone through convergence tests applied only to series of positive (or nonnegative) terms. Let's end this lengthy note with the alternating series test. ^^!
 
 ## Dirichlet's test
 {: #dirichlets-test}
@@ -789,7 +789,7 @@ which lets us conclude that the series \eqref{30} converges.
 [3] MIT 18.01. [Single Variable Calculus](https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/).  
 
 ## Footnotes
-[^1]: We will be going through power series in more detailed in another [post]({% post_url 2021-09-21-power-series %}).
+[^1]: Power series in more detailed are mentioned in another [note]({% post_url 2021-09-21-power-series %}).
 [^2]: **Theorem** (*Stolz–Cesaro*)  
 	*Let $\\{a_n\\}$ be a sequence of real numbers and $\\{b_n\\}$ be a strictly monotone and divergent sequence. Then
 	\begin{equation}

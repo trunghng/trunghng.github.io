@@ -6,7 +6,7 @@ tags: mathematics linear-algebra eigenvalue-eigenvector random-stuffs
 description: Eigenvalues, eigenvectors in Fibonacci sequence
 comments: true
 ---
-> Enjoy my index-zero-ed post while staying tuned for next ones!  
+> Enjoy my index-zero-ed note while staying tuned for next ones!  
 
 <!-- excerpt-end -->
 

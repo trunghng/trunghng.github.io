@@ -7,7 +7,7 @@ description: Note on measure theory part 2
 comments: true
 eqn-number: true
 ---
-> Part II of the measure theory series. Materials are mostly taken from [Tao's book]({% post_url 2022-07-03-measure-theory-p2 %}#taos-book), except for some needed notations extracted from [Stein's book]({% post_url 2022-07-03-measure-theory-p2 %}#steins-book).
+> Note II of the measure theory series. Materials are mostly taken from [Tao's book]({% post_url 2022-07-03-measure-theory-p2 %}#taos-book), except for some needed notations extracted from [Stein's book]({% post_url 2022-07-03-measure-theory-p2 %}#steins-book).
 <!-- excerpt-end -->
 
 - [Lebesgue measure](#lebesgue-measure)

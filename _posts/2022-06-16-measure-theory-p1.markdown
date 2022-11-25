@@ -7,7 +7,7 @@ description: Note on measure theory part 1
 comments: true
 eqn-number: true
 ---
-> Part I of the measure theory series. Materials are mostly taken from [Tao's book]({% post_url 2022-06-16-measure-theory-p1 %}#taos-book), except for some needed notations extracted from [Stein's book]({% post_url 2022-06-16-measure-theory-p1 %}#steins-book).
+> Note I of the measure theory series. Materials are mostly taken from [Tao's book]({% post_url 2022-06-16-measure-theory-p1 %}#taos-book), except for some needed notations extracted from [Stein's book]({% post_url 2022-06-16-measure-theory-p1 %}#steins-book).
 <!-- excerpt-end -->
 
 - [Preliminaries](#preliminaries)

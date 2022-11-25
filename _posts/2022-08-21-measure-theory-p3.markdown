@@ -7,7 +7,7 @@ description: Note on measure theory part 3
 comments: true
 eqn-number: true
 ---
-> Part III of the measure theory series. Materials are mostly taken from [Tao's book]({% post_url 2022-08-21-measure-theory-p3 %}#taos-book), except for some needed notations extracted from [Stein's book]({% post_url 2022-08-21-measure-theory-p3 %}#steins-book).
+> Note III of the measure theory series. Materials are mostly taken from [Tao's book]({% post_url 2022-08-21-measure-theory-p3 %}#taos-book), except for some needed notations extracted from [Stein's book]({% post_url 2022-08-21-measure-theory-p3 %}#steins-book).
 <!-- excerpt-end -->
 
 - [Integration of simple functions](#int-simp-funcs)
