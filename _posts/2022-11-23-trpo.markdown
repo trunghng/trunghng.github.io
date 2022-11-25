@@ -11,8 +11,8 @@ eqn-number: true
 
 <!-- excerpt-end -->
 - [Preliminaries](#preliminaries)
-	- [Coupling & total variation distance](#coupling-tvd)
 	- [Markov Decision Processes](#mdp)
+	- [Coupling & Total variation distance](#coupling-tvd)
 	- [Likelihood Ratio Policy Gradient](#likelihood-ratio-pg)
 - [Policy Improvement](#policy-imp)
 - [References](#references)
@@ -22,7 +22,40 @@ eqn-number: true
 {: #preliminaries}
 We begin by recalling the familiar definition of MDPs, also combined with mentioning about likelihood ratio policy gradient, coupling and total variation distance.
 
-### Coupling & total variation distance
+### Markov Decision Processes
+{: #mdp}
+An infinite-horizon discounted **Markov Decision Process** (**MDP**) is defined as the tuple $(\mathcal{S},\mathcal{A},P,r,\rho_0,\gamma)$, where
+- $\mathcal{S}$ is a finite set of states, or **state space**.
+- $\mathcal{A}$ is a finite set of actions, or **action space**.
+- $P:\mathcal{S}\times\mathcal{A}\times\mathcal{S}\to\mathbb{R}$ is the **transition probability distribution**, i.e. $P(s,a,s')=P(s'\vert s,a)$ denotes the probability of transitioning to state $s'$ when taking action $a$ from state $s$.
+- $r:\mathcal{S}\times\mathcal{A}\to\mathbb{R}$ is the **reward function**.
+- $\rho_0:\mathcal{S}\to\mathbb{R}$ is the distribution of the initial state $s_0$.
+- $\gamma\in(0,1)$ is the **discount factor**.
+
+A **policy**, denoted $\pi$, is a mapping from states to probabilities of selecting each possible action, which can be either deterministic $\pi:\mathcal{S}\times\mathcal{A}\to\\{0,1\\}$ (or $\pi:\mathcal{S}\to\mathcal{A}$) or stochastic $\pi:\mathcal{S}\times\mathcal{A}\to[0,1]$. Here, we consider the stochastic policy only.
+
+We continue by letting $\eta(\pi)$ denoted the expected cumulative discounted reward when starting at initial state $s_0$ and following $\pi$ thereafter
+\begin{equation}
+\eta(\pi)=\mathbb{E}\_{s_0,a_0,\ldots}\left[\sum_{t=0}^{\infty}\gamma^t r(s_t,a_t)\right],
+\end{equation}
+where
+\begin{equation}
+s_0\sim\rho_0(s_0),\hspace{1cm}a_t\sim\pi(a_t\vert s_t),\hspace{1cm}s_{t+1}\sim P(s_{t+1}\vert s_t,a_t)
+\end{equation}
+For a policy $\pi$, the **state value function**, denoted as $V_\pi$, of a state $s\in\mathcal{S}$ measures how good it is for the agent to be in $s$, and the **action value function**, referred as $Q_\pi$, of a state-action pair $(s,a)\in\mathcal{S}\times\mathcal{A}$ specifies how good it is to take action $a$ at state $s$. Specifically, these values are defined by the expected return, as
+\begin{align}
+V_\pi(s_t)&=\mathbb{E}\_{a_t,s_{t+1},\ldots}\left[\sum_{k=0}^{\infty}\gamma^k r(s_{t+k},a_{t+k})\right], \\\\ Q_\pi(s_t,a_t)&=\mathbb{E}\_{s_{t+1},a_{t+1},\ldots}\left[\sum_{k=0}^{\infty}\gamma^k r(s_{t+k},a_{t+k})\right],
+\end{align}
+where
+\begin{equation}
+a_t\sim\pi(a_t\vert s_t),\hspace{1cm}s_{t+1}\sim P(s_{t+1}\vert s_t,a_t)\hspace{1cm}t\geq 0
+\end{equation}
+Along with these value functions, we will also define the **advantage function** for $\pi$, denoted $A_\pi$, given as
+\begin{equation}
+A_\pi(s_t,a_t)=Q_\pi(s_t,a_t)-V_\pi(s_t)
+\end{equation}
+
+### Coupling & Total variation distance
 {: #coupling-tvd}
 Consider two probability measures$ \mu$ and $\nu$ on a probability space $\Omega$. One refers a **coupling** of $\mu$ and $\nu$ as a pair of random variables $(X,Y)$ such that the marginal distribution of $X$ and $Y$ are respectively $\mu$ and $\nu$.
 
@@ -74,57 +107,61 @@ Thus, it suffices to construct a coupling $(X,Y)$ of $\mu$ and $\nu$ such that
 \begin{equation}
 \big\Vert\mu-\nu\big\Vert_\text{TV}=P(X\neq Y)
 \end{equation}
+As each policy $\pi:\mathcal{S}\times\mathcal{A}\to[0,1]$ can be observed as a distribution function on the space of state-action pair $\mathcal{S}\times\mathcal{A}$. Thus, those results and definitions mentioned above for probability measures $\mu$ and $\nu$ defined on $\Omega$ can also apply to policies $\pi$ and $\tilde{\pi}$ specified on $\mathcal{S}\times\mathcal{A}$.
 
-### Markov Decision Processes
-{: #mdp}
-An infinite-horizon discounted **Markov Decision Process** (**MDP**) is defined as the tuple $(\mathcal{S},\mathcal{A},P,r,\rho_0,\gamma)$, where
-- $\mathcal{S}$ is a finite set of states, or **state space**.
-- $\mathcal{A}$ is a finite set of actions, or **action space**.
-- $P:\mathcal{S}\times\mathcal{A}\times\mathcal{S}\to\mathbb{R}$ is the **transition probability distribution**, i.e. $P(s,a,s')=P(s'\vert s,a)$ denotes the probability of transitioning to state $s'$ when taking action $a$ from state $s$.
-- $r:\mathcal{S}\times\mathcal{A}\to\mathbb{R}$ is the **reward function**.
-- $\rho_0:\mathcal{S}\to\mathbb{R}$ is the distribution of the initial state $s_0$.
-- $\gamma\in(0,1)$ is the **discount factor**.
+We continue by considering a more constrained coupling called **$\alpha$-coupled policy pair**.  
 
-A **policy**, denoted $\pi$, is a mapping from states to probabilities of selecting each possible action, which can be either deterministic $\pi:\mathcal{S}\times\mathcal{A}\to\\{0,1\\}$ (or $\pi:\mathcal{S}\to\mathcal{A}$) or stochastic $\pi:\mathcal{S}\times\mathcal{A}\to[0,1]$. Here, we consider the stochastic policy only.
-
-We continue by letting $\eta(\pi)$ denoted the expected cumulative discounted reward when starting at initial state $s_0$ and following $\pi$ thereafter
+A policy pair $(\pi,\tilde{\pi})$ is referred as $\alpha$-coupled if it defines a joint distribution $(a,\tilde{a})\vert s$ such that
 \begin{equation}
-\eta(\pi)=\mathbb{E}\_{s_0,a_0,\ldots}\left[\sum_{t=0}^{\infty}\gamma^t r(s_t,a_t)\right],
+P(a\neq\tilde{a}\vert s)\leq\alpha,\hspace{1cm}\forall s
 \end{equation}
-where
+$\pi$ and $\tilde{\pi}$ will respectively denote the marginal distributions of $a$ and $\tilde{a}$.
+
+**Lemma 3**  
+Let $(\pi,\tilde{\pi})$ be $\alpha$-coupled policy pair, for all $s$, we have
 \begin{equation}
-s_0\sim\rho_0(s_0),\hspace{1cm}a_t\sim\pi(a_t\vert s_t),\hspace{1cm}s_{t+1}\sim P(s_{t+1}\vert s_t,a_t)
+\big\vert\bar{A}(s)\big\vert\leq 2\alpha\max_{s,\tilde{a}}\big\vert A_\pi(s,\tilde{a})\big\vert,
 \end{equation}
-For a policy $\pi$, the **state value function**, denoted as $V_\pi$, of a state $s\in\mathcal{S}$ measures how good it is for the agent to be in $s$, and the **action value function**, referred as $Q_\pi$, of a state-action pair $(s,a)\in\mathcal{S}\times\mathcal{A}$ specifies how good it is to take action $a$ at state $s$. Specifically, these values are defined by the expected return, as
+where $\bar{A}(s)$ is the expected advantage of $\tilde{\pi}$ over $\pi$ at state $s$, given as
+\begin{equation}
+\bar{A}(s)=\mathbb{E}\_{\tilde{a}\sim\tilde{\pi}}\big[A_\pi(s,\tilde{a})\big]
+\end{equation}
+**Proof**  
+By definition of the advantage function, it is easily noticed that $\mathbb{E}\_{a\sim\pi}\big[A_\pi(s,a)\big]=0$, which lets us obtain
 \begin{align}
-V_\pi(s_t)&=\mathbb{E}\_{a_t,s_{t+1},\ldots}\left[\sum_{k=0}^{\infty}\gamma^k r(s_{t+k},a_{t+k})\right], \\\\ Q_\pi(s_t,a_t)&=\mathbb{E}\_{s_{t+1},a_{t+1},\ldots}\left[\sum_{k=0}^{\infty}\gamma^k r(s_{t+k},a_{t+k})\right],
+\bar{A}(s)&=\mathbb{E}\_{\tilde{a}\sim\tilde{\pi}}\big[A_\pi(s,\tilde{a})\big] \\\\ &=\mathbb{E}\_{a\sim\pi,\tilde{a}\sim\tilde{\pi}}\big[A_\pi(s,\tilde{a})-A_\pi(s,a)\big] \\\\ &=P(a\neq\tilde{a}\vert s)\mathbb{E}\_{a\sim\pi,\tilde{a}\sim\tilde{\pi}\vert a\neq\tilde{a}}\big[A_\pi(s,\tilde{a})-A_\pi(s,a)\big],
 \end{align}
-where
+which by definition of $\alpha$-coupling implies that
 \begin{equation}
-a_t\sim\pi(a_t\vert s_t),\hspace{1cm}s_{t+1}\sim P(s_{t+1}\vert s_t,a_t)\hspace{1cm}t\geq 0
+\big\vert\bar{A}(s)\big\vert\leq\alpha\cdot 2\max_{s,\tilde{a}}\big\vert A_\pi(s,\tilde{a})\big\vert
 \end{equation}
-Along with these value functions, we will also define the **advantage function** for $\pi$, denoted $A_\pi$, given as
+
+**Lemma 4**  
+Let $(\pi,\tilde{\pi})$ be $\alpha$-coupled policy pair, we have
 \begin{equation}
-A_\pi(s_t,a_t)=Q_\pi(s_t,a_t)-V_\pi(s_t)
+\left\vert\mathbb{E}\_{s_t\sim\tilde{\pi}}\big[\bar{A}(s_t)\big]-\mathbb{E}\_{s_t\sim\pi}\big[\bar{A}(s_t)\big]\right\vert\leq 2\alpha\max_s\bar{A}(s)\leq 4\alpha(1-(1-\alpha)^t)\max_s\big\vert A_\pi(s,a)\big\vert
 \end{equation}
+**Proof**  
+
+
 
 ### Likelihood Ratio Policy Gradient
 {: #likelihood-ratio-pg}
 Let $H$ denote the **horizon** of an MDP[^1]. Consider **likelihood ratio policy gradient** problem, in which the policy $\pi_\theta$ is parameterized by a vector $\theta\in\mathbb{R}^n$. The expected return of $\pi_\theta$ is then given by
 \begin{equation}
-\eta(\pi_\theta)=\mathbb{E}\_{P(\tau;\theta)}\left[\left.\sum_{t=0}^{H}\gamma^t r(s_t,a_t)\right\vert\pi_\theta\right]=\sum_{\tau}P(\tau;\theta)R(\tau),
+\eta(\pi_\theta)=\mathbb{E}\_{P(\tau;\theta)}\left[\left.\sum_{t=0}^{H-1}\gamma^t r(s_t,a_t)\right\vert\pi_\theta\right]=\sum_{\tau}P(\tau;\theta)R(\tau),\label{eq:lrp.1}
 \end{equation}
 where
 - $P(\tau;\theta)$ is the probability distribution induced by the policy $\pi_\theta$, i.e. $s_t$
 - $\tau=(s_0,a_0,s_1,a_1,\ldots,s_H,a_H)$ are trajectories generated by rolls out, i.e. $\tau\sim P(\tau;\theta)$.
 - $R(\tau)$ is the discounted cumulative rewards along the trajectory $\tau$, given as
 \begin{equation}
-R(\tau)=\sum_{t=0}^{H}\gamma^t r(s_t,a_t)
+R(\tau)=\sum_{t=0}^{H-1}\gamma^t r(s_t,a_t)
 \end{equation}
 
 The likelihood ratio policy gradient performs a SGA (stochastic gradient ascent) over the policy parameter space $\Theta$ to find a local optimum of $\eta(\pi_\theta)$ by taking into account the policy gradient
 \begin{align}
-\nabla_\theta\eta(\pi_\theta)&=\nabla_\theta\sum_{\tau}P(\tau;\theta)R(\tau) \\\\ &=\sum_\tau\nabla_\theta P(\tau;\theta)R(\tau) \\\\ &=\sum_\tau\nabla_\theta\frac{P(\tau;\theta)}{P(\tau;\theta)}\nabla_\theta P(\tau;\theta)R(\tau) \\\\ &=\sum_{\tau}P(\tau;\theta)\nabla_\theta\log P(\tau;\theta)R(\tau) \\\\ &=\mathbb{E}\_{P(\tau;\theta)}\Big[\nabla_\theta P(\tau;\theta)R(\tau)\Big]\label{eq:lrp.1}
+\nabla_\theta\eta(\pi_\theta)&=\nabla_\theta\sum_{\tau}P(\tau;\theta)R(\tau) \\\\ &=\sum_\tau\nabla_\theta P(\tau;\theta)R(\tau) \\\\ &=\sum_\tau\nabla_\theta\frac{P(\tau;\theta)}{P(\tau;\theta)}\nabla_\theta P(\tau;\theta)R(\tau) \\\\ &=\sum_{\tau}P(\tau;\theta)\nabla_\theta\log P(\tau;\theta)R(\tau) \\\\ &=\mathbb{E}\_{P(\tau;\theta)}\Big[\nabla_\theta P(\tau;\theta)R(\tau)\Big]\label{eq:lrp.2}
 \end{align}
 This gradient can be approximated with empirical estimate from $m$ trajectories $\tau^{(1)},\ldots,\tau^{(m)}$ under policy $\pi_\theta$
 \begin{align}
@@ -134,33 +171,69 @@ which is an unbiased estimate of the policy gradient.
 
 Additionally, since
 \begin{align}
-\nabla_\theta\log P(\tau^{(i)};\theta)&=\nabla_\theta\log\prod_{t=0}^{H}P(s_{t+1}^{(i)}\vert s_t^{(i)},a_t^{(i)})\pi_\theta(a_t^{(i)}\vert s_t^{(i)}) \\\\ &=\nabla_\theta\sum_{t=0}^{H}\log P(s_{t+1}^{(i)}\vert s_t^{(i)},a_t^{(i)})+\nabla_\theta\sum_{t=0}^{H}\log\pi_\theta(a_t^{(i)}\vert s_t^{(i)}) \\\\ &=\sum_{t=0}^{H}\nabla_\theta\log\pi_\theta(a_t^{(i)}\vert s_t^{(i)}),
+\nabla_\theta\log P(\tau^{(i)};\theta)&=\nabla_\theta\log\prod_{t=0}^{H-1}P(s_{t+1}^{(i)}\vert s_t^{(i)},a_t^{(i)})\pi_\theta(a_t^{(i)}\vert s_t^{(i)}) \\\\ &=\nabla_\theta\sum_{t=0}^{H-1}\log P(s_{t+1}^{(i)}\vert s_t^{(i)},a_t^{(i)})+\nabla_\theta\sum_{t=0}^{H-1}\log\pi_\theta(a_t^{(i)}\vert s_t^{(i)}) \\\\ &=\sum_{t=0}^{H-1}\nabla_\theta\log\pi_\theta(a_t^{(i)}\vert s_t^{(i)}),
 \end{align}
 we can rewrite the policy gradient estimate in a form which no longer require the dynamics model
 \begin{equation}
-\hat{g}=\frac{1}{m}\sum_{i=1}^{m}\nabla_\theta\log P(\tau^{(i)};\theta)R(\tau^{(i)})=\frac{1}{m}\sum_{i=1}^{m}\sum_{t=0}^{H}\nabla_\theta\log\pi_\theta(a_t^{(i)}\vert s_t^{(i)})R(\tau^{(i)})
+\hat{g}=\frac{1}{m}\sum_{i=1}^{m}\nabla_\theta\log P(\tau^{(i)};\theta)R(\tau^{(i)})=\frac{1}{m}\sum_{i=1}^{m}\sum_{t=0}^{H-1}\nabla_\theta\log\pi_\theta(a_t^{(i)}\vert s_t^{(i)})R(\tau^{(i)})
 \end{equation}
 Moreover, as
 \begin{equation}
 \mathbb{E}\_{P(\tau\vert\theta)}\Big[\nabla_\theta\log P(\tau;\theta)\Big]=\nabla_\theta\sum_\tau P(\tau;\theta)=\nabla_\theta 1=\mathbf{0},
 \end{equation}
-a constant baseline in terms of $\theta$ (i.e. independent of $\theta$) $b$ can be inserted into \eqref{eq:lrp.1} to reduce the variance (where $b$ is a vector which can be optimized to minimize the variance). In particular
+a constant baseline in terms of $\theta$ (i.e. independent of $\theta$) $b$ can be inserted into \eqref{eq:lrp.2} to reduce the variance (where $b$ is a vector which can be optimized to minimize the variance). In particular
 \begin{align}
-\nabla_\theta\eta(\pi_\theta)&=\mathbb{E}\_{P(\tau;\theta)}\Big[\nabla_\theta\log P(\tau;\theta)(R(\tau)-b)\Big] \\\\ &\approx\frac{1}{m}\nabla_\theta\log P(\tau^{(i)};\theta)\left(R(\tau^{(i)})-b\right) \\\\ &=\frac{1}{m}\sum_{i=1}^{m}\sum_{t=0}^{H}\nabla_\theta\log\pi_\theta(a_t^{(i)}\vert s_t^{(i)})\left(R(\tau^{(i)})-b\right)=\hat{g}
+\nabla_\theta\eta(\pi_\theta)&=\mathbb{E}\_{P(\tau;\theta)}\Big[\nabla_\theta\log P(\tau;\theta)(R(\tau)-b)\Big] \\\\ &\approx\frac{1}{m}\nabla_\theta\log P(\tau^{(i)};\theta)\left(R(\tau^{(i)})-b\right) \\\\ &=\frac{1}{m}\sum_{i=1}^{m}\sum_{t=0}^{H-1}\nabla_\theta\log\pi_\theta(a_t^{(i)}\vert s_t^{(i)})\left(R(\tau^{(i)})-b\right)=\hat{g}
 \end{align}
-By separating $R(\tau^{(i)})$ into sum of discounted rewards from the past and sum of discounted future rewards, we can continue to decompose the estimator $\hat{g}$ as
+By separating $R(\tau^{(i)})$ into sum of discounted rewards from the past, which does not depend on the current action $a_t^{(i)}$ (and thus can be removed to reduce the variance), and sum of discounted future rewards, we can continue to decompose the estimator $\hat{g}$ as
 \begin{align}
-\hat{g}&=\sum_{i=1}^{m}\sum_{t=0}^{H}\nabla_\theta\log\pi_\theta(a_t^{(i)}\vert s_t^{(i)})\left(R(\tau^{(i)}-b)\right) \\\\ &=\sum_{i=1}^{m}\sum_{t=0}^{H}\nabla_\theta\log\pi_\theta(a_t^{(i)}\vert s_t^{(i)})\Bigg[\sum_{k=0}^{t}r(s_k^{(i)},a_k^{(i)})+\left(\sum_{k=t+1}^{H}r(s_k^{(i)},a_k^{(i)})-b\right)\Bigg] \\\\
+\hat{g}&=\sum_{i=1}^{m}\sum_{t=0}^{H-1}\nabla_\theta\log\pi_\theta(a_t^{(i)}\vert s_t^{(i)})\left(R(\tau^{(i)}-b)\right) \\\\ &=\sum_{i=1}^{m}\sum_{t=0}^{H-1}\nabla_\theta\log\pi_\theta(a_t^{(i)}\vert s_t^{(i)})\Bigg[\sum_{k=0}^{t}r(s_k^{(i)},a_k^{(i)})+\left(\sum_{k=t+1}^{H-1}r(s_k^{(i)},a_k^{(i)})\right)-b\Bigg] \\\\ &=\sum_{i=1}^{m}\sum_{t=0}^{H-1}\nabla_\theta\log\pi_\theta(a_t^{(i)}\vert s_t^{(i)})\left(\sum_{k=t+1}^{H-1}r(s_k^{(i)},a_k^{(i)})-b\right)
 \end{align}
-
-
-These following are some possible choices of baseline $b$
-<ul>
-	<li></li>
+These following are some possible choices of baseline $b$.
+<ul id='number-list'>
+	<li>
+		<b>Average rewards.</b>
+		\begin{equation}
+		b=\mathbb{E}\big[R(\tau)\big]\approx\frac{1}{m}\sum_{i=1}^{m}R(\tau^{(i)})
+		\end{equation}
+	</li>
+	<li>
+		<b>Optimal baseline</b>.
+		\begin{equation}
+		b=\frac{\sum_{i=1}^{m}\left(\nabla_\theta\log P(\tau^{(i)};\theta)\right)^2 R(\tau^{(i)})}{\sum_{i=1}^{m}\nabla_\theta\log P(\tau^{(i)};\theta)}
+		\end{equation}
+	</li>
+	<li>
+		<b>Time-dependent baseline</b>.
+		\begin{equation}
+		b_t=\frac{1}{m}\sum_{i=1}^{m}\sum_{k=t}^{H-1}R(s_k^{(i)},a_k^{(i)})
+		\end{equation}
+	</li>
+	<li>
+		<b>State-dependent baseline</b>.
+		\begin{equation}
+		b(s_t^{(i)})=\mathbb{E}_\pi\left[\sum_{k=t}^{H-1}\gamma^k r(s_k^{(i)},a_k^{(i)})\right]=V_\pi(s_t^{(i)})
+		\end{equation}
+	</li>
 </ul>
 
 ## Policy improvement
 {: #policy-imp}
+We begin by proving an identity that expresses the difference between expected returns $\eta(\tilde{\pi})$ and $\eta(\pi)$ of two policies $\tilde{\pi}$ and $\pi$ in terms of the advantage function $A_\pi$.
+
+**Lemma 5**  
+Given two policies $\pi,\tilde{\pi}$, we have
+\begin{equation}
+\eta(\tilde{\pi})=\eta(\pi)+\mathbb{E}\_{\tau\sim\tilde{\pi}}\left[\sum_{t=0}^{\infty}\gamma^t A_\pi(s_t,a_t)\right]
+\end{equation}
+**Proof**  
+By definition of advantage function $A_\pi$ of policy $\pi$, we have
+\begin{align}
+\mathbb{E}\_{\tau\sim\tilde{\pi}}\left[\sum_{t=0}^{\infty}\gamma^t A_\pi(s_t,a_t)\right]&=\mathbb{E}\_{\tau\sim\tilde{\pi}}\left[\sum_{t=0}^{\infty}\gamma^t\left(Q_\pi(s_t,a_t)-V_\pi(s_t)\right)\right] \\\\  &=\mathbb{E}\_{\tau\sim\tilde{\pi}}\left[\sum_{t=0}^{\infty}\gamma^t\left(r(s_t,a_t)+\gamma V_\pi(s_{t+1})-V_\pi(s_t)\right)\right] \\\\ &=\mathbb{E}\_{\tau\sim\tilde{\pi}}\left[-V_\pi(s_0)+\sum_{t=0}^{\infty}\gamma^t r(s_t,a_t)\right] \\\\ &=-\mathbb{E}\_{s_0}\big[V_\pi(s_0)\big]+\mathbb{E}\_{\tau\sim\tilde{\pi}}\left[\sum_{t=0}^{\infty}\gamma^t r(s_t,a_t)\right] \\\\ &=-\eta(\pi)+\eta(\tilde{\pi}),
+\end{align}
+where in the third step, since $\gamma\in(0,1)$ as $t\to\infty$, we have that $\gamma^t V_\pi(s_{t+1})\to 0$.
+
+
 
 ## References
 {: #references}
