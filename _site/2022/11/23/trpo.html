@@ -167,6 +167,8 @@
       <li><a href="#vine">Vine</a></li>
     </ul>
   </li>
+  <li><a href="#fin-alg">Final algorithm</a></li>
+  <li><a href="#ppo">Proximal Policy Optimization</a></li>
   <li><a href="#references">References</a></li>
   <li><a href="#footnotes">Footnotes</a></li>
 </ul>
@@ -399,27 +401,27 @@ Also let $\theta_\text{old}$ denote the previous policy parameters that we want 
 \end{equation}
 where the equality holds at $\theta=\theta_\text{old}$. This means, we get a guaranteed improvement to the true objective function $\eta$ by solving the following optimization problem
 \begin{equation}
-\underset{\theta}{\text{maximize}}\,\big[L_{\theta_\text{old}}(\theta)-CD_\text{KL}^\text{max}(\theta_\text{old},\theta)\big]
+\underset{\theta}{\text{maximize}}\,\,\big[L_{\theta_\text{old}}(\theta)-CD_\text{KL}^\text{max}(\theta_\text{old},\theta)\big]
 \end{equation}
 To speed up the algorithm, we make some robust modification. Specifically, we instead solve a <strong>trust region problem</strong>:
 \begin{align}
-\underset{\theta}{\text{maximize}}&amp;\,L_{\theta_\text{old}}(\theta)\nonumber \\ \text{s.t.}&amp;\,\overline{D}_\text{KL}^{\rho_{\theta_\text{old}}}(\theta_\text{old},\theta)\leq\delta,\label{eq:ppo.1}
+\underset{\theta}{\text{maximize}}&amp;\,\,L_{\theta_\text{old}}(\theta)\nonumber \\ \text{s.t.}&amp;\,\,\overline{D}_\text{KL}^{\rho_{\theta_\text{old}}}(\theta_\text{old},\theta)\leq\delta,\label{eq:ppo.1}
 \end{align}
 where $\overline{D}_\text{KL}^{\rho_{\theta_\text{old}}}$ is the average KL divergence, given as
 \begin{equation}
 \overline{D}_\text{KL}^{\rho_{\theta_\text{old}}}(\theta_\text{old},\theta)\doteq\mathbb{E}_{s\sim\rho_{\theta_\text{old}}}\Big[D_\text{KL}\big(\pi_{\theta_\text{old}}(\cdot\vert s)\Vert\pi_\theta(\cdot\vert s)\big)\Big]
 \end{equation}
-Let us pay attention to our objective function, $L_{\theta_\text{old}}(\theta)$, for a while. By the definition of $L$, given in \eqref{eq:pi.5}, combined with using an <a href="/2022/05/25/likelihood-ratio-pg-is.html">importance sampling estimator</a>, we can rewrite the objective function of \eqref{eq:ppo.1} as 
+Let us pay attention to our objective function, $L_{\theta_\text{old}}(\theta)$, for a while. By the definition of $L$, given in \eqref{eq:pi.5}, combined with using an <a href="/2022/05/25/likelihood-ratio-pg-is.html#likelihood-ratio-pg-is">importance sampling estimator</a>, we can rewrite the objective function of \eqref{eq:ppo.1} as 
 \begin{align}
 L_{\theta_\text{old}}(\theta)&amp;=\sum_s\rho_{\theta_\text{old}}(s)\sum_a\pi_\theta(a\vert s)A_{\theta_\text{old}}(s,a) \\ &amp;=\sum_s\rho_{\theta_\text{old}}(s)\mathbb{E}_{a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}A_{\theta_\text{old}}(s,a)\right]
 \end{align}
 where $A_{\theta_\text{old}}\doteq A_{\pi_{\theta_\text{old}}}$; and $q$ represents the sampling distribution. The trust region problem now is given as
 \begin{align}
-\underset{\theta}{\text{maximize}}&amp;\,\sum_s\rho_{\theta_\text{old}}(s)\mathbb{E}_{a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}A_{\theta_\text{old}}(s,a)\right]\nonumber \\ \text{s.t.}&amp;\,\mathbb{E}_{s\sim\rho_{\theta_\text{old}}}\Big[D_\text{KL}\big(\pi_{\theta_\text{old}}(\cdot\vert s)\Vert\pi_\theta(\cdot\vert s)\big)\Big]\leq\delta
+\underset{\theta}{\text{maximize}}&amp;\,\,\sum_s\rho_{\theta_\text{old}}(s)\mathbb{E}_{a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}A_{\theta_\text{old}}(s,a)\right]\nonumber \\ \text{s.t.}&amp;\,\,\mathbb{E}_{s\sim\rho_{\theta_\text{old}}}\Big[D_\text{KL}\big(\pi_{\theta_\text{old}}(\cdot\vert s)\Vert\pi_\theta(\cdot\vert s)\big)\Big]\leq\delta
 \end{align}
 which, since $A_{\theta_\text{old}}(s,a)=Q_{\theta_\text{old}}(s,a)-V_{\theta_\text{old}}(s)$, is thus equivalent to
 \begin{align}
-\underset{\theta}{\text{maximize}}&amp;\,\mathbb{E}_{s\sim\rho_{\theta_\text{old}},a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}Q_{\theta_\text{old}}(s,a)\right]\nonumber \\ \text{s.t.}&amp;\,\mathbb{E}_{s\sim\rho_{\theta_\text{old}}}\Big[D_\text{KL}\big(\pi_{\theta_\text{old}}(\cdot\vert s)\Vert\pi_\theta(\cdot\vert s)\big)\Big]\leq\delta\label{eq:ppo.2}
+\underset{\theta}{\text{maximize}}&amp;\,\,\mathbb{E}_{s\sim\rho_{\theta_\text{old}},a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}Q_{\theta_\text{old}}(s,a)\right]\nonumber \\ \text{s.t.}&amp;\,\,\mathbb{E}_{s\sim\rho_{\theta_\text{old}}}\Big[D_\text{KL}\big(\pi_{\theta_\text{old}}(\cdot\vert s)\Vert\pi_\theta(\cdot\vert s)\big)\Big]\leq\delta\label{eq:ppo.2}
 \end{align}</p>
 
 <h2 id="sampled-bsd-est">Sampled-based estimation</h2>
@@ -440,7 +442,7 @@ which, since $A_{\theta_\text{old}}(s,a)=Q_{\theta_\text{old}}(s,a)-V_{\theta_\t
 </ul>
 
 <h3 id="vine">Vine</h3>
-<p>This sampling approach follows this process</p>
+<p>This sampling approach follows the following process</p>
 <ul id="number-list">
 	<li>
 		Sample $s_0\sim\rho_0$ and simulate the policy $\pi_{\theta_i}$ to generate $m$ trajectories.
@@ -474,9 +476,13 @@ which, since $A_{\theta_\text{old}}(s,a)=Q_{\theta_\text{old}}(s,a)-V_{\theta_\t
 		</ul>
 	</li>
 	<li>
-		Average over $s_n\sim\rho(\pi)$ to obtain an estimator for $L_{\theta_\text{old}}$, along with its gradient.
+		Average over $s_n\sim\rho(\pi)$ to obtain an estimator for $L_{\theta_\text{old}}$, as well the policy gradient.
 	</li>
 </ul>
+
+<h2 id="fin-alg">Final algorithm</h2>
+
+<h2 id="ppo">Proximal Policy Optimization</h2>
 
 <h2 id="references">References</h2>
 <p>[1] John Schulman, Sergey Levine, Philipp Moritz, Michael I. Jordan, Pieter Abbeel. <a href="https://dl.acm.org/doi/10.5555/3045118.3045319">Trust Region Policy Optimization</a>. ICML’15, pp 1889–1897, 2015.</p>
@@ -484,6 +490,8 @@ which, since $A_{\theta_\text{old}}(s,a)=Q_{\theta_\text{old}}(s,a)-V_{\theta_\t
 <p>[2] David A. Levin, Yuval Peres, Elizabeth L. Wilmer. <a href="https://pages.uoregon.edu/dlevin/MARKOV/markovmixing.pdf">Markov chains and mixing times</a>. American Mathematical Society, 2009.</p>
 
 <p>[3] Sham Kakade,  John Langford. <a href="https://dl.acm.org/doi/10.5555/645531.656005">Approximately optimal approximate reinforcement learning</a>. ICML’2, pp. 267–274, 2002.</p>
+
+<p>[4] John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, Oleg Klimov. <a href="https://arxiv.org/abs/1707.06347">Proximal Policy Optimization Algorithms</a>. arXiv:1707.06347, 2017.</p>
 
 <h2 id="footnotes">Footnotes</h2>
 
