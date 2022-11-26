@@ -14,6 +14,7 @@ eqn-number: true
 	- [Markov Decision Processes](#mdp)
 	- [Coupling & Total variation distance](#coupling-tvd)
 	- [Likelihood Ratio Policy Gradient](#likelihood-ratio-pg)
+	- [Importance Sampling](#is)
 - [Policy Improvement](#policy-imp)
 - [Parameterized Policy Optimization by Trust Region](#param-policy-opt)
 - [References](#references)
@@ -181,6 +182,39 @@ These following are some possible choices of baseline $b$.
 	</li>
 </ul>
 
+### Importance Sampling
+{: #is}
+Consider a function $f$ and a probability measure $P$. The expectation of $f$, defined by
+\begin{equation}
+\mathbb{E}\_{P(X)}\big[f(X)\big]=\int_{x}P(x)f(x)\,dx,
+\end{equation}
+sometimes can be difficult to compute. We can resolve this problem by instead approximating the expectation by sampling method, as
+\begin{equation}
+\mathbb{E}\_{P(X)}f(X)\approx\frac{1}{m}\sum_{i=1}^{m}f(x^{(i)}),
+\end{equation}
+where $x^{(i)}\sim P$. However, samples generated from $P$ are not always easily obtained. This is where **importance sampling** plays its role.
+
+The idea of **importance sampling**, or **IS** is an observation that
+\begin{align}
+\mathbb{E}\_{P(X)}\big[f(X)\big]&=\int_{x}P(x)f(x)\,dx \\\\ &=\int_{x}Q(x)\frac{P(x)}{Q(x)}f(x)\,dx \\\\ &=\mathbb{E}\_{Q(X)}\left[\frac{P(X)}{Q(X)}f(X)\right],
+\end{align}
+where we have assumed that $Q(x)=0\Rightarrow P(x)=0$. Hence, we can use a sample-based method on $Q$ to get estimate of the expectation. Specifically, given $x^{(i)}\sim Q$, for $i=1,\ldots,m$, we can construct an unbiased estimator
+\begin{equation}
+\mathbb{E}\_{P(X)}\big[f(X)\big]=\mathbb{E}\_{Q(X)}\left[\frac{P(X)}{Q(X)}f(X)\right]\approx\frac{1}{m}\sum_{i=1}^{m}\frac{P(x^{(i)})}{Q(x^{(i)})}f(x^{(i)})
+\end{equation}
+The IS method suggests us rewrite the expected return of policy $\pi_\theta$ as[^2]
+\begin{align}
+\eta(\pi_\theta)&=\mathbb{E}\_{\tau\sim P(\tau;\theta)}\big[R(\tau)\big] \\\\ &=\mathbb{E}\_{\tau\sim P(\tau;\theta')}\left[\frac{P(\tau;\theta)}{P(\tau;\theta')}R(\tau)\right]
+\end{align}
+Taking the gradient w.r.t $\theta$ gives us another representation of the policy gradient 
+\begin{align}
+\nabla_\theta\eta(\pi_\theta)&=\nabla_\theta\mathbb{E}\_{\tau\sim P(\tau;\theta')}\left[\frac{P(\tau;\theta)}{P(\tau;\theta')}R(\tau)\right] \\\\ &=\mathbb{E}\_{\tau\sim P(\tau;\theta')}\left[\frac{\nabla_\theta P(\tau;\theta)}{P(\tau;\theta')}R(\tau)\right],
+\end{align}
+which implies that
+\begin{align}
+\nabla_\theta\eta(\pi_\theta)\big\vert_{\theta=\theta'}&=\mathbb{E}\_{\tau\sim P(\tau;\theta')}\left[\frac{\nabla_\theta P(\tau;\theta)\big\vert_{\theta=\theta'}}{P(\tau;\theta')}R(\tau)\right] \\\\ &=\mathbb{E}\_{\tau\sim P(\tau;\theta')}\big[\nabla_\theta\log P(\tau;\theta)\big\vert_{\theta=\theta'}R(\tau)\big]
+\end{align}
+
 ## Policy improvement
 {: #policy-imp}
 We begin by proving an identity that expresses the expected return $\eta(\tilde{\pi})$ of a policy $\tilde{\pi}$ in terms of the advantage over another policy $\pi$, accumulated over time steps.
@@ -213,7 +247,7 @@ we obtain the [**policy improvement**]({% post_url 2021-07-25-dp-in-mdp %}#polic
 
 However, there are cases when \eqref{eq:pi.2} is difficult to be optimized, especially when the expected advantage is negative, i.e. $\sum_a\tilde{\pi}(a\vert s)A_\pi(s,a)$, due to estimation and approximation error in the approximate setting. We instead consider a local approximation to $\eta$:
 \begin{equation}
-L_\pi(\tilde{\pi})=\eta(\pi)+\sum_s\rho_\pi(s)\sum_a\tilde{\pi}(a\vert s)A_\pi(s,a)
+L_\pi(\tilde{\pi})=\eta(\pi)+\sum_s\rho_\pi(s)\sum_a\tilde{\pi}(a\vert s)A_\pi(s,a)\label{eq:pi.5}
 \end{equation}
 
 If $\pi$ is a policy parameterized by $\theta$, in which $\pi_\theta(a\vert s)$ s differentiable w.r.t $\theta$, we then have for any parameter value $\theta_0$
@@ -292,8 +326,10 @@ The policy improvement bound \eqref{eq:pi.4} allows us to specify a policy itera
 	<img src="/assets/images/2022-11-23/policy-iteration-nondec-exp-return.png" alt="Non-decreasing expected return policy iteration" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"></figcaption>
 </figure>
-It is worth noticing that \eqref{eq:pi.4} allows the policy iteration above to guarantee to generating a sequence of non-decreasing expected returns $\eta(\pi_0)\leq\eta(\pi_1)\leq\eta(\pi_2)\leq\ldots$.
-
+It is worth noticing that \eqref{eq:pi.4} allows the policy iteration above to guarantee to generating a sequence of non-decreasing expected returns
+\begin{equation}
+\eta(\pi_0)\leq\eta(\pi_1)\leq\eta(\pi_2)\leq\ldots
+\end{equation}
 To see this, let
 \begin{equation}
 M_i(\pi)\doteq L_{\pi_i}(\pi)-CD_\text{KL}^\text{max}(\pi_i,\pi),
@@ -307,10 +343,37 @@ which implies that
 \eta(\pi_{i+1})-\eta(\pi_i)=\eta(\pi_{i+1})-M_i(\pi_i)\geq M_i(\pi_{i+1})-M_i(\pi_i)
 \end{equation}
 
-
-
 ## Parameterized Policy Optimization by Trust Region
 {: #param-policy-opt}
+We now consider the policy optimization problem in which the policy is parameterized by $\theta$.
+
+We begin by simplifying notations. In particular, let $\eta(\theta)\doteq\eta(\pi_\theta)$, let $L_\theta(\tilde{\theta})\doteq L_{\pi_\theta}(\pi_\tilde{\theta})$ and $D_\text{KL}(\theta\Vert\tilde{\theta})\doteq D_\text{KL}(\pi_\theta\Vert\pi_\tilde{\theta})$, which allows us to represent
+\begin{equation}
+D_\text{KL}^\text{max}(\theta,\tilde{\theta})\doteq D_\text{KL}^\text{max}(\pi_\theta,\pi_\tilde{\theta})=\max_s D_\text{KL}\big(\pi_\theta(\cdot\vert s)\Vert\pi_\tilde{\theta}(\cdot\vert s)\big)
+\end{equation}
+Also let $\theta_\text{old}$ denote the previous policy parameters that we want to improve. Hence, by the previous section, we have
+\begin{equation}
+\eta(\theta)\geq L_{\theta_\text{old}}(\theta)-CD_\text{KL}^\text{max}(\theta_\text{old},\theta),
+\end{equation}
+where the equality holds at $\theta=\theta_\text{old}$. This means, we get a guaranteed improvement to the true objective function $\eta$ by solving the following optimization problem
+\begin{equation}
+\underset{\theta}{\text{maximize}}\,\big[L_{\theta_\text{old}}(\theta)-CD_\text{KL}^\text{max}(\theta_\text{old},\theta)\big]
+\end{equation}
+To speed up the algorithm, we make some robust modification. Specifically, we instead solve a **trust region problem**:
+\begin{align}
+\underset{\theta}{\text{maximize}}&\,L_{\theta_\text{old}}(\theta) \\\\ \text{s.t.}&\,\overline{D}\_\text{KL}^{\rho_{\theta_\text{old}}}(\theta_\text{old},\theta)\leq\delta,
+\end{align}
+where $\overline{D}\_\text{KL}^{\rho_{\theta_\text{old}}}$ is the average KL divergence, given as
+\begin{equation}
+\overline{D}\_\text{KL}^{\rho_{\theta_\text{old}}}(\theta_\text{old},\theta)\doteq\mathbb{E}\_{s\sim\rho_{\theta_\text{old}}}\Big[D_\text{KL}\big(\pi_{\theta_\text{old}}(\cdot\vert s)\Vert\pi_\theta(\cdot\vert s)\big)\Big]
+\end{equation}
+By the definition of $L$, given in \eqref{eq:pi.5}, we can rewrite our optimization problem as
+\begin{align}
+\underset{\theta}{\text{maximize}}&\,\sum_s\rho_{\theta_\text{old}}(s)\sum_a\pi_\theta(a\vert s)A_{\theta_\text{old}}(s,a) \\\\ \text{s.t.}&\,\overline{D}\_\text{KL}^{\rho_{\theta_\text{old}}}(\theta_\text{old},\theta)\leq\delta,
+\end{align}
+where $A_{\theta_\text{old}}\doteq A_{\pi_{\theta_\text{old}}}$.
+
+
 
 ## References
 {: #references}
@@ -326,10 +389,28 @@ which implies that
 {: #footnotes}
 
 [^1]: Any infinite-horizon discounted MDP, as defined in the preceding subsection, can be $\epsilon$-approximated by a finite horizon MDP, using a horizon
-	\begin{equation}
+	\begin{equation\*}
 	H_\epsilon=\left\lceil\log_\gamma\left(\frac{\epsilon(1-\gamma)}{R_\text{max}}\right)\right\rceil,
-	\end{equation}
+	\end{equation\*}
 	where
-	\begin{equation}
+	\begin{equation\*}
 	R_\text{max}=\max_s\big\vert R(s)\big\vert
-	\end{equation}
+	\end{equation\*}
+
+[^2]: We can also use importance sampling to construct an unbiased estimate of the expected return $\eta(\pi_\theta)$. In particular, the expected return of $\pi_\theta$ given in \eqref{eq:lrp.1} can be approximated by
+	\begin{equation\*}
+	\eta(\pi_\theta)=\sum_{\tau\sim P}P(\tau;\theta)R(\tau)\approx\frac{1}{m}\sum_{i=1}^{m}\frac{P(\tau^{(i)};\theta)}{Q(\tau^{(i)})}R(\tau^{(i)})
+	\end{equation\*}
+	where $\tau^{(i)}\sim Q$ and we have assumed that $Q(\tau^{(i)})=0\Rightarrow P(\tau^{(i)};\theta)=0$.  
+	If we choose $Q(\tau)\doteq P(\tau;\theta')$, this means we are approximating the expected return of $\pi_\theta$ from trajectories given according to another parameterized policy $\pi_{\theta'}$.
+	\begin{equation\*}
+	\eta(\pi_\theta)\approx\frac{1}{m}\sum_{i=1}^{m}\frac{P(\tau^{(i)};\theta)}{P(\tau^{(i)};\theta')}R(\tau^{(i)})
+	\end{equation\*}
+	Taking the gradient of this estimator w.r.t $\theta$, we obtain an unbiased estimator for the policy gradient specified at \eqref{eq:lrp.2}
+	\begin{align\*}
+	\nabla_\theta\eta(\pi_\theta)&\approx\nabla_\theta\frac{1}{m}\sum_{i=1}^{m}\frac{P(\tau^{(i)};\theta)}{P(\tau^{(i)};\theta')}R(\tau^{(i)})
+	\end{align\*}
+	Similar to applying IS to [**off-policy learning**]({% post_url 2021-08-21-monte-carlo-in-rl %}#is-off-policy), evaluating the **importance weights**, or **importance sampling ratio** does not require a dynamics model
+	\begin{equation\*}
+	\frac{P(\tau^{(i)};\theta)}{P(\tau^{(i)});\theta'}=\frac{\prod_{t=0}^{H-1}P(s_{t+1}^{(i)}\vert s_t^{(i)},a_t^{(i)})\pi_\theta(a_t^{(i)}\vert s_t^{(i)})}{\prod_{t=0}^{H-1}P(s_{t+1}^{(i)}\vert s_t^{(i)},a_t^{(i)})\pi_{\theta'}(a_t^{(i)}\vert s_t^{(i)})}=\prod_{t=0}^{H-1}\frac{\pi_\theta(a_t^{(i)}\vert s_t^{(i)})}{\pi_{\theta'}(a_t^{(i)}\vert s_t^{(i)})}
+	\end{equation\*}
