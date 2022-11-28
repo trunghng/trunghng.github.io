@@ -273,14 +273,14 @@ where $A_{\theta_\text{old}}\doteq A_{\pi_{\theta_\text{old}}}$; and $q$ represe
 \begin{align}
 \underset{\theta}{\text{maximize}}&\,\,\sum_s\rho_{\theta_\text{old}}(s)\mathbb{E}\_{a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}A_{\theta_\text{old}}(s,a)\right]\nonumber \\\\ \text{s.t.}&\,\,\mathbb{E}\_{s\sim\rho_{\theta_\text{old}}}\Big[D_\text{KL}\big(\pi_{\theta_\text{old}}(\cdot\vert s)\Vert\pi_\theta(\cdot\vert s)\big)\Big]\leq\delta
 \end{align}
-which, since $A_{\theta_\text{old}}(s,a)=Q_{\theta_\text{old}}(s,a)-V_{\theta_\text{old}}(s)$, is thus equivalent to
+which is thus equivalent to[^1]
 \begin{align}
 \underset{\theta}{\text{maximize}}&\,\,\mathbb{E}\_{s\sim\rho_{\theta_\text{old}},a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}Q_{\theta_\text{old}}(s,a)\right]\nonumber \\\\ \text{s.t.}&\,\,\mathbb{E}\_{s\sim\rho_{\theta_\text{old}}}\Big[D_\text{KL}\big(\pi_{\theta_\text{old}}(\cdot\vert s)\Vert\pi_\theta(\cdot\vert s)\big)\Big]\leq\delta\label{eq:ppo.2}
 \end{align}
 
 ## Sampled-based estimation
 {: #sampled-bsd-est}
-The objective and constraint functions of \eqref{eq:ppo.2} can be approximated using Monte Carlo simulation. Following are two possible sampling approach to construct the estimated objective and constraint functions.
+The objective and constraint functions of \eqref{eq:ppo.2} can be approximated using Monte Carlo simulation. Following are two possible sampling approaches to construct the estimated objective and constraint functions.
 
 ### Single path
 {: #sgl}
@@ -355,3 +355,20 @@ This sampling approach follows the following process
 
 ## Footnotes
 {: #footnotes}
+
+[^1]: To be more specific, by definition of the advantage, i.e. $A_{\theta_\text{old}}(s,a)=Q_{\theta_\text{old}}(s,a)-V_{\theta_\text{old}}(s)$, we have:
+	\begin{align}
+	&\hspace{0.7cm}\mathbb{E}\_{s\sim\rho_{\theta_\text{old}},a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}Q_{\theta_\text{old}}(s,a)\right]\nonumber \\\\ &=\mathbb{E}\_{s\sim\rho_{\theta_\text{old}}}\left[\mathbb{E}\_{a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}A_{\theta_\text{old}}(s,a)+V_{\theta_\text{old}}(s)\right]\right]\nonumber \\\\ &=\mathbb{E}\_{s\sim\rho_{\text{old}}}\left[\mathbb{E}\_{a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}A_{\theta_\text{old}}(s,a)\right]\right]+\mathbb{E}\_{s\sim\rho_{\theta_\text{old}}}\left[V_{\theta_\text{old}}(s)\sum_{a}\pi_\theta(a\vert s)\right]\nonumber \\\\ &=\mathbb{E}\_{s\sim\rho_{\text{old}}}\left[\mathbb{E}\_{a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}A_{\theta_\text{old}}(s,a)\right]\right]+\mathbb{E}\_{s\sim\rho_{\theta_\text{old}}}\big[V_{\theta_\text{old}}(s)\big]\nonumber \\\\ &\underset{\max_\theta}{\propto}\mathbb{E}\_{s\sim\rho_{\text{old}}}\left[\mathbb{E}\_{a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}A_{\theta_\text{old}}(s,a)\right]\right]\nonumber \\\\ &\underset{\max_\theta}{\propto}\frac{1}{1-\gamma}\mathbb{E}\_{s\sim\rho_{\theta_\text{old}}}\left[\mathbb{E}\_{a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}A_{\theta_\text{old}}(s,a)\right]\right]\nonumber \\\\ &=\sum_s\rho_{\theta_\text{old}}(s)\mathbb{E}\_{a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}A_{\theta_\text{old}}(s,a)\right]\nonumber
+	\end{align}
+	where we have used the notation
+	\begin{equation}
+	\text{LHS}\underset{\max_\theta}{\propto}\text{RHS}\nonumber
+	\end{equation}
+	to denote that $\underset{\theta}{\text{maximize}}\,\,\text{LHS}$ is equivalent to $\underset{\theta}{\text{maximize}}\,\,\text{RHS}$. Also, the sixth step comes from definition of $\rho_\pi$, i.e. for $s_0\sim\rho_0$ and the actions are chosen according to $\pi$, we have
+	\begin{equation}
+	\rho_\pi(s)=P(s_0=s)+\gamma P(s_1=s)+\gamma^2 P(s_2=s)+\ldots,\nonumber
+	\end{equation}
+	which implies that by summing across all $s$, we obtain
+	\begin{align}
+	\sum_{s}\rho_\pi(s)&=\sum_s P(s_0=s)+\gamma\sum_s P(s_1=s)+\gamma^2\sum_s P(s_2=s)+\ldots\nonumber \\\\ &=1+\gamma+\gamma^2+\ldots\nonumber \\\\ &=\frac{1}{1-\gamma}\nonumber
+	\end{align}
