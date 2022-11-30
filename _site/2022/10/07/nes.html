@@ -187,7 +187,7 @@
 \begin{equation}
 J(\theta)=\mathbb{E}_\theta[f(\mathbf{z})]=\int f(\mathbf{z})\pi(\mathbf{z}\vert\theta)\,d\mathbf{z}\label{eq:sg.1}
 \end{equation}
-Taking the gradient of the above function w.r.t $\theta$ using the <strong>log-likelihood trick</strong> as in <a href="/2022/05/04/policy-gradient.html#reinforce">REINFORCE</a> gives us
+Taking the gradient of the above function w.r.t $\theta$ using the <strong>log-likelihood trick</strong> as in <a href="/2022/05/04/policy-gradient-theorem.html#reinforce">REINFORCE</a> gives us
 \begin{align}
 \nabla_\theta J(\theta)&amp;=\nabla_\theta\int f(\mathbf{z})\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\ &amp;=\int f(\mathbf{z})\nabla_\theta\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\ &amp;=\int f(\mathbf{z})\nabla_\theta\pi(\mathbf{z}\vert\theta)\frac{\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}\,d\mathbf{z} \\ &amp;=\int\left[f(\mathbf{z})\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\right]\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\ &amp;=\mathbb{E}_\theta\left[f(\mathbf{z})\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\right]
 \end{align}

@@ -35,7 +35,7 @@ Let $\mathbf{z}\in\mathbb{R}^n$ denote the solution sampled from the distributio
 \begin{equation}
 J(\theta)=\mathbb{E}\_\theta[f(\mathbf{z})]=\int f(\mathbf{z})\pi(\mathbf{z}\vert\theta)\,d\mathbf{z}\label{eq:sg.1}
 \end{equation}
-Taking the gradient of the above function w.r.t $\theta$ using the **log-likelihood trick** as in [REINFORCE]({% post_url 2022-05-04-policy-gradient %}#reinforce) gives us
+Taking the gradient of the above function w.r.t $\theta$ using the **log-likelihood trick** as in [REINFORCE]({% post_url 2022-05-04-policy-gradient-theorem %}#reinforce) gives us
 \begin{align}
 \nabla_\theta J(\theta)&=\nabla_\theta\int f(\mathbf{z})\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\\\ &=\int f(\mathbf{z})\nabla_\theta\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\\\ &=\int f(\mathbf{z})\nabla_\theta\pi(\mathbf{z}\vert\theta)\frac{\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}\,d\mathbf{z} \\\\ &=\int\left[f(\mathbf{z})\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\right]\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\\\ &=\mathbb{E}\_\theta\left[f(\mathbf{z})\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\right]
 \end{align}

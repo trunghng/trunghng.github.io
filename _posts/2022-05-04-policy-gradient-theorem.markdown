@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "Policy Gradient Methods"
+title:  "Policy Gradient Theorem"
 date:   2022-05-04 14:00:00 +0700
 tags: reinforcement-learning policy-gradient actor-critic function-approximation my-rl
-description: Policy Gradient Methods
+description: Policy Gradient Theorem
 comments: true
 eqn-number: true
 ---
