@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>jordan-measure on Trung&#39;s Place</title>
+    <link>https://trunghng.github.io/tags/jordan-measure/</link>
+    <description>Recent content in jordan-measure on Trung&#39;s Place</description>
+    <image>
+      <url>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 16 Jun 2022 13:00:00 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/jordan-measure/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Measure theory - I: Elementary measure, Jordan measure &amp; the Riemann integral</title>
+      <link>https://trunghng.github.io/posts/measure-theory/measure-theory-p1/</link>
+      <pubDate>Thu, 16 Jun 2022 13:00:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/measure-theory/measure-theory-p1/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Note I of the measure theory series. Materials are mostly taken from &lt;a href=&#34;https://trunghng.github.io/posts/measure-theory/measure-theory-p1/#taos-book&#34;&gt;Tao&amp;rsquo;s book&lt;/a&gt;, except for some needed notations extracted from &lt;a href=&#34;https://trunghng.github.io/posts/measure-theory/measure-theory-p1/#steins-book&#34;&gt;Stein&amp;rsquo;s book&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>dynamic-programming on Trung&#39;s Place</title>
+    <link>https://trunghng.github.io/tags/dynamic-programming/</link>
+    <description>Recent content in dynamic-programming on Trung&#39;s Place</description>
+    <image>
+      <url>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 25 Jul 2021 15:30:00 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/dynamic-programming/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Solving MDPs with Dynamic Programming</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/dp-in-mdp/</link>
+      <pubDate>Sun, 25 Jul 2021 15:30:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/dp-in-mdp/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;In two previous notes, &lt;a href=&#34;https://trunghng.github.io/posts/reinforcement-learning/mdp-bellman-eqn/&#34;&gt;&lt;strong&gt;MDPs and Bellman equations&lt;/strong&gt;&lt;/a&gt; and &lt;a href=&#34;https://trunghng.github.io/posts/reinforcement-learning/optimal-policy-existence/&#34;&gt;&lt;strong&gt;Optimal Policy Existence&lt;/strong&gt;&lt;/a&gt;, we have known how MDPs, Bellman equations were defined and how they worked. In this note, we are going to find the solution for the MDP framework with &lt;strong&gt;Dynamic Programming&lt;/strong&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

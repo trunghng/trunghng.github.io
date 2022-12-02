@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>deep-reinforcement-learning on Trung&#39;s Place</title>
+    <link>https://trunghng.github.io/tags/deep-reinforcement-learning/</link>
+    <description>Recent content in deep-reinforcement-learning on Trung&#39;s Place</description>
+    <image>
+      <url>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 23 Nov 2022 15:26:00 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/deep-reinforcement-learning/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Trust Region Policy Optimization</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/trpo/</link>
+      <pubDate>Wed, 23 Nov 2022 15:26:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/trpo/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Notes on TRPO.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Deep Q-learning</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/deep-q-learning/</link>
+      <pubDate>Fri, 18 Nov 2022 15:26:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/deep-q-learning/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Notes on DQN.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Policy Gradient</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/policy-gradient/</link>
+      <pubDate>Thu, 06 Oct 2022 15:26:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/policy-gradient/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Notes on Policy gradient methods.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>function-approximation on Trung&#39;s Place</title>
+    <link>https://trunghng.github.io/tags/function-approximation/</link>
+    <description>Recent content in function-approximation on Trung&#39;s Place</description>
+    <image>
+      <url>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 18 Nov 2022 15:26:00 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/function-approximation/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Deep Q-learning</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/deep-q-learning/</link>
+      <pubDate>Fri, 18 Nov 2022 15:26:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/deep-q-learning/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Notes on DQN.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Policy Gradient Theorem</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/policy-gradient-theorem/</link>
+      <pubDate>Wed, 04 May 2022 14:00:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/policy-gradient-theorem/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;So far in the series, we have been choosing the actions based on the estimated action value function. On the other hand, we can instead learn a &lt;strong&gt;parameterized policy&lt;/strong&gt;, $\boldsymbol{\theta}$, that can select actions without consulting a value function by updating $\boldsymbol{\theta}$ on each step in the direction of an estimate of the gradient of some performance measure w.r.t $\boldsymbol{\theta}$. Such methods are called &lt;strong&gt;policy gradient methods&lt;/strong&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Eligible Traces</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/eligible-traces/</link>
+      <pubDate>Sun, 13 Mar 2022 14:11:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/eligible-traces/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Beside &lt;a href=&#34;https://trunghng.github.io/posts/reinforcement-learning/td-learning/#n-step-td&#34;&gt;$n$-step TD&lt;/a&gt; methods, there is another mechanism called &lt;strong&gt;eligible traces&lt;/strong&gt; that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Function Approximation</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/func-approx/</link>
+      <pubDate>Fri, 11 Feb 2022 15:26:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/func-approx/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;All of the tabular methods we have been considering so far might scale well within a small state space. However, when dealing with Reinforcement Learning problems in continuous state space, an exact solution is nearly impossible to find. But instead, an approximated answer could be found.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

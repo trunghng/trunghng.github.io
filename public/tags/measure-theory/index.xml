@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>measure-theory on Trung&#39;s Place</title>
+    <link>https://trunghng.github.io/tags/measure-theory/</link>
+    <description>Recent content in measure-theory on Trung&#39;s Place</description>
+    <image>
+      <url>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 21 Aug 2022 13:00:00 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/measure-theory/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Measure theory - III: the Lebesgue integral</title>
+      <link>https://trunghng.github.io/posts/measure-theory/measure-theory-p3/</link>
+      <pubDate>Sun, 21 Aug 2022 13:00:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/measure-theory/measure-theory-p3/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Note III of the measure theory series. Materials are mostly taken from &lt;a href=&#34;https://trunghng.github.io/posts/measure-theory/measure-theory-p3/#taos-book&#34;&gt;Tao&amp;rsquo;s book&lt;/a&gt;, except for some needed notations extracted from &lt;a href=&#34;https://trunghng.github.io/posts/measure-theory/measure-theory-p3/#steins-book&#34;&gt;Stein&amp;rsquo;s book&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Measure theory - II: Lebesgue measure</title>
+      <link>https://trunghng.github.io/posts/measure-theory/measure-theory-p2/</link>
+      <pubDate>Sun, 03 Jul 2022 13:00:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/measure-theory/measure-theory-p2/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Note II of the measure theory series. Materials are mostly taken from &lt;a href=&#34;https://trunghng.github.io/posts/measure-theory/measure-theory-p2/#taos-book&#34;&gt;Tao&amp;rsquo;s book&lt;/a&gt;, except for some needed notations extracted from &lt;a href=&#34;https://trunghng.github.io/posts/measure-theory/measure-theory-p2/#steins-book&#34;&gt;Stein&amp;rsquo;s book&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Measure theory - I: Elementary measure, Jordan measure &amp; the Riemann integral</title>
+      <link>https://trunghng.github.io/posts/measure-theory/measure-theory-p1/</link>
+      <pubDate>Thu, 16 Jun 2022 13:00:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/measure-theory/measure-theory-p1/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Note I of the measure theory series. Materials are mostly taken from &lt;a href=&#34;https://trunghng.github.io/posts/measure-theory/measure-theory-p1/#taos-book&#34;&gt;Tao&amp;rsquo;s book&lt;/a&gt;, except for some needed notations extracted from &lt;a href=&#34;https://trunghng.github.io/posts/measure-theory/measure-theory-p1/#steins-book&#34;&gt;Stein&amp;rsquo;s book&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Measures</title>
+      <link>https://trunghng.github.io/posts/measure-theory/measure/</link>
+      <pubDate>Sat, 03 Jul 2021 07:00:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/measure-theory/measure/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;When talking about &lt;strong&gt;measure&lt;/strong&gt;, you might associate it with the idea of &lt;strong&gt;length&lt;/strong&gt;, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with &lt;strong&gt;area&lt;/strong&gt;, or even three dimensions with &lt;strong&gt;volume&lt;/strong&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

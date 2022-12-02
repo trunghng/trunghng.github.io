@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>my-rl on Trung&#39;s Place</title>
+    <link>https://trunghng.github.io/tags/my-rl/</link>
+    <description>Recent content in my-rl on Trung&#39;s Place</description>
+    <image>
+      <url>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 23 Nov 2022 15:26:00 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/my-rl/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Trust Region Policy Optimization</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/trpo/</link>
+      <pubDate>Wed, 23 Nov 2022 15:26:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/trpo/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Notes on TRPO.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Deep Q-learning</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/deep-q-learning/</link>
+      <pubDate>Fri, 18 Nov 2022 15:26:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/deep-q-learning/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Notes on DQN.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Policy Gradient</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/policy-gradient/</link>
+      <pubDate>Thu, 06 Oct 2022 15:26:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/policy-gradient/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Notes on Policy gradient methods.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Likelihood Ratio Policy Gradient via Importance Sampling</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/likelihood-ratio-pg-is/</link>
+      <pubDate>Wed, 25 May 2022 15:26:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/likelihood-ratio-pg-is/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Connection between Likelihood ratio policy gradient method and Importance sampling method.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Planning &amp; Learning</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/planning-learning/</link>
+      <pubDate>Thu, 19 May 2022 14:09:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/planning-learning/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Recall that when using &lt;a href=&#34;https://trunghng.github.io/posts/reinforcement-learning/dp-in-mdp/&#34;&gt;dynamic programming (DP) method&lt;/a&gt; in solving reinforcement learning problems, we required the availability of a model of the environment. Whereas with &lt;a href=&#34;https://trunghng.github.io/posts/reinforcement-learning/monte-carlo-in-rl/&#34;&gt;Monte Carlo methods&lt;/a&gt; and &lt;a href=&#34;https://trunghng.github.io/posts/reinforcement-learning/td-learning/&#34;&gt;temporal-difference learning&lt;/a&gt;, the models are unnecessary. Such methods with requirement of a model like the case of DP is called &lt;strong&gt;model-based&lt;/strong&gt;, while methods without using a model is called &lt;strong&gt;model-free&lt;/strong&gt;. Model-based methods primarily rely on &lt;strong&gt;planning&lt;/strong&gt;; and model-free methods, on the other hand, primarily rely on &lt;strong&gt;learning&lt;/strong&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Policy Gradient Theorem</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/policy-gradient-theorem/</link>
+      <pubDate>Wed, 04 May 2022 14:00:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/policy-gradient-theorem/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;So far in the series, we have been choosing the actions based on the estimated action value function. On the other hand, we can instead learn a &lt;strong&gt;parameterized policy&lt;/strong&gt;, $\boldsymbol{\theta}$, that can select actions without consulting a value function by updating $\boldsymbol{\theta}$ on each step in the direction of an estimate of the gradient of some performance measure w.r.t $\boldsymbol{\theta}$. Such methods are called &lt;strong&gt;policy gradient methods&lt;/strong&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Eligible Traces</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/eligible-traces/</link>
+      <pubDate>Sun, 13 Mar 2022 14:11:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/eligible-traces/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Beside &lt;a href=&#34;https://trunghng.github.io/posts/reinforcement-learning/td-learning/#n-step-td&#34;&gt;$n$-step TD&lt;/a&gt; methods, there is another mechanism called &lt;strong&gt;eligible traces&lt;/strong&gt; that unify TD and Monte Carlo. Setting $\lambda$ in TD($\lambda$) from $0$ to $1$, we end up with a spectrum ranging from TD methods, when $\lambda=0$ to Monte Carlo methods with $\lambda=1$.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Function Approximation</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/func-approx/</link>
+      <pubDate>Fri, 11 Feb 2022 15:26:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/func-approx/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;All of the tabular methods we have been considering so far might scale well within a small state space. However, when dealing with Reinforcement Learning problems in continuous state space, an exact solution is nearly impossible to find. But instead, an approximated answer could be found.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Temporal-Difference Learning</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/td-learning/</link>
+      <pubDate>Mon, 31 Jan 2022 16:55:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/td-learning/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;So far in this &lt;a href=&#34;https://trunghng.github.io/tags/my-rl/&#34;&gt;series&lt;/a&gt;, we have gone through the ideas of &lt;a href=&#34;https://trunghng.github.io/posts/reinforcement-learning/dp-in-mdp/&#34;&gt;&lt;strong&gt;dynamic programming&lt;/strong&gt; (DP)&lt;/a&gt; and &lt;a href=&#34;https://trunghng.github.io/posts/reinforcement-learning/monte-carlo-in-rl/&#34;&gt;&lt;strong&gt;Monte Carlo&lt;/strong&gt;&lt;/a&gt;. What will happen if we combine these ideas together? &lt;strong&gt;Temporal-difference (TD) learning&lt;/strong&gt; is our answer.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Monte Carlo Methods in Reinforcement Learning</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/monte-carlo-in-rl/</link>
+      <pubDate>Sat, 21 Aug 2021 13:03:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/monte-carlo-in-rl/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Recall that when using &lt;a href=&#34;https://trunghng.github.io/posts/reinforcement-learning/dp-in-mdp/&#34;&gt;&lt;strong&gt;Dynamic Programming&lt;/strong&gt;&lt;/a&gt; algorithms to solve RL problems, we made an assumption about the complete knowledge of the environment. With &lt;strong&gt;Monte Carlo&lt;/strong&gt; methods, we only require &lt;strong&gt;experience&lt;/strong&gt; - sample sequences of states, actions, and rewards from simulated or real interaction with an environment.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Solving MDPs with Dynamic Programming</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/dp-in-mdp/</link>
+      <pubDate>Sun, 25 Jul 2021 15:30:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/dp-in-mdp/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;In two previous notes, &lt;a href=&#34;https://trunghng.github.io/posts/reinforcement-learning/mdp-bellman-eqn/&#34;&gt;&lt;strong&gt;MDPs and Bellman equations&lt;/strong&gt;&lt;/a&gt; and &lt;a href=&#34;https://trunghng.github.io/posts/reinforcement-learning/optimal-policy-existence/&#34;&gt;&lt;strong&gt;Optimal Policy Existence&lt;/strong&gt;&lt;/a&gt;, we have known how MDPs, Bellman equations were defined and how they worked. In this note, we are going to find the solution for the MDP framework with &lt;strong&gt;Dynamic Programming&lt;/strong&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Optimal Policy Existence</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/optimal-policy-existence/</link>
+      <pubDate>Sat, 10 Jul 2021 13:03:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/optimal-policy-existence/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;In the previous note about &lt;a href=&#34;https://trunghng.github.io/posts/reinforcement-learning/mdp-bellman-eqn/&#34;&gt;&lt;strong&gt;Markov Decision Processes, Bellman equations&lt;/strong&gt;&lt;/a&gt;, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here to prove it.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Markov Decision Processes, Bellman equations</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/mdp-bellman-eqn/</link>
+      <pubDate>Sun, 27 Jun 2021 08:00:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/mdp-bellman-eqn/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;You may have known or heard vaguely about a computer program called &lt;strong&gt;AlphaGo&lt;/strong&gt; - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called &lt;strong&gt;self-play&lt;/strong&gt; against its other instances, with &lt;strong&gt;Reinforcement Learning&lt;/strong&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

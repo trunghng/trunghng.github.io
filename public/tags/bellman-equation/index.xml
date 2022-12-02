@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>bellman-equation on Trung&#39;s Place</title>
+    <link>https://trunghng.github.io/tags/bellman-equation/</link>
+    <description>Recent content in bellman-equation on Trung&#39;s Place</description>
+    <image>
+      <url>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 10 Jul 2021 13:03:00 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/bellman-equation/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Optimal Policy Existence</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/optimal-policy-existence/</link>
+      <pubDate>Sat, 10 Jul 2021 13:03:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/optimal-policy-existence/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;In the previous note about &lt;a href=&#34;https://trunghng.github.io/posts/reinforcement-learning/mdp-bellman-eqn/&#34;&gt;&lt;strong&gt;Markov Decision Processes, Bellman equations&lt;/strong&gt;&lt;/a&gt;, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here to prove it.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Markov Decision Processes, Bellman equations</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/mdp-bellman-eqn/</link>
+      <pubDate>Sun, 27 Jun 2021 08:00:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/mdp-bellman-eqn/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;You may have known or heard vaguely about a computer program called &lt;strong&gt;AlphaGo&lt;/strong&gt; - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called &lt;strong&gt;self-play&lt;/strong&gt; against its other instances, with &lt;strong&gt;Reinforcement Learning&lt;/strong&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
