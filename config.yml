@@ -126,10 +126,10 @@ menu:
       name: Tags
       url: /tags/
       weight: 20
-    - identifier: about
-      name: About
-      url: /about/
-      weight: 30
+    # - identifier: about
+    #   name: About
+    #   url: /about/
+    #   weight: 30
     - identifier: search
       name: Search
       url: /search/
