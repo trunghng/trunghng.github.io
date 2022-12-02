@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>q-learning on Trung&#39;s Place</title>
+    <link>https://trunghng.github.io/tags/q-learning/</link>
+    <description>Recent content in q-learning on Trung&#39;s Place</description>
+    <image>
+      <url>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 18 Nov 2022 15:26:00 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/q-learning/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Deep Q-learning</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/deep-q-learning/</link>
+      <pubDate>Fri, 18 Nov 2022 15:26:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/deep-q-learning/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Notes on DQN.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Planning &amp; Learning</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/planning-learning/</link>
+      <pubDate>Thu, 19 May 2022 14:09:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/planning-learning/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Recall that when using &lt;a href=&#34;https://trunghng.github.io/posts/reinforcement-learning/dp-in-mdp/&#34;&gt;dynamic programming (DP) method&lt;/a&gt; in solving reinforcement learning problems, we required the availability of a model of the environment. Whereas with &lt;a href=&#34;https://trunghng.github.io/posts/reinforcement-learning/monte-carlo-in-rl/&#34;&gt;Monte Carlo methods&lt;/a&gt; and &lt;a href=&#34;https://trunghng.github.io/posts/reinforcement-learning/td-learning/&#34;&gt;temporal-difference learning&lt;/a&gt;, the models are unnecessary. Such methods with requirement of a model like the case of DP is called &lt;strong&gt;model-based&lt;/strong&gt;, while methods without using a model is called &lt;strong&gt;model-free&lt;/strong&gt;. Model-based methods primarily rely on &lt;strong&gt;planning&lt;/strong&gt;; and model-free methods, on the other hand, primarily rely on &lt;strong&gt;learning&lt;/strong&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Temporal-Difference Learning</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/td-learning/</link>
+      <pubDate>Mon, 31 Jan 2022 16:55:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/td-learning/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;So far in this &lt;a href=&#34;https://trunghng.github.io/tags/my-rl/&#34;&gt;series&lt;/a&gt;, we have gone through the ideas of &lt;a href=&#34;https://trunghng.github.io/posts/reinforcement-learning/dp-in-mdp/&#34;&gt;&lt;strong&gt;dynamic programming&lt;/strong&gt; (DP)&lt;/a&gt; and &lt;a href=&#34;https://trunghng.github.io/posts/reinforcement-learning/monte-carlo-in-rl/&#34;&gt;&lt;strong&gt;Monte Carlo&lt;/strong&gt;&lt;/a&gt;. What will happen if we combine these ideas together? &lt;strong&gt;Temporal-difference (TD) learning&lt;/strong&gt; is our answer.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

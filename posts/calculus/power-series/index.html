@@ -1,0 +1,359 @@
+<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Power Series | Trung's Place</title><meta name=keywords content="mathematics,calculus series,power-series,taylor-series,random-stuffs"><meta name=description content="
+Recall that in the previous note, Infinite Series of Constants, we mentioned a type of series called power series a lot. In the content of this note, we will be diving deeper into details of its.
+"><meta name=author content="Trung H. Nguyen"><link rel=canonical href=https://trunghng.github.io/posts/calculus/power-series/><meta name=google-site-verification content="XYZabc"><meta name=yandex-verification content="XYZabc"><meta name=msvalidate.01 content="XYZabc"><link crossorigin=anonymous href=/assets/css/stylesheet.bc1149f4a72aa4858d3a9f71462f75e5884ffe8073ea9d6d5761d5663d651e20.css integrity="sha256-vBFJ9KcqpIWNOp9xRi915YhP/oBz6p1tV2HVZj1lHiA=" rel="preload stylesheet" as=style><script defer crossorigin=anonymous src=/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG+9vmJ0cTS+ovo0FeA=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://trunghng.github.io/images/favicon/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://trunghng.github.io/images/favicon/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://trunghng.github.io/images/favicon/favicon-32x32.png><link rel=apple-touch-icon href=https://trunghng.github.io/images/favicon/apple-touch-icon.png><link rel=mask-icon href=https://trunghng.github.io/images/favicon/android-chrome-512x512.png><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><script type=text/x-mathjax-config>
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+    "HTML-CSS": {availableFonts: []}
+  });
+</script><script type=text/javascript src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><style>.post-content{text-align:justify;font-size:15px}.post-content h1,h2,h3,h4,h5,h6{text-align:left}.post-content a{text-decoration:none}.post-content ol,.post-content ul{margin-left:10px}.post-content li>ol,.post-content li>ul{margin-left:30px}#roman-list,#number-list{counter-reset:section}#roman-list,#number-list>li{list-style:none;position:relative}#roman-list>li:before{counter-increment:section;content:"(" counter(section,lower-roman)") ";position:absolute;left:-.75em}#number-list>li:before{counter-increment:section;content:"(" counter(section,decimal)") ";position:absolute;left:-2em}figcaption{font-size:14px}.toc{font-size:15px}.post-footer{font-size:15px}</style><script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,i=t.createElement(n),a=t.getElementsByTagName(n)[0],i.async=1,i.src=s,a.parentNode.insertBefore(i,a)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-123-45","auto"),ga("send","pageview"))</script><meta property="og:title" content="Power Series"><meta property="og:description" content="
+Recall that in the previous note, Infinite Series of Constants, we mentioned a type of series called power series a lot. In the content of this note, we will be diving deeper into details of its.
+"><meta property="og:type" content="article"><meta property="og:url" content="https://trunghng.github.io/posts/calculus/power-series/"><meta property="og:image" content="https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts"><meta property="article:published_time" content="2021-09-21T15:40:00+07:00"><meta property="article:modified_time" content="2021-09-21T15:40:00+07:00"><meta property="og:site_name" content="Trung's Place"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta name=twitter:title content="Power Series"><meta name=twitter:description content="
+Recall that in the previous note, Infinite Series of Constants, we mentioned a type of series called power series a lot. In the content of this note, we will be diving deeper into details of its.
+"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://trunghng.github.io/posts/"},{"@type":"ListItem","position":3,"name":"Power Series","item":"https://trunghng.github.io/posts/calculus/power-series/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Power Series","name":"Power Series","description":" Recall that in the previous note, Infinite Series of Constants, we mentioned a type of series called power series a lot. In the content of this note, we will be diving deeper into details of its.\n","keywords":["mathematics","calculus series","power-series","taylor-series","random-stuffs"],"articleBody":" Recall that in the previous note, Infinite Series of Constants, we mentioned a type of series called power series a lot. In the content of this note, we will be diving deeper into details of its.\nPower Series A power series is a series of the form \\begin{equation} \\sum_{n=0}^{\\infty}a_nx^n=a_0+a_1x+a_2x^2+\\ldots+a_nx^n+\\ldots, \\end{equation} where the coefficient $a_n$ are constants and $x$ is a variable.\nThe Interval of Convergence Similar to what we have done in the note of infinite series of constants, we begin studying properties of power series by considering their convergence behavior.\nLemma 1\nIf a power series $\\sum a_nx^n$ converges at $x_1$, with $x_1\\neq 0$, then it converges absolutely at all $x$ with $\\vert x\\vert\u003c\\vert x_1\\vert$; and if it diverges at $x_1$, then it diverges at all $x$ with $\\vert x\\vert\u003e\\vert x_1\\vert$.\nProof\nBy the $n$-th term test, we have that if $\\sum a_nx^n$ converges, then $a_nx^n\\to 0$. In particular, if $n$ is sufficiently large, then $\\vert a_n{x_1}^n\\vert\u003c1$, and therefore \\begin{equation} \\vert a_nx^n\\vert=\\vert a_n{x_1}^n\\vert\\left\\vert\\dfrac{x}{x_1}\\right\\vert^n","wordCount":"3100","inLanguage":"en","datePublished":"2021-09-21T15:40:00+07:00","dateModified":"2021-09-21T15:40:00+07:00","author":{"@type":"Person","name":"Trung H. Nguyen"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://trunghng.github.io/posts/calculus/power-series/"},"publisher":{"@type":"Organization","name":"Trung's Place","logo":{"@type":"ImageObject","url":"https://trunghng.github.io/images/favicon/favicon.ico"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://trunghng.github.io accesskey=h title="Trung's Place (Alt + H)"><img src=https://trunghng.github.io/apple-touch-icon.png alt aria-label=logo height=35>Trung's Place</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=https://trunghng.github.io/ title=Posts><span>Posts</span></a></li><li><a href=https://trunghng.github.io/archives/ title=Archive><span>Archive</span></a></li><li><a href=https://trunghng.github.io/tags/ title=Tags><span>Tags</span></a></li><li><a href=https://trunghng.github.io/about/ title=About><span>About</span></a></li><li><a href=https://trunghng.github.io/search/ title="Search (Alt + /)" accesskey=/><span>Search</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href=https://trunghng.github.io>Home</a>&nbsp;»&nbsp;<a href=https://trunghng.github.io/posts/>Posts</a></div><h1 class=post-title>Power Series</h1><div class=post-meta><span title='2021-09-21 15:40:00 +0700 +0700'>September 21, 2021</span>&nbsp;·&nbsp;15 min&nbsp;·&nbsp;Trung H. Nguyen</div></header><div class=toc><details><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><nav id=TableOfContents><ul><li><a href=#power-series>Power Series</a></li><li><a href=#int-conv>The Interval of Convergence</a><ul><li><a href=#eg1>Example</a></li></ul></li><li><a href=#dif-int-power-series>Differentiation and Integration of Power Series</a><ul><li><a href=#dif-power-series>Differentiation of Power Series</a></li><li><a href=#nt-power-series>Integration of Power Series</a></li><li><a href=#eg2>Example</a></li></ul></li><li><a href=#taylor-series-formula>Taylor Series, Taylor&rsquo;s Formula</a><ul><li><a href=#taylor-series>Taylor Series</a></li><li><a href=#taylors-formula>Taylor&rsquo;s Formula</a></li></ul></li><li><a href=#op-power-series>Operations on Power Series</a><ul><li><a href=#mult>Multiplication</a></li><li><a href=#div>Division</a></li><li><a href=#sub>Substitution</a></li><li><a href=#even-odd-funcs>Even and Odd Functions</a></li></ul></li><li><a href=#uni-conv-power-series>Uniform Convergence for Power Series</a><ul><li><a href=#cont-sum>Continuity of the Sum</a></li><li><a href=#int>Integrating term by term</a></li><li><a href=#dif>Differentiating term by term</a></li></ul></li><li><a href=#references>References</a></li><li><a href=#footnotes>Footnotes</a></li></ul></nav></div></details></div><div class=post-content><blockquote><p>Recall that in the previous note, <a href=https://trunghng.github.io/posts/calculus/infinite-series-of-constants/>Infinite Series of Constants</a>, we mentioned a type of series called <strong>power series</strong> a lot. In the content of this note, we will be diving deeper into details of its.</p></blockquote><h2 id=power-series>Power Series<a hidden class=anchor aria-hidden=true href=#power-series>#</a></h2><p>A <strong>power series</strong> is a series of the form
+\begin{equation}
+\sum_{n=0}^{\infty}a_nx^n=a_0+a_1x+a_2x^2+\ldots+a_nx^n+\ldots,
+\end{equation}
+where the coefficient $a_n$ are constants and $x$ is a variable.</p><h2 id=int-conv>The Interval of Convergence<a hidden class=anchor aria-hidden=true href=#int-conv>#</a></h2><p>Similar to what we have done in the note of <a href=https://trunghng.github.io/posts/calculus/infinite-series-of-constants/>infinite series of constants</a>, we begin studying properties of power series by considering their convergence behavior.</p><p><strong>Lemma 1</strong><br><em>If a power series $\sum a_nx^n$ converges at $x_1$, with $x_1\neq 0$, then it converges <a href=https://trunghng.github.io/posts/calculus/infinite-series-of-constants/#abs-conv>absolutely</a> at all $x$ with $\vert x\vert&lt;\vert x_1\vert$; and if it diverges at $x_1$, then it diverges at all $x$ with $\vert x\vert>\vert x_1\vert$.</em></p><p><strong>Proof</strong><br>By the <a href=https://trunghng.github.io/posts/calculus/infinite-series-of-constants/#nth-term-test>$n$-th term test</a>, we have that if $\sum a_nx^n$ converges, then $a_nx^n\to 0$. In particular, if $n$ is sufficiently large, then $\vert a_n{x_1}^n\vert&lt;1$, and therefore
+\begin{equation}
+\vert a_nx^n\vert=\vert a_n{x_1}^n\vert\left\vert\dfrac{x}{x_1}\right\vert^n&lt;r^n,\tag{1}\label{1}
+\end{equation}
+where $r=\vert\frac{x}{x_1}\vert$. Suppose that $\vert x\vert&lt;\vert x_1\vert$, we have
+\begin{equation}
+r=\left\vert\dfrac{x}{x_1}\right\vert&lt;1,
+\end{equation}
+which leads to the result that geometric series $\sum r^n$ converges (with the sum $\frac{1}{1-r}$). And hence, from \eqref{1} and by the <a href=https://trunghng.github.io/posts/calculus/infinite-series-of-constants/#comparison-test>comparison test</a>, the series $\sum\vert a_nx^n\vert$ also converges.</p><p>Moreover, if $\sum a_n{x_1}^n$ diverges, then $\sum\vert a_n{x_1}^n\vert$ also diverges. By the <a href=https://trunghng.github.io/posts/calculus/infinite-series-of-constants/#comparison-test>comparison test</a>, for any $x$ such that $\vert x\vert>\vert x_1\vert$, we also have that $\sum\vert a_nx^n\vert$ diverges. This leads to the divergence of $\sum a_nx^n$, because if the series $\sum a_nx^n$ converges, so does $\sum\vert a_nx^n\vert$, which contradicts to our result.</p><p>These are some main facts about the convergence behavior of an arbitrary power series and some properties of its:</p><ul id=roman-list><li>Given a power series $\sum a_nx^n$, precisely one of the following is true:<ul id=number-list><li>The series converges only for $x=0$.</li><li>The series is absolutely convergent for all $x$.</li><li>There exists a positive real number $R$ such that the series is absolutely convergent for $\vert x\vert\lt R$ and divergent for $\vert x\vert>R$.</li></ul></li><li>The positive real number $R$ is called <b>radius of convergence</b> of the power series: the series converges absolutely at every point of the open interval $(-R,R)$, and diverges outside the closed interval $[-R,R]$.</li><li>The set of all $x$'s for which a power series converges is called its <b>interval of convergence</b>.</li><li>When the series converges only for $x=0$, we define $R=0$; and we define $R=\infty$ when the series converges for all $x$.</li><li>Every power series $\sum a_nx^n$ has a radius of convergence $R$, where $0\leq R\leq\infty$, with the property that the series converges absolutely if $\vert x\vert\lt R$ and diverges if $\vert x\vert>R$.</li></ul><h3 id=eg1>Example<a hidden class=anchor aria-hidden=true href=#eg1>#</a></h3><p>Find the interval of convergence of the series
+\begin{equation}
+\sum_{n=0}^{\infty}\dfrac{x^n}{n+1}=1+\dfrac{x}{2}+\dfrac{x^2}{3}+\ldots
+\end{equation}</p><p><strong>Solution</strong><br>In order to find the interval of convergence of a series, we begin by identifying its radius of convergence.</p><p>Consider a power series $\sum a_nx^n$. Suppose that this limit exists, and has $\infty$ as an allowed value, we have
+\begin{equation}
+\lim_{n\to\infty}\dfrac{\vert a_{n+1}x^{n+1}\vert}{a_nx^n}=\lim_{n\to\infty}\left\vert\dfrac{a_{n+1}}{a_n}\right\vert\cdot\vert x\vert=\dfrac{\vert x\vert}{\lim_{n\to\infty}\left\vert\frac{a_n}{a_{n+1}}\right\vert}=L
+\end{equation}
+By the <a href=https://trunghng.github.io/posts/calculus/infinite-series-of-constants/#ratio-test>ratio test</a>, we have $\sum a_nx^n$ converges absolutely if $L&lt;1$ and diverges in case of $L>1$. Or in other words, the series converges absolutely if
+\begin{equation}
+\vert x\vert&lt;\lim_{n\to\infty}\left\vert\dfrac{a_n}{a_{n+1}}\right\vert,
+\end{equation}
+or diverges if
+\begin{equation}
+\vert x\vert>\lim_{n\to\infty}\left\vert\dfrac{a_n}{a_{n+1}}\right\vert
+\end{equation}
+From the definition of radius of convergence, we can choose the radius of converge of $\sum a_nx^n$ as
+\begin{equation}
+R=\lim_{n\to\infty}\left\vert\dfrac{a_n}{a_{n+1}}\right\vert
+\end{equation}</p><p>Back to our problem, for the series $\sum\frac{x^n}{n+1}$, we have its radius of convergence is
+\begin{equation}
+R=\lim_{n\to\infty}\left\vert\dfrac{a_n}{a_{n+1}}\right\vert=\lim_{n\to\infty}\dfrac{\frac{1}{n+1}}{\frac{1}{n+2}}=\lim_{n\to\infty}\dfrac{n+2}{n+1}=1
+\end{equation}
+At $x=1$, the series becomes the <a href=https://trunghng.github.io/posts/calculus/infinite-series-of-constants/#harmonic-series><strong>harmonic series</strong></a>, i.e.
+\begin{equation}
+1+\frac{1}{2}+\frac{1}{3}+\ldots,
+\end{equation}
+which diverges; and at $x=-1$, it is the <strong>alternating harmonic series</strong>, i.e.
+\begin{equation}
+1-\frac{1}{2}+\frac{1}{3}-\ldots,
+\end{equation}
+which converges. Hence, the interval of convergence of the series is $[-1,1)$.</p><h2 id=dif-int-power-series>Differentiation and Integration of Power Series<a hidden class=anchor aria-hidden=true href=#dif-int-power-series>#</a></h2><p>It is easily seen that the sum of the series $\sum_{n=0}^{\infty}a_nx^n$ is a function of $x$ since the sum depends only on $x$ for any value of $x$. Hence, we can denote this as
+\begin{equation}
+f(x)=\sum_{n=0}^{\infty}a_nx^n=a_0+a_1x+a_2x^2+\ldots+a_nx^n+\ldots\tag{2}\label{2}
+\end{equation}
+This relation between the series and the function is also expressed by saying that $\sum a_nx^n$ is a <strong>power series expansion</strong> of $f(x)$.</p><p>Following are some crucial facts about that relation.</p><ul id=roman-list><li><span id=fact1></span>The function $f(x)$ defined by \eqref{2} is continuous on the open interval $(-R,R)$.</li><li><span id=fact2></span>The function $f(x)$ is differentiable on $(-R,R)$, and its derivative is given by the formula
+\begin{equation}
+f'(x)=a_1+2a_2x+3a_3x^2+\ldots+na_nx^{n-1}+\ldots\tag{3}\label{3}
+\end{equation}</li><li><span id=fact3></span>If $x$ is any point in $(-R,R)$, then
+\begin{equation}
+\int_{0}^{x}f(t)\,dt=a_0x+\dfrac{1}{2}a_1x^2+\dfrac{1}{3}a_2x^3+\ldots+\dfrac{1}{n+1}a_nx^{n+1}+\ldots\tag{4}\label{4}
+\end{equation}</li></ul><p><strong>Remark</strong><br>We have that series \eqref{3} and \eqref{4} converge on the interval $(-R,R)$.</p><p><strong>Proof</strong></p><ol><li>We begin by proving the convergence on $(-R,R)$ of \eqref{3}.<br>Let $x$ be a point in the interval $(-R,R)$ and choose $\epsilon>0$ so that $\vert x\vert+\epsilon&lt;R$. Since $\vert x\vert+\epsilon$ is in the interval, $\sum\vert a_n\left(\vert x\vert+\epsilon\right)^n\vert$ converges.<br>We continue by proving the inequality
+\begin{equation}
+\vert nx^{n-1}\vert\leq\left(\vert x\vert+\epsilon\right)^n\hspace{1cm}\forall n\geq n_0,
+\end{equation}
+where $\epsilon>0$, $n_0$ is a positive integer. We have
+\begin{align}
+\lim_{n\to\infty}n^{1/n}&=\lim_{n\to\infty} \\ &=\lim_{n\to\infty}\exp\left(\frac{\ln n}{n}\right) \\ &=\exp\left(\lim_{n\to\infty}\frac{\ln n}{n}\right) \\ &={\rm e}^0=1,
+\end{align}
+where in the fourth step, we use the <strong>L’Hospital theorem</strong><sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup>. Therefore, as $n\to\infty$
+\begin{equation}
+n^{1/n}\vert x\vert^{1-1/n}\to\vert x\vert
+\end{equation}
+Then for all sufficiently large $n$&rsquo;s
+\begin{align}
+n^{1/n}\vert x\vert^{1-1/n}&\leq\vert x\vert+\epsilon \\ \vert nx^{n-1}\vert&\leq\left(\vert x\vert+\epsilon\right)^n
+\end{align}
+This implies that
+\begin{equation}
+\vert na_nx^{n-1}\vert\leq\vert a_n\left(\vert x\vert+\epsilon\right)^n\vert
+\end{equation}
+By the <a href=https://trunghng.github.io/posts/calculus/infinite-series-of-constants/#comparison-test>comparison test</a>, we have that the series $\sum\vert na_nx^{n-1}\vert$ converges, and so does $\sum na_nx^{n-1}$.</li><li>Since $\sum\vert a_nx^n\vert$ converges and
+\begin{equation}
+\left\vert\dfrac{a_nx^n}{n+1}\right\vert\leq\vert a_nx^n\vert,
+\end{equation}
+the <a href=https://trunghng.github.io/posts/calculus/infinite-series-of-constants/#comparison-test>comparison test</a> implies that $\sum\left\vert\frac{a_nx^n}{n+1}\right\vert$ converges, and therefore
+\begin{equation}
+x\sum\frac{a_nx^n}{n+1}=\sum\frac{1}{n+1}a_nx^{n+1}
+\end{equation}
+also converges.</li></ol><h3 id=dif-power-series>Differentiation of Power Series<a hidden class=anchor aria-hidden=true href=#dif-power-series>#</a></h3><p>If we instead apply <a href=#fact2>(ii)</a> to the function $f&rsquo;(x)$ in \eqref{3}, then it follows that $f&rsquo;(x)$ is also differentiable. Doing the exact same process to $f&rsquo;'(x)$, we also have that $f&rsquo;'(x)$ is differentiable, and so on. Hence, the original $f(x)$ has derivatives of all orders, as expressed in the following statement:</p><p><em>In the interior of its interval of convergence, a power series defines an finitely differentiable function whose derivatives can be calculated by differentiating the series term by term</em>.
+\begin{equation}
+\dfrac{d}{dx}\left(\sum a_nx^n\right)=\sum\dfrac{d}{dx}(a_nx^n)
+\end{equation}</p><h3 id=nt-power-series>Integration of Power Series<a hidden class=anchor aria-hidden=true href=#nt-power-series>#</a></h3><p>Similarly, from <a href=#fact3>(iii)</a>, the term-by-term integration of power series can be emphasized by writing \eqref{4} as
+\begin{equation}
+\int\left(\sum a_nx^n\right),dx=\sum\left(\int a_nx^n,dx\right)
+\end{equation}</p><h3 id=eg2>Example<a hidden class=anchor aria-hidden=true href=#eg2>#</a></h3><p>Find a power series expansion of ${\rm e}^x$.</p><p><strong>Solution</strong><br>Since ${\rm e}^x$ is the only function that equals its own derivatives<sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup> and has the value $1$ at $x=0$. To construct a power series equal to its own derivative, we use the fact that when such a series is differentiated, the degree of each term drops by $1$. We thus want each term to be the derivative of the one that follows it.</p><p>Starting with $1$ as the constant term, the next should be $x$, then $\frac{1}{2}x^2$, then $\frac{1}{2.3}x^3$, and so on. This produces the series
+\begin{equation}
+1+x+\dfrac{x^2}{2!}+\dfrac{x^3}{3!}+\ldots+\dfrac{x^n}{n!}+\ldots,\tag{5}\label{5}
+\end{equation}
+which converges for all $x$ because
+\begin{equation}
+R=\lim_{n\to\infty}\dfrac{\frac{1}{n!}}{\frac{1}{(n+1)!}}=\lim_{n\to\infty}(n+1)=\infty
+\end{equation}
+We have constructed the series \eqref{5} so that its sum is unchanged by differentiated and has the value $1$ at $x=0$. Therefore, for all $x$,
+\begin{equation}
+{\rm e}^x=1+x+\dfrac{x^2}{2!}+\dfrac{x^3}{3!}+\ldots+\dfrac{x^n}{n!}+\ldots
+\end{equation}</p><h2 id=taylor-series-formula>Taylor Series, Taylor&rsquo;s Formula<a hidden class=anchor aria-hidden=true href=#taylor-series-formula>#</a></h2><h3 id=taylor-series>Taylor Series<a hidden class=anchor aria-hidden=true href=#taylor-series>#</a></h3><p>Assume that $f(x)$ is the sum of a power series with positive radius of convergence
+\begin{equation}
+f(x)=\sum_{n=0}^{\infty}a_nx^n=a_0+a_1x+a_2x^2+\ldots,\hspace{1cm}R>0\tag{6}\label{6}
+\end{equation}
+By the results obtained from previous section, differentiating \eqref{6} term by term we have
+\begin{align}
+f^{(1)}(x)&=a_1+2a_2x+3a_3x^2+\ldots \\ f^{(2)}(x)&=1.2a_2+2.3a_3x+3.4a_4x^2+\ldots \\ f^{(3)}(x)&=1.2.3a_3+2.3.4a_4x+3.4.5a_5x^2+\ldots
+\end{align}
+and in general,
+\begin{equation}
+f^{(n)}(x)=n!a_n+A(x),\tag{7}\label{7}
+\end{equation}
+where $A(x)$ contains $x$ as a factor.</p><p>Since these series expansions of the derivatives are valid on the open interval $(-R,R)$, putting $x=0$ in \eqref{7} we obtain
+\begin{equation}
+f^{(n)}(0)=n!a_n,
+\end{equation}
+so
+\begin{equation}
+a_n=\dfrac{f^{(n)}(0)}{n!}
+\end{equation}
+Putting this result in \eqref{6}, our series becomes
+\begin{equation}
+f(x)=f(0)+f^{(1)}(0)x+\dfrac{f^{(2)}(0)}{2!}x^2+\ldots+\dfrac{f^{(n)}(0)}{n!}x^n+\ldots\tag{8}\label{8}
+\end{equation}
+This power series is called <strong>Taylor series</strong> of $f(x)$ (at $x=0$), which is named after the person who introduced it, Brook Taylor.</p><p>If we use the convention that $0!=1$, then \eqref{8} can be written as
+\begin{equation}
+f(x)=\sum_{n=0}^{\infty}\dfrac{f^{(n)}(0)}{n!}x^n
+\end{equation}
+The numbers $a_n=\frac{f^{(n)}(0)}{n!}$ are called the <strong>Taylor coefficients</strong> of $f(x)$.</p><p><strong>Remark</strong><br>Given a function $f(x)$ that is infinitely differentiable in some interval containing the point $x=0$, we have already examined the possibility of expanding this function as a power series in $x$. More generally, if $f(x)$ is infinitely differentiable in some interval containing the point $x=a$, is there any possibility for the power series expansion of $f(x)$ in $x-a$ instead of $x$?<br>\begin{equation}
+f(x)=\sum_{n=0}^{\infty}a_n(x-a)^n=a_0+a_1(x-a)+a_2(x-a)^2+\ldots
+\end{equation}
+Let $w=x-a$, and $g(w)=f(x)$, we have that $g^{(n)}(0)=f^{(n)}(a)$. Thus, the Taylor series of $f(x)$ in power of $x-a$ (or at $x=a$) is
+\begin{align}
+f(x)&=\sum_{n=0}^{\infty}\dfrac{f^{(n)}(a)}{n!}(x-a)^n \\ &=f(a)+f^{(1)}(a)(x-a)+\dfrac{f^{(2)}(a)}{2!}(x-a)^2+\ldots+\dfrac{f^{(n)}(a)}{n!}(x-a)^n+\ldots\tag{9}\label{9}
+\end{align}</p><h3 id=taylors-formula>Taylor&rsquo;s Formula<a hidden class=anchor aria-hidden=true href=#taylors-formula>#</a></h3><p>If we break off the Taylor series on the right side of \eqref{8} at the term containing $x^n$ and define the <strong>remainder</strong> $R_n(x)$ by the equation
+\begin{equation}
+f(x)=f(0)+f^{(1)}(0)x+\dfrac{f^{(2)}(0)}{2!}x^2+\ldots+\dfrac{f^{(n)}(0)}{n!}x^n+R_n(x),\tag{10}\label{10}
+\end{equation}
+then the Taylor series on the right side of \eqref{8} converges to the function $f(x)$ as $n$ tends to infinity precisely when
+\begin{equation}
+\lim_{n\to\infty}R_n(x)=0
+\end{equation}
+Since $R_n(x)$ contains $x^{n+1}$ as a factor, we can define a function $S_n(x)$ by writing
+\begin{equation}
+R_n(x)=S_n(x)x^{n+1}
+\end{equation}
+for $x\neq 0$. Next, we keep $x$ fixed and define a function $F(t)$ for $0\leq t\leq x$ (or $x\leq t\leq 0$) by writing
+\begin{multline}
+F(t)=f(x)-f(t)-f^{(1)}(t)(x-t)-\dfrac{f^{(2)}(t)}{2!}(x-t)^2-\ldots \\ -\dfrac{f^{(n)}(t)}{n!}(x-t)^n-S_n(x)(x-t)^{n+1}
+\end{multline}
+It is easily seen that $F(x)=0$. Also, from equation \eqref{10}, we have that $F(0)=0$. Then by the <strong>Mean Value Theorem</strong><sup id=fnref:3><a href=#fn:3 class=footnote-ref role=doc-noteref>3</a></sup>, $F&rsquo;(c)=0$ for some constant $c$ between $0$ and $x$.</p><p>Differentiating $F(t)$ w.r.t $t$, and evaluateing it at $t=c$ give us
+\begin{equation}
+F&rsquo;(c)=-\dfrac{f^{(n+1)}(c)}{n!}(x-c)^n+S_n(x)(n+1)(x-c)^n=0,
+\end{equation}
+which implies that
+\begin{equation}
+S_n(x)=\dfrac{f^{(n+1)}(c)}{(n+1)!},
+\end{equation}
+and
+\begin{equation}
+R_n(x)=S_n(x)x^{n+1}=\dfrac{f^{(n+1)}(c)}{(n+1)!}x^{n+1},
+\end{equation}
+which makes \eqref{10} become
+\begin{equation}
+f(x)=f(0)+f^{(1)}(0)x+\dfrac{f^{(2)}(0)}{2!}x^2+\ldots+\dfrac{f^{(n)}(0)}{n!}x^n+\dfrac{f^{(n+1)}(c)}{(n+1)!}x^{n+1},
+\end{equation}
+where $c$ is some number between $0$ and $x$. This equation is called <strong>Taylor&rsquo;s formula with derivative remainder</strong>.</p><p>Moreover, with this formula we can rewrite \eqref{9} as
+\begin{multline}
+f(x)=f(a)+f^{(1)}(a)(x-a)+\dfrac{f^{(2)}(a)}{2!}(x-a)^2+\ldots \\ +\dfrac{f^{(n)}(a)}{n!}(x-a)^n+\dfrac{f^{(n+1)}(a)}{(n+1)!}(x-a)^{n+1},\tag{11}\label{11}
+\end{multline}
+where $c$ is some number between $a$ and $x$.</p><p>The polynomial part of \eqref{11}
+\begin{multline}
+\sum_{j=0}^{n}\dfrac{f^{(j)}(a)}{j!}(x-a)^j=f(a)+f^{(1)}(a)(x-a) \\ +\dfrac{f^{(2)}(a)}{2!}(x-a)^2+\ldots+\dfrac{f^{(n)}(a)}{n!}(x-a)^n
+\end{multline}
+is called the <strong>nth-degree Taylor polynomial at</strong> $x=a$.</p><p>On the other hand, the remainder part of \eqref{11}
+\begin{equation}
+R_n(x)=\dfrac{f^{(n+1)}(a)}{(n+1)!}(x-a)^{n+1}
+\end{equation}
+is often called <strong>Lagrange&rsquo;s remainder formula</strong>.</p><p><strong>Remark</strong><br>It is worth remarking that power series expansions are <em>unique</em>. This means that if a function $f(x)$ can be expressed as a sum of a power series by <em>any method</em>, then this series must be the Taylor series of $f(x)$.</p><h2 id=op-power-series>Operations on Power Series<a hidden class=anchor aria-hidden=true href=#op-power-series>#</a></h2><h3 id=mult>Multiplication<a hidden class=anchor aria-hidden=true href=#mult>#</a></h3><p>Suppose we are given two power series expansions
+\begin{align}
+f(x)&=\sum a_nx^n=a_0+a_1x+a_2x^2+a_3x^3+\ldots\tag{12}\label{12} \\ g(x)&=\sum b_nx^n=b_0+b_1x+b_2x^2+b_3x^3+\ldots\tag{13}\label{13}
+\end{align}
+both valid on $(-R,R)$. If we multiply these two series term by term, we obtain the power series
+\begin{multline}
+a_0b_0+(a_0b_1+a_1b_0)x+(a_0b_2+a_1b_1+a_2b_0)x^2 \\ +(a_0b_3+a_1b_2+a_2b_1+a_3b_0)x^3+\ldots
+\end{multline}
+Briefly, we have multiplied \eqref{12} and \eqref{13} to obtain
+\begin{equation}
+f(x)g(x)=\sum_{n=0}^{\infty}\left(\sum_{k=0}^{n}a_kb_{n-k}\right)x^n\tag{14}\label{14}
+\end{equation}
+By the <a href=https://trunghng.github.io/posts/calculus/infinite-series-of-constants/#theorem10><strong>Theorem 10</strong></a>, we have that this product of the series \eqref{12} and \eqref{13} actually converges on the interval $(-R,R)$ to the product of the functions $f(x)$ and $g(x)$, as indicated by \eqref{14}.</p><h3 id=div>Division<a hidden class=anchor aria-hidden=true href=#div>#</a></h3><p>With the two series \eqref{12} and \eqref{13}, we have
+\begin{equation}
+\dfrac{\sum a_nx^n}{\sum b_nx^n}=\left(\sum a_nx^n\right).\left(\dfrac{1}{\sum b_nx^n}\right)
+\end{equation}
+This suggests us that if we can expand $\frac{1}{\sum b_nx^n}$ in a power series with positive radius of convergence $\sum c_nx^n$, and multiply this series by $\sum a_nx^n$, we can compute the division of our two series $\sum a_nx^n$ and $\sum b_nx^n$.</p><p>To do the division properly, it is necessary to assume that $b_0\neq0$ (for the case $x=0$). Moreover, without any loss of generality, we may assume that $b_0=1$, because with the assumption that $b_0\neq0$, we simply factor it out
+\begin{equation}
+\dfrac{1}{b_0+b_1x+b_2x^2+\ldots}=\dfrac{1}{b_0}.\dfrac{1}{1+\frac{b_1}{b_0}x+\frac{b_2}{b_0}x^2+\ldots}
+\end{equation}</p><p>We begin by determining the $c_n$&rsquo;s. Since $\frac{1}{\sum b_nx^n}=\sum c_nx^n$, then $(\sum b_nx^n)(\sum c_nx^n)=1$, so
+\begin{multline}
+b_0c_0+(b_0c_1+b_1c_0)x+(b_0c_2+b_1c_1+b_2c_0)x^2+\ldots \\ +(b_0c_n+b_1c_{n-1}+\ldots+b_nc_0)x^n+\ldots=1,
+\end{multline}
+and since $b_0=1$, we can determine the $c_n$&rsquo;s recursively
+\begin{align}
+c_0&=1 \\ c_1&=-b_1c_0 \\ c_2&=-b_1c_1-b_2c_0 \\ &\vdots \\ c_n&=-b_1c_{n-1}-b_2c_{n-2}-\ldots-b_nc_0 \\ &\vdots
+\end{align}
+Our work remains to proving that the power series $\sum c_nx^n$ with these coefficients has positive radius of convergence, and for this it suffices to show that the series converges for at least one nonzero $x$.</p><p>Let $r$ be any number such that $0&lt;r&lt;R$, so that $\sum b_nr^n$ converges. Then there exists a constant $K\geq 1$ with the property that $\vert b_nr^n\vert\leq K$ or $\vert b_n\vert\leq\frac{K}{r^n}$ for all $n$. Therefore,
+\begin{align}
+\vert c_0\vert&=1\leq K, \\ \vert c_1\vert&=\vert b_1c_0\vert=\vert b_1\vert\leq \dfrac{K}{r}, \\ \vert c_2\vert&\leq\vert b_1c_1\vert+\vert b_2c_0\vert\leq\dfrac{K}{r}.\dfrac{K}{r}+\dfrac{K}{r^2}.K=\dfrac{2K^2}{r^2}, \\ \vert c_3\vert&\leq\vert b_1c_2\vert+\vert b_2c_1\vert+\vert b_3c_0\vert\leq\dfrac{K}{r}.\dfrac{2K^2}{r^2}+\dfrac{K}{r^2}.\dfrac{K}{r}+\dfrac{K}{r^3}.K \\ &\hspace{5.3cm}\leq(2+1+1)\dfrac{K^3}{r^3}=\dfrac{4K^3}{r^3}=\dfrac{2^2K^3}{r^3},
+\end{align}
+since $K^2\leq K^3$ since $K\geq1$. In general,
+\begin{align}
+\vert c_n\vert&\leq\vert c_1b_{n-1}\vert+\vert c_2b_{n-2}\vert+\ldots+\vert b_nc_0\vert \\ &\leq\dfrac{K}{r}.\dfrac{2^{n-2}K^{n-1}}{r^{n-1}}+\dfrac{K}{r^2}.\dfrac{2^{n-3}K^{n-2}}{r^{n-2}}+\ldots+\dfrac{K}{r^n}.K \\ &\leq(2^{n-2}+2^{n-3}+\ldots+1+1)\dfrac{K^n}{r^n}=\dfrac{2^{n-1}K^n}{r^n}\leq\dfrac{2^nK^n}{r^n}
+\end{align}
+Hence, for any $x$ such that $\vert x\vert&lt;\frac{r}{2K}$, we have that the series $\sum c_nx^n$ converges absolutely, and therefore converges. Or in other words, $\sum c_nx^n$ has nonzero radius of convergence.</p><h3 id=sub>Substitution<a hidden class=anchor aria-hidden=true href=#sub>#</a></h3><p>If a power series
+\begin{equation}
+f(X)=a_0+a_1x+a_2x^2+\ldots\tag{15}\label{15}
+\end{equation}
+converges for $\vert x\vert&lt;R$ and if $\vert g(x)\vert&lt;R$, then we can find $f(g(x))$ by substituting $g(x)$ for $x$ in \eqref{15}. Suppose $g(x)$ is given by a power series,
+\begin{equation}
+g(x)=b_0+b_1x+b_2x^2+\ldots,\tag{16}\label{16}
+\end{equation}
+therefore,
+\begin{align}
+f(g(x))&=a_0+a_1g(x)+a_2g(x)^2+\ldots \\ &=a_0+a_1(b+0+b_1x+\ldots)+a_2(b_0+b_1x+\ldots)^2+\ldots
+\end{align}
+The power series formed in this way converges to $f(g(x))$ whenever \eqref{16} is absolutely convergent and $\vert g(x)\vert&lt;R$.</p><h3 id=even-odd-funcs>Even and Odd Functions<a hidden class=anchor aria-hidden=true href=#even-odd-funcs>#</a></h3><p>A function $f(x)$ defined on $(-R,R)$ is said to be <strong>even</strong> if
+\begin{equation}
+f(-x)=f(x),
+\end{equation}
+and <strong>odd</strong> if
+\begin{equation}
+f(-x)=-f(x)
+\end{equation}
+Then if $f(x)$ is an even function, then its Taylor series has the form
+\begin{equation}
+\sum_{n=0}^{\infty}a_{2n}x^{2n}=a_0+a_2x^2+a_4x^4+\ldots
+\end{equation}
+and if $f(x)$ is an odd function, then its Taylor series has the form
+\begin{equation}
+\sum_{n=0}^{\infty}a_{2n+1}x^{2n+1}=a_1x+a_3x^3+a_5x^5+\ldots
+\end{equation}
+since if $f(x)=\sum_{n=0}^{\infty}a_nx^n$ is even, then $\sum_{n=0}^{\infty}a_nx^n=\sum_{n=0}^{\infty}(-1)^na_nx^n$, so by the uniqueness of the Taylor series expansion, we have that $a_n=(-1)^na_n$.</p><p>Analogously, $a_n=(-1)^{n+1}a_n$ if $f(x)$ is an odd function.</p><h2 id=uni-conv-power-series>Uniform Convergence for Power Series<a hidden class=anchor aria-hidden=true href=#uni-conv-power-series>#</a></h2><p>Consider a power series $\sum a_nx^n$ with positive radius of convergence $R$, and let $f(x)$ be its sum.</p><p>In the <a href=#dif-int-power-series>section</a> above, we stated that $f(x)$ is continuous and differentiable on $(-R,R)$, and we can differentiate and integrate it term by term. So let&rsquo;s prove these statements!</p><p>Let $S_n(x)$ be the $n$-th partial sum of the series, so that
+\begin{equation}
+S_n(x)=\sum_{i=0}^{n}a_ix^i=a_0+a_1x+a_2x^2+\ldots+a_nx^n
+\end{equation}
+Similar to what we did in <a href=#taylors-formula>Taylor&rsquo;s formula</a>, we write
+\begin{equation}
+f(x)=S_n(x)+R_n(x),
+\end{equation}
+which implies that the remainder is given by
+\begin{equation}
+R_n(x)=a_{n+1}x^{n+1}+a_{n+2}x^{n+2}+\ldots
+\end{equation}
+For each $x$ in the interval of convergence, we know that $R_n(x)\to0$ as $n\to\infty$; that is, for any given $\epsilon>0$, and for an integer $n_0$ large enough, we have
+\begin{equation}
+\vert R_n(x)\vert&lt;\epsilon,\hspace{1cm}n\geq n_0\tag{17}\label{17}
+\end{equation}
+This is true for each $x$ individually, and is an equivalent way of expressing the fact that $\sum a_nx^n$ converges to $f(x)$.</p><p>Moreover, for every $x$ in the given a closed interval $\vert x\vert\leq\vert x_1\vert&lt;R$, we have
+\begin{align}
+\vert R_n(x)\vert&=\left\vert a_{n+1}x^{n+1}+a_{n+2}x^{n+2}+\ldots\right\vert \\ &\leq\left\vert a_{n+1}x^{n+1}\right\vert+\left\vert a_{n+2}x^{n+2}\right\vert+\ldots \\ &\leq\left\vert a_{n+1}{x_1}^{n+1}\right\vert+\left\vert a_{n+2}{x_1}^{n+2}\right\vert+\ldots
+\end{align}
+Because of the <a href=https://trunghng.github.io/posts/calculus/infinite-series-of-constants/#abs-conv>absolute convergence</a> of $\sum a_n{x_1}^n$, the last sum can be made $&lt;\epsilon$ by taking $n$ large enough, $n\geq n_0$. Therefore, we have that \eqref{17} holds for all $x$ inside the closed interval $\vert x\vert\leq\vert x_1\vert$ inside the interval of convergence $(-R,R)$.</p><p>Or in other words, $R_n(x)$ can be made small <em>independently of $x$ in the given closed interval</em> $\vert x\vert\leq\vert x_1\vert$, which is equivalent to saying that the series $\sum a_nx^n$ is <strong>uniformly convergent</strong> in this interval.</p><h3 id=cont-sum>Continuity of the Sum<a hidden class=anchor aria-hidden=true href=#cont-sum>#</a></h3><p>In order to prove that $f(x)$ is continuous on $(-R,R)$, it suffices to prove that $f(x)$ is continuous at each point $x_0$ in the interval of convergence.</p><p>Consider a closed subinterval $\vert x\vert\leq\vert x_1\vert&lt;R$ containing $x_0$ in its interior. If $\epsilon>0$ is given, then by uniform convergence we can find an $n$ such that $\vert R_n(x)\vert&lt;\epsilon$ for all $x$&rsquo;s in the subinterval.</p><p>Since the polynomial $S_n(x)$ is continuous at $x_0$, we can find $\delta>0$ small that $\vert x-x_0\vert&lt;\delta$ implies $x$ lies in the subinterval and $\vert S_n(x)-S_n(x_0)\vert&lt;\epsilon$. Putting these conditions together we find that $\vert x-x_0\vert&lt;\delta$ implies
+\begin{align}
+\vert f(x)-f(x_0)\vert&=\left\vert S_n(x)+R_n(x)-\left(S_n(x_0)+R_n(x_0)\right)\right\vert \\ &=\left\vert\left(S_n(x)-S_n(x_0)\right)+R_n(x)-R_n(x_0)\right\vert \\ &\leq\left\vert S_n(x)-S_n(x_0)\right\vert+\left\vert R_n(x)\right\vert+\left\vert R_n(x_0)\right\vert \\ &&lt;\epsilon+\epsilon+\epsilon=3\epsilon
+\end{align}
+which proves the continuity of $f(x)$ at $x_0$.</p><h3 id=int>Integrating term by term<a hidden class=anchor aria-hidden=true href=#int>#</a></h3><p>With what we have just proved that $f(x)=\sum a_nx^n$ is continuous on $(-R,R)$, we can therefore integrate this function between $a$ and $b$ that lie inside the interval
+\begin{equation}
+\int_{a}^{b}f(x)\hspace{0.1cm}dx=\int_{a}^{b}\left(\sum a_nx^n\right)\hspace{0.1cm}dx
+\end{equation}
+We need to prove that the right side of this equation can be integrated term by term, which is
+\begin{equation}
+\int_{a}^{b}f(x)\hspace{0.1cm}dx=\int_{a}^{b}\left(\sum a_nx^n\right)\hspace{0.1cm}dx=\sum\int_{a}^{b}a_nx^n\hspace{0.1cm}dx\tag{18}\label{18}
+\end{equation}
+In order to prove this, we begin by observing that $S_n(x)$ is a polynomial, and for that reason it is continuous. Thus, all there of the functions in
+\begin{equation}
+f(x)=S_n(x)+R_n(x)
+\end{equation}
+are continuous on $(-R,R)$. This allows us to write
+\begin{equation}
+\int_{a}^{b}f(x)\hspace{0.1cm}dx=\int_{a}^{b}S_n(x)\hspace{0.1cm}dx+\int_{a}^{b}R_n(x)\hspace{0.1cm}dx
+\end{equation}
+Moreover, we can integrate $S_n(x)$ term by term
+\begin{align}
+\int_{a}^{b}S_n(x)\hspace{0.1cm}dx&=\int_{a}^{b}\left(a_0+a_1x+a_2x^2+\ldots+a_nx^n\right)\hspace{0.1cm}dx \\ &=\int_{a}^{b}a_0\hspace{0.1cm}dx+\int_{a}^{b}a_1x\hspace{0.1cm}dx+\int_{a}^{b}a_2x^2\hspace{0.1cm}dx+\ldots+\int_{a}^{b}a_nx^n\hspace{0.1cm}dx
+\end{align}
+To prove \eqref{18}, it therefore suffices to show that as $n\to\infty$
+\begin{equation}
+\int_{a}^{b}R_n(x)\hspace{0.1cm}dx\to 0
+\end{equation}
+By uniform convergence, if $\epsilon>0$ is given and $\vert x\vert\leq\vert x_1\vert&lt;R$ is a closed subinterval of $(-R,R)$ that contains both $a,b$, then $\vert R_n(x)\vert&lt;\epsilon$ for all $x$ in the subinterval and $n$ large enough. Hence,
+\begin{equation}
+\left\vert\int_{a}^{b}R_n(x)\hspace{0.1cm}dx\right\vert\leq\int_{a}^{b}\big\vert R_n(x)\big\vert\hspace{0.1cm}dx&lt;\epsilon\vert b-a\vert
+\end{equation}
+for any $n$ large enough, which proves our statement.</p><p>As a special case of \eqref{18}, we take the limits $0$ and $x$ instead of $a$ and $b$, and obtain
+\begin{align}
+\int_{a}^{b}f(t)\hspace{0.1cm}dt&=\sum\dfrac{1}{n+1}a_nx^{n+1} \\ &=a_0x+\dfrac{1}{2}a_1x^2+\dfrac{1}{3}a_2x^3+\ldots+\dfrac{1}{n+1}a_nx^{n+1}+\ldots\tag{19}\label{19}
+\end{align}</p><h3 id=dif>Differentiating term by term<a hidden class=anchor aria-hidden=true href=#dif>#</a></h3><p>We now prove that the function $f(x)$ is not only continuous but also differentiable on $(-R,R)$, and that its derivative can be calculated by differentiating term by term
+\begin{equation}
+f&rsquo;(x)=\sum na_nx^{n-1}
+\end{equation}
+It is easily seen that the series on right side of this equation is exact the series on the right side of \eqref{3}, which is convergent on $(-R,R)$ as we proved. If we denote its sum by $g(x)$
+\begin{equation}
+g(x)=\sum na_nx^{n-1}=a_1+2a_2x+3a_3x^2+\ldots+na_nx^{n-1}+\ldots,
+\end{equation}
+then \eqref{19} tells us that
+\begin{align}
+\int_{0}^{x}g(t)\hspace{0.1cm}dt&=a_1x+a_2x^2+a_3x^3+\ldots \\ &=f(x)-a_0
+\end{align}
+Since the left side of this has a derivative, so does the right side, and by differentiating we obtain
+\begin{equation}
+f&rsquo;(x)=g(x)=\sum na_nx^{n-1}
+\end{equation}</p><h2 id=references>References<a hidden class=anchor aria-hidden=true href=#references>#</a></h2><p>[1] George F.Simmons. <a href=https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424>Calculus With Analytic Geometry - 2nd Edition</a>.</p><p>[2] Marian M. <a href=https://www.springer.com/gp/book/9780387789323>A Concrete Approach to Classical Analysis</a>.</p><p>[3] MIT 18.01. <a href=https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/>Single Variable Calculus</a>.</p><h2 id=footnotes>Footnotes<a hidden class=anchor aria-hidden=true href=#footnotes>#</a></h2><div class=footnotes role=doc-endnotes><hr><ol><li id=fn:1><p><strong>Theorem</strong> (<em>L’Hospital</em>)<br><em>Assume $f$ and $g$ are real and differentiable on $]a,b[$ and $g&rsquo;(x)\neq 0$ for all $x\in]a,b[$, where $-\infty\leq a&lt;b\leq\infty$. Suppose as $x\to a$,
+\begin{equation}
+\dfrac{f&rsquo;(x)}{g&rsquo;(x)}\to A,(\in[-\infty,\infty])
+\end{equation}
+If as $x\to a$, $f(x)\to 0$ and $g(x)\to 0$ or if $g(x)\to+\infty$ as $x\to a$, then
+\begin{equation}
+\dfrac{f(x)}{g(x)}\to A
+\end{equation}
+as $x\to a$.</em>&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:2><p><strong>Proof</strong><br>Consider the function $f(x)=a^x$.<br>Using the definition of the derivative, we have
+\begin{align}
+\dfrac{d}{dx}f(x)&=\lim_{h\to 0}\dfrac{f(x+h)-f(x)}{h} \\ &=\lim_{h\to 0}\dfrac{a^{x+h}-a^x}{h} \\ &=a^x\lim_{h\to 0}\dfrac{a^h-1}{h}
+\end{align}
+Therefore,
+\begin{equation}
+\lim_{h\to 0}\dfrac{a^h-1}{h}=1
+\end{equation}
+then, let $n=\frac{1}{h}$, we have
+\begin{equation}
+a=\lim_{h\to 0}\left(1+\dfrac{1}{h}\right)^{1/h}=\lim_{n\to\infty}\left(1+\dfrac{1}{n}\right)^n={\rm e}
+\end{equation}
+Thus, $f(x)=a^x={\rm e}^x$. Every function $y=c{\rm e}^x$ also satisfies the differential equation $\frac{dy}{dx}=y$, because
+\begin{equation}
+\dfrac{dy}{dx}=\dfrac{d}{dx}c{\rm e}^x=c\dfrac{d}{dx}{\rm e}^x=c{\rm e}^x=y
+\end{equation}<br>The rest of our proof is to prove that these are only functions that are unchanged by differentiation.<br>To prove this, suppose $f(x)$ is any function with that property. By the quotient rule,
+\begin{equation}
+\dfrac{d}{dx}\dfrac{f(x)}{e^x}=\dfrac{f&rsquo;(x)e^x-e^x f(x)}{e^{2x}}=\dfrac{e^x f(x)-e^x f(x)}{e^{2x}}=0
+\end{equation}
+which implies that
+\begin{equation}
+\dfrac{f(x)}{e^x}=c,
+\end{equation}
+for some constant $c$, and so $f(x)=ce^x$.&#160;<a href=#fnref:2 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:3><p><strong>Theorem</strong> (<em>Mean Value Theorem</em>)<br><em>If a function $f(x)$ is continuous on the closed interval $[a,b]$ and differentiable in the open interval $(a,b)$, then there exists at least one number $c$ between $a$ and $b$ with the property that</em>
+\begin{equation}
+f&rsquo;(c)=\frac{f(b)-f(a)}{b-a}
+\end{equation}&#160;<a href=#fnref:3 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li></ol></div></div><footer class=post-footer><ul class=post-tags><li><a href=https://trunghng.github.io/tags/mathematics/>mathematics</a></li><li><a href=https://trunghng.github.io/tags/calculus-series/>calculus series</a></li><li><a href=https://trunghng.github.io/tags/power-series/>power-series</a></li><li><a href=https://trunghng.github.io/tags/taylor-series/>taylor-series</a></li><li><a href=https://trunghng.github.io/tags/random-stuffs/>random-stuffs</a></li></ul><nav class=paginav><a class=prev href=https://trunghng.github.io/posts/probability-statistics/normal-dist/><span class=title>« Prev</span><br><span>Gaussian Distribution</span></a>
+<a class=next href=https://trunghng.github.io/posts/calculus/infinite-series-of-constants/><span class=title>Next »</span><br><span>Infinite Series of Constants</span></a></nav><div class=share-buttons><a target=_blank rel="noopener noreferrer" aria-label="share Power Series on twitter" href="https://twitter.com/intent/tweet/?text=Power%20Series&url=https%3a%2f%2ftrunghng.github.io%2fposts%2fcalculus%2fpower-series%2f&hashtags=mathematics%2ccalculusseries%2cpower-series%2ctaylor-series%2crandom-stuffs"><svg viewBox="0 0 512 512" height="30" width="30" fill="currentcolor"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share Power Series on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2ftrunghng.github.io%2fposts%2fcalculus%2fpower-series%2f&title=Power%20Series&summary=Power%20Series&source=https%3a%2f%2ftrunghng.github.io%2fposts%2fcalculus%2fpower-series%2f"><svg viewBox="0 0 512 512" height="30" width="30" fill="currentcolor"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share Power Series on reddit" href="https://reddit.com/submit?url=https%3a%2f%2ftrunghng.github.io%2fposts%2fcalculus%2fpower-series%2f&title=Power%20Series"><svg viewBox="0 0 512 512" height="30" width="30" fill="currentcolor"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share Power Series on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2ftrunghng.github.io%2fposts%2fcalculus%2fpower-series%2f"><svg viewBox="0 0 512 512" height="30" width="30" fill="currentcolor"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share Power Series on whatsapp" href="https://api.whatsapp.com/send?text=Power%20Series%20-%20https%3a%2f%2ftrunghng.github.io%2fposts%2fcalculus%2fpower-series%2f"><svg viewBox="0 0 512 512" height="30" width="30" fill="currentcolor"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share Power Series on telegram" href="https://telegram.me/share/url?text=Power%20Series&url=https%3a%2f%2ftrunghng.github.io%2fposts%2fcalculus%2fpower-series%2f"><svg viewBox="2 2 28 28" height="30" width="30" fill="currentcolor"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg></a></div></footer></article></main><footer class=footer><span>&copy; 2022 <a href=https://trunghng.github.io>Trung's Place</a></span>
+<span>Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg></a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="copy";function s(){t.innerHTML="copied!",setTimeout(()=>{t.innerHTML="copy"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script></body></html>

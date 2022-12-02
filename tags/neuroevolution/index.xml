@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>neuroevolution on Trung&#39;s Place</title>
+    <link>https://trunghng.github.io/tags/neuroevolution/</link>
+    <description>Recent content in neuroevolution on Trung&#39;s Place</description>
+    <image>
+      <url>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 07 Oct 2022 13:00:00 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/neuroevolution/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Natural Evolution Strategies</title>
+      <link>https://trunghng.github.io/posts/evolution-strategy/nes/</link>
+      <pubDate>Fri, 07 Oct 2022 13:00:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/evolution-strategy/nes/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Natural Evolution Strategies&lt;/strong&gt;, or &lt;strong&gt;NES&lt;/strong&gt;, are referred to a family of evolution strategies that throughout its generations update a search distribution repeatedly using an estimated gradient of its distribution parameters.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>CMA Evolution Strategy</title>
+      <link>https://trunghng.github.io/posts/evolution-strategy/cma-es/</link>
+      <pubDate>Wed, 14 Sep 2022 13:00:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/evolution-strategy/cma-es/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Notes on CMA - Evolution Strategy.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

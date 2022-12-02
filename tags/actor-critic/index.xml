@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>actor-critic on Trung&#39;s Place</title>
+    <link>https://trunghng.github.io/tags/actor-critic/</link>
+    <description>Recent content in actor-critic on Trung&#39;s Place</description>
+    <image>
+      <url>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 04 May 2022 14:00:00 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/actor-critic/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Policy Gradient Theorem</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/policy-gradient-theorem/</link>
+      <pubDate>Wed, 04 May 2022 14:00:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/policy-gradient-theorem/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;So far in the series, we have been choosing the actions based on the estimated action value function. On the other hand, we can instead learn a &lt;strong&gt;parameterized policy&lt;/strong&gt;, $\boldsymbol{\theta}$, that can select actions without consulting a value function by updating $\boldsymbol{\theta}$ on each step in the direction of an estimate of the gradient of some performance measure w.r.t $\boldsymbol{\theta}$. Such methods are called &lt;strong&gt;policy gradient methods&lt;/strong&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

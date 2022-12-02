@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>monte-carlo on Trung&#39;s Place</title>
+    <link>https://trunghng.github.io/tags/monte-carlo/</link>
+    <description>Recent content in monte-carlo on Trung&#39;s Place</description>
+    <image>
+      <url>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 21 Aug 2021 13:03:00 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/monte-carlo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Monte Carlo Methods in Reinforcement Learning</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/monte-carlo-in-rl/</link>
+      <pubDate>Sat, 21 Aug 2021 13:03:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/monte-carlo-in-rl/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Recall that when using &lt;a href=&#34;https://trunghng.github.io/posts/reinforcement-learning/dp-in-mdp/&#34;&gt;&lt;strong&gt;Dynamic Programming&lt;/strong&gt;&lt;/a&gt; algorithms to solve RL problems, we made an assumption about the complete knowledge of the environment. With &lt;strong&gt;Monte Carlo&lt;/strong&gt; methods, we only require &lt;strong&gt;experience&lt;/strong&gt; - sample sequences of states, actions, and rewards from simulated or real interaction with an environment.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

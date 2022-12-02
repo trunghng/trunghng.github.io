@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>probability-statistics on Trung&#39;s Place</title>
+    <link>https://trunghng.github.io/tags/probability-statistics/</link>
+    <description>Recent content in probability-statistics on Trung&#39;s Place</description>
+    <image>
+      <url>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 04 Apr 2022 14:00:00 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/probability-statistics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The exponential family</title>
+      <link>https://trunghng.github.io/posts/probability-statistics/exponential-family/</link>
+      <pubDate>Mon, 04 Apr 2022 14:00:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/probability-statistics/exponential-family/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Notes on exponential family.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Gaussian Distribution</title>
+      <link>https://trunghng.github.io/posts/probability-statistics/normal-dist/</link>
+      <pubDate>Mon, 22 Nov 2021 14:46:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/probability-statistics/normal-dist/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;The &lt;strong&gt;Gaussian (Normal) distribution&lt;/strong&gt; is a continuous distribution with a bell-shaped PDF used widely in statistics due to the &lt;strong&gt;Central Limit theorem&lt;/strong&gt;. The theorem states that under very weak assumptions, the sum of a large number of i.i.d. random variables has an approximately Normal distribution, regardless of the distribution of the individual r.v.s. This means we can start with independent r.v.s from almost any distribution, discrete or continuous, but once we add up a bunch of them, the distribution of the resulting random variable looks like a Gaussian distribution.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Markov Chain</title>
+      <link>https://trunghng.github.io/posts/probability-statistics/markov-chain/</link>
+      <pubDate>Sat, 19 Jun 2021 22:27:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/probability-statistics/markov-chain/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;If we have to describe the defintition of &lt;strong&gt;Markov chain&lt;/strong&gt; in one statement, it will be: &amp;ldquo;It only matters where you are, not where you&amp;rsquo;ve been&amp;rdquo;.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

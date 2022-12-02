@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>random-stuffs on Trung&#39;s Place</title>
+    <link>https://trunghng.github.io/tags/random-stuffs/</link>
+    <description>Recent content in random-stuffs on Trung&#39;s Place</description>
+    <image>
+      <url>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 21 Sep 2021 15:40:00 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/random-stuffs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Power Series</title>
+      <link>https://trunghng.github.io/posts/calculus/power-series/</link>
+      <pubDate>Tue, 21 Sep 2021 15:40:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/calculus/power-series/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Recall that in the previous note, &lt;a href=&#34;https://trunghng.github.io/posts/calculus/infinite-series-of-constants/&#34;&gt;Infinite Series of Constants&lt;/a&gt;, we mentioned a type of series called &lt;strong&gt;power series&lt;/strong&gt; a lot. In the content of this note, we will be diving deeper into details of its.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Infinite Series of Constants</title>
+      <link>https://trunghng.github.io/posts/calculus/infinite-series-of-constants/</link>
+      <pubDate>Mon, 06 Sep 2021 11:20:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/calculus/infinite-series-of-constants/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Notes on infinite series of constants.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Measures</title>
+      <link>https://trunghng.github.io/posts/measure-theory/measure/</link>
+      <pubDate>Sat, 03 Jul 2021 07:00:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/measure-theory/measure/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;When talking about &lt;strong&gt;measure&lt;/strong&gt;, you might associate it with the idea of &lt;strong&gt;length&lt;/strong&gt;, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with &lt;strong&gt;area&lt;/strong&gt;, or even three dimensions with &lt;strong&gt;volume&lt;/strong&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Markov Chain</title>
+      <link>https://trunghng.github.io/posts/probability-statistics/markov-chain/</link>
+      <pubDate>Sat, 19 Jun 2021 22:27:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/probability-statistics/markov-chain/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;If we have to describe the defintition of &lt;strong&gt;Markov chain&lt;/strong&gt; in one statement, it will be: &amp;ldquo;It only matters where you are, not where you&amp;rsquo;ve been&amp;rdquo;.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>My very first post</title>
+      <link>https://trunghng.github.io/posts/linear-algebra/fibonacci-generator/</link>
+      <pubDate>Sat, 05 Jun 2021 17:00:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/linear-algebra/fibonacci-generator/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Enjoy my index-zero-ed note while staying tuned for next ones!&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
