@@ -57,22 +57,22 @@ The SGD update \eqref{eq:sg.3} now is applied for each of $\boldsymbol{\mu}$ and
 and
 \begin{align}
 \boldsymbol{\Sigma}&\leftarrow\boldsymbol{\Sigma}+\alpha\nabla_\boldsymbol{\Sigma}J(\theta) \\\\ &\leftarrow\boldsymbol{\Sigma}+\alpha\frac{1}{\lambda}\sum_{k=1}^{\lambda}\left[\frac{1}{2}\boldsymbol{\Sigma}^{-1}\left(\mathbf{z}\_k-\boldsymbol{\mu}\right)\left(\mathbf{z}\_k-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}-\frac{1}{2}\boldsymbol{\Sigma}^{-1}\right]f(\mathbf{z}\_k)
-\end{align} 
+\end{align}
 
 ### Natural gradient{#ntr-grad}
 The **natural gradient** searches for the direction based on the distance between distributions $\pi(\mathbf{z}\vert\theta)$ and $\pi(\mathbf{z}\vert\theta')$. One natural measure of distance between probability distributions is the **Kullback-Leibler divergence**, or **KL divergence**.
 
 In other words, our work is to look for the direction of updating gradient, denoted as $\delta\theta$, such that
 \begin{align}
-\max_{\delta\theta}&\hspace{0.1cm}J(\theta+\delta\theta)\approx J(\theta)+\delta\theta^\text{T}\nabla_\theta J \\\\ \text{s.t.}&\hspace{0.1cm}d(\theta\Vert\theta+\delta\theta)=\varepsilon,
+\max_{\delta\theta}&\hspace{0.1cm}J(\theta+\delta\theta)\approx J(\theta)+\delta\theta^\text{T}\nabla_\theta J \\\\ \text{s.t.}&\hspace{0.1cm}D_\text{KL}(\theta\Vert\theta+\delta\theta)=\varepsilon,
 \end{align}
-where $J(\theta)$ is given as in \eqref{eq:sg.1}; $\varepsilon$ is a small increment size; and where $D(\theta+\delta\theta\Vert\theta)$ is the KL divergence of $\pi(\mathbf{z}\vert\theta+\delta\theta)$ from $\pi(\mathbf{z}\vert\theta)$, defined as
+where $J(\theta)$ is given as in \eqref{eq:sg.1}; $\varepsilon$ is a small increment size; and where $D_\text{KL}(\theta\Vert\theta+\delta\theta)$ is the KL divergence of $\pi(\mathbf{z}\vert\theta)$ from $\pi(\mathbf{z}\vert\theta+\delta\theta)$, defined as
 \begin{align}
-D(\theta\Vert\theta+\delta\theta)&=\int\pi(\mathbf{z}\vert\theta)\log\frac{\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta+\delta\theta)}\hspace{0.1cm}d\mathbf{z} \\\\ &=\mathbb{E}\_{\theta}\big[\log\pi(\mathbf{z}\vert\theta)-\log\pi(\mathbf{z}\vert\theta+\delta)\big]\label{eq:ng.1}
+D_\text{KL}(\theta\Vert\theta+\delta\theta)&=\int\pi(\mathbf{z}\vert\theta)\log\frac{\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta+\delta\theta)}\hspace{0.1cm}d\mathbf{z} \\\\ &=\mathbb{E}\_{\theta}\big[\log\pi(\mathbf{z}\vert\theta)-\log\pi(\mathbf{z}\vert\theta+\delta)\big]\label{eq:ng.1}
 \end{align}
 As $\delta\theta\to 0$, or in other words, consider the Taylor expansion of \eqref{eq:ng.1} about $\delta\theta=0$, we have
 \begin{align}
-&\hspace{-1.3cm}D(\theta+\delta\theta\Vert\theta)\nonumber \\\\ &\hspace{-1.3cm}=\mathbb{E}\_{\theta}\big[\log\pi(\mathbf{z}\vert\theta)-\log\pi(\mathbf{z}\vert\theta+\delta\theta)\big] \\\\ &\hspace{-1.3cm}\approx\mathbb{E}\_\theta\left[\log\pi(\mathbf{z}\vert\theta)-\left(\log\pi(\mathbf{z}\vert\theta)+\delta\theta^\text{T}\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}+\frac{1}{2}\delta\theta^\text{T}\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}\left(\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}\right)^\text{T}\delta\theta\right)\right] \\\\ &\hspace{-1.3cm}=-\mathbb{E}\_\theta\left[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)+\frac{1}{2}\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\right] \\\\ &\hspace{-1.3cm}=-\mathbb{E}\_\theta\Big[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\Big]-\mathbb{E}\_\theta\left[\frac{1}{2}\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\right] \\\\ &\hspace{-1.3cm}=-\frac{1}{2}\int\pi(\mathbf{z}\vert\theta)\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\hspace{0.1cm}d\mathbf{z} \\\\ &\hspace{-1.3cm}=-\frac{1}{2}\delta\theta^\text{T}\mathbf{F}\delta\theta\label{eq:ng.2}
+&\hspace{-1.3cm}D_\text{KL}(\theta\Vert\theta+\delta\theta)\nonumber \\\\ &\hspace{-1.3cm}=\mathbb{E}\_{\theta}\big[\log\pi(\mathbf{z}\vert\theta)-\log\pi(\mathbf{z}\vert\theta+\delta\theta)\big] \\\\ &\hspace{-1.3cm}\approx\mathbb{E}\_\theta\left[\log\pi(\mathbf{z}\vert\theta)-\left(\log\pi(\mathbf{z}\vert\theta)+\delta\theta^\text{T}\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}+\frac{1}{2}\delta\theta^\text{T}\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}\left(\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}\right)^\text{T}\delta\theta\right)\right] \\\\ &\hspace{-1.3cm}=-\mathbb{E}\_\theta\left[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)+\frac{1}{2}\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\right] \\\\ &\hspace{-1.3cm}=-\mathbb{E}\_\theta\Big[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\Big]-\mathbb{E}\_\theta\left[\frac{1}{2}\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\right] \\\\ &\hspace{-1.3cm}=-\frac{1}{2}\int\pi(\mathbf{z}\vert\theta)\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\hspace{0.1cm}d\mathbf{z} \\\\ &\hspace{-1.3cm}=-\frac{1}{2}\delta\theta^\text{T}\mathbf{F}\delta\theta\label{eq:ng.2}
 \end{align}
 where in the fifth step, we have used that
 \begin{align}
@@ -85,7 +85,7 @@ The matrix $\mathbf{F}$ in \eqref{eq:ng.2} is known as the **Fisher information 
 \end{align}
 Hence, we have the Lagrangian of our constrained optimization problem is
 \begin{align}
-\mathcal{L}(\theta,\delta\theta,\lambda)&=J(\theta)+\delta\theta^\text{T}\nabla_\theta J(\theta)+\lambda\big(D(\theta+\delta\theta\Vert\theta)-\varepsilon\big) \\\\ &=J(\theta)+\delta\theta^\text{T}\nabla_\theta J(\theta)-\lambda\left(\frac{1}{2}\delta\theta^\text{T}\mathbf{F}\delta\theta+\varepsilon\right),
+\mathcal{L}(\theta,\delta\theta,\lambda)&=J(\theta)+\delta\theta^\text{T}\nabla_\theta J(\theta)+\lambda\big(D_\text{KL}(\theta\Vert\theta+\delta\theta)-\varepsilon\big) \\\\ &=J(\theta)+\delta\theta^\text{T}\nabla_\theta J(\theta)-\lambda\left(\frac{1}{2}\delta\theta^\text{T}\mathbf{F}\delta\theta+\varepsilon\right),
 \end{align}
 where $\lambda>0$ is the Lagrange multiplier.
 

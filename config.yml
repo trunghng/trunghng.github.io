@@ -35,7 +35,7 @@ params:
   ShowReadingTime: true
   ShowShareButtons: true
   ShowPostNavLinks: true
-  ShowBreadCrumbs: true
+  ShowBreadCrumbs: false
   ShowCodeCopyButtons: true
   ShowWordCount: false
   ShowRssButtonInSectionTermList: true
@@ -89,6 +89,8 @@ params:
     #   url: "https://stackoverflow.com"
     - name: github
       url: "https://github.com/trunghng"
+    - name: email
+      url: "mailto:trung.skipper@gmail.com"
 
   analytics:
     google:
@@ -132,10 +134,10 @@ menu:
       name: Tags
       url: /tags/
       weight: 20
-    # - identifier: about
-    #   name: About
-    #   url: /about/
-    #   weight: 30
+    - identifier: about
+      name: About
+      url: /about/
+      weight: 30
     - identifier: search
       name: Search
       url: /search/

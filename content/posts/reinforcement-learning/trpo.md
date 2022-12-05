@@ -8,7 +8,7 @@ eqn-number: true
 > Notes on TRPO.
 <!--more-->
 
-## Preliminaries
+## Basic definitions & notations{#def-not}
 We begin by recalling definition of MDPs, coupling and total variation distance.
 
 ### Markov Decision Processes{#mdp}
@@ -131,7 +131,7 @@ L_\pi(\tilde{\pi})=\eta(\pi)+\sum_s\rho_\pi(s)\sum_a\tilde{\pi}(a\vert s)A_\pi(s
 
 If $\pi$ is a policy parameterized by $\theta$, in which $\pi_\theta(a\vert s)$ s differentiable w.r.t $\theta$, we then have for any parameter value $\theta_0$
 \begin{align}
-L_{\pi_{\theta_0}}(\pi_{\theta_0})&=\eta(\pi_{\theta_0}) \\\\ \nabla_\theta L_{\pi_{\theta_0}}(\pi_\theta)\big\vert_{\theta=\theta_0}&=\nabla_\theta\eta(\pi_\theta)\big\vert_{\theta=\theta_0},
+L_{\pi_{\theta_0}}(\pi_{\theta_0})&=\eta(\pi_{\theta_0}) \\\\ \nabla_\theta L_{\pi_{\theta_0}}(\pi_\theta)\big\vert_{\theta=\theta_0}&=\nabla_\theta\eta(\pi_\theta)\big\vert_{\theta=\theta_0},\label{eq:pi.6}
 \end{align}
 which suggests that a sufficiently small step $\pi_{\theta_0}\to\tilde{\pi}$ that leads to an improvement on $L_{\pi_{\theta_\text{old}}}$ will also make an improvement on $\eta$.
 
@@ -253,10 +253,62 @@ where $A_{\theta_\text{old}}\doteq A_{\pi_{\theta_\text{old}}}$; and $q$ represe
 \begin{align}
 \underset{\theta}{\text{maximize}}&\hspace{0.2cm}\sum_s\rho_{\theta_\text{old}}(s)\mathbb{E}\_{a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}A_{\theta_\text{old}}(s,a)\right]\nonumber \\\\ \text{s.t.}&\hspace{0.2cm}\mathbb{E}\_{s\sim\rho_{\theta_\text{old}}}\Big[D_\text{KL}\big(\pi_{\theta_\text{old}}(\cdot\vert s)\Vert\pi_\theta(\cdot\vert s)\big)\Big]\leq\delta
 \end{align}
-which is thus equivalent to[^1]
+which is thus equivalent to[^1][^2]
 \begin{align}
-\underset{\theta}{\text{maximize}}&\hspace{0.2cm}\mathbb{E}\_{s\sim\rho_{\theta_\text{old}},a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}Q_{\theta_\text{old}}(s,a)\right]\nonumber \\\\ \text{s.t.}&\hspace{0.2cm}\mathbb{E}\_{s\sim\rho_{\theta_\text{old}}}\Big[D_\text{KL}\big(\pi_{\theta_\text{old}}(\cdot\vert s)\Vert\pi_\theta(\cdot\vert s)\big)\Big]\leq\delta\label{eq:ppo.2}
+\underset{\theta}{\text{maximize}}&\hspace{0.2cm}\mathbb{E}\_{s\sim\rho_{\theta_\text{old}},a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}A_{\theta_\text{old}}(s,a)\right]\nonumber \\\\ \text{s.t.}&\hspace{0.2cm}\mathbb{E}\_{s\sim\rho_{\theta_\text{old}}}\Big[D_\text{KL}\big(\pi_{\theta_\text{old}}(\cdot\vert s)\Vert\pi_\theta(\cdot\vert s)\big)\Big]\leq\delta\label{eq:ppo.2}
 \end{align}
+
+### Solving the optimization problem{#solve-tr}
+Let us take a closer look on how to solve this trust region constrained optimization problem. We begin by letting
+\begin{equation}
+\mathcal{L}\_{\theta_\text{old}}(\theta)\doteq\mathbb{E}\_{s\sim\rho_{\theta_\text{old}},a\sim\pi\_{\theta_\text{old}}}\left[\frac{\pi_\theta(a\vert s)}{\pi\_{\theta_\text{old}}(a\vert s)}A_{\theta_\text{old}}(s,a)\right]
+\end{equation}
+Consider Taylor expansion of the objective function $\mathcal{L}\_{\theta_\text{old}}(\theta)$ about $\theta=\theta_\text{old}$ to the first order, we thus can approximate the objective function by the policy gradient, $\nabla_\theta\eta(\pi\_{\theta_\text{old}})$, as
+\begin{align}
+\mathcal{L}\_{\theta_\text{old}}(\theta)&\approx\mathbb{E}\_{s\sim\rho\_{\theta_\text{old}},a\sim\pi\_{\theta_\text{old}}}\big[A\_{\theta_\text{old}}(s,a)\big]+(\theta-\theta_\text{old})^\text{T}\nabla_\theta\mathcal{L}\_{\theta_\text{old}}(\theta)\big\vert_{\theta=\theta_\text{old}} \\\\ &\overset{\text{(i)}}{=}(\theta-\theta_\text{old})^\text{T}\nabla_\theta\mathcal{L}\_{\theta_\text{old}}(\theta)\big\vert_{\theta=\theta_\text{old}} \\\\ &\overset{\text{(ii)}}{=}(\theta-\theta_\text{old})^\text{T}\left[\frac{1}{1-\gamma}\nabla_\theta L\_{\theta_\text{old}}(\theta)\big\vert_{\theta=\theta_\text{old}}\right] \\\\ &\overset{\text{(iii)}}{=}\frac{1}{1-\gamma}(\theta-\theta_\text{old})^\text{T}\nabla_\theta\eta(\pi\_{\theta_\text{old}})\big\vert_{\theta=\theta_\text{old}},
+\end{align}
+where
+<ul id='roman-list'>
+	<li>
+		This step is due to definition of advantage function for a policy $\pi$, we have that $\mathbb{E}_{a\sim\pi}\big[A_\pi(s,a)\big]=0$, which implies that
+		\begin{align}
+		\mathbb{E}_{s\sim\rho_{\theta_\text{old}},a\sim\pi_{\theta_\text{old}}}\big[A_{\theta_\text{old}}(s,a)\big]&=\mathbb{E}_{s\sim\rho_{\theta_\text{old}}}\Big[\mathbb{E}_{a\sim\pi_{\theta_\text{old}}}\big[A_{\theta_\text{old}}(s,a)\big]\Big] \\ &=\mathbb{E}_{s\sim\rho_{\theta_\text{old}}}\big[0\big]=0
+		\end{align}
+	</li>
+	<li>
+		This step uses the same logic as we have used in \eqref{eq:fn.1}.
+	</li>
+	<li>
+		This step is due to \eqref{eq:pi.6}.
+	</li>
+</ul>
+
+To get a local approximation of the constraint, we fist consider the Taylor expansion of the KL divergence $D_\text{KL}\big(\pi_{\theta_\text{old}}(\cdot\vert s)\Vert\pi_\theta(\cdot\vert s)\big)$  about $\theta=\theta_\text{old}$ to the second order, which, given a state $s$, gives us
+\begin{align}
+&D_\text{KL}\big(\pi_{\theta_\text{old}}(\cdot\vert s)\Vert\pi_\theta(\cdot\vert s)\big)\nonumber \\\\ &=\mathbb{E}\_{\pi_{\theta_\text{old}}}\Big[\log\pi_{\theta_\text{old}}(\cdot\vert s)-\log\pi_\theta(\cdot\vert s)\Big] \\\\ &\approx\mathbb{E}\_{\pi\_{\theta_\text{old}}}\Bigg[\log\pi_{\theta_\text{old}}(\cdot\vert s)-\Big(\log\pi_{\theta_\text{old}}(\cdot\vert s)+(\theta-\theta_\text{old})^\text{T}\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}\nonumber \\\\ &\hspace{2cm}+\left.\frac{1}{2}(\theta_\text{old}-\theta)^\text{T}\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}^\text{T}(\theta_\text{old}-\theta)\right)\Bigg] \\\\ &\overset{\text{(i)}}{=}\mathbb{E}\_{\pi\_{\theta_\text{old}}}\left[\frac{1}{2}(\theta-\theta_\text{old})^\text{T}\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}^\text{T}(\theta-\theta_\text{old})\right] \\\\ &\overset{\text{(ii)}}{=}\frac{1}{2}(\theta-\theta_\text{old})^\text{T}\mathbb{E}\_{\pi_{\theta_\text{old}}}\Big[\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}^\text{T}\Big]\left(\theta-\theta_\text{old}\right),\label{eq:st.1}
+\end{align}
+where
+<ul id='roman-list'>
+	<li>
+		By chain rule, we have
+		\begin{align}
+		\hspace{-0.7cm}\mathbb{E}_{\pi_{\theta_\text{old}}}\left[(\theta_\text{old}-\theta)^\text{T}\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}\right]&=\sum_s\pi_{\theta_\text{old}}(\cdot\vert s)(\theta_\text{old}-\theta)^\text{T}\frac{\nabla_\theta\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}}{\pi_{\theta_\text{old}}(\cdot\vert s)} \\ &=(\theta_\text{old}-\theta)^\text{T}\sum_s\nabla_\theta\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}} \\ &=(\theta_\text{old}-\theta)^\text{T}\left.\left(\nabla_\theta\sum_s\pi_\theta(\cdot\vert s)\right)\right\vert_{\theta=\theta_\text{old}} \\ &=(\theta_\text{old}-\theta)^\text{T}(\nabla_\theta 1)\big\vert_{\theta=\theta_\text{old}} \\ &=(\theta_\text{old}-\theta)^\text{T}\mathbf{0}=0
+		\end{align}
+	</li>
+	<li>
+		This step is due to the expectation is taking over $\pi_{\theta_\text{old}}$, neither $\theta$ nor $\theta_\text{old}$.
+	</li>
+</ul>
+
+Given the Taylor series approximation \eqref{eq:st.1}, we can locally approximate $\overline{D}\_\text{KL}^{\rho_{\theta_\text{old}}}(\theta_\text{old},\theta)$ as
+\begin{align}
+&\overline{D}\_\text{KL}^{\rho_{\theta_\text{old}}}(\theta_\text{old},\theta)\nonumber \\\\ &\approx\mathbb{E}\_{s\sim\rho_{\theta_\text{old}}}\left[\frac{1}{2}(\theta-\theta_\text{old})^\text{T}\mathbb{E}\_{\pi\_{\theta_\text{old}}}\Big[\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}^\text{T}\Big]\left(\theta-\theta_\text{old}\right)\right] \\\\ &=\frac{1}{2}(\theta-\theta_\text{old})^\text{T}\mathbb{E}\_{s\sim\rho_{\theta_\text{old}}}\Big[\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}^\text{T}\Big]\left(\theta-\theta_\text{old}\right) \\\\ &=\frac{1}{2}(\theta-\theta_\text{old})^\text{T}\mathbf{F}(\theta-\theta_\text{old}),
+\end{align}
+where the matrix
+\begin{equation}
+\mathbf{F}\doteq\mathbb{E}\_{s\sim\rho_{\theta_\text{old}}}\Big[\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}^\text{T}\Big]
+\end{equation}
+is referred as the **Fisher information matrix**.
 
 ## Sampled-based estimation{#sampled-bsd-est}
 The objective and constraint functions of \eqref{eq:ppo.2} can be approximated using Monte Carlo simulation. Following are two possible sampling approaches to construct the estimated objective and constraint functions.
@@ -316,8 +368,6 @@ This sampling approach follows the following process
 
 ## Final algorithm{#fin-alg}
 
-## Proximal Policy Optimization{#ppo}
-
 ## References
 [1] John Schulman, Sergey Levine, Philipp Moritz, Michael I. Jordan, Pieter Abbeel. [Trust Region Policy Optimization](https://dl.acm.org/doi/10.5555/3045118.3045319). ICML'15, pp 1889–1897, 2015.
 
@@ -330,17 +380,22 @@ This sampling approach follows the following process
 ## Footnotes
 [^1]: To be more specific, by definition of the advantage, i.e. $A_{\theta_\text{old}}(s,a)=Q_{\theta_\text{old}}(s,a)-V_{\theta_\text{old}}(s)$, we have:
 	\begin{align}
-	&\hspace{0.7cm}\mathbb{E}\_{s\sim\rho_{\theta_\text{old}},a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}Q_{\theta_\text{old}}(s,a)\right]\nonumber \\\\ &=\mathbb{E}\_{s\sim\rho_{\theta_\text{old}}}\left[\mathbb{E}\_{a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}A_{\theta_\text{old}}(s,a)+V_{\theta_\text{old}}(s)\right]\right]\nonumber \\\\ &=\mathbb{E}\_{s\sim\rho_{\text{old}}}\left[\mathbb{E}\_{a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}A_{\theta_\text{old}}(s,a)\right]\right]+\mathbb{E}\_{s\sim\rho_{\theta_\text{old}}}\left[V_{\theta_\text{old}}(s)\sum_{a}\pi_\theta(a\vert s)\right]\nonumber \\\\ &=\mathbb{E}\_{s\sim\rho_{\text{old}}}\left[\mathbb{E}\_{a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}A_{\theta_\text{old}}(s,a)\right]\right]+\mathbb{E}\_{s\sim\rho_{\theta_\text{old}}}\big[V_{\theta_\text{old}}(s)\big]\nonumber \\\\ &\underset{\max_\theta}{\propto}\mathbb{E}\_{s\sim\rho_{\text{old}}}\left[\mathbb{E}\_{a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}A_{\theta_\text{old}}(s,a)\right]\right]\nonumber \\\\ &\underset{\max_\theta}{\propto}\frac{1}{1-\gamma}\mathbb{E}\_{s\sim\rho_{\theta_\text{old}}}\left[\mathbb{E}\_{a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}A_{\theta_\text{old}}(s,a)\right]\right]\nonumber \\\\ &=\sum_s\rho_{\theta_\text{old}}(s)\mathbb{E}\_{a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}A_{\theta_\text{old}}(s,a)\right]\nonumber
+	\mathbb{E}\_{s\sim\rho_{\text{old}},a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}A_{\theta_\text{old}}(s,a)\right]&=\mathbb{E}\_{s\sim\rho_{\text{old}}}\left[\mathbb{E}\_{a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}A_{\theta_\text{old}}(s,a)\right]\right]\nonumber \\\\ &\underset{\max_\theta}{\propto}\frac{1}{1-\gamma}\mathbb{E}\_{s\sim\rho_{\theta_\text{old}}}\left[\mathbb{E}\_{a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}A_{\theta_\text{old}}(s,a)\right]\right]\label{eq:fn.1} \\\\ &=\sum_s\rho_{\theta_\text{old}}(s)\mathbb{E}\_{a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}A_{\theta_\text{old}}(s,a)\right]\nonumber
 	\end{align}
 	where we have used the notation
 	\begin{equation}
 	\text{LHS}\underset{\max_\theta}{\propto}\text{RHS}\nonumber
 	\end{equation}
-	to denote that $\underset{\theta}{\text{maximize}}\hspace{0.2cm}\text{LHS}$ is equivalent to $\underset{\theta}{\text{maximize}}\hspace{0.2cm}\text{RHS}$. Also, the sixth step comes from definition of $\rho_\pi$, i.e. for $s_0\sim\rho_0$ and the actions are chosen according to $\pi$, we have
-	\begin{equation}
-	\rho_\pi(s)=P(s_0=s)+\gamma P(s_1=s)+\gamma^2 P(s_2=s)+\ldots,\nonumber
-	\end{equation}
+	to denote that the problem $\underset{\theta}{\text{maximize}}\hspace{0.2cm}\text{LHS}$ is equivalent to $\underset{\theta}{\text{maximize}}\hspace{0.2cm}\text{RHS}$. Also, the second step comes from definition of $\rho_\pi$, i.e. for $s_0\sim\rho_0$ and the actions are chosen according to $\pi$, we have
+	\begin{equation\*}
+	\rho_\pi(s)=P(s_0=s)+\gamma P(s_1=s)+\gamma^2 P(s_2=s)+\ldots,
+	\end{equation\*}
 	which implies that by summing across all $s$, we obtain
-	\begin{align}
-	\sum_{s}\rho_\pi(s)&=\sum_s P(s_0=s)+\gamma\sum_s P(s_1=s)+\gamma^2\sum_s P(s_2=s)+\ldots\nonumber \\\\ &=1+\gamma+\gamma^2+\ldots\nonumber \\\\ &=\frac{1}{1-\gamma}\nonumber
-	\end{align}
+	\begin{align\*}
+	\sum_{s}\rho_\pi(s)&=\sum_s P(s_0=s)+\gamma\sum_s P(s_1=s)+\gamma^2\sum_s P(s_2=s)+\ldots \\\\ &=1+\gamma+\gamma^2+\ldots \\\\ &=\frac{1}{1-\gamma}
+	\end{align\*}
+
+[^2]: In the original TRPO paper, the authors used the state-action value function $Q\_{\theta_\text{old}}$ rather than the advantage $A\_{\theta_\text{old}}$ since by definition, $A_{\theta_\text{old}}(s,a)=Q_{\theta_\text{old}}(s,a)-V_{\theta_\text{old}}(s)$, which lets us obtain
+\begin{align\*}
+&\mathbb{E}\_{s\sim\rho_{\theta_\text{old}},a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}Q_{\theta_\text{old}}(s,a)\right] \\\\ &=\mathbb{E}\_{s\sim\rho_{\theta_\text{old}},a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}\big(A_{\theta_\text{old}}(s,a)+V_{\theta_\text{old}}(s)\big)\right] \\\\ &=\mathbb{E}\_{s\sim\rho_{\text{old}},a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}A_{\theta_\text{old}}(s,a)\right]+\mathbb{E}\_{s\sim\rho_{\theta_\text{old}}}\left[V_{\theta_\text{old}}(s)\sum_{a}\pi_\theta(a\vert s)\right] \\\\ &=\mathbb{E}\_{s\sim\rho_{\text{old}},a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}A_{\theta_\text{old}}(s,a)\right]+\mathbb{E}\_{s\sim\rho_{\theta_\text{old}}}\big[V_{\theta_\text{old}}(s)\big] \\\\ &\underset{\max_\theta}{\propto}\mathbb{E}\_{s\sim\rho_{\text{old}},a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}A_{\theta_\text{old}}(s,a)\right]
+\end{align\*}
