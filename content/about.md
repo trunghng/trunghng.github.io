@@ -16,7 +16,6 @@ hidemeta: true
     }
 </style>
 
-
 <div class="about-me">
 	<img id='joker' src="/images/others/joker.jpg" alt="Avatar" style="width:200px">
 	<p><i>A learner at day, a dreamer at night, a Pokémon trainer at heart</i><p>

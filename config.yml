@@ -59,8 +59,8 @@ params:
 
   label:
     text: "Trung's Place"
-    icon: /apple-touch-icon.png
-    iconHeight: 35
+    icon: "/images/others/pokeball.png"
+    iconHeight: 27
 
   # profile-mode
   profileMode:
