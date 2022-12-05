@@ -65,9 +65,9 @@ params:
   # profile-mode
   profileMode:
     enabled: false # needs to be explicitly set
-    title: ExampleSite
-    subtitle: "This is subtitle"
-    imageUrl: "<img location>"
+    title: 'Welcome to my place! 👨‍💻'
+    subtitle: This is where I document something I've learned.
+    imageUrl: "/images/others/joker.jpg"
     imageWidth: 120
     imageHeight: 120
     imageTitle: my image
@@ -79,7 +79,7 @@ params:
 
   # home-info mode
   homeInfoParams:
-    Title: "\U0001F44B Welcome to my place!"
+    Title: "Welcome to my place! 👨‍💻"
     Content: This is where I document something I've learned.
 
   socialIcons:
