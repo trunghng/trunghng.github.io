@@ -72,22 +72,48 @@ D_\text{KL}(\theta\Vert\theta+\delta\theta)&=\int\pi(\mathbf{z}\vert\theta)\log\
 \end{align}
 As $\delta\theta\to 0$, or in other words, consider the Taylor expansion of \eqref{eq:ng.1} about $\delta\theta=0$, we have
 \begin{align}
-&\hspace{-1.3cm}D_\text{KL}(\theta\Vert\theta+\delta\theta)\nonumber \\\\ &\hspace{-1.3cm}=\mathbb{E}\_{\theta}\big[\log\pi(\mathbf{z}\vert\theta)-\log\pi(\mathbf{z}\vert\theta+\delta\theta)\big] \\\\ &\hspace{-1.3cm}\approx\mathbb{E}\_\theta\left[\log\pi(\mathbf{z}\vert\theta)-\left(\log\pi(\mathbf{z}\vert\theta)+\delta\theta^\text{T}\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}+\frac{1}{2}\delta\theta^\text{T}\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}\left(\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}\right)^\text{T}\delta\theta\right)\right] \\\\ &\hspace{-1.3cm}=-\mathbb{E}\_\theta\left[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)+\frac{1}{2}\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\right] \\\\ &\hspace{-1.3cm}=-\mathbb{E}\_\theta\Big[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\Big]-\mathbb{E}\_\theta\left[\frac{1}{2}\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\right] \\\\ &\hspace{-1.3cm}=-\frac{1}{2}\int\pi(\mathbf{z}\vert\theta)\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\delta\theta\hspace{0.1cm}d\mathbf{z} \\\\ &\hspace{-1.3cm}=-\frac{1}{2}\delta\theta^\text{T}\mathbf{F}\delta\theta\label{eq:ng.2}
+&D_\text{KL}(\theta\Vert\theta+\delta\theta)\nonumber \\\\ &=\mathbb{E}\_{\theta}\big[\log\pi(\mathbf{z}\vert\theta)-\log\pi(\mathbf{z}\vert\theta+\delta\theta)\big] \\\\ &\approx\mathbb{E}\_\theta\left[\log\pi(\mathbf{z}\vert\theta)-\left(\log\pi(\mathbf{z}\vert\theta)+\delta\theta^\text{T}\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}+\frac{1}{2}\delta\theta^\text{T}\frac{\nabla_\theta^2\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}\delta\theta\right)\right] \\\\ &=-\mathbb{E}\_\theta\left[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)+\frac{1}{2}\delta\theta^\text{T}\nabla_\theta^2\log\pi(\mathbf{z}\vert\theta)\delta\theta\right] \\\\ &=-\mathbb{E}\_\theta\Big[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\Big]-\mathbb{E}\_\theta\left[\frac{1}{2}\delta\theta^\text{T}\nabla_\theta^2\log\pi(\mathbf{z}\vert\theta)\delta\theta\right] \\\\ &\overset{\text{(i)}}{=}-\frac{1}{2}\delta\theta^\text{T}\mathbb{E}\_\theta\Big[\nabla_\theta^2\log\pi(\mathbf{z}\vert\theta)\Big]\delta\theta \\\\ &\overset{\text{(ii)}}{=}\frac{1}{2}\delta\theta^\text{T}\mathbb{E}\_\theta\Big[\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\Big]\delta\theta \\\\ &\overset{\text{(iii)}}{=}\frac{1}{2}\delta\theta^\text{T}\mathbf{F}\delta\theta\label{eq:ng.2}
 \end{align}
-where in the fifth step, we have used that
-\begin{align}
-\mathbb{E}\_\theta\Big[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\Big]&=\delta\theta^\text{T}\int\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\hspace{0.1cm}d\mathbf{z} \\\\ &=\delta\theta^\text{T}\int\pi(\mathbf{z}\vert\theta)\frac{1}{\pi(\mathbf{z}\vert\theta)}\nabla_\theta\pi(\mathbf{z}\vert\theta)\hspace{0.1cm}d\mathbf{z} \\\\ &=\delta\theta^\text{T}\nabla_\theta\int\pi(\mathbf{z}\vert\theta)\hspace{0.1cm}d\mathbf{z} \\\\ &=\delta\theta^\text{T}\nabla_\theta 1=0
-\end{align}
+where
+<ul id='roman-list'>
+	<li>
+		In this step, we have used
+		\begin{align}
+		\mathbb{E}_\theta\Big[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\Big]&=\delta\theta^\text{T}\int\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\hspace{0.1cm}d\mathbf{z} \\ &=\delta\theta^\text{T}\int\pi(\mathbf{z}\vert\theta)\frac{1}{\pi(\mathbf{z}\vert\theta)}\nabla_\theta\pi(\mathbf{z}\vert\theta)\hspace{0.1cm}d\mathbf{z} \\ &=\delta\theta^\text{T}\nabla_\theta\int\pi(\mathbf{z}\vert\theta)\hspace{0.1cm}d\mathbf{z} \\ &=\delta\theta^\text{T}\nabla_\theta 1=0
+		\end{align}
+	</li>
+	<li>
+		<span id='derivation-ii'>In this step, let $\theta_j,\theta_k$ denote the $j$-th and $k$-th element of $\theta$ respectively. The $(j,k)$ element of the Hessian $\nabla_\theta^2\log\pi(\mathbf{z}\vert\theta)$ thus, by chain rule, can be computed as</span>
+		\begin{align}
+		\hspace{-1.7cm}\frac{\partial^2}{\partial\theta_j\partial\theta_k}\log\pi(\mathbf{z}\vert\theta)&=\frac{\partial}{\partial\theta_j}\left(\frac{\partial\log\pi(\mathbf{z}\vert\theta)}{\partial\theta_k}\right) \\ &=\frac{\partial}{\partial\theta_j}\left(\frac{1}{\pi(\mathbf{z}\vert\theta)}\cdot\frac{\partial\pi(\mathbf{z}\vert\theta)}{\partial\theta_k}\right) \\ &=\frac{\partial}{\partial\theta_j}\left(\frac{1}{\pi(\mathbf{z}
+		\vert\theta)}\right)\cdot\frac{\partial\pi(\mathbf{z}\vert\theta)}{\partial\theta_k}+\frac{1}{\pi(\mathbf{z}\vert\theta)}\cdot\frac{\partial^2\pi(\mathbf{z}\vert\theta)}{\partial\theta_j\partial\theta_k} \\ &=\left(\frac{\partial\frac{1}{\pi(\mathbf{z}\vert\theta)}}{\partial\pi(\mathbf{z}\vert\theta)}\cdot\frac{\partial\pi(\mathbf{z}\vert\theta)}{\partial\theta_j}\right)\cdot\frac{\partial\pi(\mathbf{z}\vert\theta)}{\partial\theta_k}+\frac{1}{\pi(\mathbf{z}\vert\theta)}\cdot\frac{\partial^2\pi(\mathbf{z}\vert\theta)}{\partial\theta_j\partial\theta_k} \\ &=-\frac{1}{\pi(\mathbf{z}\vert\theta)^2}\cdot\frac{\partial\pi(\mathbf{z}\vert\theta)}{\partial\theta_j}\cdot\frac{\partial\pi(\mathbf{z}\vert\theta)}{\partial\theta_k}+\frac{1}{\pi(\mathbf{z}\vert\theta)}\cdot\frac{\partial^2\pi(\mathbf{z}\vert\theta)}{\partial\theta_j\partial\theta_k} \\ &=-\frac{\partial\log\pi(\mathbf{z}\vert\theta)}{\partial\theta_j}\cdot\frac{\partial\log\pi(\mathbf{z}\vert\theta)}{\partial\theta_k}+\frac{1}{\pi(\mathbf{z}\vert\theta)}\cdot\frac{\partial^2\pi(\mathbf{z}\vert\theta)}{\partial\theta_j\partial\theta_k},
+		\end{align}
+		which implies that
+		\begin{equation}
+		\nabla_\theta^2\log\pi(\mathbf{z}\vert\theta)=-\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}+\frac{1}{\pi(\mathbf{z}\vert\theta)}\nabla_\theta^2\pi(\mathbf{z}\vert\theta)
+		\end{equation}
+		Taking expectation on both sides gives us
+		\begin{align}
+		\hspace{-1cm}\mathbb{E}_\theta\Big[\nabla_\theta^2\log\pi(\mathbf{z}\vert\theta)\Big]&=-\mathbb{E}_\theta\Big[\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\Big]+\mathbb{E}_\theta\left[\frac{1}{\pi(\mathbf{z}\vert\theta)}\nabla_\theta^2\pi(\mathbf{z}\vert\theta)\right]\label{eq:ng.5} \\ &=-\mathbb{E}_\theta\Big[\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\Big],
+		\end{align}
+		where the latter expectation in \eqref{eq:ng.5} has been absorbed due to
+		\begin{align}
+		\mathbb{E}_\theta\left[\frac{1}{\pi(\mathbf{z}\vert\theta)}\nabla_\theta^2\pi(\mathbf{z}\vert\theta)\right]&=\int\nabla_\theta^2\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\ &=\nabla_\theta^2\int\pi(\mathbf{z}\vert\theta)\,d\mathbf{z} \\ &=\nabla_\theta^2 1=\mathbf{0}
+		\end{align}
+	</li>
+	<li>
+		The matrix $\mathbf{F}$ is referred as the <b>Fisher information matrix</b> of the given parametric family of search distributions, defined as
+		\begin{align}
+		\mathbf{F}&=\mathbb{E}_\theta\Big[\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\Big] \\ &=\int\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\hspace{0.1cm}d\mathbf{z}
+		\end{align}
+	</li>
+</ul>
 
-The matrix $\mathbf{F}$ in \eqref{eq:ng.2} is known as the **Fisher information matrix** of the given parametric family of search distributions, defined as
+Hence, we have the <span id='lagrangian'>Lagrangian</span> of our constrained optimization problem is
 \begin{align}
-\mathbf{F}&=\int\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\hspace{0.1cm}d\mathbf{z} \\\\ &=\mathbb{E}\_\theta\big[\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\big]
+\mathcal{L}(\theta,\delta\theta,\lambda)&=J(\theta)+\delta\theta^\text{T}\nabla_\theta J(\theta)+\lambda\big(\varepsilon-D_\text{KL}(\theta\Vert\theta+\delta\theta)\big) \\\\ &=J(\theta)+\delta\theta^\text{T}\nabla_\theta J(\theta)+\lambda\left(\varepsilon-\frac{1}{2}\delta\theta^\text{T}\mathbf{F}\delta\theta\right),
 \end{align}
-Hence, we have the Lagrangian of our constrained optimization problem is
-\begin{align}
-\mathcal{L}(\theta,\delta\theta,\lambda)&=J(\theta)+\delta\theta^\text{T}\nabla_\theta J(\theta)+\lambda\big(D_\text{KL}(\theta\Vert\theta+\delta\theta)-\varepsilon\big) \\\\ &=J(\theta)+\delta\theta^\text{T}\nabla_\theta J(\theta)-\lambda\left(\frac{1}{2}\delta\theta^\text{T}\mathbf{F}\delta\theta+\varepsilon\right),
-\end{align}
-where $\lambda>0$ is the Lagrange multiplier.
+where $\lambda>0$ is the **Lagrange multiplier**.
 
 It is easily seen that $\mathbf{F}$ is symmetric, thus taking the gradient of the Lagrangian w.r.t $\delta\theta$ and setting it to zero gives us
 \begin{equation}
@@ -103,9 +129,9 @@ which defines the direction of the natural gradient $\tilde{\nabla}\_\theta J(\t
 \end{equation}
 Continue with the value of $\delta\theta$ given in \eqref{eq:ng.3}, the dual function of our optimization is given as
 \begin{align}
-g(\lambda)&=J(\theta)+\frac{1}{\lambda}\nabla_\theta J(\theta)^\text{T}\mathbf{F}^{-1}\nabla_\theta  J(\theta)-\frac{1}{2}\frac{\lambda}{\lambda^2}\nabla_\theta J(\theta)^\text{T}\mathbf{F}^{-1}\mathbf{F}\mathbf{F}^{-1}\nabla_\theta J(\theta)-\lambda\varepsilon \\\\ &=J(\theta)+\frac{1}{2}\lambda^{-1}\nabla_\theta J(\theta)^\text{T}\mathbf{F}^{-1}\nabla_\theta J(\theta)-\lambda\varepsilon
+g(\lambda)&=J(\theta)+\frac{1}{\lambda}\nabla_\theta J(\theta)^\text{T}\mathbf{F}^{-1}\nabla_\theta  J(\theta)-\frac{1}{2}\frac{\lambda}{\lambda^2}\nabla_\theta J(\theta)^\text{T}\mathbf{F}^{-1}\mathbf{F}\mathbf{F}^{-1}\nabla_\theta J(\theta)+\lambda\varepsilon \\\\ &=J(\theta)+\frac{1}{2}\lambda^{-1}\nabla_\theta J(\theta)^\text{T}\mathbf{F}^{-1}\nabla_\theta J(\theta)+\lambda\varepsilon
 \end{align}
-Taking the gradient of $g$ w.r.t $\lambda$ and setting it to zero and since $\varepsilon<0$ small gives us the solution for $\lambda$, which is
+Taking the gradient of $g$ w.r.t $\lambda$ and setting it to zero and since $\varepsilon>0$ small gives us the solution for $\lambda$, which is
 \begin{equation}
 \lambda=\sqrt{\frac{\nabla_\theta J(\theta)^\text{T}\mathbf{F}^{-1}\nabla_\theta J(\theta)}{\varepsilon}},
 \end{equation}
@@ -320,6 +346,8 @@ The result after running our experiment is illustrated in the figure below.
 
 [3] <span id='nes-paper'>Daan Wierstra, Tom Schaul, Tobias Glasmachers, Yi Sun, Jan Peters, Jürgen Schmidhuber. [Natural Evolution Strategies](https://www.jmlr.org/papers/volume15/wierstra14a/wierstra14a.pdf). Journal of Machine Learning Research 15, 2014.</span>
 
-[4] Ha, David. [A Visual Guide to Evolution Strategies](https://blog.otoro.net/2017/10/29/visual-evolution-strategies/). blog.otoro.net, 2017.
+[4] Jan Reinhard Peters. [Machine Learning of Motor Skills for Robotics](https://www.ias.informatik.tu-darmstadt.de/uploads/Research/Thesis/thesis_1.pdf). PhD thesis, 2007.
+
+[5] Ha, David. [A Visual Guide to Evolution Strategies](https://blog.otoro.net/2017/10/29/visual-evolution-strategies/). blog.otoro.net, 2017.
 
 ## Footnotes

@@ -203,7 +203,7 @@ C=\frac{4\epsilon\gamma}{(1-\gamma)^2}
 The policy improvement bound \eqref{eq:pi.4} allows us to specify a policy iteration, as given in the following pseudocode
 <figure>
 	<img src="/images/trpo/policy-iteration-nondec-exp-return.png" alt="Non-decreasing expected return policy iteration" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<figcaption style="text-align: center; font-style: italic;"></figcaption>
 </figure>
 It is worth noticing that \eqref{eq:pi.4} allows the policy iteration above to guarantee to generating a sequence of non-decreasing expected returns
 \begin{equation}
@@ -263,9 +263,9 @@ Let us take a closer look on how to solve this trust region constrained optimiza
 \begin{equation}
 \mathcal{L}\_{\theta_\text{old}}(\theta)\doteq\mathbb{E}\_{s\sim\rho_{\theta_\text{old}},a\sim\pi\_{\theta_\text{old}}}\left[\frac{\pi_\theta(a\vert s)}{\pi\_{\theta_\text{old}}(a\vert s)}A_{\theta_\text{old}}(s,a)\right]
 \end{equation}
-Consider Taylor expansion of the objective function $\mathcal{L}\_{\theta_\text{old}}(\theta)$ about $\theta=\theta_\text{old}$ to the first order, we thus can approximate the objective function by the policy gradient, $\nabla_\theta\eta(\pi\_{\theta_\text{old}})$, as
+Consider Taylor expansion of the objective function $\mathcal{L}\_{\theta_\text{old}}(\theta)$ about $\theta=\theta_\text{old}$ to the first order, we thus can linearly approximate the objective function by the policy gradient, $\nabla_\theta\eta(\pi\_{\theta_\text{old}})$, as
 \begin{align}
-\mathcal{L}\_{\theta_\text{old}}(\theta)&\approx\mathbb{E}\_{s\sim\rho\_{\theta_\text{old}},a\sim\pi\_{\theta_\text{old}}}\big[A\_{\theta_\text{old}}(s,a)\big]+(\theta-\theta_\text{old})^\text{T}\nabla_\theta\mathcal{L}\_{\theta_\text{old}}(\theta)\big\vert_{\theta=\theta_\text{old}} \\\\ &\overset{\text{(i)}}{=}(\theta-\theta_\text{old})^\text{T}\nabla_\theta\mathcal{L}\_{\theta_\text{old}}(\theta)\big\vert_{\theta=\theta_\text{old}} \\\\ &\overset{\text{(ii)}}{=}(\theta-\theta_\text{old})^\text{T}\left[\frac{1}{1-\gamma}\nabla_\theta L\_{\theta_\text{old}}(\theta)\big\vert_{\theta=\theta_\text{old}}\right] \\\\ &\overset{\text{(iii)}}{=}\frac{1}{1-\gamma}(\theta-\theta_\text{old})^\text{T}\nabla_\theta\eta(\pi\_{\theta_\text{old}})\big\vert_{\theta=\theta_\text{old}},
+\mathcal{L}\_{\theta_\text{old}}(\theta)&\approx\mathbb{E}\_{s\sim\rho\_{\theta_\text{old}},a\sim\pi\_{\theta_\text{old}}}\big[A\_{\theta_\text{old}}(s,a)\big]+(\theta-\theta_\text{old})^\text{T}\nabla_\theta\mathcal{L}\_{\theta_\text{old}}(\theta)\big\vert_{\theta=\theta_\text{old}} \\\\ &\overset{\text{(i)}}{=}(\theta-\theta_\text{old})^\text{T}\nabla_\theta\mathcal{L}\_{\theta_\text{old}}(\theta)\big\vert_{\theta=\theta_\text{old}} \\\\ &\overset{\text{(ii)}}{=}(\theta-\theta_\text{old})^\text{T}\left[\frac{1}{1-\gamma}\nabla_\theta L\_{\theta_\text{old}}(\theta)\big\vert_{\theta=\theta_\text{old}}\right] \\\\ &\overset{\text{(iii)}}{=}\frac{1}{1-\gamma}(\theta-\theta_\text{old})^\text{T}\nabla_\theta\eta(\pi\_{\theta_\text{old}})\big\vert_{\theta=\theta_\text{old}} \\\\ &\underset{\max_\theta}{\propto}(\theta-\theta_\text{old})^\text{T}\nabla_\theta\eta(\pi\_{\theta_\text{old}})\big\vert_{\theta=\theta_\text{old}},\label{eq:st.1}
 \end{align}
 where
 <ul id='roman-list'>
@@ -283,9 +283,9 @@ where
 	</li>
 </ul>
 
-To get a local approximation of the constraint, we fist consider the Taylor expansion of the KL divergence $D_\text{KL}\big(\pi_{\theta_\text{old}}(\cdot\vert s)\Vert\pi_\theta(\cdot\vert s)\big)$  about $\theta=\theta_\text{old}$ to the second order, which, given a state $s$, gives us
+To get an approximation of the constraint, we fist consider the Taylor expansion of the KL divergence $D_\text{KL}\big(\pi_{\theta_\text{old}}(\cdot\vert s)\Vert\pi_\theta(\cdot\vert s)\big)$ about $\theta=\theta_\text{old}$ to the second order, which, given a state $s$, gives us a quadratic approximation:
 \begin{align}
-&D_\text{KL}\big(\pi_{\theta_\text{old}}(\cdot\vert s)\Vert\pi_\theta(\cdot\vert s)\big)\nonumber \\\\ &=\mathbb{E}\_{\pi_{\theta_\text{old}}}\Big[\log\pi_{\theta_\text{old}}(\cdot\vert s)-\log\pi_\theta(\cdot\vert s)\Big] \\\\ &\approx\mathbb{E}\_{\pi\_{\theta_\text{old}}}\Bigg[\log\pi_{\theta_\text{old}}(\cdot\vert s)-\Big(\log\pi_{\theta_\text{old}}(\cdot\vert s)+(\theta-\theta_\text{old})^\text{T}\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}\nonumber \\\\ &\hspace{2cm}+\left.\frac{1}{2}(\theta_\text{old}-\theta)^\text{T}\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}^\text{T}(\theta_\text{old}-\theta)\right)\Bigg] \\\\ &\overset{\text{(i)}}{=}\mathbb{E}\_{\pi\_{\theta_\text{old}}}\left[\frac{1}{2}(\theta-\theta_\text{old})^\text{T}\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}^\text{T}(\theta-\theta_\text{old})\right] \\\\ &\overset{\text{(ii)}}{=}\frac{1}{2}(\theta-\theta_\text{old})^\text{T}\mathbb{E}\_{\pi_{\theta_\text{old}}}\Big[\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}^\text{T}\Big]\left(\theta-\theta_\text{old}\right),\label{eq:st.1}
+&\hspace{-0.7cm}D_\text{KL}\big(\pi_{\theta_\text{old}}(\cdot\vert s)\Vert\pi_\theta(\cdot\vert s)\big)\nonumber \\\\ &=\mathbb{E}\_{\pi_{\theta_\text{old}}}\Big[\log\pi_{\theta_\text{old}}(\cdot\vert s)-\log\pi_\theta(\cdot\vert s)\Big] \\\\ &\approx\mathbb{E}\_{\pi\_{\theta_\text{old}}}\Bigg[\log\pi_{\theta_\text{old}}(\cdot\vert s)-\Big(\log\pi_{\theta_\text{old}}(\cdot\vert s)+(\theta-\theta_\text{old})^\text{T}\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}\nonumber \\\\ &\hspace{2cm}+\left.\frac{1}{2}(\theta_\text{old}-\theta)^\text{T}\nabla_\theta^2\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}(\theta_\text{old}-\theta)\right)\Bigg] \\\\ &\overset{\text{(i)}}{=}-\mathbb{E}\_{\pi\_{\theta_\text{old}}}\left[\frac{1}{2}(\theta-\theta_\text{old})^\text{T}\nabla_\theta^2\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}(\theta-\theta_\text{old})\right] \\\\ &\overset{\text{(ii)}}{=}\frac{1}{2}(\theta-\theta_\text{old})^\text{T}\mathbb{E}\_{\pi_{\theta_\text{old}}}\Big[\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}^\text{T}\Big]\left(\theta-\theta_\text{old}\right),\label{eq:st.2}
 \end{align}
 where
 <ul id='roman-list'>
@@ -296,19 +296,71 @@ where
 		\end{align}
 	</li>
 	<li>
-		This step is due to the expectation is taking over $\pi_{\theta_\text{old}}$, neither $\theta$ nor $\theta_\text{old}$.
+		This step goes with same logic as we have used in <a href={{< ref "nes#derivation-ii" >}} target='_blank'><b>Natural evolution strategies</b></a>, which let us claim that
+		\begin{equation}
+		-\mathbb{E}_{\pi_{\theta_\text{old}}}\Big[\nabla_\theta^2\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}\Big]=\mathbb{E}_{\pi_{\theta_\text{old}}}\Big[\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}^\text{T}\Big]
+		\end{equation}
 	</li>
 </ul>
 
-Given the Taylor series approximation \eqref{eq:st.1}, we can locally approximate $\overline{D}\_\text{KL}^{\rho_{\theta_\text{old}}}(\theta_\text{old},\theta)$ as
+Given the Taylor series approximation \eqref{eq:st.2}, we can locally approximate $\overline{D}\_\text{KL}^{\rho_{\theta_\text{old}}}(\theta_\text{old},\theta)$ as
 \begin{align}
-&\overline{D}\_\text{KL}^{\rho_{\theta_\text{old}}}(\theta_\text{old},\theta)\nonumber \\\\ &\approx\mathbb{E}\_{s\sim\rho_{\theta_\text{old}}}\left[\frac{1}{2}(\theta-\theta_\text{old})^\text{T}\mathbb{E}\_{\pi\_{\theta_\text{old}}}\Big[\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}^\text{T}\Big]\left(\theta-\theta_\text{old}\right)\right] \\\\ &=\frac{1}{2}(\theta-\theta_\text{old})^\text{T}\mathbb{E}\_{s\sim\rho_{\theta_\text{old}}}\Big[\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}^\text{T}\Big]\left(\theta-\theta_\text{old}\right) \\\\ &=\frac{1}{2}(\theta-\theta_\text{old})^\text{T}\mathbf{F}(\theta-\theta_\text{old}),
+&\hspace{-0.5cm}\overline{D}\_\text{KL}^{\rho_{\theta_\text{old}}}(\theta_\text{old},\theta)\nonumber \\\\ &\approx\mathbb{E}\_{s\sim\rho_{\theta_\text{old}}}\left[\frac{1}{2}(\theta-\theta_\text{old})^\text{T}\mathbb{E}\_{\pi\_{\theta_\text{old}}}\Big[\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}^\text{T}\Big]\left(\theta-\theta_\text{old}\right)\right] \\\\ &=\frac{1}{2}(\theta-\theta_\text{old})^\text{T}\mathbb{E}\_{s\sim\rho_{\theta_\text{old}}}\Big[\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}^\text{T}\Big]\left(\theta-\theta_\text{old}\right) \\\\ &=\frac{1}{2}(\theta-\theta_\text{old})^\text{T}\mathbf{F}(\theta-\theta_\text{old}),\label{eq:st.3}
 \end{align}
 where the matrix
 \begin{equation}
 \mathbf{F}\doteq\mathbb{E}\_{s\sim\rho_{\theta_\text{old}}}\Big[\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}^\text{T}\Big]
 \end{equation}
-is referred as the **Fisher information matrix**.
+is referred as the **Fisher information matrix**, which, worthy remarking, is symmetric. 
+
+As acquired results \eqref{eq:st.1} and \eqref{eq:st.3}, we yield an approximate problem
+\begin{align}
+\underset{\theta}{\text{maximize}}&\hspace{0.2cm}\Delta\theta^\text{T}g=\tilde{\mathcal{L}}(\theta)\nonumber \\\\ \text{s.t.}&\hspace{0.2cm}\frac{1}{2}\Delta\theta^\text{T}\mathbf{F}\Delta\theta\leq\delta,\label{eq:st.4}
+\end{align}
+where we have let $\Delta\theta\doteq\theta-\theta_\text{old}$ and $g\doteq\nabla_\theta\eta(\pi\_{\theta_\text{old}})\big\vert_{\theta=\theta_\text{old}}$ denote the policy gradient to simplify our notations.
+
+#### Natural policy gradient{#ntr-pg}
+Consider the problem \eqref{eq:st.4}, we have the **Lagrangian**[^3] associated with the our constrained optimization problem is given by
+\begin{equation}
+\bar{\mathcal{L}}(\Delta\theta,\lambda)=-\Delta\theta^\text{T}g+\lambda\left(\frac{1}{2}\Delta\theta^\text{T}\mathbf{F}\Delta\theta-\delta\right)
+\end{equation}
+which can be minimized w.r.t $\Delta\theta$ by taking the gradient of the Lagrangian w.r.t $\Delta\theta$
+\begin{equation}
+\nabla_{\Delta\theta}\overline{\mathcal{L}}(\Delta\theta,\lambda)=-g+\lambda\mathbf{F}\Delta\theta,
+\end{equation}
+and setting this gradient to zero, which yields
+\begin{equation}
+\Delta\theta=\frac{1}{\lambda}\mathbf{F}^{-1}g\label{eq:np.1}
+\end{equation}
+The **dual function**[^4] then is given by
+\begin{align}
+\overline{g}(\lambda)&=-\frac{1}{\lambda}g^\text{T}\mathbf{F}^{-1}g+\frac{1}{2\lambda}g^\text{T}\mathbf{F}^{-1}\mathbf{F}\mathbf{F}^{-1}g-\lambda\delta \\\\ &=-\frac{1}{2\lambda}g^\text{T}\mathbf{F}^{-1}g-\lambda\delta,
+\end{align}
+Letting the gradient of dual function w.r.t $\lambda$
+\begin{equation}
+\nabla_\lambda\overline{g}(\lambda)=\frac{1}{2}g^\text{T}\mathbf{F}^{-1}g\cdot\frac{1}{\lambda^2}-\delta
+\end{equation}
+be zero and solving for $\lambda$ gives us the Lagrange multiplier that maximizes $\overline{g}$, which is
+\begin{equation}
+\lambda=\sqrt{\frac{g^\text{T}\mathbf{F}^{-1}g}{2\delta}}
+\end{equation}
+The vector $\Delta\theta$ given in \eqref{eq:np.1} that solves the optimization problem \eqref{eq:st.4} defines the a search direction, which is the direction of the **natural policy gradient**, i.e. $\tilde{\nabla}\_\theta\tilde{\mathcal{L}}(\theta)=\mathbf{F}^{-1}g$.
+
+Hence, using this gradient to iteratively update $\theta$ gives us
+\begin{equation}
+\theta_{k+1}:=\theta_k+\lambda^{-1}\tilde{\nabla}\_\theta\tilde{\mathcal{L}}(\theta)=\theta_k+\sqrt{\frac{2\delta}{g^\text{T}\mathbf{F}^{-1}g}}\mathbf{F}^{-1}g\label{eq:np.2}
+\end{equation}
+
+#### Line-search{#line-search}
+A problem with the above algorithm is that there exist approximation errors because of the Taylor expansion we have used. This consequently might not give us an improvement of the objective or the updated $\pi_\theta$ may not satisfy the KL constraint due to taking large steps.
+
+To overcome this, we use a **line-search** by adding a modification to the update rule \eqref{eq:np.2} that
+\begin{equation}
+\theta_{k+1}:=\theta_k+\alpha^j\sqrt{\frac{2\delta}{g^\text{T}\mathbf{F}^{-1}g}}\mathbf{F}^{-1}g,
+\end{equation}
+where $\alpha\in(0,1)$ is the **backtracking coefficient** and $j$ is the smallest nonnegative integer that make an improvement on the objective, while let $\pi_{\theta_{k+1}}$ satisfy the KL constraint as well.
+
+#### Compute $\mathbf{F}^{-1}${#compute-f-inv}
 
 ## Sampled-based estimation{#sampled-bsd-est}
 The objective and constraint functions of \eqref{eq:ppo.2} can be approximated using Monte Carlo simulation. Following are two possible sampling approaches to construct the estimated objective and constraint functions.
@@ -377,6 +429,10 @@ This sampling approach follows the following process
 
 [4] John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, Oleg Klimov. [Proximal Policy Optimization Algorithms](https://arxiv.org/abs/1707.06347). arXiv:1707.06347, 2017.
 
+[5] Stephen Boyd & Lieven Vandenberghe. [Convex Optimization](http://www.stanford.edu/∼boyd/cvxbook/). Cambridge UP, 2004.
+
+[6] Sham Kakade. [A Natural Policy Gradient](https://proceedings.neurips.cc/paper/2001/file/4b86abe48d358ecf194c56c69108433e-Paper.pdf). NIPS 2001.
+
 ## Footnotes
 [^1]: To be more specific, by definition of the advantage, i.e. $A_{\theta_\text{old}}(s,a)=Q_{\theta_\text{old}}(s,a)-V_{\theta_\text{old}}(s)$, we have:
 	\begin{align}
@@ -399,3 +455,7 @@ This sampling approach follows the following process
 \begin{align\*}
 &\mathbb{E}\_{s\sim\rho_{\theta_\text{old}},a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}Q_{\theta_\text{old}}(s,a)\right] \\\\ &=\mathbb{E}\_{s\sim\rho_{\theta_\text{old}},a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}\big(A_{\theta_\text{old}}(s,a)+V_{\theta_\text{old}}(s)\big)\right] \\\\ &=\mathbb{E}\_{s\sim\rho_{\text{old}},a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}A_{\theta_\text{old}}(s,a)\right]+\mathbb{E}\_{s\sim\rho_{\theta_\text{old}}}\left[V_{\theta_\text{old}}(s)\sum_{a}\pi_\theta(a\vert s)\right] \\\\ &=\mathbb{E}\_{s\sim\rho_{\text{old}},a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}A_{\theta_\text{old}}(s,a)\right]+\mathbb{E}\_{s\sim\rho_{\theta_\text{old}}}\big[V_{\theta_\text{old}}(s)\big] \\\\ &\underset{\max_\theta}{\propto}\mathbb{E}\_{s\sim\rho_{\text{old}},a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}A_{\theta_\text{old}}(s,a)\right]
 \end{align\*}
+
+[^3]: The Lagrangian, $\bar{\mathcal{L}}$, here should not be confused with the objective function $\mathcal{L}$ due to their notations. It was just a notation-abused problem, in which normally the Lagrangian is denoted as $\mathcal{L}$, which has been already used.
+
+[^4]: The **dual function** is usually denoted by $g$, which has unfortunately been taken by the policy gradient. Thus, we abuse the notation once again by representing it as $\overline{g}$.
