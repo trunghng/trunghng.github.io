@@ -1,6 +1,7 @@
 ---
 disableshare: true
 hidemeta: true
+searchHidden: true
 ---
 <style>
     .about-me {

@@ -311,7 +311,7 @@ where the matrix
 \begin{equation}
 \mathbf{F}\doteq\mathbb{E}\_{s\sim\rho_{\theta_\text{old}}}\Big[\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}^\text{T}\Big]
 \end{equation}
-is referred as the **Fisher information matrix**, which, worthy remarking, is symmetric. 
+is referred as the **Fisher information matrix**, which, worthy remarking, is symmetric.
 
 As acquired results \eqref{eq:st.1} and \eqref{eq:st.3}, we yield an approximate problem
 \begin{align}
@@ -351,16 +351,17 @@ Hence, using this gradient to iteratively update $\theta$ gives us
 \theta_{k+1}:=\theta_k+\lambda^{-1}\tilde{\nabla}\_\theta\tilde{\mathcal{L}}(\theta)=\theta_k+\sqrt{\frac{2\delta}{g^\text{T}\mathbf{F}^{-1}g}}\mathbf{F}^{-1}g\label{eq:np.2}
 \end{equation}
 
-#### Line-search{#line-search}
+#### Line search{#line-search}
 A problem with the above algorithm is that there exist approximation errors because of the Taylor expansion we have used. This consequently might not give us an improvement of the objective or the updated $\pi_\theta$ may not satisfy the KL constraint due to taking large steps.
 
-To overcome this, we use a **line-search** by adding a modification to the update rule \eqref{eq:np.2} that
+To overcome this, we use a **line search** by adding an exponential decay to the update rule \eqref{eq:np.2} that
 \begin{equation}
-\theta_{k+1}:=\theta_k+\alpha^j\sqrt{\frac{2\delta}{g^\text{T}\mathbf{F}^{-1}g}}\mathbf{F}^{-1}g,
+\theta_{k+1}:=\theta_k+\alpha^j\sqrt{\frac{2\delta}{g^\text{T}\mathbf{F}^{-1}g}}\mathbf{F}^{-1}g,\label{eq:ls.1}
 \end{equation}
-where $\alpha\in(0,1)$ is the **backtracking coefficient** and $j$ is the smallest nonnegative integer that make an improvement on the objective, while let $\pi_{\theta_{k+1}}$ satisfy the KL constraint as well.
+where $\alpha\in(0,1)$ is the **decay coefficient** and $j$ is the smallest nonnegative integer that make an improvement on the objective, while let $\pi_{\theta_{k+1}}$ satisfy the KL constraint as well.
 
-#### Compute $\mathbf{F}^{-1}${#compute-f-inv}
+#### Compute $\mathbf{F}^{-1}g${#compute-f-inv-g}
+Since both the step size and direction of the update \eqref{eq:ls.1} relate to $\mathbf{F}^{-1}g$, it is then necessary to take into account the computation of this product.
 
 ## Sampled-based estimation{#sampled-bsd-est}
 The objective and constraint functions of \eqref{eq:ppo.2} can be approximated using Monte Carlo simulation. Following are two possible sampling approaches to construct the estimated objective and constraint functions.

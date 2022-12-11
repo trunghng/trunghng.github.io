@@ -348,6 +348,8 @@ The result after running our experiment is illustrated in the figure below.
 
 [4] Jan Reinhard Peters. [Machine Learning of Motor Skills for Robotics](https://www.ias.informatik.tu-darmstadt.de/uploads/Research/Thesis/thesis_1.pdf). PhD thesis, 2007.
 
-[5] Ha, David. [A Visual Guide to Evolution Strategies](https://blog.otoro.net/2017/10/29/visual-evolution-strategies/). blog.otoro.net, 2017.
+[5] Stephen Boyd & Lieven Vandenberghe. [Convex Optimization](http://www.stanford.edu/∼boyd/cvxbook/). Cambridge UP, 2004.
+
+[6] Ha, David. [A Visual Guide to Evolution Strategies](https://blog.otoro.net/2017/10/29/visual-evolution-strategies/). blog.otoro.net, 2017.
 
 ## Footnotes
