@@ -363,6 +363,14 @@ where $\alpha\in(0,1)$ is the **decay coefficient** and $j$ is the smallest nonn
 #### Compute $\mathbf{F}^{-1}g${#compute-f-inv-g}
 Since both the step size and direction of the update \eqref{eq:ls.1} relate to $\mathbf{F}^{-1}g$, it is then necessary to take into account the computation of this product.
 
+Rather than computing the inverse $\mathbf{F}^{-1}$ of the Fisher information matrix, then multiply it with the gradient vector $g$ to obtain the natural gradient $\mathbf{F}^{-1}g$, we find a vector $x$ such that
+\begin{equation}
+\mathbf{F}x=g,\label{eq:cfig.1}
+\end{equation}
+which implies that $x=\mathbf{F}^{-1}g$.
+
+The problem now remains to solve the linear equation \eqref{eq:cfig.1}, which can be approximately solved by **Conjugate gradient** method with a predefined number of iterations.
+
 ## Sampled-based estimation{#sampled-bsd-est}
 The objective and constraint functions of \eqref{eq:ppo.2} can be approximated using Monte Carlo simulation. Following are two possible sampling approaches to construct the estimated objective and constraint functions.
 

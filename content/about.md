@@ -2,6 +2,7 @@
 disableshare: true
 hidemeta: true
 searchHidden: true
+comments: false
 ---
 <style>
     .about-me {
