@@ -1200,7 +1200,7 @@ where $m^2$ denotes two-dimensional Jordan measure.
 ## References
 [1] <span id='taos-book'>Terence Tao. [An introduction to measure theory](https://terrytao.wordpress.com/books/an-introduction-to-measure-theory/). Graduate Studies in Mathematics, vol. 126, 2011.</span>
 
-[2] <span id='steins-book'>Elias M. Stein & Rami Shakarchi. [Real Analysis: Measure Theory, Integration, and Hilbert Spaces](http://www.cmat.edu.uy/~mordecki/courses/medida2013/book.pdf). 2007</span>
+[2] <span id='steins-book'>Elias M. Stein & Rami Shakarchi. [Real Analysis: Measure Theory, Integration, and Hilbert Spaces](http://www.cmat.edu.uy/~mordecki/courses/medida2013/book.pdf). Princeton University Press, 2007</span>
 
 ## Footnotes
 [^1]: A function $f$ is said to be **uniformly continuous** if for any real $\varepsilon>0$, there exists a real number $\delta>0$ such that for any $x, y$ with $d_1(x, y)<\delta$, we also have

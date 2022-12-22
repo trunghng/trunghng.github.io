@@ -457,7 +457,7 @@ We can also define the **upper unsigned Lebesgue integral** as
 ## References
 [1] <span id='taos-book'>Terence Tao. [An introduction to measure theory](https://terrytao.wordpress.com/books/an-introduction-to-measure-theory/). Graduate Studies in Mathematics, vol. 126.</span>
 
-[2] <span id='steins-book'>Elias M. Stein & Rami Shakarchi. [Real Analysis: Measure Theory, Integration, and Hilbert Spaces](http://www.cmat.edu.uy/~mordecki/courses/medida2013/book.pdf).</span>
+[2] <span id='steins-book'>Elias M. Stein & Rami Shakarchi. [Real Analysis: Measure Theory, Integration, and Hilbert Spaces](http://www.cmat.edu.uy/~mordecki/courses/medida2013/book.pdf). Princeton University Press, 2007.</span>
 
 ## Footnotes
 [^1]: It should be simpler to consider the case of $k=2$, in particular with two sets $E_1,E_2\subset\mathbb{R}^d$. These two sets partition $\mathbb{R}^d$ into four disjoint sets: $E_1\cap E_2,E_1\cap E_2^c,E_1^c\cap E_2,E_1^c\cap E_2^c$.

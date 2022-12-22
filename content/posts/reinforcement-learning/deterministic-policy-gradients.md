@@ -26,13 +26,12 @@ Within an MPD, a policy parameterized by a vector $\theta\in\mathbb{R}^n$ can be
 		<b>Deterministic policy</b>. $\mu_\theta:\mathcal{S}\to\mathcal{A}$.
 	</li>
 </ul>
-In addition, it is worth noticing that the deterministic policy is a special case of the stochastic policy.
 
 ## (Stochastic) Policy Gradient Theorem{#spg-theorem}
 We continue with an assumption that the action space $\mathcal{A}=\mathbb{R}^m$ and the state space $\mathcal{S}\subset\mathbb{R}^d$ and $\mathcal{S}$ is compact.
 
 ### Start-state formulation{#start-state}
-Recall that in the [general case]({{< ref "policy-gradient-theorem#policy-grad-theorem-ep" >}}), i.e. policy is given in stochastic form, $\pi_\theta$, the **Policy Gradient Theorem** states that[^1]
+Recall that in the stochastic case, $\pi_\theta$, the [**Policy Gradient Theorem**]({{< ref "policy-gradient-theorem#policy-grad-theorem-ep" >}}) states that[^1]
 \begin{align}
 \nabla_\theta J(\pi_\theta)&=\int_\mathcal{S}\rho_\pi(s)\int_\mathcal{A}\nabla_\theta\pi_\theta(a\vert s)Q_\pi(s,a)\hspace{0.1cm}da\hspace{0.1cm}ds\label{eq:spgt.1} \\\\ &=\mathbb{E}\_{\rho_\pi,\pi_\theta}\Big[\nabla_\theta\log\pi_\theta(a\vert s)Q_\pi(s,a)\Big]\label{eq:spgt.2}
 \end{align}
@@ -68,7 +67,7 @@ where
 **Proof**  
 The definition of $J(\pi_\theta)$ given in \eqref{eq:spgt.3} suggests us begin by considering the gradient of the state value function w.r.t $\theta$. For any $s\in\mathcal{S}$, we have
 \begin{align}
-\hspace{-1cm}\nabla_\theta V_\pi(s)&=\nabla_\theta\int_\mathcal{A}\pi_\theta(a\vert s)Q_\pi(s,a)da \\\\ &=\underbrace{\int_\mathcal{A}\nabla_\theta\pi_\theta(a\vert s)Q_\pi(s,a)da}\_{\nu(s)}+\int_\mathcal{A}\pi_\theta(a\vert s)\nabla_\theta Q_\pi(s,a)da \\\\ &=\nu(s)+\int_\mathcal{A}\pi_\theta(a\vert s)\nabla_\theta\left(r(s,a)+\int_\mathcal{S}\gamma p(s'\vert s,a)V_\pi(s')d s'\right)da \\\\ &=\nu(s)+\int_\mathcal{A}\pi_\theta(a\vert s)\int_\mathcal{S}\gamma p(s'\vert s,a)\nabla_\theta V_\pi(s')d s' da \\\\ &\overset{\text{(i)}}{=}\nu(s)+\int_\mathcal{S}\left(\int_\mathcal{A}\gamma\pi_\theta(a\vert s)p(s'\vert s,a)da\right)\nabla_\theta V_\pi(s')d s' \\\\ &=\nu(s)+\int_\mathcal{S}\gamma p(s\to s',1,\pi_\theta)\nabla_\theta V_\pi(s')d s' \\\\ &=\nu(s)+\int_\mathcal{S}\gamma p(s\to s',1,\pi_\theta)\left(\nu(s')+\int_\mathcal{S}\gamma p(s'\to s'',1,\pi_\theta)\nabla_\theta V_\pi(s'')d s''\right)d s' \\\\ &=\nu(s)+\int_\mathcal{S}\gamma p(s\to s',1,\pi_\theta)\nu(s')d s'\nonumber \\\\ &\hspace{2cm}+\int_\mathcal{S}\int_\mathcal{S}\gamma^2 p(s\to s',1,\pi_\theta)p(s'\to s'',1,\pi_\theta)\nabla_\theta V_\pi(s'')d s''\hspace{0.1cm}d s' \\\\ &\overset{\text{(ii)}}{=}\nu(s)+\int_\mathcal{S}\gamma p(s\to s',1,\pi_\theta)\nu(s')d s'+\int_\mathcal{S}\gamma^2 p(s\to s'',2,\pi_\theta)\nabla_\theta V_\pi(s'')d s'' \\\\ &=\nu(s)+\int_\mathcal{S}\gamma p(s\to s',1,\pi_\theta)\nu(s')d s'+\int_\mathcal{S}\gamma^2 p(s\to s'',2,\pi_\theta)\nu(s'')d s''\nonumber \\\\ &\hspace{2cm}+\int_\mathcal{S}\gamma^3 p(s\to s''',3,\pi_\theta)\nabla_\theta V_\pi(s''')d s''' \\\\ &\hspace{0.3cm}\vdots\nonumber \\\\ &=\int_\mathcal{S}\sum_{k=0}^{\infty}\gamma^k p(s\to\tilde{s},k,\pi_\theta)\nu(\tilde{s})d\tilde{s} \\\\ &=\int_\mathcal{S}\sum_{k=0}^{\infty}\gamma^k p(s\to\tilde{s},k,\pi_\theta)\int_\mathcal{A}\nabla_\theta\pi_\theta(a\vert\tilde{s})Q_\pi(\tilde{s},a)da\hspace{0.1cm}d\tilde{s}\label{eq:spgt.5}
+\hspace{-1cm}\nabla_\theta V_\pi(s)&=\nabla_\theta\int_\mathcal{A}\pi_\theta(a\vert s)Q_\pi(s,a)da \\\\ &=\underbrace{\int_\mathcal{A}\nabla_\theta\pi_\theta(a\vert s)Q_\pi(s,a)da}\_{\psi(s)}+\int_\mathcal{A}\pi_\theta(a\vert s)\nabla_\theta Q_\pi(s,a)da \\\\ &=\psi(s)+\int_\mathcal{A}\pi_\theta(a\vert s)\nabla_\theta\left(r(s,a)+\int_\mathcal{S}\gamma p(s'\vert s,a)V_\pi(s')d s'\right)da \\\\ &=\psi(s)+\int_\mathcal{A}\pi_\theta(a\vert s)\int_\mathcal{S}\gamma p(s'\vert s,a)\nabla_\theta V_\pi(s')d s' da \\\\ &\overset{\text{(i)}}{=}\psi(s)+\int_\mathcal{S}\left(\int_\mathcal{A}\gamma\pi_\theta(a\vert s)p(s'\vert s,a)da\right)\nabla_\theta V_\pi(s')d s' \\\\ &=\psi(s)+\int_\mathcal{S}\gamma p(s\to s',1,\pi_\theta)\nabla_\theta V_\pi(s')d s'\label{eq:spgt.9} \\\\ &=\psi(s)+\int_\mathcal{S}\gamma p(s\to s',1,\pi_\theta)\left(\psi(s')+\int_\mathcal{S}\gamma p(s'\to s'',1,\pi_\theta)\nabla_\theta V_\pi(s'')d s''\right)d s' \\\\ &=\psi(s)+\int_\mathcal{S}\gamma p(s\to s',1,\pi_\theta)\psi(s')d s'\nonumber \\\\ &\hspace{2cm}+\int_\mathcal{S}\int_\mathcal{S}\gamma^2 p(s\to s',1,\pi_\theta)p(s'\to s'',1,\pi_\theta)\nabla_\theta V_\pi(s'')d s''\hspace{0.1cm}d s' \\\\ &\overset{\text{(ii)}}{=}\psi(s)+\int_\mathcal{S}\gamma p(s\to s',1,\pi_\theta)\psi(s')d s'+\int_\mathcal{S}\gamma^2 p(s\to s'',2,\pi_\theta)\nabla_\theta V_\pi(s'')d s'' \\\\ &=\psi(s)+\int_\mathcal{S}\gamma p(s\to s',1,\pi_\theta)\psi(s')d s'+\int_\mathcal{S}\gamma^2 p(s\to s'',2,\pi_\theta)\psi(s'')d s''\nonumber \\\\ &\hspace{2cm}+\int_\mathcal{S}\gamma^3 p(s\to s''',3,\pi_\theta)\nabla_\theta V_\pi(s''')d s''' \\\\ &\hspace{0.3cm}\vdots\nonumber \\\\ &=\int_\mathcal{S}\sum_{k=0}^{\infty}\gamma^k p(s\to\tilde{s},k,\pi_\theta)\psi(\tilde{s})d\tilde{s} \\\\ &=\int_\mathcal{S}\sum_{k=0}^{\infty}\gamma^k p(s\to\tilde{s},k,\pi_\theta)\int_\mathcal{A}\nabla_\theta\pi_\theta(a\vert\tilde{s})Q_\pi(\tilde{s},a)da\hspace{0.1cm}d\tilde{s}\label{eq:spgt.5}
 \end{align}
 where
 <ul id='roman-list'>
@@ -85,7 +84,7 @@ where
 
 Combining \eqref{eq:spgt.3},\eqref{eq:spgt.4} and \eqref{eq:spgt.5} together allows us to obtain
 \begin{align}
-\hspace{-1cm}\nabla_\theta J(\pi_\theta)&=\nabla_\theta\mathbb{E}\_{s_0\sim\rho_0}\big[V_\pi(s_0)\big] \\\\ &=\int_\mathcal{S}\rho_0(s_0)\nabla_\theta V_\pi(s_0)d s_0 \\\\ &=\int_{s_0\in\mathcal{S}}\rho_0(s_0)\int_{s\in\mathcal{S}}\sum_{k=0}^{\infty}\gamma^k p(s_0\to s,k,\pi_\theta)\int_\mathcal{A}\nabla_\theta\pi_\theta(a\vert s)Q_\pi(s,a)da\hspace{0.1cm}d s\hspace{0.1cm}d s_0 \\\\ &\overset{\text{(i)}}{=}\int_{s\in\mathcal{S}}\int_{s_0\in\mathcal{S}}\rho_0(s_0)\sum_{k=0}^{\infty}\gamma^k p(s_0\to s,k,\pi_\theta)\int_\mathcal{A}\nabla_\theta\pi_\theta(a\vert s)Q_\pi(s,a)da\hspace{0.1cm}d s_0\hspace{0.1cm}d s \\\\ &\overset{\text{(ii)}}{=}\int_{s\in\mathcal{S}}\int_\mathcal{A}\left(\int_{s_0\in\mathcal{S}}\rho_0(s_0)\sum_{k=0}^{\infty}\gamma^k p(s_0\to s,k,\pi_\theta)\right)\nabla_\theta\pi_\theta(a\vert s)Q_\pi(s,a)d s_0\hspace{0.1cm}da\hspace{0.1cm}d s \\\\ &=\int_\mathcal{S}\int_\mathcal{A}\rho_\pi(s)\nabla_\theta\pi_\theta(a\vert s)Q_\pi(s,a)da\hspace{0.1cm}d s \\\\ &=\int_\mathcal{S}\rho_\pi(s)\int_\mathcal{A}\nabla_\theta\pi_\theta(a\vert s)Q_\pi(s,a)da\hspace{0.1cm}d s,
+\hspace{-1cm}\nabla_\theta J(\pi_\theta)&=\nabla_\theta\mathbb{E}\_{s_0\sim\rho_0}\big[V_\pi(s_0)\big] \\\\ &=\int_\mathcal{S}\rho_0(s_0)\nabla_\theta V_\pi(s_0)d s_0 \\\\ &=\int_{s_0\in\mathcal{S}}\rho_0(s_0)\int_{s\in\mathcal{S}}\sum_{k=0}^{\infty}\gamma^k p(s_0\to s,k,\pi_\theta)\int_\mathcal{A}\nabla_\theta\pi_\theta(a\vert s)Q_\pi(s,a)da\hspace{0.1cm}d s\hspace{0.1cm}d s_0 \\\\ &\overset{\text{(i)}}{=}\int_{s\in\mathcal{S}}\int_{s_0\in\mathcal{S}}\rho_0(s_0)\sum_{k=0}^{\infty}\gamma^k p(s_0\to s,k,\pi_\theta)\int_\mathcal{A}\nabla_\theta\pi_\theta(a\vert s)Q_\pi(s,a)da\hspace{0.1cm}d s_0\hspace{0.1cm}d s \\\\ &\overset{\text{(ii)}}{=}\int_{s\in\mathcal{S}}\int_\mathcal{A}\left(\int_{s_0\in\mathcal{S}}\rho_0(s_0)\sum_{k=0}^{\infty}\gamma^k p(s_0\to s,k,\pi_\theta)d s_0\right)\nabla_\theta\pi_\theta(a\vert s)Q_\pi(s,a)da\hspace{0.1cm}d s \\\\ &=\int_\mathcal{S}\int_\mathcal{A}\rho_\pi(s)\nabla_\theta\pi_\theta(a\vert s)Q_\pi(s,a)da\hspace{0.1cm}d s \\\\ &=\int_\mathcal{S}\rho_\pi(s)\int_\mathcal{A}\nabla_\theta\pi_\theta(a\vert s)Q_\pi(s,a)da\hspace{0.1cm}d s,
 \end{align}
 where in two steps (i) and (ii), we have exchanged the order of integration by respectively applying the **Fubini's theorem**.$\tag*{$\Box$}$
 
@@ -121,11 +120,11 @@ Now we are ready for the **policy gradient theorem** specified for continuing ta
 **Proof**  
 Analogy to the episodic case, we start with the gradient of the state value function w.r.t $\theta$. For any $s\in\mathcal{S}$, we have
 \begin{align}
-\nabla_\theta V_\pi(s)&=\nabla_\theta\int_\mathcal{A}\pi_\theta(a\vert s)Q_\pi(s,a)da \\\\ &=\underbrace{\int_\mathcal{A}\nabla_\theta\pi_\theta(a\vert s)Q_\pi(s,a)da}\_{\nu(s)}+\int_\mathcal{A}\pi_\theta(a\vert s)\nabla_\theta Q_\pi(s,a)da \\\\ &=\nu(s)+\int_\mathcal{A}\pi_\theta(a\vert s)\nabla_\theta\left[r(s,a)-r(\pi_\theta)+\int_\mathcal{S}p(s'\vert s,a)V_\pi(s')d s'\right]da \\\\ &=\nu(s)-\nabla_\theta r(\pi_\theta)\underbrace{\int_\mathcal{A}\pi_\theta(a\vert s)da}\_{=1}+\int_\mathcal{A}\pi_\theta(a\vert s)\int_\mathcal{S}p(s'\vert s,a)\nabla_\theta V_\pi(s')d s' da \\\\ &=\nu(s)-\nabla_\theta r(\pi_\theta)+\int_\mathcal{A}\pi_\theta(a\vert s)\int_\mathcal{S}p(s'\vert s,a)\nabla_\theta V_\pi(s')d s' da,
+\nabla_\theta V_\pi(s)&=\nabla_\theta\int_\mathcal{A}\pi_\theta(a\vert s)Q_\pi(s,a)da \\\\ &=\underbrace{\int_\mathcal{A}\nabla_\theta\pi_\theta(a\vert s)Q_\pi(s,a)da}\_{\psi(s)}+\int_\mathcal{A}\pi_\theta(a\vert s)\nabla_\theta Q_\pi(s,a)da \\\\ &=\psi(s)+\int_\mathcal{A}\pi_\theta(a\vert s)\nabla_\theta\left[r(s,a)-r(\pi_\theta)+\int_\mathcal{S}p(s'\vert s,a)V_\pi(s')d s'\right]da \\\\ &=\psi(s)-\nabla_\theta r(\pi_\theta)\underbrace{\int_\mathcal{A}\pi_\theta(a\vert s)da}\_{=1}+\int_\mathcal{A}\pi_\theta(a\vert s)\int_\mathcal{S}p(s'\vert s,a)\nabla_\theta V_\pi(s')d s' da \\\\ &=\psi(s)-\nabla_\theta r(\pi_\theta)+\int_\mathcal{A}\pi_\theta(a\vert s)\int_\mathcal{S}p(s'\vert s,a)\nabla_\theta V_\pi(s')d s' da,
 \end{align}
 which implies that the policy gradient can be obtained as
 \begin{equation}
-\nabla_\theta J(\pi_\theta)=\nabla_\theta r(\pi_\theta)=\nu(s)+\int_\mathcal{A}\pi_\theta(a\vert s)\int_\mathcal{S}p(s'\vert s,a)\nabla_\theta V_\pi(s')d s' da-\nabla_\theta V_\pi(s)\label{eq:spgt.7}
+\nabla_\theta J(\pi_\theta)=\nabla_\theta r(\pi_\theta)=\psi(s)+\int_\mathcal{A}\pi_\theta(a\vert s)\int_\mathcal{S}p(s'\vert s,a)\nabla_\theta V_\pi(s')d s' da-\nabla_\theta V_\pi(s)\label{eq:spgt.7}
 \end{equation}
 Using the identity
 \begin{equation}
@@ -133,29 +132,133 @@ Using the identity
 \end{equation}
 we can continue to derive \eqref{eq:spgt.7} as
 \begin{align}
-\hspace{-0.5cm}\nabla_\theta J(\pi_\theta)&=\int_\mathcal{S}\bar{\rho}\_\pi(s)\nu(s)d s+\int_{s\in\mathcal{S}}\bar{\rho}\_\pi(s)\int_\mathcal{A}\pi_\theta(a\vert s)\int_{s'\in\mathcal{S}}p(s'\vert s,a)\nabla_\theta V_\pi(s')d s' da\hspace{0.1cm}d s\nonumber \\\\ &\hspace{2cm}-\int_\mathcal{S}\bar{\rho}\_\pi(s)\nabla_\theta V_\pi(s)d s \\\\ &=\int_\mathcal{S}\bar{\rho}\_\pi(s)\nu(s)d s+\int_\mathcal{S}\bar{\rho}\_\pi(s')\nabla_\theta V_\pi(s')d s'-\int_\mathcal{S}\bar{\rho}\_\pi(s)\nabla_\theta V_\pi(s)d s \\\\ &=\int_\mathcal{S}\bar{\rho}\_\pi(s)\nu(s)d s \\\\ &=\int_\mathcal{S}\bar{\rho}\_\pi(s)\int_\mathcal{A}\nabla_\theta\pi_\theta(a\vert s)Q_\pi(s,a)da\hspace{0.1cm}d s
+\hspace{-0.5cm}\nabla_\theta J(\pi_\theta)&=\int_\mathcal{S}\bar{\rho}\_\pi(s)\psi(s)d s+\int_{s\in\mathcal{S}}\bar{\rho}\_\pi(s)\int_\mathcal{A}\pi_\theta(a\vert s)\int_{s'\in\mathcal{S}}p(s'\vert s,a)\nabla_\theta V_\pi(s')d s' da\hspace{0.1cm}d s\nonumber \\\\ &\hspace{2cm}-\int_\mathcal{S}\bar{\rho}\_\pi(s)\nabla_\theta V_\pi(s)d s \\\\ &=\int_\mathcal{S}\bar{\rho}\_\pi(s)\psi(s)d s+\int_\mathcal{S}\bar{\rho}\_\pi(s')\nabla_\theta V_\pi(s')d s'-\int_\mathcal{S}\bar{\rho}\_\pi(s)\nabla_\theta V_\pi(s)d s \\\\ &=\int_\mathcal{S}\bar{\rho}\_\pi(s)\psi(s)d s \\\\ &=\int_\mathcal{S}\bar{\rho}\_\pi(s)\int_\mathcal{A}\nabla_\theta\pi_\theta(a\vert s)Q_\pi(s,a)da\hspace{0.1cm}d s
 \end{align}
 where the second step is due to \eqref{eq:fn.1}.$\tag*{$\Box$}$
 
-It can be seen that the (stochastic) policy gradient theorem specified in both discounted episodic and continuing settings have the same formulation. In particular, if we replace the state distribution $\rho_\pi$ in start-state formulation \eqref{eq:spgt.1} by the stationary distribution $\bar{\rho}\_\pi$ (also with new definition of the value functions), we obtain average-reward formulation \eqref{eq:spgt.8}.
+It can be seen that the stochastic policy gradient theorem specified in both discounted episodic and continuing settings have the same formulation. In particular, if we replace the state distribution $\rho_\pi$ in start-state formulation \eqref{eq:spgt.1} by the stationary distribution $\bar{\rho}\_\pi$ (also with new definition of the value functions), we obtain average-reward formulation \eqref{eq:spgt.8}. Thus, in the remaining of this note, we will be considering the episodic and discounted setting.
 
+## (Stochastic) Actor-Critic{#stochastic-ac}
+Based on the policy gradient theorem, a (stochastic) **actor-critic algorithm** consists of two elements:
+<ul id='number-list'>
+	<li>
+		<b>Actor</b> learns a parameter $\theta$ of the stochastic policy $\pi_\theta$ by iteratively update $\theta$ by SGA using the policy gradient in \eqref{eq:spgt.2}.
+	</li>
+	<li>
+		<b>Critic</b> estimates the value function $Q_\pi(s,a)$ by an state-action value function approximation $Q_w(s,a)$ parameterized by a vector $w$.
+	</li>
+</ul>
 
+### Policy Gradient with Function Approximation{#pg-func-approx}
+Let $Q_w(s,a)$ be a function approximation parameterized by $w\in\mathbb{R}^n$ of the state-action value function $Q_\pi(s,a)$ for a stochastic policy $\pi_\theta$ parameterized by $\theta\in\mathbb{R}^n$. Then if $Q_w(s,a)$ is **compatible** with the policy parameterization in the sense that
+<ul id='roman-list'>
+	<li>
+		<span id='prop-i'>$Q_w(s,a)=\nabla_\theta\log\pi_\theta(a\vert s)^\text{T}w$.</span>
+	</li>
+	<li>
+		<span id='prop-ii'>The parameters $w$ are chosen to minimize the mean-squared error (MSE)</span>
+		\begin{equation}
+		\epsilon^2(w)=\mathbb{E}_{\rho_\pi,\pi_\theta}\Big[\big(Q_w(s,a)-Q_\pi(s,a)\big)^2\Big]
+		\end{equation}
+	</li>
+</ul>
 
+then $Q_w(s,a)$ 
+\begin{equation}
+\nabla_\theta J(\pi_\theta)=\mathbb{E}\_{\rho_\pi,\pi_\theta}\Big[\nabla_\theta\log\pi_\theta(a\vert s)Q_w(s,a)\Big],
+\end{equation}
 
+**Proof**  
+Taking the gradient w.r.t $w$ of both sides of the equation given in property [(i)](#prop-i) gives us
+\begin{equation}
+\nabla_w Q_w(s,a)=\nabla_\theta\log\pi_\theta(a\vert s)
+\end{equation}
+On the other hand, consider the gradient of the MSE, $\epsilon^2(w)$, w.r.t $w$, we have
+\begin{align}
+\nabla_w\epsilon^2(w)&=\nabla_w\mathbb{E}\_{\rho_\pi,\pi_\theta}\Big[\big(Q_w(s,a)-Q_\pi(s,a)\big)^2\Big] \\\\ &=\nabla_w\int_\mathcal{S}\rho_\pi(s)\int_\mathcal{A}\pi_\theta(a\vert s)\big[Q_w(s,a)-Q_\pi(s,a)\big]^2 da\hspace{0.1cm}d s \\\\ &=2\int_\mathcal{S}\rho_\pi(s)\int_\mathcal{A}\pi_\theta(a\vert s)\big[Q_w(s,a)-Q_\pi(s,a)\big]\nabla_w Q_w(s,a)da\hspace{0.1cm}d s \\\\ &=2\int_\mathcal{S}\rho_\pi(s)\int_\mathcal{A}\pi_\theta(a\vert s)\big[Q_w(s,a)-Q_\pi(s,a)\big]\nabla_\theta\log\pi_\theta(a\vert s)da\hspace{0.1cm}d s \\\\ &=2\left(\int_\mathcal{S}\rho_\pi(s)\int_\mathcal{A}\pi_\theta(a\vert s)\nabla_\theta\log\pi_\theta(a\vert s)Q_w(s,a)da\hspace{0.1cm}d s-\nabla_\theta J(\pi_\theta)\right) \\\\ &=2\left(\mathbb{E}\_{\rho_\pi,\pi_\theta}\Big[\nabla_\theta\log\pi_\theta(a\vert s)Q_w(s,a)\Big]-\nabla_\theta J(\pi_\theta)\right)
+\end{align}
+Moreover, property [(ii)](#prop-ii) claims that this gradient w.r.t $w$ must be zero due to the fact that $w$ minimizes $\epsilon^2(w)$. And thus, we obtain
+\begin{equation}
+\nabla_\theta J(\pi_\theta)=\mathbb{E}\_{\rho_\pi,\pi_\theta}\Big[\nabla_\theta\log\pi_\theta(a\vert s)Q_w(s,a)\Big]
+\end{equation}
 
-
-
-
+### Off-policy Actor-Critic{#off-pac}
+Consider off-policy methods, which learn a target policy $\pi_\theta$ using trajectories sampled according to a behavior policy $\beta(a\vert s)\neq\pi_\theta(a\vert s)$. In this setting, the performance objective is given as the value function of the target policy, averaged over $\beta$, as
+\begin{align}
+J_\beta(\pi_\theta)&=\int_\mathcal{S}\rho_\beta(s)V_\pi(s)d s \\\\ &=\int_\mathcal{S}\int_\mathcal{A}\rho_\beta(s)\pi_\theta(a\vert s)Q_\pi(s,a)da\hspace{0.1cm}d s
+\end{align}
+The off-policy policy gradient then be given using importance sampling
+\begin{align}
+\nabla_\theta J_\beta(\pi_\theta)&\approx\int_\mathcal{S}\int_\mathcal{A}\rho_\beta(s)\nabla_\theta\pi_\theta(a\vert s)Q_\pi(s,a)da\hspace{0.1cm}d s \\\\ &=\mathbb{E}\_{\rho_\beta,\beta}\left[\frac{\pi_\theta(a\vert s)}{\beta(a\vert s)}\nabla_\theta\log\pi_\theta(a\vert s)Q_\pi(s,a)\right]
+\end{align}
 
 ## Deterministic Policy Gradient Theorem{#dpg-theorem}
+Now let us consider the case of deterministic policy $\mu_\theta$, in which the performance objective function is also defined as the expected return of the start state. Thus we also have that
+\begin{equation}
+J(\mu_\theta)=\mathbb{E}\_{\rho_0,\mu_\theta}\big[r_0^\gamma\big]=\mathbb{E}\_{s_0\sim\rho_0}\big[V_\mu(s_0)\big]\label{eq:dpgt.1}
+\end{equation}
+The **Deterministic Policy Gradient Theorem** thus states that
+\begin{align}
+\nabla_\theta J(\mu_\theta)&=\int_\mathcal{S}\rho_\mu(s)\nabla_\theta\mu_\theta(s)\nabla_a Q_\mu(s,a)\big\vert_{a=\mu_\theta(s)}d s \\\\ &=\mathbb{E}\_{\rho_\mu}\Big[\nabla_\theta\mu_\theta(s)\nabla_a Q_\mu(s,a)\big\vert_{a=\mu_\theta(s)}\Big]\label{eq:dpgt.2}
+\end{align}
+where along with the assumption we have made in stochastic case, we additionally assume that $\nabla_a p(s'\vert s,a),\mu_\theta(s),\nabla_\theta\mu_\theta(s),\nabla_a r(s,a)$ are continues for all $\theta$ and $s,s'\in\mathcal{S},a\in\mathcal{A}$. These also imply the existence of $\nabla_a Q_\mu(s,a)$.
+
+**Proof**  
+This proof will be quite similar to what we have used in the stochastic case. Specifically, also starting with the gradient of the value function w.r.t $\theta$, we have
+\begin{align}
+&\hspace{-0.5cm}\nabla_\theta V_\mu(s)\nonumber \\\\ &\hspace{-0.5cm}=\nabla_\theta Q_\mu(s,\mu_\theta(s)) \\\\ &\hspace{-0.5cm}=\nabla_\theta\left[r(s,\mu_\theta(s))+\int_\mathcal{S}\gamma p(s'\vert s,\mu_\theta(s))V_\mu(s')d s'\right] \\\\ &\hspace{-0.5cm}=\nabla_\theta\mu_\theta(s)\nabla_a r(s,a)\vert_{a=\mu_\theta(s)}+\nabla_\theta\int_\mathcal{S}\gamma p(s'\vert s,\mu_\theta(s))V_\mu(s')d s' \\\\ &\hspace{-0.5cm}=\nabla_\theta\mu_\theta(s)\nabla_a r(s,a)\vert_{a=\mu_\theta(s)}\nonumber \\\\ &\hspace{1.5cm}+\int_\mathcal{S}\gamma\nabla_\theta\mu_\theta(s)\nabla_a p(s'\vert s,a)\vert_{a=\mu_\theta(s)}V_\mu(s')+\gamma p(s'\vert s,a)\nabla_\theta V_\mu(s')d s' \\\\ &\hspace{-0.5cm}=\nabla_\theta\mu_\theta(s)\nabla_a\Big(\underbrace{r(s,a)+\int_\mathcal{S}p(s'\vert s,a)V_\mu(s')d s'}\_{Q_\mu(s,a)}\Big)\Big\vert_{a=\mu_\theta(s)}+\int_\mathcal{S}\gamma p(s'\vert s,a)\nabla_\theta V_\mu(s')d s' \\\\ &\hspace{-0.5cm}=\underbrace{\nabla_\theta\mu_\theta(s)\nabla_a Q_\mu(s,a)\vert_{a=\mu_\theta(s)}}\_{\psi(s)}+\int_\mathcal{S}\gamma p(s\to s',1,\mu_\theta)\nabla_\theta V_\mu(s')d s' \\\\ &\hspace{-0.5cm}=\psi(s)+\int_\mathcal{S}\gamma p(s\to s',1,\mu_\theta)\nabla_\theta V_\mu(s')d s'
+\end{align}
+which is in the same form as equation \eqref{eq:spgt.9}. Thus after repeated unrolling, we also end up with
+\begin{align}
+\nabla_\theta V_\mu(s)&=\psi(s)+\int_\mathcal{S}\gamma p(s\to s',1,\mu_\theta)\nabla_\theta V_\mu(s')d s' \\\\ &=\int_\mathcal{S}\sum_{k=0}^{\infty}\gamma^k p(s\to\tilde{s},k,\mu_\theta)\psi(\tilde{s})d\tilde{s} \\\\ &=\int_\mathcal{S}\sum_{k=0}^{\infty}\gamma^k p(s\to\tilde{s},k,\mu_\theta)\nabla_\theta\mu_\theta(s)\nabla_a Q_\mu(s,a)\vert_{a=\mu_\theta(s)}d\tilde{s}\label{eq:dpgt.3}
+\end{align}
+Consider the definition of $J(\mu_\theta)$ given in \eqref{eq:dpgt.1}, taking gradient of both sides w.r.t $\theta$, combined with \eqref{eq:dpgt.3} gives us
+\begin{align}
+\hspace{-1.2cm}\nabla_\theta J(\mu_\theta)&=\nabla_\theta\mathbb{E}\_{s_0\sim\rho_0}\big[V_\mu(s_0)\big] \\\\ &=\int_\mathcal{S}\rho_0(s_0)\nabla_\theta V_\mu(s_0)d s_0 \\\\ &=\int_{s_0\in\mathcal{S}}\rho_0(s_0)\int_{s\in\mathcal{S}}\sum_{k=0}^{\infty}\gamma^k p(s_0\to s,k,\mu_\theta)\nabla_\theta\mu_\theta(s)\nabla_a Q_\mu(s,a)\vert_{a=\mu_\theta(s)}d s\hspace{0.1cm}d s_0 \\\\ &=\int_{s\in\mathcal{S}}\left(\int_{s_0\in\mathcal{S}}\sum_{k=0}^{\infty}\gamma^k\rho_0(s_0)p(s_0\to s,k,\mu_\theta)d s_0\right)\nabla_\theta\mu_\theta(s)\nabla_a Q_\mu(s,a)\vert_{a=\mu_\theta(s)}d s \\\\ &=\int_\mathcal{S}\rho_\mu(s)\nabla_\theta\mu_\theta(s)\nabla a Q_\mu(s,a)\vert_{a=\mu_\theta(s)}d s,
+\end{align}
+where in the forth step, the **Fubini's theorem** has helped us exchange the order of integration.$\tag*{$\Box$}$
+
+It is worth remarking that we can consider a deterministic policy $\mu_\theta$ as a special case of the stochastic policy, in which $\pi_\theta(\cdot\vert s)$ becomes the **Kronecker delta function**, which takes the value of $1$ at only one point $a\in\mathcal{A}$ and $0$ elsewhere.
+
+To be more specific, in the [original paper](#dpg-paper), the authors have shown that by rewriting the stochastic policy as $\pi_{\mu_\theta,\sigma}$, which is parameterized by a deterministic policy $\mu_\theta:\mathcal{S}\to\mathcal{A}$ and a variance parameter $\sigma$ such that for $\sigma=0$, we have that $\pi_{\mu_\theta,0}\equiv\mu_\theta$; then as $\sigma\to 0$, they have proved that the stochastic policy gradient converges to the deterministic one.
+
+This critical result allows us to apply the deterministic policy gradient to common policy gradient frameworks, for example actor-critic approaches.
+
+## Deterministic Actor-Critic{#deterministic-ac}
+
+### On-policy Deterministic Actor-Critic{#on-policy-deterministic-ac}
+Analogous to the stochastic approach, the deterministic actor learns a parameter $\theta$ by using SGA to iteratively update the parameter vector according to the deterministic policy gradient direction \eqref{eq:dpgt.2} while the critic estimates the state-action value function by a function approximation $Q_w(s,a)$ using a policy evaluation method such as [TD-learning]({{< ref "td-learning" >}}).
+
+For instance, a deterministic actor-critic method with a [Sarsa]({{< ref "td-learning#sarsa" >}}) critic has the following update in each time-step $t$
+\begin{align}
+\delta_t&=r_{t+1}+\gamma Q_w(s_{t+1},a_{t+1})-Q_w(s_t,a_t) \\\\ w_{t+1}&=w_t+\alpha_w\delta_t\nabla_w Q_w(s_t,a_t) \\\\ \theta_{t+1}&=\theta_t+\alpha_\theta\nabla_\theta\mu_\theta(s_t)\nabla_a Q_w(s_t,a_t)\vert_{a=\mu_\theta(s)},
+\end{align}
+where $\delta_t$ as specified before, are known as TD errors.
+
+### Off-policy Deterministic Actor-Critic{#off-policy-deterministic-ac}
+Analogy to stochastic methods, let $\beta(a\vert s)$ denote the behavior policy that generates trajectories used for updating the deterministic target policy $\mu_\theta(s)$, the performance objective $J(\mu_\theta)$ is then given as
+\begin{align}
+J_\beta(\mu_\theta)&=\int_\mathcal{S}\rho_\beta(s)V_\mu(s)d s \\\\ &=\int_\mathcal{S}\rho_\beta(s)Q_\mu(s,\mu_\theta(s))d s,
+\end{align}
+which yields the policy gradient
+\begin{align}
+\nabla_\theta J_\beta(\mu_\theta)&\approx\int_\mathcal{S}\rho_\beta(s)\nabla_\theta\mu_\theta(a\vert s)Q_\mu(s,a)d s \\\\ &=\mathbb{E}\_{\rho_\beta}\Big[\nabla_\theta\mu_\theta(s)\nabla_a Q_\mu(s,a)\vert_{a=\mu_\theta(s)}\Big]
+\end{align}
+Notice that in this approximation of the policy gradient, we do not need to append an important sampling ratio 
+
+## Deep Deterministic Policy Gradient{#ddpg}
 
 
 ## References
-[1] David Silver, Guy Lever, Nicolas Heess, Thomas Degris, Daan Wierstra, Martin Riedmiller. [Deterministic Policy Gradient Algorithms](http://proceedings.mlr.press/v32/silver14.pdf). JMLR 2014.
+[1] <span id='dpg-paper'>David Silver, Guy Lever, Nicolas Heess, Thomas Degris, Daan Wierstra, Martin Riedmiller. [Deterministic Policy Gradient Algorithms](http://proceedings.mlr.press/v32/silver14.pdf). JMLR 2014</span>.
 
 [2] Richard S. Sutton, Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition). MIT press, 2018.
 
 [3] Richard S. Sutton, David McAllester, Satinder Singh, Yishay Mansour. [Policy Gradient Methods for Reinforcement Learning with Function Approximation](https://papers.nips.cc/paper/1999/hash/464d828b85b0bed98e80ade0a5c43b0f-Abstract.html). NIPS 1999.
+
+[4] Elias M. Stein & Rami Shakarchi. [Real Analysis: Measure Theory, Integration, and Hilbert Spaces](http://www.cmat.edu.uy/~mordecki/courses/medida2013/book.pdf). Princeton University Press, 2007.
+
+[5] Timothy P. Lillicrap, Jonathan J. Hunt, Alexander Pritzel, Nicolas Heess, Tom Erez, Yuval Tassa, David Silver, Daan Wierstra. [Continuous control with deep reinforcement learning](https://arxiv.org/pdf/1509.02971.pdf). ICLR 2016.
 
 ## Footnotes
 [^1]: To simplify the notation, we have let $\rho_\pi\doteq\rho\_{\pi_\theta}$ and $Q_\pi\doteq Q_{\pi_\theta}$ implicitly. As a result, we will also denote $V_{\pi_\theta}$ by $V_\pi$.
