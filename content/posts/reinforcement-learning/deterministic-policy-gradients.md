@@ -185,12 +185,13 @@ Moreover, property [(ii)](#prop-ii) claims that this gradient w.r.t $w$ must be 
 ### Off-policy Actor-Critic{#off-pac}
 Consider off-policy methods, which learn a target policy $\pi_\theta$ using trajectories sampled according to a behavior policy $\beta(a\vert s)\neq\pi_\theta(a\vert s)$. In this setting, the performance objective is given as the value function of the target policy, averaged over $\beta$, as
 \begin{align}
-J_\beta(\pi_\theta)&=\int_\mathcal{S}\rho_\beta(s)V_\pi(s)d s \\\\ &=\int_\mathcal{S}\int_\mathcal{A}\rho_\beta(s)\pi_\theta(a\vert s)Q_\pi(s,a)da\hspace{0.1cm}d s
+J_\beta(\pi_\theta)&=\int_\mathcal{S}\rho_\beta(s)V_\pi(s)d s \\\\ &=\int_\mathcal{S}\rho_\beta(s)\int_\mathcal{A}\pi_\theta(a\vert s)Q_\pi(s,a)da\hspace{0.1cm}d s
 \end{align}
-The off-policy policy gradient then be given using importance sampling
+The off-policy policy gradient then be given by utilizing importance sampling
 \begin{align}
-\nabla_\theta J_\beta(\pi_\theta)&\approx\int_\mathcal{S}\int_\mathcal{A}\rho_\beta(s)\nabla_\theta\pi_\theta(a\vert s)Q_\pi(s,a)da\hspace{0.1cm}d s \\\\ &=\mathbb{E}\_{\rho_\beta,\beta}\left[\frac{\pi_\theta(a\vert s)}{\beta(a\vert s)}\nabla_\theta\log\pi_\theta(a\vert s)Q_\pi(s,a)\right]
+\nabla_\theta J_\beta(\pi_\theta)&=\nabla_\theta\int_\mathcal{S}\rho_\beta(s)\int_\mathcal{A}\pi_\theta(a\vert s)Q_\pi(s,a)da\hspace{0.1cm}d s \\\\ &=\int_\mathcal{S}\rho_\beta(s)\int_\mathcal{A}\Big(\nabla_\theta\pi_\theta(a\vert s)Q_\pi(s,a)+\color{red}{\pi_\theta(a\vert s)\nabla_\theta Q_\pi(s,a)}\Big)da\hspace{0.1cm}d s\label{eq:offpac.1} \\\\ &\overset{\text{(i)}}{\approx}\int_\mathcal{S}\rho_\beta(s)\int_\mathcal{A}\nabla_\theta\pi_\theta(a\vert s)Q_\pi(s,a)da\hspace{0.1cm}d s \\\\ &=\int_\mathcal{S}\rho_\beta(s)\int_\mathcal{A}\pi_\theta(a\vert s)\nabla_\theta\log\pi_\theta(a\vert s)Q_\pi(s,a)d a\hspace{0.1cm}d s \\\\ &=\mathbb{E}\_{\rho_\beta,\pi_\theta}\Big[\nabla_\theta\log\pi_\theta(a\vert s)Q_\pi(s,a)\Big] \\\\ &=\mathbb{E}\_{\rho_\beta,\beta}\left[\frac{\pi_\theta(a\vert s)}{\beta(a\vert s)}\nabla_\theta\log\pi_\theta(a\vert s)Q_\pi(s,a)\right],
 \end{align}
+where to get the approximation in step (i), we have removed the $\color{red}{\pi_\theta(a\vert s)\nabla_\theta Q_\pi(s,a)}$ part in \eqref{eq:offpac.1}. This approximation is good enough to guarantee the policy improvement and eventually achieve the true local optima due to justification proofs proposed in [Off-PAC paper](#offpac-paper), which stands for **Off-policy Actor-Critic**.
 
 ## Deterministic Policy Gradient Theorem{#dpg-theorem}
 Now let us consider the case of deterministic policy $\mu_\theta$, in which the performance objective function is also defined as the expected return of the start state. Thus we also have that
@@ -214,7 +215,7 @@ which is in the same form as equation \eqref{eq:spgt.9}. Thus after repeated unr
 \end{align}
 Consider the definition of $J(\mu_\theta)$ given in \eqref{eq:dpgt.1}, taking gradient of both sides w.r.t $\theta$, combined with \eqref{eq:dpgt.3} gives us
 \begin{align}
-\hspace{-1.2cm}\nabla_\theta J(\mu_\theta)&=\nabla_\theta\mathbb{E}\_{s_0\sim\rho_0}\big[V_\mu(s_0)\big] \\\\ &=\int_\mathcal{S}\rho_0(s_0)\nabla_\theta V_\mu(s_0)d s_0 \\\\ &=\int_{s_0\in\mathcal{S}}\rho_0(s_0)\int_{s\in\mathcal{S}}\sum_{k=0}^{\infty}\gamma^k p(s_0\to s,k,\mu_\theta)\nabla_\theta\mu_\theta(s)\nabla_a Q_\mu(s,a)\vert_{a=\mu_\theta(s)}d s\hspace{0.1cm}d s_0 \\\\ &=\int_{s\in\mathcal{S}}\left(\int_{s_0\in\mathcal{S}}\sum_{k=0}^{\infty}\gamma^k\rho_0(s_0)p(s_0\to s,k,\mu_\theta)d s_0\right)\nabla_\theta\mu_\theta(s)\nabla_a Q_\mu(s,a)\vert_{a=\mu_\theta(s)}d s \\\\ &=\int_\mathcal{S}\rho_\mu(s)\nabla_\theta\mu_\theta(s)\nabla a Q_\mu(s,a)\vert_{a=\mu_\theta(s)}d s,
+&\nabla_\theta J(\mu_\theta)\nonumber \\\\ &=\nabla_\theta\mathbb{E}\_{s_0\sim\rho_0}\big[V_\mu(s_0)\big] \\\\ &=\int_\mathcal{S}\rho_0(s_0)\nabla_\theta V_\mu(s_0)d s_0 \\\\ &=\int_{s_0\in\mathcal{S}}\rho_0(s_0)\int_{s\in\mathcal{S}}\sum_{k=0}^{\infty}\gamma^k p(s_0\to s,k,\mu_\theta)\nabla_\theta\mu_\theta(s)\nabla_a Q_\mu(s,a)\vert_{a=\mu_\theta(s)}d s\hspace{0.1cm}d s_0 \\\\ &=\int_{s\in\mathcal{S}}\left(\int_{s_0\in\mathcal{S}}\sum_{k=0}^{\infty}\gamma^k\rho_0(s_0)p(s_0\to s,k,\mu_\theta)d s_0\right)\nabla_\theta\mu_\theta(s)\nabla_a Q_\mu(s,a)\vert_{a=\mu_\theta(s)}d s \\\\ &=\int_\mathcal{S}\rho_\mu(s)\nabla_\theta\mu_\theta(s)\nabla a Q_\mu(s,a)\vert_{a=\mu_\theta(s)}d s,
 \end{align}
 where in the forth step, the **Fubini's theorem** has helped us exchange the order of integration.$\tag*{$\Box$}$
 
@@ -238,13 +239,53 @@ where $\delta_t$ as specified before, are known as TD errors.
 ### Off-policy Deterministic Actor-Critic{#off-policy-deterministic-ac}
 Analogy to stochastic methods, let $\beta(a\vert s)$ denote the behavior policy that generates trajectories used for updating the deterministic target policy $\mu_\theta(s)$, the performance objective $J(\mu_\theta)$ is then given as
 \begin{align}
-J_\beta(\mu_\theta)&=\int_\mathcal{S}\rho_\beta(s)V_\mu(s)d s \\\\ &=\int_\mathcal{S}\rho_\beta(s)Q_\mu(s,\mu_\theta(s))d s,
+J_\beta(\mu_\theta)&=\int_\mathcal{S}\rho_\beta(s)V_\mu(s)d s \\\\ &=\int_\mathcal{S}\rho_\beta(s)Q_\mu(s,\mu_\theta(s))d s
 \end{align}
-which yields the policy gradient
+It is noticeable that the deterministic policy allows us to explicitly replace the integration over action space $\mathcal{A}$ by $Q_\mu(s,\mu_\theta(s))$, and thus we do not need to use importance sampling in the actor. Hence, we have that
 \begin{align}
-\nabla_\theta J_\beta(\mu_\theta)&\approx\int_\mathcal{S}\rho_\beta(s)\nabla_\theta\mu_\theta(a\vert s)Q_\mu(s,a)d s \\\\ &=\mathbb{E}\_{\rho_\beta}\Big[\nabla_\theta\mu_\theta(s)\nabla_a Q_\mu(s,a)\vert_{a=\mu_\theta(s)}\Big]
+\nabla_\theta J_\beta(\mu_\theta)&=\nabla_\theta\int_\mathcal{S}\rho_\beta(s)Q_\mu(s,\mu_\theta(s))d s \\\\ &\approx\int_\mathcal{S}\rho_\beta(s)\nabla_\theta\mu_\theta(a\vert s)Q_\mu(s,a)d s \\\\ &=\mathbb{E}\_{\rho_\beta}\Big[\nabla_\theta\mu_\theta(s)\nabla_a Q_\mu(s,a)\vert_{a=\mu_\theta(s)}\Big]
 \end{align}
-Notice that in this approximation of the policy gradient, we do not need to append an important sampling ratio 
+We can also avoid using importance sampling in critic by using Q-learning 
+as our policy evaluation In particular, the off-policy deterministic actor-critic with a Q-learning critic has the form of
+\begin{align}
+\delta_t&=r_{t+1}+\gamma Q_w(s_{t+1},\mu_\theta(s))-Q_w(s_t,a_t) \\\\ w_{t+1}&=w_t+\alpha_w\delta_t\nabla_w Q_w(s_t,a_t) \\\\ \theta_{t+1}&=\theta_t+\alpha_\theta\nabla_\theta\mu_\theta(s_t)\nabla_a Q_w(s_t,a_t)\vert_{a_t=\mu_\theta(s_t)}
+\end{align}
+
+### Compatible Function Approximation with Deterministic Policy{#compatible-func-approx-deterministic}
+From what we have mentioned in the stochastic case, we can also define an appropriate form of function approximation $Q_w$ which preserves the direction of true gradient.
+
+In particular, A $w$-parameterized $Q_w(s,a)$ is referred as a **compatible function approximator** of the state-action value function $Q_\mu$ for deterministic policy $\mu_\theta$ in the sense that
+<ul id='roman-list'>
+	<li>
+		<span id='prop-i-det'>$\nabla_a Q_w(s,a)\vert_{a=\mu_\theta(s)}=\nabla_\theta\mu_\theta(s)^\text{T}w$.</span>
+	</li>
+	<li>
+		<span id='prop-ii-det'>Parameters $w$ minimize the mean-squared error</span>
+		\begin{equation}
+		\text{MSE}(\theta,w)=\mathbb{E}\big[\epsilon(\theta,w,s)^\text{T}\epsilon(\theta,w,s)\big],
+		\end{equation}
+		where
+		\begin{equation}
+		\epsilon(\theta,w,s)\doteq\nabla_a Q_w(s,a)\vert_{a=\mu_\theta(s)}-\nabla_a Q_\mu(s,a)\vert_{a=\mu_\theta(s)}
+		\end{equation}
+	</li>
+</ul>
+
+then
+\begin{equation}
+\nabla_\theta J(\mu_\theta)=\mathbb{E}\big[\nabla_\theta\mu_\theta(s)\nabla_a Q_w(s,a)\vert_{a=\mu_\theta(s)}\big]\label{eq:cfad.1}
+\end{equation}
+
+**Proof**  
+We follow the procedure used in stochastic case. Specifically, starting with the property [(i)](#prop-i-det) and by definition of $\epsilon$, we have that
+\begin{align}
+\nabla_w\epsilon(\theta,w,s)&=\nabla_w\big[\nabla_a Q_w(s,a)\vert_{a=\mu_\theta(s)}-\nabla_a Q_\mu(s,a)\vert_{a=\mu_\theta(s)}\big] \\\\ &=\nabla_w\big(\nabla_a Q_w(s,a)\vert_{a=\mu_\theta(s)}\big) \\\\ &=\nabla_w\big(\nabla_\theta\mu_\theta(s)^\text{T}w\big) \\\\ &=\nabla_\theta\mu_\theta(s)
+\end{align}
+Using this result, the gradient of $\text{MSE}(\theta,w)$ w.r.t $w$ is thus given as
+\begin{align}
+\nabla_w\text{MSE}(\theta,w)&=\nabla_w\mathbb{E}\big[\epsilon(\theta,w,s)^\text{T}\epsilon(\theta,w,s)\big] \\\\ &=\mathbb{E}\big[2\epsilon(\theta,w,s)\nabla_w\epsilon(\theta,w,s)\big] \\\\ &=2\mathbb{E}\Big[\big(\nabla_a Q_w(s,a)\vert_{a=\mu_\theta(s)}-\nabla_a Q_\mu(s,a)\vert_{a=\mu_\theta(s)}\big)\nabla_\theta\mu_\theta(s)\Big] \\\\ &=2\Big[\mathbb{E}\big[\nabla_\theta\mu_\theta(s)\nabla_a Q_w(s,a)\vert_{a=\mu_\theta(s)}\big]-J(\mu_\theta)\Big],
+\end{align}
+which lets our claim, \eqref{eq:cfad.1}, follows due to the property [(ii)](#prop-ii-det), which means that $\nabla_w\text{MSE}(\theta,w)=0$.$\tag*{$\Box$}$
 
 ## Deep Deterministic Policy Gradient{#ddpg}
 
@@ -256,9 +297,11 @@ Notice that in this approximation of the policy gradient, we do not need to appe
 
 [3] Richard S. Sutton, David McAllester, Satinder Singh, Yishay Mansour. [Policy Gradient Methods for Reinforcement Learning with Function Approximation](https://papers.nips.cc/paper/1999/hash/464d828b85b0bed98e80ade0a5c43b0f-Abstract.html). NIPS 1999.
 
-[4] Elias M. Stein & Rami Shakarchi. [Real Analysis: Measure Theory, Integration, and Hilbert Spaces](http://www.cmat.edu.uy/~mordecki/courses/medida2013/book.pdf). Princeton University Press, 2007.
+[4] Elias M. Stein, Rami Shakarchi. [Real Analysis: Measure Theory, Integration, and Hilbert Spaces](http://www.cmat.edu.uy/~mordecki/courses/medida2013/book.pdf). Princeton University Press, 2007.
 
-[5] Timothy P. Lillicrap, Jonathan J. Hunt, Alexander Pritzel, Nicolas Heess, Tom Erez, Yuval Tassa, David Silver, Daan Wierstra. [Continuous control with deep reinforcement learning](https://arxiv.org/pdf/1509.02971.pdf). ICLR 2016.
+[5] <span id='offpac-paper'>Thomas Degris, Martha White, Richard S. Sutton. [Off-Policy Actor-Critic](https://icml.cc/2012/papers/268.pdf). ICML 2012</span>.
+
+[6] Timothy P. Lillicrap, Jonathan J. Hunt, Alexander Pritzel, Nicolas Heess, Tom Erez, Yuval Tassa, David Silver, Daan Wierstra. [Continuous control with deep reinforcement learning](https://arxiv.org/pdf/1509.02971.pdf). ICLR 2016.
 
 ## Footnotes
 [^1]: To simplify the notation, we have let $\rho_\pi\doteq\rho\_{\pi_\theta}$ and $Q_\pi\doteq Q_{\pi_\theta}$ implicitly. As a result, we will also denote $V_{\pi_\theta}$ by $V_\pi$.
