@@ -1,7 +1,7 @@
 ---
 title: "Deterministic Policy Gradients"
 date: 2022-12-02T19:26:44+07:00
-tags: [reinforcement-learning, policy-gradient, my-rl]
+tags: [reinforcement-learning, policy-gradient, actor-critic, my-rl]
 math: true
 eqn-number: true
 ---
@@ -248,8 +248,9 @@ It is noticeable that the deterministic policy allows us to explicitly replace t
 We can also avoid using importance sampling in critic by using Q-learning 
 as our policy evaluation In particular, the off-policy deterministic actor-critic with a Q-learning critic has the form of
 \begin{align}
-\delta_t&=r_{t+1}+\gamma Q_w(s_{t+1},\mu_\theta(s))-Q_w(s_t,a_t) \\\\ w_{t+1}&=w_t+\alpha_w\delta_t\nabla_w Q_w(s_t,a_t) \\\\ \theta_{t+1}&=\theta_t+\alpha_\theta\nabla_\theta\mu_\theta(s_t)\nabla_a Q_w(s_t,a_t)\vert_{a_t=\mu_\theta(s_t)}
+\delta_t&=r_{t+1}+\gamma Q_w(s_{t+1},\mu_\theta(s))-Q_w(s_t,a_t)\label{eq:opdac.1} \\\\ w_{t+1}&=w_t+\alpha_w\delta_t\nabla_w Q_w(s_t,a_t) \\\\ \theta_{t+1}&=\theta_t+\alpha_\theta\nabla_\theta\mu_\theta(s_t)\nabla_a Q_w(s_t,a_t)\vert_{a_t=\mu_\theta(s_t)},
 \end{align}
+where the greedy policy, $\underset{a}{\text{argmax}}Q_w(s,a)$, in the usual Q-learning update has been replaced by the newly-updated deterministic policy, $\mu_\theta(s)$, in \eqref{eq:opdac.1}, i.e. $\mu_\theta\equiv\mu_{\theta_k}$.
 
 ### Compatible Function Approximation with Deterministic Policy{#compatible-func-approx-deterministic}
 From what we have mentioned in the stochastic case, we can also define an appropriate form of function approximation $Q_w$ which preserves the direction of true gradient.

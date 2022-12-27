@@ -79,7 +79,7 @@ In particular, in state $s$, selecting action $a$ and thereafter following the p
 \begin{align}
 q_\pi(s,a)&\doteq\mathbb{E}\left[R_{t+1}+\gamma v_\pi(S_{t+1})|S_t=s,A_t=a\right]\tag{2}\label{2} \\\\ &=\sum_{s',r}p(s',r|s,a)\left[r+\gamma v_\pi(s')\right]
 \end{align}
-**Theorem** (*Policy improvement*)  
+<span id='policy-imp-theorem'>**Theorem** (*Policy improvement theorem*)</span>  
 Let $\pi,\pi'$ be any pair of deterministic policies such that, for all $s\in\mathcal{S}$,
 \begin{equation}
 q_\pi(s,\pi'(s))\geq v_\pi(s)\tag{3}\label{3}

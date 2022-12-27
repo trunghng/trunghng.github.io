@@ -5,7 +5,7 @@ tags: [mathematics, measure-theory, lebesgue-integral]
 math: true
 eqn-number: true
 ---
-> Note III of the measure theory series. Materials are mostly taken from [Tao's book]({{< ref "measure-theory-p3#taos-book" >}}), except for some needed notations extracted from [Stein's book]({{< ref "measure-theory-p3#steins-book" >}}).
+> (Temporary non-updated) Note III of the measure theory series. Materials are mostly taken from [Tao's book]({{< ref "measure-theory-p3#taos-book" >}}), except for some needed notations extracted from [Stein's book]({{< ref "measure-theory-p3#steins-book" >}}).
 <!--more-->
 
 ## Integration of simple functions{#int-simp-funcs}

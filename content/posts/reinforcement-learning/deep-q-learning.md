@@ -145,7 +145,7 @@ which depends on the current value $\boldsymbol{\theta}_t$, and thus will be bia
 Such methods are known as **semi-gradient** since they take into account the effect of changing the weight vector $\boldsymbol{\theta}\_t$ on the estimate, but ignore its effect on the target.
 
 ### Deep Q-learning{#dqn}
-On the other hands, we have already known that a **neural network** with particular settings for hidden layers and activation functions can approximate [any]({{< ref "neural-nets#unv-approx" >}}) continuous functions on a compact subsets of $\mathbb{R}^n$, so how about using it with the Q-learning algorithm?
+On the other hands, we have already known that a **neural network** with particular settings for hidden layers and activation functions can approximate [any](#) continuous functions on a compact subsets of $\mathbb{R}^n$, so how about using it with the Q-learning algorithm?
 
 Specifically, we will be using neural network with weight $\boldsymbol{\theta}$ as a function approximator for Q-learning update. The network is referred as **Q-network**, as the whole algorithm is so-called **Deep Q-learning**, and the agent is known as **DQN** in short for **Deep Q-network**.  
 

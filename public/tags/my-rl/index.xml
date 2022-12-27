@@ -9,7 +9,18 @@
       <link>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 02 Dec 2022 19:26:44 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/my-rl/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 26 Dec 2022 13:46:09 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/my-rl/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Maximum Entropy Reinforcement Learning via Soft Q-learning &amp; Soft Actor-Critic</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/maximum-entropy-sql-sac/</link>
+      <pubDate>Mon, 26 Dec 2022 13:46:09 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/maximum-entropy-sql-sac/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Notes on Maximum Entropy Reinforcement Learning via SQL &amp;amp; SAC.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
     <item>
       <title>Deterministic Policy Gradients</title>
       <link>https://trunghng.github.io/posts/reinforcement-learning/deterministic-policy-gradients/</link>

@@ -2,25 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://trunghng.github.io/posts/reinforcement-learning/deterministic-policy-gradients/</loc>
-    <lastmod>2022-12-02T19:26:44+07:00</lastmod>
+    <loc>https://trunghng.github.io/tags/actor-critic/</loc>
+    <lastmod>2022-12-26T13:46:09+07:00</lastmod>
+  </url><url>
+    <loc>https://trunghng.github.io/posts/reinforcement-learning/maximum-entropy-sql-sac/</loc>
+    <lastmod>2022-12-26T13:46:09+07:00</lastmod>
   </url><url>
     <loc>https://trunghng.github.io/tags/my-rl/</loc>
-    <lastmod>2022-12-02T19:26:44+07:00</lastmod>
+    <lastmod>2022-12-26T13:46:09+07:00</lastmod>
   </url><url>
     <loc>https://trunghng.github.io/tags/policy-gradient/</loc>
-    <lastmod>2022-12-02T19:26:44+07:00</lastmod>
+    <lastmod>2022-12-26T13:46:09+07:00</lastmod>
   </url><url>
     <loc>https://trunghng.github.io/posts/</loc>
-    <lastmod>2022-12-02T19:26:44+07:00</lastmod>
+    <lastmod>2022-12-26T13:46:09+07:00</lastmod>
   </url><url>
     <loc>https://trunghng.github.io/tags/reinforcement-learning/</loc>
-    <lastmod>2022-12-02T19:26:44+07:00</lastmod>
+    <lastmod>2022-12-26T13:46:09+07:00</lastmod>
   </url><url>
     <loc>https://trunghng.github.io/tags/</loc>
-    <lastmod>2022-12-02T19:26:44+07:00</lastmod>
+    <lastmod>2022-12-26T13:46:09+07:00</lastmod>
   </url><url>
     <loc>https://trunghng.github.io/</loc>
+    <lastmod>2022-12-26T13:46:09+07:00</lastmod>
+  </url><url>
+    <loc>https://trunghng.github.io/posts/reinforcement-learning/deterministic-policy-gradients/</loc>
     <lastmod>2022-12-02T19:26:44+07:00</lastmod>
   </url><url>
     <loc>https://trunghng.github.io/tags/deep-reinforcement-learning/</loc>
@@ -55,12 +61,6 @@
   </url><url>
     <loc>https://trunghng.github.io/posts/evolution-strategy/cma-es/</loc>
     <lastmod>2022-09-14T13:00:00+07:00</lastmod>
-  </url><url>
-    <loc>https://trunghng.github.io/posts/machine-learning/neural-nets/</loc>
-    <lastmod>2022-09-02T13:00:00+07:00</lastmod>
-  </url><url>
-    <loc>https://trunghng.github.io/tags/neural-network/</loc>
-    <lastmod>2022-09-02T13:00:00+07:00</lastmod>
   </url><url>
     <loc>https://trunghng.github.io/tags/lebesgue-integral/</loc>
     <lastmod>2022-08-21T13:00:00+07:00</lastmod>
@@ -112,9 +112,6 @@
   </url><url>
     <loc>https://trunghng.github.io/posts/reinforcement-learning/planning-learning/</loc>
     <lastmod>2022-05-19T14:09:00+07:00</lastmod>
-  </url><url>
-    <loc>https://trunghng.github.io/tags/actor-critic/</loc>
-    <lastmod>2022-05-04T14:00:00+07:00</lastmod>
   </url><url>
     <loc>https://trunghng.github.io/posts/reinforcement-learning/policy-gradient-theorem/</loc>
     <lastmod>2022-05-04T14:00:00+07:00</lastmod>

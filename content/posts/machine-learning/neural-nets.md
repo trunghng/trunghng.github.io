@@ -4,6 +4,7 @@ date: 2022-09-02 13:00:00 +0700
 tags: [machine-learning, neural-network]
 math: true
 eqn-number: true
+draft: true
 ---
 > Notes on Neural networks.
 <!--more-->
