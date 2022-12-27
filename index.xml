@@ -9,7 +9,18 @@
       <link>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 02 Dec 2022 19:26:44 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 26 Dec 2022 13:46:09 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Maximum Entropy Reinforcement Learning via Soft Q-learning &amp; Soft Actor-Critic</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/maximum-entropy-sql-sac/</link>
+      <pubDate>Mon, 26 Dec 2022 13:46:09 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/maximum-entropy-sql-sac/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Notes on Maximum Entropy Reinforcement Learning via SQL &amp;amp; SAC.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
     <item>
       <title>Deterministic Policy Gradients</title>
       <link>https://trunghng.github.io/posts/reinforcement-learning/deterministic-policy-gradients/</link>
@@ -77,24 +88,13 @@
     </item>
     
     <item>
-      <title>Neural networks</title>
-      <link>https://trunghng.github.io/posts/machine-learning/neural-nets/</link>
-      <pubDate>Fri, 02 Sep 2022 13:00:00 +0700</pubDate>
-      
-      <guid>https://trunghng.github.io/posts/machine-learning/neural-nets/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;Notes on Neural networks.&lt;/p&gt;
-&lt;/blockquote&gt;</description>
-    </item>
-    
-    <item>
       <title>Measure theory - III: the Lebesgue integral</title>
       <link>https://trunghng.github.io/posts/measure-theory/measure-theory-p3/</link>
       <pubDate>Sun, 21 Aug 2022 13:00:00 +0700</pubDate>
       
       <guid>https://trunghng.github.io/posts/measure-theory/measure-theory-p3/</guid>
       <description>&lt;blockquote&gt;
-&lt;p&gt;Note III of the measure theory series. Materials are mostly taken from &lt;a href=&#34;https://trunghng.github.io/posts/measure-theory/measure-theory-p3/#taos-book&#34;&gt;Tao&amp;rsquo;s book&lt;/a&gt;, except for some needed notations extracted from &lt;a href=&#34;https://trunghng.github.io/posts/measure-theory/measure-theory-p3/#steins-book&#34;&gt;Stein&amp;rsquo;s book&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;(Temporary non-updated) Note III of the measure theory series. Materials are mostly taken from &lt;a href=&#34;https://trunghng.github.io/posts/measure-theory/measure-theory-p3/#taos-book&#34;&gt;Tao&amp;rsquo;s book&lt;/a&gt;, except for some needed notations extracted from &lt;a href=&#34;https://trunghng.github.io/posts/measure-theory/measure-theory-p3/#steins-book&#34;&gt;Stein&amp;rsquo;s book&lt;/a&gt;.&lt;/p&gt;
 &lt;/blockquote&gt;</description>
     </item>
     

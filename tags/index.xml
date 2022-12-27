@@ -9,11 +9,20 @@
       <link>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 02 Dec 2022 19:26:44 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 26 Dec 2022 13:46:09 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>actor-critic</title>
+      <link>https://trunghng.github.io/tags/actor-critic/</link>
+      <pubDate>Mon, 26 Dec 2022 13:46:09 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/tags/actor-critic/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>my-rl</title>
       <link>https://trunghng.github.io/tags/my-rl/</link>
-      <pubDate>Fri, 02 Dec 2022 19:26:44 +0700</pubDate>
+      <pubDate>Mon, 26 Dec 2022 13:46:09 +0700</pubDate>
       
       <guid>https://trunghng.github.io/tags/my-rl/</guid>
       <description></description>
@@ -22,7 +31,7 @@
     <item>
       <title>policy-gradient</title>
       <link>https://trunghng.github.io/tags/policy-gradient/</link>
-      <pubDate>Fri, 02 Dec 2022 19:26:44 +0700</pubDate>
+      <pubDate>Mon, 26 Dec 2022 13:46:09 +0700</pubDate>
       
       <guid>https://trunghng.github.io/tags/policy-gradient/</guid>
       <description></description>
@@ -31,7 +40,7 @@
     <item>
       <title>reinforcement-learning</title>
       <link>https://trunghng.github.io/tags/reinforcement-learning/</link>
-      <pubDate>Fri, 02 Dec 2022 19:26:44 +0700</pubDate>
+      <pubDate>Mon, 26 Dec 2022 13:46:09 +0700</pubDate>
       
       <guid>https://trunghng.github.io/tags/reinforcement-learning/</guid>
       <description></description>
@@ -88,15 +97,6 @@
       <pubDate>Fri, 07 Oct 2022 13:00:00 +0700</pubDate>
       
       <guid>https://trunghng.github.io/tags/neuroevolution/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>neural-network</title>
-      <link>https://trunghng.github.io/tags/neural-network/</link>
-      <pubDate>Fri, 02 Sep 2022 13:00:00 +0700</pubDate>
-      
-      <guid>https://trunghng.github.io/tags/neural-network/</guid>
       <description></description>
     </item>
     
@@ -196,15 +196,6 @@
       <pubDate>Thu, 19 May 2022 14:09:00 +0700</pubDate>
       
       <guid>https://trunghng.github.io/tags/dyna/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>actor-critic</title>
-      <link>https://trunghng.github.io/tags/actor-critic/</link>
-      <pubDate>Wed, 04 May 2022 14:00:00 +0700</pubDate>
-      
-      <guid>https://trunghng.github.io/tags/actor-critic/</guid>
       <description></description>
     </item>
     

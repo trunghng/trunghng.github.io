@@ -33,17 +33,6 @@
     </item>
     
     <item>
-      <title>Neural networks</title>
-      <link>https://trunghng.github.io/posts/machine-learning/neural-nets/</link>
-      <pubDate>Fri, 02 Sep 2022 13:00:00 +0700</pubDate>
-      
-      <guid>https://trunghng.github.io/posts/machine-learning/neural-nets/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;Notes on Neural networks.&lt;/p&gt;
-&lt;/blockquote&gt;</description>
-    </item>
-    
-    <item>
       <title>Generalized Linear Models</title>
       <link>https://trunghng.github.io/posts/machine-learning/glm/</link>
       <pubDate>Sat, 13 Aug 2022 13:00:00 +0700</pubDate>
