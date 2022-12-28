@@ -34,7 +34,7 @@ math: true
     - Value function stores and reuses solutions.
 - DP assumes the model is already known.
 
-### Policy Evaluation
+### Policy Evaluation{#policy-eval}
 Recall from the definition of [Bellman equation]({{< ref "mdp-bellman-eqn#bellman-equations" >}}) that, for all $s\in\mathcal{S}$,
 \begin{equation}
 v_\pi(s)\doteq\sum_a\pi(a|s)\sum_{s',r}p(s',r|s,a)\left[r+\gamma v_\pi(s')\right]\tag{1}\label{1}
@@ -73,7 +73,7 @@ Here is the pseudocode of the **in-place iterative policy evaluation**, given a 
     <figcaption></figcaption>
 </figure>
 
-### Policy Improvement
+### Policy Improvement{#policy-imp}
 The reason why we compute the value function for a given policy $\pi$ is to find better policies. Given the computed value function $v_\pi$ for an deterministic policy $\pi$, we already know how good it is for a state $s$ to choose action $a=\pi(s)$. Now what we are considering is, in $s$, if we instead take action $a\neq\pi$, will it be better?  
 In particular, in state $s$, selecting action $a$ and thereafter following the policy $\pi$, we have:
 \begin{align}
@@ -103,7 +103,7 @@ v_{\pi'}(s)&=\max_a\mathbb{E}\left[R_{t+1}+\gamma v_{\pi'}(S_{t+1})|S_t=s,A_t=a\
 \end{align}
 which is the Bellman optimality equation for action-value function. And therefore, $v_{\pi'}$ must be $v_\*$. Hence, **policy improvement** must give us a strictly better policy except when the original one is already optimal[^2].
 
-### Policy Iteration
+### Policy Iteration{#policy-iter}
 Once we have obtained a better policy, $\pi'$, by improving a policy $\pi$ using $v_\pi$, we can repeat the same process by computing $v_{\pi'}$, and improve it to yield an even better $\pi''$. Repeating it again and again, we get an iterative procedure to improve the policy
 \begin{equation}
 \pi_0\xrightarrow[]{\text{evaluation}}v_{\pi_0}\xrightarrow[]{\text{improvement}}\pi_1\xrightarrow[]{\text{evaluation}}v_{\pi_1}\xrightarrow[]{\text{improvement}}\pi_2\xrightarrow[]{\text{evaluation}}\dots\xrightarrow[]{\text{improvement}}\pi_\*\xrightarrow[]{\text{evaluation}}v_\*
@@ -121,7 +121,7 @@ An example of using policy iteration on the Jack's rental problem ([**RL book - 
     <figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: Policy Iteration on Jack's car rental task. The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-04/jackscar.py' target='_blank'>here</a></figcaption>
 </figure>
 
-### Value Iteration
+### Value Iteration{#value-iter}
 When using *policy iteration*, each of its iterations involves policy evaluation, which requires multiple sweeps through the state set, and thus affects the computation performance.  
 Policy evaluation step of policy iteration, in fact, can be truncated in several ways without losing the convergence guarantees of policy iteration. One important special case is when policy evaluation is stopped after just one sweep (one update of each state). This algorithm is called **value iteration**, which follows this update:
 \begin{align}

@@ -13,7 +13,6 @@ math: true
 ### Norms
 **Definition**  
 Given a vector space $\mathcal{V}\subseteq\mathbb{R}^d$, a function $f:\mathcal{V}\to\mathbb{R}^+\_0$ is a **norm** if and only if
-{{< rawhtml >}}
 <ul id='roman-list'>
 	<li>
 		If $f(v)=0$ for some $v\in\mathcal{V}$, then $v=0$.
@@ -25,7 +24,6 @@ Given a vector space $\mathcal{V}\subseteq\mathbb{R}^d$, a function $f:\mathcal{
 		For any $u,v\in\mathbb{R}, f(u+v)\leq f(u)+f(v)$.
 	</li>
 </ul>
-{{< /rawhtml >}}
 
 **Examples**
 1. $\ell^p$ norms: for $p\geq 1$,
@@ -85,9 +83,8 @@ A complete, normed vector space is called a **Banach space**.
 **Definition** (*Fixed point*)  
 Let $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ be some mapping. The vector $v\in\mathcal{V}$ is called a **fixed point of** $\mathcal{T}$ if $\mathcal{T}v=v$.
 
-**Theorem**{{< rawhtml >}}<span id='banach-fixed-pts-theorem'></span>{{< /rawhtml >}} (*Banach's fixed-point*)[^4]      
+**Theorem**<span id='banach-fixed-pts-theorem'></span> (*Banach's fixed-point*)[^4]      
 Let $\mathcal{V}$ be a Banach space and $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ be a $\gamma$-contraction mapping. Then
-{{< rawhtml >}}
 <ul id='roman-list'>
 	<li>
 		$\mathcal{T}$ admits a <b>unique fixed point</b> $v$.
@@ -99,7 +96,6 @@ Let $\mathcal{V}$ be a Banach space and $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ 
 		\end{equation}
 	</li>
 </ul>
-{{< /rawhtml >}}
 
 ### Bellman Operator
 Previously, we defined [Bellman equation]({{< ref "mdp-bellman-eqn#bellman-equations" >}}) for state-value function $v_\pi(s)$ as:
