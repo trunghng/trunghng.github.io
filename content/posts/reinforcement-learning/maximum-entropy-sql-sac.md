@@ -42,30 +42,13 @@ and the state-action value function is given as
 Q_\pi(s,a)=\mathbb{E}\_{\pi,p}\left[r_0+\sum_{t=1}^{\infty}\Big(r_t+\alpha H\big(\pi(\cdot\vert s_t)\big)\Big)\Big\vert s_0=s,a_0=a\right]
 \end{equation}
 It is worth remarking that those definitions imply that
-\begin{equation}
-V_\pi(s)=\mathbb{E}\_{a\sim\pi}\Big[Q_\pi(s,a)\Big]+\alpha H\big(\pi(\cdot\vert s)\Big)\label{eq:vf.1}
-\end{equation}
-
-### Greedy policy{#greedy-policy}
-Recall that in standard setting, the **greedy policy** for state-action value function $Q$ are defined as a deterministic policy that selects the greedy action in the sense that maximizes the state-action value function, i.e.
-\begin{equation}
-\pi_\text{greedy}(s)\doteq\underset{a}{\text{argmax}}Q(s,a)
-\end{equation}
-With entropy-regularized, the greedy policy is thus given in stochastic form
 \begin{align}
-\pi_\text{greedy}(\cdot\vert s)&\doteq\underset{\pi}{\text{argmax}}\mathbb{E}\_{a\sim\pi}\Big[Q(s,a)\Big]+\alpha H\big(\pi(\cdot\vert s)\big) \\\\ &=\frac{\exp\left(\frac{1}{\alpha}Q(s,a)\right)}{\mathbb{E}\_{a'\sim\tilde{\pi}}\left[\exp\left(\frac{1}{\alpha}Q(s,a')\right)\right]},
+V_\pi(s)&=\mathbb{E}\_{a\sim\pi}\Big[Q_\pi(s,a)\Big]+\alpha H\big(\pi(\cdot\vert s)\Big)\label{eq:vf.1} \\\\ &=\mathbb{E}\_{a\sim\pi}\big[Q_\pi(s,a)-\alpha\log\pi(a\vert s)\big],
 \end{align}
-where $\tilde{\pi}$ is some "reference" policy, and thus the denominator is acting as a normalizing constant since it is dependent of $\pi$.
-
-To verify this, we begin by considering
-\begin{align}
-\hspace{-0.7cm}H\big(\pi(\cdot\vert s)\big)&=-\text{KL}(\pi\Vert\pi_\text{greedy})(s)-\mathbb{E}\_{a\sim\pi}\big[\log\pi_\text{greedy}(a\vert s)\big] \\\\ &=-\text{KL}(\pi\vert\pi_\text{greedy})(s)-\mathbb{E}\_{a\sim\pi}\left[\frac{1}{\alpha}Q(s,a)-\log\mathbb{E}\_{a\sim\tilde{\pi}}\left[\exp\left(\frac{1}{\alpha}Q(s,a)\right)\right]\right] \\\\ &=-\text{KL}(\pi\Vert\pi_\text{greedy})(s)-\frac{1}{\alpha}\mathbb{E}\_{a\sim\pi}\big[Q(s,a)\big]+\log\mathbb{E}\_{a\sim\tilde{\pi}}\left[\exp\left(\frac{1}{\alpha}Q(s,a)\right)\right],\label{eq:gp.1}
-\end{align}
-where $\text{KL}(\pi\Vert\pi_\text{greedy})(s)\doteq D_\text{KL}\big(\pi(\cdot\vert s)\Vert\pi_\text{greedy}(\cdot\vert s)\big)$ denotes the KL divergence between $\pi(\cdot\vert s)$ and $\pi_\text{greedy}(\cdot\vert s)$. The result \eqref{eq:gp.1} implies that
+and
 \begin{equation}
-\hspace{-1cm}\mathbb{E}\_{a\sim\pi}\big[Q(s,a)\big]+\alpha H\big(\pi(\cdot\vert s)\big)=-\alpha\text{KL}(\pi\Vert\pi_\text{greedy})(s)+\alpha\log\mathbb{E}\_{a\sim\tilde{\pi}}\left[\exp\left(\frac{1}{\alpha}Q(s,a)\right)\right]
+Q_\pi(s,a)=r(s,a)+\gamma\mathbb{E}\_{s'\sim p}\big[V_\pi(s')\big]\label{eq:vf.2}
 \end{equation}
-Since $\alpha\log\mathbb{E}\_{a\sim\tilde{\pi}}\left[\exp\left(\frac{1}{\alpha}Q(s,a)\right)\right]$ does not depend on $\pi$ and $\alpha\in[0,1]$, the policy $\pi$ that maximizes LHS is the one that minimizes $D_\text{KL}\big(\pi(\cdot\vert s)\Vert\pi_\text{greedy}(\cdot\vert s)\big)$, which proves our claim due to $D_\text{KL}\big(\pi(\cdot\vert s)\Vert\pi_\text{greedy}(\cdot\vert s)\big)\geq 0$ with equality holds when $\pi=\pi_\text{greedy}$.
 
 ### Bellman backup operators{#bellman-op}
 In standard RL, let $\mathcal{T}\_\pi$ be the Bellman operator[^1], with which we can compute the expected returns by one-step lookahead, i.e.
@@ -86,45 +69,100 @@ We can generalize the Bellman operator $\mathcal{T}\_\pi$ to the maximum entropy
 \end{equation}
 and analogously we have
 \begin{align}
-(\mathcal{T}\_\pi Q_\pi)(s,a)&=\mathbb{E}\_{s'\sim p}\Big[r(s,a)+\gamma\Big(\mathbb{E}\_{a'\sim\pi}\big[Q_\pi(s',a')\big]+\alpha H\big(\pi(\cdot\vert s)\big)\Big)\Big] \\\\ &=\mathbb{E}\_{s'\sim p,a'\sim\pi}\Big[r(s,a)+\gamma\Big(Q_\pi(s',a')+\alpha H\big(\pi(\cdot\vert s)\big)\Big)\Big]
+(\mathcal{T}\_\pi Q_\pi)(s,a)&=r(s,a)+\gamma\mathbb{E}\_{s'\sim p}\Big[\mathbb{E}\_{a'\sim\pi}\big[Q_\pi(s',a')\big]+\alpha H\big(\pi(\cdot\vert s')\big)\Big]\label{eq:bo.2} \\\\ &=\mathbb{E}\_{s'\sim p}\Big[r(s,a)+\gamma\Big(\mathbb{E}\_{a'\sim\pi}\big[Q_\pi(s',a')\big]+\alpha H\big(\pi(\cdot\vert s')\big)\Big)\Big] \\\\ &=\mathbb{E}\_{s'\sim p,a'\sim\pi}\Big[r(s,a)+\gamma\Big(Q_\pi(s',a')+\alpha H\big(\pi(\cdot\vert s')\big)\Big)\Big]
 \end{align}
 And also, the $n$-step Bellman operators generalize for entropy regularization framework are given by
 \begin{equation}
-(\mathcal{T}\_\pi^{(n)}V_\pi)(s)=\mathbb{E}\_{\pi,p}\left[\sum_{t=0}^{n-1}\gamma^t\Big(r_t+\gamma H\big(\pi(\cdot\vert s_t)\big)\Big)+\gamma^n V_\pi(s_n)\Bigg\vert s_0=s\right],\label{eq:bo.2}
+(\mathcal{T}\_\pi^{(n)}V_\pi)(s)=\mathbb{E}\_{\pi,p}\left[\sum_{t=0}^{n-1}\gamma^t\Big(r_t+\gamma H\big(\pi(\cdot\vert s_t)\big)\Big)+\gamma^n V_\pi(s_n)\Bigg\vert s_0=s\right],\label{eq:bo.3}
 \end{equation}
 and
 \begin{align}
 \hspace{-0.8cm}&(\mathcal{T}\_\pi^{(n)}Q_\pi)(s,a)+\alpha H\big(\pi(\cdot\vert s)\big)\nonumber \\\\ \hspace{-0.8cm}&=\mathbb{E}\_{\pi,p}\left[\sum_{t=0}^{\infty}\gamma^t\Big(r_t+\alpha H\big(\pi(\cdot\vert s_t)\big)\Big)+\gamma^n\Big(Q_\pi(s_n,a_n)+\alpha H\big(\pi(\cdot\vert s_n)\big)\Big)\Bigg\vert s_0=s,a_0=a\right]
 \end{align}
-The above $n$-step Bellman operator for state-action value can also be deduced by combining \eqref{eq:bo.2} with the result \eqref{eq:vf.1}.
+The above $n$-step Bellman operator for state-action value can also be deduced by combining \eqref{eq:bo.3} with the result \eqref{eq:vf.1}.
 
-## Policy Iteration{#policy-iter}
-The Bellman operator provides useful facts to apply the dynamic programming method - [policy iteration]({{< ref "dp-in-mdp#policy-iter" >}}), which alternates between [policy evaluation]({{< ref "dp-in-mdp#policy-eval" >}}) and [policy improvement]({{< ref "dp-in-mdp#policy-imp" >}}) processes, and eventually we end up with the optimal policy. More importantly, it has been [proved](#sql-apper) that we can also apply the method to maximum entropy RL.
+### Greedy policy{#greedy-policy}
+Recall that in standard setting, the **greedy policy** for state-action value function $Q$ are defined as a deterministic policy that selects the greedy action in the sense that maximizes the state-action value function, i.e.
+\begin{equation}
+\pi_\text{g}(s)\doteq\underset{a}{\text{argmax}}Q(s,a)
+\end{equation}
+With entropy-regularized, the greedy policy is thus given in stochastic form that for some $s\in\mathcal{S}$
+\begin{align}
+\pi_\text{g}(\cdot\vert s)&\doteq\underset{\pi}{\text{argmax}}\mathbb{E}\_{a\sim\pi}\Big[Q(s,a)\Big]+\alpha H\big(\pi(\cdot\vert s)\big)\label{eq:gp.1} \\\\ &=\frac{\exp\left(\frac{1}{\alpha}Q(s,\cdot)\right)}{\mathbb{E}\_{a'\sim\tilde{\pi}}\left[\exp\left(\frac{1}{\alpha}Q(s,a')\right)\right]},
+\end{align}
+where $\tilde{\pi}$ is some "reference" policy, and thus the denominator is acting as a normalizing constant since it is independent of $\pi$.
 
-### Policy Evaluation{#policy-eval}
+To verify this, we begin by considering[^2]
+\begin{align}
+\hspace{-1.2cm}H\big(\pi(\cdot\vert s)\big)&=-D_\text{KL}\big(\pi(\cdot\vert s)\Vert\pi_\text{g}(\cdot\vert s)\big)-\mathbb{E}\_{a\sim\pi}\big[\log\pi_\text{g}(a\vert s)\big] \\\\ &=-D_\text{KL}\big(\pi(\cdot\vert s)\Vert\pi_\text{g}(\cdot\vert s)\big)-\mathbb{E}\_{a\sim\pi}\left[\frac{1}{\alpha}Q(s,a)-\log\mathbb{E}\_{a\sim\tilde{\pi}}\left[\exp\left(\frac{1}{\alpha}Q(s,a)\right)\right]\right] \\\\ &=-D_\text{KL}\big(\pi(\cdot\vert s)\Vert\pi_\text{g}(\cdot\vert s)\big)-\frac{1}{\alpha}\mathbb{E}\_{a\sim\pi}\big[Q(s,a)\big]+\log\mathbb{E}\_{a\sim\tilde{\pi}}\left[\exp\left(\frac{1}{\alpha}Q(s,a)\right)\right],\label{eq:gp.2}
+\end{align}
+where $D_\text{KL}\big(\pi(\cdot\vert s)\Vert\pi_\text{g}(\cdot\vert s)\big)$ denotes the KL divergence between $\pi(\cdot\vert s)$ and $\pi_\text{g}(\cdot\vert s)$. The result \eqref{eq:gp.2} implies that
+\begin{equation}
+\hspace{-1cm}\mathbb{E}\_{a\sim\pi}\big[Q(s,a)\big]+\alpha H\big(\pi(\cdot\vert s)\big)=-\alpha\text{KL}(\pi\Vert\pi_\text{g})(s)+\alpha\log\mathbb{E}\_{a\sim\tilde{\pi}}\left[\exp\left(\frac{1}{\alpha}Q(s,a)\right)\right]
+\end{equation}
+Since $\alpha\log\mathbb{E}\_{a\sim\tilde{\pi}}\left[\exp\left(\frac{1}{\alpha}Q(s,a)\right)\right]$ does not depend on $\pi$ and $\alpha\in[0,1]$, the policy $\pi$ that maximizes LHS is the one that minimizes $D_\text{KL}\big(\pi(\cdot\vert s)\Vert\pi_\text{g}(\cdot\vert s)\big)$, which proves our claim due to the fact that KL divergence between two distributions is $\geq 0$ with equality holds when these two distributions are identical.
+
+### Backup operators for greedy policy{#backup-op-greedy-policy}
+It has been shown that we can also define backup operators for value functions corresponding to greedy policy $\pi_\text{g}$. In particular, we have
+\begin{align}
+\hspace{-1.2cm}(\mathcal{T}Q_{\pi_\text{g}})(s,a)&=\mathbb{E}\_{s'\sim p}\Big[r(s,a)+\gamma\Big(\mathbb{E}\_{a'\sim\pi_\text{g}}\big[Q_{\pi_\text{g}}(s',a')\big]+\alpha H\big(\pi_\text{g}(\cdot\vert s')\big)\Big)\Big] \\\\ &=\mathbb{E}\_{s'\sim p}\left[r(s,a)+\gamma\left(\mathbb{E}\_{a'\sim\pi_\text{g}}\big[Q_{\pi_\text{g}}(s',a')\big]-\alpha\sum_{a'}\pi_\text{g}(a'\vert s')\log\pi_\text{g}(a'\vert s')\right)\right] \\\\ &=\mathbb{E}\_{s'\sim p}\left[r(s,a)+\gamma\sum_{a'}\pi_\text{g}(a'\vert s')\big(Q_{\pi_\text{g}}(s',a')-\alpha\log\pi_\text{g}(a'\vert s')\big)\right] \\\\ &=\mathbb{E}\_{s'\sim p}\left[r(s,a)+\gamma\sum_{a'}\pi_\text{g}(a'\vert s')\alpha\log\mathbb{E}\_{\tilde{a}\sim\tilde{\pi}}\left[\exp\left(\frac{1}{\alpha}Q_{\pi_\text{g}}(s',\tilde{a})\right)\right]\right] \\\\ &=\mathbb{E}\_{s'\sim p}\Bigg[r(s,a)+\gamma\alpha\log\mathbb{E}\_{\tilde{a}\sim\tilde{\pi}}\left[\exp\left(\frac{1}{\alpha}Q_{\pi_\text{g}}(s',\tilde{a})\right)\right]\Bigg] \\\\ &=\mathbb{E}\_{s'\sim p}\Bigg[r(s,a)+\gamma\alpha\log\mathbb{E}\_{a'\sim\tilde{\pi}}\left[\exp\left(\frac{1}{\alpha}Q_{\pi_\text{g}}(s',a')\right)\right]\Bigg]\label{eq:bogp.1}
+\end{align}
+where in the fifth step, we use the fact that $\log\mathbb{E}\_{\tilde{a}\sim\tilde{\pi}}\left[\exp\left(\frac{1}{\alpha}Q_{\pi_\text{g}}(s',\tilde{a})\right)\right]$ is independent of $a'$, which allows us to do the summation of $\pi_\text{g}$ over the action space $\mathcal{A}$, i.e.
+\begin{equation}
+\sum_{a'}\pi_\text{g}(a'\vert s')=1
+\end{equation}
+
+## Soft Policy Iteration{#soft-policy-iter}
+In standard RL, the Bellman operator provides useful facts to apply the dynamic programming method - [policy iteration]({{< ref "dp-in-mdp#policy-iter" >}}), which alternates between [policy evaluation]({{< ref "dp-in-mdp#policy-eval" >}}) and [policy improvement]({{< ref "dp-in-mdp#policy-imp" >}}) processes, and eventually we end up with the optimal policy. More importantly, it has been [proved](#sql-apper) that we can also apply the method to entropy-regularized RL.
+
+### Soft Policy Evaluation{#soft-policy-eval}
 In **policy evaluation** process, we wish to compute the value of a given policy according to the entropy regularization objective \eqref{eq:mr.1}. This can be found by an iterative method.
 
-Specifically, starting from an arbitrary function $Q^{(0)}:\mathcal{S}\times\mathcal{A}\to\mathbb{R}$ with $\vert\mathcal{A}\vert<\infty$ and consider the **soft Bellman backup operator**, denoted $\mathcal{T}^\pi$, which is defined as
-\begin{equation}
-Q^{(k+1)}(s,a)\doteq\mathcal{T}^\pi Q^{(k)}(s,a)\doteq r(s,a)+\gamma\mathbb{E}\_{s'\sim\rho_\pi}\big[V^{(k)}(s')\big],\label{eq:spe.1}
-\end{equation}
-where
-\begin{equation}
-V^{(k)}(s)=\mathbb{E}\_{a\sim\rho_\pi}\big[Q^{(k)}(s,a)-\log\pi(a\vert s)\big]
-\end{equation}
-The resulting sequence $\\{Q^{(k)}\\}\_{k=0,1,\ldots}$ will converges to a fixed point called **soft Q-value**, denoted $Q_\text{soft}$.
+**Lemma 1** (Soft Policy Evaluation). *Consider the Bellman backup operator $\mathcal{T}\_\pi$ specified in \eqref{eq:bo.2} and a mapping $Q^{(0)}:\mathcal{S}\times\mathcal{A}\to\mathbb{R}$ with $\vert\mathcal{A}\vert\lt\infty$, and define $Q^{(k+1)}=\mathcal{T}_\pi Q^{(k)}$. The resulting sequence $\\{Q^{(k)}\\}\_{k=0,1\ldots,}$ will converge as $k\to\infty$*.
 
 **Proof**  
-Let $r^\pi(s,a)\doteq r(s,a)+\mathbb{E}\_{s'\sim\rho_\pi}\big[\alpha H\big(\pi(\cdot\vert s')\big)\big]$ denote the entropy augmented reward, the Bellman backup \eqref{eq:spe.1} can rewrite as
+Let $r\_\pi(s,a)\doteq r(s,a)+\gamma\mathbb{E}\_{s'\sim p}\big[\alpha H\big(\pi(\cdot\vert s')\big)\big]$ denote the entropy augmented reward, the update rule can be rewritten as
 \begin{equation}
-Q^{(k+1)}(s,a)=r^\pi(s,a)+\gamma\mathbb{E}\_{(s',a')\sim\rho_\pi}\big[Q^{(k)}(s',a')\big]
+Q^{(k+1)}(s,a)=r\_\pi(s,a)+\gamma\mathbb{E}\_{s'\sim p,a'\sim\pi}\big[Q^{(k)}(s',a')\big]
 \end{equation}
-Since $\vert\mathcal{A}\vert<\infty$, we have that $r^\pi(s,a)$ is bounded. Analogy to the [standard policy evaluation]({{< ref "optimal-policy-existence" >}}), we then can prove that $\mathcal{T}^\pi$ is a [contraction mapping]({{< ref "optimal-policy-existence#contractions" >}}) and then by using the [**Banach's fixed point theorem**]({{< ref "optimal-policy-existence#banach-fixed-pts-theorem" >}}), we can show that $\\{Q^{(k)}\\}\_{k=0,1,\ldots}$ eventually converges to a fixed point, which we call it **soft Q-value**.
+Since $\vert\mathcal{A}\vert<\infty$, we have that $r\_\pi(s,a)$ is bounded. Analogy to the [(standard) policy evaluation]({{< ref "optimal-policy-existence" >}}), we then can prove that $\mathcal{T}\_\pi$ is a [contraction mapping]({{< ref "optimal-policy-existence#contractions" >}}) and then by using the [**Banach's fixed point theorem**]({{< ref "optimal-policy-existence#banach-fixed-pts-theorem" >}}), we can show that $\\{Q^{(k)}\\}\_{k=0,1,\ldots}$ eventually converges to a fixed point, which we call it the **soft Q-value** of $\pi$.
 
+### Soft Policy Improvement{#soft-policy-imp}
+Analogously, the (standard) policy improvement step can be generalized to entropy regularizing as:
 
+**Lemma 2** (Soft Policy Improvement) *Let $\Pi$ be some set of policies, $\pi_\text{old}\in\Pi$ be some policy and for each $s_t$ let $\pi_\text{new}$ be defined as
+\begin{equation}
+\pi_\text{new}(\cdot\vert s_t)=\underset{\pi'\in\Pi}{\text{argmin}}D_\text{KL}\left(\pi'(\cdot\vert s_t)\Bigg\Vert\frac{\exp\left(\frac{1}{\alpha}Q_{\pi_\text{old}}(s_t,\cdot)\right)}{\mathbb{E}\_{a_t\sim\tilde{\pi}\_\text{old}}\left[\exp\left(\frac{1}{\alpha}Q_{\pi_\text{old}}(s_t,a_t)\right)\right]}\right)
+\end{equation}
+Then $Q_{\pi_\text{new}}(s_t,a_t)\geq Q_{\pi_\text{old}}(s_t,a_t)$ for all $(s_t,a_t)\in\mathcal{S}\times\mathcal{A}$ with $\vert\mathcal{A}\vert\lt\infty$*.
 
+**Proof**  
+As KL divergence between two distribution reaches its minimum when two those two distributions are identical, we then have that for each $s_t\in\mathcal{S}$
+\begin{equation}
+\pi_\text{new}(\cdot\vert s_t)=\frac{\exp\left(\frac{1}{\alpha}Q_{\pi_\text{old}}(s_t,\cdot)\right)}{\mathbb{E}\_{a_t\sim\tilde{\pi}\_\text{old}}\left[\exp\left(\frac{1}{\alpha}Q_{\pi_\text{old}}(s_t,a_t)\right)\right]},
+\end{equation}
+which is the greedy policy $\pi_\text{g}$, and thus by \eqref{eq:gp.1}, for all $s_t\in\mathcal{S}$, we have
+\begin{equation}
+\mathbb{E}\_{a_t\sim\pi_\text{new}}\big[Q_{\pi_\text{new}}(s_t,a_t)\big]+\alpha H\big(\pi_\text{new}(\cdot\vert s_t)\big)\geq\mathbb{E}\_{a_t\sim\pi_\text{old}}\big[Q_{\pi_\text{old}}(s_t,a_t)\big]+\alpha H\big(\pi_\text{old}(\cdot\vert s_t)\big)
+\end{equation}
+or by \eqref{eq:vf.1}
+\begin{equation}
+V_{\pi_\text{new}}(s_t)\geq V_{\pi_\text{old}}(s_t),
+\end{equation}
+which implies that
+\begin{align}
+Q_{\pi_\text{old}}(s_t,a_t)&=r_t+\gamma\mathbb{E}\_{s_{t+1}\sim p}\big[V_{\pi_\text{old}}(s_{t+1})\big] \\\\ &\leq r_t+\gamma\mathbb{E}\_{s_{t+1}\sim p}\big[V_{\pi_\text{new}}(s_{t+1})\big] \\\\ &=Q_{\pi_\text{new}}(s_t,a_t)
+\end{align}
+Now we are ready to specify the policy iteration for entropy-regularized framework.
 
+**Theorem 3** (Soft Policy Iteration) *Repeated application of soft policy evaluation and soft policy improvement to any $\pi\in\Pi$ converges to a policy $\pi^\*$ such that $Q_{\pi^∗}(s_t,a_t)\geq Q_\pi(s_t,a_t)$ for all $\pi\in\Pi$ and for all $(s_t,a_t)\in\mathcal{S}\times\mathcal{A}$ , assuming $\vert\mathcal{A}\vert\lt\infty$*.
 
+**Proof**  
+This can be easily proved since the backup operators $\mathcal{T}\_\pi$ defined in \eqref{eq:bo.2} and $\mathcal{T}$ given in \eqref{eq:bogp.1} are contractions.
+
+## Soft Q-learning{#soft-q-learning}
+
+## Soft Actor-Critic{#soft-ac}
 
 ## References
 [1] <span id='sql-paper'>Tuomas Haarnoja, Haoran Tang, Pieter Abbeel, Sergey Levine. [Reinforcement Learning with Deep Energy-Based Policies](https://dl.acm.org/doi/10.5555/3305381.3305521). ICML, 2017</span>.
@@ -141,3 +179,15 @@ Since $\vert\mathcal{A}\vert<\infty$, we have that $r^\pi(s,a)$ is bounded. Anal
 
 ## Footnotes
 [^1]: With an abuse of notation, $\mathcal{T}\_\pi$ implicitly represents two mappings $\mathcal{T}\_\pi:\mathcal{S}\to\mathcal{S}$ and $\mathcal{T}\_\pi':\mathcal{S}\times\mathcal{A}\to\mathcal{S}\times\mathcal{A}$.
+[^2]: The formula for greedy policy can also be derived by another way. First off, consider the objective we have
+\begin{align\*}
+J(\pi(\cdot\vert s))&=\mathbb{E}\_{a\sim\pi}\Big[Q(s,a)\Big]+\alpha H\big(\pi(\cdot\vert s)\big) \\\\ &=\sum_{a\sim\pi}\pi(a\vert s)Q(s,a)-\sum_{a\sim\pi}\pi(a\vert s)\log\pi(a\vert s) \\\\ &=\sum_{a}\pi(a\vert s)\big(Q(s,a)-\alpha\log\pi(a\vert s)\big)
+\end{align\*}
+Thus, the partial derivative of the $F(\pi)$ w.r.t $\pi(\bar{a}\vert s)$ for some $\bar{a}\in\mathcal{A}$ is given as
+\begin{align\*}
+\nabla_{\pi(\bar{a}\vert s)}J(\pi(\cdot\vert s))&=\nabla_{\pi(\bar{a}\vert s)}\sum_a\pi(a\vert s)\Big[Q(s,a)-\alpha\log\pi(a\vert s)\Big] \\\\ &=Q(s,\bar{a})-\alpha\log\pi(\bar{a}\vert s)-\alpha\pi(\bar{a}\vert s)\cdot\frac{1}{\pi(\bar{a}\vert s)} \\\\ &=Q(s,\bar{a})-\alpha\log\pi(\bar{a}\vert s)-\alpha
+\end{align\*}
+Setting the derivative to zero yields
+\begin{equation\*}
+\pi(\bar{a}\vert s)=\frac{\exp\left(\frac{1}{\alpha}Q(s,\bar{a})\right)}{\exp\alpha}
+\end{equation\*}
