@@ -1,7 +1,7 @@
 ---
 title: "Maximum Entropy Reinforcement Learning via Soft Q-learning & Soft Actor-Critic"
 date: 2022-12-27T13:46:09+07:00
-tags: [reinforcement-learning, policy-gradient, actor-critic, q-learing, my-rl]
+tags: [reinforcement-learning, policy-gradient, actor-critic, q-learning, my-rl]
 math: true
 eqn-number: true
 ---
