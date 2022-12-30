@@ -9,11 +9,11 @@
       <link>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 26 Dec 2022 13:46:09 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 27 Dec 2022 13:46:09 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>actor-critic</title>
       <link>https://trunghng.github.io/tags/actor-critic/</link>
-      <pubDate>Mon, 26 Dec 2022 13:46:09 +0700</pubDate>
+      <pubDate>Tue, 27 Dec 2022 13:46:09 +0700</pubDate>
       
       <guid>https://trunghng.github.io/tags/actor-critic/</guid>
       <description></description>
@@ -22,7 +22,7 @@
     <item>
       <title>my-rl</title>
       <link>https://trunghng.github.io/tags/my-rl/</link>
-      <pubDate>Mon, 26 Dec 2022 13:46:09 +0700</pubDate>
+      <pubDate>Tue, 27 Dec 2022 13:46:09 +0700</pubDate>
       
       <guid>https://trunghng.github.io/tags/my-rl/</guid>
       <description></description>
@@ -31,16 +31,25 @@
     <item>
       <title>policy-gradient</title>
       <link>https://trunghng.github.io/tags/policy-gradient/</link>
-      <pubDate>Mon, 26 Dec 2022 13:46:09 +0700</pubDate>
+      <pubDate>Tue, 27 Dec 2022 13:46:09 +0700</pubDate>
       
       <guid>https://trunghng.github.io/tags/policy-gradient/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>q-learing</title>
+      <link>https://trunghng.github.io/tags/q-learing/</link>
+      <pubDate>Tue, 27 Dec 2022 13:46:09 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/tags/q-learing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>reinforcement-learning</title>
       <link>https://trunghng.github.io/tags/reinforcement-learning/</link>
-      <pubDate>Mon, 26 Dec 2022 13:46:09 +0700</pubDate>
+      <pubDate>Tue, 27 Dec 2022 13:46:09 +0700</pubDate>
       
       <guid>https://trunghng.github.io/tags/reinforcement-learning/</guid>
       <description></description>

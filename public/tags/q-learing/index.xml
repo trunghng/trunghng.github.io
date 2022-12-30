@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>q-learing on Trung&#39;s Place</title>
+    <link>https://trunghng.github.io/tags/q-learing/</link>
+    <description>Recent content in q-learing on Trung&#39;s Place</description>
+    <image>
+      <url>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 27 Dec 2022 13:46:09 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/q-learing/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Maximum Entropy Reinforcement Learning via Soft Q-learning &amp; Soft Actor-Critic</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/maximum-entropy-sql-sac/</link>
+      <pubDate>Tue, 27 Dec 2022 13:46:09 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/maximum-entropy-sql-sac/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Notes on Maximum Entropy Reinforcement Learning via SQL &amp;amp; SAC.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
