@@ -5,7 +5,7 @@
     <loc>https://trunghng.github.io/tags/actor-critic/</loc>
     <lastmod>2022-12-27T13:46:09+07:00</lastmod>
   </url><url>
-    <loc>https://trunghng.github.io/posts/reinforcement-learning/maximum-entropy-sql-sac/</loc>
+    <loc>https://trunghng.github.io/posts/reinforcement-learning/maxent-sql-sac/</loc>
     <lastmod>2022-12-27T13:46:09+07:00</lastmod>
   </url><url>
     <loc>https://trunghng.github.io/tags/my-rl/</loc>
@@ -152,7 +152,7 @@
     <loc>https://trunghng.github.io/tags/normal-distribution/</loc>
     <lastmod>2021-11-22T14:46:00+07:00</lastmod>
   </url><url>
-    <loc>https://trunghng.github.io/tags/calculus-series/</loc>
+    <loc>https://trunghng.github.io/tags/calculus/</loc>
     <lastmod>2021-09-21T15:40:00+07:00</lastmod>
   </url><url>
     <loc>https://trunghng.github.io/posts/calculus/power-series/</loc>
@@ -162,6 +162,9 @@
     <lastmod>2021-09-21T15:40:00+07:00</lastmod>
   </url><url>
     <loc>https://trunghng.github.io/tags/random-stuffs/</loc>
+    <lastmod>2021-09-21T15:40:00+07:00</lastmod>
+  </url><url>
+    <loc>https://trunghng.github.io/tags/series/</loc>
     <lastmod>2021-09-21T15:40:00+07:00</lastmod>
   </url><url>
     <loc>https://trunghng.github.io/tags/taylor-series/</loc>
