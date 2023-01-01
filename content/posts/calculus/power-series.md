@@ -1,7 +1,7 @@
 ---
 title: "Power Series"
 date: 2021-09-21 15:40:00 +0700
-tags: [mathematics, calculus series, power-series, taylor-series, random-stuffs]
+tags: [mathematics, calculus, series, power-series, taylor-series, random-stuffs]
 math: true
 ---
 > Recall that in the previous note, [Infinite Series of Constants]({{< ref "infinite-series-of-constants" >}}), we mentioned a type of series called **power series** a lot. In the content of this note, we will be diving deeper into details of its.

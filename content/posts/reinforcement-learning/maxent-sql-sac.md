@@ -216,7 +216,7 @@ These following are key components of SAC method:
 		\begin{align}
 		J_\pi(\phi)&=\mathbb{E}_{s_t\sim\mathcal{D}}\Big[\mathbb{E}_{a_t\sim\pi_\phi}\big[Q_\theta(s_t,a_t)-\alpha\log\pi_\phi(a_t\vert s_t)\big]\Big] \\ &=\mathbb{E}_{s_t\sim\mathcal{D},a_t\sim\pi_\phi}\Big[Q_\theta(s_t,a_t)-\alpha\log\pi_\phi(a_t\vert s_t)\Big]\label{eq:sac.4}
 		\end{align}
-		Since Q-function is represented by a neural network and can be differentiated, in <a href='#sac-paper-new'>SAC paper</a>, the authors make use of the <b>reparameterization trick</b> to reduce variance. In particular, samples are obtained according to 
+		Since Q-function is represented by a neural network and can be differentiated, in <a href='#sac-paper'>SAC paper</a>, the authors make use of the <b>reparameterization trick</b> to reduce variance. In particular, samples are obtained according to 
 		\begin{equation}
 		a_\phi(s_t,\epsilon_t)=\text{tanh}(\mu_\phi(s_t)+\sigma_\phi(s_t)\odot\epsilon_t)
 		\end{equation}
@@ -252,7 +252,20 @@ These following are key components of SAC method:
 		y_t=r+\gamma(1-d_t)\left(\min_{i=1,2}Q_{\overline{\theta}_i}(s_{t+1},a_{t+1})-\alpha\log\pi_\phi(a_{t+1}\vert s_{t+1})\right)
 		\end{equation}
 	</li>
+	<li>
+		Instead of considering entropy coefficient $\alpha$ as a constant, in the <a href='sac-paper-new'>newer version</a> of SAC, authors treated it as a parameter of the loss function
+		\begin{equation}
+		J(\alpha)=\mathbb{E}_{a_t\sim\pi_t}\big[-\alpha\log\pi(a_t\vert s_t)-\alpha\bar{H}\big]
+		\end{equation}
+		where $\pi_t$ denotes the current policy at time-step $t$ and $\bar{H}$ is target entropy value, usually is set as $-\text{dim}(\mathcal{A})$.
+	</li>
 </ul>
+
+Pseudocode for our final algorithm is given below.
+<figure>
+	<img src="/images/maxent-sql-sac/sac.png" alt="SAC" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption></figcaption>
+</figure>
 
 ## Soft Q-learning{#sql}
 
@@ -261,7 +274,7 @@ These following are key components of SAC method:
 ## References
 [1] <span id='sql-paper'>Tuomas Haarnoja, Haoran Tang, Pieter Abbeel, Sergey Levine. [Reinforcement Learning with Deep Energy-Based Policies](https://dl.acm.org/doi/10.5555/3305381.3305521). ICML, 2017</span>.
 
-[2] Tuomas Haarnoja, Aurick Zhou, Pieter Abbeel, Sergey Levine. [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://arxiv.org/abs/1801.01290). arXiv preprint, arXiv:1812.05905, 2018.
+[2] <span id='sac-paper'>Tuomas Haarnoja, Aurick Zhou, Pieter Abbeel, Sergey Levine. [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://arxiv.org/abs/1801.01290). arXiv preprint, arXiv:1812.05905, 2018.</span>
 
 [3] <span id='sac-paper-new'>Tuomas Haarnoja, Aurick Zhou, Kristian Hartikainen, George Tucker, Sehoon Ha, Jie Tan, Vikash Kumar, Henry Zhu, Abhishek Gupta, Pieter Abbeel, Sergey Levine. [Soft Actor-Critic Algorithms and Applications](https://arxiv.org/abs/1812.05905). arXiv preprint, arXiv:1812.05905, 2019.</span>
 

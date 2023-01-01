@@ -1,7 +1,7 @@
 ---
 title: "Infinite Series of Constants"
 date: 2021-09-06 11:20:00 +0700
-tags: [mathematics, calculus series, random-stuffs]
+tags: [mathematics, calculus, series, random-stuffs]
 math: true
 ---
 > Notes on infinite series of constants.
