@@ -253,7 +253,7 @@ These following are key components of SAC method:
 		\end{equation}
 	</li>
 	<li>
-		Instead of considering entropy coefficient $\alpha$ as a constant, in the <a href='sac-paper-new'>newer version</a> of SAC, authors treated it as a parameter of the loss function
+		Instead of considering entropy coefficient $\alpha$ as a constant, in the <a href='sac-paper-new'>newer version</a> of SAC, authors treated it as a parameter and can be optimized due to the loss function
 		\begin{equation}
 		J(\alpha)=\mathbb{E}_{a_t\sim\pi_t}\big[-\alpha\log\pi(a_t\vert s_t)-\alpha\bar{H}\big]
 		\end{equation}
@@ -286,7 +286,7 @@ Pseudocode for our final algorithm is given below.
 
 [7] Richard S. Sutton, Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition). MIT press, 2018.
 
-[8] Josh Achiam. [Soft Actor-Critic](https://spinningup.openai.com/en/latest/algorithms/sac.html). OpenAI Spinning Up, 2018.
+[8] Josh Achiam. [Spinning Up in Deep Reinforcement Learning](https://spinningup.openai.com/). SpinningUp2018, 2018.
 
 ## Footnotes
 [^1]: With an abuse of notation, $\mathcal{T}\_\pi$ implicitly represents two mappings $\mathcal{T}\_\pi:\mathcal{S}\to\mathcal{S}$ and $\mathcal{T}\_\pi':\mathcal{S}\times\mathcal{A}\to\mathcal{S}\times\mathcal{A}$.
