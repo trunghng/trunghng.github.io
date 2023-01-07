@@ -9,7 +9,16 @@
       <link>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 27 Dec 2022 13:46:09 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 02 Jan 2023 13:49:15 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>machine-learning gumbel</title>
+      <link>https://trunghng.github.io/tags/machine-learning-gumbel/</link>
+      <pubDate>Mon, 02 Jan 2023 13:49:15 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/tags/machine-learning-gumbel/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>actor-critic</title>
       <link>https://trunghng.github.io/tags/actor-critic/</link>
