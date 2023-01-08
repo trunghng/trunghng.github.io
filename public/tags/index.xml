@@ -11,11 +11,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Mon, 02 Jan 2023 13:49:15 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>machine-learning gumbel</title>
-      <link>https://trunghng.github.io/tags/machine-learning-gumbel/</link>
+      <title>gumbel-distribution</title>
+      <link>https://trunghng.github.io/tags/gumbel-distribution/</link>
       <pubDate>Mon, 02 Jan 2023 13:49:15 +0700</pubDate>
       
-      <guid>https://trunghng.github.io/tags/machine-learning-gumbel/</guid>
+      <guid>https://trunghng.github.io/tags/gumbel-distribution/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>machine-learning</title>
+      <link>https://trunghng.github.io/tags/machine-learning/</link>
+      <pubDate>Mon, 02 Jan 2023 13:49:15 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/tags/machine-learning/</guid>
       <description></description>
     </item>
     
@@ -88,15 +97,6 @@
       <pubDate>Fri, 07 Oct 2022 13:00:00 +0700</pubDate>
       
       <guid>https://trunghng.github.io/tags/evolution-strategy/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>machine-learning</title>
-      <link>https://trunghng.github.io/tags/machine-learning/</link>
-      <pubDate>Fri, 07 Oct 2022 13:00:00 +0700</pubDate>
-      
-      <guid>https://trunghng.github.io/tags/machine-learning/</guid>
       <description></description>
     </item>
     

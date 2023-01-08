@@ -1,7 +1,7 @@
 ---
 title: "Categorical Reparameterization with Gumbel-Softmax & Concrete Distribution"
 date: 2023-01-02T13:49:15+07:00
-tags: [machine-learning gumbel]
+tags: [machine-learning, gumbel-distribution]
 math: true
 eqn-number: true
 ---
@@ -27,7 +27,7 @@ F(x)&=e^{-e^{-x}} \\\\ f(x)&=e^{-(e^{-x}+x)}\label{eq:gd.1}
 \end{align}
 Below are some illustrations of Gumbel distribution.
 <figure>
-	<img src="/images/cat-reparam-gumbel-softmax-concrete-dist/gumbel-dist.png" alt="normal distribution" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<img src="/images/cat-reparam-gumbel-softmax-concrete-dist/gumbel-dist.png" alt="Gumbel distribution" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Gumbel distribution $\text{Gumbel}(\mu,\beta)$. The code can be found <a href='https://github.com/trunghng/visualization-collection/blob/main/distributions/gumbel.py' target='_blank'>here</a></figcaption>
 </figure>
 
@@ -43,7 +43,7 @@ X=−\log(−\log U)
 ## Optimizing Stochastic Computation Graph{#opt-stochastic-computation-graph}
 Consider the following Stochastic Computation Graph
 <figure>
-	<img src="/images/cat-reparam-gumbel-softmax-concrete-dist/sgc.png" alt="SGC" style="display: block; margin-left: auto; margin-right: auto; width: 50%; height: 50%"/>
+	<img src="/images/cat-reparam-gumbel-softmax-concrete-dist/scg.png" alt="SCG" style="display: block; margin-left: auto; margin-right: auto; width: 50%; height: 50%"/>
 	<figcaption></figcaption>
 </figure>
 
@@ -105,45 +105,43 @@ which has the gradient w.r.t $\phi$ given by
 ## Gumbel-Max Trick{#gummbel-max-trick}
 Using the idea of reparameterization trick, **Gumbel-Max trick** refers to an approach that allows us to sample from a **categorical distribution**[^1] through sampling according to Gumbel distribution.
 
-First let $D$ be a categorical variable with class probabilities $\pi_1,\pi_2,\ldots,\pi_k$ for $\sum_{i=1}^{k}\pi_i=1$ and without loss of generality we can assume that zero category probability excluded, i.e. $\pi_i>0$. Thus, we can express each sample drawn from the distribution as a $k$-dimensional one-hot vector lying in the corner (or vertex) of a $(k-1)$-dimensional probability simplex $\Delta^{k-1}$[^2]. In particular, each categorical sample is in form of
+First let $D$ be a categorical variable with class probabilities $\alpha_1,\alpha_2,\ldots,\alpha_k$ for $\sum_{i=1}^{k}\alpha_i=1$ and without loss of generality we can assume that zero category probability excluded, i.e. $\alpha_i>0$. Thus, we can express each sample drawn from the distribution as a $k$-dimensional one-hot vector lying in the corner (or vertex) of a $(k-1)$-dimensional probability simplex $\Delta^{k-1}$[^2]. In particular, each categorical sample is in form of
 \begin{equation}
 D=\left[\begin{matrix}D_1 \\\\ \vdots \\\\ D_k\end{matrix}\right],
 \end{equation}
-where $\sum_{i=1}^{k}D_i=1$; for $i=1,\ldots,k$ we have $D_i\in\\{0,1\\}$ and $P(D_i=1)=\pi_i$.
+where $\sum_{i=1}^{k}D_i=1$; for $i=1,\ldots,k$ we have $D_i\in\\{0,1\\}$ and $P(D_i=1)=\alpha_i$.
 
 Usually, we rewrite each class probability as a softmax function
 \begin{equation}
-\pi_i=\frac{\exp(\alpha_i)}{\sum_{j=1}^{k}\exp(\alpha_j)}
+\alpha_i=\frac{\exp(\pi_i)}{\sum_{j=1}^{k}\exp(\pi_j)}
 \end{equation}
-where $\alpha_i\in(-\infty,0)$.
+where $\pi_i\in(-\infty,0)$.
 
-Gumbel-max trick provides us another way to get samples following this discrete distribution through drawing samples from Gumbel distribution. The trick is described as follow.
+Gumbel-max trick provides us another way to get samples following this discrete distribution through samples drawn from Gumbel distribution. The trick is described as follow.
 
-Consider $k$ unit-scaled Gumble random variables $G_1,\ldots,G_k$ where $G_i\sim\text{Gumble}(\alpha_i,1)$. Also, let us denote the CDF corresponds to $\text{Gumble}(\alpha_i,1)$ as $F_i(x)$, which implies that
+Consider $k$ unit-scaled Gumble random variables $G_1,\ldots,G_k$ where $G_i\sim\text{Gumble}(\pi_i,1)$. Also, let us denote the CDF corresponds to $\text{Gumble}(\pi_i,1)$ as $F_i(x)$, which implies that
 \begin{equation}
-P(G_i\leq x)=F_i(x)=\exp(-\exp(-x+\alpha_i)),
+P(G_i\leq x)=F_i(x)=\exp(-\exp(-x+\pi_i)),
 \end{equation}
 and also its PDF
 \begin{equation}
-f_i(x)=\exp(-\exp(-x+\alpha_i)-x+\alpha_i)
+f_i(x)=\exp(-\exp(-x+\pi_i)-x+\pi_i)
 \end{equation}
 We have that the probabilty that $G_m$ taking the maximal value across $k$ samples can be computed as
 \begin{align} 
-P\left(G_m=\max_{i=1,\ldots,k}G_i\Bigg\vert G_m\right)&=P\big(G_1\leq G_m,\ldots, G_k\leq G_m\big\vert G_m\big) \\\\ &=\prod_{i=1,i\neq m}^{k}P(G_i\leq G_m\vert G_m) \\\\ &=\prod_{i=1,i\neq m}^{k}F_i(G_m) \\\\ &=\prod_{i=1,i\neq m}^{k}\exp(-\exp(-G_m+\alpha_i))
+P\left(G_m=\max_{i=1,\ldots,k}G_i\Bigg\vert G_m\right)&=P\big(G_1\leq G_m,\ldots, G_k\leq G_m\big\vert G_m\big) \\\\ &=\prod_{i=1,i\neq m}^{k}P(G_i\leq G_m\vert G_m) \\\\ &=\prod_{i=1,i\neq m}^{k}F_i(G_m) \\\\ &=\prod_{i=1,i\neq m}^{k}\exp(-\exp(-G_m+\pi_i))
 \end{align}
-Therefore, integrating over sample space of $G_m$, the probability that an arbitrary index $m$ corresponds to the largest sample $G_m$, i.e. $m=\underset{i=1,\ldots,k}{\text{argmax}}G_i$ is computed by
+Therefore, integrating over sample space of $G_m$, the probability that an arbitrary index $m$ corresponds to the largest sample $G_m$, i.e. $m=\text{argmax}\_i G_i$ is computed by
 \begin{align}
-&P\left(m=\underset{i}{\text{argmax}}G_i\right)\nonumber \\\\ &=\int f_m(x)\left(G_m=\max_{i=1,\ldots,k}G_i\Bigg\vert G_m=x\right)dx \\\\ &=\int\exp(-\exp(-x+\alpha_m)-x+\alpha_m)\prod_{i=1,i\neq m}^{k}\exp(-\exp(-x+\alpha_i))dx \\\\ &=\int\exp(-x+\alpha_m)\prod_{i=1}^{k}\exp(-\exp(-x+\alpha_i))dx \\\\ &=\exp(\alpha_m)\int\exp(-x)+\exp\Bigg(-\exp(-x)\sum_{i=1}^{k}\exp(\alpha_i)\Bigg)dx \\\\ &=\frac{\exp(\alpha_m)}{\sum_{i=1}^{k}\exp(\alpha_i)}\int\exp(-\exp(-x)-x)dx\label{eq:gmt.1} \\\\ &=\frac{\exp(\alpha_m)}{\sum_{i=1}^{k}\exp(\alpha_i)},
+&P\left(m=\underset{i=1,\ldots,k}{\text{argmax}}G_i\right)\nonumber \\\\ &=\int f_m(x)\left(G_m=\max_{i=1,\ldots,k}G_i\Bigg\vert G_m=x\right)dx \\\\ &=\int\exp(-\exp(-x+\pi_m)-x+\pi_m)\prod_{i=1,i\neq m}^{k}\exp(-\exp(-x+\pi_i))dx \\\\ &=\int\exp(-x+\pi_m)\prod_{i=1}^{k}\exp(-\exp(-x+\pi_i))dx \\\\ &=\exp(\pi_m)\int\exp(-x)+\exp\Bigg(-\exp(-x)\sum_{i=1}^{k}\exp(\pi_i)\Bigg)dx \\\\ &=\frac{\exp(\pi_m)}{\sum_{i=1}^{k}\exp(\pi_i)}\int\exp(-\exp(-x)-x)dx\label{eq:gmt.1} \\\\ &=\frac{\exp(\pi_m)}{\sum_{i=1}^{k}\exp(\pi_i)},
 \end{align}
-where the last step is due to that the integrand in \eqref{eq:gmt.1} is the PDF of a standard Gumbel distribution, as defined in \eqref{eq:gd.1}, which therefore integrates to $1$.
-
-Hence, we have that
+where the last step is due to that the integrand in \eqref{eq:gmt.1} is the PDF of a standard Gumbel distribution, as defined in \eqref{eq:gd.1}, which therefore integrates to $1$. Hence, we have that
 \begin{equation}
-P\left(m=\underset{i}{\text{argmax}}G_i\right)=\pi_m
+P\left(m=\underset{i=1,\ldots,k}{\text{argmax}}G_i\right)=\pi_m
 \end{equation}
-Since a $\text{Gumble}(\mu,\beta)$ can always be obtained from a standard $\text{Gumble}(0,1)$ by scaling it with $\beta$ then translationing with $\mu$, then $G_i\sim\text{Gumble}(\alpha_i,1)$ can be computed as
+Since a $\text{Gumble}(\mu,\beta)$ can always be obtained from a standard $\text{Gumble}(0,1)$ by scaling it with $\beta$ then translationing with $\mu$, then $G_i\sim\text{Gumble}(\pi_i,1)$ can be computed as
 \begin{equation}
-G_i=g+\alpha_i,
+G_i=g+\pi_i,
 \end{equation}
 where $g\sim\text{Gumbel}(0,1)$, which as mentioned [above](#std-unif-gumbel), can be obtained with
 \begin{equation}
@@ -151,26 +149,107 @@ g=-\log(-\log u),
 \end{equation}
 where $u$ is drawn from an Uniform distribution, $u\sim\text{Unif}(0,1)$.
 
-To summarize this, the Gumbel-max trick proceeds as: let $U_1,\ldots,U_k\overset{\text{i.i.d}}{\sim}\text{Unif}(0,1)$ and let
+To summarize this, the Gumbel-max trick proceeds as: let
 \begin{equation}
-m=\max_{i=1,\ldots,k}\log\pi_i-\log(-\log U_i),
+U_1,\ldots,U_k\overset{\text{i.i.d}}{\sim}\text{Unif}(0,1),\label{eq:gmt.2}
 \end{equation}
-where $\pi=(\pi_1,\ldots,\pi_k)$ with $\pi_i\in(0,\infty)$ is an unnormalized parameterization of a discrete distribution $D\sim\text{Discrete}(\pi)$. Then each sample $D$ can be expressed as a one-hot vector
+and let
+\begin{equation}
+m=\underset{i=1,\ldots,k}{\text{argmax}}\log\alpha_i-\log(-\log U_i),\label{eq:gmt.3}
+\end{equation}
+where $\alpha=(\alpha_1,\alpha_2\ldots,\alpha_k)$ with $\alpha_i\in(0,\infty)$ is an unnormalized parameterization of a discrete distribution $D\sim\text{Discrete}(\alpha)$. Then each sample $D$ can be expressed as a one-hot vector
 \begin{equation}
 D=\left[\begin{matrix}D_1 \\\\ \vdots \\\\ D_k\end{matrix}\right],
 \end{equation}
-where $\sum_{i=1}^{k}D_i=1$ and $D_i\in\\{0,1\\}$ for $i=1,\ldots,k$ with
+where $D_m=1$ and $D_i=0$ for $i=1,\ldots,k$ and $i\neq m$. Then
 \begin{equation}
-P(D_i=1)=\frac{\pi_i}{\sum_{j=1}^{k}\pi_j}
+P(D_m=1)=\frac{\alpha_m}{\sum_{i=1}^{k}\alpha_i}
 \end{equation}
+The below figure illustrates the reparameterization sampling process.
+<figure id='fig2'>
+	<img src="/images/cat-reparam-gumbel-softmax-concrete-dist/discrete-sampling.png" alt="Discrete Sampling" style="display: block; margin-left: auto; margin-right: auto; width: 50%; height: 50%"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: (taken from the <a href='#concrete-paper'>paper</a>) Graph for sampling process according to the Categorical (Discrete) distribution $D\sim\text{Discrete}(\alpha)$, where $\alpha=(\alpha_1,\alpha_2,\alpha_3)$. White operations are deterministic, blue stochastic, rounded continuous, and square discrete. For $i=1,2,3$, the samples $G_i$ are computed as $G_i=-\log(-\log U_i)$; adding them with $\log\alpha_i$, we obtain $x_i$, i.e. $x_i=\log\alpha_i+G_i=\log\alpha_i-\log(-\log U_i)$; and finally  which are given in \eqref{eq:gmt.2} and \eqref{eq:gmt.3}. The top node denotes one-hot representation of $D$.</figcaption>
+</figure>
 
 ## Gumbel-Softmax & Concrete Distribution{#gumbel-softmax-concrete}
+Since $\text{argmax}$ function is non-differentiable (as illustrated by a discrete node in [Figure 2](#fig2)), thus in order to apply the reparameterization in SCG, we use a continous approximation of the function, which is the $\text{softmax}$ function, as visualized in [Figure 3](#fig3).
+<figure id='fig3'>
+	<img src="/images/cat-reparam-gumbel-softmax-concrete-dist/concrete-sampling.png" alt="Concrete Sampling" style="display: block; margin-left: auto; margin-right: auto; width: 50%; height: 50%"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: (taken from the <a href='#concrete-paper'>paper</a>) Results taken from sampling process (top node) are now probabiliy vectors, i.e. vectors with elements between $0$ and $1$ and summing to $1$.</figcaption>
+</figure>
 
+Rather than unit vectors (lying at the corners of $\Delta^{k-1}$), the resulting samples now are described in stochastic form (staying inside the probability simplex $\Delta^{k-1}$ instead). They follow to a distribution called **Concrete**, or **Gumbel-Softmax**. In particular, as illustrated above, to sample a Concrete random variable $X\in\Delta^{k-1}$ at temperature $\lambda\in(0,\infty)$ with paramter vector $\alpha=(a_1,\ldots,a_k)$ where $a_i\in(0,\infty)$, we first sample $G_i\overset{\text{i.i.d}}{\sim}\text{Gumbel}(0,1)$ and set
+\begin{equation}
+X_i=\frac{\exp((\log\alpha_i+G_i)/\lambda)}{\sum_{j=1}^{k}\exp((\log\alpha_j+G_j)/\lambda)}\label{eq:gsc.1}
+\end{equation}
+The $\text{softmax}$ computation of \eqref{eq:gsc.1} smoothly approaches the discrete $\text{argmax}$ computation as $\lambda\to 0$ while preserving the relative order of the Gumbels $\log\alpha_i+G_i$. At higher temperature, the Concrete samples are no longer one-hot, and as $\lambda\to\infty$, they become uniform.
+
+The probability density function of a Concrete random variable $X\sim\text{Concrete}(\alpha,\lambda)$ with location vector $\alpha\in(0,\infty)^k$ and temperature $\lambda\in(0,\infty)$ is given as
+\begin{equation}
+f_{\alpha,\lambda}(x)=\Gamma(k)\lambda^{k-1}\prod_{i=1}^{k}\frac{\alpha_i x_i^{-\lambda-1}}{\sum_{j=1}^{k}\alpha_j x_j^{-\lambda}}
+\end{equation}
+
+**Proposition 1** (Properties of Concrete r.v.s) Let $X\sim\text{Concrete}(0,1)$ with location $\alpha\in(0,\infty)^k$ and temperature $\lambda\in(0,\infty)$. Then
+<ul id='roman-list'>
+	<li>
+		<b>Reparameterization</b>. If $G_i\overset{\text{i.i.d}}{\sim}\text{Gumbel}(0,1)$, then
+		\begin{equation}
+		X_i\overset{\text{d}}{=}\frac{\exp((\log\alpha_i+G_i)/\lambda)}{\sum_{j=1}^{k}\exp((\log\alpha_j+G_j)/\lambda)}
+		\end{equation}
+	</li>
+	<li>
+		<b>Rounding</b>. $P(X_i>X_m,i\neq j)=\frac{\alpha_i}{\sum_{j=1}^{k}\alpha_j}$
+	</li>
+	<li>
+		<b>Zero temperature</b>. $P\left(\lim_{\lambda\to 0}X_i=1\right)=\frac{\alpha_i}{\sum_{j=1}^{k}\alpha_j}$
+	</li>
+	<li>
+		<b>Convex eventually</b>. If $\lambda\leq(k-1)^{-1}$, then $f_{\alpha,\lambda}(x)$ is log-convex in $x$.
+	</li>
+</ul>
+
+**Proof**
+<ul id='roman-list'>
+	<li>
+		Let $Y_i\doteq\log\alpha_i+G_i$ for $i=1,\ldots,k$, then $Y_i$ are unit-scaled Gumble r.v.s with locations $\log\alpha_i$, which have the PDFs given as
+		\begin{align}
+		f_{Y_i}(y)&=\exp(-\exp(-y+\log\alpha_i)-y+\log\alpha_i) \\ &=\alpha_i\exp(-y)\exp(-\alpha_i\exp(-y))
+		\end{align}
+		Also, letting
+		\begin{equation}
+		Z_i=\frac{\exp((\log\alpha_i+G_i)/\lambda)}{\sum_{j=1}^{k}\exp((\log\alpha_j+G_j)/\lambda)}=\frac{\exp(Y_i/\lambda)}{\sum_{j=1}^{k}\exp(Y_j/\lambda)}
+		\end{equation}
+		We continue by considering the invertible transformation
+		\begin{equation}
+		T(y_1,\ldots,y_k)=(z_1,\ldots,z_{k-1},c),
+		\end{equation}
+		where
+		\begin{align}
+		z_i&=\frac{1}{c}\exp\left(\frac{y_i}{\lambda}\right) \\ c&=\sum_{j=1}^{k}\exp\left(\frac{y_j}{\lambda}\right)
+		\end{align}
+		Hence, its inverse is given by
+		\begin{align}
+		\hspace{-1cm}T^{-1}(z_1,\ldots,z_{k-1},c)&=(y_1,\ldots,y_k) \\ &=(\lambda\log(z_1 c),\ldots,\lambda\log(z_{k-1}c),\lambda\log(z_k c)) \\ &=(\lambda(\log z_1+\log c),\ldots,\lambda(\log z_{k-1}+\log c),\lambda(\log z_k+\log c)),
+		\end{align}
+		where $z_k=1-\sum_{j=1}^{k-1}z_j$. This has Jacobian
+		\begin{equation}
+		\left[\begin{matrix}\lambda z_1^{-1}&0&0&0&\ldots&0&\lambda c^{-1} \\ 0&\lambda z_2^{-1}&0&0&\ldots&0&\lambda c^{-1} \\ 0&0&\lambda z_3^{-1}&0&\ldots&0&\lambda c^{-1} \\ \vdots&\vdots&\vdots&\vdots&\ddots&\vdots&\vdots \\ -\lambda z_k^{-1}&-\lambda z_k^{-1}&-\lambda z_k^{-1}&-\lambda z_k^{-1}&\ldots&-\lambda z_k^{-1}&\lambda c^{-1}\end{matrix}\right],
+		\end{equation}
+		whose determinant is equal to the determinant of the matrix
+		\begin{equation}
+		\left[\begin{matrix}\lambda z_1^{-1}&0&0&0&\ldots&0&\lambda c^{-1} \\ 0&\lambda z_2^{-1}&0&0&\ldots&0&\lambda c^{-1} \\ 0&0&\lambda z_3^{-1}&0&\ldots&0&\lambda c^{-1} \\ \vdots&\vdots&\vdots&\vdots&\ddots&\vdots&\vdots \\ 0&0&0&0&\ldots&0&\lambda(z_k c)^{-1}\end{matrix}\right],
+		\end{equation}
+		which has determinant given by
+		\begin{equation}
+		\frac{\lambda^k}{c\prod_{j=1}^{k}z_j}
+		\end{equation}
+	</li>
+</ul>
 
 ## References
 [1] Eric Jang, Shixiang Gu, Ben Poole. [Categorical Reparameterization with Gumbel-Softmax](https://arxiv.org/abs/1611.01144). ICLR 2017.
 
-[2] Chris J. Maddison, Andriy Mnih, Yee Whye Teh. [The Concrete Distribution: A Continuous Relaxation of Discrete Random Variables](https://arxiv.org/abs/1611.00712). ICLR 2017.
+[2] <span id='concrete-paper'>Chris J. Maddison, Andriy Mnih, Yee Whye Teh. [The Concrete Distribution: A Continuous Relaxation of Discrete Random Variables](https://arxiv.org/abs/1611.00712). ICLR 2017.</span>
 
 [3] John Schulman, Theophane Weber, Nicolas Heess, Pieter Abbeel. [Gradient Estimation Using Stochastic Computation Graphs](https://dl.acm.org/doi/10.5555/2969442.2969633). NIPS, 2015.
 
