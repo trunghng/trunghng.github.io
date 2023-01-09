@@ -4,6 +4,7 @@ date: 2021-12-02 13:03:00 +0700
 tags: [mathematics, convex-optimization]
 math: true
 eqn-number: true
+draft: true
 ---
 > Notes on convex sets, convex functions.
 <!--more-->
