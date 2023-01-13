@@ -20,7 +20,7 @@ Any pair of nodes $X_i,X_j$, for $i\neq j$ is connected by either a **directed e
 
 If the graph contains directed edges only, we call it a **directed graph**, denoted $\mathcal{G}$, else if the graph established by undirected edge only, it is referred as **undirected graph**, denoted $\mathcal{H}$.
 <figure>
-	<img src="/images/pgm-representation/graph-eg.png" alt="Graph example" style="display: block; margin-left: auto; margin-right: auto; width: 70%; height: 70%"/>
+	<img src="/images/pgm-representation/graph-eg.png" alt="Graph example" style="display: block; margin-left: auto; margin-right: auto; width: 50%; height: 50%"/>
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: (taken from the <a href='#pgm-book'>PGM book</a>) Example of a partially directed graph $\mathcal{K}$</figcaption>
 </figure>
 
@@ -153,9 +153,11 @@ A **Bayesian network structure** (or **Bayesian network graph**, **BN graph**) i
 </ul>
 
 ### I-Maps
-Let $P$ be a distribution over $\mathcal{X}$, we define $\mathcal{I}(P)$ to be the set of independence assertions of the form $(X\perp Y\hspace{0.1cm}\vert Z)$ that hold in $P$.
-
-Let $\mathcal{K}$ be a graph associated with aa set of independencies $\mathcal{I}(\mathcal{K})$, then $\mathcal{K}$ is an **I-map** for a set of independencies $\mathcal{I}$ if $\mathcal{I}(\mathcal{K})\subset\mathcal{I}$.
+Let $P$ be a distribution over $\mathcal{X}$, we define $\mathcal{I}(P)$ to be the set of independence assertions of the form $(X\perp Y\hspace{0.1cm}\vert Z)$ that hold in $P$, i.e.
+\begin{equation}
+P(X,Y\vert Z)=P(X\vert Z)P(Y\vert Z)
+\end{equation}
+Let $\mathcal{K}$ be a graph associated with aa set of independencies $\mathcal{I}(\mathcal{K})$, then $\mathcal{K}$ is an **I-map** (for independence map) for a set of independencies $\mathcal{I}$ if $\mathcal{I}(\mathcal{K})\subset\mathcal{I}$.
 
 Hence, if $P$ satisfies the local dependencies associated with $\mathcal{G}$, we have
 \begin{equation}
@@ -176,7 +178,7 @@ This equation is known as the **chain rule for Bayesian networks**. Each individ
 **Proof**
 <ul id='roman-list'>
 	<li>
-		($\Rightarrow$)<br>
+		I-map $\Rightarrow$ Factorization<br>
 		Without loss of generality, let $X_1,\ldots,X_n$ be a <a href='#topo-order'>topological ordering</a> of the variables in $\mathcal{X}$.<br>
 		Let us consider an arbitrary $X_i$ for $i\in\{1,\ldots,n\}$. As mentioning above, the topological ordering implies that
 		\begin{align}
@@ -194,15 +196,14 @@ This equation is known as the **chain rule for Bayesian networks**. Each individ
 		\begin{equation}
 		P(X_i\vert X_1,\ldots,X_{i-1})=P(X_i\vert\text{Pa}_{X_i})
 		\end{equation}
-		Thus, by Bayes theorem, we have
+		Thus, by the chain rule for probabilities, we have
 		\begin{equation}
 		P(X_1,\ldots,X_n)=\prod_{i=1}^{n}P(X_i\vert X_1,\ldots,X_{i-1})=\prod_{i=1}^{n}P(X_i\vert\text{Pa}_{X_i})
 		\end{equation}
 	</li>
 	<li>
-		($\Leftarrow$)<br>
-		To prove that $\mathcal{G}$ is an I-map according to $P$, we need to show that $\mathcal{I}_\ell(\mathcal{G})$ holds in $P$.<br>
-		Consider an arbitrary node $X_i$ for $i\in\{1,\ldots,n\}$, and the local independencies $(X_i\perp\text{NonDescendants}_{X_i}\vert\text{Pa}_{X_i})$, our problem remains to prove that
+		I-map $\Leftarrow$ Factorization<br>
+		To prove that $\mathcal{G}$ is an I-map according to $P$, we need to show that $\mathcal{I}_\ell(\mathcal{G})$ holds in $P$. Consider an arbitrary node $X_i$ and the local independencies $(X_i\perp\text{NonDescendants}_{X_i}\vert\text{Pa}_{X_i})$, our problem remains to prove that
 		\begin{equation}
 		P(X_i\vert\mathcal{X}\backslash X_i)=P(X_i\vert\text{Pa}_{X_i})
 		\end{equation}
@@ -224,8 +225,162 @@ This equation is known as the **chain rule for Bayesian networks**. Each individ
 ### Bayesian Network Definition
 A **Bayesian network** is a tuple $\mathcal{B}=(\mathcal{G},P)$ where $P$ factorizes according to $\mathcal{G}$, and where $P$ is specified as a set of CPDs associated with $\mathcal{G}$'s nodes.
 
+### D-separation
+Let $\mathcal{G}$ be a BN structure, $X_1\rightleftharpoons\ldots\rightleftharpoons X_n$ be a trail in $\mathcal{G}$ and let $\mathbf{Z}$ be a subset of observed variables. The trail $X_1\rightleftharpoons\ldots\rightleftharpoons X_n$ is **active** if
+<ul id='roman-list'>
+	<li>
+		Whenever we have a <b>v-structure</b> $X_{i-1}\rightarrow X_i\leftarrow X_{i+1}$, $X_i$ or one of its descendants are in $\mathbf{Z}$;
+	</li>
+	<li>
+		No other node along the trail are in $\mathbf{Z}$.
+	</li>
+</ul>
+
+<figure>
+	<img src="/images/pgm-representation/two-edge-trails.png" alt="Two-edge trails" style="display: block; margin-left: auto; margin-right: auto; width: 70%; height: 70%"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: (taken from the <a href='#pgm-book'>PGM book</a>) The four possible two-edge trails from $X$ to $Y$ via $Z$: (a) Causal trail; (b) Evidential trail; (c) Common cause trail; (d) Common effect trail</figcaption>
+</figure>
+
+<span id='two-edge-trail'>Consider the trails forming from two edges as illustrated above</span>:
+<ul id='alpha-list'>
+	<li>
+		The trail $X\rightarrow Z\rightarrow Y$ is active $\Leftrightarrow$ $Z$ is not observed.
+	</li>
+	<li>
+		The trail $X\leftarrow Z\leftarrow Y$ is active $\Leftrightarrow$ $Z$ is not observed.
+	</li>
+	<li>
+		The trail $X\leftarrow Z\leftarrow Y$ is active $\Leftrightarrow$ $Z$ is not observed.
+	</li>
+	<li>
+		The trail $X\rightarrow Z\leftarrow Y$ is active $\Leftrightarrow$ either $Z$ or one of its descendants is observed.
+	</li>
+</ul>
+
+#### D-separated
+Let $\mathbf{X},\mathbf{Y},\mathbf{Z}$ be sets of nodes in $\mathbf{G}$. Then $\mathbf{X}$ and $\mathbf{Y}$ are said to be **d-separated** given $\mathbf{Z}$, denoted $\text{d-sep}(\mathbf{X};\mathbf{Y}\vert\mathbf{Z})$, if there is no active trail between any node $X\in\mathbf{X}$ and $Y\in\mathbf{Y}$ given $\mathbf{Z}$.
+
+We use $\mathcal{I}(\mathcal{G})$ to denote the dependencies correspond to d-separation:
+\begin{equation}
+\mathcal{I}(\mathcal{G})=\\{(\mathbf{X}\perp\mathbf{Y}\vert\mathbf{Z}):\text{d-sep}(\mathbf{X};\mathbf{Y}\vert\mathbf{Z})\\}
+\end{equation}
+The set is also known as **global Markov independencies**.
+
+#### Soundness, Completeness
+A distribution $P$ is **faithful** to $\mathcal{G}$ if whenever $(X\perp Y\vert\mathbf{Z})\in\mathcal{I}(P)$, then $\text{d-sep}(X;Y\vert\mathbf{Z})$.
+
+**Theorem 2** (Soundness of d-separation) *If a distribution $P$ factorizes according to $\mathcal{G}$, then*
+\begin{equation}
+\mathcal{I}(\mathcal{G})\subset\mathcal{I}(P)
+\end{equation}
+
+**Theorem 3** (Completeness of d-separation) *Let $\mathcal{G}$ be a BN graph. If $X$ and $Y$ are not d-separated given $\mathbf{Z}$, then $X$ and $Y$ are dependent given $\mathbf{Z}$ in some distribution $P$ that factorizes over $\mathcal{G}$*.
+
+**Theorem 4**: *For almost all distributions $P$ that factorize over $\mathcal{G}$, i.e. for all distributions except for a set of measure zero in the space of CPD parameterizations, we have that*
+\begin{equation}
+\mathcal{I}(\mathcal{G})=\mathcal{I}(P)
+\end{equation}
+
+These results state that for almost all parameterizations $P$ of the graph $\mathcal{G}$, the d-separation test precisely characterizes the independencies that hold for $P$.
+
+### I-Equivalence
+The **skeleton** of a BN graph $\mathcal{G}$ over $\mathcal{X}$ is an undirected graph over $\mathcal{X}$ containing an edge $\\{X,Y\\}$ for every edge $(X,Y)$ in $\mathcal{G}$.
+
+Two graph $\mathcal{K}_1$ and $\mathcal{K}_2$ over $\mathcal{X}$ are said to be **I-equivalent** if they encode the same set of conditional independencies assertions, i.e.
+\begin{equation}
+\mathcal{I}(\mathcal{K}\_1)=\mathcal{I}(\mathcal{K}\_2)
+\end{equation}
+This implies that any distribution $P$ that factorizes over $\mathcal{K}_1$ also factorizes according to $\mathcal{K}_2$ and vice versa.
+
+**Theorem 5** (skeleton + v-structures $\Rightarrow$ I-equivalence) *Let $\mathcal{G}_1$ and $\mathcal{G_2}$ be two graphs over $\mathcal{X}$. If $\mathcal{G}_1,\mathcal{G}_2$ both have the same skeleton and the same set of v-structures then they are I-equivalent*.[^2]
+<figure>
+	<img src="/images/pgm-representation/I-equivalence.png" alt="I-equivalent graphs" style="display: block; margin-left: auto; margin-right: auto; width: 80%; height: 80%"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: (taken from the <a href='#pgm-book'>PGM book</a>) Two graphs have the same skeleton and set of v-structures, i.e. $\{X\rightarrow Y\leftarrow Z\}$, and thus are I-equivalent</figcaption>
+</figure>
+
+#### Immorality
+A v-structure $X\rightarrow Z\leftarrow Y$ is an **immorality** if there is no direct edge between. If there is such an edge, it is called a **covering edge** for the v-structure.
+
+It is easily seen that not every v-structure is an immorality, which implies that two networks with the same set of immoralities do not necessarily have the same set of v-structures.
+
+**Theorem 6** (skeleton + immoralities $\Leftrightarrow$ I-equivalence) *Let $\mathcal{G}_1$ and $\mathcal{G_2}$ be two graphs over $\mathcal{X}$. If $\mathcal{G}_1,\mathcal{G}_2$ both have the same skeleton and the same set of immoralities iff they are I-equivalent*.
+
+**Proof**  
+To prove the theorem, we first introduce the notion of **minimal active trail** and **triangle**.
+
+**Definition** (Minimal active trail) An active trail $X_1,\ldots,X_m$ is **minimal** if there is no other active trail from $X_1$ to $X_m$ that shortcuts some of the nodes, i.e. there is no active trail
+\begin{equation}
+X_1\rightleftharpoons X_{i_1}\rightleftharpoons\ldots X_{i_k}\rightleftharpoons X_m\hspace{1cm}\text{for }1\lt i_1\lt\ldots\lt i_k\lt m
+\end{equation}
+**Definition** (Triangle in trail) Any three consecutive nodes in a trail $X_1,\ldots,X_m$ are called a **triangle** if their skeleton is fully connected, i.e. forms a 3-clique.
+
+Our first step is to prove that the only possible triangle in minimal active trail is the one having form of
+<ul id='roman-list'>
+	<li>
+		$X_{i-1}\leftarrow X_i\rightarrow X_{i+1}$
+	</li>
+	<li>
+		Either $X_{i-1}\rightarrow X_{i+1}$ or $X_{i-1}\leftarrow X_{i+1}$.
+	</li>
+</ul>
+
+Consider a two-edge trail from $X_{i-1}$ to $X_{i+1}$ via $X_i$, which as being [mentioned](#two-edge-trail) above, has four possible forms
+<ul id='number-list'>
+	<li>
+		$X_{i-1}\rightarrow X_i\rightarrow X_{i+1}$<br>
+		It is easily seen that $X_i$ has to be not observed to make the trail active. If $X_{i-1}$ is connected to $X_{i+1}$ via $X_{i-1}\rightarrow X_{i+1}$, this gives rise to a shortcut. On the other hand, if they are connected by $X_{i-1}\leftarrow X_{i+1}$, the triangle now induces a cycle.
+	</li>
+	<li>
+		$X_{i-1}\leftarrow X_i\leftarrow X_{i+1}$<br>
+		This case is symmetrically identical to the previous one, and thus is not viable.
+	</li>
+	<li>
+		$X_{i-1}\leftarrow X_i\rightarrow X_{i+1}$<br>
+		The first observation is that $X_i$ has to be not given. The second observation is $X_{i-1}$ and $X_{i+1}$ are symmetric through $X_i$, so we only need to consider some specific cases of $X_{i-1}$ and the same logic is applied to $X_{i+1}$ analogously.<br>
+		Let us examine the two-edge trail $X_{i-2},X_{i-1},X_i$. On the one hand, if we have $X_{i-2}\rightarrow X_{i-1}$, $X_{i-1}$ then has to be given, which implies that
+		<ul>
+			<li>
+				If $X_{i-1}\leftarrow X_{i+1}$ exists, it will create a shortcut, which is not allowed.
+			</li>
+			<li>
+				If $X_{i-1}\rightarrow X_{i+1}$ exists, no shortcut appears, $X_{i-1},X_i,X_{i+1}$ satisfies the condition of a triangle in the minimal active trail $X_1,\ldots,X_m$.
+			</li>
+		</ul>
+		On the other hand, if we have $X_{i-2}\leftarrow X_{i-1}$, then $X_{i-1}$ is not observed, analogously, we instead have
+		<ul>
+			<li>
+				If $X_{i-1}\leftarrow X_{i+1}$ exists, no shortcut is formed, $X_{i-1},X_i,X_{i+1}$ create a triangle.
+			</li>
+			<li>
+				If $X_{i-1}\rightarrow X_{i+1}$ exists, $X_{i-1},X_i,X_{i+1}$ is do not form a triangle due to the appearance of a shortcut through $X_{i-1}$ to $X_{i+1}$.
+			</li>
+		</ul>
+	</li>
+	<li>
+		$X_{i-1}\rightarrow X_i\leftarrow X_{i+1}$<br>
+		In this case, $X_i$ or one of its descendant is observed. Using the similar procedure to previous case gives us no viable triangle formed by $X_{i-1},X_i,X_{i+1}$.
+	</li>
+</ul>
+
+
+
+#### Covered edge
+An edge $X\rightarrow Y$ in a graph $\mathcal{G}$ is said to be **covered** if
+\begin{equation}
+\text{Pa}\_Y=\text{Pa}\_X\cup\\{X\\}
+\end{equation}
+
+**Theorem 7**: *Two graphs $\mathcal{G}$ and $\mathcal{G}'$ are I-equivalent iff there exists a sequence of networks $\mathcal{G}=\mathcal{G}_1,\ldots,\mathcal{G}_k=\mathcal{G}'$ that are all I-equivalent to $\mathcal{G}$ such that the only difference between $\mathcal{G}\_i$ and $\mathcal{G}\_{i+1}$ is a single reversal of a covered edge*.
+
+### Minimal I-Maps
+
+### Perfect Maps
+
+
+
 ## References
 [1] <span id='pgm-book'>Daphne Koller, Nir Friedman. [Probabilistic Graphical Models](https://mitpress.mit.edu/9780262013192/probabilistic-graphical-models/). The MIT Press.</span>
 
 ## Footnotes
-[^1]: Note that $X_i\rightarrow X_j\equiv X_j\leftarrow X_i$ but $X_i\rightarrow X_j\not\equiv X_i\leftarrow X_j$, while $X_i-X_j\equiv X_j-X_i$. 
+[^1]: Note that $X_i\rightarrow X_j\equiv X_j\leftarrow X_i$ but $X_i\rightarrow X_j\not\equiv X_i\leftarrow X_j$, while $X_i-X_j\equiv X_j-X_i$.
+[^2]: Note that the backward path is not true.
