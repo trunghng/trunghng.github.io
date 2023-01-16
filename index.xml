@@ -218,6 +218,15 @@
     </item>
     
     <item>
+      <title>Probabilistic Graphical Model - Representation</title>
+      <link>https://trunghng.github.io/posts/machine-learning/pgm-representation/</link>
+      <pubDate>Fri, 10 Dec 2021 17:55:57 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/machine-learning/pgm-representation/</guid>
+      <description>&lt;p&gt;Notes on Representation in Probabilistic Graphical Models.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Gaussian Distribution</title>
       <link>https://trunghng.github.io/posts/probability-statistics/normal-dist/</link>
       <pubDate>Mon, 22 Nov 2021 14:46:00 +0700</pubDate>
