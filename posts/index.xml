@@ -31,6 +31,15 @@
     </item>
     
     <item>
+      <title>Probabilistic Graphical Model - Representation</title>
+      <link>https://trunghng.github.io/posts/machine-learning/pgm-representation/</link>
+      <pubDate>Sat, 10 Dec 2022 17:55:57 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/machine-learning/pgm-representation/</guid>
+      <description>&lt;p&gt;Notes on Bayesian Networks and Markov Random Fields.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Deterministic Policy Gradients</title>
       <link>https://trunghng.github.io/posts/reinforcement-learning/deterministic-policy-gradients/</link>
       <pubDate>Fri, 02 Dec 2022 19:26:44 +0700</pubDate>
@@ -215,15 +224,6 @@
       <description>&lt;blockquote&gt;
 &lt;p&gt;So far in this &lt;a href=&#34;https://trunghng.github.io/tags/my-rl/&#34;&gt;series&lt;/a&gt;, we have gone through the ideas of &lt;a href=&#34;https://trunghng.github.io/posts/reinforcement-learning/dp-in-mdp/&#34;&gt;&lt;strong&gt;dynamic programming&lt;/strong&gt; (DP)&lt;/a&gt; and &lt;a href=&#34;https://trunghng.github.io/posts/reinforcement-learning/monte-carlo-in-rl/&#34;&gt;&lt;strong&gt;Monte Carlo&lt;/strong&gt;&lt;/a&gt;. What will happen if we combine these ideas together? &lt;strong&gt;Temporal-difference (TD) learning&lt;/strong&gt; is our answer.&lt;/p&gt;
 &lt;/blockquote&gt;</description>
-    </item>
-    
-    <item>
-      <title>Probabilistic Graphical Model - Representation</title>
-      <link>https://trunghng.github.io/posts/machine-learning/pgm-representation/</link>
-      <pubDate>Fri, 10 Dec 2021 17:55:57 +0700</pubDate>
-      
-      <guid>https://trunghng.github.io/posts/machine-learning/pgm-representation/</guid>
-      <description>&lt;p&gt;Notes on Representation in Probabilistic Graphical Models.&lt;/p&gt;</description>
     </item>
     
     <item>
