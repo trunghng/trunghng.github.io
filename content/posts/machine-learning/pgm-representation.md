@@ -1,11 +1,11 @@
 ---
 title: "Probabilistic Graphical Model - Representation"
-date: 2021-12-10T17:55:57+07:00
+date: 2022-12-10T17:55:57+07:00
 tags: [machine-learning]
 math: true
 eqn-number: true
 ---
-Notes on Representation in Probabilistic Graphical Models.
+Notes on Bayesian Networks and Markov Random Fields.
 <!--more-->
 
 ## Graphs
@@ -30,7 +30,7 @@ Following are some necessary notations:
 		E.g. node $I$ is a child of nodes $C,E$ and $H$ while $D$ is a parent of $G$.
 	</li>
 	<li>
-		If $X_i-X_j\in\mathcal{E}$, we say that $X_i$ is a <b>neighbor</b> of $X_j$, and vice versa.<br>
+		If $X_i-X_j\in\mathcal{E}$, we say that $X_i$ is a <b id='neighbor'>neighbor</b> of $X_j$, and vice versa.<br>
 		E.g. node $F$ is a neighbor of $G$.
 	</li>
 	<li>
@@ -57,7 +57,7 @@ Consider the graph $\mathcal{K}=(\mathcal{X},\mathcal{E})$ and let $\mathbf{X}\s
 		\end{equation}
 	</li>
 	<li>
-		A subgraph over $\mathbf{X}$ is <b>complete</b> if every two nodes in $\mathbf{X}$ are connected via some edges. The set $\mathbf{X}$ is known as a <b>clique</b>; or even a <b>maximal clique</b> if for any set of nodes $\mathbf{Y}\supset\mathbf{X}$, $\mathbf{Y}$ is not a clique, i.e.
+		A subgraph over $\mathbf{X}$ is <b>complete</b> if every two nodes in $\mathbf{X}$ are connected via some edges. The set $\mathbf{X}$ is known as a <b id='clique'>clique</b>; or even a <b>maximal clique</b> if for any set of nodes $\mathbf{Y}\supset\mathbf{X}$, $\mathbf{Y}$ is not a clique, i.e.
 		\begin{equation}
 		\{\mathbf{Y}\text{ clique}:\mathbf{Y}\supset\mathbf{X}\}=\emptyset
 		\end{equation}
@@ -79,7 +79,7 @@ Consider the graph $\mathcal{K}=(\mathcal{X},\mathcal{E})$ and let $\mathbf{X}\s
 Consider the graph $\mathcal{K}=(\mathcal{X},\mathcal{E})$, the basic notion of edges gives rise to following definitions:
 <ul id='number-list'>
 	<li>
-		$X_1,\ldots,X_k$ form a <b>path</b> in $\mathcal{K}$ if for every $i=1,\ldots,k-1$, we have that either $X_i\rightarrow X_{i+1}$ or $X_i-X_{i+1}$. A path is <b>directed</b> if there exists a directed edge $X_i\rightarrow X_{i+1}$.
+		$X_1,\ldots,X_k$ form a <b id='path'>path</b> in $\mathcal{K}$ if for every $i=1,\ldots,k-1$, we have that either $X_i\rightarrow X_{i+1}$ or $X_i-X_{i+1}$. A path is <b>directed</b> if there exists a directed edge $X_i\rightarrow X_{i+1}$.
 	</li>
 	<li>
 		$X_1,\ldots,X_k$ form a <b>trail</b> in $\mathcal{K}$ if for every $i=1,\ldots,k-1$, we have that $X_i\rightleftharpoons X_{i+1}$.
@@ -134,7 +134,11 @@ Consider the graph $\mathcal{K}=(\mathcal{X},\mathcal{E})$, the basic notion of 
 	</li>
 </ul>
 
-## Directed Graphical Model
+## Directed Graphical Model{#dgm}
+A **Directed Graphical Model** (or **Bayesian network**) is a tuple $\mathcal{B}=(\mathcal{G},P)$ where
+- $\mathcal{G}$ is a **Bayesian network structure**,
+- $P$ **factorizes** according to $\mathcal{G}$,
+- $P$ is specified as a set of CPDs associated with $\mathcal{G}$'s nodes.
 
 ### Bayesian Network Structure
 A **Bayesian network structure** (or **Bayesian network graph**, **BN graph**) is a DAG, denoted $\mathcal{G}=(\mathcal{X},\mathcal{E})$ with $\mathcal{X}=\\{X_1,\ldots,X_n\\}$ where
@@ -153,6 +157,10 @@ A **Bayesian network structure** (or **Bayesian network graph**, **BN graph**) i
 
 ### I-Maps
 Let $P$ be a distribution over $\mathcal{X}$, we define $\mathcal{I}(P)$ to be the set of independence assertions of the form $(X\perp Y\hspace{0.1cm}\vert Z)$ that hold in $P$, i.e.
+\begin{equation}
+P\models(X\perp Y\vert Z),
+\end{equation}
+or
 \begin{equation}
 P(X,Y\vert Z)=P(X\vert Z)P(Y\vert Z)
 \end{equation}
@@ -212,19 +220,18 @@ This equation is known as the **chain rule for Bayesian networks**. Each individ
 		\end{equation}
 		By factorization, we have that
 		\begin{align}
-		P(\mathcal{X}\backslash X_i)&=\sum_{X_i}P(X_1,\ldots,X_n) \\ &=\sum_{X_i}\prod_{j=1}^{n}P(X_j\vert\text{Pa}_{X_j}) \\ &=\left(\prod_{j=1,j\neq i}^{n}P(X_j\vert\text{Pa}_{X_j})\right)\underbrace{\sum_{X_i}P(X_i\vert\text{Pa}_{X_i})}_{=1} \\ &=\prod_{j=1,j\neq i}^{n}P(X_j\vert\text{Pa}_{X_j}),
+		P(\mathcal{X}\backslash X_i)&=\sum_{X_i}P(X_1,\ldots,X_n) \\ &=\sum_{X_i}\prod_{j=1}^{n}P(X_j\vert\text{Pa}_{X_j}) \\ &=\left(\prod_{j=1,j\neq i}^{n}P(X_j\vert\text{Pa}_{X_j})\right)\sum_{X_i}P(X_i\vert\text{Pa}_{X_i}) \\ &=\prod_{j=1,j\neq i}^{n}P(X_j\vert\text{Pa}_{X_j}),
 		\end{align}
-		which implies that by Bayes rules
+		where in the last step, we use the fact that the conditional probability function $P(X_i\vert\text{Pa}_{X_i})$ sum to $1$ over the sample space of $X_i$. This implies that by Bayes rules
 		\begin{align}
 		P(X_i\vert\mathcal{X}\backslash X_i)&=\frac{P(X_1,\ldots,X_n)}{P(\mathcal{X}\backslash X_i)} \\ &=\frac{\prod_{j=1}^{n}P(X_j\vert\text{Pa}_{X_j})}{\prod_{j=1,j\neq i}^{n}P(X_j\vert\text{Pa}_{X_j})} \\ &=P(X_i\vert\text{Pa}_{X_i})
 		\end{align}
 	</li>
 </ul>
 
-### Bayesian Network
-A **Bayesian network** is a tuple $\mathcal{B}=(\mathcal{G},P)$ where $P$ factorizes according to $\mathcal{G}$, and where $P$ is specified as a set of CPDs associated with $\mathcal{G}$'s nodes.
+### Independencies in Bayesian Network
 
-### D-separation
+#### D-separation
 Let $\mathcal{G}$ be a BN structure, $X_1\rightleftharpoons\ldots\rightleftharpoons X_n$ be a trail in $\mathcal{G}$ and let $\mathbf{Z}$ be a subset of observed variables. The trail $X_1\rightleftharpoons\ldots\rightleftharpoons X_n$ is **active** if
 <ul id='roman-list'>
 	<li>
@@ -256,23 +263,22 @@ Let $\mathcal{G}$ be a BN structure, $X_1\rightleftharpoons\ldots\rightleftharpo
 	</li>
 </ul>
 
-#### D-separated
-Let $\mathbf{X},\mathbf{Y},\mathbf{Z}$ be sets of nodes in $\mathbf{G}$. Then $\mathbf{X}$ and $\mathbf{Y}$ are said to be **d-separated** given $\mathbf{Z}$, denoted $\text{d-sep}(\mathbf{X};\mathbf{Y}\vert\mathbf{Z})$, if there is no active trail between any node $X\in\mathbf{X}$ and $Y\in\mathbf{Y}$ given $\mathbf{Z}$.
+Let $\mathbf{X},\mathbf{Y},\mathbf{Z}$ be sets of nodes in $\mathcal{G}$. Then $\mathbf{X}$ and $\mathbf{Y}$ are said to be **d-separated** given $\mathbf{Z}$, denoted $\text{d-sep}_\mathcal{G}(\mathbf{X};\mathbf{Y}\vert\mathbf{Z})$, if there is no active trail between any node $X\in\mathbf{X}$ and $Y\in\mathbf{Y}$ given $\mathbf{Z}$.
 
-We use $\mathcal{I}(\mathcal{G})$ to denote the dependencies correspond to d-separation:
+We define the **global Markov independencies** associated with $\mathcal{G}$, denoted $\mathcal{I}(\mathcal{G})$, to be the set of all independencies that correspond to d-separation in $\mathcal{G}$
 \begin{equation}
-\mathcal{I}(\mathcal{G})=\\{(\mathbf{X}\perp\mathbf{Y}\vert\mathbf{Z}):\text{d-sep}(\mathbf{X};\mathbf{Y}\vert\mathbf{Z})\\}
+\mathcal{I}(\mathcal{G})=\big\\{(\mathbf{X}\perp\mathbf{Y}\vert\mathbf{Z}):\text{d-sep}\_\mathcal{G}(\mathbf{X};\mathbf{Y}\vert\mathbf{Z})\big\\}
 \end{equation}
-The set is also known as **global Markov independencies**, which is a set of all independencies that correspond to d-separation in $\mathcal{G}$.
 
-#### Soundness, Completeness
+#### Soundness, Completeness{#soundness-completeness-bn}
 **Theorem 2** (Soundness of d-separation) *If a distribution $P$ factorizes according to $\mathcal{G}$, then*
 \begin{equation}
 \mathcal{I}(\mathcal{G})\subset\mathcal{I}(P)
 \end{equation}
-The soundness property says that if $\text{d-sep}(X;Y\vert\mathbf{Z})$ then they are conditional independent given $\mathbf{Z}$, or $(X\perp Y\vert\mathbf{Z})$.
+The soundness property says that if $\text{d-sep}_\mathcal{G}(X;Y\vert\mathbf{Z})$ then they are conditional independent given $\mathbf{Z}$, or $(X\perp Y\vert\mathbf{Z})$.
 
-**Theorem 3** (Completeness of d-separation) *If to variables $X$ and $Y$ are independent given $\mathbf{Z}$, then they are d-separated.*.
+**Theorem 3** (Completeness of d-separation) *If two variables $X$ and $Y$ are independent given $\mathbf{Z}$, then they are d-separated.*
+
 The completeness property says that d-separation detects all possible independencies.
 
 **Theorem 4**: *Let $\mathcal{G}$ be a BN graph. If $X$ and $Y$ are not d-separated given $\mathbf{Z}$, then $X$ and $Y$ are dependent given $\mathbf{Z}$ in some distribution $P$ that factorizes over $\mathcal{G}$*.
@@ -283,7 +289,7 @@ The completeness property says that d-separation detects all possible independen
 \end{equation}
 These results state that for almost all parameterizations $P$ of the graph $\mathcal{G}$, the d-separation test precisely characterizes the independencies that hold for $P$.
 
-### I-Equivalence
+#### I-Equivalence
 Two graph $\mathcal{K}_1$ and $\mathcal{K}_2$ over $\mathcal{X}$ are said to be **I-equivalent** if they encode the same set of conditional independencies assertions, i.e.
 \begin{equation}
 \mathcal{I}(\mathcal{K}\_1)=\mathcal{I}(\mathcal{K}\_2)
@@ -298,7 +304,7 @@ The **skeleton** of a BN graph $\mathcal{G}$ over $\mathcal{X}$ is an undirected
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: (taken from the <a href='#pgm-book'>PGM book</a>) Two graphs have the same skeleton and set of v-structures, i.e. $\{X\rightarrow Y\leftarrow Z\}$, and thus are I-equivalent</figcaption>
 </figure>
 
-#### Immorality
+##### Immorality
 A v-structure $X\rightarrow Z\leftarrow Y$ is an **immorality** if there is no direct edge between. If there is such an edge, it is called a **covering edge** for the v-structure.
 
 It is easily seen that not every v-structure is an immorality, which implies that two networks with the same set of immoralities do not necessarily have the same set of v-structures.
@@ -384,26 +390,156 @@ It is easily seen that not every v-structure is an immorality, which implies tha
 	</li>
 </ul>
 
-#### Covered edge
-An edge $X\rightarrow Y$ in a graph $\mathcal{G}$ is said to be **covered** if
+## Undirected Graphical Model{#ugm}
+Similar to the directed case, each node in an undirected graphical model represents a random variable. However, as indicated from the name, each edge that connects two nodes is now undirected, and thus can not describe causal relationship between those nodes as in Bayesian network.
+
+### Markov Random Fields{#mrf}
+An **Undirected Graphical Model** (or **Markov Random Field**, or **Markov network**) represents a probability distribution $P$ over variables $X_1,\ldots,X_n$ defined by an undirected graph $\mathcal{H}$ in which each node correspond to a variable $X_i$, and a set of positive **potential functions** $\psi_c$ associated with the [cliques](#clique) of $\mathcal{H}$ such that
 \begin{equation}
-\text{Pa}\_Y=\text{Pa}\_X\cup\\{X\\}
+P(X_1,\ldots,X_n)=\frac{1}{Z}\prod_{c\in C}\psi_c(X_c),\label{eq:mrf.1}
+\end{equation}
+where
+- $P$ is also called a **Gibbs distribution**
+- $C$ denotes the set of cliques of $\mathcal{H}$
+- $X_c$ represents the set of nodes within clique $c$
+- $Z$ is known as the **partition function**, given by
+\begin{equation}
+Z=\sum_{X_1,\ldots,X_n}\prod_{c\in C}\psi_c(X_c)
 \end{equation}
 
-**Theorem 8**: *Two graphs $\mathcal{G}$ and $\mathcal{G}'$ are I-equivalent iff there exists a sequence of networks $\mathcal{G}=\mathcal{G}_1,\ldots,\mathcal{G}_k=\mathcal{G}'$ that are all I-equivalent to $\mathcal{G}$ such that the only difference between $\mathcal{G}\_i$ and $\mathcal{G}\_{i+1}$ is a single reversal of a covered edge*.
+From the above definition, we say that a distribution $P$ is a Gibbs distribution that factorizes over $\mathcal{H}$ if it can be expressed as a normalized product over all potential functions defined on the cliques of $\mathcal{H}$, as in \eqref{eq:mrf.1}.
 
-### Minimal I-Maps
-A graph $\mathcal{K}$ is a **minimal I-map** for a set of independencies $\mathcal{I}$ if it is an I-map for $\mathcal{I}$, and removing one edge from $\mathcal{K}$ makes it no longer be an I-map.
+### Independencies in Markov Network
+Analogy to Bayesian network, the graph structure in a Markov Random Field can be viewed as encoding a set of independence assumptions, which can be specified by considering the undirected paths through nodes.
 
-### Perfect Maps
-A graph $\mathcal{K}$ is a **perfect map** (or **P-map**) for a set of independencies $\mathcal{I}$ if we have that $\mathcal{I}(\mathcal{K})=\mathcal{I}$; and if $\mathcal{I}(\mathcal{K})=\mathcal{I}(P)$, $\mathcal{K}$ is said to be a **perfect map** for $P$.
+#### Separation
+Let $\mathcal{H}$ be a Markov network structure and let $X_1-\ldots-X_k$ be a [path](#path) in $\mathcal{H}=(\mathcal{X},\mathcal{E})$. Let $\mathbf{Z}\subset\mathcal{X}$ be a set of observed variables. Then $X_1-\ldots-X_k$ is **active** given $\mathbf{Z}$ if none of $X_1,\ldots,X_k$ is in $\mathbf{Z}$.
 
-## Undirected Graphical Model
+Let $\mathbf{X},\mathbf{Y}$ be set of nodes in $\mathcal{H}$. We say that $\mathbf{Z}$ **separates** $\mathbf{X}$ and $\mathbf{Y}$, denoted $\text{sep}_\mathcal{H}(\mathbf{X};\mathbf{Y}\vert\mathbf{Z})$ if there is no active path between any node $X\in\mathbf{X}$ and $Y\in\mathbf{Y}$ given $\mathbf{Z}$.
+
+#### Global Markov Independencies
+As in the case of Bayesian network, we define the **global Markov independencies** associated with $\mathcal{H}$, denoted $\mathcal{I}(\mathcal{H})$, to be the set of all independencies correspond to separation in $\mathcal{H}$
+\begin{equation}
+\mathcal{I}(\mathcal{H})=\big\\{(\mathbf{X}\perp\mathbf{Y}\vert\mathbf{Z}):\text{sep}\_\mathcal{H}(\mathbf{X};\mathbf{Y}\vert\mathbf{Z})\big\\}
+\end{equation}
+
+#### Local Markov Independencies
+Let $\mathcal{H}$ be a Markov network. We define the **pairwise independencies** associated with $\mathcal{H}$ to be
+\begin{equation}
+\mathcal{I}\_p(\mathcal{H})=\big\\{(X\perp Y\vert\mathcal{X}\backslash\\{X,Y\\}):X-Y\notin\mathcal{H}\big\\}
+\end{equation}
+Or in other words, the pairwise independencies states that $X$ and $Y$ are independent given all other nodes in $\mathcal{H}$.
+
+For a given graph $\mathcal{H}$ and for an arbitrary node $X$ of $\mathcal{H}$, the set of [neighbors](#neighbor) of $X$ is also called the **Markov blanket** of $X$, denoted $\text{MB}_\mathcal{H}(X)$. With this notion, we define the **local independencies**, or **Markov local independencies**, associated with $\mathcal{H}$ to be
+\begin{equation}
+\mathcal{I}\_\ell(\mathcal{H})=\big\\{\big(X\perp\mathcal{X}\backslash(\\{X\\}\cup\text{MB}\_\mathcal{H}(X))\vert\text{MB}\_\mathcal{H}(X)\big):X\in\mathcal{X}\big\\}
+\end{equation}
+Or in other words, the Markov local independencies says that $X$ is independent of the rest of the nodes in $\mathcal{H}$ given its neighbors.
+
+#### Markov Independencies Relationships
+**Theorem 8**: *Let $\mathcal{H}$ be a Markov network and $P$ be a positive distribution. The following three statement are then equivalent:*
+<ul id='roman-list' style='font-style: italic;'>
+	<li>
+		$P\models\mathcal{I}_\ell(\mathcal{H})$.
+	</li>
+	<li>
+		$P\models\mathcal{I}_p(\mathcal{H})$.
+	</li>
+	<li>
+		$P\models\mathcal{I}(\mathcal{H})$.
+	</li>
+</ul>
+
+**Proof**
+<ul id='number-list'>
+	<li>
+		(i) $\Rightarrow$ (ii)<br>
+		Consider an arbitrary node $X$ in $\mathcal{H}$. Let $Y\in\mathcal{X}$ such that $X-Y\notin\mathcal{H}$, then $Y\notin\text{MB}_\mathcal{H}(X)$, or in other words
+		\begin{equation}
+		Y\in\mathcal{X}\backslash(\{X\}\cup\text{MB}_\mathcal{H}(X))
+		\end{equation}
+		Moreover, since $P\models\mathcal{I}_\ell(\mathcal{H})$, we have that $P$ satisfies
+		\begin{equation}
+		\big(X\perp\mathcal{X}\backslash(\{X\}\cup\text{MB}_\mathcal{H}(X))\vert\text{MB}_\mathcal{H}(X)\big),
+		\end{equation}
+		which implies that
+		\begin{equation}
+		\big(X\perp Y\vert\text{MB}_\mathcal{X}\cup\mathcal{X}\backslash(\{X,Y\}\cup\text{MB}_\mathcal{H}(X))\big)
+		\end{equation}
+		holds for $P$. Or in other words, for any $X,Y$ such that $X-Y\notin\mathcal{H}$, we have
+		\begin{equation}
+		P\models(X\perp Y\vert\mathcal{X}\backslash\{X,Y\}),
+		\end{equation}
+		which proves our claim.
+	</li>
+	<li>
+		(ii) $\Rightarrow$ (iii)<br>
+		Consider arbitrary non-empty subsets $\mathbf{X},\mathbf{Y},\mathbf{Z}$ of $\mathcal{X}$. We need to show that
+		\begin{equation}
+		\text{sep}_\mathcal{H}(\mathbf{X};\mathbf{Y}\vert\mathbf{Z})\Rightarrow P\models(\mathbf{X}\perp\mathbf{Y}\vert\mathbf{Z})\label{eq:mir.1}
+		\end{equation}
+		We will be using induction to prove the claim. Specifically, first consider the case that $\vert\mathbf{Z}\vert=\vert\mathcal{X}\vert-2=n-2$, which implies that $\vert\mathbf{X}\vert=\vert\mathbf{Y}\vert=1$. Hence, \eqref{eq:mir.1} follows directly from definition of $\mathcal{I}_p(\mathcal{H})$.
+	</li>
+	<li>
+		(iii) $\Rightarrow$ (i)<br>
+		Consider arbitrary disjoint subsets $\mathbf{X},\mathbf{Y},\mathbf{Z}$ of $\mathcal{X}$ such that
+		\begin{equation}
+		\text{sep}_\mathcal{H}(\mathbf{X};\mathbf{Y}\vert\mathbf{Z})
+		\end{equation}
+		We will be examining two cases. First, consider the case that $\mathbf{X}\cup\mathbf{Y}\cup\mathbf{Z}=\mathcal{X}$.
+	</li>
+</ul>
+
+#### Soundness, Completeness
+**Theorem 9** (Soundness of separation) *Let $\mathcal{H}=(\mathcal{X},\mathcal{E})$ be a Markov network structure and let $P$ be a distribution over $\mathcal{X}$. If $P$ is a Gibbs distribution that factorizes over $\mathcal{H}$, then $\mathcal{H}$ is an I-map for $P$.*
+
+**Proof**  
+Let $\mathbf{X},\mathbf{Y}$ and $\mathbf{Z}$ be any disjoint subsets of $\mathcal{X}$ such that $\text{sep}\_\mathcal{H}(\mathbf{X};\mathbf{Y}\vert\mathbf{Z})$. We need to show that
+\begin{equation}
+P\models(\mathbf{X}\perp\mathbf{Y}\vert\mathbf{Z})
+\end{equation}
+We begin by considering the case that $\mathbf{X}\cup\mathbf{Y}\cup\mathbf{Z}=\mathcal{X}$. Since $\mathbf{Z}$ separates $\mathbf{X}$ and $\mathbf{Y}$, then for any $X\in\mathbf{X}$ and for any $Y\in\mathbf{Y}$, there is no direct edge between $X,Y$. This implies that any clique in $\mathcal{H}$ is either in $\mathbf{X}\cup\mathbf{Z}$ or in $\mathbf{Y}\cup\mathbf{Z}$.
+
+Let $C_\mathbf{X}$ denote the set of cliques within $\mathbf{X}\cup\mathbf{Z}$ and let $C_\mathbf{Y}$ represent the set of cliques in $\mathbf{Y}\cup\mathbf{Z}$. Thus, as $P$ factorizes over $\mathcal{H}$, we have that
+\begin{align}
+P(X_1,\ldots,X_n)&=\frac{1}{Z}\left(\prod_{c\in C_\mathbf{X}}\psi(X_c)\right)\left(\prod_{c\in C_\mathbf{Y}}\psi(X_c)\right) \\\\ &=\frac{1}{Z}\psi_\mathbf{X}(\mathbf{X},\mathbf{Z})\psi_\mathbf{Y}(\mathbf{Y},\mathbf{Z}),
+\end{align}
+where $\psi_\mathbf{X},\psi_\mathbf{Y}$ are some factor with scopes $\mathbf{X}\cup\mathbf{Z}$ and $\mathbf{Y}\cup\mathbf{Z}$ respectively. Hence, it follows that
+\begin{equation}
+P\models(\mathbf{X}\perp\mathbf{Y}\vert\mathbf{Z})
+\end{equation}
+Now consider the case that $\mathbf{X}\cup\mathbf{Y}\cup\mathbf{Z}\subset\mathcal{X}$. Let $\mathbf{U}=\mathcal{X}\backslash(\mathbf{X}\cup\mathbf{Y}\cup\mathbf{Z})$. We can divide $\mathbf{U}$ into two disjoint sets $\mathbf{U}_1$ and $\mathbf{U}_2$ such that
+\begin{equation}
+\text{sep}\_\mathcal{H}(\mathbf{X}\cup\mathbf{U}\_1;\mathbf{Y}\cup\mathbf{U}\_2\vert\mathbf{Z})
+\end{equation}
+And since $(\mathbf{X}\cup\mathbf{U}_1)\cup(\mathbf{Y}\cup\mathbf{U}_2)\cup\mathbf{Z}=\mathcal{X}$, we can follow the previous procedure to conclude that
+\begin{equation}
+P\models(\mathbf{X}\cup\mathbf{U}\_1\perp\mathbf{Y}\cup\mathbf{U}\_2\vert\mathbf{Z}),
+\end{equation}
+which implies that
+\begin{equation}
+P\models(\mathbf{X}\perp\mathbf{Y}\vert\mathbf{Z})
+\end{equation}
+
+**Theorem 10** (Hammersley-Clifford) *Let $\mathcal{H}=(\mathcal{X},\mathcal{E})$ be a Markov network structure and let $P$ be a positive distribution over $\mathcal{X}$. If $\mathcal{H}$ is an I-map for $P$, then $P$ is a Gibbs distribution that factorizes over $\mathcal{H}$.*
+
+**Corollary 11** *The positive distribution $P$ factorizes a Markov network $\mathcal{H}$ iff $\mathcal{H}$ is an I-map for $P$*.
+
+**Theorem 12** (Completeness of separation) *Let $\mathcal{H}$ be a Markov network structure. If $X$ and $Y$ are not separated given $\mathbf{Z}$ in $\mathcal{H}$, then $X$ and $Y$ are dependent given $\mathbf{Z}$ in some distribution $P$ that factorizes over $\mathcal{H}$.*
+
+
+
 
 
 ## References
 [1] <span id='pgm-book'>Daphne Koller, Nir Friedman. [Probabilistic Graphical Models](https://mitpress.mit.edu/9780262013192/probabilistic-graphical-models/). The MIT Press.</span>
 
+[2] 
+
+[3] Eric P.Xing [10-708: Probabilistic Graphical Model](). CMU Spring 2019.
+
+[4] [CS228: Probabilistic Graphical Model](). Stanford 2017.
+
 ## Footnotes
 [^1]: Note that $X_i\rightarrow X_j\equiv X_j\leftarrow X_i$ but $X_i\rightarrow X_j\not\equiv X_i\leftarrow X_j$, while $X_i-X_j\equiv X_j-X_i$.
-[^2]: Note that the backward path is not true.
+[^2]: Note that the inverse is not true.

@@ -20,6 +20,15 @@
     </item>
     
     <item>
+      <title>Probabilistic Graphical Model - Representation</title>
+      <link>https://trunghng.github.io/posts/machine-learning/pgm-representation/</link>
+      <pubDate>Sat, 10 Dec 2022 17:55:57 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/machine-learning/pgm-representation/</guid>
+      <description>&lt;p&gt;Notes on Bayesian Networks and Markov Random Fields.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Natural Evolution Strategies</title>
       <link>https://trunghng.github.io/posts/evolution-strategy/nes/</link>
       <pubDate>Fri, 07 Oct 2022 13:00:00 +0700</pubDate>
@@ -50,15 +59,6 @@
       <description>&lt;blockquote&gt;
 &lt;p&gt;Linear models for solving both regression and classification problems are members of a broader family named Generalized Linear Models.&lt;/p&gt;
 &lt;/blockquote&gt;</description>
-    </item>
-    
-    <item>
-      <title>Probabilistic Graphical Model - Representation</title>
-      <link>https://trunghng.github.io/posts/machine-learning/pgm-representation/</link>
-      <pubDate>Fri, 10 Dec 2021 17:55:57 +0700</pubDate>
-      
-      <guid>https://trunghng.github.io/posts/machine-learning/pgm-representation/</guid>
-      <description>&lt;p&gt;Notes on Representation in Probabilistic Graphical Models.&lt;/p&gt;</description>
     </item>
     
   </channel>
