@@ -390,6 +390,15 @@ It is easily seen that not every v-structure is an immorality, which implies tha
 	</li>
 </ul>
 
+### From Distributions to Graphs
+Given a distribution $P$, how can we represent the independencies of $P$ with a graph $\mathcal{G}$?
+
+#### Minimal I-Maps{#min-imap}
+A graph $\mathcal{K}$ is a **minimal I-map** for a set of independencies $\mathcal{I}$ if it is an I-map for $\mathcal{I}$, and removing one edge from $\mathcal{K}$ makes it no longer be an I-map.
+
+#### Perfect Maps
+A graph $\mathcal{K}$ is a **perfect map** (or **P-map**) for a set of independencies $\mathcal{I}$ if we have that $\mathcal{I}(\mathcal{K})=\mathcal{I}$; and if $\mathcal{I}(\mathcal{K})=\mathcal{I}(P)$, $\mathcal{K}$ is said to be a **perfect map** for $P$.
+
 ## Undirected Graphical Model{#ugm}
 Similar to the directed case, each node in an undirected graphical model represents a random variable. However, as indicated from the name, each edge that connects two nodes is now undirected, and thus can not describe causal relationship between those nodes as in Bayesian network.
 
@@ -436,6 +445,12 @@ For a given graph $\mathcal{H}$ and for an arbitrary node $X$ of $\mathcal{H}$, 
 \end{equation}
 Or in other words, the Markov local independencies says that $X$ is independent of the rest of the nodes in $\mathcal{H}$ given its neighbors.
 
+The definition of **Markov blanket** can also be rewritten using independencies assertions:  
+A set $\mathbf{U}$ is a **Markov blanket** of $X$ in a distribution $P$ if $X\notin\mathbf{U}$ and if $\mathbf{U}$ is a minimal set of nodes such that
+\begin{equation}
+\big(X\perp\mathcal{X}\backslash(\\{X\\}\cup\mathbf{U})\vert\mathbf{U}\big)\in\mathcal{I}(P)
+\end{equation}
+
 #### Markov Independencies Relationships
 **Theorem 8**: *Let $\mathcal{H}$ be a Markov network and $P$ be a positive distribution. The following three statement are then equivalent:*
 <ul id='roman-list' style='font-style: italic;'>
@@ -473,20 +488,11 @@ Or in other words, the Markov local independencies says that $X$ is independent 
 		which proves our claim.
 	</li>
 	<li>
-		(ii) $\Rightarrow$ (iii)<br>
-		Consider arbitrary non-empty subsets $\mathbf{X},\mathbf{Y},\mathbf{Z}$ of $\mathcal{X}$. We need to show that
-		\begin{equation}
-		\text{sep}_\mathcal{H}(\mathbf{X};\mathbf{Y}\vert\mathbf{Z})\Rightarrow P\models(\mathbf{X}\perp\mathbf{Y}\vert\mathbf{Z})\label{eq:mir.1}
-		\end{equation}
-		We will be using induction to prove the claim. Specifically, first consider the case that $\vert\mathbf{Z}\vert=\vert\mathcal{X}\vert-2=n-2$, which implies that $\vert\mathbf{X}\vert=\vert\mathbf{Y}\vert=1$. Hence, \eqref{eq:mir.1} follows directly from definition of $\mathcal{I}_p(\mathcal{H})$.
+		(ii) $\Rightarrow$ (iii)
 	</li>
 	<li>
 		(iii) $\Rightarrow$ (i)<br>
-		Consider arbitrary disjoint subsets $\mathbf{X},\mathbf{Y},\mathbf{Z}$ of $\mathcal{X}$ such that
-		\begin{equation}
-		\text{sep}_\mathcal{H}(\mathbf{X};\mathbf{Y}\vert\mathbf{Z})
-		\end{equation}
-		We will be examining two cases. First, consider the case that $\mathbf{X}\cup\mathbf{Y}\cup\mathbf{Z}=\mathcal{X}$.
+		This follows directly from the fact that if two nodes $X$ and $Y$ are not connected, then they are necessarily separated by all remaining nodes of the graph.
 	</li>
 </ul>
 
@@ -523,18 +529,27 @@ P\models(\mathbf{X}\perp\mathbf{Y}\vert\mathbf{Z})
 
 **Theorem 10** (Hammersley-Clifford) *Let $\mathcal{H}=(\mathcal{X},\mathcal{E})$ be a Markov network structure and let $P$ be a positive distribution over $\mathcal{X}$. If $\mathcal{H}$ is an I-map for $P$, then $P$ is a Gibbs distribution that factorizes over $\mathcal{H}$.*
 
-**Corollary 11** *The positive distribution $P$ factorizes a Markov network $\mathcal{H}$ iff $\mathcal{H}$ is an I-map for $P$*.
+**Corollary 11**: *The positive distribution $P$ factorizes a Markov network $\mathcal{H}$ iff $\mathcal{H}$ is an I-map for $P$*.
 
 **Theorem 12** (Completeness of separation) *Let $\mathcal{H}$ be a Markov network structure. If $X$ and $Y$ are not separated given $\mathbf{Z}$ in $\mathcal{H}$, then $X$ and $Y$ are dependent given $\mathbf{Z}$ in some distribution $P$ that factorizes over $\mathcal{H}$.*
 
+### From Distributions to Graphs
+As [mentioned](#min-imap) above, the notion of minimal I-map lets us encode the independencies of a given distribution $P$ using a graph structure.
 
+In particular, for a distribution $P$, we can construct the minimal I-map based on either the pairwise independencies or the local independencies.
 
+**Theorem 13**: *Let $P$ be a positive distribution and $\mathcal{H}$ be a Markov network defined by including an edge $X-Y$ for all $X,Y$ such that $P\not\models(X\perp Y\vert\mathcal{X}\backslash\\{X,Y\\})
+$. Then $\mathcal{H}$ is  the unique minimal I-map for $P$.*
+
+**Theorem 14**: *Let P be a positive distribution and let $\mathcal{H}$ be a Markov network defined by including an edge $X-Y$ for all $X$ and all $Y\in\text{MB}_\mathcal{H}(X)$. Then $\mathcal{H}$ is the unique minimal I-map for $P$.*
+
+**Remark**: Not every distribution has a perfect map as UGM.
 
 
 ## References
 [1] <span id='pgm-book'>Daphne Koller, Nir Friedman. [Probabilistic Graphical Models](https://mitpress.mit.edu/9780262013192/probabilistic-graphical-models/). The MIT Press.</span>
 
-[2] 
+[2] Michael I. Jordan. [An Introduction to Probabilistic Graphical Models](http://people.eecs.berkeley.edu/~jordan/prelims/). In preparation
 
 [3] Eric P.Xing [10-708: Probabilistic Graphical Model](). CMU Spring 2019.
 
