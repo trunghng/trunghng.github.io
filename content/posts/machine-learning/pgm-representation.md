@@ -390,7 +390,7 @@ It is easily seen that not every v-structure is an immorality, which implies tha
 	</li>
 </ul>
 
-### From Distributions to Graphs
+### From Distributions to Graphs{#dist2graph-bn}
 Given a distribution $P$, how can we represent the independencies of $P$ with a graph $\mathcal{G}$?
 
 #### Minimal I-Maps{#min-imap}
@@ -405,15 +405,15 @@ Similar to the directed case, each node in an undirected graphical model represe
 ### Markov Random Fields{#mrf}
 An **Undirected Graphical Model** (or **Markov Random Field**, or **Markov network**) represents a probability distribution $P$ over variables $X_1,\ldots,X_n$ defined by an undirected graph $\mathcal{H}$ in which each node correspond to a variable $X_i$, and a set of positive **potential functions** $\psi_c$ associated with the [cliques](#clique) of $\mathcal{H}$ such that
 \begin{equation}
-P(X_1,\ldots,X_n)=\frac{1}{Z}\prod_{c\in C}\psi_c(X_c),\label{eq:mrf.1}
+P(X_1,\ldots,X_n)=\frac{1}{Z}\prod_{c\in C}\psi_c(\mathbf{X}\_c),\label{eq:mrf.1}
 \end{equation}
 where
 - $P$ is also called a **Gibbs distribution**
 - $C$ denotes the set of cliques of $\mathcal{H}$
-- $X_c$ represents the set of nodes within clique $c$
+- $\mathbf{X}_c$ represents the set of nodes within clique $c$
 - $Z$ is known as the **partition function**, given by
 \begin{equation}
-Z=\sum_{X_1,\ldots,X_n}\prod_{c\in C}\psi_c(X_c)
+Z=\sum_{X_1,\ldots,X_n}\prod_{c\in C}\psi_c(\mathbf{X}\_c)
 \end{equation}
 
 From the above definition, we say that a distribution $P$ is a Gibbs distribution that factorizes over $\mathcal{H}$ if it can be expressed as a normalized product over all potential functions defined on the cliques of $\mathcal{H}$, as in \eqref{eq:mrf.1}.
@@ -496,7 +496,7 @@ A set $\mathbf{U}$ is a **Markov blanket** of $X$ in a distribution $P$ if $X\no
 	</li>
 </ul>
 
-#### Soundness, Completeness
+#### Soundness, Completeness{#soundness-completeness-mn}
 **Theorem 9** (Soundness of separation) *Let $\mathcal{H}=(\mathcal{X},\mathcal{E})$ be a Markov network structure and let $P$ be a distribution over $\mathcal{X}$. If $P$ is a Gibbs distribution that factorizes over $\mathcal{H}$, then $\mathcal{H}$ is an I-map for $P$.*
 
 **Proof**  
@@ -533,7 +533,7 @@ P\models(\mathbf{X}\perp\mathbf{Y}\vert\mathbf{Z})
 
 **Theorem 12** (Completeness of separation) *Let $\mathcal{H}$ be a Markov network structure. If $X$ and $Y$ are not separated given $\mathbf{Z}$ in $\mathcal{H}$, then $X$ and $Y$ are dependent given $\mathbf{Z}$ in some distribution $P$ that factorizes over $\mathcal{H}$.*
 
-### From Distributions to Graphs
+### From Distributions to Graphs{#dist2graph-mn}
 As [mentioned](#min-imap) above, the notion of minimal I-map lets us encode the independencies of a given distribution $P$ using a graph structure.
 
 In particular, for a distribution $P$, we can construct the minimal I-map based on either the pairwise independencies or the local independencies.
@@ -543,17 +543,45 @@ $. Then $\mathcal{H}$ is  the unique minimal I-map for $P$.*
 
 **Theorem 14**: *Let P be a positive distribution and let $\mathcal{H}$ be a Markov network defined by including an edge $X-Y$ for all $X$ and all $Y\in\text{MB}_\mathcal{H}(X)$. Then $\mathcal{H}$ is the unique minimal I-map for $P$.*
 
-**Remark**: Not every distribution has a perfect map as UGM.
+**Remark**: Not every distribution has a perfect map as UGM (proof by contradiction).
 
+### Factor Graphs
+A **factor graph** $\mathcal{F}$ is an undirected graph whose nodes are divided into two groups: variable nodes (denoted as ovals) and factor nodes (denoted as squares) and whose edges only connect each factor (potential function) $\psi_c$ to its dependent nodes $X\in X_c$.
+
+<figure>
+	<img src="/images/pgm-representation/factor-graphs.png" alt="Same Markov network different factor graphs" style="display: block; margin-left: auto; margin-right: auto"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) Different factor graphs for the same Markov network (a) A Markov network consists of nodes $X_1,X_2,X_3$; (b) A factor graph with a factor $\psi_{1,2,3}$ connected to each $X_1,X_2,X_3$; (c) A factor graph with three pairwise factors $\psi_{1,2}$ (connected to $X_1,X_2$), $\psi_{1,3}$ (connected to $X_1,X_3$) and $\psi_{2,3}$ (connected to $X_2,X_3$)</figcaption>
+</figure>
+
+### Log-Linear Models
+A distribution $P$ is a **log-linear model** over a Markov network $\mathcal{H}$ if it is associated with
+- a set of features $\mathcal{F}=\\{\phi_1(\mathbf{X}_1),\ldots,\phi_k(\mathbf{X}_k)\\}$ where each $\mathbf{X}_i$ is a complete subgraph in $\mathcal{H}$,
+- a set of weight $w_1,\ldots,w_k$,
+such that
+\begin{equation}
+P(X_1,\ldots,X_n)=\frac{1}{Z}\exp\left[-\sum_{i=1}^{k}w_i\phi_i(\mathbf{X}\_i)\right]
+\end{equation}
+
+The function $\phi_i$ are called **energy functions**.
+
+### Conditional Random Fields{#crf}
+A **conditional random field**, or **CRF**, is an undirected graph $\mathcal{H}$ whose nodes correspond to $\mathbf{X}\cup\mathbf{Y}$ where $\mathbf{X}$ is a set of observed variables and $\mathbf{Y}$ is a (disjoint) set of target variables which specifies a conditional distribution (instead of a joint distribution)
+\begin{equation}
+P(\mathbf{Y}\vert\mathbf{X})=\frac{1}{Z(\mathbf{X})}\prod_{c\in C}\psi_c(\mathbf{X}\_c,\mathbf{Y}\_c),
+\end{equation}
+where the partition function $Z(\mathbf{X})$ now depends on $\mathbf{X}$ (rather than being a constant)
+\begin{equation}
+Z(\mathbf{X})=\sum_\mathbf{Y}\prod_{c\in C}\psi_c(\mathbf{X}\_c,\mathbf{Y}\_c)
+\end{equation}
 
 ## References
 [1] <span id='pgm-book'>Daphne Koller, Nir Friedman. [Probabilistic Graphical Models](https://mitpress.mit.edu/9780262013192/probabilistic-graphical-models/). The MIT Press.</span>
 
-[2] Michael I. Jordan. [An Introduction to Probabilistic Graphical Models](http://people.eecs.berkeley.edu/~jordan/prelims/). In preparation
+[2] Michael I. Jordan. [An Introduction to Probabilistic Graphical Models](http://people.eecs.berkeley.edu/~jordan/prelims/). In preparation.
 
-[3] Eric P.Xing [10-708: Probabilistic Graphical Model](). CMU Spring 2019.
+[3] Eric P.Xing [10-708: Probabilistic Graphical Model](https://www.cs.cmu.edu/~epxing/Class/10708-20/). CMU Spring 2020.
 
-[4] [CS228: Probabilistic Graphical Model](). Stanford 2017.
+[4] Stefano Ermon. [CS228: Probabilistic Graphical Model](https://cs.stanford.edu/~ermon/cs228/index.html). Stanford Winter 2017-2018.
 
 ## Footnotes
 [^1]: Note that $X_i\rightarrow X_j\equiv X_j\leftarrow X_i$ but $X_i\rightarrow X_j\not\equiv X_i\leftarrow X_j$, while $X_i-X_j\equiv X_j-X_i$.
