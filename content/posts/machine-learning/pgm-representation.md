@@ -547,7 +547,6 @@ $. Then $\mathcal{H}$ is  the unique minimal I-map for $P$.*
 
 ### Factor Graphs
 A **factor graph** $\mathcal{F}$ is an undirected graph whose nodes are divided into two groups: variable nodes (denoted as ovals) and factor nodes (denoted as squares) and whose edges only connect each factor (potential function) $\psi_c$ to its dependent nodes $X\in X_c$.
-
 <figure>
 	<img src="/images/pgm-representation/factor-graphs.png" alt="Same Markov network different factor graphs" style="display: block; margin-left: auto; margin-right: auto"/>
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) Different factor graphs for the same Markov network (a) A Markov network consists of nodes $X_1,X_2,X_3$; (b) A factor graph with a factor $\psi_{1,2,3}$ connected to each $X_1,X_2,X_3$; (c) A factor graph with three pairwise factors $\psi_{1,2}$ (connected to $X_1,X_2$), $\psi_{1,3}$ (connected to $X_1,X_3$) and $\psi_{2,3}$ (connected to $X_2,X_3$)</figcaption>
@@ -555,12 +554,17 @@ A **factor graph** $\mathcal{F}$ is an undirected graph whose nodes are divided 
 
 ### Log-Linear Models
 A distribution $P$ is a **log-linear model** over a Markov network $\mathcal{H}$ if it is associated with
-- a set of features $\mathcal{F}=\\{\phi_1(\mathbf{X}_1),\ldots,\phi_k(\mathbf{X}_k)\\}$ where each $\mathbf{X}_i$ is a complete subgraph in $\mathcal{H}$,
-- a set of weight $w_1,\ldots,w_k$,
-such that
-\begin{equation}
-P(X_1,\ldots,X_n)=\frac{1}{Z}\exp\left[-\sum_{i=1}^{k}w_i\phi_i(\mathbf{X}\_i)\right]
-\end{equation}
+<ul id='number-list'>
+	<li>
+		a set of features $\mathcal{F}=\{\phi_1(\mathbf{X}_1),\ldots,\phi_k(\mathbf{X}_k)\}$ where each $\mathbf{X}_i$ is a complete subgraph in $\mathcal{H}$,
+	</li>
+	<li>
+		a set of weight $w_1,\ldots,w_k$, such that
+		\begin{equation}
+		P(X_1,\ldots,X_n)=\frac{1}{Z}\exp\left[-\sum_{i=1}^{k}w_i\phi_i(\mathbf{X}_i)\right]
+		\end{equation}
+	</li>
+</ul>
 
 The function $\phi_i$ are called **energy functions**.
 
@@ -574,15 +578,180 @@ where the partition function $Z(\mathbf{X})$ now depends on $\mathbf{X}$ (rather
 Z(\mathbf{X})=\sum_\mathbf{Y}\prod_{c\in C}\psi_c(\mathbf{X}\_c,\mathbf{Y}\_c)
 \end{equation}
 
+#### Example - Naive Markov
+Consider a CRF over the binary-value variables $\mathbf{X}=\\{X_1,\ldots,X_k\\}$ and $\mathbf{Y}=\\{Y\\}$, and a pairwise potential between $Y$ and each $X_i$. The model is referred as a **naive Markov model**. Assume that the pairwise potentials defined via the log-linear model
+\begin{equation}
+\psi_i(X_i,Y)=\exp\big[w_i\mathbf{1}\\{X_i=1,Y=1\\}\big]
+\end{equation}
+Additionally, we also have a single-node potential
+\begin{equation}
+\psi_0(Y)=\exp\big[w_0\mathbf{1}\\{Y=1\\}\big]
+\end{equation}
+We then have that
+\begin{equation}
+P(Y=1\vert x_1,\ldots,x_k)=\frac{1}{1+\exp\left[-\left(w_0+\sum_{i=1}^{k}w_i x_i\right)\right]}
+\end{equation}
+
+## Local Probabilistic Models
+
+### Tabular CPDs
+For a space of discrete-valued random variables only, we can encode the CPDs $P(X\vert\text{Pa}_X)$ as a table where each entry corresponds to a pair of $X,\text{Pa}_X$.
+
+It is easily seen that this representation raises a disadvantage that the number of parameters required grows exponentially in the number of parents. Also, it is impossible to store the conditional probability corresponding to a continuous-valued random variables.
+
+To avoid these problems, instead of viewing CPDs as tables listing all of the conditional probabilities $P(x\vert\text{pa}_X)$, we should consider them as functions that given $\text{pa}_X$ and $x$, return the conditional probability $P(x\vert\text{pa}_X)$.
+
+### Deterministic CPDs
+The simplest type of non-tabular CPD corresponds to a variable $X$ being a deterministic function of its parents $\text{Pa}_X$. It means, there exists $f:\text{Val}(Pa_X)\mapsto\text{Val}(X)$ such that
+\begin{equation}
+P(x\vert\text{pa}\_X)=\begin{cases}1&\hspace{1cm}x=f(\text{pa}\_X) \\\\ 0&\hspace{1cm}\text{otherwise}\end{cases}
+\end{equation}
+Deterministic variables are denoted as double-line ovals, as illustrated in the following example
+<figure>
+	<img src="/images/pgm-representation/det-cpd.png" alt="Network with a deterministic CPD" style="display: block; margin-left: auto; margin-right: auto; width: 30%; height: 30%"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 5</b>: (taken from the <a href='#pgm-book'>PGM book</a>) A network with $C$ being a deterministic function of $A$ and $B$</figcaption>
+</figure>
+
+Consider the above figure, as $C$ being a deterministic function of $A$ and $B$, we can deduce that $C$ is fully observed if $A$ and $B$ are both observed. In other words, we have that
+\begin{equation}
+(D\perp E\vert A,B)
+\end{equation}
+
+**Theorem 15**: *Let $\mathcal{G}$ be a network structure, and let $\mathbf{X},\mathbf{Y},\mathbf{Z}$ be sets of variables, $\mathbf{D}$ be set of deterministic variables. If $\mathbf{X}$ is **deterministically separated** from $\mathbf{Y}$ given $\mathbf{Z}$[^3], then for all distributions $P$ such that $P\models\mathcal{I}_\ell(\mathcal{G})$ and where, for each $X\in\mathbf{D}$, $P(X\vert\text{Pa}_X)$ is a deterministic CPD, we have that $P\models(\mathbf{X}\perp\mathbf{Y}\vert\mathbf{Z})$*.
+
+**Theorem 16**: *Let $\mathcal{G}$ be a network structure, and let $\mathbf{X},\mathbf{Y},\mathbf{Z}$ be sets of variables, $\mathbf{D}$ be set of deterministic variables. If $\mathbf{X}$ is not deterministically separated from $\mathbf{Y}$ given $\mathbf{Z}$, then there exists a distribution $P$ such that $P\models\mathcal{I}_\ell(\mathcal{G})$ and where, for each $X\in\mathbf{D}$, $P(X\vert\text{Pa}_X)$ is a deterministic CPD, but we instead have $P\not\models(\mathbf{X}\perp\mathbf{Y}\vert\mathbf{Z})$*.
+
+It is worth remarking that particular deterministic CPD might imply additional independencies. For instance, let us consider the following examples
+
+**Example 1**: Consider the following Bayesian network
+<figure>
+	<img src="/images/pgm-representation/complex-det-cpd.png" alt="Network with a deterministic CPD" style="display: block; margin-left: auto; margin-right: auto; width: 40%; height: 40%"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 6</b>: (taken from the <a href='#pgm-book'>PGM book</a>) Another Bayesian network with $C$ being a deterministic function of $A$ and $B$</figcaption>
+</figure>
+
+In the above figure, if $C=A\text{ XOR }B$, we have that $A$ is fully determined given $C$ and $B$. In other words, we have that
+\begin{equation}
+(D\perp E\vert B,C)
+\end{equation}
+**Example 2**: Consider **Figure 5**, with $C=A\text{ OR }B$. Assume that we are given $A=a^1$, it is then immediately that $C=c^1$ without taking into account the value of $B$. Or in other words, we have that
+\begin{equation}
+P(D\vert B,a^1)=P(D\vert a^1)
+\end{equation}
+On the other hand, given $A=a^0$, the value of $C$ is not fully determined, and still depend the value of $B$.
+
+#### Context-Specific Independence
+Let $\mathbf{X},\mathbf{Y},\mathbf{Z}$ be pairwise disjoint sets of variables, let $\mathbf{C}$ be a set of variable (which might overlap with $\mathbf{X}\cup\mathbf{Y}\cup\mathbf{Z}$), and let $\mathbf{c}\in\text{Val}(\mathbf{C})$. We say that $X$ and $\mathbf{Y}$ are **contextually independent** given $\mathbf{Z}$ and the context $\mathbf{C}$ denoted $(\mathbf{X}\perp_c\mathbf{Y}\vert\mathbf{Z},\mathbf{c})$ if
+\begin{equation}
+P(\mathbf{Y},\mathbf{Z},\mathbf{c})>0\Rightarrow P(\mathbf{X}\vert\mathbf{Y},\mathbf{Z},\mathbf{c})=P(\mathbf{X}\vert\mathbf{Z},\mathbf{c})
+\end{equation}
+Given this definition, let us examine some examples.
+
+**Example 3**: Given the Bayesian network in **Figure 5** with $C$ being a deterministic function $\text{OR}$ of $A$ and $B$. By properties of $OR$ function, we can conclude some independence assertions
+\begin{align}
+&(C\perp_c B\vert\hspace{0.1cm}a^1), \\\\ &(D\perp_c B\vert\hspace{0.1cm}a^1), \\\\ &(A\perp_c B\vert\hspace{0.1cm}c^0), \\\\ &(D\perp_c E\vert\hspace{0.1cm}c^0), \\\\ &(D\perp_c E\vert\hspace{0.1cm}b^0,c^1)
+\end{align}
+**Example 4**: Given the Bayesian network in **Figure 6** with $C$ being the exclusive or of $A$ and $B$. We can also conclude some independence assertions using properties of $\text{XOR}$ function
+\begin{align}
+&(D\perp_c E\vert\hspace{0.1cm}b^1,c^0), \\\\ &(D\perp_c E\vert\hspace{0.1cm}b^0,c^1)
+\end{align}
+
+### Context-specific CPDs
+
+#### Tree-CPDs
+A **tree-CPD** representing a CPD for variable $X$ is a rooted tree, where:
+<ul id='number-list'>
+	<li>
+		each leaf node is labeled with a distribution $P(X)$;
+	</li>
+	<li>
+		each internal node is labeled with some variable $Z\in\text{Pa}_X$;
+	</li>
+	<li>
+		each edge from an internal node, which is labeled as some $Z$, to its child nodes corresponds to a $z_i\in\text{Val}(Z)$.
+	</li>
+</ul>
+<figure>
+	<img src="/images/pgm-representation/tree-cpd.png" alt="Tree-CPD" style="display: block; margin-left: auto; margin-right: auto; width: 30%; height: 30%"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 7</b>: (taken from the <a href='#pgm-book'>PGM book</a>) A tree CPD for $P(J\vert A,S,L)$</figcaption>
+</figure>
+
+The structure is common in cases where a variable can depend on a set of r.v.s but we have uncertainty about which r.v.s it depends on. For example, in the above tree-CDP representing $P(J\vert A,S,L)$, we have that
+\begin{align}
+&(J\perp_c L,S\vert\hspace{0.1cm}a^0), \\\\ &(J\perp_c L\vert\hspace{0.1cm}a^1,s^1), \\\\ &(J\perp_c L\vert\hspace{0.1cm}s^1)
+\end{align}
+
+##### Multiplexer CPD
+A CPD $P(Y\vert A,Z_1,\ldots,Z_k)$ is said to be a **multiplexer CPD** if $\text{Val}(A)=\\{1,\ldots,k\\}$ and
+\begin{equation}
+P(Y\vert a,Z_1,\ldots,Z_k)=\mathbf{1}\\{Y=Z_a\\},
+\end{equation}
+where $a$ is the value of $A$. The variable $A$ is referred as the **selector variable** for the CPD.
+<figure>
+	<img src="/images/pgm-representation/multiplexer-cpd.png" alt="Multiplexer-CPD" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 8</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) (a) A Bayesian network for $P(J,C,L_1,L_2)$; (b) Tree-CPD for $P(J\vert C,L_1,L_2)$; (c) Modified network with additional variable $L$ acting as a multiplexer CPD</figcaption>
+</figure>
+
+#### Rule CPDs
+A **rule** $\rho$ is a pair $(\mathbf{c},p)$ where $\mathbf{c}$ is an assignment to some subset of variables $\mathbf{C}$ and $p\in[0,1]$. $\mathbf{C}$ is then referred as the **scope** of $\rho$, denoted $\mathbf{C}=\text{Scope}(\rho)$.
+
+This representation decomposes a tree-CPD into its most basic elements.
+
+**Example 5**: Consider the tree-CPD given in **Figure 7**. The tree defines eight rules
+\begin{Bmatrix}(a^0,j^0;0.8), \\\\ (a^0,j^1;0.2), \\\\ (a^1,s^0,l^0,j^0;0.9), \\\\ (a^1,s^0,l^0,j^1;0.1), \\\\ (a^1,s^0,l^1,j^0;0.4), \\\\ (a^1,s^0,l^1,j^1;0.6), \\\\ (a^1,s^1,j^0;0.1), \\\\ (a^1,s^1,j^1;0.9)\end{Bmatrix}
+It is necessary that each conditional distribution $P(X\vert\text{Pa}_X)$ is specified by exactly one rule. Or in other words, the rules in a tree-CPD must be mutually exclusive and exhaustive.
+
+##### Rule-based CPD
+A **rule-based CPD** $P(X\vert\text{Pa}_X)$ is a set of rules $\mathcal{R}$ such that
+<ul id='roman-list'>
+	<li>
+		For each $\rho\in\mathcal{R}$, we have that
+		\begin{equation}
+		\text{Scope}(\rho)\subset\{X\}\cup\text{Pa}_X
+		\end{equation}
+	</li>
+	<li>
+		For each assignment $(x,\mathbf{u})$ to $\{X\}\cup\text{Pa}_X$, we have exactly one rule $(\mathbf{c};p)\in\mathcal{R}$ such that $\mathbf{c}$ is compatible with $(x,\mathbf{u})$. And we say that
+		\begin{equation}
+		P(X=x\vert\text{Pa}_X=\mathbf{u})=p
+		\end{equation}
+	</li>
+	<li>
+		$\sum_x P(x\vert\mathbf{u})=1$.
+	</li>
+</ul>
+
+**Example 6**: Let $X$ be a variable with $\text{Pa}_X=\\{A,B,C\\}$ with $X$'s CPD is defined by sets of rules
+\begin{Bmatrix}\rho_1:(a^1,b^1,x^0;0.1), \\\\ \rho_2:(a^1,b^1,x^1;0.9), \\\\ \rho_3:(a^0,c^1,x^0;0.2), \\\\ \rho_4:(a^0,c^1,x^1;0.8), \\\\ \rho_5:(b^0,c^0,x^0;0.3), \\\\ \rho_6:(b^0,c^0,x^1;0.7), \\\\ \rho_7:(a^1,b^0,c^1,x^0;0.4), \\\\ \rho_8:(a^1,b^0,c^1,x^1;0.6), \\\\ \rho_9:(a^0,b^1,c^0;0.5)\end{Bmatrix}
+The tree-CPD corresponds to the above rule-based CPD $P(X\vert A,B,C)$ is given as:
+<figure>
+	<img src="/images/pgm-representation/rule-based-cpd.png" alt="Rule-based-CPD" style="display: block; margin-left: auto; margin-right: auto; width: 50%; height: 50%"/>
+	<figcaption></figcaption>
+</figure>
+It is worth noticing that both CPD entries $P(x^0\vert a^0,b^1,c^0)$ and $P(x^1\vert a^0,b^1,c^0)$ are determined by rule $\rho_9$ only. This kind of rule only works for uniform distribution.
+
+#### Independencies in Context-specific CPDs
+
+### Independence of Causal Influence
+
+#### Noisy-Or Model
+
+#### Generalized Linear Models
+
+
 ## References
 [1] <span id='pgm-book'>Daphne Koller, Nir Friedman. [Probabilistic Graphical Models](https://mitpress.mit.edu/9780262013192/probabilistic-graphical-models/). The MIT Press.</span>
 
 [2] Michael I. Jordan. [An Introduction to Probabilistic Graphical Models](http://people.eecs.berkeley.edu/~jordan/prelims/). In preparation.
 
-[3] Eric P.Xing [10-708: Probabilistic Graphical Model](https://www.cs.cmu.edu/~epxing/Class/10708-20/). CMU Spring 2020.
+[3] Eric P.Xing. [10-708: Probabilistic Graphical Model](https://www.cs.cmu.edu/~epxing/Class/10708-20/). CMU Spring 2020.
 
 [4] Stefano Ermon. [CS228: Probabilistic Graphical Model](https://cs.stanford.edu/~ermon/cs228/index.html). Stanford Winter 2017-2018.
 
 ## Footnotes
 [^1]: Note that $X_i\rightarrow X_j\equiv X_j\leftarrow X_i$ but $X_i\rightarrow X_j\not\equiv X_i\leftarrow X_j$, while $X_i-X_j\equiv X_j-X_i$.
 [^2]: Note that the inverse is not true.
+[^3]: This can be specified by doing the procedure
+	> Let $\mathbf{Z}^+\leftarrow\mathbf{Z}$  
+	> While $\exists X_i$ such that $X_i\in\mathbf{D}$  and $\text{Pa}_{X_i}\subset\mathbf{Z}^+$  
+	> $\hspace{1cm}\mathbf{Z}^+\leftarrow\mathbf{Z}\cup\\{X_i\\}$  
+	> return $\text{d-sep}(\mathbf{X};\mathbf{Y}\vert\mathbf{Z})$
