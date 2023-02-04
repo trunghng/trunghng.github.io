@@ -1,11 +1,11 @@
 ---
-title: "Probabilistic Graphical Model - Representation"
+title: "Probabilistic Graphical Models - Representation"
 date: 2022-12-10T17:55:57+07:00
 tags: [machine-learning]
 math: true
 eqn-number: true
 ---
-Notes on Bayesian Networks and Markov Random Fields.
+Notes on Representation in PGMs.
 <!--more-->
 
 ## Graphs
@@ -607,7 +607,7 @@ The simplest type of non-tabular CPD corresponds to a variable $X$ being a deter
 P(x\vert\text{pa}\_X)=\begin{cases}1&\hspace{1cm}x=f(\text{pa}\_X) \\\\ 0&\hspace{1cm}\text{otherwise}\end{cases}
 \end{equation}
 Deterministic variables are denoted as double-line ovals, as illustrated in the following example
-<figure>
+<figure id='fig5'>
 	<img src="/images/pgm-representation/det-cpd.png" alt="Network with a deterministic CPD" style="display: block; margin-left: auto; margin-right: auto; width: 30%; height: 30%"/>
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 5</b>: (taken from the <a href='#pgm-book'>PGM book</a>) A network with $C$ being a deterministic function of $A$ and $B$</figcaption>
 </figure>
@@ -624,7 +624,7 @@ Consider the above figure, as $C$ being a deterministic function of $A$ and $B$,
 It is worth remarking that particular deterministic CPD might imply additional independencies. For instance, let us consider the following examples
 
 **Example 1**: Consider the following Bayesian network
-<figure>
+<figure id='fig6'>
 	<img src="/images/pgm-representation/complex-det-cpd.png" alt="Network with a deterministic CPD" style="display: block; margin-left: auto; margin-right: auto; width: 40%; height: 40%"/>
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 6</b>: (taken from the <a href='#pgm-book'>PGM book</a>) Another Bayesian network with $C$ being a deterministic function of $A$ and $B$</figcaption>
 </figure>
@@ -633,7 +633,7 @@ In the above figure, if $C=A\text{ XOR }B$, we have that $A$ is fully determined
 \begin{equation}
 (D\perp E\vert B,C)
 \end{equation}
-**Example 2**: Consider **Figure 5**, with $C=A\text{ OR }B$. Assume that we are given $A=a^1$, it is then immediately that $C=c^1$ without taking into account the value of $B$. Or in other words, we have that
+**Example 2**: Consider the network given in [Figure 5](#fig5), with $C=A\text{ OR }B$. Assume that we are given $A=a^1$, it is then immediately that $C=c^1$ without taking into account the value of $B$. Or in other words, we have that
 \begin{equation}
 P(D\vert B,a^1)=P(D\vert a^1)
 \end{equation}
@@ -644,15 +644,17 @@ Let $\mathbf{X},\mathbf{Y},\mathbf{Z}$ be pairwise disjoint sets of variables, l
 \begin{equation}
 P(\mathbf{Y},\mathbf{Z},\mathbf{c})>0\Rightarrow P(\mathbf{X}\vert\mathbf{Y},\mathbf{Z},\mathbf{c})=P(\mathbf{X}\vert\mathbf{Z},\mathbf{c})
 \end{equation}
+Independence statements of this form is known as the **context-specific independencies (CSI)**.
+
 Given this definition, let us examine some examples.
 
-**Example 3**: Given the Bayesian network in **Figure 5** with $C$ being a deterministic function $\text{OR}$ of $A$ and $B$. By properties of $OR$ function, we can conclude some independence assertions
+**Example 3**: Given the Bayesian network in [Figure 5](#fig5) with $C$ being a deterministic function $\text{OR}$ of $A$ and $B$. By properties of $\text{OR}$ function, we can conclude some independence assertions
 \begin{align}
-&(C\perp_c B\vert\hspace{0.1cm}a^1), \\\\ &(D\perp_c B\vert\hspace{0.1cm}a^1), \\\\ &(A\perp_c B\vert\hspace{0.1cm}c^0), \\\\ &(D\perp_c E\vert\hspace{0.1cm}c^0), \\\\ &(D\perp_c E\vert\hspace{0.1cm}b^0,c^1)
+&(C\perp_c B\hspace{0.1cm}\vert\hspace{0.1cm}a^1), \\\\ &(D\perp_c B\hspace{0.1cm}\vert\hspace{0.1cm}a^1), \\\\ &(A\perp_c B\hspace{0.1cm}\vert\hspace{0.1cm}c^0), \\\\ &(D\perp_c E\hspace{0.1cm}\vert\hspace{0.1cm}c^0), \\\\ &(D\perp_c E\hspace{0.1cm}\vert\hspace{0.1cm}b^0,c^1)
 \end{align}
-**Example 4**: Given the Bayesian network in **Figure 6** with $C$ being the exclusive or of $A$ and $B$. We can also conclude some independence assertions using properties of $\text{XOR}$ function
+**Example 4**: Given the Bayesian network in [Figure 6](#fig6) with $C$ being the exclusive or of $A$ and $B$. We can also conclude some independence assertions using properties of $\text{XOR}$ function
 \begin{align}
-&(D\perp_c E\vert\hspace{0.1cm}b^1,c^0), \\\\ &(D\perp_c E\vert\hspace{0.1cm}b^0,c^1)
+&(D\perp_c E\hspace{0.1cm}\vert\hspace{0.1cm}b^1,c^0), \\\\ &(D\perp_c E\vert\hspace{0.1cm}b^0,c^1)
 \end{align}
 
 ### Context-specific CPDs
@@ -670,9 +672,9 @@ A **tree-CPD** representing a CPD for variable $X$ is a rooted tree, where:
 		each edge from an internal node, which is labeled as some $Z$, to its child nodes corresponds to a $z_i\in\text{Val}(Z)$.
 	</li>
 </ul>
-<figure>
+<figure id='fig7'>
 	<img src="/images/pgm-representation/tree-cpd.png" alt="Tree-CPD" style="display: block; margin-left: auto; margin-right: auto; width: 30%; height: 30%"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 7</b>: (taken from the <a href='#pgm-book'>PGM book</a>) A tree CPD for $P(J\vert A,S,L)$</figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 7</b>: (taken from the <a href='#pgm-book'>PGM book</a>) A tree-CPD for $P(J\vert A,S,L)$</figcaption>
 </figure>
 
 The structure is common in cases where a variable can depend on a set of r.v.s but we have uncertainty about which r.v.s it depends on. For example, in the above tree-CDP representing $P(J\vert A,S,L)$, we have that
@@ -686,7 +688,7 @@ A CPD $P(Y\vert A,Z_1,\ldots,Z_k)$ is said to be a **multiplexer CPD** if $\text
 P(Y\vert a,Z_1,\ldots,Z_k)=\mathbf{1}\\{Y=Z_a\\},
 \end{equation}
 where $a$ is the value of $A$. The variable $A$ is referred as the **selector variable** for the CPD.
-<figure>
+<figure id='fig8'>
 	<img src="/images/pgm-representation/multiplexer-cpd.png" alt="Multiplexer-CPD" style="display: block; margin-left: auto; margin-right: auto;"/>
 	<figcaption style="text-align: center;font-style: italic;"><b>Figure 8</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) (a) A Bayesian network for $P(J,C,L_1,L_2)$; (b) Tree-CPD for $P(J\vert C,L_1,L_2)$; (c) Modified network with additional variable $L$ acting as a multiplexer CPD</figcaption>
 </figure>
@@ -696,7 +698,7 @@ A **rule** $\rho$ is a pair $(\mathbf{c},p)$ where $\mathbf{c}$ is an assignment
 
 This representation decomposes a tree-CPD into its most basic elements.
 
-**Example 5**: Consider the tree-CPD given in **Figure 7**. The tree defines eight rules
+**Example 5**: Consider the tree-CPD given in [Figure 7](#fig7). The tree defines eight rules
 \begin{Bmatrix}(a^0,j^0;0.8), \\\\ (a^0,j^1;0.2), \\\\ (a^1,s^0,l^0,j^0;0.9), \\\\ (a^1,s^0,l^0,j^1;0.1), \\\\ (a^1,s^0,l^1,j^0;0.4), \\\\ (a^1,s^0,l^1,j^1;0.6), \\\\ (a^1,s^1,j^0;0.1), \\\\ (a^1,s^1,j^1;0.9)\end{Bmatrix}
 It is necessary that each conditional distribution $P(X\vert\text{Pa}_X)$ is specified by exactly one rule. Or in other words, the rules in a tree-CPD must be mutually exclusive and exhaustive.
 
@@ -720,7 +722,7 @@ A **rule-based CPD** $P(X\vert\text{Pa}_X)$ is a set of rules $\mathcal{R}$ such
 	</li>
 </ul>
 
-**Example 6**: Let $X$ be a variable with $\text{Pa}_X=\\{A,B,C\\}$ with $X$'s CPD is defined by sets of rules
+<span id='eg6'>**Example 6**</span>: Let $X$ be a variable with $\text{Pa}_X=\\{A,B,C\\}$ with $X$'s CPD is defined by sets of rules
 \begin{Bmatrix}\rho_1:(a^1,b^1,x^0;0.1), \\\\ \rho_2:(a^1,b^1,x^1;0.9), \\\\ \rho_3:(a^0,c^1,x^0;0.2), \\\\ \rho_4:(a^0,c^1,x^1;0.8), \\\\ \rho_5:(b^0,c^0,x^0;0.3), \\\\ \rho_6:(b^0,c^0,x^1;0.7), \\\\ \rho_7:(a^1,b^0,c^1,x^0;0.4), \\\\ \rho_8:(a^1,b^0,c^1,x^1;0.6), \\\\ \rho_9:(a^0,b^1,c^0;0.5)\end{Bmatrix}
 The tree-CPD corresponds to the above rule-based CPD $P(X\vert A,B,C)$ is given as:
 <figure>
@@ -730,6 +732,44 @@ The tree-CPD corresponds to the above rule-based CPD $P(X\vert A,B,C)$ is given 
 It is worth noticing that both CPD entries $P(x^0\vert a^0,b^1,c^0)$ and $P(x^1\vert a^0,b^1,c^0)$ are determined by rule $\rho_9$ only. This kind of rule only works for uniform distribution.
 
 #### Independencies in Context-specific CPDs
+If $\mathbf{c}$ be a context associated with a branch in the tree-CPD for $X$, then $X$ is independent of the remaining parents, $\text{Pa}_X\backslash\text{Scope}(\mathbf{c})$, given $\mathbf{c}$. Moreover, there might exist CSI statements conditioned on contexts which are not induced by complete branches.
+
+**Example 7**: Consider the tree-CPD given in [Figure 7](#fig7), as mentioned above, we have that
+\begin{equation}
+(J\perp_c L\hspace{0.1cm}\vert\hspace{0.1cm}s^1),
+\end{equation}
+where $s^1$ is not the full assignment associated with a branch.  
+Also, consider the tree-CPD given in [Figure 8(b)](#fig8), we have that
+\begin{align}
+&(J\perp_c L_2\hspace{0.1cm}\vert\hspace{0.1cm}c^1), \\\\ &(J\perp_c L_1\hspace{0.1cm}\vert\hspace{0.1cm}c^2),
+\end{align}
+where neither $c^1$ nor $c^2$ is the full assignment associated with a branch.
+
+##### Reduced Rule
+Let $\rho=(\mathbf{c}';p)$ be a rule and $\mathbf{c}$ be a context. If $\mathbf{c}'$ is compatible with $\mathbf{c}$, we say that $\rho\sim\mathbf{c}$.
+
+In this case, let $\mathbf{c}''$ be the assignment in $c'$ to the variables in $\text{Scope}(\mathbf{c}')\backslash\text{Scope}(\mathbf{c})$. We then define the **reduced rule** $\rho[\mathbf{c}]=(\mathbf{c}'';p)$. If $\mathcal{R}$ be a set of rules, we define the **reduced rule set**
+\begin{equation}
+\mathcal{R}[\mathbf{c}]=\\{\rho[\mathbf{c}]:\rho\in\mathcal{R},\rho\sim\mathbf{c}\\}
+\end{equation}
+
+**Example 8**: Consider the rule set $\mathcal{R}$ given in [Example 6](#eg6), we have that the reduced set corresponding to $a^1$ is
+\begin{equation}
+\mathcal{R}[a^1]=\begin{Bmatrix}\rho_1':(b^1,x^0;0.1), \\\\ \rho_2:(b^1,x^1;0.9), \\\\ \rho_5:(b^0,c^0,x^0;0.3), \\\\ \rho_6:(b^0,c^0,x^1;0.7), \\\\ \rho_7:(b^0,c^1,x^0;0.4), \\\\ \rho_8':(b^0,c^1,x^1;0.6),\end{Bmatrix}
+\end{equation}
+which is obtained by selecting rules compatible with $a^1$, i.e. $\\{\rho_1,\rho_2,\rho_5,\rho_6,\rho_7,\rho_8\\}$, then canceling out $a^1$ from all the rules where it appeared.
+
+**Proposition 17**: Let $\mathcal{R}$ be the rules in the rule-based CPD for a variable $X$, and let $\mathcal{R}_\mathbf{c}$ be the rules in $\mathcal{R}$ compatible with $\mathbf{c}$. Let $\mathbf{Y}\subset\text{Pa}_X$ be a subset such that $\mathbf{Y}\cap\text{Scope}(\mathbf{c})=\emptyset$. If $\forall\rho\in\mathcal{R}[\mathbf{c}]$, we have that $\mathbf{Y}\cap\text{Scope}(\rho)=\emptyset$, then
+\begin{equation}
+(X\perp_c\mathbf{Y}\hspace{0.1cm}\vert\hspace{0.1cm}\text{Pa}\_X\backslash\mathbf{Y},\mathbf{c})
+\end{equation}
+
+##### Spurious Edge
+Let $P(X\vert\text{Pa}_X)$ be a CPD, $Y\in\text{Pa}_X$ be a set and let $\mathbf{c}$ be a context. The edge $Y\rightarrow X$ is said to be **spurious** in the context $\mathbf{c}$ if $P(X\vert\text{Pa}_X)$ satisfies $(X\perp_c Y\hspace{0.1cm}\vert\hspace{0.1cm}\text{Pa}_X\backslash\\{Y\\},\mathbf{c})$, where $\mathbf{c}'$ is the restriction of $\mathbf{c}$ to variables in $\text{Pa}_X$.
+
+Hence, by examining the reduced rule set, we can specify whether an edge is spurious, i.e. if $\mathcal{R}$ be the rule-based CPD for $P(X\vert\text{Pa}_X)$, then $Y\rightarrow X$ is spurious in context $\mathbf{c}$ if $Y$ does not appear in $\mathcal{R}[\mathbf{c}]$.
+
+**Theorem 18**: *Let $\mathcal{G}$ be a network structure, $P$ be a distribution such that $P\models\mathcal{I}_\ell(\mathcal{G})$, $\mathbf{c}$ be a context, and $\mathbf{X},\mathbf{Y},\mathbf{Z}$ be sets of variables. If $\mathbf{X}$ is **CSI-separated** from $\mathbf{Y}$ given $\mathbf{Z}$ in the context $\mathbf{c}$[^4], then we have that $P\models(\mathbf{X}\perp_c\mathbf{Y}\hspace{0.1cm}\vert\hspace{0.1cm}\mathbf{Z},\mathbf{c})$.*
 
 ### Independence of Causal Influence
 
@@ -755,3 +795,4 @@ It is worth noticing that both CPD entries $P(x^0\vert a^0,b^1,c^0)$ and $P(x^1\
 	> While $\exists X_i$ such that $X_i\in\mathbf{D}$  and $\text{Pa}_{X_i}\subset\mathbf{Z}^+$  
 	> $\hspace{1cm}\mathbf{Z}^+\leftarrow\mathbf{Z}\cup\\{X_i\\}$  
 	> return $\text{d-sep}(\mathbf{X};\mathbf{Y}\vert\mathbf{Z})$
+[^4]: 

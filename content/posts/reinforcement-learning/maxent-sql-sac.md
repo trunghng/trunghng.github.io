@@ -220,7 +220,7 @@ These following are key components of SAC method:
 		\begin{equation}
 		a_\phi(s_t,\epsilon_t)=\text{tanh}(\mu_\phi(s_t)+\sigma_\phi(s_t)\odot\epsilon_t)
 		\end{equation}
-		where $\epsilon_t\sim\mathcal{N}(0,I)$ is a spherical Gaussian noise, $\mu_\phi$ and $\sigma_\phi$ are defined as given in the <a href='action-sample'>next key point</a>. The loss function in \eqref{eq:sac.4} then can be rewritten as
+		where $\epsilon_t\sim\mathcal{N}(0,I)$ is a spherical Gaussian noise, $\mu_\phi$ and $\sigma_\phi$ are defined as given in the <a href='#action-sample'>next key point</a>. The loss function in \eqref{eq:sac.4} then can be rewritten as
 		\begin{equation}
 		J_\pi(\phi)=\mathbb{E}_{s_t\sim\mathcal{D},\epsilon_t\sim\mathcal{N}(0,I)}\Big[Q_\theta\big(s_t,a_\phi(s_t,\epsilon_t)\big)-\alpha\log\pi_\phi\big(a_\phi(s_t,\epsilon_t)\vert s_t\big)\Big],
 		\end{equation}
@@ -253,7 +253,7 @@ These following are key components of SAC method:
 		\end{equation}
 	</li>
 	<li>
-		Instead of considering entropy coefficient $\alpha$ as a constant, in the <a href='sac-paper-new'>newer version</a> of SAC, authors treated it as a parameter and can be optimized due to the loss function
+		Instead of considering entropy coefficient $\alpha$ as a constant, in the <a href='#sac-paper-new'>newer version</a> of SAC, authors treated it as a parameter and can be optimized due to the loss function
 		\begin{equation}
 		J(\alpha)=\mathbb{E}_{a_t\sim\pi_t}\big[-\alpha\log\pi(a_t\vert s_t)-\alpha\bar{H}\big]
 		\end{equation}
