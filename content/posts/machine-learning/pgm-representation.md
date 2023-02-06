@@ -753,13 +753,13 @@ In this case, let $\mathbf{c}''$ be the assignment in $c'$ to the variables in $
 \mathcal{R}[\mathbf{c}]=\\{\rho[\mathbf{c}]:\rho\in\mathcal{R},\rho\sim\mathbf{c}\\}
 \end{equation}
 
-**Example 8**: Consider the rule set $\mathcal{R}$ given in [Example 6](#eg6), we have that the reduced set corresponding to $a^1$ is
+**Example 8**: Consider the rule set $\mathcal{R}$ given in [Example 6](#eg6), we have that the reduced set corresponding to context $a^1$ is
 \begin{equation}
 \mathcal{R}[a^1]=\begin{Bmatrix}\rho_1':(b^1,x^0;0.1), \\\\ \rho_2:(b^1,x^1;0.9), \\\\ \rho_5:(b^0,c^0,x^0;0.3), \\\\ \rho_6:(b^0,c^0,x^1;0.7), \\\\ \rho_7:(b^0,c^1,x^0;0.4), \\\\ \rho_8':(b^0,c^1,x^1;0.6),\end{Bmatrix}
 \end{equation}
 which is obtained by selecting rules compatible with $a^1$, i.e. $\\{\rho_1,\rho_2,\rho_5,\rho_6,\rho_7,\rho_8\\}$, then canceling out $a^1$ from all the rules where it appeared.
 
-**Proposition 17**: Let $\mathcal{R}$ be the rules in the rule-based CPD for a variable $X$, and let $\mathcal{R}_\mathbf{c}$ be the rules in $\mathcal{R}$ compatible with $\mathbf{c}$. Let $\mathbf{Y}\subset\text{Pa}_X$ be a subset such that $\mathbf{Y}\cap\text{Scope}(\mathbf{c})=\emptyset$. If $\forall\rho\in\mathcal{R}[\mathbf{c}]$, we have that $\mathbf{Y}\cap\text{Scope}(\rho)=\emptyset$, then
+**Proposition 17**: Let $\mathcal{R}$ be the rules in the rule-based CPD for a variable $X$, and let $\mathcal{R}_\mathbf{c}$ be the rules in $\mathcal{R}$ compatible with $\mathbf{c}$. Let $\mathbf{Y}\subset\text{Pa}_X$ be a subset such that $\mathbf{Y}\cap\text{Scope}(\mathbf{c})=\emptyset$. If for all $\rho\in\mathcal{R}[\mathbf{c}]$, we have that $\mathbf{Y}\cap\text{Scope}(\rho)=\emptyset$, then
 \begin{equation}
 (X\perp_c\mathbf{Y}\hspace{0.1cm}\vert\hspace{0.1cm}\text{Pa}\_X\backslash\mathbf{Y},\mathbf{c})
 \end{equation}
@@ -774,16 +774,168 @@ Hence, by examining the reduced rule set, we can specify whether an edge is spur
 ### Independence of Causal Influence
 
 #### Noisy-Or Model
+Let $Y$ be a binary-valued r.v with $k$ binary-valued parents $X_1,\ldots,X_k$. The CPD $P(Y\vert X_1,\ldots,X_k)$ is a **noisy-or** if there are $k+1$ noise parameters $\lambda_0,\lambda_1,\ldots,\lambda_k$ such that
+\begin{align}
+P(y^0\vert X_1,\ldots,X_k)&=(1-\lambda_0)\prod_{i:X_i=x_i^1}(1-\lambda_i)\label{eq:nom.1} \\\\ P(y^1\vert X_1,\ldots,X_k)&=1-(1-\lambda_0)\prod_{i:X_i=x_i^1}(1-\lambda_i)
+\end{align}
+If we interpret $x_i^0$ as $0$ and $x_i^1$ as $1$, \eqref{eq:nom.1} can be rewritten as
+\begin{equation}
+P(y^0\vert X_1,\ldots,X_k)=(1-\lambda_0)\prod_{i=1}^{k}(1-\lambda_i)^{x_i}
+\end{equation}
 
-#### Generalized Linear Models
+#### Generalized Linear Models{#glm}
 
+##### Binary-valued Variables
+
+##### Multivalued Variables
+
+### Continuous Variables
+
+### Conditional Bayesian Networks{#cbn}
+A **conditional Bayesian network** $\mathcal{B}$ over $\mathbf{Y}$ given $\mathbf{X}$ is defined as a DAG $\mathcal{G}$ whose nodes are $\mathbf{X}\cup\mathbf{Y}\cup\mathbf{Z}$ where $\mathbf{X},\mathbf{Y},\mathbf{Z}$ are disjoint. The variables in $\mathbf{X}$ are called **inputs**, the ones in $\mathbf{Y}$ are referred as **outputs** and the others in $\mathbf{Z}$ are known as **encapsulated**.
+
+The variables in $\mathbf{X}$ have no parents in $\mathcal{G}$, while the variables in $\mathbf{Y}\cup\mathbf{Z}$ are associated with a CPD. The network defines a CPD using chain rule
+\begin{equation}
+P_\mathcal{B}(\mathbf{Y},\mathbf{Z}\vert\mathbf{X})=\prod_{T\in\mathbf{Y}\cup\mathbf{Z}}P(T\vert\text{Pa}\_T)
+\end{equation}
+The distribution $P_\mathcal{B}(\mathbf{Y}\vert\mathbf{X})$ is defined as the marginal of $P_\mathcal{B}(\mathbf{Y},\mathbf{Z}\vert\mathbf{X})$
+\begin{equation}
+P_\mathcal{B}(\mathbf{Y}\vert\mathbf{X})=\sum_\mathbf{Z}P_\mathcal{B}(\mathbf{Y},\mathbf{Z}\vert\mathbf{X})
+\end{equation}
+The conditional Bayesian network is the directed version of [CRF](#crf) mentioned above.
+
+#### Encapsulated CPD
+Let $Y$ be a r.v with $k$ parents $X_1,\ldots,X_k$. The CPD $P(Y\vert X_1,\ldots,X_k)$ is an **encapsulated CPD** if it is represented using a conditional Bayesian network over $Y$ given $X_1,\ldots,X_k$.
+
+## Template-based Representations
+
+### Template Variables & Template Factors
+As viewing the world as a set of objects, each of which can be divided into a set of mutually exclusive and exhaustive classes $\mathcal{Q}=Q_1,\ldots,Q_k$.
+
+An **attribute** $A$ is a function $A(U_1,\ldots,U_k)$ whose range is some set $\text{Val}(A)$ and where each argument $U_i$ is known as a **logical variable** associated with a particular class $Q[U_i]\doteq Q_i$. The tuple $(U_1,\ldots,U_k)$ is called the **argument signature** of the attribute $A$, denoted $\alpha(A)$
+\begin{equation}
+\alpha(A)\doteq(U_1,\ldots,U_k)
+\end{equation}
+**Example 9**: The argument signature of `Grade` attribute would have two logical variables $S,C$ where $S$ is of class `Student`, and where $C$ is of class `Course`.
+
+Let $\mathcal{Q}$ be a set of classes, and $\aleph$ be a set of attributes over $\mathcal{Q}$. An **object skeleton** $\kappa$ specifies a fixed, finite set of objects $\mathcal{O}^\kappa[Q]$ for every $Q\in\mathcal{Q}$. We also define
+\begin{equation}
+\mathcal{O}^\kappa[U_1,\ldots,U_k]=\mathcal{O}^\kappa[Q[U_1]]\times\ldots\times\mathcal{O}^\kappa[Q[U_k]]
+\end{equation}
+
+### Temporal Models
+In a **temporal model**, for each $X_i\in\mathcal{X}$, we let $X_i^{(t)}$ denote its instantiation at time $t$. The variables $X_i$ are referred as **template variables**.
+
+Consider a distribution over trajectories sampled over time $t=0,1,\ldots,T$ - $P(\mathcal{X}^{(0)},\mathcal{X}^{(1)},\ldots,\mathcal{X}^{(T)})$, or $P(\mathcal{X}^{(0:T)})$ where $\mathcal{X}^{(t)}=\\{X_i^{(t)}\\}$. Using the chain rule for probabilities, we have that
+\begin{equation}
+P(\mathcal{X}^{(0:T)})=P(\mathcal{X}^{(0)},\mathcal{X}^{(1)},\ldots,\mathcal{X}^{(T)})=P(\mathcal{X}^{(0)})\prod_{t=0}^{T-1}P(\mathcal{X}^{(t+1)}\vert \mathcal{X}^{(0:t)}),\label{eq:tm.1}
+\end{equation}
+where $\mathcal{X}^{(t_1:t_2)}\doteq\\{\mathcal{X}^{(t_1)},\mathcal{X}^{(t_1+1)},\ldots,\mathcal{X}^{(t_2-1)},\mathcal{X}^{(t_2)}\\}$ for $t_1<t_2$. In other words, the distribution over trajectories is the product of conditional distribution, over the variables in each time step $t$ given the preceding one.
+
+#### Markovian System
+A dynamic system over the template variables $\mathcal{X}$ is referred as **Markovian** if it satisfies the **Markov assumption**, in the sense that
+\begin{equation}
+(\mathcal{X}^{(t+1)}\perp\mathcal{X}^{(0:t-1)}\vert\mathcal{X}^{(t)})
+\end{equation}
+In other words, in such systems, we have a more compact form of \eqref{eq:tm.1}, which is
+\begin{equation}
+P(\mathcal{X}^{(0)},\mathcal{X}^{(1)},\ldots,\mathcal{X}^{(T)})=P(\mathcal{X}^{(0)})\prod_{t=0}^{T-1}P(\mathcal{X}^{(t+1)}\vert\mathcal{X}^{(t)})
+\end{equation}
+A Markovian dynamic system is said to be <span id='stationary'>**stationary**</span> (or **time invariant**, or **homogeneous**) if $P(\mathcal{X}^{(t+1)}\vert\mathcal{X}^{(t)})$ is the same for all $t$. In this case, we can represent the process using a **transition model** $P(\mathcal{X}'\vert\mathcal{X})$, so that for any $t\geq0$, we have
+\begin{equation}
+P(\mathcal{X}^{(t+1)}=\xi'\vert\mathcal{X}^{(t)}=\xi)=P(\mathcal{X}'=\xi'\vert\mathcal{X}=\xi)
+\end{equation}
+
+#### Dynamic Bayesian Networks{#dbn}
+A **2-time-slice Bayesian network** (**2-TBN**) for a process over $\mathcal{X}$ is a conditional Bayesian network over $\mathcal{X}'$ given $\mathcal{X}_I$, where $\mathcal{X}_I\subset\mathcal{X}$ is a set of interface variables.
+
+Hence, as mentioned [above](#cbn), we have
+<ul id='number-list'>
+	<li>
+		Only the variables $\mathcal{X}'$ are associated with CPDs (i.e. having parents).
+	</li>
+	<li>
+		The interface variables $\mathcal{X}_I$ are variables whose values at time $t$ have a direct effect on the variables at time $t+1$. Thus, only the variables in $\mathcal{X}_I$ can be parents of variables in $\mathcal{X}'$.
+	</li>
+	<li>
+		The 2-TBN represents the distribution
+		\begin{equation}
+		P(\mathcal{X}'\vert\mathcal{X})=P(\mathcal{X}'\vert\mathcal{X}_I)=\prod_{i=1}^{n}P(X_i'\vert\text{Pa}_{X_i'})
+		\end{equation}
+	</li>
+	<li>
+		For each template variable $X_i$, the CPD $P(X_i'\vert\text{Pa}_{X_i'})$ is a <b>template factor</b>, i.e. it will be instantiated multiple times within the model, for multiple variables $X_i^{(t)}$ (and their parents).
+	</li>
+</ul>
+
+In a 2-TBN, edges that go between time slices are called **inter-time-slice**, while the ones connecting variables in the same slices are known as **intra-time-slice**. Additionally, inter-time-slice edges having the form of $X\rightarrow X'$ are referred as **persistence**. The variable $X$ for which we have an edge $X\rightarrow X'$ is also called **persistent variable**.
+<figure id='fig9'>
+	<img src="/images/pgm-representation/2-tbn.png" alt="2-TBN" style="display: block; margin-left: auto; margin-right: auto; height: 80%; width: 80%"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 9</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) A $2-TBN$</figcaption>
+</figure>
+
+Based on the [stationary property](#stationary), a 2-TBN defines the probability distribution $P(\mathcal{X}^{(t+1)}\vert\mathcal{X}^{(t)})$ for any $t$. Given a distribution over the initial states, we can unroll the network over sequences of any length, to define a Bayesian network that induces a distribution over trajectories of that length.
+
+A **dynamic Bayesian network** (or **DBN**) is a tuple $(\mathcal{B}_0,\mathcal{B}\_\rightarrow)$, where
+<ul id='number-list'>
+	<li>
+		$\mathcal{B}_0$ is a Bayesian network over $\mathcal{X}^{(0)}$ representing the initial distribution over states;
+	</li>
+	<li>
+		$\mathcal{B}_\rightarrow$ is a 2-TBN for the process.
+	</li>
+</ul>
+
+For any time span $T\geq0$, the distribution over $\mathcal{X}^{(0:T)}$ is defined as an **unrolled Bayesian network**, where, for any $i=1,\ldots,n$:
+<ul id='number-list'>
+	<li>
+		The structure and CPDs of $X_i^{(0)}$ are the same as those for $X_i$ in $\mathcal{B}_0$.
+	</li>
+	<li>
+		The structure and CPDs of $X_i^{(t)}$ for $t>0$ are the same as those for $X_i'$ in $\mathcal{B}_\rightarrow$.
+	</li>
+</ul>
+
+Or in other words, $\mathcal{B}_0$ is the initial state, while $\mathcal{B}\_\rightarrow$ represents the transition model.
+
+**Remark**: Hence, we can view a DBN as a compact representation from which we can generate an infinite set of Bayesian networks (one for every $T>0$).
+<figure>
+	<img src="/images/pgm-representation/dbn.png" alt="DBN" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 10</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) (a) $\mathcal{B}_\rightarrow$; (b) $\mathcal{B}_0$; (c) 3-step unrolled DBN</figcaption>
+</figure>
+
+In DBNs, we can partition the variables $\mathcal{X}$ into disjoint subsets $\mathbf{X}$ and $\mathbf{O}$ such that variables in $\mathbf{X}$ are always hidden, while ones in $\mathbf{O}$ are always observed. This introduces us to an another way of representing temporal process, which is the **state-observation model**.
+
+#### State-Observation Models
+A **state-observation model** utilizes two independent assumptions:
+<ul id='roman-list'>
+	<li>
+		Markov assumption:
+		\begin{equation}
+		(\mathbf{X}^{(t+1)}\perp\mathbf{X}^{(0:t-1)}\vert\mathbf{X}^{(t)})
+		\end{equation}
+	</li>
+	<li>
+		Observations depend on current state only:
+		\begin{equation}
+		(\mathbf{O}^{(t)}\perp\mathbf{X}^{(0:t-1)},\mathbf{X}^{(t+1:\infty)}\vert\mathbf{X}^{(t)})
+		\end{equation}
+	</li>
+</ul>
+
+Therefore, we can view our probabilistic model containing two components: the **transition model**, $P(\mathbf{X}'\vert\mathbf{X})$, and the **observation model**, $P(\mathbf{O}\vert\mathbf{X})$. This corresponds to a 2-TBN structure where the observation variables $\mathbf{O}'$ are all leaves, and have parents only in $\mathbf{X}'$. For instance, as considering [Figure 9](#fig9), `Observation'` are acting as $\mathbf{O}'$.
+
+##### Hidden Markov Models{#hmm}
+A **Hidden Markov model** is the simplest example of a state-observation model.
+
+##### Linear Dynamical Systems
 
 ## References
 [1] <span id='pgm-book'>Daphne Koller, Nir Friedman. [Probabilistic Graphical Models](https://mitpress.mit.edu/9780262013192/probabilistic-graphical-models/). The MIT Press.</span>
 
 [2] Michael I. Jordan. [An Introduction to Probabilistic Graphical Models](http://people.eecs.berkeley.edu/~jordan/prelims/). In preparation.
 
-[3] Eric P.Xing. [10-708: Probabilistic Graphical Model](https://www.cs.cmu.edu/~epxing/Class/10708-20/). CMU Spring 2020.
+[3] Eric P. Xing. [10-708: Probabilistic Graphical Model](https://www.cs.cmu.edu/~epxing/Class/10708-20/). CMU Spring 2020.
 
 [4] Stefano Ermon. [CS228: Probabilistic Graphical Model](https://cs.stanford.edu/~ermon/cs228/index.html). Stanford Winter 2017-2018.
 
