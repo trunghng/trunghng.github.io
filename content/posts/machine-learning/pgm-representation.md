@@ -809,29 +809,6 @@ Let $Y$ be a r.v with $k$ parents $X_1,\ldots,X_k$. The CPD $P(Y\vert X_1,\ldots
 
 ## Template-based Representations
 
-### Template Variables & Template Factors
-As viewing the world as a set of objects, each of which can be divided into a set of mutually exclusive and exhaustive classes $\mathcal{Q}=Q_1,\ldots,Q_k$.
-
-An **attribute** $A$ is a function $A(U_1,\ldots,U_k)$ whose range is some set $\text{Val}(A)$ and where each argument $U_i$ is known as a **logical variable** associated with a particular class $Q[U_i]\doteq Q_i$. The tuple $(U_1,\ldots,U_k)$ is called the **argument signature** of the attribute $A$, denoted $\alpha(A)$
-\begin{equation}
-\alpha(A)\doteq(U_1,\ldots,U_k)
-\end{equation}
-**Example 9**: The argument signature of `Grade` attribute would have two logical variables $S,C$ where $S$ is of class `Student`, and where $C$ is of class `Course`.
-
-Let $\mathcal{Q}$ be a set of classes, and $\aleph$ be a set of attributes over $\mathcal{Q}$. An **object skeleton** $\kappa$ specifies a fixed, finite set of objects $\mathcal{O}^\kappa[Q]$ for every $Q\in\mathcal{Q}$. We also define
-\begin{equation}
-\mathcal{O}^\kappa[\alpha(A)]=\mathcal{O}^\kappa[U_1,\ldots,U_k]\doteq\mathcal{O}^\kappa[Q[U_1]]\times\ldots\times\mathcal{O}^\kappa[Q[U_k]]
-\end{equation}
-By default, we let $\Gamma_\kappa[A]=\mathcal{O}^\kappa[\alpha(A)]$ to be the set of possible assignments to the logical variables in the argument signature of $A$. However, an object skeleton might also specify a subset of legal assignments, i.e. $\Gamma_\kappa[A]\subset\mathcal{O}^\kappa[\alpha(A)]$.
-
-For an object skeleton $\kappa$ over $\mathcal{Q},\aleph$. We define sets of **ground random variables**
-\begin{align}
-\mathcal{X}\_\kappa[A]&\doteq\\{A(\gamma):\gamma\in\Gamma_\kappa[A]\\} \\\\ \mathcal{X}\_\kappa[\aleph]&\doteq\bigcup_{A\in\aleph}\mathcal{X}\_\kappa[A]
-\end{align}
-Here, we are abusing notation, identifying an argument $\gamma=(U_1\mapsto u_1,\ldots,U_k\mapsto u_k)$ with the tuple $(u_1,\ldots,u_k)$.
-
-A **template factor** $\xi$ is a function defined over a tuple of template attributes $A_1,\ldots,A_l$ where each $A_i$ has a range $\text{Val}(A_i)$. It defines a mapping $\text{Val}(A_1)\times\ldots\times\text{Val}(A_l)\mapsto\mathbb{R}$. Given r.v.s $X_1,\ldots,X_l$ such that $\text{Val}(X_i)=\text{Val}(A_i)$ for all $i=1,\ldots,j$, we define $\xi(X_1,\ldots,X_l)$ to be the instantiated factor from $\mathbf{X}$ to $\mathbb{R}$.
-
 ### Temporal Models
 In a **temporal model**, for each $X_i\in\mathcal{X}$, we let $X_i^{(t)}$ denote its instantiation at time $t$. The variables $X_i$ are referred as **template variables**.
 
@@ -910,7 +887,7 @@ Or in other words, $\mathcal{B}_0$ is the initial state, while $\mathcal{B}\_\ri
 **Remark**: Hence, we can view a DBN as a compact representation from which we can generate an infinite set of Bayesian networks (one for every $T>0$).
 <figure>
 	<img src="/images/pgm-representation/dbn.png" alt="DBN" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 10</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) (a) $\mathcal{B}_\rightarrow$; (b) $\mathcal{B}_0$; (c) 3-step unrolled DBN</figcaption>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 10</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>)<br>(a) $\mathcal{B}_\rightarrow$; (b) $\mathcal{B}_0$; (c) 3-step unrolled DBN</figcaption>
 </figure>
 
 In DBNs, we can partition the variables $\mathcal{X}$ into disjoint subsets $\mathbf{X}$ and $\mathbf{O}$ such that variables in $\mathbf{X}$ are always hidden, while ones in $\mathbf{O}$ are always observed. This introduces us to an another way of representing temporal process, which is the **state-observation model**.
@@ -947,7 +924,7 @@ Specifically, in the is representation, the transition model is encoded using a 
 	</li>
 </ul>
 
-**Example 10**: Consider an HMM with state variable $S$ that takes 4 possible values $s_1,s_2,s_3,s_4$ and with a transition model
+**Example 9**: Consider an HMM with state variable $S$ that takes 4 possible values $s_1,s_2,s_3,s_4$ and with a transition model
 |   |$s_1$|$s_2$|$s_3$|$s_4$|
 |---|---|---|---|---|
 |$s_1$|0.3|0.7|0|0|
@@ -980,13 +957,103 @@ where
 ###### Extended Kalman Filters
 A nonlinear variant of the linear dynamical system, known as **extended Kalman filter**, is a system where the state transition and observation model are nonlinear functions, i.e.
 \begin{align}
-P(\mathbf{X}^{(t)}\vert\mathbf{X}^{(t-1)})&=f(\mathbf{X}^{(t-1)},U^{(t-1)}) \\\\ P(O^{(t)}\vert\mathbf{X}^{(t)})&=g(\mathbf{X}^{(t)},\mathbf{W}^{(t)}),
+P(\mathbf{X}^{(t)}\vert\mathbf{X}^{(t-1)})&=f(\mathbf{X}^{(t-1)},\mathbf{U}^{(t-1)}) \\\\ P(O^{(t)}\vert\mathbf{X}^{(t)})&=g(\mathbf{X}^{(t)},\mathbf{W}^{(t)}),
 \end{align}
 where
 - $f,g$ are nonlinear functions;
 - $\mathbf{U}^{(t)},\mathbf{W}^{(t)}$ are Gaussian r.v.s.
 
-#### Plate Models
+### Template Variables & Template Factors
+As viewing the world as a set of objects, each of which can be divided into a set of mutually exclusive and exhaustive classes $\mathcal{Q}=Q_1,\ldots,Q_k$.
+
+An **attribute** $A$ is a function $A(U_1,\ldots,U_k)$ whose range is some set $\text{Val}(A)$ and where each argument $U_i$ is known as a **logical variable** associated with a particular class $Q[U_i]\doteq Q_i$. The tuple $(U_1,\ldots,U_k)$ is called the **argument signature** of the attribute $A$, denoted $\alpha(A)$
+\begin{equation}
+\alpha(A)\doteq(U_1,\ldots,U_k)
+\end{equation}
+**Example 10**: The argument signature of `Grade` attribute would have two logical variables $S,C$ where $S$ is of class `Student`, and where $C$ is of class `Course`.
+
+Let $\mathcal{Q}$ be a set of classes, and $\aleph$ be a set of attributes over $\mathcal{Q}$. An **object skeleton** $\kappa$ specifies a fixed, finite set of objects $\mathcal{O}^\kappa[Q]$ for every $Q\in\mathcal{Q}$. We also define
+\begin{equation}
+\mathcal{O}^\kappa[\alpha(A)]=\mathcal{O}^\kappa[U_1,\ldots,U_k]\doteq\mathcal{O}^\kappa[Q[U_1]]\times\ldots\times\mathcal{O}^\kappa[Q[U_k]]
+\end{equation}
+By default, we let $\Gamma_\kappa[A]=\mathcal{O}^\kappa[\alpha(A)]$ to be the set of possible assignments to the logical variables in the argument signature of $A$. However, an object skeleton might also specify a subset of legal assignments, i.e. $\Gamma_\kappa[A]\subset\mathcal{O}^\kappa[\alpha(A)]$.
+
+For an object skeleton $\kappa$ over $\mathcal{Q},\aleph$. We define sets of **ground random variables**
+\begin{align}
+\mathcal{X}\_\kappa[A]&\doteq\\{A(\gamma):\gamma\in\Gamma_\kappa[A]\\} \\\\ \mathcal{X}\_\kappa[\aleph]&\doteq\bigcup_{A\in\aleph}\mathcal{X}\_\kappa[A]
+\end{align}
+Here, we are abusing notation, identifying an argument $\gamma=(U_1\mapsto u_1,\ldots,U_k\mapsto u_k)$ with the tuple $(u_1,\ldots,u_k)$.
+
+A **template factor** $\xi$ is a function defined over a tuple of template attributes $A_1,\ldots,A_l$ where each $A_i$ has a range $\text{Val}(A_i)$. It defines a mapping $\text{Val}(A_1)\times\ldots\times\text{Val}(A_l)\mapsto\mathbb{R}$. Given r.v.s $X_1,\ldots,X_l$ such that $\text{Val}(X_i)=\text{Val}(A_i)$ for all $i=1,\ldots,j$, we define $\xi(X_1,\ldots,X_l)$ to be the instantiated factor from $\mathbf{X}$ to $\mathbb{R}$.
+
+#### Directed Probabilistic Models for Object-Relational
+
+##### Plate Models
+A **plate model** $\mathcal{M}_\text{plate}$ defines for each template attribute $A\in\aleph$ with argument signature $U_1,\ldots,U_k$:
+<ul id='number-list'>
+	<li>
+		a set of <b>template parents</b>
+		\begin{equation}
+		\text{Pa}_A=\{B_1(\mathbf{U}_1),\ldots,B_l(\mathbf{U}_l)\},
+		\end{equation}
+		such that for each $B_i(\mathbf{U}_i)$, we have that $\mathbf{U}_i\subset\{U_1,\ldots,U_k\}$. The variables $\mathbf{U}_i$ are the <b>argument signature</b> of the parent $B_i$.
+	</li>
+	<li>
+		a template CPD $P(A\vert\text{Pa}_A)$.
+	</li>
+</ul>
+<figure id='fig11'>
+	<img src="/images/pgm-representation/plate-models.png" alt="Plate models" style="display: block; margin-left: auto; margin-right: auto; height: 80%; width: 80%"/>
+	<figcaption style="text-align: center;font-style: italic;"><b>Figure 11</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>)<br><b>Plate models and induced ground Bayesian networks</b><br>(a) Single plate: for any student $s$, $P(I(s))$ and $P(G(s)\vert I(s))$ are the same;<br>(b) Nested plates: for any (student, course) pair $(s,c)$, $\textit{Grade}(s,c)$ depends on $\textit{Difficulty}(c)$ and on $\textit{Intelligence}(s,c)$;<br>(c) Intersecting plates: for any (student, course) pair $(s,c)$, $\text{Grade}(s,c)$ depends on $\textit{Difficulty}(c)$ and on $\textit{Intelligence}(s)$.</figcaption>
+</figure>
+
+###### Ground Bayesian Networks for Plate Models
+A plate model $\mathcal{M}\_\text{plate}$ and object skeleton $\kappa$ define a **ground Bayesian network** $\mathcal{B}\_\kappa^{\mathcal{M}\_\text{plate}}$ as follows. Let $A(U_1,\ldots,U_k)$ be any template attribute in $\aleph$. Then, for any $\gamma=(U_1\mapsto u_1,\ldots,U_k\mapsto u_k)\in\Gamma_\kappa[A]$, we have a variable $A(\gamma)$ in the ground network, with parents $B(\gamma)$ for all $B\in\text{Pa}_A$, and the instantiated CPD $P(A(\gamma)\vert\text{Pa}_A(\gamma))$.
+
+For instance, consider the [Figure 11(c)](#fig11), without loss of generality, we have that:
+<ul id='number-list'>
+	<li>
+		The plate model $\mathcal{M}_\text{plate}$ is defined over a set $\aleph=\{\textit{Grade},\textit{Difficulty},\textit{Intelligence}\}$ of template attributes, for each of which:
+		<ul id='roman-list'>
+			<li>
+				$\alpha(\textit{Grade})=(S,C)$ and $\text{Pa}_\textit{Grade}=\{\textit{Difficulty}(C),\textit{Intelligence}(S)\}$;
+			</li>
+			<li>
+				$\alpha(\textit{Difficulty})=(C)$ and $\text{Pa}_\textit{Difficulty}=\emptyset$;
+			</li>
+			<li>
+				$\alpha(\textit{Intelligence})=(S)$ and $\text{Pa}_\textit{Intelligence}=\emptyset$,
+			</li>
+		</ul>
+		where $S$ is logical variable of class $\textit{Student}$, and $C$ is a logical variable of class $\textit{Course}$.
+	</li>
+	<li>
+		Let $(S\mapsto s_1,C\mapsto c_1)$, $(C\mapsto c_2)$ and $(S\mapsto s_3)$ be some assignment to some logical variables $S,C$ where $S$ is of class $\textit{Student}$, $C$ is of class $\textit{Course}$. We then have instantiated CPDs:
+		\begin{align}
+		P(G(s_1,c_1)\vert\text{Pa}_G(s_1,c_1))&=P(G(s_1,c_1)\vert D(s_1,c_1),I(s_1,c_1)) \\ &=P(G(s_1,c_1)\vert D(c_1),I(s_1)); \\ P(D(c_2)\vert\text{Pa}_D(c_2))&=P(D(c_2)); \\ P(I(s_3)\vert\text{Pa}_I(s_3))&=P(I(s_3))
+		\end{align}
+	</li>
+</ul>
+
+##### Probabilistic Relational Models
+For a template attribute $A$, we define a **contingent dependency model** as a tuple containing:
+<ul id='number-list'>
+	<li>
+		A <b>parent argument signature</b> $\alpha(\text{Pa}_A)$, which is a tuple of typed logical variables $U_i$ such that $\alpha(\text{Pa}_A)\supset\alpha(A)$.
+	</li>
+	<li>
+		A <b>guard</b> $\Gamma$, which is a binary-valued formula defined in terms of a set of template attributes $\text{Pa}_A^\Gamma$ over the argument signature $\alpha(\text{Pa}_A)$.
+	</li>
+	<li>
+		A set of template parents
+		\begin{equation}
+		\text{Pa}_A=\{B_1(\mathbf{U}_1),\ldots,B_l(\mathbf{U}_l)\},
+		\end{equation}
+		such that for each $B_i(\mathbf{U}_i)$, we have that $\mathbf{U}_i\subset\alpha(\text{Pa}_A)$.
+	</li>
+</ul>
+
+###### Ground Bayesian Networks for PRMs
 
 ## References
 [1] <span id='pgm-book'>Daphne Koller, Nir Friedman. [Probabilistic Graphical Models](https://mitpress.mit.edu/9780262013192/probabilistic-graphical-models/). The MIT Press.</span>
