@@ -820,8 +820,17 @@ An **attribute** $A$ is a function $A(U_1,\ldots,U_k)$ whose range is some set $
 
 Let $\mathcal{Q}$ be a set of classes, and $\aleph$ be a set of attributes over $\mathcal{Q}$. An **object skeleton** $\kappa$ specifies a fixed, finite set of objects $\mathcal{O}^\kappa[Q]$ for every $Q\in\mathcal{Q}$. We also define
 \begin{equation}
-\mathcal{O}^\kappa[U_1,\ldots,U_k]=\mathcal{O}^\kappa[Q[U_1]]\times\ldots\times\mathcal{O}^\kappa[Q[U_k]]
+\mathcal{O}^\kappa[\alpha(A)]=\mathcal{O}^\kappa[U_1,\ldots,U_k]\doteq\mathcal{O}^\kappa[Q[U_1]]\times\ldots\times\mathcal{O}^\kappa[Q[U_k]]
 \end{equation}
+By default, we let $\Gamma_\kappa[A]=\mathcal{O}^\kappa[\alpha(A)]$ to be the set of possible assignments to the logical variables in the argument signature of $A$. However, an object skeleton might also specify a subset of legal assignments, i.e. $\Gamma_\kappa[A]\subset\mathcal{O}^\kappa[\alpha(A)]$.
+
+For an object skeleton $\kappa$ over $\mathcal{Q},\aleph$. We define sets of **ground random variables**
+\begin{align}
+\mathcal{X}\_\kappa[A]&\doteq\\{A(\gamma):\gamma\in\Gamma_\kappa[A]\\} \\\\ \mathcal{X}\_\kappa[\aleph]&\doteq\bigcup_{A\in\aleph}\mathcal{X}\_\kappa[A]
+\end{align}
+Here, we are abusing notation, identifying an argument $\gamma=(U_1\mapsto u_1,\ldots,U_k\mapsto u_k)$ with the tuple $(u_1,\ldots,u_k)$.
+
+A **template factor** $\xi$ is a function defined over a tuple of template attributes $A_1,\ldots,A_l$ where each $A_i$ has a range $\text{Val}(A_i)$. It defines a mapping $\text{Val}(A_1)\times\ldots\times\text{Val}(A_l)\mapsto\mathbb{R}$. Given r.v.s $X_1,\ldots,X_l$ such that $\text{Val}(X_i)=\text{Val}(A_i)$ for all $i=1,\ldots,j$, we define $\xi(X_1,\ldots,X_l)$ to be the instantiated factor from $\mathbf{X}$ to $\mathbb{R}$.
 
 ### Temporal Models
 In a **temporal model**, for each $X_i\in\mathcal{X}$, we let $X_i^{(t)}$ denote its instantiation at time $t$. The variables $X_i$ are referred as **template variables**.
@@ -926,9 +935,58 @@ A **state-observation model** utilizes two independent assumptions:
 Therefore, we can view our probabilistic model containing two components: the **transition model**, $P(\mathbf{X}'\vert\mathbf{X})$, and the **observation model**, $P(\mathbf{O}\vert\mathbf{X})$. This corresponds to a 2-TBN structure where the observation variables $\mathbf{O}'$ are all leaves, and have parents only in $\mathbf{X}'$. For instance, as considering [Figure 9](#fig9), `Observation'` are acting as $\mathbf{O}'$.
 
 ##### Hidden Markov Models{#hmm}
-A **Hidden Markov model** is the simplest example of a state-observation model.
+A **Hidden Markov model**, or **HMM**, is the simplest example of a state-observation model, and also a special case of a simple DBN, which has a sparse transition model $P(S'\vert S)$. Thus, HMMs are often represented using a different graphical notation which visualizes this sparse transition model.
+
+Specifically, in the is representation, the transition model is encoded using a directed graph, where
+<ul id='number-list'>
+	<li>
+		Nodes represent the different states of the system, i.e. the values in $\text{Val}(S)$.
+	</li>
+	<li>
+		Each directed edge $s\rightarrow s'$ represents a possible transitioning from $s$ to $s'$, i.e. $P(s'\vert s)>0$.
+	</li>
+</ul>
+
+**Example 10**: Consider an HMM with state variable $S$ that takes 4 possible values $s_1,s_2,s_3,s_4$ and with a transition model
+|   |$s_1$|$s_2$|$s_3$|$s_4$|
+|---|---|---|---|---|
+|$s_1$|0.3|0.7|0|0|
+|$s_2$|0|0|0.4|0.6|
+|$s_3$|0.5|0|0|0.5|
+|$s_4$|0|0.9|0|0.1|
+
+where the rows correspond to states $s$, while the columns to next states $s'$. On other words, the $i$-th row represents the CPD $P(s'\vert s=s_i)$, and thus must sum to $1$. Its transition graph is shown below
+<figure>
+	<img src="/images/pgm-representation/hmm.png" alt="HMM" style="display: block; margin-left: auto; margin-right: auto; height: 50%; width: 50%"/>
+	<figcaption></figcaption>
+</figure>
 
 ##### Linear Dynamical Systems
+A **linear dynamical system**, or **Kalman filter** represents a system of one or more real-valued variable that evolve linearly over time, with some Gaussian noise.
+
+Such systems can be viewed as DBNs where the variables are all continuous and all of the dependencies are linear Gaussian.
+
+They are traditionally represented as a state-observation model, where the state and the observation are both vector-valued r.v.s; and where the transition model and observation model are both encoded using matrices. In more specific, the model is generally defined via the set of equations
+\begin{align}
+P(\mathbf{X}^{(t)}\vert\mathbf{X}^{(t-1)})&=\mathcal{N}(A\mathbf{X}^{(t-1)};Q), \\\\ P(O^{(t)}\vert\mathbf{X}^{(t)})&=\mathcal{N}(H\mathbf{X}^{(t)};R),
+\end{align}
+where
+- $\mathbf{X}\in\mathbb{R}^n$ is the vector of state variables;
+- $O\in\mathbb{R}^m$ is the vector of observation variables;
+- $A\in\mathbb{R}^{n\times n}$ (precisely $A\in[0,1]^{n\times n}$) is the **transition matrix**, defines the linear transition model;
+- $H\in\mathbb{R}^{n\times m}$ (also $H\in[0,1]^{n\times m}$ to be exact) defines the linear observation model;
+- $R\in\mathbb{R}^{m\times m}$ defines the Gaussian noise associated with the observations.
+
+###### Extended Kalman Filters
+A nonlinear variant of the linear dynamical system, known as **extended Kalman filter**, is a system where the state transition and observation model are nonlinear functions, i.e.
+\begin{align}
+P(\mathbf{X}^{(t)}\vert\mathbf{X}^{(t-1)})&=f(\mathbf{X}^{(t-1)},U^{(t-1)}) \\\\ P(O^{(t)}\vert\mathbf{X}^{(t)})&=g(\mathbf{X}^{(t)},\mathbf{W}^{(t)}),
+\end{align}
+where
+- $f,g$ are nonlinear functions;
+- $\mathbf{U}^{(t)},\mathbf{W}^{(t)}$ are Gaussian r.v.s.
+
+#### Plate Models
 
 ## References
 [1] <span id='pgm-book'>Daphne Koller, Nir Friedman. [Probabilistic Graphical Models](https://mitpress.mit.edu/9780262013192/probabilistic-graphical-models/). The MIT Press.</span>
