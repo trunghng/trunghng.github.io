@@ -2,22 +2,28 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://trunghng.github.io/tags/machine-learning/</loc>
+    <lastmod>2023-02-02T15:51:13+07:00</lastmod>
+  </url><url>
+    <loc>https://trunghng.github.io/posts/</loc>
+    <lastmod>2023-02-02T15:51:13+07:00</lastmod>
+  </url><url>
+    <loc>https://trunghng.github.io/posts/machine-learning/pgm-inference/</loc>
+    <lastmod>2023-02-02T15:51:13+07:00</lastmod>
+  </url><url>
+    <loc>https://trunghng.github.io/tags/probabilistic-graphical-model/</loc>
+    <lastmod>2023-02-02T15:51:13+07:00</lastmod>
+  </url><url>
+    <loc>https://trunghng.github.io/tags/</loc>
+    <lastmod>2023-02-02T15:51:13+07:00</lastmod>
+  </url><url>
+    <loc>https://trunghng.github.io/</loc>
+    <lastmod>2023-02-02T15:51:13+07:00</lastmod>
+  </url><url>
     <loc>https://trunghng.github.io/posts/machine-learning/cat-reparam-gumbel-softmax-concrete-dist/</loc>
     <lastmod>2023-01-02T13:49:15+07:00</lastmod>
   </url><url>
     <loc>https://trunghng.github.io/tags/gumbel-distribution/</loc>
-    <lastmod>2023-01-02T13:49:15+07:00</lastmod>
-  </url><url>
-    <loc>https://trunghng.github.io/tags/machine-learning/</loc>
-    <lastmod>2023-01-02T13:49:15+07:00</lastmod>
-  </url><url>
-    <loc>https://trunghng.github.io/posts/</loc>
-    <lastmod>2023-01-02T13:49:15+07:00</lastmod>
-  </url><url>
-    <loc>https://trunghng.github.io/tags/</loc>
-    <lastmod>2023-01-02T13:49:15+07:00</lastmod>
-  </url><url>
-    <loc>https://trunghng.github.io/</loc>
     <lastmod>2023-01-02T13:49:15+07:00</lastmod>
   </url><url>
     <loc>https://trunghng.github.io/tags/actor-critic/</loc>

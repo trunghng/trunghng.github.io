@@ -9,22 +9,31 @@
       <link>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 02 Jan 2023 13:49:15 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 02 Feb 2023 15:51:13 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>machine-learning</title>
+      <link>https://trunghng.github.io/tags/machine-learning/</link>
+      <pubDate>Thu, 02 Feb 2023 15:51:13 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/tags/machine-learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>probabilistic-graphical-model</title>
+      <link>https://trunghng.github.io/tags/probabilistic-graphical-model/</link>
+      <pubDate>Thu, 02 Feb 2023 15:51:13 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/tags/probabilistic-graphical-model/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>gumbel-distribution</title>
       <link>https://trunghng.github.io/tags/gumbel-distribution/</link>
       <pubDate>Mon, 02 Jan 2023 13:49:15 +0700</pubDate>
       
       <guid>https://trunghng.github.io/tags/gumbel-distribution/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>machine-learning</title>
-      <link>https://trunghng.github.io/tags/machine-learning/</link>
-      <pubDate>Mon, 02 Jan 2023 13:49:15 +0700</pubDate>
-      
-      <guid>https://trunghng.github.io/tags/machine-learning/</guid>
       <description></description>
     </item>
     
