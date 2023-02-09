@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>probabilistic-graphical-model on Trung&#39;s Place</title>
+    <link>https://trunghng.github.io/tags/probabilistic-graphical-model/</link>
+    <description>Recent content in probabilistic-graphical-model on Trung&#39;s Place</description>
+    <image>
+      <url>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 02 Feb 2023 15:51:13 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/probabilistic-graphical-model/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Probabilistic Graphical Models - Inference</title>
+      <link>https://trunghng.github.io/posts/machine-learning/pgm-inference/</link>
+      <pubDate>Thu, 02 Feb 2023 15:51:13 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/machine-learning/pgm-inference/</guid>
+      <description>Exact Inference Problem setting: We need to effectively compute the conditional probability query, which is the conditonal probability of variables $\mathbf{Y}$ given evidence $\mathbf{E}=\mathbf{e}$ \begin{equation} P(\mathbf{Y}\vert\mathbf{E}=\mathbf{e}) \end{equation}
+Variable Elimination Intuition Consider a simple chain $A\rightarrow B\rightarrow C\rightarrow D$ with our iterest of computing $P(D)$, which can be computed by \begin{equation} P(D)=\sum_C\sum_B\sum_A P(A,B,C,D)\label{eq:int.1} \end{equation} This computation is ineffective, since it grows exponentially with the number of variables $n$. Speciffically, if each of variables $A,B,C,D$ ($n=4$) takes $k$ possible values, the time complexity required is $\mathcal{O}(k^{n-1})$.</description>
+    </item>
+    
+    <item>
+      <title>Probabilistic Graphical Models - Representation</title>
+      <link>https://trunghng.github.io/posts/machine-learning/pgm-representation/</link>
+      <pubDate>Sat, 10 Dec 2022 17:55:57 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/machine-learning/pgm-representation/</guid>
+      <description>&lt;p&gt;Notes on Representation in PGMs.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,7 +1,7 @@
 ---
 title: "Probabilistic Graphical Models - Representation"
 date: 2022-12-10T17:55:57+07:00
-tags: [machine-learning]
+tags: [machine-learning, probabilistic-graphical-model]
 math: true
 eqn-number: true
 ---
@@ -9,7 +9,7 @@ Notes on Representation in PGMs.
 <!--more-->
 
 ## Graphs
-A **graph**, denoted $\mathcal{K}$ is a tuple  of $\mathcal{X}$ and $\mathcal{E})$ where $\mathcal{X}=\\{X_1,\ldots,X_n\\}$ is the sets of **nodes** (or **vertices**) and $\mathcal{E}$ is the set of **edges**.
+A **graph**, denoted $\mathcal{K}$ is a tuple  of $\mathcal{X}$ and $\mathcal{E}$ where $\mathcal{X}=\\{X_1,\ldots,X_n\\}$ is the sets of **nodes** (or **vertices**) and $\mathcal{E}$ is the set of **edges**.
 \begin{equation}
 \mathcal{K}=(\mathcal{X},\mathcal{E})
 \end{equation}
@@ -20,7 +20,7 @@ Any pair of nodes $X_i,X_j$, for $i\neq j$ is connected by either a **directed e
 If the graph contains directed edges only, we call it a **directed graph**, denoted $\mathcal{G}$, else if the graph established by undirected edge only, it is referred as **undirected graph**, denoted $\mathcal{H}$.
 <figure>
 	<img src="/images/pgm-representation/graph-eg.png" alt="Graph example" style="display: block; margin-left: auto; margin-right: auto; width: 50%; height: 50%"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: (taken from the <a href='#pgm-book'>PGM book</a>) Example of a partially directed graph $\mathcal{K}$</figcaption>
+	<figcaption><b>Figure 1</b>: (taken from the <a href='#pgm-book'>PGM book</a>) Example of a partially directed graph $\mathcal{K}$</figcaption>
 </figure>
 
 Following are some necessary notations:
@@ -244,7 +244,7 @@ Let $\mathcal{G}$ be a BN structure, $X_1\rightleftharpoons\ldots\rightleftharpo
 
 <figure>
 	<img src="/images/pgm-representation/two-edge-trails.png" alt="Two-edge trails" style="display: block; margin-left: auto; margin-right: auto; width: 70%; height: 70%"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: (taken from the <a href='#pgm-book'>PGM book</a>) The four possible two-edge trails from $X$ to $Y$ via $Z$: (a) Causal trail; (b) Evidential trail; (c) Common cause trail; (d) Common effect trail</figcaption>
+	<figcaption><b>Figure 2</b>: (taken from the <a href='#pgm-book'>PGM book</a>) <b>The four possible two-edge trails from $X$ to $Y$ via $Z$</b>: (a) Causal trail; (b) Evidential trail; (c) Common cause trail; (d) Common effect trail</figcaption>
 </figure>
 
 <span id='two-edge-trail'>Consider the trails forming from two edges as illustrated above</span>:
@@ -301,7 +301,7 @@ The **skeleton** of a BN graph $\mathcal{G}$ over $\mathcal{X}$ is an undirected
 **Theorem 6** (skeleton + v-structures $\Rightarrow$ I-equivalence) *Let $\mathcal{G}_1$ and $\mathcal{G_2}$ be two graphs over $\mathcal{X}$. If $\mathcal{G}_1,\mathcal{G}_2$ both have the same skeleton and the same set of v-structures then they are I-equivalent*.[^2]
 <figure>
 	<img src="/images/pgm-representation/I-equivalence.png" alt="I-equivalent graphs" style="display: block; margin-left: auto; margin-right: auto; width: 80%; height: 80%"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: (taken from the <a href='#pgm-book'>PGM book</a>) Two graphs have the same skeleton and set of v-structures, i.e. $\{X\rightarrow Y\leftarrow Z\}$, and thus are I-equivalent</figcaption>
+	<figcaption><b>Figure 3</b>: (taken from the <a href='#pgm-book'>PGM book</a>) <b>Two graphs have the same skeleton and set of v-structures</b>, i.e. $\{X\rightarrow Y\leftarrow Z\}$, and thus are I-equivalent</figcaption>
 </figure>
 
 ##### Immorality
@@ -549,7 +549,7 @@ $. Then $\mathcal{H}$ is  the unique minimal I-map for $P$.*
 A **factor graph** $\mathcal{F}$ is an undirected graph whose nodes are divided into two groups: variable nodes (denoted as ovals) and factor nodes (denoted as squares) and whose edges only connect each factor (potential function) $\psi_c$ to its dependent nodes $X\in X_c$.
 <figure>
 	<img src="/images/pgm-representation/factor-graphs.png" alt="Same Markov network different factor graphs" style="display: block; margin-left: auto; margin-right: auto"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) Different factor graphs for the same Markov network (a) A Markov network consists of nodes $X_1,X_2,X_3$; (b) A factor graph with a factor $\psi_{1,2,3}$ connected to each $X_1,X_2,X_3$; (c) A factor graph with three pairwise factors $\psi_{1,2}$ (connected to $X_1,X_2$), $\psi_{1,3}$ (connected to $X_1,X_3$) and $\psi_{2,3}$ (connected to $X_2,X_3$)</figcaption>
+	<figcaption><b>Figure 4</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) <b>Different factor graphs for the same Markov network</b>: (a) A Markov network consists of nodes $X_1,X_2,X_3$; (b) A factor graph with a factor $\psi_{1,2,3}$ connected to each $X_1,X_2,X_3$; (c) A factor graph with three pairwise factors $\psi_{1,2}$ (connected to $X_1,X_2$), $\psi_{1,3}$ (connected to $X_1,X_3$) and $\psi_{2,3}$ (connected to $X_2,X_3$)</figcaption>
 </figure>
 
 ### Log-Linear Models
@@ -609,7 +609,7 @@ P(x\vert\text{pa}\_X)=\begin{cases}1&\hspace{1cm}x=f(\text{pa}\_X) \\\\ 0&\hspac
 Deterministic variables are denoted as double-line ovals, as illustrated in the following example
 <figure id='fig5'>
 	<img src="/images/pgm-representation/det-cpd.png" alt="Network with a deterministic CPD" style="display: block; margin-left: auto; margin-right: auto; width: 30%; height: 30%"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 5</b>: (taken from the <a href='#pgm-book'>PGM book</a>) A network with $C$ being a deterministic function of $A$ and $B$</figcaption>
+	<figcaption><b>Figure 5</b>: (taken from the <a href='#pgm-book'>PGM book</a>) <b>A network with $C$ being a deterministic function of $A$ and $B$.</b></figcaption>
 </figure>
 
 Consider the above figure, as $C$ being a deterministic function of $A$ and $B$, we can deduce that $C$ is fully observed if $A$ and $B$ are both observed. In other words, we have that
@@ -626,7 +626,7 @@ It is worth remarking that particular deterministic CPD might imply additional i
 **Example 1**: Consider the following Bayesian network
 <figure id='fig6'>
 	<img src="/images/pgm-representation/complex-det-cpd.png" alt="Network with a deterministic CPD" style="display: block; margin-left: auto; margin-right: auto; width: 40%; height: 40%"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 6</b>: (taken from the <a href='#pgm-book'>PGM book</a>) Another Bayesian network with $C$ being a deterministic function of $A$ and $B$</figcaption>
+	<figcaption><b>Figure 6</b>: (taken from the <a href='#pgm-book'>PGM book</a>) <b>Another Bayesian network with $C$ being a deterministic function of $A$ and $B$</b>.</figcaption>
 </figure>
 
 In the above figure, if $C=A\text{ XOR }B$, we have that $A$ is fully determined given $C$ and $B$. In other words, we have that
@@ -674,7 +674,7 @@ A **tree-CPD** representing a CPD for variable $X$ is a rooted tree, where:
 </ul>
 <figure id='fig7'>
 	<img src="/images/pgm-representation/tree-cpd.png" alt="Tree-CPD" style="display: block; margin-left: auto; margin-right: auto; width: 30%; height: 30%"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 7</b>: (taken from the <a href='#pgm-book'>PGM book</a>) A tree-CPD for $P(J\vert A,S,L)$</figcaption>
+	<figcaption><b>Figure 7</b>: (taken from the <a href='#pgm-book'>PGM book</a>) <b>A tree-CPD for $P(J\vert A,S,L)$</b>.</figcaption>
 </figure>
 
 The structure is common in cases where a variable can depend on a set of r.v.s but we have uncertainty about which r.v.s it depends on. For example, in the above tree-CDP representing $P(J\vert A,S,L)$, we have that
@@ -690,7 +690,7 @@ P(Y\vert a,Z_1,\ldots,Z_k)=\mathbf{1}\\{Y=Z_a\\},
 where $a$ is the value of $A$. The variable $A$ is referred as the **selector variable** for the CPD.
 <figure id='fig8'>
 	<img src="/images/pgm-representation/multiplexer-cpd.png" alt="Multiplexer-CPD" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 8</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) (a) A Bayesian network for $P(J,C,L_1,L_2)$; (b) Tree-CPD for $P(J\vert C,L_1,L_2)$; (c) Modified network with additional variable $L$ acting as a multiplexer CPD</figcaption>
+	<figcaption><b>Figure 8</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) (a) A Bayesian network for $P(J,C,L_1,L_2)$; (b) Tree-CPD for $P(J\vert C,L_1,L_2)$; (c) Modified network with additional variable $L$ acting as a multiplexer CPD.</figcaption>
 </figure>
 
 #### Rule CPDs
@@ -857,7 +857,7 @@ Hence, as mentioned [above](#cbn), we have
 In a 2-TBN, edges that go between time slices are called **inter-time-slice**, while the ones connecting variables in the same slices are known as **intra-time-slice**. Additionally, inter-time-slice edges having the form of $X\rightarrow X'$ are referred as **persistence**. The variable $X$ for which we have an edge $X\rightarrow X'$ is also called **persistent variable**.
 <figure id='fig9'>
 	<img src="/images/pgm-representation/2-tbn.png" alt="2-TBN" style="display: block; margin-left: auto; margin-right: auto; height: 80%; width: 80%"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 9</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) A $2-TBN$</figcaption>
+	<figcaption><b>Figure 9</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) <b>A 2-TBN</b>.</figcaption>
 </figure>
 
 Based on the [stationary property](#stationary), a 2-TBN defines the probability distribution $P(\mathcal{X}^{(t+1)}\vert\mathcal{X}^{(t)})$ for any $t$. Given a distribution over the initial states, we can unroll the network over sequences of any length, to define a Bayesian network that induces a distribution over trajectories of that length.
@@ -887,7 +887,7 @@ Or in other words, $\mathcal{B}_0$ is the initial state, while $\mathcal{B}\_\ri
 **Remark**: Hence, we can view a DBN as a compact representation from which we can generate an infinite set of Bayesian networks (one for every $T>0$).
 <figure>
 	<img src="/images/pgm-representation/dbn.png" alt="DBN" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 10</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>)<br>(a) $\mathcal{B}_\rightarrow$; (b) $\mathcal{B}_0$; (c) 3-step unrolled DBN</figcaption>
+	<figcaption><b>Figure 10</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) (a) $\mathcal{B}_\rightarrow$; (b) $\mathcal{B}_0$; (c) 3-step unrolled DBN.</figcaption>
 </figure>
 
 In DBNs, we can partition the variables $\mathcal{X}$ into disjoint subsets $\mathbf{X}$ and $\mathbf{O}$ such that variables in $\mathbf{X}$ are always hidden, while ones in $\mathbf{O}$ are always observed. This introduces us to an another way of representing temporal process, which is the **state-observation model**.
@@ -909,7 +909,7 @@ A **state-observation model** utilizes two independent assumptions:
 	</li>
 </ul>
 
-Therefore, we can view our probabilistic model containing two components: the **transition model**, $P(\mathbf{X}'\vert\mathbf{X})$, and the **observation model**, $P(\mathbf{O}\vert\mathbf{X})$. This corresponds to a 2-TBN structure where the observation variables $\mathbf{O}'$ are all leaves, and have parents only in $\mathbf{X}'$. For instance, as considering [Figure 9](#fig9), `Observation'` are acting as $\mathbf{O}'$.
+Therefore, we can view our probabilistic model containing two components: the **transition model**, $P(\mathbf{X}'\vert\mathbf{X})$, and the **observation model**, $P(\mathbf{O}\vert\mathbf{X})$. This corresponds to a 2-TBN structure where the observation variables $\mathbf{O}'$ are all leaves, and have parents only in $\mathbf{X}'$. For instance, as considering [Figure 9](#fig9), $\textit{Observation}'$ are acting as $\mathbf{O}'$.
 
 ##### Hidden Markov Models{#hmm}
 A **Hidden Markov model**, or **HMM**, is the simplest example of a state-observation model, and also a special case of a simple DBN, which has a sparse transition model $P(S'\vert S)$. Thus, HMMs are often represented using a different graphical notation which visualizes this sparse transition model.
@@ -925,8 +925,8 @@ Specifically, in the is representation, the transition model is encoded using a 
 </ul>
 
 **Example 9**: Consider an HMM with state variable $S$ that takes 4 possible values $s_1,s_2,s_3,s_4$ and with a transition model
-|   |$s_1$|$s_2$|$s_3$|$s_4$|
-|---|---|---|---|---|
+| |$s_1$|$s_2$|$s_3$|$s_4$|
+|-|-|-|-|-|
 |$s_1$|0.3|0.7|0|0|
 |$s_2$|0|0|0.4|0.6|
 |$s_3$|0.5|0|0|0.5|
@@ -970,7 +970,7 @@ An **attribute** $A$ is a function $A(U_1,\ldots,U_k)$ whose range is some set $
 \begin{equation}
 \alpha(A)\doteq(U_1,\ldots,U_k)
 \end{equation}
-**Example 10**: The argument signature of `Grade` attribute would have two logical variables $S,C$ where $S$ is of class `Student`, and where $C$ is of class `Course`.
+**Example 10**: The argument signature of $\textit{Grade}$ attribute would have two logical variables $S,C$ where $S$ is of class $\textit{Student}$, and where $C$ is of class $\textit{Course}$.
 
 Let $\mathcal{Q}$ be a set of classes, and $\aleph$ be a set of attributes over $\mathcal{Q}$. An **object skeleton** $\kappa$ specifies a fixed, finite set of objects $\mathcal{O}^\kappa[Q]$ for every $Q\in\mathcal{Q}$. We also define
 \begin{equation}
@@ -978,7 +978,7 @@ Let $\mathcal{Q}$ be a set of classes, and $\aleph$ be a set of attributes over 
 \end{equation}
 By default, we let $\Gamma_\kappa[A]=\mathcal{O}^\kappa[\alpha(A)]$ to be the set of possible assignments to the logical variables in the argument signature of $A$. However, an object skeleton might also specify a subset of legal assignments, i.e. $\Gamma_\kappa[A]\subset\mathcal{O}^\kappa[\alpha(A)]$.
 
-For an object skeleton $\kappa$ over $\mathcal{Q},\aleph$. We define sets of **ground random variables**
+For an object skeleton $\kappa$ over $\mathcal{Q},\aleph$. We define sets of <span id='ground-rv'>**ground random variables**</span>
 \begin{align}
 \mathcal{X}\_\kappa[A]&\doteq\\{A(\gamma):\gamma\in\Gamma_\kappa[A]\\} \\\\ \mathcal{X}\_\kappa[\aleph]&\doteq\bigcup_{A\in\aleph}\mathcal{X}\_\kappa[A]
 \end{align}
@@ -986,10 +986,10 @@ Here, we are abusing notation, identifying an argument $\gamma=(U_1\mapsto u_1,\
 
 A **template factor** $\xi$ is a function defined over a tuple of template attributes $A_1,\ldots,A_l$ where each $A_i$ has a range $\text{Val}(A_i)$. It defines a mapping $\text{Val}(A_1)\times\ldots\times\text{Val}(A_l)\mapsto\mathbb{R}$. Given r.v.s $X_1,\ldots,X_l$ such that $\text{Val}(X_i)=\text{Val}(A_i)$ for all $i=1,\ldots,j$, we define $\xi(X_1,\ldots,X_l)$ to be the instantiated factor from $\mathbf{X}$ to $\mathbb{R}$.
 
-#### Directed Probabilistic Models for Object-Relational
+### Directed Probabilistic Models for Object-Relational
 
-##### Plate Models
-A **plate model** $\mathcal{M}_\text{plate}$ defines for each template attribute $A\in\aleph$ with argument signature $U_1,\ldots,U_k$:
+#### Plate Models
+A **plate model** $\mathcal{M}_\text{Plate}$ defines for each template attribute $A\in\aleph$ with argument signature $U_1,\ldots,U_k$:
 <ul id='number-list'>
 	<li>
 		a set of <b>template parents</b>
@@ -1004,16 +1004,16 @@ A **plate model** $\mathcal{M}_\text{plate}$ defines for each template attribute
 </ul>
 <figure id='fig11'>
 	<img src="/images/pgm-representation/plate-models.png" alt="Plate models" style="display: block; margin-left: auto; margin-right: auto; height: 80%; width: 80%"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 11</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>)<br><b>Plate models and induced ground Bayesian networks</b><br>(a) Single plate: for any student $s$, $P(I(s))$ and $P(G(s)\vert I(s))$ are the same;<br>(b) Nested plates: for any (student, course) pair $(s,c)$, $\textit{Grade}(s,c)$ depends on $\textit{Difficulty}(c)$ and on $\textit{Intelligence}(s,c)$;<br>(c) Intersecting plates: for any (student, course) pair $(s,c)$, $\text{Grade}(s,c)$ depends on $\textit{Difficulty}(c)$ and on $\textit{Intelligence}(s)$.</figcaption>
+	<figcaption><b>Figure 11</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) <b>Plate models and induced ground Bayesian networks</b>: (a) Single plate: for any student $s$, $P(I(s))$ and $P(G(s)\vert I(s))$ are the same; (b) Nested plates: for any (student, course) pair $(s,c)$, $\textit{Grade}(s,c)$ depends on $\textit{Difficulty}(c)$ and on $\textit{Intelligence}(s,c)$; (c) Intersecting plates: for any (student, course) pair $(s,c)$, $\text{Grade}(s,c)$ depends on $\textit{Difficulty}(c)$ and on $\textit{Intelligence}(s)$.</figcaption>
 </figure>
 
-###### Ground Bayesian Networks for Plate Models
-A plate model $\mathcal{M}\_\text{plate}$ and object skeleton $\kappa$ define a **ground Bayesian network** $\mathcal{B}\_\kappa^{\mathcal{M}\_\text{plate}}$ as follows. Let $A(U_1,\ldots,U_k)$ be any template attribute in $\aleph$. Then, for any $\gamma=(U_1\mapsto u_1,\ldots,U_k\mapsto u_k)\in\Gamma_\kappa[A]$, we have a variable $A(\gamma)$ in the ground network, with parents $B(\gamma)$ for all $B\in\text{Pa}_A$, and the instantiated CPD $P(A(\gamma)\vert\text{Pa}_A(\gamma))$.
+##### Ground Bayesian Networks for Plate Models
+A plate model $\mathcal{M}\_\text{Plate}$ and object skeleton $\kappa$ define a **ground Bayesian network** $\mathcal{B}\_\kappa^{\mathcal{M}\_\text{Plate}}$ as follows. Let $A(U_1,\ldots,U_k)$ be any template attribute in $\aleph$. Then, for any $\gamma=(U_1\mapsto u_1,\ldots,U_k\mapsto u_k)\in\Gamma_\kappa[A]$, we have a variable $A(\gamma)$ in the ground network, with parents $B(\gamma)$ for all $B\in\text{Pa}_A$, and the instantiated CPD $P(A(\gamma)\vert\text{Pa}_A(\gamma))$.
 
-For instance, consider the [Figure 11(c)](#fig11), without loss of generality, we have that:
+**Example 11**: Consider the [Figure 11(c)](#fig11), without loss of generality, we have that:
 <ul id='number-list'>
 	<li>
-		The plate model $\mathcal{M}_\text{plate}$ is defined over a set $\aleph=\{\textit{Grade},\textit{Difficulty},\textit{Intelligence}\}$ of template attributes, for each of which:
+		The plate model $\mathcal{M}_\text{Plate}$ is defined over a set $\aleph=\{\textit{Grade},\textit{Difficulty},\textit{Intelligence}\}$ of template attributes, for each of which:
 		<ul id='roman-list'>
 			<li>
 				$\alpha(\textit{Grade})=(S,C)$ and $\text{Pa}_\textit{Grade}=\{\textit{Difficulty}(C),\textit{Intelligence}(S)\}$;
@@ -1028,14 +1028,14 @@ For instance, consider the [Figure 11(c)](#fig11), without loss of generality, w
 		where $S$ is logical variable of class $\textit{Student}$, and $C$ is a logical variable of class $\textit{Course}$.
 	</li>
 	<li>
-		Let $(S\mapsto s_1,C\mapsto c_1)$, $(C\mapsto c_2)$ and $(S\mapsto s_3)$ be some assignment to some logical variables $S,C$ where $S$ is of class $\textit{Student}$, $C$ is of class $\textit{Course}$. We then have instantiated CPDs:
+		Let $(S\mapsto s,C\mapsto c)$ be some assignment to some logical variables $S,C$ where $S$ is of class $\textit{Student}$, $C$ is of class $\textit{Course}$. We then have instantiated CPDs:
 		\begin{align}
-		P(G(s_1,c_1)\vert\text{Pa}_G(s_1,c_1))&=P(G(s_1,c_1)\vert D(s_1,c_1),I(s_1,c_1)) \\ &=P(G(s_1,c_1)\vert D(c_1),I(s_1)); \\ P(D(c_2)\vert\text{Pa}_D(c_2))&=P(D(c_2)); \\ P(I(s_3)\vert\text{Pa}_I(s_3))&=P(I(s_3))
+		P(G(s,c)\vert\text{Pa}_G(s,c))&=P(G(s,c)\vert D(s,c),I(s,c)) \\ &=P(G(s,c)\vert D(c),I(s)); \\ P(D(c)\vert\text{Pa}_D(c))&=P(D(c)); \\ P(I(s)\vert\text{Pa}_I(s))&=P(I(s))
 		\end{align}
 	</li>
 </ul>
 
-##### Probabilistic Relational Models
+#### Probabilistic Relational Models
 For a template attribute $A$, we define a **contingent dependency model** as a tuple containing:
 <ul id='number-list'>
 	<li>
@@ -1052,8 +1052,38 @@ For a template attribute $A$, we define a **contingent dependency model** as a t
 		such that for each $B_i(\mathbf{U}_i)$, we have that $\mathbf{U}_i\subset\alpha(\text{Pa}_A)$.
 	</li>
 </ul>
+<br>
 
-###### Ground Bayesian Networks for PRMs
+A **probabilistic relational model** (or **PRM**) $\mathcal{M}_\text{PRM}$ defines, for each $A\in\aleph$ a contingent dependency model and a template CPD.
+
+##### Ground Bayesian Networks for PRMs
+A PRM $\mathcal{M}\_\text{PRM}$ and object skeleton $\kappa$ define a **ground Bayesian network** $\mathcal{B}\_\kappa^{\mathcal{M}\_\text{PRM}}$ as follows. Let $A(U_1,\ldots,U_k)$ be any template attribute in $\aleph$. Then, for any assignment $\gamma\in\Gamma_\kappa[A]$, we have a variable $A(\gamma)$ in the ground network. This variable has, for any $B\in\text{Pa}_A^\Gamma\cup\text{Pa}_A$ and any assignment $\gamma'$ to $\alpha(\text{Pa}_A)\backslash\alpha(A)$, the parent that is the instantiated variable $B(\gamma,\gamma')$.
+
+### Undirected Representation
+A **relational Markov network** $\mathcal{M}\_\text{RMN}$ is defined in terms of a set $\Lambda$ of template features, where each $\lambda\in\Lambda$ contains:
+<ul id='number-list'>
+	<li>
+		a real-valued template feature $f_\lambda$ whose arguments are $\aleph(\lambda)=\{A_1(\mathbf{U}_1),\ldots,A_l(\mathbf{U}_l)\}$;
+	</li>
+	<li>
+		a weight $w_\lambda\in\mathbb{R}$.
+	</li>
+</ul>
+
+#### Ground Gibbs Distribution
+Given an RMN $\mathcal{M}\_\text{RMN}$, an object skeleton $\kappa$, we can define a **ground Gibbs distribution** $P\_\kappa^{\mathcal{M}\_\text{RMN}}$ as:
+<ul id='roman-list'>
+	<li>
+		The variables in the network are $\mathcal{X}_\kappa[\aleph]$ (as defined <a href='#ground-rv'>above</a>);
+	</li>
+	<li>
+		$P_\kappa^{\mathcal{M}_\text{RMN}}$ contains a term
+		\begin{equation}
+		\exp\big(w_\lambda f_\lambda(\gamma)\big),
+		\end{equation}
+		for each feature template $\lambda\in\Lambda$ and each assignment $\gamma\in\Gamma_\kappa[\alpha(\lambda)]$.
+	</li>
+</ul>
 
 ## References
 [1] <span id='pgm-book'>Daphne Koller, Nir Friedman. [Probabilistic Graphical Models](https://mitpress.mit.edu/9780262013192/probabilistic-graphical-models/). The MIT Press.</span>

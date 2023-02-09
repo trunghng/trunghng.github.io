@@ -9,7 +9,17 @@
       <link>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 02 Jan 2023 13:49:15 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 02 Feb 2023 15:51:13 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Probabilistic Graphical Models - Inference</title>
+      <link>https://trunghng.github.io/posts/machine-learning/pgm-inference/</link>
+      <pubDate>Thu, 02 Feb 2023 15:51:13 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/machine-learning/pgm-inference/</guid>
+      <description>Exact Inference Problem setting: We need to effectively compute the conditional probability query, which is the conditonal probability of variables $\mathbf{Y}$ given evidence $\mathbf{E}=\mathbf{e}$ \begin{equation} P(\mathbf{Y}\vert\mathbf{E}=\mathbf{e}) \end{equation}
+Variable Elimination Intuition Consider a simple chain $A\rightarrow B\rightarrow C\rightarrow D$ with our iterest of computing $P(D)$, which can be computed by \begin{equation} P(D)=\sum_C\sum_B\sum_A P(A,B,C,D)\label{eq:int.1} \end{equation} This computation is ineffective, since it grows exponentially with the number of variables $n$. Speciffically, if each of variables $A,B,C,D$ ($n=4$) takes $k$ possible values, the time complexity required is $\mathcal{O}(k^{n-1})$.</description>
+    </item>
+    
     <item>
       <title>Categorical Reparameterization with Gumbel-Softmax &amp; Concrete Distribution</title>
       <link>https://trunghng.github.io/posts/machine-learning/cat-reparam-gumbel-softmax-concrete-dist/</link>
