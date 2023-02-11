@@ -34,8 +34,8 @@ The $G_t^\lambda$ is called **$\lambda$-return** of the update.
 
 This figure below illustrates the backup diagram of TD($\lambda$) algorithm.
 <figure>
-	<img src="/images/eligible-traces/td-lambda-backup.png" alt="Backup diagram of TD(lambda)" style="display: block; margin-left: auto; margin-right: auto; width: 450px; height: 370px"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: The backup diagram of TD($\lambda$)</figcaption>
+	<img src="/images/eligible-traces/td-lambda-backup.png" alt="Backup diagram of TD(lambda)" style="display: block; margin-left: auto; margin-right: auto; width: 70%; height: 70%"/>
+	<figcaption><b>Figure 1</b>: (taken from the <a href='#rl-book'>RL book</a>) <b>The backup diagram of TD($\lambda$)</b></figcaption>
 </figure>
 
 ### Offline $\lambda$-return{#off-lambda-return}
@@ -47,7 +47,7 @@ With the definition of $\lambda$-return, we can define the **offline $\lambda$-r
 A result when applying offline $\lambda$-return on the random walk problem is shown below.
 <figure>
 	<img src="/images/eligible-traces/offline-lambda-return.png" alt="Offline lambda-return on random walk" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: Using offline $\lambda$-return on 19-state random walk. The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-12/random_walk.py' target='_blank'>here</a></figcaption>
+	<figcaption><b>Figure 2</b>: <b>Using offline $\lambda$-return on 19-state random walk</b>. The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-12/random_walk.py' target='_blank'>here</a></figcaption>
 </figure>
 
 ## TD($\lambda$){#td-lambda}
@@ -73,7 +73,7 @@ where the TD error is defined as
 Pseudocode of **semi-gradient TD($\lambda$)** is given below.
 <figure>
 	<img src="/images/eligible-traces/semi-grad-td-lambda.png" alt="Semi-gradient TD(lambda)" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<figcaption></figcaption>
 </figure>
 
 Linear TD($\lambda$) has been proved to converge in the on-policy case if the step size parameter, $\alpha$, is reduced over time according to the [usual conditions]({{< ref "td-learning#stochastic-approx-condition" >}}). And also in the continuing discounted case, for any $\lambda$, $\overline{\text{VE}}$ is proven to be within a bounded expansion of the lowest possible error:
@@ -84,7 +84,7 @@ Linear TD($\lambda$) has been proved to converge in the on-policy case if the st
 The figure below illustrates the result for using TD($\lambda$) on the usual random walk task.
 <figure>
 	<img src="/images/eligible-traces/td-lambda.png" alt="TD(lambda) on random walk" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: Using TD($\lambda$) on 19-state random walk. The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-12/random_walk.py' target='_blank'>here</a></figcaption>
+	<figcaption><b>Figure 3</b>: <b>Using TD($\lambda$) on 19-state random walk</b>. The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-12/random_walk.py' target='_blank'>here</a></figcaption>
 </figure>
 
 ## Truncated TD Methods{#truncated-td}
@@ -114,7 +114,7 @@ where in the third step of the derivation, we use the identity
 From \eqref{eq:tt.1}, we can see that the $k$-step $\lambda$-return can be written as sums of TD errors if the value function is held constant, which allows us to implement the TTD($\lambda$) algorithm efficiently.
 <figure>
 	<img src="/images/eligible-traces/ttd-lambda-backup.png" alt="Backup diagram of truncated TD(lambda)" style="display: block; margin-left: auto; margin-right: auto; width: 500px; height: 370px"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: The backup diagram of truncated TD($\lambda$)</figcaption>
+	<figcaption><b>Figure 4</b>: (taken from the <a href='#rl-book'>RL book</a>) <b>The backup diagram of truncated TD($\lambda$)</b></figcaption>
 </figure>
 
 ## Online $\lambda$-return{#truncated-td}
@@ -202,13 +202,13 @@ where
 Pseudocode of the algorithm is given below.
 <figure>
 	<img src="/images/eligible-traces/true-onl-td-lambda.png" alt="True Online TD(lambda)" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<figcaption></figcaption>
 </figure>
 
 As other methods above, below is an illustration of using true online TD($\lambda$) on the random walk problem.
 <figure>
 	<img src="/images/eligible-traces/true-online-td-lambda.png" alt="True online TD(lambda) on random walk" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 5</b>: Using True online TD($\lambda$) on 19-state random walk. The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-12/random_walk.py' target='_blank'>here</a></figcaption>
+	<figcaption><b>Figure 5</b>: <b>Using True online TD($\lambda$) on 19-state random walk</b>. The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-12/random_walk.py' target='_blank'>here</a></figcaption>
 </figure>
 
 The eligible trace \eqref{eq:totl.6} is called **dutch trace** to distinguish it from the trace \eqref{eq:tl.1} of TD($\lambda$), which is called **accumulating trace**. 
@@ -281,12 +281,12 @@ and so it is with eligible trace vector:
 \end{align}
 <figure>
 	<img src="/images/eligible-traces/sarsa-lambda-backup.png" alt="Backup diagram of Sarsa(lambda)" style="display: block; margin-left: auto; margin-right: auto; width: 450px; height: 390px"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 6</b>: The backup diagram of Sarsa($\lambda$)</figcaption>
+	<figcaption><b>Figure 6</b>: (taken from the <a href='#rl-book'>RL book</a>) <b>The backup diagram of Sarsa($\lambda$)</b></figcaption>
 </figure>
 Pseudocode of the Sarsa($\lambda$) is given below.
 <figure>
 	<img src="/images/eligible-traces/sarsa-lambda.png" alt="Sarsa(lambda)" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<figcaption></figcaption>
 </figure>
 
 There is also an action-value version of the online $\lambda$-return algorithm, and its efficient implementation as true online TD($\lambda$), called **True online Sarsa($\lambda$)**, which can be achieved by using $n$-step return \eqref{eq:sl.1} instead (which also leads to the change of $\mathbf{x}\_t=\mathbf{x}(S_t)$ to $\mathbf{x}\_t=\mathbf{x}(S_t,A_t)$).
@@ -294,7 +294,7 @@ There is also an action-value version of the online $\lambda$-return algorithm, 
 Pseudocode of the true online Sarsa($\lambda$) is given below.
 <figure>
 	<img src="/images/eligible-traces/true-online-sarsa-lambda.png" alt="True online Sarsa(lambda)" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<figcaption></figcaption>
 </figure>
 
 ## Variable $\lambda$ and $\gamma${#lambda-gamma}
@@ -420,7 +420,7 @@ Similar to how we derive the eligible trace \eqref{eq:optcv.3}, we can define a 
 Using this eligible trace vector with the parameter update rule \eqref{eq:tl.2} of TD($\lambda$), we end up with the **Tree-Backup($\lambda$)** or **TB($\lambda$)**.
 <figure>
 	<img src="/images/eligible-traces/tree-backup-lambda-backup.png" alt="Backup diagram of Tree Backup(lambda)" style="display: block; margin-left: auto; margin-right: auto; width: 450px; height: 390px"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 7</b>: The backup diagram of Tree Backup($\lambda$)</figcaption>
+	<figcaption><b>Figure 7</b>: (taken from the <a href='#rl-book'>RL book</a>) <b>The backup diagram of Tree Backup($\lambda$)</b></figcaption>
 </figure>
 
 ## Other Off-policy Methods with Traces{#other-off-policy-methods-traces}
@@ -826,7 +826,7 @@ Let $\mathbf{1}$ denote the column vector with all components equal to $1$. And 
 Instead of having domain of $[0,\infty)$, if we further assume that $i(s)>0,\hspace{0.1cm}\forall s\in\mathcal{S}$, then it implies immediately that the column sums are all positive, the key matrix is positive definite, so is the matrix $\mathbf{A}$, and the ETD($\lambda$) and its expected update are stable.
 
 ## References
-[1] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition). MIT press, 2018.
+[1] <span id='rl-book'>Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition). MIT press, 2018.</span>
 
 [2] Doina Precup & Richard S. Sutton & Satinder Singh. [Eligibility Traces for Off-Policy Policy Evaluation](https://scholarworks.umass.edu/cs_faculty_pubs/80). ICML '00 Proceedings of the Seventeenth International Conference on Machine Learning. 80, 2000.
 

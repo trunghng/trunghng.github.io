@@ -12,7 +12,7 @@ math: true
 **Dynamic Programming (DP)** is a method of simplifying a complicated problem by breaking it down into more straightforward sub-problems. Then it finds the solutions for the sub-problems, and combines them together.
 <figure>
 	<img src="/images/dp-in-mdp/dp.png" alt="dynamic programming" width="360" height="200px" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Using Dynamic Programming to find the shortest path in graph</figcaption>
+	<figcaption><b>Figure 1</b>: <b>Using Dynamic Programming to find the shortest path in graph</b></figcaption>
 </figure>
 
 ## Dynamic Programming applied in Markov Decision Processes
@@ -48,7 +48,7 @@ for all $s\in\mathcal{S}$. Thanks to [Banach's fixed points theorem]({{< ref "op
 We have the backup diagram for this update.
 <figure>
 	<img src="/images/dp-in-mdp/backup-iterative-policy-evaluation.png" alt="Backup diagram for iterative policy evalution update" style="display: block; margin-left: auto; margin-right: auto; width: 360px; height: 200px"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: Backup diagram for Iterative policy evaluation update</figcaption>
+	<figcaption><b>Figure 2</b>: Backup diagram for Iterative policy evaluation update</figcaption>
 </figure>
 
 When implementing **iterative policy evaluation** method, for all $s\in\mathcal{S}$, we can use:
@@ -118,7 +118,7 @@ This algorithm is called **policy iteration**. And here is the pseudocode of the
 An example of using policy iteration on the Jack's rental problem ([**RL book - example 4.2**]("#rl-book"))
 <figure>
     <img src="/images/dp-in-mdp/jackscar.png" alt="Using policy iteration on Jack's car rental problem" style="display: block; margin-left: auto; margin-right: auto;"/>
-    <figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: Policy Iteration on Jack's car rental task. The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-04/jackscar.py' target='_blank'>here</a></figcaption>
+    <figcaption"><b>Figure 3</b>: Policy Iteration on Jack's car rental task. The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-04/jackscar.py' target='_blank'>here</a></figcaption>
 </figure>
 
 ### Value Iteration{#value-iter}
@@ -131,7 +131,7 @@ for all $s\in\mathcal{S}$. Once again, thanks to [Banach's fixed point theorem](
 We have the backup diagram for this update[^3].
 <figure>
 	<img src="/images/dp-in-mdp/backup-value-iteration.png" alt="Backup diagram of value iteration update" style="display: block; margin-left: auto; margin-right: auto; width: 360px; height: 200px"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: Backup diagram of Value Iteration update</figcaption>
+	<figcaption><b>Figure 4</b>: Backup diagram of Value Iteration update</figcaption>
 </figure>
 
 And here is the pseudocode of the value iteration.
@@ -231,7 +231,7 @@ if __name__ == '__main__':
 And here is our results after running the code
 <figure>
     <img src="/images/dp-in-mdp/gambler.png" alt="gambler" style="display: block; margin-left: auto; margin-right: auto; width: 450px; height: 900px"/>
-    <figcaption style="text-align: center;font-style: italic;"><b>Figure 5</b>: Gambler's Problem solved by Value Iteration Result</figcaption>
+    <figcaption><b>Figure 5</b>: Gambler's Problem solved by Value Iteration Result</figcaption>
 </figure>
 
 ### Generalized Policy Iteration{#gpi}
@@ -239,14 +239,14 @@ The **Generalized Policy Iteration (GPI)** algorithm refers to the idea of combi
 In GPI, the value function is repeatedly driven toward the true value of the current policy and at the same time the policy is being improved optimality with respect to its value function, as in the following diagram.
 <figure>
 	<img src="/images/dp-in-mdp/gpi.png" alt="GPI" style="display: block; margin-left: auto; margin-right: auto; width:200px; height: 320px"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 6</b>: Generalized Policy Iteration</figcaption>
+	<figcaption><b>Figure 6</b>: Generalized Policy Iteration</figcaption>
 </figure><br/>
 
 Once it reaches the stationary state (when both evaluation and improvement no long produce any updates), then the current value function and policy must be optimal.  
 The evaluation and improvement processes in GPI can be viewed as both competing and cooperating. They competing in the sense that on the one hand, making policy greedy w.r.t the value function typically makes value function incorrect for the new policy. And on the other hand, approximating the value function closer to the true value of the policy typically forces the policy is no longer to be greedy. But in the long run, they two processes cooperate to find a single joint solution: the optimal value function and an optimal policy.
 <figure>
 	<img src="/images/dp-in-mdp/gpi-rel.png" alt="GPI interaction" style="display: block; margin-left: auto; margin-right: auto; width: 360px; height: 200px"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 7</b>: Interaction between the evaluation and improvement processes in GPI</figcaption>
+	<figcaption><b>Figure 7</b>: Interaction between the evaluation and improvement processes in GPI</figcaption>
 </figure>
 
 ## References

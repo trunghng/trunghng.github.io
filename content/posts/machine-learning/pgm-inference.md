@@ -5,9 +5,11 @@ tags: [machine-learning, probabilistic-graphical-model]
 math: true
 eqn-number: true
 ---
+Notes on Inference in PGMs.
+<!--more-->
 
 ## Exact Inference
-**Problem setting**: We need to effectively compute the **conditional probability query**, which is the conditonal probability of variables $\mathbf{Y}$ given evidence $\mathbf{E}=\mathbf{e}$
+**Problem setting**: We need to effectively compute the **conditional probability query**, which is the conditional probability of variables $\mathbf{Y}$ given evidence $\mathbf{E}=\mathbf{e}$
 \begin{equation}
 P(\mathbf{Y}\vert\mathbf{E}=\mathbf{e})
 \end{equation}
@@ -15,11 +17,11 @@ P(\mathbf{Y}\vert\mathbf{E}=\mathbf{e})
 ### Variable Elimination
 
 #### Intuition
-Consider a simple chain $A\rightarrow B\rightarrow C\rightarrow D$ with our iterest of computing $P(D)$, which can be computed by
+Consider a simple chain $A\rightarrow B\rightarrow C\rightarrow D$ with our interest of computing $P(D)$, which can be computed by
 \begin{equation}
 P(D)=\sum_C\sum_B\sum_A P(A,B,C,D)\label{eq:int.1}
 \end{equation}
-This computation is ineffective, since it grows exponentially with the number of variables $n$. Speciffically, if each of variables $A,B,C,D$ ($n=4$) takes $k$ possible values, the time complexity required is $\mathcal{O}(k^{n-1})$.
+This computation is ineffective, since it grows exponentially with the number of variables $n$. Specifically, if each of variables $A,B,C,D$ ($n=4$) takes $k$ possible values, the time complexity required is $\mathcal{O}(k^{n-1})$.
 
 Using the chain rule of probability, we can instead calculate $P(D)$ as
 \begin{align}
@@ -73,7 +75,7 @@ which allows us to continue deriving \eqref{eq:int.1} as
 \begin{align}
 P(D)&=\sum_C\sum_B\sum_A P(A,B,C,D) \\\\ &=\sum_C\sum_B\sum_A\phi_A\cdot\phi_B\cdot\phi_C\cdot\phi_D \\\\ &=\sum_C\sum_B\phi_C\cdot\phi_D\cdot\left(\sum_A\phi_A\cdot\phi_B\right) \\\\ &=\sum_C\phi_D\cdot\left(\sum_B\phi_C\cdot\left(\sum_A\phi_A\cdot\phi_B\right)\right),
 \end{align}
-which is justied by the limited scope of the CPD factors, e.g. the second step is due to the fact that $A\notin\text{Scope}(\phi_C)\cup\text{Scope}(\phi_D)$. This computation suggests that in general, our problem is to computing the value of an expression of the form
+which is justified by the limited scope of the CPD factors, e.g. the second step is due to the fact that $A\notin\text{Scope}(\phi_C)\cup\text{Scope}(\phi_D)$. This computation suggests that in general, our problem is to computing the value of an expression of the form
 \begin{equation}
 \sum_\mathbf{Z}\prod_{\phi\in\Phi}\phi,
 \end{equation}
@@ -90,14 +92,14 @@ which is referred as the **sum-product inference** task. This gives rise to the 
 **Remark**:
 <ul id='number-list'>
 	<li>
-		To apply the algorithm to a Bayesian network $\mathcal{B}$ for computing $P_\mathcal{B}(\mathbf{Y})$, we begin by instatinating $\Phi$ to comprise all of the CPDs
+		To apply the algorithm to a Bayesian network $\mathcal{B}$ for computing $P_\mathcal{B}(\mathbf{Y})$, we begin by instantiating $\Phi$ to comprise all of the CPDs
 		\begin{equation}
 		\Phi=\{\phi_{X_i}\}_{i=1,\ldots,n},
 		\end{equation}
 		where $\phi_{X_i}=P(X_i\vert\text{Pa}_{X_i})$. Then, we apply the algorithm to the set $\mathbf{Z}=\mathcal{X}\backslash\mathbf{Y}$.
 	</li>
 	<li>
-		Similarly, with a Markov network $\mathcal{H}$, we begin by instatiating $\Phi$ as the set of potential functions
+		Similarly, with a Markov network $\mathcal{H}$, we begin by instantiating $\Phi$ as the set of potential functions
 		\begin{equation}
 		\Phi=\{\phi_c\}_{c\in C},
 		\end{equation}
@@ -108,14 +110,14 @@ which is referred as the **sum-product inference** task. This gives rise to the 
 **Example 2**: Consider the following Bayesian network with the goal is to computing the probability that the student got the job.
 <figure>
 	<img src="/images/pgm-inference/student-bn.png" alt="Student BN" style="display: block; margin-left: auto; margin-right: auto; width: 40%; height: 40%;"/>
-	<figcaption><b>Figure 1</b> (taken from the <a href='#pgm-book'>PGM book</a>) A Bayesian network</figcaption>
+	<figcaption><b>Figure 1</b> (taken from the <a href='#pgm-book'>PGM book</a>) <b>A Bayesian network for Student scenario</b></figcaption>
 </figure>
 
 By chain rule of probability, we have that
 \begin{align}
 P(C,D,I,G,S,L,J,H)&=P(C)P(D\vert C)P(I)P(G\vert D,I)P(S\vert I)P(L\vert G)\nonumber \\\\ &\hspace{2cm}P(J\vert L,S)P(H\vert G,J) \\\\ &=\phi\_C(C)\phi\_D(D,C)\phi\_I(I)\phi\_G(G,D,I)\phi\_S(S,I)\phi\_L(L,G)\nonumber \\\\ &\hspace{2cm}\phi\_J(J,L,S)\phi\_H(H,G,J)
 \end{align}
-Consider the ordering: $C,D,I,H,G,S,L$. We step by step do the elimation procedure to each variable
+Consider the ordering: $C,D,I,H,G,S,L$. We step by step do the elimination procedure to each variable
 <ul id='number-list'>
 	<li>
 		Eliminating $C$. We have
@@ -161,6 +163,23 @@ Consider the ordering: $C,D,I,H,G,S,L$. We step by step do the elimation procedu
 		\end{equation}
 	</li>
 </ul>
+
+##### Semantics of Factors
+Consider a factor produced as a product of some of the CPDs in a Bayesian network $\mathcal{B}$
+\begin{equation}
+\tau(\mathbf{W})=\prod_{i=1}^{k}P(Y_i\vert\text{Pa}\_{Y_i}),
+\end{equation}
+where
+\begin{equation}
+\mathbf{W}=\bigcup_{i=1}^{k}(\\{Y_i\\}\cup\text{Pa}\_{Y_i})
+\end{equation}
+Then, we can construct a Bayesian network $\mathcal{B}'$ and a disjoint partition $\mathbf{W}=\mathbf{Y}\cup\mathbf{Z}$ such that
+\begin{equation}
+\tau(\mathbf{W})=P_{\mathcal{B}'}(\mathbf{Y}\vert\mathbf{Z})
+\end{equation}
+
+#### Dealing with Evidence
+
 
 ### Clique Trees
 

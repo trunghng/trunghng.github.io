@@ -402,21 +402,114 @@ A graph $\mathcal{K}$ is a **perfect map** (or **P-map**) for a set of independe
 ## Undirected Graphical Model{#ugm}
 Similar to the directed case, each node in an undirected graphical model represents a random variable. However, as indicated from the name, each edge that connects two nodes is now undirected, and thus can not describe causal relationship between those nodes as in Bayesian network.
 
-### Markov Random Fields{#mrf}
-An **Undirected Graphical Model** (or **Markov Random Field**, or **Markov network**) represents a probability distribution $P$ over variables $X_1,\ldots,X_n$ defined by an undirected graph $\mathcal{H}$ in which each node correspond to a variable $X_i$, and a set of positive **potential functions** $\psi_c$ associated with the [cliques](#clique) of $\mathcal{H}$ such that
+### Markov Networks
+
+#### Factors
+Let $\mathbf{D}$ be a set of r.v.s. The function $\phi:\text{Val}(\mathbf{D})\mapsto\mathbb{R}$ is referred as a **factor** with the scope $\mathbf{D}$, denoted $\mathbf{D}=\text{Scope}(\phi)$.
+
+A factor is nonnegative if all of its entries are nonnegative.
+
+Let $\mathbf{X},\mathbf{Y},\mathbf{Z}$ be disjoint sets of variables, and let $\phi_1(\mathbf{X},\mathbf{Y})$ and $\phi_2(\mathbf{Y},\mathbf{Z})$ be factors. The product $\phi_1\times\phi_2$ is called a **factor product**, which is a factor $\psi:\text{Val}(\mathbf{X},\mathbf{Y},\mathbf{Z})\mapsto\mathbb{R}$, given as
 \begin{equation}
-P(X_1,\ldots,X_n)=\frac{1}{Z}\prod_{c\in C}\psi_c(\mathbf{X}\_c),\label{eq:mrf.1}
+\psi(\mathbf{X},\mathbf{Y},\mathbf{Z})=\phi_1(\mathbf{X},\mathbf{Y})\cdot\phi_2(\mathbf{Y},\mathbf{Z})
 \end{equation}
-where
-- $P$ is also called a **Gibbs distribution**
-- $C$ denotes the set of cliques of $\mathcal{H}$
-- $\mathbf{X}_c$ represents the set of nodes within clique $c$
-- $Z$ is known as the **partition function**, given by
+<figure id='fig4'>
+	<img src="/images/pgm-representation/factor-product.png" alt="Factor product" style="display: block; margin-left: auto; margin-right: auto; width: 80%; height: 80%"/>
+	<figcaption><b>Figure 4</b>: (taken from the <a href='#pgm-book'>PGM book</a>) <b>An example of factor product</b></figcaption>
+</figure>
+
+It is worth remarking that both CPDs and joint distribution are factors. As each Bayesian network define a joint distribution factor, which is the product of the CPDs factor. Specifically, let $\phi_{X_i}(X_i,\text{Pa}\_{X_i})$ denote $P(X\vert\text{Pa}\_{X_i})$, we can write
 \begin{equation}
-Z=\sum_{X_1,\ldots,X_n}\prod_{c\in C}\psi_c(\mathbf{X}\_c)
+P(X_1,\ldots,X_n)=\prod_{i=1}^{n}\phi_{X_i}
 \end{equation}
 
-From the above definition, we say that a distribution $P$ is a Gibbs distribution that factorizes over $\mathcal{H}$ if it can be expressed as a normalized product over all potential functions defined on the cliques of $\mathcal{H}$, as in \eqref{eq:mrf.1}.
+#### Markov Random Fields
+Given the notions of factor and factor product, we are now ready to define an undirected parameterization of a distribution.
+
+An **Undirected Graphical Model** (or **Markov Random Field**, or **Markov network**) is defined by an undirected graph $\mathcal{H}$ and a probability distribution $P_\Phi$ parameterized by a set of factors $\Phi=\\{\phi_1(\mathbf{D}\_1),\ldots,\phi_K(\mathbf{D}\_K)\\}$ over variables $X_1,\ldots,X_n$ such that
+\begin{equation}
+P_\Phi(X_1,\ldots,X_n)=\frac{1}{Z}\tilde{P}\_\Phi(X_1,\ldots,X_n),
+\end{equation}
+where
+<ul id='number-list'>
+	<li>
+		Each node of $\mathcal{H}$ correspond to a variable $X_i$.
+	</li>
+	<li>
+		The factor product
+		\begin{equation}
+		\tilde{P}_\Phi(X_1,\ldots,X_n)=\phi_1(\mathbf{D}_1)\times\ldots\times\phi_K(\mathbf{D}_K)
+		\end{equation}
+		is an unnormalized measure.
+	</li>
+	<li>
+		$Z$ is a normalizing constant called the <b>partition function</b>, given by
+		\begin{equation}
+		Z=\sum_{X_1,\ldots,X_n}\tilde{P}_\Phi(X_1,\ldots,X_n)
+		\end{equation}
+	</li>
+	<li>
+		$P_\Phi$ is also called a <b>Gibbs distribution</b>, which <b>factorizes</b> over $\mathcal{H}$, in the sense that each $\mathbf{D}_k$ for $k=1,\ldots,K$ is a complete subgraph (or <a href='#clique'>clique</a>) of $\mathcal{H}$.
+	</li>
+	<li>
+		The factors $\phi_1,\ldots,\phi_K$ that parameterize $\mathcal{H}$ are referred as <b>clique potentials</b>, or <b>potential functions</b> of $\mathcal{H}$.
+	</li>
+</ul>
+
+#### Reduced Markov Networks
+Consider the task of conditioning a distribution on some assignment $\mathbf{u}$ to some subset of variables $\mathbf{U}$. This task corresponds to the process
+<ul id='number-list'>
+	<li>
+		<b>Step 1</b>. Eliminate all entries in the joint distribution that are inconsistent with the event $\mathbf{U}=\mathbf{u}$.
+	</li>
+	<li>
+		<b>Step 2</b>. Normalize the remaining entries to sum to $1$.
+	</li>
+</ul>
+
+Consider the case that the distribution is in form of $P_\Phi$ for some set of factor $\Phi$.
+
+##### Factor Reduction
+Let $\phi(\mathbf{Y})$ be a factor, and let $\mathbf{U}=\mathbf{u}$ be an assignment for $\mathbf{U}\subset\mathbf{Y}$. The **reduction** of the factor $\phi$ to the context $\mathbf{U}=\mathbf{u}$, denoted $\phi[\mathbf{U}=\mathbf{u}]$, or $\phi[\mathbf{u}]$ for short, is defined to be a factor over scope $\mathbf{Y}'=\mathbf{Y}\backslash\mathbf{U}$, such that
+\begin{equation}
+\phi\[\mathbf{u}\](\mathbf{y}')=\phi(\mathbf{y}',\mathbf{u})
+\end{equation}
+For $\mathbf{U}\not\subset\mathbf{Y}$, we define $\phi[\mathbf{u}]$ to be $\phi[\mathbf{U}'=\mathbf{u}']$ where
+- $\mathbf{U}'=\mathbf{U}\cap\mathbf{Y}$;
+- $\mathbf{u}'\doteq\mathbf{u}[\mathbf{U}']$, where $\mathbf{u}[\mathbf{U}']$ denotes the assignment in $\mathbf{u}$ to the variable in $\mathbf{U}'$.
+
+**Example 1**: Consider the factor $\phi$ with $\text{Scope}(\phi)=\\{A,B,C\\}$, as given in the right-most table of [Figure 4](#fig4). The reduction of $\phi$ to the context $C=c^1$ is a factor over scope $\\{A,B,C\\}\backslash\\{C\\}=\\{A,B\\}$, given by
+\begin{equation}
+\phi\[c^1\](a,b)=\phi(a,b,c^1),
+\end{equation}
+which is illustrated in the following table
+<figure>
+	<img src="/images/pgm-representation/factor-reduction.png" alt="Factor reduction" style="display: block; margin-left: auto; margin-right: auto; width: 20%; height: 20%"/>
+	<figcaption><b>Figure 5</b>: (taken from the <a href='#pgm-book'>PGM book</a>) <b>Factor reduction</b>: The factor computed in <a href='fig4'>Figure 4</a>, reduced to the context $C=c^1$.</figcaption>
+</figure>
+
+With the definition of factor reduction, let us consider a product of factors. We have that an entry in the product is consistent with $\mathbf{u}$ iff it is a product of entries that are all consistent with $\mathbf{u}$.
+
+##### Reduced Gibbs Distribution
+Let $P_\Phi$ be a Gibbs distribution parameterized by $\Phi=\\{\phi_1,\ldots,\phi_K\\}$, and let $\mathbf{u}$ be a context. The **reduced Gibbs distribution** $P_\Phi[\mathbf{u}]$ is the Gibbs distribution defined by the set of factors
+\begin{equation}
+\Phi\[\mathbf{u}\]=\\{\phi_1\[\mathbf{u}\],\ldots,\phi_K\[\mathbf{u}\]\\}
+\end{equation}
+
+**Proposition 8**: *Let $P_\Phi(\mathbf{X})$ be a Gibbs distribution, we then have*
+\begin{equation}
+P_\Phi\[\mathbf{u}\]=P_\Phi(\mathbf{W}\vert\mathbf{u}),
+\end{equation}
+*where $\mathbf{W}=\mathbf{X}\backslash\mathbf{U}$.*
+
+##### Reduced Markov Network
+Let $\mathcal{H}$ be a Markov network over the nodes $\mathbf{X}$ and $\mathbf{U}=\mathbf{u}$ be a context. The **reduced Markov network** $\mathcal{H}[\mathbf{u}]$ is a Markov network over the nodes $\mathbf{W}=\mathbf{X}\backslash\mathbf{U}$, where we have an edge $X-Y$ if there is an edge $X-Y$ in $\mathcal{H}$.
+
+**Proposition 9**: *Let $P_\Phi(\mathbf{X})$ be a Gibbs distribution that factorizes over $\mathcal{H}$, and let $\mathbf{U}=\mathbf{u}$ be a context. Then we have that $P_\Phi[\mathbf{u}]$ factorizes over $\mathcal{H}[\mathbf{u}]$.*
+<figure>
+	<img src="/images/pgm-representation/reduced-markov-network.png" alt="Reduced Markov network" style="display: block; margin-left: auto; margin-right: auto; width: 90%; height: 90%"/>
+	<figcaption><b>Figure 6</b>: (taken from the <a href='#pgm-book'>PGM book</a>) <b>An example of a Markov network and the reduction of its factors to some contexts</b> (a): The initial Markov network; (b): The reduced network to the context $G=g$; (c) The reduced network to the context $G=g,S=s$.</figcaption>
+</figure>
 
 ### Independencies in Markov Network
 Analogy to Bayesian network, the graph structure in a Markov Random Field can be viewed as encoding a set of independence assumptions, which can be specified by considering the undirected paths through nodes.
@@ -452,7 +545,7 @@ A set $\mathbf{U}$ is a **Markov blanket** of $X$ in a distribution $P$ if $X\no
 \end{equation}
 
 #### Markov Independencies Relationships
-**Theorem 8**: *Let $\mathcal{H}$ be a Markov network and $P$ be a positive distribution. The following three statement are then equivalent:*
+**Theorem 10**: *Let $\mathcal{H}$ be a Markov network and $P$ be a positive distribution. The following three statement are then equivalent:*
 <ul id='roman-list' style='font-style: italic;'>
 	<li>
 		$P\models\mathcal{I}_\ell(\mathcal{H})$.
@@ -497,7 +590,7 @@ A set $\mathbf{U}$ is a **Markov blanket** of $X$ in a distribution $P$ if $X\no
 </ul>
 
 #### Soundness, Completeness{#soundness-completeness-mn}
-**Theorem 9** (Soundness of separation) *Let $\mathcal{H}=(\mathcal{X},\mathcal{E})$ be a Markov network structure and let $P$ be a distribution over $\mathcal{X}$. If $P$ is a Gibbs distribution that factorizes over $\mathcal{H}$, then $\mathcal{H}$ is an I-map for $P$.*
+**Theorem 11** (Soundness of separation) *Let $\mathcal{H}=(\mathcal{X},\mathcal{E})$ be a Markov network structure and let $P$ be a distribution over $\mathcal{X}$. If $P$ is a Gibbs distribution that factorizes over $\mathcal{H}$, then $\mathcal{H}$ is an I-map for $P$.*
 
 **Proof**  
 Let $\mathbf{X},\mathbf{Y}$ and $\mathbf{Z}$ be any disjoint subsets of $\mathcal{X}$ such that $\text{sep}\_\mathcal{H}(\mathbf{X};\mathbf{Y}\vert\mathbf{Z})$. We need to show that
@@ -506,11 +599,11 @@ P\models(\mathbf{X}\perp\mathbf{Y}\vert\mathbf{Z})
 \end{equation}
 We begin by considering the case that $\mathbf{X}\cup\mathbf{Y}\cup\mathbf{Z}=\mathcal{X}$. Since $\mathbf{Z}$ separates $\mathbf{X}$ and $\mathbf{Y}$, then for any $X\in\mathbf{X}$ and for any $Y\in\mathbf{Y}$, there is no direct edge between $X,Y$. This implies that any clique in $\mathcal{H}$ is either in $\mathbf{X}\cup\mathbf{Z}$ or in $\mathbf{Y}\cup\mathbf{Z}$.
 
-Let $C_\mathbf{X}$ denote the set of cliques within $\mathbf{X}\cup\mathbf{Z}$ and let $C_\mathbf{Y}$ represent the set of cliques in $\mathbf{Y}\cup\mathbf{Z}$. Thus, as $P$ factorizes over $\mathcal{H}$, we have that
+Let $I_\mathbf{X}$ denote the indices of the set of cliques within $\mathbf{X}\cup\mathbf{Z}$ and let $I_\mathbf{Y}$ represent the indices of the ones in $\mathbf{Y}\cup\mathbf{Z}$. Thus, as $P$ factorizes over $\mathcal{H}$, we have that
 \begin{align}
-P(X_1,\ldots,X_n)&=\frac{1}{Z}\left(\prod_{c\in C_\mathbf{X}}\psi(X_c)\right)\left(\prod_{c\in C_\mathbf{Y}}\psi(X_c)\right) \\\\ &=\frac{1}{Z}\psi_\mathbf{X}(\mathbf{X},\mathbf{Z})\psi_\mathbf{Y}(\mathbf{Y},\mathbf{Z}),
+P(X_1,\ldots,X_n)&=\frac{1}{Z}\prod_{i}\phi_i(\mathbf{D}\_i) \\\\ &=\frac{1}{Z}\left(\prod_{i\in I_\mathbf{X}}\phi_i(\mathbf{D}\_i)\right)\cdot\left(\prod_{i\in I_\mathbf{Y}}\phi_i(\mathbf{D}\_i)\right) \\\\ &=\frac{1}{Z}\phi_\mathbf{X}(\mathbf{X},\mathbf{Z})\phi_\mathbf{Y}(\mathbf{Y},\mathbf{Z}),
 \end{align}
-where $\psi_\mathbf{X},\psi_\mathbf{Y}$ are some factor with scopes $\mathbf{X}\cup\mathbf{Z}$ and $\mathbf{Y}\cup\mathbf{Z}$ respectively. Hence, it follows that
+where $\phi_\mathbf{X},\phi_\mathbf{Y}$ are some factors with scopes $\mathbf{X}\cup\mathbf{Z}$ and $\mathbf{Y}\cup\mathbf{Z}$ respectively. Hence, it follows that
 \begin{equation}
 P\models(\mathbf{X}\perp\mathbf{Y}\vert\mathbf{Z})
 \end{equation}
@@ -527,32 +620,32 @@ which implies that
 P\models(\mathbf{X}\perp\mathbf{Y}\vert\mathbf{Z})
 \end{equation}
 
-**Theorem 10** (Hammersley-Clifford) *Let $\mathcal{H}=(\mathcal{X},\mathcal{E})$ be a Markov network structure and let $P$ be a positive distribution over $\mathcal{X}$. If $\mathcal{H}$ is an I-map for $P$, then $P$ is a Gibbs distribution that factorizes over $\mathcal{H}$.*
+**Theorem 12** (Hammersley-Clifford) *Let $\mathcal{H}=(\mathcal{X},\mathcal{E})$ be a Markov network structure and let $P$ be a positive distribution over $\mathcal{X}$. If $\mathcal{H}$ is an I-map for $P$, then $P$ is a Gibbs distribution that factorizes over $\mathcal{H}$.*
 
-**Corollary 11**: *The positive distribution $P$ factorizes a Markov network $\mathcal{H}$ iff $\mathcal{H}$ is an I-map for $P$*.
+**Corollary 13**: *The positive distribution $P$ factorizes a Markov network $\mathcal{H}$ iff $\mathcal{H}$ is an I-map for $P$*.
 
-**Theorem 12** (Completeness of separation) *Let $\mathcal{H}$ be a Markov network structure. If $X$ and $Y$ are not separated given $\mathbf{Z}$ in $\mathcal{H}$, then $X$ and $Y$ are dependent given $\mathbf{Z}$ in some distribution $P$ that factorizes over $\mathcal{H}$.*
+**Theorem 14** (Completeness of separation) *Let $\mathcal{H}$ be a Markov network structure. If $X$ and $Y$ are not separated given $\mathbf{Z}$ in $\mathcal{H}$, then $X$ and $Y$ are dependent given $\mathbf{Z}$ in some distribution $P$ that factorizes over $\mathcal{H}$.*
 
 ### From Distributions to Graphs{#dist2graph-mn}
 As [mentioned](#min-imap) above, the notion of minimal I-map lets us encode the independencies of a given distribution $P$ using a graph structure.
 
 In particular, for a distribution $P$, we can construct the minimal I-map based on either the pairwise independencies or the local independencies.
 
-**Theorem 13**: *Let $P$ be a positive distribution and $\mathcal{H}$ be a Markov network defined by including an edge $X-Y$ for all $X,Y$ such that $P\not\models(X\perp Y\vert\mathcal{X}\backslash\\{X,Y\\})
+**Theorem 15**: *Let $P$ be a positive distribution and $\mathcal{H}$ be a Markov network defined by including an edge $X-Y$ for all $X,Y$ such that $P\not\models(X\perp Y\vert\mathcal{X}\backslash\\{X,Y\\})
 $. Then $\mathcal{H}$ is  the unique minimal I-map for $P$.*
 
-**Theorem 14**: *Let P be a positive distribution and let $\mathcal{H}$ be a Markov network defined by including an edge $X-Y$ for all $X$ and all $Y\in\text{MB}_\mathcal{H}(X)$. Then $\mathcal{H}$ is the unique minimal I-map for $P$.*
+**Theorem 16**: *Let P be a positive distribution and let $\mathcal{H}$ be a Markov network defined by including an edge $X-Y$ for all $X$ and all $Y\in\text{MB}_\mathcal{H}(X)$. Then $\mathcal{H}$ is the unique minimal I-map for $P$.*
 
 **Remark**: Not every distribution has a perfect map as UGM (proof by contradiction).
 
-### Factor Graphs
+#### Factor Graphs
 A **factor graph** $\mathcal{F}$ is an undirected graph whose nodes are divided into two groups: variable nodes (denoted as ovals) and factor nodes (denoted as squares) and whose edges only connect each factor (potential function) $\psi_c$ to its dependent nodes $X\in X_c$.
-<figure>
+<figure id='fig6'>
 	<img src="/images/pgm-representation/factor-graphs.png" alt="Same Markov network different factor graphs" style="display: block; margin-left: auto; margin-right: auto"/>
-	<figcaption><b>Figure 4</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) <b>Different factor graphs for the same Markov network</b>: (a) A Markov network consists of nodes $X_1,X_2,X_3$; (b) A factor graph with a factor $\psi_{1,2,3}$ connected to each $X_1,X_2,X_3$; (c) A factor graph with three pairwise factors $\psi_{1,2}$ (connected to $X_1,X_2$), $\psi_{1,3}$ (connected to $X_1,X_3$) and $\psi_{2,3}$ (connected to $X_2,X_3$)</figcaption>
+	<figcaption><b>Figure 6</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) <b>Different factor graphs for the same Markov network</b>: (a) A Markov network consists of nodes $X_1,X_2,X_3$; (b) A factor graph with a factor $\psi_{1,2,3}$ connected to each $X_1,X_2,X_3$; (c) A factor graph with three pairwise factors $\psi_{1,2}$ (connected to $X_1,X_2$), $\psi_{1,3}$ (connected to $X_1,X_3$) and $\psi_{2,3}$ (connected to $X_2,X_3$)</figcaption>
 </figure>
 
-### Log-Linear Models
+#### Log-Linear Models
 A distribution $P$ is a **log-linear model** over a Markov network $\mathcal{H}$ if it is associated with
 <ul id='number-list'>
 	<li>
@@ -567,6 +660,52 @@ A distribution $P$ is a **log-linear model** over a Markov network $\mathcal{H}$
 </ul>
 
 The function $\phi_i$ are called **energy functions**.
+
+#### Canonical Parameterization
+The **canonical parameterization** of a Gibbs distribution over $\mathcal{H}$ is defined via a set of energy functions over *all* cliques. For instance, the Markov network given in [Figure 6(a)](#fig6) would have energy functions for each of the cliques
+\begin{equation}
+\\{\\{X_1,X_2,X_3\\},\\{X_1,X_2\\},\\{X_2,X_3\\},\\{X_1,X_3\\},\\{X_1\\},\\{X_2\\},\\{X_3\\}\\},
+\end{equation}
+plus a constant energy function for the empty clique.
+
+### Bayesian & Markov Networks
+We are ready to derive the relationship between representations: Bayesian network and Markov network. Specifically,
+<ul id='roman-list'>
+	<li>
+		Given a Bayesian network $\mathcal{B}$, we can represent the distribution $P_\mathcal{B}$ as a parameterized Markov network; or given a graph $\mathcal{G}$, we can represent the independencies in $\mathcal{G}$, $\mathcal{I}(\mathcal{G})$, using an undirected graph $\mathcal{H}$.
+	</li>
+	<li>
+		We can find a Bayesian network which is a minimal I-map for a Markov network and vice versa.
+	</li>
+</ul>
+
+#### Bayesian Networks to Markov Networks
+**Proposition 17**: *Let $\mathcal{B}$ be a Bayesian network over $\mathcal{X}$ and let $\mathbf{E}=\mathbf{e}$ be an observation. Let $\mathbf{W}=\mathcal{X}\backslash\mathbf{E}$. Then $P_\mathcal{B}(\mathbf{W}\vert\mathbf{e})$ is a Gibbs distribution, defined by the factors $\Phi=\\{\phi_{X_i}\\}_{X_i\in\mathcal{X}}$, where*
+\begin{equation}
+\phi_{X_i}=P_\mathcal{B}(X_i\vert\text{Pa}\_{X_i})[\mathbf{E}=\mathbf{e}]
+\end{equation}
+*The partition function for this Gibbs distribution is $P(\mathbf{e})$*.
+
+##### Moralized Graph
+The **moral graph** $\mathcal{M}[\mathcal{G}]$ of a Bayesian network structure $\mathcal{G}$ over $\mathcal{X}$ is the undirected graph over $\mathcal{X}$ that consists of an undirected edge between $X$ and $Y$ if
+<ul id='alpha-list'>
+	<li>
+		there is a directed edge between them (in either direction), or
+	</li>
+	<li>
+		$X$ and $Y$ are both parents of the same node.
+	</li>
+</ul>
+
+**Corollary 18**: *Let $\mathcal{G}$ be a BN graph. Then for any distribution $P_\mathcal{B}$ such that $\mathcal{B}$ is a parameterization of $\mathcal{G}$, we have that $\mathcal{M}[\mathcal{G}]$ is an I-map for $P_\mathcal{B}$.*
+
+**Proposition 19**: *Let $\mathcal{G}$ be any BN graph. The moralized graph $\mathcal{M}[\mathcal{G}]$ is a minimal I-map for $\mathcal{G}$.*
+
+**Proposition 20**: *If the directed graph $\mathcal{G}$ is moral, then its moralized graph $\mathcal{M}[\mathcal{G}]$ is a perfect map of $\mathcal{G}$.*
+
+**Theorem 21**: *If a distribution $P_\mathcal{B}$ factorizes according to $\mathcal{G}$, then $\mathcal{G}$ is an I-map for $P$.*
+
+#### Markov Networks to Bayesian Networks
 
 ### Conditional Random Fields{#crf}
 A **conditional random field**, or **CRF**, is an undirected graph $\mathcal{H}$ whose nodes correspond to $\mathbf{X}\cup\mathbf{Y}$ where $\mathbf{X}$ is a set of observed variables and $\mathbf{Y}$ is a (disjoint) set of target variables which specifies a conditional distribution (instead of a joint distribution)
@@ -607,9 +746,9 @@ The simplest type of non-tabular CPD corresponds to a variable $X$ being a deter
 P(x\vert\text{pa}\_X)=\begin{cases}1&\hspace{1cm}x=f(\text{pa}\_X) \\\\ 0&\hspace{1cm}\text{otherwise}\end{cases}
 \end{equation}
 Deterministic variables are denoted as double-line ovals, as illustrated in the following example
-<figure id='fig5'>
+<figure id='fig7'>
 	<img src="/images/pgm-representation/det-cpd.png" alt="Network with a deterministic CPD" style="display: block; margin-left: auto; margin-right: auto; width: 30%; height: 30%"/>
-	<figcaption><b>Figure 5</b>: (taken from the <a href='#pgm-book'>PGM book</a>) <b>A network with $C$ being a deterministic function of $A$ and $B$.</b></figcaption>
+	<figcaption><b>Figure 7</b>: (taken from the <a href='#pgm-book'>PGM book</a>) <b>A network with $C$ being a deterministic function of $A$ and $B$.</b></figcaption>
 </figure>
 
 Consider the above figure, as $C$ being a deterministic function of $A$ and $B$, we can deduce that $C$ is fully observed if $A$ and $B$ are both observed. In other words, we have that
@@ -617,23 +756,23 @@ Consider the above figure, as $C$ being a deterministic function of $A$ and $B$,
 (D\perp E\vert A,B)
 \end{equation}
 
-**Theorem 15**: *Let $\mathcal{G}$ be a network structure, and let $\mathbf{X},\mathbf{Y},\mathbf{Z}$ be sets of variables, $\mathbf{D}$ be set of deterministic variables. If $\mathbf{X}$ is **deterministically separated** from $\mathbf{Y}$ given $\mathbf{Z}$[^3], then for all distributions $P$ such that $P\models\mathcal{I}_\ell(\mathcal{G})$ and where, for each $X\in\mathbf{D}$, $P(X\vert\text{Pa}_X)$ is a deterministic CPD, we have that $P\models(\mathbf{X}\perp\mathbf{Y}\vert\mathbf{Z})$*.
+**Theorem 18**: *Let $\mathcal{G}$ be a network structure, and let $\mathbf{X},\mathbf{Y},\mathbf{Z}$ be sets of variables, $\mathbf{D}$ be set of deterministic variables. If $\mathbf{X}$ is **deterministically separated** from $\mathbf{Y}$ given $\mathbf{Z}$[^3], then for all distributions $P$ such that $P\models\mathcal{I}_\ell(\mathcal{G})$ and where, for each $X\in\mathbf{D}$, $P(X\vert\text{Pa}_X)$ is a deterministic CPD, we have that $P\models(\mathbf{X}\perp\mathbf{Y}\vert\mathbf{Z})$*.
 
-**Theorem 16**: *Let $\mathcal{G}$ be a network structure, and let $\mathbf{X},\mathbf{Y},\mathbf{Z}$ be sets of variables, $\mathbf{D}$ be set of deterministic variables. If $\mathbf{X}$ is not deterministically separated from $\mathbf{Y}$ given $\mathbf{Z}$, then there exists a distribution $P$ such that $P\models\mathcal{I}_\ell(\mathcal{G})$ and where, for each $X\in\mathbf{D}$, $P(X\vert\text{Pa}_X)$ is a deterministic CPD, but we instead have $P\not\models(\mathbf{X}\perp\mathbf{Y}\vert\mathbf{Z})$*.
+**Theorem 19**: *Let $\mathcal{G}$ be a network structure, and let $\mathbf{X},\mathbf{Y},\mathbf{Z}$ be sets of variables, $\mathbf{D}$ be set of deterministic variables. If $\mathbf{X}$ is not deterministically separated from $\mathbf{Y}$ given $\mathbf{Z}$, then there exists a distribution $P$ such that $P\models\mathcal{I}_\ell(\mathcal{G})$ and where, for each $X\in\mathbf{D}$, $P(X\vert\text{Pa}_X)$ is a deterministic CPD, but we instead have $P\not\models(\mathbf{X}\perp\mathbf{Y}\vert\mathbf{Z})$*.
 
 It is worth remarking that particular deterministic CPD might imply additional independencies. For instance, let us consider the following examples
 
-**Example 1**: Consider the following Bayesian network
-<figure id='fig6'>
+**Example 2**: Consider the following Bayesian network
+<figure id='fig8'>
 	<img src="/images/pgm-representation/complex-det-cpd.png" alt="Network with a deterministic CPD" style="display: block; margin-left: auto; margin-right: auto; width: 40%; height: 40%"/>
-	<figcaption><b>Figure 6</b>: (taken from the <a href='#pgm-book'>PGM book</a>) <b>Another Bayesian network with $C$ being a deterministic function of $A$ and $B$</b>.</figcaption>
+	<figcaption><b>Figure 8</b>: (taken from the <a href='#pgm-book'>PGM book</a>) <b>Another Bayesian network with $C$ being a deterministic function of $A$ and $B$</b>.</figcaption>
 </figure>
 
 In the above figure, if $C=A\text{ XOR }B$, we have that $A$ is fully determined given $C$ and $B$. In other words, we have that
 \begin{equation}
 (D\perp E\vert B,C)
 \end{equation}
-**Example 2**: Consider the network given in [Figure 5](#fig5), with $C=A\text{ OR }B$. Assume that we are given $A=a^1$, it is then immediately that $C=c^1$ without taking into account the value of $B$. Or in other words, we have that
+**Example 3**: Consider the network given in [Figure 7](#fig7), with $C=A\text{ OR }B$. Assume that we are given $A=a^1$, it is then immediately that $C=c^1$ without taking into account the value of $B$. Or in other words, we have that
 \begin{equation}
 P(D\vert B,a^1)=P(D\vert a^1)
 \end{equation}
@@ -648,11 +787,11 @@ Independence statements of this form is known as the **context-specific independ
 
 Given this definition, let us examine some examples.
 
-**Example 3**: Given the Bayesian network in [Figure 5](#fig5) with $C$ being a deterministic function $\text{OR}$ of $A$ and $B$. By properties of $\text{OR}$ function, we can conclude some independence assertions
+**Example 4**: Given the Bayesian network in [Figure 7](#fig7) with $C$ being a deterministic function $\text{OR}$ of $A$ and $B$. By properties of $\text{OR}$ function, we can conclude some independence assertions
 \begin{align}
 &(C\perp_c B\hspace{0.1cm}\vert\hspace{0.1cm}a^1), \\\\ &(D\perp_c B\hspace{0.1cm}\vert\hspace{0.1cm}a^1), \\\\ &(A\perp_c B\hspace{0.1cm}\vert\hspace{0.1cm}c^0), \\\\ &(D\perp_c E\hspace{0.1cm}\vert\hspace{0.1cm}c^0), \\\\ &(D\perp_c E\hspace{0.1cm}\vert\hspace{0.1cm}b^0,c^1)
 \end{align}
-**Example 4**: Given the Bayesian network in [Figure 6](#fig6) with $C$ being the exclusive or of $A$ and $B$. We can also conclude some independence assertions using properties of $\text{XOR}$ function
+**Example 5**: Given the Bayesian network in [Figure 8](#fig8) with $C$ being the exclusive or of $A$ and $B$. We can also conclude some independence assertions using properties of $\text{XOR}$ function
 \begin{align}
 &(D\perp_c E\hspace{0.1cm}\vert\hspace{0.1cm}b^1,c^0), \\\\ &(D\perp_c E\vert\hspace{0.1cm}b^0,c^1)
 \end{align}
@@ -672,9 +811,9 @@ A **tree-CPD** representing a CPD for variable $X$ is a rooted tree, where:
 		each edge from an internal node, which is labeled as some $Z$, to its child nodes corresponds to a $z_i\in\text{Val}(Z)$.
 	</li>
 </ul>
-<figure id='fig7'>
+<figure id='fig9'>
 	<img src="/images/pgm-representation/tree-cpd.png" alt="Tree-CPD" style="display: block; margin-left: auto; margin-right: auto; width: 30%; height: 30%"/>
-	<figcaption><b>Figure 7</b>: (taken from the <a href='#pgm-book'>PGM book</a>) <b>A tree-CPD for $P(J\vert A,S,L)$</b>.</figcaption>
+	<figcaption><b>Figure 9</b>: (taken from the <a href='#pgm-book'>PGM book</a>) <b>A tree-CPD for $P(J\vert A,S,L)$</b>.</figcaption>
 </figure>
 
 The structure is common in cases where a variable can depend on a set of r.v.s but we have uncertainty about which r.v.s it depends on. For example, in the above tree-CDP representing $P(J\vert A,S,L)$, we have that
@@ -688,9 +827,9 @@ A CPD $P(Y\vert A,Z_1,\ldots,Z_k)$ is said to be a **multiplexer CPD** if $\text
 P(Y\vert a,Z_1,\ldots,Z_k)=\mathbf{1}\\{Y=Z_a\\},
 \end{equation}
 where $a$ is the value of $A$. The variable $A$ is referred as the **selector variable** for the CPD.
-<figure id='fig8'>
+<figure id='fig10'>
 	<img src="/images/pgm-representation/multiplexer-cpd.png" alt="Multiplexer-CPD" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption><b>Figure 8</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) (a) A Bayesian network for $P(J,C,L_1,L_2)$; (b) Tree-CPD for $P(J\vert C,L_1,L_2)$; (c) Modified network with additional variable $L$ acting as a multiplexer CPD.</figcaption>
+	<figcaption><b>Figure 10</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) (a) A Bayesian network for $P(J,C,L_1,L_2)$; (b) Tree-CPD for $P(J\vert C,L_1,L_2)$; (c) Modified network with additional variable $L$ acting as a multiplexer CPD.</figcaption>
 </figure>
 
 #### Rule CPDs
@@ -698,7 +837,7 @@ A **rule** $\rho$ is a pair $(\mathbf{c},p)$ where $\mathbf{c}$ is an assignment
 
 This representation decomposes a tree-CPD into its most basic elements.
 
-**Example 5**: Consider the tree-CPD given in [Figure 7](#fig7). The tree defines eight rules
+**Example 6**: Consider the tree-CPD given in [Figure 9](#fig9). The tree defines eight rules
 \begin{Bmatrix}(a^0,j^0;0.8), \\\\ (a^0,j^1;0.2), \\\\ (a^1,s^0,l^0,j^0;0.9), \\\\ (a^1,s^0,l^0,j^1;0.1), \\\\ (a^1,s^0,l^1,j^0;0.4), \\\\ (a^1,s^0,l^1,j^1;0.6), \\\\ (a^1,s^1,j^0;0.1), \\\\ (a^1,s^1,j^1;0.9)\end{Bmatrix}
 It is necessary that each conditional distribution $P(X\vert\text{Pa}_X)$ is specified by exactly one rule. Or in other words, the rules in a tree-CPD must be mutually exclusive and exhaustive.
 
@@ -722,7 +861,7 @@ A **rule-based CPD** $P(X\vert\text{Pa}_X)$ is a set of rules $\mathcal{R}$ such
 	</li>
 </ul>
 
-<span id='eg6'>**Example 6**</span>: Let $X$ be a variable with $\text{Pa}_X=\\{A,B,C\\}$ with $X$'s CPD is defined by sets of rules
+<span id='eg7'>**Example 7**</span>: Let $X$ be a variable with $\text{Pa}_X=\\{A,B,C\\}$ with $X$'s CPD is defined by sets of rules
 \begin{Bmatrix}\rho_1:(a^1,b^1,x^0;0.1), \\\\ \rho_2:(a^1,b^1,x^1;0.9), \\\\ \rho_3:(a^0,c^1,x^0;0.2), \\\\ \rho_4:(a^0,c^1,x^1;0.8), \\\\ \rho_5:(b^0,c^0,x^0;0.3), \\\\ \rho_6:(b^0,c^0,x^1;0.7), \\\\ \rho_7:(a^1,b^0,c^1,x^0;0.4), \\\\ \rho_8:(a^1,b^0,c^1,x^1;0.6), \\\\ \rho_9:(a^0,b^1,c^0;0.5)\end{Bmatrix}
 The tree-CPD corresponds to the above rule-based CPD $P(X\vert A,B,C)$ is given as:
 <figure>
@@ -734,12 +873,12 @@ It is worth noticing that both CPD entries $P(x^0\vert a^0,b^1,c^0)$ and $P(x^1\
 #### Independencies in Context-specific CPDs
 If $\mathbf{c}$ be a context associated with a branch in the tree-CPD for $X$, then $X$ is independent of the remaining parents, $\text{Pa}_X\backslash\text{Scope}(\mathbf{c})$, given $\mathbf{c}$. Moreover, there might exist CSI statements conditioned on contexts which are not induced by complete branches.
 
-**Example 7**: Consider the tree-CPD given in [Figure 7](#fig7), as mentioned above, we have that
+**Example 8**: Consider the tree-CPD given in [Figure 9](#fig9), as mentioned above, we have that
 \begin{equation}
 (J\perp_c L\hspace{0.1cm}\vert\hspace{0.1cm}s^1),
 \end{equation}
 where $s^1$ is not the full assignment associated with a branch.  
-Also, consider the tree-CPD given in [Figure 8(b)](#fig8), we have that
+Also, consider the tree-CPD given in [Figure 10(b)](#fig10), we have that
 \begin{align}
 &(J\perp_c L_2\hspace{0.1cm}\vert\hspace{0.1cm}c^1), \\\\ &(J\perp_c L_1\hspace{0.1cm}\vert\hspace{0.1cm}c^2),
 \end{align}
@@ -753,13 +892,13 @@ In this case, let $\mathbf{c}''$ be the assignment in $c'$ to the variables in $
 \mathcal{R}[\mathbf{c}]=\\{\rho[\mathbf{c}]:\rho\in\mathcal{R},\rho\sim\mathbf{c}\\}
 \end{equation}
 
-**Example 8**: Consider the rule set $\mathcal{R}$ given in [Example 6](#eg6), we have that the reduced set corresponding to context $a^1$ is
+**Example 9**: Consider the rule set $\mathcal{R}$ given in [Example 7](#eg7), we have that the reduced set corresponding to context $a^1$ is
 \begin{equation}
 \mathcal{R}[a^1]=\begin{Bmatrix}\rho_1':(b^1,x^0;0.1), \\\\ \rho_2:(b^1,x^1;0.9), \\\\ \rho_5:(b^0,c^0,x^0;0.3), \\\\ \rho_6:(b^0,c^0,x^1;0.7), \\\\ \rho_7:(b^0,c^1,x^0;0.4), \\\\ \rho_8':(b^0,c^1,x^1;0.6),\end{Bmatrix}
 \end{equation}
 which is obtained by selecting rules compatible with $a^1$, i.e. $\\{\rho_1,\rho_2,\rho_5,\rho_6,\rho_7,\rho_8\\}$, then canceling out $a^1$ from all the rules where it appeared.
 
-**Proposition 17**: Let $\mathcal{R}$ be the rules in the rule-based CPD for a variable $X$, and let $\mathcal{R}_\mathbf{c}$ be the rules in $\mathcal{R}$ compatible with $\mathbf{c}$. Let $\mathbf{Y}\subset\text{Pa}_X$ be a subset such that $\mathbf{Y}\cap\text{Scope}(\mathbf{c})=\emptyset$. If for all $\rho\in\mathcal{R}[\mathbf{c}]$, we have that $\mathbf{Y}\cap\text{Scope}(\rho)=\emptyset$, then
+**Proposition 20**: Let $\mathcal{R}$ be the rules in the rule-based CPD for a variable $X$, and let $\mathcal{R}_\mathbf{c}$ be the rules in $\mathcal{R}$ compatible with $\mathbf{c}$. Let $\mathbf{Y}\subset\text{Pa}_X$ be a subset such that $\mathbf{Y}\cap\text{Scope}(\mathbf{c})=\emptyset$. If for all $\rho\in\mathcal{R}[\mathbf{c}]$, we have that $\mathbf{Y}\cap\text{Scope}(\rho)=\emptyset$, then
 \begin{equation}
 (X\perp_c\mathbf{Y}\hspace{0.1cm}\vert\hspace{0.1cm}\text{Pa}\_X\backslash\mathbf{Y},\mathbf{c})
 \end{equation}
@@ -769,7 +908,7 @@ Let $P(X\vert\text{Pa}_X)$ be a CPD, $Y\in\text{Pa}_X$ be a set and let $\mathbf
 
 Hence, by examining the reduced rule set, we can specify whether an edge is spurious, i.e. if $\mathcal{R}$ be the rule-based CPD for $P(X\vert\text{Pa}_X)$, then $Y\rightarrow X$ is spurious in context $\mathbf{c}$ if $Y$ does not appear in $\mathcal{R}[\mathbf{c}]$.
 
-**Theorem 18**: *Let $\mathcal{G}$ be a network structure, $P$ be a distribution such that $P\models\mathcal{I}_\ell(\mathcal{G})$, $\mathbf{c}$ be a context, and $\mathbf{X},\mathbf{Y},\mathbf{Z}$ be sets of variables. If $\mathbf{X}$ is **CSI-separated** from $\mathbf{Y}$ given $\mathbf{Z}$ in the context $\mathbf{c}$[^4], then we have that $P\models(\mathbf{X}\perp_c\mathbf{Y}\hspace{0.1cm}\vert\hspace{0.1cm}\mathbf{Z},\mathbf{c})$.*
+**Theorem 21**: *Let $\mathcal{G}$ be a network structure, $P$ be a distribution such that $P\models\mathcal{I}_\ell(\mathcal{G})$, $\mathbf{c}$ be a context, and $\mathbf{X},\mathbf{Y},\mathbf{Z}$ be sets of variables. If $\mathbf{X}$ is **CSI-separated** from $\mathbf{Y}$ given $\mathbf{Z}$ in the context $\mathbf{c}$[^4], then we have that $P\models(\mathbf{X}\perp_c\mathbf{Y}\hspace{0.1cm}\vert\hspace{0.1cm}\mathbf{Z},\mathbf{c})$.*
 
 ### Independence of Causal Influence
 
@@ -855,9 +994,9 @@ Hence, as mentioned [above](#cbn), we have
 </ul>
 
 In a 2-TBN, edges that go between time slices are called **inter-time-slice**, while the ones connecting variables in the same slices are known as **intra-time-slice**. Additionally, inter-time-slice edges having the form of $X\rightarrow X'$ are referred as **persistence**. The variable $X$ for which we have an edge $X\rightarrow X'$ is also called **persistent variable**.
-<figure id='fig9'>
+<figure id='fig11'>
 	<img src="/images/pgm-representation/2-tbn.png" alt="2-TBN" style="display: block; margin-left: auto; margin-right: auto; height: 80%; width: 80%"/>
-	<figcaption><b>Figure 9</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) <b>A 2-TBN</b>.</figcaption>
+	<figcaption><b>Figure 11</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) <b>A 2-TBN</b>.</figcaption>
 </figure>
 
 Based on the [stationary property](#stationary), a 2-TBN defines the probability distribution $P(\mathcal{X}^{(t+1)}\vert\mathcal{X}^{(t)})$ for any $t$. Given a distribution over the initial states, we can unroll the network over sequences of any length, to define a Bayesian network that induces a distribution over trajectories of that length.
@@ -887,7 +1026,7 @@ Or in other words, $\mathcal{B}_0$ is the initial state, while $\mathcal{B}\_\ri
 **Remark**: Hence, we can view a DBN as a compact representation from which we can generate an infinite set of Bayesian networks (one for every $T>0$).
 <figure>
 	<img src="/images/pgm-representation/dbn.png" alt="DBN" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption><b>Figure 10</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) (a) $\mathcal{B}_\rightarrow$; (b) $\mathcal{B}_0$; (c) 3-step unrolled DBN.</figcaption>
+	<figcaption><b>Figure 12</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) (a) $\mathcal{B}_\rightarrow$; (b) $\mathcal{B}_0$; (c) 3-step unrolled DBN.</figcaption>
 </figure>
 
 In DBNs, we can partition the variables $\mathcal{X}$ into disjoint subsets $\mathbf{X}$ and $\mathbf{O}$ such that variables in $\mathbf{X}$ are always hidden, while ones in $\mathbf{O}$ are always observed. This introduces us to an another way of representing temporal process, which is the **state-observation model**.
@@ -909,7 +1048,7 @@ A **state-observation model** utilizes two independent assumptions:
 	</li>
 </ul>
 
-Therefore, we can view our probabilistic model containing two components: the **transition model**, $P(\mathbf{X}'\vert\mathbf{X})$, and the **observation model**, $P(\mathbf{O}\vert\mathbf{X})$. This corresponds to a 2-TBN structure where the observation variables $\mathbf{O}'$ are all leaves, and have parents only in $\mathbf{X}'$. For instance, as considering [Figure 9](#fig9), $\textit{Observation}'$ are acting as $\mathbf{O}'$.
+Therefore, we can view our probabilistic model containing two components: the **transition model**, $P(\mathbf{X}'\vert\mathbf{X})$, and the **observation model**, $P(\mathbf{O}\vert\mathbf{X})$. This corresponds to a 2-TBN structure where the observation variables $\mathbf{O}'$ are all leaves, and have parents only in $\mathbf{X}'$. For instance, as considering [Figure 11](#fig11), $\textit{Observation}'$ are acting as $\mathbf{O}'$.
 
 ##### Hidden Markov Models{#hmm}
 A **Hidden Markov model**, or **HMM**, is the simplest example of a state-observation model, and also a special case of a simple DBN, which has a sparse transition model $P(S'\vert S)$. Thus, HMMs are often represented using a different graphical notation which visualizes this sparse transition model.
@@ -924,7 +1063,7 @@ Specifically, in the is representation, the transition model is encoded using a 
 	</li>
 </ul>
 
-**Example 9**: Consider an HMM with state variable $S$ that takes 4 possible values $s_1,s_2,s_3,s_4$ and with a transition model
+**Example 10**: Consider an HMM with state variable $S$ that takes 4 possible values $s_1,s_2,s_3,s_4$ and with a transition model
 | |$s_1$|$s_2$|$s_3$|$s_4$|
 |-|-|-|-|-|
 |$s_1$|0.3|0.7|0|0|
@@ -970,7 +1109,7 @@ An **attribute** $A$ is a function $A(U_1,\ldots,U_k)$ whose range is some set $
 \begin{equation}
 \alpha(A)\doteq(U_1,\ldots,U_k)
 \end{equation}
-**Example 10**: The argument signature of $\textit{Grade}$ attribute would have two logical variables $S,C$ where $S$ is of class $\textit{Student}$, and where $C$ is of class $\textit{Course}$.
+**Example 11**: The argument signature of $\textit{Grade}$ attribute would have two logical variables $S,C$ where $S$ is of class $\textit{Student}$, and where $C$ is of class $\textit{Course}$.
 
 Let $\mathcal{Q}$ be a set of classes, and $\aleph$ be a set of attributes over $\mathcal{Q}$. An **object skeleton** $\kappa$ specifies a fixed, finite set of objects $\mathcal{O}^\kappa[Q]$ for every $Q\in\mathcal{Q}$. We also define
 \begin{equation}
@@ -1002,15 +1141,15 @@ A **plate model** $\mathcal{M}_\text{Plate}$ defines for each template attribute
 		a template CPD $P(A\vert\text{Pa}_A)$.
 	</li>
 </ul>
-<figure id='fig11'>
+<figure id='fig13'>
 	<img src="/images/pgm-representation/plate-models.png" alt="Plate models" style="display: block; margin-left: auto; margin-right: auto; height: 80%; width: 80%"/>
-	<figcaption><b>Figure 11</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) <b>Plate models and induced ground Bayesian networks</b>: (a) Single plate: for any student $s$, $P(I(s))$ and $P(G(s)\vert I(s))$ are the same; (b) Nested plates: for any (student, course) pair $(s,c)$, $\textit{Grade}(s,c)$ depends on $\textit{Difficulty}(c)$ and on $\textit{Intelligence}(s,c)$; (c) Intersecting plates: for any (student, course) pair $(s,c)$, $\text{Grade}(s,c)$ depends on $\textit{Difficulty}(c)$ and on $\textit{Intelligence}(s)$.</figcaption>
+	<figcaption><b>Figure 13</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) <b>Plate models and induced ground Bayesian networks</b>: (a) Single plate: for any student $s$, $P(I(s))$ and $P(G(s)\vert I(s))$ are the same; (b) Nested plates: for any (student, course) pair $(s,c)$, $\textit{Grade}(s,c)$ depends on $\textit{Difficulty}(c)$ and on $\textit{Intelligence}(s,c)$; (c) Intersecting plates: for any (student, course) pair $(s,c)$, $\text{Grade}(s,c)$ depends on $\textit{Difficulty}(c)$ and on $\textit{Intelligence}(s)$.</figcaption>
 </figure>
 
 ##### Ground Bayesian Networks for Plate Models
 A plate model $\mathcal{M}\_\text{Plate}$ and object skeleton $\kappa$ define a **ground Bayesian network** $\mathcal{B}\_\kappa^{\mathcal{M}\_\text{Plate}}$ as follows. Let $A(U_1,\ldots,U_k)$ be any template attribute in $\aleph$. Then, for any $\gamma=(U_1\mapsto u_1,\ldots,U_k\mapsto u_k)\in\Gamma_\kappa[A]$, we have a variable $A(\gamma)$ in the ground network, with parents $B(\gamma)$ for all $B\in\text{Pa}_A$, and the instantiated CPD $P(A(\gamma)\vert\text{Pa}_A(\gamma))$.
 
-**Example 11**: Consider the [Figure 11(c)](#fig11), without loss of generality, we have that:
+**Example 12**: Consider the [Figure 13(c)](#fig13), without loss of generality, we have that:
 <ul id='number-list'>
 	<li>
 		The plate model $\mathcal{M}_\text{Plate}$ is defined over a set $\aleph=\{\textit{Grade},\textit{Difficulty},\textit{Intelligence}\}$ of template attributes, for each of which:
