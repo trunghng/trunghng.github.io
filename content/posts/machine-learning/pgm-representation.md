@@ -127,7 +127,7 @@ Consider the graph $\mathcal{K}=(\mathcal{X},\mathcal{E})$, the basic notion of 
 		A <b>loop</b> in $\mathcal{K}$ is a trail $X_1,\ldots,X_k$ where $X_1=X_k$. A graph is <b>singly connected</b> if it contains no loops. A node in a singly connected graph is called a <b>leaf</b> if it has exactly one adjacent node.
 	</li>
 	<li>
-		A singly connected directed graph is called a <b>polytree</b>, while a singly connected undirected graph is known as a <b>forest</b>; if it is also connected, it is called a <b>tree</b>.
+		A singly connected directed graph is called a <b>polytree</b>, while a singly connected undirected graph is known as a <b>forest</b>; if it is also connected, it is called a <b id='tree'>tree</b>.
 	</li>
 	<li>
 		A directed graph is a <b>forest</b> if each node has at most one parent. A directed forest is a <b>tree</b> if it is also connected.
@@ -674,7 +674,7 @@ We are ready to derive the relationship between representations: Bayesian networ
 #### Bayesian Networks to Markov Networks{#bn-2-mrf}
 Let us begin by considering a distribution $P_\mathcal{B}$, where $\mathcal{B}$ is a parameterized network over a graph $\mathcal{G}$. Then, $P_\mathcal{B}$ can be seen as a Gibbs distribution by considering each CPD $P(X_i\vert\text{Pa}\_{X_i})$ as a factor with scope $X_i,\text{Pa}\_{X_i}$. This Gibbs distribution then has $1$ as its partition function.
 
-**Proposition 17**: *Let $\mathcal{B}$ be a Bayesian network over $\mathcal{X}$ and let $\mathbf{E}=\mathbf{e}$ be an observation. Let $\mathbf{W}=\mathcal{X}\backslash\mathbf{E}$. Then $P_\mathcal{B}(\mathbf{W}\vert\mathbf{e})$ is a Gibbs distribution, defined by the factors $\Phi=\\{\phi_{X_i}\\}_{X_i\in\mathcal{X}}$, where*
+<span id='prop17'>**Proposition 17**</span>: *Let $\mathcal{B}$ be a Bayesian network over $\mathcal{X}$ and let $\mathbf{E}=\mathbf{e}$ be an observation. Let $\mathbf{W}=\mathcal{X}\backslash\mathbf{E}$. Then $P_\mathcal{B}(\mathbf{W}\vert\mathbf{e})$ is a Gibbs distribution, defined by the factors $\Phi=\\{\phi_{X_i}\\}_{X_i\in\mathcal{X}}$, where*
 \begin{equation}
 \phi_{X_i}=P_\mathcal{B}(X_i\vert\text{Pa}\_{X_i})[\mathbf{E}=\mathbf{e}]
 \end{equation}

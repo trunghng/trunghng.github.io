@@ -81,8 +81,7 @@ which is justified by the limited scope of the CPD factors, e.g. the second step
 \end{equation}
 which is referred as the **sum-product inference** task. This gives rise to the algorithm called **Sum-Product Variable Elimination**, as given in the following pseudocode.
 <figure>
-	<img src="/images/pgm-inference/sum-product-ve.png" alt="Sum-Product VE" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption></figcaption>
+	<img src="/images/pgm-inference/sum-product-ve.png" alt="Sum-Product VE"/>
 </figure>
 
 **Theorem 1**: Let $\mathbf{X}$ be some set of variables, and let $\Phi$ be a set of factors such that for each $\phi\in\Phi$, $\text{Scope}(\phi)\subset\mathbf{X}$. Let $\mathbf{Y}\subset\mathbf{X}$ be a set of query variables, and let $\mathbf{Z}=\mathbf{X}\backslash\mathbf{Y}$. Then for any ordering $\prec$ over $\mathbf{Z}$, $\text{Sum-Product-VE}(\Phi,\mathbf{Z},\prec)$ returns a factor $\phi^\*(\mathbf{Y})$ such
@@ -107,7 +106,7 @@ which is referred as the **sum-product inference** task. This gives rise to the 
 	</li>
 </ul>
 
-**Example 2**: Consider the following Bayesian network with the goal is to computing the probability that the student got the job.
+<b id='eg1'>Example 1</b>: Consider the following Bayesian network with the goal is to computing the probability that the student got the job.
 <figure>
 	<img src="/images/pgm-inference/student-bn.png" alt="Student BN" width="40%" height="40%"/>
 	<figcaption><b>Figure 1</b> (taken from the <a href='#pgm-book'>PGM book</a>) <b>A Bayesian network for Student scenario</b></figcaption>
@@ -179,13 +178,21 @@ Then, we can construct a Bayesian network $\mathcal{B}'$ and a disjoint partitio
 \end{equation}
 
 #### Dealing with Evidence
+Recall that by [Proposition 17]({{< ref "pgm-representation#prop17" >}}), we can view an unnormalized measure derived from introducing evidence into a Bayesian network as a Gibbs distribution.
 
-### Complexity & Graph Structure of Variable Elimination
+This suggests that in order to compute $P(\mathbf{Y}\vert\mathbf{e})$, we can apply the VE process to the set of factors in the network, [reduced]({{< ref "pgm-representation#factor-reduction" >}}) by $\mathbf{E}=\mathbf{e}$, and eliminate the variables in $\mathcal{X}\backslash(\mathbf{Y}\cup\mathbf{E})$.
 
-#### Complexity
+The procedure outputs a factor $\phi^\*(\mathbf{Y})$, which is exactly $P(\mathbf{Y},\mathbf{e})$. Normalizing this unnormalized distribution by dividing it with $\sum_\mathbf{Y}\phi^\*(\mathbf{Y})$, which is precisely $P(\mathbf{e})$, we obtain $P(\mathbf{Y}\vert\mathbf{e})$.
+
+Details for our overall procedure is given below, named as $\text{Conditional-Probability-VE}$.
+<figure>
+	<img src="/images/pgm-inference/cond-prob-ve.png" alt="Conditional-Probability VE"/>
+</figure>
+
+### Graph Structure of Variable Elimination
 
 #### Graph Structure
-Since the inputs to $\text{Sum-Product-VE}$ is a set of factors $\Phi$, set of variables to eleminated $\mathbf{Z}$ with some ordering $\prec$, the algorithm does take into account whether the graph generating factors is directed, undirected or partly directed. Hence, it is simplest to consider the algorithm as acting on an undirected graph $\mathcal{H}$.
+Since the inputs to $\text{Sum-Product-VE}$ is a set of factors $\Phi$, set of variables to eliminated $\mathbf{Z}$ with some ordering $\prec$, the algorithm does take into account whether the graph generating factors is directed, undirected or partly directed. Hence, it is simplest to consider the algorithm as acting on an undirected graph $\mathcal{H}$.
 
 Let $\Phi$ be a set of factors, we define
 \begin{equation}
@@ -206,9 +213,9 @@ Z=\sum_\mathbf{X}\prod_{\phi\in\Phi}\phi
 Then $\mathcal{H}_\Phi$ is the minimal Markov network I-map for $P$, and $\Phi$ is a parameterization of this network that defines the distribution $P$.
 
 **Proof**  
-This follows direcly from [Theorem 16]({{< ref "pgm-representation#theorem16" >}}).
+This follows directly from [Theorem 16]({{< ref "pgm-representation#theorem16" >}}).
 
-**Remark**: Using the arguments specified for converting from [Bayesian networks to Markov networks]({{< ref "pgm-representation#bn-2-mrf" >}}), it is worth remarking that
+**Remark**: Using the arguments specified when converting from [Bayesian networks to Markov networks]({{< ref "pgm-representation#bn-2-mrf" >}}), it is worth remarking that
 <ul id='number-list'>
 	<li>
 		For a set of factors $\Phi$ defined by a Bayesian network $\mathcal{G}$ (in this case, the partition function $Z=1$), $\mathcal{H}_\Phi$ is exactly the moralized graph of $\mathcal{G}$.
@@ -238,7 +245,7 @@ Let $\Phi$ be a set of factors over $\mathcal{X}=\\{X_1,\ldots,X_n\\}$ and let $
 		The scope of every factor generated during the VE process is a clique in $\mathcal{I}_{\Phi,\prec}$.
 	</li>
 	<li>
-		Every <a href={{< ref "pgm-representation#max-clique" >}}>maximal clique</a> in $\mathcal{I}_{\Phi,\prec}$ is the scope of some intermediate factor in the computation.
+		Every <a href='{{< ref "pgm-representation#max-clique" >}}'>maximal clique</a> in $\mathcal{I}_{\Phi,\prec}$ is the scope of some intermediate factor in the computation.
 	</li>
 </ul>
 
@@ -246,9 +253,6 @@ Let $\Phi$ be a set of factors over $\mathcal{X}=\\{X_1,\ldots,X_n\\}$ and let $
 <ul id='number-list'>
 	<li>
 		Consider a factor $\psi(Y_1,\ldots,Y_k)$ generated during the VE procedure. By definition of the induced graph, there must be an edge between each pair $(Y_i,Y_j)$, which implies that $Y_1,\ldots,Y_k$ form a clique.
-	</li>
-	<li>
-		
 	</li>
 </ul>
 
@@ -263,6 +267,97 @@ w_\mathcal{K}^\*=\min_\prec w(\mathcal{I}\_{\mathcal{K},\prec})
 \end{equation} 
 
 ### Clique Trees
+
+#### Variable Elimination and Clique Trees
+Recall that in each elimination step of the VE process, a factor $\psi_i$ is introduced as the product of existing factors. Then, by marginalizing $\psi_i$, we eliminate a variable to create a new factor $\tau_i$, which is then used to introduce another factor $\psi_j$, and $\tau_j$ afterward and so on.
+
+Let us consider $\psi_j$ be a computational data structure, which takes $\tau_i$, which we refer as a **message**, generated by other factor $\psi_i$, and generates a message $\tau_j$ that is used by another factor $\psi_l$.
+
+##### Cluster Graphs
+A **cluster graph** $\mathcal{U}$ for a set of factors $\Phi$ over $\mathcal{X}$ is an undirected graph, each of whose nodes $i$ is associated with a subset $\mathbf{C}_i\subset\mathcal{X}$.
+
+A cluster graph must be **family-preserving**, i.e. each factor $\phi\in\Phi$ must be associated with a cluster $\mathbf{C}_i$, denoted $\alpha(\phi)$, such that $\text{Scope}(\phi)\subset\mathbf{C}_i$.
+
+Each edge between a pair of cluster $\mathbf{C}_i$ and $\mathbf{C}_j$ is associated with a **sepset** $\mathbf{S}\_{i,j}\subset\mathbf{C}_i\cap\mathbf{C}_j$.
+
+**Example 2**: Consider the execution of VE in [Example 1](#eg1), with its elimination ordering, we can define a cluster graph whose nodes and edges are given by:
+<ul id='number-list'>
+	<li>
+		We have $\mathbf{C}_i=\text{Scope}(\psi_i)$. In particular,
+		\begin{align}
+		\mathbf{C}_1&=\text{Scope}(\psi_1)=\{C,D\} \\ \mathbf{C}_2&=\text{Scope}(\psi_2)=\{D,I,G\} \\ \mathbf{C}_3&=\text{Scope}(\psi_3)=\{G,I,S\} \\ \mathbf{C}_4&=\text{Scope}(\psi_4)=\{G,H,J\} \\ \mathbf{C}_5&=\text{Scope}(\psi_5)=\{G,J,L,S\} \\ \mathbf{C}_6&=\text{Scope}(\psi_6)=\{J,L,S\} \\ \mathbf{C}_7&=\text{Scope}(\psi_7)=\{J,L\}
+		\end{align}
+	</li>
+	<li>
+		We have an edge between two cluster $\mathbf{C}_i$ and $\mathbf{C}_j$ if the message $\tau_i$, produced by eliminating a variable in $\psi_i$, is used in the production of $\tau_j$.
+	</li>
+</ul>
+
+We thus have the following cluster graph
+<figure>
+	<img src="/images/pgm-inference/cluster-graph.png" alt="Cluster graph" width="70%" height="70%"/>
+	<figcaption style='text-align: center;'><b>Figure 2</b>: (taken from <a href='#pgm-book'>PGM book</a>) <b>Cluster graph for the VE process in <a href='#eg1'>Example 1</a></b></figcaption>
+</figure>
+
+**Remark**: It is worth noticing that
+<ul id='number-list'>
+	<li>
+		The VE algorithm uses each intermediate factor $\tau_i$ at most once. Specifically, when $\phi_i$ is used to produce $\psi_i$, it is removed from the set of factors $\Phi$, and thus cannot be used again. Therefore, the cluster graph induced by VE is a <a href='{{< ref "pgm-representation#tree" >}}'>tree</a>.
+	</li>
+	<li>
+		later
+	</li>
+</ul>
+
+##### Clique Trees
+Let $\mathcal{T}$ be a cluster tree over a set of factor $\Phi$, and let $\mathcal{V}\_\mathcal{T}$ and $\mathcal{E}\_\mathcal{T}$ denote its vertices and edges respectively. Then $\mathcal{T}$ is said to have the **running intersection property** if whenever there is a variable $X$ such that $X\in\mathbf{C}_i$ and $X\in\mathbf{C}_j$, then $X$ is also in every cluster in the (unique) path in $\mathcal{T}$ between $\mathbf{C}_i$ and $\mathbf{C}_j$.
+
+**Remark**: This property implies that $\mathbf{S}_{i,j}=\mathbf{C}_i\cup\mathbf{C}_j$.
+
+**Theorem 4**: *Let $\mathcal{T}$ be a cluster tree induced by the VE algorithm over some set of factors $\Phi$. Then $\mathcal{T}$ satisfies the running intersection property.*
+
+**Proof**  
+Let $\mathbf{C}_X$ be the cluster where $X$ is eliminated. Our claim follows if we can show that for any cluster $\mathbf{C}\neq\mathbf{C}_X$, such that $X\in\mathbf{C}$, then $X$ appears in every clique on the path between $\mathbf{C}$ and $\mathbf{C}_X$.
+
+By assumption, we first notice that $\mathbf{C}_X$ is upstream from $\mathbf{C}$ because if not, $X$ will not appear in the domain of the factor in $\mathbf{C}$ due after the elimination of $X$ in $\mathbf{C}_X$, $\Phi$ have no factor containing $X$.
+
+Also, since $X\in\mathbf{C}$ and $X$ is not eliminated in $\mathbf{C}$, for each cluster upstream from $\mathbf{C}$ to $\mathbf{C}_X$, we have that $X$ must be in their scope, until it is eliminated in $\mathbf{C}_X$, which makes no upstream from $\mathbf{C}_X$ contains $X$. Therefore, $X$ appears in all clusters between $\mathbf{C}$ and $\mathbf{C}_X$.
+
+**Proposition 5**: *Let $\mathcal{T}$ be a cluster tree induced by the VE process over some set of factors $\Phi$. Let $\mathbf{C}_i$ and $\mathbf{C}_j$ be two neighboring clusters, such that $\mathbf{C}_i$ passes the message $\tau_i$ to $\mathbf{C}_j$. Then $\text{Scope}(\tau_i)=\mathbf{C}_i\cup\mathbf{C}_j$.*
+
+**Proof**  
+
+Let $\Phi$ be a set of factors over $\mathcal{X}$. A cluster tree over $\Phi$ that satisfies the running intersection property is called a **clique tree** (or **junction tree**, or **join tree**). Clusters are then called **cliques**.
+
+**Theorem 6**: *Let $\mathcal{T}$ be a cluster tree over $\Phi$, and let $\mathcal{H}\_\Phi$ be an undirected graph parameterized by $\Phi$. Then $\mathcal{T}$ satisfies the running intersection property iff for every sepset $\mathbf{S}_{i,j}$, we have that*
+\begin{equation}
+\text{sep}\_{\mathcal{H}\_\Phi}(\mathbf{W}\_{<(i,j)};\mathbf{W}\_{<(j,i)}\vert\mathbf{S}\_{i,j}),
+\end{equation}
+*where $\mathbf{W}\_{<(i,j)}$ is the set of all variables in the scope of clusters in the $\mathbf{C}_i$ side of the tree, and where $\mathbf{W}\_{<(j,i)}$ denotes the set of all variables in the scope of clusters in the $\mathbf{C}_j$ side of the tree.*
+
+#### Message Passing: Sum Product
+
+##### Clique-Tree Message Passing
+Let $\mathcal{T}$ be a clique tree with cliques $\mathbf{C}\_1,\ldots,\mathbf{C}\_k$. Since each factor $\phi\in\Phi$ is associated with some clique $\alpha(\phi)$, we then define the **initial potential** of $\mathbf{C}\_i$ to be
+\begin{equation}
+\psi_j(\mathbf{C}\_i)=\prod_{\phi:\alpha(\phi)=i}\phi
+\end{equation}
+Because each factor is assigned to exactly one clique, we are guaranteed that
+\begin{equation}
+\prod_\phi\phi=\prod_{i=1}^{k}\psi_i(\mathbf{C}\_i)
+\end{equation}
+Let $\mathbf{C}_r$ be the selected root clique. For each clique $\mathbf{C}_i$, let $\text{Nb}_i$ denote the set of indices of cliques that are neighbors of $\mathbf{C}_i$, and let $p_r(i)$ be the upstream neighbor of $i$.
+
+This means that each clique $\mathbf{C}_i$, except for the root, performs a **message passing** computation and sends a message to its upstream neighbor $\mathbf{C}\_{p_r(i)}$.
+
+The message from $\mathbf{C}\_i$ to $\mathbf{C}\_j$ is computed via the **sum-product message passing** computation, which multiplies all incoming messages from $\mathbf{C}_i$'s neighbors (except for $\mathbf{C}\_j$) with its initial clique potential ...
+\begin{equation}
+\delta_{i\rightarrow j}=\sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\psi_i\cdot\prod_{k\in(\text{Nb}\_i\backslash\\{j\\})}\delta_{k\rightarrow i}
+\end{equation}
+
+
+
+##### Clique Tree Calibration
 
 ## Variational Inference
 
