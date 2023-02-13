@@ -202,8 +202,7 @@ C=\frac{4\epsilon\gamma}{(1-\gamma)^2}
 \end{equation}
 The policy improvement bound \eqref{eq:pi.4} allows us to specify a policy iteration, as given in the following pseudocode
 <figure>
-	<img src="/images/trpo/policy-iteration-nondec-exp-return.png" alt="Non-decreasing expected return policy iteration" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center; font-style: italic;"></figcaption>
+	<img src="/images/trpo/policy-iteration-nondec-exp-return.png" alt="Non-decreasing expected return policy iteration"/>
 </figure>
 It is worth noticing that \eqref{eq:pi.4} allows the policy iteration above to guarantee to generating a sequence of non-decreasing expected returns
 \begin{equation}

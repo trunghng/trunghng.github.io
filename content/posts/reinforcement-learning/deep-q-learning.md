@@ -27,8 +27,7 @@ For an arbitrary initial $V_0(s)$, the iteration, or the sequence $\\{V_t\\}$, w
 
 Details for value iteration method can be seen in the following pseudocode.
 <figure>
-	<img src="/images/deep-q-learning/value-iteration.png" alt="value iteration pseudocode" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption></figcaption>
+	<img src="/images/deep-q-learning/value-iteration.png" alt="value iteration pseudocode"/>
 </figure>
 
 Remember that along with the state-value function $V_\pi(s)$, we have also defined the **action-value function**, or **Q-values** for a policy $\pi$, denoted $Q$, given by
@@ -53,8 +52,7 @@ Q_{t+1}(s,a)=\sum_{s'}P(s'\vert s,a)\left[R(s,a,s')+\gamma\max_{a'}Q_t(s',a')\ri
 \end{equation}
 This iteration, given an initial value $Q_0(s,a)$, eventually will also converge to the optimal Q-values $Q^\*(s,a)$ due to the relationship between $V$ and $Q$ as defined above. Pseudocode for Q-value iteration is given below.
 <figure>
-	<img src="/images/deep-q-learning/q-value-iteration.png" alt="value iteration pseudocode" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption></figcaption>
+	<img src="/images/deep-q-learning/q-value-iteration.png" alt="value iteration pseudocode"/>
 </figure>
 
 ## Q-learning

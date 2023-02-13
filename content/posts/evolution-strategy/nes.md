@@ -145,8 +145,7 @@ where $\eta$ is the learning rate, given as
 \end{equation}
 This learning rate can also be replaced by a more desirable one without changing the direction of our update. With this update rule for natural gradient, we obtain the general formulation of NES, as described in the following pseudocode.
 <figure>
-	<img src="/images/nes/nes.png" alt="NES" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/nes/nes.png" alt="NES"/>
 </figure>
 
 ## Robustness techniques{#rbn-tchnq}
@@ -322,8 +321,7 @@ which can be improved with fitness shaping using the update formula \eqref{eq:fs
 \end{align}
 where $\mathbf{s}\_{k:\lambda}$ denotes the $k$-th best sample in local coordinates. The resulting algorithm is thus known as **Exponential Natural Evolution Strategies**, or **xNES**, with the corresponding pseudocode shown below.
 <figure>
-	<img src="/images/nes/xnes.png" alt="xNES" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/nes/xnes.png" alt="xNES"/>
 </figure>
 
 ## Testing on Rastrigin function{#test-on-rast}
@@ -335,8 +333,8 @@ $f(\mathbf{x})$ reaches its global minimum $0$ at $\mathbf{x}=\mathbf{0}$. The e
 
 The result after running our experiment is illustrated in the figure below.
 <figure>
-	<img src="/images/nes/nes-rastrigin.png" alt="NES on rastrigin" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Success rate to reach $f_\text{stop}=10^{-10}$ versus population size for Rastrigin function.<br> The code can be found <a href='https://github.com/trunghng/evolution-strategies/blob/main/testing_ground.py' target='_blank'>here</a></figcaption>
+	<img src="/images/nes/nes-rastrigin.png" alt="NES on rastrigin" width="70%" height="70%"/>
+	<figcaption><b>Figure 1</b>: <b>Success rate to reach $f_\text{stop}=10^{-10}$ versus population size for Rastrigin function</b>. The code can be found <a href='https://github.com/trunghng/evolution-strategies/blob/main/testing_ground.py' target='_blank'>here</a></figcaption>
 </figure>
 
 ## References

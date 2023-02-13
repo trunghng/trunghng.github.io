@@ -263,8 +263,7 @@ These following are key components of SAC method:
 
 Pseudocode for our final algorithm is given below.
 <figure>
-	<img src="/images/maxent-sql-sac/sac.png" alt="SAC" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption></figcaption>
+	<img src="/images/maxent-sql-sac/sac.png" alt="SAC"/>
 </figure>
 
 ## Soft Q-learning{#sql}

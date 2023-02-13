@@ -11,8 +11,8 @@ math: true
 ## What is Dynamic Programming?
 **Dynamic Programming (DP)** is a method of simplifying a complicated problem by breaking it down into more straightforward sub-problems. Then it finds the solutions for the sub-problems, and combines them together.
 <figure>
-	<img src="/images/dp-in-mdp/dp.png" alt="dynamic programming" width="360" height="200px" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption><b>Figure 1</b>: <b>Using Dynamic Programming to find the shortest path in graph</b></figcaption>
+	<img src="/images/dp-in-mdp/dp.png" alt="Dynamic Programming" width="50%" height="50%"/>
+	<figcaption style='text-align: center;'><b>Figure 1</b>: <b>Using Dynamic Programming to find the shortest path in graph</b>.</figcaption>
 </figure>
 
 ## Dynamic Programming applied in Markov Decision Processes
@@ -47,8 +47,8 @@ v_{k+1}(s)&\doteq\mathbb{E}\_\pi\left[R_{t+1}+\gamma v_k(S_{k+1})\vert S_t=s\rig
 for all $s\in\mathcal{S}$. Thanks to [Banach's fixed points theorem]({{< ref "optimal-policy-existence#banach-fixed-pts-theorem" >}}) and as we have mentioned in that note, we have that the sequence $\\{v_k\\}\to v_\pi$ as $k\to\infty$. This algorithm is called **iterative policy evaluation**.  
 We have the backup diagram for this update.
 <figure>
-	<img src="/images/dp-in-mdp/backup-iterative-policy-evaluation.png" alt="Backup diagram for iterative policy evalution update" style="display: block; margin-left: auto; margin-right: auto; width: 360px; height: 200px"/>
-	<figcaption><b>Figure 2</b>: Backup diagram for Iterative policy evaluation update</figcaption>
+	<img src="/images/dp-in-mdp/backup-iterative-policy-evaluation.png" alt="Backup diagram for iterative policy evalution update" width="50%" height="50%"/>
+	<figcaption style='text-align: center;'><b>Figure 2</b>: <b>Backup diagram for Iterative policy evaluation update</b></figcaption>
 </figure>
 
 When implementing **iterative policy evaluation** method, for all $s\in\mathcal{S}$, we can use:
@@ -69,8 +69,7 @@ When implementing **iterative policy evaluation** method, for all $s\in\mathcal{
 
 Here is the pseudocode of the **in-place iterative policy evaluation**, given a policy $\pi$, for estimating $V\approx v_\pi$
 <figure>
-	<img src="/images/dp-in-mdp/iterative-policy-evaluation.png" alt="iterative policy evalution pseudocode" style="display: block; margin-left: auto; margin-right: auto;"/>
-    <figcaption></figcaption>
+	<img src="/images/dp-in-mdp/iterative-policy-evaluation.png" alt="iterative policy evalution pseudocode"/>
 </figure>
 
 ### Policy Improvement{#policy-imp}
@@ -111,14 +110,13 @@ Once we have obtained a better policy, $\pi'$, by improving a policy $\pi$ using
 Each following policy is a strictly improved version of the previous one (unless it is already optimal). Because a finite MDP has only a finite number of policies, this process must converge to an optimal policy and optimal value function in a finite number of iterations.
 This algorithm is called **policy iteration**. And here is the pseudocode of the policy iteration.
 <figure>
-	<img src="/images/dp-in-mdp/policy-iteration.png" alt="policy iteration pseudocode" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption></figcaption>
+	<img src="/images/dp-in-mdp/policy-iteration.png" alt="policy iteration pseudocode"/>
 </figure>
 
 An example of using policy iteration on the Jack's rental problem ([**RL book - example 4.2**]("#rl-book"))
 <figure>
-    <img src="/images/dp-in-mdp/jackscar.png" alt="Using policy iteration on Jack's car rental problem" style="display: block; margin-left: auto; margin-right: auto;"/>
-    <figcaption"><b>Figure 3</b>: Policy Iteration on Jack's car rental task. The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-04/jackscar.py' target='_blank'>here</a></figcaption>
+    <img src="/images/dp-in-mdp/jackscar.png" alt="Using policy iteration on Jack's car rental problem"/>
+    <figcaption><b>Figure 3</b>: <b>Policy Iteration on Jack's car rental task</b>. The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction-imp/blob/main/chapter-04/jackscar.py' target='_blank'>here</a></figcaption>
 </figure>
 
 ### Value Iteration{#value-iter}
@@ -130,14 +128,13 @@ v_{k+1}&\doteq\max_a\mathbb{E}\left[R_{t+1}+\gamma v_k(S_{t+1})|S_t=s,A_t=a\righ
 for all $s\in\mathcal{S}$. Once again, thanks to [Banach's fixed point theorem]({{< ref "optimal-policy-existence#banach-fixed-pts-theorem" >}}), for an arbitrary $v_0$, we have that the sequence $\\{v_k\\}\to v_\*$ as $k\to\infty$.  
 We have the backup diagram for this update[^3].
 <figure>
-	<img src="/images/dp-in-mdp/backup-value-iteration.png" alt="Backup diagram of value iteration update" style="display: block; margin-left: auto; margin-right: auto; width: 360px; height: 200px"/>
-	<figcaption><b>Figure 4</b>: Backup diagram of Value Iteration update</figcaption>
+	<img src="/images/dp-in-mdp/backup-value-iteration.png" alt="Backup diagram of value iteration update" width="50%" height="50%"/>
+	<figcaption style='text-align: center;'><b>Figure 4</b>: <b>Backup diagram of Value Iteration update</b>.</figcaption>
 </figure>
 
 And here is the pseudocode of the value iteration.
 <figure>
-	<img src="/images/dp-in-mdp/value-iteration.png" alt="value iteration pseudocode" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption></figcaption>
+	<img src="/images/dp-in-mdp/value-iteration.png" alt="value iteration pseudocode"/>
 </figure>
 
 #### Example - Gambler's Problem{#example}
@@ -230,23 +227,23 @@ if __name__ == '__main__':
 ```
 And here is our results after running the code
 <figure>
-    <img src="/images/dp-in-mdp/gambler.png" alt="gambler" style="display: block; margin-left: auto; margin-right: auto; width: 450px; height: 900px"/>
-    <figcaption><b>Figure 5</b>: Gambler's Problem solved by Value Iteration Result</figcaption>
+    <img src="/images/dp-in-mdp/gambler.png" alt="gambler" width="70%" height="70%"/>
+    <figcaption style='text-align: center;'><b>Figure 5</b>: <b>Gambler's Problem solved by Value Iteration Result</b>.</figcaption>
 </figure>
 
 ### Generalized Policy Iteration{#gpi}
 The **Generalized Policy Iteration (GPI)** algorithm refers to the idea of combining policy evaluation and policy improvement together to improve the original policy.  
 In GPI, the value function is repeatedly driven toward the true value of the current policy and at the same time the policy is being improved optimality with respect to its value function, as in the following diagram.
 <figure>
-	<img src="/images/dp-in-mdp/gpi.png" alt="GPI" style="display: block; margin-left: auto; margin-right: auto; width:200px; height: 320px"/>
-	<figcaption><b>Figure 6</b>: Generalized Policy Iteration</figcaption>
+	<img src="/images/dp-in-mdp/gpi.png" alt="GPI" width="30%" height="30%"/>
+	<figcaption style='text-align: center;'><b>Figure 6</b>: (taken from <a href='#rl-book'>RL book</a>) <b>Generalized Policy Iteration</b>.</figcaption>
 </figure><br/>
 
 Once it reaches the stationary state (when both evaluation and improvement no long produce any updates), then the current value function and policy must be optimal.  
 The evaluation and improvement processes in GPI can be viewed as both competing and cooperating. They competing in the sense that on the one hand, making policy greedy w.r.t the value function typically makes value function incorrect for the new policy. And on the other hand, approximating the value function closer to the true value of the policy typically forces the policy is no longer to be greedy. But in the long run, they two processes cooperate to find a single joint solution: the optimal value function and an optimal policy.
 <figure>
-	<img src="/images/dp-in-mdp/gpi-rel.png" alt="GPI interaction" style="display: block; margin-left: auto; margin-right: auto; width: 360px; height: 200px"/>
-	<figcaption><b>Figure 7</b>: Interaction between the evaluation and improvement processes in GPI</figcaption>
+	<img src="/images/dp-in-mdp/gpi-rel.png" alt="GPI interaction" width="50%" height="50%"/>
+	<figcaption style='text-align: center;'><b>Figure 7</b>: <b>Interaction between the evaluation and improvement processes in GPI</b>.</figcaption>
 </figure>
 
 ## References

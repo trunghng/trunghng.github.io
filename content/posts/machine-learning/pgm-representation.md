@@ -19,7 +19,7 @@ Any pair of nodes $X_i,X_j$, for $i\neq j$ is connected by either a **directed e
 
 If the graph contains directed edges only, we call it a **directed graph**, denoted $\mathcal{G}$, else if the graph established by undirected edge only, it is referred as **undirected graph**, denoted $\mathcal{H}$.
 <figure>
-	<img src="/images/pgm-representation/graph-eg.png" alt="Graph example" style="display: block; margin-left: auto; margin-right: auto; width: 50%; height: 50%"/>
+	<img src="/images/pgm-representation/graph-eg.png" alt="Graph example" width="50%" height="50%"/>
 	<figcaption><b>Figure 1</b>: (taken from the <a href='#pgm-book'>PGM book</a>) <b>Example of a partially directed graph $\mathcal{K}$</b></figcaption>
 </figure>
 
@@ -57,7 +57,7 @@ Consider the graph $\mathcal{K}=(\mathcal{X},\mathcal{E})$ and let $\mathbf{X}\s
 		\end{equation}
 	</li>
 	<li>
-		A subgraph over $\mathbf{X}$ is <b>complete</b> if every two nodes in $\mathbf{X}$ are connected via some edges. The set $\mathbf{X}$ is known as a <b id='clique'>clique</b>; or even a <b>maximal clique</b> if for any set of nodes $\mathbf{Y}\supset\mathbf{X}$, $\mathbf{Y}$ is not a clique, i.e.
+		A subgraph over $\mathbf{X}$ is <b>complete</b> if every two nodes in $\mathbf{X}$ are connected via some edges. The set $\mathbf{X}$ is known as a <b id='clique'>clique</b>; or even a <b id='max-clique'>maximal clique</b> if for any set of nodes $\mathbf{Y}\supset\mathbf{X}$, $\mathbf{Y}$ is not a clique, i.e.
 		\begin{equation}
 		\{\mathbf{Y}\text{ clique}:\mathbf{Y}\supset\mathbf{X}\}=\emptyset
 		\end{equation}
@@ -180,7 +180,7 @@ P(X_1,\ldots,X_n)=\prod_{i=1}^{n}P(X_i\vert\text{Pa}\_{X_i})
 This equation is known as the **chain rule for Bayesian networks**. Each individual factor $P(X_i\vert\text{Pa}\_{X_i})$, which is a conditional probability distribution (CPD), is called the **local probabilistic model**.
 
 ### I-Map - Factorization Connection
-**Theorem 1**: Let $\mathcal{G}$ be a BN graph over a set of random variables $\mathcal{X}$ and let $P$ be a joint distribution over $\mathcal{X}$. Then $\mathcal{G}$ is an I-map for $P$ if and only if $P$ factorizes over $\mathcal{G}$.
+**Theorem 1**: *Let $\mathcal{G}$ be a BN graph over a set of random variables $\mathcal{X}$ and let $P$ be a joint distribution over $\mathcal{X}$. Then $\mathcal{G}$ is an I-map for $P$ if and only if $P$ factorizes over $\mathcal{G}$*.
 
 **Proof**
 <ul id='number-list'>
@@ -243,7 +243,7 @@ Let $\mathcal{G}$ be a BN structure, $X_1\rightleftharpoons\ldots\rightleftharpo
 </ul>
 
 <figure>
-	<img src="/images/pgm-representation/two-edge-trails.png" alt="Two-edge trails" style="display: block; margin-left: auto; margin-right: auto; width: 70%; height: 70%"/>
+	<img src="/images/pgm-representation/two-edge-trails.png" alt="Two-edge trails" width="70%" height="70%"/>
 	<figcaption><b>Figure 2</b>: (taken from the <a href='#pgm-book'>PGM book</a>) <b>The four possible two-edge trails from $X$ to $Y$ via $Z$</b>: (a) Causal trail; (b) Evidential trail; (c) Common cause trail; (d) Common effect trail</figcaption>
 </figure>
 
@@ -300,7 +300,7 @@ The **skeleton** of a BN graph $\mathcal{G}$ over $\mathcal{X}$ is an undirected
 
 **Theorem 6** (skeleton + v-structures $\Rightarrow$ I-equivalence) *Let $\mathcal{G}_1$ and $\mathcal{G_2}$ be two graphs over $\mathcal{X}$. If $\mathcal{G}_1,\mathcal{G}_2$ both have the same skeleton and the same set of v-structures then they are I-equivalent*.[^2]
 <figure>
-	<img src="/images/pgm-representation/I-equivalence.png" alt="I-equivalent graphs" style="display: block; margin-left: auto; margin-right: auto; width: 80%; height: 80%"/>
+	<img src="/images/pgm-representation/I-equivalence.png" alt="I-equivalent graphs" width="80%" height="80%"/>
 	<figcaption><b>Figure 3</b>: (taken from the <a href='#pgm-book'>PGM book</a>) <b>Two graphs have the same skeleton and set of v-structures</b>, i.e. $\{X\rightarrow Y\leftarrow Z\}$, and thus are I-equivalent</figcaption>
 </figure>
 
@@ -414,7 +414,7 @@ Let $\mathbf{X},\mathbf{Y},\mathbf{Z}$ be disjoint sets of variables, and let $\
 \psi(\mathbf{X},\mathbf{Y},\mathbf{Z})=\phi_1(\mathbf{X},\mathbf{Y})\cdot\phi_2(\mathbf{Y},\mathbf{Z})
 \end{equation}
 <figure id='fig4'>
-	<img src="/images/pgm-representation/factor-product.png" alt="Factor product" style="display: block; margin-left: auto; margin-right: auto; width: 80%; height: 80%"/>
+	<img src="/images/pgm-representation/factor-product.png" alt="Factor product" width="80%" height="80%"/>
 	<figcaption><b>Figure 4</b>: (taken from the <a href='#pgm-book'>PGM book</a>) <b>An example of factor product</b></figcaption>
 </figure>
 
@@ -484,7 +484,7 @@ For $\mathbf{U}\not\subset\mathbf{Y}$, we define $\phi[\mathbf{u}]$ to be $\phi[
 \end{equation}
 which is illustrated in the following table
 <figure>
-	<img src="/images/pgm-representation/factor-reduction.png" alt="Factor reduction" style="display: block; margin-left: auto; margin-right: auto; width: 20%; height: 20%"/>
+	<img src="/images/pgm-representation/factor-reduction.png" alt="Factor reduction" width="20%" height="20%"/>
 	<figcaption><b>Figure 5</b>: (taken from the <a href='#pgm-book'>PGM book</a>) <b>Factor reduction</b>: The factor computed in <a href='fig4'>Figure 4</a>, reduced to the context $C=c^1$.</figcaption>
 </figure>
 
@@ -507,8 +507,8 @@ Let $\mathcal{H}$ be a Markov network over the nodes $\mathbf{X}$ and $\mathbf{U
 
 **Proposition 9**: *Let $P_\Phi(\mathbf{X})$ be a Gibbs distribution that factorizes over $\mathcal{H}$, and let $\mathbf{U}=\mathbf{u}$ be a context. Then we have that $P_\Phi[\mathbf{u}]$ factorizes over $\mathcal{H}[\mathbf{u}]$.*
 <figure>
-	<img src="/images/pgm-representation/reduced-markov-network.png" alt="Reduced Markov network" style="display: block; margin-left: auto; margin-right: auto; width: 90%; height: 90%"/>
-	<figcaption><b>Figure 6</b>: (taken from the <a href='#pgm-book'>PGM book</a>) <b>An example of a Markov network and the reduction of its factors to some contexts</b> (a): The initial Markov network; (b): The reduced network to the context $G=g$; (c) The reduced network to the context $G=g,S=s$.</figcaption>
+	<img src="/images/pgm-representation/reduced-markov-network.png" alt="Reduced Markov network" width="90%" height="90%"/>
+	<figcaption><b>Figure 6</b>: (taken from the <a href='#pgm-book'>PGM book</a>) <b>An example of a Markov network and the reduction of its factors to some contexts</b> (a) The initial Markov network; (b) The reduced network to the context $G=g$; (c) The reduced network to the context $G=g,S=s$.</figcaption>
 </figure>
 
 ### Independencies in Markov Network
@@ -634,14 +634,14 @@ In particular, for a distribution $P$, we can construct the minimal I-map based 
 **Theorem 15**: *Let $P$ be a positive distribution and $\mathcal{H}$ be a Markov network defined by including an edge $X-Y$ for all $X,Y$ such that $P\not\models(X\perp Y\vert\mathcal{X}\backslash\\{X,Y\\})
 $. Then $\mathcal{H}$ is  the unique minimal I-map for $P$.*
 
-**Theorem 16**: *Let P be a positive distribution and let $\mathcal{H}$ be a Markov network defined by including an edge $X-Y$ for all $X$ and all $Y\in\text{MB}_\mathcal{H}(X)$. Then $\mathcal{H}$ is the unique minimal I-map for $P$.*
+<span id='theorem16'>**Theorem 16**</span>: *Let P be a positive distribution and let $\mathcal{H}$ be a Markov network defined by including an edge $X-Y$ for all $X$ and all $Y\in\text{MB}_\mathcal{H}(X)$. Then $\mathcal{H}$ is the unique minimal I-map for $P$.*
 
 **Remark**: Not every distribution has a perfect map as UGM (proof by contradiction).
 
 #### Factor Graphs
 A **factor graph** $\mathcal{F}$ is an undirected graph whose nodes are divided into two groups: variable nodes (denoted as ovals) and factor nodes (denoted as squares) and whose edges only connect each factor (potential function) $\psi_c$ to its dependent nodes $X\in X_c$.
 <figure id='fig7'>
-	<img src="/images/pgm-representation/factor-graphs.png" alt="Same Markov network different factor graphs" style="display: block; margin-left: auto; margin-right: auto"/>
+	<img src="/images/pgm-representation/factor-graphs.png" alt="Same Markov network different factor graphs"/>
 	<figcaption><b>Figure 7</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) <b>Different factor graphs for the same Markov network</b>: (a) A Markov network consists of nodes $X_1,X_2,X_3$; (b) A factor graph with a factor $\psi_{1,2,3}$ connected to each $X_1,X_2,X_3$; (c) A factor graph with three pairwise factors $\psi_{1,2}$ (connected to $X_1,X_2$), $\psi_{1,3}$ (connected to $X_1,X_3$) and $\psi_{2,3}$ (connected to $X_2,X_3$)</figcaption>
 </figure>
 
@@ -669,17 +669,9 @@ The **canonical parameterization** of a Gibbs distribution over $\mathcal{H}$ is
 plus a constant energy function for the empty clique.
 
 ### Bayesian & Markov Networks
-We are ready to derive the relationship between representations: Bayesian network and Markov network. Specifically,
-<ul id='roman-list'>
-	<li>
-		Given a Bayesian network $\mathcal{B}$, we can represent the distribution $P_\mathcal{B}$ as a parameterized Markov network; or given a graph $\mathcal{G}$, we can represent the independencies in $\mathcal{G}$, $\mathcal{I}(\mathcal{G})$, using an undirected graph $\mathcal{H}$.
-	</li>
-	<li>
-		We can find a Bayesian network which is a minimal I-map for a Markov network and vice versa.
-	</li>
-</ul>
+We are ready to derive the relationship between representations: Bayesian network and Markov network. Specifically, we can find a Bayesian network which is a minimal I-map for a given Markov network and vice versa.
 
-#### Bayesian Networks to Markov Networks
+#### Bayesian Networks to Markov Networks{#bn-2-mrf}
 Let us begin by considering a distribution $P_\mathcal{B}$, where $\mathcal{B}$ is a parameterized network over a graph $\mathcal{G}$. Then, $P_\mathcal{B}$ can be seen as a Gibbs distribution by considering each CPD $P(X_i\vert\text{Pa}\_{X_i})$ as a factor with scope $X_i,\text{Pa}\_{X_i}$. This Gibbs distribution then has $1$ as its partition function.
 
 **Proposition 17**: *Let $\mathcal{B}$ be a Bayesian network over $\mathcal{X}$ and let $\mathbf{E}=\mathbf{e}$ be an observation. Let $\mathbf{W}=\mathcal{X}\backslash\mathbf{E}$. Then $P_\mathcal{B}(\mathbf{W}\vert\mathbf{e})$ is a Gibbs distribution, defined by the factors $\Phi=\\{\phi_{X_i}\\}_{X_i\in\mathcal{X}}$, where*
@@ -688,7 +680,7 @@ Let us begin by considering a distribution $P_\mathcal{B}$, where $\mathcal{B}$ 
 \end{equation}
 *The partition function for this Gibbs distribution is $P(\mathbf{e})$*.
 
-This result lets us consider any Bayesian network conditioned as evidence as a Gibbs distribution.
+This result lets us consider any Bayesian network conditioned as evidence $\mathbf{e}$ as a Gibbs distribution with partion function $P(\mathbf{e})$.
 
 To find the undirected graph serving as an I-map for a set of factors in a Bayesian network, we recall that we have considered each CPD $P(X_i\vert\text{Pa}\_{X_i})$ as a factor with scope $X_i,\text{Pa}\_{X_i}$, in the undirected I-map. Therefore, in the undirected I-map, we need to have an edge between $X_i$ and each of its parents, as well as between all of the parents of $X_i$ (due to each factor corresponds to a clique).
 
@@ -703,7 +695,7 @@ The **moral graph** $\mathcal{M}[\mathcal{G}]$ of a Bayesian network structure $
 	</li>
 </ul>
 <figure>
-	<img src="/images/pgm-representation/moral-graph.png" alt="Moral graph" style="display: block; margin-left: auto; margin-right: auto; width: 70%; height: 70%"/>
+	<img src="/images/pgm-representation/moral-graph.png" alt="Moral graph" width="70%" height="70%"/>
 	<figcaption><b>Figure 8</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) <b>A Bayesian network and its moral graph</b>: (a) A Bayesian network; (b) The moral graph established by converting directed edges into undirected, plus adding edges between non-connected nodes which are both parents of the same nodes (newly created edges are denoted as $\color{red}{red}$ color)</figcaption>
 </figure>
 
@@ -745,6 +737,8 @@ Thus, in other words, we can conclude that the Markov blanket of $X$, $\text{MB}
 
 **Proposition 20**: *If the directed graph $\mathcal{G}$ is **moral** (in the sense that it contains no [immoralities](#immorality), i.e. for any pair of $X,Y$ in $\mathcal{G}$ sharing a child, there is a covering edge between $X$ and $Y$), then its moralized graph $\mathcal{M}[\mathcal{G}]$, which now has the same edges as $\mathcal{G}$, is a perfect map of $\mathcal{G}$.*
 
+In other words, this result states that a moral graph $\mathcal{G}$ can be converted to a Markov network without losing independencies assertions.
+
 **Proof**  
 Let $\mathcal{H}=\mathcal{M}[\mathcal{G}]$, then $\mathcal{H}$ and $\mathcal{G}$ have the same edges. As in [Proposition 19](#prop19), we have shown that $\mathcal{I}(\mathcal{H})\subset\mathcal{I}(\mathcal{G})$, our problem remains to prove that $\mathcal{I}(\mathcal{H})\supset\mathcal{I}(\mathcal{G})$.  
 Assume that there is an independence
@@ -753,9 +747,8 @@ Assume that there is an independence
 \end{equation}
 which is not in $\mathcal{I}(\mathcal{H})$. This implies that there exists some active trail from $\mathbf{X}$ to $\mathbf{Y}$ given $\mathbf{Z}$ in $\mathcal{H}$. Consider some such trail which is minimal. As $\mathcal{H},\mathcal{G}$ have same edges, the same trail must also exist in $\mathcal{G}$. Thus, it is also in-active in $\mathcal{G}$ given $\mathbf{Z}$, which implies that it contains a v-structure, say $X_1\rightarrow X_2\leftarrow X_3$. Moreover, as $\mathcal{G}$ is moral, there exists an edge connecting $X_1$ and $X_3$, contradicts the assumption that the trail is minimal.
 
-In other words, this result states that a moral graph $\mathcal{G}$ can be converted to a Markov network without losing independencies assertions.
-
 #### Markov Networks to Bayesian Networks
+**Theorem 21**: *Let $\mathcal{H}$ be a Markov network graph, and let $\mathcal{G}$ be any Bayesian network minimal I-map for $\mathcal{H}$. Then $\mathcal{G}$ can have no immoralities.*
 
 ### Conditional Random Fields{#crf}
 A **conditional random field**, or **CRF**, is an undirected graph $\mathcal{H}$ whose nodes correspond to $\mathbf{X}\cup\mathbf{Y}$ where $\mathbf{X}$ is a set of observed variables and $\mathbf{Y}$ is a (disjoint) set of target variables which specifies a conditional distribution (instead of a joint distribution)
@@ -797,7 +790,7 @@ P(x\vert\text{pa}\_X)=\begin{cases}1&\hspace{1cm}x=f(\text{pa}\_X) \\\\ 0&\hspac
 \end{equation}
 Deterministic variables are denoted as double-line ovals, as illustrated in the following example
 <figure id='fig9'>
-	<img src="/images/pgm-representation/det-cpd.png" alt="Network with a deterministic CPD" style="display: block; margin-left: auto; margin-right: auto; width: 30%; height: 30%"/>
+	<img src="/images/pgm-representation/det-cpd.png" alt="Network with a deterministic CPD" width="30%" height="30%"/>
 	<figcaption><b>Figure 9</b>: (taken from the <a href='#pgm-book'>PGM book</a>) <b>A network with $C$ being a deterministic function of $A$ and $B$.</b></figcaption>
 </figure>
 
@@ -814,7 +807,7 @@ It is worth remarking that particular deterministic CPD might imply additional i
 
 **Example 2**: Consider the following Bayesian network
 <figure id='fig10'>
-	<img src="/images/pgm-representation/complex-det-cpd.png" alt="Network with a deterministic CPD" style="display: block; margin-left: auto; margin-right: auto; width: 40%; height: 40%"/>
+	<img src="/images/pgm-representation/complex-det-cpd.png" alt="Network with a deterministic CPD" width="40%" height="40%"/>
 	<figcaption><b>Figure 10</b>: (taken from the <a href='#pgm-book'>PGM book</a>) <b>Another Bayesian network with $C$ being a deterministic function of $A$ and $B$</b>.</figcaption>
 </figure>
 
@@ -862,7 +855,7 @@ A **tree-CPD** representing a CPD for variable $X$ is a rooted tree, where:
 	</li>
 </ul>
 <figure id='fig11'>
-	<img src="/images/pgm-representation/tree-cpd.png" alt="Tree-CPD" style="display: block; margin-left: auto; margin-right: auto; width: 30%; height: 30%"/>
+	<img src="/images/pgm-representation/tree-cpd.png" alt="Tree-CPD" width="30%" height="30%"/>
 	<figcaption><b>Figure 11</b>: (taken from the <a href='#pgm-book'>PGM book</a>) <b>A tree-CPD for $P(J\vert A,S,L)$</b>.</figcaption>
 </figure>
 
@@ -878,7 +871,7 @@ P(Y\vert a,Z_1,\ldots,Z_k)=\mathbf{1}\\{Y=Z_a\\},
 \end{equation}
 where $a$ is the value of $A$. The variable $A$ is referred as the **selector variable** for the CPD.
 <figure id='fig12'>
-	<img src="/images/pgm-representation/multiplexer-cpd.png" alt="Multiplexer-CPD" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<img src="/images/pgm-representation/multiplexer-cpd.png" alt="Multiplexer-CPD"/>
 	<figcaption><b>Figure 12</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) (a) A Bayesian network for $P(J,C,L_1,L_2)$; (b) Tree-CPD for $P(J\vert C,L_1,L_2)$; (c) Modified network with additional variable $L$ acting as a multiplexer CPD.</figcaption>
 </figure>
 
@@ -919,8 +912,7 @@ A **rule-based CPD** $P(X\vert\text{Pa}_X)$ is a set of rules $\mathcal{R}$ such
 \end{equation}
 The tree-CPD corresponds to the above rule-based CPD $P(X\vert A,B,C)$ is given as:
 <figure>
-	<img src="/images/pgm-representation/rule-based-cpd.png" alt="Rule-based-CPD" style="display: block; margin-left: auto; margin-right: auto; width: 50%; height: 50%"/>
-	<figcaption></figcaption>
+	<img src="/images/pgm-representation/rule-based-cpd.png" alt="Rule-based-CPD" width="50%" height="50%"/>
 </figure>
 It is worth noticing that both CPD entries $P(x^0\vert a^0,b^1,c^0)$ and $P(x^1\vert a^0,b^1,c^0)$ are determined by rule $\rho_9$ only. This kind of rule only works for uniform distribution.
 
@@ -1079,7 +1071,7 @@ Or in other words, $\mathcal{B}_0$ is the initial state, while $\mathcal{B}\_\ri
 
 **Remark**: Hence, we can view a DBN as a compact representation from which we can generate an infinite set of Bayesian networks (one for every $T>0$).
 <figure>
-	<img src="/images/pgm-representation/dbn.png" alt="DBN" style="display: block; margin-left: auto; margin-right: auto;"/>
+	<img src="/images/pgm-representation/dbn.png" alt="DBN"/>
 	<figcaption><b>Figure 14</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) (a) $\mathcal{B}_\rightarrow$; (b) $\mathcal{B}_0$; (c) 3-step unrolled DBN.</figcaption>
 </figure>
 
@@ -1127,8 +1119,7 @@ Specifically, in the is representation, the transition model is encoded using a 
 
 where the rows correspond to states $s$, while the columns to next states $s'$. On other words, the $i$-th row represents the CPD $P(s'\vert s=s_i)$, and thus must sum to $1$. Its transition graph is shown below
 <figure>
-	<img src="/images/pgm-representation/hmm.png" alt="HMM" style="display: block; margin-left: auto; margin-right: auto; height: 50%; width: 50%"/>
-	<figcaption></figcaption>
+	<img src="/images/pgm-representation/hmm.png" alt="HMM" height="50%" width="50%"/>
 </figure>
 
 ##### Linear Dynamical Systems
@@ -1196,7 +1187,7 @@ A **plate model** $\mathcal{M}_\text{Plate}$ defines for each template attribute
 	</li>
 </ul>
 <figure id='fig15'>
-	<img src="/images/pgm-representation/plate-models.png" alt="Plate models" style="display: block; margin-left: auto; margin-right: auto; height: 80%; width: 80%"/>
+	<img src="/images/pgm-representation/plate-models.png" alt="Plate models" height="80%" width="80%"/>
 	<figcaption><b>Figure 15</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) <b>Plate models and induced ground Bayesian networks</b>: (a) Single plate: for any student $s$, $P(I(s))$ and $P(G(s)\vert I(s))$ are the same; (b) Nested plates: for any (student, course) pair $(s,c)$, $\textit{Grade}(s,c)$ depends on $\textit{Difficulty}(c)$ and on $\textit{Intelligence}(s,c)$; (c) Intersecting plates: for any (student, course) pair $(s,c)$, $\text{Grade}(s,c)$ depends on $\textit{Difficulty}(c)$ and on $\textit{Intelligence}(s)$.</figcaption>
 </figure>
 

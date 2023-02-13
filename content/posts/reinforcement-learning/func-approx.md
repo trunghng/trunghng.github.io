@@ -96,8 +96,7 @@ is guaranteed to converge to a local optimal point.
 
 We have the pseudocode of the algorithm
 <figure>
-	<img src="/images/func-approx/sgd-mc.png" alt="SGD Monte Carlo" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/func-approx/sgd-mc.png" alt="SGD Monte Carlo"/>
 </figure>
 
 #### Semi-gradient{#on-policy-semi-grad}
@@ -105,8 +104,7 @@ If instead of using MC target $G_t$, we use the bootstrapping targets such as $n
 
 Such methods are called **semi-gradient** since they include only a part of the gradient.
 <figure>
-	<img src="/images/func-approx/semi-grad-td.png" alt="Semi-gradient TD(0)" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/func-approx/semi-grad-td.png" alt="Semi-gradient TD(0)"/>
 </figure>
 
 ### Linear Function Approximation{#lin-func-approx}
@@ -170,8 +168,7 @@ G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{v}
 \end{equation}
 We therefore have the pseudocode of the semi-gradient $n$-step TD algorithm.
 <figure>
-	<img src="/images/func-approx/semi-grad-n-step-td.png" alt="Semi-gradient n-step TD" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/func-approx/semi-grad-n-step-td.png" alt="Semi-gradient n-step TD"/>
 </figure>
 
 #### Feature Construction{#feature-cons}
@@ -193,8 +190,8 @@ where each $c_{i,j}\in\\{0,1,\dots,n\\}$ for an integer $n\geq 0$. These feature
 ###### The Univariate Fourier Series{#uni-fourier-series}
 **Fourier series** is applied widely in Mathematics to approximate a periodic function[^2]. For example:
 <figure>
-	<img src="/images/func-approx/fourier_series.gif" alt="Fourier series visualization" width="480" height="360px" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Four partial sums (Fourier series) of lengths 1, 2, 3, and 4 terms, showing how the approximation to a square wave improves as the number of terms increases: where $f_1(\theta)=\frac{4\sin\theta}{\pi},f_2(\theta)=\frac{4\sin 3\theta}{3\pi},f_3(\theta)=\frac{4\sin 5\theta}{5\pi}$ and $f_4(\theta)=\frac{4\sin 7\theta}{7\pi}$. The code can be found <a href='https://github.com/trunghng/maths-visualization/blob/main/fourier-series/fourier_series.py' target='_blank'>here</a></figcaption>
+	<img src="/images/func-approx/fourier_series.gif" alt="Fourier series visualization" width="70%" height="70%"/>
+	<figcaption><b>Figure 1</b>: <b>Four partial sums (Fourier series) of lengths 1, 2, 3, and 4 terms, showing how the approximation to a square wave improves as the number of terms increases</b>: $f_1(\theta)=\frac{4\sin\theta}{\pi},f_2(\theta)=\frac{4\sin 3\theta}{3\pi},f_3(\theta)=\frac{4\sin 5\theta}{5\pi}$ and $f_4(\theta)=\frac{4\sin 7\theta}{7\pi}$. The code can be found <a href='https://github.com/trunghng/maths-visualization/blob/main/fourier-series/fourier_series.py' target='_blank'>here</a>.</figcaption>
 </figure>
 
 In particular, the $n$-degree Fourier expansion of $f$ with period $\tau$ is
@@ -245,20 +242,20 @@ where $\mathbf{c}=(c_1^i,\dots,c_d^i)^\text{T}$, with $c_j^i\in\\{0,\dots,n\\}$ 
 
 This defines a feature for each of the $(n+1)^d$ possible integer vector $\mathbf{c}^i$. The inner product $\mathbf{s}^\text{T}\mathbf{c}^i$ has the effect of assigning an integer in $\\{0,\dots,n\\}$ to each dimension of $\mathbf{s}$. As in the one-dimensional case, this integer determines the feature's frequency along that dimension. The feature thus can be shifted and scaled to suit the bounded state space of a particular application.
 <figure>
-	<img src="/images/func-approx/gradient_mc_bases.png" alt="Fourier basis vs polynomial basis" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: Fourier basis vs Polynomial basis on the 1000-state random walk<br><span>(<a href='#rl-book'>RL book</a> - Example 9.2).</span><br>The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-09/random_walk.py' target='_blank'>here</a></figcaption>
+	<img src="/images/func-approx/gradient_mc_bases.png" alt="Fourier basis vs polynomial basis"/>
+	<figcaption><b>Figure 2</b>: <b>Fourier basis vs Polynomial basis on the 1000-state random walk</b> (<a href='#rl-book'>RL book</a> - Example 9.2). The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-09/random_walk.py' target='_blank'>here</a>.</figcaption>
 </figure>
 
 ##### Coarse Coding
 <figure>
-	<img src="/images/func-approx/square_wave_function.png" alt="Square wave function approximated using Coarse Coding" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: Using linear function approximation based on coarse coding to learn a one-dimensional square-wave function <br><span>(<a href='#rl-book'>RL book</a> - Example 9.3).</span><br>The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-09/square_wave.py' target='_blank'>here</a></figcaption>
+	<img src="/images/func-approx/square_wave_function.png" alt="Square wave function approximated using Coarse Coding"/>
+	<figcaption><b>Figure 3</b>: <b>Using linear function approximation based on coarse coding to learn a one-dimensional square-wave function</b> (<a href='#rl-book'>RL book</a> - Example 9.3). The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-09/square_wave.py' target='_blank'>here</a>.</figcaption>
 </figure>
 
 ##### Tile Coding
 <figure>
-	<img src="/images/func-approx/gradient_mc_tile_coding.png" alt="Gradient MC with tile coding" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: Gradient Monte Carlo with single tiling and with multiple tilings on the 1000-state random walk<br><span>(<a href='#rl-book'>RL book</a> - Example 9.2).</span><br>The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-09/random_walk.py' target='_blank'>here</a></figcaption>
+	<img src="/images/func-approx/gradient_mc_tile_coding.png" alt="Gradient MC with tile coding"/>
+	<figcaption><b>Figure 4</b>: <b>Gradient Monte Carlo with single tiling and with multiple tilings on the 1000-state random walk</b> (<a href='#rl-book'>RL book</a> - Example 9.2). The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-09/random_walk.py' target='_blank'>here</a>.</figcaption>
 </figure>
 
 ##### Radial Basis Functions{#rbf}
@@ -270,8 +267,8 @@ x_i(s)\doteq\exp\left(\frac{\Vert s-c_i\Vert^2}{2\sigma_i^2}\right)
 \end{equation}
 The figures below shows a one-dimensional example with a Euclidean distance metric.
 <figure>
-	<img src="/images/func-approx/1-d-rbf.png" alt="one-dimensional RBFs" style="display: block; margin-left: auto; margin-right: auto; width: 300px; height: 100px"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 5</b>: One-dimensional RBFs</figcaption>
+	<img src="/images/func-approx/1-d-rbf.png" alt="one-dimensional RBFs" width="50%" height="50%"/>
+	<figcaption style='text-align: center;'><b>Figure 5</b>: (taken from <a href='#rl-book'>RL book</a>) <b>One-dimensional RBFs.</b></figcaption>
 </figure>
 
 ### Least-Squares TD{#lstd}
@@ -321,8 +318,7 @@ For the estimate $\widehat{\mathbf{b}}\_t$ of $\mathbf{b}$, it can be updated us
 \end{equation}
 The pseudocode for LSTD is given below
 <figure>
-	<img src="/images/func-approx/lstd.png" alt="LSTD" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/func-approx/lstd.png" alt="LSTD"/>
 </figure>
 
 ### Episodic Semi-gradient Sarsa{#ep-semi-grad-sarsa}
@@ -342,14 +338,13 @@ We call this method **episodic semi-gradient one-step Sarsa**.
 
 To form the control method, we need to couple the action-value 
 <figure>
-	<img src="/images/func-approx/ep-semi-grad-sarsa.png" alt="Episodic Semi-gradient Sarsa" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/func-approx/ep-semi-grad-sarsa.png" alt="Episodic Semi-gradient Sarsa"/>
 </figure>
 
 The following figure illustrates the cost-to-go function $\max_a\hat{q}(s,a,\mathbf{w})$ learned during one run of the semi-gradient Sarsa on Mountain Car task.
 <figure>
-	<img src="/images/func-approx/mountain-car-ep-semi-grad-sarsa.png" alt="Semi-gradient Sarsa on Mountain Car task" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 6</b>: Cost-to-go learned during one run of Semi-gradient Sarsa on Mountain Car problem<br><span>(<a href='#rl-book'>RL book</a> - Example 10.1).</span><br>The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-10/mountain_car.py' target='_blank'>here</a></figcaption>
+	<img src="/images/func-approx/mountain-car-ep-semi-grad-sarsa.png" alt="Semi-gradient Sarsa on Mountain Car task" width="120%" height="120%"/>
+	<figcaption><b>Figure 6</b>: <b>Cost-to-go learned during one run of Semi-gradient Sarsa on Mountain Car problem</b> (<a href='#rl-book'>RL book</a> - Example 10.1). The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-10/mountain_car.py' target='_blank'>here</a>.</figcaption>
 </figure>
 
 ### Episodic Semi-gradient $\boldsymbol{n}$-step Sarsa{#ep-semi-grad-n-step-sarsa}
@@ -363,14 +358,13 @@ for $t+n\lt T$, with $G_{t:t+n}\doteq G_t$ if $t+n\geq T$, as usual, to obtain t
 \end{equation}
 for $0\leq t\lt T$. The pseudocode is given below.
 <figure>
-	<img src="/images/func-approx/ep-semi-grad-n-step-sarsa.png" alt="Episodic Semi-gradient n-step Sarsa" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/func-approx/ep-semi-grad-n-step-sarsa.png" alt="Episodic Semi-gradient n-step Sarsa"/>
 </figure>
 
 The figure below shows how the $n$-step ($8$-step in particular) tends to learn faster than the one-step algorithm.
 <figure>
-	<img src="/images/func-approx/mountain-car-ep-semi-grad-n-step-sarsa.png" alt="one-step vs 8-step Semi-gradient Sarsa on Mountain Car task" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 7</b>: Performance of one-step vs 8-step Semi-gradient Sarsa on Mountain Car task<br><span>(<a href='#rl-book'>RL book</a>).</span><br>The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-10/mountain_car.py' target='_blank'>here</a></figcaption>
+	<img src="/images/func-approx/mountain-car-ep-semi-grad-n-step-sarsa.png" alt="one-step vs 8-step Semi-gradient Sarsa on Mountain Car task"/>
+	<figcaption><b>Figure 7</b>: <b>Performance of one-step vs 8-step Semi-gradient Sarsa on Mountain Car task</b> (<a href='#rl-book'>RL book</a>). The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-10/mountain_car.py' target='_blank'>here</a>.</figcaption>
 </figure><br/>
 
 ### Average Reward{#avg-reward}
@@ -424,8 +418,7 @@ For example, the average reward version of semi-gradient Sarsa is defined just a
 \end{equation}
 The pseudocode of the algorithm is then given below.
 <figure>
-	<img src="/images/func-approx/dif-semi-grad-sarsa.png" alt="Differential Semi-gradient Sarsa" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/func-approx/dif-semi-grad-sarsa.png" alt="Differential Semi-gradient Sarsa"/>
 </figure>
 
 #### Differential Semi-gradient $\boldsymbol{n}$-step Sarsa{#dif-semi-grad-n-step-sarsa}
@@ -441,8 +434,7 @@ where $\bar{R}$ is an estimate of $r(\pi),n\geq 1$, $t+n\lt T$; $G_{t:t+n}\doteq
 \end{equation}
 The pseudocode of the algorithm is then given below.
 <figure>
-	<img src="/images/func-approx/dif-semi-grad-n-step-sarsa.png" alt="Differential Semi-gradient n-step Sarsa" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/func-approx/dif-semi-grad-n-step-sarsa.png" alt="Differential Semi-gradient n-step Sarsa"/>
 </figure>
 
 ## Off-policy Methods{#off-policy-methods}

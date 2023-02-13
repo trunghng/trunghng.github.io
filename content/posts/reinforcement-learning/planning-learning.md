@@ -37,8 +37,7 @@ Both learning and planning methods estimate value functions by backup operations
 
 For instance, following is pseudocode of a planning method, called **random-sample one-step tabular Q-planning**, based on [one-step tabular Q-learning]({{< ref "td-learning#q-learning" >}}), and on random samples from a sample model.
 <figure>
-	<img src="/images/planning-learning/rand-samp-one-step-q-planning.png" alt="Random-sample one-step Q-planning" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption></figcaption>
+	<img src="/images/planning-learning/rand-samp-one-step-q-planning.png" alt="Random-sample one-step Q-planning"/>
 </figure>
 
 ## Dyna
@@ -48,8 +47,8 @@ Within a planning agent, experience plays at least two roles:
 
 The figure below illustrates the possible relationships between experience, model, value functions and policy.
 <figure>
-    <img src="/images/planning-learning/exp-model-value-policy.png" alt="Exp, model, values and policy relationships" style="display: block; margin-left: auto; margin-right: auto; width: 300px; height: 250px"/>
-    <figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: The possible relationships between experience, model, values and policy<br>(the figure is taken from <a href="#rl-book">RL book</a>)</figcaption>
+    <img src="/images/planning-learning/exp-model-value-policy.png" alt="Exp, model, values and policy relationships" width="45%" height="45%"/>
+    <figcaption><b>Figure 1</b>: (taken from <a href="#rl-book">RL book</a>) <b>The possible relationships between experience, model, values and policy</b>.</figcaption>
 </figure>
 
 Each arrows in the diagram represents a relationship of influence and presumed improvement. It is noticeable in the diagram that experience can improve value functions and policy either directly or indirectly via model (called **indirect RL**), which involved in planning.
@@ -68,16 +67,15 @@ During planning, the Q-planning algorithm randomly samples only from state-actio
 
 Following is the general architecture of Dyna methods, of which Dyna-Q is an instance.
 <figure>
-    <img src="/images/planning-learning/dyna-arch.png" alt="Dyna architecture" style="display: block; margin-left: auto; margin-right: auto; width: 400px; height: 320px"/>
-    <figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: The general Dyna Architecture<br>(the figure is taken from <span markdown="1">[RL book](#rl-book)</span>)</figcaption>
+    <img src="/images/planning-learning/dyna-arch.png" alt="Dyna architecture" width="50%" height="50%"/>
+    <figcaption style='text-align: center;'><b>Figure 2</b>: (taken from <a href="#rl-book">RL book</a>) <b>The general Dyna Architecture</b>.</figcaption>
 </figure>
 
 In most cases, the same reinforcement learning method is used for both learning from real experience and planning from simulated experience, which is - in this case of Dyna-Q - the Q-learning update.
 
 Pseudocode of Dyna-Q method is shown below.
 <figure>
-	<img src="/images/planning-learning/tabular-dyna-q.png" alt="Tabular Dyna-Q" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/planning-learning/tabular-dyna-q.png" alt="Tabular Dyna-Q"/>
 </figure>
 
 #### Example{#dyna-q-eg}
@@ -85,23 +83,25 @@ Pseudocode of Dyna-Q method is shown below.
 
 Consider a gridworld with some obstacles, called "maze" in this example, shown in the figure below.
 <figure>
-	<img src="/images/planning-learning/dyna-maze.png" alt="Dyna maze" style="display: block; margin-left: auto; margin-right: auto; width: 400px; height: 200px"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: The maze with some obstacles<br>(the figure is taken from <a href='#rl-book'>RL book</a>)</figcaption>
+	<img src="/images/planning-learning/dyna-maze.png" alt="Dyna maze" width="50%" height="50%"/>
+	<figcaption style="text-align: center;"><b>Figure 3</b>: (taken from <a href="#rl-book">RL book</a>) <b>A maze with some obstacles</b>.</figcaption>
 </figure>
+
 As usual, four action, $\text{up}, \text{down}, \text{right}$ and $\text{left}$ will take agent to its neighboring state, except when the agent is standing on the edge or is blocked by the obstacles, they do nothing, i.e., the agent stays still. Starting at state $S$, each transition to a non-goal state will give a reward of zero, while moving to the goal state, $G$, will reward $+1$. The episode resets when the agent reaches the goal state.
 
 The task is discounted, episodic with $\gamma=0.95$.
 <figure>
-    <img src="/images/planning-learning/dyna-maze-dyna-q.png" alt="Dyna maze solved with Dyna-Q" style="display: block; margin-left: auto; margin-right: auto; width: 500px; height: 400px"/>
-    <figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: Using Dyna-Q with different setting of number of planning steps on the maze.<br>The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-08/maze.py' target='_blank'>here</a></figcaption>
+    <img src="/images/planning-learning/dyna-maze-dyna-q.png" alt="Dyna maze solved with Dyna-Q" width="80%" height="80%"/>
+    <figcaption><b>Figure 4</b>: <b>Using Dyna-Q with different setting of number of planning steps on the maze.</b> The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-08/maze.py' target='_blank'>here</a>.</figcaption>
 </figure>
 
 ### Dyna-Q+{#dyna-q-plus}
 Consider a maze like the one on the left of the figure below. Suppose that after applying Dyna-Q has learned the optimal path, we make some changes to transform the gridworld into the one on the right that block the found optimal path.
 <figure>
-    <img src="/images/planning-learning/blocking-maze.png" alt="Blocking maze" style="display: block; margin-left: auto; margin-right: auto; width: 600px; height: 150px"/>
-    <figcaption style="text-align: center;font-style: italic;"><b>Figure 5</b>: The maze before and after change<br>(the figure is taken from <a href='rl-book'>RL book</a>)</figcaption>
+    <img src="/images/planning-learning/blocking-maze.png" alt="Blocking maze" width="80%" height="80%"/>
+    <figcaption style='text-align: center;'><b>Figure 5</b>: (taken from <a href="#rl-book">RL book</a>) <b>A maze before and after change</b>.</figcaption>
 </figure>
+
 With this modification, eventually a new optimal path will be found by the Dyna-Q agent but this will takes hundreds more steps. 
 
 In this case, we want the agent to explore in order to find changes in the environment, but not so much that performance is greatly degraded. To encourage the exploration, we give it an **exploration bonus**:
@@ -115,20 +115,20 @@ for a small (time weight) $\kappa$; where $r$ is the modeled reward for a transi
 
 The following plot shows the performance comparison between Dyna-Q and Dyna-Q+ on this blocking task, with changing in the environment happens after 1000 steps.
 <figure>
-    <img src="/images/planning-learning/blocking-maze-dyna-q-qplus.png" alt="Dyna-Q, Dyna-Q+ on blocking maze" style="display: block; margin-left: auto; margin-right: auto; width: 500px; height: 400px"/>
-    <figcaption style="text-align: center;font-style: italic;"><b>Figure 6</b>: Average performance of Dyna-Q and Dyna-Q+ on blocking maze.<br>The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-08/maze.py' target='_blank'>here</a></figcaption>
+    <img src="/images/planning-learning/blocking-maze-dyna-q-qplus.png" alt="Dyna-Q, Dyna-Q+ on blocking maze" width="80%" height="80%"/>
+    <figcaption><b>Figure 6</b>: <b>Average performance of Dyna-Q and Dyna-Q+ on blocking maze.</b> The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-08/maze.py' target='_blank'>here</a>.</figcaption>
 </figure>
 
 We also make a comparison between with and without giving an exploration bonus to the Dyna-Q agent on the shortcut maze below.
 <figure>
-    <img src="/images/planning-learning/shortcut-maze.png" alt="shortcut maze" style="display: block; margin-left: auto; margin-right: auto; width: 600px; height: 150px"/>
-    <figcaption style="text-align: center;font-style: italic;"><b>Figure 7</b>: The maze before and after change<br>(the figure is taken from <a href='#rl-book'>RL book</a>)</figcaption>
+    <img src="/images/planning-learning/shortcut-maze.png" alt="shortcut maze" width="80%" height="80%"/>
+    <figcaption style="text-align: center;"><b>Figure 7</b>: (taken from <a href="#rl-book">RL book</a>) <b>A maze before and after change</b>.</figcaption>
 </figure>
 
 Below is the result of using two agents solving the shortcut maze with environment modification appears after 3000 steps.
 <figure>
-    <img src="/images/planning-learning/shortcut-maze-dyna-q-qplus.png" alt="Dyna-Q, Dyna-Q+ on blocking maze" style="display: block; margin-left: auto; margin-right: auto; width: 500px; height: 400px"/>
-    <figcaption style="text-align: center;font-style: italic;"><b>Figure 8</b>: Average performance of Dyna-Q and Dyna-Q+ on shortcut maze.<br>The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-08/maze.py' target='_blank'>here</a></figcaption>
+    <img src="/images/planning-learning/shortcut-maze-dyna-q-qplus.png" alt="Dyna-Q, Dyna-Q+ on blocking maze" width="80%" height="80%"/>
+    <figcaption><b>Figure 8</b>: <b>Average performance of Dyna-Q and Dyna-Q+ on shortcut maze</b>. The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-08/maze.py' target='_blank'>here</a>.</figcaption>
 </figure>
 
 It can be seen from the plot above that the difference between Dyna-Q+ and Dyna-Q narrowed slightly over the first part of the experiment (the one using the left maze as its environment).
@@ -140,13 +140,12 @@ Recall that in the Dyna methods presented above, the search control process sele
 
 Pseudocode of prioritized sweeping is shown below.
 <figure>
-	<img src="/images/planning-learning/prioritized-sweeping.png" alt="Prioritized sweeping" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption></figcaption>
+	<img src="/images/planning-learning/prioritized-sweeping.png" alt="Prioritized sweeping"/>
 </figure>
 
 <figure>
-    <img src="/images/planning-learning/dyna-maze-prioritized-sweeping.png" alt="Prioritized sweeping on dyna maze" style="display: block; margin-left: auto; margin-right: auto; width: 500px; height: 400px"/>
-    <figcaption style="text-align: center;font-style: italic;"><b>Figure 9</b>: Using prioritized sweeping on mazes.<br>The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-08/maze.py' target='_blank'>here</a></figcaption>
+    <img src="/images/planning-learning/dyna-maze-prioritized-sweeping.png" alt="Prioritized sweeping on dyna maze" width="80%" height="80%"/>
+    <figcaption style="text-align: center;"><b>Figure 9</b>: <b>Using prioritized sweeping on mazes</b>. The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-08/maze.py' target='_blank'>here</a>.</figcaption>
 </figure>
 
 ## Trajectory Sampling

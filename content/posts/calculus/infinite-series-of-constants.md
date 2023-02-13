@@ -247,10 +247,10 @@ We begin by considering a series
 \begin{equation}
 \sum_{n=1}^{\infty}a_n=a_1+a_2+\ldots+a_n+\ldots
 \end{equation}
-whose terms are positive and decreasing. Suppose $a_n=f(n)$, as shown is ***Figure 1***.
-<figure>
-	<img src="/images/infinite-series-of-constants/integral-test.png" alt="integral test" width="500px" height="230px" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b></figcaption>
+whose terms are positive and decreasing. Suppose $a_n=f(n)$, as shown is [Figure 1](#fig1).
+<figure id='fig1'>
+	<img src="/images/infinite-series-of-constants/integral-test.png" alt="integral test" width="80%" height="80%"/>
+	<figcaption style='text-align: center;'><b>Figure 1</b></figcaption>
 </figure>
 
 On the left of this figure we see that the rectangles of areas $a_1,a_2,\dots,a_n$ have a greater combined area than the area under the curve from $x=1$ to $x=n+1$, so
@@ -308,7 +308,7 @@ Moreover, $\\{F(n)\\}$ is a decreasing sequence, because
 \begin{align}
 &F(n)-F(n+1) \\\\ &=\left[a_1+a_2+\ldots+a_n-\int_{1}^{n}f(x)\hspace{0.1cm}dx\right]-\left[a_1+a_2+\ldots+a_{n+1}-\int_{1}^{n+1}f(x)\hspace{0.1cm}dx\right] \\\\ &=\int_{n}^{n+1}f(x)\hspace{0.1cm}dx-a_{n+1}\geq 0,
 \end{align}
-where the last step can be seen by observing the right side of ***Figure 1***.  
+where the last step can be seen by observing the right side of [Figure 1](#fig1).  
 
 Since any decreasing sequence of nonnegative numbers converges, we have that
 \begin{equation}
@@ -682,12 +682,12 @@ If we multiply two series
 \sum_{n=0}^{\infty}a_n&=a_0+a_1+\ldots+a_n+\ldots\tag{20}\label{20} \\\\ \sum_{n=0}^{\infty}b_n&=b_0+b_1+\ldots+b_n+\ldots\tag{21}\label{21}
 \end{align}
 by forming all possible product $a_i b_j$ (as in the case of finite sums), then we obtain the following doubly infinite array
-<figure>
-	<img src="/images/infinite-series-of-constants/series-mult.png" alt="series multiplication" width="300px" height="210px" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b></figcaption>
+<figure id='fig2'>
+	<img src="/images/infinite-series-of-constants/series-mult.png" alt="series multiplication" width="45%" height="45%"/>
+	<figcaption style='text-align: center;'><b>Figure 2</b></figcaption>
 </figure>
 
-There are various ways of arranging these products into a single infinite series, of which two are important. The first one is to group them by diagonals, as indicated in the arrows in **Figure 2**:
+There are various ways of arranging these products into a single infinite series, of which two are important. The first one is to group them by diagonals, as indicated in the arrows in [Figure 2](#fig2):
 \begin{equation}
 a_0b_0+(a_0b_1+a_1b_1)+(a_0b_2+a_1b_1+a_2b_0)+\ldots\tag{22}\label{22}
 \end{equation}
@@ -698,7 +698,7 @@ c_n=a_0b_n+a_1b_{n-1}+\ldots+a_nb_0
 
 It is called the *product* (or *Cauchy product*) of the two series $\sum a_n$ and $\sum b_n$.  
 
-The second crucial method of arranging these products into a series is by squares, as shown in **Figure 2**:
+The second crucial method of arranging these products into a series is by squares, as shown in [Figure 2](#fig2):
 \begin{equation}
 a_0b_0+(a_0b_1+a_1b_1+a_1b_0)+(a_0b_2+a_1b_2+a_2b_2+a_2b_1+a_2b_0)+\ldots\tag{23}\label{23}
 \end{equation}

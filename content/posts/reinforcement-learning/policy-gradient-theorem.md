@@ -39,12 +39,11 @@ where $\alpha>0$ is the learning rate. By \eqref{eq:pge.1}, it is noticeable tha
 However, the following theorem claims that we can express the gradient $\nabla J(\boldsymbol{\theta})$ in a form not involving the state distribution. 
 
 ### The Policy Gradient Theorem{#policy-grad-theorem-ep}
-**Theorem 1**  
-The **policy gradient theorem** for the episodic case establishes that
+<span id='theorem1'>**Theorem 1**</span>: *The **policy gradient theorem** for the episodic case establishes that*
 \begin{equation}
 \nabla_\boldsymbol{\theta}J(\boldsymbol{\theta})\propto\sum_s\mu(s)\sum_a q_\pi(s,a)\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta}),\label{eq:pgte.1}
 \end{equation}
-where $\pi$ represents the policy corresponding to parameter vector $\boldsymbol{\theta}$.
+*where $\pi$ represents the policy corresponding to parameter vector $\boldsymbol{\theta}$.*
 
 **Proof**  
 We have that the gradient of the state-value function w.r.t $\boldsymbol{\theta}$ can be written in terms of the action-value function, for any $s\in\mathcal{S}$, as:
@@ -65,7 +64,7 @@ where $h(s)$ denotes the probability that an episode begins in each state $s$; $
 \end{equation}
 
 ### REINFORCE{#reinforce}
-Notice that in **Theorem 1**, the right-hand side is a sum over states weighted by how often the states occur (distributed by $\mu(s)$) under the target policy $\pi$. Therefore, we can rewrite \eqref{eq:pgte.1} as:
+Notice that in [Theorem 1](#theorem1), the right-hand side is a sum over states weighted by how often the states occur (distributed by $\mu(s)$) under the target policy $\pi$. Therefore, we can rewrite \eqref{eq:pgte.1} as:
 \begin{align}
 \nabla_\boldsymbol{\theta}J(\boldsymbol{\theta})&\propto\sum_s\mu(s)\sum_a q_\pi(s,a)\nabla_\boldsymbol{\theta}\pi(a|s,\boldsymbol{\theta}) \\\\ &=\mathbb{E}\_\pi\left[\sum_a q_\pi(S_t,a)\nabla_\boldsymbol{\theta}\pi(a|S_t,\boldsymbol{\theta})\right]\label{eq:reinforce.1}
 \end{align}
@@ -89,8 +88,7 @@ With this gradient, we have the SGD update for time step $t$, called the **REINF
 \end{equation}
 Pseudocode of the algorithm is given below.
 <figure>
-	<img src="/images/policy-gradient-theorem/reinforce.png" alt="REINFORCE" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/policy-gradient-theorem/reinforce.png" alt="REINFORCE"/>
 </figure>
 
 The vector
@@ -112,10 +110,10 @@ Using the chain rule we can rewrite the eligibility vector as:
 \nabla_\boldsymbol{\theta}\log\pi(a|s,\boldsymbol{\theta})&=\nabla_\boldsymbol{\theta}\log{\frac{\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,a)\Big]}{\sum_b\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,b)\Big]}} \\\\ &=\nabla_\boldsymbol{\theta}\Big(\boldsymbol{\theta}^\text{T}\mathbf{x}(s,a)\Big)-\nabla_\boldsymbol{\theta}\log\sum_b\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,b)\Big] \\\\ &=\mathbf{x}(s,a)-\dfrac{\sum_b\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,b)\Big]\mathbf{x}(s,b)}{\sum_{b'}\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,b')\Big]} \\\\ &=\mathbf{x}(s,a)-\sum_b\pi(b|s,\boldsymbol{\theta})\mathbf{x}(s,b)
 \end{align}
 
-A result when using REINFORCE to solve the short-corrdor problem ([Sutton's book](#rl-book), example 13.1) is shown below.
+A result when using REINFORCE to solve the short-corrdor problem ([RL book](#rl-book), Example 13.1) is shown below.
 <figure>
-	<img src="/images/policy-gradient-theorem/short-corridor-reinforce.png" alt="REINFORCE on short-corridor" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: REINFORCE on short-corridor problem. The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-13/short_corridor.py' target='_blank'>here</a></figcaption>
+	<img src="/images/policy-gradient-theorem/short-corridor-reinforce.png" alt="REINFORCE on short-corridor"/>
+	<figcaption><b>Figure 1</b>: <b>REINFORCE on short-corridor problem</b>. The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-13/short_corridor.py' target='_blank'>here</a>.</figcaption>
 </figure>
 
 ### REINFORCE with Baseline{#reinforce-baseline}
@@ -133,14 +131,13 @@ Using the derivation steps analogous to REINFORCE, we end up with another versio
 \end{equation}
 One natural baseline choice is the estimate of the state value, $\hat{v}(S_t,\mathbf{w})$, with $\mathbf{w}\in\mathbb{R}^d$ is the weight vector of its. Using this baseline, we have pseudocode of the generalization with baseline of REINFORCE algorithm \eqref{eq:rb.1} given below.
 <figure>
-	<img src="/images/policy-gradient-theorem/reinforce-baseline.png" alt="REINFORCE with Baseline" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/policy-gradient-theorem/reinforce-baseline.png" alt="REINFORCE with Baseline"/>
 </figure>
 
 Adding a baseline to REINFORCE lets the agent learn much faster, as illustrated in the following figure.
 <figure>
-	<img src="/images/policy-gradient-theorem/short-corridor-reinforce-baseline.png" alt="REINFORCE, REINFORCE with baseline on short-corridor" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: REINFORCE versus REINFORCE with baseline on short-corridor problem. The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-13/short_corridor.py' target='_blank'>here</a></figcaption>
+	<img src="/images/policy-gradient-theorem/short-corridor-reinforce-baseline.png" alt="REINFORCE, REINFORCE with baseline on short-corridor"/>
+	<figcaption><b>Figure 2</b>: <b>REINFORCE versus REINFORCE with baseline on short-corridor problem</b>. The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-13/short_corridor.py' target='_blank'>here</a>.</figcaption>
 </figure>
 
 ### Actor-Critic Methods{#actor-critic-methods}
@@ -152,16 +149,14 @@ We begin by considering one-step actor-critic methods. One-step actor-critic met
 \end{align}
 The natural state-value function learning method to pair with this is semi-gradient TD(0), which produces the pseudocode given below.
 <figure>
-	<img src="/images/policy-gradient-theorem/one-step-actor-critic.png" alt="One-step Actor-Critic" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/policy-gradient-theorem/one-step-actor-critic.png" alt="One-step Actor-Critic"/>
 </figure>
 
 To generalize the one-step methods to the forward view of $n$-step methods and then to $\lambda$-return, in \eqref{eq:acm.1}, we simply replace the one-step return, $G_{t+1}$, by the $n$-step return, $G_{t:t+n}$, and the $\lambda$-return, $G_t^\lambda$, respectively.
 
 In order to obtain the backward view of the $\lambda$-return algorithm, we use separately eligible traces for the actor and critic, as in the pseudocode given below.
 <figure>
-	<img src="/images/policy-gradient-theorem/actor-critic-eligible-traces.png" alt="Actor-Critic with Eligible Traces" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/policy-gradient-theorem/actor-critic-eligible-traces.png" alt="Actor-Critic with Eligible Traces"/>
 </figure>
 
 ## Policy Gradient with Continuing Problems{#policy-grad-cont}
@@ -183,8 +178,7 @@ v_\pi(s)&\doteq\mathbb{E}\_\pi\left[G_t|S_t=s\right] \\\\ q_\pi(s,a)&\doteq\math
 \end{align}
 
 ### The Policy Gradient Theorem{#policy-grad-theorem-cont}
-**Theorem 2**  
-The policy gradient theorem for continuing case with average-reward states that
+**Theorem 2**: *The policy gradient theorem for continuing case with average-reward states that*
 \begin{equation}
 \nabla_\boldsymbol{\theta}J(\boldsymbol{\theta})=\sum_s\mu(s)\sum_a\nabla_\boldsymbol{\theta}\pi(a|s)q_\pi(s,a)
 \end{equation}

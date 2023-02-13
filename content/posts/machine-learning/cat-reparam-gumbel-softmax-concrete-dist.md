@@ -27,8 +27,8 @@ F(x)&=e^{-e^{-x}} \\\\ f(x)&=e^{-(e^{-x}+x)}\label{eq:gd.1}
 \end{align}
 Below are some illustrations of Gumbel distribution.
 <figure>
-	<img src="/images/cat-reparam-gumbel-softmax-concrete-dist/gumbel-dist.png" alt="Gumbel distribution" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Gumbel distribution $\text{Gumbel}(\mu,\beta)$. The code can be found <a href='https://github.com/trunghng/visualization-collection/blob/main/distributions/gumbel.py' target='_blank'>here</a></figcaption>
+	<img src="/images/cat-reparam-gumbel-softmax-concrete-dist/gumbel-dist.png" alt="Gumbel distribution"/>
+	<figcaption><b>Figure 1</b>: <b>Gumbel distribution $\text{Gumbel}(\mu,\beta)$</b>. The code can be found <a href='https://github.com/trunghng/visualization-collection/blob/main/distributions/gumbel.py' target='_blank'>here</a></figcaption>
 </figure>
 
 Since the quantile function, i.e. inverse of the CDF, of Gumbel r.v $\text{Gumbel}(\mu,\beta)$ is referred as 
@@ -43,8 +43,7 @@ X=−\log(−\log U)
 ## Optimizing Stochastic Computation Graph{#opt-stochastic-computation-graph}
 Consider the following Stochastic Computation Graph
 <figure>
-	<img src="/images/cat-reparam-gumbel-softmax-concrete-dist/scg.png" alt="SCG" style="display: block; margin-left: auto; margin-right: auto; width: 50%; height: 50%"/>
-	<figcaption></figcaption>
+	<img src="/images/cat-reparam-gumbel-softmax-concrete-dist/scg.png" alt="SCG" width="50%" height="50%"/>
 </figure>
 
 where
@@ -167,15 +166,15 @@ P(D_m=1)=\frac{\alpha_m}{\sum_{i=1}^{k}\alpha_i}
 \end{equation}
 The below figure illustrates the reparameterization sampling process.
 <figure id='fig2'>
-	<img src="/images/cat-reparam-gumbel-softmax-concrete-dist/discrete-sampling.png" alt="Discrete Sampling" style="display: block; margin-left: auto; margin-right: auto; width: 50%; height: 50%"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: (taken from the <a href='#concrete-paper'>paper</a>) Graph for sampling process according to the Categorical (Discrete) distribution $D\sim\text{Discrete}(\alpha)$, where $\alpha=(\alpha_1,\alpha_2,\alpha_3)$. White operations are deterministic, blue stochastic, rounded continuous, and square discrete. For $i=1,2,3$, the samples $G_i$ are computed as $G_i=-\log(-\log U_i)$; adding them with $\log\alpha_i$, we obtain $x_i$, i.e. $x_i=\log\alpha_i+G_i=\log\alpha_i-\log(-\log U_i)$; and finally  which are given in \eqref{eq:gmt.2} and \eqref{eq:gmt.3}. The top node denotes one-hot representation of $D$.</figcaption>
+	<img src="/images/cat-reparam-gumbel-softmax-concrete-dist/discrete-sampling.png" alt="Discrete Sampling" width="50%" height="50%"/>
+	<figcaption><b>Figure 2</b>: (taken from the <a href='#concrete-paper'>paper</a>) <b>Graph for sampling process according to the Categorical (Discrete) distribution $D\sim\text{Discrete}(\alpha)$, where $\alpha=(\alpha_1,\alpha_2,\alpha_3)$</b>. White operations are deterministic, blue stochastic, rounded continuous, and square discrete. For $i=1,2,3$, the samples $G_i$ are computed as $G_i=-\log(-\log U_i)$; adding them with $\log\alpha_i$, we obtain $x_i$, i.e. $x_i=\log\alpha_i+G_i=\log\alpha_i-\log(-\log U_i)$; and finally  which are given in \eqref{eq:gmt.2} and \eqref{eq:gmt.3}. The top node denotes one-hot representation of $D$.</figcaption>
 </figure>
 
 ## Gumbel-Softmax & Concrete Distribution{#gumbel-softmax-concrete}
 Since $\text{argmax}$ function is non-differentiable (as illustrated by a discrete node in [Figure 2](#fig2)), thus in order to apply the reparameterization in SCG, we use a continuous approximation of the function, which is the $\text{softmax}$ function, as visualized in [Figure 3](#fig3).
 <figure id='fig3'>
-	<img src="/images/cat-reparam-gumbel-softmax-concrete-dist/concrete-sampling.png" alt="Concrete Sampling" style="display: block; margin-left: auto; margin-right: auto; width: 50%; height: 50%"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: (taken from the <a href='#concrete-paper'>paper</a>) Results taken from sampling process (top node) are now probability vectors, i.e. vectors with elements between $0$ and $1$ and summing to $1$.</figcaption>
+	<img src="/images/cat-reparam-gumbel-softmax-concrete-dist/concrete-sampling.png" alt="Concrete Sampling" width="50%" height="50%"/>
+	<figcaption><b>Figure 3</b>: (taken from the <a href='#concrete-paper'>paper</a>) <b>Results taken from sampling process (top node) are now probability vectors</b>, i.e. vectors with elements between $0$ and $1$ and summing to $1$.</figcaption>
 </figure>
 
 Rather than unit vectors (lying at the corners of $\Delta^{k-1}$), the resulting samples now are described in stochastic form (staying inside the probability simplex $\Delta^{k-1}$ instead). They follow to a distribution called **Concrete**, or **Gumbel-Softmax**. In particular, as illustrated above, to sample a Concrete random variable $X\in\Delta^{k-1}$ at temperature $\lambda\in(0,\infty)$ with parameter vector $\alpha=(a_1,\ldots,a_k)$ where $a_i\in(0,\infty)$, we first sample $G_i\overset{\text{i.i.d}}{\sim}\text{Gumbel}(0,1)$ and set
@@ -189,8 +188,8 @@ The probability density function of a Concrete random variable $X\sim\text{Concr
 f_X(x)=\Gamma(k)\lambda^{k-1}\prod_{i=1}^{k}\frac{\alpha_i x_i^{-\lambda-1}}{\sum_{j=1}^{k}\alpha_j x_j^{-\lambda}}
 \end{equation}
 
-**Proposition 1** (Properties of Concrete r.v.s) Let $X\sim\text{Concrete}(\alpha,\lambda)$ with location $\alpha\in(0,\infty)^k$ and temperature $\lambda\in(0,\infty)$. Then
-<ul id='roman-list'>
+**Proposition 1** (Properties of Concrete r.v.s) *Let $X\sim\text{Concrete}(\alpha,\lambda)$ with location $\alpha\in(0,\infty)^k$ and temperature $\lambda\in(0,\infty)$. Then*
+<ul id='roman-list' style='font-style: italic;'>
 	<li>
 		<b>Reparameterization</b>. If $G_i\overset{\text{i.i.d}}{\sim}\text{Gumbel}(0,1)$, then
 		\begin{equation}

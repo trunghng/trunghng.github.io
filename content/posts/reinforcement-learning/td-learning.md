@@ -18,8 +18,7 @@ V(S_t)\leftarrow V(S_t)+\alpha\left[R_{t+1}+\gamma V(S_{t+1})-V(S_t)\right]\labe
 \end{equation}
 where $\alpha\gt 0$ is step size of the update. Here is pseudocode of the TD(0) method
 <figure>
-	<img src="/images/td-learning/td0.png" alt="TD(0)" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/td-learning/td0.png" alt="TD(0)"/>
 </figure>
 
 Recall that in [Monte Carlo method]({{< ref "monte-carlo-in-rl#mc-prediction" >}}), or even in its trivial form, **constant-$\alpha$ MC**, which has the update form:
@@ -58,8 +57,8 @@ where $\alpha_n(a)$ denote the step-size parameter used to process the reward re
 #### Optimality of TD(0){#opt-td0}
 Under batch training, TD(0) converges to the optimal maximum likelihood estimate. The convergence and optimality proofs can be found in this [paper](#td-convergence).
 <figure>
-	<img src="/images/td-learning/random_walk_batch_updating.png" alt="TD(0) vs constant-alpha MC" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Performance of TD(0) and constant-$\alpha$ MC under batch training on the random walk task. The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-06/random-walk.py' target='_blank'>here</a></figcaption>
+	<img src="/images/td-learning/random_walk_batch_updating.png" alt="TD(0) vs constant-alpha MC"/>
+	<figcaption><b>Figure 1</b>: <b>Performance of TD(0) and constant-$\alpha$ MC under batch training on the random walk task</b>. The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-06/random-walk.py' target='_blank'>here</a>.</figcaption>
 </figure>
 
 ### TD Control
@@ -84,8 +83,7 @@ As usual when working on on-policy control problem, we apply the idea of [GPI]({
 \end{equation}
 However this time, instead, we use it with TD methods. Which is, we continually estimate $q_\pi$ for the behavior policy $\pi$, and at the same time change $\pi$ toward greediness w.r.t $q_\pi$. That gives us the following pseudocode of the Sarsa control algorithm
 <figure>
-	<img src="/images/td-learning/sarsa.png" alt="Sarsa" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/td-learning/sarsa.png" alt="Sarsa"/>
 </figure>
 
 #### Q-learning
@@ -96,15 +94,13 @@ Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha\left[R_{t+1}+\gamma\max_a Q(S_{t+1},a)-Q(
 \end{equation}
 In this case, the learned action-value function, $Q$, directly approximates optimal action-value function $q_*$, independent of the policy being followed. Down below is pseudocode of the Q-learning.
 <figure>
-	<img src="/images/td-learning/q-learning.png" alt="Q-learning" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/td-learning/q-learning.png" alt="Q-learning"/>
 </figure>
 
 ##### Example: Cliffwalking - Sarsa vs Q-learning{#eg-cliffwalking}
 (This example is taken from **Example 6.6**, [**Reinforcement Learning: An Introduction**](#rl-book) book.)
 <figure>
-	<img src="/images/td-learning/cliff-walking-eg.png" alt="Cliff Walking example" style="display: block; margin-left: auto; margin-right: auto; width: 500px"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/td-learning/cliff-walking-eg.png" alt="Cliff Walking example" width="50%" height="50%"/>
 </figure>
 Say that we have an agent in a gridworld, which is an undiscounted, episodic task described by the above image. Start and goal states are denoted as "S" and "G" respectively. Agent can take up, down, left or right action. All the actions lead to a reward of $-1$, except for cliff region, into which stepping gives a reward of $-100$. We will be solving this problem with Q-learning and Sarsa with $\varepsilon$-greedy action selection, for $\varepsilon=0.1$.
 
@@ -331,8 +327,7 @@ if __name__ == '__main__':
 ```
 This is our result after completing running the code.
 <figure>
-	<img src="/images/td-learning/cliff_walking.png" alt="Q-learning vs Sarsa on Cliff walking" style="display: block; margin-left: auto; margin-right: auto; width: 500px"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/td-learning/cliff_walking.png" alt="Q-learning vs Sarsa on Cliff walking" width="50%" height="50%"/>
 </figure>
 
 #### Expected Sarsa{#exp-sarsa}
@@ -382,8 +377,7 @@ The reason why maximization bias happens is we are using the same samples to dec
 
 Specifically, we use these two sets to learn two independent estimates, called $Q^A$ and $Q^B$, each is an estimate of the true value $q(a)$, for all $a\in\mathcal{A}$.
 <figure>
-	<img src="/images/td-learning/double-q-learning.png" alt="Double Q-learning" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/td-learning/double-q-learning.png" alt="Double Q-learning"/>
 </figure>
 
 ## $\boldsymbol{n}$-step TD{#n-step-td}
@@ -415,23 +409,21 @@ V_{t+n}(S_t)\doteq V_{t+n-1}(S_t)+\alpha\left[G_{t:t+n}-V_{t+n-1}(S_t)\right],
 \end{equation}
 for $0\leq t\<T$, while the values for all other states remain unchanged: $V_{t+n}(s)=V_{t+n-1}(s),\forall s\neq S_t$. Pseudocode of the algorithm is given right below.
 <figure>
-	<img src="/images/td-learning/n-step-td.png" alt="n-step TD" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/td-learning/n-step-td.png" alt="n-step TD"/>
 </figure>
 
 From \eqref{eq:nstp.1} combined with this definition of *$n$-step TD* method, it is easily seen that by changing the value of $n$ from $1$ to $\infty$, we obtain a corresponding spectrum ranging from *one-step TD method* to *Monte Carlo method*.
 <figure>
-	<img src="/images/td-learning/n-step-td-diagram.png" alt="Backup diagram of n-step TD" style="display: block; margin-left: auto; margin-right: auto; width: 450px; height: 370px"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: The backup diagram of $n$-step TD methods</figcaption>
+	<img src="/images/td-learning/n-step-td-diagram.png" alt="Backup diagram of n-step TD" width="60%" height="60%"/>
+	<figcaption style='text-align: center;'><b>Figure 2</b>: (taken from <a href='#rl-book'>RL book</a>) <b>The backup diagram of $n$-step TD methods</b>.</figcaption>
 </figure>
 
 #### Example: Random Walk{#eg-random-walk}
-(This example is taken from **Example 7.1**, [**Reinforcement Learning: An Introduction**](#rl-book) book; the random process image is created based on the figure from [**Singd & Sutton**](#random_walk)).
+(This example is taken from [RL book](#rl-book) - Example 7.1; the random process figure is created based on the one from the [paper](#random-walk)).
 
 Suppose we have a random process as following
 <figure>
-	<img src="/images/td-learning/random_process.png" alt="Random process" style="display: block; margin-left: auto; margin-right: auto; width: 620px; height: 120px"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/td-learning/random_process.png" alt="Random process" width="50%" height="50%"/>
 </figure>
 
 Specifically, the reward is zero everywhere except the transitions into terminal states: the transition from State 2 to State 1 (with reward of $-1$) and the transition from State 20 to State 21 (with reward of $1$). The discount factor $\gamma$ is $1$. The initial value estimates are $0$ for all states. We will implement $n$-step TD method for $n\in\\{1,2,4,\dots,512\\}$ and step size $\alpha\in\\{0,0.2,0.4,\dots,1\\}$. The walk starts at State 10. 
@@ -640,8 +632,7 @@ if __name__ == '__main__':
 ```
 This is our result after completing running the code.
 <figure>
-	<img src="/images/td-learning/random_walk.png" alt="Random Walk with n-step TD" style="display: block; margin-left: auto; margin-right: auto; width: 500px"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/td-learning/random_walk.png" alt="Random Walk with n-step TD"/>
 </figure>
 
 ### $\boldsymbol{n}$-step TD Control{#n-step-td-control}
@@ -679,14 +670,13 @@ If $s$ is terminal, then its expected approximate value is defined to be zero.
 
 Pseudocode of the $n$-step Sarsa algorithm is given right below.
 <figure>
-	<img src="/images/td-learning/n-step-sarsa.png" alt="n-step Sarsa" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/td-learning/n-step-sarsa.png" alt="n-step Sarsa"/>
 </figure>
 
 When taking the value of $n$ from $1$ to $\infty$, similarly, we also obtain a corresponding spectrum ranging from *one-step Sarsa* to *Monte Carlo*.
 <figure>
-	<img src="/images/td-learning/n-step-td-state-action-diagram.png" alt="Backup diagram of n-step TD for state-action values" style="display: block; margin-left: auto; margin-right: auto; width: 570px; height: 370px"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: The backup diagram of $n$-step methods for state-action values</figcaption>
+	<img src="/images/td-learning/n-step-td-state-action-diagram.png" alt="Backup diagram of n-step TD for state-action values" width="70%" height="70%"/>
+	<figcaption><b>Figure 3</b>: (taken from <a href='#rl-book'>RL book</a>) <b>The backup diagram of $n$-step methods for state-action values</b>.</figcaption>
 </figure>
 
 ### Off-policy $\boldsymbol{n}$-step TD{#off-policy-n-step-td}
@@ -709,8 +699,7 @@ The **off-policy $\boldsymbol{n}$-step Expected Sarsa** uses the same update as 
 
 Following is pseudocode of the off-policy $n$-step Sarsa.
 <figure>
-	<img src="/images/td-learning/off-policy-n-step-sarsa.png" alt="Off-policy n-step Sarsa" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/td-learning/off-policy-n-step-sarsa.png" alt="Off-policy n-step Sarsa"/>
 </figure>
 
 #### Per-decision Methods with Control Variates{#per-decision-control-variates}
@@ -755,8 +744,8 @@ G_{t:t+n}\doteq R_{t+1}+\gamma\sum_{a\neq A_{t+1}}\pi(a|S_{t+1})Q_{t+n-1}(S_{t+1
 \end{equation}</span>
 for $t\<T-1,n\geq 2$. The $n$-step tree-backup update can be illustrated through the following diagram
 <figure>
-	<img src="/images/td-learning/3-step-tree-backup.png" alt="3-step tree-backup" style="display: block; margin-left: auto; margin-right: auto; width: 110px; height: 375px"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: The backup diagram of 3-step tree-backup</figcaption>
+	<img src="/images/td-learning/3-step-tree-backup.png" alt="3-step tree-backup" width="10%" height="10%"/>
+	<figcaption style="text-align: center;"><b>Figure 4</b>: (taken from <a href='#rl-book'>RL book</a>) <b>The backup diagram of 3-step tree-backup</b>.</figcaption>
 </figure>
 
 With this definition of the target, we now can define our **$\boldsymbol{n}$-step tree-backup** method as:
@@ -765,8 +754,7 @@ Q_{t+n}(S_t,A_t)\doteq Q_{t+n-1}(S_t,A_t)+\alpha\Big[G_{t:t+n}-Q_{t+n-1}(S_t,A_t
 \end{equation}
 while the values of all other state-action pairs remain unchanged: $Q_{t+n}(s,a)=Q_{t+n-1}(s,a)$, for all $s,a$ such that $s\neq S_t$ or $a\neq A_t$. Pseudocode of the n-step tree-backup algorithm is given below.
 <figure>
-	<img src="/images/td-learning/n-step-tree-backup.png" alt="n-step tree-backup" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/td-learning/n-step-tree-backup.png" alt="n-step tree-backup"/>
 </figure>
 
 #### $\boldsymbol{n}$-step $Q(\sigma)${#n-step-q-sigma}
@@ -781,8 +769,8 @@ which is exactly the same as the $n$-step return for Sarsa with control variates
 
 Let $\sigma_t\in[0,1]$ denote the degree of sampling on step $t$, with $\sigma=1$ denoting full sampling and $\sigma=0$ denoting a pure expectation with no sampling. The r.v $\sigma_t$ might be set as a function of the state, action or state-action pair at time $t$.
 <figure>
-    <img src="/images/td-learning/n-step-q-sigma-backup.png" alt="Backup diagrams of n-step Sarsa, Tree-backup, Expected Sarsa, Q(sigma)" style="display: block; margin-left: auto; margin-right: auto; width: 530px; height: 370px"/>
-    <figcaption style="text-align: center;font-style: italic;"><b>Figure 5</b>: The backup diagrams of $n$-step methods for state-action values: Sarsa, Tree-backup, Expected Sarsa, $Q(\sigma)$</figcaption>
+    <img src="/images/td-learning/n-step-q-sigma-backup.png" alt="Backup diagrams of n-step Sarsa, Tree-backup, Expected Sarsa, Q(sigma)"  width="70%" height="70%"/>
+    <figcaption><b>Figure 5</b>: (taken from <a href='#rl-book'>RL book</a>) <b>The backup diagrams of $n$-step methods for state-action values: Sarsa, Tree-backup, Expected Sarsa, $Q(\sigma)$</b>.</figcaption>
 </figure>
 
 With the definition of $\sigma_t$, we can define the $n$-step return ending at horizon $h$ of the $Q(\sigma)$ as:
@@ -791,8 +779,7 @@ G_{t:h}&\doteq R_{t+1}+\gamma\Big(\sigma_{t+1}\rho_{t+1}+(1-\rho_{t+1})\pi(A_{t+
 \end{align}
 for $t\lt h\leq T$. The recursion ends with $G_{h:h}\doteq Q_{h-1}(S_h,A_h)$ if $h\lt T$, or with $G_{T-1:T}\doteq R_T$ if $h=T$. Then we use the off-policy $n$-step Sarsa update \eqref{eq:nsti.1}, which produces the pseudocode below.
 <figure>
-    <img src="/images/td-learning/n-step-q-sigma.png" alt="n-step Q(sigma)" style="display: block; margin-left: auto; margin-right: auto;"/>
-    <figcaption style="text-align: center;font-style: italic;"></figcaption>
+    <img src="/images/td-learning/n-step-q-sigma.png" alt="n-step Q(sigma)"/>
 </figure>
 
 ## References
@@ -806,7 +793,7 @@ for $t\lt h\leq T$. The recursion ends with $G_{h:h}\doteq Q_{h-1}(S_h,A_h)$ if 
 
 [5] Shangtong Zhang. [Reinforcement Learning: An Introduction implementation](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction). Github. 
 
-[6] <span id='random_walk'>Singh, S.P., Sutton, R.S. [Reinforcement learning with replacing eligibility traces](https://doi.org/10.1007/BF00114726). Mach Learn 22, 123–158, 1996.</span>
+[6] <span id='random-walk'>Singh, S.P., Sutton, R.S. [Reinforcement learning with replacing eligibility traces](https://doi.org/10.1007/BF00114726). Mach Learn 22, 123–158, 1996.</span>
 
 ## Footnotes
 [^1]: It is a special case of [n-step TD](#n-step-td) and TD($\lambda$).

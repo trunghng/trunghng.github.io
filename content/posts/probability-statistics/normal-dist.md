@@ -32,8 +32,8 @@ and
 \end{equation}
 Below are some illustrations of Normal distribution.
 <figure>
-	<img src="/images/normal-dist/normal.png" alt="normal distribution" style="display: block; margin-left: auto; margin-right: auto; width:  900px; height: 380px"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: 10K normally distributed data points (5K each plot) were plotted as vertical bars on x-axis. The code can be found <a href='https://github.com/trunghng/visualization-collection/blob/main/distributions/gauss-dist.py' target='_blank'>here</a></figcaption>
+	<img src="/images/normal-dist/normal.png" alt="Normal distribution"/>
+	<figcaption><b>Figure 1</b>: <b>10K normally distributed data points (5K each plot) were plotted as vertical bars on x-axis</b>. The code can be found <a href='https://github.com/trunghng/visualization-collection/blob/main/distributions/gauss-dist.py' target='_blank'>here</a></figcaption>
 </figure>
 
 ## Multivariate Normal Distribution{#mvn}
@@ -66,8 +66,8 @@ When the number of dimensions in $\mathbf{X}$, $D=2$, this special case of MVN i
 
 An example of an BVN, $\mathcal{N}\left(\left[\begin{smallmatrix}0\\\\0\end{smallmatrix}\right],\left[\begin{smallmatrix}1&0.5\\\\0.8&1\end{smallmatrix}\right]\right)$, is shown as following.
 <figure>
-	<img src="/images/normal-dist/bvn.png" alt="monte carlo method" style="display: block; margin-left: auto; margin-right: auto; width: 750px; height: 350px"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: The PDF of $\mathcal{N}\left(\left[\begin{smallmatrix}0\\0\end{smallmatrix}\right],\left[\begin{smallmatrix}1&0.5\\0.8&1\end{smallmatrix}\right]\right)$. The code can be found <a href='https://github.com/trunghng/visualization-collection/blob/main/distributions/mvn.py' target='_blank'>here</a></figcaption>
+	<img src="/images/normal-dist/bvn.png" alt="Monte Carlo method"/>
+	<figcaption><b>Figure 2</b>: <b>The PDF of $\mathcal{N}\left(\left[\begin{smallmatrix}0\\0\end{smallmatrix}\right],\left[\begin{smallmatrix}1&0.5\\0.8&1\end{smallmatrix}\right]\right)$</b>. The code can be found <a href='https://github.com/trunghng/visualization-collection/blob/main/distributions/mvn.py' target='_blank'>here</a></figcaption>
 </figure>
 
 ## Properties of the covariance matrix{#prop-cov}

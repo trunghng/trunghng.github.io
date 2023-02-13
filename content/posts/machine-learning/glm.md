@@ -127,8 +127,8 @@ There are various choices of basis functions:
 		\end{equation}
 		An example of polynomial basis functions is illustrated as below
 		<figure>
-			<img src="/images/glm/polynomial-basis.png" alt="polynomial basis" style="display: block; margin-left: auto; margin-right: auto;"/>
-			<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Example of polynomial basis functions. The code can be found <a href='https://github.com/trunghng/maths-visualization/blob/main/pattern-recognition-and-machine-learning-book/linear-models/regression/basis-funcs.py' target='_blank'>here</a></figcaption>
+			<img src="/images/glm/polynomial-basis.png" alt="polynomial basis"/>
+			<figcaption><b>Figure 1</b>: (based on figure from <a href='#bishops-book'>Bishop's book</a>) <b>Example of polynomial basis functions</b>. The code can be found <a href='https://github.com/trunghng/maths-visualization/blob/main/pattern-recognition-and-machine-learning-book/linear-models/regression/basis-funcs.py' target='_blank'>here</a></figcaption>
 		</figure>
 	</li>
 	<li>
@@ -138,8 +138,8 @@ There are various choices of basis functions:
 		\end{equation}
 		An example of Gaussian basis functions is illustrated as below
 		<figure>
-			<img src="/images/glm/gaussian-basis.png" alt="Gaussian basis" style="display: block; margin-left: auto; margin-right: auto;"/>
-			<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: Example of Gaussian basis functions. The code can be found <a href='https://github.com/trunghng/maths-visualization/blob/main/pattern-recognition-and-machine-learning-book/linear-models/regression/basis-funcs.py' target='_blank'>here</a></figcaption>
+			<img src="/images/glm/gaussian-basis.png" alt="Gaussian basis"/>
+			<figcaption><b>Figure 2</b>: (based on figure from <a href='#bishops-book'>Bishop's book</a>) <b>Example of Gaussian basis functions</b>. The code can be found <a href='https://github.com/trunghng/maths-visualization/blob/main/pattern-recognition-and-machine-learning-book/linear-models/regression/basis-funcs.py' target='_blank'>here</a></figcaption>
 		</figure>
 	</li>
 	<li>
@@ -153,8 +153,8 @@ There are various choices of basis functions:
 		\end{equation}
 		An example of sigmoidal basis functions is illustrated as below
 		<figure>
-			<img src="/images/glm/sigmoidal-basis.png" alt="sigmoidal basis" style="display: block; margin-left: auto; margin-right: auto;"/>
-			<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: Example of sigmoidal basis functions. The code can be found <a href='https://github.com/trunghng/maths-visualization/blob/main/pattern-recognition-and-machine-learning-book/linear-models/regression/basis-funcs.py' target='_blank'>here</a></figcaption>
+			<img src="/images/glm/sigmoidal-basis.png" alt="sigmoidal basis"/>
+			<figcaption><b>Figure 3</b>: (based on figure from <a href='#bishops-book'>Bishop's book</a>) <b>Example of sigmoidal basis functions</b>. The code can be found <a href='https://github.com/trunghng/maths-visualization/blob/main/pattern-recognition-and-machine-learning-book/linear-models/regression/basis-funcs.py' target='_blank'>here</a></figcaption>
 		</figure>
 	</li>
 </ul>
@@ -224,8 +224,8 @@ In particular, consider an $N$-dimensional space whose axes are given by $t_i$, 
 \end{equation}
 is a vector contained in the space.
 <figure>
-	<img src="/images/glm/geo-least-squares.png" alt="geometry of least squares" style="display: block; margin-left: auto; margin-right: auto; width: 400px; height: 300px"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: Geometrical interpretation of the least-squares solution. The figure is taken from <a href='#bishops-book'>Bishop's book</a></figcaption>
+	<img src="/images/glm/geo-least-squares.png" alt="geometry of least squares" width="50%" height="50%"/>
+	<figcaption><b>Figure 4</b>: (taken from <a href='#bishops-book'>Bishop's book</a>) <b>Geometrical interpretation of the least-squares solution</b></figcaption>
 </figure>
 
 Each basis function $\phi_j(\mathbf{x}\_i)$, evaluated at the $N$ data points, then can also be presented as a vector in the same space, denoted by $\boldsymbol{\varphi}\_j$, as illustrated in **Figure 4** above. Therefore, the design matrix $\boldsymbol{\Phi}$ can be represented as
@@ -1006,8 +1006,8 @@ where $1\\{k=j\\}$ is the indicator function, which returns $1$ if $k=j$ and ret
 
 #### Newton's method{#newtons-method}
 <figure>
-	<img src="/images/glm/newtons-method.gif" alt="Newton's method)" style="display: block; margin-left: auto; margin-right: auto; width: 450px; height: 370px"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 5</b>: Illustration of the Newton's method. The code can be found <a href='https://github.com/trunghng/maths-visualization/blob/main/pattern-recognition-and-machine-learning-book/linear-models/classification/newtons-method.py' target='_blank'>here</a></figcaption>
+	<img src="/images/glm/newtons-method.gif" alt="Newton's method" width="65%" height="65%"/>
+	<figcaption><b>Figure 5</b>: <b>Illustration of the Newton's method</b>. The code can be found <a href='https://github.com/trunghng/maths-visualization/blob/main/pattern-recognition-and-machine-learning-book/linear-models/classification/newtons-method.py' target='_blank'>here</a></figcaption>
 </figure>
 
 \begin{equation}

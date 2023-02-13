@@ -31,8 +31,7 @@ Despite of having different number of dimensions, all **length**, **area**,  and
 </ul>
 
 <figure>
-	<img src="/images/measure/lego.jpg" alt="Lego" style="display: block; margin-left: auto; margin-right: auto; width: 700px;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/measure/lego.jpg" alt="Lego" width="70%" height="70%"/>
 </figure>
 
 ## Lebesgue Measure

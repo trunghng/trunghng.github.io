@@ -11,8 +11,8 @@ math: true
 **Monte Carlo**, named after a casino in Monaco, simulates complex probabilistic events using simple random events, such as tossing a pair of dice to simulate the casino's overall business model.
 
 <figure>
-	<img src="/images/monte-carlo-in-rl/mc-pi.gif" alt="monte carlo method" style="display: block; margin-left: auto; margin-right: auto; width: 480; height:360px"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Using Monte Carlo method to approximate the value of $\pi$. The code can be found <a href='https://github.com/trunghng/maths-visualization/blob/main/monte-carlo/monte_carlo_pi.py' target='_blank'>here</a></figcaption>
+	<img src="/images/monte-carlo-in-rl/mc-pi.gif" alt="monte carlo method" width="60%" height="60%"/>
+	<figcaption><b>Figure 1</b>: <b>Using Monte Carlo method to approximate the value of $\pi$</b>. The code can be found <a href='https://github.com/trunghng/maths-visualization/blob/main/monte-carlo/monte_carlo_pi.py' target='_blank'>here</a>.</figcaption>
 </figure><br/>
 
 Monte Carlo methods have been used in several different tasks:
@@ -82,17 +82,15 @@ where $𝟙(\cdot)$ is an indicator function. In the case of *first-visit MC*, $
 
 Following is pseudocode of **first-visit MC prediction**, for estimating $V\approx v_\pi$
 <figure>
-	<img src="/images/monte-carlo-in-rl/mc-prediction.png" alt="iterative policy evaluation pseudocode" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/monte-carlo-in-rl/mc-prediction.png" alt="iterative policy evaluation pseudocode"/>
 </figure>
 
 #### First-visit MC vs. every-visit MC{#first-mc-every-mc}
 Both methods converge to $v_\pi(s)$ as the number of visits (or first visits) to $s$ goes to infinity. Each average is itself an unbiased estimate, and the standard deviation of its error falls as $\frac{1}{\sqrt{n}}$, where $n$ is the number of returns averaged.
-
 <figure>
-	<img src="/images/monte-carlo-in-rl/first-visit-every-visit.png" alt="first-visit MC vs every-visit MC" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 2</b>: Summary of Statistical Results comparing first-visit and every-visit MC method</figcaption>
-</figure><br/>
+	<img src="/images/monte-carlo-in-rl/first-visit-every-visit.png" alt="first-visit MC vs every-visit MC"/>
+	<figcaption><b>Figure 2</b>: (take from the <a href='#singh-sutton'>paper</a>) <b>Summary of Statistical Results comparing first-visit and every-visit MC method</b>.</figcaption>
+</figure>
 
 ### Monte Carlo Control[^2]{#mc-control}
 
@@ -133,10 +131,9 @@ The policy improvement can be done by constructing each $\pi_{k+1}$ as the greed
 q_{\pi_k}\left(s,\pi_{k+1}(s)\right)&=q_{\pi_k}\left(s,\underset{a}{\text{argmax}}\,q_{\pi_k}(s,a)\right) \\\\ &=\max_a q_{\pi_k}(s,a) \\\\ &\geq q_{\pi_k}\left(s,\pi_k(s)\right) \\\\ &\geq v_{\pi_k}(s)
 \end{align}
 Therefore, by the [policy improvement theorem]({{< ref "dp-in-mdp#policy-improvement" >}}), we have that $\pi_{k+1}\geq\pi_k$.
-
 <figure>
-	<img src="/images/monte-carlo-in-rl/gpi.png" alt="GPI" width="150" height="150px" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 3</b>: MC policy iteration</figcaption>
+	<img src="/images/monte-carlo-in-rl/gpi.png" alt="GPI" width="25%" height="25%"/>
+	<figcaption style="text-align: center;"><b>Figure 3</b>: (taken from <a href='#rl-book'>RL book</a>) <b>MC policy iteration</b>.</figcaption>
 </figure>
 
 To solve this problem with Monte Carlo policy iteration, in the 1998 version of "**Reinforcement Learning: An Introduction**", authors of the book introduced **Monte Carlo ES** (**MCES**), for Monte Carlo with *exploring starts*.
@@ -144,8 +141,7 @@ To solve this problem with Monte Carlo policy iteration, in the 1998 version of 
 In MCES, value function is approximated by simulated returns and a greedy policy is selected at each iteration. Although MCES does not converge to any sub-optimal policy, the convergence to optimal fixed point is still an open question. For solutions in particular settings, you can check out some results like Tsitsiklis (2002), Chen (2018), Liu (2020).  
 Down below is pseudocode of the Monte Carlo ES.
 <figure>
-	<img src="/images/monte-carlo-in-rl/mces.png" alt="monte carlo es pseudocode" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/monte-carlo-in-rl/mces.png" alt="monte carlo es pseudocode"/>
 </figure>
 
 ### On-policy Monte Carlo Control[^3]{#on-policy-mc-control}
@@ -168,8 +164,7 @@ where in the third step, we have used the fact that the latter $\sum$ is a weigh
 
 Pseudocode of the complete algorithm is given below.
 <figure>
-	<img src="/images/monte-carlo-in-rl/on-policy-mc-control.png" alt="monte carlo es pseudocode" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"></figcaption>
+	<img src="/images/monte-carlo-in-rl/on-policy-mc-control.png" alt="MCES pseudocode"/>
 </figure>
 
 ### Off-policy Monte Carlo Prediction[^4]{#off-policy-mc-pred}
@@ -297,17 +292,16 @@ The target policy $\pi\approx\pi_*$ is the greedy policy w.r.t $Q$, which is an 
 The policy $\pi$ converges to optimal at all encountered states even though actions are selected according to a different soft policy $b$, which may change between or even within episodes.
 
 #### Example - Racetrack{#example}
-(This example is taken from **Exercise 5.12**, [**Reinforcement Learning: An Introduction**](#rl-book) book.)
+(This example is taken from [RL book](#rl-book), Exercise 5.12.)
 
 **Problem**  
 Consider driving a race car around a turn like that shown in ***Figure 4***. You want to go as fast as possible, but not so fast as to run off the track. In our simplified racetrack, the car is at one of a discrete set of grid positions, the cells in the diagram. The velocity is also discrete, a number of grid cells moved horizontally and vertically per time step. The actions are increments to the velocity components. Each may be changed by +1, -1, or 0 in each step, for a total of nine (3 x 3) actions. Both velocity components are restricted to be nonnegative and less than 5, and they cannot both be zero except at the starting line. Each episode begins in one of the randomly selected start states with both velocity components zero and ends when the car crosses the finish line. The rewards are -1 for each step until the car crosses the finish line. If the car hits the track boundary, it is moved back to a random position on the starting line, both velocity components are reduced to zero, and the episode continues. Before updating the car's location at each time step, check to see if the projected path of the car intersects the track boundary. If it intersects the finish line, the episode ends; if it intersects anywhere else, the car is considered to have hit the track boundary and is sent back to the starting line. To make the task more challenging, with probability 0.1 at each time step the velocity increments are both zero, independently of the intended increments. Apply a Monte Carlo control method to this task to compute the optimal policy from each starting state. Exhibit several trajectories following the optimal policy (but turn the noise off for these trajectories).
 <figure>
-	<img src="/images/monte-carlo-in-rl/racetrack.png" alt="racetrack" width="200" height="300px" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 4</b>: A turn for the racetrack task</figcaption>
-</figure><br/>
+	<img src="/images/monte-carlo-in-rl/racetrack.png" alt="racetrack" width="30%" height="30%"/>
+	<figcaption style='text-align: center;'><b>Figure 4</b>: <b>A turn for the racetrack task</b></figcaption>
+</figure>
 
-**Solution code**  
-The source code can be found [here](https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-05/racetrack.py).  
+**Solution code** (source code can be found [here](https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-05/racetrack.py)).
 
 We begin by importing some useful packages.
 ```python
@@ -511,8 +505,8 @@ if __name__ == '__main__':
 ```
 We end up with this result after running the code.
 <figure>
-	<img src="/images/monte-carlo-in-rl/racetrack-result.png" alt="racetrack's result" style="display: block; margin-left: auto; margin-right: auto; width: 450px; height: 400px"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 5</b>: Example - Racetrack's result</figcaption>
+	<img src="/images/monte-carlo-in-rl/racetrack-result.png" alt="racetrack's result" width="80%" height="80%"/>
+	<figcaption style="text-align: center;"><b>Figure 5</b>: <b>Example - Racetrack's solution result</b>.</figcaption>
 </figure>
 
 ### Discounting-aware Importance Sampling{#discounting-aware-is}
@@ -532,8 +526,8 @@ but actually, it really needs to be weighted by
 $\rho_{0:1}=\frac{\pi(A_0|S_0)}{b(A_0|S_0)}$.
 The other 99 factors $\frac{\pi(A_1|S_1)}{b(A_1|S_1)}\dots\frac{\pi(A_{99}|S_{99})}{b(A_{99}|S_{99})}$ are irrelevant because after the first reward, the return has already been determined. These later factors are all independent of the return and of expected value $1$; they do not change the expected update, but they add enormously to its variance. They could even make the variance **infinite** in some cases.
 <figure>
-	<img src="/images/monte-carlo-in-rl/inf-var.png" alt="infinite variance" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 6</b>: Infinite variance when using OIS (Eg5.5 - RL: An Introduction book). The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-05/infinite-variance.py' target='_blank'>here</a></figcaption>
+	<img src="/images/monte-carlo-in-rl/inf-var.png" alt="infinite variance"/>
+	<figcaption><b>Figure 6</b>: <b>Infinite variance when using OIS</b> (<a href='#rl-book'>RL book</a>, Example 5.5). The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-05/infinite-variance.py' target='_blank'>here</a>.</figcaption>
 </figure>
 
 One of the methods used to avoid this large extraneous variance is **discounting-aware IS**. The idea is to think of discounting as determining a probability of termination or, equivalently, a *degree* of partial termination.  
@@ -547,14 +541,21 @@ where *flat* denotes the absence of discounting, and *partial* denotes that thes
 G_t&\doteq R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+\dots+\gamma^{T-t-1}R_T \\\\ &=(1-\gamma)R_{t+1} \\\\ &\hspace{0.5cm}+(1-\gamma)\gamma(R_{t+1}+R_{t+2}) \\\\ &\hspace{0.5cm}+(1-\gamma)\gamma^2(R_{t+1}+R_{t+2}+R_{t+3}) \\\\ &\hspace{0.7cm}\vdots \\\\ &\hspace{0.5cm}+(1-\gamma)\gamma^{T-t-2}(R_{t+1}+R_{t+2}+\dots+R_{T-1}) \\\\ &\hspace{0.5cm}+\gamma^{T-t-1}(R_{t+1}+R_{t+2}+\dots+R_T) \\\\ &=(1-\gamma)\sum_{h=t+1}^{T-1}\left(\gamma^{h-t-1}\bar{G}\_{t:h}\right)+\gamma^{T-t-1}\bar{G}\_{t:T}
 \end{align}
 Now we need to scale the *flat partial returns* by an **IS ratio** that is similarly truncated. As $\bar{G}\_{t:h}$ only involves rewards up to a horizon $h$, we only need the ratio of the probabilities up to $h$. We define:
-1. **Discounting-aware OIS** estimator
-\begin{equation}
-V(s)\doteq\dfrac{\sum_{t\in\mathcal{T}(s)}\left[(1-\gamma)\sum_{h=t+1}^{T(t)-1}\left(\gamma^{h-t-1}\rho_{t:h-1}\bar{G}\_{t:h}\right)+\gamma^{T(t)-t-1}\rho_{t:T(t)-1}\bar{G}\_{t:T(t)}\right]}{\vert\mathcal{T}(s)\vert}
-\end{equation}
-2. **Discounting-aware WIS** estimator
-\begin{equation}
-V(s)\doteq\dfrac{\sum_{t\in\mathcal{T}(s)}\left[(1-\gamma)\sum_{h=t+1}^{T(t)-1}\left(\gamma^{h-t-1}\rho_{t:h-1}\bar{G}\_{t:h}\right)+\gamma^{T(t)-t-1}\rho_{t:T(t)-1}\bar{G}\_{t:T(t)}\right]}{\sum_{t\in\mathcal{T}(s)}\left[(1-\gamma)\sum_{h=t+1}^{T(t)-1}\left(\gamma^{h-t-1}\rho_{t:h-1}\right)+\gamma^{T(t)-t-1}\rho_{t:T(t)-1}\right]}
-\end{equation}
+<ul id='number-list'>
+	<li>
+		<b>Discounting-aware OIS</b> estimator
+		\begin{equation}
+		V(s)\doteq\dfrac{\sum_{t\in\mathcal{T}(s)}\left[(1-\gamma)\sum_{h=t+1}^{T(t)-1}\left(\gamma^{h-t-1}\rho_{t:h-1}\bar{G}_{t:h}\right)+\gamma^{T(t)-t-1}\rho_{t:T(t)-1}\bar{G}_{t:T(t)}\right]}{\vert\mathcal{T}(s)\vert}
+		\end{equation}
+	</li>
+	<li>
+		<b>Discounting-aware WIS</b> estimator
+		\begin{equation}
+		V(s)\doteq\dfrac{\sum_{t\in\mathcal{T}(s)}\left[(1-\gamma)\sum_{h=t+1}^{T(t)-1}\left(\gamma^{h-t-1}\rho_{t:h-1}\bar{G}_{t:h}\right)+\gamma^{T(t)-t-1}\rho_{t:T(t)-1}\bar{G}_{t:T(t)}\right]}{\sum_{t\in\mathcal{T}(s)}\left[(1-\gamma)\sum_{h=t+1}^{T(t)-1}\left(\gamma^{h-t-1}\rho_{t:h-1}\right)+\gamma^{T(t)-t-1}\rho_{t:T(t)-1}\right]}
+		\end{equation}
+	</li>
+</ul>
+
 These two estimators take into account the discount rate $\gamma$ but have no effect if $\gamma=1$.
 
 ### Per-decision Importance Sampling{#per-decision-is}
@@ -588,23 +589,23 @@ V(s)\doteq\dfrac{\sum_{t\in\mathcal{T}(s)}\tilde{G}\_t}{\vert\mathcal{T}(s)\vert
 \end{equation}
 
 ## References
-[1] <span id='rl-book'>Richard S. Sutton & Andrew G. Barto</span>. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition). MIT press, 2018.  
+[1] <span id='rl-book'>Richard S. Sutton, Andrew G. Barto</span>. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition). MIT press, 2018.
 
-[2] Adrian Barbu & Song-Chun Zhu. [Monte Carlo Methods](https://link.springer.com/book/10.1007/978-981-13-2971-5).  
+[2] Adrian Barbu, Song-Chun Zhu. [Monte Carlo Methods](https://link.springer.com/book/10.1007/978-981-13-2971-5).
 
-[3] David Silver. [UCL course on RL](https://www.davidsilver.uk/teaching/).  
+[3] David Silver. [UCL course on RL](https://www.davidsilver.uk/teaching/).
 
-[4] Csaba Szepesvári. [Algorithms for Reinforcement Learning](https://www.amazon.com/Algorithms-Reinforcement-Synthesis-Artificial-Intelligence/dp/1608454924).  
+[4] Csaba Szepesvári. [Algorithms for Reinforcement Learning](https://www.amazon.com/Algorithms-Reinforcement-Synthesis-Artificial-Intelligence/dp/1608454924).
 
-[5] Singh, S.P., Sutton, R.S. [Reinforcement learning with replacing eligibility traces](https://doi.org/10.1007/BF00114726). Mach Learn 22, 123–158, 1996.    
+[5] <span id='singh-sutton'>Singh, S.P., Sutton, R.S. [Reinforcement learning with replacing eligibility traces](https://doi.org/10.1007/BF00114726). Mach Learn 22, 123–158, 1996.</span>
 
-[6] John N. Tsitsiklis. [On the Convergence of Optimistic Policy Iteration](https://www.mit.edu/~jnt/Papers/J089-02-jnt-optimistic.pdf). Journal of Machine Learning Research 3 (2002) 59–72.  
+[6] John N. Tsitsiklis. [On the Convergence of Optimistic Policy Iteration](https://www.mit.edu/~jnt/Papers/J089-02-jnt-optimistic.pdf). Journal of Machine Learning Research 3 (2002) 59–72.
 
-[7] Yuanlong Chen. [On the convergence of optimistic policy iteration for stochastic shortest path problem](https://arxiv.org/abs/1808.08763), 	arXiv:1808.08763, 2018.  
+[7] Yuanlong Chen. [On the convergence of optimistic policy iteration for stochastic shortest path problem](https://arxiv.org/abs/1808.08763), 	arXiv:1808.08763, 2018.
 
-[8] Jun Liu. [On the Convergence of Reinforcement Learning with Monte Carlo Exploring Starts](https://arxiv.org/abs/2007.10916). arXiv:2007.10916, 2020.  
+[8] Jun Liu. [On the Convergence of Reinforcement Learning with Monte Carlo Exploring Starts](https://arxiv.org/abs/2007.10916). arXiv:2007.10916, 2020.
 
-[9] Daphne Koller & Nir Friedman. [Probabilistic Graphical Models: Principles and Techniques](https://mitpress.mit.edu/books/probabilistic-graphical-models).  
+[9] Daphne Koller & Nir Friedman. [Probabilistic Graphical Models: Principles and Techniques](https://mitpress.mit.edu/books/probabilistic-graphical-models).
 
 [10] A. Rupam Mahmood, Hado P. van Hasselt, Richard S. Sutton. [Weighted importance sampling for off-policy learning with linear function approximation](https://papers.nips.cc/paper/2014/hash/be53ee61104935234b174e62a07e53cf-Abstract.html). Advances in Neural Information Processing Systems 27 (NIPS 2014).
 

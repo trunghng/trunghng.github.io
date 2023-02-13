@@ -109,7 +109,7 @@ which is referred as the **sum-product inference** task. This gives rise to the 
 
 **Example 2**: Consider the following Bayesian network with the goal is to computing the probability that the student got the job.
 <figure>
-	<img src="/images/pgm-inference/student-bn.png" alt="Student BN" style="display: block; margin-left: auto; margin-right: auto; width: 40%; height: 40%;"/>
+	<img src="/images/pgm-inference/student-bn.png" alt="Student BN" width="40%" height="40%"/>
 	<figcaption><b>Figure 1</b> (taken from the <a href='#pgm-book'>PGM book</a>) <b>A Bayesian network for Student scenario</b></figcaption>
 </figure>
 
@@ -121,46 +121,46 @@ Consider the ordering: $C,D,I,H,G,S,L$. We step by step do the elimination proce
 <ul id='number-list'>
 	<li>
 		Eliminating $C$. We have
-		\begin{equation}
-		\tau_1(D)=\sum_C\phi_C(C)\cdot\phi_D(D,C)
-		\end{equation}
+		\begin{align}
+		\psi_1(D,C)&=\phi_C(C)\cdot\phi_D(D,C) \\ \tau_1(D)&=\sum_C\psi_1(D,C)
+		\end{align}
 	</li>
 	<li>
 		Eliminating $D$. We have
-		\begin{equation}
-		\tau_2(G,I)=\sum_{D}\phi_G(G,D,I)\cdot\tau_1(D)
-		\end{equation}
+		\begin{align}
+		\psi_2(G,D,I)&=\phi_G(G,D,I)\cdot\tau_1(D) \\ \tau_2(G,I)&=\sum_{D}\psi_2(G,D,I)
+		\end{align}
 	</li>
 	<li>
 		Eliminating $I$. We have
-		\begin{equation}
-		\tau_3(G,S)=\sum_I\phi_I(I)\cdot\phi_S(S,I)\cdot\tau_2(G,I)
-		\end{equation}
+		\begin{align}
+		\psi_3(G,I,S)&=\phi_I(I)\cdot\phi_S(S,I)\cdot\tau_2(G,I) \\ \tau_3(G,S)&=\sum_I\psi_3(G,I,S)
+		\end{align}
 	</li>
 	<li>
 		Eliminating $H$. We have
-		\begin{equation}
-		\tau_4(G,J)=\sum_H\phi_H(H,G,J),
-		\end{equation}
+		\begin{align}
+		\psi_4(H,G,J)&=\phi_H(H,G,J) \\ \tau_4(G,J)&=\sum_H\psi_4(H,G,J),
+		\end{align}
 		which is equal to $1$, since $\sum_H P(H\vert G,J)=1$
 	</li>
 	<li>
 		Eliminating $G$. We have
-		\begin{equation}
-		\tau_5(L,S,J)=\sum_G\phi_L(L,G)\cdot\tau_3(G,S)\cdot\tau_4(G,J)
-		\end{equation}
+		\begin{align}
+		\psi_5(G,J,L,S)&=\phi_L(L,G)\cdot\tau_3(G,S)\cdot\tau_4(G,J) \\ \tau_5(L,S,J)&=\sum_G\psi_5(G,J,L,S)
+		\end{align}
 	</li>
 	<li>
 		Eliminating $S$. We have
-		\begin{equation}
-		\tau_6(J,L)=\sum_S\phi_J(J,L,S)\cdot\tau_5(L,S,J)
-		\end{equation}
+		\begin{align}
+		\psi_6(J,L,S)&=\phi_J(J,L,S)\cdot\tau_5(L,S,J) \\ \tau_6(J,L)&=\sum_S\psi_6(J,L,S)
+		\end{align}
 	</li>
 	<li>
 		Eliminating $L$. We have
-		\begin{equation}
-		\tau_7(J)=\sum_L\tau_6(J,L)
-		\end{equation}
+		\begin{align}
+		\psi_7(J,L)&=\tau_6(J,L) \\ \tau_7(J)&=\sum_L\psi_7(J,L)
+		\end{align}
 	</li>
 </ul>
 
@@ -180,6 +180,87 @@ Then, we can construct a Bayesian network $\mathcal{B}'$ and a disjoint partitio
 
 #### Dealing with Evidence
 
+### Complexity & Graph Structure of Variable Elimination
+
+#### Complexity
+
+#### Graph Structure
+Since the inputs to $\text{Sum-Product-VE}$ is a set of factors $\Phi$, set of variables to eleminated $\mathbf{Z}$ with some ordering $\prec$, the algorithm does take into account whether the graph generating factors is directed, undirected or partly directed. Hence, it is simplest to consider the algorithm as acting on an undirected graph $\mathcal{H}$.
+
+Let $\Phi$ be a set of factors, we define
+\begin{equation}
+\text{Scope}(\Phi)\doteq\bigcup_{\phi\in\Phi}\text{Scope}(\phi)
+\end{equation}
+to be the set of all variables appearing in any of the factors in $\Phi$. We define $\mathcal{H}\_\Phi$ to be the undirected graph whose nodes correspond to variables in $\text{Scope}(\Phi)$ and where we have an edge $X_i-X_j\in\mathcal{H}\_\Phi$ iff there exists a factor $\phi\in\Phi$ such that $X_i,X_j\in\text{Scope}(\phi)$.
+
+In other words, $\mathcal{H}\_\Phi$ introduces a fully connected subgraph over the scope of each factor $\phi\in\Phi$. Hence, $\mathcal{H}_\Phi$ the minimal I-map for the distribution induced by $\Phi$.
+
+**Proposition 2**: Let $P$ be a distribution defined by multiplying the factors in $\Phi$ then normalizing, i.e. let $\mathbf{X}=\text{Scope}(\Phi)$,
+\begin{equation}
+P(\mathbf{X})=\frac{1}{Z}\prod_{\phi\in\Phi}\phi,
+\end{equation}
+where
+\begin{equation}
+Z=\sum_\mathbf{X}\prod_{\phi\in\Phi}\phi
+\end{equation}
+Then $\mathcal{H}_\Phi$ is the minimal Markov network I-map for $P$, and $\Phi$ is a parameterization of this network that defines the distribution $P$.
+
+**Proof**  
+This follows direcly from [Theorem 16]({{< ref "pgm-representation#theorem16" >}}).
+
+**Remark**: Using the arguments specified for converting from [Bayesian networks to Markov networks]({{< ref "pgm-representation#bn-2-mrf" >}}), it is worth remarking that
+<ul id='number-list'>
+	<li>
+		For a set of factors $\Phi$ defined by a Bayesian network $\mathcal{G}$ (in this case, the partition function $Z=1$), $\mathcal{H}_\Phi$ is exactly the moralized graph of $\mathcal{G}$.
+	</li>
+	<li>
+		In more specific, $\mathcal{H}_\Phi$ is the Markov network induced by a set of factors $\Phi[\mathbf{e}]$ defined by the reduction of the factors in a Bayesian network to some context $\mathbf{E}=\mathbf{e}$. In this case,
+		<ul>
+			<li>
+				$\mathbf{X}=\text{Scope}(\Phi[\mathbf{e}])=\mathcal{X}\backslash\mathbf{E}$;
+			</li>
+			<li>
+				the unnormalized product of factors is $P(\mathbf{X},\mathbf{e})$;
+			</li>
+			<li>
+				the partition function is $P(\mathbf{e})$.
+			</li>
+		</ul>
+	</li>
+</ul>
+
+##### The Induced Graph
+Let $\Phi$ be a set of factors over $\mathcal{X}=\\{X_1,\ldots,X_n\\}$ and let $\prec$ be an elimination ordering for some $\mathbf{X}\subset\mathcal{X}$. The **induced graph** $\mathcal{I}_{\Phi,\prec}$ is an undirected graph over $\mathcal{X}$, where $X_i$ and $X_j$ are connected via an edge if they both appear in some intermediate factor $\psi$ generated by VE using $\prec$ as an elimination ordering.
+
+**Theorem 3**: *Let $\mathcal{I}_{\Phi,\prec}$ be the induced graph for a set of factor $\Phi$ and some elimination ordering $\prec$. Then:*
+<ul id='number-list' style='font-style: italic;'>
+	<li>
+		The scope of every factor generated during the VE process is a clique in $\mathcal{I}_{\Phi,\prec}$.
+	</li>
+	<li>
+		Every <a href={{< ref "pgm-representation#max-clique" >}}>maximal clique</a> in $\mathcal{I}_{\Phi,\prec}$ is the scope of some intermediate factor in the computation.
+	</li>
+</ul>
+
+**Proof**
+<ul id='number-list'>
+	<li>
+		Consider a factor $\psi(Y_1,\ldots,Y_k)$ generated during the VE procedure. By definition of the induced graph, there must be an edge between each pair $(Y_i,Y_j)$, which implies that $Y_1,\ldots,Y_k$ form a clique.
+	</li>
+	<li>
+		
+	</li>
+</ul>
+
+###### Induced Width, Tree-width
+The **width**, denoted $w$, of an induced graph is the number of nodes in the largest clique in the graph minus $1$.
+
+The **induced width** $w_{\mathcal{K},\prec}$ of an ordering $\prec$ relative to a graph $\mathcal{K}$ (directed or undirected) is defined to be the width of the graph $\mathcal{I}_{\mathcal{I},\prec}$ induced by applying VE to $\mathcal{K}$ using the ordering $\prec$.
+
+The **tree-width** of a graph $\mathcal{K}$ is defined to be its minimal induced width
+\begin{equation}
+w_\mathcal{K}^\*=\min_\prec w(\mathcal{I}\_{\mathcal{K},\prec})
+\end{equation} 
 
 ### Clique Trees
 
@@ -189,4 +270,3 @@ Then, we can construct a Bayesian network $\mathcal{B}'$ and a disjoint partitio
 [1] <span id='pgm-book'>Daphne Koller, Nir Friedman. [Probabilistic Graphical Models](https://mitpress.mit.edu/9780262013192/probabilistic-graphical-models/). The MIT Press.</span>
 
 ## Footnotes
-

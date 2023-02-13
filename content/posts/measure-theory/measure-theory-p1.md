@@ -79,8 +79,8 @@ R=\left\\{\left(x_1,\ldots,x_d\right)\in\mathbb{R}^d:a_j\leq x_j\leq b_j,\forall
 \end{equation}
 With this definition, a rectangle is closed and has sides parallel to the coordinate axis. In $\mathbb{R}$, the rectangles are the closed and bounded intervals; they becomes the usual rectangles as we usually see in $\mathbb{R}^2$; while in $\mathbb{R}^3$, they are the closed parallelepipeds.
 <figure>
-	<img src="/images/measure-theory-p1/rectangles.png" alt="Rectangles in R^d" style="display: block; margin-left: auto; margin-right: auto; width: 500px; height: 370px"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Rectangles in $\mathbb{R}^d,d=1,2,3$</figcaption>
+	<img src="/images/measure-theory-p1/rectangles.png" alt="Rectangles in R^d" width="70%" height="70%"/>
+	<figcaption style='text-align: center;'><b>Figure 1</b>: (taken from <a href='#steins-book'>Stein's book</a>) <b>Rectangles in $\mathbb{R}^d,d=1,2,3$</b>.</figcaption>
 </figure>
 
 The lengths of the sides of the rectangle $R$ in $\mathbb{R}^d$ are $b_1-a_1,\ldots,b_d-a_d$. The **volume** of its, denoted as $\vert R\vert$, is defined as

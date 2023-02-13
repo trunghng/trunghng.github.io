@@ -238,8 +238,8 @@ The global minimum of $f(\mathbf{x})$ is $0$ at $\mathbf{x}=\mathbf{0}$. We will
 
 The result obtained is illustrated in the following figure.
 <figure>
-	<img src="/images/cma-es/cmaes-rastrigin.png" alt="CMA-ES on rastrigin" style="display: block; margin-left: auto; margin-right: auto;"/>
-	<figcaption style="text-align: center;font-style: italic;"><b>Figure 1</b>: Success rate to reach $f_\text{stop}=10^{-10}$ versus population size for Rastrigin function.<br> The code can be found <a href='https://github.com/trunghng/evolution-strategies/blob/main/testing_ground.py' target='_blank'>here</a></figcaption>
+	<img src="/images/cma-es/cmaes-rastrigin.png" alt="CMA-ES on rastrigin" width="70%" height="70%"/>
+	<figcaption><b>Figure 1</b>: <b>Success rate to reach $f_\text{stop}=10^{-10}$ versus population size for Rastrigin function</b>. The code can be found <a href='https://github.com/trunghng/evolution-strategies/blob/main/testing_ground.py' target='_blank'>here</a></figcaption>
 </figure>
 
 ## References
