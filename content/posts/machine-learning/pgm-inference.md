@@ -293,7 +293,7 @@ Each edge between a pair of cluster $\mathbf{C}_i$ and $\mathbf{C}_j$ is associa
 	</li>
 </ul>
 
-We thus have the following cluster graph
+We thus have the following cluster graph.
 <figure>
 	<img src="/images/pgm-inference/cluster-graph.png" alt="Cluster graph" width="70%" height="70%"/>
 	<figcaption style='text-align: center;'><b>Figure 2</b>: (taken from <a href='#pgm-book'>PGM book</a>) <b>Cluster graph for the VE process in <a href='#eg1'>Example 1</a></b></figcaption>
@@ -305,7 +305,10 @@ We thus have the following cluster graph
 		The VE algorithm uses each intermediate factor $\tau_i$ at most once. Specifically, when $\phi_i$ is used to produce $\psi_i$, it is removed from the set of factors $\Phi$, and thus cannot be used again. Therefore, the cluster graph induced by VE is a <a href='{{< ref "pgm-representation#tree" >}}'>tree</a>.
 	</li>
 	<li>
-		later
+		Although a cluster graph is undirected, the execution of VE on it does define a directed graph induced by the flow of messages between the clusters. And thus, the induced directed graph is a directed tree with all the messages flowing toward a single cluster where the final result is computed. This cluster is known as the <b>root</b> of the tree.
+	</li>
+	<li>
+		As a directed tree, we can define the notion of <b>upstream</b> and <b>downstream</b> in the sense that $\mathbf{C}_i$ is said to be <b>upstream</b> from $\mathbf{C}_j$, which is equivalent to saying that $\mathbf{C}_j$ is <b>downstream</b> from $\mathbf{C}_i$ if $\mathbf{C}_i$ is on the path from $\mathbf{C}_j$ to the root.
 	</li>
 </ul>
 
@@ -340,26 +343,191 @@ Let $\Phi$ be a set of factors over $\mathcal{X}$. A cluster tree over $\Phi$ th
 ##### Clique-Tree Message Passing
 Let $\mathcal{T}$ be a clique tree with cliques $\mathbf{C}\_1,\ldots,\mathbf{C}\_k$. Since each factor $\phi\in\Phi$ is associated with some clique $\alpha(\phi)$, we then define the **initial potential** of $\mathbf{C}\_i$ to be
 \begin{equation}
-\psi_j(\mathbf{C}\_i)=\prod_{\phi:\alpha(\phi)=i}\phi
+\psi_i(\mathbf{C}\_i)=\prod_{\phi:\alpha(\phi)=i}\phi
 \end{equation}
 Because each factor is assigned to exactly one clique, we are guaranteed that
 \begin{equation}
-\prod_\phi\phi=\prod_{i=1}^{k}\psi_i(\mathbf{C}\_i)
+\prod_\phi\phi=\prod_{i=1}^{k}\psi_i
 \end{equation}
 Let $\mathbf{C}_r$ be the selected root clique. For each clique $\mathbf{C}_i$, let $\text{Nb}_i$ denote the set of indices of cliques that are neighbors of $\mathbf{C}_i$, and let $p_r(i)$ be the upstream neighbor of $i$.
 
 This means that each clique $\mathbf{C}_i$, except for the root, performs a **message passing** computation and sends a message to its upstream neighbor $\mathbf{C}\_{p_r(i)}$.
 
-The message from $\mathbf{C}\_i$ to $\mathbf{C}\_j$ is computed via the **sum-product message passing** computation, which multiplies all incoming messages from $\mathbf{C}_i$'s neighbors (except for $\mathbf{C}\_j$) with its initial clique potential ...
+The message from $\mathbf{C}\_i$ to $\mathbf{C}\_j$ is computed via the **sum-product message passing** computation, which multiplies all incoming messages from $\mathbf{C}\_i$'s neighbors (other than $\mathbf{C}\_j$) with its initial clique potential $\psi_i$, resulting in a factor $\psi$ whose scope is $\mathbf{C}\_i$ itself. Then it sums out all variables except those in the sepset between $\mathbf{C}\_i$ and $\mathbf{C}\_j$ to produce a factor as a message to $\mathbf{C}\_i$. In particular,
+\begin{align}
+\psi(\mathbf{C}\_i)&=\psi_i\cdot\prod_{k\in(\text{Nb}\_i\backslash\\{j\\})}\delta_{k\rightarrow i} \\\\ \delta_{i\rightarrow j}&=\sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\psi=\sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\left(\psi_i\cdot\prod_{k\in(\text{Nb}\_i\backslash\\{j\\})}\delta_{k\rightarrow i}\right)
+\end{align}
+The process proceeds until reaching the root clique, which then multiplies all incoming messages with its initial clique potential, $\psi_r$, resulting in a factor referred as the **beliefs**, denoted $\beta_r(\mathbf{C}\_r)$.
 \begin{equation}
-\delta_{i\rightarrow j}=\sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\psi_i\cdot\prod_{k\in(\text{Nb}\_i\backslash\\{j\\})}\delta_{k\rightarrow i}
+\beta_r(\mathbf{C}\_r)=\psi_r\cdot\prod_{k\in\text{Nb}\_{\mathbf{C}\_r}}\delta_{k\rightarrow r},
+\end{equation}
+The overall process is summarized into the pseudocode below.
+<figure id='algo3'>
+	<img src="/images/pgm-inference/message-passing-sp.png" alt="CTree-SP-Upward"/>
+</figure>
+
+##### Algorithm Correctness
+In this section, we will be proving that for a clique satisfying the family preserving and running intersection property, the return of [Algorithm 3](#algo3) is precisely the exact inference result, i.e.
+\begin{equation}
+\beta_r(\mathbf{C}\_r)=\sum_{\mathcal{X}\backslash\mathbf{C}\_r}\tilde{P}\_\Phi(\mathcal{X})$
+\end{equation}
+We start by proving a result.
+
+<b id='prop7'>Proposition 7</b>: *Assume that $X$ is eliminated when a message is sent from $\mathbf{C}_i$ to $\mathbf{C}_j$. Then $X$ does not appear anywhere in the tree on the $\mathbf{C}_j$ side of the edge $(i-j)$*.
+
+**Proof**  
+Assume that $X$ appears in some clique $\mathbf{C}_k$ that is on the $\mathbf{C}_j$ side of the tree. This implies that $\mathbf{C}_j$ is on the path from $\mathbf{C}_i$ to $\mathbf{C}_k$.  
+Hence, by running intersection property, since $X$ appears in both $\mathbf{C}_i$ and $\mathbf{C}_k$, we then have that $X\in\mathbf{C}_j$, contradicts to the assumption that $X$ is eliminated before coming to $\mathbf{C}_j$.
+
+We continue by letting $\mathcal{F}\_{\prec(i\rightarrow j)}$ denote the set of factors in the cliques on the $\mathbf{C}\_i$-side of the edge and letting $\mathcal{V}\_{\prec(i\rightarrow j)}$ present the set of variables appear on the $\mathbf{C}\_i$-side but not in the sepset $\mathbf{S}_{i,j}$.
+
+**Theorem 8**: *Let $\delta_{i\rightarrow j}$ be a message from $\mathbf{C}_i$ to $\mathbf{C}_j$. Then*
+\begin{equation}
+\delta_{i\rightarrow j}(\mathbf{S}\_{i,j})=\sum_{\mathcal{V}\_{\prec(i\rightarrow j)}}\prod_{\phi\in\mathcal{F}\_{\prec(i\rightarrow j)}}\phi\label{eq:ac.1}
 \end{equation}
 
+**Proof**  
+We consider two cases:
+<ul id='number-list'>
+	<li>
+		If the clique $\mathbf{C}_i$ is a leaf node of the clique tree, then $\mathbf{C}_j$ is the only clique connected to $\mathbf{C}_i$. Thus, \eqref{eq:ac.1} is simply the marginalization over $\mathbf{C}_i\backslash\mathbf{S}_{i,j}$ of the product of the factors whose scope is $\mathbf{C}_i$, which we have known that is precisely the message to send to $\mathbf{C}_j$.
+	</li>
+	<li>
+		If $\mathbf{C}_i$ is not a leaf of the clique tree, let $i_1,\ldots,i_m$ denote the indices of the neighboring cliques of $\mathbf{C}_i$ other than $\mathbf{C}_j$. Then by <a href='#prop17'>Proposition 7</a>, for $k=1,\ldots,m$, we have that $\mathcal{V}_{\prec(i_k\rightarrow i)}$ are disjoint sets and that
+		\begin{equation}
+		\mathcal{V}_{\prec(i\rightarrow j)}=\mathbf{Y}_i\cup\left(\bigcup_{k=1}^{m}\mathcal{V}_{\prec(i_k\rightarrow i)}\right),
+		\end{equation}
+		where $\mathbf{Y}_i$ are variables that are eliminated at $\mathbf{C}_i$, which implies that $\mathbf{Y}_i=\mathbf{C}_i\backslash\mathbf{S}_{i,j}$. And analogously, for $k=1,\ldots,m$, we also have that $\mathcal{F}_{\prec(i_k\rightarrow i)}$ are disjoint and
+		\begin{equation}
+		\mathcal{F}_{\prec(i\rightarrow j)}=\mathcal{F}_i\cup\left(\bigcup_{k=1}^{m}\mathcal{F}_{\prec(i_k\rightarrow i)}\right),
+		\end{equation}
+		where $\mathcal{F}_i$ denotes the set of factors from which the initial potential of $\mathbf{C}_i$, $\psi_i$, is computed. Hence, we have that
+		\begin{align}
+		\hspace{-1.5cm}\sum_{\mathcal{V}_{\prec(i\rightarrow j)}}\prod_{\phi\in\mathcal{F}_{\prec(i\rightarrow j)}}\phi&=\sum_{\mathbf{Y}_i\cup\left(\bigcup_{k=1}^{m}\mathcal{V}_{\prec(i_k\rightarrow i)}\right)}\left[\prod_{\mathcal{F}_i\cup\left(\bigcup_{k=1}^{m}\mathcal{F}_{\prec(i_k\rightarrow i)}\right)}\phi\right] \\ &=\sum_{\mathbf{Y}_i}\sum_{\mathcal{V}_{\prec(i_1\rightarrow i)}}\ldots\sum_{\mathcal{V}_{\prec(i_m\rightarrow i)}}\left[\left(\prod_{\phi\in\mathcal{F}_i}\phi\right)\left(\prod_{\phi\in\mathcal{F}_{\prec(i_1\rightarrow i)}}\phi\right)\ldots\left(\prod_{\phi\in\mathcal{F}_{\prec(i_m\rightarrow i)}}\phi\right)\right] \\ &=\sum_{\mathbf{Y}_i}\left[\left(\prod_{\phi\in\mathcal{F}_i}\phi\right)\left(\sum_{\mathcal{V}_{\prec(i_1\rightarrow i)}}\prod_{\phi\in\mathcal{F}_{\prec(i_1\rightarrow i)}}\phi\right)\ldots\left(\sum_{\mathcal{V}_{\prec(i_m\rightarrow i)}}\prod_{\phi\in\mathcal{F}_{\prec(i_m\rightarrow i)}}\phi\right)\right] \\ &=\sum_{\mathbf{Y}_i}\left[\left(\prod_{\phi\in\mathcal{F}_i}\phi\right)\cdot\prod_{k=1}^{m}\left(\sum_{\mathcal{V}_{\prec(i_k\rightarrow i)}}\prod_{\phi\in\mathcal{F}_{\prec(i_k\rightarrow i)}}\phi\right)\right] \\ &=\sum_{\mathbf{Y}_i}\left[\psi_i\cdot\prod_{k=1}^{m}\delta_{i_k\rightarrow i}\right] \\ &=\delta_{i\rightarrow j}
+		\end{align}
+	</li>
+</ul>
 
+Given these results, we then can state that:  
+**Corollary 9**: *Let $\mathbf{C}_r$ be the root in a clique tree, and assume that $\beta_r$ is computed as in [Algorithm 3](#algo3). Then*
+\begin{equation}
+\beta_r(\mathbf{C}\_r)=\sum_{\mathcal{X}\backslash\mathbf{C}\_r}\tilde{P}\_\Phi(\mathcal{X})
+\end{equation}
+
+**Example 3**: Consider the simplified clique tree $\mathcal{T}$ for the Student network given in [Example 1](#eg1)
+<figure>
+	<img src="/images/pgm-inference/simplified-clique-tree-eg.png" alt="Clique Tree Example" width="80%" height="80%"/>
+	<figcaption><b>Figure 3</b>: (based on figure from <a href='#pgm-book'>PGM book</a>) <b>Simplified clique tree $\mathcal{T}$ for the Student network</b></figcaption>
+</figure>
+
+With the goal of computing $P(J)$, we need to execute the VE procedure so that $J$ is not eliminated. Hence, the root clique must contain $J$. Selecting $\mathbf{C}_5$ as our root clique, we apply Variable Elimination in $\mathcal{T}$ as following
+<ul id='number-list'>
+	<li>
+		We begin by defining the initial potentials
+		\begin{align}
+		\psi_1(\mathbf{C}_1)&=\psi_1(C,D)=\phi_C(C)\cdot\phi_C(D,C) \\ \psi_2(\mathbf{C}_2)&=\psi_2(D,I,G)=\phi_G(D,I,G) \\ \psi_3(\mathbf{C}_3)&=\psi_3(G,I,S)=\phi_I(I)\cdot\phi_S(I,S) \\ \psi_4(\mathbf{C}_4)&=\psi_4(G,H,J)=\phi_H(G,H,J) \\ \psi_5(\mathbf{C}_5)&=\psi_5(G,J,L,S)=\phi_L(L,G)\cdot\phi_J(J,L,S)
+		\end{align}
+	</li>
+	<li>
+		Given the initial potentials for each clique $\mathbf{C}_i$, we can proceed as
+		<ul id='number-list'>
+			<li>
+				In $\mathbf{C}_1$, we have
+				\begin{equation}
+				\delta_{1\rightarrow 2}=\sum_C\psi_1(C,D)
+				\end{equation}
+			</li>
+			<li>
+				In $\mathbf{C}_2$, we have
+				\begin{equation}
+				\delta_{2\rightarrow 3}=\sum_D\psi_2(D,I,G)\cdot\delta_{1\rightarrow 2}
+				\end{equation}
+			</li>
+			<li>
+				In $\mathbf{C}_3$, we have
+				\begin{equation}
+				\delta_{3\rightarrow 5}=\sum_I\psi_3(G,I,S)\cdot\delta_{2\rightarrow 3}
+				\end{equation}
+			</li>
+			<li>
+				In $\mathbf{C}_4$, we have
+				\begin{equation}
+				\delta_{4\rightarrow 5}=\sum_H\psi_4(G,H,J)
+				\end{equation}
+			</li>
+			<li>
+				In $\mathbf{C}_5$, we have
+				\begin{equation}
+				\beta_5(G,J,L,S)=\psi_5(G,J,L,S)\cdot\delta_{3\rightarrow 5}\cdot\delta_{4\rightarrow 5}
+				\end{equation}
+			</li>
+		</ul>
+	</li>
+	<li>
+		The resulting factor $\beta_5(G,J,L,S)$ is precisely the distribution $P(G,J,L,S)$. Thus, by summing out $G,L,S$, we have
+		\begin{equation}
+		P(J)=\sum_{G,L,S}P(G,J,L,S)=\sum_{G,L,S}\beta_5(G,J,L,S)
+		\end{equation}
+	</li>
+</ul>
+
+**Remark**: The algorithm can applied both to inference in Bayesian networks and Markov networks. Specifically,
+<ul id='number-list'>
+	<li>
+		For a Bayesian network $\mathcal{B}$ such that $\Phi$ are the CPDs in $\mathcal{B}$, reduced with some evidence $\mathbf{e}$, then we have
+		\begin{equation}
+		\beta_r(\mathbf{C}_r)=P_\mathcal{B}(\mathbf{C}_r,\mathbf{e})
+		\end{equation}
+		As usual, normalizing this with partition function $P_\mathcal{B}(\mathbf{e})$ gives us $P_\mathcal{B}(\mathbf{C}_r)$.
+	</li>
+	<li>
+		For a Markov network $\mathcal{H}$ having $\Phi$ as its potential cliques, then we have
+		\begin{equation}
+		\beta_r(\mathbf{C}_r)=\tilde{P}_\Phi(\mathbf{C}_r)
+		\end{equation}
+		Similarly, normalizing this with partition function, which is given by $\sum_{\mathbf{C}_r}\beta_r(\mathbf{C}_r)$, gives us $P_\Phi(\mathbf{C}_r)$.
+	</li>
+</ul>
 
 ##### Clique Tree Calibration
+Consider the task of computing posterior distribution over every r.v.s in the network. Based on [Algorithm 3](#algo3), we can develop a close-related procedure, 
+<figure id='algo4'>
+	<img src="/images/pgm-inference/sum-product-belief-prop.png" alt="Sum-Product Belief Propagation"/>
+</figure>
 
-## Variational Inference
+**Corollary 10**: *Assume that, for each clique $i$, $\beta_i$ is computed via [Algorithm 4](#algo4). Then*
+\begin{equation}
+\beta_i(\mathbf{C}\_i)=\sum_{\mathcal{X}\backslash\mathbf{C}\_i}\tilde{P}\_\Phi(\mathcal{X})
+\end{equation}
+
+###### Calibrated
+Two adjacent cliques $\mathbf{C}\_i$ and $\mathbf{C}\_j$ are **calibrated** if
+\begin{equation}
+\sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\beta_i(\mathbf{C}\_i)=\sum_{\mathbf{C}\_j\backslash\mathbf{S}\_{i,j}}\beta_j(\mathbf{C}\_j)
+\end{equation}
+A clique tree $\mathbf{T}$ is said to be **calibrated** if all pairs of adjacent cliques are calibrated.
+\begin{equation}
+\sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\beta_i(\mathbf{C}\_i)=\sum_{\mathbf{C}\_j\backslash\mathbf{S}\_{i,j}}\beta_j(\mathbf{C}\_j)\hspace{1cm}\forall(i-j)\in\mathcal{E}\_\mathcal{T}
+\end{equation}
+In a calibrated clique tree, $\beta_i(\mathbf{C}\_i)$ are referred as **clique beliefs** and the term **sepset beliefs** are known for
+\begin{equation}
+\mu_{i,j}(\mathbf{S}\_{i,j})=\sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\beta_i(\mathbf{C}\_i)=\sum_{\mathbf{C}\_j\backslash\mathbf{S}\_{i,j}}\beta_j(\mathbf{C}\_j)
+\end{equation}
+
+##### Calibrated Clique Trees as Distributions
+**Proposition 11**: *At convergence of the clique tree calibration algorithm, we have that*
+\begin{equation}
+\tilde{P}\_\Phi(\mathcal{X})=\frac{\prod_{i\in\mathcal{V}\_\mathcal{T}}\beta_i(\mathbf{C}\_i)}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\mu_{i,j}(\mathbf{S}\_{i,j})}
+\end{equation}
+
+**Proof**  
+
+
+#### Message Passing: Belief Update
+
+##### Message Passing with Division
+
+## Approximate Inference
 
 ## References
 [1] <span id='pgm-book'>Daphne Koller, Nir Friedman. [Probabilistic Graphical Models](https://mitpress.mit.edu/9780262013192/probabilistic-graphical-models/). The MIT Press.</span>
