@@ -381,7 +381,7 @@ Hence, by running intersection property, since $X$ appears in both $\mathbf{C}_i
 
 We continue by letting $\mathcal{F}\_{\prec(i\rightarrow j)}$ denote the set of factors in the cliques on the $\mathbf{C}\_i$-side of the edge and letting $\mathcal{V}\_{\prec(i\rightarrow j)}$ present the set of variables appear on the $\mathbf{C}\_i$-side but not in the sepset $\mathbf{S}_{i,j}$.
 
-**Theorem 8**: *Let $\delta_{i\rightarrow j}$ be a message from $\mathbf{C}_i$ to $\mathbf{C}_j$. Then*
+<b id='theorem8'>Theorem 8</b>: *Let $\delta_{i\rightarrow j}$ be a message from $\mathbf{C}_i$ to $\mathbf{C}_j$. Then*
 \begin{equation}
 \delta_{i\rightarrow j}(\mathbf{S}\_{i,j})=\sum_{\mathcal{V}\_{\prec(i\rightarrow j)}}\prod_{\phi\in\mathcal{F}\_{\prec(i\rightarrow j)}}\phi\label{eq:ac.1}
 \end{equation}
@@ -409,7 +409,7 @@ We consider two cases:
 </ul>
 
 Given these results, we then can state that:  
-**Corollary 9**: *Let $\mathbf{C}_r$ be the root in a clique tree, and assume that $\beta_r$ is computed as in [Algorithm 3](#algo3). Then*
+<b id='cor9'>Corollary 9</b>: *Let $\mathbf{C}_r$ be the root in a clique tree, and assume that $\beta_r$ is computed as in [Algorithm 3](#algo3). Then*
 \begin{equation}
 \beta_r(\mathbf{C}\_r)=\sum_{\mathcal{X}\backslash\mathbf{C}\_r}\tilde{P}\_\Phi(\mathcal{X})
 \end{equation}
@@ -471,7 +471,7 @@ With the goal of computing $P(J)$, we need to execute the VE procedure so that $
 	</li>
 </ul>
 
-**Remark**: The algorithm can applied both to inference in Bayesian networks and Markov networks. Specifically,
+**Remark**: The algorithm can applied both to inference in Bayesian and Markov networks. Specifically,
 <ul id='number-list'>
 	<li>
 		For a Bayesian network $\mathcal{B}$ such that $\Phi$ are the CPDs in $\mathcal{B}$, reduced with some evidence $\mathbf{e}$, then we have
@@ -490,10 +490,16 @@ With the goal of computing $P(J)$, we need to execute the VE procedure so that $
 </ul>
 
 ##### Clique Tree Calibration
-Consider the task of computing posterior distribution over every r.v.s in the network. Based on [Algorithm 3](#algo3), we can develop a close-related procedure, 
+Consider the task of computing distribution over every r.v.s in the network, i.e. $P(X)$ for all $X\in\mathcal{X}$.
+
+It follows from [Theorem 8](#theorem8) that the message being sent from $\mathbf{C}\_i$ to $\mathbf{C}\_j$, $\delta_{i\rightarrow} j$, does not depend on the choice of root clique. Thus, each edge $(i-j)$ that connects $\mathbf{C}\_i$ and $\mathbf{C}\_j$ is associated with two messages $\delta_{i\rightarrow} j$ and $\delta_{j\rightarrow i}$.
+
+Using this observation and based on [Algorithm 3](#algo3), we can develop an algorithm that effectively computes the beliefs for all cliques. It is then called **Sum-Product Belief Propagation**.
 <figure id='algo4'>
 	<img src="/images/pgm-inference/sum-product-belief-prop.png" alt="Sum-Product Belief Propagation"/>
 </figure>
+
+And thus, we have a result that directly follows from [Corollary 9](#cor9).
 
 **Corollary 10**: *Assume that, for each clique $i$, $\beta_i$ is computed via [Algorithm 4](#algo4). Then*
 \begin{equation}
@@ -501,11 +507,13 @@ Consider the task of computing posterior distribution over every r.v.s in the ne
 \end{equation}
 
 ###### Calibrated
+Recall that we can compute the marginal probability over a particular variable $X$ by selecting a clique containing $X$ in its scope, and summing out the other variables in the clique. Hence, each marginal probability over $X$ can be computed via multiples cliques, as long as their scope contains $X$. Or in other words, if $X$ appears in two cliques, they must agree on its marginal.
+
 Two adjacent cliques $\mathbf{C}\_i$ and $\mathbf{C}\_j$ are **calibrated** if
 \begin{equation}
 \sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\beta_i(\mathbf{C}\_i)=\sum_{\mathbf{C}\_j\backslash\mathbf{S}\_{i,j}}\beta_j(\mathbf{C}\_j)
 \end{equation}
-A clique tree $\mathbf{T}$ is said to be **calibrated** if all pairs of adjacent cliques are calibrated.
+A clique tree $\mathcal{T}$ is said to be **calibrated** if all pairs of adjacent cliques are calibrated.
 \begin{equation}
 \sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\beta_i(\mathbf{C}\_i)=\sum_{\mathbf{C}\_j\backslash\mathbf{S}\_{i,j}}\beta_j(\mathbf{C}\_j)\hspace{1cm}\forall(i-j)\in\mathcal{E}\_\mathcal{T}
 \end{equation}
@@ -513,11 +521,34 @@ In a calibrated clique tree, $\beta_i(\mathbf{C}\_i)$ are referred as **clique b
 \begin{equation}
 \mu_{i,j}(\mathbf{S}\_{i,j})=\sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\beta_i(\mathbf{C}\_i)=\sum_{\mathbf{C}\_j\backslash\mathbf{S}\_{i,j}}\beta_j(\mathbf{C}\_j)
 \end{equation}
+In words, after all the beliefs $\beta_i(\mathbf{C}_i)$ of the clique tree $\mathcal{T}$ is computed, then $\mathcal{T}$ is calibrated.
 
 ##### Calibrated Clique Trees as Distributions
 **Proposition 11**: *At convergence of the clique tree calibration algorithm, we have that*
 \begin{equation}
-\tilde{P}\_\Phi(\mathcal{X})=\frac{\prod_{i\in\mathcal{V}\_\mathcal{T}}\beta_i(\mathbf{C}\_i)}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\mu_{i,j}(\mathbf{S}\_{i,j})}
+\tilde{P}\_\Phi(\mathcal{X})=\frac{\prod_{i\in\mathcal{V}\_\mathcal{T}}\beta_i(\mathbf{C}\_i)}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\mu_{i,j}(\mathbf{S}\_{i,j})}\label{eq:cctd.1}
+\end{equation}
+
+**Proof**  
+By clique tree calibration algorithm, we have
+\begin{align}
+\frac{\prod_{i\in\mathcal{V}\_\mathcal{T}}\beta_i(\mathbf{C}\_i)}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\mu_{i,j}(\mathbf{S}\_{i,j})}&=\frac{\prod_{i\in\mathcal{V}\_\mathcal{T}}\left[\psi_i(\mathbf{C}\_i)\prod_{k\in\text{Nb}\_i}\delta_{k\rightarrow i}\right]}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\Big[\sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\beta_i(\mathbf{C}\_i)\Big]} \\\\ &=\frac{\left(\prod_{i\in\mathcal{V}\_\mathcal{T}}\psi_i(\mathbf{C}\_i)\right)\left(\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\delta_{i\to j}\delta_{j\to i}\right)}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\left[\sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\left(\psi_i\delta_{j\to i}\prod_{k\in(\text{Nb}\_i\backslash\\{j\\})}\delta_{k\to i}\right)\right]} \\\\ &=\frac{\left(\prod_{i\in\mathcal{V}\_\mathcal{T}}\psi_i(\mathbf{C}\_i)\right)\left(\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\delta_{i\to j}\delta_{j\to i}\right)}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\left[\delta_{j\to i}\sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\left(\psi_i\prod_{k\in(\text{Nb}\_i\backslash\\{j\\})}\delta_{k\to i}\right)\right]} \\\\ &=\frac{\left(\prod_{i\in\mathcal{V}\_\mathcal{T}}\psi_i(\mathbf{C}\_i)\right)\left(\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\delta_{i\to j}\delta_{j\to i}\right)}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\delta_{j\to i}\delta_{i\to j}} \\\\ &=\prod_{i\in\mathcal{V}\_\mathcal{T}}\psi_i(\mathbf{C}\_i)=\tilde{P}\_\Phi(\mathcal{X})
+\end{align}
+In other words, the clique beliefs $\beta_i(\mathbf{C}\_i)$ and sepset beliefs $\mu_{i,j}(\mathbf{S}\_{i,j})$ give us a reparameterization of the unnormalized measure $\tilde{P}_\Phi$. This property is known as the **clique tree invariant**.
+
+###### Clique Tree Measure
+Using the previous result, we can define the **measure** induced by a calibrated tree $\mathcal{T}$ to be
+\begin{equation}
+Q_\mathcal{T}=\frac{\prod_{i\in\mathcal{V}\_\mathcal{T}}\beta_i(\mathbf{C}\_i)}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\mu_{i,j}(\mathbf{S}\_{i,j})},
+\end{equation}
+where
+\begin{equation}
+\mu_{i,j}=\sum_{\mathbf{C}\_i\backslash{S}\_{i,j}}\beta_i(\mathbf{C}\_i)=\sum_{\mathbf{C}\_j\backslash{S}\_{i,j}}\beta_j(\mathbf{C}\_j)
+\end{equation}
+
+**Theorem 12**: *Let $\mathcal{T}$ be a clique tree over $\Phi$, and let $\beta_i(\mathbf{C}\_i)$ be set of calibrated potentials for $\mathcal{T}$. Then $\tilde{P}\_\Phi(\mathcal{X})\propto Q_\mathcal{T}$ iff for each $i\in\mathcal{V}_\mathcal{T}$, we have that*
+\begin{equation}
+\beta_i(\mathbf{C}\_i)\propto\tilde{P}\_\Phi(\mathbf{C}\_i)
 \end{equation}
 
 **Proof**  
@@ -526,6 +557,11 @@ In a calibrated clique tree, $\beta_i(\mathbf{C}\_i)$ are referred as **clique b
 #### Message Passing: Belief Update
 
 ##### Message Passing with Division
+Let $\mathbf{X}$ and $\mathbf{Y}$ be disjoint sets of variables, and let $\phi_1(\mathbf{X},\mathbf{Y})$ and $\phi_2(\mathbf{Y})$ be factors. The division $\frac{\phi_1}{\phi_2}$ is called a **factor division** which is a factor $\psi$ with scope $\mathbf{X},\mathbf{Y}$ given by
+\begin{equation}
+\psi(\mathbf{X},\mathbf{Y})=\frac{\phi_1(\mathbf{X},\mathbf{Y})}{\phi_2(\mathbf{Y})},
+\end{equation}
+where we implicitly define $0/0=0$.
 
 ## Approximate Inference
 
