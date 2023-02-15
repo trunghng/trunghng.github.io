@@ -496,7 +496,7 @@ It follows from [Theorem 8](#theorem8) that the message being sent from $\mathbf
 
 Using this observation and based on [Algorithm 3](#algo3), we can develop an algorithm that effectively computes the beliefs for all cliques. It is then called **Sum-Product Belief Propagation**.
 <figure id='algo4'>
-	<img src="/images/pgm-inference/sum-product-belief-prop.png" alt="Sum-Product Belief Propagation"/>
+	<img src="/images/pgm-inference/calibration-sp.png" alt="calibration using sum-product"/>
 </figure>
 
 And thus, we have a result that directly follows from [Corollary 9](#cor9).
@@ -534,7 +534,7 @@ By clique tree calibration algorithm, we have
 \begin{align}
 \frac{\prod_{i\in\mathcal{V}\_\mathcal{T}}\beta_i(\mathbf{C}\_i)}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\mu_{i,j}(\mathbf{S}\_{i,j})}&=\frac{\prod_{i\in\mathcal{V}\_\mathcal{T}}\left[\psi_i(\mathbf{C}\_i)\prod_{k\in\text{Nb}\_i}\delta_{k\rightarrow i}\right]}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\Big[\sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\beta_i(\mathbf{C}\_i)\Big]} \\\\ &=\frac{\left(\prod_{i\in\mathcal{V}\_\mathcal{T}}\psi_i(\mathbf{C}\_i)\right)\left(\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\delta_{i\to j}\delta_{j\to i}\right)}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\left[\sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\left(\psi_i\delta_{j\to i}\prod_{k\in(\text{Nb}\_i\backslash\\{j\\})}\delta_{k\to i}\right)\right]} \\\\ &=\frac{\left(\prod_{i\in\mathcal{V}\_\mathcal{T}}\psi_i(\mathbf{C}\_i)\right)\left(\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\delta_{i\to j}\delta_{j\to i}\right)}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\left[\delta_{j\to i}\sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\left(\psi_i\prod_{k\in(\text{Nb}\_i\backslash\\{j\\})}\delta_{k\to i}\right)\right]} \\\\ &=\frac{\left(\prod_{i\in\mathcal{V}\_\mathcal{T}}\psi_i(\mathbf{C}\_i)\right)\left(\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\delta_{i\to j}\delta_{j\to i}\right)}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\delta_{j\to i}\delta_{i\to j}} \\\\ &=\prod_{i\in\mathcal{V}\_\mathcal{T}}\psi_i(\mathbf{C}\_i)=\tilde{P}\_\Phi(\mathcal{X})
 \end{align}
-In other words, the clique beliefs $\beta_i(\mathbf{C}\_i)$ and sepset beliefs $\mu_{i,j}(\mathbf{S}\_{i,j})$ give us a reparameterization of the unnormalized measure $\tilde{P}_\Phi$. This property is known as the **clique tree invariant**.
+In other words, the clique beliefs $\\{\beta_i(\mathbf{C}\_i)\\}\_{i\in\mathcal{V}\_\mathcal{T}}$ and sepset beliefs $\\{\mu_{i,j}(\mathbf{S}\_{i,j})\\}\_{(i-j)\in\mathcal{E}\_\mathcal{T}}$ give us a reparameterization of the unnormalized measure $\tilde{P}_\Phi$. This property is known as the **clique tree invariant**.
 
 ###### Clique Tree Measure
 Using the previous result, we can define the **measure** induced by a calibrated tree $\mathcal{T}$ to be
@@ -557,11 +557,40 @@ where
 #### Message Passing: Belief Update
 
 ##### Message Passing with Division
-Let $\mathbf{X}$ and $\mathbf{Y}$ be disjoint sets of variables, and let $\phi_1(\mathbf{X},\mathbf{Y})$ and $\phi_2(\mathbf{Y})$ be factors. The division $\frac{\phi_1}{\phi_2}$ is called a **factor division** which is a factor $\psi$ with scope $\mathbf{X},\mathbf{Y}$ given by
+We first let $\mathbf{X}$ and $\mathbf{Y}$ be disjoint sets of variables, and let $\phi_1(\mathbf{X},\mathbf{Y})$ and $\phi_2(\mathbf{Y})$ be factors. The division $\frac{\phi_1}{\phi_2}$ is called a **factor division** which is a factor $\psi$ with scope $\mathbf{X},\mathbf{Y}$ given by
 \begin{equation}
 \psi(\mathbf{X},\mathbf{Y})=\frac{\phi_1(\mathbf{X},\mathbf{Y})}{\phi_2(\mathbf{Y})},
 \end{equation}
 where we implicitly define $0/0=0$.
+
+Recall that via calibration, the final potential (i.e. clique belief) at clique $i$ is computed by multiplying its initial potential, $\psi_i$ with the messages incoming from all of its neighbor, $\\{\delta_{k\to i}\\}\_{k\in\text{Nb}\_i}$:
+\begin{equation}
+\beta_i(\mathbf{C}\_i)=\psi_i(\mathbf{C}\_i)\prod_{k\in\text{Nb}\_i}\delta_{k\to i}
+\end{equation}
+On the other hand, each message to send from $i$ to another clique $j$ computed by multiplying $\psi_i$ with the messages received from all of its neighbor except for $j$, $\\{\delta_{k\to i}\\}\_{k\in(\text{Nb}\_i\backslash\\{j\\})}$, and then marginalizing the clique $\mathbf{C}\_i$ over the sepset $\mathbf{S}\_{i,j}$ by summing out the variables on the non-sepset $\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}$:
+\begin{align}
+\delta_{i\to j}(\mathbf{S}\_{i,j})&=\sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\psi_i(\mathbf{C}\_i)\prod_{k\in(\text{Nb}\_i\backslash\\{j\\})}\delta_{k\to i}(\mathbf{S}\_{i,k}) \\\\ &=\sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\frac{\beta_i(\mathbf{C}\_i)}{\delta_{j\to i}(\mathbf{S}\_{i,j})} \\\\ &=\frac{\sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\beta_i(\mathbf{C}\_i)}{\delta_{j\to i}(\mathbf{S}\_{i,j})} \\\\ &=\frac{\mu_{i,j}(\mathbf{S}\_{i,j})}{\delta_{j\to i}(\mathbf{S}\_{i,j})}
+\end{align}
+This derivation gives rise to the **sum-product-divide message passing** scheme, where each clique $\mathbf{C}\_i$ maintains its fully updated current beliefs $\beta_i=\psi_i\prod_{k\in\text{Nb}\_i}\delta_{k\to i}$; while each sepset $\mathbf{S}\_{i,j}$ also maintains its beliefs $\mu_{i,j}=\delta_{i\to j}\delta_{j\to i}$.
+<figure>
+	<img src="/images/pgm-inference/calibration-bu.png" alt="calibration using belief update"/>
+</figure>
+
+##### Equivalence of Sum-Product and Belief Update Messages
+**Theorem 13**: In an execution of belief-update message passing, the clique tree invariant equation \eqref{eq:cctd.1} holds initially and after every message passing step.
+
+**Proof**  
+At initialization, we have
+\begin{equation}
+\frac{\prod_{i\in\mathcal{V}\_\mathcal{T}}\beta_i}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\mu_{i,j}}=\frac{\prod_{i\in\mathcal{V}\_\mathcal{T}}\left[\prod_{\phi:\alpha(\phi)=i}\phi\right]}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}1}=\frac{\prod_\phi\phi}{1}=\tilde{P}\_\Phi\label{eq:espbu.1}
+\end{equation}
+For each $(i-j)\in\mathcal{E}\_\mathcal{T}$, let $\beta_j',\mu_{i,j}'$ be the beliefs returned after the message passing step, and let $\beta_j,\mu_{i,j}$ denote their previous values. The update rules in $\text{BU-Message}$ give us
+\begin{equation}
+\frac{\beta_j'}{\beta_j}=\frac{\mu_{i,j}'}{\mu_{i,j}},
+\end{equation}
+which follows directly that the LHS of \eqref{eq:espbu.1} is unchanged after every step, and thus stays at $\tilde{P}_\Phi$.
+
+##### Answering Queries
 
 ## Approximate Inference
 
