@@ -276,7 +276,7 @@ Let us consider $\psi_j$ be a computational data structure, which takes $\tau_i$
 ##### Cluster Graphs
 A **cluster graph** $\mathcal{U}$ for a set of factors $\Phi$ over $\mathcal{X}$ is an undirected graph, each of whose nodes $i$ is associated with a subset $\mathbf{C}_i\subset\mathcal{X}$.
 
-A cluster graph must be **family-preserving**, i.e. each factor $\phi\in\Phi$ must be associated with a cluster $\mathbf{C}_i$, denoted $\alpha(\phi)$, such that $\text{Scope}(\phi)\subset\mathbf{C}_i$.
+A cluster graph must be <b id='family-preserving'>family preserving</b>, i.e. each factor $\phi\in\Phi$ must be associated with a cluster $\mathbf{C}_i$, denoted $\alpha(\phi)$, such that $\text{Scope}(\phi)\subset\mathbf{C}_i$.
 
 Each edge between a pair of cluster $\mathbf{C}_i$ and $\mathbf{C}_j$ is associated with a **sepset** $\mathbf{S}\_{i,j}\subset\mathbf{C}_i\cap\mathbf{C}_j$.
 
@@ -313,7 +313,7 @@ We thus have the following cluster graph.
 </ul>
 
 ##### Clique Trees
-Let $\mathcal{T}$ be a cluster tree over a set of factor $\Phi$, and let $\mathcal{V}\_\mathcal{T}$ and $\mathcal{E}\_\mathcal{T}$ denote its vertices and edges respectively. Then $\mathcal{T}$ is said to have the **running intersection property** if whenever there is a variable $X$ such that $X\in\mathbf{C}_i$ and $X\in\mathbf{C}_j$, then $X$ is also in every cluster in the (unique) path in $\mathcal{T}$ between $\mathbf{C}_i$ and $\mathbf{C}_j$.
+Let $\mathcal{T}$ be a cluster tree over a set of factor $\Phi$, and let $\mathcal{V}\_\mathcal{T}$ and $\mathcal{E}\_\mathcal{T}$ denote its vertices and edges respectively. Then $\mathcal{T}$ is said to have the <b id='running-intersection'>running intersection property</b> if whenever there is a variable $X$ such that $X\in\mathbf{C}_i$ and $X\in\mathbf{C}_j$, then $X$ is also in every cluster in the (unique) path in $\mathcal{T}$ between $\mathbf{C}_i$ and $\mathbf{C}_j$.
 
 **Remark**: This property implies that $\mathbf{S}_{i,j}=\mathbf{C}_i\cup\mathbf{C}_j$.
 
@@ -546,7 +546,7 @@ where
 \mu_{i,j}=\sum_{\mathbf{C}\_i\backslash{S}\_{i,j}}\beta_i(\mathbf{C}\_i)=\sum_{\mathbf{C}\_j\backslash{S}\_{i,j}}\beta_j(\mathbf{C}\_j)
 \end{equation}
 
-**Theorem 12**: *Let $\mathcal{T}$ be a clique tree over $\Phi$, and let $\beta_i(\mathbf{C}\_i)$ be set of calibrated potentials for $\mathcal{T}$. Then $\tilde{P}\_\Phi(\mathcal{X})\propto Q_\mathcal{T}$ iff for each $i\in\mathcal{V}_\mathcal{T}$, we have that*
+<b id='theorem12'>Theorem 12</b>: *Let $\mathcal{T}$ be a clique tree over $\Phi$, and let $\beta_i(\mathbf{C}\_i)$ be set of calibrated potentials for $\mathcal{T}$. Then $\tilde{P}\_\Phi(\mathcal{X})\propto Q_\mathcal{T}$ iff for each $i\in\mathcal{V}_\mathcal{T}$, we have that*
 \begin{equation}
 \beta_i(\mathbf{C}\_i)\propto\tilde{P}\_\Phi(\mathbf{C}\_i)
 \end{equation}
@@ -593,6 +593,142 @@ which follows directly that the LHS of \eqref{eq:espbu.1} is unchanged after eve
 ##### Answering Queries
 
 ## Approximate Inference
+
+### Exact Inference as Optimization
+Assume we have a factorized distribution parameterized by set of factors $\Phi$:
+\begin{equation}
+P_\Phi(\mathcal{X})=\frac{1}{Z}\prod_{\phi\in\Phi}\phi(\mathbf{U}\_\phi)\label{eq:eio.1}
+\end{equation}
+Recall that in exact inference, we find a set of calibrated beliefs that represent $P_\Phi(\mathcal{X})$, i.e. we find beliefs that match the distribution represented by given set of initial potentials.
+
+Hence, we can view exact inference as searching over the set of distributions $\mathcal{Q}$ which are representable by the cluster tree to find a distribution $Q^*$ that matches $P_\Phi$. Or in other words, we are trying to search for a calibrated distribution that is as close as possible to $P_\Phi$. Thus, taking into account the **KL divergence**, or the **relative entropy**, between $Q$ and $P_\Phi$:
+\begin{equation}
+D_\text{KL}(Q\Vert P_\Phi)=\mathbb{E}\_Q\left[\log\left(\frac{Q(\mathcal{X})}{P_\Phi(\mathcal{X})}\right)\right],
+\end{equation}
+our work is then to search for a distribution $Q$ that minimizes $D_\text{KL}(Q\Vert P_\Phi)$.
+
+Specifically, let us assume that we are given a clique tree structure $\mathcal{T}$ for $P_\Phi$, i.e. $\mathcal{T}$ satisfies the [family preserving](#family-preserving) and [running intersection](#running-intersection) properties, and also assume that we are given a set of beliefs
+\begin{equation}
+\mathbf{Q}=\\{\beta_i(\mathbf{C}\_i):i\in\mathcal{V}\_\mathcal{T}\\}\cup\\{\mu_{i,j}(\mathbf{S}\_{i,j}):(i-j)\in\mathcal{E}\_\mathcal{T}\\},
+\end{equation}
+where $\mathbf{C}\_i$ denote the clusters of $\mathcal{T}$ and where $\mathbf{S}_{i,j}=\mathbf{C}_i\cap\mathbf{C}_j$ denote the sepsets of $\mathcal{T}$.
+
+Also recall that, the set of beliefs in $\mathcal{T}$ define a [clique tree measure](#clique-tree-measure), say $Q$, given by
+\begin{equation}
+Q(\mathcal{X})=\frac{\prod_{i\in\mathcal{V}\_\mathcal{T}}\beta_i}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\mu_{i,j}}\label{eq:eio.2}
+\end{equation}
+It is then followed by [Theorem 12](#theorem12) that $\beta_i$ and $\mu_{i,j}$ correspond to marginals of $Q$ given as \eqref{eq:eio.2}
+\begin{align}
+\beta_i(\mathbf{c}\_i)&=Q(\mathbf{c}\_i), \\\\ \mu_{i,j}(\mathbf{s}\_{i,j})&=Q(\mathbf{s}\_{i,j})
+\end{align}
+To be summarized, we want to solve the constrained optimization:
+\begin{align}
+&\text{Find}&&\mathbf{Q}=\\{\beta_i(\mathbf{C}\_i):i\in\mathcal{V}\_\mathcal{T}\\}\cup\\{\mu_{i,j}(\mathbf{S}\_{i,j}):(i-j)\in\mathcal{E}\_\mathcal{T}\\}\label{eq:eio.3} \\\\ &\text{maximizing}&&-D_\text{KL}(Q\Vert P_\Phi)\nonumber \\\\ &\text{where}&&Q=\frac{\prod_{i\in\mathcal{V}\_\mathcal{E}}\beta_i}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\mu_{i,j}}\nonumber \\\\ &\text{s.t.}&&\sum_{\mathbf{c}\_i}\beta_i(\mathbf{c}\_i)=1\hspace{1cm}\forall i\in\mathcal{V}\_\mathcal{T}\nonumber \\\\ &&&\mu_{i,j}[\mathbf{s}\_{i,j}]=\sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\beta_i(\mathbf{c}\_i)\hspace{1cm}\forall (i-j)\in\mathcal{E}\_\mathcal{T},\mathbf{s}\_{i,j}\in\text{Val}(\mathbf{S}\_{i,j})\nonumber
+\end{align}
+We have already known that if $\mathcal{T}$ is a proper cluster tree, i.e. calibrated tree for $\Phi$, there exists a set $\mathbf{Q}$, i.e. of calibrated beliefs, which induces via \eqref{eq:eio.2} a distribution $Q=P_\Phi$, which has the relative entropy of zero, and hence is the unique global optimum of this optimization problem.
+
+**Theorem 14**: *If $\mathcal{T}$ is an I-map for $P_\Phi$, then there is a unique solution to \eqref{eq:eio.3}*.
+
+### The Energy Functional
+**Theorem 15**: *For distribution $P_\Phi$ given as \eqref{eq:eio.1}, the KL divergence between a distribution $Q$ and $P_\Phi$ can be written as*
+\begin{equation}
+D_\text{KL}(Q\Vert P_\Phi)=\log Z-F[\tilde{P}\_\Phi,Q],\label{eq:ef.1}
+\end{equation}
+*where $F[\tilde{P}_\Phi,Q]$ is referred as the **energy function**, given by*
+\begin{equation}
+F[\tilde{P}\_\Phi,Q]\doteq\mathbb{E}\_Q\big[\log\tilde{P}\_\Phi(\mathcal{X})\big]+H_Q(\mathcal{X})=\sum_{\phi\in\Phi}\mathbb{E}\_Q\big[\log\phi\big]+H_Q(\mathcal{X}),
+\end{equation}
+*where $H_Q$ denotes the entropy of $Q$*.
+
+**Proof**  
+We have
+\begin{align}
+D_\text{KL}(Q\Vert P_\Phi)&=\mathbb{E}\_Q\left[\log\left(\frac{Q(\mathcal{X})}{P_\Phi(\mathcal{X})}\right)\right] \\\\ &=\mathbb{E}\_Q\big[\log Q(\mathcal{X})\big]-\mathbb{E}\_Q\big[\log P_\Phi(\mathcal{X})\big] \\\\ &=-H_Q(\mathcal{X})-\mathbb{E}\_Q\left[\log\left(\frac{1}{Z}\prod_{\phi\in\Phi}\phi(\mathbf{U}\_\phi)\right)\right] \\\\ &=-H_Q(\mathcal{X})-\mathbb{E}\_Q\left[-\log Z+\sum_{\phi\in\Phi}\log\phi(\mathbf{U}\_\phi)\right] \\\\ &=\log Z-F[\tilde{P}\_\Phi,Q]
+\end{align}
+
+It is worth observing from \eqref{eq:ef.1} that
+<ul id='number-list'>
+	<li>
+		$\log Q$ does not depend on $Q$. This means minimizing $D_\text{KL}(Q\Vert P_\Phi)$ is equivalent to maximizing the energy functional $F[\tilde{P}_\Phi,Q]$.
+	</li>
+	<li>
+		For any $Q$, we have $F[\tilde{P}_\Phi,Q]\leq\log Z$ due to $D_\text{KL}(Q\Vert P_\Phi)\geq 0$. This implies that we can get a good lower-bound approximation to $Z$ from a good approximation for the energy functional.
+	</li>
+</ul>
+
+### Exact Inference as Optimization via Energy Functional
+Using the previous result, we can rewrite the constrained optimization problem \eqref{eq:eio.3} in terms of the energy functional. We begin by introducing the **factored energy functional**.
+
+Given a cluster tree $\mathcal{T}$ with a set of beliefs $\mathbf{Q}$ and an assignment $\alpha$ that maps factors in $P_\Phi$ to clusters in $\mathcal{T}$, the **factored energy functional**, denoted $\tilde{F}[\tilde{P}\_\Phi,\mathbf{Q}]$, is  defined by
+\begin{equation}
+\tilde{F}[\tilde{P}\_\Phi,\mathbf{Q}]\doteq\sum_{i\in\mathcal{V}\_\mathcal{T}}\mathbb{E}\_{\mathbf{C}\_i\sim\beta_i}\big[\log\psi_i\big]+\sum_{i\in\mathcal{V}\_\mathcal{T}}H_{\beta_i}(\mathbf{C}\_i)-\sum_{(i-j)\in\mathcal{E}\_\mathcal{T}}H_{\mu_{i,j}}(\mathbf{S}\_{i,j}),
+\end{equation}
+where $\psi_i$ is the initial potential assigned to $\mathbf{C}\_i$ according to $\alpha$
+\begin{equation}
+\psi_i=\prod_{\phi:\alpha(\phi)=i}\phi,
+\end{equation}
+and where $\mathbb{E}_{\mathbf{C}_i\sim\beta_i}$ denotes the expectation on the value $\mathbf{C}_i$ given the beliefs $\beta_i$.
+
+**Proposition 16**: *If $\mathbf{Q}$ is a set of calibrated beliefs for $\mathcal{T}$, and $Q$ is defined by \eqref{eq:eio.2}, then*
+\begin{equation}
+\tilde{F}[\tilde{P}\_\Phi,\mathbf{Q}]=F[\tilde{P}\_\Phi,Q]
+\end{equation}
+
+**Proof**  
+We have
+\begin{align}
+\sum_{i\in\mathcal{V}\_\mathcal{T}}\mathbb{E}\_{\mathbf{C}\_i\sim\beta_i}\big[\log\psi_i\big]&=\sum_{i\in\mathcal{V}\_\mathcal{T}}\mathbb{E}\_{\mathbf{C}\_i\sim\beta_i}\left[\sum_{\phi:\alpha(\phi)=i}\log\phi\right]\\\\ &=
+\end{align}
+And
+\begin{align}
+\sum_{i\in\mathcal{V}\_\mathcal{T}}H_{\beta_i}(\mathbf{C}\_i)-\sum_{(i-j)\in\mathcal{E}\_\mathcal{T}}H_{\mu_{i,j}}(\mathbf{S}\_{i,j})&=-\sum_{i\in\mathcal{V}\_\mathcal{T}}\mathbb{E}\_{\mathbf{C}\_i\sim\beta_i}\big[\log\beta_i(\mathbf{C}\_i)\big]+\sum_{(i-j)\in\mathcal{E}\_\mathcal{T}}\mathbb{E}\_{\mathbf{S}\_{i,j}\sim\mu_{i,j}}\big[\log\mu_{i,j}(\mathbf{S}\_{i,j})\big] 
+\end{align}
+
+The optimization \eqref{eq:eio.3} then can be rewritten as
+\begin{align}
+&\text{Find}&&\mathbf{Q}=\\{\beta_i(\mathbf{C}\_i):i\in\mathcal{V}\_\mathcal{T}\\}\cup\\{\mu_{i,j}(\mathbf{S}\_{i,j}):(i-j)\in\mathcal{E}\_\mathcal{T}\\}\label{eq:eioef.1} \\\\ &\text{maximizing}&&\tilde{F}[\tilde{P}\_\Phi,\mathbf{Q}]\nonumber \\\\ &\text{s.t.}&&\sum_{\mathbf{c}\_i}\beta_i(\mathbf{c}\_i)=1\hspace{1cm}\forall i\in\mathcal{V}\_\mathcal{T}\nonumber \\\\ &&&\beta_i(\mathbf{c}\_i)\geq 0\hspace{1cm}\forall i\in\mathcal{V}\_\mathcal{T},\mathbf{c}\_i\in\text{Val}(\mathbf{C}\_i)\nonumber \\\\ &&&\mu_{i,j}[\mathbf{s}\_{i,j}]=\sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\beta_i(\mathbf{c}\_i)\hspace{1cm}\forall (i-j)\in\mathcal{E}\_\mathcal{T},\mathbf{s}\_{i,j}\in\text{Val}(\mathbf{S}\_{i,j})\label{eq:eioef.2}
+\end{align}
+
+#### Fixed-point Characterization
+We have that the **Lagrangian** of \eqref{eq:eioef.1} is
+\begin{align}
+&\mathcal{L}=-\tilde{F}[\tilde{P}\_\Phi,\mathbf{Q}]+\sum_{i\in\mathcal{V}\_\mathcal{T}}\lambda_i\left(\sum_{\mathbf{c}\_i}\beta_i(\mathbf{c}\_i)-1\right)\nonumber \\\\ &\hspace{2cm}+\sum_{i\in\mathcal{V}\_\mathcal{T}}\sum_{j\in\text{Nb}\_i}\sum_{\mathbf{s}\_{i,j}}\lambda_{j\to i}[\mathbf{s}\_{i,j}]\left(\sum_{\mathbf{c}\_i\sim\mathbf{s}\_{i,j}}\beta_i(\mathbf{c}\_i)-\mu_{i,j}[\mathbf{s}\_{i,j}]\right),
+\end{align}
+where $\mathcal{L}$ is a function of the beliefs $\\{\beta_i\\}\_{i\in\mathcal{V}\_\mathcal{T}}$, $\\{\mu_{i,j}\\}\_{(i-j)\in\mathcal{E}\_\mathcal{T}}$, and the Lagrange multipliers $\\{\lambda_i\\}\_{i\in\mathcal{V}\_\mathcal{T}}$, $\\{\lambda_{j\to i}\\}\_{i\in\mathcal{V}\_\mathcal{T},j\in\text{Nb}_i}$.
+
+Differentiating the Lagrangian $\mathcal{L}$ w.r.t $\beta_i(\mathbf{c}\_i)$ and w.r.t $\mu_{i,j}[\mathbf{s}\_{i,j}]$ give us
+\begin{align}
+\frac{\partial\mathcal{L}}{\partial\beta_i(\mathbf{c}\_i)}&=\frac{\partial}{\partial\beta_i(\mathbf{c}\_i)}\Bigg(-\beta_i(\mathbf{c}\_i)\log\psi_i[\mathbf{c}\_i]-\beta_i(\mathbf{c}\_i)\log\beta_i(\mathbf{c}\_i)\nonumber \\\\ &\hspace{2cm}+\lambda_i\beta_i(\mathbf{c}\_i)+\sum_{j\in\text{Nb}\_i}\lambda_{j\to i}[\mathbf{s}\_{i,j}]\beta_i(\mathbf{c}\_i)\Bigg) \\\\ &=-\log\psi_i[\mathbf{c}\_i]+\log\beta_i(\mathbf{c}\_i)+1+\lambda_i+\sum_{j\in\text{Nb}\_i}\lambda_{j\to i}[\mathbf{s}\_{i,j}],
+\end{align}
+and
+\begin{align}
+\frac{\partial\mathcal{L}}{\partial\mu_{i,j}[\mathbf{s}\_{i,j}]}&=\frac{\partial}{\partial\mu_{i,j}[\mathbf{s}\_{i,j}]}\Bigg(\mu_{i,j}[\mathbf{s}\_{i,j}]\log\mu_{i,j}[\mathbf{s}\_{i,j}]-\big(\lambda_{i\to j}[\mathbf{s}\_{i,j}]+\lambda_{j\to i}[\mathbf{s}\_{i,j}]\big)\mu_{i,j}[\mathbf{s}\_{i,j}]\Bigg) \\\\ &=-\log\mu_{i,j}[\mathbf{s}\_{i,j}]-1-\lambda_{i\to j}[\mathbf{s}\_{i,j}]-\lambda_{j\to i}[\mathbf{s}\_{i,j}]
+\end{align}
+Setting these derivatives to zero, we have
+\begin{align}
+\beta_i(\mathbf{c}\_i)&=\exp(-\lambda_i-1)\psi_i[\mathbf{c}\_i]\prod_{j\in\text{Nb}\_i}\exp\big(-\lambda_{j\to i}[\mathbf{s}\_{i,j}]\big) \\\\ \mu_{i,j}[\mathbf{s}\_{i,j}]&=\exp(-1)\exp\big(-\lambda_{i\to j}[\mathbf{s}\_{i,j}]\big)\exp\big(-\lambda_{j\to i}[\mathbf{s}\_{i,j}]\big)
+\end{align}
+Letting
+\begin{equation}
+\delta_{i\to j}=\exp\left(-\lambda_{i\to j}[\mathbf{s}\_{i,j}]-\frac{1}{2}\right)
+\end{equation}
+allows us to obtain
+\begin{align}
+\beta_i(\mathbf{c}\_i)&=\exp\left(-\lambda_i-1+\frac{1}{2}\vert\text{Nb}\_i\vert\right)\psi_i[\mathbf{c}\_i]\prod_{j\in\text{Nb}\_i}\delta_{j\to i}[\mathbf{s}\_{i,j}] \\\\ \mu_{i,j}[\mathbf{s}\_{i,j}]&=\delta_{i\to j}[\mathbf{s}\_{i,j}]\delta_{j\to i}[\mathbf{s}\_{i,j}]
+\end{align}
+Combining these equations with \eqref{eq:eioef.2}, we can rewrite the message $\delta_{i\to j}$ as a function of other messages
+\begin{align}
+\delta_{i\to j}[\mathbf{s}\_{i,j}]&=\frac{\mu_{i,j}[\mathbf{s,j}]}{\delta_{j\to i}[\mathbf{s}\_{i,j}]} \\\\ &=\frac{\sum_{\mathbf{c}\_i\sim\mathbf{s}\_{i,j}}\beta_i(\mathbf{c}\_i)}{\delta_{j\to i}[\mathbf{s}\_{i,j}]} \\\\ &=\exp\left(-\lambda_i-1+\frac{1}{2}\vert\text{Nb}\_i\vert\right)\sum_{\mathbf{c}\_i\sim\mathbf{s}\_{i,j}}\psi_i(\mathbf{c}\_i)\prod_{k\in(\text{Nb}\_i\backslash{j})}\delta_{k\to i}[\mathbf{s}\_{i,k}]
+\end{align}
+
+**Theorem 17**: *A set of beliefs $\mathbf{Q}$ is a stationary point of \eqref{eq:eioef.1} iff there exists a set of factors $\\{\delta_{i\to j}[\mathbf{S}\_{i,j}]:(i-j)\in\mathcal{E}_\mathcal{T}\\}$ such that*
+\begin{equation}
+\delta_{i\to j}\propto\sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\psi_i\prod_{k\in(\text{Nb}\_i\backslash\\{j\\})}\delta_{k\to i}
+\end{equation}
+*Moreover, we have*
+\begin{align}
+\beta_i&\propto\psi_i\prod_{j\in\text{Nb}\_i}\delta_{j\to i} \\\\ \mu_{i,j}&=\delta_{i\to j}\delta_{j\to i}
+\end{align}
 
 ## References
 [1] <span id='pgm-book'>Daphne Koller, Nir Friedman. [Probabilistic Graphical Models](https://mitpress.mit.edu/9780262013192/probabilistic-graphical-models/). The MIT Press.</span>

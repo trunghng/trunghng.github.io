@@ -1,5 +1,5 @@
 ---
-title: "The exponential family"
+title: "The Exponential Family"
 date: 2022-04-04 14:00:00 +0700
 tags: [mathematics, probability-statistics, exponential-family]
 math: true
