@@ -9,14 +9,8 @@ Notes on Inference in PGMs.
 <!--more-->
 
 ## Exact Inference
-**Problem setting**: We need to effectively compute the **conditional probability query**, which is the conditional probability of variables $\mathbf{Y}$ given evidence $\mathbf{E}=\mathbf{e}$
-\begin{equation}
-P(\mathbf{Y}\vert\mathbf{E}=\mathbf{e})
-\end{equation}
 
 ### Variable Elimination
-
-#### Intuition
 Consider a simple chain $A\rightarrow B\rightarrow C\rightarrow D$ with our interest of computing $P(D)$, which can be computed by
 \begin{equation}
 P(D)=\sum_C\sum_B\sum_A P(A,B,C,D)\label{eq:int.1}
@@ -313,7 +307,7 @@ We thus have the following cluster graph.
 </ul>
 
 ##### Clique Trees
-Let $\mathcal{T}$ be a cluster tree over a set of factor $\Phi$, and let $\mathcal{V}\_\mathcal{T}$ and $\mathcal{E}\_\mathcal{T}$ denote its vertices and edges respectively. Then $\mathcal{T}$ is said to have the <b id='running-intersection'>running intersection property</b> if whenever there is a variable $X$ such that $X\in\mathbf{C}_i$ and $X\in\mathbf{C}_j$, then $X$ is also in every cluster in the (unique) path in $\mathcal{T}$ between $\mathbf{C}_i$ and $\mathbf{C}_j$.
+Let $\mathcal{T}$ be a cluster tree over a set of factor $\Phi$, and let $\mathcal{V}\_\mathcal{T}$ and $\mathcal{E}\_\mathcal{T}$ denote its vertices and edges respectively. Then $\mathcal{T}$ is said to have the <b id='ct-running-intersection'>running intersection property</b> if whenever there is a variable $X$ such that $X\in\mathbf{C}_i$ and $X\in\mathbf{C}_j$, then $X$ is also in every cluster in the (unique) path in $\mathcal{T}$ between $\mathbf{C}_i$ and $\mathbf{C}_j$.
 
 **Remark**: This property implies that $\mathbf{S}_{i,j}=\mathbf{C}_i\cup\mathbf{C}_j$.
 
@@ -338,7 +332,7 @@ Let $\Phi$ be a set of factors over $\mathcal{X}$. A cluster tree over $\Phi$ th
 \end{equation}
 *where $\mathbf{W}\_{<(i,j)}$ is the set of all variables in the scope of clusters in the $\mathbf{C}_i$ side of the tree, and where $\mathbf{W}\_{<(j,i)}$ denotes the set of all variables in the scope of clusters in the $\mathbf{C}_j$ side of the tree.*
 
-#### Message Passing: Sum Product
+#### Message Passing: Sum Product{#ct-sp-mp}
 
 ##### Clique-Tree Message Passing
 Let $\mathcal{T}$ be a clique tree with cliques $\mathbf{C}\_1,\ldots,\mathbf{C}\_k$. Since each factor $\phi\in\Phi$ is associated with some clique $\alpha(\phi)$, we then define the **initial potential** of $\mathbf{C}\_i$ to be
@@ -524,7 +518,7 @@ In a calibrated clique tree, $\beta_i(\mathbf{C}\_i)$ are referred as **clique b
 In words, after all the beliefs $\beta_i(\mathbf{C}_i)$ of the clique tree $\mathcal{T}$ is computed, then $\mathcal{T}$ is calibrated.
 
 ##### Calibrated Clique Trees as Distributions
-**Proposition 11**: *At convergence of the clique tree calibration algorithm, we have that*
+<b id='prop11'>Proposition 11</b>: *At convergence of the clique tree calibration algorithm, we have that*
 \begin{equation}
 \tilde{P}\_\Phi(\mathcal{X})=\frac{\prod_{i\in\mathcal{V}\_\mathcal{T}}\beta_i(\mathbf{C}\_i)}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\mu_{i,j}(\mathbf{S}\_{i,j})}\label{eq:cctd.1}
 \end{equation}
@@ -534,7 +528,7 @@ By clique tree calibration algorithm, we have
 \begin{align}
 \frac{\prod_{i\in\mathcal{V}\_\mathcal{T}}\beta_i(\mathbf{C}\_i)}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\mu_{i,j}(\mathbf{S}\_{i,j})}&=\frac{\prod_{i\in\mathcal{V}\_\mathcal{T}}\left[\psi_i(\mathbf{C}\_i)\prod_{k\in\text{Nb}\_i}\delta_{k\rightarrow i}\right]}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\Big[\sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\beta_i(\mathbf{C}\_i)\Big]} \\\\ &=\frac{\left(\prod_{i\in\mathcal{V}\_\mathcal{T}}\psi_i(\mathbf{C}\_i)\right)\left(\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\delta_{i\to j}\delta_{j\to i}\right)}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\left[\sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\left(\psi_i\delta_{j\to i}\prod_{k\in(\text{Nb}\_i\backslash\\{j\\})}\delta_{k\to i}\right)\right]} \\\\ &=\frac{\left(\prod_{i\in\mathcal{V}\_\mathcal{T}}\psi_i(\mathbf{C}\_i)\right)\left(\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\delta_{i\to j}\delta_{j\to i}\right)}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\left[\delta_{j\to i}\sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\left(\psi_i\prod_{k\in(\text{Nb}\_i\backslash\\{j\\})}\delta_{k\to i}\right)\right]} \\\\ &=\frac{\left(\prod_{i\in\mathcal{V}\_\mathcal{T}}\psi_i(\mathbf{C}\_i)\right)\left(\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\delta_{i\to j}\delta_{j\to i}\right)}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\delta_{j\to i}\delta_{i\to j}} \\\\ &=\prod_{i\in\mathcal{V}\_\mathcal{T}}\psi_i(\mathbf{C}\_i)=\tilde{P}\_\Phi(\mathcal{X})
 \end{align}
-In other words, the clique beliefs $\\{\beta_i(\mathbf{C}\_i)\\}\_{i\in\mathcal{V}\_\mathcal{T}}$ and sepset beliefs $\\{\mu_{i,j}(\mathbf{S}\_{i,j})\\}\_{(i-j)\in\mathcal{E}\_\mathcal{T}}$ give us a reparameterization of the unnormalized measure $\tilde{P}_\Phi$. This property is known as the **clique tree invariant**.
+In other words, the clique beliefs $\\{\beta_i(\mathbf{C}\_i)\\}\_{i\in\mathcal{V}\_\mathcal{T}}$ and sepset beliefs $\\{\mu_{i,j}(\mathbf{S}\_{i,j})\\}\_{(i-j)\in\mathcal{E}\_\mathcal{T}}$ give us a reparameterization of the unnormalized measure $\tilde{P}_\Phi$. This property is known as the <b id='ctree-invariant'>clique tree invariant</b>.
 
 ###### Clique Tree Measure
 Using the previous result, we can define the **measure** induced by a calibrated tree $\mathcal{T}$ to be
@@ -554,7 +548,7 @@ where
 **Proof**  
 
 
-#### Message Passing: Belief Update
+#### Message Passing: Belief Update{#ct-bu-mp}
 
 ##### Message Passing with Division
 We first let $\mathbf{X}$ and $\mathbf{Y}$ be disjoint sets of variables, and let $\phi_1(\mathbf{X},\mathbf{Y})$ and $\phi_2(\mathbf{Y})$ be factors. The division $\frac{\phi_1}{\phi_2}$ is called a **factor division** which is a factor $\psi$ with scope $\mathbf{X},\mathbf{Y}$ given by
@@ -576,7 +570,7 @@ This derivation gives rise to the **sum-product-divide message passing** scheme,
 	<img src="/images/pgm-inference/calibration-bu.png" alt="calibration using belief update"/>
 </figure>
 
-##### Equivalence of Sum-Product and Belief Update Messages
+##### Equivalence of Sum-Product and Belief Update Messages{#equiv-sp-bu}
 **Theorem 13**: In an execution of belief-update message passing, the clique tree invariant equation \eqref{eq:cctd.1} holds initially and after every message passing step.
 
 **Proof**  
@@ -591,6 +585,8 @@ For each $(i-j)\in\mathcal{E}\_\mathcal{T}$, let $\beta_j',\mu_{i,j}'$ be the be
 which follows directly that the LHS of \eqref{eq:espbu.1} is unchanged after every step, and thus stays at $\tilde{P}_\Phi$.
 
 ##### Answering Queries
+
+#### Constructing Clique Tree
 
 ## Approximate Inference
 
@@ -607,7 +603,7 @@ D_\text{KL}(Q\Vert P_\Phi)=\mathbb{E}\_Q\left[\log\left(\frac{Q(\mathcal{X})}{P_
 \end{equation}
 our work is then to search for a distribution $Q$ that minimizes $D_\text{KL}(Q\Vert P_\Phi)$.
 
-Specifically, let us assume that we are given a clique tree structure $\mathcal{T}$ for $P_\Phi$, i.e. $\mathcal{T}$ satisfies the [family preserving](#family-preserving) and [running intersection](#running-intersection) properties, and also assume that we are given a set of beliefs
+Specifically, let us assume that we are given a clique tree structure $\mathcal{T}$ for $P_\Phi$, i.e. $\mathcal{T}$ satisfies the [family preserving](#family-preserving) and [running intersection](#ct-running-intersection) properties, and also assume that we are given a set of beliefs
 \begin{equation}
 \mathbf{Q}=\\{\beta_i(\mathbf{C}\_i):i\in\mathcal{V}\_\mathcal{T}\\}\cup\\{\mu_{i,j}(\mathbf{S}\_{i,j}):(i-j)\in\mathcal{E}\_\mathcal{T}\\},
 \end{equation}
@@ -629,7 +625,7 @@ We have already known that if $\mathcal{T}$ is a proper cluster tree, i.e. calib
 
 **Theorem 14**: *If $\mathcal{T}$ is an I-map for $P_\Phi$, then there is a unique solution to \eqref{eq:eio.3}*.
 
-### The Energy Functional
+#### The Energy Functional
 **Theorem 15**: *For distribution $P_\Phi$ given as \eqref{eq:eio.1}, the KL divergence between a distribution $Q$ and $P_\Phi$ can be written as*
 \begin{equation}
 D_\text{KL}(Q\Vert P_\Phi)=\log Z-F[\tilde{P}\_\Phi,Q],\label{eq:ef.1}
@@ -656,7 +652,7 @@ It is worth observing from \eqref{eq:ef.1} that
 	</li>
 </ul>
 
-### Exact Inference as Optimization via Energy Functional
+#### Exact Inference as Optimization via Energy Functional
 Using the previous result, we can rewrite the constrained optimization problem \eqref{eq:eio.3} in terms of the energy functional. We begin by introducing the **factored energy functional**.
 
 Given a cluster tree $\mathcal{T}$ with a set of beliefs $\mathbf{Q}$ and an assignment $\alpha$ that maps factors in $P_\Phi$ to clusters in $\mathcal{T}$, the **factored energy functional**, denoted $\tilde{F}[\tilde{P}\_\Phi,\mathbf{Q}]$, is  defined by
@@ -675,28 +671,32 @@ and where $\mathbb{E}_{\mathbf{C}_i\sim\beta_i}$ denotes the expectation on the 
 \end{equation}
 
 **Proof**  
-We have
+We have that
 \begin{align}
-\sum_{i\in\mathcal{V}\_\mathcal{T}}\mathbb{E}\_{\mathbf{C}\_i\sim\beta_i}\big[\log\psi_i\big]&=\sum_{i\in\mathcal{V}\_\mathcal{T}}\mathbb{E}\_{\mathbf{C}\_i\sim\beta_i}\left[\sum_{\phi:\alpha(\phi)=i}\log\phi\right]\\\\ &=
+\sum_{i\in\mathcal{V}\_\mathcal{T}}\mathbb{E}\_{\mathbf{C}\_i\sim\beta_i}\big[\log\psi_i\big]&=\sum_{i\in\mathcal{V}\_\mathcal{T}}\mathbb{E}\_{\mathbf{C}\_i\sim\beta_i}\left[\sum_{\phi:\alpha(\phi)=i}\log\phi\right]\\\\ &=\sum_{\phi\in\Phi}\mathbb{E}\_{\mathbf{C}\_i\sim Q}\big[\log\phi\big] \\\\ &=\mathbb{E}\_Q\big[\tilde{P}\_\Phi(\mathcal{X})\big]\label{eq:eioef.1}
 \end{align}
-And
+On the other hand, we also have
 \begin{align}
-\sum_{i\in\mathcal{V}\_\mathcal{T}}H_{\beta_i}(\mathbf{C}\_i)-\sum_{(i-j)\in\mathcal{E}\_\mathcal{T}}H_{\mu_{i,j}}(\mathbf{S}\_{i,j})&=-\sum_{i\in\mathcal{V}\_\mathcal{T}}\mathbb{E}\_{\mathbf{C}\_i\sim\beta_i}\big[\log\beta_i(\mathbf{C}\_i)\big]+\sum_{(i-j)\in\mathcal{E}\_\mathcal{T}}\mathbb{E}\_{\mathbf{S}\_{i,j}\sim\mu_{i,j}}\big[\log\mu_{i,j}(\mathbf{S}\_{i,j})\big] 
+H_Q(\mathcal{X})&=\mathbb{E}\_Q\big[-\log Q(\mathcal{X})\big] \\\\ &=\mathbb{E}\_Q\left[-\log\left(\frac{\prod_{i\in\mathcal{V}\_\mathcal{T}}\beta_i(\mathbf{C}\_i)}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{T}}\mu_{i,j}(\mathbf{S}\_{i,j})}\right)\right] \\\\ &=\mathbb{E}\_{\mathbf{C}\_i\sim Q}\left[-\sum_{i\in\mathcal{V}\_\mathcal{T}}\log\beta_i(\mathbf{C}\_i)\right]+\mathbb{E}\_{\mathbf{S}\_{i,j}\sim Q}\left[\sum_{(i-j)\in\mathcal{E}\_\mathcal{T}}\log\mu_{i,j}(\mathbf{S}\_{i,j})\right] \\\\ &=\sum_{i\in\mathcal{V}\_\mathcal{T}}H_{\beta_i}(\mathbf{C}\_i)-\sum_{(i-j)\in\mathcal{E}\_\mathcal{T}}H_{\mu_{i,j}}(\mathbf{S}\_{i,j})\label{eq:eioef.2}
+\end{align}
+Combining \eqref{eq:eioef.1} and \eqref{eq:eioef.2}, we have that
+\begin{align}
+\tilde{F}[\tilde{P}\_\Phi,\mathbf{Q}]&=\sum_{i\in\mathcal{V}\_\mathcal{T}}\mathbb{E}\_{\mathbf{C}\_i\sim\beta_i}\big[\log\psi_i\big]+\sum_{i\in\mathcal{V}\_\mathcal{T}}H_{\beta_i}(\mathbf{C}\_i)-\sum_{(i-j)\in\mathcal{E}\_\mathcal{T}}H_{\mu_{i,j}}(\mathbf{S}\_{i,j}) \\\\ &=\mathbb{E}\_Q\big[\tilde{P}\_\Phi(\mathcal{X})\big]+H_Q(\mathcal{X})  \\\\ &=F[\tilde{P}\_\Phi,Q]
 \end{align}
 
 The optimization \eqref{eq:eio.3} then can be rewritten as
 \begin{align}
-&\text{Find}&&\mathbf{Q}=\\{\beta_i(\mathbf{C}\_i):i\in\mathcal{V}\_\mathcal{T}\\}\cup\\{\mu_{i,j}(\mathbf{S}\_{i,j}):(i-j)\in\mathcal{E}\_\mathcal{T}\\}\label{eq:eioef.1} \\\\ &\text{maximizing}&&\tilde{F}[\tilde{P}\_\Phi,\mathbf{Q}]\nonumber \\\\ &\text{s.t.}&&\sum_{\mathbf{c}\_i}\beta_i(\mathbf{c}\_i)=1\hspace{1cm}\forall i\in\mathcal{V}\_\mathcal{T}\nonumber \\\\ &&&\beta_i(\mathbf{c}\_i)\geq 0\hspace{1cm}\forall i\in\mathcal{V}\_\mathcal{T},\mathbf{c}\_i\in\text{Val}(\mathbf{C}\_i)\nonumber \\\\ &&&\mu_{i,j}[\mathbf{s}\_{i,j}]=\sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\beta_i(\mathbf{c}\_i)\hspace{1cm}\forall (i-j)\in\mathcal{E}\_\mathcal{T},\mathbf{s}\_{i,j}\in\text{Val}(\mathbf{S}\_{i,j})\label{eq:eioef.2}
+&\text{Find}&&\mathbf{Q}=\\{\beta_i(\mathbf{C}\_i):i\in\mathcal{V}\_\mathcal{T}\\}\cup\\{\mu_{i,j}(\mathbf{S}\_{i,j}):(i-j)\in\mathcal{E}\_\mathcal{T}\\}\label{eq:eioef.3} \\\\ &\text{maximizing}&&\tilde{F}[\tilde{P}\_\Phi,\mathbf{Q}]\nonumber \\\\ &\text{s.t.}&&\sum_{\mathbf{c}\_i}\beta_i(\mathbf{c}\_i)=1\hspace{1cm}\forall i\in\mathcal{V}\_\mathcal{T}\nonumber \\\\ &&&\beta_i(\mathbf{c}\_i)\geq 0\hspace{1cm}\forall i\in\mathcal{V}\_\mathcal{T},\mathbf{c}\_i\in\text{Val}(\mathbf{C}\_i)\nonumber \\\\ &&&\mu_{i,j}[\mathbf{s}\_{i,j}]=\sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\beta_i(\mathbf{c}\_i)\hspace{1cm}\forall (i-j)\in\mathcal{E}\_\mathcal{T},\mathbf{s}\_{i,j}\in\text{Val}(\mathbf{S}\_{i,j})\label{eq:eioef.4}
 \end{align}
 
-#### Fixed-point Characterization
-We have that the **Lagrangian** of \eqref{eq:eioef.1} is
+##### Fixed-point Characterization
+We have that the **Lagrangian** of \eqref{eq:eioef.3} is
 \begin{align}
 &\mathcal{L}=-\tilde{F}[\tilde{P}\_\Phi,\mathbf{Q}]+\sum_{i\in\mathcal{V}\_\mathcal{T}}\lambda_i\left(\sum_{\mathbf{c}\_i}\beta_i(\mathbf{c}\_i)-1\right)\nonumber \\\\ &\hspace{2cm}+\sum_{i\in\mathcal{V}\_\mathcal{T}}\sum_{j\in\text{Nb}\_i}\sum_{\mathbf{s}\_{i,j}}\lambda_{j\to i}[\mathbf{s}\_{i,j}]\left(\sum_{\mathbf{c}\_i\sim\mathbf{s}\_{i,j}}\beta_i(\mathbf{c}\_i)-\mu_{i,j}[\mathbf{s}\_{i,j}]\right),
 \end{align}
 where $\mathcal{L}$ is a function of the beliefs $\\{\beta_i\\}\_{i\in\mathcal{V}\_\mathcal{T}}$, $\\{\mu_{i,j}\\}\_{(i-j)\in\mathcal{E}\_\mathcal{T}}$, and the Lagrange multipliers $\\{\lambda_i\\}\_{i\in\mathcal{V}\_\mathcal{T}}$, $\\{\lambda_{j\to i}\\}\_{i\in\mathcal{V}\_\mathcal{T},j\in\text{Nb}_i}$.
 
-Differentiating the Lagrangian $\mathcal{L}$ w.r.t $\beta_i(\mathbf{c}\_i)$ and w.r.t $\mu_{i,j}[\mathbf{s}\_{i,j}]$ give us
+Differentiating the Lagrangian $\mathcal{L}$ w.r.t $\beta_i(\mathbf{c}\_i)$ and w.r.t $\mu_{i,j}[\mathbf{s}\_{i,j}]$ respectively give us
 \begin{align}
 \frac{\partial\mathcal{L}}{\partial\beta_i(\mathbf{c}\_i)}&=\frac{\partial}{\partial\beta_i(\mathbf{c}\_i)}\Bigg(-\beta_i(\mathbf{c}\_i)\log\psi_i[\mathbf{c}\_i]-\beta_i(\mathbf{c}\_i)\log\beta_i(\mathbf{c}\_i)\nonumber \\\\ &\hspace{2cm}+\lambda_i\beta_i(\mathbf{c}\_i)+\sum_{j\in\text{Nb}\_i}\lambda_{j\to i}[\mathbf{s}\_{i,j}]\beta_i(\mathbf{c}\_i)\Bigg) \\\\ &=-\log\psi_i[\mathbf{c}\_i]+\log\beta_i(\mathbf{c}\_i)+1+\lambda_i+\sum_{j\in\text{Nb}\_i}\lambda_{j\to i}[\mathbf{s}\_{i,j}],
 \end{align}
@@ -716,12 +716,13 @@ allows us to obtain
 \begin{align}
 \beta_i(\mathbf{c}\_i)&=\exp\left(-\lambda_i-1+\frac{1}{2}\vert\text{Nb}\_i\vert\right)\psi_i[\mathbf{c}\_i]\prod_{j\in\text{Nb}\_i}\delta_{j\to i}[\mathbf{s}\_{i,j}] \\\\ \mu_{i,j}[\mathbf{s}\_{i,j}]&=\delta_{i\to j}[\mathbf{s}\_{i,j}]\delta_{j\to i}[\mathbf{s}\_{i,j}]
 \end{align}
-Combining these equations with \eqref{eq:eioef.2}, we can rewrite the message $\delta_{i\to j}$ as a function of other messages
+Combining these equations with \eqref{eq:eioef.4}, we can rewrite the message $\delta_{i\to j}$ as a function of other messages
 \begin{align}
 \delta_{i\to j}[\mathbf{s}\_{i,j}]&=\frac{\mu_{i,j}[\mathbf{s,j}]}{\delta_{j\to i}[\mathbf{s}\_{i,j}]} \\\\ &=\frac{\sum_{\mathbf{c}\_i\sim\mathbf{s}\_{i,j}}\beta_i(\mathbf{c}\_i)}{\delta_{j\to i}[\mathbf{s}\_{i,j}]} \\\\ &=\exp\left(-\lambda_i-1+\frac{1}{2}\vert\text{Nb}\_i\vert\right)\sum_{\mathbf{c}\_i\sim\mathbf{s}\_{i,j}}\psi_i(\mathbf{c}\_i)\prod_{k\in(\text{Nb}\_i\backslash{j})}\delta_{k\to i}[\mathbf{s}\_{i,k}]
 \end{align}
+This derivation proves the following result.
 
-**Theorem 17**: *A set of beliefs $\mathbf{Q}$ is a stationary point of \eqref{eq:eioef.1} iff there exists a set of factors $\\{\delta_{i\to j}[\mathbf{S}\_{i,j}]:(i-j)\in\mathcal{E}_\mathcal{T}\\}$ such that*
+**Theorem 17**: *A set of beliefs $\mathbf{Q}$ is a stationary point of \eqref{eq:eioef.3} iff there exists a set of factors $\\{\delta_{i\to j}[\mathbf{S}\_{i,j}]:(i-j)\in\mathcal{E}_\mathcal{T}\\}$ such that*
 \begin{equation}
 \delta_{i\to j}\propto\sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\psi_i\prod_{k\in(\text{Nb}\_i\backslash\\{j\\})}\delta_{k\to i}
 \end{equation}
@@ -730,7 +731,53 @@ Combining these equations with \eqref{eq:eioef.2}, we can rewrite the message $\
 \beta_i&\propto\psi_i\prod_{j\in\text{Nb}\_i}\delta_{j\to i} \\\\ \mu_{i,j}&=\delta_{i\to j}\delta_{j\to i}
 \end{align}
 
+### Propagation-based Approximation
+In this section, we consider approximation methods that use the same message propagation as in exact inference, but on a [cluster graph](#cluster-graph), which might contain loops, rather than a clique tree.
+
+#### Cluster-Graph Belief Propagation
+Let $\mathbf{U}$ be a cluster graph. We say that $\mathbf{U}$ satisfies the <b id='running-intersection'>running intersection property</b> if whenever there is a variable $X$ such that $X\in\mathbf{C}\_i$ and $\mathbf{C}\_j$, then there is a single path between $\mathbf{C}_i$ and $\mathbf{C}_j$ for which $X\in\mathbf{S}_e$ for all edges $e$ in the path.
+
+This property implies that all edges associated with $X$ form a tree that spans all the clusters that contain $X$.
+
+Analogy to clique trees, in a cluster graph, we can also associate each cluster $\mathbf{C}\_i$ with beliefs $\beta_i$. And in order to do the inference, it is necessary to perform beliefs calibration. We say that a cluster graph is **calibrated** if for each $(i-j)$ connecting the clusters $\mathbf{C}\_i$ and $\mathbf{C}\_j$, we have that[^1]
+\begin{equation}
+\sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\beta_i=\sum_{\mathbf{C}\_j\backslash\mathbf{S}\_{i,j}}\beta_j,
+\end{equation}
+which also means the two clusters agree on the marginal of variables in $\mathbf{S}_{i,j}$, as in clique trees.
+
+Additionally, so as to clique trees, if a calibrated cluster graph satisfies the running intersection property, then the marginal of a variable $X$ in all the clusters containing it are identical.
+
+When applying sum-product message passing algorithm on a cluster tree, specifically with a loopy cluster graph, we can not define whether a cluster is ready to transmit its message to its neighbor due to initially there is no cluster that has received any incoming messages. However, using the idea of [belief propagation](#ct-bu-mp), which has been [proved](#equiv-sp-bu) to be equivalent to sum-product, we can initialize all messages $\delta_{i\to j}=1$ (recalling that in clique tree belief propagation, we initialize $\mu_{i,j}=1$). Then, we can continue to use sum-product scheme for the cluster graph calibration. Similarly, we can also apply the belief-update message passing for cluster graphs. These algorithms are referred as variants of **cluster-graph belief propagation** class.
+<figure>
+	<img src="/images/pgm-inference/calibration-sp-cg.png" alt="Calibration using sum-product belief propagation on cluster graph"/>
+</figure>
+
+#### Properties of Cluster-Graph Belief Propagation
+Properties of belief propagation procedure on clique trees can also extend to cluster graphs.
+
+##### Reparameterization
+Recall that belief propagation on clique trees maintains an [invariant property](#ctree-invariant), which let us show that the convergence point represent a reparameterization of the original distribution. This property can generalize to cluster graphs, resulting in the <b id='cgraph-invariant'>cluster graph invariant</b>.
+
+**Theorem 18**: *Let $\mathcal{U}$ be a cluster graph over a set of factors $\Phi$. Consider the set of beliefs $\\{\beta_i\\}\_{i\in\mathcal{V}\_\mathcal{U}}$ and $\\{\mu_{i,j}\\}_{(i-j)\in\mathcal{E}\_\mathcal{U}}$ at any iteration of $\text{CGraph-BU-Calibrate}$, then*
+\begin{equation}
+\tilde{P}\_\Phi(\mathcal{X})=\frac{\prod_{i\in\mathcal{V}\_\mathcal{U}}\beta_i[\mathbf{C}\_i]}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{U}}\mu_{i,j}[\mathbf{S}\_{i,j}]}
+\end{equation}
+
+**Proof**  
+We have
+\begin{align}
+\frac{\prod_{i\in\mathcal{V}\_\mathcal{U}}\beta_i[\mathbf{C}\_i]}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{U}}\mu_{i,j}[\mathbf{S}\_{i,j}]}&=\frac{\prod_{i\in\mathcal{V}\_\mathcal{U}}\left(\psi_i\prod_{j\in\text{Nb}\_i}\delta_{j\to i}[\mathbf{S}\_{i,j}]\right)}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{U}}\delta_{i\to j}[\mathbf{S}\_{i,j}]\delta_{j\to i}[\mathbf{S}\_{i,j}]} \\\\ &=\frac{\left(\prod_{i\in\mathcal{V}\_\mathcal{U}}\psi_i[\mathbf{C}\_i]\right)\left(\prod_{(i-j)\in\mathcal{E}\_\mathcal{U}}\delta_{i\to j}[\mathbf{S}\_{i,j}]\delta_{j\to i}[\mathbf{S}\_{i,j}]\right)}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{U}}\delta_{i\to j}[\mathbf{S}\_{i,j}]\delta_{j\to i}[\mathbf{S}\_{i,j}]} \\\\ &=\prod_{i\in\mathcal{V}\_\mathcal{U}}\psi_i[\mathbf{C}\_i]=\prod_{\phi\in\Phi}\phi(\mathbf{U}\_\phi)=\tilde{P}\_\Phi(\mathcal{X})
+\end{align}
+
+##### Tree Consistency
+
+#### Convergence of Cluster-Graph Belief Propagation
+
+#### Constructing Cluster Graph
+
+
 ## References
 [1] <span id='pgm-book'>Daphne Koller, Nir Friedman. [Probabilistic Graphical Models](https://mitpress.mit.edu/9780262013192/probabilistic-graphical-models/). The MIT Press.</span>
 
 ## Footnotes
+[^1]: It should be taken into account that for each edge $(i-j)$, the sepset $\mathbf{S}\_{i,j}$ is no longer be exactly the intersection between $\mathbf{C}\_i$ and $\mathbf{C}_j$ like in clique trees.
