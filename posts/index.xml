@@ -9,7 +9,16 @@
       <link>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 02 Feb 2023 15:51:13 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 19 Feb 2023 17:23:56 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Probabilistic Graphical Models - Learning</title>
+      <link>https://trunghng.github.io/posts/machine-learning/pgm-learning/</link>
+      <pubDate>Sun, 19 Feb 2023 17:23:56 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/machine-learning/pgm-learning/</guid>
+      <description>&lt;p&gt;Notes on Learning in PGMs.&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Probabilistic Graphical Models - Inference</title>
       <link>https://trunghng.github.io/posts/machine-learning/pgm-inference/</link>
@@ -237,12 +246,12 @@
     
     <item>
       <title>Gaussian Distribution &amp; Gaussian Network Models</title>
-      <link>https://trunghng.github.io/posts/probability-statistics/normal-dist/</link>
+      <link>https://trunghng.github.io/posts/probability-statistics/gaussian-dist-gaussian-bn/</link>
       <pubDate>Mon, 22 Nov 2021 14:46:00 +0700</pubDate>
       
-      <guid>https://trunghng.github.io/posts/probability-statistics/normal-dist/</guid>
+      <guid>https://trunghng.github.io/posts/probability-statistics/gaussian-dist-gaussian-bn/</guid>
       <description>&lt;blockquote&gt;
-&lt;p&gt;Notes on Gaussian distribution.&lt;/p&gt;
+&lt;p&gt;Notes on Gaussian distribution &amp;amp; Gaussian network models.&lt;/p&gt;
 &lt;/blockquote&gt;</description>
     </item>
     

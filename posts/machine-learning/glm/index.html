@@ -223,7 +223,7 @@ Taking the gradient of the log likelihood w.r.t $\mathbf{W}$, setting it to zero
 \begin{equation}
 p(\mathbf{w})=\mathcal{N}(\mathbf{w}\vert\mathbf{m}_0,\mathbf{S}_0),
 \end{equation}
-where $\mathbf{m}_0$ is the mean vector and $\mathbf{S}_0$ is the covariance matrix.</p><p>By the <a href=https://trunghng.github.io/posts/probability-statistics/normal-dist/#marg-cond-gaussian>result</a>, we have that the corresponding posterior distribution $p(\mathbf{w}\vert\mathbf{t})$, which is a conditional Gaussian distribution, is given by
+where $\mathbf{m}_0$ is the mean vector and $\mathbf{S}_0$ is the covariance matrix.</p><p>By the <a href=https://trunghng.github.io/posts/probability-statistics/gaussian-dist-gaussian-bn/#marg-cond-gaussian>result</a>, we have that the corresponding posterior distribution $p(\mathbf{w}\vert\mathbf{t})$, which is a conditional Gaussian distribution, is given by
 \begin{equation}
 p(\mathbf{w}\vert\mathbf{t})=\mathcal{N}(\mathbf{w}\vert\mathbf{m}_N,\mathbf{S}_N),\label{eq:pd.1}
 \end{equation}
@@ -235,7 +235,7 @@ Therefore, by MAP, we have
 \begin{align}
 \mathbf{w}_\text{MAP}&=\underset{\mathbf{w}}{\text{argmax}}\hspace{0.1cm}\exp\Big[-\frac{1}{2}(\mathbf{w}-\mathbf{m}_N)^\text{T}\mathbf{S}_N^{-1}(\mathbf{w}-\mathbf{m}_N)\Big] \\ &=\underset{\mathbf{w}}{\text{argmin}}\hspace{0.1cm}(\mathbf{w}-\mathbf{m}_N)^\text{T}\mathbf{S}_N^{-1}(\mathbf{w}-\mathbf{m}_N)
 \end{align}
-By this <a href=https://trunghng.github.io/posts/probability-statistics/normal-dist/#precision-eigenvalue>property</a> of the covariance matrix, we have that the precision matrix $\mathbf{S}_N^{-1}$ and the covariance matrix $\mathbf{S}_N$ have the same set of eigenvalues, which are non-negative due to the fact that $\mathbf{S}_N$ is positive semi-definite. This also means that $\mathbf{S}_N$ is positive semi-definite, and thus
+By this <a href=https://trunghng.github.io/posts/probability-statistics/gaussian-dist-gaussian-bn/#precision-eigenvalue>property</a> of the covariance matrix, we have that the precision matrix $\mathbf{S}_N^{-1}$ and the covariance matrix $\mathbf{S}_N$ have the same set of eigenvalues, which are non-negative due to the fact that $\mathbf{S}_N$ is positive semi-definite. This also means that $\mathbf{S}_N$ is positive semi-definite, and thus
 \begin{equation}
 (\mathbf{w}-\mathbf{m}_N)^\text{T}\mathbf{S}_N^{-1}(\mathbf{w}-\mathbf{m}_N)\geq0
 \end{equation}
@@ -284,7 +284,7 @@ which for setting $\lambda=\alpha/\beta$ gives us exactly the solution \eqref{eq
 \begin{equation}
 p(t\vert\mathbf{x},\mathbf{t},\alpha,\beta)=\int p(t\vert\mathbf{x},\mathbf{w},\beta)p(\mathbf{w}\vert\mathbf{x},\mathbf{t},\alpha,\beta)\hspace{0.1cm}d\mathbf{w}\label{eq:pdr.1}
 \end{equation}
-in which $\mathbf{t}$ is the vector of target values from the training set.</p><p>The conditional distribution $p(t\vert\mathbf{x},\mathbf{w},\beta)$ of the target variable is given by \eqref{eq:lsr.1}, and the posterior weight distribution $p(\mathbf{w}\vert\mathbf{x},\mathbf{t},\alpha,\beta)$ is given by \eqref{eq:pd.1}. Thus, as a <a href=https://trunghng.github.io/posts/probability-statistics/normal-dist/#marg-cond-gaussian>marginal Gaussian distribution</a>, the distribution \eqref{eq:pdr.1} can be rewritten as
+in which $\mathbf{t}$ is the vector of target values from the training set.</p><p>The conditional distribution $p(t\vert\mathbf{x},\mathbf{w},\beta)$ of the target variable is given by \eqref{eq:lsr.1}, and the posterior weight distribution $p(\mathbf{w}\vert\mathbf{x},\mathbf{t},\alpha,\beta)$ is given by \eqref{eq:pd.1}. Thus, as a <a href=https://trunghng.github.io/posts/probability-statistics/gaussian-dist-gaussian-bn/#marg-cond-gaussian>marginal Gaussian distribution</a>, the distribution \eqref{eq:pdr.1} can be rewritten as
 \begin{align}
 p(t\vert\mathbf{x},\mathbf{t},\mathbf{w},\beta)&=\int\mathcal{N}(t\vert\mathbf{w}^\text{T}\boldsymbol{\phi}(\mathbf{x}),\beta^{-1})\mathcal{N}(\mathbf{w}\vert\mathbf{m}_N,\mathbf{S}_N)\hspace{0.1cm}d\mathbf{w} \\ &=\mathcal{N}(t\vert\mathbf{m}_N^\text{T}\boldsymbol{\phi}(\mathbf{x}),\sigma_N^2(\mathbf{x})),
 \end{align}
