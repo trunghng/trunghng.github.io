@@ -17,7 +17,7 @@
       
       <guid>https://trunghng.github.io/posts/probability-statistics/normal-dist/</guid>
       <description>&lt;blockquote&gt;
-&lt;p&gt;The &lt;strong&gt;Gaussian (Normal) distribution&lt;/strong&gt; is a continuous distribution with a bell-shaped PDF used widely in statistics due to the &lt;strong&gt;Central Limit theorem&lt;/strong&gt;. The theorem states that under very weak assumptions, the sum of a large number of i.i.d. random variables has an approximately Normal distribution, regardless of the distribution of the individual r.v.s. This means we can start with independent r.v.s from almost any distribution, discrete or continuous, but once we add up a bunch of them, the distribution of the resulting random variable looks like a Gaussian distribution.&lt;/p&gt;
+&lt;p&gt;Notes on Gaussian distribution.&lt;/p&gt;
 &lt;/blockquote&gt;</description>
     </item>
     
