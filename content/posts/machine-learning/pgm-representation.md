@@ -634,7 +634,7 @@ As [mentioned](#min-imap) above, the notion of minimal I-map lets us encode the 
 
 In particular, for a distribution $P$, we can construct the minimal I-map based on either the pairwise independencies or the local independencies.
 
-**Theorem 15**: *Let $P$ be a positive distribution and $\mathcal{H}$ be a Markov network defined by including an edge $X-Y$ for all $X,Y$ such that $P\not\models(X\perp Y\vert\mathcal{X}\backslash\\{X,Y\\})
+<b id='theorem15'>Theorem 15</b>: *Let $P$ be a positive distribution and $\mathcal{H}$ be a Markov network defined by including an edge $X-Y$ for all $X,Y$ such that $P\not\models(X\perp Y\vert\mathcal{X}\backslash\\{X,Y\\})
 $. Then $\mathcal{H}$ is  the unique minimal I-map for $P$.*
 
 <span id='theorem16'>**Theorem 16**</span>: *Let P be a positive distribution and let $\mathcal{H}$ be a Markov network defined by including an edge $X-Y$ for all $X$ and all $Y\in\text{MB}_\mathcal{H}(X)$. Then $\mathcal{H}$ is the unique minimal I-map for $P$.*
@@ -982,14 +982,14 @@ P(y^0\vert X_1,\ldots,X_k)=(1-\lambda_0)\prod_{i=1}^{k}(1-\lambda_i)^{x_i}
 
 ### Continuous Variables
 
-#### Linear Gaussian CPD
-Let $Y$ be a continuous variable with continuous parents $X_1,\ldots,X_k$. We say that $Y$ has a linear Gaussian model if there are parameters $\beta_0,\ldots,\beta_k$ such that
+#### Linear Gaussian Model{#linear-gaussian-model}
+Let $Y$ be a continuous variable with continuous parents $X_1,\ldots,X_k$. We say that $Y$ has a **linear Gaussian model** if there are parameters $\beta_0,\ldots,\beta_k$ such that
 \begin{equation}
 p(Y\vert x_1,\ldots,x_k)=\mathcal{N}(\beta_0+\beta_1 x_1+\ldots+\beta_k x_k;\sigma^2)
 \end{equation}
 In vector notation, we have
 \begin{equation}
-p(Y\vert\mathbf{x})=\mathcal{\beta_0+\boldsymbol{\beta}^\text{T}\mathbf{x};\sigma^2}
+p(Y\vert\mathbf{x})=\mathcal{N}(\beta_0+\boldsymbol{\beta}^\text{T}\mathbf{x};\sigma^2)
 \end{equation}
 
 ### Conditional Bayesian Networks{#cbn}

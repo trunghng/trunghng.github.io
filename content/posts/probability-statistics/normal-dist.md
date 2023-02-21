@@ -1,5 +1,5 @@
 ---
-title: "Gaussian Distribution"
+title: "Gaussian Distribution & Gaussian Network Models"
 date: 2021-11-22 14:46:00 +0700
 tags: [mathematics, probability-statistics, normal-distribution]
 math: true
@@ -109,13 +109,25 @@ is the $D$-dimensional mean vector, and covariance matrix $\mathbf{\Sigma}\in\ma
 \begin{equation}
 \boldsymbol{\Sigma}\_{ij}=\mathbb{E}\left(X_i-\mu_i\right)\left(X_j-\mu_j\right)=\Cov(X_i,X_j)\label{eq:mvn.1}
 \end{equation}
-We also have that $\boldsymbol{\Sigma}\geq 0$ (positive semi-definite matrix)[^1].
-
 Thus, the PDF of an MVN is defined as
 \begin{equation}
-p_\mathbf{X}(x_1,\ldots,x_D)=\dfrac{1}{(2\pi)^{D/2}\vert\mathbf{\Sigma}\vert^{1/2}}\exp\left[-\dfrac{1}{2}\left(\mathbf{x}-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})\right]\label{eq:mvn.2}
+p_\mathbf{X}(\mathbf{x})=\dfrac{1}{(2\pi)^{D/2}\vert\mathbf{\Sigma}\vert^{1/2}}\exp\left[-\dfrac{1}{2}\left(\mathbf{x}-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})\right]\label{eq:mvn.2}
 \end{equation}
-With this idea, *Standard Normal* distribution in multi-dimensional case can be defined as a Gaussian with mean $\boldsymbol{\mu}=0$ (here $0$ is an $D$-dimensional vector) and identity covariance matrix $\boldsymbol{\Sigma}=\mathbf{I}\_{D\times D}$.
+With this idea, **standard Normal** distribution in multi-dimensional case can be defined as a Gaussian with mean $\boldsymbol{\mu}=0$ (here $0$ is an $D$-dimensional vector) and identity covariance matrix $\boldsymbol{\Sigma}=\mathbf{I}\_{D\times D}$.
+
+It is worth remarking that $\boldsymbol{\Sigma}\geq 0$ (positive semi-definite matrix)[^1]. If $\boldsymbol{\Sigma}$ is positive definite, then $\boldsymbol{\Sigma}$ is invertible, then we can obtain its inverse, which is known as the **precision matrix** (or **information matrix**), denoted $\boldsymbol{\Lambda}$.
+\begin{equation}
+\boldsymbol{\Lambda}\doteq\boldsymbol{\Sigma}^{-1}
+\end{equation}
+Moreover, let us consider the expression in the exponent of \eqref{eq:mvn.2}:
+\begin{align}
+-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\Sigma})&=-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^\text{T}\boldsymbol{\Lambda}(\mathbf{x}-\boldsymbol{\Sigma}) \\\\ &=-\frac{1}{2}\mathbf{x}^\text{T}\boldsymbol{\Lambda}\mathbf{x}+(\boldsymbol{\Lambda}\boldsymbol{\mu})^\text{T}\mathbf{x}+\boldsymbol{\mu}^\text{T}\boldsymbol{\Lambda}\boldsymbol{\mu}
+\end{align}
+which allows us to obtain
+\begin{equation}
+p(\mathbf{x})\propto\exp\left[-\frac{1}{2}\mathbf{x}^\text{T}\boldsymbol{\Lambda}\mathbf{x}+(\boldsymbol{\Lambda}\boldsymbol{\mu})^\text{T}\mathbf{x}\right]
+\end{equation}
+This formulation is called the <b id='information-form'>information form</b>, and $\boldsymbol{\Lambda}\boldsymbol{\mu}$ is known as the **potential vector**. The information form defines a valid Gaussian density iff the information matrix $\boldsymbol{\Lambda}$ is symmetric and positive definite.
 
 #### Bivariate Normal{#bvn}
 When the number of dimensions in $\mathbf{X}$, $D=2$, this special case of MVN is referred as **Bivariate Normal (BVN)**.
@@ -329,9 +341,9 @@ Substitute these results into \eqref{eq:cgd.4} and \eqref{eq:cgd.5}, we have the
 \begin{align}
 \boldsymbol{\mu}\_{a\vert b}&=\boldsymbol{\mu}\_a+\boldsymbol{\Sigma}\_{ab}\boldsymbol{\Sigma}\_{bb}^{-1}(\mathbf{x}\_b-\boldsymbol{\mu}\_b), \\\\ \boldsymbol{\Sigma}\_{a\vert b}&=\boldsymbol{\Sigma}\_{aa}-\boldsymbol{\Sigma}\_{ab}\boldsymbol{\Sigma}\_{bb}^{-1}\boldsymbol{\Sigma}\_{ba}
 \end{align}
-It is worth noticing that the mean $\boldsymbol{\mu}\_{a\vert b}$ given above is a linear function of $\mathbf{x}\_b$, while the covariance matrix $\boldsymbol{\Sigma}\_{a\vert b}$ is independent of $\mathbf{x}\_b$. This is an example of a **linear-Gaussian model**.
+It is worth noticing that the mean $\boldsymbol{\mu}\_{a\vert b}$ given above is a linear function of $\mathbf{x}\_b$, while the covariance matrix $\boldsymbol{\Sigma}\_{a\vert b}$ is independent of $\mathbf{x}\_b$. This is an example of a [linear Gaussian model](#linear-gaussian-model).
 
-### Marginal Gaussian distribution{#marg-gauss-dist}
+### Marginal Gaussian Distribution{#marg-gauss-dist}
 Given the settings as in previous section, let us consider the marginal distribution of $\mathbf{x}_a$, which can be computed by marginalizing the joint distribution
 \begin{equation}
 p(\mathbf{x}\_a)=\int p(\mathbf{x}\_a,\mathbf{x}\_b)d\mathbf{x}\_b\label{eq:mgd.1}
@@ -357,12 +369,12 @@ which can be seen as an integral over an unnormalized Gaussian, and so the resul
 \end{align}
 where $c$ denotes the term that is independent of $\mathbf{x}_a$. Hence, using \eqref{eq:cgd.3} once again, we have that the marginal of $\mathbf{x}_a$, $p(\mathbf{x}_a)$, is also a Gaussian, with the corresponding covariance matrix, denoted $\boldsymbol{\Sigma}_a$, given by
 \begin{equation}
-\boldsymbol{\Sigma}=(\boldsymbol{\Lambda}\_{aa}-\boldsymbol{\Lambda}\_{ab}\boldsymbol{\Lambda}\_{bb}^{-1}\boldsymbol{\Lambda}\_{ba})^{-1}=\boldsymbol{\Sigma}\_{aa},
+\boldsymbol{\Sigma}=(\boldsymbol{\Lambda}\_{aa}-\boldsymbol{\Lambda}\_{ab}\boldsymbol{\Lambda}\_{bb}^{-1}\boldsymbol{\Lambda}\_{ba})^{-1}=\boldsymbol{\Sigma}\_{aa},\label{eq:mgd.3}
 \end{equation}
 where we have used \eqref{eq:cgd.6} as in the conditional distribution. The mean of $p(\mathbf{x}_a)$ is then given as
 \begin{equation}
 \boldsymbol{\Sigma}\_a(\boldsymbol{\Lambda}\_{aa}-\boldsymbol{\Lambda}\_{ab}\boldsymbol{\Lambda}\_{bb}^{-1}\boldsymbol{\Lambda}\_{ba})
-\boldsymbol{\mu}\_a=\boldsymbol{\mu}\_a
+\boldsymbol{\mu}\_a=\boldsymbol{\mu}\_a\label{eq:mgd.4}
 \end{equation}
 
 **Remark**:  
@@ -420,7 +432,7 @@ Thus, by \eqref{eq:cgd.3}, we have that the mean of the joint distribution is th
 \begin{equation}
 \boldsymbol{\mu}\_\mathbf{z}=\boldsymbol{\Sigma}\_\mathbf{z}\left[\begin{matrix}\boldsymbol{\Lambda}\boldsymbol{\mu}-\mathbf{A}^\text{T}\mathbf{L}\mathbf{b} \\\\ \mathbf{L}\mathbf{b}\end{matrix}\right]=\left[\begin{matrix}\boldsymbol{\mu} \\\\ \mathbf{A}\boldsymbol{\mu}+\mathbf{b}\end{matrix}\right]
 \end{equation}
-Given the mean $\boldsymbol{\mu}\_\mathbf{z}$ and the covariance matrix $\boldsymbol{\Sigma}\_\mathbf{z}$ of the joint distribution of $\mathbf{x},\mathbf{y}$, by \eqref{22} and \eqref{23}, we then can obtain the mean of the covariance matrix of the marginal distribution $p(\mathbf{y})$, which are
+Given the mean $\boldsymbol{\mu}\_\mathbf{z}$ and the covariance matrix $\boldsymbol{\Sigma}\_\mathbf{z}$ of the joint distribution of $\mathbf{x},\mathbf{y}$, by \eqref{eq:mgd.3} and \eqref{eq:mdg.4}, we then can obtain the mean of the covariance matrix of the marginal distribution $p(\mathbf{y})$, which are
 \begin{align}
 \boldsymbol{\mu}\_\mathbf{y}&=\mathbf{A}\boldsymbol{\mu}+\mathbf{b}, \\\\ \boldsymbol{\Sigma}\_\mathbf{y}&=\mathbf{L}^{-1}+\mathbf{A}\boldsymbol{\Lambda}^{-1}\mathbf{A}^\text{T},
 \end{align}
@@ -444,12 +456,98 @@ where
 \boldsymbol{\Sigma}=(\boldsymbol{\Lambda}+\mathbf{A}^\text{T}\mathbf{L}\mathbf{A})^{-1}
 \end{equation}
 
+### Independencies in Normal Distributions
+**Theorem 1**: *Let $\mathbf{X}=X_1,\ldots,X_n$ have a joint Normal distribution $\mathcal{N}(\boldsymbol{\mu},\boldsymbol{\Sigma})$. Then $X_i$ and $X_j$ are independent iff $\boldsymbol{\Sigma}_{ij}=0$.*
+
+**Proof**  
+This can be easily proved by the formulas for conditional and marginal distributions obtained above and using the fact that
+\begin{equation}
+p\models X_i\perp X_j\Leftrightarrow p(X_i)=p(X_i\vert X_j)
+\end{equation}
+
+<b id='theorem2'>Theorem 2</b>: *Consider a Gaussian distribution $p(X_1,\ldots,X_n)=\mathcal{N}(\boldsymbol{\mu},\boldsymbol{\Sigma})$, and let $\boldsymbol{\Lambda}=\boldsymbol{\Sigma}^{-1}$ denote the precision (information) matrix. Then*
+\begin{equation}
+\boldsymbol{\Lambda}\_{ij}=0\Leftrightarrow p\models(X_i\perp X_j\vert\mathcal{X}\backslash\\{X_i,X_j\\})
+\end{equation}
+
+**Proof**  
+Similarly, this can be proved by using the formula for conditional Gaussian, combined with the fact that
+\begin{equation}
+p\models(X_i\perp X_j\vert\mathcal{X}\backslash\\{X_i,X_j\\})\Leftrightarrow p(X_i\vert\mathcal{X}\backslash\\{X_j\\})=p(X_j\vert\mathcal{X}\backslash\\{X_i\\})
+\end{equation}
+
+**Remark**: It is followed by [Theorem 2](#theorem2) that the information matrix $\boldsymbol{\Lambda}$ directly defines a minimal I-map Markov network for $p$. Specifically, by [Theorem 15]({{< ref "pgm-representation#theorem15" >}}), since Gaussian is a positive distribution, we include an edge $X_i-X_j$ whenever $p\not\models(X_i\perp X_j\vert\mathcal{X}\backslash\\{X_i,X_j\\})$, which exactly when $\boldsymbol{\Lambda}\_{ij}=0$.
+
+## Gaussian Bayesian Networks
+We begin by first recalling the definition of <span id='linear-gaussian-model'>[linear Gaussian model]({{< ref "pgm-representation#linear-gaussian-model" >}})</span>: Let $Y$ be a continuous variable with continuous parents $X_1,\ldots,X_k$. We say that $Y$ has a **linear Gaussian model** if there are parameters $\beta_0,\ldots,\beta_k$ such that
+\begin{equation}
+p(Y\vert x_1,\ldots,x_k)=\mathcal{N}(\beta_0+\beta_1 x_1+\ldots+\beta_k x_k;\sigma^2),
+\end{equation}
+or
+\begin{equation}
+p(Y\vert\mathbf{x})=\mathcal{N}(\beta_0+\boldsymbol{\beta}^\text{T}\mathbf{x};\sigma^2)
+\end{equation}
+Thus, a **Gaussian Bayesian network** is a Bayesian network all of whose variables are continuous and where all of CPDs are linear Gaussians.
+
+**Theorem 3**: *Let $Y$ be a linear Gaussian of its parents $X_1,\ldots,X_k$, i.e.*
+\begin{equation}
+p(Y\vert\mathbf{x})=\mathcal{N}(\beta_0+\boldsymbol{\beta}^\text{T}\mathbf{x};\sigma^2)
+\end{equation}
+*Assume that $X_1,\ldots,X_k$ are jointly Gaussian with distribution $\mathcal{N}(\boldsymbol{\mu},\boldsymbol{\Sigma})$. Then*
+<ul id='number-list' style='font-style: italic;'>
+	<li>
+		The distribution of $Y$ is a Normal distribution $p(Y)=\mathcal{N}(\mu_Y;\sigma_Y^2)$ where
+		\begin{align}
+		\mu_Y&=\beta_0+\boldsymbol{\beta}^\text{T}\boldsymbol{\mu} \\ \sigma_Y^2&=\sigma^2+\boldsymbol{\beta}^\text{T}\boldsymbol{\Sigma}\boldsymbol{\beta}
+		\end{align}
+	</li>
+	<li>
+		The distribution over $\{\mathbf{X},Y\}$ is a Normal distribution where
+		\begin{equation}
+		\Cov(X_i,Y)=\sum_{j=1}^{k}\beta_j\boldsymbol{\Sigma}_{ij}
+		\end{equation}
+	</li>
+</ul>
+
+From this theorem, it follows by induction that if $\mathcal{B}$ is a linear Gaussian Bayesian network, then it defines a joint distribution that is jointly Gaussian.
+
+The converse of this theorem is also true.
+
+**Theorem 4**: *Let $\\{\mathbf{X},Y\\}$ have a joint Normal distribution defined as usual*
+\begin{equation}
+p(\mathbf{X},Y)=\mathcal{N}\left(\left[\begin{matrix}\boldsymbol{\mu}\_\mathbf{X} \\\\ \boldsymbol{\mu}\_Y\end{matrix}\right],\left[\begin{matrix}\boldsymbol{\Sigma}\_{\mathbf{X}\mathbf{X}}&\boldsymbol{\Sigma}\_{\mathbf{X}Y} \\\\ \boldsymbol{\Sigma}\_{Y\mathbf{X}}&\boldsymbol{\Sigma}\_{YY}\end{matrix}\right]\right)
+\end{equation}
+*where since $Y\in\mathbb{R}$, we have that $\boldsymbol{\mu}_Y$ and $\boldsymbol{\Sigma}\_{YY}$ are real numbers. Then the conditional distribution is a Gaussian*
+\begin{equation}
+p(Y\vert\mathbf{X})=\mathcal{N}(\beta_0+\boldsymbol{\beta}^\text{T}\mathbf{X};\sigma^2),
+\end{equation}
+*where*
+\begin{align}
+\beta_0&=\boldsymbol{\mu}\_Y-\boldsymbol{\Sigma}\_{Y\mathbf{X}}\boldsymbol{\Sigma}\_{\mathbf{X}\mathbf{X}}^{-1}\boldsymbol{\mu}\_\mathbf{X} \\\\ \boldsymbol{\beta}&=\boldsymbol{\Sigma}\_{\mathbf{X}\mathbf{X}}^{-1}\boldsymbol{\Sigma}\_{Y\mathbf{X}} \\\\ \sigma^2&=\boldsymbol{\Sigma}\_{YY}-\boldsymbol{\Sigma}\_{Y\mathbf{X}}\boldsymbol{\Sigma}\_{\mathbf{X}\mathbf{X}}^{-1}\boldsymbol{\Sigma}\_{\mathbf{X}Y}
+\end{align}
+This theorem allows us to take a joint Gaussian distribution and produce a Bayesian network.
+
+**Theorem 5**: *Let $\mathcal{X}=\\{X_1,\ldots,X_n\\}$ be a set of r.v.s, and let $p$ be a joint Gaussian distribution over $\mathcal{X}$. Given any ordering $X_1,\ldots,X_n$ over $\mathcal{X}$, we can construct a Bayesian network structure $\mathcal{G}$ and a Bayesian network $\mathcal{B}$ over $\mathcal{G}$ such that*
+<ul id='number-list' style='font-style: italic;'>
+	<li>
+		$\text{Pa}_{X_i}^\mathcal{G}\subset\{X_1,\ldots,X_{i-1}\}$;
+	</li>
+	<li>
+		the CPD of $X_i$ in $\mathcal{B}$ is a linear Gaussian of its parents;
+	</li>
+	<li>
+		$\mathcal{G}$ is a minimal I-map for $p$.
+	</li>
+</ul>
+
 ## References
 [1] Joseph K. Blitzstein & Jessica Hwang. [Introduction to Probability](https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573).
 
 [2] Christopher M. Bishop. [Pattern Recognition and Machine Learning](https://link.springer.com/book/9780387310732). Springer New York, NY, 2006.
 
-[3] Gilbert Strang. [Introduction to Linear Algebra, 5th edition](http://math.mit.edu/~gs/linearalgebra/), 2016.
+[3] Daphne Koller, Nir Friedman. [Probabilistic Graphical Models](https://mitpress.mit.edu/9780262013192/probabilistic-graphical-models/). The MIT Press.
+
+[4] Gilbert Strang. [Introduction to Linear Algebra, 5th edition](http://math.mit.edu/~gs/linearalgebra/), 2016.
 
 ## Footnotes
 [^1]: The definition of covariance matrix $\boldsymbol{\Sigma}$ can be rewritten as
