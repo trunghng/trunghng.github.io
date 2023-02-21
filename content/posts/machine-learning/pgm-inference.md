@@ -100,7 +100,7 @@ which is referred as the **sum-product inference** task. This gives rise to the 
 	</li>
 </ul>
 
-<b id='eg1'>Example 1</b>: Consider the following Bayesian network with the goal is to computing the probability that the student got the job.
+<b id='eg1'>Example 1</b>: Consider the following Bayesian network with the goal is to compute the probability that the student got the job.
 <figure>
 	<img src="/images/pgm-inference/student-bn.png" alt="Student BN" width="40%" height="40%"/>
 	<figcaption><b>Figure 1</b> (taken from the <a href='#pgm-book'>PGM book</a>) <b>A Bayesian network for Student scenario</b></figcaption>
@@ -546,6 +546,14 @@ where
 \end{equation}
 
 **Proof**  
+<ul id='number-list'>
+	<li>
+		'$\Rightarrow$'
+	</li>
+	<li>
+		'$\Leftarrow$'
+	</li>
+</ul>
 
 
 #### Message Passing: Belief Update{#ct-bu-mp}
@@ -590,7 +598,9 @@ which follows directly that the LHS of \eqref{eq:espbu.1} is unchanged after eve
 
 ## Approximate Inference
 
-### Exact Inference as Optimization
+### Inference as Optimization
+
+#### Exact Inference as Optimization
 Assume we have a factorized distribution parameterized by set of factors $\Phi$:
 \begin{equation}
 P_\Phi(\mathcal{X})=\frac{1}{Z}\prod_{\phi\in\Phi}\phi(\mathbf{U}\_\phi)\label{eq:eio.1}
@@ -625,12 +635,12 @@ We have already known that if $\mathcal{T}$ is a proper cluster tree, i.e. calib
 
 **Theorem 14**: *If $\mathcal{T}$ is an I-map for $P_\Phi$, then there is a unique solution to \eqref{eq:eio.3}*.
 
-#### The Energy Functional
+##### The Energy Functional{#energy-functional}
 **Theorem 15**: *For distribution $P_\Phi$ given as \eqref{eq:eio.1}, the KL divergence between a distribution $Q$ and $P_\Phi$ can be written as*
 \begin{equation}
 D_\text{KL}(Q\Vert P_\Phi)=\log Z-F[\tilde{P}\_\Phi,Q],\label{eq:ef.1}
 \end{equation}
-*where $F[\tilde{P}_\Phi,Q]$ is referred as the **energy function**, given by*
+*where $F[\tilde{P}_\Phi,Q]$ is referred as the **energy functional**, given by*
 \begin{equation}
 F[\tilde{P}\_\Phi,Q]\doteq\mathbb{E}\_Q\big[\log\tilde{P}\_\Phi(\mathcal{X})\big]+H_Q(\mathcal{X})=\sum_{\phi\in\Phi}\mathbb{E}\_Q\big[\log\phi\big]+H_Q(\mathcal{X}),
 \end{equation}
@@ -652,7 +662,7 @@ It is worth observing from \eqref{eq:ef.1} that
 	</li>
 </ul>
 
-#### Exact Inference as Optimization via Energy Functional
+##### Exact Inference as Optimization via Energy Functional
 Using the previous result, we can rewrite the constrained optimization problem \eqref{eq:eio.3} in terms of the energy functional. We begin by introducing the **factored energy functional**.
 
 Given a cluster tree $\mathcal{T}$ with a set of beliefs $\mathbf{Q}$ and an assignment $\alpha$ that maps factors in $P_\Phi$ to clusters in $\mathcal{T}$, the **factored energy functional**, denoted $\tilde{F}[\tilde{P}\_\Phi,\mathbf{Q}]$, is  defined by
@@ -689,7 +699,7 @@ The optimization \eqref{eq:eio.3} then can be rewritten as
 &\text{Find}&&\mathbf{Q}=\\{\beta_i(\mathbf{C}\_i):i\in\mathcal{V}\_\mathcal{T}\\}\cup\\{\mu_{i,j}(\mathbf{S}\_{i,j}):(i-j)\in\mathcal{E}\_\mathcal{T}\\}\label{eq:eioef.3} \\\\ &\text{maximizing}&&\tilde{F}[\tilde{P}\_\Phi,\mathbf{Q}]\nonumber \\\\ &\text{s.t.}&&\sum_{\mathbf{c}\_i}\beta_i(\mathbf{c}\_i)=1\hspace{1cm}\forall i\in\mathcal{V}\_\mathcal{T}\nonumber \\\\ &&&\beta_i(\mathbf{c}\_i)\geq 0\hspace{1cm}\forall i\in\mathcal{V}\_\mathcal{T},\mathbf{c}\_i\in\text{Val}(\mathbf{C}\_i)\nonumber \\\\ &&&\mu_{i,j}[\mathbf{s}\_{i,j}]=\sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\beta_i(\mathbf{c}\_i)\hspace{1cm}\forall (i-j)\in\mathcal{E}\_\mathcal{T},\mathbf{s}\_{i,j}\in\text{Val}(\mathbf{S}\_{i,j})\label{eq:eioef.4}
 \end{align}
 
-##### Fixed-point Characterization
+###### Fixed-point Characterization
 We have that the **Lagrangian** of \eqref{eq:eioef.3} is
 \begin{align}
 &\mathcal{L}=-\tilde{F}[\tilde{P}\_\Phi,\mathbf{Q}]+\sum_{i\in\mathcal{V}\_\mathcal{T}}\lambda_i\left(\sum_{\mathbf{c}\_i}\beta_i(\mathbf{c}\_i)-1\right)\nonumber \\\\ &\hspace{2cm}+\sum_{i\in\mathcal{V}\_\mathcal{T}}\sum_{j\in\text{Nb}\_i}\sum_{\mathbf{s}\_{i,j}}\lambda_{j\to i}[\mathbf{s}\_{i,j}]\left(\sum_{\mathbf{c}\_i\sim\mathbf{s}\_{i,j}}\beta_i(\mathbf{c}\_i)-\mu_{i,j}[\mathbf{s}\_{i,j}]\right),
@@ -718,7 +728,7 @@ allows us to obtain
 \end{align}
 Combining these equations with \eqref{eq:eioef.4}, we can rewrite the message $\delta_{i\to j}$ as a function of other messages
 \begin{align}
-\delta_{i\to j}[\mathbf{s}\_{i,j}]&=\frac{\mu_{i,j}[\mathbf{s,j}]}{\delta_{j\to i}[\mathbf{s}\_{i,j}]} \\\\ &=\frac{\sum_{\mathbf{c}\_i\sim\mathbf{s}\_{i,j}}\beta_i(\mathbf{c}\_i)}{\delta_{j\to i}[\mathbf{s}\_{i,j}]} \\\\ &=\exp\left(-\lambda_i-1+\frac{1}{2}\vert\text{Nb}\_i\vert\right)\sum_{\mathbf{c}\_i\sim\mathbf{s}\_{i,j}}\psi_i(\mathbf{c}\_i)\prod_{k\in(\text{Nb}\_i\backslash{j})}\delta_{k\to i}[\mathbf{s}\_{i,k}]
+\delta_{i\to j}[\mathbf{s}\_{i,j}]&=\frac{\mu_{i,j}[\mathbf{s,j}]}{\delta_{j\to i}[\mathbf{s}\_{i,j}]} \\\\ &=\frac{\sum_{\mathbf{c}\_i\sim\mathbf{s}\_{i,j}}\beta_i(\mathbf{c}\_i)}{\delta_{j\to i}[\mathbf{s}\_{i,j}]} \\\\ &=\exp\left(-\lambda_i-1+\frac{1}{2}\vert\text{Nb}\_i\vert\right)\sum_{\mathbf{c}\_i\sim\mathbf{s}\_{i,j}}\psi_i(\mathbf{c}\_i)\prod_{k\in(\text{Nb}\_i\backslash\\{j\\})}\delta_{k\to i}[\mathbf{s}\_{i,k}]
 \end{align}
 This derivation proves the following result.
 
@@ -731,10 +741,10 @@ This derivation proves the following result.
 \beta_i&\propto\psi_i\prod_{j\in\text{Nb}\_i}\delta_{j\to i} \\\\ \mu_{i,j}&=\delta_{i\to j}\delta_{j\to i}
 \end{align}
 
-### Propagation-based Approximation
+#### Propagation-Based Approximation
 In this section, we consider approximation methods that use the same message propagation as in exact inference, but on a [cluster graph](#cluster-graph), which might contain loops, rather than a clique tree.
 
-#### Cluster-Graph Belief Propagation
+##### Cluster-Graph Belief Propagation
 Let $\mathbf{U}$ be a cluster graph. We say that $\mathbf{U}$ satisfies the <b id='running-intersection'>running intersection property</b> if whenever there is a variable $X$ such that $X\in\mathbf{C}\_i$ and $\mathbf{C}\_j$, then there is a single path between $\mathbf{C}_i$ and $\mathbf{C}_j$ for which $X\in\mathbf{S}_e$ for all edges $e$ in the path.
 
 This property implies that all edges associated with $X$ form a tree that spans all the clusters that contain $X$.
@@ -752,10 +762,10 @@ When applying sum-product message passing algorithm on a cluster tree, specifica
 	<img src="/images/pgm-inference/calibration-sp-cg.png" alt="Calibration using sum-product belief propagation on cluster graph"/>
 </figure>
 
-#### Properties of Cluster-Graph Belief Propagation
+##### Properties of Cluster-Graph Belief Propagation
 Properties of belief propagation procedure on clique trees can also extend to cluster graphs.
 
-##### Reparameterization
+###### Reparameterization
 Recall that belief propagation on clique trees maintains an [invariant property](#ctree-invariant), which let us show that the convergence point represent a reparameterization of the original distribution. This property can generalize to cluster graphs, resulting in the <b id='cgraph-invariant'>cluster graph invariant</b>.
 
 **Theorem 18**: *Let $\mathcal{U}$ be a cluster graph over a set of factors $\Phi$. Consider the set of beliefs $\\{\beta_i\\}\_{i\in\mathcal{V}\_\mathcal{U}}$ and $\\{\mu_{i,j}\\}_{(i-j)\in\mathcal{E}\_\mathcal{U}}$ at any iteration of $\text{CGraph-BU-Calibrate}$, then*
@@ -766,14 +776,91 @@ Recall that belief propagation on clique trees maintains an [invariant property]
 **Proof**  
 We have
 \begin{align}
-\frac{\prod_{i\in\mathcal{V}\_\mathcal{U}}\beta_i[\mathbf{C}\_i]}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{U}}\mu_{i,j}[\mathbf{S}\_{i,j}]}&=\frac{\prod_{i\in\mathcal{V}\_\mathcal{U}}\left(\psi_i\prod_{j\in\text{Nb}\_i}\delta_{j\to i}[\mathbf{S}\_{i,j}]\right)}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{U}}\delta_{i\to j}[\mathbf{S}\_{i,j}]\delta_{j\to i}[\mathbf{S}\_{i,j}]} \\\\ &=\frac{\left(\prod_{i\in\mathcal{V}\_\mathcal{U}}\psi_i[\mathbf{C}\_i]\right)\left(\prod_{(i-j)\in\mathcal{E}\_\mathcal{U}}\delta_{i\to j}[\mathbf{S}\_{i,j}]\delta_{j\to i}[\mathbf{S}\_{i,j}]\right)}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{U}}\delta_{i\to j}[\mathbf{S}\_{i,j}]\delta_{j\to i}[\mathbf{S}\_{i,j}]} \\\\ &=\prod_{i\in\mathcal{V}\_\mathcal{U}}\psi_i[\mathbf{C}\_i]=\prod_{\phi\in\Phi}\phi(\mathbf{U}\_\phi)=\tilde{P}\_\Phi(\mathcal{X})
+\frac{\prod_{i\in\mathcal{V}\_\mathcal{U}}\beta_i[\mathbf{C}\_i]}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{U}}\mu_{i,j}[\mathbf{S}\_{i,j}]}&=\frac{\prod_{i\in\mathcal{V}\_\mathcal{U}}\left(\psi_i\prod_{j\in\text{Nb}\_i}\delta_{j\to i}[\mathbf{S}\_{i,j}]\right)}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{U}}\delta_{i\to j}[\mathbf{S}\_{i,j}]\delta_{j\to i}[\mathbf{S}\_{i,j}]} \\\\ &=\frac{\Big(\prod_{i\in\mathcal{V}\_\mathcal{U}}\psi_i[\mathbf{C}\_i]\Big)\left(\prod_{(i-j)\in\mathcal{E}\_\mathcal{U}}\delta_{i\to j}[\mathbf{S}\_{i,j}]\delta_{j\to i}[\mathbf{S}\_{i,j}]\right)}{\prod_{(i-j)\in\mathcal{E}\_\mathcal{U}}\delta_{i\to j}[\mathbf{S}\_{i,j}]\delta_{j\to i}[\mathbf{S}\_{i,j}]} \\\\ &=\prod_{i\in\mathcal{V}\_\mathcal{U}}\psi_i[\mathbf{C}\_i]=\prod_{\phi\in\Phi}\phi(\mathbf{U}\_\phi)=\tilde{P}\_\Phi(\mathcal{X})
 \end{align}
 
-##### Tree Consistency
+###### Tree Consistency
 
-#### Convergence of Cluster-Graph Belief Propagation
+##### Convergence of Cluster-Graph Belief Propagation
+We will examine the convergence of belief propagation (BP) on a variant of its called **synchronous BP**, which performs all of the message updates simultaneously.
 
-#### Constructing Cluster Graph
+Consider the update step that takes  all of the messages $\boldsymbol{\delta}^t$ at a particular iteration $t$ and produces new set of messages $\boldsymbol{\delta}^{t+1}$ for the next step. Let $\Delta$ be the space of all of possible messages in the cluster graph, then the belief-propagation update operator can be seen as a function $G_\text{BP}:\Delta\mapsto\Delta$. Consider the sum-product message update
+\begin{equation}
+\delta_{i\to j}'\propto\sum_{\mathbf{C}\_i\backslash\mathbf{S}\_{i,j}}\psi_i\cdot\prod_{k\in(\text{Nb}\_i\backslash\\{j\\})}\delta_{k\to i},
+\end{equation}
+where we normalize each message to sum to $1$[^2]. We continue to define the **BP operator** as the functions that simultaneously takes one set of messages and produces a new one
+\begin{equation}
+G_\text{BP}(\\{\delta_{i\to j}\\})=\\{\delta_{i\to j}'\\}
+\end{equation}
+Thus, the problem remains to examining the convergence property of $G_\text{BP}$, which can handled with the concept of **Contraction Mapping** and **Banach's Fixed-point theorem**.
+
+##### Constructing Cluster Graph
+Unlike performing exact inference on clique trees, in cluster graph approximations, different graphs might lead to different results. 
+
+###### Pairwise Markov Networks
+
+###### Bethe Cluster Graph
+
+#### Structured Variational Approximations
+In **structured variational approximation**, we want to solve the problem
+\begin{align}
+&\text{Find}&& Q\in\mathcal{Q} \\\\ &\text{maximizing}&& F[\tilde{P}\_\Phi,Q]\label{eq:sva.1}
+\end{align}
+where $\mathcal{Q}$ is a given family of distributions.
+
+##### The Mean Field Approximation
+
+###### The Mean Field Energy
+The **mean field** algorithm finds the distribution $Q$, which is closest to $P_\Phi$ in terms of the relative entropy $D_\text{KL}(Q\Vert P_\Phi)$ within the class of distributions $\mathcal{Q}$ representable as product of independent marginals
+\begin{equation}
+Q(\mathcal{X})=\prod_i Q(X_i)
+\end{equation}
+Hence, the [energy functional](#energy-functional) can be rewritten as
+\begin{align}
+F[\tilde{P}\_\Phi,Q]&=\sum_{\phi\in\Phi}\mathbb{E}\_Q\big[\log\phi\big]+H_Q(\mathcal{X}) \\\\ &=\sum_{\phi\in\Phi}\mathbb{E}\_{\mathbf{U}\_\phi\sim Q}\big[\log\phi\big]+\mathbb{E}\_Q\big[-\log Q(\mathcal{X})\big] \\\\ &=\sum_{\phi\in\Phi}\sum_{\mathbf{u}\_\phi}Q(\mathbf{u}\_\phi)\log\phi(\mathbf{u}\_\phi)+\mathbb{E}\_Q\Big[-\sum_i\log Q(X_i)\Big] \\\\ &=\sum_{\phi\in\Phi}\sum_{\mathbf{u}\_\phi}\left(\prod_{X_i\in\mathbf{U}\_i}Q(x_i)\right)\log\phi(\mathbf{u}\_i)+\sum_i\mathbb{E}\_Q\big[-\log Q(X_i)\big] \\\\ &=\sum_{\phi\in\Phi}\sum_{\mathbf{u}\_\phi}\left(\prod_{X_i\in\mathbf{U}\_i}Q(x_i)\right)\log\phi(\mathbf{u}\_i)+\sum_i H_Q(X_i)\label{eq:mfe.1}
+\end{align}
+
+###### Fixed-point Characterization
+Our problem then is to optimize the mean field energy.
+\begin{align}
+&\text{Find}&&\\{Q(X_i)\\}\label{eq:fpc.1} \\\\ &\text{maximizing}&& F[\tilde{P},Q]\nonumber \\\\ &\text{s.t.}&& Q(\mathcal{X})=\prod_i Q(X_i)\nonumber \\\\ &&&\sum_{x_i}Q(x_i)=1,\hspace{1cm}\forall i\nonumber
+\end{align}
+Unlike the cluster-graph blelief propgation and the expectation propgation algorithms, in Mean Field algorith, we are not approximating the objective, but the optimization space by selecting a space of distributions $\mathcal{Q}$ that generally does not contain our original distribution $P_\Phi$.
+
+The structure of $Q$ as a factored distribution gives us the following fixed-point equations that characterize the stationary points of  \eqref{eq:fpc.1}.
+
+**Theorem 19**: *The distribution $Q(X_i)$ is a local maximum of \eqref{eq:fpc.1} given $\\{Q(X_j)\\}_{j\neq i}$ iff*
+\begin{equation}
+Q(x_i)=\frac{1}{Z_i}\exp\left(\sum_{\phi\in\Phi}\mathbb{E}\_{\mathcal{X}\sim Q}\big[\log\phi\vert x_i\big]\right),
+\end{equation}
+*where $Z_i$ is a local normalizing constant*.
+
+**Proof**  
+Using the result \eqref{eq:mfe.1}, we have that the Lagrangian of the optimization problem \eqref{eq:fpc.1} is
+\begin{align}
+\mathcal{L}=-\sum_{\phi\in\Phi}\mathbb{E}\_{\mathbf{U}\_\phi\sim Q}\big[\log\phi\big]-\sum_i H_Q(X_i)+\sum_i\lambda_i\left(\sum_{x_i}Q(x_i)-1\right)
+\end{align}
+Differentiating the Lagrangian w.r.t $Q(x_i)$ gives us
+\begin{align}
+\frac{\partial\mathcal{L}}{\partial Q(x_i)}&=\frac{\partial}{\partial Q(x_i)}\left[-\sum_{\phi\in\Phi}\mathbb{E}\_{\mathbf{U}\_\phi\sim Q}\big[\log\phi\big]-H_Q(X_i)-\lambda_i\left(\sum_{x_i}Q(x_i)-1\right)\right] \\\\ &=-\sum_{\phi\in\Phi}\frac{\partial}{\partial Q(x_i)}\mathbb{E}\_{\mathbf{U}\_\phi\sim Q}\big[\log\phi\big]+\frac{\partial}{\partial Q(x_i)}Q(x_i)\log Q(x_i)-\lambda_i \\\\ &=-\sum_{\phi\in\Phi}\mathbb{E}\_{\mathbf{U}\_\Phi\sim Q}\big[\log\phi\vert x_i\big]+\log Q(x_i)+1-\lambda_i \\\\ &=-\sum_{\phi\in\Phi}\mathbb{E}\_{\mathcal{X}\sim Q}\big[\log\phi\vert x_i\big]+\log Q(x_i)+1-\lambda_i
+\end{align}
+Setting this derivative to zero, we have that
+\begin{equation}
+Q(x_i)=\exp(\lambda_i-1)\exp\left(\sum_{\phi\in\Phi}\mathbb{E}\_{\mathcal{X}\sim Q}\big[\log\phi\vert x_i\big]\right)
+\end{equation}
+
+###### The Mean Field Algorithm
+
+### Particle-Based Approximate Inference
+
+#### Forward Sampling
+The simplest approach to the generation of particles is **forward sampling**, in which samples $\xi[1],\ldots,\xi[M]$ are generated according to the distribution $P(\mathcal{X})$.
+
+##### Sampling from a Bayesian Network
+From a set of particles $\mathcal{D}=\\{\xi[1],\ldots,\xi[M]\\}$ generated via this sampling process, we can estimate the expecation of any function $f$ as
+\begin{equation}
+\hat{\mathbb{E}}\_\mathcal{D}(f)=\frac{1}{M}\sum_{m=1}^{M}f(\xi[m])
+\end{equation}
 
 
 ## References
@@ -781,3 +868,4 @@ We have
 
 ## Footnotes
 [^1]: It should be taken into account that for each edge $(i-j)$, the sepset $\mathbf{S}\_{i,j}$ is no longer be exactly the intersection between $\mathbf{C}\_i$ and $\mathbf{C}_j$ like in clique trees.
+[^2]: This renormalization step is important to avoid a convergence to the $\mathbf{0}$ message.

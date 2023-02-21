@@ -10,13 +10,13 @@ eqn-number: true
 
 ## The exponential family{#exp-fam}
 The **exponential family** of distributions is defined as family of distributions of form
-\begin{equation}
-p(x;\eta)=h(x)\exp\Big[\eta^\text{T}T(x)-A(\eta)\Big],\label{eq:ef.1}
-\end{equation}
+\begin{align}
+p(x;\eta)&=h(x)\exp\Big[\eta^\text{T}T(x)-A(\eta)\Big],\label{eq:ef.1} \\\\ &= \frac{1}{Z(\eta)}h(x)\exp\Big[\eta^\text{T}T(x)\Big]
+\end{align}
 where
 - $\eta$ is known as the **natural parameter**, or **canonical parameter**,
 - $T(X)$ is referred to as a **sufficient statistic**,
-- $A(\eta)$ is called the **cumulant function**, which can be view as the logarithm of a normalization factor since integrating \eqref{eq:ef.1} w.r.t the measure $\nu$ gives us
+- $A(\eta)$ is called the **cumulant function**, which can be view as the logarithm of a normalization factor (or **partition function**) $Z(\eta)$, i.e. $A(\eta)=\log Z(\eta)$, since integrating \eqref{eq:ef.1} w.r.t the measure $\nu$ gives us
 \begin{equation}
 A(\eta)=\log\int h(x)\exp\left(\eta^\text{T}T(x)\right)\nu(dx),\label{eq:ef.2}
 \end{equation}

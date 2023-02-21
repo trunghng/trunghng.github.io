@@ -5,38 +5,94 @@ tags: [mathematics, probability-statistics, normal-distribution]
 math: true
 eqn-number: true
 ---
-> The **Gaussian (Normal) distribution** is a continuous distribution with a bell-shaped PDF used widely in statistics due to the **Central Limit theorem**. The theorem states that under very weak assumptions, the sum of a large number of i.i.d. random variables has an approximately Normal distribution, regardless of the distribution of the individual r.v.s. This means we can start with independent r.v.s from almost any distribution, discrete or continuous, but once we add up a bunch of them, the distribution of the resulting random variable looks like a Gaussian distribution.
+> Notes on Gaussian distribution.
 <!--more-->
 
 $\newcommand{\Var}{\mathrm{Var}}$
 $\newcommand{\Cov}{\mathrm{Cov}}$
-## Gaussian (Normal) Distribution{#gauss-dist}
-A random variable $X$ is said to be **Gaussian** or to have the **Normal distribution** with mean $\mu$ and variance $\sigma^2$ if its probability density function (PDF) is
-\begin{equation}
-f_X(x)=\dfrac{1}{\sqrt{2\pi}\sigma}\exp\left(-\dfrac{(x-\mu)^2}{2\sigma^2}\right)
-\end{equation}
-which we denote as $X\sim\mathcal{N}(\mu,\sigma)$.
+## Normal Distribution
 
-### Standard Normal{#std-norm}
-When $X$ is normally distributed with mean $\mu=0$ and variance $\sigma^2=1$, we call its distribution **Standard Normal**.
+### Standard Normal Distribution{#std-norm}
+A continuous random variable $Z$ is said to have the **standard Normal distribution** if its PDF $\varphi$ is given by
 \begin{equation}
-X\sim\mathcal{N}(0,1)
+\varphi(z)=\frac{1}{\sqrt{2\pi}e^{-z^2/2}},\hspace{1cm}z\in(-\infty,\infty)
 \end{equation}
-In this case, $X$ has special notations to denote its PDF and CDF, which are
+and denoted $Z\sim\mathcal{N}(0,1)$, since, as we will show, $Z$ has mean $0$ and variance $1$. Before that, let us compute the CDF of $Z$, which is given as
 \begin{equation}
-\varphi(x)=\dfrac{1}{\sqrt{2\pi}}e^{-z^2/2},
+\Phi(z)=\int_{-\infty}^{z}\varphi(t)dt=\int_{-\infty}^{z}\frac{1}{\sqrt{2\pi}}e^{-t^2/2}dt
 \end{equation}
-and
+We continue by verifying that $\mathcal{N}{(0,1)}$ is indeed a distribution. Since $\varphi(z)\geq 0$, our problem remains to show that the PDF of $Z$ integrates to $1$. In particular, we have
+\begin{align}
+\left(\int_{-\infty}^{\infty}e^{-x^2/2}dx\right)\left(\int_{-\infty}^{\infty}e^{-y^2/2}dy\right)&=\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}e^{-x^2/2}e^{-y^2/2}dydx \\\\ &=\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}e^{-\frac{x^2+y^2}{2}}dxdy\label{eq:sn.1}
+\end{align}
+Let us change the variables, specifically, we will be changing from the Cartesian coordinate to the polar coordinate, by letting
+\begin{align}
+x&=r\cos\theta, \\\\ y&=r\sin\theta,
+\end{align}
+where $r\geq 0$ is the distance from $(x,y)$ to the origin and $\theta\in[0,2\pi)$ is the angle. The Jacobian matrix of this transformation is
 \begin{equation}
-\Phi(x)=\int_{-\infty}^{x}\varphi(t)\hspace{0.1cm}dt=\int_{-\infty}^{x}\dfrac{1}{\sqrt{2\pi}}e^{-t^2/2}\hspace{0.1cm}dt
+\frac{d(x,y)}{d(r,\theta)}=\left[\begin{matrix}\cos\theta&-r\sin\theta \\\\ \sin\theta& r\cos\theta\end{matrix}\right],
 \end{equation}
-Below are some illustrations of Normal distribution.
+which implies that
+\begin{equation}
+\text{det}\frac{d(x,y)}{d(r,\theta)}=\text{det}\left[\begin{matrix}\cos\theta&-r\sin\theta \\\\ \sin\theta& r\cos\theta\end{matrix}\right]=1
+\end{equation}
+This makes us continue to derive \eqref{eq:sn.1} as
+\begin{align}
+\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}e^{-\frac{x^2+y^2}{2}}dxdy&=\int_{0}^{2\pi}\int_{0}^{\infty}e^{-r^2/2}\left\vert\text{det}\frac{d(x,y)}{d(r,\theta)}\right\vert rdrd\theta \\\\ &=\int_{0}^{2\pi}\int_{0}^{\infty}e^{-r^2/2}rdrd\theta
+\end{align}
+Let $u=r^2/2$, then $du=rdr$, we have
+\begin{equation}
+\int_{0}^{2\pi}\int_{0}^{\infty}e^{-r^2/2}rdrd\theta=\int_{0}^{2\pi}\int_{0}^{\infty}e^{-u}dud\theta=\int_{0}^{2\pi}1d\theta=2\pi
+\end{equation}
+And hence, we can conclude that
+\begin{equation}
+\int_{-\infty}^{\infty}e^{-z^2/2}dz=\sqrt{2\pi}
+\end{equation}
+or
+\begin{equation}
+\int_{-\infty}^{\infty}\varphi(z)dz=\int_{-\infty}^{\infty}\frac{1}{\sqrt{2\pi}}e^{-z^2/2}dz=1
+\end{equation}
+
+#### Standard Mean, Standard Variance
+We have that the mean of a standard Normal r.v $Z$ is given as
+\begin{align}
+\mathbb{E}(Z)&=\int_{-\infty}^{\infty}\frac{1}{\sqrt{2\pi}}z e^{-z^2/2}dz \\\\ &=\frac{1}{\sqrt{2\pi}}\left(\int_{0}^{\infty}z e^{-z^2/2}dz+\int_{-\infty}^{0}z e^{-z^2/2}dz\right) \\\\ &=\frac{1}{\sqrt{2\pi}}\left(\int_{0}^{\infty}z e^{-z^2/2}dz-\int_{0}^{\infty}z e^{-z^2/2}dz\right) \\\\ &=0
+\end{align}
+where in the third step, we use the fact that $ze^{-z^2/2}$ is an odd function.
+
+Given the mean of $Z$, we have its variance is then can be computed by
+\begin{align}
+\Var(Z)&=\mathbb{E}(Z^2)-(\mathbb{E}Z)^2 \\\\ &=\mathbb{E}(Z^2) \\\\ &=\int_{-\infty}^{\infty}\frac{1}{\sqrt{2\pi}}z^2 e^{-z^2/2}dz \\\\ &=\frac{\sqrt{2}}{\sqrt{\pi}}\int_{0}^{\infty}z^2 e^{-z^2/2}dz
+\end{align}
+where the last step uses the fact that $z^2 e^{-z^2/2}$ is an even function. We continue by using integration by parts with $u=z$ and $dv=z e^{-z^2/2}$, then $du=dz$ and $v=-e^{-z^2/2}$. Thus,
+\begin{align}
+\Var(Z)&=\frac{\sqrt{2}}{\sqrt{\pi}}\left(-z e^{-z^2/2}\Big\vert_{0}^{\infty}+\int_{0}^{\infty}e^{-z^2/2}dz\right) \\\\ &=\frac{\sqrt{2}}{\sqrt{\pi}}\left(0+\frac{\sqrt{2\pi}}{2}\right) \\\\ &=1
+\end{align}
+
+### Univariate Normal Distribution{#gauss-dist}
+Let $Z\sim\mathcal{N}(0,1)$ be a standard Normal r.v, then a continuous r.v $X$ is said to be a **Gaussian** or to have the **(Univariate) Normal distribution** with mean $\mu$ and variance $\sigma^2$, denoted $X\sim\mathcal{N}(\mu,\sigma^2)$ if
+\begin{equation}
+X=\mu+\sigma Z
+\end{equation}
+The mean and variance of $X$ can be verified to be $\mu$ and $\sigma^2$ respectively easily by using the linearity of expectation and variance.
+
+To derive the PDF formula for $X$, let us first start with its CDF, which is given by
+\begin{equation}
+P(X\leq x)=P\left(\frac{X-\mu}{\sigma}\leq\frac{x-\mu}{\sigma}\right)=P\left(Z\leq\frac{x-\mu}{\sigma}\right)=\Phi\left(\frac{x-\mu}{\sigma}\right)
+\end{equation}
+We then obtain the PDF of $X$ by differentiating its CDF
+\begin{align}
+p_X(x)&=\frac{d}{dx}\Phi\left(\frac{x-\mu}{\sigma}\right)=\frac{1}{\sigma}\varphi\left(\frac{x-\mu}{\sigma}\right) \\\\ &=\dfrac{1}{\sqrt{2\pi}\sigma}\exp\left(-\dfrac{(x-\mu)^2}{2\sigma^2}\right)
+\end{align}
+
+Below are some illustrations of the Univariate Normal distribution.
 <figure>
 	<img src="/images/normal-dist/normal.png" alt="Normal distribution"/>
 	<figcaption><b>Figure 1</b>: <b>10K normally distributed data points (5K each plot) were plotted as vertical bars on x-axis</b>. The code can be found <a href='https://github.com/trunghng/visualization-collection/blob/main/distributions/gauss-dist.py' target='_blank'>here</a></figcaption>
 </figure>
 
-## Multivariate Normal Distribution{#mvn}
+### Multivariate Normal Distribution{#mvn}
 A $k$-dimensional random vector $\mathbf{X}=\left(X_1,\dots,X_D\right)^\text{T}$ is said to have a **Multivariate Normal (MVN)** distribution if every linear combination of the $X_i$ has a Normal distribution. Which means
 \begin{equation}
 t_1X_1+\ldots+t_DX_D
@@ -57,11 +113,11 @@ We also have that $\boldsymbol{\Sigma}\geq 0$ (positive semi-definite matrix)[^1
 
 Thus, the PDF of an MVN is defined as
 \begin{equation}
-f_\mathbf{X}(x_1,\ldots,x_D)=\dfrac{1}{(2\pi)^{D/2}\vert\mathbf{\Sigma}\vert^{1/2}}\exp\left[-\dfrac{1}{2}\left(\mathbf{x}-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})\right]\label{eq:mvn.2}
+p_\mathbf{X}(x_1,\ldots,x_D)=\dfrac{1}{(2\pi)^{D/2}\vert\mathbf{\Sigma}\vert^{1/2}}\exp\left[-\dfrac{1}{2}\left(\mathbf{x}-\boldsymbol{\mu}\right)^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})\right]\label{eq:mvn.2}
 \end{equation}
 With this idea, *Standard Normal* distribution in multi-dimensional case can be defined as a Gaussian with mean $\boldsymbol{\mu}=0$ (here $0$ is an $D$-dimensional vector) and identity covariance matrix $\boldsymbol{\Sigma}=\mathbf{I}\_{D\times D}$.
 
-### Bivariate Normal{#bvn}
+#### Bivariate Normal{#bvn}
 When the number of dimensions in $\mathbf{X}$, $D=2$, this special case of MVN is referred as **Bivariate Normal (BVN)**.
 
 An example of an BVN, $\mathcal{N}\left(\left[\begin{smallmatrix}0\\\\0\end{smallmatrix}\right],\left[\begin{smallmatrix}1&0.5\\\\0.8&1\end{smallmatrix}\right]\right)$, is shown as following.
@@ -70,7 +126,7 @@ An example of an BVN, $\mathcal{N}\left(\left[\begin{smallmatrix}0\\\\0\end{smal
 	<figcaption><b>Figure 2</b>: <b>The PDF of $\mathcal{N}\left(\left[\begin{smallmatrix}0\\0\end{smallmatrix}\right],\left[\begin{smallmatrix}1&0.5\\0.8&1\end{smallmatrix}\right]\right)$</b>. The code can be found <a href='https://github.com/trunghng/visualization-collection/blob/main/distributions/mvn.py' target='_blank'>here</a></figcaption>
 </figure>
 
-## Properties of the covariance matrix{#prop-cov}
+## Properties of the Covariance Matrix{#prop-cov}
 
 ### Symmetric{#sym-cov}
 With the definition \eqref{eq:mvn.1} of the covariance matrix $\boldsymbol{\Sigma}$, we can easily see that it is symmetric. However, notice that in the illustration of BVN, we gave the distribution a non-symmetric covariance matrix. The reason why we could do that is without loss of generality, we can assume that $\boldsymbol{\Sigma}$ is symmetric.
@@ -198,42 +254,10 @@ or
 \boldsymbol{\Sigma}^{-1}=\sum_{i=1}^{D}\frac{1}{\lambda_i}\mathbf{q}\_i\mathbf{q}\_i^\text{T}\label{eq:pec.1}
 \end{equation}
 
-## Geometrical interpretation{#geo-int}
-Consider the probability density function of the Gaussian \eqref{eq:mvn.2}, by the result \eqref{eq:pec.1}, we have that the functional dependence of the Gaussian on $\mathbf{x}$ is through the quadratic form
-\begin{align}
-\Delta^2&=(\mathbf{x}-\boldsymbol{\mu})^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu}) \\\\ &=\sum_{i=1}^{D}\frac{y_i^2}{\lambda_i},
-\end{align}
-where we have defined
-\begin{equation}
-y_i=\mathbf{q}\_i^\text{T}(\mathbf{x}-\boldsymbol{\mu})
-\end{equation}
-Let $\mathbf{y}=(y_1,\ldots,y_D)^\text{T}$ be the vector comprising $y_i$'s together, then we have
-\begin{equation}
-\mathbf{y}=\mathbf{Q}(\mathbf{x}-\boldsymbol{\mu})
-\end{equation}
-Consider the form of the Gaussian distribution in the new coordinate system defined by $y_i$. When changing variable from $\mathbf{x}$ to $\mathbf{y}$, firstly we define the **Jacobian matrix** $\mathbf{J}$, whose elements are given by
-\begin{equation}
-\mathbf{J}\_{ij}=\frac{\partial x_i}{\partial y_j}=\mathbf{Q}\_{ji},
-\end{equation}
-which implies that
-\begin{equation}
-\mathbf{J}=\mathbf{Q}^\text{T}
-\end{equation}
-Thus, $\vert\mathbf{J}\vert=\vert\mathbf{Q}^\text{T}\vert=1$ since
-\begin{equation}
-1=\vert\mathbf{I}\vert=\vert\mathbf{Q}^\text{T}\mathbf{Q}\vert=\vert\mathbf{Q}^\text{T}\vert\vert\mathbf{Q}\vert=\vert\mathbf{Q}^\text{T}\vert
-\end{equation}
-Additionally, by \eqref{eq:pec.1}, we also have
-\begin{equation}
-\vert\boldsymbol{\Sigma}\vert^{1/2}=\left\vert\mathbf{Q}^\text{T}\boldsymbol{\Lambda}\mathbf{Q}\right\vert^{1/2}=\left(\vert\mathbf{Q}^\text{T}\vert\vert\boldsymbol{\Lambda}\vert\vert\mathbf{Q}\vert\right)^{1/2}=\prod_{i=1}^{D}\lambda_i^{1/2}
-\end{equation}
-Therefore, in the $y_j$ coordinate system, the Gaussian distribution takes the form
-\begin{equation}
-p(\mathbf{y})=\mathbf{x}\vert\mathbf{J}\vert=\prod_{j=1}^{D}\frac{1}{(2\pi\lambda_j)^{1/2}}\exp\left(-\frac{y_j^2}{2\lambda_j}\right),
-\end{equation}
-which is the product of $D$ independent univariate Gaussian distributions.
+## Properties of Normal Distribution
+An crucial property of the multivariate Normal distribution is that if two sets of variables are jointly Gaussian, then the conditional probability distribution of one set given the other is then also Gaussian. Analogously, the marginal of either set is Gaussian too.
 
-## Conditional Gaussian distribution{#cond-gauss-dist}
+### Conditional Gaussian Distribution{#cond-gauss-dist}
 Let $\mathbf{x}$ be a $D$-dimensional random vector such that $\mathbf{x}\sim\mathcal{N}(\boldsymbol{\mu},\boldsymbol{\Sigma})$, and that we partition $\mathbf{x}$ into two disjoint subsets $\mathbf{x}\_a$ and $\mathbf{x}\_b$ with $\mathbf{x}\_a$ is an $M$-dimensional vector and $\mathbf{x}\_b$ is a $(D-M)$-dimensional vector.
 \begin{equation}
 \mathbf{x}=\left[\begin{matrix}\mathbf{x}\_a \\\\ \mathbf{x}\_b\end{matrix}\right]
@@ -307,9 +331,55 @@ Substitute these results into \eqref{eq:cgd.4} and \eqref{eq:cgd.5}, we have the
 \end{align}
 It is worth noticing that the mean $\boldsymbol{\mu}\_{a\vert b}$ given above is a linear function of $\mathbf{x}\_b$, while the covariance matrix $\boldsymbol{\Sigma}\_{a\vert b}$ is independent of $\mathbf{x}\_b$. This is an example of a **linear-Gaussian model**.
 
-## Marginal Gaussian distribution{#marg-gauss-dist}
+### Marginal Gaussian distribution{#marg-gauss-dist}
+Given the settings as in previous section, let us consider the marginal distribution of $\mathbf{x}_a$, which can be computed by marginalizing the joint distribution
+\begin{equation}
+p(\mathbf{x}\_a)=\int p(\mathbf{x}\_a,\mathbf{x}\_b)d\mathbf{x}\_b\label{eq:mgd.1}
+\end{equation}
+which is an integration over $\mathbf{x}_b$, and thus terms that does not depend on $\mathbf{x}_b$ can be removed out of the integral.
 
-## Bayes' theorem for Gaussian variables{#bayes-theorem-gauss}
+Hence, using the result \eqref{eq:cgd.1}, the terms that the depends on $\mathbf{x}_b$ is
+\begin{align}
+&-\frac{1}{2}\Big[\mathbf{x}\_b^\text{T}\boldsymbol{\Lambda}\_{bb}\mathbf{x}\_b+\mathbf{x}\_b^\text{T}(\boldsymbol{\Lambda}\_{bb}\boldsymbol{\mu}\_b+\boldsymbol{\Lambda}\_{bb}^\text{T}\boldsymbol{\mu}\_b-\boldsymbol{\Lambda}\_{ba}\mathbf{x}\_a+\boldsymbol{\Lambda}\_{ba}\boldsymbol{\mu}\_a-\boldsymbol{\Lambda}\_{ab}^\text{T}\mathbf{x}\_a+\boldsymbol{\Lambda}\_{ab}\boldsymbol{\mu}\_a)\Big] \\\\ &=-\frac{1}{2}(\mathbf{x}\_b-\boldsymbol{\Lambda}\_{bb}^{-1}\mathbf{m})^\text{T}\boldsymbol{\Lambda}\_{bb}(\mathbf{x}\_b-\boldsymbol{\Lambda}\_{bb}^{-1}\mathbf{m})+\frac{1}{2}\mathbf{m}^
+\text{T}\boldsymbol{\Lambda}\_{bb}^{-1}\mathbf{m},\label{eq:mgd.2}
+\end{align}
+where we have defined
+\begin{equation}
+\mathbf{m}=\boldsymbol{\Lambda}\_{bb}\boldsymbol{\mu}\_b-\boldsymbol{\Lambda}\_{ba}(\mathbf{x}\_a-\boldsymbol{\mu}\_a)
+\end{equation}
+The first term in \eqref{eq:mgd.2} involves $\mathbf{x}_b$, while the second one, $\frac{1}{2}\mathbf{m}^\text{T}\boldsymbol{\Lambda}\_{bb}^{-1}\mathbf{m}$, does not, but it does depend on $\mathbf{x}_a$. Thus the integration over $\mathbf{x}_b$ required in \eqref{eq:mgd.1} will take the form
+\begin{equation}
+\int\exp\left[-\frac{1}{2}(\mathbf{x}\_b-\boldsymbol{\Lambda}\_{bb}^{-1}\mathbf{m})^\text{T}\boldsymbol{\Lambda}\_{bb}(\mathbf{x}\_b-\boldsymbol{\Lambda}\_{bb}^{-1}\mathbf{m})\right]d\mathbf{x}\_b,
+\end{equation}
+which can be seen as an integral over an unnormalized Gaussian, and so the result will be the reciprocal of the normalizing coefficient. Moreover, from \eqref{eq:mvn.2}, we have that this coefficient is independent of the mean, $\boldsymbol{\Lambda}\_{bb}^{-1}\mathbf{m}$, which involves $\mathbf{x}_a$, and depends only on the determinant of the covariance matrix, $\boldsymbol{\Lambda}\_{bb}$, which does not involve $\mathbf{x}_a$. Therefore, using the result \eqref{eq:cgd.1} to select out the terms uninvolved $\mathbf{x}_b$, we have that 
+\begin{align}
+&\frac{1}{2}\mathbf{m}^\text{T}\boldsymbol{\Lambda}\_{bb}^{-1}\mathbf{m}-\frac{1}{2}\mathbf{x}\_a^\text{T}\boldsymbol{\Lambda}\_{aa}\mathbf{x}\_a+\frac{1}{2}\mathbf{x}\_a^\text{T}(\boldsymbol{\Lambda}\_{aa}\boldsymbol{\mu}\_a+\boldsymbol{\Lambda}\_{aa}^\text{T}\boldsymbol{\mu}\_a+\boldsymbol{\Lambda}\_{ab}\boldsymbol{\mu}\_b+\boldsymbol{\Lambda}\_{ba}\boldsymbol{\mu}\_b)+c\nonumber \\\\ &=-\frac{1}{2}\mathbf{x}\_a^\text{T}(\boldsymbol{\Lambda}\_{aa}-\boldsymbol{\Lambda}\_{ab}\boldsymbol{\Lambda}\_{bb}^{-1}\boldsymbol{\Lambda}\_{ba})\mathbf{x}\_a+\mathbf{x}\_a^\text{T}(\boldsymbol{\Lambda}\_{aa}-\boldsymbol{\Lambda}\_{ab}\boldsymbol{\Lambda}\_{bb}^{-1}\boldsymbol{\Lambda}\_{ba})^{-1}\boldsymbol{\mu}\_a+c,
+\end{align}
+where $c$ denotes the term that is independent of $\mathbf{x}_a$. Hence, using \eqref{eq:cgd.3} once again, we have that the marginal of $\mathbf{x}_a$, $p(\mathbf{x}_a)$, is also a Gaussian, with the corresponding covariance matrix, denoted $\boldsymbol{\Sigma}_a$, given by
+\begin{equation}
+\boldsymbol{\Sigma}=(\boldsymbol{\Lambda}\_{aa}-\boldsymbol{\Lambda}\_{ab}\boldsymbol{\Lambda}\_{bb}^{-1}\boldsymbol{\Lambda}\_{ba})^{-1}=\boldsymbol{\Sigma}\_{aa},
+\end{equation}
+where we have used \eqref{eq:cgd.6} as in the conditional distribution. The mean of $p(\mathbf{x}_a)$ is then given as
+\begin{equation}
+\boldsymbol{\Sigma}\_a(\boldsymbol{\Lambda}\_{aa}-\boldsymbol{\Lambda}\_{ab}\boldsymbol{\Lambda}\_{bb}^{-1}\boldsymbol{\Lambda}\_{ba})
+\boldsymbol{\mu}\_a=\boldsymbol{\mu}\_a
+\end{equation}
+
+**Remark**:  
+Given a joint Gaussian distribution $\mathcal{N}(\mathbf{x}\vert\boldsymbol{\mu},\boldsymbol{\Sigma})$ with precision matrix $\boldsymbol{\Lambda}\equiv\boldsymbol{\Sigma}^{-1}$ and
+\begin{align}
+\mathbf{x}&=\left[\begin{matrix}\mathbf{x}\_a \\\\ \mathbf{x}\_b\end{matrix}\right],&&\boldsymbol{\mu}=\left[\begin{matrix}\boldsymbol{\mu}\_a \\\\ \boldsymbol{\mu}\_b\end{matrix}\right] \\\\ \boldsymbol{\Sigma}&=\left[\begin{matrix}\boldsymbol{\Sigma}\_{aa}&\boldsymbol{\Sigma}\_{ab} \\\\ \boldsymbol{\Sigma}\_{ba}&\boldsymbol{\Sigma}\_{bb}\end{matrix}\right],&&\boldsymbol{\Lambda}=\left[\begin{matrix}\boldsymbol{\Lambda}\_{aa}&\boldsymbol{\Lambda}\_{aa} \\\\ \boldsymbol{\Lambda}\_{ba}&\boldsymbol{\Lambda}\_{bb}\end{matrix}\right]
+\end{align}
+The resulting conditional distribution is a Gaussian
+\begin{align}
+p(\mathbf{x}\_a\vert\mathbf{x}\_b)&=\mathcal{N}(\mathbf{x}\vert\boldsymbol{\mu}\_{a\vert b},\boldsymbol{\Sigma}\_{a\vert b}) \\\\ \boldsymbol{\mu}\_{a\vert b}&=\boldsymbol{\mu}\_a-\boldsymbol{\Lambda}\_{aa}^{-1}\boldsymbol{\Lambda}\_{ab}(\mathbf{x}\_b-\boldsymbol{\mu}\_b) \\\\ \boldsymbol{\Sigma}\_{a\vert b}&=\boldsymbol{\Lambda}\_{aa}^{-1}=\boldsymbol{\Sigma}\_{aa}-\boldsymbol{\Sigma}\_{ab}\boldsymbol{\Sigma}\_{bb}^{-1}\boldsymbol{\Sigma}\_{ba}
+\end{align}
+Also, the marginal distribution is a Gaussian
+\begin{equation}
+p(\mathbf{x}\_a)=\mathcal{N}(\mathbf{x}\_a\vert\boldsymbol{\mu}\_a,\boldsymbol{\Sigma}\_{aa})
+\end{equation}
+
+### Bayes' theorem for Gaussian variables{#bayes-theorem-gauss}
 In this section, we will apply the Bayes' theorem to find the marginal distribution of $p(\mathbf{y})$ and conditional distribution $p(\mathbf{x}\vert\mathbf{y})$ with supposing that we are given a Gaussian distribution $p(\mathbf{x})$ and a conditional Gaussian distribution $p(\mathbf{y}\vert\mathbf{x})$ in which $p(\mathbf{y}\vert\mathbf{x})$ has a mean that is a linear function of $\mathbf{x}$, and a covariance matrix which is independent of $\mathbf{x}$, as
 \begin{align}
 p(\mathbf{x})&=\mathcal{N}(\mathbf{x}\vert\boldsymbol{\mu},\boldsymbol{\Lambda}^{-1}), \\\\ p(\mathbf{y}\vert\mathbf{x})&=\mathcal{N}(\mathbf{y}\vert\mathbf{A}\mathbf{x}+\mathbf{b},\mathbf{L}^{-1}),
@@ -360,7 +430,7 @@ and also, by \eqref{eq:cgd.4} and \eqref{eq:cgd.5}, we can easily get mean and c
 \end{align}
 In Bayesian approach, we can consider $p(\mathbf{x})$ as a prior distribution over $\mathbf{x}$, and if $\mathbf{y}$ is observed, the conditional distribution $p(\mathbf{x}\vert\mathbf{y})$ will represents the corresponding posterior distribution over $\mathbf{x}$.
 
-<span id='marg-cond-gaussian'>**Remark**</span>  
+<b id='marg-cond-gaussian'>Remark</b>:  
 Given a marginal Gaussian distribution for $\mathbf{x}$ and a conditional Gaussian distribution for $\mathbf{y}$ given $\mathbf{x}$ in the form
 \begin{align}
 p(\mathbf{x})&=\mathcal{N}(\mathbf{x}\vert\boldsymbol{\mu},\boldsymbol{\Lambda}^{-1}), \\\\ p(\mathbf{y}\vert\mathbf{x})&=\mathcal{N}(\mathbf{y}\vert\mathbf{A}\mathbf{x}+\mathbf{b},\mathbf{L}^{-1}),

@@ -132,6 +132,9 @@ Consider the graph $\mathcal{K}=(\mathcal{X},\mathcal{E})$, the basic notion of 
 	<li>
 		A directed graph is a <b>forest</b> if each node has at most one parent. A directed forest is a <b>tree</b> if it is also connected.
 	</li>
+	<li>
+		Let $X_1-\ldots-X_k-X_1$ be a loop in the graph, a <b>chord</b> in the loop is an edge connecting two nonconsecutive nodes $X_i$ and $X_j$. An undirected graph $\mathcal{H}$ is known as <b id='chordal-graph'>chordal</b> if any loop $X_1-\ldots-X_k-X_1$ has a chord for $k\geq 4$. This implies that in a chordal graph, the longest minimal loop (the one has no shortcut) has length of $3$.
+	</li>
 </ul>
 
 ## Directed Graphical Model{#dgm}
@@ -723,7 +726,7 @@ Let $X\in\mathcal{X}$ be a node of $\mathcal{G}$, we have that $\text{MB}\_\math
 	</li>
 </ul>
 
-Thus, in other words, we can conclude that the Markov blanket of $X$, $\text{MB}_\mathcal{G}(X)$, the smallest set required to render $X$ independent of all other nodes in $\mathcal{G}$. For each $X\in\mathcal{X}$, by viewing its Markov blanket in $\mathcal{G}$ as the set of its neighbors in an undirected graph $\mathcal{H}$ (which is the definition of Markov blanket in a Markov network), we then have that $\mathcal{H}$ is a minimal I-map for $\mathcal{G}$. Additionally, by how it is constructed, $\mathcal{H}$ is also a moral graph of $\mathcal{G}$, and thus $\mathcal{I}(\mathcal{H})\subset\mathcal{I}(\mathcal{G})$.
+Thus, in other words, we can conclude that the Markov blanket of $X$, $\text{MB}_\mathcal{G}(X)$, is the smallest set required to render $X$ independent of all other nodes in $\mathcal{G}$. For each $X\in\mathcal{X}$, by viewing its Markov blanket in $\mathcal{G}$ as the set of its neighbors in an undirected graph $\mathcal{H}$ (which is the definition of Markov blanket in a Markov network), we then have that $\mathcal{H}$ is a minimal I-map for $\mathcal{G}$. Additionally, by how it is constructed, $\mathcal{H}$ is also a moral graph of $\mathcal{G}$, and thus $\mathcal{I}(\mathcal{H})\subset\mathcal{I}(\mathcal{G})$.
 
 **Remark**:
 <ul id='number-list'>
@@ -749,6 +752,9 @@ which is not in $\mathcal{I}(\mathcal{H})$. This implies that there exists some 
 
 #### Markov Networks to Bayesian Networks
 **Theorem 21**: *Let $\mathcal{H}$ be a Markov network graph, and let $\mathcal{G}$ be any Bayesian network minimal I-map for $\mathcal{H}$. Then $\mathcal{G}$ can have no immoralities.*
+
+#### Chordal Graphs
+**Theorem 22**: *Let $\mathcal{H}$ be a [non-chordal](#chordal-graph) Markov network. Then there is no Bayesian newtork $\mathcal{G}$ which is a [perfect map](#perfect-map) for $\mathcal{H}$, i.e. $\mathcal{I}(\mathcal{G})=\mathcal{I}(\mathcal{H})$.*
 
 ### Conditional Random Fields{#crf}
 A **conditional random field**, or **CRF**, is an undirected graph $\mathcal{H}$ whose nodes correspond to $\mathbf{X}\cup\mathbf{Y}$ where $\mathbf{X}$ is a set of observed variables and $\mathbf{Y}$ is a (disjoint) set of target variables which specifies a conditional distribution (instead of a joint distribution)
@@ -975,6 +981,16 @@ P(y^0\vert X_1,\ldots,X_k)=(1-\lambda_0)\prod_{i=1}^{k}(1-\lambda_i)^{x_i}
 ##### Multivalued Variables
 
 ### Continuous Variables
+
+#### Linear Gaussian CPD
+Let $Y$ be a continuous variable with continuous parents $X_1,\ldots,X_k$. We say that $Y$ has a linear Gaussian model if there are parameters $\beta_0,\ldots,\beta_k$ such that
+\begin{equation}
+p(Y\vert x_1,\ldots,x_k)=\mathcal{N}(\beta_0+\beta_1 x_1+\ldots+\beta_k x_k;\sigma^2)
+\end{equation}
+In vector notation, we have
+\begin{equation}
+p(Y\vert\mathbf{x})=\mathcal{\beta_0+\boldsymbol{\beta}^\text{T}\mathbf{x};\sigma^2}
+\end{equation}
 
 ### Conditional Bayesian Networks{#cbn}
 A **conditional Bayesian network** $\mathcal{B}$ over $\mathbf{Y}$ given $\mathbf{X}$ is defined as a DAG $\mathcal{G}$ whose nodes are $\mathbf{X}\cup\mathbf{Y}\cup\mathbf{Z}$ where $\mathbf{X},\mathbf{Y},\mathbf{Z}$ are disjoint. The variables in $\mathbf{X}$ are called **inputs**, the ones in $\mathbf{Y}$ are referred as **outputs** and the others in $\mathbf{Z}$ are known as **encapsulated**.
