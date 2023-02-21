@@ -319,7 +319,7 @@ p(\mathbf{w})=\mathcal{N}(\mathbf{w}\vert\mathbf{m}\_0,\mathbf{S}\_0),
 \end{equation}
 where $\mathbf{m}\_0$ is the mean vector and $\mathbf{S}\_0$ is the covariance matrix.
 
-By the [result]({{< ref "normal-dist#marg-cond-gaussian" >}}), we have that the corresponding posterior distribution $p(\mathbf{w}\vert\mathbf{t})$, which is a conditional Gaussian distribution, is given by
+By the [result]({{< ref "gaussian-dist-gaussian-bn#marg-cond-gaussian" >}}), we have that the corresponding posterior distribution $p(\mathbf{w}\vert\mathbf{t})$, which is a conditional Gaussian distribution, is given by
 \begin{equation}
 p(\mathbf{w}\vert\mathbf{t})=\mathcal{N}(\mathbf{w}\vert\mathbf{m}\_N,\mathbf{S}\_N),\label{eq:pd.1}
 \end{equation}
@@ -331,7 +331,7 @@ Therefore, by MAP, we have
 \begin{align}
 \mathbf{w}\_\text{MAP}&=\underset{\mathbf{w}}{\text{argmax}}\hspace{0.1cm}\exp\Big[-\frac{1}{2}(\mathbf{w}-\mathbf{m}\_N)^\text{T}\mathbf{S}\_N^{-1}(\mathbf{w}-\mathbf{m}\_N)\Big] \\\\ &=\underset{\mathbf{w}}{\text{argmin}}\hspace{0.1cm}(\mathbf{w}-\mathbf{m}\_N)^\text{T}\mathbf{S}\_N^{-1}(\mathbf{w}-\mathbf{m}\_N)
 \end{align}
-By this [property]({{< ref "normal-dist#precision-eigenvalue" >}}) of the covariance matrix, we have that the precision matrix $\mathbf{S}\_N^{-1}$ and the covariance matrix $\mathbf{S}\_N$ have the same set of eigenvalues, which are non-negative due to the fact that $\mathbf{S}\_N$ is positive semi-definite. This also means that $\mathbf{S}\_N$ is positive semi-definite, and thus
+By this [property]({{< ref "gaussian-dist-gaussian-bn#precision-eigenvalue" >}}) of the covariance matrix, we have that the precision matrix $\mathbf{S}\_N^{-1}$ and the covariance matrix $\mathbf{S}\_N$ have the same set of eigenvalues, which are non-negative due to the fact that $\mathbf{S}\_N$ is positive semi-definite. This also means that $\mathbf{S}\_N$ is positive semi-definite, and thus
 \begin{equation}
 (\mathbf{w}-\mathbf{m}\_N)^\text{T}\mathbf{S}\_N^{-1}(\mathbf{w}-\mathbf{m}\_N)\geq0
 \end{equation}
@@ -389,7 +389,7 @@ p(t\vert\mathbf{x},\mathbf{t},\alpha,\beta)=\int p(t\vert\mathbf{x},\mathbf{w},\
 \end{equation}
 in which $\mathbf{t}$ is the vector of target values from the training set.
 
-The conditional distribution $p(t\vert\mathbf{x},\mathbf{w},\beta)$ of the target variable is given by \eqref{eq:lsr.1}, and the posterior weight distribution $p(\mathbf{w}\vert\mathbf{x},\mathbf{t},\alpha,\beta)$ is given by \eqref{eq:pd.1}. Thus, as a [marginal Gaussian distribution]({{< ref "normal-dist#marg-cond-gaussian" >}}), the distribution \eqref{eq:pdr.1} can be rewritten as
+The conditional distribution $p(t\vert\mathbf{x},\mathbf{w},\beta)$ of the target variable is given by \eqref{eq:lsr.1}, and the posterior weight distribution $p(\mathbf{w}\vert\mathbf{x},\mathbf{t},\alpha,\beta)$ is given by \eqref{eq:pd.1}. Thus, as a [marginal Gaussian distribution]({{< ref "gaussian-dist-gaussian-bn#marg-cond-gaussian" >}}), the distribution \eqref{eq:pdr.1} can be rewritten as
 \begin{align}
 p(t\vert\mathbf{x},\mathbf{t},\mathbf{w},\beta)&=\int\mathcal{N}(t\vert\mathbf{w}^\text{T}\boldsymbol{\phi}(\mathbf{x}),\beta^{-1})\mathcal{N}(\mathbf{w}\vert\mathbf{m}\_N,\mathbf{S}\_N)\hspace{0.1cm}d\mathbf{w} \\\\ &=\mathcal{N}(t\vert\mathbf{m}\_N^\text{T}\boldsymbol{\phi}(\mathbf{x}),\sigma_N^2(\mathbf{x})),
 \end{align}

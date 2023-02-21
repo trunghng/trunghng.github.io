@@ -196,7 +196,7 @@ Thus, the gradient of the performance measure w.r.t $\boldsymbol{\theta}$ is:
 ## Policy Parameterization for Continuous Actions{#policy-prm-cont-actions}
 For tasks having continuous action space with an infinite number of actions, instead of computing learned probabilities for each action, we can learn statistics of the probability distribution.  
 
-In particular, to produce a policy parameterization, the policy can be defined as the [Normal distribution]({{< ref "normal-dist" >}}) over a real-valued scalar action, with mean and standard deviation given by parametric function approximators that depend on the state, as given:
+In particular, to produce a policy parameterization, the policy can be defined as the [Normal distribution]({{< ref "gaussian-dist-gaussian-bn" >}}) over a real-valued scalar action, with mean and standard deviation given by parametric function approximators that depend on the state, as given:
 \begin{equation}
 \pi(a|s,\boldsymbol{\theta})\doteq\frac{1}{\sigma(s,\boldsymbol{\theta})\sqrt{2\pi}}\exp\left(-\frac{(a-\mu(s,\boldsymbol{\theta}))^2}{2\sigma(s,\boldsymbol{\theta})^2}\right),
 \end{equation}

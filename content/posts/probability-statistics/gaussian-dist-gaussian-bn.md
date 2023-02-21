@@ -1,11 +1,11 @@
 ---
 title: "Gaussian Distribution & Gaussian Network Models"
 date: 2021-11-22 14:46:00 +0700
-tags: [mathematics, probability-statistics, normal-distribution]
+tags: [mathematics, probability-statistics, normal-distribution, probabilistic-graphical-model]
 math: true
 eqn-number: true
 ---
-> Notes on Gaussian distribution.
+> Notes on Gaussian distribution & Gaussian network models.
 <!--more-->
 
 $\newcommand{\Var}{\mathrm{Var}}$
@@ -88,7 +88,7 @@ p_X(x)&=\frac{d}{dx}\Phi\left(\frac{x-\mu}{\sigma}\right)=\frac{1}{\sigma}\varph
 
 Below are some illustrations of the Univariate Normal distribution.
 <figure>
-	<img src="/images/normal-dist/normal.png" alt="Normal distribution"/>
+	<img src="/images/gaussian-dist-gaussian-bn/normal.png" alt="Normal distribution"/>
 	<figcaption><b>Figure 1</b>: <b>10K normally distributed data points (5K each plot) were plotted as vertical bars on x-axis</b>. The code can be found <a href='https://github.com/trunghng/visualization-collection/blob/main/distributions/gauss-dist.py' target='_blank'>here</a></figcaption>
 </figure>
 
@@ -134,7 +134,7 @@ When the number of dimensions in $\mathbf{X}$, $D=2$, this special case of MVN i
 
 An example of an BVN, $\mathcal{N}\left(\left[\begin{smallmatrix}0\\\\0\end{smallmatrix}\right],\left[\begin{smallmatrix}1&0.5\\\\0.8&1\end{smallmatrix}\right]\right)$, is shown as following.
 <figure>
-	<img src="/images/normal-dist/bvn.png" alt="Monte Carlo method"/>
+	<img src="/images/gaussian-dist-gaussian-bn/bvn.png" alt="Monte Carlo method"/>
 	<figcaption><b>Figure 2</b>: <b>The PDF of $\mathcal{N}\left(\left[\begin{smallmatrix}0\\0\end{smallmatrix}\right],\left[\begin{smallmatrix}1&0.5\\0.8&1\end{smallmatrix}\right]\right)$</b>. The code can be found <a href='https://github.com/trunghng/visualization-collection/blob/main/distributions/mvn.py' target='_blank'>here</a></figcaption>
 </figure>
 
@@ -432,7 +432,7 @@ Thus, by \eqref{eq:cgd.3}, we have that the mean of the joint distribution is th
 \begin{equation}
 \boldsymbol{\mu}\_\mathbf{z}=\boldsymbol{\Sigma}\_\mathbf{z}\left[\begin{matrix}\boldsymbol{\Lambda}\boldsymbol{\mu}-\mathbf{A}^\text{T}\mathbf{L}\mathbf{b} \\\\ \mathbf{L}\mathbf{b}\end{matrix}\right]=\left[\begin{matrix}\boldsymbol{\mu} \\\\ \mathbf{A}\boldsymbol{\mu}+\mathbf{b}\end{matrix}\right]
 \end{equation}
-Given the mean $\boldsymbol{\mu}\_\mathbf{z}$ and the covariance matrix $\boldsymbol{\Sigma}\_\mathbf{z}$ of the joint distribution of $\mathbf{x},\mathbf{y}$, by \eqref{eq:mgd.3} and \eqref{eq:mdg.4}, we then can obtain the mean of the covariance matrix of the marginal distribution $p(\mathbf{y})$, which are
+Given the mean $\boldsymbol{\mu}\_\mathbf{z}$ and the covariance matrix $\boldsymbol{\Sigma}\_\mathbf{z}$ of the joint distribution of $\mathbf{x},\mathbf{y}$, by \eqref{eq:mgd.3} and \eqref{eq:mgd.4}, we then can obtain the mean of the covariance matrix of the marginal distribution $p(\mathbf{y})$, which are
 \begin{align}
 \boldsymbol{\mu}\_\mathbf{y}&=\mathbf{A}\boldsymbol{\mu}+\mathbf{b}, \\\\ \boldsymbol{\Sigma}\_\mathbf{y}&=\mathbf{L}^{-1}+\mathbf{A}\boldsymbol{\Lambda}^{-1}\mathbf{A}^\text{T},
 \end{align}
@@ -489,7 +489,7 @@ p(Y\vert\mathbf{x})=\mathcal{N}(\beta_0+\boldsymbol{\beta}^\text{T}\mathbf{x};\s
 \end{equation}
 Thus, a **Gaussian Bayesian network** is a Bayesian network all of whose variables are continuous and where all of CPDs are linear Gaussians.
 
-**Theorem 3**: *Let $Y$ be a linear Gaussian of its parents $X_1,\ldots,X_k$, i.e.*
+<b id='theorem3'>Theorem 3</b>: *Let $Y$ be a linear Gaussian of its parents $X_1,\ldots,X_k$, i.e.*
 \begin{equation}
 p(Y\vert\mathbf{x})=\mathcal{N}(\beta_0+\boldsymbol{\beta}^\text{T}\mathbf{x};\sigma^2)
 \end{equation}
