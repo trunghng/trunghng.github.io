@@ -8,12 +8,12 @@ eqn-number: true
 Notes on Learning in PGMs.
 <!--more-->
 
-## Maximum Likelihood Estimation{#mle}
+## Parameter Estimation in Bayesian Networks
 
 ### MLE for Bayesian Networks{#mle-bn}
 Suppose that we have a Bayesian network of two binary nodes $X,Y$ connected by $X\to Y$.
 <figure>
-	<img width="30%" height="30%" src="/images/pgm-learning/mle-bn.png" alt="BN"/>
+	<img width="27%" height="27%" src="/images/pgm-learning/mle-bn.png" alt="BN"/>
 </figure>
 
 The network is parameterized by a parameter vector $\boldsymbol{\theta}$, which defines the set of parameters of all the CPDs in the network, i.e.
@@ -127,12 +127,95 @@ Analogously, setting this derivative to zero, we have that
 **Remark**  
 
 
+**Example 1**: Let us estimate a joint multivariate Gaussian distribution. Specifically, consider continuous r.v.s $X$ and $Y$ and assume we have a dataset of $M$ samples $\mathcal{D}=\\{(x[1],y[1]),\ldots,(x[M],y[M])\\}$. Our job is to find the MLE estimate for a joint Gaussian distribution over $X,Y$.
+
+Let $\mathbf{Z}$ be a random vector that encodes the joint distribution of $X$ and $Y$. In particular
+\begin{equation}
+\mathbf{Z}=\left[\begin{matrix}X \\\\ Y\end{matrix}\right]
+\end{equation}
+We have that $\mathbf{Z}\sim\mathcal{N}(\boldsymbol{\mu},\boldsymbol{\Sigma})$ with
+\begin{equation}
+\boldsymbol{\mu}=\left[\begin{matrix}\mu_X \\\\ \mu_Y\end{matrix}\right],\hspace{1cm}\boldsymbol{\Sigma}=\left[\begin{matrix}\Sigma_{XX}&\Sigma_{XY} \\\\ \Sigma_{YX}&\Sigma_{YY}\end{matrix}\right]
+\end{equation}
+Thus, we have that
+\begin{equation}
+P(\mathbf{z})=\frac{1}{2\pi\vert\boldsymbol{\Sigma}\vert^{1/2}}\exp\left[-\frac{1}{2}(\mathbf{z}-\boldsymbol{\mu})^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{z}-\boldsymbol{\mu})\right]
+\end{equation}
+Our job then is to learn the parameter $\boldsymbol{\theta}=(\boldsymbol{\mu},\boldsymbol{\Sigma})$. We begin by considering the log-likelihood function
+\begin{align}
+\ell(\boldsymbol{\theta})&=\log\prod_{m=1}^{M}P(x[m],y[m];\boldsymbol{\theta}) \\\\ &=\log\prod_{m=1}^{M}\frac{1}{2\pi\vert\boldsymbol{\Sigma}\vert^{1/2}}\exp\left[-\frac{1}{2}(\mathbf{z}[m]-\boldsymbol{\mu})^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{z}[m]-\boldsymbol{\mu})\right] \\\\ &=\sum_{m=1}^{M}-\log(2\pi)-\frac{1}{2}\log\vert\boldsymbol{\Sigma}\vert-\frac{1}{2}(\mathbf{z}[m]-\boldsymbol{\mu})^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{z}[m]-\boldsymbol{\mu})
+\end{align}
+Taking the derivative of the log-likelihood w.r.t $\boldsymbol{\mu}$ gives us
+\begin{align}
+\frac{\partial}{\partial\boldsymbol{\mu}}\ell(\boldsymbol{\theta})&=\sum_{m=1}^{M}\frac{1}{2}\big[\boldsymbol{\Sigma}^{-1}(\mathbf{z}[m]-\boldsymbol{\mu})-(\boldsymbol{\Sigma}^{-1})^\text{T}(\mathbf{z}[m]-\boldsymbol{\mu})\big] \\\\ &=\sum_{m=1}^{M}\boldsymbol{\Sigma}^{-1}(\mathbf{z}[m]-\boldsymbol{\mu}),
+\end{align}
+where we have used the fact that the covariance matrix $\boldsymbol{\Sigma}$ is symmetric. Setting the derivative to zero we obtain the MLE solution for $\boldsymbol{\mu}$
+\begin{equation}
+\boldsymbol{\mu}=\frac{1}{M}\sum_{m=1}^{M}\mathbf{z}[m]=\left[\begin{matrix}\mathbb{E}\_\mathcal{D}[X] \\\\ \mathbb{E}\_\mathcal{D}[Y]\end{matrix}\right]
+\end{equation}
+On the other hand, differentiating the log-likelihood w.r.t $\boldsymbol{\Sigma}$, we obtain
+\begin{align}
+\frac{\partial}{\partial\boldsymbol{\Sigma}}\ell(\boldsymbol{\theta})&=\sum_{m=1}^{M}-\frac{1}{2}\frac{\vert\boldsymbol{\Sigma}\vert\boldsymbol{\Sigma}^{-1}}{\vert\boldsymbol{\Sigma}\vert}+\frac{1}{2}\big[(\boldsymbol{\Sigma}^{-1})^\text{T}(\mathbf{z}[m]-\boldsymbol{\mu})(\mathbf{z}[m]-\boldsymbol{\mu})^\text{T}(\boldsymbol{\Sigma}^{-1})^\text{T}\big] \\\\ &=\frac{1}{2}\sum_{m=1}^{M}\boldsymbol{\Sigma}^{-1}(\mathbf{z}[m]-\boldsymbol{\mu})(\mathbf{z}[m]-\boldsymbol{\mu})^\text{T}\boldsymbol{\Sigma}^{-1}-\boldsymbol{\Sigma}^{-1}
+\end{align}
+Setting this derivative to zero, we have that
+\begin{align}
+\boldsymbol{\Sigma}&=\sum_{m=1}^{M}(\mathbf{z}[m]-\boldsymbol{\mu})(\mathbf{z}[m]-\boldsymbol{\mu})^\text{T} \\\\ &=\sum_{m=1}^{M}\left[\begin{matrix}(x[m]-\mu_X)^2&(x[m]-\mu_X)(y[m]-\mu_Y) \\\\ (y[m]-\mu_Y)(x[m]-\mu_X)&(y[m]-\mu_Y)^2\end{matrix}\right] \\\\ &=\left[\begin{matrix}\text{Cov}\_\mathcal{D}[X,X]&\text{Cov}\_\mathcal{D}[X,Y] \\\\ \text{Cov}\_\mathcal{D}[Y,X]&\text{Cov}\_\mathcal{D}[Y,Y]\end{matrix}\right]
+\end{align}
+
 ### Bayesian Parameter Estimation
 
-#### Joint Probabilistic Model
+#### General setting
+In the **Bayesian approach**, as before, we assume a general learning problem where we observe a training set $\mathcal{D}=\\{\xi[1],\ldots,\xi[M]\\}$ and a parametric model $P(\xi\vert\boldsymbol{\theta})$ where we can choose parameters from a parameter space $\Theta$, i.e. in this case, samples according to the probabilistic model are conditionally i.i.d given $\boldsymbol{\theta}$ instead of, recalling that in MLE, being (unconditionally) i.i.d.
+
+##### Priors, Posteriors
+To perform the task, we need to define a joint distribution $P(\mathcal{D},\boldsymbol{\theta})$ over the data and the parameters, which can be written by
+\begin{equation}
+P(\mathcal{D},\boldsymbol{\theta})=P(\mathcal{D}\vert\boldsymbol{\theta})P(\boldsymbol{\theta}),
+\end{equation}
+where
+<ul id='number-list'>
+	<li>
+		$P(\mathcal{D}\vert\boldsymbol{\theta})$ is the <b>likelihood function</b>, which is the probability of the observations given the parameters, as in the MLE approach.
+	</li>
+	<li>
+		$P(\boldsymbol{\theta})$ is referred as the <b>prior distribution</b>, which encodes our prior beliefs, i.e. before data is observed. 
+	</li>
+</ul>
+
+By Bayes' rule, from the likelihood and prior, combined with the defined joint distribution, we can derive the so-called **posterior distribution** over the parameters, which corresponds to our beliefs after observing the data, as
+\begin{align}
+P(\boldsymbol{\theta}\vert\mathcal{D})&=\frac{P(\mathcal{D}\vert\boldsymbol{\theta})P(\boldsymbol{\theta})}{P(\mathcal{D})} \\\\ &=\frac{P(\mathcal{D}\vert\boldsymbol{\theta})P(\boldsymbol{\theta})}{\int_\Theta P(\mathcal{D}\vert\boldsymbol{\theta}')P(\boldsymbol{\theta}')d\boldsymbol{\theta}'},
+\end{align}
+where, since the denominator is just a normalizing constant, can be expressed as
+\begin{equation}
+P(\boldsymbol{\theta}\vert\mathcal{D})\propto P(\mathcal{D}\vert\boldsymbol{\theta})P(\boldsymbol{\theta})
+\end{equation}
+Since the posterior is a (normalized) product of the prior and the likelihood, it seems natural to require that the prior also have a form similar to the likelihood, such priors are referred as **conjugate priors**.
+
+More formally, a family of priors $P(\boldsymbol{\theta}:\boldsymbol{\alpha})$ is **conjugate** to a particular model $P(\xi\vert\boldsymbol{\theta})$ if for any possible dataset $\mathcal{D}$ of i.i.d samples from $P(\xi\vert\boldsymbol{\theta})$, and any choice of legal hyperparameters $\boldsymbol{\alpha}$ for the prior over $\boldsymbol{\theta}$, there are hyperparameters $\boldsymbol{\alpha}'$ that describe the posterior, i.e.
+\begin{equation}
+P(\boldsymbol{\theta}:\boldsymbol{\alpha}')\propto P(\mathcal{D}\vert\boldsymbol{\theta})P(\boldsymbol{\theta}:\boldsymbol{\alpha})
+\end{equation}
+
+##### Bayesian Estimator
+From the posterior, we can predict the probability of future samples. Specifically, suppose that we are about to sample a new instance $\xi[M+1]$, then the **Bayesian estimator**, or the **predictive distribution**, is the posterior distribution over a new example.
+\begin{align}
+P(\xi[M+1]\vert\mathcal{D})&=\int P(\xi[M+1]\vert\mathcal{D},\boldsymbol{\theta})P(\boldsymbol{\theta}\vert\mathcal{D})d\boldsymbol{\theta} \\\\ &=\int P(\xi[M+1]\vert\boldsymbol{\theta})P(\boldsymbol{\theta}\vert\mathcal{D})d\boldsymbol{\theta} \\\\ &=\mathbb{E}\_{P(\boldsymbol{\theta}\vert\mathcal{D})}\big[P(\xi[M+1]\vert\boldsymbol{\theta})\big],
+\end{align}
+where in the second step, we use the fact that samples are i.i.d given $\boldsymbol{\theta}$.
+
+#### The full Bayesian approach
+
+##### Bayesian Parameter Estimation in Bayesian Networks
+
+###### Parameter Independence and Global Decomposition
+
+#### MAP Estimation
 
 
 ## References
 [1] <span id='pgm-book'>Daphne Koller, Nir Friedman. [Probabilistic Graphical Models](https://mitpress.mit.edu/9780262013192/probabilistic-graphical-models/). The MIT Press.</span>
+
+[2] Christopher M. Bishop. [Pattern Recognition and Machine Learning](https://link.springer.com/book/9780387310732). Springer New York, NY, 2006.
 
 ## Footnotes
