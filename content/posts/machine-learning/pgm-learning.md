@@ -30,26 +30,26 @@ Assuming that we are given the training set
 \end{equation}
 which describes $M$ instances of variables $X$ and $Y$. The likelihood function is then given as
 \begin{align}
-L(\boldsymbol{\theta})&=\prod_{m=1}^{M}P(x[m],y[m];\boldsymbol{\theta}) \\\\ &=\prod_{m=1}^{M}P(x[m];\boldsymbol{\theta})P(y[m]\big\vert x[m];\boldsymbol{\theta}) \\\\ &=\left(\prod_{m=1}^{M}P(x[m];\boldsymbol{\theta})\right)\left(\prod_{m=1}^{M}P(y[m]\big\vert x[m];\boldsymbol{\theta})\right),
+L(\boldsymbol{\theta};\mathcal{D})&=\prod_{m=1}^{M}P(x[m],y[m];\boldsymbol{\theta}) \\\\ &=\prod_{m=1}^{M}P(x[m];\boldsymbol{\theta})P(y[m]\big\vert x[m];\boldsymbol{\theta}) \\\\ &=\left(\prod_{m=1}^{M}P(x[m];\boldsymbol{\theta})\right)\left(\prod_{m=1}^{M}P(y[m]\big\vert x[m];\boldsymbol{\theta})\right),
 \end{align}
 which decomposes into two terms, on for each variable. Each of these are referred as **local likelihood function** that measures how well the variable is predicted given its parents.
 
 #### Global Likelihood Decomposition
 Generally, suppose that we want to learn a parameters $\boldsymbol{\theta}$ for Bayesian network structure $\mathcal{G}$. Given a dataset $\mathcal{D}=\\{\xi[1],\ldots,\xi[M]\\}$, analogy to the argument above, we have that the likelihood function is given by
 \begin{align}
-L(\boldsymbol{\theta})&=\prod_{m=1}^{M}P_\mathcal{G}(\xi[m];\boldsymbol{\theta}) \\\\ &=\prod_{m=1}^{M}\prod_i P\big(x_i[m]\big\vert\text{pa}\_{X_i}[m];\boldsymbol{\theta}\big) \\\\ &=\prod_i\left[\prod_{m=1}^{M}P\big(x_i[m]\big\vert\text{pa}\_{X_i}[m];\boldsymbol{\theta}\big)\right]\label{eq:gld.1}
+L(\boldsymbol{\theta};\mathcal{D})&=\prod_{m=1}^{M}P_\mathcal{G}(\xi[m];\boldsymbol{\theta}) \\\\ &=\prod_{m=1}^{M}\prod_i P\big(x_i[m]\big\vert\text{pa}\_{X_i}[m];\boldsymbol{\theta}\big) \\\\ &=\prod_i\left[\prod_{m=1}^{M}P\big(x_i[m]\big\vert\text{pa}\_{X_i}[m];\boldsymbol{\theta}\big)\right]\label{eq:gld.1}
 \end{align}
 Each of the terms in the square brackets refers to the **conditional likelihood** of a particular variable given its parents in the network. Also, let $\boldsymbol{\theta}\_{X_i\vert\text{Pa}\_{X_i}}$ denote the subset of parameters that determines $P(X_i\vert\text{Pa}\_{X_i})$. Thus, the local likelihood function for $X_i$ is then given by
 \begin{equation}
-L_i(\boldsymbol{\theta}\_{X_i\vert\text{Pa}\_{X_i}})=\prod_{m=1}^{M}P\big(x_i[m]\big\vert\text{pa}\_{X_i}[m];\boldsymbol{\theta}\_{X_i\vert\text{Pa}\_{X_i}}\big),
+L_i(\boldsymbol{\theta}\_{X_i\vert\text{Pa}\_{X_i}};\mathcal{D})=\prod_{m=1}^{M}P\big(x_i[m]\big\vert\text{pa}\_{X_i}[m];\boldsymbol{\theta}\_{X_i\vert\text{Pa}\_{X_i}}\big),
 \end{equation}
 which allows us to rewrite the likelihood function \eqref{eq:gld.1} as
 \begin{equation}
-L(\boldsymbol{\theta})=\prod_i L_i(\boldsymbol{\theta}\_{X_i\vert\text{Pa}\_{X_i}})
+L(\boldsymbol{\theta};\mathcal{D})=\prod_i L_i(\boldsymbol{\theta}\_{X_i\vert\text{Pa}\_{X_i}};\mathcal{D})
 \end{equation}
 In other words, when $\boldsymbol{\theta}\_{X_i\vert\text{Pa}\_{X_i}}$ are disjoint, the likelihood can be decomposed as a product of independent terms, one for each CPD of the network. This property is known as the **global decomposition** of the likelihood function.
 
-Additionally, we can maximize each local likelihood function $L_i(\boldsymbol{\theta}\_{X_i\vert\text{Pa}\_{X_i}})$ independently of the others, and then combine the solutions together to get an MLE solution.
+Additionally, we can maximize each local likelihood function $L_i(\boldsymbol{\theta}\_{X_i\vert\text{Pa}\_{X_i}};\mathcal{D})$ independently of the others, and then combine the solutions together to get an MLE solution.
 
 #### Table-CPDs
 As the MLE solution for a Bayesian network can be computed via parameterization of its CPDs, we now consider the simplest parameterization of the CPD, tabular CPD, or table-CPD.
@@ -71,11 +71,11 @@ P(x\vert\mathbf{u})=\frac{1}{\sqrt{2\pi}\sigma}\exp\left[-\frac{(\beta_0+\beta_1
 \end{equation}
 Our task is to learn the parameters $\boldsymbol{\theta}\_{X\vert\mathbf{U}}=(\beta_0,\ldots,\beta_k,\sigma)$. We continue by considering the log-likelihood
 \begin{align}
-\ell_X(\boldsymbol{\theta}\_{X\vert\mathbf{U}})&=\log L_X(\boldsymbol{\theta}\_{X\vert\mathbf{U}}) \\\\ &=\log\prod_{m=1}^{M}P\big(x[m]\big\vert\mathbf{u}[m];\boldsymbol{\theta}\_{X\vert\mathbf{U}}\big) \\\\ &=\sum_{m=1}^{M}\log P\big(x[m]\big\vert\mathbf{u}[m];\boldsymbol{\theta}\_{X\vert\mathbf{U}}\big) \\\\ &=\sum_{m=1}^{M}\left[\frac{1}{2}\log(2\pi\sigma^2)-\frac{1}{2}\frac{1}{\sigma^2}\big(\beta_0+\beta_1 u_1[m]+\ldots+\beta_k u_k[m]-x[m]\big)^2\right]
+\ell_X(\boldsymbol{\theta}\_{X\vert\mathbf{U}};\mathcal{D})&=\log L_X(\boldsymbol{\theta}\_{X\vert\mathbf{U}}) \\\\ &=\log\prod_{m=1}^{M}P\big(x[m]\big\vert\mathbf{u}[m];\boldsymbol{\theta}\_{X\vert\mathbf{U}}\big) \\\\ &=\sum_{m=1}^{M}\log P\big(x[m]\big\vert\mathbf{u}[m];\boldsymbol{\theta}\_{X\vert\mathbf{U}}\big) \\\\ &=\sum_{m=1}^{M}\left[\frac{1}{2}\log(2\pi\sigma^2)-\frac{1}{2}\frac{1}{\sigma^2}\big(\beta_0+\beta_1 u_1[m]+\ldots+\beta_k u_k[m]-x[m]\big)^2\right]
 \end{align}
 Taking the derivative of the log-likelihood w.r.t $\beta_0$ gives us
 \begin{align}
-\frac{\partial}{\partial\beta_0}\ell_X(\boldsymbol{\theta}\_{X\vert\mathbf{U}})&=\sum_{m=1}^{M}-\frac{1}{\sigma^2}\big(\beta_0+\beta_1 u_1[m]+\ldots+\beta_k u_k[m]-x[m]\big) \\\\ &=-\frac{1}{\sigma^2}\left(M\beta_0+\beta_1\sum_{m=1}^{M}u_1[m]+\ldots+\beta_k\sum_{m=1}^{M}u_k[m]-\sum_{m=1}^{M}x[m]\right)
+\frac{\partial}{\partial\beta_0}\ell_X(\boldsymbol{\theta}\_{X\vert\mathbf{U}};\mathcal{D})&=\sum_{m=1}^{M}-\frac{1}{\sigma^2}\big(\beta_0+\beta_1 u_1[m]+\ldots+\beta_k u_k[m]-x[m]\big) \\\\ &=-\frac{1}{\sigma^2}\left(M\beta_0+\beta_1\sum_{m=1}^{M}u_1[m]+\ldots+\beta_k\sum_{m=1}^{M}u_k[m]-\sum_{m=1}^{M}x[m]\right)
 \end{align}
 Setting the derivative to zero, we have that
 \begin{equation}
@@ -91,7 +91,7 @@ which represents the average value a variable $X$. Thus, we can rewrite \eqref{e
 \end{equation}
 On the other hand, differentiating the log-likelihood function w.r.t $\beta_i$ for $i\neq 0$ gives us
 \begin{align}
-&\hspace{-0.5cm}\frac{\partial}{\partial\beta_i}\ell_X(\boldsymbol{\theta}\_{X\vert\mathbf{U}})\nonumber \\\\ &\hspace{-0.5cm}=\sum_{m=1}^{M}-\frac{u_i[m]}{\sigma^2}\big(\beta_0+\beta_1 u_1[m]+\ldots+\beta_k u_k[m]-x[m]\big) \\\\ &\hspace{-0.5cm}=-\frac{1}{\sigma^2}\left(M\beta_0+\beta_1\sum_{m=1}^{M}u_1[m]u_i[m]+\ldots+\beta_k\sum_{m=1}^{M}u_k[m]u_i[m]-\sum_{m=1}^{M}x[m]u_i[m]\right)
+&\hspace{-0.5cm}\frac{\partial}{\partial\beta_i}\ell_X(\boldsymbol{\theta}\_{X\vert\mathbf{U}};\mathcal{D})\nonumber \\\\ &\hspace{-0.5cm}=\sum_{m=1}^{M}-\frac{u_i[m]}{\sigma^2}\big(\beta_0+\beta_1 u_1[m]+\ldots+\beta_k u_k[m]-x[m]\big) \\\\ &\hspace{-0.5cm}=-\frac{1}{\sigma^2}\left(M\beta_0+\beta_1\sum_{m=1}^{M}u_1[m]u_i[m]+\ldots+\beta_k\sum_{m=1}^{M}u_k[m]u_i[m]-\sum_{m=1}^{M}x[m]u_i[m]\right)
 \end{align}
 Similarly, setting this derivative to zero lets us obtain
 \begin{equation}
@@ -117,7 +117,7 @@ where we have defined $\text{Cov}_\mathcal{D}[X,U_i]$ as the observed covariance
 
 Finally, differentiating the log-likelihood w.r.t $\sigma^2$, we have that
 \begin{equation}
-\frac{\partial}{\partial\sigma}\ell_X(\boldsymbol{\theta}\_{X\vert\mathbf{U}})=\sum_{m=1}^{M}\left[\frac{1}{2}\frac{1}{\sigma^2}+\frac{1}{2}\frac{1}{(\sigma^2)^2}\big(\beta_0+\beta_1 u_1[m]+\ldots+\beta_k u_k[m]-x[m]\big)^2\right]
+\frac{\partial}{\partial\sigma}\ell_X(\boldsymbol{\theta}\_{X\vert\mathbf{U}};\mathcal{D})=\sum_{m=1}^{M}\left[\frac{1}{2}\frac{1}{\sigma^2}+\frac{1}{2}\frac{1}{(\sigma^2)^2}\big(\beta_0+\beta_1 u_1[m]+\ldots+\beta_k u_k[m]-x[m]\big)^2\right]
 \end{equation}
 Analogously, setting this derivative to zero, we have that
 \begin{equation}
@@ -161,6 +161,69 @@ Setting this derivative to zero, we have that
 \begin{align}
 \boldsymbol{\Sigma}&=\sum_{m=1}^{M}(\mathbf{z}[m]-\boldsymbol{\mu})(\mathbf{z}[m]-\boldsymbol{\mu})^\text{T} \\\\ &=\sum_{m=1}^{M}\left[\begin{matrix}(x[m]-\mu_X)^2&(x[m]-\mu_X)(y[m]-\mu_Y) \\\\ (y[m]-\mu_Y)(x[m]-\mu_X)&(y[m]-\mu_Y)^2\end{matrix}\right] \\\\ &=\left[\begin{matrix}\text{Cov}\_\mathcal{D}[X,X]&\text{Cov}\_\mathcal{D}[X,Y] \\\\ \text{Cov}\_\mathcal{D}[Y,X]&\text{Cov}\_\mathcal{D}[Y,Y]\end{matrix}\right]
 \end{align}
+
+#### MLE as Moment Projection
+
+##### M-Projections
+Let $P$ be a distribution and let $\mathcal{Q}$ be a convex set of distributions. The **M-projection** (for **moment projection**) of $P$ on $\mathcal{Q}$ is the distribution
+\begin{equation}
+Q^M=\underset{Q\in\mathcal{Q}}{\text{argmin}}D_\text{KL}(P\Vert Q)
+\end{equation}
+
+**Theorem 1**: *Let $P$ be a distribution over $X_1,\ldots,X_n$, and let $\mathcal{Q}$ be the family of distributions consistent with $\mathcal{G}_\emptyset$. Then*
+\begin{equation}
+Q^M=\underset{Q\models\mathcal{G}\_\emptyset}{\text{argmin}}D_\text{KL}(P\Vert Q)
+\end{equation}
+*is the distribution*
+\begin{equation}
+Q^M(X_1,\ldots,X_n)=P(X_1)\ldots P(X_n)
+\end{equation}
+
+**Proof**  
+Consider a distribution $Q\models\mathcal{G}\_\emptyset$. Since $Q$ factorizes, we have that
+\begin{align}
+D_\text{KL}(P\Vert Q)&=\mathbb{E}\_P\big[\log P(X_1,\ldots,X_n)-\log Q(X_1.\ldots,X_n)\big] \\\\ &=\mathbb{E}\_P\left[P(X_1,\ldots,X_n)-\sum_i\mathbb{E}\_P\big[\log Q(X_i)\big]\right] \\\\ &=\mathbb{E}\_P\left[\log\frac{P(X_1,\ldots,X_n)}{P(X_1)\ldots P(X_n)}\right]\sum_i\mathbb{E}\_P\left[\log\frac{P(X_i)}{Q(X_i)}\right] \\\\ &=D_\text{KL}(P\Vert Q^M)+\sum_i D_\text{KL}\big(P(X_i)\Vert Q(X_i)\big) \\\\ &\geq D_\text{KL}(P\Vert Q^M)
+\end{align}
+
+
+##### MLE as M-Projection
+<b id='lm2'>Lemma 2</b>: *For any distribution $P,P'$ over $\mathcal{X}$, we have*
+\begin{equation}
+D_\text{KL}(P\Vert P')=-H_P(\mathcal{X})-\mathbb{E}\_{\xi\sim P}\big[\log P'(\xi)\big]
+\end{equation}
+
+**Proof**  
+We have that the relative entropy is given as
+\begin{align}
+D_\text{KL}(P\Vert P')&=\mathbb{E}\_{\xi\sim P}\left[\log\left(\frac{P(\xi)}{P'(\xi)}\right)\right] \\\\ &=\mathbb{E}\_{\xi\sim P}\big[\log P(\xi)\big]-\mathbb{E}\_{\xi\sim P}\big[\log P'(\xi)\big] \\\\ &=-H_P(\mathcal{X})-\mathbb{E}\_{\xi\sim P}\big[\log P'(\xi)\big]
+\end{align}
+
+**Proposition 3**: *Let $\mathcal{D}$ be a dataset, then*
+\begin{equation}
+\log L(\boldsymbol{\theta};\mathcal{D})=M\cdot\mathbb{E}\_{\hat{P}\_\mathcal{D}}\big[\log P(\mathcal{X};\boldsymbol{\theta})\big],
+\end{equation}
+*where $\hat{P}_\mathcal{D}$ is the empirical distribution, defined as*
+\begin{equation}
+\hat{P}\_\mathcal{D}(A)=\frac{1}{M}\sum_{m=1}^{M}\mathbf{1}\\{\xi[m]\in A\\}
+\end{equation}
+
+**Proof**  
+We have that
+\begin{align}
+\log L(\boldsymbol{\theta};\mathcal{D})&=\log\prod_{m=1}^{M}P(\xi[m];\boldsymbol{\theta}) \\\\ &=\sum_{m=1}^{M}\log P(\xi[m];\boldsymbol{\theta}) \\\\ &=\sum_\xi\left(\sum_{m=1}^{M}\mathbf{1}\\{\xi[m]=\xi\\}\right)\log P(\xi;\boldsymbol{\theta}) \\\\ &=\sum_\xi M\cdot\hat{P}\_\mathcal{D}(\xi)\log P(\xi;\boldsymbol{\theta}) \\\\ &=M\cdot\mathbb{E}\_{\hat{P}\_\mathcal{D}}\big[\log P(\mathcal{X};\boldsymbol{\theta})\big]
+\end{align}
+
+Applying [Lemma 2](#lm2) to this result, we have
+\begin{align}
+\ell(\boldsymbol{\theta};\mathcal{D})&=M\cdot\mathbb{E}\_{\hat{P}\_\mathcal{D}}\big[\log P(\mathcal{X};\boldsymbol{\theta})\big] \\\\ &=M\cdot\left[H_{\hat{P}\_\mathcal{D}}(\mathcal{X})-D_\text{KL}\big(\hat{P}\_\mathcal{D}(\mathcal{X})\Vert P(\mathcal{X};\boldsymbol{\theta})\big)\right]
+\end{align}
+
+From this result, we can derive the following relationship between MLE and M-projections
+
+**Theorem 4**: *The MLE $\hat{\boldsymbol{\theta}}$ in a parametric family relative to a dataset $\mathcal{D}$ is the M-projection of $\hat{P}_\mathcal{D}$ onto the parametric family*
+\begin{equation}
+\hat{\boldsymbol{\theta}}=\underset{\boldsymbol{\theta}\in\Theta}{\text{argmin}}D_\text{KL}(\hat{P}\_\mathcal{D}\Vert P_\boldsymbol{\theta})
+\end{equation}
 
 ### Bayesian Parameter Estimation
 
@@ -209,6 +272,65 @@ where in the second step, we use the fact that samples are i.i.d given $\boldsym
 ##### Bayesian Parameter Estimation in Bayesian Networks
 
 ###### Parameter Independence and Global Decomposition
+Suppose that we want to estimate parameters for a networks consisting of two variables $X$ and $Y$ with edge $X\rightarrow Y$. Also, we are given a training dataset $\mathcal{D}=\\{(x[1],y[1]),\ldots,(x[M],y[M])\\}$. Additionally, we have unknown parameters $\boldsymbol{\theta}\_X,\boldsymbol{\theta}_{Y\vert X}$. The dependencies between variables are described in the following network.
+<figure id='fig1'>
+	<img width="70%" height="70%" src="/images/pgm-learning/meta-network.png" alt="Normal distribution"/>
+	<figcaption><b>Figure 1</b>: (taken from <a href='#pgm-book'>PGM book</a>) <b>Meta-network for i.i.d samples from a network $X\rightarrow Y$ with global parameter independence.</b> (a) <a href='{{< ref "pgm-representation#plate-models">}}'>Plate model</a>; (b) <a href='{{< ref "pgm-representation#gound-bn-plate-models">}}'>Ground Bayesian network</a></figcaption>
+</figure>
+
+We have already known that in using Bayesian approach, the samples are independent given the parameters, i.e.
+\begin{equation}
+\text{d-sep}(\\{X[m],Y[m]\\};\\{X[m'],Y[m']\\}\vert\\{\boldsymbol{\theta}\_X,\boldsymbol{\theta}\_{Y\vert X}\\}),
+\end{equation}
+which can be justified by an examination of active trails from the above figure. Moreover, the network structure given in [Figure 1](#fig1) also satisfies the **global parameter independence**.
+
+Let $\mathcal{G}$ be a BN structure with parameters $\boldsymbol{\theta}=(\boldsymbol{\theta}\_{X_1}\vert\text{Pa}\_{X_1},\ldots,\boldsymbol{\theta}\_{X_n}\vert\text{Pa}\_{X_n})$. Then, a prior $P(\boldsymbol{\theta})$ is said to satisfy **global parameter independence** if it has the form
+\begin{equation}
+P(\boldsymbol{\theta})=\prod_{i=1}^{n}P(\boldsymbol{\theta}\_{X_i}\vert\text{Pa}\_{X_i})
+\end{equation}
+This property allows us to conclude that complete data, $\mathcal{D}$, d-separates the parameters for different CPDs, i.e.
+\begin{equation}
+\text{d-sep}\big(\boldsymbol{\theta}\_X;\boldsymbol{\theta}\_{Y\vert X}\big\vert\mathcal{D}\big)
+\end{equation}
+This is due to for each $m$, we have that any path between $X[m]$ and $Y[m]$ has the form
+\begin{equation}
+\boldsymbol{\theta}\_X\rightarrow X[m]\rightarrow Y[m]\leftarrow\boldsymbol{\theta}\_{Y\vert X},
+\end{equation}
+which is inactive given the observation $x[m],y[m]$. Thus, we obtain that
+\begin{equation}
+P(\boldsymbol{\theta}\_X,\boldsymbol{\theta}\_{Y\vert X}\vert\mathcal{D})=P(\boldsymbol{\theta}\_X\vert\mathcal{D})P(\boldsymbol{\theta}\_{Y\vert X}\vert\mathcal{D})
+\end{equation}
+This decomposition suggests that given $\mathcal{D}$, we can find the solution for the posterior over $\boldsymbol{\theta}$ by independently finding the result corresponding to the posterior over each of $\boldsymbol{\theta}_X$ and $\boldsymbol{\theta}_{Y\vert X}$, which is analogous to the [global likelihood decomposition](#global-likelihood-decomposition) in the MLE. In Bayesian setting this property has additional importance.
+
+Generally, suppose that we are given a Bayesian network graph $\mathcal{G}$ with parameters $\boldsymbol{\theta}$. As mentioned before that in using Bayesian approach, we need to specify a prior distribution over the parameter space $P(\boldsymbol{\theta})$ and a posterior distribution over the parameters given the samples $\mathcal{D}$
+\begin{equation}
+P(\boldsymbol{\theta}\vert\mathcal{D})=\frac{P(\mathcal{D}\vert\boldsymbol{\theta})P(\boldsymbol{\theta})}{P(\mathcal{D})}\label{eq:pigd.1}
+\end{equation}
+Moreover, assuming that we have global parameter independence, then combining with the global likelihood decomposition mentioned above, the posterior in \eqref{eq:pigd.1} can be continued to derive as a product of local terms:
+\begin{align}
+P(\boldsymbol{\theta}\vert\mathcal{D})&=\frac{P(\mathcal{D}\vert\boldsymbol{\theta})P(\boldsymbol{\theta})}{P(\mathcal{D})} \\\\ &=\frac{1}{P(\mathcal{D})}\left(\prod_i L_i(\boldsymbol{\theta}\_{X_i\vert\text{Pa}\_{X_i}};\mathcal{D})\right)\left(\prod_i P(\boldsymbol{\theta}\_{X\_i\vert\text{Pa}\_{X_i}})\right) \\\\ &=\frac{1}{P(\mathcal{D})}\prod_i\left(L_i(\boldsymbol{\theta}\_{X_i\vert\text{Pa}\_{X_i}};\mathcal{D})P(\boldsymbol{\theta}\_{X_i\vert\text{Pa}\_{X_i}})\right)
+\end{align}
+This gives rise to the following result.
+
+**Proposition 3**: Let $\mathcal{D}$ be a complete dataset for $\mathcal{X}$, let $\mathcal{G}$ be a BN graph over $\mathcal{X}$. If $P(\boldsymbol{\theta})$ satisfies global parameter independence, then
+\begin{equation}
+P(\boldsymbol{\theta}\vert\mathcal{D})=\prod_i P(\boldsymbol{\theta}\_{X_i\vert\text{Pa}\_{X_i}}\vert\mathcal{D})
+\end{equation}
+
+**Example 2**: With the network specified in [Figure 1](#fig1), let us compute the predictive distribution. We have that
+\begin{align}
+&\hspace{-0.5cm}P(x[M+1],y[M+1]\vert\mathcal{D})\nonumber \\\\ &\hspace{-0.3cm}=\int P(x[M+1],y[M+1]\vert\mathcal{D},\boldsymbol{\theta})P(\boldsymbol{\theta}\vert\mathcal{D})d\boldsymbol{\theta} \\\\ &\hspace{-0.3cm}=\int P(x[M+1],y[M+1]\vert\boldsymbol{\theta})P(\boldsymbol{\theta}\vert\mathcal{D})d\boldsymbol{\theta} \\\\ &\hspace{-0.3cm}=\int P(x[M+1]\vert\boldsymbol{\theta}\_X)P(y[M+1]\vert x[M+1],\boldsymbol{\theta}\_{Y\vert X})P(\boldsymbol{\theta}\_X\vert\mathcal{D})P(\boldsymbol{\theta}\_{Y\vert X}\vert\mathcal{D})d\boldsymbol{\theta} \\\\ &\hspace{-0.3cm}=\int\int P(x[M+1]\vert\boldsymbol{\theta}\_X)P(y[M+1]\vert x[M+1],\boldsymbol{\theta}\_{Y\vert X})P(\boldsymbol{\theta}\_X\vert\mathcal{D})P(\boldsymbol{\theta}\_{Y\vert X}\vert\mathcal{D})d\boldsymbol{\theta}\_X d\boldsymbol{\theta}\_{Y\vert X} \\\\ &\hspace{-0.3cm}=\left(\int P(x[M+1]\vert\boldsymbol{\theta}\_X)P(\boldsymbol{\theta}\_X\vert\mathcal{D})d\boldsymbol{\theta}\_X\right)\nonumber \\\\ &\hspace{2cm}\left(\int P(y[M+1]\vert x[M+1],\boldsymbol{\theta}\_{Y\vert X})P(\boldsymbol{\theta}\_{Y\vert X}\vert\mathcal{D})d\boldsymbol{\theta}\_{Y\vert X}\right)
+\end{align}
+Thus, we can solve the prediction problem for the two variables $X$ and $Y$ independently.
+
+In general, we can solve the prediction problem for each CPD, $P(X_i\vert\text{Pa}\_{X_i})$, independently the combine the results together, i.e.
+\begin{align}
+&P(X_1[M+1],\ldots,X_n[M+1]\vert\mathcal{D})\nonumber \\\\ &=\prod_{i=1}^{n}\int P\big(X_i[M+1]\big\vert\text{Pa}\_{X_i}[M+1],\boldsymbol{\theta}\_{X_i\vert\text{Pa}\_{X_i}}\big)P\big(\boldsymbol{\theta}\_{X_i\vert\text{Pa}\_{X_i}}\big\vert\mathcal{D}\big)d\boldsymbol{\theta}\_{X_i\vert\text{Pa}\_{X_i}}
+\end{align}
+
+##### Local Decomposition
+By the global decomposition, our attention is then to solve localized Bayesian estimation problems.
+
 
 #### MAP Estimation
 

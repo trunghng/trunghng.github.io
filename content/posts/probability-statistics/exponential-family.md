@@ -8,7 +8,7 @@ eqn-number: true
 > Notes on exponential family.
 <!--more-->
 
-## The exponential family{#exp-fam}
+## Exponential Families{#exp-fam}
 The **exponential family** of distributions is defined as family of distributions of form
 \begin{align}
 p(x;\eta)&=h(x)\exp\Big[\eta^\text{T}T(x)-A(\eta)\Big],\label{eq:ef.1} \\\\ &= \frac{1}{Z(\eta)}h(x)\exp\Big[\eta^\text{T}T(x)\Big]
@@ -26,9 +26,9 @@ The set of parameters $\eta$ for which the integral in \eqref{eq:ef.2} is finite
 \begin{equation}
 N=\left\\{\eta:\int h(x)\exp\left(\eta^\text{T}T(x)\right)\nu(dx)<\infty\right\\}
 \end{equation}
-which explains why $\eta$ is also referred as **natural parameter**. If $N$ is an non-empty open set, the exponential families are said to be **regular**.
+which explains why $\eta$ is also referred as **natural parameter**. If $N$ is an non-empty open set, the exponential family is said to be a **linear exponential family**.
 
-An exponential family is known as **minimal** if there are no linear constraints among the components of $\eta$ nor are there linear constraints among the components of $T(x)$.
+An exponential family is known as **minimal** if there are no linear constraints among the components of $\eta$ nor are there linear constraints among the components of $T(x)$. A linear exponential family in a minimal representation is referred as **regular exponential family**.
 
 ## Examples
 Each particular choice of $\nu$, $T$ and $h$ defines a family (or set) of distributions that is parameterized by $\eta$. As we vary $\eta$, we then get different distributions within this family.
@@ -124,6 +124,11 @@ or we can express $\boldsymbol{\pi}$ in terms of $\eta$ by
 which is the **softmax function**.
 
 ### Multivariate Normal distribution{#mvn}
+For the case of a multivariate Normal r.v $\mathbf{X}$, we have its PDF is given as
+\begin{align}
+p(\mathbf{x};\boldsymbol{\mu},\boldsymbol{\Sigma},K)&=\frac{1}{(2\pi)^{K/2}\vert\boldsymbol{\Sigma}\vert^{1/2}}\exp\left[-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^\text{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})\right] \\\\ 
+\end{align}
+
 
 ## Convexity{#cvxt}
 **Theorem**  
@@ -211,6 +216,9 @@ c_k=K^{(k)}(0)
 Thus, the mean of $T(X)$ is exactly the first cumulant, while the variance is the second cumulant of $T(X)$.
 
 ## Sufficiency
+
+## Bayesian Networks
+We can show that a product of a set of 
 
 ## Maximum likelihood estimates{#mle}
 Consider an i.i.d data set $\mathcal{D}=\\{x_1,\ldots,x_N\\}$, the likelihood function is then given by
