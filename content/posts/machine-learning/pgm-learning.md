@@ -162,69 +162,6 @@ Setting this derivative to zero, we have that
 \boldsymbol{\Sigma}&=\sum_{m=1}^{M}(\mathbf{z}[m]-\boldsymbol{\mu})(\mathbf{z}[m]-\boldsymbol{\mu})^\text{T} \\\\ &=\sum_{m=1}^{M}\left[\begin{matrix}(x[m]-\mu_X)^2&(x[m]-\mu_X)(y[m]-\mu_Y) \\\\ (y[m]-\mu_Y)(x[m]-\mu_X)&(y[m]-\mu_Y)^2\end{matrix}\right] \\\\ &=\left[\begin{matrix}\text{Cov}\_\mathcal{D}[X,X]&\text{Cov}\_\mathcal{D}[X,Y] \\\\ \text{Cov}\_\mathcal{D}[Y,X]&\text{Cov}\_\mathcal{D}[Y,Y]\end{matrix}\right]
 \end{align}
 
-#### MLE as Moment Projection
-
-##### M-Projections
-Let $P$ be a distribution and let $\mathcal{Q}$ be a convex set of distributions. The **M-projection** (for **moment projection**) of $P$ on $\mathcal{Q}$ is the distribution
-\begin{equation}
-Q^M=\underset{Q\in\mathcal{Q}}{\text{argmin}}D_\text{KL}(P\Vert Q)
-\end{equation}
-
-**Theorem 1**: *Let $P$ be a distribution over $X_1,\ldots,X_n$, and let $\mathcal{Q}$ be the family of distributions consistent with $\mathcal{G}_\emptyset$. Then*
-\begin{equation}
-Q^M=\underset{Q\models\mathcal{G}\_\emptyset}{\text{argmin}}D_\text{KL}(P\Vert Q)
-\end{equation}
-*is the distribution*
-\begin{equation}
-Q^M(X_1,\ldots,X_n)=P(X_1)\ldots P(X_n)
-\end{equation}
-
-**Proof**  
-Consider a distribution $Q\models\mathcal{G}\_\emptyset$. Since $Q$ factorizes, we have that
-\begin{align}
-D_\text{KL}(P\Vert Q)&=\mathbb{E}\_P\big[\log P(X_1,\ldots,X_n)-\log Q(X_1.\ldots,X_n)\big] \\\\ &=\mathbb{E}\_P\left[P(X_1,\ldots,X_n)-\sum_i\mathbb{E}\_P\big[\log Q(X_i)\big]\right] \\\\ &=\mathbb{E}\_P\left[\log\frac{P(X_1,\ldots,X_n)}{P(X_1)\ldots P(X_n)}\right]\sum_i\mathbb{E}\_P\left[\log\frac{P(X_i)}{Q(X_i)}\right] \\\\ &=D_\text{KL}(P\Vert Q^M)+\sum_i D_\text{KL}\big(P(X_i)\Vert Q(X_i)\big) \\\\ &\geq D_\text{KL}(P\Vert Q^M)
-\end{align}
-
-
-##### MLE as M-Projection
-<b id='lm2'>Lemma 2</b>: *For any distribution $P,P'$ over $\mathcal{X}$, we have*
-\begin{equation}
-D_\text{KL}(P\Vert P')=-H_P(\mathcal{X})-\mathbb{E}\_{\xi\sim P}\big[\log P'(\xi)\big]
-\end{equation}
-
-**Proof**  
-We have that the relative entropy is given as
-\begin{align}
-D_\text{KL}(P\Vert P')&=\mathbb{E}\_{\xi\sim P}\left[\log\left(\frac{P(\xi)}{P'(\xi)}\right)\right] \\\\ &=\mathbb{E}\_{\xi\sim P}\big[\log P(\xi)\big]-\mathbb{E}\_{\xi\sim P}\big[\log P'(\xi)\big] \\\\ &=-H_P(\mathcal{X})-\mathbb{E}\_{\xi\sim P}\big[\log P'(\xi)\big]
-\end{align}
-
-**Proposition 3**: *Let $\mathcal{D}$ be a dataset, then*
-\begin{equation}
-\log L(\boldsymbol{\theta};\mathcal{D})=M\cdot\mathbb{E}\_{\hat{P}\_\mathcal{D}}\big[\log P(\mathcal{X};\boldsymbol{\theta})\big],
-\end{equation}
-*where $\hat{P}_\mathcal{D}$ is the empirical distribution, defined as*
-\begin{equation}
-\hat{P}\_\mathcal{D}(A)=\frac{1}{M}\sum_{m=1}^{M}\mathbf{1}\\{\xi[m]\in A\\}
-\end{equation}
-
-**Proof**  
-We have that
-\begin{align}
-\log L(\boldsymbol{\theta};\mathcal{D})&=\log\prod_{m=1}^{M}P(\xi[m];\boldsymbol{\theta}) \\\\ &=\sum_{m=1}^{M}\log P(\xi[m];\boldsymbol{\theta}) \\\\ &=\sum_\xi\left(\sum_{m=1}^{M}\mathbf{1}\\{\xi[m]=\xi\\}\right)\log P(\xi;\boldsymbol{\theta}) \\\\ &=\sum_\xi M\cdot\hat{P}\_\mathcal{D}(\xi)\log P(\xi;\boldsymbol{\theta}) \\\\ &=M\cdot\mathbb{E}\_{\hat{P}\_\mathcal{D}}\big[\log P(\mathcal{X};\boldsymbol{\theta})\big]
-\end{align}
-
-Applying [Lemma 2](#lm2) to this result, we have
-\begin{align}
-\ell(\boldsymbol{\theta};\mathcal{D})&=M\cdot\mathbb{E}\_{\hat{P}\_\mathcal{D}}\big[\log P(\mathcal{X};\boldsymbol{\theta})\big] \\\\ &=M\cdot\left[H_{\hat{P}\_\mathcal{D}}(\mathcal{X})-D_\text{KL}\big(\hat{P}\_\mathcal{D}(\mathcal{X})\Vert P(\mathcal{X};\boldsymbol{\theta})\big)\right]
-\end{align}
-
-From this result, we can derive the following relationship between MLE and M-projections
-
-**Theorem 4**: *The MLE $\hat{\boldsymbol{\theta}}$ in a parametric family relative to a dataset $\mathcal{D}$ is the M-projection of $\hat{P}_\mathcal{D}$ onto the parametric family*
-\begin{equation}
-\hat{\boldsymbol{\theta}}=\underset{\boldsymbol{\theta}\in\Theta}{\text{argmin}}D_\text{KL}(\hat{P}\_\mathcal{D}\Vert P_\boldsymbol{\theta})
-\end{equation}
-
 ### Bayesian Parameter Estimation
 
 #### General setting

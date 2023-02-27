@@ -11,13 +11,13 @@
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Mon, 04 Apr 2022 14:00:00 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/probability-statistics/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>The Exponential Family</title>
-      <link>https://trunghng.github.io/posts/probability-statistics/exponential-family/</link>
+      <title>The Exponential Family, Generalized Linear Models</title>
+      <link>https://trunghng.github.io/posts/probability-statistics/exponential-family-glim/</link>
       <pubDate>Mon, 04 Apr 2022 14:00:00 +0700</pubDate>
       
-      <guid>https://trunghng.github.io/posts/probability-statistics/exponential-family/</guid>
+      <guid>https://trunghng.github.io/posts/probability-statistics/exponential-family-glim/</guid>
       <description>&lt;blockquote&gt;
-&lt;p&gt;Notes on exponential family.&lt;/p&gt;
+&lt;p&gt;Notes on Exponential Family &amp;amp; Generalized Linear Models.&lt;/p&gt;
 &lt;/blockquote&gt;</description>
     </item>
     
