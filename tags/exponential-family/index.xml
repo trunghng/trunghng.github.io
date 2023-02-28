@@ -12,10 +12,10 @@
     <lastBuildDate>Mon, 04 Apr 2022 14:00:00 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/exponential-family/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>The Exponential Family, Generalized Linear Models</title>
-      <link>https://trunghng.github.io/posts/probability-statistics/exponential-family-glim/</link>
+      <link>https://trunghng.github.io/posts/machine-learning/exponential-family-glim/</link>
       <pubDate>Mon, 04 Apr 2022 14:00:00 +0700</pubDate>
       
-      <guid>https://trunghng.github.io/posts/probability-statistics/exponential-family-glim/</guid>
+      <guid>https://trunghng.github.io/posts/machine-learning/exponential-family-glim/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Notes on Exponential Family &amp;amp; Generalized Linear Models.&lt;/p&gt;
 &lt;/blockquote&gt;</description>
