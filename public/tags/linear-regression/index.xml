@@ -11,13 +11,13 @@
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sat, 13 Aug 2022 13:00:00 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/linear-regression/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Generalized Linear Models</title>
+      <title>Linear Models</title>
       <link>https://trunghng.github.io/posts/machine-learning/glm/</link>
       <pubDate>Sat, 13 Aug 2022 13:00:00 +0700</pubDate>
       
       <guid>https://trunghng.github.io/posts/machine-learning/glm/</guid>
       <description>&lt;blockquote&gt;
-&lt;p&gt;Linear models for solving both regression and classification problems are members of a broader family named Generalized Linear Models.&lt;/p&gt;
+&lt;p&gt;Notes on using linear models in regression and classification.&lt;/p&gt;
 &lt;/blockquote&gt;</description>
     </item>
     

@@ -69,13 +69,24 @@
     </item>
     
     <item>
-      <title>Generalized Linear Models</title>
+      <title>Linear Models</title>
       <link>https://trunghng.github.io/posts/machine-learning/glm/</link>
       <pubDate>Sat, 13 Aug 2022 13:00:00 +0700</pubDate>
       
       <guid>https://trunghng.github.io/posts/machine-learning/glm/</guid>
       <description>&lt;blockquote&gt;
-&lt;p&gt;Linear models for solving both regression and classification problems are members of a broader family named Generalized Linear Models.&lt;/p&gt;
+&lt;p&gt;Notes on using linear models in regression and classification.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>The Exponential Family, Generalized Linear Models</title>
+      <link>https://trunghng.github.io/posts/machine-learning/exponential-family-glim/</link>
+      <pubDate>Mon, 04 Apr 2022 14:00:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/machine-learning/exponential-family-glim/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Notes on Exponential Family &amp;amp; Generalized Linear Models.&lt;/p&gt;
 &lt;/blockquote&gt;</description>
     </item>
     

@@ -1,11 +1,11 @@
 ---
-title: "Generalized Linear Models"
+title: "Linear Models"
 date: 2022-08-13 13:00:00 +0700
-tags: [machine-learning, linear-regression, logistic-regression, linear-discriminant-analysis]
+tags: [machine-learning, linear-regression, logistic-regression, linear-discriminant-analysis, generalized-linear-model]
 math: true
 eqn-number: true
 ---
-> Linear models for solving both regression and classification problems are members of a broader family named Generalized Linear Models.
+> Notes on using linear models in regression and classification.
 <!--more-->
 
 ## Preliminaries
@@ -350,7 +350,7 @@ Therefore, the posterior distribution of the data point $(\mathbf{x}\_{N+1},t_{N
 \begin{align}
 &\hspace{0.7cm}p(\mathbf{w}\vert t_{N+1},\mathbf{x}\_{N+1},\mathbf{t}) \\\\ &\propto p(t_{N+1}\vert\mathbf{x}\_{N+1},\mathbf{w})p(\mathbf{w}\vert\mathbf{t}) \\\\ &=\exp\Big[-\frac{1}{2}(\mathbf{w}-\mathbf{m}\_N)^\text{T}\mathbf{S}\_N^{-1}(\mathbf{w}-\mathbf{m}\_N)-\frac{1}{2}(t_{N+1}-\mathbf{w}^\text{T}\boldsymbol{\phi}\_{N+1})^2\beta\Big] \\\\ &=\exp\Big[-\frac{1}{2}\big(\mathbf{w}^\text{T}\mathbf{S}\_N^{-1}\mathbf{w}+\beta\mathbf{w}^\text{T}\boldsymbol{\phi}\_{N+1}\boldsymbol{\phi}\_{N+1}^\text{T}\mathbf{w}\big)+\mathbf{w}^\text{T}\big(\mathbf{S}\_N^{-1}\mathbf{m}\_N+t_{N+1}\beta\boldsymbol{\phi}\_{N+1}\big)+c\Big] \\\\ &=\exp\Big[-\frac{1}{2}\mathbf{w}^\text{T}\big(\mathbf{S}\_N^{-1}+\beta\boldsymbol{\phi}\_{N+1}\boldsymbol{\phi}\_{N+1}^\text{T}\big)\mathbf{w}+\mathbf{w}^\text{T}\big(\mathbf{S}\_N^{-1}\mathbf{m}\_N+t_{N+1}\beta\boldsymbol{\phi}\_{N+1}\big)+c\Big],
 \end{align}
-where $c$ is a constant w.r.t $\mathbf{w}$, i.e., $c$ is independent of $\mathbf{w}$, which claims that the posterior distribution is also a Gaussian, given by
+where $c$ is a constant w.r.t $\mathbf{w}$, i.e. $c$ is independent of $\mathbf{w}$, which claims that the posterior distribution is also a Gaussian, given by
 \begin{equation}
 p(\mathbf{w}\vert t_{N+1},\mathbf{x}\_{N+1},\mathbf{t})=\mathcal{N}(\mathbf{w}\vert\mathbf{m}\_{N+1},\mathbf{S}\_{N+1})\label{eq:pd.3}
 \end{equation}
@@ -1040,7 +1040,7 @@ Consider using the Newton's method to the logistic regression model with the cro
 \end{equation}
 and
 \begin{align}
-\mathbf{H}=\nabla_\mathbf{w}\nabla_\mathbf{w}E(\mathbf{w})&=\nabla_\mathbf{w}\sum_{n=1}^{N}(y_n-t_n)\boldsymbol{\phi}\_n \\\\ &=\sum_{n=1}^{N}y_n(1-y_n)\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\label{eq:nlr.1} \\\\ &=\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi},
+\mathbf{H}=\nabla_{\mathbf{w}^\text{T}}\nabla_\mathbf{w}E(\mathbf{w})&=\nabla_{\mathbf{w}^\text{T}}\sum_{n=1}^{N}(y_n-t_n)\boldsymbol{\phi}\_n \\\\ &=\sum_{n=1}^{N}y_n(1-y_n)\boldsymbol{\phi}\_n\boldsymbol{\phi}\_n^\text{T}\label{eq:nlr.1} \\\\ &=\boldsymbol{\Phi}^\text{T}\mathbf{R}\boldsymbol{\Phi},
 \end{align}
 where $\mathbf{R}$ is the $N\times N$ diagonal matrix with diagonal elements
 \begin{equation}
@@ -1205,8 +1205,6 @@ And thus, the predictive distribution for class $\mathcal{C}\_2$ is given by
 \begin{equation}
 p(\mathcal{C}\_2\vert\boldsymbol{\phi},\mathbf{t})=1-p(\mathcal{C}\_1\vert\boldsymbol{\phi},\mathbf{t})
 \end{equation}
-
-## Generalized linear models{#glm}
 
 ## References
 [1] <span id='bishops-book'>Christopher M. Bishop. [Pattern Recognition and Machine Learning](https://link.springer.com/book/9780387310732). Springer New York, NY, 2006.</span>

@@ -1,7 +1,7 @@
 ---
 title: "The Exponential Family, Generalized Linear Models"
 date: 2022-04-04 14:00:00 +0700
-tags: [mathematics, probability-statistics, exponential-family, generalized-linear-model]
+tags: [machine-learning, exponential-family, generalized-linear-model, probabilistic-graphical-model]
 math: true
 eqn-number: true
 ---
@@ -194,13 +194,9 @@ Let $X$ be a r.v and let $T(X)$ be a statistic. Suppose that the distribution of
 	<li>
 		In Bayesian approach, $\theta$ is considered as a r.v. Thus, we say that $T(X)$ is sufficient for $\theta$ if
 		\begin{equation}
-		p\models\theta\perp X\vert T(X),
+		p\models(\theta\perp X\vert T(X)),
 		\end{equation}
 		which happens iff
-		\begin{equation}
-		p(\theta,x\vert T(x))=p(x\vert T(x))p(x\vert T(x)),
-		\end{equation}
-		or
 		\begin{equation}
 		p(\theta\vert T(x),x)=p(\theta\vert T(x))
 		\end{equation}
@@ -410,7 +406,7 @@ Using Newton's method, we have the update rule
 \begin{align}
 \theta^{(t+1)}&=\theta^{(t)}-H_\ell^{-1}\nabla_\theta\ell \\\\ &=-H_\ell^{-1}(-H_\ell\theta^{(t)}+\nabla_\theta) \\\\ &=(X^\text{T}W^{(t)}X)^{-1}\big[X^\text{T}W^{(t)}X\theta^{(t)}+X^\text{T}(y-\mu^{(t)})\big] \\\\ &=(X^\text{T}W^{(t)}X)^{-1}X^\text{T}W^{(t)}z^{(t)},\label{eq:mle-glm.5}
 \end{align}
-where we have defined
+where we have defined the **adjusted response**
 \begin{equation}
 z^{(t)}\doteq\eta+\big(W^{(t)}\big)^{-1}(y-\mu^{(t)})
 \end{equation}
