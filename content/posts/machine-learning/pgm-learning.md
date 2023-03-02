@@ -8,9 +8,11 @@ eqn-number: true
 Notes on Learning in PGMs.
 <!--more-->
 
-## Parameter Estimation in Bayesian Networks with Fully Observed Data
+## Parameter Estimation
 
-### MLE for Bayesian Networks{#mle-bn}
+### Fully Observed Data
+
+#### MLE for Bayesian Networks{#mle-bn}
 Suppose that we have a Bayesian network of two binary nodes $X,Y$ connected by $X\to Y$.
 <figure>
 	<img width="27%" height="27%" src="/images/pgm-learning/mle-bn.png" alt="BN"/>
@@ -34,7 +36,7 @@ L(\boldsymbol{\theta}:\mathcal{D})&=\prod_{m=1}^{M}P(x[m],y[m];\boldsymbol{\thet
 \end{align}
 which decomposes into two terms, on for each variable. Each of these are referred as **local likelihood function** that measures how well the variable is predicted given its parents.
 
-#### Global Likelihood Decomposition
+##### Global Likelihood Decomposition
 Generally, suppose that we want to learn a parameters $\boldsymbol{\theta}$ for Bayesian network structure $\mathcal{G}$. Given a dataset $\mathcal{D}=\\{\xi[1],\ldots,\xi[M]\\}$, analogy to the argument above, we have that the likelihood function is given by
 \begin{align}
 L(\boldsymbol{\theta}:\mathcal{D})&=\prod_{m=1}^{M}P_\mathcal{G}(\xi[m];\boldsymbol{\theta}) \\\\ &=\prod_{m=1}^{M}\prod_i P\big(x_i[m]\big\vert\text{pa}\_{X_i}[m];\boldsymbol{\theta}\big) \\\\ &=\prod_i\left[\prod_{m=1}^{M}P\big(x_i[m]\big\vert\text{pa}\_{X_i}[m];\boldsymbol{\theta}\big)\right]\label{eq:gld.1}
@@ -51,7 +53,7 @@ In other words, when $\boldsymbol{\theta}\_{X_i\vert\text{Pa}\_{X_i}}$ are disjo
 
 Additionally, we can maximize each local likelihood function $L_i(\boldsymbol{\theta}\_{X_i\vert\text{Pa}\_{X_i}}:\mathcal{D})$ independently of the others, and then combine the solutions together to get an MLE solution.
 
-#### Table-CPDs
+##### Table-CPDs
 As the MLE solution for a Bayesian network can be computed via parameterization of its CPDs, we now consider the simplest parameterization of the CPD, tabular CPD, or table-CPD.
 
 Suppose we have a variable $X$ with parents $\mathbf{U}$. If we represent the CPD $P(X\vert\mathbf{U})$ as a table, we then have a parameter $\theta_{x\vert\mathbf{u}}$ for each $x\in\text{Val}(X)$ and $\mathbf{u}\in\text{Val}(\mathbf{U})$. The local likelihood function is then can be decomposed further as
@@ -60,7 +62,7 @@ L_X(\boldsymbol{\theta}\_{X\vert\mathbf{U}})&=\prod_{m=1}^{M}\theta_{x[m]\vert\m
 \end{align}
 where $M[\mathbf{u},x]$ is the number of times $x[m]=x$ and $\mathbf{u}[m]=\mathbf{u}$ in $\mathcal{D}$.
 
-#### Gaussian Bayesian Networks{#gaussian-bn}
+##### Gaussian Bayesian Networks{#gaussian-bn}
 Consider a variable $X$ with parents $\mathbf{U}=\\{U_1,\ldots,U_k\\}$ with a [linear Gaussian CPD]({{< ref "pgm-representation#linear-gaussian-model" >}})
 \begin{equation}
 P(X\vert\mathbf{u})=\mathcal{N}(\beta_0+\beta_1 u_1+\ldots+\beta_k u_k;\sigma^2)
@@ -162,12 +164,12 @@ Setting this derivative to zero, we have that
 \boldsymbol{\Sigma}&=\sum_{m=1}^{M}(\mathbf{z}[m]-\boldsymbol{\mu})(\mathbf{z}[m]-\boldsymbol{\mu})^\text{T} \\\\ &=\sum_{m=1}^{M}\left[\begin{matrix}(x[m]-\mu_X)^2&(x[m]-\mu_X)(y[m]-\mu_Y) \\\\ (y[m]-\mu_Y)(x[m]-\mu_X)&(y[m]-\mu_Y)^2\end{matrix}\right] \\\\ &=\left[\begin{matrix}\text{Cov}\_\mathcal{D}[X,X]&\text{Cov}\_\mathcal{D}[X,Y] \\\\ \text{Cov}\_\mathcal{D}[Y,X]&\text{Cov}\_\mathcal{D}[Y,Y]\end{matrix}\right]
 \end{align}
 
-### Bayesian Parameter Estimation
+#### Bayesian Parameter Estimation
 
-#### General setting
+##### General setting
 In the **Bayesian approach**, as before, we assume a general learning problem where we observe a training set $\mathcal{D}=\\{\xi[1],\ldots,\xi[M]\\}$ and a parametric model $P(\xi\vert\boldsymbol{\theta})$ where we can choose parameters from a parameter space $\Theta$, i.e. in this case, samples according to the probabilistic model are conditionally i.i.d given $\boldsymbol{\theta}$ instead of, recalling that in MLE, being (unconditionally) i.i.d.
 
-##### Priors, Posteriors
+###### Priors, Posteriors
 To perform the task, we need to define a joint distribution $P(\mathcal{D},\boldsymbol{\theta})$ over the data and the parameters, which can be written by
 \begin{equation}
 P(\mathcal{D},\boldsymbol{\theta})=P(\mathcal{D}\vert\boldsymbol{\theta})P(\boldsymbol{\theta}),
@@ -203,17 +205,17 @@ P(\boldsymbol{\theta})\propto\prod_{k=1}^{K}\theta_k^{\alpha_k-1}
 \end{equation}
 Then we have that the posterior $P(\boldsymbol{\theta}\vert\mathcal{D})$ is $\text{Dirichlet}(\alpha_1+M[1],\ldots,\alpha_K+M[K])$, where $M[k]$ is the number of occurrences of $x^k$.
 
-##### Bayesian Estimator
+###### Bayesian Estimator
 From the posterior, we can predict the probability of future samples. Specifically, suppose that we are about to sample a new instance $\xi[M+1]$, then the **Bayesian estimator**, or the **predictive distribution**, is the posterior distribution over a new example.
 \begin{align}
 P(\xi[M+1]\vert\mathcal{D})&=\int P(\xi[M+1]\vert\mathcal{D},\boldsymbol{\theta})P(\boldsymbol{\theta}\vert\mathcal{D})d\boldsymbol{\theta} \\\\ &=\int P(\xi[M+1]\vert\boldsymbol{\theta})P(\boldsymbol{\theta}\vert\mathcal{D})d\boldsymbol{\theta} \\\\ &=\mathbb{E}\_{P(\boldsymbol{\theta}\vert\mathcal{D})}\big[P(\xi[M+1]\vert\boldsymbol{\theta})\big],
 \end{align}
 where in the second step, we use the fact that samples are i.i.d given $\boldsymbol{\theta}$.
 
-#### Bayesian Parameter Estimation in Bayesian Networks
+##### Bayesian Parameter Estimation in Bayesian Networks
 Since in Bayesian framework, it is required to specify a joint distribution over the training examples and the unknown parameters. Additionally, this joint distribution can be considered as a Bayesian network.
 
-##### Parameter Independence and Global Decomposition
+###### Parameter Independence and Global Decomposition
 Suppose that we want to estimate parameters for a networks consisting of two variables $X$ and $Y$ with edge $X\rightarrow Y$. Also, we are given a training dataset $\mathcal{D}=\\{(x[1],y[1]),\ldots,(x[M],y[M])\\}$. Additionally, we have unknown parameters $\boldsymbol{\theta}\_X,\boldsymbol{\theta}_{Y\vert X}$. The dependencies between variables are described in the following network.
 <figure id='fig1'>
 	<img width="70%" height="70%" src="/images/pgm-learning/meta-network.png" alt="Normal distribution"/>
@@ -270,7 +272,7 @@ In general, we can solve the prediction problem for each CPD, $P(X_i\vert\text{P
 &P(X_1[M+1],\ldots,X_n[M+1]\vert\mathcal{D})\nonumber \\\\ &=\prod_{i=1}^{n}\int P\big(X_i[M+1]\big\vert\text{Pa}\_{X_i}[M+1],\boldsymbol{\theta}\_{X_i\vert\text{Pa}\_{X_i}}\big)P\big(\boldsymbol{\theta}\_{X_i\vert\text{Pa}\_{X_i}}\big\vert\mathcal{D}\big)d\boldsymbol{\theta}\_{X_i\vert\text{Pa}\_{X_i}}
 \end{align}
 
-##### Local Decomposition
+###### Local Decomposition
 By the global decomposition, our attention is then to solve localized Bayesian estimation problems.
 
 Let $X$ be a variable with parent $\mathbf{U}$. We say that the prior $P(\boldsymbol{\theta}\_{X\vert\mathbf{U}})$ satisfies **local parameter independence** if
@@ -284,11 +286,11 @@ This definition gives rise to the following result.
 P(\boldsymbol{\theta}\vert\mathcal{D})&=\prod_i P(\boldsymbol{\theta}\_{X_i\vert\text{Pa}\_{X_i}}\vert\mathcal{D}) \\\\ &=\prod_i\prod_{\text{pa}\_{X_i}}P(\boldsymbol{\theta}\_{X_i\vert\text{pa}\_{X_i}}\vert\mathcal{D})
 \end{align}
 
-##### MAP Estimation
+###### MAP Estimation
 
-## Parameter Estimation in Bayesian Networks with Partially Observed Data
+### Partially Observed Data
 
-### Likelihood of Data and Observation Models
+#### Likelihood of Data and Observation Models
 Let $\mathbf{X}=\\{X_1,\ldots,X_n\\}$ be some set of r.v.s, and let $O_\mathbf{X}=\\{O_{X_1},\ldots,O_{X_n}\\}$ be their **observability variable**, which indicates whether the value of $X_i$ is observed. The **observability model** is a joint distribution
 \begin{equation}
 p_\text{missing}(\mathbf{X},O_\mathbf{X})=P(\mathbf{X})P_\text{missing}(O_\mathbf{X}\vert\mathbf{X}),
@@ -341,14 +343,14 @@ Then, given the dataset $\mathcal{D}$ with $M[1],M[0]$ and $M[?]$ examples, the 
 &L(\theta,\psi_{O_X\vert x^1},\psi_{O_X\vert x^0}:\mathcal{D})\nonumber \\\\ &=(\theta\psi_{O_X\vert x^1})^{M[1]}\big[(1-\theta)\psi_{O_X\vert x^0}\big]^{M[0]}\big[\theta(1-\psi_{O_X\vert x^1})+(1-\theta)(1-\psi_{O_X\vert x^0})\big]^{M[?]}
 \end{align}
 
-### Decoupling of Observation Mechanism
+#### Decoupling of Observation Mechanism
 
-#### Missing Completely At Random{#mcar}
+##### Missing Completely At Random{#mcar}
 A missing data model $P_\text{missing}$ is **missing completely at random** (**MCAR**) if $P_\text{missing}\models(\mathbf{X}\perp O_\mathbf{X})$.
 
 In this case, the likelihood function of $X$ and $O_X$ decomposes as a product, and we can maximize each part separately. However, MCAR is sufficient but not necessary for the decomposition of the likelihood function.
 
-#### Missing At Random{#mar}
+##### Missing At Random{#mar}
 Let $\mathbf{y}$ be a tuple of observations. These observations partition the variables $\mathbf{X}$ into two sets
 <ul id='number-list'>
 	<li>
@@ -381,8 +383,8 @@ Notice that the first term in \eqref{eq:mar.1}, $P_\text{missing}(o_\mathbf{X}\v
 
 **Theorem 3**: *If $P_\text{missing}$ satisfies MAR, then $L(\boldsymbol{\theta},\boldsymbol{\psi}:\mathcal{D})$ can be written as a product of two likelihood functions $L(\boldsymbol{\theta}:\mathcal{D})$ and $L(\boldsymbol{\psi}:\mathcal{D})$.* 
 
-### The Likelihood Function
-Given a Bayesian network $\mathcal{G}$ over a set of variables $\mathbf{X}$, and dataset $\mathcal{D}$ of $M$ training instances, each of which has
+#### The Likelihood Function
+Given a Bayesian network structure $\mathcal{G}$ over a set of variables $\mathbf{X}$, and dataset $\mathcal{D}$ of $M$ training instances, each of which has
 <ul id='number-list'>
 	<li>
 		a different set of observed variables, denoted $\{\mathbf{O}[m]:m=1,\ldots,M\}$ and their corresponding values $\{\mathbf{o}[m]:m=1,\ldots,M\}$;
@@ -392,25 +394,99 @@ Given a Bayesian network $\mathcal{G}$ over a set of variables $\mathbf{X}$, and
 	</li>
 </ul>
 
-The likelihood function, $L(\boldsymbol{\theta}:\mathcal{D})$, is defined as the probability of the observed variables in the data.
+The likelihood function, $L(\boldsymbol{\theta}:\mathcal{D})$, is defined as the probability of the observed variables in the data, marginalizing the hidden variables, and ignoring the observability model: 
 \begin{equation}
-L(\boldsymbol{\theta}:\mathcal{D})=\prod_{m=1}^{M}P(\mathbf{o}[m]\vert\boldsymbol{\theta})
+L(\boldsymbol{\theta}:\mathcal{D})=\prod_{m=1}^{M}P(\mathbf{o}[m];\boldsymbol{\theta})\label{eq:tlf.1}
 \end{equation}
 And thus the log-likelihood is given as
 \begin{equation}
-\ell(\boldsymbol{\theta}:\mathcal{D})=\sum_{m=1}^{M}\log P(\mathbf{o}[m]\vert\boldsymbol{\theta})
+\ell(\boldsymbol{\theta}:\mathcal{D})=\sum_{m=1}^{M}\log P(\mathbf{o}[m];\boldsymbol{\theta})
 \end{equation}
-This definition of likelihood function suggests that the problem of learning with partially observed data basically does not differ from the problem of learning with fully observed data. The computational complex is bigger in this case though.
+This definition of likelihood function suggests that the problem of learning with partially observed data basically does not differ from the problem of learning with fully observed data. However, the computational complexity is bigger in this case and it requires the use of missing data.
+\begin{equation}
+L(\boldsymbol{\theta}:\mathcal{D})=\prod_{m=1}^{M}P(\mathbf{o}[m];\boldsymbol{\theta})=\prod_{m=1}^{M}\sum_{\mathbf{h}[m]}P(\mathbf{o}[m],\mathbf{h}[m];\boldsymbol{\theta})
+\end{equation}
 
 **Example 6**: Let us consider a Bayesian network $\mathcal{G}$ consisting of two binary variables $X,Y$ connected by the edge $X\to Y$.
 <ul id='alpha-list'>
 	<li>
-		In the case of completely observed data, the likelihood function for $\mathcal{G}$ is given as
+		Given completely observed data, the likelihood function for $\mathcal{G}$ is given as
+		\begin{align}
+		\hspace{-1.5cm}L(\boldsymbol{\theta}:\mathcal{D})&=L(\boldsymbol{\theta}_X,\boldsymbol{\theta}_{Y\vert x^1},\boldsymbol{\theta}_{Y\vert x^0}:\mathcal{D}) \\ &=\theta_{x^1}^{M[x^1]}\theta_{x^0}^{M[x^0]}\theta_{y^1\vert x^1}^{M[x^1,y^1]}\theta_{y^0\vert x^1}^{M[x^1,y^1]}\theta_{y^1\vert x^0}^{M[x^0,y^1]}\theta_{y^0\vert x^0}^{M[x^0,y^1]} \\ &=\theta_{x^1}^{M[x^1]}(1-\theta_{x^1})^{M[x^0]}\theta_{y^1\vert x^1}^{M[x^1,y^1]}(1-\theta_{y^1\vert x^1})^{M[x^1,y^1]}\theta_{y^1\vert x^0}^{M[x^0,y^1]}(1-\theta_{y^1\vert x^0})^{M[x^0,y^1]}\label{eq:tlf.2}
+		\end{align}
+	</li>
+	<li>
+		Given partially observed data, for example, we did observe $Y[1]=y^1$, but did not observe $X[1]$, i.e. non-formally we can describe $\mathcal{D}$ as
 		\begin{equation}
-		L(\boldsymbol{\theta}_X,\boldsymbol{\theta}_{Y\vert x^1},\boldsymbol{\theta}_{Y\vert x^0}:\mathcal{D})=\theta_{x^1}^{M[x^1]}\theta_{x^0}^{M[x^0]}\theta_{y^1\vert x^1}^{M[x^1,y^1]}\theta_{y^0\vert x^1}^{M[x^1,y^1]}\theta_{y^1\vert x^0}^{M[x^0,y^1]}\theta_{y^0\vert x^0}^{M[x^0,y^1]}
+		\mathcal{D}=\{(?,y^1),(X[2],Y[2]),\ldots,(X[M],Y[M])\}
 		\end{equation}
+		As given in \eqref{eq:tlf.1}, the likelihood is the marginal probability of the observations, and thus can be written as a sum of two <b>complete likelihoods</b> (i.e. given as \eqref{eq:tlf.2}). Specifically, let $\mathcal{D}_1$ and $\mathcal{D}_2$ be two complete dataset, defined as
+		\begin{align}
+		\mathcal{D}_1&=\{(x^1,y^1),(X[2],Y[2]),\ldots,(X[M],Y[M])\} \\ \mathcal{D}_2&=\{(x^0,y^1),(X[2],Y[2]),\ldots,(X[M],Y[M])\},
+		\end{align}
+		which implies that the likelihood over $\mathcal{D}$ can be computed by
+		\begin{align}
+		L(\boldsymbol{\theta}:\mathcal{D})&=L(\boldsymbol{\theta}_X,\boldsymbol{\theta}_{Y\vert x^1},\boldsymbol{\theta}_{Y\vert x^0}:\mathcal{D}_1)+L(\boldsymbol{\theta}_X,\boldsymbol{\theta}_{Y\vert x^1},\boldsymbol{\theta}_{Y\vert x^0}:\mathcal{D}_2) \\ &=
+		\end{align}
 	</li>
 </ul>
+
+#### Identifiability
+Suppose we have a parametric model with parameters $\boldsymbol{\theta}\in\Theta$ that defines a distribution $P(\mathbf{X}\vert\boldsymbol{\theta})$ over a set $\mathbf{X}$ of measurable variables. A choice of parameters $\boldsymbol{\theta}$ is **identifiable** if there is no $\boldsymbol{\theta}'\neq\boldsymbol{\theta}$ such that $P(\mathbf{X}\vert\boldsymbol{\theta})=P(\mathbf{X}\vert\boldsymbol{\theta}')$. A model is **identifiable** if all parameter choices $\boldsymbol{\theta}\in\Theta$ are identifiable.
+
+#### MLE with Incomplete Data
+
+##### Gradient Ascent
+<b id='lemma4'>Lemma 4</b>: *Let $\mathcal{B}$ be a Bayesian network with graph $\mathcal{G}$ over $\mathcal{X}$ that induces a probability distribution $P$, let $\mathbf{o}$ be a tuple of observations for some variables, and let $X\in\mathcal{X}$ be some r.v. If $P(x\vert\mathbf{u})>0$, where $x\in\text{Val}(X)$, $\mathbf{u}\in\text{Val}(\text{Pa}_X)$, then we have*
+\begin{equation}
+\frac{\partial P(\mathbf{o})}{\partial P(x\vert\mathbf{u})}=\frac{P(x,\mathbf{u},\mathbf{o})}{P(x\vert\mathbf{u})}
+\end{equation}
+
+**Proof**  
+Consider the case of full assignment $\xi$. We have
+\begin{equation}
+P(\xi)=\prod_{X_i\in\mathcal{X}}P(\xi\langle X_i\rangle\vert\xi\langle\text{Pa}\_{X_i}\rangle)
+\end{equation}
+Thus, we have that
+\begin{equation}
+\hspace{-1cm}\frac{\partial P(\xi)}{\partial P(x\vert\mathbf{u})}=\begin{cases}\displaystyle\prod_{X_i\in\mathcal{X},X_i\neq X}P\big(\xi\langle X_i\rangle\vert\xi\langle\text{Pa}\_{X_i}\rangle\big)=\frac{P(\xi)}{P(x\vert\mathbf{u})}&\hspace{1cm}\text{if }\xi\langle X,\text{Pa}\_X\rangle=\langle x,\mathbf{u}\rangle \\\\ 0&\hspace{1cm}\text{otherwise}\end{cases}\label{eq:ga.1}
+\end{equation}
+Now consider the case of partial assignment $\xi$. We have
+\begin{equation}
+P(\mathbf{o})=\sum_{\xi:\xi\langle\mathbf{O}\rangle=\mathbf{o}}P(\xi)
+\end{equation}
+Using the result \eqref{eq:ga.1}, we then have that
+\begin{align}
+\frac{\partial P(\mathbf{o})}{\partial P(x\vert\mathbf{u})}&=\sum_{\xi:\xi\langle\mathbf{O}\rangle=\mathbf{o}}\frac{\partial P(\xi)}{\partial P(x\vert\mathbf{u})} \\\\ &=\sum_{\xi:\xi\langle\mathbf{O}\rangle=\mathbf{o},\xi\langle X,\text{Pa}\_X\rangle=\langle x,\mathbf{u}\rangle}\frac{P(\xi)}{P(x\vert\mathbf{u})} \\\\ &=\frac{P(x,\mathbf{u},\mathbf{o})}{P(x\vert\mathbf{u})}
+\end{align}
+
+Given this result, we immediately obtain the form of the gradient of the likelihood function for table-CPDs.
+
+**Theorem 5**: *Let $\mathcal{G}$ be a Bayesian network graph over $\mathcal{X}$, and let $\mathcal{D}=\\{\mathbf{o}[1],\ldots,\mathbf{o}[M]\\}$ be a partially observable dataset. Let $X$ be a variable with parents $\mathbf{U}$ in $\mathcal{G}$. If $P(x\vert\mathbf{u})>0$, where $x\in\text{Val}(X)$, $\mathbf{u}\in\text{Val}(\mathbf{U})$, then we have*
+\begin{equation}
+\frac{\partial\ell(\boldsymbol{\theta}:\mathcal{D})}{\partial P(x\vert\mathbf{u})}=\frac{1}{P(x\vert\mathbf{u})}\sum_{m=1}^{M}P(x,\mathbf{u}\vert\mathbf{o}[m];\boldsymbol{\theta})
+\end{equation}
+
+**Proof**  
+The gradient of the log-likelihood can be written as
+\begin{align}
+\frac{\partial\ell(\boldsymbol{\theta}:\mathcal{D})}{\partial P(x\vert\mathbf{u})}&=\sum_{m=1}^{M}\frac{\partial}{\partial P(x\vert\mathbf{u})}\log P(\mathbf{o}[m];\boldsymbol{\theta}) \\\\ &=\sum_{m=1}^{M}\frac{1}{P(\mathbf{o}[m];\boldsymbol{\theta})}\frac{\partial P(\mathbf{o}[m];\boldsymbol{\theta})}{\partial P(x\vert\mathbf{u})} \\\\ &=\sum_{m=1}^{M}\frac{1}{P(\mathbf{o}[m];\boldsymbol{\theta})}\frac{P(x,\mathbf{u},\mathbf{o}[m];\boldsymbol{\theta})}{P(x\vert\mathbf{u})} \\\\ &=\frac{1}{P(x\vert\mathbf{u})}\sum_{m=1}^{M}P(x,\mathbf{u}\vert\mathbf{o}[m];\boldsymbol{\theta})
+\end{align}
+where the third equality is obtained by applying [Lemma 4](#lemma4).
+
+Using this result, suppose that the CPDs entries of $P(X\vert\mathbf{U})$ are written as functions of some set of parameters $\boldsymbol{\theta}$. Then for a specific parameter $\theta\in\boldsymbol{\theta}$, we have
+\begin{equation}
+\frac{\partial\ell(\boldsymbol{\theta}:\mathcal{D})}{\partial\theta}=\sum_{x,\mathbf{u}}\frac{\partial\ell(\boldsymbol{\theta}:\mathcal{D})}{\partial P(x\vert\mathbf{u})}\frac{\partial P(x\vert\mathbf{u})}{\partial\theta}
+\end{equation}
+<figure>
+	<img src="/images/pgm-learning/gradient-ascent.png" alt="gradient ascent table-CPDs network"/>
+</figure>
+
+##### Expectation Maximization (EM){#em}
+
+#### Bayesian Learning with Incomplete Data
+
+## Structure Learning
 
 
 ## References
