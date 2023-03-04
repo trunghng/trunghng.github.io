@@ -8,7 +8,7 @@ eqn-number: true
 Notes on Learning in PGMs.
 <!--more-->
 
-## Parameter Estimation
+## Parameter Learning
 
 ### Fully Observed Data
 
@@ -228,9 +228,9 @@ We have already known that in using Bayesian approach, the samples are independe
 \end{equation}
 which can be justified by an examination of active trails from the above figure. Moreover, the network structure given in [Figure 1](#fig1) also satisfies the **global parameter independence**.
 
-Let $\mathcal{G}$ be a BN structure with parameters $\boldsymbol{\theta}=(\boldsymbol{\theta}\_{X_1}\vert\text{Pa}\_{X_1},\ldots,\boldsymbol{\theta}\_{X_n}\vert\text{Pa}\_{X_n})$. Then, a prior $P(\boldsymbol{\theta})$ is said to satisfy **global parameter independence** if it has the form
+Let $\mathcal{G}$ be a BN structure with parameters $\boldsymbol{\theta}=(\boldsymbol{\theta}\_{X_1\vert\text{Pa}\_{X_1}},\ldots,\boldsymbol{\theta}\_{X_n\vert\text{Pa}\_{X_n}})$. Then, a prior $P(\boldsymbol{\theta})$ is said to satisfy **global parameter independence** if it has the form
 \begin{equation}
-P(\boldsymbol{\theta})=\prod_{i=1}^{n}P(\boldsymbol{\theta}\_{X_i}\vert\text{Pa}\_{X_i})
+P(\boldsymbol{\theta})=\prod_{i=1}^{n}P(\boldsymbol{\theta}\_{X_i\vert\text{Pa}\_{X_i}})
 \end{equation}
 This property allows us to conclude that complete data, $\mathcal{D}$, d-separates the parameters for different CPDs, i.e.
 \begin{equation}
@@ -293,7 +293,7 @@ P(\boldsymbol{\theta}\vert\mathcal{D})&=\prod_i P(\boldsymbol{\theta}\_{X_i\vert
 #### Likelihood of Data and Observation Models
 Let $\mathbf{X}=\\{X_1,\ldots,X_n\\}$ be some set of r.v.s, and let $O_\mathbf{X}=\\{O_{X_1},\ldots,O_{X_n}\\}$ be their **observability variable**, which indicates whether the value of $X_i$ is observed. The **observability model** is a joint distribution
 \begin{equation}
-p_\text{missing}(\mathbf{X},O_\mathbf{X})=P(\mathbf{X})P_\text{missing}(O_\mathbf{X}\vert\mathbf{X}),
+P_\text{missing}(\mathbf{X},O_\mathbf{X})=P(\mathbf{X})P_\text{missing}(O_\mathbf{X}\vert\mathbf{X}),
 \end{equation}
 so that $P(\mathbf{X})$ is parameterized by parameters $\boldsymbol{\theta}$, and $P_\text{missing}(O_\mathbf{X}\vert\mathbf{X})$ is parameterized by $\boldsymbol{\psi}$.
 
@@ -390,7 +390,7 @@ Given a Bayesian network structure $\mathcal{G}$ over a set of variables $\mathb
 		a different set of observed variables, denoted $\{\mathbf{O}[m]:m=1,\ldots,M\}$ and their corresponding values $\{\mathbf{o}[m]:m=1,\ldots,M\}$;
 	</li>
 	<li>
-		a different set of hidden (or missing) variables, denoted $\{\mathbf{H}[m]:m=1,\ldots,M\}$
+		a different set of hidden (or latent) variables, denoted $\{\mathbf{H}[m]:m=1,\ldots,M\}$
 	</li>
 </ul>
 
@@ -406,35 +406,12 @@ This definition of likelihood function suggests that the problem of learning wit
 \begin{equation}
 L(\boldsymbol{\theta}:\mathcal{D})=\prod_{m=1}^{M}P(\mathbf{o}[m];\boldsymbol{\theta})=\prod_{m=1}^{M}\sum_{\mathbf{h}[m]}P(\mathbf{o}[m],\mathbf{h}[m];\boldsymbol{\theta})
 \end{equation}
+And thus the log-likelihood can be computed by
+\begin{equation}
+\ell(\boldsymbol{\theta}:\mathcal{D})=\sum_{m=1}^{M}\log\sum_{\mathbf{h}[m]}P(\mathbf{o}[m],\mathbf{h}[m];\boldsymbol{\theta})\label{eq:tlf.2}
+\end{equation}
 
-**Example 6**: Let us consider a Bayesian network $\mathcal{G}$ consisting of two binary variables $X,Y$ connected by the edge $X\to Y$.
-<ul id='alpha-list'>
-	<li>
-		Given completely observed data, the likelihood function for $\mathcal{G}$ is given as
-		\begin{align}
-		\hspace{-1.5cm}L(\boldsymbol{\theta}:\mathcal{D})&=L(\boldsymbol{\theta}_X,\boldsymbol{\theta}_{Y\vert x^1},\boldsymbol{\theta}_{Y\vert x^0}:\mathcal{D}) \\ &=\theta_{x^1}^{M[x^1]}\theta_{x^0}^{M[x^0]}\theta_{y^1\vert x^1}^{M[x^1,y^1]}\theta_{y^0\vert x^1}^{M[x^1,y^1]}\theta_{y^1\vert x^0}^{M[x^0,y^1]}\theta_{y^0\vert x^0}^{M[x^0,y^1]} \\ &=\theta_{x^1}^{M[x^1]}(1-\theta_{x^1})^{M[x^0]}\theta_{y^1\vert x^1}^{M[x^1,y^1]}(1-\theta_{y^1\vert x^1})^{M[x^1,y^1]}\theta_{y^1\vert x^0}^{M[x^0,y^1]}(1-\theta_{y^1\vert x^0})^{M[x^0,y^1]}\label{eq:tlf.2}
-		\end{align}
-	</li>
-	<li>
-		Given partially observed data, for example, we did observe $Y[1]=y^1$, but did not observe $X[1]$, i.e. non-formally we can describe $\mathcal{D}$ as
-		\begin{equation}
-		\mathcal{D}=\{(?,y^1),(X[2],Y[2]),\ldots,(X[M],Y[M])\}
-		\end{equation}
-		As given in \eqref{eq:tlf.1}, the likelihood is the marginal probability of the observations, and thus can be written as a sum of two <b>complete likelihoods</b> (i.e. given as \eqref{eq:tlf.2}). Specifically, let $\mathcal{D}_1$ and $\mathcal{D}_2$ be two complete dataset, defined as
-		\begin{align}
-		\mathcal{D}_1&=\{(x^1,y^1),(X[2],Y[2]),\ldots,(X[M],Y[M])\} \\ \mathcal{D}_2&=\{(x^0,y^1),(X[2],Y[2]),\ldots,(X[M],Y[M])\},
-		\end{align}
-		which implies that the likelihood over $\mathcal{D}$ can be computed by
-		\begin{align}
-		L(\boldsymbol{\theta}:\mathcal{D})&=L(\boldsymbol{\theta}_X,\boldsymbol{\theta}_{Y\vert x^1},\boldsymbol{\theta}_{Y\vert x^0}:\mathcal{D}_1)+L(\boldsymbol{\theta}_X,\boldsymbol{\theta}_{Y\vert x^1},\boldsymbol{\theta}_{Y\vert x^0}:\mathcal{D}_2) \\ &=
-		\end{align}
-	</li>
-</ul>
-
-#### Identifiability
-Suppose we have a parametric model with parameters $\boldsymbol{\theta}\in\Theta$ that defines a distribution $P(\mathbf{X}\vert\boldsymbol{\theta})$ over a set $\mathbf{X}$ of measurable variables. A choice of parameters $\boldsymbol{\theta}$ is **identifiable** if there is no $\boldsymbol{\theta}'\neq\boldsymbol{\theta}$ such that $P(\mathbf{X}\vert\boldsymbol{\theta})=P(\mathbf{X}\vert\boldsymbol{\theta}')$. A model is **identifiable** if all parameter choices $\boldsymbol{\theta}\in\Theta$ are identifiable.
-
-#### MLE with Incomplete Data
+#### MLE
 
 ##### Gradient Ascent
 <b id='lemma4'>Lemma 4</b>: *Let $\mathcal{B}$ be a Bayesian network with graph $\mathcal{G}$ over $\mathcal{X}$ that induces a probability distribution $P$, let $\mathbf{o}$ be a tuple of observations for some variables, and let $X\in\mathcal{X}$ be some r.v. If $P(x\vert\mathbf{u})>0$, where $x\in\text{Val}(X)$, $\mathbf{u}\in\text{Val}(\text{Pa}_X)$, then we have*
@@ -482,9 +459,57 @@ Using this result, suppose that the CPDs entries of $P(X\vert\mathbf{U})$ are wr
 	<img src="/images/pgm-learning/gradient-ascent.png" alt="gradient ascent table-CPDs network"/>
 </figure>
 
-##### Expectation Maximization (EM){#em}
+##### Expectation Maximization{#em}
+[TODO]
+Consider the following model, which is described by the following meta-network, where $X$ is fully observed, while $Z$ is partially observed.
 
-#### Bayesian Learning with Incomplete Data
+The log-likelihood, as described in \eqref{eq:tlf.2}, is then given as
+\begin{align}
+\ell(\boldsymbol{\theta}:\mathcal{D})&=\sum_{m=1}^{M}\log P(x[m];\boldsymbol{\theta}) \\\\ &=\sum_{m=1}^{M}\log\sum_{z[m]}P(x[m],z[m];\boldsymbol{\theta})
+\end{align}
+[TODO]
+For each $m=1,\ldots,M$, let $Q_m$ be some distribution over $Z$, i.e. $\sum_z Q_m(z)=1$ and $Q_m(z)\geq 0$[^1]. We have
+\begin{align}
+\hspace{-0.5cm}\sum_{m=1}^{M}\log P(x[m];\boldsymbol{\theta})&=\sum_{m=1}^{M}\log\sum_{z[m]\in\text{Val}(Z)}P(x[m],z[m];\boldsymbol{\theta}) \\\\ &=\sum_{m=1}^{M}\log\sum_{z[m]\in\text{Val}(Z)}Q_m(z[m])\frac{P(x[m],z[m];\boldsymbol{\theta})}{Q_m(z[m])} \\\\ &\geq\sum_{m=1}^{M}\sum_{z[m]\in\text{Val}(Z)}Q_m(z[m])\log\left(\frac{P(x[m],z[m];\boldsymbol{\theta})}{Q_m(z[m])}\right),\label{eq:em.1}
+\end{align}
+where in the third step, we have used **Jensen's inequatliy**. Specifically, since $\log(\cdot)$ is a strictly concave function, due to $(\log(x))''=-1/x^2<0$, then by Jensen's inequality, we have
+\begin{align}
+\log\left(\sum_{z[m]}Q_m(z[m])\frac{P(x[m],z[m];\boldsymbol{\theta})}{Q_m(z[m])}\right)&=\log\left(\mathbb{E}\_{z[m]\sim Q_m}\left[\frac{P(x[m],z[m];\boldsymbol{\theta})}{Q_m(z[m])}\right]\right) \\\\ &\geq\mathbb{E}\_{z[m]\sim Q_m}\left[\log\left(\frac{P(x[m],z[m];\boldsymbol{\theta})}{Q_m(z[m])}\right)\right] \\\\ &=\sum_{z[m]}Q_m(z[m])\log\left(\frac{P(x[m],z[m];\boldsymbol{\theta})}{Q_m(z[m])}\right),
+\end{align}
+where equality holds where
+\begin{equation}
+\frac{P(x[m],z[m];\boldsymbol{\theta})}{Q_m(z[m])}=\mathbb{E}\_{z[m]\sim Q_m}\left[\frac{P(x[m],z[m];\boldsymbol{\theta})}{Q_m(z[m])}\right],
+\end{equation}
+with probability $1$. This implies that
+\begin{equation}
+\frac{P(x[m],z[m];\boldsymbol{\theta})}{Q_m(z[m])}=c,
+\end{equation}
+where $c$ is a constant w.r.t $z[m]$. Moreover, since $\sum_z Q_m(z)=1$, we then have
+\begin{equation}
+Q_m(z[m])\propto P(x[m],z[m];\boldsymbol{\theta})
+\end{equation}
+And since $Q_m$ is a distribution, we further have that
+\begin{align}
+Q_m(z[m])&=\frac{P(x[m],z[m];\boldsymbol{\theta})}{\sum_z P(x[m],z;\boldsymbol{\theta})} \\\\ &=\frac{P(x[m],z[m];\boldsymbol{\theta})}{P(x[m];\boldsymbol{\theta})} \\\\ &=P(z[m]\vert x[m];\boldsymbol{\theta})\label{eq:em.3}
+\end{align}
+
+Hence, the RHS of \eqref{eq:em.1} then gives us a lower bound of the log-likelihood function and that $\ell(\boldsymbol{\theta}:\mathcal{D})$ reaches this value if our selection of $Q_m$ satisfies the equation \eqref{eq:em.3}, i.e. $Q_m(Z)=P(Z\vert x[m];\boldsymbol{\theta})$.
+
+Our goal is to find parameters $\boldsymbol{\theta}$ that maximizes the log-likelihood $\ell(\boldsymbol{\theta}:\mathcal{D})$
+> Repeat until convergence:  
+> $\hspace{1cm}$(E-step) For each $m=1,\ldots,M$, set:
+> \begin{equation*}
+> Q_m(Z):=P(Z\vert x[m];\boldsymbol{\theta})
+> \end{equation*}
+> $\hspace{1cm}$(M-step) Set:
+> \begin{equation*}
+> \boldsymbol{\theta}:\underset{\boldsymbol{\theta}}{\text{argmax}}\sum_{m=1}^{M}\sum_{z[m]\in\text{Val}(Z)}Q_m(z[m])\log\frac{P(x[m],z[m];\boldsymbol{\theta})}{Q_m(z[m])}
+> \end{equation*}
+
+###### EM for Bayesian networks
+
+
+#### Bayesian Learning
 
 ## Structure Learning
 
@@ -494,4 +519,7 @@ Using this result, suppose that the CPDs entries of $P(X\vert\mathbf{U})$ are wr
 
 [2] Christopher M. Bishop. [Pattern Recognition and Machine Learning](https://link.springer.com/book/9780387310732). Springer New York, NY, 2006.
 
+[3] Stanford CS229. [Machine Learning](https://cs229.stanford.edu).
+
 ## Footnotes
+[^1]: Without loss of generality, we have implicitly assumed that $Z$ is discrete. The same arguments can be extended to the continuous case by using integrations instead of summations.
