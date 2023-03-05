@@ -472,7 +472,7 @@ For each $m=1,\ldots,M$, let $Q_m$ be some distribution over $Z$, i.e. $\sum_z Q
 \begin{align}
 \hspace{-0.5cm}\sum_{m=1}^{M}\log P(x[m];\boldsymbol{\theta})&=\sum_{m=1}^{M}\log\sum_{z[m]\in\text{Val}(Z)}P(x[m],z[m];\boldsymbol{\theta}) \\\\ &=\sum_{m=1}^{M}\log\sum_{z[m]\in\text{Val}(Z)}Q_m(z[m])\frac{P(x[m],z[m];\boldsymbol{\theta})}{Q_m(z[m])} \\\\ &\geq\sum_{m=1}^{M}\sum_{z[m]\in\text{Val}(Z)}Q_m(z[m])\log\left(\frac{P(x[m],z[m];\boldsymbol{\theta})}{Q_m(z[m])}\right),\label{eq:em.1}
 \end{align}
-where in the third step, we have used **Jensen's inequatliy**. Specifically, since $\log(\cdot)$ is a strictly concave function, due to $(\log(x))''=-1/x^2<0$, then by Jensen's inequality, we have
+where in the third step, we have used **Jensen's inequality**. Specifically, since $\log(\cdot)$ is a strictly concave function, due to $(\log(x))''=-1/x^2<0$, then by Jensen's inequality, we have
 \begin{align}
 \log\left(\sum_{z[m]}Q_m(z[m])\frac{P(x[m],z[m];\boldsymbol{\theta})}{Q_m(z[m])}\right)&=\log\left(\mathbb{E}\_{z[m]\sim Q_m}\left[\frac{P(x[m],z[m];\boldsymbol{\theta})}{Q_m(z[m])}\right]\right) \\\\ &\geq\mathbb{E}\_{z[m]\sim Q_m}\left[\log\left(\frac{P(x[m],z[m];\boldsymbol{\theta})}{Q_m(z[m])}\right)\right] \\\\ &=\sum_{z[m]}Q_m(z[m])\log\left(\frac{P(x[m],z[m];\boldsymbol{\theta})}{Q_m(z[m])}\right),
 \end{align}
@@ -503,10 +503,53 @@ Our goal is to find parameters $\boldsymbol{\theta}$ that maximizes the log-like
 > \end{equation*}
 > $\hspace{1cm}$(M-step) Set:
 > \begin{equation*}
-> \boldsymbol{\theta}:\underset{\boldsymbol{\theta}}{\text{argmax}}\sum_{m=1}^{M}\sum_{z[m]\in\text{Val}(Z)}Q_m(z[m])\log\frac{P(x[m],z[m];\boldsymbol{\theta})}{Q_m(z[m])}
+> \boldsymbol{\theta}:=\underset{\boldsymbol{\theta}}{\text{argmax}}\sum_{m=1}^{M}\sum_{z[m]\in\text{Val}(Z)}Q_m(z[m])\log\frac{P(x[m],z[m];\boldsymbol{\theta})}{Q_m(z[m])}
 > \end{equation*}
 
 ###### EM for Bayesian networks
+Let us consider the EM algorithm for a general Bayesian network structure $\mathcal{G}$ over random variables $X_1,\ldots,X_n$. Suppose that we are given a dataset $\mathcal{D}=\\{\xi[1],\ldots,x[M]\\}$, where for each instance $\xi[m]$, $\mathbf{O}[m]$ and $\mathbf{o}[m]$ denote the set of observed variables and their values, while $\mathbf{H}[m]$ represents the set of hidden variables. The log-likelihood function is given as
+\begin{align}
+\ell(\boldsymbol{\theta}:\mathcal{D})&=\sum_{m=1}^{M}\log P(\mathbf{o}[m];\boldsymbol{\theta}) \\\\ &=\sum_{m=1}^{M}\log\sum_{\mathbf{h}\in\text{Val}(\mathbf{H}[m])}P(\mathbf{o}[m],\mathbf{h};\boldsymbol{\theta}) \\\\ &\geq\sum_{m=1}^{M}\sum_{\mathbf{h}\in\text{Val}(\mathbf{H}[m])}Q_m(\mathbf{h})\log\frac{P(\mathbf{o}[m],\mathbf{h};\boldsymbol{\theta})}{Q_m(\mathbf{h})} \\\\ &=\left(\sum_{m=1}^{M}\sum_{\mathbf{h}\in\text{Val}(\mathbf{H}[m])}Q_m(\mathbf{h})\big[\log P(\mathbf{o}[m],\mathbf{h};\boldsymbol{\theta})-\log Q_m(\mathbf{h})\big]\right) \\\\ &=\sum_{m=1}^{M}\sum_{\mathbf{h}\in\text{Val}(\mathbf{H}[m])}Q_m(\mathbf{h})\log\prod_{i=1}^{n}P\Big(\xi[m]\langle X_i\rangle\big\vert\xi[m]\langle\text{Pa}\_{X_i}\rangle;\boldsymbol{\theta}\_{X_i\vert\text{Pa}\_{X_i}}\Big)\nonumber \\\\ &\hspace{1cm}+\sum_{m=1}^{M}H_{Q_m}(Q_m(\mathbf{H}[m])) \\\\ &=\sum_{m=1}^{M}\sum_{\mathbf{h}\in\text{Val}(\mathbf{H}[m])}Q_m(\mathbf{h})\sum_{i=1}^{n}\log P\Big(\xi[m]\langle X_i\rangle\big\vert\xi[m]\langle\text{Pa}\_{X_i}\rangle;\boldsymbol{\theta}\_{X_i\vert\text{Pa}\_{X_i}}\Big)\nonumber \\\\ &\hspace{1cm}+\sum_{m=1}^{M}H_{Q_m}(Q_m(\mathbf{H}[m])) \\\\ &=\sum_{i=1}^{n}\left(\sum_{m=1}^{M}\sum_{\mathbf{h}\in\mathbf{H}[m]}Q_m(\mathbf{h})\log P\Big(\xi[m]\langle X_i\rangle\big\vert\xi[m]\langle\text{Pa}\_{X_i}\rangle;\boldsymbol{\theta}\_{X_i\vert\text{Pa}\_{X_i}}\Big)\right)\nonumber \\\\ &\hspace{1cm}+\sum_{m=1}^{M}H_{Q_m}(Q_m(\mathbf{H}[m])) \\\\ &\triangleq\tilde{\ell}(\boldsymbol{\theta})
+\end{align}
+This gives us a lower bound for the log-likelihood function $\ell(\boldsymbol{\theta}:\mathcal{D})$. And similarly, in the E-step of EM algorithm, for each $m=1,\ldots,M$, we set
+\begin{equation}
+Q_m(\mathbf{H})=P(\mathbf{H}\vert\mathbf{o}[m];\boldsymbol{\theta})
+\end{equation}
+In the M-step of EM, we find a parameter $\boldsymbol{\theta}$ that maximizes $\tilde{\ell}(\boldsymbol{\theta})$. Before performing this step, we notice that the function $\tilde{\ell}(\boldsymbol{\theta})$ can be decomposed into sum of function of local CPDs $P(X_i\vert\text{Pa}\_{X_i};\boldsymbol{\theta}\_{X_i\vert\text{Pa}\_{X_i}})$, which parameterized by $\boldsymbol{\theta}\_{X_i\vert\text{Pa}\_{X_i}}$. Hence, as usual, we can independently solve for the local problems and then combine the solutions together.
+
+In particular, during M-step, for each variable $X$, and for each $U\in\text{Pa}\_X$, we try to solve the optimization problem
+\begin{align}
+\underset{\boldsymbol{\theta}\_{X\vert U}}{\text{maximize}}&\sum_{m=1}^{M}\sum_{\mathbf{h}\in\mathbf{H}[m]}Q_m(\mathbf{h})\log P\big(\xi[m]\langle X\rangle\big\vert\xi[m]\langle U\rangle;\boldsymbol{\theta}\_{X\vert u}) \\\\ \text{s.t.}&\sum_{x\in\text{Val}(X)}\theta_{x\vert u}=1,\hspace{1cm}\forall u\in\text{Val}(U)
+\end{align}
+The Lagrangian of this problem is
+\begin{align}
+&\mathcal{L}(\boldsymbol{\theta}\_{X\vert U},\lambda)\nonumber \\\\ &=-\sum_m\sum_\mathbf{h}Q_m(\mathbf{h})\log P\big(\xi[m]\langle X\rangle\big\vert\xi[m]\langle U\rangle;\boldsymbol{\theta}\_{X\vert u})+\sum_{u\in\text{Val}(U)}\lambda_u\left(\sum_x\theta_{x\vert u}-1\right) \\\\ &=-\sum_m\sum_\mathbf{h}Q_m(\mathbf{h})\log\prod_{(x,u)\in\text{Val}(X,U)}\theta_{x\vert u}^{\mathbf{1}\\{\xi[m]\langle X,U\rangle=\langle x,u\rangle\\}}+\sum_u\lambda_u\left(\sum_x\theta_{x\vert u}-1\right) \\\\ &=-\sum_m\sum_\mathbf{h}Q_m(\mathbf{h})\sum_{x,u}1\\{\xi[m]\langle X,U\rangle=\langle x,u\rangle\\}\log\theta_{x\vert u}+\sum_u\lambda_u\left(\sum_x\theta_{x\vert u}-1\right)
+\end{align}
+Differentiating w.r.t $\theta_{x\vert u}$ yields
+\begin{equation}
+\nabla_{\theta_{x\vert u}}\mathcal{L}(\boldsymbol{\theta}\_{X\vert U},\lambda)=-\sum_m\sum_\mathbf{h}Q_m(\mathbf{h})\frac{1\\{\xi[m]\langle X,U\rangle=\langle x,u\rangle\\}}{\theta_{x\vert u}}+\lambda_u
+\end{equation}
+Setting this derivative to zero, we obtain
+\begin{equation}
+\theta_{x\vert u}=\frac{1}{\lambda_u}\sum_m\sum_\mathbf{h}Q_m(\mathbf{h})1\\{\xi[m]\langle X,U\rangle=\langle x,u\rangle\\}\triangleq\frac{f(x,u)}{\lambda_u}
+\end{equation}
+The dual function is then given as
+\begin{align}
+g(\lambda)&=\sup_{\boldsymbol{\theta}\_{X\vert U}}\mathcal{L}(\boldsymbol{\theta}\_{X\vert U},\lambda) \\\\ &=-\sum_{x,u}\log\left(\frac{f(x,u)}{\lambda_u}\right)f(x,u)+\sum_u\lambda_u\left(\sum_x\frac{f(x,u)}{\lambda_u}-1\right) \\\\ &=\sum_{x,u}\big(\log\lambda_u-\log f(x,u)\big)f(x,u)+\sum_{x,u}f(x,u)-\sum_u\lambda_u
+\end{align}
+Taking the derivative w.r.t $\lambda_u$ lets us obtain
+\begin{align}
+\frac{\partial g(\lambda)}{\partial\lambda_u}&=\sum_x\frac{f(x,u)}{\lambda_u}-1,
+\end{align}
+which gives us the value of $\lambda_u$ if being set to zero
+\begin{equation}
+\lambda_u=\sum_x f(x,u)
+\end{equation}
+Hence, we have the solution for $\theta_{x\vert u}$:
+\begin{align}
+\theta_{x\vert u}&=\frac{f(x,u)}{\sum_x f(x,u)} \\\\ &=\frac{\sum_m\sum_\mathbf{h}Q_m(\mathbf{h})1\\{\xi[m]\langle X,U\rangle=\langle x,u\rangle\\}}{\sum_x\sum_m\sum_\mathbf{h}Q_m(\mathbf{h})1\\{\xi[m]\langle X,U\rangle=\langle x,u\rangle\\}} \\\\ &=\frac{\sum_m\sum_\mathbf{h}P(\mathbf{h}\vert\mathbf{o}[m];\boldsymbol{\theta})1\\{\xi[m]\langle X,U\rangle=\langle x,u\rangle\\}}{\sum_x\sum_m\sum_\mathbf{h}P(\mathbf{h}\vert\mathbf{o}[m];\boldsymbol{\theta})1\\{\xi[m]\langle X,U\rangle=\langle x,u\rangle\\}} \\\\ &=\frac{\sum_m P(x,u\vert\mathbf{o}[m];\boldsymbol{\theta})}{\sum_x\sum_m P(x,u\vert\mathbf{o}[m];\boldsymbol{\theta})}
+\end{align}
+
 
 
 #### Bayesian Learning
