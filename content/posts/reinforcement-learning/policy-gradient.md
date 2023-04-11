@@ -21,7 +21,7 @@ To start an episode, the agent is given an initial state $s_0$, which is sampled
 \begin{equation}
 \tau=(s_0,a_0,s_1,a_1,s_2,a_2\ldots)
 \end{equation}
-For a policy $\pi$, let $V_\pi:\mathcal{S}\to\mathbb{R}$ denote the state value function, $Q_\pi:\mathcal{S}\times\mathcal{A}\to\mathbb{R}$ represent the state-action value function and let $A_\pi:\mathcal{S}\times\mathcal{A}\to\mathbb{R}$ be the advantage function:
+For a policy $\pi$, let $V_\pi:\mathcal{S}\to\mathbb{R}$ denote the state value function, $Q_\pi:\mathcal{S}\times\mathcal{A}\to\mathbb{R}$ represents the state-action value function and let $A_\pi:\mathcal{S}\times\mathcal{A}\to\mathbb{R}$ be the advantage function:
 \begin{align}
 V_\pi(s_t)&\doteq\mathbb{E}\_{s_{t+1:H-1},a_{t:H-1}}\left[\sum_{k=0}^{H-1}r_{t+k}\right] \\\\ Q_\pi(s_t,a_t)&\doteq\mathbb{E}\_{s_{t+1:H-1},a_{t+1:H-1}}\left[\sum_{k=0}^{H-1}r_{t+k}\right] \\\\ A_\pi(s_t,a_t)&\doteq Q_\pi(s_t,a_t)-V_\pi(s_t),
 \end{align}

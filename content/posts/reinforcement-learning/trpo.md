@@ -8,7 +8,7 @@ eqn-number: true
 > Notes on TRPO.
 <!--more-->
 
-## Basic definitions & notations{#def-not}
+## Preliminaries
 We begin by recalling definition of MDPs, coupling and total variation distance.
 
 ### Markov Decision Processes{#mdp}
@@ -425,8 +425,6 @@ This sampling approach follows the following process
 		Average over $s_n\sim\rho(\pi)$ to obtain an estimator for $L_{\theta_\text{old}}$, as well the policy gradient.
 	</li>
 </ul>
-
-## Final algorithm{#fin-alg}
 
 ## References
 [1] John Schulman, Sergey Levine, Philipp Moritz, Michael I. Jordan, Pieter Abbeel. [Trust Region Policy Optimization](https://dl.acm.org/doi/10.5555/3045118.3045319). ICML'15, pp 1889–1897, 2015.

@@ -555,7 +555,6 @@ where
 	</li>
 </ul>
 
-
 #### Message Passing: Belief Update{#ct-bu-mp}
 
 ##### Message Passing with Division
@@ -825,13 +824,13 @@ Our problem then is to optimize the mean field energy.
 \begin{align}
 &\text{Find}&&\\{Q(X_i)\\}\label{eq:fpc.1} \\\\ &\text{maximizing}&& F[\tilde{P},Q]\nonumber \\\\ &\text{s.t.}&& Q(\mathcal{X})=\prod_i Q(X_i)\nonumber \\\\ &&&\sum_{x_i}Q(x_i)=1,\hspace{1cm}\forall i\nonumber
 \end{align}
-Unlike the cluster-graph blelief propgation and the expectation propgation algorithms, in Mean Field algorith, we are not approximating the objective, but the optimization space by selecting a space of distributions $\mathcal{Q}$ that generally does not contain our original distribution $P_\Phi$.
+Unlike the cluster-graph belief propagation and the expectation propagation algorithms, in Mean Field algorithm, we are not approximating the objective, but the optimization space by selecting a space of distributions $\mathcal{Q}$ that generally does not contain our original distribution $P_\Phi$.
 
-The structure of $Q$ as a factored distribution gives us the following fixed-point equations that characterize the stationary points of  \eqref{eq:fpc.1}.
+The structure of $Q$ as a factored distribution gives us the following fixed-point equations that characterize the stationary points of the optimization problem \eqref{eq:fpc.1}.
 
 **Theorem 19**: *The distribution $Q(X_i)$ is a local maximum of \eqref{eq:fpc.1} given $\\{Q(X_j)\\}_{j\neq i}$ iff*
 \begin{equation}
-Q(x_i)=\frac{1}{Z_i}\exp\left(\sum_{\phi\in\Phi}\mathbb{E}\_{\mathcal{X}\sim Q}\big[\log\phi\vert x_i\big]\right),
+Q(x_i)=\frac{1}{Z_i}\exp\left(\sum_{\phi\in\Phi}\mathbb{E}\_{\mathcal{X}\sim Q}\big[\log\phi\vert x_i\big]\right),\label{eq:fpc.2}
 \end{equation}
 *where $Z_i$ is a local normalizing constant*.
 
@@ -848,19 +847,35 @@ Setting this derivative to zero, we have that
 \begin{equation}
 Q(x_i)=\exp(\lambda_i-1)\exp\left(\sum_{\phi\in\Phi}\mathbb{E}\_{\mathcal{X}\sim Q}\big[\log\phi\vert x_i\big]\right)
 \end{equation}
+From this result, it follows that
+
+**Proposition 20**: *The distribution $Q$ is a stationary point of \eqref{eq:fpc.1} iff for each $X_i$, equation \eqref{eq:fpc.2} holds.*
+
+**Corollary 21**: *In the mean field approximation, $Q(X_i)$ is locally optimal only if*
+\begin{equation}
+Q(x_i)=\frac{1}{Z_i}\exp\Big(\mathbb{E}\_{\mathbf{X}\_{-i}\sim Q}\Big[\log P_\Phi(x_i\vert\mathbf{X}\_{-i})\Big]\Big),
+\end{equation}
+*where we define $\mathbf{X}_{-i}\doteq\mathcal{X}\backslash\\{X_i\\}$ and where $Z_i$ is a normalizing constant.*
+
+**Proof**  
+Recall that $\tilde{P}\_\Phi(\mathcal{X})=\prod_{\phi\in\Phi}\phi$. Thus by the linearity of expectation we have
+\begin{align}
+\sum_{\phi\in\Phi}\mathbb{E}\_{\mathcal{X}\sim Q}\big[\log\phi\big\vert x_i\big]&=\mathbb{E}\_{\mathcal{X}\sim Q}\left[\sum_{\phi\in\Phi}\log\phi\Big\vert x_i\right] \\\\ &=\mathbb{E}\_{\mathcal{X}\sim Q}\left[\log\left(\prod_{\phi\in\Phi}\phi\Big\vert x_i\right)\right] \\\\ &=\mathbb{E}\_{\mathcal{X}\sim Q}\big[\log\tilde{P}\_\Phi(\mathcal{X})\big\vert x_i\big] \\\\ &=\mathbb{E}\_{\mathcal{X}\sim Q}\big[\log\tilde{P}\_\Phi(\mathbf{X}\_{-i},X_i)\big\vert x_i\big] \\\\ &=\mathbb{E}\_{\mathbf{X}\_{-i}\sim Q}\big[\log\tilde{P}\_\Phi(\mathbf{X}\_{-i},x_i)\big] \\\\ &=\mathbb{E}\_{\mathbf{X}\_{-i}\sim Q}\big[\log\big(Z P_\Phi(\mathbf{X}\_{-i},x_i)\big)\big] \\\\ &=\mathbb{E}\_{\mathbf{X}\_{-i}\sim Q}\big[\log\big(Z P_\Phi(\mathbf{X}\_{-i})P_\Phi(x_i\vert\mathbf{X}\_{-i})\big)\big] \\\\ &=\mathbb{E}\_{\mathbf{X}\_{-i}\sim Q}\big[\log P_\Phi(x_i\vert\mathbf{X}\_{-i})\big]+\mathbb{E}\_{\mathbf{X}\_{-i}\sim Q}\big[\log\big(Z P_\Phi(\mathbf{X}\_{-i})\big)\big]
+\end{align}
+Hence, by \eqref{eq:fpc.2}, we obtain
+\begin{align}
+Q(x_i)=\frac{1}{Z_i}\exp\Big(\mathbb{E}\_{\mathbf{X}\_{-i}\sim Q}\big[\log P_\Phi(x_i\vert\mathbf{X}\_{-i})\big]\Big)\exp\Big(\mathbb{E}\_{\mathbf{X}\_{-i}\sim Q}\big[\log\big(Z P_\Phi(\mathbf{X}\_{-i})\big)\big]\Big)
+\end{align}
+Notice that the latter exponential is a constant w.r.t $x_i$ and when multiplying a factor with a constant factor, it does not change the distribution $Q$, i.e. the constant will be absorbed into the normalizing function.
 
 ###### The Mean Field Algorithm
-
-### Particle-Based Approximate Inference
-
-#### Forward Sampling
-The simplest approach to the generation of particles is **forward sampling**, in which samples $\xi[1],\ldots,\xi[M]$ are generated according to the distribution $P(\mathcal{X})$.
-
-##### Sampling from a Bayesian Network
-From a set of particles $\mathcal{D}=\\{\xi[1],\ldots,\xi[M]\\}$ generated via this sampling process, we can estimate the expecation of any function $f$ as
+**Corollary 22**: *In the mean field approximation, $Q(X_i)$ is locally optimal only if*
 \begin{equation}
-\hat{\mathbb{E}}\_\mathcal{D}(f)=\frac{1}{M}\sum_{m=1}^{M}f(\xi[m])
+Q(x_i)=\frac{1}{Z_i}\exp\left(\sum_{\phi:X_i\in\text{Scope}(\phi)}\mathbb{E}\_{(\mathbf{U}\_\phi\backslash\\{X_i\\})\sim Q}\big[\log\phi(\mathbf{U}\_\phi,x_i)\big]\right)
 \end{equation}
+In other words, $Q(X_i)$ has to be consistent with the expectation of the potentials in which it appears. We thus obtain the following algorithm
+
+###### Variational Inference
 
 
 ## References

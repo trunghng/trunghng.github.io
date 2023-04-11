@@ -266,6 +266,9 @@ Pseudocode for our final algorithm is given below.
 	<img src="/images/maxent-sql-sac/sac.png" alt="SAC"/>
 </figure>
 
+### Discrete SAC
+
+
 ## Soft Q-learning{#sql}
 
 
@@ -286,6 +289,8 @@ Pseudocode for our final algorithm is given below.
 [7] Richard S. Sutton, Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition). MIT press, 2018.
 
 [8] Josh Achiam. [Spinning Up in Deep Reinforcement Learning](https://spinningup.openai.com/). SpinningUp2018, 2018.
+
+[9] Petros Christodoulou. [Soft Actor-Critic for Discrete Action Settings](https://arxiv.org/abs/1910.07207). arXiv preprint arXiv:1910.07207.
 
 ## Footnotes
 [^1]: With an abuse of notation, $\mathcal{T}\_\pi$ implicitly represents two mappings $\mathcal{T}\_\pi:\mathcal{S}\to\mathcal{S}$ and $\mathcal{T}\_\pi':\mathcal{S}\times\mathcal{A}\to\mathcal{S}\times\mathcal{A}$.
