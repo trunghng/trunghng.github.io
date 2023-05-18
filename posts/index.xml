@@ -16,7 +16,9 @@
       <pubDate>Sun, 19 Feb 2023 17:23:56 +0700</pubDate>
       
       <guid>https://trunghng.github.io/posts/machine-learning/pgm-learning/</guid>
-      <description>&lt;p&gt;Notes on Learning in PGMs.&lt;/p&gt;</description>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Notes on Learning in PGMs.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     
     <item>
@@ -25,7 +27,9 @@
       <pubDate>Thu, 02 Feb 2023 15:51:13 +0700</pubDate>
       
       <guid>https://trunghng.github.io/posts/machine-learning/pgm-inference/</guid>
-      <description>&lt;p&gt;Notes on Inference in PGMs.&lt;/p&gt;</description>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Notes on Inference in PGMs.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     
     <item>
@@ -34,7 +38,9 @@
       <pubDate>Mon, 02 Jan 2023 13:49:15 +0700</pubDate>
       
       <guid>https://trunghng.github.io/posts/machine-learning/cat-reparam-gumbel-softmax-concrete-dist/</guid>
-      <description>&lt;p&gt;Notes on using Gumbel-Softmax &amp;amp; Concrete Distribution in Categorical sampling.&lt;/p&gt;</description>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Notes on using Gumbel-Softmax &amp;amp; Concrete Distribution in Categorical sampling&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     
     <item>
@@ -44,7 +50,7 @@
       
       <guid>https://trunghng.github.io/posts/reinforcement-learning/maxent-sql-sac/</guid>
       <description>&lt;blockquote&gt;
-&lt;p&gt;Notes on Maximum Entropy Reinforcement Learning via SQL &amp;amp; SAC.&lt;/p&gt;
+&lt;p&gt;Notes on Entropy-Regularized Reinforcement Learning via SQL &amp;amp; SAC&lt;/p&gt;
 &lt;/blockquote&gt;</description>
     </item>
     
@@ -54,7 +60,9 @@
       <pubDate>Sat, 10 Dec 2022 17:55:57 +0700</pubDate>
       
       <guid>https://trunghng.github.io/posts/machine-learning/pgm-representation/</guid>
-      <description>&lt;p&gt;Notes on Representation in PGMs.&lt;/p&gt;</description>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Notes on Representation in PGMs.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     
     <item>
@@ -64,7 +72,7 @@
       
       <guid>https://trunghng.github.io/posts/reinforcement-learning/deterministic-policy-gradients/</guid>
       <description>&lt;blockquote&gt;
-&lt;p&gt;Notes on Deterministic Policy Gradient Algorithms&lt;/p&gt;
+&lt;p&gt;Notes on Deterministic Policy Gradient algorithms&lt;/p&gt;
 &lt;/blockquote&gt;</description>
     </item>
     
@@ -75,7 +83,7 @@
       
       <guid>https://trunghng.github.io/posts/reinforcement-learning/trpo/</guid>
       <description>&lt;blockquote&gt;
-&lt;p&gt;Notes on TRPO.&lt;/p&gt;
+&lt;p&gt;Notes on policy optimization using trust region method.&lt;/p&gt;
 &lt;/blockquote&gt;</description>
     </item>
     
@@ -86,7 +94,7 @@
       
       <guid>https://trunghng.github.io/posts/reinforcement-learning/deep-q-learning/</guid>
       <description>&lt;blockquote&gt;
-&lt;p&gt;Notes on DQN.&lt;/p&gt;
+&lt;p&gt;Notes on DQN and its variants.&lt;/p&gt;
 &lt;/blockquote&gt;</description>
     </item>
     

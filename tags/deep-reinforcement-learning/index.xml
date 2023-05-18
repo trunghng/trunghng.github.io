@@ -17,7 +17,7 @@
       
       <guid>https://trunghng.github.io/posts/reinforcement-learning/trpo/</guid>
       <description>&lt;blockquote&gt;
-&lt;p&gt;Notes on TRPO.&lt;/p&gt;
+&lt;p&gt;Notes on policy optimization using trust region method.&lt;/p&gt;
 &lt;/blockquote&gt;</description>
     </item>
     
@@ -28,7 +28,7 @@
       
       <guid>https://trunghng.github.io/posts/reinforcement-learning/deep-q-learning/</guid>
       <description>&lt;blockquote&gt;
-&lt;p&gt;Notes on DQN.&lt;/p&gt;
+&lt;p&gt;Notes on DQN and its variants.&lt;/p&gt;
 &lt;/blockquote&gt;</description>
     </item>
     
