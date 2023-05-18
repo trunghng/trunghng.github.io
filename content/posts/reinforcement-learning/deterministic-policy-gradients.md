@@ -5,7 +5,7 @@ tags: [reinforcement-learning, policy-gradient, actor-critic, my-rl]
 math: true
 eqn-number: true
 ---
-> Notes on Deterministic Policy Gradient Algorithms
+> Notes on Deterministic Policy Gradient algorithms
 <!--more-->
 
 ## Preliminaries

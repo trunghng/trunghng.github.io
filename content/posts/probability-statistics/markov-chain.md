@@ -6,7 +6,6 @@ math: true
 eqn-number: true
 ---
 > If we have to describe the defintition of **Markov chain** in one statement, it will be: "It only matters where you are, not where you've been".
-
 <!--more-->
 
 ## Markov Property

@@ -17,7 +17,7 @@
       
       <guid>https://trunghng.github.io/posts/reinforcement-learning/maxent-sql-sac/</guid>
       <description>&lt;blockquote&gt;
-&lt;p&gt;Notes on Maximum Entropy Reinforcement Learning via SQL &amp;amp; SAC.&lt;/p&gt;
+&lt;p&gt;Notes on Entropy-Regularized Reinforcement Learning via SQL &amp;amp; SAC&lt;/p&gt;
 &lt;/blockquote&gt;</description>
     </item>
     
@@ -28,7 +28,7 @@
       
       <guid>https://trunghng.github.io/posts/reinforcement-learning/deep-q-learning/</guid>
       <description>&lt;blockquote&gt;
-&lt;p&gt;Notes on DQN.&lt;/p&gt;
+&lt;p&gt;Notes on DQN and its variants.&lt;/p&gt;
 &lt;/blockquote&gt;</description>
     </item>
     

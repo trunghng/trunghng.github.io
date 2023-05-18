@@ -16,7 +16,9 @@
       <pubDate>Sun, 19 Feb 2023 17:23:56 +0700</pubDate>
       
       <guid>https://trunghng.github.io/posts/machine-learning/pgm-learning/</guid>
-      <description>&lt;p&gt;Notes on Learning in PGMs.&lt;/p&gt;</description>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Notes on Learning in PGMs.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     
     <item>
@@ -25,7 +27,9 @@
       <pubDate>Thu, 02 Feb 2023 15:51:13 +0700</pubDate>
       
       <guid>https://trunghng.github.io/posts/machine-learning/pgm-inference/</guid>
-      <description>&lt;p&gt;Notes on Inference in PGMs.&lt;/p&gt;</description>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Notes on Inference in PGMs.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     
     <item>
@@ -34,7 +38,9 @@
       <pubDate>Mon, 02 Jan 2023 13:49:15 +0700</pubDate>
       
       <guid>https://trunghng.github.io/posts/machine-learning/cat-reparam-gumbel-softmax-concrete-dist/</guid>
-      <description>&lt;p&gt;Notes on using Gumbel-Softmax &amp;amp; Concrete Distribution in Categorical sampling.&lt;/p&gt;</description>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Notes on using Gumbel-Softmax &amp;amp; Concrete Distribution in Categorical sampling&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     
     <item>
@@ -43,7 +49,9 @@
       <pubDate>Sat, 10 Dec 2022 17:55:57 +0700</pubDate>
       
       <guid>https://trunghng.github.io/posts/machine-learning/pgm-representation/</guid>
-      <description>&lt;p&gt;Notes on Representation in PGMs.&lt;/p&gt;</description>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Notes on Representation in PGMs.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     
     <item>

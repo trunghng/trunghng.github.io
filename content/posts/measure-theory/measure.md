@@ -6,7 +6,6 @@ math: true
 eqn-number: true
 ---
 > When talking about **measure**, you might associate it with the idea of **length**, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with **area**, or even three dimensions with **volume**.  
-
 <!--more-->
 Despite of having different number of dimensions, all **length**, **area**,  and **volume** share the same properties:
 <ul id='roman-list'>

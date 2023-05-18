@@ -5,7 +5,7 @@ tags: [deep-reinforcement-learning, function-approximation, q-learning, my-rl]
 math: true
 eqn-number: true
 ---
-> Notes on DQN.
+> Notes on DQN and its variants.
 <!--more-->
 
 ## Q-value iteration{#q-value-iter}

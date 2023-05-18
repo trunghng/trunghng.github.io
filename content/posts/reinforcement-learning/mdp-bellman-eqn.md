@@ -5,8 +5,7 @@ tags: [reinforcement-learning, bellman-equation, my-rl]
 math: true
 eqn-number: true
 ---
-> You may have known or heard vaguely about a computer program called **AlphaGo** - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called **self-play** against its other instances, with **Reinforcement Learning**.  
-
+> You may have known or heard vaguely about a computer program called **AlphaGo** - the AI has beaten Lee Sedol - the winner of 18 world Go titles. One of the techniques it used is called **self-play** against its other instances, with **Reinforcement Learning**.
 <!--more-->
 
 ## What is Reinforcement Learning?

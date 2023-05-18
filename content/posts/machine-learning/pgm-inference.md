@@ -4,8 +4,9 @@ date: 2023-02-02T15:51:13+07:00
 tags: [machine-learning, probabilistic-graphical-model]
 math: true
 eqn-number: true
+hideSummary: true
 ---
-Notes on Inference in PGMs.
+> Notes on Inference in PGMs.
 <!--more-->
 
 ## Exact Inference

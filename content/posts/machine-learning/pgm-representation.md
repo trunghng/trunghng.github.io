@@ -4,8 +4,9 @@ date: 2022-12-10T17:55:57+07:00
 tags: [machine-learning, probabilistic-graphical-model]
 math: true
 eqn-number: true
+hideSummary: true
 ---
-Notes on Representation in PGMs.
+> Notes on Representation in PGMs.
 <!--more-->
 
 ## Graphs

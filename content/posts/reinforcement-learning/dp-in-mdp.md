@@ -4,8 +4,7 @@ date: 2021-07-25 15:30:00 +0700
 tags: [reinforcement-learning, dynamic-programming, my-rl]
 math: true
 ---
-> In two previous notes, [**MDPs and Bellman equations**]({{< ref "mdp-bellman-eqn" >}}) and [**Optimal Policy Existence**]({{< ref "optimal-policy-existence" >}}), we have known how MDPs, Bellman equations were defined and how they worked. In this note, we are going to find the solution for the MDP framework with **Dynamic Programming**.  
-
+> In two previous notes, [**MDPs and Bellman equations**]({{< ref "mdp-bellman-eqn" >}}) and [**Optimal Policy Existence**]({{< ref "optimal-policy-existence" >}}), we have known how MDPs, Bellman equations were defined and how they worked. In this note, we are going to find the solution for the MDP framework with **Dynamic Programming**.
 <!--more-->
 
 ## What is Dynamic Programming?

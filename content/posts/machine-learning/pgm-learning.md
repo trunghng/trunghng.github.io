@@ -4,8 +4,9 @@ date: 2023-02-19T17:23:56+07:00
 tags: [machine-learning, probabilistic-graphical-model]
 math: true
 eqn-number: true
+hideSummary: true
 ---
-Notes on Learning in PGMs.
+> Notes on Learning in PGMs.
 <!--more-->
 
 ## Parameter Learning

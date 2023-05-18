@@ -5,7 +5,7 @@ tags: [reinforcement-learning, policy-gradient, actor-critic, q-learning, my-rl]
 math: true
 eqn-number: true
 ---
-> Notes on Maximum Entropy Reinforcement Learning via SQL & SAC.
+> Notes on Entropy-Regularized Reinforcement Learning via SQL & SAC
 <!--more-->
 
 ## Entropy-Regularized Reinforcement Learning{#maxent-rl}
@@ -23,13 +23,15 @@ Regularly, with discounted infinite-horizon MDP, our objective is to maximize th
 \begin{equation}
 J_\text{std}(\pi)=\mathbb{E}\_\pi\left[\sum_{t=0}^{\infty}\gamma^t r_t\right]
 \end{equation}
-In **Entropy-Regularized RL*d*, or **Maximum Entropy RL** framework, we wish to maximize the expected **entropy-augmented return**
+In **Entropy-Regularized RL**, or **Maximum Entropy RL** framework, we wish to maximize the expected **entropy-augmented return**
 \begin{equation}
 J_\text{MaxEnt}(\pi)=\mathbb{E}\_\pi\left[\sum_{t=0}^{\infty}\gamma^t\Big(r_t+\alpha H\big(\pi(\cdot\vert s_t)\big)\Big)\right],\label{eq:mr.1}
 \end{equation}
-where $\alpha>0$ is the temperature parameter determines the relative importance of the entropy with the rewards, and thus controls the stochasticity of the optimal policy. The corresponding optimal policy of the maximum entropy objective is then given by
+where $\alpha>0$ is the temperature parameter determines the relative importance of the entropy with the rewards, and thus controls the stochasticity of the optimal policy, and $\mathcal{H}(\pi(\cdot\vert s_t))$ is the entropy of the policy $\pi$ at state $s_t$, which is calculated as $\mathcal{H}(\pi(\cdot\vert s_t))=-\log\pi(\cdot\vert s_t)$.
+
+The corresponding optimal policy of the maximum entropy objective is then given by
 \begin{align}
-\pi_\text{MaxEnt}^\*&=\underset{\pi}{\text{argmax}}J_\text{MaxEnt}(\pi) \\\\ &=\underset{\pi}{\text{argmax}}\mathbb{E}\_\pi\left[\sum_{t=0}^{\infty}\gamma^t\Big(r_t+\alpha H\big(\pi(\cdot\vert s_t)\big)\Big)\right]
+\pi^\*&=\underset{\pi}{\text{argmax}}\hspace{0.1cm}J_\text{MaxEnt}(\pi) \\\\ &=\underset{\pi}{\text{argmax}}\hspace{0.1cm}\mathbb{E}\_\pi\left[\sum_{t=0}^{\infty}\gamma^t\Big(r_t+\alpha H\big(\pi(\cdot\vert s_t)\big)\Big)\right]
 \end{align}
 
 ### Soft Value Functions{#soft-val-funcs}
@@ -84,11 +86,11 @@ The above $n$-step Bellman operator for state-action value can also be deduced b
 ### Greedy Policy{#greedy-policy}
 Recall that in standard setting, the **greedy policy** for state-action value function $Q$ are defined as a deterministic policy that selects the greedy action in the sense that maximizes the state-action value function, i.e.
 \begin{equation}
-\pi_\text{g}(s)\doteq\underset{a}{\text{argmax}}Q(s,a)
+\pi_\text{g}(s)\doteq\underset{a}{\text{argmax}}\hspace{0.1cm}Q(s,a)
 \end{equation}
 With entropy-regularized, the greedy policy instead maximizes the entropy-augmented value function, and thus given in stochastic form that for some $s\in\mathcal{S}$
 \begin{align}
-\pi_\text{g}(\cdot\vert s)&\doteq\underset{\pi}{\text{argmax}}\mathbb{E}\_{a\sim\pi}\Big[Q(s,a)\Big]+\alpha H\big(\pi(\cdot\vert s)\big)\label{eq:gp.1} \\\\ &=\frac{\exp\left(\frac{1}{\alpha}Q(s,\cdot)\right)}{\mathbb{E}\_{a'\sim\tilde{\pi}}\left[\exp\left(\frac{1}{\alpha}Q(s,a')\right)\right]},
+\pi_\text{g}(\cdot\vert s)&\doteq\underset{\pi}{\text{argmax}}\hspace{0.1cm}\mathbb{E}\_{a\sim\pi}\Big[Q(s,a)\Big]+\alpha H\big(\pi(\cdot\vert s)\big)\label{eq:gp.1} \\\\ &=\frac{\exp\left(\frac{1}{\alpha}Q(s,\cdot)\right)}{\mathbb{E}\_{a'\sim\tilde{\pi}}\left[\exp\left(\frac{1}{\alpha}Q(s,a')\right)\right]},
 \end{align}
 where $\tilde{\pi}$ is some "reference" policy, and thus the denominator is acting as a normalizing constant since it is independent of $\pi$.
 
@@ -163,18 +165,17 @@ In large scale problems, it is impractical to run either policy evaluation or po
 These following are key components of SAC method:
 <ul id='number-list'>
 	<li>
-		A policy $\pi_\phi$ and two soft Q-functions $Q_{\theta_1},Q_{\theta_2}$.
+		One policy $\pi_\phi$ and two soft Q-functions $Q_{\theta_1},Q_{\theta_2}$.
 	</li>
 	<li>
-		Utilizes shared target Q-networks, $Q_{\overline{\theta}_1},Q_{\overline{\theta}_2}$, whose parameters are soft updated due to
+		Utilizing shared target Q-networks, $Q_{\overline{\theta}_1},Q_{\overline{\theta}_2}$, whose parameters are soft updated due to
 		\begin{equation}
 		\bar{\theta}_i\leftarrow\tau\theta_i+(1-\tau)\bar{\theta}_i,\hspace{2cm}i=\{1,2\}
 		\end{equation}
 		where $\tau\in(0,1]$ and close to $0$.
 	</li>
-	<li>
-		Off-policy training with samples from a replay buffer $\mathcal{D}$ to minimize correlations between samples. 
-		The rollout phase is given as for each step $t$
+	<li id='key-pt-3'>
+		Off-policy training with samples from a replay buffer $\mathcal{D}$ to minimize correlations between samples. The rollout phase is given as for each step $t$
 		\begin{align*}
 		&a_t\sim\pi_\phi(a_t\vert s_t) \\ &s_{t+1}\sim p(s_{t+1}\vert s_t,a_t) \\ &\mathcal{D}\leftarrow\mathcal{D}\cup\{s_t,a_t,r(s_t,a_t),s_{t+1},d_t\},
 		\end{align*}
@@ -187,11 +188,11 @@ These following are key components of SAC method:
 		\end{equation}
 		where $y_t$ is the TD target at step $t$, which is given by
 		\begin{align}
-		y_t&=r(s_t,a_t)+\gamma\mathbb{E}_{s_{t+1}\sim p}\big[V_\overline{\theta}(s_{t+1})\big] \\ &=r(s_t,a_t)+\gamma\mathbb{E}_{s_{t+1}\sim p,a_{t+1}\sim\pi_\phi}\Big[\gamma\Big(Q_\overline{\theta}(s_{t+1},a_{t+1})+\alpha H\big(\pi_\phi(\cdot\vert s_{t+1})\big)\Big)\Big] \\ &=r(s_t,a_t)+\gamma\mathbb{E}_{s_{t+1}\sim p,a_{t+1}\sim\pi_\phi}\Big[Q_\overline{\theta}(s_{t+1},a_{t+1})-\alpha\log\pi_\phi(a_{t+1}\vert s_{t+1})\Big],
+		y_t&=r(s_t,a_t)+\gamma\mathbb{E}_{s_{t+1}\sim p}\big[V_\overline{\theta}(s_{t+1})\big]\label{eq:sac.6} \\ &=r(s_t,a_t)+\gamma\mathbb{E}_{s_{t+1}\sim p,a_{t+1}\sim\pi_\phi}\Big[Q_\overline{\theta}(s_{t+1},a_{t+1})+\alpha H\big(\pi_\phi(\cdot\vert s_{t+1})\big)\Big] \\ &=r(s_t,a_t)+\gamma\mathbb{E}_{s_{t+1}\sim p,a_{t+1}\sim\pi_\phi}\Big[Q_\overline{\theta}(s_{t+1},a_{t+1})-\alpha\log\pi_\phi(a_{t+1}\vert s_{t+1})\Big],
 		\end{align}
-		which, as an expectation, can be approximated with samples from replay buffer $\mathcal{D}$ with current policy $\pi_\phi$:
+		which, as an expectation, can be approximated with samples from replay buffer $\mathcal{D}$ (i.e. $s_{t+1}\sim\mathcal{D}$ since $s_{t+1}\sim p(s_{t+1}\vert s_t,a_t)$ while $(s_t,a_t)\sim\mathcal{D}$, which is the reason why we attached $s_{t+1}$ in the replay buffer $\mathcal{D}$ as in the key point <a href='#key-pt-3'>(3)</a>) with current policy $\pi_\phi$ (i.e. $a_{t+1}\sim\pi_\phi$):
 		\begin{equation}
-		y_t\approx r(s_t,a_t)+\gamma\big(Q_\phi(s_{t+1},a_{t+1})-\alpha\log\pi_\phi(a_{t+1}\vert s_{t+1})\big)
+		y_t\approx r(s_t,a_t)+\gamma\big(Q_\overline{\theta}(s_{t+1},a_{t+1})-\alpha\log\pi_\phi(a_{t+1}\vert s_{t+1})\big)
 		\end{equation}
 		Therefore, the loss function for Q-networks at step $t$ is given by
 		\begin{equation}
@@ -224,7 +225,7 @@ These following are key components of SAC method:
 		\begin{equation}
 		J_\pi(\phi)=\mathbb{E}_{s_t\sim\mathcal{D},\epsilon_t\sim\mathcal{N}(0,I)}\Big[Q_\theta\big(s_t,a_\phi(s_t,\epsilon_t)\big)-\alpha\log\pi_\phi\big(a_\phi(s_t,\epsilon_t)\vert s_t\big)\Big],
 		\end{equation}
-		which rather than taking the expectation over actions ($a_t\sim\pi_\theta$, depends on $\theta$), computing over noise ($\epsilon_t\sim\mathcal{N}(0,I)$, depends on nothing). This function can be optimized with SGD with
+		which rather than taking the expectation over actions ($a_t\sim\pi_\phi$, depends on $\phi$), computing over noise ($\epsilon_t\sim\mathcal{N}(0,I)$, depends on nothing). This function can be optimized with SGD with
 		\begin{equation}
 		\hspace{-0.9cm}\hat{\nabla}_\phi J_\pi(\phi)=\big(\nabla_{a_t}Q_\theta(s_t,a_t)-\alpha\nabla_{a_t}\log\pi_\phi(a_t\vert s_t)\big)\nabla_\phi a_\phi(s_t,\epsilon_t)-\alpha\nabla_\phi\log\pi_\phi(a_t\vert s_t),\label{eq:sac.5}
 		\end{equation}
@@ -235,12 +236,12 @@ These following are key components of SAC method:
 		\begin{equation}
 		\pi_\phi(\cdot\vert s)=\mathcal{N}(\mu_\phi(s),\Sigma_\phi(s))=\mathcal{N}(\mu_\phi(s),\sigma_\theta(s)^2 I)=\mu_\phi(s)+\sigma_\phi(s)\mathcal{N}(0,I)
 		\end{equation}
-		hence, when sampling from $\pi_\theta$, let $\epsilon_t\sim\mathcal{N}(0,I)$ be a vector of spherical Gaussian noise, an action $a_t\sim\mathcal{N}(\mu_\theta(s),\sigma_\phi(s)^2 I)$ can be computed as
+		hence, when sampling from $\pi_\phi$, let $\epsilon_t\sim\mathcal{N}(0,I)$ be a vector of spherical Gaussian noise, an action $a_t\sim\mathcal{N}(\mu_\theta(s),\sigma_\phi(s)^2 I)$ can be computed as
 		\begin{equation}
 		a_t=\mu_\phi(s_t)+\sigma_\phi(s_t)\odot\epsilon_t,
 		\end{equation}
 		where $\odot$ denotes the elementwise product of two vectors.<br>
-		Since the normal distribution taking range of $(-\infty,\infty)$, it is necessary to bound the policy to a finite interval, which can be performed by applying a <b>squashing function</b> (e.g. $\text{tanh}$,sigmoid,etc) to the Gaussian samples. For instance, the $\text{tanh}$ function converts support of $(-\infty,\infty)$ into $(-1,1)$.
+		Since the normal distribution taking range of $(-\infty,\infty)$, it is necessary to bound the policy to a finite interval, which can be performed by applying a <b>squashing function</b> (e.g. $\text{tanh}$, sigmoid, etc) to the Gaussian samples. For instance, the $\text{tanh}$ function converts support of $(-\infty,\infty)$ into $(-1,1)$.
 	</li>
 	<li>
 		Two soft Q-functions $Q_{\theta_1},Q_{\theta_2}$ are trained independently to optimize $J_Q(\theta_1),J_Q(\theta_2)$ respectively. Also, the minimum of the soft Q-functions is used in \eqref{eq:sac.3} and \eqref{eq:sac.5} instead, i.e.
@@ -253,9 +254,9 @@ These following are key components of SAC method:
 		\end{equation}
 	</li>
 	<li>
-		Instead of considering entropy coefficient $\alpha$ as a constant, in the <a href='#sac-paper-new'>newer version</a> of SAC, authors treated it as a parameter and can be optimized due to the loss function
+		Instead of considering entropy coefficient $\alpha$ as a constant, in the <a href='#sac-paper-new'>latter version</a> of SAC, authors treated it as a parameter and can be optimized due to the loss function
 		\begin{equation}
-		J(\alpha)=\mathbb{E}_{a_t\sim\pi_t}\big[-\alpha\log\pi(a_t\vert s_t)-\alpha\bar{H}\big]
+		J(\alpha)=\mathbb{E}_{a_t\sim\pi_t}\big[-\alpha\log\pi_t(a_t\vert s_t)-\alpha\bar{H}\big]\label{eq:sac.7}
 		\end{equation}
 		where $\pi_t$ denotes the current policy at time-step $t$ and $\bar{H}$ is target entropy value, usually is set as $-\text{dim}(\mathcal{A})$.
 	</li>
@@ -266,11 +267,39 @@ Pseudocode for our final algorithm is given below.
 	<img src="/images/maxent-sql-sac/sac.png" alt="SAC"/>
 </figure>
 
-### Discrete SAC
-
+### Discrete SAC{#discrete-sac}
+In discrete-action setting, the policy $\pi_\phi(a\vert s)$ can be consider as a PFM (probability mass function), instead of a density function in the continuous case. This gives rise to some necessary changes:
+<ul id='number-list'>
+	<li>
+		We use a Categorical policy instead of a diagonal Gaussian, i.e. $\pi:\mathcal{S}\to[0,1]^{\vert\mathcal{A}\vert}$.
+	</li>
+	<li>
+		The PMF-form policy allows us to compute the soft value function directly instead of using Monte Carlo sampling, i.e.
+		\begin{equation}
+		V_\pi(s)=\sum_{a\in\mathcal{A}}\pi(a\vert s)\big[Q_\pi(s,a)-\alpha\log\pi(a\vert s)\big],\label{eq:dsac.1}
+		\end{equation}
+		which reduces the variance in Monte Carlo estimate of the $V_\overline{\theta}(s_{t+1})$ given in \eqref{eq:sac.6} that is used to compute the loss function of Q-networks $J_Q(\theta)$.<br>
+		It is then more efficient to make a modification to the soft Q-function: The soft Q-function returns a value for each possible action rather than simply the action provided as an input, i.e. $Q:\mathcal{S}\to\mathbb{R}^{\vert\mathcal{A}\vert}$.<br>
+		This change, along with the previous one, lets us rewrite the calculation for soft state-value given in \eqref{eq:dsac.1} as
+		\begin{equation}
+		V_\pi(s)=\pi(s)^\text{T}\big[Q_\pi(s)-\alpha\log\pi(s)\big]
+		\end{equation}
+	</li>
+	<li>
+		Analogously, the entropy coefficient loss changes from \eqref{eq:sac.7} to
+		\begin{equation}
+		J(\alpha)=\pi_t(s_t)^\text{T}\big[-\alpha\log\pi_t(s_t)-\alpha\bar{H}\big]
+		\end{equation}
+	</li>
+	<li>
+		Since the policy $\pi$ now returns the exact action, we are able to compute the expectation directly. Thus, it is unnecessary to use the reparameterization trick in the calculation for the loss function $J_\pi(\phi)$. It is then given by
+		\begin{equation}
+		J_\pi(\phi)=\mathbb{E}_{s_t\sim\mathcal{D}}\Big[\pi_\phi(s_t)^\text{T}\big[Q_\theta(s_t)-\alpha\log\pi_\phi(s_t)\big]\Big]
+		\end{equation}
+	</li>
+</ul>
 
 ## Soft Q-learning{#sql}
-
 
 
 ## References

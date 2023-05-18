@@ -5,11 +5,10 @@ tags: [deep-reinforcement-learning, policy-gradient, my-rl]
 math: true
 eqn-number: true
 ---
-> Notes on TRPO.
+> Notes on policy optimization using trust region method.
 <!--more-->
 
 ## Preliminaries
-We begin by recalling definition of MDPs, coupling and total variation distance.
 
 ### Markov Decision Processes{#mdp}
 An infinite-horizon discounted **Markov Decision Process** (**MDP**) is defined as the tuple $(\mathcal{S},\mathcal{A},P,r,\rho_0,\gamma)$, where

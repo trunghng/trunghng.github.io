@@ -5,7 +5,7 @@ tags: [machine-learning, gumbel-distribution]
 math: true
 eqn-number: true
 ---
-Notes on using Gumbel-Softmax & Concrete Distribution in Categorical sampling.
+> Notes on using Gumbel-Softmax & Concrete Distribution in Categorical sampling
 <!--more-->
 
 ## Gumbel distribution{#gumbel-dist}

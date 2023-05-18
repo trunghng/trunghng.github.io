@@ -4,8 +4,7 @@ date: 2021-06-05 17:00:00 +0700
 tags: [mathematics, linear-algebra, eigenvalue-eigenvector, random-stuffs]
 math: true
 ---
-> Enjoy my index-zero-ed note while staying tuned for next ones!  
-
+> Enjoy my index-zero-ed note while staying tuned for next ones!
 <!--more-->
 
 ```python

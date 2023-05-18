@@ -5,7 +5,6 @@ tags: [reinforcement-learning, mathematics, bellman-equation, my-rl]
 math: true
 ---
 > In the previous note about [**Markov Decision Processes, Bellman equations**]({{< ref "mdp-bellman-eqn" >}}), we mentioned that there exists a policy $\pi_\*$ that is better than or equal to all other policies. And now, we are here to prove it.
-
 <!--more-->
 
 ## Preliminaries
