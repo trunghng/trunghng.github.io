@@ -84,7 +84,11 @@ We will apply the minibatch SGD method for training GAN.
 	<figcaption></figcaption>
 </figure> 
 
-### Testing on MNIST
+## Wasserstein GAN{#wgan}
+Wasserstein is a variation of GAN which use Wasserstein metric to measure the distance between $p_\text{data}$ and $p_g$ instead of the Jensen-Shannon divergence.
+
+### Different Distances
+Let $\mathcal{X}$ be a compact metric set, $\Sigma$ be the set of all the Borel subsets of $\mathcal{X}$ and let $Prob(\mathcal{X})$ denote the space of probability measures[2] defined on $\mathcal{X}$
 
 
 ## Preferences

@@ -401,7 +401,7 @@ And since $\varepsilon>0$ was arbitrary, the claim follows.
 		\begin{equation}
 		m^*\big((\mathbb{R}^d\backslash E)\backslash F_n\big)=m^*\big((\mathbb{R}^d\backslash E)\backslash(\mathbb{R}^d\backslash U_n)\big)=m^*(U_n\backslash E)\leq\frac{1}{n}\label{eq:lemma13.1}
 		\end{equation}
-		In addition, since $F_n\subset\mathbb{R}^d\backslash E$, the countable union of them, denoted as $F$, is also a subset of $\mathbb{R}^d\backslash E$
+		In addition, since $F_n\subset\mathbb{R}^d\backslash E$, the countable union of them, denoted as $F$, is also a subset of $\mathbb{R}^d\backslash E$<br>
 		\begin{equation}
 		F=\bigcup_{n=1}^{\infty}F_n\subset\mathbb{R}^d\backslash E
 		\end{equation}
@@ -472,9 +472,9 @@ Let $E\subset\mathbb{R}^d$, then the following are equivalent:
 		\end{equation}
 		And since $E\subset U$, we have that
 		\begin{equation}
-		m^(E\backslash U)=m^*(\emptyset)=0,
+		m^*(E\backslash U)=m^*(\emptyset)=0,
 		\end{equation}
-		which implies that for any $\varepsilon>0$
+		which implies that for any $\varepsilon>0$<br>
 		\begin{equation}
 		m^*(U\Delta E)=m^*(U\backslash E)+m^*(E\backslash U)\leq\varepsilon
 		\end{equation}
@@ -485,7 +485,7 @@ Let $E\subset\mathbb{R}^d$, then the following are equivalent:
 		\begin{equation}
 		m^*\left(U\backslash(\mathbb{R}^d\backslash E)\right)\leq\varepsilon\label{eq:cm.1}
 		\end{equation}
-		Let $F$ denote the complement of $U$, $F=\mathbb{R}\backslash U$, thus $F$ is a closed set contained in $E$. Moreover, from \eqref{eq:cm.1} we also have for any $\varepsilon>0$
+		Let $F$ denote the complement of $U$, $F=\mathbb{R}\backslash U$, thus $F$ is a closed set contained in $E$. Moreover, from \eqref{eq:cm.1} we also have for any $\varepsilon>0$<br>
 		\begin{equation}
 		m^*(E\backslash F)=m^*\left(E\backslash(\mathbb{R}^d\backslash U)\right)=m^*\left(U\backslash(\mathbb{R}^d\backslash E)\right)\leq\varepsilon
 		\end{equation}
@@ -501,7 +501,7 @@ Let $E\subset\mathbb{R}^d$, then the following are equivalent:
 		\begin{align}
 		U\Delta(\mathbb{R}^d\backslash E)&=\left(U\backslash(\mathbb{R}^d\backslash E)\right)\cup\left((\mathbb{R}^d\backslash E)\backslash U\right) \\ &=\left(E\backslash(\mathbb{R}^d\backslash U)\right)\cup\left((\mathbb{R}^d\backslash U)\backslash E\right) \\ &=(\mathbb{R}^d\backslash U)\backslash E \\ &=F\Delta E,
 		\end{align}
-		which lets \eqref{eq:cm.2} can be written as, for any $\varepsilon>0$
+		which lets \eqref{eq:cm.2} can be written as, for any $\varepsilon>0$<br>
 		\begin{equation}
 		m^*(F\Delta E)\leq\varepsilon
 		\end{equation}
@@ -843,7 +843,7 @@ Let $E\subset\mathbb{R}^d$, the following are then equivalent:
 		\begin{equation}
 		m(A)=m(A\cap E)+m(A\backslash E)\leq m^*(A\cap E)+m^*(A\backslash E)\label{eq:cc.1}
 		\end{equation}
-		Given $A$ is elementary, by <span markdown=1>[<b>Lemma 10</b>]({{< ref "measure-theory-p1#measure-elementary-set" >}})</span>, we can express $A$ as a finite union of disjoint boxes
+		Given $A$ is elementary, by <a href='{{< ref "measure-theory-p1#measure-elementary-set" >}}'><b>Lemma 10</b></a>, we can express $A$ as a finite union of disjoint boxes
 		\begin{equation}
 		A=\bigcup_{n=1}^{N}B_n
 		\end{equation}
