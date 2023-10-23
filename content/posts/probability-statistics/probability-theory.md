@@ -53,7 +53,7 @@ If $\mu(\Omega)=1$, $\mu$ is referred as a **probability measure**.
 		<b>Subadditivity</b>. If $A\subset\bigcup_{m=1}^{\infty}A_m$ then $\mu(A)\leq\sum_{m=1}^{\infty}\mu(A_m)$.
 	</li>
 	<li>
-		<b>Continuity from below</b>. If $A_i\uparrow A$ $\left(\textit{i.e. }A_1\subset A_2\subset\ldots,\bigcup_i=A\right)$ then $\mu(A_i)\uparrow\mu(A)$.
+		<b>Continuity from below</b>. If $A_i\uparrow A$ $\left(\textit{i.e. }A_1\subset A_2\subset\ldots,\bigcup_i A_i=A\right)$ then $\mu(A_i)\uparrow\mu(A)$.
 	</li>
 	<li>
 		<b>Continuity from above</b>. If $A_i\downarrow A \left(\textit{i.e. }A_1\supset A_2\supset\ldots,\bigcap_i A_i=A\right)$, with $\mu(A_1)<\infty$ then $\mu(A_i)\downarrow\mu(A)$.
