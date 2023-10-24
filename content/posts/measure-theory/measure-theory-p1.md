@@ -39,14 +39,14 @@ The **distance** between two sets $E$ and $F$ is defined by
 \end{equation}
 
 ### Open, closed and compact sets{#open-closed-compact-sets}
-The **open ball** in $\mathbb{R}^d$ centered at $x$ and of radius $r$ is defined by
+The <b id='ball'>open ball</b> in $\mathbb{R}^d$ centered at $x$ and of radius $r$ is defined by
 \begin{equation}
 B(x,r)=\\{y\in\mathbb{R}^d:\vert y-x\vert< r\\}
 \end{equation}
-A subset $E\subset\mathbb{R}^d$ is **open** if for every $x\in E$ there exists $r>0$ with $B(x,r)\subset E$. And a set is **closed** if its complement is open.  
+A subset $E\subset\mathbb{R}^d$ is <b id='open-set'>open</b> if for every $x\in E$ there exists $r>0$ with $B(x,r)\subset E$. And a set is **closed** if its complement is open.  
 Any (not necessarily countable) union of open sets is open, while in general, the intersection of only finitely many open sets is open. A similar statement holds for the class of closed sets, if we interchange the roles of unions and intersections.
 
-A set $E$ is **bounded** if it is contained in some ball of finite radius. A set is **compact** if it is bounded and is also closed. Compact sets enjoy the **Heine-Borel** covering property:
+A set $E$ is **bounded** if it is contained in some ball of finite radius. A set is <b id='compact-set'>compact</b> if it is bounded and is also closed. Compact sets enjoy the **Heine-Borel** covering property:
 
 <span id='heine-borel-theorem'>**Theorem 1**. (**Heine-Borel theorem**)</span>  
 *Assume $E$ is compact, $E\subset\bigcup_\alpha\mathcal{O}\_\alpha$, and each $\mathcal{O}\_\alpha$ is open. Then there are finitely many of the open sets $\mathcal{O}\_{\alpha_1},\mathcal{O}\_{\alpha_2},\dots,\mathcal{O}\_{\alpha_N}$, such that $E\subset\bigcup_{j=1}^{N}\mathcal{O}\_{\alpha_j}$.*

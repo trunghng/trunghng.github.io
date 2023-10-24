@@ -84,11 +84,11 @@ We will apply the minibatch SGD method for training GAN.
 	<figcaption></figcaption>
 </figure> 
 
-## Wasserstein GAN{#wgan}
+## Wasserstein GAN (WGAN)
 Wasserstein is a variation of GAN which use Wasserstein metric to measure the distance between probability distributions $p_r$ and $p_g$ instead of the Jensen-Shannon divergence.
 
 ### Different Distances
-Let $\mathcal{X}$ be a compact metric set, $\Sigma$ be the set of all the Borel subsets of $\mathcal{X}$ and let $Prob(\mathcal{X})$ denote the space of probability measures[2] defined on $\mathcal{X}$. We can now define elementary distances and divergences between two probability distributions $P_r,P_g\in\text{Prob}(\mathcal{X})$
+Let $\mathcal{X}$ be a compact metric set, $\Sigma$ be the set of all the Borel subsets of $\mathcal{X}$ and let $Prob(\mathcal{X})$ denote the space of probability measures defined on $\mathcal{X}$. We can now define elementary distances and divergences between two probability distributions $P_r,P_g\in\text{Prob}(\mathcal{X})$
 - **Total Variation (TV)** distance
 \begin{equation}
 \delta(P_r,P_g)=\sup_{A\in\Sigma}\big\vert P_r(A)-P_g(A)\big\vert
@@ -105,11 +105,11 @@ D_\text{JS}(P_r\Vert P_g)=\frac{1}{2}D_\text{KL}(P_r\Vert P_m)+\frac{1}{2}D_\tex
 where $P_m$ is the mixture distribution $P_m=\frac{P_r+P_g}{2}$. The divergence is symmetric.
 - **Earth Mover (EM)** distance, or **Wasserstein-1**
 \begin{equation}
-W(P_r,P_g)=\inf_{\theta\in\Pi(P_r,P_g)}\mathbb{E}\_{(x,y)\sim\theta}\big[\Vert x-y\Vert\big],
+W(P_r,P_g)=\inf_{\gamma\in\Pi(P_r,P_g)}\mathbb{E}\_{(x,y)\sim\gamma}\big[\Vert x-y\Vert\big]\label{eq:dd.1},
 \end{equation}
-where $\Pi(P_r,P_g)$ is the set of all joint distribution $\theta(x,y)$ whose marginal distributions are $P_r$ and $P_g$.
+where $\Pi(P_r,P_g)$ is the set of all joint distribution $\gamma(x,y)$ whose marginal distributions are $P_r$ and $P_g$.
 
-### Learning parallel lines
+### Example: Learning parallel lines
 Consider probability distributions defined on $\mathbb{R}^2$:
 - $P_0$ is the distribution of $(0,Y)$ where $Y\sim\text{Unif}(0,1)$.
 - $P_\theta$ is the family of distribution of $(\theta,Y)$ with $Y\sim\text{Unif}(0,1)$.
@@ -183,13 +183,120 @@ Our goal is to learn to move from $\theta$ to $0$, i.e. as $\theta$ approaches $
 	</li>
 </ul>
 
+In other words,
+<ul id='number-list'>
+	<li>
+		As $\theta_t\to 0$, the sequence $(P_{\theta_t})_{t\in\mathbb{N}}$ converges to $P_0$ under the EM distance, but does not converge under either the TV, KL, reverse KL or JS divergences.
+	</li>
+	<li>
+		If we consider these distances and divergences as functions of $P_0$ and $P_\theta$, it is easily seen that EM is continuous, while none of the others is.
+	</li>
+</ul>
+
+**Remark**: The example shows that
+- There exist sequences of distributions that do not converge under either TV, KL, reverse KL or JS divergences but do converge under the EM distance.
+- There are cases where EM is continuous everywhere, while all of the others are discontinuous.
+
+### Convergence and continuity of Wasserstein distance
+Let $(X,d_X)$ and $(Y,d_Y)$ be two metric spaces. A function $f:X\mapsto Y$ is called **Lipschitz continuous** if there exists a constant $K\geq 0$ such that, for all $x_1,x_2\in X$,
+\begin{equation}
+d_Y(f(x_1),f(x_2))\leq K d_X(x_1,x_2)
+\end{equation}
+In this case, $K$ is known as a **Lipschitz constant** for $f$, while $f$ is referred to as **K-Lipschitz**. If $K=1$, $f$ is called a **short map** (or **weak contraction**). And if $0\leq K<1$ and $f$ maps a metric to itself, i.e. $X=Y,$ then $f$ is called a **contraction**.
+
+The function $f$ is called **locally Lipschitz continuous** if $\forall x\in X$, there exists a **neighborhood**[^3] $U$ of $x$ such that $f$ restricted[^4] to $U$ is Lipschitz continuous.
+
+Equivalently, if $X$ is a locally compact[^5] metric space, then $f$ is **locally Lipschitz** iff it is Lipschitz continuous on every compact subset of $X$.
+
+<b id='asmptn1'>Assumption 1</b>  
+*Let $g:\mathcal{Z}\times\mathbb{R}^d\mapsto\mathcal{X}$ be locally Lipschitz between finite dimensional vector spaces[^6] and denote $g_\theta(z)\doteq g(z,\theta)$. We say that $g$ satisfies <a href='#asmptn1'>Assumption 1</a> for a certain probability $p$ over $\mathcal{Z}$ if there are local Lipschitz constants $L(\theta,z)$ such that*
+\begin{equation}
+\mathbb{E}\_{z\sim p}\big[L(\theta,z)\big]\leq+\infty
+\end{equation}
+
+<b id='theorem1'>Theorem 1</b></br>
+*Let $P_r$ be a fixed distribution over $\mathcal{X}$ and $Z$ be a r.v over another space $\mathcal{Z}$. Let $g:\mathcal{Z}\times\mathbb{R}^d\mapsto\mathcal{X}$ with $g_\theta(z)\doteq g(\theta,z)$. And let $P_\theta$ denote the distribution of $g_\theta(Z)$. Then*
+<ul id='number-list' style='font-style: italic;'>
+	<li id='theorem1-1'>
+		If $g$ is continuous in $\theta$, so is $W(P_r,P_\theta)$.
+	</li>
+	<li id='theorem1-2'>
+		If $g$ is locally Lipschitz and satisfies <a href='#asmptn1'>Assumption 1</a>, then $W(P_r,P_\theta)$ is continuous everywhere, and differentiable almost everywhere.
+	</li>
+	<li>
+		Statements <a href='#theorem1-1'>(1)</a> and <a href='#theorem1-2'>(2)</a> are false for the JS divergence $D_\text{JS}(P_r\Vert P_\theta)$, the KL divergence $D_\text{KL}(P_r\Vert P_\theta)$ and the reverse KL divergence $D_\text{KL}(P_\theta\Vert P_r)$.
+	</li>
+</ul>
+
+**Proof**  
+TODO
+
+We can apply this result to neural networks, as following.
+
+**Corollary 1**  
+*Let $g_\theta$ be any feedforward neural network parameterized by $\theta$, and let $p(z)$ be a prior over $z$ such that $\mathbb{E}\_{z\sim p(z)}\big[\Vert z\Vert\big]\leq\infty$ (e.g. Gaussian, uniform, etc). Then <a href='#asmptn1'>Assumption 1</a> is satisfied and therefore $W(P_r,P_\theta)$ is continuous everywhere and differentiable almost everywhere.*
+
+**Proof**  
+TODO
+
+<b id='theorem2'>Theorem 2</b></br>
+*Let $P$ be a distribution on a compact space $\mathcal{X}$ and $(P_n)_{n\in\mathbb{N}}$ be a sequence of distribution on $\mathcal{X}$. Then, as $n\to\infty$,*
+<ul id='number-list' style='font-style: italic;'>
+	<li id='theorem2-1'>
+		The following states are equivalent
+		<ul id='roman-list'>
+			<li>
+				$\delta(P_n,P)\to 0$.
+			</li>
+			<li>
+				$D_\text{JS}(P_n\Vert P)\to 0$.
+			</li>
+		</ul>
+	</li>
+	<li id='theorem2-2'>
+		The following statements are equivalent
+		<ul id='roman-list'>
+			<li>
+				$W(P_n,P)\to 0$.
+			</li>
+			<li>
+				$P_n\overset{\mathcal{D}}{\to}P$ where $\overset{\mathcal{D}}{\to}$ denotes convergence in distribution for r.v.s.
+			</li>
+		</ul>
+	</li>
+	<li>
+		$D_\text{KL}(P_n\Vert P)\to 0$ or $D_\text{KL}(P\Vert P_n)\to 0$ imply the statements in <a href='#theorem2-1'>(1)</a>.
+	</li>
+	<li>
+		The statements in <a href='#theorem2-1'>(1)</a> imply the statements in <a href='#theorem2-2'>(2)</a>.
+	</li>
+</ul>
+
+In other words, the theorem states that every distributions that converges under the TV, KL, reverse KL and JS divergences also converges under the Wasserstein distance.
+
+**Proof**  
+TODO
+
+### Wasserstein GAN
+Despite of having such nice properties, the infimum when computing EM distance \eqref{eq:dd.1}
+\begin{equation}
+W(P_r,P_g)=\inf_{\gamma\sim\Pi(P_r,P_g)}\mathbb{E}\_{(x,y)\sim\gamma}\big[\Vert x-y\Vert\big]
+\end{equation}
+is highly intractable. This suggests us to compute an approximation instead, the **Kantorovich-Rubinstein duality** shows that
+\begin{equation}
+W(P_r,P_\gamma)=\sup_{\Vert f\Vert_L\leq 1}\mathbb{E}\_{x\sim P_r}[f(x)]-\mathbb{E}\_{x\sim P_\theta}[f(x)]
+\end{equation}
+
+
 
 ## Preferences
 [1] Ian J. Goodfellow, Jean Pouget-Abadie, Mehdi Mirza, Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, Yoshua Bengio. [Generative Adversarial Nets](http://papers.neurips.cc/paper/5423-generative-adversarial-nets.pdf). NIPS, 2014.
 
 [2] Martin Arjovsky, Soumith Chintala, Léon Bottou. [Wasserstein GAN](https://arxiv.org/abs/1701.07875). arXiv preprint, arXiv:1701.07875, 2017.
 
-[3]
+[3] Alex Irpan. [Read-through: Wasserstein GAN](https://www.alexirpan.com/2017/02/22/wasserstein-gan.html). Sorta Insightful.
+
+[4] Elias M. Stein & Rami Shakarchi. [Real Analysis: Measure Theory, Integration, and Hilbert Spaces](http://www.cmat.edu.uy/~mordecki/courses/medida2013/book.pdf). Princeton University Press, 2007.
 
 ## Footnotes
 [^1]: Thus, in the trivial case, each of the components is an MLP.
@@ -197,5 +304,13 @@ Our goal is to learn to move from $\theta$ to $0$, i.e. as $\theta$ approaches $
 \begin{equation}
 P(A)=\int_A P(x)d\mu(x),
 \end{equation}
-which happens iff $P$ is absolutely continuous w.r.t $\mu$, i.e. for all $A\in\Sigma$, $\mu(A)=0$ implies $P(A)=0$.
+which happens iff $P$ is absolutely continuous w.r.t $\mu$, i.e. for all $A\in\Sigma$, $\mu(A)=0$ implies $P(A)=0.$
+[^3]: On $\mathbb{R}^d$, $U$ is a neighborhood of $x$ if there exists a [ball]({{< ref "measure-theory-p1#ball" >}}) $B\subset U$ such that $x\in B$.
+[^4]: Let $f:E\mapsto F$ and $A\subset E$, then the **restriction of $f$ to $A$** is the function
+\begin{equation}
+f\vert_A:A\mapsto F
+\end{equation}
+given by $f\vert_A(x)=f(x)$ for $x\in A$. Generally speaking, the restriction of $f$ to $A$ is the same function as $f$, but only defined on $A$.
+[^5]: $X$ is called **locally compact** if every point $x\in X$ has a compact neighborhood, i.e. there exists an [open set]({{< ref "measure-theory-p1#open-set" >}}) $U$ and a [compact set]({{< ref "measure-theory-p1#compact-set" >}}) $K$, such that $x\in U\subset K.$
+[^6]: This happens iff $g$ is Lipschitz continuous on every compact subset of $\mathcal{Z}\times\mathbb{R}^d.$
 
