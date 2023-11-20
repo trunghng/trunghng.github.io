@@ -5,13 +5,15 @@
     <link>https://trunghng.github.io/posts/</link>
     <description>Recent content in Posts on Trung&#39;s Place</description>
     <image>
+      <title>Trung&#39;s Place</title>
       <url>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
     <lastBuildDate>Sun, 19 Feb 2023 17:23:56 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Probabilistic Graphical Models - Learning</title>
+      <title>Read-through: Probabilistic Graphical Models - Learning</title>
       <link>https://trunghng.github.io/posts/machine-learning/pgm-learning/</link>
       <pubDate>Sun, 19 Feb 2023 17:23:56 +0700</pubDate>
       
@@ -22,7 +24,7 @@
     </item>
     
     <item>
-      <title>Probabilistic Graphical Models - Inference</title>
+      <title>Read-through: Probabilistic Graphical Models - Inference</title>
       <link>https://trunghng.github.io/posts/machine-learning/pgm-inference/</link>
       <pubDate>Thu, 02 Feb 2023 15:51:13 +0700</pubDate>
       
@@ -55,7 +57,7 @@
     </item>
     
     <item>
-      <title>Probabilistic Graphical Models - Representation</title>
+      <title>Read-through: Probabilistic Graphical Models - Representation</title>
       <link>https://trunghng.github.io/posts/machine-learning/pgm-representation/</link>
       <pubDate>Sat, 10 Dec 2022 17:55:57 +0700</pubDate>
       
@@ -132,7 +134,7 @@
     </item>
     
     <item>
-      <title>Measure theory - III: the Lebesgue integral</title>
+      <title>Read-through: Measure theory - the Lebesgue integral</title>
       <link>https://trunghng.github.io/posts/measure-theory/measure-theory-p3/</link>
       <pubDate>Sun, 21 Aug 2022 13:00:00 +0700</pubDate>
       
@@ -154,7 +156,7 @@
     </item>
     
     <item>
-      <title>Measure theory - II: Lebesgue measure</title>
+      <title>Read-through: Measure theory - Lebesgue measure</title>
       <link>https://trunghng.github.io/posts/measure-theory/measure-theory-p2/</link>
       <pubDate>Sun, 03 Jul 2022 13:00:00 +0700</pubDate>
       
@@ -165,7 +167,7 @@
     </item>
     
     <item>
-      <title>Measure theory - I: Elementary measure, Jordan measure &amp; the Riemann integral</title>
+      <title>Read-through: Measure theory - Elementary measure, Jordan measure &amp; the Riemann integral</title>
       <link>https://trunghng.github.io/posts/measure-theory/measure-theory-p1/</link>
       <pubDate>Thu, 16 Jun 2022 13:00:00 +0700</pubDate>
       

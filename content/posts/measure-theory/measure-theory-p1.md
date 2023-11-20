@@ -1,5 +1,5 @@
 ---
-title: "Measure theory - I: Elementary measure, Jordan measure & the Riemann integral"
+title: "Read-through: Measure theory - Elementary measure, Jordan measure & the Riemann integral"
 date: 2022-06-16 13:00:00 +0700
 tags: [mathematics, measure-theory, jordan-measure, riemann-integral]
 math: true

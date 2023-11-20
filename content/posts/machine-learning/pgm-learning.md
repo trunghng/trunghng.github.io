@@ -1,5 +1,5 @@
 ---
-title: "Probabilistic Graphical Models - Learning"
+title: "Read-through: Probabilistic Graphical Models - Learning"
 date: 2023-02-19T17:23:56+07:00
 tags: [machine-learning, probabilistic-graphical-model]
 math: true

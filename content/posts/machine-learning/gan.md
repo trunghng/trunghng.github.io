@@ -88,16 +88,16 @@ We will apply the minibatch SGD method for training GAN.
 Wasserstein is a variation of GAN which use Wasserstein metric to measure the distance between probability distributions $p_r$ and $p_g$ instead of the Jensen-Shannon divergence.
 
 ### Different Distances
-Let $\mathcal{X}$ be a compact metric set, $\Sigma$ be the set of all the Borel subsets of $\mathcal{X}$ and let $Prob(\mathcal{X})$ denote the space of probability measures defined on $\mathcal{X}$. We can now define elementary distances and divergences between two probability distributions $P_r,P_g\in\text{Prob}(\mathcal{X})$
+Let $\mathcal{X}$ be a compact metric set, $\Sigma$ be the set of all the Borel subsets of $\mathcal{X}$ and let $\text{Prob}(\mathcal{X})$ denote the space of probability measures defined on $\mathcal{X}$. We can now define elementary distances and divergences between two probability distributions $P_r,P_g\in\text{Prob}(\mathcal{X})$
 - **Total Variation (TV)** distance
 \begin{equation}
 \delta(P_r,P_g)=\sup_{A\in\Sigma}\big\vert P_r(A)-P_g(A)\big\vert
 \end{equation}
 - **Kullback-Leibler (KL)** divergence
 \begin{equation}
-D_\text{KL}(P_r\Vert P_g)=\int_\mathcal{X}P_r(x)\log\frac{P_r(x)}{P_g(x)}d\mu(x),
+D_\text{KL}(P_r\Vert P_g)=\int_\mathcal{X}p_r(x)\log\frac{p_r(x)}{p_g(x)}d\mu(x),
 \end{equation}
-where both $p_r,p_g$ are assumed to be absolutely continuous, and therefore admit densities, w.r.t a measure $\mu$[^2]. The divergence is not symmetric and infinite when there are points such that $P_g(x)=0$ and $P_r(x)>0$.
+where both $P_r,P_g$ are assumed to be absolutely continuous, and therefore admit densities, w.r.t a measure $\mu$[^2]. The divergence is not symmetric and infinite when there are points such that $P_g(x)=0$ and $P_r(x)>0$.
 - <b id='jsd'>Jensen-Shannon (JS)</b> divergence
 \begin{equation}
 D_\text{JS}(P_r\Vert P_g)=\frac{1}{2}D_\text{KL}(P_r\Vert P_m)+\frac{1}{2}D_\text{KL}(P_g\Vert P_m)
@@ -105,7 +105,7 @@ D_\text{JS}(P_r\Vert P_g)=\frac{1}{2}D_\text{KL}(P_r\Vert P_m)+\frac{1}{2}D_\tex
 where $P_m$ is the mixture distribution $P_m=\frac{P_r+P_g}{2}$. The divergence is symmetric.
 - **Earth Mover (EM)** distance, or **Wasserstein-1**
 \begin{equation}
-W(P_r,P_g)=\inf_{\gamma\in\Pi(P_r,P_g)}\mathbb{E}\_{(x,y)\sim\gamma}\big[\Vert x-y\Vert\big]\label{eq:dd.1},
+W(P_r,P_g)=\inf_{\gamma\in\Pi(P_r,P_g)}\mathbb{E}\_{(x,y)\sim\gamma}\big[\Vert x-y\Vert_2\big]\label{eq:dd.1},
 \end{equation}
 where $\Pi(P_r,P_g)$ is the set of all joint distribution $\gamma(x,y)$ whose marginal distributions are $P_r$ and $P_g$.
 
@@ -234,7 +234,7 @@ TODO
 We can apply this result to neural networks, as following.
 
 **Corollary 1**  
-*Let $g_\theta$ be any feedforward neural network parameterized by $\theta$, and let $p(z)$ be a prior over $z$ such that $\mathbb{E}\_{z\sim p(z)}\big[\Vert z\Vert\big]\leq\infty$ (e.g. Gaussian, uniform, etc). Then <a href='#asmptn1'>Assumption 1</a> is satisfied and therefore $W(P_r,P_\theta)$ is continuous everywhere and differentiable almost everywhere.*
+*Let $g_\theta$ be any feedforward neural network parameterized by $\theta$, and let $p(z)$ be a prior over $z$ such that $\mathbb{E}\_{z\sim p(z)}\big[\Vert z\Vert_2\big]\leq\infty$ (e.g. Gaussian, uniform, etc). Then <a href='#asmptn1'>Assumption 1</a> is satisfied and therefore $W(P_r,P_\theta)$ is continuous everywhere and differentiable almost everywhere.*
 
 **Proof**  
 TODO
@@ -243,7 +243,7 @@ TODO
 *Let $P$ be a distribution on a compact space $\mathcal{X}$ and $(P_n)_{n\in\mathbb{N}}$ be a sequence of distribution on $\mathcal{X}$. Then, as $n\to\infty$,*
 <ul id='number-list' style='font-style: italic;'>
 	<li id='theorem2-1'>
-		The following states are equivalent
+		The following statements are equivalent
 		<ul id='roman-list'>
 			<li>
 				$\delta(P_n,P)\to 0$.
@@ -280,12 +280,39 @@ TODO
 ### Wasserstein GAN
 Despite of having such nice properties, the infimum when computing EM distance \eqref{eq:dd.1}
 \begin{equation}
-W(P_r,P_g)=\inf_{\gamma\sim\Pi(P_r,P_g)}\mathbb{E}\_{(x,y)\sim\gamma}\big[\Vert x-y\Vert\big]
+W(P_r,P_g)=\inf_{\gamma\sim\Pi(P_r,P_g)}\mathbb{E}\_{(x,y)\sim\gamma}\big[\Vert x-y\Vert_2\big]
 \end{equation}
-is highly intractable. This suggests us to compute an approximation instead, the **Kantorovich-Rubinstein duality** shows that
+is however intractable. This suggests us to compute an approximation instead.
+
+**Theorem 3** (*Kantorovich-Rubinstein duality*)  
 \begin{equation}
-W(P_r,P_\gamma)=\sup_{\Vert f\Vert_L\leq 1}\mathbb{E}\_{x\sim P_r}[f(x)]-\mathbb{E}\_{x\sim P_\theta}[f(x)]
+W(P_r,P_\theta)=\sup_{\Vert f\Vert_L\leq 1}\mathbb{E}\_{x\sim P_r}[f(x)]-\mathbb{E}\_{x\sim P_\theta}[f(x)]
 \end{equation}
+
+**Proof**  
+Let $\mathcal{X}$ be a compact metric and let $\text{Prob}(\mathcal{X})$ denote the space of probability measures defined on $\mathcal{X}$. Let us consider two probability distribution $P_r,P_\theta\in\text{Prob}(\mathcal{X})$ with densities $p_r,p_\theta$ respectively. Let $\Pi(P_r,P_\theta)$ be the sets of all joint distribution $\gamma(x,y)$ whose marginals are respectively $P_r$ and $P_\theta$, i.e.
+\begin{align}
+p_r(x)&=\int_\mathcal{X}\gamma(x,y)\hspace{0.1cm}dy,\label{eq:wgan.1} \\\\ p_\theta(y)&=\int_\mathcal{X}\gamma(x,y)\hspace{0.1cm}dx\label{eq:wgan.2}
+\end{align}
+Their Wasserstein distance is given as
+\begin{equation}
+W(P_r,P_\theta)=\inf_{\gamma\in\Pi(P_r,P_\theta)}\mathbb{E}\_{(x,y)\sim\gamma}\big[\Vert x-y\Vert_2\big],
+\end{equation}
+which is a convex optimization problem with constrains given in \eqref{eq:wgan.1} and \eqref{eq:wgan.2}. Let $f,g:\mathcal{X}\mapsto\mathbb{R}$ be Lagrange multipliers, the Lagrangian is then given as
+\begin{align}
+\hspace{-1cm}\mathcal{L}(\gamma,f,g)&=\mathbb{E}\_{(x,y)\sim\gamma}\big[\Vert x-y\Vert_2\big]+\int_\mathcal{X}\left(p_r(x)-\int_\mathcal{X}\gamma(x,y)\hspace{0.1cm}dy\right)f(x)\hspace{0.1cm}dx \nonumber\\\\ &\hspace{4cm}+\int_\mathcal{X}\left(p_\theta(y)-\int_\mathcal{X}\gamma(x,y)\hspace{0.1cm}dx\right)g(y)\hspace{0.1cm}dy \\\\ &=\mathbb{E}\_{x\sim P_r}\big[f(x)\big]+\mathbb{E}\_{y\sim P_\theta}\big[g(y)\big]+\int_{\mathcal{X}\times\mathcal{X}}\gamma(x,y)\Big(\Vert x-y\Vert_2-f(x)-g(y)\Big)\hspace{0.1cm}dy\hspace{0.1cm}dx
+\end{align}
+Applying strong duality (?? TODO), we have
+\begin{equation}
+W(P_r,P_\theta)=\inf_\gamma\sup_{f,g}\mathcal{L}(\gamma,f,g)=\sup_{f,g}\inf_\gamma\mathcal{L}(\gamma,f,g)
+\end{equation}
+
+TODO
+
+
+
+If we replace $\Vert f\Vert_L\leq 1$ by $\Vert f\Vert_L\leq K$ (i.e. we instead consider the supremum over K-Lipschitz functions)
+
 
 
 
@@ -302,7 +329,7 @@ W(P_r,P_\gamma)=\sup_{\Vert f\Vert_L\leq 1}\mathbb{E}\_{x\sim P_r}[f(x)]-\mathbb
 [^1]: Thus, in the trivial case, each of the components is an MLP.
 [^2]: A probability distribution $P\in\text{Prob}(\mathcal{X})$ admits a density $p(x)$ w.r.t $\mu$ means for all $A\in\Sigma$
 \begin{equation}
-P(A)=\int_A P(x)d\mu(x),
+P(A)=\int_A p(x)d\mu(x),
 \end{equation}
 which happens iff $P$ is absolutely continuous w.r.t $\mu$, i.e. for all $A\in\Sigma$, $\mu(A)=0$ implies $P(A)=0.$
 [^3]: On $\mathbb{R}^d$, $U$ is a neighborhood of $x$ if there exists a [ball]({{< ref "measure-theory-p1#ball" >}}) $B\subset U$ such that $x\in B$.

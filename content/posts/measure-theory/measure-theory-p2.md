@@ -1,5 +1,5 @@
 ---
-title: "Measure theory - II: Lebesgue measure"
+title: "Read-through: Measure theory - Lebesgue measure"
 date: 2022-07-03 13:00:00 +0700
 tags: [mathematics, measure-theory, lebesgue-measure]
 math: true

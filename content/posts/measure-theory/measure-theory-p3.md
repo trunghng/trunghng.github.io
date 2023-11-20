@@ -1,5 +1,5 @@
 ---
-title: "Measure theory - III: the Lebesgue integral"
+title: "Read-through: Measure theory - the Lebesgue integral"
 date: 2022-08-21 13:00:00 +0700
 tags: [mathematics, measure-theory, lebesgue-integral]
 math: true
