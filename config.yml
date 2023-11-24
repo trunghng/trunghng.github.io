@@ -1,5 +1,5 @@
 baseURL: "https://trunghng.github.io"
-title: Trung's Place
+title: Littleroot
 paginate: 7
 theme: PaperMod
 
@@ -22,7 +22,7 @@ outputs:
 
 params:
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
-  title: Trung's Place
+  title: Littleroot
   description: "ExampleSite description"
   keywords: [Blog, Portfolio, PaperMod]
   author: Trung H. Nguyen
@@ -58,7 +58,7 @@ params:
     safari_pinned_tab: "/images/favicon/android-chrome-512x512.png"
 
   label:
-    text: "Trung's Place"
+    text: "Littleroot"
     icon: "/images/others/pokeball.png"
     iconHeight: 27
 
