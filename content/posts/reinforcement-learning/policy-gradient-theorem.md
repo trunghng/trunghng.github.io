@@ -110,7 +110,7 @@ Using the chain rule we can rewrite the eligibility vector as:
 \nabla_\boldsymbol{\theta}\log\pi(a|s,\boldsymbol{\theta})&=\nabla_\boldsymbol{\theta}\log{\frac{\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,a)\Big]}{\sum_b\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,b)\Big]}} \\\\ &=\nabla_\boldsymbol{\theta}\Big(\boldsymbol{\theta}^\text{T}\mathbf{x}(s,a)\Big)-\nabla_\boldsymbol{\theta}\log\sum_b\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,b)\Big] \\\\ &=\mathbf{x}(s,a)-\dfrac{\sum_b\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,b)\Big]\mathbf{x}(s,b)}{\sum_{b'}\exp\Big[\boldsymbol{\theta}^\text{T}\mathbf{x}(s,b')\Big]} \\\\ &=\mathbf{x}(s,a)-\sum_b\pi(b|s,\boldsymbol{\theta})\mathbf{x}(s,b)
 \end{align}
 
-A result when using REINFORCE to solve the short-corrdor problem ([RL book](#rl-book), Example 13.1) is shown below.
+A result when using REINFORCE to solve the short-corridor problem ([RL book](#rl-book), Example 13.1) is shown below.
 <figure>
 	<img src="/images/policy-gradient-theorem/short-corridor-reinforce.png" alt="REINFORCE on short-corridor"/>
 	<figcaption><b>Figure 1</b>: <b>REINFORCE on short-corridor problem</b>. The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-13/short_corridor.py' target='_blank'>here</a>.</figcaption>

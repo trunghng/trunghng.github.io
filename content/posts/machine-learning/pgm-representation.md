@@ -1208,7 +1208,7 @@ A **plate model** $\mathcal{M}_\text{Plate}$ defines for each template attribute
 	<figcaption><b>Figure 15</b>: (based on figure from the <a href='#pgm-book'>PGM book</a>) <b>Plate models and induced ground Bayesian networks</b>: (a) Single plate: for any student $s$, $P(I(s))$ and $P(G(s)\vert I(s))$ are the same; (b) Nested plates: for any (student, course) pair $(s,c)$, $\textit{Grade}(s,c)$ depends on $\textit{Difficulty}(c)$ and on $\textit{Intelligence}(s,c)$; (c) Intersecting plates: for any (student, course) pair $(s,c)$, $\text{Grade}(s,c)$ depends on $\textit{Difficulty}(c)$ and on $\textit{Intelligence}(s)$.</figcaption>
 </figure>
 
-##### Ground Bayesian Networks for Plate Models{#gound-bn-plate-models}
+##### Ground Bayesian Networks for Plate Models{#ground-bn-plate-models}
 A plate model $\mathcal{M}\_\text{Plate}$ and object skeleton $\kappa$ define a **ground Bayesian network** $\mathcal{B}\_\kappa^{\mathcal{M}\_\text{Plate}}$ as follows. Let $A(U_1,\ldots,U_k)$ be any template attribute in $\aleph$. Then, for any $\gamma=(U_1\mapsto u_1,\ldots,U_k\mapsto u_k)\in\Gamma_\kappa[A]$, we have a variable $A(\gamma)$ in the ground network, with parents $B(\gamma)$ for all $B\in\text{Pa}_A$, and the instantiated CPD $P(A(\gamma)\vert\text{Pa}_A(\gamma))$.
 
 **Example 12**: Consider the [Figure 15(c)](#fig15), without loss of generality, we have that:

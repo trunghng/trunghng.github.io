@@ -487,7 +487,7 @@ or
 \begin{equation}
 p(Y\vert\mathbf{x})=\mathcal{N}(\beta_0+\boldsymbol{\beta}^\text{T}\mathbf{x};\sigma^2)
 \end{equation}
-Thus, a **Gaussian Bayesian network** is a Bayesian network all of whose variables are continuous and where all of CPDs are linear Gaussians.
+Thus, a **Gaussian Bayesian network** is a Bayesian network all of whose variables are continuous and where all of CPDs are linear Gaussian.
 
 <b id='theorem3'>Theorem 3</b>: *Let $Y$ be a linear Gaussian of its parents $X_1,\ldots,X_k$, i.e.*
 \begin{equation}

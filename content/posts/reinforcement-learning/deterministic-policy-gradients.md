@@ -13,7 +13,7 @@ Consider a (infinite-horizon) Markov Decision Process (MDP), defined as a tuple 
 - $\mathcal{S}$ is the **state space**.
 - $\mathcal{A}$ is the **action space**.
 - $p:\mathcal{S}\times\mathcal{A}\times\mathcal{S}\to[0,1]$ is the **transition probability distribution**, i.e. $p(s,a,s')=p(s'\vert s,a)$ denotes the probability of transitioning to state $s'$ when taking action $a$ from state $s$.
-- $r:\mathcal{S}\times\mathcal{A}\to\mathbb{R}$ is the **reward function**, and let us denote $r_{t+1}\doteq r(S_t,A_t)$.
+- $r:\mathcal{S}\times\mathcal{A}\to\mathbb{R}$ is the **reward function**, and let us denote $r_{t+1}\doteq r(s_t,a_t)$.
 - $\rho_0:\mathcal{S}\to\mathbb{R}$ is the distribution of the initial state $s_0$.
 - $\gamma\in(0,1)$ is the **discount factor**.
 
@@ -44,7 +44,7 @@ where
 		\end{align}
 		where $r_t^\gamma$ is defined as the total discounted reward from time-step $t$ onward, which is thus the return at that step
 		\begin{equation}
-		G_t=r_t^\gamma\doteq\sum_{t=0}^{\infty}\gamma^t r_{t+1}
+		G_t=r_t^\gamma\doteq\sum_{k=t}^{\infty}\gamma^{k-t}r(s_t,a_t)=\sum_{k=t}^{\infty}\gamma^{k-t}r_{k+1}
 		\end{equation}
 	</li>
 	<li>
@@ -52,7 +52,7 @@ where
 		\begin{align}
 		\rho_\pi(s)&\doteq\sum_{t=0}^{\infty}\gamma^t P(S_t=s\vert s_0,\pi_\theta) \\ &=\int_\mathcal{S}\rho_0(\bar{s})\left(\sum_{t=0}^{\infty}\gamma^t P(S_t=s\vert\pi_\theta)\right)d\bar{s} \\ &=\int_\mathcal{S}\sum_{t=0}^{\infty}\gamma^t\rho_0(\bar{s})p(\bar{s}\to s,t,\pi_\theta)d\bar{s},\label{eq:spgt.4}
 		\end{align}
-		where $p(\bar{s}\to s,t,\pi_\theta)$ is defined as the the probability of transitioning to $s$ after $t$ steps starting from $\bar{s}$ under $\pi_\theta$, which implies that
+		where $p(\bar{s}\to s,t,\pi_\theta)$ is defined as the probability of transitioning to $s$ after $t$ steps starting from $\bar{s}$ under $\pi_\theta$, which implies that
 		\begin{equation}
 		p(\bar{s}\to s,t,\pi_\theta)=P(S_t=s\vert\pi_\theta)
 		\end{equation}
@@ -163,9 +163,9 @@ Let $Q_w(s,a)$ be a function approximation parameterized by $w\in\mathbb{R}^n$ o
 	</li>
 </ul>
 
-then $Q_w(s,a)$ 
+then
 \begin{equation}
-\nabla_\theta J(\pi_\theta)=\mathbb{E}\_{\rho_\pi,\pi_\theta}\Big[\nabla_\theta\log\pi_\theta(a\vert s)Q_w(s,a)\Big],
+\nabla_\theta J(\pi_\theta)=\mathbb{E}\_{\rho_\pi,\pi_\theta}\Big[\nabla_\theta\log\pi_\theta(a\vert s)Q_w(s,a)\Big]
 \end{equation}
 
 **Proof**  

@@ -5,7 +5,7 @@ tags: [mathematics, probability-statistics, random-stuffs]
 math: true
 eqn-number: true
 ---
-> If we have to describe the defintition of **Markov chain** in one statement, it will be: "It only matters where you are, not where you've been".
+> If we have to describe the definition of **Markov chain** in one statement, it will be: "It only matters where you are, not where you've been".
 <!--more-->
 
 ## Markov Property
@@ -51,7 +51,6 @@ P(X_n=j)=\sum_{i=1}^{M}P(X_0=i)P(X_n=j|X_0=i)=\sum_{i=1}^{M}t_iq_{ij}^{(n)},
 which implies that the marginal distribution of $X_n$ is given by $tQ^n$.
 
 ## Properties
-{{< rawhtml >}}
 <ul id='roman-list'>
 	<li>
 		State $i$ of a Markov chain is defined as <b>recurrent</b> or <b>transient</b> depending upon whether or not the Markov chain will eventually return to it. Starting with <b>recurrent</b> state $i$, the chain will return to it with the probability of $1$. Otherwise, it is <b>transient</b>.<br>
@@ -70,7 +69,6 @@ which implies that the marginal distribution of $X_n$ is given by $tQ^n$.
 		State $i$ is known as <b>aperiodic</b> if $k_i=1$, and <b>periodic</b> otherwise. The chain itself is called <b>aperiodic</b> if all its states are <b>aperiodic</b>, and <b>periodic</b> otherwise.
 	</li>
 </ul>
-{{< /rawhtml >}}
 
 ## Stationary Distribution
 A vector $s=(s_1,\dots,s_M)^\text{T}$ such that $s_i\geq0$ and $\sum_{i}s_i=1$ is a **stationary distribution** for a Markov chain if

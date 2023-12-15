@@ -380,7 +380,7 @@ Suppose that $\mu$ is a measure on $\mathcal{X}$
 [3] [Measure Theory for Probability: A Very Brief Introduction](https://www.countbayesie.com/blog/2015/8/17/a-very-brief-and-non-mathematical-introduction-to-measure-theory-for-probability).
 
 ## Other Resources
-1. [Music and Measure Theory - 3Blue1Brown](https://www.youtube.com/watch?v=cyW5z-M2yzw) - this is my favourite Youtube channel.
+1. [Music and Measure Theory - 3Blue1Brown](https://www.youtube.com/watch?v=cyW5z-M2yzw) - this is my favorite Youtube channel.
 
 ## Footnotes
 [^1]: If $\mathcal{A_1},\mathcal{A_2}$ were not disjoint, we could define $\mathcal{B_1}=\mathcal{A_1}-\mathcal{A_2}$, $\mathcal{B_2}=\mathcal{A_2}-\mathcal{A_1}$, and $\mathcal{B_3}=\mathcal{A_1}\cap\mathcal{A_2}$. Then the function is equal to $$c_1𝟙_\mathcal{B_1}+c_2𝟙_\mathcal{B_2}+(c_1+c_2)𝟙_\mathcal{B_3}$$.
