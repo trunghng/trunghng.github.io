@@ -11,7 +11,18 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 19 Feb 2023 17:23:56 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 25 May 2023 15:25:54 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Multi-agent Deep Deterministic Policy Gradient</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/maddpg/</link>
+      <pubDate>Thu, 25 May 2023 15:25:54 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/maddpg/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Notes on MADDPG.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
     <item>
       <title>Read-through: Probabilistic Graphical Models - Learning</title>
       <link>https://trunghng.github.io/posts/machine-learning/pgm-learning/</link>
@@ -349,7 +360,7 @@
       
       <guid>https://trunghng.github.io/posts/probability-statistics/markov-chain/</guid>
       <description>&lt;blockquote&gt;
-&lt;p&gt;If we have to describe the defintition of &lt;strong&gt;Markov chain&lt;/strong&gt; in one statement, it will be: &amp;ldquo;It only matters where you are, not where you&amp;rsquo;ve been&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;If we have to describe the definition of &lt;strong&gt;Markov chain&lt;/strong&gt; in one statement, it will be: &amp;ldquo;It only matters where you are, not where you&amp;rsquo;ve been&amp;rdquo;.&lt;/p&gt;
 &lt;/blockquote&gt;</description>
     </item>
     

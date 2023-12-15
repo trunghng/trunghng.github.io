@@ -11,7 +11,18 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 27 Dec 2022 13:46:09 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/policy-gradient/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 25 May 2023 15:25:54 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/policy-gradient/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Multi-agent Deep Deterministic Policy Gradient</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/maddpg/</link>
+      <pubDate>Thu, 25 May 2023 15:25:54 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/maddpg/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Notes on MADDPG.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
     <item>
       <title>Maximum Entropy Reinforcement Learning via Soft Q-learning &amp; Soft Actor-Critic</title>
       <link>https://trunghng.github.io/posts/reinforcement-learning/maxent-sql-sac/</link>

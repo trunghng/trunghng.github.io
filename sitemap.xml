@@ -2,22 +2,40 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://trunghng.github.io/</loc>
-    <lastmod>2023-02-19T17:23:56+07:00</lastmod>
+    <loc>https://trunghng.github.io/tags/actor-critic/</loc>
+    <lastmod>2023-05-25T15:25:54+07:00</lastmod>
   </url><url>
-    <loc>https://trunghng.github.io/tags/machine-learning/</loc>
-    <lastmod>2023-02-19T17:23:56+07:00</lastmod>
+    <loc>https://trunghng.github.io/</loc>
+    <lastmod>2023-05-25T15:25:54+07:00</lastmod>
+  </url><url>
+    <loc>https://trunghng.github.io/tags/multi-agent/</loc>
+    <lastmod>2023-05-25T15:25:54+07:00</lastmod>
+  </url><url>
+    <loc>https://trunghng.github.io/posts/reinforcement-learning/maddpg/</loc>
+    <lastmod>2023-05-25T15:25:54+07:00</lastmod>
+  </url><url>
+    <loc>https://trunghng.github.io/tags/my-rl/</loc>
+    <lastmod>2023-05-25T15:25:54+07:00</lastmod>
+  </url><url>
+    <loc>https://trunghng.github.io/tags/policy-gradient/</loc>
+    <lastmod>2023-05-25T15:25:54+07:00</lastmod>
   </url><url>
     <loc>https://trunghng.github.io/posts/</loc>
+    <lastmod>2023-05-25T15:25:54+07:00</lastmod>
+  </url><url>
+    <loc>https://trunghng.github.io/tags/reinforcement-learning/</loc>
+    <lastmod>2023-05-25T15:25:54+07:00</lastmod>
+  </url><url>
+    <loc>https://trunghng.github.io/tags/</loc>
+    <lastmod>2023-05-25T15:25:54+07:00</lastmod>
+  </url><url>
+    <loc>https://trunghng.github.io/tags/machine-learning/</loc>
     <lastmod>2023-02-19T17:23:56+07:00</lastmod>
   </url><url>
     <loc>https://trunghng.github.io/tags/probabilistic-graphical-model/</loc>
     <lastmod>2023-02-19T17:23:56+07:00</lastmod>
   </url><url>
     <loc>https://trunghng.github.io/posts/machine-learning/pgm-learning/</loc>
-    <lastmod>2023-02-19T17:23:56+07:00</lastmod>
-  </url><url>
-    <loc>https://trunghng.github.io/tags/</loc>
     <lastmod>2023-02-19T17:23:56+07:00</lastmod>
   </url><url>
     <loc>https://trunghng.github.io/posts/machine-learning/pgm-inference/</loc>
@@ -29,22 +47,10 @@
     <loc>https://trunghng.github.io/tags/gumbel-distribution/</loc>
     <lastmod>2023-01-02T13:49:15+07:00</lastmod>
   </url><url>
-    <loc>https://trunghng.github.io/tags/actor-critic/</loc>
-    <lastmod>2022-12-27T13:46:09+07:00</lastmod>
-  </url><url>
     <loc>https://trunghng.github.io/posts/reinforcement-learning/maxent-sql-sac/</loc>
     <lastmod>2022-12-27T13:46:09+07:00</lastmod>
   </url><url>
-    <loc>https://trunghng.github.io/tags/my-rl/</loc>
-    <lastmod>2022-12-27T13:46:09+07:00</lastmod>
-  </url><url>
-    <loc>https://trunghng.github.io/tags/policy-gradient/</loc>
-    <lastmod>2022-12-27T13:46:09+07:00</lastmod>
-  </url><url>
     <loc>https://trunghng.github.io/tags/q-learning/</loc>
-    <lastmod>2022-12-27T13:46:09+07:00</lastmod>
-  </url><url>
-    <loc>https://trunghng.github.io/tags/reinforcement-learning/</loc>
     <lastmod>2022-12-27T13:46:09+07:00</lastmod>
   </url><url>
     <loc>https://trunghng.github.io/posts/machine-learning/pgm-representation/</loc>
