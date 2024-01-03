@@ -11,7 +11,17 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 25 May 2023 15:25:54 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 02 Jan 2024 10:23:22 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AlphaZero</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/alphazero/</link>
+      <pubDate>Tue, 02 Jan 2024 10:23:22 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/alphazero/</guid>
+      <description>AlphaGo The training pipeline used in AlphaGo can be divided into following stages:
+Using a dataset of human experts positions, a supervised learning (SL) policy network $p_\sigma$ and, a rollout policy $p_\pi$, which can sample actions rapidly, are trained by classification to predict player moves. Initializing with the SL policy network $p_\sigma$, it uses policy gradient to train a reinforcement learning (RL) policy network $p_\rho$ with the goal to maximize the winning outcome against previous versions of the policy network.</description>
+    </item>
+    
     <item>
       <title>Multi-agent Deep Deterministic Policy Gradient</title>
       <link>https://trunghng.github.io/posts/reinforcement-learning/maddpg/</link>
