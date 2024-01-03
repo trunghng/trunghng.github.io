@@ -5,10 +5,19 @@
     <loc>https://trunghng.github.io/posts/reinforcement-learning/alphazero/</loc>
     <lastmod>2024-01-02T10:23:22+07:00</lastmod>
   </url><url>
+    <loc>https://trunghng.github.io/tags/deep-reinforcement-learning/</loc>
+    <lastmod>2024-01-02T10:23:22+07:00</lastmod>
+  </url><url>
     <loc>https://trunghng.github.io/</loc>
     <lastmod>2024-01-02T10:23:22+07:00</lastmod>
   </url><url>
+    <loc>https://trunghng.github.io/tags/my-rl/</loc>
+    <lastmod>2024-01-02T10:23:22+07:00</lastmod>
+  </url><url>
     <loc>https://trunghng.github.io/posts/</loc>
+    <lastmod>2024-01-02T10:23:22+07:00</lastmod>
+  </url><url>
+    <loc>https://trunghng.github.io/tags/</loc>
     <lastmod>2024-01-02T10:23:22+07:00</lastmod>
   </url><url>
     <loc>https://trunghng.github.io/tags/actor-critic/</loc>
@@ -20,16 +29,10 @@
     <loc>https://trunghng.github.io/posts/reinforcement-learning/maddpg/</loc>
     <lastmod>2023-05-25T15:25:54+07:00</lastmod>
   </url><url>
-    <loc>https://trunghng.github.io/tags/my-rl/</loc>
-    <lastmod>2023-05-25T15:25:54+07:00</lastmod>
-  </url><url>
     <loc>https://trunghng.github.io/tags/policy-gradient/</loc>
     <lastmod>2023-05-25T15:25:54+07:00</lastmod>
   </url><url>
     <loc>https://trunghng.github.io/tags/reinforcement-learning/</loc>
-    <lastmod>2023-05-25T15:25:54+07:00</lastmod>
-  </url><url>
-    <loc>https://trunghng.github.io/tags/</loc>
     <lastmod>2023-05-25T15:25:54+07:00</lastmod>
   </url><url>
     <loc>https://trunghng.github.io/tags/machine-learning/</loc>
@@ -61,9 +64,6 @@
   </url><url>
     <loc>https://trunghng.github.io/posts/reinforcement-learning/deterministic-policy-gradients/</loc>
     <lastmod>2022-12-02T19:26:44+07:00</lastmod>
-  </url><url>
-    <loc>https://trunghng.github.io/tags/deep-reinforcement-learning/</loc>
-    <lastmod>2022-11-23T15:26:00+07:00</lastmod>
   </url><url>
     <loc>https://trunghng.github.io/posts/reinforcement-learning/trpo/</loc>
     <lastmod>2022-11-23T15:26:00+07:00</lastmod>

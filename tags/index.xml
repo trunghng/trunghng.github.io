@@ -11,7 +11,25 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 25 May 2023 15:25:54 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 02 Jan 2024 10:23:22 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>deep-reinforcement-learning</title>
+      <link>https://trunghng.github.io/tags/deep-reinforcement-learning/</link>
+      <pubDate>Tue, 02 Jan 2024 10:23:22 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/tags/deep-reinforcement-learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>my-rl</title>
+      <link>https://trunghng.github.io/tags/my-rl/</link>
+      <pubDate>Tue, 02 Jan 2024 10:23:22 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/tags/my-rl/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>actor-critic</title>
       <link>https://trunghng.github.io/tags/actor-critic/</link>
@@ -27,15 +45,6 @@
       <pubDate>Thu, 25 May 2023 15:25:54 +0700</pubDate>
       
       <guid>https://trunghng.github.io/tags/multi-agent/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>my-rl</title>
-      <link>https://trunghng.github.io/tags/my-rl/</link>
-      <pubDate>Thu, 25 May 2023 15:25:54 +0700</pubDate>
-      
-      <guid>https://trunghng.github.io/tags/my-rl/</guid>
       <description></description>
     </item>
     
@@ -90,15 +99,6 @@
       <pubDate>Tue, 27 Dec 2022 13:46:09 +0700</pubDate>
       
       <guid>https://trunghng.github.io/tags/q-learning/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>deep-reinforcement-learning</title>
-      <link>https://trunghng.github.io/tags/deep-reinforcement-learning/</link>
-      <pubDate>Wed, 23 Nov 2022 15:26:00 +0700</pubDate>
-      
-      <guid>https://trunghng.github.io/tags/deep-reinforcement-learning/</guid>
       <description></description>
     </item>
     
