@@ -11,7 +11,52 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 19 Feb 2023 17:23:56 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 25 May 2023 15:25:54 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>actor-critic</title>
+      <link>https://trunghng.github.io/tags/actor-critic/</link>
+      <pubDate>Thu, 25 May 2023 15:25:54 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/tags/actor-critic/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>multi-agent</title>
+      <link>https://trunghng.github.io/tags/multi-agent/</link>
+      <pubDate>Thu, 25 May 2023 15:25:54 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/tags/multi-agent/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>my-rl</title>
+      <link>https://trunghng.github.io/tags/my-rl/</link>
+      <pubDate>Thu, 25 May 2023 15:25:54 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/tags/my-rl/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>policy-gradient</title>
+      <link>https://trunghng.github.io/tags/policy-gradient/</link>
+      <pubDate>Thu, 25 May 2023 15:25:54 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/tags/policy-gradient/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>reinforcement-learning</title>
+      <link>https://trunghng.github.io/tags/reinforcement-learning/</link>
+      <pubDate>Thu, 25 May 2023 15:25:54 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/tags/reinforcement-learning/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>machine-learning</title>
       <link>https://trunghng.github.io/tags/machine-learning/</link>
@@ -40,47 +85,11 @@
     </item>
     
     <item>
-      <title>actor-critic</title>
-      <link>https://trunghng.github.io/tags/actor-critic/</link>
-      <pubDate>Tue, 27 Dec 2022 13:46:09 +0700</pubDate>
-      
-      <guid>https://trunghng.github.io/tags/actor-critic/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>my-rl</title>
-      <link>https://trunghng.github.io/tags/my-rl/</link>
-      <pubDate>Tue, 27 Dec 2022 13:46:09 +0700</pubDate>
-      
-      <guid>https://trunghng.github.io/tags/my-rl/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>policy-gradient</title>
-      <link>https://trunghng.github.io/tags/policy-gradient/</link>
-      <pubDate>Tue, 27 Dec 2022 13:46:09 +0700</pubDate>
-      
-      <guid>https://trunghng.github.io/tags/policy-gradient/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>q-learning</title>
       <link>https://trunghng.github.io/tags/q-learning/</link>
       <pubDate>Tue, 27 Dec 2022 13:46:09 +0700</pubDate>
       
       <guid>https://trunghng.github.io/tags/q-learning/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>reinforcement-learning</title>
-      <link>https://trunghng.github.io/tags/reinforcement-learning/</link>
-      <pubDate>Tue, 27 Dec 2022 13:46:09 +0700</pubDate>
-      
-      <guid>https://trunghng.github.io/tags/reinforcement-learning/</guid>
       <description></description>
     </item>
     

@@ -319,7 +319,7 @@ In discrete-action setting, the policy $\pi_\phi(a\vert s)$ can be consider as a
 
 [8] Josh Achiam. [Spinning Up in Deep Reinforcement Learning](https://spinningup.openai.com/). SpinningUp2018, 2018.
 
-[9] Petros Christodoulou. [Soft Actor-Critic for Discrete Action Settings](https://arxiv.org/abs/1910.07207). arXiv preprint arXiv:1910.07207.
+[9] Petros Christodoulou. [Soft Actor-Critic for Discrete Action Settings](https://arxiv.org/abs/1910.07207). arXiv preprint, arXiv:1910.07207.
 
 ## Footnotes
 [^1]: With an abuse of notation, $\mathcal{T}\_\pi$ implicitly represents two mappings $\mathcal{T}\_\pi:\mathcal{S}\to\mathcal{S}$ and $\mathcal{T}\_\pi':\mathcal{S}\times\mathcal{A}\to\mathcal{S}\times\mathcal{A}$.
