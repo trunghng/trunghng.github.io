@@ -1,6 +1,7 @@
 ---
 title: "AlphaZero"
 date: 2024-01-02T10:23:22+07:00
+tags: [deep-reinforcement-learning, my-rl]
 math: true
 eqn-number: true
 hideSummary: true
