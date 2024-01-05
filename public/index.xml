@@ -11,11 +11,11 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 02 Jan 2024 10:23:22 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 17 Oct 2023 10:23:22 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>AlphaZero</title>
       <link>https://trunghng.github.io/posts/reinforcement-learning/alphazero/</link>
-      <pubDate>Tue, 02 Jan 2024 10:23:22 +0700</pubDate>
+      <pubDate>Tue, 17 Oct 2023 10:23:22 +0700</pubDate>
       
       <guid>https://trunghng.github.io/posts/reinforcement-learning/alphazero/</guid>
       <description>AlphaGo The training pipeline used in AlphaGo can be divided into following stages:
