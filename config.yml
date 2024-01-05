@@ -59,7 +59,8 @@ params:
 
   label:
     text: "Littleroot"
-    icon: "/images/others/pokeball.png"
+    # icon: "/images/others/pokeball.png"
+    icon: "/images/others/littleroottown.gif"
     iconHeight: 27
 
   # profile-mode

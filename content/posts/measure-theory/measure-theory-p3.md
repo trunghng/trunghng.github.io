@@ -202,7 +202,7 @@ where $c_1,\ldots,c_k,c_1',\ldots,c_{k'}'\in[0,+\infty]$.
 		(1) $c_i=0$, or<br>
 		(2) $c_i\neq 0$ and $x\notin E_i$ with $E_i$ is a null set, or<br>
 		(3) $c_i=0$ and and $x\notin E_i$ with $E_i$ is a null set.<br>
-		Therefore, the integral of $f$
+		Therefore, the integral of $f$:
 		\begin{equation}
 		\text{Simp}\int_{\mathbb{R}^d}f(x)\hspace{0.1cm}dx=c_1 m(E_1)+\ldots+c_k m(E_k)=0
 		\end{equation}
