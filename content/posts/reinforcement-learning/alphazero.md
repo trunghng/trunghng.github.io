@@ -1,13 +1,14 @@
 ---
 title: "AlphaZero"
 date: 2023-10-17T10:23:22+07:00
-tags: [deep-reinforcement-learning, mcts, my-rl]
+tags: [deep-reinforcement-learning, model-based, mcts, my-rl]
 math: true
 eqn-number: true
 hideSummary: true
 ---
 <!-- for Milu -->
-### AlphaGo
+
+## AlphaGo
 The training pipeline used in **AlphaGo** can be divided into following stages:
 <ul id='number-list'>
 	<li>
@@ -26,24 +27,24 @@ The training pipeline used in **AlphaGo** can be divided into following stages:
 	<figcaption style="text-align: center"><b>Figure 1</b>: (taken from <a href='#alphago-paper'>AlphaGo paper</a>) <b>AlphaGo neural network training pipeline</b></figcaption>
 </figure>
 
-#### SL policy network $p_\sigma$, rollout network $p_\pi$
+### SL policy network $p_\sigma$, rollout network $p_\pi$
 The policy network $p_\sigma(a\vert s)$ takes as its input a simple representation of the board state $s$ and outputs a probability distribution over all legal moves $a$. The network is trained to maximize the likelihood of the human move $a$ selected in state $s$ by using SGA
 \begin{equation}
 \Delta\sigma\propto\frac{\partial\log p_\sigma(a\vert s)}{\partial\sigma}
 \end{equation}
 The rollout network $p_\pi(a\vert s)$ is trained using a linear softmax of small pattern features. This network is less accurate but faster selecting action than $p_\sigma$.
 
-#### RL policy network $p_\rho$
+### RL policy network $p_\rho$
 The RL policy network $p_\rho$ has the same architecture as $p_\sigma$ and its weights are also initialized at $\rho=\sigma$.
 
 The games are between the current policy $p_\rho$ and a randomly selected previous iteration $p_{\rho^-}$ of its, which prevents overfitting to the current policy. The outcome $z_t=\pm r(s_T)$ of each game is the terminal reward at the end of the game from the perspective, where $r(s)$ is the reward function which is zero for all non-terminal step $t<T$, i.e. $z_t=+1$ for winning and $-1$ for losing.
 
-The weights $\rho$ are updated by SDA in the direction that maximizes expected outcome
+The weights $\rho$ are updated by SGA in the direction that maximizes expected outcome
 \begin{equation}
 \Delta\rho\propto\frac{\partial\log p_\rho(a_t\vert s_t)}{\partial\rho}z_t
 \end{equation}
 
-#### Value network $v_\theta$
+### Value network $v_\theta$
 For each RL policy network $p$, we define its corresponding value function to be
 \begin{equation}
 v^{p}(s)=\mathbb{E}\big[z_t\vert s_t=s,a_{t\ldots T}\sim p\big]
@@ -55,7 +56,7 @@ This network has a similar structure to the policy network $p_\rho$, but outputs
 \Delta\theta\propto\frac{\partial v_\theta(s)}{\partial\theta}(z-v_\theta(s))
 \end{equation}
 
-#### Searching with policy and value networks
+### Searching with policy and value networks
 Once trained, the policy network $p_\rho$ and value network $v_\theta$ then are combined with a **Monte Carlo tree search** (**MCTS**) to provide a lookahead search.
 <figure>
 	<img src="/images/alphazero/alphago-mcts.png" alt="MCTS in AlphaGo" width="100%" height="100%"/>
@@ -108,7 +109,7 @@ where $P(s,a)$ is the prior probability, $W_v(s,a),W_r(s,a)$ are Monte Carlo est
 	</li>
 </ul>
 
-### AlphaGo Zero
+## AlphaGo Zero
 **AlphaGo Zero** differs from its predecessor, [AlphaGo](#alphago), in various aspects:
 - It is trained only via self-play reinforcement learning, starting from random play, without supervised.
 - It uses only the black and white stones from the board as input features.
@@ -128,7 +129,7 @@ The self-play training pipeline of AlphaGo Zero contains three main components, 
 	</li>
 </ul>
 
-#### Neural network training
+### Neural network training
 AlphaGo Zero utilizes a neural network $f_\theta$ parameterized by $\theta$. This network takes the board position $s$ as an input and outputs a vector of move probabilities $\mathbf{p}$ with components $p_a=Pr(a\vert s)$ for each action $a$ and a scalar value $v$ estimating the expected outcome $z$ of the game from position $s$, $v\approx\mathbb{E}\big[z\vert s\big]$
 \begin{equation}
 (\mathbf{p},v)=f_\theta(s)
@@ -168,7 +169,7 @@ The training of $f_\theta$ proceeds as
 	<figcaption style="text-align: center"><b>Figure 4</b>: (taken from <a href='#alphagozero-paper'>AlphaGo Zero paper</a>) <b>Neural network training in AlphaGo Zero</b></figcaption>
 </figure>
 
-#### Self-play algorithm
+### Self-play algorithm
 The self-play mechanism used by AlphaGo Zero proceeds as:
 - The AlphaGo Zero agent plays a game $s_1,\ldots,s_T$ against itself.
 - In each position $s_t$, an MCTS $\alpha_\theta$ is executed using the latest neural network $f_\theta$.
@@ -183,7 +184,7 @@ The self-play algorithm in AlphaGo Zero can be understood as a [policy iteration
 
 The neural network's parameters $\theta$ are updated to make the move probabilities and value $(\mathbf{p},v)$ more closely match the improved search probabilities and self-play winner $(\boldsymbol{\pi},z)$. These new parameters are used in the next iteration of self-play to make the search even stronger.
 
-#### Search algorithm
+### Search algorithm
 Each node $s$ in the search tree contains edges $(s,a)$ for all legal action $a\in\mathcal{A}(s)$. Each edge $(s,a)$ stores a set of statistics
 \begin{equation}
 \\{N(s,a),W(s,a),Q(s,a),P(s,a)\\}
@@ -228,13 +229,13 @@ where $N(s,a)$ is the visit count, $W(s,a)$ is the total action value, $Q(s,a)$ 
 	<figcaption style="text-align: center"><b>Figure 5</b>: (taken from <a href='#alphagozero-paper'>AlphaGo Zero paper</a>) <b>MCTS in AlphaGo Zero</b></figcaption>
 </figure>
 
-### AlphaZero
+## AlphaZero
 **AlphaZero** is a more generic version of [AlphaGo Zero](#alphago-zero). With the same algorithm and network architecture, the authors have successfully applied it to the game of chess and shogi, as well as Go. It has some respects differ from AlphaGo Zero:
 - AlphaGo Zero estimated and optimized the probability of winning, using the fact that Go is a binary-outcome game (either win or loss). On the other hand, since drawn outcome can happen in a game of chess and shogi, and in fact the optimal strategy to chess is a draw, AlphaZero estimates and optimizes the expected outcome instead.
 - The rules of Go are specifically invariant to rotation and reflection[^2]. AlphaGo Zero exploited this fact to augment the training data (generating eight symmetries for each raw board position) and [transformed](#alphago-zero-expand-eval) (by applying a randomly selected rotation or reflection operator) the board position during MCTS. Conversely, in order to generalize to a broader rules of games, AlphaZero does not augment the training data and also does not transform the board position during MCTS.
 - In AlphaGo Zero, self-play games were generated by the best player from all previous iterations. After each iteration of training, the new player [competed](#network-checkpoint) against the best player so far and replaced the best player if it won by a margin of $55\\%$. On the contrary, AlphaZero only maintains single neural network that is updated continually rather than waiting for an iteration to complete. Self-play games are then always generated by using the latest parameters from this neural network.
 
-### References
+## References
 [1] <span id='alphago-paper'>David Silver, Aja Huang, Chris J. Maddison et al. [Mastering the game of Go with deep neural networks and tree search](https://doi.org/10.1038/nature16961). Nature 529, 484–489, 2016.</span>
 
 [2] <span id='alphagozero-paper'>David Silver, Julian Schrittwieser, Karen Simonyan et al. [Mastering the game of Go without human knowledge](https://doi.org/10.1038/nature24270). Nature 550, 354–359, 2017.</span>
@@ -245,4 +246,4 @@ where $N(s,a)$ is the visit count, $W(s,a)$ is the total action value, $Q(s,a)$ 
 
 ## Footnotes
 [^1]: This approach avoids overfitting, which occurs when training on outcomes from data consisting of complete games (since successive positions are strongly correlated).
-[^2]: Corresponding to each board position $s$, there are seven other positions, which are resulted from reflection or rotation, are actually the same.
+[^2]: Corresponding to each board position $s$, there are seven other positions that are actually same to it, these positions can be obtained from reflection or rotation.

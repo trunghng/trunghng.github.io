@@ -1,7 +1,7 @@
 ---
 title: "Deterministic Policy Gradients"
 date: 2022-12-02T19:26:44+07:00
-tags: [reinforcement-learning, policy-gradient, actor-critic, my-rl]
+tags: [reinforcement-learning, policy-gradient, actor-critic, model-free, my-rl]
 math: true
 eqn-number: true
 ---
@@ -31,7 +31,7 @@ Within an MPD, a policy parameterized by a vector $\theta\in\mathbb{R}^n$ can be
 We continue with an assumption that the action space $\mathcal{A}=\mathbb{R}^m$ and the state space $\mathcal{S}\subset\mathbb{R}^d$ and $\mathcal{S}$ is compact.
 
 ### Start-state formulation{#start-state}
-Recall that in the stochastic case, $\pi_\theta$, the [**Policy Gradient Theorem**]({{< ref "policy-gradient-theorem#policy-grad-theorem-ep" >}}) states that[^1]
+Recall that in the stochastic case, $\pi_\theta$, the [**Policy Gradient Theorem**]({{<ref"policy-gradient-theorem#policy-grad-theorem-ep">}}) states that[^1]
 \begin{align}
 \nabla_\theta J(\pi_\theta)&=\int_\mathcal{S}\rho_\pi(s)\int_\mathcal{A}\nabla_\theta\pi_\theta(a\vert s)Q_\pi(s,a)\hspace{0.1cm}da\hspace{0.1cm}ds\label{eq:spgt.1} \\\\ &=\mathbb{E}\_{\rho_\pi,\pi_\theta}\Big[\nabla_\theta\log\pi_\theta(a\vert s)Q_\pi(s,a)\Big]\label{eq:spgt.2}
 \end{align}
@@ -228,9 +228,9 @@ This critical result allows us to apply the deterministic policy gradient to com
 ## Deterministic Actor-Critic{#deterministic-ac}
 
 ### On-policy Deterministic Actor-Critic{#on-policy-deterministic-ac}
-Analogous to the stochastic approach, the deterministic actor learns a parameter $\theta$ by using SGA to iteratively update the parameter vector according to the deterministic policy gradient direction \eqref{eq:dpgt.2} while the critic estimates the state-action value function by a function approximation $Q_w(s,a)$ using a policy evaluation method such as [TD-learning]({{< ref "td-learning" >}}).
+Analogous to the stochastic approach, the deterministic actor learns a parameter $\theta$ by using SGA to iteratively update the parameter vector according to the deterministic policy gradient direction \eqref{eq:dpgt.2} while the critic estimates the state-action value function by a function approximation $Q_w(s,a)$ using a policy evaluation method such as [TD-learning]({{<ref"td-learning">}}).
 
-For instance, a deterministic actor-critic method with a [Sarsa]({{< ref "td-learning#sarsa" >}}) critic has the following update in each time-step $t$
+For instance, a deterministic actor-critic method with a [Sarsa]({{<ref"td-learning#sarsa">}}) critic has the following update in each time-step $t$
 \begin{align}
 \delta_t&=r_{t+1}+\gamma Q_w(s_{t+1},a_{t+1})-Q_w(s_t,a_t) \\\\ w_{t+1}&=w_t+\alpha_w\delta_t\nabla_w Q_w(s_t,a_t) \\\\ \theta_{t+1}&=\theta_t+\alpha_\theta\nabla_\theta\mu_\theta(s_t)\nabla_a Q_w(s_t,a_t)\vert_{a=\mu_\theta(s)},
 \end{align}

@@ -1,7 +1,7 @@
 ---
 title: "Deep Q-learning"
 date: 2022-11-18 15:26:00 +0700
-tags: [deep-reinforcement-learning, function-approximation, q-learning, my-rl]
+tags: [deep-reinforcement-learning, function-approximation, q-learning, model-free, my-rl]
 math: true
 eqn-number: true
 ---

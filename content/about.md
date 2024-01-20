@@ -3,6 +3,7 @@ disableshare: true
 hidemeta: true
 searchHidden: true
 comments: false
+ShowBreadCrumbs: false
 ---
 <style>
     .about-me {

@@ -29,13 +29,13 @@ params:
   # author: ["Me", "You"] # multiple authors
   images: ["<link or path of image for opengraph, twitter-cards>"]
   DateFormat: "January 2, 2006"
-  defaultTheme: auto # dark, light
+  defaultTheme: light # auto, light
   disableThemeToggle: false
 
   ShowReadingTime: true
   ShowShareButtons: true
   ShowPostNavLinks: true
-  ShowBreadCrumbs: false
+  ShowBreadCrumbs: true
   ShowCodeCopyButtons: true
   ShowWordCount: false
   ShowRssButtonInSectionTermList: true
@@ -59,24 +59,25 @@ params:
 
   label:
     text: "Littleroot"
-    # icon: "/images/others/pokeball.png"
-    icon: "/images/others/littleroottown.gif"
+    icon: "/images/others/littleroottown.png"
     iconHeight: 27
 
   # profile-mode
   profileMode:
-    enabled: false # needs to be explicitly set
+    enabled: true # needs to be explicitly set
     title: 'Welcome to my place! 👨‍💻'
     subtitle: This is where I document something I've learned.
-    imageUrl: "/images/others/joker.jpg"
-    imageWidth: 120
-    imageHeight: 120
-    imageTitle: my image
+    imageUrl: "/images/others/shaymin.jpg"
+    imageWidth: 300
+    imageHeight: 270
+    imageTitle: me & shaymin
     buttons:
       - name: Posts
         url: posts
       - name: Tags
         url: tags
+      - name: Archive
+        url: archives
 
   # home-info mode
   homeInfoParams:
@@ -126,7 +127,7 @@ menu:
   main:
     - identifier: post
       name: Posts
-      url: /
+      url: /posts/
       weight: 5
     - identifier: archive
       name: Archive

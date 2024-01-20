@@ -1,7 +1,7 @@
 ---
 title: "Maximum Entropy Reinforcement Learning via Soft Q-learning & Soft Actor-Critic"
 date: 2022-12-27T13:46:09+07:00
-tags: [reinforcement-learning, deep-reinforcement-learning, policy-gradient, actor-critic, q-learning, my-rl]
+tags: [reinforcement-learning, deep-reinforcement-learning, policy-gradient, actor-critic, q-learning, model-free, my-rl]
 math: true
 eqn-number: true
 ---
@@ -115,7 +115,7 @@ where in the fifth step, we use the fact that $\log\mathbb{E}\_{\tilde{a}\sim\ti
 \end{equation}
 
 ## Soft Policy Iteration{#soft-policy-iter}
-In standard RL, the Bellman operator provides useful facts to apply the dynamic programming method - [policy iteration]({{< ref "dp-in-mdp#policy-iter" >}}), which alternates between [policy evaluation]({{< ref "dp-in-mdp#policy-eval" >}}) and [policy improvement]({{< ref "dp-in-mdp#policy-imp" >}}) processes, and eventually we end up with the optimal policy. More importantly, it has been [proved](#sql-apper) that we can also apply the method to entropy-regularized RL.
+In standard RL, the Bellman operator provides useful facts to apply the dynamic programming method - [policy iteration]({{<ref"dp-in-mdp#policy-iter">}}), which alternates between [policy evaluation]({{<ref"dp-in-mdp#policy-eval">}}) and [policy improvement]({{<ref"dp-in-mdp#policy-imp">}}) processes, and eventually we end up with the optimal policy. More importantly, it has been [proved](#sql-apper) that we can also apply the method to entropy-regularized RL.
 
 ### Soft Policy Evaluation{#soft-policy-eval}
 In **policy evaluation** process, we wish to compute the value of a given policy according to the entropy regularization objective \eqref{eq:mr.1}. This can be found by an iterative method.
@@ -127,7 +127,7 @@ Let $r\_\pi(s,a)\doteq r(s,a)+\gamma\mathbb{E}\_{s'\sim p}\big[\alpha H\big(\pi(
 \begin{equation}
 Q^{(k+1)}(s,a)=r\_\pi(s,a)+\gamma\mathbb{E}\_{s'\sim p,a'\sim\pi}\big[Q^{(k)}(s',a')\big]
 \end{equation}
-Since $\vert\mathcal{A}\vert<\infty$, we have that $r\_\pi(s,a)$ is bounded. Analogy to the [(standard) policy evaluation]({{< ref "optimal-policy-existence" >}}), we then can prove that $\mathcal{T}\_\pi$ is a [contraction mapping]({{< ref "optimal-policy-existence#contractions" >}}) and then by using the [**Banach's fixed point theorem**]({{< ref "optimal-policy-existence#banach-fixed-pts-theorem" >}}), we can show that $\\{Q^{(k)}\\}\_{k=0,1,\ldots}$ eventually converges to a fixed point, which we call it the **soft Q-value** of $\pi$.
+Since $\vert\mathcal{A}\vert<\infty$, we have that $r\_\pi(s,a)$ is bounded. Analogy to the [(standard) policy evaluation]({{<ref"optimal-policy-existence">}}), we then can prove that $\mathcal{T}\_\pi$ is a [contraction mapping]({{<ref"optimal-policy-existence#contractions">}}) and then by using the [**Banach's fixed point theorem**]({{<ref"optimal-policy-existence#banach-fixed-pts-theorem">}}), we can show that $\\{Q^{(k)}\\}\_{k=0,1,\ldots}$ eventually converges to a fixed point, which we call it the **soft Q-value** of $\pi$.
 
 ### Soft Policy Improvement{#soft-policy-imp}
 Analogously, the (standard) policy improvement step can be generalized to entropy regularizing as:

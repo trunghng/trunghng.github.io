@@ -1,7 +1,7 @@
 ---
 title: "Multi-agent Deep Deterministic Policy Gradient"
 date: 2023-05-25T15:25:54+07:00
-tags: [reinforcement-learning, deep-reinforcement-learning, actor-critic, policy-gradient, multi-agent, my-rl]
+tags: [reinforcement-learning, deep-reinforcement-learning, actor-critic, policy-gradient, multi-agent, model-free, my-rl]
 math: true
 eqn-number: true
 hideSummary: true

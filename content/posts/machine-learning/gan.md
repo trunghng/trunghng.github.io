@@ -4,7 +4,6 @@ date: 2023-05-01 13:00:00 +0700
 tags: [machine-learning, generative-model]
 math: true
 eqn-number: true
-draft: true
 ---
 > Notes on Generative Adversarial Networks.
 <!--more-->
@@ -340,4 +339,3 @@ f\vert_A:A\mapsto F
 given by $f\vert_A(x)=f(x)$ for $x\in A$. Generally speaking, the restriction of $f$ to $A$ is the same function as $f$, but only defined on $A$.
 [^5]: $X$ is called **locally compact** if every point $x\in X$ has a compact neighborhood, i.e. there exists an [open set]({{< ref "measure-theory-p1#open-set" >}}) $U$ and a [compact set]({{< ref "measure-theory-p1#compact-set" >}}) $K$, such that $x\in U\subset K.$
 [^6]: This happens iff $g$ is Lipschitz continuous on every compact subset of $\mathcal{Z}\times\mathbb{R}^d.$
-

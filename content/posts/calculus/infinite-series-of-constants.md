@@ -20,7 +20,7 @@ a_1+a_2+\dots+a_n+\dots=\sum_{n=1}^{\infty}a_n
 		\begin{equation}
 		.a_1a_2\ldots a_n\ldots=\dfrac{a_1}{10}+\dfrac{a_2}{10^2}+\ldots+\dfrac{a_n}{10^n}+\ldots,
 		\end{equation}
-		where $a_i\in\\{0,1,\dots,9\\}$.
+		where $a_i\in\{0,1,\dots,9\}$.
 	</li>
 	<li>
 		<b>Power series expansion</b>
@@ -356,7 +356,7 @@ then
 		\begin{align}
 		\dfrac{a_{n+1}}{a_n}&\leq r=\dfrac{r^{n+1}}{r_n},\hspace{1cm}\forall n\geq n_0 \\ \dfrac{a_{n+1}}{r^{n+1}}&\leq\dfrac{a_n}{r^n},\hspace{2cm}\forall n\geq n_0
 		\end{align}
-		which means that $\\{\frac{a_n}{r^n}\\}$ is a decreasing sequence for $n\geq n_0$; in particular, $\frac{a_n}{r^n}\leq\frac{a_{n_0}}{r^{n_0}}$ for $n\geq n_0$. Thus, if we let $K=\frac{a_{n_0}}{r^{n_0}}$, then we get
+		which means that $\{\frac{a_n}{r^n}\}$ is a decreasing sequence for $n\geq n_0$; in particular, $\frac{a_n}{r^n}\leq\frac{a_{n_0}}{r^{n_0}}$ for $n\geq n_0$. Thus, if we let $K=\frac{a_{n_0}}{r^{n_0}}$, then we get
 		\begin{equation}
 		a_n\leq Kr^n,\hspace{1cm}\forall n\geq n_0\tag{12}\label{12}
 		\end{equation}
@@ -483,9 +483,9 @@ where $c>0$ and $A_n$ is bounded as $n\to\infty$, then $\sum a_n$ converges if $
 		If $A\neq 1$, the statement follows exactly from <b>Raabe's test</b>, since $\frac{A_n}{n^c}\to 0$ as $n\to\infty$.
 	</li>
 	<li>
-		If $A=1$, we begin by taking $b_n=n\ln n$ in *Kummer's theorem*. Then
+		If $A=1$, we begin by taking $b_n=n\ln n$ in <b>Kummer's theorem</b>. Then
 		\begin{align}
-		\lim\left(b_n-\dfrac{a_{n+1}}{a_n}.b_{n+1}\right)&=\lim\left[n\ln n-\left(1-\dfrac{1}{n}+\dfrac{A_n}{n^{1+c}}\right)(n+1)\ln(n+1)\right] \\\\ &=\lim\left[n\ln n-\dfrac{n^2-1}{n}\ln(n+1)-\dfrac{n+1}{n}.\dfrac{A_n\ln(n+1)}{n^c}\right] \\\\ &=\lim\left[n\ln\left(\dfrac{n}{n+1}\right)+\dfrac{\ln(n+1)}{n}-\dfrac{n+1}{n}.\dfrac{A_n\ln(n+1)}{n^c}\right] \\\\ &=-1+0-0=-1<0,
+		\lim\left(b_n-\dfrac{a_{n+1}}{a_n}.b_{n+1}\right)&=\lim\left[n\ln n-\left(1-\dfrac{1}{n}+\dfrac{A_n}{n^{1+c}}\right)(n+1)\ln(n+1)\right] \\ &=\lim\left[n\ln n-\dfrac{n^2-1}{n}\ln(n+1)-\dfrac{n+1}{n}.\dfrac{A_n\ln(n+1)}{n^c}\right] \\ &=\lim\left[n\ln\left(\dfrac{n}{n+1}\right)+\dfrac{\ln(n+1)}{n}-\dfrac{n+1}{n}.\dfrac{A_n\ln(n+1)}{n^c}\right] \\ &=-1+0-0=-1<0,
 		\end{align}
 		which, by <b>Kummer's theorem</b>, we have that the series is divergent.
 	</li>
@@ -533,6 +533,7 @@ If the alternating series \eqref{17} has the property that
 		$a_n\to 0$ as $n\to\infty$
 	</li>
 </ul>
+
 then $\sum a_n$ converges.  
 
 **Proof**  

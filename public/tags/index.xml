@@ -11,11 +11,11 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 17 Oct 2023 10:23:22 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 02 Jan 2024 11:52:40 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>deep-reinforcement-learning</title>
       <link>https://trunghng.github.io/tags/deep-reinforcement-learning/</link>
-      <pubDate>Tue, 17 Oct 2023 10:23:22 +0700</pubDate>
+      <pubDate>Tue, 02 Jan 2024 11:52:40 +0700</pubDate>
       
       <guid>https://trunghng.github.io/tags/deep-reinforcement-learning/</guid>
       <description></description>
@@ -24,16 +24,25 @@
     <item>
       <title>mcts</title>
       <link>https://trunghng.github.io/tags/mcts/</link>
-      <pubDate>Tue, 17 Oct 2023 10:23:22 +0700</pubDate>
+      <pubDate>Tue, 02 Jan 2024 11:52:40 +0700</pubDate>
       
       <guid>https://trunghng.github.io/tags/mcts/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>model-based</title>
+      <link>https://trunghng.github.io/tags/model-based/</link>
+      <pubDate>Tue, 02 Jan 2024 11:52:40 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/tags/model-based/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>my-rl</title>
       <link>https://trunghng.github.io/tags/my-rl/</link>
-      <pubDate>Tue, 17 Oct 2023 10:23:22 +0700</pubDate>
+      <pubDate>Tue, 02 Jan 2024 11:52:40 +0700</pubDate>
       
       <guid>https://trunghng.github.io/tags/my-rl/</guid>
       <description></description>
@@ -45,6 +54,15 @@
       <pubDate>Thu, 25 May 2023 15:25:54 +0700</pubDate>
       
       <guid>https://trunghng.github.io/tags/actor-critic/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>model-free</title>
+      <link>https://trunghng.github.io/tags/model-free/</link>
+      <pubDate>Thu, 25 May 2023 15:25:54 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/tags/model-free/</guid>
       <description></description>
     </item>
     
@@ -76,9 +94,18 @@
     </item>
     
     <item>
+      <title>generative-model</title>
+      <link>https://trunghng.github.io/tags/generative-model/</link>
+      <pubDate>Mon, 01 May 2023 13:00:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/tags/generative-model/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>machine-learning</title>
       <link>https://trunghng.github.io/tags/machine-learning/</link>
-      <pubDate>Sun, 19 Feb 2023 17:23:56 +0700</pubDate>
+      <pubDate>Mon, 01 May 2023 13:00:00 +0700</pubDate>
       
       <guid>https://trunghng.github.io/tags/machine-learning/</guid>
       <description></description>

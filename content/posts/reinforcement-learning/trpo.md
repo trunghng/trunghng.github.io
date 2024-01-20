@@ -1,7 +1,7 @@
 ---
 title: "Trust Region Policy Optimization"
 date: 2022-11-23 15:26:00 +0700
-tags: [deep-reinforcement-learning, policy-gradient, my-rl]
+tags: [deep-reinforcement-learning, policy-gradient, model-free, my-rl]
 math: true
 eqn-number: true
 ---
@@ -121,7 +121,7 @@ This result implies that any policy update $\pi\to\tilde{\pi}$ that has a nonneg
 \begin{equation}
 \tilde{\pi}(s)=\underset{a}{\text{argmax}}\hspace{0.1cm}A_\pi(s,a),
 \end{equation}
-we obtain the [**policy improvement**]({{< ref "dp-in-mdp#policy-improvement" >}}) result used in [**policy iteration**]({{< ref "dp-in-mdp#policy-iteration" >}}).
+we obtain the [**policy improvement**]({{<ref"dp-in-mdp#policy-improvement">}}) result used in [**policy iteration**]({{<ref"dp-in-mdp#policy-iteration">}}).
 
 However, there are cases when \eqref{eq:pi.2} is difficult to be optimized, especially when the expected advantage is negative, i.e. $\sum_a\tilde{\pi}(a\vert s)A_\pi(s,a)$, due to estimation and approximation error in the approximate setting. We instead consider a local approximation to $\eta$:
 \begin{equation}
@@ -243,7 +243,7 @@ where $\overline{D}\_\text{KL}^{\rho_{\theta_\text{old}}}$ is the average KL div
 \begin{equation}
 \overline{D}\_\text{KL}^{\rho_{\theta_\text{old}}}(\theta_\text{old},\theta)\doteq\mathbb{E}\_{s\sim\rho_{\theta_\text{old}}}\Big[D_\text{KL}\big(\pi_{\theta_\text{old}}(\cdot\vert s)\Vert\pi_\theta(\cdot\vert s)\big)\Big]
 \end{equation}
-Let us pay attention to our objective function, $L_{\theta_\text{old}}(\theta)$, for a while. By the definition of $L$, given in \eqref{eq:pi.5}, combined with using an [importance sampling estimator]({{< ref "likelihood-ratio-pg-is#likelihood-ratio-pg-is" >}}), we can rewrite the objective function of \eqref{eq:ppo.1} as 
+Let us pay attention to our objective function, $L_{\theta_\text{old}}(\theta)$, for a while. By the definition of $L$, given in \eqref{eq:pi.5}, combined with using an [importance sampling estimator]({{<ref"likelihood-ratio-pg-is#likelihood-ratio-pg-is">}}), we can rewrite the objective function of \eqref{eq:ppo.1} as 
 \begin{align}
 L_{\theta_\text{old}}(\theta)&=\sum_s\rho_{\theta_\text{old}}(s)\sum_a\pi_\theta(a\vert s)A_{\theta_\text{old}}(s,a) \\\\ &=\sum_s\rho_{\theta_\text{old}}(s)\mathbb{E}\_{a\sim q}\left[\frac{\pi_\theta(a\vert s)}{q(a\vert s)}A_{\theta_\text{old}}(s,a)\right]
 \end{align}
@@ -294,7 +294,7 @@ where
 		\end{align}
 	</li>
 	<li>
-		This step goes with same logic as we have used in <a href={{< ref "nes#derivation-ii" >}} target='_blank'><b>Natural evolution strategies</b></a>, which let us claim that
+		This step goes with same logic as we have used in <a href={{<ref"nes#derivation-ii">}} target='_blank'><b>Natural evolution strategies</b></a>, which let us claim that
 		\begin{equation}
 		-\mathbb{E}_{\pi_{\theta_\text{old}}}\Big[\nabla_\theta^2\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}\Big]=\mathbb{E}_{\pi_{\theta_\text{old}}}\Big[\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}^\text{T}\Big]
 		\end{equation}
