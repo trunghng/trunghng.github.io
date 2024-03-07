@@ -64,7 +64,7 @@ params:
 
   # profile-mode
   profileMode:
-    enabled: true # needs to be explicitly set
+    enabled: false # needs to be explicitly set
     title: 'Welcome to my place! 👨‍💻'
     subtitle: This is where I document something I've learned.
     imageUrl: "/images/others/shaymin.jpg"

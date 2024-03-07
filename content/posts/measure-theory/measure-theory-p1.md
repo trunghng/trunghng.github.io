@@ -181,7 +181,7 @@ which will be proved if we can show that
 \end{equation}
 Fix $N$, we have since each $\sum_{m=1}^{\infty}$ is the limit of $\sum_{m=1}^{M}x_{n,m}$, LHS is the limit of $\sum_{n=1}^{N}\sum_{m=1}^{M}x_{n,m}$ as $M\to\infty$. Thus, it suffices to show that for each finite $M$
 \begin{equation}
-\sum_{(n,m)\in\mathbb{N}^2}x_{n,m}\geq\sum_{n=1}^{N}\sum_{m=1}^{M}x_{n,m}=\sum_{(n,m)\in\\{1,\ldots,N\\}\times\\{1,ldots,M\\}}x_{n,m}
+\sum_{(n,m)\in\mathbb{N}^2}x_{n,m}\geq\sum_{n=1}^{N}\sum_{m=1}^{M}x_{n,m}=\sum_{(n,m)\in\\{1,\ldots,N\\}\times\\{1,\ldots,M\\}}x_{n,m}
 \end{equation}
 which is true for all finite $M,N$. And it concludes our proof.
 
@@ -246,7 +246,7 @@ where each $B_i$ and $B_i'$ is a $d$-dimensional box. By set theory, we have tha
 	<li>
 		The intersection of $E$ and $F$ can be written as
 		\begin{align}
-		E\cap F&=\left(B_1\cup\ldots\cup B_k\right)\cup\left(B_1'\cup\ldots\cup B_{k'}'\right) \\ &=\bigcup_{i=1}^{k}\bigcup_{j=1}^{k'}\left(B_i\cap B_j'\right),
+		E\cap F&=\left(B_1\cup\ldots\cup B_k\right)\cap\left(B_1'\cup\ldots\cup B_{k'}'\right) \\ &=\bigcup_{i=1}^{k}\bigcup_{j=1}^{k'}\left(B_i\cap B_j'\right),
 		\end{align}
 		which is also an elementary set.
 	</li>

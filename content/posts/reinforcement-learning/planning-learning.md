@@ -148,8 +148,6 @@ Pseudocode of prioritized sweeping is shown below.
     <figcaption style="text-align: center;"><b>Figure 9</b>: <b>Using prioritized sweeping on mazes</b>. The code can be found <a href='https://github.com/trunghng/reinforcement-learning-an-introduction/blob/main/chapter-08/maze.py' target='_blank'>here</a>.</figcaption>
 </figure>
 
-## Trajectory Sampling
-
 ## Heuristic Search
 
 ## Preferences

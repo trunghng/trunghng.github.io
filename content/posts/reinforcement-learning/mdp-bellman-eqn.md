@@ -16,20 +16,11 @@ Say, there is an unknown **environment** that we're trying to put an **agent** o
 </figure>
 
 ## Markov Decision Processes (MDPs)
-**Markov decision processes (MDPs)** formally describe an environment for **RL**. And almost all **RL** problems can be formalized as **MDPs**.  
-
-**Definition (MDP)**  
-A **Markov Decision Process** is a tuple $⟨\mathcal{S}, \mathcal{A}, \mathcal{P}, \mathcal{R}, \gamma⟩$
+**Markov decision processes (MDPs)** formally describe an environment for **RL**. And almost all **RL** problems can be formalized as **MDPs**. A Markov decision process is a tuple $⟨\mathcal{S}, \mathcal{A}, \mathcal{P}, \mathcal{R}, \gamma⟩$
 - $\mathcal{S}$ is a set of states called *state space*.
 - $\mathcal{A}$ is a set of actions called *action space*.
-- $\mathcal{P}$ is a state transition probability matrix.
-\begin{equation}
-\mathcal{P}\_{ss'}^a=P(S_{t+1}=s'|S_t=s,A_t=a)
-\end{equaiton}
-- $\mathcal{R}$ is a reward function.
-\begin{equation}
-\mathcal{R}\_s^a=\mathbb{E}\left[R_{t+1}|S_t=s,A_t=a\right]
-\end{equation}
+- $\mathcal{P}$ is a state transition probability matrix, $\mathcal{P}\_{ss'}^a=P(S_{t+1}=s'|S_t=s,A_t=a)$.
+- $\mathcal{R}$ is a reward function, $\mathcal{R}\_s^a=\mathbb{E}\left[R_{t+1}|S_t=s,A_t=a\right]$.
 - $\gamma\in[0, 1]$ is a discount factor for future reward.
 
 **MDP** is an extension of a [Markov chain]({{< ref "markov-chain" >}}). If only one action exists for each state, and all rewards are the same, an **MDP** reduces to a Markov chain. All states in an MDP has [Markov property]({{< ref "markov-chain#markov-property" >}}), referring to the fact that the current state captures all relevant information from the history.

@@ -17,7 +17,7 @@ Consider a (infinite-horizon) Markov Decision Process (MDP), defined as a tuple 
 - $\rho_0:\mathcal{S}\to\mathbb{R}$ is the distribution of the initial state $s_0$.
 - $\gamma\in(0,1)$ is the **discount factor**.
 
-Within an MPD, a policy parameterized by a vector $\theta\in\mathbb{R}^n$ can be given as
+Within an MDP, a policy parameterized by a vector $\theta\in\mathbb{R}^n$ can be given as
 <ul id='number-listt'>
 	<li>
 		<b>Stochastic policy</b>. $\pi_\theta:\mathcal{S}\times\mathcal{A}\to[0,1]$, or
