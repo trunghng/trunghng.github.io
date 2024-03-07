@@ -11,15 +11,15 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 02 Jan 2024 11:52:40 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 29 Feb 2024 14:08:53 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>MuZero</title>
       <link>https://trunghng.github.io/posts/reinforcement-learning/muzero/</link>
       <pubDate>Tue, 02 Jan 2024 11:52:40 +0700</pubDate>
       
       <guid>https://trunghng.github.io/posts/reinforcement-learning/muzero/</guid>
-      <description>MuZero Prediction are made at each time step $t$, for each of $k=0,\ldots,K$ steps, by a model $\mu_\theta$, parameterized by $\theta$, conditioned on past observations $o_1,\ldots,o_t$ and on future actions $a_{t+1},\ldots,a_{t+k}$ for $k&amp;gt;0$.
-The model $\mu_\theta$ predicts three futures quantities:
+      <description>MuZero Predictions are made at each time step $t$, for each of $k=0,\ldots,K$ steps, by a model $\mu_\theta$, parameterized by $\theta$, conditioned on past observations $o_1,\ldots,o_t$ and on future actions $a_{t+1},\ldots,a_{t+k}$ for $k&amp;gt;0$.
+The model $\mu_\theta$ predicts three future quantities that are directly relevant for planning:
 the policy $p_t^k\approx\pi(a_{t+k+1}\vert o_1,\ldots,o_t,a_{t+1},\ldots,a_{t+k})$; the value function $v_t^k\approx\mathbb{E}\big[u_{t+k+1}+\gamma u_{t+k+2}+\ldots\vert o_1,\ldots,o_t,a_{t+1},\ldots,a_{t+k}\big]$; the immediate reward $r_t^k\approx u_{t+k}$, where $u$ is the true, observed reward, $\pi$ is the policy used to select real actions and $\gamma$ is the discount function of the environment.</description>
     </item>
     
