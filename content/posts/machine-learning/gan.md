@@ -328,13 +328,13 @@ If we replace $\Vert f\Vert_L\leq 1$ by $\Vert f\Vert_L\leq K$ (i.e. we instead 
 [^1]: Thus, in the trivial case, each of the components is an MLP.
 [^2]: A probability distribution $P\in\text{Prob}(\mathcal{X})$ admits a density $p(x)$ w.r.t $\mu$ means for all $A\in\Sigma$
 \begin{equation}
-P(A)=\int_A p(x)d\mu(x),
+P(A)=\int_A p(x)d\mu(x)\nonumber,
 \end{equation}
 which happens iff $P$ is absolutely continuous w.r.t $\mu$, i.e. for all $A\in\Sigma$, $\mu(A)=0$ implies $P(A)=0.$
 [^3]: On $\mathbb{R}^d$, $U$ is a neighborhood of $x$ if there exists a [ball]({{< ref "measure-theory-p1#ball" >}}) $B\subset U$ such that $x\in B$.
 [^4]: Let $f:E\mapsto F$ and $A\subset E$, then the **restriction of $f$ to $A$** is the function
 \begin{equation}
-f\vert_A:A\mapsto F
+f\vert_A:A\mapsto F\nonumber
 \end{equation}
 given by $f\vert_A(x)=f(x)$ for $x\in A$. Generally speaking, the restriction of $f$ to $A$ is the same function as $f$, but only defined on $A$.
 [^5]: $X$ is called **locally compact** if every point $x\in X$ has a compact neighborhood, i.e. there exists an [open set]({{< ref "measure-theory-p1#open-set" >}}) $U$ and a [compact set]({{< ref "measure-theory-p1#compact-set" >}}) $K$, such that $x\in U\subset K.$

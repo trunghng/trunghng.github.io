@@ -11,7 +11,16 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 02 Jan 2024 11:52:40 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 12 Mar 2024 18:39:34 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Temporal consistency loss &amp; Ape-X DQfD</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/apex-dqfd/</link>
+      <pubDate>Tue, 12 Mar 2024 18:39:34 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/apex-dqfd/</guid>
+      <description>&lt;p&gt;An algorithm consists of three components: the transformed Bellman operator, the temporal consistency (TC) loss and the combination of Ape-X DQN and DQfD to learn a more consistent human-level policy.&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>MuZero</title>
       <link>https://trunghng.github.io/posts/reinforcement-learning/muzero/</link>
@@ -359,7 +368,7 @@ Using a dataset of human experts positions, a supervised learning (SL) policy ne
       
       <guid>https://trunghng.github.io/posts/reinforcement-learning/optimal-policy-existence/</guid>
       <description>&lt;blockquote&gt;
-&lt;p&gt;In the previous note about &lt;a href=&#34;https://trunghng.github.io/posts/reinforcement-learning/mdp-bellman-eqn/&#34;&gt;&lt;strong&gt;Markov Decision Processes, Bellman equations&lt;/strong&gt;&lt;/a&gt;, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here to prove it.&lt;/p&gt;
+&lt;p&gt;In the previous note about &lt;a href=&#34;https://trunghng.github.io/posts/reinforcement-learning/mdp-bellman-eqn/&#34;&gt;&lt;strong&gt;Markov Decision Processes, Bellman equations&lt;/strong&gt;&lt;/a&gt;, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. In this note, we will be proving that.&lt;/p&gt;
 &lt;/blockquote&gt;</description>
     </item>
     

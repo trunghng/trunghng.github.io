@@ -75,7 +75,7 @@ For finite MDPs (finite state and action space), we can precisely define an **op
 **Proof**  
 Proof of the above theorem is provided in another [note]({{< ref "optimal-policy-existence" >}}) since we need some additional tools to do that.
 
-There may be more than one **optimal policy**, they share the same state-value function, called **optimal state-value function** though.
+<span id='opt-vf'>There may be more than one **optimal policy**, they share the same state-value function, called **optimal state-value function** though</span>.
 \begin{equation}
 v_\*(s)=\max_{\pi}v_\pi(s)
 \end{equation}

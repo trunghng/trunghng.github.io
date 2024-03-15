@@ -4,7 +4,7 @@ date: 2021-07-10 13:03:00 +0700
 tags: [reinforcement-learning, mathematics, bellman-equation, my-rl]
 math: true
 ---
-> In the previous note about [**Markov Decision Processes, Bellman equations**]({{< ref "mdp-bellman-eqn" >}}), we mentioned that there exists a policy $\pi_\*$ that is better than or equal to all other policies. And now, we are here to prove it.
+> In the previous note about [**Markov Decision Processes, Bellman equations**]({{< ref "mdp-bellman-eqn" >}}), we mentioned that there exists a policy $\pi_\*$ that is better than or equal to all other policies. In this note, we will be proving that.
 <!--more-->
 
 ## Preliminaries
@@ -60,8 +60,7 @@ Let ($v_n;n\geq 0$) be a sequence of vectors of a normed vector space $\mathcal{
 Normed vector spaces where all Cauchy sequences are convergent are special: we can find examples of normed vector spaces such that some of the Cauchy sequences in the vector space do not have a limit.  
 
 **Definition** (*Completeness*)  
-A normed vector space $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$ is called **complete** if every Cauchy sequence in $\mathcal{V}$ is convergent in the norm of the vector space.  
-
+A normed vector space $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$ is called **complete** if every Cauchy sequence in $\mathcal{V}$ is convergent in the norm of the vector space.
 
 ### Contractions
 **Definition** (*Lipschitz function*, *Contraction*)   
@@ -73,7 +72,6 @@ A mapping $\mathcal{T}$ is called a **non-expansion** if it is **Lipschitzian** 
 
 **Remark**  
 If $\mathcal{T}$ is **Lipschitz**, it is also continuous in the sense that if $v_n\to_{\Vert\cdot\Vert}v$, then also $\mathcal{T}v_n\to_{\Vert\cdot\Vert}\mathcal{T}v$. This is because $\Vert\mathcal{T}v_n-\mathcal{T}v\Vert\leq L\Vert v_n-v\Vert\to 0$ as $n\to\infty$.  
-
 
 ### Banach's Fixed-point Theorem
 **Definition** (*Banach space*)  
@@ -146,7 +144,7 @@ Let $\pi$ be some stationary policy. We have that $\mathcal{T}^\pi$ is *well-def
 
 From equation \eqref{3}, we have that $v_\pi$ is a fixed point to $\mathcal{T}^\pi$.
 
-We also have that $\mathcal{T}^\pi$ is a $\gamma$-contraction in $\Vert\cdot\Vert_\infty$ since for any $u, v\in B(\mathcal{S})$,
+We also have that $\mathcal{T}^\pi$ is a <span id='bellman-op-contraction'>$\gamma$-contraction</span> in $\Vert\cdot\Vert_\infty$ since for any $u, v\in B(\mathcal{S})$,
 \begin{align}
 \Vert\mathcal{T}^\pi u-\mathcal{T}^\pi v\Vert_\infty&=\gamma\max_{s\in\mathcal{S}}\left|\sum_{s'\in\mathcal{S}}\mathcal{P}^\pi_{ss'}\left(u(s')-v(s')\right)\right| \\\\ &\leq\gamma\max_{s\in\mathcal{S}}\sum_{s'\in\mathcal{S}}\mathcal{P}^\pi_{ss'}\big|u(s')-v(s')\big| \\\\ &\leq\gamma\max_{s\in\mathcal{S}}\sum_{s'\in\mathcal{S}}\mathcal{P}^\pi_{ss'}\big\Vert u-v\big\Vert_\infty \\\\ &=\gamma\Vert u-v\Vert_\infty,
 \end{align}
@@ -182,13 +180,13 @@ Since $\mathcal{T}^\*$ is a contraction, the right-hand side converges to $v$, t
 Pick a policy $\pi$ such that $\mathcal{T}^\pi v=\mathcal{T}^\*v$, then $v$ is also a fixed point of $\mathcal{V}^\pi$. Since $v_\pi$ is the unique fixed point of $\mathcal{T}^\pi$, we have that $v=v_\pi$, which shows that $v_\*=v$ and that $\pi$ is an optimal policy.
 
 ## References
-[1] Csaba Szepesvári. [Algorithms for Reinforcement Learning](https://www.amazon.com/Algorithms-Reinforcement-Synthesis-Artificial-Intelligence/dp/1608454924).  
+[1] Csaba Szepesvári. [Algorithms for Reinforcement Learning](http://dx.doi.org/10.2200/S00268ED1V01Y201005AIM009). Synthesis Lectures on Artificial Intelligence and Machine Learning 4, 2010.
 
-[2] A. Lazaric. [Markov Decision Processes and Dynamic Programming](http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf).  
+[2] A. Lazaric. [Markov Decision Processes and Dynamic Programming](http://researchers.lille.inria.fr/~lazaric/Webpage/MVA-RL_Course14_files/slides-lecture-02-handout.pdf).
 
-[3] [What is the Bellman operator in reinforcement learning?](https://ai.stackexchange.com/a/11133). AI.StackExchange. 
+[3] [What is the Bellman operator in reinforcement learning?](https://ai.stackexchange.com/a/11133). AI.StackExchange.
 
-[4] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition). MIT press, 2018.  
+[4] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition). MIT press, 2018.
 
 [5] [Normed vector space](https://en.wikipedia.org/wiki/Normed_vector_space). Wikipedia.
 
