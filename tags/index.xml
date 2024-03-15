@@ -11,7 +11,43 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 02 Jan 2024 11:52:40 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 12 Mar 2024 18:39:34 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Dqn</title>
+      <link>https://trunghng.github.io/tags/dqn/</link>
+      <pubDate>Tue, 12 Mar 2024 18:39:34 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/tags/dqn/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Model-Free</title>
+      <link>https://trunghng.github.io/tags/model-free/</link>
+      <pubDate>Tue, 12 Mar 2024 18:39:34 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/tags/model-free/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>My-Rl</title>
+      <link>https://trunghng.github.io/tags/my-rl/</link>
+      <pubDate>Tue, 12 Mar 2024 18:39:34 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/tags/my-rl/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Reinforcement-Learning</title>
+      <link>https://trunghng.github.io/tags/reinforcement-learning/</link>
+      <pubDate>Tue, 12 Mar 2024 18:39:34 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/tags/reinforcement-learning/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Deep-Reinforcement-Learning</title>
       <link>https://trunghng.github.io/tags/deep-reinforcement-learning/</link>
@@ -40,29 +76,11 @@
     </item>
     
     <item>
-      <title>My-Rl</title>
-      <link>https://trunghng.github.io/tags/my-rl/</link>
-      <pubDate>Tue, 02 Jan 2024 11:52:40 +0700</pubDate>
-      
-      <guid>https://trunghng.github.io/tags/my-rl/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Actor-Critic</title>
       <link>https://trunghng.github.io/tags/actor-critic/</link>
       <pubDate>Thu, 25 May 2023 15:25:54 +0700</pubDate>
       
       <guid>https://trunghng.github.io/tags/actor-critic/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Model-Free</title>
-      <link>https://trunghng.github.io/tags/model-free/</link>
-      <pubDate>Thu, 25 May 2023 15:25:54 +0700</pubDate>
-      
-      <guid>https://trunghng.github.io/tags/model-free/</guid>
       <description></description>
     </item>
     
@@ -81,15 +99,6 @@
       <pubDate>Thu, 25 May 2023 15:25:54 +0700</pubDate>
       
       <guid>https://trunghng.github.io/tags/policy-gradient/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Reinforcement-Learning</title>
-      <link>https://trunghng.github.io/tags/reinforcement-learning/</link>
-      <pubDate>Thu, 25 May 2023 15:25:54 +0700</pubDate>
-      
-      <guid>https://trunghng.github.io/tags/reinforcement-learning/</guid>
       <description></description>
     </item>
     

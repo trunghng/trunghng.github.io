@@ -11,7 +11,16 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 25 May 2023 15:25:54 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/model-free/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 12 Mar 2024 18:39:34 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/model-free/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Temporal consistency loss &amp; Ape-X DQfD</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/apex-dqfd/</link>
+      <pubDate>Tue, 12 Mar 2024 18:39:34 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/apex-dqfd/</guid>
+      <description>&lt;p&gt;An algorithm consists of three components: the transformed Bellman operator, the temporal consistency (TC) loss and the combination of Ape-X DQN and DQfD to learn a more consistent human-level policy.&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Multi-agent Deep Deterministic Policy Gradient</title>
       <link>https://trunghng.github.io/posts/reinforcement-learning/maddpg/</link>

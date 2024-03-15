@@ -19,7 +19,7 @@
       
       <guid>https://trunghng.github.io/posts/reinforcement-learning/optimal-policy-existence/</guid>
       <description>&lt;blockquote&gt;
-&lt;p&gt;In the previous note about &lt;a href=&#34;https://trunghng.github.io/posts/reinforcement-learning/mdp-bellman-eqn/&#34;&gt;&lt;strong&gt;Markov Decision Processes, Bellman equations&lt;/strong&gt;&lt;/a&gt;, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. And now, we are here to prove it.&lt;/p&gt;
+&lt;p&gt;In the previous note about &lt;a href=&#34;https://trunghng.github.io/posts/reinforcement-learning/mdp-bellman-eqn/&#34;&gt;&lt;strong&gt;Markov Decision Processes, Bellman equations&lt;/strong&gt;&lt;/a&gt;, we mentioned that there exists a policy $\pi_*$ that is better than or equal to all other policies. In this note, we will be proving that.&lt;/p&gt;
 &lt;/blockquote&gt;</description>
     </item>
     
