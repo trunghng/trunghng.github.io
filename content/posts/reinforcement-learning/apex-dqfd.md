@@ -13,7 +13,7 @@ Consider a finite, discrete-time MDP $(\mathcal{S},\mathcal{A},R,P,\gamma)$ wher
 \begin{align}
 V^\pi(s)&=\mathbb{E}\_\pi\left[\sum_{t=0}^{\infty}\gamma^t r(s_t,a_t)\Big\vert s_0=s\right] \\\\ Q^\pi(s,a)&=\mathbb{E}\_\pi\left[\sum_{t=0}^{\infty}\gamma^t r(s_t,a_t)\Big\vert s_0=s,a_0=a\right]
 \end{align}
-Our goal is to find an optimal policy $\pi^\*$ that maximizes the state value function, $V^\pi$.
+Recall that a policy $\pi$ is better than some $\pi'$ if for all $s\in\mathcal{S}$, we have that $V^\pi(s)\geq V^{\pi'}(s)$. Our goal is to find an optimal policy $\pi^\*$ that maximizes the state value function, $V^\pi$.
 \begin{equation}
 V^{\pi^\*}\geq\sup_\pi V^\pi(s),\hspace{1cm}\forall s\in\mathcal{S}
 \end{equation}
@@ -55,6 +55,17 @@ In the original DQN paper, the authors clip the reward distribution to the inter
 		If $h$ is strictly monotonically increasing and the MDP is deterministic (i.e., $P(\cdot\vert s,a)$ and $r(s,a)$ are point measures for all $s,a\in\mathcal{S}\times\mathcal{A}$), then $\mathcal{T}_h^k Q\xrightarrow[]{\hspace{0.1cm}k\to\infty\hspace{0.1cm}}h\circ Q^*$.
 	</li>
 </ul>
+
+<!-- **Proof**
+<ul id='roman-list'>
+	<li>
+		When $h(z)=\alpha z$, we have that
+		\begin{align}
+		(\mathcal{T}_h Q)(s,a)&=\mathbb{E}_{s'\sim P}\Bigg[\alpha\Bigg(r(s,a)+\frac{\gamma}{\alpha}\max_{a'\in\mathcal{A}}Q(s',a')\Bigg)\Bigg] \\
+		\end{align}
+	</li>
+</ul> -->
+
 
 The proposition shows that when $h$ is either linear or the MDP is deterministic, $\mathcal{T}\_h$ has the unique fixed point $h\circ Q^\*$. Hence, if $h$ is an invertible contraction, we can use $\mathcal{T}\_h$ instead of $\mathcal{T}$ in the DQN algorithm to reduce the variance of our optimization target while still learning an optimal policy.
 

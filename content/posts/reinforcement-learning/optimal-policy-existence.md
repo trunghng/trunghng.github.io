@@ -65,7 +65,7 @@ A normed vector space $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$ is called **co
 ### Contractions
 **Definition** (*Lipschitz function*, *Contraction*)   
 Let $\mathcal{V}=(\mathcal{V},\Vert\cdot\Vert)$ be a normed vector space. A mapping $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ is called **$L$-Lipschitz** if for any $u,v\in\mathcal{V}$,
-\begin{equation}
+\begin{equation}f
 \Vert\mathcal{T}u-\mathcal{T}v\Vert\leq L\Vert u-v\Vert
 \end{equation}
 A mapping $\mathcal{T}$ is called a **non-expansion** if it is **Lipschitzian** with $L\leq 1$. It is called a *contraction* if it is *Lipschitzian* with $L<1$. In this case, $L$ is called the **contraction factor of** $\mathcal{T}$ and $\mathcal{T}$ is called an **$L$-contraction**.  
