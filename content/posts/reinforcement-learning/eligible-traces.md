@@ -435,7 +435,7 @@ Let $T_\pi^\lambda$ denote the $\lambda$-weighted Bellman operator for policy $\
 v_\pi(s)&=\mathbb{E}\Big[G_t^\lambda(v_\pi)\big|S_t=s,\pi\Big] \\\\ &\doteq (T_\pi^\lambda v_\pi)(s)
 \end{align}
 
-Consider using linear function approximation, or in particular, we are trying to approximate $v(s)$ by $v_\mathbf{w}(s)=\mathbf{w}^\text{T}\mathbf{x}(s)$. Our objective is to find the fixed point which satisfies:
+Consider using linear function approximation, or in particular, we are trying to approximate $v(s)$ by $v_\mathbf{w}(s)=\mathbf{w}^\text{T}\mathbf{x}(s)$. Our objective is to find the fixed-point which satisfies:
 \begin{equation}
 v_\mathbf{w}=\Pi T_\pi^\lambda v_\mathbf{w},\label{eq:gl.2}
 \end{equation}
@@ -468,7 +468,7 @@ and
 \end{equation}
 where $\mathcal{P}\_\mu^\pi$ is an operator. 
 
-The fixed point in \eqref{eq:gl.2} can be found by minimizing the **Mean Square Projected Bellman Error** (**MSPBE**):
+The fixed-point in \eqref{eq:gl.2} can be found by minimizing the **Mean Square Projected Bellman Error** (**MSPBE**):
 \begin{align}
 \overline{\text{PBE}}(\mathbf{w})&=\Big\Vert v_\mathbf{w}-\Pi T_\pi^\lambda v_\mathbf{w}\Big\Vert_\mu^2 \\\\ &=\Big\Vert\Pi(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w})\Big\Vert_\mu^2 \\\\ &=\Big(\Pi\left(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w}\right)\Big)^\text{T}\mathbf{D}\Big(\Pi\left(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w}\right)\Big) \\\\ &=\left(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w}\right)^\text{T}\Pi^\text{T}\mathbf{D}\Pi\left(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w}\right) \\\\ &=\left(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w}\right)^\text{T}\mathbf{D}^\text{T}\mathbf{X}\left(\mathbf{X}^\text{T}\mathbf{D}\mathbf{X}\right)^{-1}\mathbf{D}\left(v_\mathbf{w}-T_\pi^\lambda v_\mathbf{w}\right) \\\\ &=\Big(\mathbf{X}^\text{T}\mathbf{D}\left(T_\pi^\lambda v_\mathbf{w}-\mathbf{w}\right)\Big)^\text{T}\left(\mathbf{X}^\text{T}\mathbf{D}\mathbf{X}\right)^{-1}\mathbf{X}^\text{T}\mathbf{D}\left(T_\pi^\lambda v_\mathbf{w}-v_\mathbf{w}\right)\label{eq:gl.4}
 \end{align}
@@ -582,7 +582,7 @@ Let $T_\pi^\lambda$ denote the $\lambda$-weighted state-action version of the af
 \begin{align}
 q_\pi(s,a)&=\mathbb{E}\Big[G_t^\lambda(q_\pi)\big|S_t=s,A_t=a,\pi\Big] \\\\ &\doteq(T_\pi^\lambda q_\pi)(s,a)
 \end{align}
-Analogous to the state value functions, with linear function approximation (i.e., we are trying to estimate $q(s,a)$ by $q_\mathbf{w}(s,a)=\mathbf{w}^\text{T}\mathbf{x}(s,a)$), our objective is to find the fixed point $q_\mathbf{w}$ such that:
+Analogous to the state value functions, with linear function approximation (i.e., we are trying to estimate $q(s,a)$ by $q_\mathbf{w}(s,a)=\mathbf{w}^\text{T}\mathbf{x}(s,a)$), our objective is to find the fixed-point $q_\mathbf{w}$ such that:
 \begin{equation}
 q_\mathbf{w}=\Pi T_\pi^\lambda q_\mathbf{w},
 \end{equation}
@@ -720,7 +720,7 @@ We define the stochastic update to be **stable** if and only if the correspondin
 \begin{equation}
 \bar{\mathbf{w}}\_{t+1}\doteq\bar{\mathbf{w}}\_t+\alpha\left(\mathbf{b}-\mathbf{A}\bar{\mathbf{w}}\_t\right),
 \end{equation}
-is convergent to a unique fixed point independent of the initial $\bar{\mathbf{w}}\_0$. This will occur iff $\mathbf{A}$ has a full set of eigenvalues having positive real parts, which can be proved if $\mathbf{A}$ is positive definite.
+is convergent to a unique fixed-point independent of the initial $\bar{\mathbf{w}}\_0$. This will occur iff $\mathbf{A}$ has a full set of eigenvalues having positive real parts, which can be proved if $\mathbf{A}$ is positive definite.
 
 With this definition of stability, in order to exam the stability of ETD($\lambda$), we begin by considering the SGD update for the weight vector $\mathbf{w}$ at time step $t$.
 \begin{align}
@@ -787,7 +787,7 @@ Then our key matrix now can be written as:
 \begin{equation}
 \mathbf{M}(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma})=\mathbf{M}(\mathbf{I}-\mathbf{P}\_\pi^\lambda)
 \end{equation}
-In order to prove the positive definiteness of $\mathbf{M}(\mathbf{I}-\mathbf{P}\_\pi^\lambda)$, analogous to the [proof]({{< ref "func-approx#td-fixed-pt-proof" >}}) of the convergence to TD fixed point of semi-gradient TD, we use two lemmas:
+In order to prove the positive definiteness of $\mathbf{M}(\mathbf{I}-\mathbf{P}\_\pi^\lambda)$, analogous to the [proof]({{< ref "func-approx#td-fixed-pt-proof" >}}) of the convergence to TD fixed-point of semi-gradient TD, we use two lemmas:
 <ul id='number-list' style='font-style: italic;'>
 	<li>
 		<b>Lemma 1</b>: Any matrix $\mathbf{A}$ is positive definite iff the symmetric matrix $\mathbf{S}=\mathbf{A}+\mathbf{A}^\text{T}$ is positive definite.

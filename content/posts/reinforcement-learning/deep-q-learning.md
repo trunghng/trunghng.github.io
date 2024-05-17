@@ -23,7 +23,7 @@ Then, with [**Dynamic programming**]({{< ref "dp-in-mdp" >}}), we can solve \eqr
 \begin{equation}
 V_{t+1}(s)=\max_{a}\sum_{s'}P(s'\vert s,a)\big[R(s,a,s')+\gamma V_t(s')\big]\hspace{1cm}\forall s\in\mathcal{S}
 \end{equation}
-For an arbitrary initial $V_0(s)$, the iteration, or the sequence $\\{V_t\\}$, will eventually converge to the optimal value function $V^\*(s)$. This can be shown by applying the [**Banach's fixed point theorem**]({{< ref "optimal-policy-existence" >}}), the one we have also used to prove the existence of the optimal policy, to prove that the iteration from $V_t(s)$ to $V_{t+1}(s)$ is a contraction mapping.
+For an arbitrary initial $V_0(s)$, the iteration, or the sequence $\\{V_t\\}$, will eventually converge to the optimal value function $V^\*(s)$. This can be shown by applying the [**Banach's fixed-point theorem**]({{< ref "optimal-policy-existence" >}}), the one we have also used to prove the existence of the optimal policy, to prove that the iteration from $V_t(s)$ to $V_{t+1}(s)$ is a contraction mapping.
 
 Details for value iteration method can be seen in the following pseudocode.
 <figure>
@@ -249,4 +249,4 @@ y_t=R(s_t,a_t,s_{t+1})+\gamma\hat{Q}\_{\boldsymbol{\theta}\_t^-}\left(s_{t+1},\u
 	\end{equation\*}
 	with $G_{t:t+n}\doteq G_t$ if $t+n\geq T$ and where $R_{t+1}\doteq R(s_t,a_t,s_{t+1})$.
 
-[^2]: The semi-gradient TD methods with linear function approximation, e.g. \eqref{eq:nql.5}, are guaranteed to converge to the **TD fixed point** due to the [result]({{< ref "func-approx#td-fixed-pt-proof" >}}) we have proved.
+[^2]: The semi-gradient TD methods with linear function approximation, e.g. \eqref{eq:nql.5}, are guaranteed to converge to the **TD fixed-point** due to the [result]({{< ref "func-approx#td-fixed-pt-proof" >}}) we have proved.

@@ -127,7 +127,7 @@ Let $r\_\pi(s,a)\doteq r(s,a)+\gamma\mathbb{E}\_{s'\sim p}\big[\alpha H\big(\pi(
 \begin{equation}
 Q^{(k+1)}(s,a)=r\_\pi(s,a)+\gamma\mathbb{E}\_{s'\sim p,a'\sim\pi}\big[Q^{(k)}(s',a')\big]
 \end{equation}
-Since $\vert\mathcal{A}\vert<\infty$, we have that $r\_\pi(s,a)$ is bounded. Analogy to the [(standard) policy evaluation]({{<ref"optimal-policy-existence">}}), we then can prove that $\mathcal{T}\_\pi$ is a [contraction mapping]({{<ref"optimal-policy-existence#contractions">}}) and then by using the [**Banach's fixed point theorem**]({{<ref"optimal-policy-existence#banach-fixed-pts-theorem">}}), we can show that $\\{Q^{(k)}\\}\_{k=0,1,\ldots}$ eventually converges to a fixed point, which we call it the **soft Q-value** of $\pi$.
+Since $\vert\mathcal{A}\vert<\infty$, we have that $r\_\pi(s,a)$ is bounded. Analogy to the [(standard) policy evaluation]({{<ref"optimal-policy-existence">}}), we then can prove that $\mathcal{T}\_\pi$ is a [contraction mapping]({{<ref"optimal-policy-existence#contractions">}}) and then by using the [**Banach's fixed-point theorem**]({{<ref"optimal-policy-existence#banach-fixed-pts-theorem">}}), we can show that $\\{Q^{(k)}\\}\_{k=0,1,\ldots}$ eventually converges to a fixed-point, which we call it the **soft Q-value** of $\pi$.
 
 ### Soft Policy Improvement{#soft-policy-imp}
 Analogously, the (standard) policy improvement step can be generalized to entropy regularizing as:

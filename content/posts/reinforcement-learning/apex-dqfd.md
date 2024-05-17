@@ -29,7 +29,7 @@ Rewriting the above equation with the Bellman optimality operator, $\mathcal{T}:
 \begin{equation}
 (\mathcal{T}Q)(s,a)=r(s,a)+\gamma\sum_{s'\in\mathcal{S}}P(s'\vert s,a)\sup_{a'\in\mathcal{A}}Q(s',a'),\hspace{1cm}\forall(s,a)\in\mathcal{S}\times\mathcal{A}
 \end{equation}
-for any $Q:\mathcal{S}\times\mathcal{A}\mapsto\mathbb{R}$. Since $\mathcal{T}$ is a [$\gamma$-contraction]({{< ref "optimal-policy-existence#bellman-op-contraction" >}}), we can learn $Q^\*$ using a fixed point iteration, starting at some initial $Q^{(0)}$ and then iterating $Q^{(k)}\doteq\mathcal{T}Q^{(k-1)}$ for $k\in\mathbb{N}$ to generate a sequence of functions that converge to $Q^\*$.
+for any $Q:\mathcal{S}\times\mathcal{A}\mapsto\mathbb{R}$. Since $\mathcal{T}$ is a [$\gamma$-contraction]({{< ref "optimal-policy-existence#bellman-op-contraction" >}}), we can learn $Q^\*$ using a fixed-point iteration, starting at some initial $Q^{(0)}$ and then iterating $Q^{(k)}\doteq\mathcal{T}Q^{(k-1)}$ for $k\in\mathbb{N}$ to generate a sequence of functions that converge to $Q^\*$.
 
 DQN uses a neural network $f_\theta$ as a function approximator of the optimal state-action value function $Q^\*$. It starts with some initial weight $\theta^{(0)}$ and then iterates
 \begin{equation}
@@ -46,7 +46,7 @@ In the original DQN paper, the authors clip the reward distribution to the inter
 (\mathcal{T}\_h Q)(s,a)&=h\left(r(s,a)+\gamma\sum_{s'\in\mathcal{S}}P(s'\vert s,a)\sup_{a'\in\mathcal{A}}h^{-1}\big(Q(s',a'))\right) \\\\ &=\mathbb{E}\_{s'\sim P(\cdot\vert s,a)}\Bigg[h\Big(r(s,a)+\gamma\max_{a'\in\mathcal{A}}h^{-1}\big(Q(s',a')\big)\Big)\Bigg]
 \end{align}
 
-**Proposition 1**. *Let $Q^\*$ be the fixed point of $\mathcal{T}$ and $Q:\mathcal{S}\times\mathcal{A}\mapsto\mathbb{R}$, then*
+**Proposition 1**. *Let $Q^\*$ be the fixed-point of $\mathcal{T}$ and $Q:\mathcal{S}\times\mathcal{A}\mapsto\mathbb{R}$, then*
 <ul id='roman-list' style='font-style: italic'>
 	<li>
 		If $h(z)=\alpha z$ for $\alpha>0$, then $\mathcal{T}_h^k Q\xrightarrow[]{\hspace{0.1cm}k\to\infty\hspace{0.1cm}}h\circ Q^*=\alpha Q^*$.
@@ -67,7 +67,7 @@ In the original DQN paper, the authors clip the reward distribution to the inter
 </ul> -->
 
 
-The proposition shows that when $h$ is either linear or the MDP is deterministic, $\mathcal{T}\_h$ has the unique fixed point $h\circ Q^\*$. Hence, if $h$ is an invertible contraction, we can use $\mathcal{T}\_h$ instead of $\mathcal{T}$ in the DQN algorithm to reduce the variance of our optimization target while still learning an optimal policy.
+The proposition shows that when $h$ is either linear or the MDP is deterministic, $\mathcal{T}\_h$ has the unique fixed-point $h\circ Q^\*$. Hence, if $h$ is an invertible contraction, we can use $\mathcal{T}\_h$ instead of $\mathcal{T}$ in the DQN algorithm to reduce the variance of our optimization target while still learning an optimal policy.
 
 **Proposition 2**. *Let $h$ be strictly monotonically increasing, Lipschitz continuous with Lipschitz constant $L_h$, and have a Lipschitz continuous inverse $h^{-1}$ with Lipschitz constant $L_{h^{-1}}$. For $\gamma<\frac{1}{L_h L_{h^{-1}}}$, $\mathcal{T}\_h$ is a contraction*.
 

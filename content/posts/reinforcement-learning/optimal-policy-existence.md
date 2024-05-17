@@ -77,14 +77,14 @@ If $\mathcal{T}$ is **Lipschitz**, it is also continuous in the sense that if $v
 **Definition** (*Banach space*)  
 A complete, normed vector space is called a **Banach space**.
 
-**Definition** (*Fixed point*)  
-Let $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ be some mapping. The vector $v\in\mathcal{V}$ is called a **fixed point of** $\mathcal{T}$ if $\mathcal{T}v=v$.
+**Definition** (*Fixed-point*)  
+Let $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ be some mapping. The vector $v\in\mathcal{V}$ is called a **fixed-point of** $\mathcal{T}$ if $\mathcal{T}v=v$.
 
 **Theorem**<span id='banach-fixed-pts-theorem'></span> (*Banach's fixed-point*)[^4]      
 Let $\mathcal{V}$ be a Banach space and $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ be a $\gamma$-contraction mapping. Then
 <ul id='roman-list'>
 	<li>
-		$\mathcal{T}$ admits a <b>unique fixed point</b> $v$.
+		$\mathcal{T}$ admits a <b>unique fixed-point</b> $v$.
 	</li>
 	<li>
 		For any $v_0\in\mathcal{V}$, if $v_{n+1}=\mathcal{T}v_n$, then $v_n\to_{\Vert\cdot\Vert}v$ with a <b>geometric convergence rate</b>:
@@ -142,7 +142,7 @@ It is worth noticing that $(B(\mathcal{S}),\Vert\cdot\Vert_\infty)$ is complete:
 
 Let $\pi$ be some stationary policy. We have that $\mathcal{T}^\pi$ is *well-defined* since: if $u\in B(\mathcal{S})$, then also $\mathcal{T}^\pi u\in B(S)$.
 
-From equation \eqref{3}, we have that $v_\pi$ is a fixed point to $\mathcal{T}^\pi$.
+From equation \eqref{3}, we have that $v_\pi$ is a fixed-point to $\mathcal{T}^\pi$.
 
 We also have that $\mathcal{T}^\pi$ is a <span id='bellman-op-contraction'>$\gamma$-contraction</span> in $\Vert\cdot\Vert_\infty$ since for any $u, v\in B(\mathcal{S})$,
 \begin{align}
@@ -162,7 +162,7 @@ which tells us that $\mathcal{T}^\*$ is a $\gamma$-contraction in $\Vert\cdot\Ve
 <br/>
 
 **Theorem**  
-Let $v$ be the fixed point of $\mathcal{T}^\*$ and assume that there is policy $\pi$ which is greedy w.r.t $v:\mathcal{T}^\pi v=\mathcal{T}^\* v$. Then $v=v_\*$ and $\pi$ is an optimal policy.
+Let $v$ be the fixed-point of $\mathcal{T}^\*$ and assume that there is policy $\pi$ which is greedy w.r.t $v:\mathcal{T}^\pi v=\mathcal{T}^\* v$. Then $v=v_\*$ and $\pi$ is an optimal policy.
 
 ***Proof***  
 Pick any stationary policy $\pi$. Then $\mathcal{T}^\pi\leq\mathcal{T}^\*$ in the sense that for any function $v\in B(\mathcal{S})$, $\mathcal{T}^\pi v\leq\mathcal{T}^\* v$ holds ($u\leq v$ means that $u(s)\leq v(s),\forall s\in\mathcal{S}$).
@@ -175,9 +175,9 @@ or
 \begin{equation}
 v_\pi\leq(\mathcal{T}^\*)^n v_\pi
 \end{equation}
-Since $\mathcal{T}^\*$ is a contraction, the right-hand side converges to $v$, the unique fixed point of $\mathcal{T}^\*$. Thus, $v_\pi\leq v$. And since $\pi$ was arbitrary, we obtain that $v_\*\leq v$.
+Since $\mathcal{T}^\*$ is a contraction, the right-hand side converges to $v$, the unique fixed-point of $\mathcal{T}^\*$. Thus, $v_\pi\leq v$. And since $\pi$ was arbitrary, we obtain that $v_\*\leq v$.
 
-Pick a policy $\pi$ such that $\mathcal{T}^\pi v=\mathcal{T}^\*v$, then $v$ is also a fixed point of $\mathcal{V}^\pi$. Since $v_\pi$ is the unique fixed point of $\mathcal{T}^\pi$, we have that $v=v_\pi$, which shows that $v_\*=v$ and that $\pi$ is an optimal policy.
+Pick a policy $\pi$ such that $\mathcal{T}^\pi v=\mathcal{T}^\*v$, then $v$ is also a fixed-point of $\mathcal{V}^\pi$. Since $v_\pi$ is the unique fixed-point of $\mathcal{T}^\pi$, we have that $v=v_\pi$, which shows that $v_\*=v$ and that $\pi$ is an optimal policy.
 
 ## References
 [1] Csaba Szepesvári. [Algorithms for Reinforcement Learning](http://dx.doi.org/10.2200/S00268ED1V01Y201005AIM009). Synthesis Lectures on Artificial Intelligence and Machine Learning 4, 2010.
@@ -195,7 +195,7 @@ Pick a policy $\pi$ such that $\mathcal{T}^\pi v=\mathcal{T}^\*v$, then $v$ is a
 [^2]: A **normed vector space** is a vector space over the real or complex number, on which a norm is defined.
 [^3]: The details of **sequences** are mentioned in another [note]({{< ref "infinite-series-of-constants#convergent-sequences" >}}).
 [^4]: ***Proof***  
-	Pick any $v_0\in\mathcal{V}$ and define $v_n$ as in the statement of the theorem. a. We first demonstrate that $(v_n)$ converges to some vector. b. Then we will show that this vector is a fixed point to $\mathcal{T}$. c. Finally, we show that $\mathcal{T}$ has a single fixed point. Assume that $\mathcal{T}$ is a $\gamma$-contraction.  
+	Pick any $v_0\in\mathcal{V}$ and define $v_n$ as in the statement of the theorem. a. We first demonstrate that $(v_n)$ converges to some vector. b. Then we will show that this vector is a fixed-point to $\mathcal{T}$. c. Finally, we show that $\mathcal{T}$ has a single fixed-point. Assume that $\mathcal{T}$ is a $\gamma$-contraction.  
 	a. To show that $(v_n)$ converges, it suffices  to show that $(v_n)$ is a Cauchy sequence. We have:
 	\begin{align}
 	\Vert v_{n+1}-v_n\Vert&=\Vert\mathcal{T}v_{n}-\mathcal{T}v_{n-1}\Vert \\\\ &\leq\gamma\Vert v_{n}-v_{n-1}\Vert \\\\ &\quad\vdots \\\\ &\leq\gamma^n\Vert v_1-v_0\Vert
@@ -213,8 +213,8 @@ Pick a policy $\pi$ such that $\mathcal{T}^\pi v=\mathcal{T}^\*v$, then $v$ is a
 	\begin{equation}
 	v_{n+1}=\mathcal{T}v_n
 	\end{equation}
-	Taking the limes as $n\to\infty$ of both sides, one the one hand, we get that $v_{n+1}\to _{\Vert\cdot\Vert}v$. On the other hand, $\mathcal{T}v_n\to _{\Vert\cdot\Vert}\mathcal{T}v$, since $\mathcal{T}$ is a contraction, hence it is continuous. Therefore, we must have $v=\mathcal{T}v$, which tells us that $v$ is a fixed point of $\mathcal{T}$.  
-	c. Let us assume that $v,v'$ are both fixed points of $\mathcal{T}$. Then,
+	Taking the limes as $n\to\infty$ of both sides, one the one hand, we get that $v_{n+1}\to _{\Vert\cdot\Vert}v$. On the other hand, $\mathcal{T}v_n\to _{\Vert\cdot\Vert}\mathcal{T}v$, since $\mathcal{T}$ is a contraction, hence it is continuous. Therefore, we must have $v=\mathcal{T}v$, which tells us that $v$ is a fixed-point of $\mathcal{T}$.  
+	c. Let us assume that $v,v'$ are both fixed-points of $\mathcal{T}$. Then,
 	\begin{align}
 	\Vert v-v'\Vert&=\Vert\mathcal{T}v-\mathcal{v'}\Vert \\\\ &\leq\gamma\Vert v-v'\Vert \\\\ \text{or}\quad(1-\gamma)\Vert v-v'\Vert&\leq0
 	\end{align}

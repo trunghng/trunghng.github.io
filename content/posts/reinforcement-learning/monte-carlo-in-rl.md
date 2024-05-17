@@ -138,7 +138,7 @@ Therefore, by the [policy improvement theorem]({{< ref "dp-in-mdp#policy-improve
 
 To solve this problem with Monte Carlo policy iteration, in the 1998 version of "**Reinforcement Learning: An Introduction**", authors of the book introduced **Monte Carlo ES** (**MCES**), for Monte Carlo with *exploring starts*.
 
-In MCES, value function is approximated by simulated returns and a greedy policy is selected at each iteration. Although MCES does not converge to any sub-optimal policy, the convergence to optimal fixed point is still an open question. For solutions in particular settings, you can check out some results like Tsitsiklis (2002), Chen (2018), Liu (2020).  
+In MCES, value function is approximated by simulated returns and a greedy policy is selected at each iteration. Although MCES does not converge to any sub-optimal policy, the convergence to optimal fixed-point is still an open question. For solutions in particular settings, you can check out some results like Tsitsiklis (2002), Chen (2018), Liu (2020).  
 Down below is pseudocode of the Monte Carlo ES.
 <figure>
 	<img src="/images/monte-carlo-in-rl/mces.png" alt="monte carlo es pseudocode"/>
