@@ -189,7 +189,7 @@ f_X(x)=\Gamma(k)\lambda^{k-1}\prod_{i=1}^{k}\frac{\alpha_i x_i^{-\lambda-1}}{\su
 \end{equation}
 
 **Proposition 1** (Properties of Concrete r.v.s) *Let $X\sim\text{Concrete}(\alpha,\lambda)$ with location $\alpha\in(0,\infty)^k$ and temperature $\lambda\in(0,\infty)$. Then*
-<ul id='roman-list' style='font-style: italic;'>
+<ul class='roman-list' style='font-style: italic;'>
 	<li>
 		<b>Reparameterization</b>. If $G_i\overset{\text{i.i.d}}{\sim}\text{Gumbel}(0,1)$, then
 		\begin{equation}
@@ -209,7 +209,7 @@ f_X(x)=\Gamma(k)\lambda^{k-1}\prod_{i=1}^{k}\frac{\alpha_i x_i^{-\lambda-1}}{\su
 </ul>
 
 **Proof**
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		Let $Y_i=\log\alpha_i+G_i$ for $i=1,\ldots,k$, then $Y_i$ are unit-scaled Gumbel r.v.s with locations $\log\alpha_i$, which have the PDFs given as
 		\begin{align}

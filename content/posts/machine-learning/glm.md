@@ -34,7 +34,7 @@ We say that vectors $\mathbf{v}\_1,\ldots,\mathbf{v}\_k$ span a space $S$ when t
 In this case, $S$ is the smallest space containing those vectors.
 
 A **basis** for a vector space $S$ is a sequence of vectors $\mathbf{v}\_1,\ldots,\mathbf{v}\_d$ having two properties:
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>$\mathbf{v}_1,\ldots,\mathbf{v}_d$ are independent</li>
 	<li>$\mathbf{v}_1,\ldots,\mathbf{v}_d$ span $S$</li>
 </ul>
@@ -119,7 +119,7 @@ y(\mathbf{x},\mathbf{w})=\sum_{i=0}^{M-1}w_i\phi_i(\mathbf{x})=\mathbf{w}^\text{
 where $\mathbf{w}=(w_0,\ldots,w_{M-1})^\text{T}$ and $\boldsymbol{\phi}=(\phi_0,\ldots,\phi_{M-1})^\text{T}$, with $\phi_0(\cdot)=1$.
 
 There are various choices of basis functions:
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		<b>Polynomial basis</b>. Each basis function $\phi_i$ is a powers of a $1$-dimensional input $x$
 		\begin{equation}
@@ -682,7 +682,7 @@ Another example of linear discriminant model is the perceptron algorithm
 
 ### Probabilistic Generative Models{#prob-gen-models}
 When solving the classification problems, we divide the strategy into two stage
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		<b>Inference stage</b>. In this stage we use training data to learn a model for $p(\mathcal{C}_k\vert\mathbf{x})$ 
 	</li>

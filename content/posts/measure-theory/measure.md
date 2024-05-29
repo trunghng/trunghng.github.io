@@ -8,7 +8,7 @@ eqn-number: true
 > When talking about **measure**, you might associate it with the idea of **length**, the measurement of something in one dimension. And then probably, you will extend your idea into two dimensions with **area**, or even three dimensions with **volume**.  
 <!--more-->
 Despite of having different number of dimensions, all **length**, **area**,  and **volume** share the same properties:
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		<b>Non-negative</b>: in principle, length, area, and volume can take any positive value. But negative length has no meaning. Same thing happens with negative area and negative volume.
 	</li>
@@ -49,7 +49,7 @@ Given a closed set $S'\equiv[a,b]-\sum_k(a_k,b_k)$,
 ## Measures
 **Definition**  
 Let $\mathcal{X}$ be any set. A *measure* on $\mathcal{X}$ is a function $\mu$ that maps the set of subsets on $\mathcal{X}$ to $[0,\infty]$ ($\mu:2^\mathcal{X}\rightarrow[0,\infty]$) that satisfies:
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		$\mu(\emptyset)=0$
 	</li>
@@ -63,7 +63,7 @@ Let $\mathcal{X}$ be any set. A *measure* on $\mathcal{X}$ is a function $\mu$ t
 </ul>
 
 **Properties**
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		<b>Monotonicity</b>. If $\mathcal{A}\subset\mathcal{B}$, then $\mu(\mathcal{A})\leq\mu(\mathcal{B})$
 	</li>
@@ -76,7 +76,7 @@ Let $\mathcal{X}$ be any set. A *measure* on $\mathcal{X}$ is a function $\mu$ t
 </ul>
 
 **Examples**
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		<b>Cardinality of a set</b>. $\#\mathcal{A}$
 	</li>
@@ -123,7 +123,7 @@ Let $\mathcal{X}$ be any set. A *measure* on $\mathcal{X}$ is a function $\mu$ t
 
 ## Integration with respect to a Measure: The Idea
 Consider $f:\mathcal{X}\rightarrow\mathbb{R}$, where $\mathcal{X}$ is any set and a measure $\mu$ on $\mathcal{X}$ and compute the integral of $f$ w.r.t $\mu$: $\int f(x)\mu(dx)$. We have:
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		For any function $f$,
 		\begin{equation}
@@ -161,7 +161,7 @@ Consider $f:\mathcal{X}\rightarrow\mathbb{R}$, where $\mathcal{X}$ is any set an
 
 From the above examples, we have that *integrals w.r.t to Lebesgue measure are just ordinary integrals, and that integrals w.r.t Counting measure are just ordinary summation*.  
 Consider measures built from Lebesgue and Counting measure, we have:
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		Suppose $\mu$ is a measure that satisfies $\mu(dx)=f(x)\mu_L(dx)$, then for any function $g$,
 		\begin{equation}
@@ -192,7 +192,7 @@ Suppose $\mu$ is a measure on $\mathcal{X},\mathcal{A}\subset\mathcal{X}$, and $
 where $𝟙_\mathcal{A}$ is an **indicator function** ($𝟙_\mathcal{A}(x)=1$ if $x\in\mathcal{A}$, and $=0$ otherwise).
 
 Let $\mu$ is a measure on $\mathcal{X},\mathcal{A},\mathcal{B}\subset\mathcal{X},c\in\mathbb{R}$ and $f,g$ are integrable functions. The following properties hold for every $\mu$
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		<b>Constant functions</b>.
 		\begin{equation}
@@ -244,11 +244,11 @@ Let $\mu$ is a measure on $\mathcal{X},\mathcal{A},\mathcal{B}\subset\mathcal{X}
 </ul>
 
 ## Integration with respect to a Measure: The Details
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		<b>Step 1</b>.<br>
 		- Define the integral for <b>simple functions</b>, i.e. functions that take only a finite number of different values and have following properties:
-		<ul id='roman-list'>
+		<ul class='roman-list'>
 			<li>
 				All constant functions are simple functions.
 			</li>
@@ -299,7 +299,7 @@ Let $\mu$ is a measure on $\mathcal{X},\mathcal{A},\mathcal{B}\subset\mathcal{X}
 </ul>
 
 ## Constructing Measures from old ones
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		<b>Sums and multiples</b>.<br>
 		- Consider the point mass measures at $0$ and $1$, $\delta_{\{0\}},\delta_{\{1\}}$, and construct a two new measures on $\mathbb{R}$, $\mu=\delta_{\{0\}}+\delta_{\{1\}}$ and $v=4\delta_{\{0\}}$, defined by
@@ -339,7 +339,7 @@ Let $\mu$ is a measure on $\mathcal{X},\mathcal{A},\mathcal{B}\subset\mathcal{X}
 		\end{equation}
 		- We say that $f$ is the <b>density</b> of the measure $v$ w.r.t $\mu$.<br>
 		- If $v,\mu$ are measures for which the equation \eqref{eq:1} holds for every $\mathcal{A}\subset\mathcal{X}$, we say that $v$ has a density $f$ w.r.t $\mu$. This implies two useful results:<br>
-		<ul id='roman-list'>
+		<ul class='roman-list'>
 			<li>
 				$\mu(\mathcal{A})=0$ implies $v(\mathcal{A})=0$.
 			</li>
@@ -351,7 +351,7 @@ Let $\mu$ is a measure on $\mathcal{X},\mathcal{A},\mathcal{B}\subset\mathcal{X}
 
 ## Other types of Measures
 Suppose that $\mu$ is a measure on $\mathcal{X}$
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		If $\mu(\mathcal{X})=\infty$, we say that $\mu$ is an <b>infinite measure</b>.
 	</li>

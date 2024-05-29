@@ -494,7 +494,7 @@ Thus, a **Gaussian Bayesian network** is a Bayesian network all of whose variabl
 p(Y\vert\mathbf{x})=\mathcal{N}(\beta_0+\boldsymbol{\beta}^\text{T}\mathbf{x};\sigma^2)
 \end{equation}
 *Assume that $X_1,\ldots,X_k$ are jointly Gaussian with distribution $\mathcal{N}(\boldsymbol{\mu},\boldsymbol{\Sigma})$. Then*
-<ul id='number-list' style='font-style: italic;'>
+<ul class='number-list' style='font-style: italic;'>
 	<li>
 		The distribution of $Y$ is a Normal distribution $p(Y)=\mathcal{N}(\mu_Y;\sigma_Y^2)$ where
 		\begin{align}
@@ -528,7 +528,7 @@ p(Y\vert\mathbf{X})=\mathcal{N}(\beta_0+\boldsymbol{\beta}^\text{T}\mathbf{X};\s
 This theorem allows us to take a joint Gaussian distribution and produce a Bayesian network.
 
 **Theorem 5**: *Let $\mathcal{X}=\\{X_1,\ldots,X_n\\}$ be a set of r.v.s, and let $p$ be a joint Gaussian distribution over $\mathcal{X}$. Given any ordering $X_1,\ldots,X_n$ over $\mathcal{X}$, we can construct a Bayesian network structure $\mathcal{G}$ and a Bayesian network $\mathcal{B}$ over $\mathcal{G}$ such that*
-<ul id='number-list' style='font-style: italic;'>
+<ul class='number-list' style='font-style: italic;'>
 	<li>
 		$\text{Pa}_{X_i}^\mathcal{G}\subset\{X_1,\ldots,X_{i-1}\}$;
 	</li>

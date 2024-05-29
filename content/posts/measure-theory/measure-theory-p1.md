@@ -211,7 +211,7 @@ An **elementary set** is any subset of $\mathbb{R}^d$ which is the union of a fi
 
 **Remark 9** (**Boolean closure**)  
 If $E,F\subset\mathbb{R}^d$ are elementary sets, then
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		The union $E\cup F$ is elementary.
 	</li>
@@ -235,7 +235,7 @@ With their definitions as elementary sets, we can assume that
 E&=B_1\cup\ldots\cup B_k, \\\\ F&=B_1'\cup\ldots\cup B_{k'}',
 \end{align}
 where each $B_i$ and $B_i'$ is a $d$-dimensional box. By set theory, we have that:
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		The union of $E$ and $F$ can be written as
 		\begin{equation}
@@ -295,7 +295,7 @@ where each $B_i$ and $B_i'$ is a $d$-dimensional box. By set theory, we have tha
 We refer to $m(E)$ as the **elementary measure** of $E$.
 
 **Proof**  
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>Consider the one-dimensional case, with these $k$ intervals, we can put their $2k$ endpoints into an increasing-order list (discarding repetitions). By looking at the open intervals between these end points, together with the endpoints themselves (viewed as intervals of length zero), we see that there exists a finite collection of disjoint intervals $J_1,\dots,J_{k'}$, such that each of the $I_1,\dots,I_k$ are union of some collection of the $J_1,\dots,J_{k'}$. And since each interval is a one-dimensional box, our statement has been proved with $d=1$.<br>
 	In order to prove the multi-dimensional case, we begin by expressing $E$ as
 	\begin{equation}
@@ -323,7 +323,7 @@ We refer to $m(E)$ as the **elementary measure** of $E$.
 
 ### Properties of elementary measure{#elementary-measure-properties}
 From the definition of elementary measure, it is easily seen that, for any elementary sets $E$ and $F$ (not necessarily disjoint),
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		$m(E)$ is a nonnegative real number (<b>non-negativity</b>), and has <b>finite additivity property</b>:
 		\begin{equation}
@@ -466,7 +466,7 @@ the **Jordan measure** of $E$.
 
 ### Characterisation of Jordan measurability{#jordan-measurability-characterisation}
 Let $E\subset\mathbb{R}^d$ be bounded. These following statements are equivalence
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>$E$ is Jordan measurable.</li>
 	<li>For every $\varepsilon>0$, there exists elementary sets $A\subset E\subset B$ such that $m(B\backslash A)\leq\varepsilon$.</li>
 	<li>For every $\varepsilon>0$, there exists an elementary set $A$ such that $m^{*,(J)}(A\Delta E)\leq\varepsilon$.</li>
@@ -547,7 +547,7 @@ Jordan measurability also inherits many of the properties of elementary measure.
 
 ### Properties of Jordan measurability{#jordan-measurability-properties}
 Let $E,F\in\mathbb{R}^d$ be Jordan measurable sets. Then
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		<b>Boolean closure</b>. $E\cup F,E\cap F,E\backslash F,E\Delta F$ are also Jordan measurable sets.
 	</li>
@@ -569,7 +569,7 @@ Let $E,F\in\mathbb{R}^d$ be Jordan measurable sets. Then
 </ul>
 
 **Proof**
-<ol id='number-list'>
+<ol class='number-list'>
 	<li>
 		<b>Boolean closure</b>.
 		<ul>
@@ -651,7 +651,7 @@ Let $E,F\in\mathbb{R}^d$ be Jordan measurable sets. Then
 
 **Remark 13** (Regions under graphs are Jordan measurable)  
 Let $B$ be a closed box in $\mathbb{R}^d$, and let $f:B\to\mathbb{R}$ be a continuous function. Then
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		The graph $\{(x,f(x)):x\in B\}\subset\mathbb{R}^{d+1}$ is Jordan measurable in $\mathbb{R}^{d+1}$ with Jordan measure zero.
 	</li>
@@ -661,7 +661,7 @@ Let $B$ be a closed box in $\mathbb{R}^d$, and let $f:B\to\mathbb{R}$ be a conti
 </ul>
 
 **Proof**
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		For any closed box $C\in\mathbb{R}^d$, we have $\{(x,f(x)):x\in C\}\subset\mathbb{R}^{d+1}$ with $f:C\to\mathbb{R}$ is a compact set. And when $f$ continuous in a compact set we also have $f$ is uniformly continuous[^1], which means for any $\varepsilon>0$, there exists $\delta$ such that for every $x,y\in C$
 		\begin{equation}
@@ -813,7 +813,7 @@ m^{d_1}(E_1)\times m^{d_2}(E_2)=m^{d_1+d_2}(E_1\times E_2)
 
 ### Topological of Jordan measurability{#topo-jordan-measurability}
 Let $E\subset\mathbb{R}^d$ be a bounded set
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>$E$ and the closure $\bar{E}$ of $E$ have the same Jordan outer measure.</li>
 	<li>$E$ and the interior $E^\circ$ of $E$ have the same Jordan inner measure.</li>
 	<li>$E$ is Jordan measurable iff the <b>topological boundary</b> $\partial E$ of $E$ has Jordan outer measure zero.</li>
@@ -821,7 +821,7 @@ Let $E\subset\mathbb{R}^d$ be a bounded set
 </ul>
 
 **Proof**
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		Since $E\subset\overline{E}$, it is easily seen that
 		\begin{equation}
@@ -891,7 +891,7 @@ which claims the independence of the choices of partition of $f$.
 
 #### Basic properties of piecewise constant integral{#pc-int-properties}
 Let $[a,b]$ be an interval, and let $f,g:[a,b]\to\mathbb{R}$ be piecewise constant functions. Then
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		<b>Linearity</b>. For any $c\in\mathbb{R}$, $cf$ and $f+g$ are piecewise constant functions, with
 		\begin{align}
@@ -913,7 +913,7 @@ Let $[a,b]$ be an interval, and let $f,g:[a,b]\to\mathbb{R}$ be piecewise consta
 </ul>
 
 **Proof**
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		<b>Linearity</b><br>
 		For any $c\in\mathbb{R}$, we have:
@@ -1091,7 +1091,7 @@ which implies that $f$ is Riemann integrable on $[a,b]$.
 
 ### Basic properties of Riemann integral{#riemann-int-properties}
 Let $[a,b]$ be an interval, and let $f,g:[a,b]\to\mathbb{R}$ be Riemann integrable. We then have that
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		<b>Linearity</b>. For any $c\in\mathbb{R}$, $cf$ and $f+g$ are Riemann integrable, with
 		\begin{align}
@@ -1113,7 +1113,7 @@ Let $[a,b]$ be an interval, and let $f,g:[a,b]\to\mathbb{R}$ be Riemann integrab
 </ul>
 
 **Proof**
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		<b>Linearity</b>.
 		<ul>

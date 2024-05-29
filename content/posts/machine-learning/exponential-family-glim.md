@@ -190,7 +190,7 @@ This implies that a distribution in the exponential family can be parameterized 
 
 ## Sufficiency
 Let $X$ be a r.v and let $T(X)$ be a statistic. Suppose that the distribution of $X$ is parameterized by $\theta$, i.e. $p(x;\theta)$. Then $T(X)$ is said to be **sufficient** for $\theta$ if there is no information in $X$ regarding $\theta$ beyond that in $T(X)$. In other words, having observed $T(X)$, we can throw away $X$ for the purpose of inference w.r.t $\theta$. Specifically
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		In Bayesian approach, $\theta$ is considered as a r.v. Thus, we say that $T(X)$ is sufficient for $\theta$ if
 		\begin{equation}
@@ -258,7 +258,7 @@ as the general formula for MLE of the [mean parameter](#mean-parameter) in the e
 It is worth noticing that the above formula involves the data only via the sufficient statistic $\sum_{n=1}^{N}T(x_n)$.
 
 **Example 1**: From the result \eqref{eq:mle.3}, we have that
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		For exponential family distribution with sufficient statistic $T(X)=X$, e.g. <a href='#bern-dist'>Bernoulli</a>, <a href='#bin-dist'>Binomial</a>, <a href='#pois-dist'>Poisson</a>, the maximum likelihood estimate of the mean is exactly the sample mean, $\frac{1}{N}\sum_{n=1}^{N}x_n$.
 	</li>
@@ -273,7 +273,7 @@ Given a dataset $\mathcal{D}=\\{x_1,\ldots,x_N\\}$, the **empirical distribution
 \hat{p}(x)\doteq\frac{1}{N}\sum_{n=1}^{N}\delta(x-x_n),
 \end{equation}
 where
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		in the continuous case, $\delta(\cdot)$ is the <b>Dirac delta</b> function, which has zero-valued everywhere except $0$, and integrates to $1$.
 	</li>
@@ -317,7 +317,7 @@ The **generalized linear model** (or **GLIM**) extends the idea of linear models
 </figure>
 
 A GLIM makes threes assumptions about the conditional distribution $p(y\vert x)$
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		The observed input $x$ is assumed to enter into the model via a linear combination $\xi=\theta^\text{T}x$.
 	</li>

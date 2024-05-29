@@ -214,7 +214,7 @@ In training neural network to find a value of $\mathbf{w}$ to minimize the error
 where $\Delta\mathbf{w}^{(\tau)}$ is some update rule.
 
 At each time step $\tau$, there are two distinct stages:
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		Stage 1 refers to evaluating the derivatives of the error function w.r.t the weights, which can be accomplished efficiently using <b>backpropagation</b> that will be discussed in the next section.
 	</li>

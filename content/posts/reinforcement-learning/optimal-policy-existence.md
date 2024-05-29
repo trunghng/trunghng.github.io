@@ -12,7 +12,7 @@ math: true
 ### Norms
 **Definition**  
 Given a vector space $\mathcal{V}\subseteq\mathbb{R}^d$, a function $f:\mathcal{V}\to\mathbb{R}^+\_0$ is a **norm** if and only if
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		If $f(v)=0$ for some $v\in\mathcal{V}$, then $v=0$.
 	</li>
@@ -82,7 +82,7 @@ Let $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ be some mapping. The vector $v\in\ma
 
 **Theorem**<span id='banach-fixed-pts-theorem'></span> (*Banach's fixed-point*)[^4]      
 Let $\mathcal{V}$ be a Banach space and $\mathcal{T}:\mathcal{V}\to\mathcal{V}$ be a $\gamma$-contraction mapping. Then
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		$\mathcal{T}$ admits a <b>unique fixed-point</b> $v$.
 	</li>

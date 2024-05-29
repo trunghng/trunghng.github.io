@@ -51,7 +51,7 @@ P(X_n=j)=\sum_{i=1}^{M}P(X_0=i)P(X_n=j|X_0=i)=\sum_{i=1}^{M}t_iq_{ij}^{(n)},
 which implies that the marginal distribution of $X_n$ is given by $tQ^n$.
 
 ## Properties
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		State $i$ of a Markov chain is defined as <b>recurrent</b> or <b>transient</b> depending upon whether or not the Markov chain will eventually return to it. Starting with <b>recurrent</b> state $i$, the chain will return to it with the probability of $1$. Otherwise, it is <b>transient</b>.<br>
 		<b>Proposition</b>: Number of returns to <b>transient</b> state is distributed by $\text{Geom}(p)$, with $p>0$ is the probability of never returning to $i$.

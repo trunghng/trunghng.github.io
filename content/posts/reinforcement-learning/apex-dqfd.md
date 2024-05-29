@@ -47,7 +47,7 @@ In the original DQN paper, the authors clip the reward distribution to the inter
 \end{align}
 
 **Proposition 1**. *Let $Q^\*$ be the fixed-point of $\mathcal{T}$ and $Q:\mathcal{S}\times\mathcal{A}\mapsto\mathbb{R}$, then*
-<ul id='roman-list' style='font-style: italic'>
+<ul class='roman-list' style='font-style: italic'>
 	<li>
 		If $h(z)=\alpha z$ for $\alpha>0$, then $\mathcal{T}_h^k Q\xrightarrow[]{\hspace{0.1cm}k\to\infty\hspace{0.1cm}}h\circ Q^*=\alpha Q^*$.
 	</li>
@@ -57,7 +57,7 @@ In the original DQN paper, the authors clip the reward distribution to the inter
 </ul>
 
 <!-- **Proof**
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		When $h(z)=\alpha z$, we have that
 		\begin{align}

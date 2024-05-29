@@ -1,7 +1,7 @@
 ---
 title: "Read-through: Probabilistic Graphical Models - Representation"
 date: 2022-12-10T17:55:57+07:00
-tags: [machine-learning, probabilistic-graphical-model]
+tags: [machine-learning, probabilistic-graphical-model, graph-theory]
 math: true
 eqn-number: true
 hideSummary: true
@@ -25,7 +25,7 @@ If the graph contains directed edges only, we call it a **directed graph**, deno
 </figure>
 
 Following are some necessary notations:
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		If $X_i\rightarrow X_j\in\mathcal{E}$, we say that $X_i$ is the <b>parent</b> of $X_j$ while $X_j$ is the <b>child</b> of $X_i$.<br>
 		E.g. node $I$ is a child of nodes $C,E$ and $H$ while $D$ is a parent of $G$.
@@ -50,7 +50,7 @@ Following are some necessary notations:
 
 ### Subgraphs
 Consider the graph $\mathcal{K}=(\mathcal{X},\mathcal{E})$ and let $\mathbf{X}\subset\mathcal{X}$ be a subset of nodes in $\mathcal{K}$. Then:
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		The <b>induced subgraph</b> of $\mathcal{K}$, denoted $\mathcal{K}[\mathbf{X}]$ is defined as the graph $(\mathbf{X},\mathcal{E}')$ where
 		\begin{equation}
@@ -78,7 +78,7 @@ Consider the graph $\mathcal{K}=(\mathcal{X},\mathcal{E})$ and let $\mathbf{X}\s
 
 ### Paths, Trails
 Consider the graph $\mathcal{K}=(\mathcal{X},\mathcal{E})$, the basic notion of edges gives rise to following definitions:
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		$X_1,\ldots,X_k$ form a <b id='path'>path</b> in $\mathcal{K}$ if for every $i=1,\ldots,k-1$, we have that either $X_i\rightarrow X_{i+1}$ or $X_i-X_{i+1}$. A path is <b>directed</b> if there exists a directed edge $X_i\rightarrow X_{i+1}$.
 	</li>
@@ -104,7 +104,7 @@ Consider the graph $\mathcal{K}=(\mathcal{X},\mathcal{E})$, the basic notion of 
 </ul>
 
 ### Cycles, Loops
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		A <b>cycle</b> in $\mathcal{K}$ is a directed path $X_1,\ldots,X_k$ where $X_1=X_k$. $\mathcal{K}$ is <b>acyclic</b> if it contains no cycles.
 	</li>
@@ -114,7 +114,7 @@ Consider the graph $\mathcal{K}=(\mathcal{X},\mathcal{E})$, the basic notion of 
 	<li>
 		An acyclic graph containing both directed and undirected edges is known as a <b>partially directed acyclic graph</b> (or <b>PDAG</b>).<br>
 		Let $\mathcal{K}$ be a PDAG over $\mathcal{X}$ and let $\mathbf{K}_1,\ldots,\mathbf{K}_\ell$ be a disjoint partition of $\mathcal{X}$ such that:
-		<ul id='roman-list'>
+		<ul class='roman-list'>
 			<li>
 				the induced subgraph over $\mathbf{K}_i$ contains no directed edges;
 			</li>
@@ -146,7 +146,7 @@ A **Directed Graphical Model** (or **Bayesian network**) is a tuple $\mathcal{B}
 
 ### Bayesian Network Structure
 A **Bayesian network structure** (or **Bayesian network graph**, **BN graph**) is a DAG, denoted $\mathcal{G}=(\mathcal{X},\mathcal{E})$ with $\mathcal{X}=\\{X_1,\ldots,X_n\\}$ where
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		Each node $X_i\in\mathcal{X}$ represents a random variable.
 	</li>
@@ -187,7 +187,7 @@ This equation is known as the **chain rule for Bayesian networks**. Each individ
 **Theorem 1**: *Let $\mathcal{G}$ be a BN graph over a set of random variables $\mathcal{X}$ and let $P$ be a joint distribution over $\mathcal{X}$. Then $\mathcal{G}$ is an I-map for $P$ if and only if $P$ factorizes over $\mathcal{G}$*.
 
 **Proof**
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		I-map $\Rightarrow$ Factorization<br>
 		Without loss of generality, let $X_1,\ldots,X_n$ be a <a href='#topo-order'>topological ordering</a> of the variables in $\mathcal{X}$.<br>
@@ -237,7 +237,7 @@ This equation is known as the **chain rule for Bayesian networks**. Each individ
 
 #### D-separation
 Let $\mathcal{G}$ be a BN structure, $X_1\rightleftharpoons\ldots\rightleftharpoons X_n$ be a trail in $\mathcal{G}$ and let $\mathbf{Z}$ be a subset of observed variables. The trail $X_1\rightleftharpoons\ldots\rightleftharpoons X_n$ is **active** if
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		Whenever we have a <b>v-structure</b> $X_{i-1}\rightarrow X_i\leftarrow X_{i+1}$, $X_i$ or one of its descendants are in $\mathbf{Z}$;
 	</li>
@@ -252,7 +252,7 @@ Let $\mathcal{G}$ be a BN structure, $X_1\rightleftharpoons\ldots\rightleftharpo
 </figure>
 
 <span id='two-edge-trail'>Consider the trails forming from two edges as illustrated above</span>:
-<ul id='alpha-list'>
+<ul class='alpha-list'>
 	<li>
 		The trail $X\rightarrow Z\rightarrow Y$ is active $\Leftrightarrow$ $Z$ is not observed.
 	</li>
@@ -316,7 +316,7 @@ It is easily seen that not every v-structure is an immorality, which implies tha
 **Theorem 7** (skeleton + immoralities $\Leftrightarrow$ I-equivalence) *Let $\mathcal{G}_1$ and $\mathcal{G_2}$ be two graphs over $\mathcal{X}$. If $\mathcal{G}_1,\mathcal{G}_2$ both have the same skeleton and the same set of immoralities iff they are I-equivalent*.
 
 **Proof**
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		To prove the theorem, we first introduce the notion of <b>minimal active trail</b> and <b>triangle</b>.<br>
 		<b>Definition</b> (Minimal active trail) An active trail $X_1,\ldots,X_m$ is <b>minimal</b> if there is no other active trail from $X_1$ to $X_m$ that shortcuts some of the nodes, i.e. there is no active trail
@@ -326,7 +326,7 @@ It is easily seen that not every v-structure is an immorality, which implies tha
 		<b>Definition</b> (Triangle) Any three consecutive nodes in a trail $X_1,\ldots,X_m$ are called a <b>triangle</b> if their skeleton is fully connected, i.e. forms a 3-clique.<br><br>
 		Our attention now is to prove that the only possible triangle in minimal active trail is the one having form of $X_{i-1}\leftarrow X_i\rightarrow X_{i+1}$ and either $X_{i-1}\rightarrow X_{i+1}$ or $X_{i-1}\leftarrow X_{i+1}$.<br>
 		Consider a two-edge trail from $X_{i-1}$ to $X_{i+1}$ via $X_i$, which as being <a href='#two-edge-trail'>mentioned</a> above, has four possible forms
-		<ul id='alpha-list'>
+		<ul class='alpha-list'>
 			<li>
 				$X_{i-1}\rightarrow X_i\rightarrow X_{i+1}$<br>
 				It is easily seen that $X_i$ has to be not observed to make the trail active. If $X_{i-1}$ is connected to $X_{i+1}$ via $X_{i-1}\rightarrow X_{i+1}$, this gives rise to a shortcut. On the other hand, if they are connected by $X_{i-1}\leftarrow X_{i+1}$, the triangle now induces a cycle.
@@ -371,7 +371,7 @@ It is easily seen that not every v-structure is an immorality, which implies tha
 		(X\perp Y\vert Z)&\in\mathcal{I}(\mathcal{G}_1), \\ (X\perp Y\vert Z)&\not\in\mathcal{I}(\mathcal{G}_2),
 		\end{align}
 		which implies that there is an active trail through $X,Y$ and $Z$ in the graph $\mathcal{G}_2$. Let us consider the minimal one and continue by examining two cases that whether $Z$ is observed.
-		<ul id='alpha-list'>
+		<ul class='alpha-list'>
 			<li>
 				If $Z$ is observed, in $\mathcal{G}_1$, we have $X\rightarrow Z\rightarrow Y$, or $X\leftarrow Z\leftarrow Y$, or $X\leftarrow Z\rightarrow Y$, while we have $X\rightarrow Z\leftarrow Y$ in $\mathcal{G}_2$, which is a v-structure. To assure that both graphs have the same set of moralities, there exist an edge that directly connects $X$ and $Y$, or in other words, $X,Y,Z$ form a triangle. This contradicts to the claim we have proved in the previous part.
 			</li>
@@ -383,7 +383,7 @@ It is easily seen that not every v-structure is an immorality, which implies tha
 	<li>
 		Skeleton + Immoralities $\Leftarrow$ I-equivalence<br>
 		Consider two I-equivalent graphs $\mathcal{G}_1$ and $\mathcal{G}_2$.
-		<ul id='alpha-list'>
+		<ul class='alpha-list'>
 			<li>
 				First assuming that they do not have that same skeleton. This implies without loss of generality that there exists a trail in $\mathcal{G}_1$ that does not appear in $\mathcal{G}_2$, which induces a conditional independence in $\mathcal{G}_1$ but not in $\mathcal{G}_2$, contradicts to the fact that they two graphs are I-equivalent.
 			</li>
@@ -435,7 +435,7 @@ An **Undirected Graphical Model** (or **Markov Random Field**, or **Markov netwo
 P_\Phi(X_1,\ldots,X_n)=\frac{1}{Z}\tilde{P}\_\Phi(X_1,\ldots,X_n),
 \end{equation}
 where
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		Each node of $\mathcal{H}$ correspond to a variable $X_i$.
 	</li>
@@ -462,7 +462,7 @@ where
 
 #### Reduced Markov Networks
 Consider the task of conditioning a distribution on some assignment $\mathbf{u}$ to some subset of variables $\mathbf{U}$. This task corresponds to the process
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		<b>Step 1</b>. Eliminate all entries in the joint distribution that are inconsistent with the event $\mathbf{U}=\mathbf{u}$.
 	</li>
@@ -550,7 +550,7 @@ A set $\mathbf{U}$ is a **Markov blanket** of $X$ in a distribution $P$ if $X\no
 
 #### Markov Independencies Relationships
 **Theorem 10**: *Let $\mathcal{H}$ be a Markov network and $P$ be a positive distribution. The following three statement are then equivalent:*
-<ul id='roman-list' style='font-style: italic;'>
+<ul class='roman-list' style='font-style: italic;'>
 	<li>
 		$P\models\mathcal{I}_\ell(\mathcal{H})$.
 	</li>
@@ -563,7 +563,7 @@ A set $\mathbf{U}$ is a **Markov blanket** of $X$ in a distribution $P$ if $X\no
 </ul>
 
 **Proof**
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		(i) $\Rightarrow$ (ii)<br>
 		Consider an arbitrary node $X$ in $\mathcal{H}$. Let $Y\in\mathcal{X}$ such that $X-Y\notin\mathcal{H}$, then $Y\notin\text{MB}_\mathcal{H}(X)$, or in other words
@@ -651,7 +651,7 @@ A **factor graph** $\mathcal{F}$ is an undirected graph whose nodes are divided 
 
 #### Log-Linear Models
 A distribution $P$ is a **log-linear model** over a Markov network $\mathcal{H}$ if it is associated with
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		a set of features $\mathcal{F}=\{\phi_1(\mathbf{X}_1),\ldots,\phi_k(\mathbf{X}_k)\}$ where each $\mathbf{X}_i$ is a complete subgraph in $\mathcal{H}$,
 	</li>
@@ -690,7 +690,7 @@ To find the undirected graph serving as an I-map for a set of factors in a Bayes
 
 ##### Moralized Graph
 The **moral graph** $\mathcal{M}[\mathcal{G}]$ of a Bayesian network structure $\mathcal{G}$ over $\mathcal{X}$ is the undirected graph over $\mathcal{X}$ that consists of an undirected edge between $X$ and $Y$ if
-<ul id='alpha-list'>
+<ul class='alpha-list'>
 	<li>
 		there is a directed edge between them (in either direction), or
 	</li>
@@ -714,7 +714,7 @@ We begin by introducing the notion of **Markov blanket** in a Bayesian network $
 **Definition** (Markov blanket in BN) The **Markov blanket** of a node $X\in\mathcal{X}$ in a Bayesian network $\mathcal{G}$, denoted $\text{MB}_\mathcal{G}(X)$, is the set of $X$'s parents, $X$'s children, and other parents of $X$'s children.
 
 Let $X\in\mathcal{X}$ be a node of $\mathcal{G}$, we have that $\text{MB}\_\mathcal{G}(X)$ d-separates $X$ from all other variables in $\mathcal{G}$; and that no subset of $\text{MB}\_\mathcal{G}(X)$ has that property. Specifically:
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		Let $\mathbf{W}=\mathcal{X}\backslash\big(\{X\}\cup\text{MB}_\mathcal{G}(X)\big)$, and let $Z\in\text{MB}_\mathcal{G}(X)$ be some node in the Markov blanket of $X$. Then for each $Y\in\mathbf{W}$ that connected to $X$ via a trail, we have three possible cases:
 		\begin{equation}
@@ -730,7 +730,7 @@ Let $X\in\mathcal{X}$ be a node of $\mathcal{G}$, we have that $\text{MB}\_\math
 Thus, in other words, we can conclude that the Markov blanket of $X$, $\text{MB}_\mathcal{G}(X)$, is the smallest set required to render $X$ independent of all other nodes in $\mathcal{G}$. For each $X\in\mathcal{X}$, by viewing its Markov blanket in $\mathcal{G}$ as the set of its neighbors in an undirected graph $\mathcal{H}$ (which is the definition of Markov blanket in a Markov network), we then have that $\mathcal{H}$ is a minimal I-map for $\mathcal{G}$. Additionally, by how it is constructed, $\mathcal{H}$ is also a moral graph of $\mathcal{G}$, and thus $\mathcal{I}(\mathcal{H})\subset\mathcal{I}(\mathcal{G})$.
 
 **Remark**:
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		The addition of the moralizing edges to the Markov network $\mathcal{H}$ leads to the loss of independence information implied by $\mathcal{G}$.
 	</li>
@@ -850,7 +850,7 @@ Given this definition, let us examine some examples.
 
 #### Tree-CPDs
 A **tree-CPD** representing a CPD for variable $X$ is a rooted tree, where:
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		each leaf node is labeled with a distribution $P(X)$;
 	</li>
@@ -895,7 +895,7 @@ It is necessary that each conditional distribution $P(X\vert\text{Pa}_X)$ is spe
 
 ##### Rule-based CPD
 A **rule-based CPD** $P(X\vert\text{Pa}_X)$ is a set of rules $\mathcal{R}$ such that
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		For each $\rho\in\mathcal{R}$, we have that
 		\begin{equation}
@@ -1038,7 +1038,7 @@ P(\mathcal{X}^{(t+1)}=\xi'\vert\mathcal{X}^{(t)}=\xi)=P(\mathcal{X}'=\xi'\vert\m
 A **2-time-slice Bayesian network** (**2-TBN**) for a process over $\mathcal{X}$ is a conditional Bayesian network over $\mathcal{X}'$ given $\mathcal{X}_I$, where $\mathcal{X}_I\subset\mathcal{X}$ is a set of interface variables.
 
 Hence, as mentioned [above](#cbn), we have
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		Only the variables $\mathcal{X}'$ are associated with CPDs (i.e. having parents).
 	</li>
@@ -1065,7 +1065,7 @@ In a 2-TBN, edges that go between time slices are called **inter-time-slice**, w
 Based on the [stationary property](#stationary), a 2-TBN defines the probability distribution $P(\mathcal{X}^{(t+1)}\vert\mathcal{X}^{(t)})$ for any $t$. Given a distribution over the initial states, we can unroll the network over sequences of any length, to define a Bayesian network that induces a distribution over trajectories of that length.
 
 A **dynamic Bayesian network** (or **DBN**) is a tuple $(\mathcal{B}_0,\mathcal{B}\_\rightarrow)$, where
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		$\mathcal{B}_0$ is a Bayesian network over $\mathcal{X}^{(0)}$ representing the initial distribution over states;
 	</li>
@@ -1075,7 +1075,7 @@ A **dynamic Bayesian network** (or **DBN**) is a tuple $(\mathcal{B}_0,\mathcal{
 </ul>
 
 For any time span $T\geq0$, the distribution over $\mathcal{X}^{(0:T)}$ is defined as an **unrolled Bayesian network**, where, for any $i=1,\ldots,n$:
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		The structure and CPDs of $X_i^{(0)}$ are the same as those for $X_i$ in $\mathcal{B}_0$.
 	</li>
@@ -1096,7 +1096,7 @@ In DBNs, we can partition the variables $\mathcal{X}$ into disjoint subsets $\ma
 
 #### State-Observation Models
 A **state-observation model** utilizes two independent assumptions:
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		Markov assumption:
 		\begin{equation}
@@ -1117,7 +1117,7 @@ Therefore, we can view our probabilistic model containing two components: the **
 A **Hidden Markov model**, or **HMM**, is the simplest example of a state-observation model, and also a special case of a simple DBN, which has a sparse transition model $P(S'\vert S)$. Thus, HMMs are often represented using a different graphical notation which visualizes this sparse transition model.
 
 Specifically, in the is representation, the transition model is encoded using a directed graph, where
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		Nodes represent the different states of the system, i.e. the values in $\text{Val}(S)$.
 	</li>
@@ -1191,7 +1191,7 @@ A **template factor** $\xi$ is a function defined over a tuple of template attri
 
 #### Plate Models
 A **plate model** $\mathcal{M}_\text{Plate}$ defines for each template attribute $A\in\aleph$ with argument signature $U_1,\ldots,U_k$:
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		a set of <b>template parents</b>
 		\begin{equation}
@@ -1212,10 +1212,10 @@ A **plate model** $\mathcal{M}_\text{Plate}$ defines for each template attribute
 A plate model $\mathcal{M}\_\text{Plate}$ and object skeleton $\kappa$ define a **ground Bayesian network** $\mathcal{B}\_\kappa^{\mathcal{M}\_\text{Plate}}$ as follows. Let $A(U_1,\ldots,U_k)$ be any template attribute in $\aleph$. Then, for any $\gamma=(U_1\mapsto u_1,\ldots,U_k\mapsto u_k)\in\Gamma_\kappa[A]$, we have a variable $A(\gamma)$ in the ground network, with parents $B(\gamma)$ for all $B\in\text{Pa}_A$, and the instantiated CPD $P(A(\gamma)\vert\text{Pa}_A(\gamma))$.
 
 **Example 12**: Consider the [Figure 15(c)](#fig15), without loss of generality, we have that:
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		The plate model $\mathcal{M}_\text{Plate}$ is defined over a set $\aleph=\{\textit{Grade},\textit{Difficulty},\textit{Intelligence}\}$ of template attributes, for each of which:
-		<ul id='roman-list'>
+		<ul class='roman-list'>
 			<li>
 				$\alpha(\textit{Grade})=(S,C)$ and $\text{Pa}_\textit{Grade}=\{\textit{Difficulty}(C),\textit{Intelligence}(S)\}$;
 			</li>
@@ -1238,7 +1238,7 @@ A plate model $\mathcal{M}\_\text{Plate}$ and object skeleton $\kappa$ define a 
 
 #### Probabilistic Relational Models
 For a template attribute $A$, we define a **contingent dependency model** as a tuple containing:
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		A <b>parent argument signature</b> $\alpha(\text{Pa}_A)$, which is a tuple of typed logical variables $U_i$ such that $\alpha(\text{Pa}_A)\supset\alpha(A)$.
 	</li>
@@ -1262,7 +1262,7 @@ A PRM $\mathcal{M}\_\text{PRM}$ and object skeleton $\kappa$ define a **ground B
 
 ### Undirected Representation
 A **relational Markov network** $\mathcal{M}\_\text{RMN}$ is defined in terms of a set $\Lambda$ of template features, where each $\lambda\in\Lambda$ contains:
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		a real-valued template feature $f_\lambda$ whose arguments are $\aleph(\lambda)=\{A_1(\mathbf{U}_1),\ldots,A_l(\mathbf{U}_l)\}$;
 	</li>
@@ -1273,7 +1273,7 @@ A **relational Markov network** $\mathcal{M}\_\text{RMN}$ is defined in terms of
 
 #### Ground Gibbs Distribution
 Given an RMN $\mathcal{M}\_\text{RMN}$, an object skeleton $\kappa$, we can define a **ground Gibbs distribution** $P\_\kappa^{\mathcal{M}\_\text{RMN}}$ as:
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		The variables in the network are $\mathcal{X}_\kappa[\aleph]$ (as defined <a href='#ground-rv'>above</a>);
 	</li>

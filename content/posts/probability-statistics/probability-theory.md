@@ -17,7 +17,7 @@ A **probability space** is a tuple $(\Omega,\mathcal{F},P)$ where
 - $P:\mathcal{F}\to[0,1]$ is a function that assigns probability to events.
 
 We say $\mathcal{F}$ is a **$\sigma$-field** (or **$\sigma$-algebra**) on $\Omega$ if it is a collection of subsets of $\Omega$ that obeys
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		<b>Empty set</b>. $\emptyset\in\mathcal{F}$.
 	</li>
@@ -32,7 +32,7 @@ We say $\mathcal{F}$ is a **$\sigma$-field** (or **$\sigma$-algebra**) on $\Omeg
 Since $\bigcap_i A_i=\left(\bigcup_i A_i^c\right)^c$, it then follows that a $\sigma$-field is closed under countable intersections.
 
 The pair $(\Omega,\mathcal{F})$ is a **measurable space**, i.e. a space on which we can put a measure. A **measure** $\mu:\mathcal{F}\to\mathbb{R}$ is a nonnegative countably additive set function which satisfies
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		$\mu(A)\geq\mu(\emptyset)=0,\forall A\in\mathcal{F}$
 	</li>
@@ -45,7 +45,7 @@ If $\mu(\Omega)=1$, $\mu$ is referred as a **probability measure**.
 
 **Theorem 1**  
 *Let $\mu$ be a measure on $(\Omega,\mathcal{F})$. We have that all sets in $\mathcal{F}$ has the following properties*
-<ul id='roman-list' style='font-style: italic;'>
+<ul class='roman-list' style='font-style: italic;'>
 	<li>
 		<b>Monotonicity</b>. If $A\subset B$ then $\mu(A)\leq\mu(B)$.
 	</li>
@@ -61,7 +61,7 @@ If $\mu(\Omega)=1$, $\mu$ is referred as a **probability measure**.
 </ul>
 
 **Proof**
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		We have that
 		\begin{equation}
@@ -108,7 +108,7 @@ If $\mu(\Omega)=1$, $\mu$ is referred as a **probability measure**.
 Let $\mathbb{R}^d$ be the set of vectors $(x_1,\ldots,x_d)$ of real numbers and $\mathcal{R}^d$ be the **Borel sets**, i.e. the smallest $\sigma$-field containing the open sets. For example, the Borel sets of $[a,b]$ are the smallest $\sigma$-algebra which contains all the subintervals of $[a,b]$.
 
 Measures on $(\mathbb{R},\mathcal{R})$ are defined by giving a **Stieltjes measure function** $F$ with the following properties
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		$F$ is non-decreasing.
 	</li>
@@ -126,7 +126,7 @@ When $F(x)=x$, $\mu$ is referred as the **Lebesgue measure**.
 
 **Definition** (**semialgebra**)  
 A collection $\mathcal{S}$ of sets is said to be a **semialgebra** if
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		It is closed under intersection, i.e. $S,T\in\mathcal{S}$ implies $S\cap T\in\mathcal{S}$.
 	</li>

@@ -13,7 +13,7 @@ The goal of node embedding learning methods is to encode nodes as low-dimensiona
 
 ### Encoder-Decoder framework
 In this framework, the graph representation learning problem is divided into steps
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		An <b>encoder</b> maps each node in the original graph to a low-dimensional vector in the embedding space.
 	</li>

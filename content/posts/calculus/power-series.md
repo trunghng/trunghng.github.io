@@ -34,10 +34,10 @@ which leads to the result that geometric series $\sum r^n$ converges (with the s
 Moreover, if $\sum a_n{x_1}^n$ diverges, then $\sum\vert a_n{x_1}^n\vert$ also diverges. By the [comparison test]({{< ref "infinite-series-of-constants#comparison-test" >}}), for any $x$ such that $\vert x\vert>\vert x_1\vert$, we also have that $\sum\vert a_nx^n\vert$ diverges. This leads to the divergence of $\sum a_nx^n$, because if the series $\sum a_nx^n$ converges, so does $\sum\vert a_nx^n\vert$, which contradicts to our result.  
 
 These are some main facts about the convergence behavior of an arbitrary power series and some properties of its:
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		Given a power series $\sum a_nx^n$, precisely one of the following is true:
-		<ul id='number-list'>
+		<ul class='number-list'>
 			<li>
 				The series converges only for $x=0$.
 			</li>
@@ -111,7 +111,7 @@ f(x)=\sum_{n=0}^{\infty}a_nx^n=a_0+a_1x+a_2x^2+\ldots+a_nx^n+\ldots\tag{2}\label
 This relation between the series and the function is also expressed by saying that $\sum a_nx^n$ is a **power series expansion** of $f(x)$.  
 
 Following are some crucial facts about that relation.
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		<span id='fact1'></span>The function $f(x)$ defined by \eqref{2} is continuous on the open interval $(-R,R)$.
 	</li>

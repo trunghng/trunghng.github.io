@@ -77,7 +77,7 @@ Two functions $f,g:\mathbb{R}^d\to Z$ into an arbitrary range $Z$ are referred t
 The **support** of a function $f:\mathbb{R}^d\to\mathbb{C}$ or $f:\mathbb{R}^d\to[0,+\infty]$ is defined to be the set $\\{x\in\mathbb{R}^d:f(x)\neq 0\\}$ where $f$ is non-zero.
 
 **Remark 2**
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		If $P(x)$ holds for almost every $x$, and $P(x)$ implies $Q(x)$, then $Q(x)$ holds for almost every $x$.
 	</li>
@@ -88,7 +88,7 @@ The **support** of a function $f:\mathbb{R}^d\to\mathbb{C}$ or $f:\mathbb{R}^d\t
 
 ### Basic properties of the simple unsigned integral{#bsc-prop-simp-unsgn-int}
 Let $f,g:\mathbb{R}^d\to[0,+\infty]$ be simple unsigned functions.
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		<b>Unsigned linearity</b>. We have
 		\begin{equation}
@@ -132,7 +132,7 @@ Since $f,g:\mathbb{R}^d\to[0,+\infty]$ are simple unsigned functions, we can ass
 f&=c_1 1\_{E_1}+\ldots+c_k 1\_{E_k}, \\\\ g&=c_1' 1\_{E_1'}+\ldots+c_{k'}' 1\_{E_{k'}'},
 \end{align}
 where $c_1,\ldots,c_k,c_1',\ldots,c_{k'}'\in[0,+\infty]$.
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		<b>Unsigned linearity</b><br>
 		We have
@@ -265,7 +265,7 @@ and for complex-valued $f$ by the formula
 
 ### Basic properties of the complex-valued simple integral{#bsc-prop-cmplx-simp-int}
 Let $f,g:\mathbb{R}^d\to\mathbb{C}$ be absolutely integrable simple functions
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		<b>*-linearity</b>. We have
 		\begin{equation}
@@ -296,7 +296,7 @@ Let $f,g:\mathbb{R}^d\to\mathbb{C}$ be absolutely integrable simple functions
 
 **Proof**  
 We first consider the case of real-valued $f$ and $g$.
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		<b>*-linearity</b><br>
 		Using the identity
@@ -312,7 +312,7 @@ We first consider the case of real-valued $f$ and $g$.
 	</li>
 </ul>
 For complex-valued $f$ and $g$ we have:
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		<b>*-linearity</b><br>
 		By definition of complex-valued simple integral and by linearity of simple unsigned integral we have
@@ -345,7 +345,7 @@ An unsigned function $f:\mathbb{R}^d\to[0,+\infty]$ is **unsigned Lebesgue measu
 ### Equivalent notions of measurability{#equiv-ntn-msrb}
 **Lemma 3**  
 Let $f:\mathbb{R}\to[0,+\infty]$ be an unsigned function. The following are then equivalent:
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		$f$ is unsigned Lebesgue measurable.
 	</li>
@@ -384,7 +384,7 @@ Let $f:\mathbb{R}\to[0,+\infty]$ be an unsigned function. The following are then
 **Proof**
 
 ### Examples of measurable function{#eg-msr-func}
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		Every continuous function $f:\mathbb{R}^d\to[0,+\infty]$ is measurable.
 	</li>
@@ -416,7 +416,7 @@ An almost everywhere defined complex-valued function $f:\mathbb{R}^d\to\mathbb{C
 
 ### Equivalent notions of complex measurability{#equiv-ntn-cmplx-msrb}
 Let $f:\mathbb{R}^d\to\mathbb{C}$ be an almost everywhere defined complex-valued function. The following are then equivalent:
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		$f$ is measurable.
 	</li>

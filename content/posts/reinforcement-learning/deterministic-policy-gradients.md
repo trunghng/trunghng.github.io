@@ -18,7 +18,7 @@ Consider a (infinite-horizon) Markov Decision Process (MDP), defined as a tuple 
 - $\gamma\in(0,1)$ is the **discount factor**.
 
 Within an MDP, a policy parameterized by a vector $\theta\in\mathbb{R}^n$ can be given as
-<ul id='number-listt'>
+<ul class='number-listt'>
 	<li>
 		<b>Stochastic policy</b>. $\pi_\theta:\mathcal{S}\times\mathcal{A}\to[0,1]$, or
 	</li>
@@ -36,7 +36,7 @@ Recall that in the stochastic case, $\pi_\theta$, the [**Policy Gradient Theorem
 \nabla_\theta J(\pi_\theta)&=\int_\mathcal{S}\rho_\pi(s)\int_\mathcal{A}\nabla_\theta\pi_\theta(a\vert s)Q_\pi(s,a)\hspace{0.1cm}da\hspace{0.1cm}ds\label{eq:spgt.1} \\\\ &=\mathbb{E}\_{\rho_\pi,\pi_\theta}\Big[\nabla_\theta\log\pi_\theta(a\vert s)Q_\pi(s,a)\Big]\label{eq:spgt.2}
 \end{align}
 where
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		$J(\pi_\theta)$ is the <b>performance objective function</b>, which we are trying to maximize. It is defined as the expected cumulative discounted reward from the start state
 		\begin{align}
@@ -70,7 +70,7 @@ The definition of $J(\pi_\theta)$ given in \eqref{eq:spgt.3} suggests us begin b
 \hspace{-1cm}\nabla_\theta V_\pi(s)&=\nabla_\theta\int_\mathcal{A}\pi_\theta(a\vert s)Q_\pi(s,a)da \\\\ &=\underbrace{\int_\mathcal{A}\nabla_\theta\pi_\theta(a\vert s)Q_\pi(s,a)da}\_{\psi(s)}+\int_\mathcal{A}\pi_\theta(a\vert s)\nabla_\theta Q_\pi(s,a)da \\\\ &=\psi(s)+\int_\mathcal{A}\pi_\theta(a\vert s)\nabla_\theta\left(r(s,a)+\int_\mathcal{S}\gamma p(s'\vert s,a)V_\pi(s')d s'\right)da \\\\ &=\psi(s)+\int_\mathcal{A}\pi_\theta(a\vert s)\int_\mathcal{S}\gamma p(s'\vert s,a)\nabla_\theta V_\pi(s')d s' da \\\\ &\overset{\text{(i)}}{=}\psi(s)+\int_\mathcal{S}\left(\int_\mathcal{A}\gamma\pi_\theta(a\vert s)p(s'\vert s,a)da\right)\nabla_\theta V_\pi(s')d s' \\\\ &=\psi(s)+\int_\mathcal{S}\gamma p(s\to s',1,\pi_\theta)\nabla_\theta V_\pi(s')d s'\label{eq:spgt.9} \\\\ &=\psi(s)+\int_\mathcal{S}\gamma p(s\to s',1,\pi_\theta)\left(\psi(s')+\int_\mathcal{S}\gamma p(s'\to s'',1,\pi_\theta)\nabla_\theta V_\pi(s'')d s''\right)d s' \\\\ &=\psi(s)+\int_\mathcal{S}\gamma p(s\to s',1,\pi_\theta)\psi(s')d s'\nonumber \\\\ &\hspace{2cm}+\int_\mathcal{S}\int_\mathcal{S}\gamma^2 p(s\to s',1,\pi_\theta)p(s'\to s'',1,\pi_\theta)\nabla_\theta V_\pi(s'')d s''\hspace{0.1cm}d s' \\\\ &\overset{\text{(ii)}}{=}\psi(s)+\int_\mathcal{S}\gamma p(s\to s',1,\pi_\theta)\psi(s')d s'+\int_\mathcal{S}\gamma^2 p(s\to s'',2,\pi_\theta)\nabla_\theta V_\pi(s'')d s'' \\\\ &=\psi(s)+\int_\mathcal{S}\gamma p(s\to s',1,\pi_\theta)\psi(s')d s'+\int_\mathcal{S}\gamma^2 p(s\to s'',2,\pi_\theta)\psi(s'')d s''\nonumber \\\\ &\hspace{2cm}+\int_\mathcal{S}\gamma^3 p(s\to s''',3,\pi_\theta)\nabla_\theta V_\pi(s''')d s''' \\\\ &\hspace{0.3cm}\vdots\nonumber \\\\ &=\int_\mathcal{S}\sum_{k=0}^{\infty}\gamma^k p(s\to\tilde{s},k,\pi_\theta)\psi(\tilde{s})d\tilde{s} \\\\ &=\int_\mathcal{S}\sum_{k=0}^{\infty}\gamma^k p(s\to\tilde{s},k,\pi_\theta)\int_\mathcal{A}\nabla_\theta\pi_\theta(a\vert\tilde{s})Q_\pi(\tilde{s},a)da\hspace{0.1cm}d\tilde{s}\label{eq:spgt.5}
 \end{align}
 where
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		In this step, we have used the <b>Fubini's theorem</b> to exchange the order of integrals.
 	</li>
@@ -140,7 +140,7 @@ It can be seen that the stochastic policy gradient theorem specified in both dis
 
 ## (Stochastic) Actor-Critic{#stochastic-ac}
 Based on the policy gradient theorem, a (stochastic) **actor-critic algorithm** consists of two elements:
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		<b>Actor</b> learns a parameter $\theta$ of the stochastic policy $\pi_\theta$ by iteratively update $\theta$ by SGA using the policy gradient in \eqref{eq:spgt.2}.
 	</li>
@@ -151,7 +151,7 @@ Based on the policy gradient theorem, a (stochastic) **actor-critic algorithm** 
 
 ### Policy Gradient with Function Approximation{#pg-func-approx}
 Let $Q_w(s,a)$ be a function approximation parameterized by $w\in\mathbb{R}^n$ of the state-action value function $Q_\pi(s,a)$ for a stochastic policy $\pi_\theta$ parameterized by $\theta\in\mathbb{R}^n$. Then if $Q_w(s,a)$ is **compatible** with the policy parameterization in the sense that
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		<span id='prop-i'>$Q_w(s,a)=\nabla_\theta\log\pi_\theta(a\vert s)^\text{T}w$.</span>
 	</li>
@@ -256,7 +256,7 @@ where the greedy policy, $\underset{a}{\text{argmax}}Q_w(s,a)$, in the usual Q-l
 From what we have mentioned in the stochastic case, we can also define an appropriate form of function approximation $Q_w$ which preserves the direction of true gradient.
 
 In particular, A $w$-parameterized $Q_w(s,a)$ is referred as a **compatible function approximator** of the state-action value function $Q_\mu$ for deterministic policy $\mu_\theta$ in the sense that
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		<span id='prop-i-det'>$\nabla_a Q_w(s,a)\vert_{a=\mu_\theta(s)}=\nabla_\theta\mu_\theta(s)^\text{T}w$.</span>
 	</li>

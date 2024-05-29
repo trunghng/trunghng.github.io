@@ -10,7 +10,7 @@ hideSummary: true
 
 ## AlphaGo
 The training pipeline used in **AlphaGo** can be divided into following stages:
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		Using a dataset of human experts positions, a <b>supervised learning (SL) policy network</b> $p_\sigma$ and, a <b>rollout policy</b> $p_\pi$, which can sample actions rapidly, are trained by classification to predict player moves.
 	</li>
@@ -68,7 +68,7 @@ Each node $s$ in the search tree contains edges $(s,a)$ for all legal action $a\
 \\{P(s,a),N_v(s,a),N_r(s,a),W_v(s,a),W_r(s,a),Q(s,a)\\}
 \end{equation}
 where $P(s,a)$ is the prior probability, $W_v(s,a),W_r(s,a)$ are Monte Carlo estimates of total action value, accumulated over $N_v(s,a)$ leaf evaluations and $N_r(s,a)$ rollout rewards, respectively, and $Q(s,a)$ is the combined mean action value for that edge. The algorithm proceeds by iterating over four phases.
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		<b>Selection</b>. The stage begin at the root node $s_0$ of the tree and finishes when the simulation reaches a leaf node $s_L$ at time-step $L$. At each of these time-steps $t< L$, an action $a_t$ is that maximizes the UCB score is selected
 		\begin{align}
@@ -117,7 +117,7 @@ where $P(s,a)$ is the prior probability, $W_v(s,a),W_r(s,a)$ are Monte Carlo est
 - It uses a simpler tree search to evaluate positions and sample moves, without doing any MC rollouts.
 
 The self-play training pipeline of AlphaGo Zero contains three main components, all executed asynchronously in parallel.
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		Neural network parameters $\theta_i$ are continually optimized from recent self-play data.
 	</li>
@@ -135,7 +135,7 @@ AlphaGo Zero utilizes a neural network $f_\theta$ parameterized by $\theta$. Thi
 (\mathbf{p},v)=f_\theta(s)
 \end{equation}
 The training of $f_\theta$ proceeds as
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		The network is initialized to random weights $\theta_0$.
 	</li>
@@ -190,7 +190,7 @@ Each node $s$ in the search tree contains edges $(s,a)$ for all legal action $a\
 \\{N(s,a),W(s,a),Q(s,a),P(s,a)\\}
 \end{equation}
 where $N(s,a)$ is the visit count, $W(s,a)$ is the total action value, $Q(s,a)$ is the mean action value and $P(s,a)$ is the prior probability of selecting the edge. The algorithm iterates over three stages and then select an action to play.
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		<b>Select</b>. This stage is identical to the one in AlphaGo. The selection phase begins at the root node $s_0$ and finishes when the simulation reaches a leaf node $s_L$ at time-step $L$. At each of these time-step, $t< L$, an action $a_t$ that maximizes the UCB is selected
 		\begin{align}

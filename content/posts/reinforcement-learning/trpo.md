@@ -137,7 +137,7 @@ which suggests that a sufficiently small step $\pi_{\theta_0}\to\tilde{\pi}$ tha
 To measure the improvement on updating $\pi_\text{old}\to\pi_\text{new}$, we choose the total variance distance metric, as defined above with an observation that each policy $\pi:\mathcal{S}\times\mathcal{A}\to[0,1]$ can be viewed as a distribution function defined on $\mathcal{S}\times\mathcal{A}$. Thus, those results and definitions mentioned above for probability measures $\mu$ and $\nu$ defined on $\Omega$ can also be applied to policies $\pi$ and $\tilde{\pi}$ specified on $\mathcal{S}\times\mathcal{A}$.
 
 In addition, we need to define some notations:
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		Let
 		\begin{equation}
@@ -266,7 +266,7 @@ Consider Taylor expansion of the objective function $\mathcal{L}\_{\theta_\text{
 \mathcal{L}\_{\theta_\text{old}}(\theta)&\approx\mathbb{E}\_{s\sim\rho\_{\theta_\text{old}},a\sim\pi\_{\theta_\text{old}}}\big[A\_{\theta_\text{old}}(s,a)\big]+(\theta-\theta_\text{old})^\text{T}\nabla_\theta\mathcal{L}\_{\theta_\text{old}}(\theta)\big\vert_{\theta=\theta_\text{old}} \\\\ &\overset{\text{(i)}}{=}(\theta-\theta_\text{old})^\text{T}\nabla_\theta\mathcal{L}\_{\theta_\text{old}}(\theta)\big\vert_{\theta=\theta_\text{old}} \\\\ &\overset{\text{(ii)}}{=}(\theta-\theta_\text{old})^\text{T}\left[\frac{1}{1-\gamma}\nabla_\theta L\_{\theta_\text{old}}(\theta)\big\vert_{\theta=\theta_\text{old}}\right] \\\\ &\overset{\text{(iii)}}{=}\frac{1}{1-\gamma}(\theta-\theta_\text{old})^\text{T}\nabla_\theta\eta(\pi\_{\theta_\text{old}})\big\vert_{\theta=\theta_\text{old}} \\\\ &\underset{\max_\theta}{\propto}(\theta-\theta_\text{old})^\text{T}\nabla_\theta\eta(\pi\_{\theta_\text{old}})\big\vert_{\theta=\theta_\text{old}},\label{eq:st.1}
 \end{align}
 where
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		This step is due to definition of advantage function for a policy $\pi$, we have that $\mathbb{E}_{a\sim\pi}\big[A_\pi(s,a)\big]=0$, which implies that
 		\begin{align}
@@ -286,7 +286,7 @@ To get an approximation of the constraint, we fist consider the Taylor expansion
 &\hspace{-0.7cm}D_\text{KL}\big(\pi_{\theta_\text{old}}(\cdot\vert s)\Vert\pi_\theta(\cdot\vert s)\big)\nonumber \\\\ &=\mathbb{E}\_{\pi_{\theta_\text{old}}}\Big[\log\pi_{\theta_\text{old}}(\cdot\vert s)-\log\pi_\theta(\cdot\vert s)\Big] \\\\ &\approx\mathbb{E}\_{\pi\_{\theta_\text{old}}}\Bigg[\log\pi_{\theta_\text{old}}(\cdot\vert s)-\Big(\log\pi_{\theta_\text{old}}(\cdot\vert s)+(\theta-\theta_\text{old})^\text{T}\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}\nonumber \\\\ &\hspace{2cm}+\left.\frac{1}{2}(\theta_\text{old}-\theta)^\text{T}\nabla_\theta^2\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}(\theta_\text{old}-\theta)\right)\Bigg] \\\\ &\overset{\text{(i)}}{=}-\mathbb{E}\_{\pi\_{\theta_\text{old}}}\left[\frac{1}{2}(\theta-\theta_\text{old})^\text{T}\nabla_\theta^2\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}(\theta-\theta_\text{old})\right] \\\\ &\overset{\text{(ii)}}{=}\frac{1}{2}(\theta-\theta_\text{old})^\text{T}\mathbb{E}\_{\pi_{\theta_\text{old}}}\Big[\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}\nabla_\theta\log\pi_\theta(\cdot\vert s)\big\vert_{\theta=\theta_\text{old}}^\text{T}\Big]\left(\theta-\theta_\text{old}\right),\label{eq:st.2}
 \end{align}
 where
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		By chain rule, we have
 		\begin{align}
@@ -374,7 +374,7 @@ The objective and constraint functions of \eqref{eq:ppo.2} can be approximated u
 
 ### Single path{#sgl}
 This sampling scheme has the following procedure
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		Sample $s_0\sim\rho_0$ to get a set of $m$ start states $\mathcal{S}_0=\{s_0^{(1)},\ldots,s_0^{(m)}\}$.
 	</li>
@@ -388,7 +388,7 @@ This sampling scheme has the following procedure
 
 ### Vine
 This sampling approach follows the following process
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		Sample $s_0\sim\rho_0$ and simulate the policy $\pi_{\theta_i}$ to generate $m$ trajectories.
 	</li>
@@ -403,7 +403,7 @@ This sampling approach follows the following process
 	</li>
 	<li>
 		Given the estimated action-value function, $\hat{Q}_{\theta_i}(s_n,a_{n,k})$, for each state-action pair $(s_n,a_{n,k})$, compute the estimator, $L_n(\theta)$, of $L_{\theta_\text{old}}$ at state $s_n$ as:
-		<ul id='roman-list'>
+		<ul class='roman-list'>
 			<li>
 				For small, finite action spaces, in which generating a rollout for every possible action from a given state is possible, thus
 				\begin{equation}

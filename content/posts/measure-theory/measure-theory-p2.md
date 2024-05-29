@@ -31,14 +31,14 @@ as the **Lebesgue measure** of $E$.
 
 ### Properties of Lebesgue outer measure{#lebesgue-outer-measure-properties}
 **Remark 1**. (**The outer measure axioms**)
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li><b>Empty set</b>. $m^*(\emptyset)=0$.</li>
 	<li><b>Monotonicity</b>. If $E\subset F\subset\mathbb{R}^d$, then $m^*(E)\leq m^*(F)$.</li>
 	<li><b>Countable subadditivity</b>. If $E_1,E_2,\ldots\subset\mathbb{R}^d$ is a countable sequence of sets, then $m^*\left(\bigcup_{n=1}^{\infty}E_n\right)\leq\sum_{n=1}^{\infty}m^*(E_n)$.</li>
 </ul>
 
 **Proof**  
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>This follows from the definition of Lebesgue outer measure.</li>
 	<li>
 		Since $E\subset F\subset\mathbb{R}^d$, then any set containing $F$ also includes $E$, but not every set having $E$ contains $F$. That means
@@ -366,7 +366,7 @@ And since $\varepsilon>0$ was arbitrary, the claim follows.
 
 #### Existence of Lebesgue measurable sets{#exist-lebesgue-msr-sets}
 **Lemma 13**.   
-<ul id='roman-list' style='font-style: italic;'>
+<ul class='roman-list' style='font-style: italic;'>
 	<li>Every open set is Lebesgue measurable.</li>
 	<li>Every closed set is Lebesgue measurable.</li>
 	<li>Every set of Lebesgue outer measure zero is measurable. (Such sets are called <b>null sets</b>.)</li>
@@ -377,7 +377,7 @@ And since $\varepsilon>0$ was arbitrary, the claim follows.
 </ul>
 
 **Proof**
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>This follows from definition.</li>
 	<li>
 		We have that every closed set is a the countable union of closed and bounded set, so by (vi), if suffices to verify the claim when $E$ is bounded and closed.<br>
@@ -449,7 +449,7 @@ And since $\varepsilon>0$ was arbitrary, the claim follows.
 
 #### Criteria for measurability{#crt-msrb}
 Let $E\subset\mathbb{R}^d$, then the following are equivalent:
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>$E$ is Lebesgue measurable.</li>
 	<li><b>Outer approximation by open</b>. For every $\varepsilon>0$, $E$ can be contained in an open set $U$ with $m^*(U\backslash E)\leq\varepsilon$.</li>
 	<li><b>Almost open</b>. For every $\varepsilon>0$, we can find an open set $U$ such that $m^*(U\Delta E)\leq\varepsilon$. ($E$ differs from an open set by a set of outer measure at most $\varepsilon$.)</li>
@@ -459,7 +459,7 @@ Let $E\subset\mathbb{R}^d$, then the following are equivalent:
 </ul>
 
 **Proof**
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		(i) $\Rightarrow$ (ii)<br>
 		This follows from definition
@@ -543,7 +543,7 @@ The [**Cantor set**]({{< ref "measure-theory-p1#cantor-set" >}}) is compact, unc
 
 #### The measure axioms{#msr-axiom}
 **Lemma 16**  
-<ul id='roman-list' style='font-style: italic;'>
+<ul class='roman-list' style='font-style: italic;'>
 	<li><b>Empty set</b>. $m(\emptyset)=0$.</li>
 	<li><b>Countable additivity</b>. If $E_1,E_2,\ldots\subset\mathbb{R}^d$ is a countable sequence of disjoint Lebesgue measurable sets, then</li>
 	\begin{equation}
@@ -552,7 +552,7 @@ The [**Cantor set**]({{< ref "measure-theory-p1#cantor-set" >}}) is compact, unc
 </ul>
 
 **Proof**
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		<b>Empty set</b><br>
 		We have that empty set $\emptyset$ is Lebesgue measurable since for every $\varepsilon>0$, there exists an open set $U\subset\mathbb{R}^d$ containing $\emptyset$ such that $m^*(U\backslash\emptyset)\leq\varepsilon$. Thus,
@@ -629,7 +629,7 @@ m\left(\bigcup_{n=1}^{N}E_n\right)=\sum_{n=1}^{N}m(E_n),
 where $E_1,\ldots,E_N$ are Lebesgue measurable.
 
 #### Monotone convergence theorem for measurable sets{#mnt-cvg-theorem-msr-sets}
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		<b>Upward monotone convergence</b>. Let $E_1\subset E_2\subset\ldots\subset\mathbb{R}^d$ be a countable non-decreasing sequence of Lebesgue measurable sets. Then
 		\begin{equation}
@@ -648,7 +648,7 @@ where $E_1,\ldots,E_N$ are Lebesgue measurable.
 </ul>
 
 **Proof**
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		<b>Upward monotone convergence</b><br>
 		Since $E_1\subset E_2\subset\ldots\subset\mathbb{R}^d$ is a countable non-decreasing sequence of Lebesgue measurable sets, by countable additivity, we have
@@ -681,7 +681,7 @@ where $E_1,\ldots,E_N$ are Lebesgue measurable.
 
 #### Dominated convergence theorem for measurable sets{#dmnt-cvg-theorem-msr-sets}
 We say that a sequence $E_n$ of sets in $\mathbb{R}^d$ **converges pointwise** to another set $E$ in $\mathbb{R}^d$ if the indicator function $1_{E_n}$ converges pointwise to $1_E$.
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		If the $E_n$ are all Lebesgue measurable, and converge pointwise to $E$, then $E$ is Lebesgue measurable also.
 	</li>
@@ -694,7 +694,7 @@ We say that a sequence $E_n$ of sets in $\mathbb{R}^d$ **converges pointwise** t
 </ul>
 
 **Proof**
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		We have
 	</li>
@@ -765,7 +765,7 @@ Our claim then follows.
 
 #### Criteria for finite measure{#crt-fnt-msr}
 Let $E\subset\mathbb{R}^d$, then the following are equivalent:
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		$E$ is Lebesgue measurable with finite measure.
 	</li>
@@ -796,7 +796,7 @@ Let $E\subset\mathbb{R}^d$, then the following are equivalent:
 </ul>
 
 **Proof**
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		(i) $\Rightarrow$ (ii)<br>
 		Given $E$ is Lebesgue measurable with finite measure, by definition, for any $\varepsilon>0$, there exists an open set $U$ o such that
@@ -817,7 +817,7 @@ Let $E\subset\mathbb{R}^d$, then the following are equivalent:
 
 #### Carathéodory criterion, one direction{#caratheodory-crt}
 Let $E\subset\mathbb{R}^d$, the following are then equivalent:
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		$E$ is Lebesgue measurable.
 	</li>
@@ -836,7 +836,7 @@ Let $E\subset\mathbb{R}^d$, the following are then equivalent:
 </ul>
 
 **Proof**
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		(i) $\Rightarrow$ (ii)<br>
 		We begin with an observation that, by finite additivity property of Lebesgue measure
@@ -874,7 +874,7 @@ Let $E\subset\mathbb{R}^d$ be a bounded set. The **Lebesgue inner measure** $m_\
 m_\*(E)\doteq m(A)-m^\*(A\backslash E),
 \end{equation}
 for any elementary set $A$ containing $E$. Then
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		If $A,A'$ are two elementary sets containing $E$, then
 		\begin{equation}
@@ -891,7 +891,7 @@ for any elementary set $A$ containing $E$. Then
 
 **Example 3**  
 Let $E\subset \mathbb{R}^d$, and define a $G_\delta$ *set* to be a countable intersection $\bigcap_{n=1}^{\infty}U_n$ of open sets, and define an $F_\delta$ *set* to be a countable union $\bigcup_{n=1}^{\infty}F_n$ of closed sets. The following are then equivalent:
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		$E$ is Lebesgue measurable.
 	</li>
@@ -923,7 +923,7 @@ If $T:\mathbb{R}^d\to\mathbb{R}^{d'}$ is a linear map to a space $\mathbb{R}^{d'
 
 **Remark 19**  
 Let $d,d'\geq 1$ be natural numbers
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		If $E\subset\mathbb{R}^d$ and $F\subset\mathbb{R}^{d'}$, then
 		\begin{equation}
@@ -942,7 +942,7 @@ Let $d,d'\geq 1$ be natural numbers
 
 #### Uniqueness of Lebesgue measure{#uniq-lebesgue-msr}
 Lebesgue measure $E\mapsto m(E)$ is the only map from Lebesgue measurable sets to $[0,+\infty]$ that obeys the following axioms:
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		<b>Empty set</b>. $m(\emptyset)=0$.
 	</li>

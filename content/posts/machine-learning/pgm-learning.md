@@ -1,7 +1,7 @@
 ---
 title: "Read-through: Probabilistic Graphical Models - Learning"
 date: 2023-02-19T17:23:56+07:00
-tags: [machine-learning, probabilistic-graphical-model]
+tags: [machine-learning, probabilistic-graphical-model, graph-theory]
 math: true
 eqn-number: true
 hideSummary: true
@@ -176,7 +176,7 @@ To perform the task, we need to define a joint distribution $P(\mathcal{D},\bold
 P(\mathcal{D},\boldsymbol{\theta})=P(\mathcal{D}\vert\boldsymbol{\theta})P(\boldsymbol{\theta}),
 \end{equation}
 where
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		$P(\mathcal{D}\vert\boldsymbol{\theta})$ is the <b>likelihood function</b>, which is the probability of the observations given the parameters, as in the MLE approach.
 	</li>
@@ -353,7 +353,7 @@ In this case, the likelihood function of $X$ and $O_X$ decomposes as a product, 
 
 ##### Missing At Random{#mar}
 Let $\mathbf{y}$ be a tuple of observations. These observations partition the variables $\mathbf{X}$ into two sets
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		the observed variables $\mathbf{X}_\text{obs}^\mathbf{y}=\{X_i:y_i\neq ?\}$;
 	</li>
@@ -386,7 +386,7 @@ Notice that the first term in \eqref{eq:mar.1}, $P_\text{missing}(o_\mathbf{X}\v
 
 #### The Likelihood Function
 Given a Bayesian network structure $\mathcal{G}$ over a set of variables $\mathbf{X}$, and dataset $\mathcal{D}$ of $M$ training instances, each of which has
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		a different set of observed variables, denoted $\{\mathbf{O}[m]:m=1,\ldots,M\}$ and their corresponding values $\{\mathbf{o}[m]:m=1,\ldots,M\}$;
 	</li>

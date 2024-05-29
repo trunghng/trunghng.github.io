@@ -16,7 +16,7 @@ math: true
 </figure><br/>
 
 Monte Carlo methods have been used in several different tasks:
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		Simulating a system and its probability distribution
 		\begin{equation}
@@ -53,7 +53,7 @@ Monte Carlo methods have been used in several different tasks:
 Since the value of a state $v_\pi(s)=\mathbb{E}\_\pi\left[G_t|S_t=s\right]$ is defined as the expectation of the return when the process is started from the given state $s$, an obvious way of estimating this value from experience is to compute observed mean returns after visits to that state. As more returns are observed, the average should converge to the expected value. This is an instance of the so-called *Monte Carlo method*.  
 
 In particular, suppose we wish to estimate $v_\pi(s)$ given a set of episodes obtained by following $\pi$ and passing through $s$. Each time state $s$ appears in an episode, we call it a *visit* to $s$. There are two types of Monte Carlo methods:
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		<b>First-visit MC</b>.
 		<ul>
@@ -98,7 +98,7 @@ Both methods converge to $v_\pi(s)$ as the number of visits (or first visits) to
 When model is not available, it is particular useful to estimate *action values* rather than *state values* (which alone are insufficient to determine a policy). We must explicitly estimate the value of each action in order for the values to be useful in suggesting a policy. Thus, one of our primary goals for MC methods is to estimate $q_\*$. To achieve this, we first consider the policy evaluation problem for action values.  
 
 Similar to when using MC method to estimate $v_\pi(s)$, we can use both first-visit MC and every-visit MC to approximate the value of $q_\pi(s,a)$. The only thing we need to keep in mind is, in this case, we work with visits to a state-action pair rather than to a state. Likewise, we define two types of MC methods for estimating $q_\pi(s,a)$:
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		<b>First-visit MC</b>: estimates $q_\pi(s,a)$ as the average of the returns following the first time in each episode that the state $s$ was visited and the action $a$ was selected.
 	</li>
@@ -183,7 +183,7 @@ Let $X$ be a variable (or set of variables) that takes on values in some space $
 \mathbb{E}\_P\left[f\right]\approx\dfrac{1}{M}\sum_{m=1}^{M}f(x[m])
 \end{equation}
 In some cases, it might be impossible or computationally very expensive to generate samples from $P$, we instead prefer to generate samples from a different distribution, $Q$, known as the **proposal distribution** (or **sampling distribution**).
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		<b>Unnormalized Importance Sampling</b>.<br>
 		If we generate samples from $Q$ instead of $P$, we cannot simply average the $f$-value of the samples generated. We need to adjust our estimator to compensate for the incorrect sampling distribution. The most obvious way of adjusting our estimator is based on the observation that
@@ -541,7 +541,7 @@ where *flat* denotes the absence of discounting, and *partial* denotes that thes
 G_t&\doteq R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+\dots+\gamma^{T-t-1}R_T \\\\ &=(1-\gamma)R_{t+1} \\\\ &\hspace{0.5cm}+(1-\gamma)\gamma(R_{t+1}+R_{t+2}) \\\\ &\hspace{0.5cm}+(1-\gamma)\gamma^2(R_{t+1}+R_{t+2}+R_{t+3}) \\\\ &\hspace{0.7cm}\vdots \\\\ &\hspace{0.5cm}+(1-\gamma)\gamma^{T-t-2}(R_{t+1}+R_{t+2}+\dots+R_{T-1}) \\\\ &\hspace{0.5cm}+\gamma^{T-t-1}(R_{t+1}+R_{t+2}+\dots+R_T) \\\\ &=(1-\gamma)\sum_{h=t+1}^{T-1}\left(\gamma^{h-t-1}\bar{G}\_{t:h}\right)+\gamma^{T-t-1}\bar{G}\_{t:T}
 \end{align}
 Now we need to scale the *flat partial returns* by an **IS ratio** that is similarly truncated. As $\bar{G}\_{t:h}$ only involves rewards up to a horizon $h$, we only need the ratio of the probabilities up to $h$. We define:
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		<b>Discounting-aware OIS</b> estimator
 		\begin{equation}

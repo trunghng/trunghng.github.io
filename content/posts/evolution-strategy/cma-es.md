@@ -206,7 +206,7 @@ or in other words, $(1/\lambda_i^{(t)},\mathbf{q}\_i^{(t)})$ is an eigenvalue, e
 which allows us to obtain the representation \eqref{eq:cs.1} of ${\boldsymbol{\Sigma}^{(t)}}^{-1/2}$.
 
 The transformation ${\boldsymbol{\Sigma}^{(t)}}^{-1/2}=\mathbf{Q}^{(t)}{\boldsymbol{\Lambda}^{(t)}}^{-1/2}{\mathbf{Q}^{(t)}}^\text{T}$ re-scales length of the step $\boldsymbol{\mu}^{(t+1)}-\boldsymbol{\mu}^{(t)}$ without changing its direction. In more specific:
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		${\mathbf{Q}^{(t)}}^\text{T}$ transform the original space into the coordinate space with columns of $\mathbf{Q}^{(t)}$, which is also the eigenvectors of $\boldsymbol{\Sigma}^{(t)}$ or the principle axes of $\mathcal{N}(\mathbf{0},\boldsymbol{\Sigma}^{(t)})$, as its principle axes.
 	</li>

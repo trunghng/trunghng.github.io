@@ -10,7 +10,7 @@ hideSummary: true
 
 ### The Graph Neural Network model
 A graph $G=(N,E)$ is a tuple of the set of nodes $N$ and the set of edges $E$, which give rise to following notations
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		$\text{ne}[n]$ is the neighbors of node $n$.
 	</li>

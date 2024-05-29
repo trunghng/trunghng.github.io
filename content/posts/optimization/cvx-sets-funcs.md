@@ -454,7 +454,7 @@ On the other hands, $f$ is stricly convex (or concave) if $\text{dom}\hspace{0.1
 ### Examples{#cvx-funcs-eg}
 
 #### Functions on $\mathbb{R}${#func-on-r}
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		<b>Exponential</b>. $\hspace{0.1cm}e^{ax}$ is convex on $\mathbb{R}$, for any $a\in\mathbb{R}$. Since
 		\begin{equation}
@@ -497,7 +497,7 @@ On the other hands, $f$ is stricly convex (or concave) if $\text{dom}\hspace{0.1
 </ul>
 
 #### Functions on $\mathbb{R}^n${#func-on-rn}
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		<b>Norms</b>. Every norm on $\mathbb{R}^n$ is convex.<br>
 		For $f:\mathbb{R}^n\to\mathbb{R}$ is a norm and for any $0\leq\theta\leq 1$, by triangle inequality, we have:

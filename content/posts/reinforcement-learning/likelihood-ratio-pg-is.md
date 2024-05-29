@@ -80,7 +80,7 @@ By separating $R(\tau^{(i)})$ into sum of discounted rewards from the past, whic
 \hat{g}&=\sum_{i=1}^{m}\sum_{t=0}^{H-1}\nabla_\theta\log\pi_\theta(a_t^{(i)}\vert s_t^{(i)})\left(R(\tau^{(i)}-b)\right) \\\\ &=\sum_{i=1}^{m}\sum_{t=0}^{H-1}\nabla_\theta\log\pi_\theta(a_t^{(i)}\vert s_t^{(i)})\Bigg[\sum_{k=0}^{t-1}r(s_k^{(i)},a_k^{(i)})+\left(\sum_{k=t}^{H-1}r(s_k^{(i)},a_k^{(i)})\right)-b\Bigg] \\\\ &=\sum_{i=1}^{m}\sum_{t=0}^{H-1}\nabla_\theta\log\pi_\theta(a_t^{(i)}\vert s_t^{(i)})\left(\sum_{k=t}^{H-1}r(s_k^{(i)},a_k^{(i)})-b\right)
 \end{align}
 These following are some possible choices of baseline $b$.
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		<b>Average rewards.</b>
 		\begin{equation}

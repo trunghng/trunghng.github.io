@@ -364,7 +364,7 @@ which is sum of the backward-view update over time, with the eligible trace vect
 \mathbf{z}\_t\doteq\rho_t\big(\gamma_t\lambda_t\mathbf{z}\_{t-1}+\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t)\big)\label{eq:optcv.3}
 \end{equation}
 Using this eligible trace with the parameter update rule \eqref{eq:tl.2} of TD($\lambda$), we obtain a general TD($\lambda$) algorithm that can be applied to either on-policy or off-policy data.
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		In the on-policy case, the algorithm is exactly TD($\lambda$) because $\rho_t=1$ for all $t$ and \eqref{eq:optcv.3} becomes the accumulating trace \eqref{eq:tl.1} with extending to variable $\lambda$ and $\gamma$.
 	</li>
@@ -788,7 +788,7 @@ Then our key matrix now can be written as:
 \mathbf{M}(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma}\mathbf{\Lambda})^{-1}(\mathbf{I}-\mathbf{P}\_\pi\mathbf{\Gamma})=\mathbf{M}(\mathbf{I}-\mathbf{P}\_\pi^\lambda)
 \end{equation}
 In order to prove the positive definiteness of $\mathbf{M}(\mathbf{I}-\mathbf{P}\_\pi^\lambda)$, analogous to the [proof]({{< ref "func-approx#td-fixed-pt-proof" >}}) of the convergence to TD fixed-point of semi-gradient TD, we use two lemmas:
-<ul id='number-list' style='font-style: italic;'>
+<ul class='number-list' style='font-style: italic;'>
 	<li>
 		<b>Lemma 1</b>: Any matrix $\mathbf{A}$ is positive definite iff the symmetric matrix $\mathbf{S}=\mathbf{A}+\mathbf{A}^\text{T}$ is positive definite.
 	</li>

@@ -61,7 +61,7 @@ The update formula \eqref{eq:qvi.4} can be rewritten as an expected update
 Q_{t+1}(s,a)=\mathbb{E}\_{s'\sim P(s'\vert s,a)}\left[R(s,a,s')+\gamma\max_{a'}Q_t(s',a')\right]\label{eq:ql.1}
 \end{equation}
 It is noticeable that the above update rule requires the transition model $P(s'\vert s,a)$. And since sample mean is an unbiased estimator of the population mean, or in other words, the expectation in \eqref{eq:ql.1} can be approximated by sampling, as
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		At a state, taking (sampling) action $a$ (e.g. due to an $\varepsilon$-greedy policy), we get the next state:
 		\begin{equation}
@@ -171,7 +171,7 @@ In particular, at each time step $t$, the **experience**, $e_t$, defined as
 e_t=(s_t,a_t,r_t,s_{t+1})
 \end{equation}
 is added into a set $\mathcal{D}$ of size $N$, which is sampled uniformly at the training time to apply Q-learning updates. This method provides some advantages:
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		Each experience $e_t$ can be used in many weight updates.
 	</li>

@@ -10,7 +10,7 @@ hideSummary: true
 ## MuZero
 Predictions are made at each time step $t$, for each of $k=0,\ldots,K$ steps, by a model $\mu_\theta$, parameterized by $\theta$, conditioned on past observations $o_1,\ldots,o_t$ and on future actions $a_{t+1},\ldots,a_{t+k}$ for $k>0$.<br>
 The model $\mu_\theta$ predicts three future quantities that are directly relevant for planning:
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		the policy $p_t^k\approx\pi(a_{t+k+1}\vert o_1,\ldots,o_t,a_{t+1},\ldots,a_{t+k})$;
 	</li>
@@ -25,7 +25,7 @@ The model $\mu_\theta$ predicts three future quantities that are directly releva
 where $u$ is the true, observed reward, $\pi$ is the policy used to select real actions and $\gamma$ is the discount function of the environment.
 
 Internally, at each time step $t$, the model is represented by the combination of a representation function, a dynamics function and a prediction function.
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		The (deterministic) <b>dynamics function</b> $g_\theta$, is a recurrent process, $(r_t^k,s_t^k)=g_\theta(s_t^{k-1},a_t^k)$, that computes, at each hypothetical step $k$, an immediate reward $r_t^k$ and an internal state $s_t^k$.
 	</li>
@@ -52,7 +52,7 @@ Every node in the search tree is associated with an internal state $s$. Correspo
 \\{N(s,a),P(s,a),Q(s,a),R(s,a),S(s,a)\\}
 \end{equation}
 respectively representing visit count $N$, policy $P$, mean value $Q$, reward $R$ and state transition $S$. Analogous to AlphaZero, the algorithm iterates over three stages for a number of simulations.[^1]
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		<b>Selection</b>. The stage begins at the internal root state $s^0$ and finishes when reaching a leaf node $s^l$. For each hypothetical time step $k=1,\ldots,l$ of the simulation, an action $a^k$ that maximizes over a PUCT bound is selected according to the statistics stored at $s^{k-1}$.
 		\begin{equation}
@@ -113,7 +113,7 @@ After an MCTS is performed at time step $t$, the next action $a_{t+1}$ is then s
 
 ### Training
 The model training in MuZero proceeds as:
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		A trajectory is sampled from the replay buffer.
 	</li>

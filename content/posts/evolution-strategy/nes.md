@@ -75,7 +75,7 @@ As $\delta\theta\to 0$, or in other words, consider the Taylor expansion of \eqr
 &D_\text{KL}(\theta\Vert\theta+\delta\theta)\nonumber \\\\ &=\mathbb{E}\_{\theta}\big[\log\pi(\mathbf{z}\vert\theta)-\log\pi(\mathbf{z}\vert\theta+\delta\theta)\big] \\\\ &\approx\mathbb{E}\_\theta\left[\log\pi(\mathbf{z}\vert\theta)-\left(\log\pi(\mathbf{z}\vert\theta)+\delta\theta^\text{T}\frac{\nabla_\theta\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}+\frac{1}{2}\delta\theta^\text{T}\frac{\nabla_\theta^2\pi(\mathbf{z}\vert\theta)}{\pi(\mathbf{z}\vert\theta)}\delta\theta\right)\right] \\\\ &=-\mathbb{E}\_\theta\left[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)+\frac{1}{2}\delta\theta^\text{T}\nabla_\theta^2\log\pi(\mathbf{z}\vert\theta)\delta\theta\right] \\\\ &=-\mathbb{E}\_\theta\Big[\delta\theta^\text{T}\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\Big]-\mathbb{E}\_\theta\left[\frac{1}{2}\delta\theta^\text{T}\nabla_\theta^2\log\pi(\mathbf{z}\vert\theta)\delta\theta\right] \\\\ &\overset{\text{(i)}}{=}-\frac{1}{2}\delta\theta^\text{T}\mathbb{E}\_\theta\Big[\nabla_\theta^2\log\pi(\mathbf{z}\vert\theta)\Big]\delta\theta \\\\ &\overset{\text{(ii)}}{=}\frac{1}{2}\delta\theta^\text{T}\mathbb{E}\_\theta\Big[\nabla_\theta\log\pi(\mathbf{z}\vert\theta)\nabla_\theta\log\pi(\mathbf{z}\vert\theta)^\text{T}\Big]\delta\theta \\\\ &\overset{\text{(iii)}}{=}\frac{1}{2}\delta\theta^\text{T}\mathbf{F}\delta\theta\label{eq:ng.2}
 \end{align}
 where
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		In this step, we have used
 		\begin{align}

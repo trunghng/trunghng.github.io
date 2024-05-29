@@ -455,7 +455,7 @@ In particular, for state-value functions, the one-step algorithm is **semi-gradi
 \mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\rho_t\delta_t\nabla_\mathbf{w}\hat{v}(S_t,\mathbf{w}\_t),\label{eq:opsg.1}
 \end{equation}
 where
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		If the problem is episodic and discounted, we have:
 		\begin{equation}
@@ -475,7 +475,7 @@ For action values, the one-step algorithm is **semi-gradient Expected Sarsa**, w
 \mathbf{w}\_{t+1}\doteq\mathbf{w}\_t+\alpha\delta_t\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}),
 \end{equation}
 with
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		Episodic tasks:
 		\begin{equation}
@@ -495,7 +495,7 @@ With multi-step algorithms, we begin with **semi-gradient $\boldsymbol{n}$-step 
 \hspace{-0.8cm}\mathbf{w}\_{t+n}\doteq\mathbf{w}\_{t+n-1}+\alpha\rho_{t+1}\dots\rho_{t+n-1}\big[G_{t:t+n}-\hat{q}(S_t,A_t,\mathbf{w}\_{t+n-1})\big]\nabla_\mathbf{w}\hat{q}(S_t,A_t,\mathbf{w}\_{t+n-1}),
 \end{equation}
 where $\rho_k=1$ for $k\geq T$ and $G_{t:n}\doteq G_t$ if $t+n\geq T$, and with
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		Episodic tasks:
 		\begin{equation}
@@ -611,7 +611,7 @@ where
 	Hence, it is clear that the positive definiteness of $A$ depends on the matrix $\mathbf{D}(\mathbf{I}-\gamma\mathbf{P})$ in \eqref{eq:lm.4}.
 
 	To continue proving the positive definiteness of $\mathbf{A}$, we use two lemmas:
-	<ul id='number-list' style='font-style:italic'>
+	<ul class='number-list' style='font-style:italic'>
 		<li><b>Lemma 1</b>: A square matrix $\mathbf{A}$ is positive definite if the symmetric matrix $\mathbf{S}=\mathbf{A}+\mathbf{A}^\text{T}$ is positive definite.
 		</li>
 		<li><b>Lemma 2</b>: If $\mathbf{A}$ is a real, symmetric, and strictly diagonally dominant matrix with positive diagonal entries, then $\mathbf{A}$ is positive definite.

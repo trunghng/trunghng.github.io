@@ -16,7 +16,7 @@ math: true
 
 ## Dynamic Programming applied in Markov Decision Processes
 - DP is a very general method for solving problems having two properties:
-    <ul id='roman-list'>
+    <ul class='roman-list'>
         <li>
             <b>Optimal substructure</b>.<br>
             - Principle of optimality applies.<br>
@@ -51,7 +51,7 @@ We have the backup diagram for this update.
 </figure>
 
 When implementing **iterative policy evaluation** method, for all $s\in\mathcal{S}$, we can use:
-<ul id='number-list'>
+<ul class='number-list'>
     <li>
         One array to store the value functions, and update them "in-place" (<b>asynchronous DP</b>)
         \begin{equation}

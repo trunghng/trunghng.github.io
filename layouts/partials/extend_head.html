@@ -43,41 +43,41 @@
 	    margin-left: 30px;
 	}
 
-	#roman-list, #number-list, #alpha-list {
+	.roman-list, .number-list, .alpha-list {
 		counter-reset: section;
 		margin-bottom: 10px;
 	}
 
-	#roman-list > li {
+	.roman-list > li {
 	    list-style: none;
 	    position: relative;
 	}
 
-	#number-list > li {
+	.number-list > li {
 	    list-style: none;
 	    position: relative;
 	}
 
-	#alpha-list > li {
+	.alpha-list > li {
 	    list-style: none;
 	    position: relative;
 	}
 
-	#roman-list > li:before {
+	.roman-list > li:before {
 	    counter-increment: section;
 	    content: "(" counter(section, lower-roman) ") ";
 	    position: absolute;
 	    left: -2em;
 	}
 
-	#number-list > li:before {
+	.number-list > li:before {
 	    counter-increment: section;
 	    content: "(" counter(section, decimal) ") ";
 	    position: absolute;
 	    left: -2em;
 	}
 
-	#alpha-list > li:before {
+	.alpha-list > li:before {
 	    counter-increment: section;
 	    content: "(" counter(section, lower-alpha) ") ";
 	    position: absolute;

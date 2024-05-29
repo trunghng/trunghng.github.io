@@ -14,7 +14,7 @@ a_1+a_2+\dots+a_n+\dots=\sum_{n=1}^{\infty}a_n
 \end{equation}
 
 ### Examples
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		<b>Infinite decimal</b>.
 		\begin{equation}
@@ -24,7 +24,7 @@ a_1+a_2+\dots+a_n+\dots=\sum_{n=1}^{\infty}a_n
 	</li>
 	<li>
 		<b>Power series expansion</b>
-		<ul id='number-list'>
+		<ul class='number-list'>
 			<li>
 				<b>Geometric series</b>.
 				\begin{equation}
@@ -117,7 +117,7 @@ a_n=s_n-s_{n-1}\to s-s=0
 This result shows that $a_n\to 0$ is a necessary condition for convergence. However, it is not a sufficient condition; i.e. it does not imply the convergence of the series when $a_n\to 0$ as $n\to\infty$.
 
 ## General Properties of Convergent Series{#gen-props-conv-series}
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		Any finite number of $0$'s can be inserted or removed anywhere in a series without affecting its convergence behavior or its sum (in case it converges).
 	</li>
@@ -152,7 +152,7 @@ Thus, in order to establish the convergence of a series of nonnegative terms, it
 
 ### Comparison test
 If $0\leq a_n\leq b_n$, then
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		$\sum a_n$ converges if $\sum b_n$ converges.
 	</li>
@@ -337,7 +337,7 @@ If $\sum a_n$ is a series of positive terms such that
 \lim_{n\to\infty}\dfrac{a_{n+1}}{a_n}=L,\tag{11}\label{11}
 \end{equation}
 then
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		If $L<1$, the series <b>converges</b>.
 	</li>
@@ -350,7 +350,7 @@ then
 </ul>
 
 **Proof**
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		Let $L<1$ and choose any number $r$ such that $L\lt r\lt 1$. From \eqref{11}, we have that there exists an $n_0$ such that
 		\begin{align}
@@ -380,7 +380,7 @@ If $\sum a_n$ is a series of nonnegative terms such that
 \lim_{n\to\infty}\sqrt[n]{a_n}=L,\tag{13}\label{13}
 \end{equation}
 then
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		If $L<1$, the series <b>converges</b>.
 	</li>
@@ -393,7 +393,7 @@ then
 </ul>
 
 **Proof**
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		Let $L<1$ and $r$ is any number such that $L\lt r\lt 1$. From \eqref{13}, we have that there exist $n_0$ such that
 		\begin{align}
@@ -420,7 +420,7 @@ then
 then $\sum a_n$ converges if $L>0$ and diverges if $L<0$.*  
 
 **Proof**
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		If $L>0$, then there exists $h$ such that $L>h>0$. From \eqref{14}, for some positive integer $n_0$ we have
 		\begin{align}
@@ -478,7 +478,7 @@ When $A=1$ in **Raabe's test**, we turn to **Gauss's test**
 where $c>0$ and $A_n$ is bounded as $n\to\infty$, then $\sum a_n$ converges if $A>1$ and diverges if $A\leq 1$.*  
 
 **Proof**
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		If $A\neq 1$, the statement follows exactly from <b>Raabe's test</b>, since $\frac{A_n}{n^c}\to 0$ as $n\to\infty$.
 	</li>
@@ -525,7 +525,7 @@ From the definition of alternating series, we establish **alternating series tes
 
 ### Alternating Series test{#alt-series-test}
 If the alternating series \eqref{17} has the property that
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		$a_1\geq a_2\geq a_3\geq\ldots$
 	</li>
@@ -566,7 +566,7 @@ Since both sequence of even sums and sequence of odd partial sums converges to $
 A series $\sum a_n$ is said to be **absolutely convergent** if $\sum\vert a_n\vert$ converges.  
 
 These are some properties of absolute convergence.
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		Absolute convergence implies convergence.<br>
 		<b>Proof</b><br>
@@ -590,7 +590,7 @@ These are some properties of absolute convergence.
 p_n=\dfrac{\vert a_n\vert+a_n}{2},\hspace{2cm}q_n=\dfrac{\vert a_n\vert-a_n}{2}
 \end{equation}
 Then*
-<ul id='roman-list' style='font-style: italic;'>
+<ul class='roman-list' style='font-style: italic;'>
 	<li>
 		If $\sum a_n$ converges conditionally, then both $\sum p_n$ and $\sum q_n$ diverges.
 	</li>
@@ -608,7 +608,7 @@ From the formulas of $p_n$ and $q_n$, we have
 a_n&=p_n-q_n\tag{18}\label{18} \\\\ \vert a_n\vert&=p_n+q_n\tag{19}\label{19}
 \end{align}
 We begin by proving the first statement.
-<ul id='roman-list'>
+<ul class='roman-list'>
 	<li>
 		When $\sum a_n$ converges, from \eqref{18}, we have $\sum p_n$ and $\sum q_n$ both must have the same convergence behavior (i.e. converge or diverge at the same time).<br>
 		If they both converge, then from \eqref{19}, we have that $\sum\vert a_n\vert$ converges, contrary to the hypothesis, so $\sum p_n$ and $\sum q_n$ are both divergent.

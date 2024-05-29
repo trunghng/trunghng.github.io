@@ -145,7 +145,7 @@ As KL divergence between two distribution reaches its minimum when those two dis
 \end{equation}
 which is the greedy policy $\pi_\text{g}$, and thus by \eqref{eq:gp.1}, for all $s_t\in\mathcal{S}$, we have
 \begin{align}
-\mathbb{E}\_{a_t\sim\pi_\text{new}}\big[Q_{\pi_\text{old}}(s_t,a_t)\big]+\alpha H\big(\pi_\text{new}(\cdot\vert s_t)\big)&\geq\mathbb{E}\_{a_t\sim\pi_\text{old}}\big[Q_{\pi_\text{old}}(s_t,a_t)\big]+\alpha H\big(\pi_\text{old}(\cdot\vert s_t)\big) \\\\ &=V_{\pi_\text{old}}(s_t)
+\hspace{-1cm}\mathbb{E}\_{a_t\sim\pi_\text{new}}\big[Q_{\pi_\text{old}}(s_t,a_t)\big]+\alpha H\big(\pi_\text{new}(\cdot\vert s_t)\big)&\geq\mathbb{E}\_{a_t\sim\pi_\text{old}}\big[Q_{\pi_\text{old}}(s_t,a_t)\big]+\alpha H\big(\pi_\text{old}(\cdot\vert s_t)\big) \\\\ &=V_{\pi_\text{old}}(s_t)
 \end{align}
 Therefore, combined with \eqref{eq:svf.2} we obtain
 \begin{align}
@@ -163,7 +163,7 @@ This can be easily proved since the soft Bellman operator $\mathcal{T}\_\pi$ def
 In large scale problems, it is impractical to run either policy evaluation or policy improvement until convergence. It is then necessary to use an approximation version of soft policy iteration, which we call **Soft Actor-Critic**, or **SAC**. SAC instead uses function approximators (neural network function approximation is our choice) for both the policy and the soft Q-function, and rather than alternating between evaluation and improvement to convergence, using SGD to optimize both networks.
 
 These following are key components of SAC method:
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		One policy $\pi_\phi$ and two soft Q-functions $Q_{\theta_1},Q_{\theta_2}$.
 	</li>
@@ -269,7 +269,7 @@ Pseudocode for our final algorithm is given below.
 
 ### Discrete SAC{#discrete-sac}
 In discrete-action setting, the policy $\pi_\phi(a\vert s)$ can be consider as a PFM (probability mass function), instead of a density function in the continuous case. This gives rise to some necessary changes:
-<ul id='number-list'>
+<ul class='number-list'>
 	<li>
 		We use a Categorical policy instead of a diagonal Gaussian, i.e. $\pi:\mathcal{S}\to[0,1]^{\vert\mathcal{A}\vert}$.
 	</li>
