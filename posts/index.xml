@@ -11,7 +11,17 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 16 Apr 2024 14:43:59 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 24 May 2024 18:18:36 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Graph generation with predefined chromatic number</title>
+      <link>https://trunghng.github.io/posts/graph-theory/leighton-graph-gen/</link>
+      <pubDate>Sun, 19 May 2024 17:37:18 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/graph-theory/leighton-graph-gen/</guid>
+      <description>Leighton&amp;rsquo;s algorithm The algorithm is used to generate an $n$-vertex graph $G$ with $e$ edges and predefined chromatic number $k$ where $k\vert n$. This leads to the condition: \begin{equation} \frac{k(k-1)}{2}\leq e\leq\frac{n^2(k-1)}{2k} \end{equation} The algorithm begins by choosing positive integer $a,c,m$ such that
+$m\gg n$ $\gcd(n,m)=k$ $\gcd(c,m)=1$ If $p\vert m$ then $p\vert(a-1)$ for all primes $p$. If $4\vert m$ then $4\vert(a-1)$. We then use the linear congruential generator method to generate a uniform sequence of random number $\{x_i\}$ on $[0,m-1]$.</description>
+    </item>
+    
     <item>
       <title>Temporal consistency loss &amp; Ape-X DQfD</title>
       <link>https://trunghng.github.io/posts/reinforcement-learning/apex-dqfd/</link>

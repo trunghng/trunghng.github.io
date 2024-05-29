@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Graph-Theory on Littleroot</title>
+    <link>https://trunghng.github.io/tags/graph-theory/</link>
+    <description>Recent content in Graph-Theory on Littleroot</description>
+    <image>
+      <title>Littleroot</title>
+      <url>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 19 May 2024 17:37:18 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/graph-theory/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Graph generation with predefined chromatic number</title>
+      <link>https://trunghng.github.io/posts/graph-theory/leighton-graph-gen/</link>
+      <pubDate>Sun, 19 May 2024 17:37:18 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/graph-theory/leighton-graph-gen/</guid>
+      <description>Leighton&amp;rsquo;s algorithm The algorithm is used to generate an $n$-vertex graph $G$ with $e$ edges and predefined chromatic number $k$ where $k\vert n$. This leads to the condition: \begin{equation} \frac{k(k-1)}{2}\leq e\leq\frac{n^2(k-1)}{2k} \end{equation} The algorithm begins by choosing positive integer $a,c,m$ such that
+$m\gg n$ $\gcd(n,m)=k$ $\gcd(c,m)=1$ If $p\vert m$ then $p\vert(a-1)$ for all primes $p$. If $4\vert m$ then $4\vert(a-1)$. We then use the linear congruential generator method to generate a uniform sequence of random number $\{x_i\}$ on $[0,m-1]$.</description>
+    </item>
+    
+    <item>
+      <title>Read-through: Probabilistic Graphical Models - Learning</title>
+      <link>https://trunghng.github.io/posts/machine-learning/pgm-learning/</link>
+      <pubDate>Sun, 19 Feb 2023 17:23:56 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/machine-learning/pgm-learning/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Notes on Learning in PGMs.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Read-through: Probabilistic Graphical Models - Inference</title>
+      <link>https://trunghng.github.io/posts/machine-learning/pgm-inference/</link>
+      <pubDate>Thu, 02 Feb 2023 15:51:13 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/machine-learning/pgm-inference/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Notes on Inference in PGMs.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Read-through: Probabilistic Graphical Models - Representation</title>
+      <link>https://trunghng.github.io/posts/machine-learning/pgm-representation/</link>
+      <pubDate>Sat, 10 Dec 2022 17:55:57 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/machine-learning/pgm-representation/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Notes on Representation in PGMs.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
