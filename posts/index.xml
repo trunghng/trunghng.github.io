@@ -11,7 +11,7 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 24 May 2024 18:18:36 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 28 Jun 2024 16:14:16 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Graph generation with predefined chromatic number</title>
       <link>https://trunghng.github.io/posts/graph-theory/leighton-graph-gen/</link>
@@ -29,6 +29,17 @@ $m\gg n$ $\gcd(n,m)=k$ $\gcd(c,m)=1$ If $p\vert m$ then $p\vert(a-1)$ for all pr
       
       <guid>https://trunghng.github.io/posts/reinforcement-learning/apex-dqfd/</guid>
       <description>&lt;p&gt;An algorithm consists of three components: the transformed Bellman operator, the temporal consistency (TC) loss and the combination of Ape-X DQN and DQfD to learn a more consistent human-level policy.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>PILCO</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/pilco/</link>
+      <pubDate>Fri, 08 Mar 2024 10:03:08 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/pilco/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;A model-based RL method that learns a Bayesian nonparametric model (Gaussian process) and reduces model bias to improve sample efficiency.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     
     <item>

@@ -58,6 +58,24 @@
     </item>
     
     <item>
+      <title>Gaussian-Process</title>
+      <link>https://trunghng.github.io/tags/gaussian-process/</link>
+      <pubDate>Fri, 08 Mar 2024 10:03:08 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/tags/gaussian-process/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Model-Based</title>
+      <link>https://trunghng.github.io/tags/model-based/</link>
+      <pubDate>Fri, 08 Mar 2024 10:03:08 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/tags/model-based/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Deep-Reinforcement-Learning</title>
       <link>https://trunghng.github.io/tags/deep-reinforcement-learning/</link>
       <pubDate>Tue, 02 Jan 2024 11:52:40 +0700</pubDate>
@@ -72,15 +90,6 @@
       <pubDate>Tue, 02 Jan 2024 11:52:40 +0700</pubDate>
       
       <guid>https://trunghng.github.io/tags/mcts/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Model-Based</title>
-      <link>https://trunghng.github.io/tags/model-based/</link>
-      <pubDate>Tue, 02 Jan 2024 11:52:40 +0700</pubDate>
-      
-      <guid>https://trunghng.github.io/tags/model-based/</guid>
       <description></description>
     </item>
     

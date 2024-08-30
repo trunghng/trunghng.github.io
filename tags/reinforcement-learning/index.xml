@@ -22,6 +22,17 @@
     </item>
     
     <item>
+      <title>PILCO</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/pilco/</link>
+      <pubDate>Fri, 08 Mar 2024 10:03:08 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/pilco/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;A model-based RL method that learns a Bayesian nonparametric model (Gaussian process) and reduces model bias to improve sample efficiency.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
       <title>Multi-agent Deep Deterministic Policy Gradient</title>
       <link>https://trunghng.github.io/posts/reinforcement-learning/maddpg/</link>
       <pubDate>Thu, 25 May 2023 15:25:54 +0700</pubDate>
