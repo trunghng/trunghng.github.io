@@ -426,7 +426,7 @@ Thus, using the identity \eqref{eq:cgd.6}, we obtain the covariance matrix of th
 \end{equation}
 Analogously, by \eqref{eq:cgd.3}, we can find the mean of the joint distribution by considering the linear terms of \eqref{eq:btg.1}, which are
 \begin{align}
-\hspace{-0.7cm}\frac{1}{2}\Big[\mathbf{x}^\text{T}\boldsymbol{\Lambda}\boldsymbol{\mu}+\boldsymbol{\mu}^\text{T}\boldsymbol{\Lambda}\mathbf{x}+(\mathbf{y}-\mathbf{A}\mathbf{x})^\text{T}\mathbf{L}\mathbf{b}+\mathbf{b}^\text{T}\mathbf{L}(\mathbf{y}-\mathbf{A}\mathbf{x}) \Big]&=\mathbf{x}^\text{T}\boldsymbol{\Lambda}\boldsymbol{\mu}-\mathbf{x}^\text{T}\mathbf{A}^\text{T}\mathbf{L}\mathbf{b}+\mathbf{y}^\text{T}\mathbf{L}\mathbf{b} \\\\ &=\left[\begin{matrix}\mathbf{x} \\\\ \mathbf{y}\end{matrix}\right]^\text{T}\left[\begin{matrix}\boldsymbol{\Lambda}\boldsymbol{\mu}-\mathbf{A}^\text{T}\mathbf{L}\mathbf{b} \\\\ \mathbf{L}\mathbf{b}\end{matrix}\right]
+\hspace{-1.1cm}\frac{1}{2}\Big[\mathbf{x}^\text{T}\boldsymbol{\Lambda}\boldsymbol{\mu}+\boldsymbol{\mu}^\text{T}\boldsymbol{\Lambda}\mathbf{x}+(\mathbf{y}-\mathbf{A}\mathbf{x})^\text{T}\mathbf{L}\mathbf{b}+\mathbf{b}^\text{T}\mathbf{L}(\mathbf{y}-\mathbf{A}\mathbf{x}) \Big]&=\mathbf{x}^\text{T}\boldsymbol{\Lambda}\boldsymbol{\mu}-\mathbf{x}^\text{T}\mathbf{A}^\text{T}\mathbf{L}\mathbf{b}+\mathbf{y}^\text{T}\mathbf{L}\mathbf{b} \\\\ &=\left[\begin{matrix}\mathbf{x} \\\\ \mathbf{y}\end{matrix}\right]^\text{T}\left[\begin{matrix}\boldsymbol{\Lambda}\boldsymbol{\mu}-\mathbf{A}^\text{T}\mathbf{L}\mathbf{b} \\\\ \mathbf{L}\mathbf{b}\end{matrix}\right]
 \end{align}
 Thus, by \eqref{eq:cgd.3}, we have that the mean of the joint distribution is then given by
 \begin{equation}

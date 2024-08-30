@@ -11,7 +11,18 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 02 Jan 2024 11:52:40 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/model-based/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 08 Mar 2024 10:03:08 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/model-based/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PILCO</title>
+      <link>https://trunghng.github.io/posts/reinforcement-learning/pilco/</link>
+      <pubDate>Fri, 08 Mar 2024 10:03:08 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/reinforcement-learning/pilco/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;A model-based RL method that learns a Bayesian nonparametric model (Gaussian process) and reduces model bias to improve sample efficiency.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
     <item>
       <title>MuZero</title>
       <link>https://trunghng.github.io/posts/reinforcement-learning/muzero/</link>

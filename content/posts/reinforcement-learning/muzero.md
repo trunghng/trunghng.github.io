@@ -112,7 +112,7 @@ After an MCTS is performed at time step $t$, the next action $a_{t+1}$ is then s
 </figure>
 
 ### Training
-The model training in MuZero proceeds as:
+Analogy to <a href={{<ref"alphazero#alphago-zero">}}>AlphaGo Zero</a> or <a href={{<ref"alphazero#alphazero">}}>AlphaZero</a>, the self-play and network training in MuZero are executed simultaneously. The training proceeds as:
 <ul class='number-list'>
 	<li>
 		A trajectory is sampled from the replay buffer.
@@ -141,19 +141,25 @@ The model training in MuZero proceeds as:
 </figure>
 
 ### MuZero Reanalyze
-
+MuZero Reanalyze was proposed as a more sample efficient variant of MuZero. These following are techniques used by MuZero Reanalyze to improve its sample efficiency:
+<ul class='number-list'>
+	<li>
+		It re-executes MCTS on past time-steps retrived from the replay buffer and uses the lastest model parameters to update the policy. This fresh policy is then potentially better than its original version.
+	</li>
+	<li>
+		It ultilizes a target network to provide a fresher, stable $n$-step bootstrapped target for the value function. This value target is either computed via a simple forward path of the target network or from a MCTS rerun using the target network.
+	</li>
+</ul>
 
 ## References
 [1] <span id='muzero-paper'>Julian Schrittwieser, Ioannis Antonoglou, Thomas Hubert, David Silver et al. [Mastering Atari, Go, chess and shogi by planning with a learned model](https://doi.org/10.1038/s41586-020-03051-4). Nature 588, 604–609, 2020.</span>
 
-[2] Weirui Ye, Shaohuai Liu, Thanard Kurutach, Pieter Abbeel, Yang Gao. [Mastering Atari Games with Limited Data](https://arxiv.org/abs/2111.00210). arXiv preprint, arXiv:2111.00210, 2021.
+[2] Richard S. Sutton, Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition). MIT press, 2018.
 
-[3] Richard S. Sutton, Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition). MIT press, 2018.
-
-[4] Julian Schrittwieser. [MuZero Intuition](https://www.furidamu.org/blog/2020/12/22/muzero-intuition).
+[3] Julian Schrittwieser. [MuZero Intuition](https://www.furidamu.org/blog/2020/12/22/muzero-intuition).
 
 ## Footnotes
-[^1]: While in the [MuZero paper](#muzero-paper), the normalized $\bar{Q}$ values given in \eqref{eq:mu.1} is calculated as
+[^1]: While in the [MuZero paper](#muzero-paper), the normalized $\bar{Q}$ value given in \eqref{eq:mu.1} is calculated as
 \begin{equation}
 \bar{Q}(s^{k-1},a)=\frac{Q(s^{k-1},a)-\underset{s',a'\in\text{Tree}}{\min}Q(s',a')}{\underset{s',a'\in\text{Tree}}{\max}Q(s',a')-\underset{s',a'\in\text{Tree}}{\min}Q(s',a')}\nonumber
 \end{equation}

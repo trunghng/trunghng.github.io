@@ -76,5 +76,3 @@ Given $\\{y_i\\}$ and $\mathbf{b}$, we proceed as follows.
 
 ## References
 [1] Leighton, Frank Thomson. [A Graph Coloring Algorithm for Large Scheduling Problems](https://doi.org/10.6028/jres.084.024). Journal of research of the National Bureau of Standards 84 6 (1979): 489-506.
-
-## Footnotes

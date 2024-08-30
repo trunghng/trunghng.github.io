@@ -121,7 +121,7 @@ where $\mathbf{w}=(w_0,\ldots,w_{M-1})^\text{T}$ and $\boldsymbol{\phi}=(\phi_0,
 There are various choices of basis functions:
 <ul class='number-list'>
 	<li>
-		<b>Polynomial basis</b>. Each basis function $\phi_i$ is a powers of a $1$-dimensional input $x$
+		<b>Polynomial basis</b>. Each basis function $\phi_i$ is a powers of a $1$-dimensional input $x$:
 		\begin{equation}
 		\phi_i(x)=x^i
 		\end{equation}
@@ -132,7 +132,7 @@ There are various choices of basis functions:
 		</figure>
 	</li>
 	<li>
-		<b>Gaussian basis function</b>. Each basis function $\phi_i$ is a Gaussian function of a $1$-dimensional input $x$
+		<b>Gaussian basis function</b>. Each basis function $\phi_i$ is a Gaussian function of a $1$-dimensional input $x$:
 		\begin{equation}
 		\phi_i(x)=\exp\left(-\frac{(x-\mu_i)^2}{2\sigma_i^2}\right)
 		\end{equation}

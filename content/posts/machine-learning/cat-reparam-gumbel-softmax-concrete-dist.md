@@ -69,7 +69,7 @@ On the other hands, taking the gradient w.r.t parameters $\phi$ gives us
 \begin{equation}
 \nabla_\phi L(\theta,\phi)=\nabla_\phi\int p_\phi(x)f_\theta(x)dx=\int f_\theta(x)\nabla_\phi p_\phi(x)dx,\label{eq:oscg.3}
 \end{equation}
-which can not be estimated directly using Monte Carlo sampling.
+which can not be estimated directly using Monte Carlo sampling since it does not have a form of an expectation. Fortunately, there are two ways that we can work around with this situation.
 
 ### Score Function Estimators{#sfe}
 **Score function estimator** utilizes the **log-likelihood trick** to rewrite the gradient in \eqref{eq:oscg.3} in an expectation form
