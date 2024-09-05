@@ -4,6 +4,7 @@ date: 2024-03-08T10:03:08+07:00
 tags: [reinforcement-learning, model-based, gaussian-process, my-rl]
 math: true
 eqn-number: true
+draft: true
 ---
 > A model-based RL method that learns a Bayesian nonparametric model (Gaussian process) and reduces model bias to improve sample efficiency.
 <!--more-->
