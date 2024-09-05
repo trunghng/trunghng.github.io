@@ -22,60 +22,6 @@
     </item>
     
     <item>
-      <title>Dqn</title>
-      <link>https://trunghng.github.io/tags/dqn/</link>
-      <pubDate>Tue, 12 Mar 2024 18:39:34 +0700</pubDate>
-      
-      <guid>https://trunghng.github.io/tags/dqn/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Model-Free</title>
-      <link>https://trunghng.github.io/tags/model-free/</link>
-      <pubDate>Tue, 12 Mar 2024 18:39:34 +0700</pubDate>
-      
-      <guid>https://trunghng.github.io/tags/model-free/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>My-Rl</title>
-      <link>https://trunghng.github.io/tags/my-rl/</link>
-      <pubDate>Tue, 12 Mar 2024 18:39:34 +0700</pubDate>
-      
-      <guid>https://trunghng.github.io/tags/my-rl/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Reinforcement-Learning</title>
-      <link>https://trunghng.github.io/tags/reinforcement-learning/</link>
-      <pubDate>Tue, 12 Mar 2024 18:39:34 +0700</pubDate>
-      
-      <guid>https://trunghng.github.io/tags/reinforcement-learning/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Gaussian-Process</title>
-      <link>https://trunghng.github.io/tags/gaussian-process/</link>
-      <pubDate>Fri, 08 Mar 2024 10:03:08 +0700</pubDate>
-      
-      <guid>https://trunghng.github.io/tags/gaussian-process/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Model-Based</title>
-      <link>https://trunghng.github.io/tags/model-based/</link>
-      <pubDate>Fri, 08 Mar 2024 10:03:08 +0700</pubDate>
-      
-      <guid>https://trunghng.github.io/tags/model-based/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Deep-Reinforcement-Learning</title>
       <link>https://trunghng.github.io/tags/deep-reinforcement-learning/</link>
       <pubDate>Tue, 02 Jan 2024 11:52:40 +0700</pubDate>
@@ -94,11 +40,38 @@
     </item>
     
     <item>
+      <title>Model-Based</title>
+      <link>https://trunghng.github.io/tags/model-based/</link>
+      <pubDate>Tue, 02 Jan 2024 11:52:40 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/tags/model-based/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>My-Rl</title>
+      <link>https://trunghng.github.io/tags/my-rl/</link>
+      <pubDate>Tue, 02 Jan 2024 11:52:40 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/tags/my-rl/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Actor-Critic</title>
       <link>https://trunghng.github.io/tags/actor-critic/</link>
       <pubDate>Thu, 25 May 2023 15:25:54 +0700</pubDate>
       
       <guid>https://trunghng.github.io/tags/actor-critic/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Model-Free</title>
+      <link>https://trunghng.github.io/tags/model-free/</link>
+      <pubDate>Thu, 25 May 2023 15:25:54 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/tags/model-free/</guid>
       <description></description>
     </item>
     
@@ -117,6 +90,15 @@
       <pubDate>Thu, 25 May 2023 15:25:54 +0700</pubDate>
       
       <guid>https://trunghng.github.io/tags/policy-gradient/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Reinforcement-Learning</title>
+      <link>https://trunghng.github.io/tags/reinforcement-learning/</link>
+      <pubDate>Thu, 25 May 2023 15:25:54 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/tags/reinforcement-learning/</guid>
       <description></description>
     </item>
     
@@ -162,6 +144,15 @@
       <pubDate>Tue, 27 Dec 2022 13:46:09 +0700</pubDate>
       
       <guid>https://trunghng.github.io/tags/q-learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Dqn</title>
+      <link>https://trunghng.github.io/tags/dqn/</link>
+      <pubDate>Fri, 18 Nov 2022 15:26:00 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/tags/dqn/</guid>
       <description></description>
     </item>
     

@@ -18,9 +18,21 @@
       <pubDate>Tue, 02 Jan 2024 11:52:40 +0700</pubDate>
       
       <guid>https://trunghng.github.io/posts/reinforcement-learning/muzero/</guid>
-      <description>MuZero Predictions are made at each time step $t$, for each of $k=0,\ldots,K$ steps, by a model $\mu_\theta$, parameterized by $\theta$, conditioned on past observations $o_1,\ldots,o_t$ and on future actions $a_{t+1},\ldots,a_{t+k}$ for $k&amp;gt;0$.
-The model $\mu_\theta$ predicts three future quantities that are directly relevant for planning:
-the policy $p_t^k\approx\pi(a_{t+k+1}\vert o_1,\ldots,o_t,a_{t+1},\ldots,a_{t+k})$; the value function $v_t^k\approx\mathbb{E}\big[u_{t+k+1}+\gamma u_{t+k+2}+\ldots\vert o_1,\ldots,o_t,a_{t+1},\ldots,a_{t+k}\big]$; the immediate reward $r_t^k\approx u_{t+k}$, where $u$ is the true, observed reward, $\pi$ is the policy used to select real actions and $\gamma$ is the discount function of the environment.</description>
+      <description>&lt;h2 id=&#34;muzero&#34;&gt;MuZero&lt;/h2&gt;
+&lt;p&gt;Predictions are made at each time step $t$, for each of $k=0,\ldots,K$ steps, by a model $\mu_\theta$, parameterized by $\theta$, conditioned on past observations $o_1,\ldots,o_t$ and on future actions $a_{t+1},\ldots,a_{t+k}$ for $k&amp;gt;0$.&lt;br&gt;
+The model $\mu_\theta$ predicts three future quantities that are directly relevant for planning:&lt;/p&gt;
+&lt;ul class=&#39;number-list&#39;&gt;
+	&lt;li&gt;
+		the policy $p_t^k\approx\pi(a_{t+k+1}\vert o_1,\ldots,o_t,a_{t+1},\ldots,a_{t+k})$;
+	&lt;/li&gt;
+	&lt;li&gt;
+		the value function $v_t^k\approx\mathbb{E}\big[u_{t+k+1}+\gamma u_{t+k+2}+\ldots\vert o_1,\ldots,o_t,a_{t+1},\ldots,a_{t+k}\big]$;
+	&lt;/li&gt;
+	&lt;li&gt;
+		the immediate reward $r_t^k\approx u_{t+k}$,
+	&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;where $u$ is the true, observed reward, $\pi$ is the policy used to select real actions and $\gamma$ is the discount function of the environment.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -29,8 +41,30 @@ the policy $p_t^k\approx\pi(a_{t+k+1}\vert o_1,\ldots,o_t,a_{t+1},\ldots,a_{t+k}
       <pubDate>Tue, 17 Oct 2023 10:23:22 +0700</pubDate>
       
       <guid>https://trunghng.github.io/posts/reinforcement-learning/alphazero/</guid>
-      <description>AlphaGo The training pipeline used in AlphaGo can be divided into following stages:
-Using a dataset of human experts positions, a supervised learning (SL) policy network $p_\sigma$ and, a rollout policy $p_\pi$, which can sample actions rapidly, are trained by classification to predict player moves. Initializing with the SL policy network $p_\sigma$, it uses policy gradient to train a reinforcement learning (RL) policy network $p_\rho$ with the goal to maximize the winning outcome against previous versions of the policy network.</description>
+      <description>&lt;!-- for Milu --&gt;
+&lt;h2 id=&#34;alphago&#34;&gt;AlphaGo&lt;/h2&gt;
+&lt;p&gt;The training pipeline used in &lt;strong&gt;AlphaGo&lt;/strong&gt; can be divided into following stages:&lt;/p&gt;
+&lt;ul class=&#39;number-list&#39;&gt;
+	&lt;li&gt;
+		Using a dataset of human experts positions, a &lt;b&gt;supervised learning (SL) policy network&lt;/b&gt; $p_\sigma$ and, a &lt;b&gt;rollout policy&lt;/b&gt; $p_\pi$, which can sample actions rapidly, are trained by classification to predict player moves.
+	&lt;/li&gt;
+	&lt;li&gt;
+		Initializing with the &lt;b&gt;SL policy network&lt;/b&gt; $p_\sigma$, it uses policy gradient to train a &lt;b&gt;reinforcement learning (RL) policy network&lt;/b&gt; $p_\rho$ with the goal to maximize the winning outcome against previous versions of the policy network. This process generates a dataset of self-play games.
+	&lt;/li&gt;
+	&lt;li&gt;
+		Via the dataset of self-play moves, a &lt;b&gt;value network&lt;/b&gt; $v_\theta$ is trained by regression to predict the expected outcome (win or lose).
+	&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure&gt;
+	&lt;img src=&#34;https://trunghng.github.io/images/alphazero/alphago-training-pipeline.png&#34; alt=&#34;AlphaGo training pipeline&#34; width=&#34;80%&#34; height=&#34;80%&#34;/&gt;
+	&lt;figcaption style=&#34;text-align: center&#34;&gt;&lt;b&gt;Figure 1&lt;/b&gt;: (taken from &lt;a href=&#39;#alphago-paper&#39;&gt;AlphaGo paper&lt;/a&gt;) &lt;b&gt;AlphaGo neural network training pipeline&lt;/b&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;h3 id=&#34;sl-policy-network-p_sigma-rollout-network-p_pi&#34;&gt;SL policy network $p_\sigma$, rollout network $p_\pi$&lt;/h3&gt;
+&lt;p&gt;The policy network $p_\sigma(a\vert s)$ takes as its input a simple representation of the board state $s$ and outputs a probability distribution over all legal moves $a$. The network is trained to maximize the likelihood of the human move $a$ selected in state $s$ by using SGA
+\begin{equation}
+\Delta\sigma\propto\frac{\partial\log p_\sigma(a\vert s)}{\partial\sigma}
+\end{equation}
+The rollout network $p_\pi(a\vert s)$ is trained using a linear softmax of small pattern features. This network is less accurate but faster selecting action than $p_\sigma$.&lt;/p&gt;</description>
     </item>
     
     <item>
