@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Neural-Network on Littleroot</title>
-    <link>https://trunghng.github.io/tags/neural-network/</link>
-    <description>Recent content in Neural-Network on Littleroot</description>
+    <title>Graph-Neural-Network on Littleroot</title>
+    <link>https://trunghng.github.io/tags/graph-neural-network/</link>
+    <description>Recent content in Graph-Neural-Network on Littleroot</description>
     <image>
       <title>Littleroot</title>
       <url>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
@@ -11,7 +11,7 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 16 Apr 2024 14:43:59 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/neural-network/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 16 Apr 2024 14:43:59 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/graph-neural-network/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Graph Representation Learning</title>
       <link>https://trunghng.github.io/posts/machine-learning/graph-representation-learning/</link>

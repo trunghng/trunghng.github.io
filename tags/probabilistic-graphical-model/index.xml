@@ -11,7 +11,18 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 19 Feb 2023 17:23:56 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/probabilistic-graphical-model/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 30 Apr 2024 16:28:52 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/probabilistic-graphical-model/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Variational Autoencoder</title>
+      <link>https://trunghng.github.io/posts/machine-learning/vae/</link>
+      <pubDate>Tue, 30 Apr 2024 16:28:52 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/machine-learning/vae/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;An autoencoder that differs from others (with deterministic encoder) by mapping each input $\mathbf{x}$ to a distribution over the possible values of the latent representation $\mathbf{z}$ from which $\mathbf{x}$ could have been generated.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
     <item>
       <title>Read-through: Probabilistic Graphical Models - Learning</title>
       <link>https://trunghng.github.io/posts/machine-learning/pgm-learning/</link>
