@@ -4,8 +4,9 @@ date: 2024-05-19T17:37:18+07:00
 tags: [graph-theory]
 math: true
 eqn-number: true
-hideSummary: true
 ---
+> Generating predefined-chromatic-number graphs with Leighton's algorithm.
+<!--more-->
 
 ## Leighton's algorithm
 The algorithm is used to generate an $n$-vertex graph $G$ with $e$ edges and predefined chromatic number $k$ where $k\vert n$. This leads to the condition:

@@ -286,7 +286,7 @@ Using this result, the gradient of $\text{MSE}(\theta,w)$ w.r.t $w$ is thus give
 \begin{align}
 \nabla_w\text{MSE}(\theta,w)&=\nabla_w\mathbb{E}\big[\epsilon(\theta,w,s)^\text{T}\epsilon(\theta,w,s)\big] \\\\ &=\mathbb{E}\big[2\epsilon(\theta,w,s)\nabla_w\epsilon(\theta,w,s)\big] \\\\ &=2\mathbb{E}\Big[\big(\nabla_a Q_w(s,a)\vert_{a=\mu_\theta(s)}-\nabla_a Q_\mu(s,a)\vert_{a=\mu_\theta(s)}\big)\nabla_\theta\mu_\theta(s)\Big] \\\\ &=2\Big[\mathbb{E}\big[\nabla_\theta\mu_\theta(s)\nabla_a Q_w(s,a)\vert_{a=\mu_\theta(s)}\big]-J(\mu_\theta)\Big],
 \end{align}
-which lets our claim, \eqref{eq:cfad.1}, follows due to the property [(ii)](#prop-ii-det), which means that $\nabla_w\text{MSE}(\theta,w)=0$.$\tag*{$\Box$}$
+which lets our claim, \eqref{eq:cfad.1}, follow due to the property [(ii)](#prop-ii-det), which means that $\nabla_w\text{MSE}(\theta,w)=0$.$\tag*{$\Box$}$
 
 ## Deep Deterministic Policy Gradient{#ddpg}
 

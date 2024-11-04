@@ -18,8 +18,30 @@
       <pubDate>Sun, 19 May 2024 17:37:18 +0700</pubDate>
       
       <guid>https://trunghng.github.io/posts/graph-theory/leighton-graph-gen/</guid>
-      <description>Leighton&amp;rsquo;s algorithm The algorithm is used to generate an $n$-vertex graph $G$ with $e$ edges and predefined chromatic number $k$ where $k\vert n$. This leads to the condition: \begin{equation} \frac{k(k-1)}{2}\leq e\leq\frac{n^2(k-1)}{2k} \end{equation} The algorithm begins by choosing positive integer $a,c,m$ such that
-$m\gg n$ $\gcd(n,m)=k$ $\gcd(c,m)=1$ If $p\vert m$ then $p\vert(a-1)$ for all primes $p$. If $4\vert m$ then $4\vert(a-1)$. We then use the linear congruential generator method to generate a uniform sequence of random number $\{x_i\}$ on $[0,m-1]$.</description>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Generating predefined-chromatic-number graphs with Leighton&amp;rsquo;s algorithm.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Variational Autoencoder</title>
+      <link>https://trunghng.github.io/posts/machine-learning/vae/</link>
+      <pubDate>Tue, 30 Apr 2024 16:28:52 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/machine-learning/vae/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;An autoencoder that differs from others (with deterministic encoder) by mapping each input $\mathbf{x}$ to a distribution over the possible values of the latent representation $\mathbf{z}$ from which $\mathbf{x}$ could have been generated.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Graph Representation Learning</title>
+      <link>https://trunghng.github.io/posts/machine-learning/graph-representation-learning/</link>
+      <pubDate>Tue, 16 Apr 2024 14:43:59 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/machine-learning/graph-representation-learning/</guid>
+      <description>Traditional feature-based approaches In traditional Machine Learning methods, we first represent our data points (nodes, links, entire graphs) as vectors of (hand-designed) features and then train a classical ML model (random forest, SVM, neural network) on top of that.
+Let us consider a network $\mathcal{G}=(\mathcal{V},\mathcal{E})$, where $\mathcal{V}$ is the set of nodes and $\mathcal{E}$ is the set of edges between these nodes. Also let $\mathbf{A}\in\mathbb{R}^{\vert\mathcal{V}\vert\times\vert\mathcal{V}\vert}$ be the adjacency matrix of $\mathcal{G}$, i.</description>
     </item>
     
     <item>

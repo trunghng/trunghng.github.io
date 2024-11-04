@@ -11,7 +11,28 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 01 May 2023 13:00:00 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/machine-learning/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 30 Apr 2024 16:28:52 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/machine-learning/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Variational Autoencoder</title>
+      <link>https://trunghng.github.io/posts/machine-learning/vae/</link>
+      <pubDate>Tue, 30 Apr 2024 16:28:52 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/machine-learning/vae/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;An autoencoder that differs from others (with deterministic encoder) by mapping each input $\mathbf{x}$ to a distribution over the possible values of the latent representation $\mathbf{z}$ from which $\mathbf{x}$ could have been generated.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Graph Representation Learning</title>
+      <link>https://trunghng.github.io/posts/machine-learning/graph-representation-learning/</link>
+      <pubDate>Tue, 16 Apr 2024 14:43:59 +0700</pubDate>
+      
+      <guid>https://trunghng.github.io/posts/machine-learning/graph-representation-learning/</guid>
+      <description>Traditional feature-based approaches In traditional Machine Learning methods, we first represent our data points (nodes, links, entire graphs) as vectors of (hand-designed) features and then train a classical ML model (random forest, SVM, neural network) on top of that.
+Let us consider a network $\mathcal{G}=(\mathcal{V},\mathcal{E})$, where $\mathcal{V}$ is the set of nodes and $\mathcal{E}$ is the set of edges between these nodes. Also let $\mathbf{A}\in\mathbb{R}^{\vert\mathcal{V}\vert\times\vert\mathcal{V}\vert}$ be the adjacency matrix of $\mathcal{G}$, i.</description>
+    </item>
+    
     <item>
       <title>GAN</title>
       <link>https://trunghng.github.io/posts/machine-learning/gan/</link>

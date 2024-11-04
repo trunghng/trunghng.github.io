@@ -86,7 +86,7 @@ In some circumstances, it could be helpful that instead of sampling from $p_\phi
 
 For instance, by properties of the Normal distribution, a Gaussian sample $X\sim\mathcal{N}(\mu,\sigma^2)$ can always be obtained through a standard Normal $Z\sim\mathcal{N}(0,1)$ by computing $X=g_{\mu,\sigma}(Z)=\mu+\sigma Z$.
 
-This **reparameterization trick**, $x=g_\phi(z)$, let us transfer the dependence on $\phi$ from $p$ into $f$ by writing
+This [**reparameterization trick**]({{<ref"vae#reparameterization-trick">}}), $x=g_\phi(z)$, let us transfer the dependence on $\phi$ from $p$ into $f$ by writing
 \begin{equation}
 f_\theta(x)=f_\theta(g_\phi(z)),
 \end{equation}
