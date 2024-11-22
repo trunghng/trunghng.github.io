@@ -863,7 +863,7 @@ Recall that $\tilde{P}\_\Phi(\mathcal{X})=\prod_{\phi\in\Phi}\phi$. Thus by the 
 \begin{align}
 \sum_{\phi\in\Phi}\mathbb{E}\_{\mathcal{X}\sim Q}\big[\log\phi\big\vert x_i\big]&=\mathbb{E}\_{\mathcal{X}\sim Q}\left[\sum_{\phi\in\Phi}\log\phi\Big\vert x_i\right] \\\\ &=\mathbb{E}\_{\mathcal{X}\sim Q}\left[\log\left(\prod_{\phi\in\Phi}\phi\Big\vert x_i\right)\right] \\\\ &=\mathbb{E}\_{\mathcal{X}\sim Q}\big[\log\tilde{P}\_\Phi(\mathcal{X})\big\vert x_i\big] \\\\ &=\mathbb{E}\_{\mathcal{X}\sim Q}\big[\log\tilde{P}\_\Phi(\mathbf{X}\_{-i},X_i)\big\vert x_i\big] \\\\ &=\mathbb{E}\_{\mathbf{X}\_{-i}\sim Q}\big[\log\tilde{P}\_\Phi(\mathbf{X}\_{-i},x_i)\big] \\\\ &=\mathbb{E}\_{\mathbf{X}\_{-i}\sim Q}\big[\log\big(Z P_\Phi(\mathbf{X}\_{-i},x_i)\big)\big] \\\\ &=\mathbb{E}\_{\mathbf{X}\_{-i}\sim Q}\big[\log\big(Z P_\Phi(\mathbf{X}\_{-i})P_\Phi(x_i\vert\mathbf{X}\_{-i})\big)\big] \\\\ &=\mathbb{E}\_{\mathbf{X}\_{-i}\sim Q}\big[\log P_\Phi(x_i\vert\mathbf{X}\_{-i})\big]+\mathbb{E}\_{\mathbf{X}\_{-i}\sim Q}\big[\log\big(Z P_\Phi(\mathbf{X}\_{-i})\big)\big]
 \end{align}
-Hence, by \eqref{eq:fpc.2}, we obtain
+Hence, by \eqref{eq:fpc.2}, we obtain:
 \begin{align}
 Q(x_i)=\frac{1}{Z_i}\exp\Big(\mathbb{E}\_{\mathbf{X}\_{-i}\sim Q}\big[\log P_\Phi(x_i\vert\mathbf{X}\_{-i})\big]\Big)\exp\Big(\mathbb{E}\_{\mathbf{X}\_{-i}\sim Q}\big[\log\big(Z P_\Phi(\mathbf{X}\_{-i})\big)\big]\Big)
 \end{align}
@@ -880,7 +880,7 @@ In other words, $Q(X_i)$ has to be consistent with the expectation of the potent
 
 
 ## References
-[1] <span id='pgm-book'>Daphne Koller, Nir Friedman. [Probabilistic Graphical Models](https://mitpress.mit.edu/9780262013192/probabilistic-graphical-models/). The MIT Press.</span>
+[1] <span id='pgm-book'>Daphne Koller, Nir Friedman. [Probabilistic Graphical Models](https://mitpress.mit.edu/9780262013192/probabilistic-graphical-models/). The MIT Press, 2009.</span>
 
 ## Footnotes
 [^1]: It should be taken into account that for each edge $(i-j)$, the sepset $\mathbf{S}\_{i,j}$ is no longer be exactly the intersection between $\mathbf{C}\_i$ and $\mathbf{C}_j$ like in clique trees.

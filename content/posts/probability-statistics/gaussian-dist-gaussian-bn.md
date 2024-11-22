@@ -509,9 +509,7 @@ p(Y\vert\mathbf{x})=\mathcal{N}(\beta_0+\boldsymbol{\beta}^\text{T}\mathbf{x};\s
 	</li>
 </ul>
 
-From this theorem, it follows by induction that if $\mathcal{B}$ is a linear Gaussian Bayesian network, then it defines a joint distribution that is jointly Gaussian.
-
-The converse of this theorem is also true.
+From this theorem, it follows by induction that if $\mathcal{B}$ is a linear Gaussian Bayesian network, then it defines a joint distribution that is jointly Gaussian. The inverse of this theorem is also true.
 
 **Theorem 4**: *Let $\\{\mathbf{X},Y\\}$ have a joint Normal distribution defined as usual*
 \begin{equation}

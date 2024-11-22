@@ -236,7 +236,7 @@ This equation is known as the **chain rule for Bayesian networks**. Each individ
 ### Independencies in Bayesian Network
 
 #### D-separation
-Let $\mathcal{G}$ be a BN structure, $X_1\rightleftharpoons\ldots\rightleftharpoons X_n$ be a trail in $\mathcal{G}$ and let $\mathbf{Z}$ be a subset of observed variables. The trail $X_1\rightleftharpoons\ldots\rightleftharpoons X_n$ is **active** if
+Let $\mathcal{G}$ be a BN structure, $X_1\rightleftharpoons\ldots\rightleftharpoons X_n$ be a trail in $\mathcal{G}$ and let $\mathbf{Z}$ be a subset of observed variables. The trail $X_1\rightleftharpoons\ldots\rightleftharpoons X_n$ is **active**, i.e. influence can flow from $X_1$ to $X_n$ via $X_2,\ldots,X_{n-1}$, if
 <ul class='roman-list'>
 	<li>
 		Whenever we have a <b>v-structure</b> $X_{i-1}\rightarrow X_i\leftarrow X_{i+1}$, $X_i$ or one of its descendants are in $\mathbf{Z}$;
@@ -1287,7 +1287,7 @@ Given an RMN $\mathcal{M}\_\text{RMN}$, an object skeleton $\kappa$, we can defi
 </ul>
 
 ## References
-[1] <span id='pgm-book'>Daphne Koller, Nir Friedman. [Probabilistic Graphical Models](https://mitpress.mit.edu/9780262013192/probabilistic-graphical-models/). The MIT Press.</span>
+[1] <span id='pgm-book'>Daphne Koller, Nir Friedman. [Probabilistic Graphical Models](https://mitpress.mit.edu/9780262013192/probabilistic-graphical-models/). The MIT Press, 2009.</span>
 
 [2] Michael I. Jordan. [An Introduction to Probabilistic Graphical Models](http://people.eecs.berkeley.edu/~jordan/prelims/). In preparation.
 

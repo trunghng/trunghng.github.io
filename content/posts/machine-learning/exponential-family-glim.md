@@ -420,9 +420,9 @@ This can be understood as solving the **Iteratively Reweighted Least Squares** (
 
 [2] Joseph K. Blitzstein & Jessica Hwang. [Introduction to Probability](https://www.amazon.com/Introduction-Probability-Chapman-Statistical-Science/dp/1466575573).
 
-[3] Weisstein, Eric W. [Hölder's Inequalities](https://mathworld.wolfram.com/HoeldersInequalities.html) From MathWorld--A Wolfram Web Resource.
+[3] Weisstein, Eric W. [Hölder's Inequalities](https://mathworld.wolfram.com/HoeldersInequalities.html). From MathWorld--A Wolfram Web Resource.
 
-[4] Ian Goodfellow & Yoshua Bengio & Aaron Courville. [Deep Learning](https://www.deeplearningbook.org). MIT Press, 2016.
+[4] Ian Goodfellow & Yoshua Bengio & Aaron Courville. [Deep Learning](https://www.deeplearningbook.org). The MIT Press, 2016.
 
 ## Footnotes
 [^1]: Let $p,q>1$ such that

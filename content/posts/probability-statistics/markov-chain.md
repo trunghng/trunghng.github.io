@@ -20,7 +20,7 @@ In other words, knowledge of the preceding state is all we need to determine the
 ## Transition Matrix
 The quantity $P(X_{n+1}=j|X_n=i)$ is **transition probability** from state $i$ to $j$.  
 
-If we denote that $q_{ij}=P(X_{n+1}=j|X_n=i)$ and let $Q$ $M\times M$ matrix, defined as
+If we denote that $q_{ij}=P(X_{n+1}=j|X_n=i)$ and let $Q$ be an $M\times M$ matrix, defined as:
 \begin{equation}
 Q=\left[\begin{matrix}q_{11}&\ldots&q_{1M} \\\\ \vdots&\ddots&\vdots \\\\ q_{M1}&\ldots&q_{MM}\end{matrix}\right]
 \end{equation}

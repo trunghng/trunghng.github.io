@@ -5,7 +5,7 @@ tags: [machine-learning, evolution-strategy, neuroevolution]
 math: true
 eqn-number: true
 ---
-> Notes on CMA - Evolution Strategy.
+> **Covariance Matrix Adaptation Evolution Strategy** (**CMA-ES**) is an evolutionary algorithm for complex non-linear non-convex blackbox optimization problems in continuous domain.
 <!--more-->
 
 ## Preliminaries
@@ -205,7 +205,7 @@ or in other words, $(1/\lambda_i^{(t)},\mathbf{q}\_i^{(t)})$ is an eigenvalue, e
 \end{equation}
 which allows us to obtain the representation \eqref{eq:cs.1} of ${\boldsymbol{\Sigma}^{(t)}}^{-1/2}$.
 
-The transformation ${\boldsymbol{\Sigma}^{(t)}}^{-1/2}=\mathbf{Q}^{(t)}{\boldsymbol{\Lambda}^{(t)}}^{-1/2}{\mathbf{Q}^{(t)}}^\text{T}$ re-scales length of the step $\boldsymbol{\mu}^{(t+1)}-\boldsymbol{\mu}^{(t)}$ without changing its direction. In more specific:
+The transformation ${\boldsymbol{\Sigma}^{(t)}}^{-1/2}=\mathbf{Q}^{(t)}{\boldsymbol{\Lambda}^{(t)}}^{-1/2}{\mathbf{Q}^{(t)}}^\text{T}$ rescales length of the step $\boldsymbol{\mu}^{(t+1)}-\boldsymbol{\mu}^{(t)}$ without changing its direction. To be more specific:
 <ul class='number-list'>
 	<li>
 		${\mathbf{Q}^{(t)}}^\text{T}$ transform the original space into the coordinate space with columns of $\mathbf{Q}^{(t)}$, which is also the eigenvectors of $\boldsymbol{\Sigma}^{(t)}$ or the principle axes of $\mathcal{N}(\mathbf{0},\boldsymbol{\Sigma}^{(t)})$, as its principle axes.
@@ -220,7 +220,7 @@ The transformation ${\boldsymbol{\Sigma}^{(t)}}^{-1/2}=\mathbf{Q}^{(t)}{\boldsym
 
 It means that this transformation makes the expected length of $\mathbf{p}\_\sigma^{(t+1)}$ independent of its direction.
 
-We then update $\sigma^{(t)}$ by according to the ratio of its length with its expected length $\Vert\mathbf{p}\_\sigma^{(t+1)}\Vert/\mathbb{E}\Vert\mathcal{N}(\mathbf{0},\mathbf{I})\Vert$, given by
+We then update $\sigma^{(t)}$ by according to the ratio of its length with its expected length $\frac{\Vert\mathbf{p}\_\sigma^{(t+1)}\Vert}{\mathbb{E}\Vert\mathcal{N}(\mathbf{0},\mathbf{I})\Vert}$, given by:
 \begin{equation}
 \log\sigma^{(t+1)}=\log\sigma^{(t)}+\frac{\alpha_\sigma}{d_\sigma}\left(\frac{\Vert\mathbf{p}\_\sigma^{(t+1)}\Vert}{\mathbb{E}\Vert\mathcal{N}(\mathbf{0},\mathbf{I})\Vert}-1\right),
 \end{equation}
