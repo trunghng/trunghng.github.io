@@ -3,18 +3,33 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://trunghng.github.io/</loc>
-    <lastmod>2024-10-27T17:54:43+07:00</lastmod>
+    <lastmod>2024-10-13T16:09:06+07:00</lastmod>
   </url><url>
     <loc>https://trunghng.github.io/posts/</loc>
-    <lastmod>2024-10-27T17:54:43+07:00</lastmod>
+    <lastmod>2024-10-13T16:09:06+07:00</lastmod>
+  </url><url>
+    <loc>https://trunghng.github.io/tags/deep-reinforcement-learning/</loc>
+    <lastmod>2024-09-22T17:54:43+07:00</lastmod>
+  </url><url>
+    <loc>https://trunghng.github.io/tags/model-based/</loc>
+    <lastmod>2024-09-22T17:54:43+07:00</lastmod>
+  </url><url>
+    <loc>https://trunghng.github.io/posts/reinforcement-learning/mbrl-lvm/</loc>
+    <lastmod>2024-09-22T17:54:43+07:00</lastmod>
+  </url><url>
+    <loc>https://trunghng.github.io/tags/my-rl/</loc>
+    <lastmod>2024-09-22T17:54:43+07:00</lastmod>
+  </url><url>
+    <loc>https://trunghng.github.io/tags/</loc>
+    <lastmod>2024-09-22T17:54:43+07:00</lastmod>
+  </url><url>
+    <loc>https://trunghng.github.io/tags/variational-inference/</loc>
+    <lastmod>2024-09-22T17:54:43+07:00</lastmod>
   </url><url>
     <loc>https://trunghng.github.io/posts/graph-theory/leighton-graph-gen/</loc>
     <lastmod>2024-05-19T17:37:18+07:00</lastmod>
   </url><url>
     <loc>https://trunghng.github.io/tags/graph-theory/</loc>
-    <lastmod>2024-05-19T17:37:18+07:00</lastmod>
-  </url><url>
-    <loc>https://trunghng.github.io/tags/</loc>
     <lastmod>2024-05-19T17:37:18+07:00</lastmod>
   </url><url>
     <loc>https://trunghng.github.io/tags/machine-learning/</loc>
@@ -26,9 +41,6 @@
     <loc>https://trunghng.github.io/posts/machine-learning/vae/</loc>
     <lastmod>2024-04-30T16:28:52+07:00</lastmod>
   </url><url>
-    <loc>https://trunghng.github.io/tags/variational-inference/</loc>
-    <lastmod>2024-04-30T16:28:52+07:00</lastmod>
-  </url><url>
     <loc>https://trunghng.github.io/posts/machine-learning/graph-representation-learning/</loc>
     <lastmod>2024-04-16T14:43:59+07:00</lastmod>
   </url><url>
@@ -38,19 +50,10 @@
     <loc>https://trunghng.github.io/tags/neural-network/</loc>
     <lastmod>2024-04-16T14:43:59+07:00</lastmod>
   </url><url>
-    <loc>https://trunghng.github.io/tags/deep-reinforcement-learning/</loc>
-    <lastmod>2024-01-02T11:52:40+07:00</lastmod>
-  </url><url>
     <loc>https://trunghng.github.io/tags/mcts/</loc>
     <lastmod>2024-01-02T11:52:40+07:00</lastmod>
   </url><url>
-    <loc>https://trunghng.github.io/tags/model-based/</loc>
-    <lastmod>2024-01-02T11:52:40+07:00</lastmod>
-  </url><url>
     <loc>https://trunghng.github.io/posts/reinforcement-learning/muzero/</loc>
-    <lastmod>2024-01-02T11:52:40+07:00</lastmod>
-  </url><url>
-    <loc>https://trunghng.github.io/tags/my-rl/</loc>
     <lastmod>2024-01-02T11:52:40+07:00</lastmod>
   </url><url>
     <loc>https://trunghng.github.io/posts/reinforcement-learning/alphazero/</loc>

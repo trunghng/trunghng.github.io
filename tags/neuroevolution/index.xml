@@ -30,7 +30,7 @@
       
       <guid>https://trunghng.github.io/posts/evolution-strategy/cma-es/</guid>
       <description>&lt;blockquote&gt;
-&lt;p&gt;Notes on CMA - Evolution Strategy.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Covariance Matrix Adaptation Evolution Strategy&lt;/strong&gt; (&lt;strong&gt;CMA-ES&lt;/strong&gt;) is an evolutionary algorithm for complex non-linear non-convex blackbox optimization problems in continuous domain.&lt;/p&gt;
 &lt;/blockquote&gt;</description>
     </item>
     
