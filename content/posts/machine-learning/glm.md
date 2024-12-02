@@ -833,7 +833,7 @@ Setting this gradient to zero and solve for $\boldsymbol{\Sigma}$, we obtain the
 \begin{equation}
 \boldsymbol{\Sigma}=\mathbf{S},
 \end{equation}
-where $\mathbf{S}$ can be continued to derive as
+where $\mathbf{S}$ can continue to be derived as
 \begin{align}
 \mathbf{S}&=\frac{1}{N}\sum_{n=1}^{N}t_n(\mathbf{x}\_n-\boldsymbol{\mu}\_1)(\mathbf{x}\_n-\boldsymbol{\mu}\_1)^\text{T}+(1-t_n)(\mathbf{x}\_n-\boldsymbol{\mu}\_2)(\mathbf{x}\_n-\boldsymbol{\mu}\_2)^\text{T} \\\\ &=\frac{N_1}{N}\sum_{n\in\mathcal{C}\_1}(\mathbf{x}\_n-\boldsymbol{\mu}\_1)(\mathbf{x}\_n-\boldsymbol{\mu}\_1)^\text{T}+\frac{N_2}{N}\sum_{n\in\mathcal{C}\_2}(\mathbf{x}\_n-\boldsymbol{\mu}\_2)(\mathbf{x}\_n-\boldsymbol{\mu}\_2)^\text{T},
 \end{align}

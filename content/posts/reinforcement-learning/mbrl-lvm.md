@@ -246,7 +246,7 @@ PlaNet uses the **cross entropy method (CEM)** to search for the best action seq
 		\end{align}
 	</li>
 	<li>
-		After some number of iterations of repeatedly performing steps (2) + (3) + (4), the planner returns the mean of the belief for the current time-step, $\mu_t$.
+		After some number of iterations of repeatedly performing steps (2) + (3) + (4), the planner returns the first action having mean of the belief for the current time-step, $\mu_t$.
 	</li>
 </ul>
 
@@ -320,6 +320,10 @@ Once the $\lambda$-returns $V_\lambda(s_\tau)$ for all $s_\tau$ along the imagin
 
 ### DreamerV3
 
+## TD-MPC
+
+### TD-MPC2
+
 ## Preferences
 [1] <span id='world-models-paper'>David Ha, Jürgen Schmidhuber. [World Models](https://arxiv.org/abs/1803.10122). arXiv preprint, arXiv:1803.10122, 2018.
 
@@ -331,11 +335,15 @@ Once the $\lambda$-returns $V_\lambda(s_\tau)$ for all $s_\tau$ along the imagin
 
 [5] Danijar Hafner, Jurgis Pasukonis, Jimmy Ba, Timothy Lillicrap. [Mastering Diverse Domains through World Models](https://arxiv.org/abs/2301.04104). arXiv preprint, arXiv:2301.04104, 2023.
 
-[6] Kevin P. Murphy. [Probabilistic Machine Learning: Advanced Topics](https://probml.github.io/book2). The MIT Press, 2023.
+[6] Nicklas Hansen, Xiaolong Wang, Hao Su. [Temporal Difference Learning for Model Predictive Control](https://arxiv.org/abs/2203.04955). arXiv preprint, arXiv:2203.04955, 2022.
 
-[7] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition). The MIT Press, 2018.
+[7] Nicklas Hansen, Hao Su, Xiaolong Wang. [TD-MPC2: Scalable, Robust World Models for Continuous Control](https://arxiv.org/abs/2310.16828). arXiv preprint, arXiv:2310.16828, 2023.
 
-[8] Daphne Koller, Nir Friedman. [Probabilistic Graphical Models](https://mitpress.mit.edu/9780262013192/probabilistic-graphical-models/). The MIT Press, 2009.
+[8] Kevin P. Murphy. [Probabilistic Machine Learning: Advanced Topics](https://probml.github.io/book2). The MIT Press, 2023.
+
+[9] Richard S. Sutton & Andrew G. Barto. [Reinforcement Learning: An Introduction](https://mitpress.mit.edu/books/reinforcement-learning-second-edition). The MIT Press, 2018.
+
+[10] Daphne Koller, Nir Friedman. [Probabilistic Graphical Models](https://mitpress.mit.edu/9780262013192/probabilistic-graphical-models/). The MIT Press, 2009.
 
 ## Footnotes
 [^1]: In this case, the transition and observation model simplify into $p(z_t\vert z_{t-1})$ and $p(x_t\vert z_t)$ respectively.
