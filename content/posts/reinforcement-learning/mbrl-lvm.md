@@ -1,5 +1,5 @@
 ---
-title: "Model-based RL with latent-variable models"
+title: "Model-based RL with world models"
 date: 2024-09-22T17:54:43+07:00
 tags: [deep-reinforcement-learning, model-based, variational-inference, my-rl]
 math: true
@@ -316,9 +316,8 @@ Once the $\lambda$-returns $V_\lambda(s_\tau)$ for all $s_\tau$ along the imagin
 \mathcal{L}\_\phi&=-\mathbb{E}\_{q_\theta,q_\phi}\left[\sum_{\tau=t}^{t+H}V_\lambda(s_\tau)\right] \\\\ \mathcal{L}\_\psi&=\mathbb{E}\_{q_\theta,q_\phi}\left[\sum_{\tau=t}^{t+H}\frac{1}{2}\Big\Vert v_\psi(s_\tau)-V_\lambda(s_\tau)\Big\Vert^2\right]
 \end{align}
 
-### DreamerV2
-
-### DreamerV3
+### DreamerV2, DreamerV3
+**DreamerV2** builds upon the world model introduced in PlaNet and subsequentially used by Dreamer by replacing the Gaussian latent variables with Categorical latent variables. 
 
 ## TD-MPC
 

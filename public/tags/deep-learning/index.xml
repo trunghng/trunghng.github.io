@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Deep-Learning on Littleroot</title>
+    <link>http://localhost:1313/tags/deep-learning/</link>
+    <description>Recent content in Deep-Learning on Littleroot</description>
+    <image>
+      <title>Littleroot</title>
+      <url>http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 18 Jan 2024 11:32:05 +0700</lastBuildDate><atom:link href="http://localhost:1313/tags/deep-learning/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Graph Neural Network</title>
+      <link>http://localhost:1313/posts/machine-learning/gnn/</link>
+      <pubDate>Thu, 18 Jan 2024 11:32:05 +0700</pubDate>
+      
+      <guid>http://localhost:1313/posts/machine-learning/gnn/</guid>
+      <description>&lt;h3 id=&#34;the-graph-neural-network-model&#34;&gt;The Graph Neural Network model&lt;/h3&gt;
+&lt;p&gt;A graph $G=(N,E)$ is a tuple of the set of nodes $N$ and the set of edges $E$, which give rise to following notations&lt;/p&gt;
+&lt;ul class=&#39;number-list&#39;&gt;
+	&lt;li&gt;
+		$\text{ne}[n]$ is the neighbors of node $n$.
+	&lt;/li&gt;
+	&lt;li&gt;
+		$\text{co}[n]$ is the set of arcs linked to node $n$
+	&lt;/li&gt;
+	&lt;li&gt;
+		The labels attached to node $n$ and edge $(n_1,n_2)$ are denoted by $l_n\in\mathbb{R}^{\mathbf{l}_N}$ and $l_{(n_1,n_2)}\in\mathbb{R}^{\mathbf{l}_E}$; The vector consisting of all labels of the graph is represented as $\mathbf{l}$.
+	&lt;/li&gt;
+	&lt;li&gt;
+		A positional graph is defined as, for each node $n$ in the graph, there exists an injective function $\nu_n:\text{ne}[n]\mapsto\{1,\ldots\vert N\vert\}$, which assigns to each other $u$ of $n$ a position $\nu_n(u)$, indicated by a unique integer.
+	&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Let $\mathcal{D}=\mathcal{G}\times\mathcal{N}$ denote the pairs of a graph and a node, where $\mathcal{G}$ is a set of graphs and $\mathcal{N}$ is a subset of their nodes. Consider a learning set
+\begin{equation}
+\mathcal{L}=\Big\{(G_i,n_{i,j},t_{i,j})\big\vert G_i=(N_i,E_i)\in\mathcal{G};n_{i,j}\in N_i;t_{i,j}\in\mathbb{R}^m,1\leq i\leq p,1\leq j\leq q_i\Big\},
+\end{equation}
+where $n_{i,j}\in N_i$ denotes the $j$th node of $N_i\in\mathcal{N}$; $t_{i,j}$ is the desired target corresponded to $n_{i,j}$; and where $p\leq\vert\mathcal{G}\vert,q_i\leq\vert N_i\vert$.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

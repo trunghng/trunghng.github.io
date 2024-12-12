@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>graph-neural-network on Littleroot</title>
+    <title>Graph-Neural-Network on Littleroot</title>
     <link>https://trunghng.github.io/tags/graph-neural-network/</link>
-    <description>Recent content in graph-neural-network on Littleroot</description>
+    <description>Recent content in Graph-Neural-Network on Littleroot</description>
     <image>
       <title>Littleroot</title>
       <url>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
@@ -18,8 +18,13 @@
       <pubDate>Tue, 16 Apr 2024 14:43:59 +0700</pubDate>
       
       <guid>https://trunghng.github.io/posts/machine-learning/graph-representation-learning/</guid>
-      <description>Traditional feature-based approaches In traditional Machine Learning methods, we first represent our data points (nodes, links, entire graphs) as vectors of (hand-designed) features and then train a classical ML model (random forest, SVM, neural network) on top of that.
-Let us consider a network $\mathcal{G}=(\mathcal{V},\mathcal{E})$, where $\mathcal{V}$ is the set of nodes and $\mathcal{E}$ is the set of edges between these nodes. Also let $\mathbf{A}\in\mathbb{R}^{\vert\mathcal{V}\vert\times\vert\mathcal{V}\vert}$ be the adjacency matrix of $\mathcal{G}$, i.</description>
+      <description>&lt;h2 id=&#34;traditional-feature-based-approaches&#34;&gt;Traditional feature-based approaches&lt;/h2&gt;
+&lt;p&gt;In traditional Machine Learning methods, we first represent our data points (nodes, links, entire graphs) as vectors of (hand-designed) features and then train a classical ML model (random forest, SVM, neural network) on top of that.&lt;/p&gt;
+&lt;p&gt;Let us consider a network $\mathcal{G}=(\mathcal{V},\mathcal{E})$, where $\mathcal{V}$ is the set of nodes and $\mathcal{E}$ is the set of edges between these nodes. Also let $\mathbf{A}\in\mathbb{R}^{\vert\mathcal{V}\vert\times\vert\mathcal{V}\vert}$ be the adjacency matrix of $\mathcal{G}$, i.e. for $u,v\in\mathcal{V}$
+\begin{equation}
+\mathbf{A}_{u,v}=\begin{cases}1&amp;amp;\text{if }(u,v)\in\mathcal{E} \\ 0&amp;amp;\text{if }(u,v)\notin\mathcal{E}\end{cases}
+\end{equation}
+In some graph with weighted edges, entries of $\mathbf{A}$ will be arbitrary real-values rather than $0$ or $1$.&lt;/p&gt;</description>
     </item>
     
   </channel>
