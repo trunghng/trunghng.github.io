@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Differential-Equations on Littleroot</title>
+    <link>http://localhost:1313/tags/differential-equations/</link>
+    <description>Recent content in Differential-Equations on Littleroot</description>
+    <image>
+      <title>Littleroot</title>
+      <url>http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 17 Jun 2024 09:23:37 +0700</lastBuildDate><atom:link href="http://localhost:1313/tags/differential-equations/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Partial Differential Equations</title>
+      <link>http://localhost:1313/posts/linear-algebra/pde/</link>
+      <pubDate>Mon, 17 Jun 2024 09:23:37 +0700</pubDate>
+      
+      <guid>http://localhost:1313/posts/linear-algebra/pde/</guid>
+      <description>&lt;h2 id=&#34;partial-diffential-equations&#34;&gt;Partial diffential equations&lt;/h2&gt;
+&lt;p&gt;A partial differential equation (PDE) is an identity that relates the independent variables, $x,y,\ldots$, the dependent variable $u$, i.e., $u(x,y,\ldots)$, and the partial derivative of $u$. Specifically, denoting the order of an equation is the highest derivate that appears, here are the most general PDE in two independent variables of first and second order
+\begin{equation}
+F(x,y,u(x,y),u_x(x,y),u_y(x,y))=F(x,y,u_x,u_y)=0
+\end{equation}
+and
+\begin{equation}
+F(x,y,u,u_x,u_y,u_{xx},u_{xy},u_{yy})=0,
+\end{equation}
+where $u_x=\partial u/\partial x,u_{xy}=\partial^2 u/\partial x\partial y$.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
