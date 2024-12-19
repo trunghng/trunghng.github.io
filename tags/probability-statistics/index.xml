@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Probability-Statistics on Littleroot</title>
+    <title>probability-statistics on Littleroot</title>
     <link>https://trunghng.github.io/tags/probability-statistics/</link>
-    <description>Recent content in Probability-Statistics on Littleroot</description>
-    <image>
-      <title>Littleroot</title>
-      <url>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
-      <link>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
-    </image>
+    <description>Recent content in probability-statistics on Littleroot</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Mon, 22 Nov 2021 14:46:00 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/probability-statistics/index.xml" rel="self" type="application/rss+xml" />

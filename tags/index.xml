@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Tags on Littleroot</title>
+    <title>tags on Littleroot</title>
     <link>https://trunghng.github.io/tags/</link>
-    <description>Recent content in Tags on Littleroot</description>
-    <image>
-      <title>Littleroot</title>
-      <url>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
-      <link>https://trunghng.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
-    </image>
+    <description>Recent content in tags on Littleroot</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Sun, 22 Sep 2024 17:54:43 +0700</lastBuildDate><atom:link href="https://trunghng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Deep-Reinforcement-Learning</title>
+      <title>deep-reinforcement-learning</title>
       <link>https://trunghng.github.io/tags/deep-reinforcement-learning/</link>
       <pubDate>Sun, 22 Sep 2024 17:54:43 +0700</pubDate>
       
@@ -22,7 +17,7 @@
     </item>
     
     <item>
-      <title>Model-Based</title>
+      <title>model-based</title>
       <link>https://trunghng.github.io/tags/model-based/</link>
       <pubDate>Sun, 22 Sep 2024 17:54:43 +0700</pubDate>
       
@@ -31,7 +26,7 @@
     </item>
     
     <item>
-      <title>My-Rl</title>
+      <title>my-rl</title>
       <link>https://trunghng.github.io/tags/my-rl/</link>
       <pubDate>Sun, 22 Sep 2024 17:54:43 +0700</pubDate>
       
@@ -40,7 +35,7 @@
     </item>
     
     <item>
-      <title>Variational-Inference</title>
+      <title>variational-inference</title>
       <link>https://trunghng.github.io/tags/variational-inference/</link>
       <pubDate>Sun, 22 Sep 2024 17:54:43 +0700</pubDate>
       
@@ -49,7 +44,7 @@
     </item>
     
     <item>
-      <title>Graph-Theory</title>
+      <title>graph-theory</title>
       <link>https://trunghng.github.io/tags/graph-theory/</link>
       <pubDate>Sun, 19 May 2024 17:37:18 +0700</pubDate>
       
@@ -58,7 +53,7 @@
     </item>
     
     <item>
-      <title>Machine-Learning</title>
+      <title>machine-learning</title>
       <link>https://trunghng.github.io/tags/machine-learning/</link>
       <pubDate>Tue, 30 Apr 2024 16:28:52 +0700</pubDate>
       
@@ -67,7 +62,7 @@
     </item>
     
     <item>
-      <title>Probabilistic-Graphical-Model</title>
+      <title>probabilistic-graphical-model</title>
       <link>https://trunghng.github.io/tags/probabilistic-graphical-model/</link>
       <pubDate>Tue, 30 Apr 2024 16:28:52 +0700</pubDate>
       
@@ -76,7 +71,7 @@
     </item>
     
     <item>
-      <title>Graph-Neural-Network</title>
+      <title>graph-neural-network</title>
       <link>https://trunghng.github.io/tags/graph-neural-network/</link>
       <pubDate>Tue, 16 Apr 2024 14:43:59 +0700</pubDate>
       
@@ -85,7 +80,7 @@
     </item>
     
     <item>
-      <title>Neural-Network</title>
+      <title>neural-network</title>
       <link>https://trunghng.github.io/tags/neural-network/</link>
       <pubDate>Tue, 16 Apr 2024 14:43:59 +0700</pubDate>
       
@@ -94,7 +89,7 @@
     </item>
     
     <item>
-      <title>Mcts</title>
+      <title>mcts</title>
       <link>https://trunghng.github.io/tags/mcts/</link>
       <pubDate>Tue, 02 Jan 2024 11:52:40 +0700</pubDate>
       
@@ -103,7 +98,7 @@
     </item>
     
     <item>
-      <title>Actor-Critic</title>
+      <title>actor-critic</title>
       <link>https://trunghng.github.io/tags/actor-critic/</link>
       <pubDate>Thu, 25 May 2023 15:25:54 +0700</pubDate>
       
@@ -112,7 +107,7 @@
     </item>
     
     <item>
-      <title>Model-Free</title>
+      <title>model-free</title>
       <link>https://trunghng.github.io/tags/model-free/</link>
       <pubDate>Thu, 25 May 2023 15:25:54 +0700</pubDate>
       
@@ -121,7 +116,7 @@
     </item>
     
     <item>
-      <title>Multi-Agent</title>
+      <title>multi-agent</title>
       <link>https://trunghng.github.io/tags/multi-agent/</link>
       <pubDate>Thu, 25 May 2023 15:25:54 +0700</pubDate>
       
@@ -130,7 +125,7 @@
     </item>
     
     <item>
-      <title>Policy-Gradient</title>
+      <title>policy-gradient</title>
       <link>https://trunghng.github.io/tags/policy-gradient/</link>
       <pubDate>Thu, 25 May 2023 15:25:54 +0700</pubDate>
       
@@ -139,7 +134,7 @@
     </item>
     
     <item>
-      <title>Reinforcement-Learning</title>
+      <title>reinforcement-learning</title>
       <link>https://trunghng.github.io/tags/reinforcement-learning/</link>
       <pubDate>Thu, 25 May 2023 15:25:54 +0700</pubDate>
       
@@ -148,7 +143,7 @@
     </item>
     
     <item>
-      <title>Generative-Model</title>
+      <title>generative-model</title>
       <link>https://trunghng.github.io/tags/generative-model/</link>
       <pubDate>Mon, 01 May 2023 13:00:00 +0700</pubDate>
       
@@ -157,7 +152,7 @@
     </item>
     
     <item>
-      <title>Gumbel-Distribution</title>
+      <title>gumbel-distribution</title>
       <link>https://trunghng.github.io/tags/gumbel-distribution/</link>
       <pubDate>Mon, 02 Jan 2023 13:49:15 +0700</pubDate>
       
@@ -166,7 +161,7 @@
     </item>
     
     <item>
-      <title>Q-Learning</title>
+      <title>q-learning</title>
       <link>https://trunghng.github.io/tags/q-learning/</link>
       <pubDate>Tue, 27 Dec 2022 13:46:09 +0700</pubDate>
       
@@ -175,7 +170,7 @@
     </item>
     
     <item>
-      <title>Dqn</title>
+      <title>dqn</title>
       <link>https://trunghng.github.io/tags/dqn/</link>
       <pubDate>Fri, 18 Nov 2022 15:26:00 +0700</pubDate>
       
@@ -184,7 +179,7 @@
     </item>
     
     <item>
-      <title>Function-Approximation</title>
+      <title>function-approximation</title>
       <link>https://trunghng.github.io/tags/function-approximation/</link>
       <pubDate>Fri, 18 Nov 2022 15:26:00 +0700</pubDate>
       
@@ -193,7 +188,7 @@
     </item>
     
     <item>
-      <title>Evolution-Strategy</title>
+      <title>evolution-strategy</title>
       <link>https://trunghng.github.io/tags/evolution-strategy/</link>
       <pubDate>Fri, 07 Oct 2022 13:00:00 +0700</pubDate>
       
@@ -202,7 +197,7 @@
     </item>
     
     <item>
-      <title>Neuroevolution</title>
+      <title>neuroevolution</title>
       <link>https://trunghng.github.io/tags/neuroevolution/</link>
       <pubDate>Fri, 07 Oct 2022 13:00:00 +0700</pubDate>
       
@@ -211,7 +206,7 @@
     </item>
     
     <item>
-      <title>Lebesgue-Integral</title>
+      <title>lebesgue-integral</title>
       <link>https://trunghng.github.io/tags/lebesgue-integral/</link>
       <pubDate>Sun, 21 Aug 2022 13:00:00 +0700</pubDate>
       
@@ -220,7 +215,7 @@
     </item>
     
     <item>
-      <title>Mathematics</title>
+      <title>mathematics</title>
       <link>https://trunghng.github.io/tags/mathematics/</link>
       <pubDate>Sun, 21 Aug 2022 13:00:00 +0700</pubDate>
       
@@ -229,7 +224,7 @@
     </item>
     
     <item>
-      <title>Measure-Theory</title>
+      <title>measure-theory</title>
       <link>https://trunghng.github.io/tags/measure-theory/</link>
       <pubDate>Sun, 21 Aug 2022 13:00:00 +0700</pubDate>
       
@@ -238,7 +233,7 @@
     </item>
     
     <item>
-      <title>Generalized-Linear-Model</title>
+      <title>generalized-linear-model</title>
       <link>https://trunghng.github.io/tags/generalized-linear-model/</link>
       <pubDate>Sat, 13 Aug 2022 13:00:00 +0700</pubDate>
       
@@ -247,7 +242,7 @@
     </item>
     
     <item>
-      <title>Linear-Discriminant-Analysis</title>
+      <title>linear-discriminant-analysis</title>
       <link>https://trunghng.github.io/tags/linear-discriminant-analysis/</link>
       <pubDate>Sat, 13 Aug 2022 13:00:00 +0700</pubDate>
       
@@ -256,7 +251,7 @@
     </item>
     
     <item>
-      <title>Linear-Regression</title>
+      <title>linear-regression</title>
       <link>https://trunghng.github.io/tags/linear-regression/</link>
       <pubDate>Sat, 13 Aug 2022 13:00:00 +0700</pubDate>
       
@@ -265,7 +260,7 @@
     </item>
     
     <item>
-      <title>Logistic-Regression</title>
+      <title>logistic-regression</title>
       <link>https://trunghng.github.io/tags/logistic-regression/</link>
       <pubDate>Sat, 13 Aug 2022 13:00:00 +0700</pubDate>
       
@@ -274,7 +269,7 @@
     </item>
     
     <item>
-      <title>Lebesgue-Measure</title>
+      <title>lebesgue-measure</title>
       <link>https://trunghng.github.io/tags/lebesgue-measure/</link>
       <pubDate>Sun, 03 Jul 2022 13:00:00 +0700</pubDate>
       
@@ -283,7 +278,7 @@
     </item>
     
     <item>
-      <title>Jordan-Measure</title>
+      <title>jordan-measure</title>
       <link>https://trunghng.github.io/tags/jordan-measure/</link>
       <pubDate>Thu, 16 Jun 2022 13:00:00 +0700</pubDate>
       
@@ -292,7 +287,7 @@
     </item>
     
     <item>
-      <title>Riemann-Integral</title>
+      <title>riemann-integral</title>
       <link>https://trunghng.github.io/tags/riemann-integral/</link>
       <pubDate>Thu, 16 Jun 2022 13:00:00 +0700</pubDate>
       
@@ -301,7 +296,7 @@
     </item>
     
     <item>
-      <title>Importance-Sampling</title>
+      <title>importance-sampling</title>
       <link>https://trunghng.github.io/tags/importance-sampling/</link>
       <pubDate>Wed, 25 May 2022 15:26:00 +0700</pubDate>
       
@@ -310,7 +305,7 @@
     </item>
     
     <item>
-      <title>Dyna</title>
+      <title>dyna</title>
       <link>https://trunghng.github.io/tags/dyna/</link>
       <pubDate>Thu, 19 May 2022 14:09:00 +0700</pubDate>
       
@@ -319,7 +314,7 @@
     </item>
     
     <item>
-      <title>Exponential-Family</title>
+      <title>exponential-family</title>
       <link>https://trunghng.github.io/tags/exponential-family/</link>
       <pubDate>Mon, 04 Apr 2022 14:00:00 +0700</pubDate>
       
@@ -328,7 +323,7 @@
     </item>
     
     <item>
-      <title>Eligible-Traces</title>
+      <title>eligible-traces</title>
       <link>https://trunghng.github.io/tags/eligible-traces/</link>
       <pubDate>Sun, 13 Mar 2022 14:11:00 +0700</pubDate>
       
@@ -337,7 +332,7 @@
     </item>
     
     <item>
-      <title>Td-Learning</title>
+      <title>td-learning</title>
       <link>https://trunghng.github.io/tags/td-learning/</link>
       <pubDate>Sun, 13 Mar 2022 14:11:00 +0700</pubDate>
       
@@ -346,7 +341,7 @@
     </item>
     
     <item>
-      <title>Normal-Distribution</title>
+      <title>normal-distribution</title>
       <link>https://trunghng.github.io/tags/normal-distribution/</link>
       <pubDate>Mon, 22 Nov 2021 14:46:00 +0700</pubDate>
       
@@ -355,7 +350,7 @@
     </item>
     
     <item>
-      <title>Probability-Statistics</title>
+      <title>probability-statistics</title>
       <link>https://trunghng.github.io/tags/probability-statistics/</link>
       <pubDate>Mon, 22 Nov 2021 14:46:00 +0700</pubDate>
       
@@ -364,7 +359,7 @@
     </item>
     
     <item>
-      <title>Calculus</title>
+      <title>calculus</title>
       <link>https://trunghng.github.io/tags/calculus/</link>
       <pubDate>Tue, 21 Sep 2021 15:40:00 +0700</pubDate>
       
@@ -373,7 +368,7 @@
     </item>
     
     <item>
-      <title>Power-Series</title>
+      <title>power-series</title>
       <link>https://trunghng.github.io/tags/power-series/</link>
       <pubDate>Tue, 21 Sep 2021 15:40:00 +0700</pubDate>
       
@@ -382,7 +377,7 @@
     </item>
     
     <item>
-      <title>Random-Stuffs</title>
+      <title>random-stuffs</title>
       <link>https://trunghng.github.io/tags/random-stuffs/</link>
       <pubDate>Tue, 21 Sep 2021 15:40:00 +0700</pubDate>
       
@@ -391,7 +386,7 @@
     </item>
     
     <item>
-      <title>Series</title>
+      <title>series</title>
       <link>https://trunghng.github.io/tags/series/</link>
       <pubDate>Tue, 21 Sep 2021 15:40:00 +0700</pubDate>
       
@@ -400,7 +395,7 @@
     </item>
     
     <item>
-      <title>Taylor-Series</title>
+      <title>taylor-series</title>
       <link>https://trunghng.github.io/tags/taylor-series/</link>
       <pubDate>Tue, 21 Sep 2021 15:40:00 +0700</pubDate>
       
@@ -409,7 +404,7 @@
     </item>
     
     <item>
-      <title>Monte-Carlo</title>
+      <title>monte-carlo</title>
       <link>https://trunghng.github.io/tags/monte-carlo/</link>
       <pubDate>Sat, 21 Aug 2021 13:03:00 +0700</pubDate>
       
@@ -418,7 +413,7 @@
     </item>
     
     <item>
-      <title>Dynamic-Programming</title>
+      <title>dynamic-programming</title>
       <link>https://trunghng.github.io/tags/dynamic-programming/</link>
       <pubDate>Sun, 25 Jul 2021 15:30:00 +0700</pubDate>
       
@@ -427,7 +422,7 @@
     </item>
     
     <item>
-      <title>Bellman-Equation</title>
+      <title>bellman-equation</title>
       <link>https://trunghng.github.io/tags/bellman-equation/</link>
       <pubDate>Sat, 10 Jul 2021 13:03:00 +0700</pubDate>
       
@@ -436,7 +431,7 @@
     </item>
     
     <item>
-      <title>Eigenvalue-Eigenvector</title>
+      <title>eigenvalue-eigenvector</title>
       <link>https://trunghng.github.io/tags/eigenvalue-eigenvector/</link>
       <pubDate>Sat, 05 Jun 2021 17:00:00 +0700</pubDate>
       
@@ -445,7 +440,7 @@
     </item>
     
     <item>
-      <title>Linear-Algebra</title>
+      <title>linear-algebra</title>
       <link>https://trunghng.github.io/tags/linear-algebra/</link>
       <pubDate>Sat, 05 Jun 2021 17:00:00 +0700</pubDate>
       
