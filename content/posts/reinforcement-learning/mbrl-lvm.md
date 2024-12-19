@@ -1,11 +1,11 @@
 ---
-title: "Model-based RL with world models"
+title: "Model-based RL with latent variable models"
 date: 2024-09-22T17:54:43+07:00
 tags: [deep-reinforcement-learning, model-based, variational-inference, my-rl]
 math: true
 eqn-number: true
 ---
-> Model-based RL methods that learn latent-variable models instead of trying to predict dynamics models in the observed space.
+> Model-based RL methods that learn latent-variable models instead of trying to predict dynamics models in the observed space. The learned world model then can be used in planning effectively rather than being less efficiently, for instance in visual-based tasks, generating images for future time steps and feed them back into the model to predict the next ones, which requires more computation.
 <!--more-->
 
 ## World Models
@@ -56,25 +56,25 @@ Specifically, components are trained separately and the whole algorithm proceeds
 **Deep Planning Network** (**PlaNet**) works in the scope of partially observable Markov decision processes (POMDPs). A **partially observable Markov decision process** is a tuple of $(\mathcal{S},\mathcal{A},\mathcal{T},R,\Omega ,O,\gamma)$ where:
 - $(\mathcal{S},\mathcal{A},\mathcal{T},R,\gamma)$ describes a Markov decision process;
 - $\Omega$ is a finite set of observations;
-- $O:\mathcal{S}\times\mathcal{A}\to\Pi(\Omega)$ is the observation function, which gives, for each action and resulting state, a probability over possible observations, i.e. $O(s',a,o)=P(o\vert s',a)$.
+- $O:\mathcal{S}\times\mathcal{A}\to\Pi(\Omega)$ is the observation function, which gives, for each action and resulting state, a probability over possible observations, i.e. $O(s',a,o)=P(o\mid s',a)$.
 
 We consider a discrete-time POMDP. At each time-step $t$, we have a state $s_t$, an image observation $o_t$, a continuous action vector $a_t$, and a scalar reward $r_t$ following the stochastic dynamics, which consists of four components
 <ul class='number-list'>
 	<li>
-		Transition function: $s_t\sim\text{p}(s_t\vert s_{t-1},a_{t-1})$;
+		Transition function: $s_t\sim\text{p}(s_t\mid s_{t-1},a_{t-1})$;
 	</li>
 	<li>
-		Observation function: $o_t\sim\text{p}(o_t\vert s_t)$;
+		Observation function: $o_t\sim\text{p}(o_t\mid s_t)$;
 	</li>
 	<li>
-		Reward function: $r_t\sim\text{p}(r_t\vert s_t)$;
+		Reward function: $r_t\sim\text{p}(r_t\mid s_t)$;
 	</li>
 	<li>
-		Policy: $a_t\sim\text{p}(a_t\vert o_{\leq t},a_{\lt t})$
+		Policy: $a_t\sim\text{p}(a_t\mid o_{\leq t},a_{\lt t})$
 	</li>
 </ul>
 
-where we assume a fixed initial state $s_0$ without loss of generality. Our goal is to find a policy $\text{p}(a_t\vert o_{\leq t},a_{<t})$ that maximizes the expected sum of rewards $\mathbb{E}\_\text{p}\left[\sum_{t=1}^{H}r_t\right]$ taken over the distributions of the environment and the policy.
+where we assume a fixed initial state $s_0$ without loss of generality. Our goal is to find a policy $\text{p}(a_t\mid o_{\leq t},a_{<t})$ that maximizes the expected sum of rewards $\mathbb{E}\_\text{p}\left[\sum_{t=1}^{H}r_t\right]$ taken over the distributions of the environment and the policy.
 
 ### Recurrent state-space model
 A **state-space model (SSM)** is a partially observed Markov model where the hidden state, $z_t$, evolves over time to a Markov process, and each hidden state generates some observations $x_t$ at each time-step. The goal is to infer the hidden states given the observations.
@@ -87,7 +87,7 @@ where $z_t\in\mathbb{R}^{N_z}$ are the hidden states, $u_t\in\mathbb{R}^{N_u}$ a
 
 The system can be written as a probabilistic model rather than a deterministic function of random noises:
 \begin{align}
-p(z_t\vert z_{t-1},u_t)&=p(z_t\vert f(z_{t-1},u_t))\label{eq:rssm.1} \\\\ p(x_t\vert z_t,u_t,x_{1:t-1})&=p(x_t\vert h(z_t,u_t,x_{1:t-1}))\label{eq:rssm.2},
+p(z_t\mid z_{t-1},u_t)&=p(z_t\mid f(z_{t-1},u_t))\label{eq:rssm.1} \\\\ p(x_t\mid z_t,u_t,x_{1:t-1})&=p(x_t\mid h(z_t,u_t,x_{1:t-1}))\label{eq:rssm.2},
 \end{align}
 where $p(z_t\vert z_{t-1},u_t)$ is called the **transition (dynamics) model** and $p(x_t\vert z_t,u_t,x_{1:t-1})$ is referred as the **observation model**. Unrolling over time gives us the joint distribution:
 \begin{equation}
@@ -137,13 +137,13 @@ This is known as a **recurrent state-space model (RSSM)**.
 PlaNet uses a SSM as the world model for planning, as illustrated in [**Figure 5a**](#fig5), which consists of[^2]:
 <ul class='number-list'>
 	<li>
-		Transition model: $s_t\sim p(s_t\vert s_{t-1},a_{t-1})$, a Gaussian with mean and variance parameterized by a feed-forward network.
+		Transition model: $s_t\sim p(s_t\mid s_{t-1},a_{t-1})$, a Gaussian with mean and variance parameterized by a feed-forward network.
 	</li>
 	<li>
-		Observation model: $o_t\sim p(o_t\vert s_t)$, a Gaussian with mean parameterized by a deconvolutional network and identity covariance
+		Observation model: $o_t\sim p(o_t\mid s_t)$, a Gaussian with mean parameterized by a deconvolutional network and identity covariance
 	</li>
 	<li>
-		Reward model: $r_t\sim p(r_t\vert s_t)$, a scalar Gaussian with mean parameterized by a feed-forward network and unit variance.
+		Reward model: $r_t\sim p(r_t\mid s_t)$, a scalar Gaussian with mean parameterized by a feed-forward network and unit variance.
 	</li>
 </ul>
 
@@ -168,22 +168,10 @@ where we use Jensen's inequality in the forth step. The first term inside the pa
 As mentioned above, in order to capture information for multiple time-steps, we need to introduce deterministic hidden states to our SSM, which leads to a RSSM, as illustrated in [**Figure 5b**](#fig5).
 
 Specifically, the authors added long-range dependencies into the transition model by splitting the state into a stochastic part $s_t$ and a deterministic part $h_t$, which depends on the stochastic and deterministic parts at the previous time-step, $s_{t-1}$ and $h_{t-1}$ respectively. The result model is then given as:
-<ul class='number-list'>
-	<li>
-		Deterministic state model: $h_t=f(h_{t-1},s_{t-1},a_{t-1})$, where $f(h_{t-1},s_{t-1},a_{t-1})$ is a RNN.
-	</li>
-	<li>
-		Stochastic state model: $s_t\sim p(s_t\vert h_t)$.
-	</li>
-	<li>
-		Observation model: $o_t\sim p(o_t\vert h_t,s_t)$.
-	</li>
-	<li>
-		Reward model: $r_t\sim p(r_t\vert h_t,s_t)$.
-	</li>
-</ul>
-
-And we also use the encoder $q(s_{1:T}\vert o_{1:T},a_{1:T})=\prod_{t=1}^{T}q(s_t\vert h_t,o_t)$ to parameterize the approximate state posteriors.
+\begin{align}
+&\text{Deterministic state model}:&&h_t=f(h_{t-1},s_{t-1},a_{t-1})\nonumber \\\\ &\text{Stochastic state model}:&&s_t\sim p(s_t\mid h_t)\nonumber \\\\ &\text{Observation model}:&&o_t\sim p(o_t\mid h_t,s_t)\nonumber \\\\ &\text{Reward model}:&&r_t\sim p(r_t\mid h_t,s_t)\nonumber,
+\end{align}
+where $f(h_{t-1},s_{t-1},a_{t-1})$ is a RNN. We also use the encoder $q(s_{1:T}\mid o_{1:T},a_{1:T})=\prod_{t=1}^{T}q(s_t\mid h_t,o_t)$ to parameterize the approximate state posteriors.
 
 ### Latent overshooting
 <figure id='fig6'>
@@ -205,7 +193,7 @@ where the multi-step prediction, $p(s_t\vert s_{t-d},a_{t-d-1:t-1})$, is compute
 \begin{align}
 p(s_t\vert s_{t-d},a_{t-d-1:t-1})&\doteq\int\prod_{\tau=t-d+1}^{t}p(s_\tau\vert s_{\tau-1},a_{\tau-1})d s_{t-d+1:t-1} \\\\ &=\mathbb{E}\_{p(s_{t-1}\vert s_{t-d},a_{t-d-1:t-2})}\big[p(s_t\vert s_{t-1},a_{t-1})\big]\label{eq:lo.1}
 \end{align}
-The ELBO corresponding to this $d$-step predictive distribution is then can be computed as:
+The ELBO corresponding to this $d$-step predictive distribution then can be computed as:
 \begin{align}
 &\hspace{-1cm}p_d(o_{1:T}\vert a_{1:T})\nonumber \\\\ &\doteq\log\int\prod_{t=1}^{T}p(s_t\vert s_{t-d},a_{t-1})p(o_t\vert s_t)d s_{1:T} \\\\ &=\log\mathbb{E}\_{p_d(s_{t:T}\vert a_{1:T})}\left[\prod_{t=1}^{T}p(o_t\vert s_t)\right] \\\\ &=\log\mathbb{E}\_{q(s_{1:T}\vert o_{1:T},a_{1:T})}\left[\prod_{t=1}^{T}p(o_t\vert s_t)\frac{p(s_t\vert s_{t-d},a_{t-d-1:t-1})}{q(s_t\vert o_{\leq t},a_{\lt t})}\right] \\\\ &\overset{\text{(i)}}{\geq}\mathbb{E}\_{q(s_{1:T}\vert o_{1:T},a_{1:T})}\left[\log\prod_{t=1}^{T}p(o_t\vert s_t)\frac{p(s_t\vert s_{t-d},a_{t-d-1:t-1})}{q(s_t\vert o_{\leq t},a_{\lt t})}\right] \\\\ &=\mathbb{E}\_{q(s_{1:T}\vert o_{1:T},a_{1:T})}\left[\sum_{t=1}^{T}\log p(o_t\vert s_t)+\log p(s_t\vert s_{t-d},a_{t-d-1:t-1})-\log q(s_t\vert o_{\leq t},a_{\lt t})\right] \\\\ &\overset{\text{(ii)}}{=}\mathbb{E}\_{q(s_{1:T}\vert o_{1:T},a_{1:T})}\left[\sum_{t=1}^{T}\log p(o_t\vert s_t)+\log\mathbb{E}\_{p(s_{t-1}\vert s_{t-d},a_{t-d-1:t-2})}\big[p(s_t\vert s_{t-1},a_{t-1})\big]\right.\nonumber \\\\ &\hspace{4cm}\Bigg.-\log q(s_t\vert o_{\leq t},a_{\lt t})\Bigg] \\\\ &\overset{\text{(iii)}}{\geq}\mathbb{E}\_{q(s_{1:T}\vert o_{1:T},a_{1:T})}\left[\sum_{t=1}^{T}\log p(o_t\vert s_t)+\mathbb{E}\_{p(s_{t-1}\vert s_{t-d},a_{t-d-1:t-2})}\big[\log p(s_t\vert s_{t-1},a_{t-1})\big]\right.\nonumber \\\\ &\hspace{4cm}\Bigg.-\log q(s_t\vert o_{\leq t},a_{\lt t})\Bigg] \\\\ &=\sum_{t=1}^{T}\Bigg(\mathbb{E}\_{q(s_t\vert o_{\leq t},a_{\lt t})}\big[\log p(o_t\vert s_t)\big]\Bigg.\nonumber \\\\ &\hspace{1cm}\Bigg.-\mathbb{E}\_{p(s_{t-1}\vert s_{t-d},a_{t-d-1:t-2})q(s_{t-d}\vert o_{\leq t-d},a_{\lt t-d})}\Big[D_\text{KL}\big(q(s_t\vert o_{\leq t},a_{\lt t})\big\Vert p(s_t\vert s_{t-1},a_{t-1})\big)\Big]\Bigg),
 \end{align}
@@ -251,7 +239,7 @@ PlaNet uses the **cross entropy method (CEM)** to search for the best action seq
 </ul>
 
 ## Dreamer
-Proposed by the same author of **PlaNet**, **Dreamer** improves the computational efficient of its predecessor by replacing the MPC planner by a policy network, which is learned simultaneously with a value network using actor-critic in latent space. Specifically, Dreamer consists of three components, performed in parallel or interleaved:
+Proposed by the same author of **PlaNet**, **Dreamer** improves the computational efficient of its predecessor by replacing the MPC planner by a policy network, which is learned simultaneously with a value network using actor-critic in latent space. Specifically, Dreamer consists of three components, as illustrated in [Figure 7](#fig7), performed in parallel or interleaved:
 <ul class='number-list'>
 	<li>
 		<b>Dynamics learning</b>: learning the latent dynamics model from past experience to predict future rewards from actions and past observations.
@@ -264,44 +252,34 @@ Proposed by the same author of **PlaNet**, **Dreamer** improves the computationa
 	</li>
 </ul>
 
-<figure>
+<figure id='fig7'>
 	<img src="/images/mbrl-lvm/dreamer.png" alt="dreamer"/>
-	<figcaption style='text-align: center;'><b>Figure 7</b>: (taken from <a href='#dreamer-paper'>Dreamer paper</a>) <b>Components of Dreamer</b>. (a) Learn latent dynamics from experience; (b) Learn behavior in imagination; (c) Act in the world</figcaption>
+	<figcaption style='text-align: center;'><b>Figure 7</b>: (taken from <a href='#dreamer-paper'>Dreamer paper</a>) <b>Components of Dreamer</b>. (a) Latent dynamics learning from experience; (b) Behavior learning in imagination; (c) Acting in the world</figcaption>
 </figure>
 
 ### Latent dynamics learning
-Analogous to PlaNet, Dreamer also learns a dynamics model via a RSSM world model. Specifically, the world model in Dreamer consists of:
-<ul class='number-list'>
-	<li>
-		Representation model: $p_\theta(s_t\vert s_{t-1},a_{t-1},o_t)$
-	</li>
-	<li>
-		Transition model: $q_\theta(s_t\vert s_{t-1},a_{t-1})$
-	</li>
-	<li>
-		Observation model: $q_\theta(o_t\vert s_t)$
-	</li>
-	<li>
-		Reward model: $q_\theta(r_t\vert s_t)$
-	</li>
-</ul>
+Analogous to PlaNet, Dreamer also learns a dynamics model via a RSSM. Specifically, recalling for completeness, the world model in Dreamer consists of:
+\begin{align}
+&\text{Recurrent model}:&&h_t=f_\theta(h_{t-1},s_{t-1},a_{t-1})\nonumber \\\\ &\text{Representation model}:&&s_t\sim q_\theta(s_t\vert h_t,o_t)\nonumber \\\\ &\text{Transition model}:&&\hat{s}\_t\sim p_\theta(\hat{s}\_t\vert h_t)\nonumber \\\\ &\text{Observation model}:&&\hat{o}\_t\sim p_\theta(\hat{o}\_t\vert h_t, s_t)\nonumber \\\\ &\text{Reward model}:&&\hat{r}\_t\sim p_\theta(\hat{r}\_t\vert h_t,s_t)\nonumber,
+\end{align}
+where $f_\theta$ is an RNN and $\theta$ is the joint parameter.
 
-### Behavior learning by latent imagination
+### Behavior learning
 Since the compact model states $s_t$ are Markovian, the latent dynamics then define an MDP that is fully observed. Letting $\tau$ denote the time index for all quantities in this MDP, each imagined trajectory $\\{(s_\tau,a_\tau,r_\tau)\\}\_{\tau=t}$ starts at a true state, $s_\tau=s_t$ for $\tau=0$ and follow predictions of:
 \begin{align}
 &\small\text{Transition model:}&&s_\tau\sim q(s_\tau\vert s_{\tau-1},a_{\tau-1})\nonumber \\\\ &\small\text{Reward model:}&&r_\tau\sim q(r_\tau\vert s_\tau)\nonumber \\\\ &\small\text{Policy:}&&a_\tau\sim q(a_\tau\vert s_\tau)\nonumber
 \end{align}
 The object is to maximize the expected cumulative imagined rewards $\mathbb{E}\_q\left[\sum_{\tau=t}^{\infty}\gamma^{\tau-t}r_\tau\right]$ taken over the policy $q(a_\tau\vert s_\tau)$.
 
-Consider imagined trajectories with a finite horizon $H$. Within the latent space, Dreamer learns an action model (or policy) $q_\phi$, parameterized by $\phi$, that aims to predict actions that solve the imagination environment
+Consider imagined trajectories with a finite horizon $H$. Within the latent space, Dreamer learns an action model (actor) $q_\phi$, parameterized by $\phi$, that aims to predict actions that solve the imagination environment
 \begin{equation}
 a_\tau\sim q_\phi(a_\tau\vert s_\tau)
 \end{equation}
-At the same time, it also learns a value model $v_\psi$, parameterized by $\psi$, that estimates the expected cumulative imagined rewards that the action model achieves from each state $s_\tau$
+At the same time, it also learns a value model (critic) $v_\psi$, parameterized by $\psi$, that estimates the expected cumulative imagined rewards that the action model achieves from each state $s_\tau$
 \begin{equation}
 v_\psi(s_\tau)\approx\mathbb{E}\_{q(\cdot\vert s_\tau)}\left[\sum_{\tau=t}^{t+H}\gamma^{\tau-t}r_\tau\right]
 \end{equation}
-In the paper, both models are implemented as MLPs. The action model $q_\phi$ outputs a $\tanh$-transformed Gaussian with sufficient statistics predicted by the network, as in [**SAC**]({{<ref"maxent-sql-sac#action-sample">}}).
+In the paper, both models are implemented as MLPs. The actor $q_\phi$ outputs a $\tanh$-transformed Gaussian with sufficient statistics predicted by the network, as in [**SAC**]({{<ref"maxent-sql-sac#action-sample">}}).
 \begin{equation}
 a_\tau=\tanh(\mu_\phi(s_\tau)+\sigma_\phi(s_\tau)\epsilon),\hspace{1cm}\epsilon\sim\mathcal{N}(0,I)
 \end{equation}
@@ -311,13 +289,85 @@ V_N^k(s_\tau)&\doteq\mathbb{E}\_{q_\phi,q_\theta}\left[\sum_{n=\tau}^{h-1}\gamma
 \end{align}
 where $V_N^k$ is the $k$-step return, which estimates rewards beyond $k$ steps with the learned value model $v_\psi(s_h)$.
 
-Once the $\lambda$-returns $V_\lambda(s_\tau)$ for all $s_\tau$ along the imagined trajectories are computed, the parameters $\phi$ and $\psi$ can be updated iteratively by SGD according to the action loss and value loss respectively:
+Once the $\lambda$-returns $V_\lambda(s_\tau)$ for all $s_\tau$ along the imagined trajectories are computed, the parameters $\phi$ and $\psi$ can be updated iteratively by SGD according to the actor loss and critic loss respectively:
 \begin{align}
 \mathcal{L}\_\phi&=-\mathbb{E}\_{q_\theta,q_\phi}\left[\sum_{\tau=t}^{t+H}V_\lambda(s_\tau)\right] \\\\ \mathcal{L}\_\psi&=\mathbb{E}\_{q_\theta,q_\phi}\left[\sum_{\tau=t}^{t+H}\frac{1}{2}\Big\Vert v_\psi(s_\tau)-V_\lambda(s_\tau)\Big\Vert^2\right]
 \end{align}
 
-### DreamerV2, DreamerV3
-**DreamerV2** builds upon the world model introduced in PlaNet and subsequentially used by Dreamer by replacing the Gaussian latent variables with Categorical latent variables. 
+## DreamerV2
+<figure id='fig8'>
+	<img src="/images/mbrl-lvm/world-model-dreamerv2.png" alt="DreamerV2's world model" width="70%" height="70%"/>
+	<figcaption style='text-align: center;'><b>Figure 8</b>: (taken from <a href='#dreamerv2-paper'>DreamerV2 paper</a>) <b>World model in DreamerV2</b>.</figcaption>
+</figure>
+
+**DreamerV2** builds upon the world model introduced in PlaNet and subsequently used by Dreamer, by replacing the Gaussian latent variables with categorical latent variables.
+
+### World model learning
+Specifically, the world model in DreamerV2, as described in [Figure 8](#fig8), consists of an image encoder (representation model), a RSSM to learn the dynamics and predictors for the image, reward and discount factor.
+<ul class='number-list'>
+	<li>
+		Recurrent model: $h_t=f_\theta(h_{t-1},s_{t-1},a_{t-1})$, computes the deterministic recurrent states $h_t$, and $f_\theta$ is a Gated Recurrent Unit (GRU).
+	</li>
+	<li>
+		Representation model: $s_t\sim q_\theta(s_t\mid h_t,o_t)$, is a CNN followed by a MLP, and outputs a distribution over posterior stochastic state $s_t$ from the deterministic recurrent state $h_t$ and image $o_t$.
+	</li>
+	<li>
+		Transition predictor: $\hat{s}_t\sim p_\theta(\hat{s}_t\mid h_t)$, outputs a distribution over prior stochastic state $\hat{s}_t$ solely from the deterministic recurrent state $h_t$.
+	</li>
+	<li>
+		Image predictor: $\hat{o}_t\sim p_\theta(\hat{o}_t\mid h_t,s_t)$, is a transposed CNN (deconvolutional), and outputs a diagonal Gaussian with unit variance.
+	</li>
+	<li>
+		Reward predictor: $\hat{r}_t\sim p_\theta(\hat{r}_t\mid h_t,s_t)$, is an MLP, and outputs a univariate Gaussian with unit variance.
+	</li>
+	<li>
+		Discount predictor: $\hat{\gamma}_t\sim p_\theta(\hat{\gamma}_t\mid h_t,s_t)$, is an MLP, and outputs a Bernoulli likelihood.
+	</li>
+</ul>
+
+Rather than being a diagonal Gaussian (that used reparameterization trick to compute its gradient) as PlaNet or Dreamer, the stochastic state ($s_t$ and $\hat{s}_t$) in DreamerV2 is a vector of multiple categorical variables that can be optimized using **straight-through estimators** or [Gumbel-Max trick]({{<ref"cat-reparam-gumbel-softmax-concrete-dist#gumbel-max-trick">}}).
+
+All components of the world model are optimized jointly by minimizing the loss function w.r.t $\theta$:
+\begin{align}
+\mathcal{L}(\theta)&=\mathbb{E}\_{q_\theta(s_{1:T}\vert a_{1:T},o_{1:T})}\left[\sum_{t=1}^{T}\underbrace{-\log p_\theta(o_t\vert h_t,s_t)}\_\color{red}{\text{image log loss}}\hspace{0.1cm}\underbrace{-\log p_\theta(r_t\vert h_t,s_t)}\_\color{red}{\text{reward log loss}}\hspace{0.1cm}\underbrace{-\log p_\theta(\gamma\vert h_t,s_t)}\_\color{red}{\text{discount log loss}}\right.\nonumber \\\\ &\hspace{4cm}\left.\underbrace{+\beta D_\text{KL}\big[q_\theta(s_t\vert h_t,o_t)\parallel p_\theta(s_t\vert h_t)\big]}\_\color{blue}{\text{KL loss}}\right]
+\end{align}
+The first three <span style='color: red'>losses</span> act as reconstruction losses for image, reward and discount factor where their corresponding predictors are trained to maximize the log-likelihood of their targets . At the same time, the <span style='color: blue'>KL loss</span> acts as a regularizer. Or in other words, the loss function is an ELBO and the world model thus can be interpreted as a sequential VAE where the representation model is an approximate posterior. In order to encourage learning an accurate prior over increasing posterior entropy through minimizing the KL loss so that prior better approximate the aggregate posterior, we split the KL into two parts, with different learning rates. Especially, the loss function changes into:
+\begin{align}
+\mathcal{L}(\theta)&=\mathbb{E}\_{q_\theta(s_{1:T}\vert a_{1:T},o_{1:T})}\left[\sum_{t=1}^{T}\underbrace{-\log p_\theta(o_t\vert h_t,s_t)}\_\text{image log loss}\hspace{0.1cm}\underbrace{-\log p_\theta(r_t\vert h_t,s_t)}\_\text{reward log loss}\hspace{0.1cm}\underbrace{-\log p_\theta(\gamma\vert h_t,s_t)}\_\text{discount log loss}\right.\nonumber \\\\ &\hspace{4cm}\left.\underbrace{+\beta(1-\alpha)\log q_\theta(s_t\mid h_t,o_t)}\_\text{entropy regularizer}\hspace{0.1cm}\underbrace{-\beta\alpha\log p_\theta(s_t\mid h_t)}\_\text{transition loss}\right]
+\end{align}
+
+### Behavior learning
+Same as Dreamer, DreamerV2 learns behaviors within its world model using actor-critic method. We first begin by describing the imagination MDP. The MDP can be described as the transition of tuple $(\hat{s}\_t,\hat{a}\_t,\hat{r}\_t,\hat{s}\_{t+1})$ over time:
+<ul class='alpha-list'>
+	<li>
+		Starting from $\hat{s}_0$, whose distribution is the distribution of compact model states, i.e. the concatenation of deterministic state and a sample of the stochastic state, the transition predictor $p_\theta(\hat{s}_t\mid\hat{s}_{t-1},\hat{a}_{t-1})$ generates sequences $\hat{s}_{1:H}$ of compact model states up to the imagination horizon $H$.
+	</li>
+	<li>
+		The mean of the reward predictor $p_\theta(\hat{r}_t\mid\hat{s}_t)$ is used as imagination reward sequence $\hat{r}_{1:H}$.
+	</li>
+	<li>
+		And the discount predictor $p_\theta(\hat{\gamma}_t\mid\hat{s}_t)$ generates the discount sequence $\hat{\gamma}_{1:H}$.
+	</li>
+</ul>
+
+Within the latent space, DreamerV2 learns a stochastic actor and deterministic critic parameterized by $\phi$ and $\psi$ respectively:
+\begin{align}
+\hat{a}\_t&\sim p_\phi(\hat{a}\_t\mid\hat{s}\_t) \\\\ v_\psi(\hat{s}\_t)&\approx\mathbb{E}\_{p_\theta,p_\phi}\left[\sum_{\tau=t}^{t+H}\hat{\gamma}^{\tau-t}\hat{r}\_\tau\right]
+\end{align}
+The critic is optimized by minimizing the loss function[^3]:
+\begin{equation}
+\mathcal{L}(\psi)=\mathbb{E}\_{p_\theta,p_\phi}\left[\sum_{t=1}^{H-1}\frac{1}{2}\big(v_\psi(\hat{s}\_t)-\text{sg}(V_t^\lambda)\big)^2\right],
+\end{equation}
+where to stabilize the training, DreamerV2 utilizes a target network as [Deep Q-Learning]({{<ref"deep-q-learning#target-net">}}). In the above equation, $\text{sg}(\cdot)$ denotes the stopping gradient operator and $V_t^\lambda$ is the more general version of [$\lambda$-return]({{<ref"eligible-traces#lambda-return">}}), defined recursively as:
+\begin{equation}
+V_t^\lambda=\hat{r}\_t+\hat{\gamma}\_t\begin{cases}(1-\lambda)v_\psi(\hat{s}\_{t+1})+\lambda V_{t+1}^\lambda &\text{if }t\lt H \\\\ v_\psi(\hat{s}\_H) &\text{if }t=H\end{cases}
+\end{equation}
+As in Dreamer, the actor in DreamerV2 is trained to maximize the $\lambda$-return $V_t^\lambda$. Different from its previous version, DreamerV2 also adds <a href='{{<ref"policy-gradient-theorem/#reinforce">}}' style='color: orange;'>REINFORCE gradients</a> using $v_\psi(\hat{s}\_t)$ as [baseline]({{<ref"policy-gradient/#baseline">}}) for variance reduction. This terms has learning rate $\rho$ while the <span style='color: green;'>straight-through gradients</span>, which backpropagate directly  through the learned dynamics, as in Dreamer, goes with learning rate $1-\rho$. It also <span style='color: purple;'>regularizes the entropy</span> of the actor for exploration purpose. Specifically, the actor is optimized by minimizing the loss function:
+\begin{equation}
+\hspace{-0.5cm}\mathcal{L}(\phi)=\mathbb{E}\_{p_\theta,p_\phi}\left[\sum_{t=1}^{H-1}\underbrace{-\rho\log p_\phi(\hat{a}\_t\mid\hat{s}\_t)\text{sg}(V_t^\lambda-v_\psi(\hat{s}\_t))}\_\color{orange}{\text{reinforce}}\hspace{0.1cm}\underbrace{-(1-\rho)V_t^\lambda}\_{\substack{\color{green}{\text{dynamics}} \\\\ \color{green}{\text{backprop}}}}\hspace{0.1cm}\underbrace{-\eta H(a_t\vert\hat{s}\_t)}\_{\substack{\color{purple}{\text{entropy}} \\\\ \color{purple}{\text{regularizer}}}}\right]
+\end{equation}
+
+## DreamerV3
 
 ## TD-MPC
 
@@ -345,5 +395,6 @@ Once the $\lambda$-returns $V_\lambda(s_\tau)$ for all $s_\tau$ along the imagin
 [10] Daphne Koller, Nir Friedman. [Probabilistic Graphical Models](https://mitpress.mit.edu/9780262013192/probabilistic-graphical-models/). The MIT Press, 2009.
 
 ## Footnotes
-[^1]: In this case, the transition and observation model simplify into $p(z_t\vert z_{t-1})$ and $p(x_t\vert z_t)$ respectively.
+[^1]: In this case, the transition and observation model simplify into $p(z_t\mid z_{t-1})$ and $p(x_t\mid z_t)$ respectively.
 [^2]: Here, the transition model acts as the transition model given in \eqref{eq:rssm.1} and the observation model + reward model acts as the observation model given in \eqref{eq:rssm.2}.
+[^3]: There is no loss term for the last time step because the target equals the critic at that step.

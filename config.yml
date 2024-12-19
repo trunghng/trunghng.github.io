@@ -1,6 +1,5 @@
 baseURL: "https://trunghng.github.io"
 title: Littleroot
-paginate: 7
 theme: hugo-PaperMod
 
 enableRobotsTXT: true
@@ -23,11 +22,11 @@ outputs:
 params:
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
   title: Littleroot
-  description: "ExampleSite description"
-  keywords: [Blog, Portfolio, hugo-PaperMod]
+  description: "A site to document things I've learned"
+  keywords: [Blog, Reinforcement Learning]
   author: Trung H. Nguyen
   # author: ["Me", "You"] # multiple authors
-  images: ["<link or path of image for opengraph, twitter-cards>"]
+  # images: ["<link or path of image for opengraph, twitter-cards>"]
   DateFormat: "January 2, 2006"
   defaultTheme: light # auto, light
   disableThemeToggle: false
@@ -65,8 +64,8 @@ params:
   # profile-mode
   profileMode:
     enabled: false # needs to be explicitly set
-    title: 'Welcome to my place! 👨‍💻'
-    subtitle: This is where I document something I've learned.
+    title: 'Greeting! 👨‍💻'
+    subtitle: This place is where I document a few things I've learned.
     imageUrl: "/images/others/shaymin.jpg"
     imageWidth: 300
     imageHeight: 270
@@ -81,8 +80,8 @@ params:
 
   # home-info mode
   homeInfoParams:
-    Title: "Welcome to my place! 👨‍💻"
-    Content: This is where I document something I've learned.
+    Title: "Greeting! 👨‍💻"
+    Content: This place is where I document a few things I've learned.
 
   socialIcons:
     # - name: twitter
@@ -120,7 +119,7 @@ params:
     shouldSort: true
     location: 0
     distance: 1000
-    threshold: 0.4
+    threshold: 0.6
     minMatchCharLength: 0
     keys: ["title", "permalink", "summary", "content"]
 menu:
@@ -162,3 +161,8 @@ markup:
   goldmark:
     renderer:
       unsafe: true
+
+pagination:
+  pagerSize: 7
+
+titleCaseStyle: 'none'

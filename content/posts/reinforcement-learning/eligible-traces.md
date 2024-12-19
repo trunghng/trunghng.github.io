@@ -13,7 +13,7 @@ Recall that in [TD-Learning]({{< ref "td-learning#n-step-td-prediction" >}}) not
 \begin{equation}
 G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}V_{t+n-1}(S_{t+n})
 \end{equation}
-for all $n,t$ such that $n\geq 1$ and $0\leq t\lt T-n$. After the note of [Function Approximation]({{< ref "func-approx" >}}), for any parameterized function approximator, we can generalize that equation into:
+for all $n,t$ such that $n\geq 1$ and $0\leq t\lt T-n$. Recall [that]({{< ref "func-approx" >}}), for any parameterized function approximator, we can generalize that equation into:
 \begin{equation}
 G_{t:t+n}\doteq R_{t+1}+\gamma R_{t+2}+
 \dots+\gamma^{n-1}R_{t+n}+\gamma^n\hat{v}(S_{t+n},\mathbf{w}\_{t+n-1}),\hspace{1cm}0\leq t\leq T-n

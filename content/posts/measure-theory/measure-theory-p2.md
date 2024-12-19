@@ -59,7 +59,7 @@ as the **Lebesgue measure** of $E$.
 		\begin{equation}
 		m^*(E_i)=\inf_{\bigcup_{n=1}^{\infty}B_n\supset E_i;B_1,B_2,\ldots\text{ boxes}}\sum_{n=1}^{\infty}\vert B_n\vert
 		\end{equation}
-		Thus, by definition of infimum and by <a href={{< ref "measure-theory-p1#countable-choice-axiom" >}} target='_blank'>axiom of countable choice</a>, for each $E_i$ in the sequence $(E_n)_{n\in\mathbb{N}}$, there exists a family of boxes $B_{i,1},B_{i,2},\ldots$ in the doubly sequence $(B_{i,j})_{(i,j)\in\mathbb{N}^2}$ covering $E_i$ such that
+		Thus, by definition of infimum and by <a href={{< ref "measure-theory-p1#countable-choice-axiom" >}} target='_blank'>axiom of countable choice</a>, for each $E_i$ in the sequence $(E_n)_{n\in\mathbb{N}},$ there exists a family of boxes $B_{i,1},B_{i,2},\ldots$ in the doubly sequence $(B_{i,j})_{(i,j)\in\mathbb{N}^2}$ covering $E_i$ such that
 		\begin{equation}
 		\sum_{j=1}^{\infty}\vert B_{i,j}\vert\lt m^*(E_i)+\frac{\varepsilon}{i},
 		\end{equation}
@@ -113,7 +113,7 @@ and
 \begin{equation}
 m^\*(F)\leq\sum_{n=1}^{\infty}\vert B_n\'\'\vert
 \end{equation}
-Summing up these two equation, we obtain
+Summing up these two equations, we obtain
 \begin{equation}
 m^\*(E)+m^\*(F)\leq\sum_{n=1}^{\infty}\vert B_n\vert
 \end{equation}
@@ -121,9 +121,7 @@ and thus
 \begin{equation}
 m^\*(E)+m^\*(F)\leq m^\*(E\cup F)+\varepsilon
 \end{equation}
-Since $\varepsilon$ was arbitrary, this gives $m^\*(E)+m^\*(F)\leq m^\*(E\cup F)$ as required.
-
-Now we consider the case that some of the boxes $B_n$ intersect both $E$ and $F$. 
+Since $\varepsilon$ was arbitrary, this gives $m^\*(E)+m^\*(F)\leq m^\*(E\cup F)$ as required. Now we consider the case that some of the boxes $B_n$ intersect both $E$ and $F$. 
 
 Since given any $r>0$, we can always partition a box $B_n$ into a finite number of smaller boxes, each of which has diameter[^1] at most $r$, with the total volume of these sub-boxes equal to the volume of the original box $B_n$. Therefore, given any $r>0$, we may assume without loss of generality that the boxes $B_1,B_2,\ldots$ covering $E\cup F$ have diameter at most $r$. Or in particular, we may assume that all such boxes have diameter strictly less than $\text{dist}(E,f)$.
 
@@ -497,7 +495,7 @@ Let $E\subset\mathbb{R}^d$, then the following are equivalent:
 		\begin{equation}
 		m^*\left(U\Delta(\mathbb{R}^d\backslash E)\right)\leq\varepsilon\label{eq:cm.2}
 		\end{equation}
-		Let $F$ denote the complement of $U$, $F=\mathbb{R}^d\backslash$. We then have that $F$ is a closed set. In addition, $U\Delta(\mathbb{R}^d\backslash E)$ can be rewritten by
+		Let $F$ denote the complement of $U$, $F=\mathbb{R}^d\backslash U$. We then have that $F$ is a closed set. In addition, $U\Delta(\mathbb{R}^d\backslash E)$ can be rewritten by
 		\begin{align}
 		U\Delta(\mathbb{R}^d\backslash E)&=\left(U\backslash(\mathbb{R}^d\backslash E)\right)\cup\left((\mathbb{R}^d\backslash E)\backslash U\right) \\ &=\left(E\backslash(\mathbb{R}^d\backslash U)\right)\cup\left((\mathbb{R}^d\backslash U)\backslash E\right) \\ &=(\mathbb{R}^d\backslash U)\backslash E \\ &=F\Delta E,
 		\end{align}

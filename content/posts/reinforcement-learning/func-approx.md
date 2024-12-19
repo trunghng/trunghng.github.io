@@ -1,5 +1,5 @@
 ---
-title: "Function Approximation"
+title: "Value Function Approximation"
 date: 2022-02-11 15:26:00 +0700
 tags: [reinforcement-learning, function-approximation, td-learning, importance-sampling, my-rl]
 math: true

@@ -267,9 +267,9 @@ where each $B_i$ and $B_i'$ is a $d$-dimensional box. By set theory, we have tha
 	<li>
 		Since $B_i$'s are $d$-dimensional boxes, we can express them as
 		\begin{equation}
-		B_i=I_{i,1}\times\ldots I_{i,d},
+		B_i=I_{i,1}\times\ldots\times I_{i,d},
 		\end{equation}
-		where each $I_{i,j}$ is an interval in $\mathbb{R}^d$. Without loss of generality, we assume that they are all closed. In particular, for $j=1,\ldots,d$
+		where each $I_{i,j}$ is an interval in $\mathbb{R}^d$. Without loss of generality, we assume that they are all closed. In particular, for $j=1,\ldots,d$:
 		\begin{equation}
 		I_{i,j}=(a_{i,j},b_{i,j})
 		\end{equation}
@@ -1131,11 +1131,11 @@ Let $[a,b]$ be an interval, and let $f,g:[a,b]\to\mathbb{R}$ be Riemann integrab
 			<li>
 				Given $f$ Riemann integrable on $[a,b]$, then $f$ is also Darboux integrable on $[a,b]$, which means
 				\begin{align}
-				\hspace{-1cm}\sup_{f_1\leq f,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}f_1(x)\hspace{0.1cm}dx&=\inf_{f_2\geq f,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}f_2(x)\hspace{0.1cm}dx \\ &\hspace{1cm}=\int_{a}^{b}f(x)\hspace{0.1cm}dx\label{eq:rip.1}
+				\hspace{-1cm}\sup_{f_1\leq f,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}f_1(x)\hspace{0.1cm}dx&=\inf_{f_2\geq f,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}f_2(x)\hspace{0.1cm}dx \\ &=\int_{a}^{b}f(x)\hspace{0.1cm}dx\label{eq:rip.1}
 				\end{align}
 				Similarly, $g$ Riemann integrable on $[a,b]$ implies that $g$ is also Darboux integrable, or in particular
 				\begin{align}
-				\hspace{-1cm}\sup_{g_1\leq g,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}g_1(x)\hspace{0.1cm}dx&=\inf_{g_2\geq g,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}g_2(x)\hspace{0.1cm}dx \\ &\hspace{1cm}=\int_{a}^{b}g(x)\hspace{0.1cm}dx\label{eq:rip.2}
+				\hspace{-1cm}\sup_{g_1\leq g,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}g_1(x)\hspace{0.1cm}dx&=\inf_{g_2\geq g,\text{ piecewise constant}}\text{p.c.}\int_{a}^{b}g_2(x)\hspace{0.1cm}dx \\ &=\int_{a}^{b}g(x)\hspace{0.1cm}dx\label{eq:rip.2}
 				\end{align}
 				By the linearity property of piecewise constant functions, combined with \eqref{eq:rip.1} and \eqref{eq:rip.2}, we obtain
 				\begin{align}
