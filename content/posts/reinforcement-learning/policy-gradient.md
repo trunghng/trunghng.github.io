@@ -66,7 +66,7 @@ where
 - In the (iii) step, the $\hat{r}\_t\doteq\sum_{k=t}^{H-1}r_k$ is referred as the **reward-to-go** from step $t$.
 
 #### Baseline
-It is worth remarking that we can furtherly reduce the variance of the estimator by adding an baseline, denoted $b$, as
+It is worth remarking that we can furtherly reduce the variance of the estimator by adding a baseline, denoted $b$, as
 \begin{equation}
 \mathbb{E}\_{s_{0:H-1},a_{0:H-1}}\left[\sum_{t=0}^{H-1}\nabla_\theta\log\pi_\theta(a_t\vert s_t)\left(\hat{r}\_t-b_t(s_{0:t},a_{0:t-1})\right)\right]\label{eq:vrb.1}
 \end{equation}

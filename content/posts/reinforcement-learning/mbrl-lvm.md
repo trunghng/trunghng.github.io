@@ -168,9 +168,11 @@ where we use Jensen's inequality in the forth step. The first term inside the pa
 As mentioned above, in order to capture information for multiple time-steps, we need to introduce deterministic hidden states to our SSM, which leads to a RSSM, as illustrated in [**Figure 5b**](#fig5).
 
 Specifically, the authors added long-range dependencies into the transition model by splitting the state into a stochastic part $s_t$ and a deterministic part $h_t$, which depends on the stochastic and deterministic parts at the previous time-step, $s_{t-1}$ and $h_{t-1}$ respectively. The result model is then given as:
-\begin{align}
-&\text{Deterministic state model}:&&h_t=f(h_{t-1},s_{t-1},a_{t-1})\nonumber \\\\ &\text{Stochastic state model}:&&s_t\sim p(s_t\mid h_t)\nonumber \\\\ &\text{Observation model}:&&o_t\sim p(o_t\mid h_t,s_t)\nonumber \\\\ &\text{Reward model}:&&r_t\sim p(r_t\mid h_t,s_t)\nonumber,
-\end{align}
+\begin{equation}
+\begin{aligned}
+&\text{Deterministic state model}:&&h_t=f(h_{t-1},s_{t-1},a_{t-1}) \\\\ &\text{Stochastic state model}:&&s_t\sim p(s_t\mid h_t) \\\\ &\text{Observation model}:&&o_t\sim p(o_t\mid h_t,s_t) \\\\ &\text{Reward model}:&&r_t\sim p(r_t\mid h_t,s_t),
+\end{aligned}
+\end{equation}
 where $f(h_{t-1},s_{t-1},a_{t-1})$ is a RNN. We also use the encoder $q(s_{1:T}\mid o_{1:T},a_{1:T})=\prod_{t=1}^{T}q(s_t\mid h_t,o_t)$ to parameterize the approximate state posteriors.
 
 ### Latent overshooting
@@ -259,16 +261,20 @@ Proposed by the same author of **PlaNet**, **Dreamer** improves the computationa
 
 ### Latent dynamics learning
 Analogous to PlaNet, Dreamer also learns a dynamics model via a RSSM. Specifically, recalling for completeness, the world model in Dreamer consists of:
-\begin{align}
-&\text{Recurrent model}:&&h_t=f_\theta(h_{t-1},s_{t-1},a_{t-1})\nonumber \\\\ &\text{Representation model}:&&s_t\sim q_\theta(s_t\vert h_t,o_t)\nonumber \\\\ &\text{Transition model}:&&\hat{s}\_t\sim p_\theta(\hat{s}\_t\vert h_t)\nonumber \\\\ &\text{Observation model}:&&\hat{o}\_t\sim p_\theta(\hat{o}\_t\vert h_t, s_t)\nonumber \\\\ &\text{Reward model}:&&\hat{r}\_t\sim p_\theta(\hat{r}\_t\vert h_t,s_t)\nonumber,
-\end{align}
+\begin{equation}
+\begin{aligned}
+&\text{Recurrent model}:&&h_t=f_\theta(h_{t-1},s_{t-1},a_{t-1}) \\\\ &\text{Representation model}:&&s_t\sim q_\theta(s_t\vert h_t,o_t) \\\\ &\text{Transition model}:&&\hat{s}\_t\sim p_\theta(\hat{s}\_t\vert h_t) \\\\ &\text{Observation model}:&&\hat{o}\_t\sim p_\theta(\hat{o}\_t\vert h_t, s_t) \\\\ &\text{Reward model}:&&\hat{r}\_t\sim p_\theta(\hat{r}\_t\vert h_t,s_t),
+\end{aligned}
+\end{equation}
 where $f_\theta$ is an RNN and $\theta$ is the joint parameter.
 
 ### Behavior learning
 Since the compact model states $s_t$ are Markovian, the latent dynamics then define an MDP that is fully observed. Letting $\tau$ denote the time index for all quantities in this MDP, each imagined trajectory $\\{(s_\tau,a_\tau,r_\tau)\\}\_{\tau=t}$ starts at a true state, $s_\tau=s_t$ for $\tau=0$ and follow predictions of:
-\begin{align}
-&\small\text{Transition model:}&&s_\tau\sim q(s_\tau\vert s_{\tau-1},a_{\tau-1})\nonumber \\\\ &\small\text{Reward model:}&&r_\tau\sim q(r_\tau\vert s_\tau)\nonumber \\\\ &\small\text{Policy:}&&a_\tau\sim q(a_\tau\vert s_\tau)\nonumber
-\end{align}
+\begin{equation}
+\begin{aligned}
+&\small\text{Transition model:}&&s_\tau\sim q(s_\tau\vert s_{\tau-1},a_{\tau-1}) \\\\ &\small\text{Reward model:}&&r_\tau\sim q(r_\tau\vert s_\tau) \\\\ &\small\text{Policy:}&&a_\tau\sim q(a_\tau\vert s_\tau)
+\end{aligned}
+\end{equation}
 The object is to maximize the expected cumulative imagined rewards $\mathbb{E}\_q\left[\sum_{\tau=t}^{\infty}\gamma^{\tau-t}r_\tau\right]$ taken over the policy $q(a_\tau\vert s_\tau)$.
 
 Consider imagined trajectories with a finite horizon $H$. Within the latent space, Dreamer learns an action model (actor) $q_\phi$, parameterized by $\phi$, that aims to predict actions that solve the imagination environment
@@ -351,10 +357,12 @@ Same as Dreamer, DreamerV2 learns behaviors within its world model using actor-c
 </ul>
 
 Within the latent space, DreamerV2 learns a stochastic actor and deterministic critic parameterized by $\phi$ and $\psi$ respectively:
-\begin{align}
+\begin{equation}
+\begin{aligned}
 \hat{a}\_t&\sim p_\phi(\hat{a}\_t\mid\hat{s}\_t) \\\\ v_\psi(\hat{s}\_t)&\approx\mathbb{E}\_{p_\theta,p_\phi}\left[\sum_{\tau=t}^{t+H}\hat{\gamma}^{\tau-t}\hat{r}\_\tau\right]
-\end{align}
-The critic is optimized by minimizing the loss function[^3]:
+\end{aligned}
+\end{equation}
+The critic is optimized by minimizing the loss function w.r.t $\psi$[^3]:
 \begin{equation}
 \mathcal{L}(\psi)=\mathbb{E}\_{p_\theta,p_\phi}\left[\sum_{t=1}^{H-1}\frac{1}{2}\big(v_\psi(\hat{s}\_t)-\text{sg}(V_t^\lambda)\big)^2\right],
 \end{equation}
@@ -362,7 +370,7 @@ where to stabilize the training, DreamerV2 utilizes a target network as [Deep Q-
 \begin{equation}
 V_t^\lambda=\hat{r}\_t+\hat{\gamma}\_t\begin{cases}(1-\lambda)v_\psi(\hat{s}\_{t+1})+\lambda V_{t+1}^\lambda &\text{if }t\lt H \\\\ v_\psi(\hat{s}\_H) &\text{if }t=H\end{cases}
 \end{equation}
-As in Dreamer, the actor in DreamerV2 is trained to maximize the $\lambda$-return $V_t^\lambda$. Different from its previous version, DreamerV2 also adds <a href='{{<ref"policy-gradient-theorem/#reinforce">}}' style='color: orange;'>REINFORCE gradients</a> using $v_\psi(\hat{s}\_t)$ as [baseline]({{<ref"policy-gradient/#baseline">}}) for variance reduction. This terms has learning rate $\rho$ while the <span style='color: green;'>straight-through gradients</span>, which backpropagate directly  through the learned dynamics, as in Dreamer, goes with learning rate $1-\rho$. It also <span style='color: purple;'>regularizes the entropy</span> of the actor for exploration purpose. Specifically, the actor is optimized by minimizing the loss function:
+As in Dreamer, the actor in DreamerV2 is trained to maximize the $\lambda$-return $V_t^\lambda$. Different from its previous version, DreamerV2 also adds <a href='{{<ref"policy-gradient-theorem/#reinforce">}}' style='color: orange;'>REINFORCE gradients</a> using $v_\psi(\hat{s}\_t)$ as [baseline]({{<ref"policy-gradient/#baseline">}}) for variance reduction. This term has learning rate $\rho$ while the <span style='color: green;'>straight-through gradients</span>, which backpropagate directly  through the learned dynamics, as in Dreamer, goes with learning rate $1-\rho$. It also <span style='color: purple;'>regularizes the entropy</span> of the actor for exploration purpose. Specifically, the actor is optimized by minimizing the loss function w.r.t $\phi$:
 \begin{equation}
 \hspace{-0.5cm}\mathcal{L}(\phi)=\mathbb{E}\_{p_\theta,p_\phi}\left[\sum_{t=1}^{H-1}\underbrace{-\rho\log p_\phi(\hat{a}\_t\mid\hat{s}\_t)\text{sg}(V_t^\lambda-v_\psi(\hat{s}\_t))}\_\color{orange}{\text{reinforce}}\hspace{0.1cm}\underbrace{-(1-\rho)V_t^\lambda}\_{\substack{\color{green}{\text{dynamics}} \\\\ \color{green}{\text{backprop}}}}\hspace{0.1cm}\underbrace{-\eta H(a_t\vert\hat{s}\_t)}\_{\substack{\color{purple}{\text{entropy}} \\\\ \color{purple}{\text{regularizer}}}}\right]
 \end{equation}
