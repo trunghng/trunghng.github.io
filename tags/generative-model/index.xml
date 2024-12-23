@@ -14,7 +14,7 @@
       
       <guid>https://trunghng.github.io/posts/machine-learning/gan/</guid>
       <description>&lt;blockquote&gt;
-&lt;p&gt;Notes on Generative Adversarial Networks.&lt;/p&gt;
+&lt;p&gt;A neural network architecture which consists of two neural networks - a generator that creates data and a discriminator that evaluates it — trained adversarially to produce outputs that resemble real data.&lt;/p&gt;
 &lt;/blockquote&gt;</description>
     </item>
     
