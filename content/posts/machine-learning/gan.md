@@ -5,7 +5,7 @@ tags: [machine-learning, generative-model]
 math: true
 eqn-number: true
 ---
-> Notes on Generative Adversarial Networks.
+> A neural network architecture which consists of two neural networks - a generator that creates data and a discriminator that evaluates it — trained adversarially to produce outputs that resemble real data.
 <!--more-->
 
 ## Generative Adversarial Network (GAN){#gan}

@@ -170,7 +170,7 @@ As mentioned above, in order to capture information for multiple time-steps, we 
 Specifically, the authors added long-range dependencies into the transition model by splitting the state into a stochastic part $s_t$ and a deterministic part $h_t$, which depends on the stochastic and deterministic parts at the previous time-step, $s_{t-1}$ and $h_{t-1}$ respectively. The result model is then given as:
 \begin{equation}
 \begin{aligned}
-&\text{Deterministic state model}:&&h_t=f(h_{t-1},s_{t-1},a_{t-1}) \\\\ &\text{Stochastic state model}:&&s_t\sim p(s_t\mid h_t) \\\\ &\text{Observation model}:&&o_t\sim p(o_t\mid h_t,s_t) \\\\ &\text{Reward model}:&&r_t\sim p(r_t\mid h_t,s_t),
+&\small\text{Deterministic state model}:&&h_t=f(h_{t-1},s_{t-1},a_{t-1}) \\\\ &\small\text{Stochastic state model}:&&s_t\sim p(s_t\mid h_t) \\\\ &\small\text{Observation model}:&&o_t\sim p(o_t\mid h_t,s_t) \\\\ &\small\text{Reward model}:&&r_t\sim p(r_t\mid h_t,s_t),
 \end{aligned}
 \end{equation}
 where $f(h_{t-1},s_{t-1},a_{t-1})$ is a RNN. We also use the encoder $q(s_{1:T}\mid o_{1:T},a_{1:T})=\prod_{t=1}^{T}q(s_t\mid h_t,o_t)$ to parameterize the approximate state posteriors.
@@ -207,7 +207,7 @@ The above variational bound can be used as the objective function for training t
 \end{align}
 where $\\{\beta_d\\}_{d=1}^{H}$ are some hyperparameters as in $\beta$-VAE.
 
-### Planning algorithm
+### Planning algorithm{#planet-planning}
 PlaNet uses the **cross entropy method (CEM)** to search for the best action sequence under some current latent dynamics. The method proceeds as:
 <ul class='number-list'>
 	<li>
@@ -263,7 +263,7 @@ Proposed by the same author of **PlaNet**, **Dreamer** improves the computationa
 Analogous to PlaNet, Dreamer also learns a dynamics model via a RSSM. Specifically, recalling for completeness, the world model in Dreamer consists of:
 \begin{equation}
 \begin{aligned}
-&\text{Recurrent model}:&&h_t=f_\theta(h_{t-1},s_{t-1},a_{t-1}) \\\\ &\text{Representation model}:&&s_t\sim q_\theta(s_t\vert h_t,o_t) \\\\ &\text{Transition model}:&&\hat{s}\_t\sim p_\theta(\hat{s}\_t\vert h_t) \\\\ &\text{Observation model}:&&\hat{o}\_t\sim p_\theta(\hat{o}\_t\vert h_t, s_t) \\\\ &\text{Reward model}:&&\hat{r}\_t\sim p_\theta(\hat{r}\_t\vert h_t,s_t),
+&\small\text{Recurrent model}:&&h_t=f_\theta(h_{t-1},s_{t-1},a_{t-1}) \\\\ &\small\text{Representation model}:&&s_t\sim q_\theta(s_t\vert h_t,o_t) \\\\ &\small\text{Transition model}:&&\hat{s}\_t\sim p_\theta(\hat{s}\_t\vert h_t) \\\\ &\small\text{Observation model}:&&\hat{o}\_t\sim p_\theta(\hat{o}\_t\vert h_t, s_t) \\\\ &\small\text{Reward model}:&&\hat{r}\_t\sim p_\theta(\hat{r}\_t\vert h_t,s_t),
 \end{aligned}
 \end{equation}
 where $f_\theta$ is an RNN and $\theta$ is the joint parameter.
@@ -297,7 +297,7 @@ where $V_N^k$ is the $k$-step return, which estimates rewards beyond $k$ steps w
 
 Once the $\lambda$-returns $V_\lambda(s_\tau)$ for all $s_\tau$ along the imagined trajectories are computed, the parameters $\phi$ and $\psi$ can be updated iteratively by SGD according to the actor loss and critic loss respectively:
 \begin{align}
-\mathcal{L}\_\phi&=-\mathbb{E}\_{q_\theta,q_\phi}\left[\sum_{\tau=t}^{t+H}V_\lambda(s_\tau)\right] \\\\ \mathcal{L}\_\psi&=\mathbb{E}\_{q_\theta,q_\phi}\left[\sum_{\tau=t}^{t+H}\frac{1}{2}\Big\Vert v_\psi(s_\tau)-V_\lambda(s_\tau)\Big\Vert^2\right]
+\mathcal{L}\_\phi&=-\mathbb{E}\_{q_\theta,q_\phi}\left[\sum_{\tau=t}^{t+H}V_\lambda(s_\tau)\right] \\\\ \mathcal{L}\_\psi&=\mathbb{E}\_{q_\theta,q_\phi}\left[\sum_{\tau=t}^{t+H}\frac{1}{2}\big\Vert v_\psi(s_\tau)-V_\lambda(s_\tau)\big\Vert_2^2\right]
 \end{align}
 
 ## DreamerV2
@@ -337,7 +337,7 @@ All components of the world model are optimized jointly by minimizing the loss f
 \begin{align}
 \mathcal{L}(\theta)&=\mathbb{E}\_{q_\theta(s_{1:T}\vert a_{1:T},o_{1:T})}\left[\sum_{t=1}^{T}\underbrace{-\log p_\theta(o_t\vert h_t,s_t)}\_\color{red}{\text{image log loss}}\hspace{0.1cm}\underbrace{-\log p_\theta(r_t\vert h_t,s_t)}\_\color{red}{\text{reward log loss}}\hspace{0.1cm}\underbrace{-\log p_\theta(\gamma\vert h_t,s_t)}\_\color{red}{\text{discount log loss}}\right.\nonumber \\\\ &\hspace{4cm}\left.\underbrace{+\beta D_\text{KL}\big[q_\theta(s_t\vert h_t,o_t)\parallel p_\theta(s_t\vert h_t)\big]}\_\color{blue}{\text{KL loss}}\right]
 \end{align}
-The first three <span style='color: red'>losses</span> act as reconstruction losses for image, reward and discount factor where their corresponding predictors are trained to maximize the log-likelihood of their targets . At the same time, the <span style='color: blue'>KL loss</span> acts as a regularizer. Or in other words, the loss function is an ELBO and the world model thus can be interpreted as a sequential VAE where the representation model is an approximate posterior. In order to encourage learning an accurate prior over increasing posterior entropy through minimizing the KL loss so that prior better approximate the aggregate posterior, we split the KL into two parts, with different learning rates. Especially, the loss function changes into:
+The first three <span style='color: red'>losses</span> act as reconstruction losses for image, reward and discount factor where their corresponding predictors are trained to maximize the log-likelihood of their targets . At the same time, the <span style='color: blue'>KL loss</span> acts as a regularizer. Or in other words, the loss function is an ELBO and the world model thus can be interpreted as a sequential VAE where the representation model is an approximate posterior. In order to encourage learning an accurate prior over increasing posterior entropy through minimizing the KL loss so that prior better approximate the aggregate posterior, we split the KL into two parts, with different learning rates. In particular, the loss function changes into:
 \begin{align}
 \mathcal{L}(\theta)&=\mathbb{E}\_{q_\theta(s_{1:T}\vert a_{1:T},o_{1:T})}\left[\sum_{t=1}^{T}\underbrace{-\log p_\theta(o_t\vert h_t,s_t)}\_\text{image log loss}\hspace{0.1cm}\underbrace{-\log p_\theta(r_t\vert h_t,s_t)}\_\text{reward log loss}\hspace{0.1cm}\underbrace{-\log p_\theta(\gamma\vert h_t,s_t)}\_\text{discount log loss}\right.\nonumber \\\\ &\hspace{4cm}\left.\underbrace{+\beta(1-\alpha)\log q_\theta(s_t\mid h_t,o_t)}\_\text{entropy regularizer}\hspace{0.1cm}\underbrace{-\beta\alpha\log p_\theta(s_t\mid h_t)}\_\text{transition loss}\right]
 \end{align}
@@ -364,13 +364,13 @@ Within the latent space, DreamerV2 learns a stochastic actor and deterministic c
 \end{equation}
 The critic is optimized by minimizing the loss function w.r.t $\psi$[^3]:
 \begin{equation}
-\mathcal{L}(\psi)=\mathbb{E}\_{p_\theta,p_\phi}\left[\sum_{t=1}^{H-1}\frac{1}{2}\big(v_\psi(\hat{s}\_t)-\text{sg}(V_t^\lambda)\big)^2\right],
+\mathcal{L}(\psi)=\mathbb{E}\_{p_\theta,p_\phi}\left[\sum_{t=1}^{H-1}\frac{1}{2}\big\Vert v_\psi(\hat{s}\_t)-\text{sg}(V_t^\lambda)\big\Vert_2^2\right],
 \end{equation}
 where to stabilize the training, DreamerV2 utilizes a target network as [Deep Q-Learning]({{<ref"deep-q-learning#target-net">}}). In the above equation, $\text{sg}(\cdot)$ denotes the stopping gradient operator and $V_t^\lambda$ is the more general version of [$\lambda$-return]({{<ref"eligible-traces#lambda-return">}}), defined recursively as:
 \begin{equation}
 V_t^\lambda=\hat{r}\_t+\hat{\gamma}\_t\begin{cases}(1-\lambda)v_\psi(\hat{s}\_{t+1})+\lambda V_{t+1}^\lambda &\text{if }t\lt H \\\\ v_\psi(\hat{s}\_H) &\text{if }t=H\end{cases}
 \end{equation}
-As in Dreamer, the actor in DreamerV2 is trained to maximize the $\lambda$-return $V_t^\lambda$. Different from its previous version, DreamerV2 also adds <a href='{{<ref"policy-gradient-theorem/#reinforce">}}' style='color: orange;'>REINFORCE gradients</a> using $v_\psi(\hat{s}\_t)$ as [baseline]({{<ref"policy-gradient/#baseline">}}) for variance reduction. This term has learning rate $\rho$ while the <span style='color: green;'>straight-through gradients</span>, which backpropagate directly  through the learned dynamics, as in Dreamer, goes with learning rate $1-\rho$. It also <span style='color: purple;'>regularizes the entropy</span> of the actor for exploration purpose. Specifically, the actor is optimized by minimizing the loss function w.r.t $\phi$:
+Analogous to Dreamer, the actor in DreamerV2 is trained to maximize the $\lambda$-return $V_t^\lambda$. But different from its previous version, DreamerV2 also adds <a href='{{<ref"policy-gradient-theorem/#reinforce">}}' style='color: orange;'>REINFORCE gradients</a> using $v_\psi(\hat{s}\_t)$ as [baseline]({{<ref"policy-gradient/#baseline">}}) for variance reduction. This term has learning rate $\rho$ while the <span style='color: green;'>straight-through gradients</span>, which backpropagate directly  through the learned dynamics, as in Dreamer, goes with learning rate $1-\rho$. It also <span style='color: purple;'>regularizes the entropy</span> of the actor for exploration purpose. Specifically, the actor is optimized by minimizing the loss function w.r.t $\phi$
 \begin{equation}
 \hspace{-0.5cm}\mathcal{L}(\phi)=\mathbb{E}\_{p_\theta,p_\phi}\left[\sum_{t=1}^{H-1}\underbrace{-\rho\log p_\phi(\hat{a}\_t\mid\hat{s}\_t)\text{sg}(V_t^\lambda-v_\psi(\hat{s}\_t))}\_\color{orange}{\text{reinforce}}\hspace{0.1cm}\underbrace{-(1-\rho)V_t^\lambda}\_{\substack{\color{green}{\text{dynamics}} \\\\ \color{green}{\text{backprop}}}}\hspace{0.1cm}\underbrace{-\eta H(a_t\vert\hat{s}\_t)}\_{\substack{\color{purple}{\text{entropy}} \\\\ \color{purple}{\text{regularizer}}}}\right]
 \end{equation}
@@ -379,7 +379,52 @@ As in Dreamer, the actor in DreamerV2 is trained to maximize the $\lambda$-retur
 
 ## TD-MPC
 
-### TD-MPC2
+### Task-oriented latent dynamics model{#told}
+The dynamics and behaviors in TD-MPC is learned through a **Task-Oriented Latent Dynamics** (**TOLD**) model, which comprises five learned components $h_\theta,d_\theta,R_\theta,Q_\theta,\pi_\theta$ that predict the following quantities:
+\begin{equation}
+\begin{aligned}
+&\small\text{Representation}:&&z_t=h_\theta(s_t) \\\\ &\small\text{Latent dynamics}:&&z_{t+1}=d_\theta(z_t,a_t) \\\\ &\small\text{Reward}:&&\hat{r}\_t=R_\theta(z_t,a_t) \\\\ &\small\text{Value}:&&\hat{q}\_t=Q_\theta(z_t,a_t) \\\\ &\small\text{Policy}:&&\hat{a}\_t\sim\pi_\theta(z_t)
+\end{aligned}
+\end{equation}
+All components of TOLD are trained jointly by minimizing the loss function:
+\begin{equation}
+\mathcal{J}(\theta;\Gamma)=\sum_{i=1}^{t+H}\lambda^{i-t}\mathcal{L}(\theta;\Gamma_i),
+\end{equation}
+where $\Gamma=(s_t,a_t,r_t,s_{t+1})\_{t:t+H}$ is a trajectory sampled from a replay buffer; $\lambda\in\mathbb{R}^+$ is a weighted constant; and $\mathcal{L}(\theta;\Gamma_i)$ is the single-step loss, defined as a combination of three losses:
+\begin{align}
+\mathcal{L}(\theta;\Gamma_i)&=c_1\underbrace{\big\Vert R_\theta(z_i,a_i)-r_i\big\Vert_2^2}\_\text{reward loss}+c_2\underbrace{\big\Vert Q_\theta(z_i,a_i)-\color{red}{(r_i+\gamma Q_{\theta^-}(z_{i+1},\pi_\theta(z_{i+1})))}\big\Vert_2^2}\_\text{value loss}\nonumber \\\\ &\hspace{1cm}+c_3\underbrace{\big\Vert d_\theta(z_i,a_i)-h_{\theta^-}(s_{i+1})\big\Vert_2^2}\_\text{latent state consistency}\label{eq:told.1}
+\end{align}
+where $c_1,c_2,c_3$ are weighted coefficients corresponding to each loss, and where $Q_{\theta^-},h_{\theta^-}$ denote the target networks corresponding to $Q_\theta,h_\theta$, as used in [DDPG]({{<ref"deterministic-policy-gradients#ddpg">}}).
+
+The TD-target, colored as <span style='color: red;'>red</span> in \eqref{eq:told.1}, requires estimating the quantity $\max_{a_t}Q_{\theta^-}(z_t,a_t)$, which is highly costly to compute using planning. The authors of TD-MPC instead learn a policy $\pi_\theta$ that maximizes $Q_\theta$ by minimizing the objective w.r.t to policy parameters only:
+\begin{equation}
+\mathcal{J}\_\pi(\theta;\Gamma)=-\sum_{i=t}^{t+H}\lambda^{i-t}Q_\theta(z_i,\pi_\theta(\text{sg}(z_i))),
+\end{equation}
+where $\text{sg}(\cdot)$ denotes the stopping gradient operator, as used in DreamerV2.
+
+### Planning algorithm{#tdmpc-planning}
+For planning, TD-MPC uses an MPC algorithm named **Model Predictive Path Integral** (**MPPI**), which iteratively updates parameters for a family of distributions (same as [CEM](#planet-planning)), using importance weighted average of the estimated top-$k$ sampled trajectories. The algorithm proceeds as:
+<ul class='number-list'>
+	<li>
+		Starting from initial independent parameters for each action over a horizon of length $H$, $(\mu^{(0)},\sigma^{(0)})_{t:t+H}$, $\mu^{(0)},\sigma^{(0)}\in\mathbb{R}^m,\mathcal{A}\subset\mathbb{R}^m$, independently sample $N$ <span style='color: red;'>trajectories</span> using rollouts generated by the learned model $d_\theta$ and $N_\pi$ <span style='color: blue;'>trajectories</span> using $\pi_\theta,d_\theta$, then use these $N+N_\pi$ trajectories to estimate the total return $\phi_\Gamma$ of a sampled trajectory $\Gamma$ as
+		\begin{equation}
+		\phi_\Gamma=\mathbb{E}_\Gamma\left[\gamma^H Q_\theta(z_H,a_H)+\sum_{t=0}^{H-1}\gamma^t R_\theta(z_t,a_t)\right],
+		\end{equation}
+		where $z_{t+1}=d_\theta(z_t,a_t)$ and $a_t\sim\mathcal{N}\left(\mu_t^{(j)},(\sigma_t^{(j)})^2 I\right)$ at iteration $j$ with $N$ <span style='color: red;'>trajectories</span> and $a_t=\pi_\theta(z_t)$ with the other $N_\pi$ <span style='color: blue;'>trajectories</span>.
+	</li>
+	<li>
+		Select the top-$k$ returns $\phi_\Gamma^*$ and refit parameters $\mu^{(j)},\sigma^{(j)}$ at iteration $j$:
+		\begin{align}
+		\mu^{(j)}&=\frac{\sum_{i=1}^{k}\Omega_i\Gamma^*}{\sum_{i=1}^{k}\Omega_i} \\ \sigma^{(j)}&=\max\left({\sqrt{\frac{\sum_{i=1}^{k}\Omega_i(\Gamma_i^*-\mu^{(j)})^2}{\sum_{i=1}^{k}\Omega_i}}},\epsilon\right),
+		\end{align}
+		where $\epsilon\in\mathbb{R}^+$ is a linear decayed constant, which is used to encourage exploration; and $\Omega_i=e^{\tau\left(\phi_{\Gamma,i}^*\right)}$ with $\tau$ is a temperature parameter controlling the sharpness of the weighting and $\Gamma_i^*$ denotes the $i$th top-$k$ trajectory corresponding to the return estimate $\phi_{\Gamma,i}^*$.
+	</li>
+	<li>
+		After some number of iterations, the planning process is terminated and a trajectory is sampled from the final return-normalized distribution over action sequences.
+	</li>
+</ul>
+
+## TD-MPC2
 
 ## Preferences
 [1] <span id='world-models-paper'>David Ha, Jürgen Schmidhuber. [World Models](https://arxiv.org/abs/1803.10122). arXiv preprint, arXiv:1803.10122, 2018.
