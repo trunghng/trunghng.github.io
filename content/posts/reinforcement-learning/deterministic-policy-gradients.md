@@ -5,7 +5,7 @@ tags: [reinforcement-learning, policy-gradient, actor-critic, model-free, my-rl]
 math: true
 eqn-number: true
 ---
-> Notes on Deterministic Policy Gradient algorithms
+> The generalization of policy gradient theorems into deterministic case and corresponding policy gradient algorithms.
 <!--more-->
 
 ## Preliminaries

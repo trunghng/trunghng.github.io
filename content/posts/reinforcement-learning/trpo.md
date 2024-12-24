@@ -5,7 +5,7 @@ tags: [deep-reinforcement-learning, policy-gradient, model-free, my-rl]
 math: true
 eqn-number: true
 ---
-> Notes on policy optimization using trust region method.
+> A model-free RL algorithm that ensures stable and efficient policy updates by optimizing within a trust region, limiting the step size to prevent drastic policy changes and improve convergence.
 <!--more-->
 
 ## Preliminaries

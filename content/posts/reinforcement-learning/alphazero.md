@@ -1,12 +1,14 @@
 ---
-title: "AlphaZero"
+title: "AlphaGo, AlphaGo Zero, AlphaZero"
 date: 2023-10-17T10:23:22+07:00
 tags: [deep-reinforcement-learning, model-based, mcts, my-rl]
 math: true
 eqn-number: true
-hideSummary: true
+hideSummary: false
 ---
+> Model-based RL methods that use Monte Carlo Tree Search for planning and ultilize self-play mechanism for training.
 <!-- for Milu -->
+<!--more-->
 
 ## AlphaGo
 The training pipeline used in **AlphaGo** can be divided into following stages:
