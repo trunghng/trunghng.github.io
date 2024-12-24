@@ -36,7 +36,7 @@
       
       <guid>https://trunghng.github.io/posts/reinforcement-learning/deterministic-policy-gradients/</guid>
       <description>&lt;blockquote&gt;
-&lt;p&gt;Notes on Deterministic Policy Gradient algorithms&lt;/p&gt;
+&lt;p&gt;The generalization of policy gradient theorems into deterministic case and corresponding policy gradient algorithms.&lt;/p&gt;
 &lt;/blockquote&gt;</description>
     </item>
     
@@ -47,7 +47,7 @@
       
       <guid>https://trunghng.github.io/posts/reinforcement-learning/trpo/</guid>
       <description>&lt;blockquote&gt;
-&lt;p&gt;Notes on policy optimization using trust region method.&lt;/p&gt;
+&lt;p&gt;A model-free RL algorithm that ensures stable and efficient policy updates by optimizing within a trust region, limiting the step size to prevent drastic policy changes and improve convergence.&lt;/p&gt;
 &lt;/blockquote&gt;</description>
     </item>
     

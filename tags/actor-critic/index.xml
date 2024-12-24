@@ -36,7 +36,7 @@
       
       <guid>https://trunghng.github.io/posts/reinforcement-learning/deterministic-policy-gradients/</guid>
       <description>&lt;blockquote&gt;
-&lt;p&gt;Notes on Deterministic Policy Gradient algorithms&lt;/p&gt;
+&lt;p&gt;The generalization of policy gradient theorems into deterministic case and corresponding policy gradient algorithms.&lt;/p&gt;
 &lt;/blockquote&gt;</description>
     </item>
     
