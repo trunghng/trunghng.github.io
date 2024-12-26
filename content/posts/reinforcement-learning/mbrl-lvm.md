@@ -1,7 +1,7 @@
 ---
 title: "Model-based RL with latent variable models"
 date: 2024-09-22T17:54:43+07:00
-tags: [deep-reinforcement-learning, model-based, variational-inference, my-rl]
+tags: [deep-reinforcement-learning, model-based, world-model, variational-inference, my-rl]
 math: true
 eqn-number: true
 ---
@@ -241,7 +241,7 @@ PlaNet uses the **cross entropy method (CEM)** to search for the best action seq
 </ul>
 
 ## Dreamer
-Proposed by the same author of **PlaNet**, **Dreamer** improves the computational efficient of its predecessor by replacing the MPC planner by a policy network, which is learned simultaneously with a value network using actor-critic in latent space. Specifically, Dreamer consists of three components, as illustrated in [Figure 7](#fig7), performed in parallel or interleaved:
+Proposed by the same author of [PlaNet](#planet), **Dreamer** improves the computational efficient of its predecessor by replacing the MPC planner by a policy network, which is learned simultaneously with a value network using actor-critic in latent space. Specifically, Dreamer consists of three components, as illustrated in [Figure 7](#fig7), performed in parallel or interleaved:
 <ul class='number-list'>
 	<li>
 		<b>Dynamics learning</b>: learning the latent dynamics model from past experience to predict future rewards from actions and past observations.
@@ -260,7 +260,7 @@ Proposed by the same author of **PlaNet**, **Dreamer** improves the computationa
 </figure>
 
 ### Latent dynamics learning
-Analogous to PlaNet, Dreamer also learns a dynamics model via a RSSM. Specifically, recalling for completeness, the world model in Dreamer consists of:
+Analogous to [PlaNet](#planet), Dreamer also learns a dynamics model via a RSSM. Specifically, recalling for completeness, the world model in Dreamer consists of:
 \begin{equation}
 \begin{aligned}
 &\small\text{Recurrent model}:&&h_t=f_\theta(h_{t-1},s_{t-1},a_{t-1}) \\\\ &\small\text{Representation model}:&&s_t\sim q_\theta(s_t\vert h_t,o_t) \\\\ &\small\text{Transition model}:&&\hat{s}\_t\sim p_\theta(\hat{s}\_t\vert h_t) \\\\ &\small\text{Observation model}:&&\hat{o}\_t\sim p_\theta(\hat{o}\_t\vert h_t, s_t) \\\\ &\small\text{Reward model}:&&\hat{r}\_t\sim p_\theta(\hat{r}\_t\vert h_t,s_t),
@@ -306,7 +306,7 @@ Once the $\lambda$-returns $V_\lambda(s_\tau)$ for all $s_\tau$ along the imagin
 	<figcaption style='text-align: center;'><b>Figure 8</b>: (taken from <a href='#dreamerv2-paper'>DreamerV2 paper</a>) <b>World model in DreamerV2</b>.</figcaption>
 </figure>
 
-**DreamerV2** builds upon the world model introduced in PlaNet and subsequently used by Dreamer, by replacing the Gaussian latent variables with categorical latent variables.
+**DreamerV2** builds upon the world model introduced in [PlaNet](#planet) and subsequently used by Dreamer, by replacing the Gaussian latent variables with categorical latent variables.
 
 ### World model learning
 Specifically, the world model in DreamerV2, as described in [Figure 8](#fig8), consists of an image encoder (representation model), a RSSM to learn the dynamics and predictors for the image, reward and discount factor.
@@ -331,7 +331,7 @@ Specifically, the world model in DreamerV2, as described in [Figure 8](#fig8), c
 	</li>
 </ul>
 
-Rather than being a diagonal Gaussian (that used reparameterization trick to compute its gradient) as PlaNet or Dreamer, the stochastic state ($s_t$ and $\hat{s}_t$) in DreamerV2 is a vector of multiple categorical variables that can be optimized using **straight-through estimators** or [Gumbel-Max trick]({{<ref"cat-reparam-gumbel-softmax-concrete-dist#gumbel-max-trick">}}).
+Rather than being a diagonal Gaussian (that used reparameterization trick to compute its gradient) as PlaNet or Dreamer, the stochastic state ($s_t$ and $\hat{s}_t$) in DreamerV2 is a vector of multiple categorical variables that can be optimized using **straight-through estimators** or possibly [Gumbel-Max trick]({{<ref"cat-reparam-gumbel-softmax-concrete-dist#gumbel-max-trick">}}).
 
 All components of the world model are optimized jointly by minimizing the loss function w.r.t $\theta$:
 \begin{align}
@@ -343,7 +343,7 @@ The first three <span style='color: red'>losses</span> act as reconstruction los
 \end{align}
 
 ### Behavior learning
-Same as Dreamer, DreamerV2 learns behaviors within its world model using actor-critic method. We first begin by describing the imagination MDP. The MDP can be described as the transition of tuple $(\hat{s}\_t,\hat{a}\_t,\hat{r}\_t,\hat{s}\_{t+1})$ over time:
+Same as [Dreamer](#dreamer), DreamerV2 learns behaviors within its world model using actor-critic method. We first begin by describing the imagination MDP. The MDP can be described as the transition of tuple $(\hat{s}\_t,\hat{a}\_t,\hat{r}\_t,\hat{s}\_{t+1})$ over time:
 <ul class='alpha-list'>
 	<li>
 		Starting from $\hat{s}_0$, whose distribution is the distribution of compact model states, i.e. the concatenation of deterministic state and a sample of the stochastic state, the transition predictor $p_\theta(\hat{s}_t\mid\hat{s}_{t-1},\hat{a}_{t-1})$ generates sequences $\hat{s}_{1:H}$ of compact model states up to the imagination horizon $H$.
@@ -376,6 +376,73 @@ Analogous to Dreamer, the actor in DreamerV2 is trained to maximize the $\lambda
 \end{equation}
 
 ## DreamerV3
+The goal of DreamerV3 is to master diverse domains while keeping its hyperparameters fixed. Thus, the scale variation of rewards and value functions across domains can be a pain in the ass. With this reason, the authors propose the **symlog** transformation as a trivial solution.
+
+### Symlog transformation
+Specifically, for a network $f_\theta(x)$ parameterized by $\theta$ that learns to predict targets $y$ from inputs $x$, we instead let $f_\theta$ learn to predict a transformed version of its targets $y$ by minimizing, for example, the squared error:
+\begin{equation}
+\mathcal{L}(\theta)=\frac{1}{2}(f_\theta(x)-\text{symlog}(y))^2
+\end{equation}
+The corresponding of predictions $\hat{y}$ of the network can be computed by applying the inverse of the transformation, which in this case the inverse function of $\text{symlog}(\cdot)$, defined as:
+\begin{equation}
+\hat{y}=\text{symexp}(f_\theta(x)),
+\end{equation}
+where
+\begin{align}
+\text{symlog}(x)&\doteq\text{sign}(x)\log(\vert x\vert+1) \\\\ \text{symexp}(x)&\doteq\text{sign}(x)(e^{\vert x\vert}-1)
+\end{align}
+Moreover, authors also encode inputs to the world model using the symlog function.
+
+### World model learning
+DreamerV3 reuses the world model architecture from its previous version, [DreamerV2](#dreamerv2) (with some minor modifications). Specifically, first, an **encoder** maps inputs $o_t$ to stochastic representations $s_t$. Then, a **sequence model** with recurrent state $h_t$ predicts the sequence of these representations given past actions $a_t$. Given the model state, which is the concatenation of $h_t$ and $s_t$, we can predict rewards $r_t$, episode continuation flags $c_t\in\\{0,1\\}$ and reconstruct the inputs. For completeness, the world model used by DreamerV3 comprises:
+<ul class='number-list'>
+	<li>
+		Sequence model: $h_t=f_\theta(h_{t-1},z_{t-1},a_{t-1})$, computes deterministic state $h_t$, and $f_\theta$ is a GRU.
+	</li>
+	<li>
+		Encoder: $s_t\sim q_\theta(s_t\mid h_t,o_t)$, is a CNN for visual inputs and an MLP for low-dimensional inputs, and outputs a distribution over posterior stochastic state $s_t$ from $h_t$ and $o_t$.
+	</li>
+	<li>
+		Dynamics predictor: $\hat{s}_t\sim p_\theta(\hat{s}_t\mid h_t)$, is an MLP, and outputs a distribution over prior stochastic $\hat{s}_t$ solely from $h_t$.
+	</li>
+	<li>
+		Reward predictor: $\hat{r}_t\sim p_\theta(\hat{r}_t\mid h_t,s_t)$, is an MLP, and outputs a univariate Gaussian with unit variance.
+	</li>
+	<li>
+		Continue predictor: $\hat{c}_t\sim p_\theta(\hat{c}_t\mid h_t,s_t)$, is an MLP, and outputs a Bernoulli likelihood.
+	</li>
+	<li>
+		Decoder: $\hat{o}_t\sim p_\theta(\hat{o}_t\mid h_t,s_t)$, is a CNN for visual inputs and an MLP for low-dimensional inputs, and outputs a diagonal Gaussian with unit variance.
+	</li>
+</ul>
+
+Given a sequence batch of inputs, actions, rewards, and continuation flags $(o_t,a_t,r_t,c_t)\_{t=1}^{T}$, the world model parameters $\theta$ are optimized to minimize the prediction loss $\mathcal{L}\_\text{pred}$, the dynamics loss $\mathcal{L}\_\text{dyn}$, and the representation loss $\mathcal{L}\_\text{rep}$ with corresponding weights $\beta_\text{pred}=1,\beta_\text{dyn}=0.5,\beta_\text{rep}=0.1$:
+\begin{equation}
+\mathcal{L}(\theta)=\mathbb{E}\_{q_\theta}\left[\sum_{t=1}^{T}\big(\beta_\text{pred}\mathcal{L}\_\text{pred}(\theta)+\beta_\text{dyn}\mathcal{L}\_\text{dyn}(\theta)+\beta_\text{rep}\mathcal{L}\_\text{rep}(\theta)\big)\right],
+\end{equation}
+where
+<ul class='number-list'>
+	<li>
+		The prediction loss trains the decoder and reward predictor via the symlog loss and the continue predictor via binary classification loss:
+		\begin{equation}
+		\mathcal{L}_\text{pred}(\theta)\doteq-\log p_\theta(o_t\mid s_t,h_t)-\log p_\theta(r_t\mid s_t,h_t)-\log p_\theta(c_t\mid s_t,h_t)
+		\end{equation}
+	</li>
+	<li>
+		The dynamics loss trains the sequence model to predict the next representation by minimizing the KL divergence between the predictor $p_\theta(s_t\mid h_t)$ and the next stochastic representation $q_\theta(s_t\mid h_t,o_t)$:
+		\begin{equation}
+		\mathcal{L}_\text{dyn}(\theta)\doteq\max\left(1,D_\text{KL}\big[\text{sg}(q_\theta(s_t\mid h_t,o_t))\parallel p_\theta(s_t\mid h_t)\big]\right)
+		\end{equation}
+	</li>
+	<li>
+		The representation loss trains the representations to become more predictable if the dynamics cannot predict their distribution:
+		\begin{equation}
+		\mathcal{L}_\text{pred}(\theta)\doteq\max\left(1,D_\text{KL}\big[q_\theta(s_t\mid h_t,o_t)\parallel\text{sg}(p_\theta(s_t\mid h_t))\big]\right)
+		\end{equation}
+	</li>
+</ul>
+
+### Behavior learning
 
 ## TD-MPC
 
@@ -400,7 +467,7 @@ The TD-target, colored as <span style='color: red;'>red</span> in \eqref{eq:told
 \begin{equation}
 \mathcal{J}\_\pi(\theta;\Gamma)=-\sum_{i=t}^{t+H}\lambda^{i-t}Q_\theta(z_i,\pi_\theta(\text{sg}(z_i))),
 \end{equation}
-where $\text{sg}(\cdot)$ denotes the stopping gradient operator, as used in DreamerV2.
+where $\text{sg}(\cdot)$ denotes the stopping gradient operator, as used in DreamerV2, DreamerV3.
 
 ### Planning algorithm{#tdmpc-planning}
 For planning, TD-MPC uses an MPC algorithm named **Model Predictive Path Integral** (**MPPI**), which iteratively updates parameters for a family of distributions (same as [CEM](#planet-planning)), using importance weighted average of the estimated top-$k$ sampled trajectories. The algorithm proceeds as:
