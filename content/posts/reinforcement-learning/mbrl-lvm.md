@@ -76,7 +76,7 @@ We consider a discrete-time POMDP. At each time-step $t$, we have a state $s_t$,
 
 where we assume a fixed initial state $s_0$ without loss of generality. Our goal is to find a policy $\text{p}(a_t\mid o_{\leq t},a_{<t})$ that maximizes the expected sum of rewards $\mathbb{E}\_\text{p}\left[\sum_{t=1}^{H}r_t\right]$ taken over the distributions of the environment and the policy.
 
-### Recurrent state-space model
+### Recurrent state-space model{#rssm}
 A **state-space model (SSM)** is a partially observed Markov model where the hidden state, $z_t$, evolves over time to a Markov process, and each hidden state generates some observations $x_t$ at each time-step. The goal is to infer the hidden states given the observations.
 
 An SSM can be represented as a stochastic (discrete-time) nonlinear dynamical system:
@@ -133,7 +133,7 @@ In DMM, the observation model $p(x_t\vert z_t)$ is first-order Markov, as is the
 
 This is known as a **recurrent state-space model (RSSM)**.
 
-### World model
+### World model{#planet-world-model}
 PlaNet uses a SSM as the world model for planning, as illustrated in [**Figure 5a**](#fig5), which consists of[^2]:
 <ul class='number-list'>
 	<li>
@@ -259,7 +259,7 @@ Proposed by the same author of [PlaNet](#planet), **Dreamer** improves the compu
 	<figcaption style='text-align: center;'><b>Figure 7</b>: (taken from <a href='#dreamer-paper'>Dreamer paper</a>) <b>Components of Dreamer</b>. (a) Latent dynamics learning from experience; (b) Behavior learning in imagination; (c) Acting in the world</figcaption>
 </figure>
 
-### Latent dynamics learning
+### Latent dynamics learning{#dreamer-world-model}
 Analogous to [PlaNet](#planet), Dreamer also learns a dynamics model via a RSSM. Specifically, recalling for completeness, the world model in Dreamer consists of:
 \begin{equation}
 \begin{aligned}
@@ -268,7 +268,7 @@ Analogous to [PlaNet](#planet), Dreamer also learns a dynamics model via a RSSM.
 \end{equation}
 where $f_\theta$ is an RNN and $\theta$ is the joint parameter.
 
-### Behavior learning
+### Behavior learning{#dreamer-ac}
 Since the compact model states $s_t$ are Markovian, the latent dynamics then define an MDP that is fully observed. Letting $\tau$ denote the time index for all quantities in this MDP, each imagined trajectory $\\{(s_\tau,a_\tau,r_\tau)\\}\_{\tau=t}$ starts at a true state, $s_\tau=s_t$ for $\tau=0$ and follow predictions of:
 \begin{equation}
 \begin{aligned}
@@ -308,7 +308,7 @@ Once the $\lambda$-returns $V_\lambda(s_\tau)$ for all $s_\tau$ along the imagin
 
 **DreamerV2** builds upon the world model introduced in [PlaNet](#planet) and subsequently used by Dreamer, by replacing the Gaussian latent variables with categorical latent variables.
 
-### World model learning
+### World model learning{#dreamerv2-world-model}
 Specifically, the world model in DreamerV2, as described in [Figure 8](#fig8), consists of an image encoder (representation model), a RSSM to learn the dynamics and predictors for the image, reward and discount factor.
 <ul class='number-list'>
 	<li>
@@ -342,7 +342,7 @@ The first three <span style='color: red'>losses</span> act as reconstruction los
 \mathcal{L}(\theta)&=\mathbb{E}\_{q_\theta(s_{1:T}\vert a_{1:T},o_{1:T})}\left[\sum_{t=1}^{T}\underbrace{-\log p_\theta(o_t\vert h_t,s_t)}\_\text{image log loss}\hspace{0.1cm}\underbrace{-\log p_\theta(r_t\vert h_t,s_t)}\_\text{reward log loss}\hspace{0.1cm}\underbrace{-\log p_\theta(\gamma\vert h_t,s_t)}\_\text{discount log loss}\right.\nonumber \\\\ &\hspace{4cm}\left.\underbrace{+\beta(1-\alpha)\log q_\theta(s_t\mid h_t,o_t)}\_\text{entropy regularizer}\hspace{0.1cm}\underbrace{-\beta\alpha\log p_\theta(s_t\mid h_t)}\_\text{transition loss}\right]
 \end{align}
 
-### Behavior learning
+### Behavior learning{#dreamerv2-ac}
 Same as [Dreamer](#dreamer), DreamerV2 learns behaviors within its world model using actor-critic method. We first begin by describing the imagination MDP. The MDP can be described as the transition of tuple $(\hat{s}\_t,\hat{a}\_t,\hat{r}\_t,\hat{s}\_{t+1})$ over time:
 <ul class='alpha-list'>
 	<li>
@@ -393,7 +393,7 @@ where
 \end{align}
 Moreover, authors also encode inputs to the world model using the symlog function.
 
-### World model learning
+### World model learning{#dreamerv3-world-model}
 DreamerV3 reuses the world model architecture from its previous version, [DreamerV2](#dreamerv2) (with some minor modifications). Specifically, first, an **encoder** maps inputs $o_t$ to stochastic representations $s_t$. Then, a **sequence model** with recurrent state $h_t$ predicts the sequence of these representations given past actions $a_t$. Given the model state, which is the concatenation of $h_t$ and $s_t$, we can predict rewards $r_t$, episode continuation flags $c_t\in\\{0,1\\}$ and reconstruct the inputs. For completeness, the world model used by DreamerV3 comprises:
 <ul class='number-list'>
 	<li>
@@ -442,7 +442,35 @@ where
 	</li>
 </ul>
 
-### Behavior learning
+### Behavior learning{#dreamerv3-ac}
+Analogous to Dreamer and DreamerV2, DreamerV3 also learns behaviors from abstract sequences predicted by the world model using actor-critic method. The actor, denoted $\pi_\phi$, learns to maximize the expected return $R_t=\sum_{\tau=0}^{\infty}\gamma^\tau r_{t+\tau}$ while the critic, $v_\psi$, is trained to predict the return of each state under the current actor behavior:
+\begin{align}
+a_t&\sim\pi_\phi(a_t\mid s_t) \\\\ v_\psi(s_t)&\approx\mathbb{E}\_{p_\theta,\pi_\phi}[R_t]
+\end{align}
+Unlike its previous versions, which regresses the $\lambda$-return
+\begin{align}
+&R_t^\lambda\doteq r_t+\gamma c_t\big((1-\lambda)v_\psi(s_{t+1})+\lambda R_{t+1}^\lambda\big)&& R_T^\lambda\doteq v_\psi(s_T)
+\end{align}
+via squared error, DreamerV3 chooses a discrete regression approach for learning the critic based on **twohot** encoded targets. Specifically, the returns is transformed using the symlog and then discretized into a sequence $B$ of $K$ equally spaced buckets $b_i$ using twohot encoding. Thus, the critic now outputs a softmax distribution over the buckets, $p_\psi(b_i\mid s_t)$ and its output, $v_\psi(s_t)$, is formed as the symexp transformed of the expected value under this distribution:
+\begin{equation}
+v_\psi(s_t)=\text{symexp}\left(\mathbb{E}\_{p_\psi(b_i\mid s_t)}[b_i]\right)=\text{symexp}\left(p_\psi(\cdot\mid s_t)^\text{T}B\right)
+\end{equation}
+Twohot encoding is a generalization of onehot to continuous value. It produces a vector of length $\vert B\vert$ where all elements are $0$ except for the two entries closest to the encoded continuous number, at positions $k,k+1$. These two entries sum up to $1$, with more weight given to the entry that is closer to the encoded number:
+\begin{align}
+&\text{twohot}(x)\_i\doteq\begin{cases}\frac{\vert b_{k+1}-x\vert}{\vert b_{k+1}-b_k\vert}&\text{if }i=k \\\\ \frac{\vert b_k-x\vert}{\vert b_{k+1}-b_k\vert}&\text{if }i=k+1 \\\\ 0&\text{else}\end{cases}&&k\doteq\sum_{j=1}^{\vert B\vert}\delta(b_j\lt x)
+\end{align}
+Given the twohot encoded targets $y_t=\text{sg}(\text{twohot}(\text{symlog}(R_t^\lambda)))$, the critic is optimized by minimizing the categorical cross entropy loss for classification with soft targets $p_\psi(\cdot\mid s_t)$:
+\begin{equation}
+\mathcal{L}(\psi)=\sum_{t=1}^{T}\mathbb{E}\_{b_i\sim y_t}\big[-\log p_\psi(b_i\mid s_t)\big]=-\sum_{t=1}^{T}y_t^\text{T}\log p_\psi(\cdot\mid s_t)
+\end{equation}
+The actor is optimized by minimizing the loss function:
+\begin{equation}
+\mathcal{L}(\phi)=\sum_{t=1}^{T}\mathbb{E}\_{\pi_\phi,p_\theta}\Bigg[\underbrace{-\frac{\text{sg}(R_t^\lambda)}{\max(1,S)}}\_{\substack{\color{red}{\text{scaled}}} \\\\ \color{red}{\text{targets}}}\Bigg]\underbrace{-\eta H\big[\pi_\phi(a_t\mid s_t)\big]}\_{\substack{\color{blue}{\text{entropy}} \\\\ \color{blue}{\text{regularizer}}}},
+\end{equation}
+where $S$ is the scale factor, defined as:
+\begin{equation}
+S=\text{Per}(R_t^\lambda,95)-\text{Per}(R_t^\lambda,5)
+\end{equation}
 
 ## TD-MPC
 
