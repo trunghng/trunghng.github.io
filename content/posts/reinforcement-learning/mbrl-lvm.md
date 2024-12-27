@@ -465,12 +465,9 @@ Given the twohot encoded targets $y_t=\text{sg}(\text{twohot}(\text{symlog}(R_t^
 \end{equation}
 The actor is optimized by minimizing the loss function:
 \begin{equation}
-\mathcal{L}(\phi)=\sum_{t=1}^{T}\mathbb{E}\_{\pi_\phi,p_\theta}\Bigg[\underbrace{-\frac{\text{sg}(R_t^\lambda)}{\max(1,S)}}\_{\substack{\color{red}{\text{scaled}}} \\\\ \color{red}{\text{targets}}}\Bigg]\underbrace{-\eta H\big[\pi_\phi(a_t\mid s_t)\big]}\_{\substack{\color{blue}{\text{entropy}} \\\\ \color{blue}{\text{regularizer}}}},
+\mathcal{L}(\phi)=\sum_{t=1}^{T}\mathbb{E}\_{\pi_\phi,p_\theta}\Bigg[-\underbrace{\frac{\text{sg}(R_t^\lambda)}{\max(1,S)}}\_{\substack{\text{scaled} \\\\ \text{targets}}}\Bigg]\underbrace{-\eta H\big[\pi_\phi(a_t\mid s_t)\big]}\_{\substack{\text{entropy} \\\\ \text{regularizer}}},
 \end{equation}
-where $S$ is the scale factor, defined as:
-\begin{equation}
-S=\text{Per}(R_t^\lambda,95)-\text{Per}(R_t^\lambda,5)
-\end{equation}
+where $S=\text{Per}(R_t^\lambda,95)-\text{Per}(R_t^\lambda,5)$ is the scale factor.
 
 ## TD-MPC
 
